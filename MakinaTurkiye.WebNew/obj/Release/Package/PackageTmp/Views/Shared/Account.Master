@@ -1,0 +1,420 @@
+﻿<%@ Master Language="C#" Inherits="NeoSistem.MakinaTurkiye.Core.Web.ViewMasterPage" %>
+
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <title><%if (ViewData["SEOPAGETYPE"] != null && ViewData["SEOPAGESPECIAL"] != null)
+               {  %>
+        <%=SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),ViewData["SEOPAGESPECIAL"].ToInt32()).Title.Trim()%>
+        <%}%>
+        <% else if (ViewData["SEOPAGETYPE"] != null)
+            {%>
+        <%=SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),0).Title.Trim()%>
+        <% } %>
+        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
+    </title>
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="//www.googletagmanager.com">
+    <link rel="dns-prefetch" href="//www.google-analytics.com">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//ajax.googleapis.com">
+    <link rel="dns-prefetch" href="//s.makinaturkiye.com">
+    <link rel="dns-prefetch" href="//connect.facebook.net">
+    <%if (ViewData["SEOPAGETYPE"] != null && ViewData["SEOPAGESPECIAL"] != null)
+        {  %>
+    <%= Html.RenderHtmlPartial("_MetaTag", SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),ViewData["SEOPAGESPECIAL"].ToInt32()))%>
+    <%} %>
+    <% else if (ViewData["SEOPAGETYPE"] != null)
+        {%>
+    <%= Html.RenderHtmlPartial("_MetaTag", SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),0))%>
+    <% } %>
+    <meta name="author" content="Anexxa Bilişim Teknolojileri" />
+    <meta name="content-language" content="tr-TR" />
+    <%  string sayfaKontrol = SeoModel.GetPageType(ViewData["SEOPAGETYPE"].ToByte());
+        if (sayfaKontrol == "Kategori")
+        {
+            ViewData["bodyClass"] = "kategori";
+        }
+        else if (sayfaKontrol == "Sirketler")
+        {
+            ViewData["bodyClass"] = "sirket";
+        }
+        else if (sayfaKontrol == "Videolar")
+        {
+            ViewData["bodyClass"] = "video";
+        }
+        else
+        {
+            ViewData["bodyClass"] = "";
+        } %>
+
+
+    <% string memberName = string.Empty;
+        int memberType = 0;
+        int membermainPartyId = 0;
+        if (AuthenticationUser.Membership != null)
+        {
+            membermainPartyId = AuthenticationUser.Membership.MainPartyId;
+        }
+
+    %>
+    <%int notReadInboxMessageCount = 0;
+        int favoriteProductCount = 0;
+        if (AuthenticationUser.Membership != null)
+        {
+            MakinaTurkiyeEntities makinaTurkiyeEntities = new MakinaTurkiyeEntities();
+            var dataMessage = new NeoSistem.MakinaTurkiye.Data.Message();
+            var memberMainPartyIds = new List<int?>();
+            var memberStore = makinaTurkiyeEntities.MemberStores.FirstOrDefault(x => x.MemberMainPartyId == AuthenticationUser.Membership.MainPartyId);
+            if (memberStore != null)
+            {
+                memberMainPartyIds = makinaTurkiyeEntities.MemberStores.Where(x => x.StoreMainPartyId == memberStore.StoreMainPartyId).Select(x => x.MemberMainPartyId).ToList();
+
+            }
+            else
+            {
+                memberMainPartyIds.Add(AuthenticationUser.Membership.MainPartyId);
+            }
+            var messageCount = makinaTurkiyeEntities.messagechecks.Where(c => memberMainPartyIds.Contains(c.MainPartyId)).ToList().Count;
+
+            var inboxMessageCount = dataMessage.GetItemsByMainPartyIds(string.Join(", ", memberMainPartyIds), (byte)MessageType.Inbox).Rows.Count;
+            notReadInboxMessageCount = inboxMessageCount - messageCount;
+            var favoriteProducts = makinaTurkiyeEntities.FavoriteProducts.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
+            favoriteProductCount = favoriteProducts.Count;
+        }
+    %>
+    <meta http-equiv="content-language" content="TR" />
+    <meta http-equiv="window-target" content="_top" />
+    <meta name="distribution" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:site_name" content="MakinaTurkiye.com" />
+    <meta property="og:type" content="product" />
+    <meta name="rating" content="general" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="jpeiLIXc-vAKBB2vjRZg3PluGG3hsty0n6vSXUr_C-A" />
+    <meta name="y_key" content="edbb7e17ada4b80f" />
+    <meta name="robots" content="NOODP">
+    <link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=3" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext" rel="stylesheet">
+    <script src="/Content/V2/assets/js/jquery.min.js?v=4"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=4.0" />
+    <!-- JS -->
+
+    <script src="/Content/V2/assets/js/jquery.autocomplete.js"></script>
+    <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"></script>
+    <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=3.3" defer></script>
+    <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
+    <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css") %>" />
+    <script src="/Content/V2/public/build/js/bundle-main-min.js?v=3.3" defer></script>
+    <meta name="alexaVerifyID" content="u8sVDfy1ch6DMlQb9Mwm7Ts0Hik" />
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '<%:AppSettings.SiteUrl+"/Home/GetStoreProductComment"%>',
+                data: {},
+                type: 'post',
+                success: function (data) {
+                    if (data != 0) {
+                        $(".commentLi").show();
+                        $(".commentCountvalue").html(data);
+
+                    }
+                }
+            }
+            );
+        });
+
+    </script>
+
+    <!-- Json Ld Ayar-->
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Organization",
+  "url": "https://www.makinaturkiye.com",
+  "name": "Makina Türkiye",
+  "logo" : "https://www.makinaturkiye.com/Content/V2/images/makinaturkiye.png",
+  "contactPoint": {
+
+    "@type": "ContactPoint",
+    "telephone": "0212 255 7152",
+    "contactType": "Customer service"
+  }
+}
+    </script>
+    <!-- Json Ld Ayar-->
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+</head>
+
+
+<body class="facelift-v2  <%=ViewData["bodyClass"].ToString()%>">
+
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7HZJT"
+            height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="fb-root"></div>
+    <div class="responsive-overlay"></div>
+    <div class="new-header new-header--account">
+        <div class="container-fluid">
+
+            <div class="new-header__top clearfix">
+
+                <%if (!Request.Url.ToString().ToLower().Contains("account"))
+                    {%>
+                <a href="javascript:;"
+                    class="header__mobile-menu js-hamburger  hidden-sm hidden-md hidden-lg">
+                    <span class="header__mobile-menu-icon icon-menu"></span>
+                </a>
+                <% }
+                %>
+
+                <div class="new-header__top-left">
+                    <a class="site-logo" href="<%:AppSettings.SiteUrl %>">
+                        <img src="<%:Url.Content("~/Content/V2/images/makinaturkiye.png") %>"
+                            srcset="<%:Url.Content("~/Content/V2/images/makinaturkiye.png") %> 1x, <%:Url.Content("~/Content/V2/images/makinaturkiye.png") %> 2x" alt="Makina Türkiye Logo" width="226" height="30">
+                    </a>
+                </div>
+                <div class="new-header__top-right">
+
+                    <div class="responsive-menu js-responsive-menu">
+
+                        <%
+                            if (membermainPartyId != 0)
+                            {
+                                memberName = AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname;
+                                memberType = (byte)AuthenticationUser.Membership.MemberType; %>
+
+                        <div class="user-member-name clearfix">
+                            <span><%=memberName %></span>
+                            <a href="<%:AppSettings.SiteUrl %>Account/Home">Hesabım</a>
+                        </div>
+                        <% }  %>
+
+
+                        <ul class="user-topmenu">
+
+                            <%if (membermainPartyId == 0)
+                                {%>
+
+
+                            <li class="user-topmenu__item">
+                                <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi" rel="nofollow" class="user-topmenu__link">İlan Ekle&nbsp<i class="fa fa-plus"></i>
+                                </a>
+                            </li>
+
+                            <%}
+                                else
+                                {%>
+                            <li class="user-topmenu__item">
+                                <a href="/Account/Advert/Advert" class="user-topmenu__link">
+                                    <span class="icon-favorite"></span>İlan Ekle
+                                </a>
+                            </li>
+                            <%} %>
+
+
+                            <%if (notReadInboxMessageCount > 0)
+                                { %>
+
+                            <li class="user-topmenu__item hidden-sm hidden-md hidden-lg">
+                                <a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
+                                    <span class="icon-paper-plane"></span>Mesajlar <span class="label label-primary pull-right"><%=notReadInboxMessageCount %></span>
+                                </a>
+                            </li>
+
+                            <% } %>
+
+
+                            <li class="user-topmenu__item hidden-sm hidden-md hidden-lg commentLi" style="display: none;">
+                                <a href="<%:AppSettings.SiteUrl %>/account/ilan/Comments" class="user-topmenu__link">
+                                    <span class="glyphicon glyphicon-comment"></span>Yorumlar <span class="label label-primary pull-right commentCountvalue"></span>
+                                </a>
+                            </li>
+                        </ul>
+                        <%
+                            if (membermainPartyId != 0)
+                            { %>
+                        <div class="responsive-menu-bottom hidden-sm hidden-md hidden-lg">
+                            <a class="btn btn-logout" href="<%:AppSettings.SiteUrl%>Uyelik/OturumuKapat">Çıkış</a>
+                        </div>
+                        <% }
+                            else
+                            { %>
+                        <div class="responsive-menu-bottom hidden-sm hidden-md hidden-lg">
+                            <a class="btn btn-login" rel="nofollow" href="<%:AppSettings.SiteUrl%>uyelik/kullanicigirisi">Üye Girişi</a>
+                            <a class="btn btn-register" rel="nofollow" href="<%:AppSettings.SiteUrl%>uyelik/hizliuyelik/uyeliktipi-0">Kayıt Ol</a>
+                        </div>
+                        <%} %>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right" role="menu">
+                        <% 
+                            if (AuthenticationUser.Membership != null)
+                            {
+                                membermainPartyId = AuthenticationUser.Membership.MainPartyId;
+                            }
+
+                            if (membermainPartyId != 0)
+                            {
+                                memberName = AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname;
+                                memberType = (byte)AuthenticationUser.Membership.MemberType;
+                        %>
+
+
+                        <li><a href="<%:AppSettings.SiteUrl %>Account/Home" class="plr5"><span class="text-md  glyphicon glyphicon-user"></span>
+
+                            <%=memberName %>
+                        </a></li>
+                        <li class="dropdown"><a href="#" id="A2" class="plr5" data-toggle="dropdown"><span
+                            class="hidden-xs caret"></span>
+                            <div class="visible-xs">
+                                <span class="caret"></span>&nbsp;Ayarlar
+                            </div>
+                        </a>
+                            <ul class="dropdown-menu dropdown-menu-mt" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Home"><i
+                                    class="fa fa-angle-right"></i>&nbsp; Hesabım </a></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal"><i
+                                    class="fa fa-angle-right"></i>&nbsp; Profilim </a></li>
+                                <%if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
+                                    { %>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Advert/Index?ProductActive=1&DisplayType=2"><i class="fa fa-angle-right"></i>&nbsp; İlanlarım </a></li>
+                                <%}
+                                    else
+                                    {%>
+
+                                <%}%>
+
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0"><i class="fa fa-angle-right"></i>&nbsp; Mesajlarım </a></li>
+
+
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Favorite/Product"><i class="fa fa-angle-right"></i>&nbsp; Favorilerim </a></li>
+
+                                <%if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
+                                    { %>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal"><i class="fa fa-angle-right"></i>&nbsp; Firma Ayarları </a></li>
+                                <%}
+                                    else
+                                    {%>
+
+                                <%}%>
+
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">
+                                    <span class="glyphicon glyphicon-log-out" style="padding-right: 5px;"></span>Çıkış </a></li>
+                            </ul>
+                        </li>
+
+                        <%if (notReadInboxMessageCount > 0)
+                            { %>
+                        <li><a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="hidden-xs plr5 tooltips tooltip-mt badge-link" data-toggle="tooltip" data-placement="bottom"
+                            title="<%=notReadInboxMessageCount %> Okunmamış mesajınız var.">
+                            <span class="badge-link__count"><%=notReadInboxMessageCount %></span>
+                            <span class="text-md glyphicon glyphicon-envelope"></span>
+                        </a></li>
+
+                        <% } %>
+
+                        <% }
+                        %>
+
+                        <li><a href="<%:AppSettings.SiteUrl %>Account/ilan/Comments" id="" style="display: none;" class="hidden-xs plr5 tooltips tooltip-mt badge-link commentLi" data-toggle="tooltip" data-placement="bottom"
+                            title="İncelenmemiş yorum bulunmaktadır.">
+                            <span class="badge-link__count commentCountvalue"></span>
+                            <span class="text-md glyphicon glyphicon-comment"></span>
+                        </a></li>
+                    </ul>
+                </div>
+
+
+            </div>
+
+            <div class="new-header__bottom clearfix hidden">
+
+
+                <div class="new-header__bottom-left hidden-xs">
+                    <div class="header-button header-category-wrapper">
+                        <h3 class="header-button-trigger">
+                            <a href="<%:AppSettings.SiteAllCategoryUrl%>" rel="nofollow" title="Tüm Kategoriler">
+                                <i class="icon-menu"></i>
+                                <span>Ürün</span>
+                                <i class="icon-down-arrow"></i>
+                            </a>
+                        </h3>
+
+                        <div class="header-category" id="SectorsCategories">
+                        </div>
+                    </div>
+
+                    <div class="header-button header-sector-wrapper">
+                        <h3 class="header-button-trigger">
+                            <a href="<%:AppSettings.SiteUrl%>sirketler">
+                                <i class="icon-menu"></i>
+                                <span>Tedarikçi</span>
+                                <i class="icon-down-arrow"></i>
+                            </a>
+                        </h3>
+                        <div class="header-category" id="CustomerCategories">
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="new-header__bottom-center">
+                    <%--    <%:Html.Action("_HeaderTopMenu","Header", new { area=""}) %>--%>
+                </div>
+                <div class="new-header__bottom-right">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="main-container container" style="padding-top: 20px;">
+
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+
+
+    <%:Html.Action("Content", "Footer", new { area=""})%>
+
+    <span class="scroll-top js-scroll-top">
+        <span class="icon-scroll-up"></span>
+    </span>
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '333739580327457',
+                cookie: true,
+                xfbml: true,
+                autoLogAppEvents: true,
+                version: 'v4.0'
+            });
+
+            FB.AppEvents.logPageView();
+
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+</body>
+</html>

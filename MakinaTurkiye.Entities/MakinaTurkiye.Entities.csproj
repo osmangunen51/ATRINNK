@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3BD34B52-76FA-410E-AEAE-7A0D7A732750}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MakinaTurkiye.Entities</RootNamespace>
+    <AssemblyName>MakinaTurkiye.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.2.0\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.0\lib\netstandard2.0\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="StoredProcedures\Catalog\AllSectorRandomProductResultModel.cs" />
+    <Compile Include="StoredProcedures\Catalog\AllSubCategoryItemResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\BottomCategoryResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\CategoryForStoreProfileResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\CategoryPropertieResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\FilterableCategoriesResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\MostViewProductResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\MostViewProductResultExtensions.cs" />
+    <Compile Include="StoredProcedures\Catalog\ProductPropertieValueResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\ProductRecomandationResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\SiteMapCategoryResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\SiteMapProductResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\SiteMapStoreCategoryResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\SiteMapVideoCategoryResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\StoreProfileProductsResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\StoreProfileProductsResultExtensions.cs" />
+    <Compile Include="StoredProcedures\Catalog\TopCategoryResultExtensions.cs" />
+    <Compile Include="StoredProcedures\Catalog\WebCategoryProductResultExtensions.cs" />
+    <Compile Include="StoredProcedures\Members\BaseMemberDescriptionForStore.cs" />
+    <Compile Include="StoredProcedures\Members\MemberDescriptionCount.cs" />
+    <Compile Include="StoredProcedures\Members\MemberDescriptionForStore.cs" />
+    <Compile Include="StoredProcedures\Members\MemberDescriptionTaskItem.cs" />
+    <Compile Include="StoredProcedures\Members\MemberListForMailSender.cs" />
+    <Compile Include="StoredProcedures\Messages\MessageResult.cs" />
+    <Compile Include="StoredProcedures\Orders\OrderReportResultModel.cs" />
+    <Compile Include="StoredProcedures\Search\SearchResult.cs" />
+    <Compile Include="StoredProcedures\Stores\StatisticResult.cs" />
+    <Compile Include="StoredProcedures\Videos\ProductAndStoreDetailResult.cs" />
+    <Compile Include="StoredProcedures\Videos\SiteMapVideoResult.cs" />
+    <Compile Include="Tables\Catalog\CertificateType.cs" />
+    <Compile Include="Tables\Catalog\CertificateTypeProduct.cs" />
+    <Compile Include="Tables\Catalog\DeletedProductRedirect.cs" />
+    <Compile Include="Tables\Content\BaseMenu.cs" />
+    <Compile Include="Tables\Content\BaseMenuCategory.cs" />
+    <Compile Include="Tables\Content\BaseMenuImage.cs" />
+    <Compile Include="Tables\Bullettins\BulletinMember.cs" />
+    <Compile Include="Tables\Bullettins\BulletinMemberCategory.cs" />
+    <Compile Include="Tables\Catalog\CategoryPlaceChoice.cs" />
+    <Compile Include="Tables\Catalog\CategoryPropertie.cs" />
+    <Compile Include="Tables\Catalog\ProductCatolog.cs" />
+    <Compile Include="Tables\Catalog\ProductComment.cs" />
+    <Compile Include="Tables\Catalog\ProductHomePage.cs" />
+    <Compile Include="Tables\Catalog\ProductPropertieValue.cs" />
+    <Compile Include="Tables\Catalog\ProductStatistic.cs" />
+    <Compile Include="Tables\Catalog\Propertie.cs" />
+    <Compile Include="Tables\Catalog\ProductComplainType.cs" />
+    <Compile Include="Tables\Catalog\ProductComplainDetail.cs" />
+    <Compile Include="Tables\Catalog\FavoriteProduct.cs" />
+    <Compile Include="Tables\Common\Currency.cs" />
+    <Compile Include="Tables\Media\Picture.cs" />
+    <Compile Include="Tables\Catalog\ProductComplain.cs" />
+    <Compile Include="Tables\Catalog\ProductExtensions.cs" />
+    <Compile Include="Tables\Catalog\PropertieAttr.cs" />
+    <Compile Include="Tables\Checkouts\Invoice.cs" />
+    <Compile Include="Tables\Checkouts\Order.cs" />
+    <Compile Include="Tables\Checkouts\OrderDescription.cs" />
+    <Compile Include="Tables\Checkouts\OrderInstallment.cs" />
+    <Compile Include="Tables\Checkouts\Payment.cs" />
+    <Compile Include="Tables\Checkouts\ReturnInvoice.cs" />
+    <Compile Include="Tables\Common\Address.cs" />
+    <Compile Include="Tables\Common\AddressChangeHistory.cs" />
+    <Compile Include="Tables\Common\AddressExtensions.cs" />
+    <Compile Include="Tables\Common\AddressType.cs" />
+    <Compile Include="Tables\Common\Constant.cs" />
+    <Compile Include="Tables\Common\District.cs" />
+    <Compile Include="Tables\Messages\MessageCheck.cs" />
+    <Compile Include="Tables\Messages\MobileMessage.cs" />
+    <Compile Include="Tables\Common\Phone.cs" />
+    <Compile Include="Tables\Common\PhoneChangeHistory.cs" />
+    <Compile Include="Tables\Common\Town.cs" />
+    <Compile Include="Tables\Content\FooterContent.cs" />
+    <Compile Include="Tables\Content\FooterParent.cs" />
+    <Compile Include="Tables\Logs\ApplicationLog.cs" />
+    <Compile Include="Tables\Logs\UserLog.cs" />
+    <Compile Include="Tables\Messages\MessagesMT.cs" />
+    <Compile Include="Tables\Settings\MemberSetting.cs" />
+    <Compile Include="Tables\Settings\Setting.cs" />
+    <Compile Include="Tables\Members\CompanyDemandMembership.cs" />
+    <Compile Include="Tables\Members\MainParty.cs" />
+    <Compile Include="Tables\Members\MemberDescription.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StoredProcedures\Catalog\PopularProductResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\ProductCategoryForSearchProductResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\TopCategoryResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\WebCategoryProductResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\WebSearchProductResult.cs" />
+    <Compile Include="StoredProcedures\Stores\ProductForStoreResult.cs" />
+    <Compile Include="StoredProcedures\Stores\StoreCategoryResult.cs" />
+    <Compile Include="StoredProcedures\Stores\StoreForCategoryResult.cs" />
+    <Compile Include="StoredProcedures\Stores\WebSearchStoreResult.cs" />
+    <Compile Include="StoredProcedures\Videos\PopularVideoResult.cs" />
+    <Compile Include="StoredProcedures\Videos\ShowOnShowcaseVideoResult.cs" />
+    <Compile Include="StoredProcedures\Videos\VideoCategoryResult.cs" />
+    <Compile Include="StoredProcedures\Videos\VideoResult.cs" />
+    <Compile Include="Tables\Catalog\Category.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tables\Catalog\Product.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tables\Common\Banner.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tables\Common\City.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tables\Common\Country.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tables\Common\Locality.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tables\Members\MemberDescriptionLog.cs" />
+    <Compile Include="Tables\Messages\Message.cs" />
+    <Compile Include="Tables\Messages\MessageMainParty.cs" />
+    <Compile Include="Tables\Messages\SendMessageError.cs" />
+    <Compile Include="Tables\Packets\Packet.cs" />
+    <Compile Include="Tables\Packets\PacketFeature.cs" />
+    <Compile Include="Tables\Packets\PacketFeatureType.cs" />
+    <Compile Include="Tables\Payments\BankAccount.cs" />
+    <Compile Include="Tables\Payments\CreditCard.cs" />
+    <Compile Include="Tables\Payments\CreditCardInstallment.cs" />
+    <Compile Include="Tables\Logs\CreditCardLog.cs" />
+    <Compile Include="Tables\Payments\VirtualPos.cs" />
+    <Compile Include="Tables\ProductRequests\ProductRequest.cs" />
+    <Compile Include="Tables\SearchEngine\IncrementalSearchEngineProduct.cs" />
+    <Compile Include="Tables\Logs\SearchEngineLog.cs" />
+    <Compile Include="Tables\SearchEngine\SearchEngineType.cs" />
+    <Compile Include="Tables\Searchs\SearchScore.cs" />
+    <Compile Include="Tables\Seos\Seo.cs" />
+    <Compile Include="Tables\Seos\SeoDefinition.cs" />
+    <Compile Include="Tables\Stores\ActivityType.cs" />
+    <Compile Include="Tables\Messages\AutoMailRecord.cs" />
+    <Compile Include="Tables\Stores\DealerBrand.cs" />
+    <Compile Include="Tables\Stores\FavoriteStore.cs" />
+    <Compile Include="Tables\Logs\LoginLog.cs" />
+    <Compile Include="Tables\Stores\PreRegistrationStore.cs" />
+    <Compile Include="Tables\Stores\StoreActivityCategory.cs" />
+    <Compile Include="Tables\Stores\StoreActivityType.cs" />
+    <Compile Include="Tables\Stores\StoreBrand.cs" />
+    <Compile Include="Tables\Stores\StoreCatologFile.cs" />
+    <Compile Include="Tables\Stores\StoreCertificate.cs" />
+    <Compile Include="Tables\Stores\StoreChangeHistory.cs" />
+    <Compile Include="Tables\Stores\StoreDealer.cs" />
+    <Compile Include="Tables\Stores\StoreDiscount.cs" />
+    <Compile Include="Tables\Stores\StoreInfoNumberShow.cs" />
+    <Compile Include="Tables\Stores\StoreNew.cs" />
+    <Compile Include="Tables\Stores\StoreSector.cs" />
+    <Compile Include="Tables\Stores\StoreStatistic.cs" />
+    <Compile Include="Tables\Stores\WhatsappLog.cs" />
+    <Compile Include="Tables\Users\Help.cs" />
+    <Compile Include="Tables\Users\UserFile.cs" />
+    <Compile Include="Tables\Users\UserInformation.cs" />
+    <Compile Include="Tables\Messages\UserMailTemplate.cs" />
+    <Compile Include="Tables\Users\WebSiteError.cs" />
+    <Compile Include="Tables\Videos\Video.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tables\Members\Member.cs" />
+    <Compile Include="Tables\Members\MemberStore.cs" />
+    <Compile Include="Tables\Stores\Store.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

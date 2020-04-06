@@ -1,0 +1,36 @@
+{
+  "name": "jQueryCookieDisclaimer",
+  "description": "a jquery cookie disclaimer bar according the EU Law",
+  "version": "1.1.0",
+  "keywords": [
+        "jquery",
+        "plugin",
+        "eu",
+        "law",
+        "cookies",
+        "policy",
+        "privacy",
+        "bar",
+        "disclaimer",
+        "cookie",
+        "cookieDisclaimer",
+        "less",
+        "mobile-first",
+        "responsive",
+        "front-end",
+        "web"
+  ],
+  "homepage": "http://factory.brainleaf.eu/jqueryCookieDisclaimer",
+  "main": [
+        "dist/css/cookieDisclaimer.css",
+        "dist/css/cookieDisclaimer.min.css",
+        "dist/css/cookieDisclaimer.less",
+        "dist/jquery-cookie/jquery.cookie.js",
+        "dist/jquery.cookieDisclaimer.js",
+        "dist/jquery.cookieDisclaimer.min.js",
+        "dist/jquery.cookieDisclaimer.pack.min.js"
+  ],
+  "dependencies": {
+    "jquery": ">= 1.9.1"
+  }
+}

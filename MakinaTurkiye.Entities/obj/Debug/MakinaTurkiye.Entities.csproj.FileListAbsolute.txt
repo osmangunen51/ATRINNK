@@ -1,0 +1,12 @@
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll.config
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.pdb
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.xml
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.xml
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CopyComplete
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.pdb
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CoreCompileInputs.cache
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csprojAssemblyReference.cache

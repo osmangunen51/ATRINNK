@@ -1,0 +1,377 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MTModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MTModelStoreContainer">
+          <EntitySet Name="_ImageProcessLogs" EntityType="MTModel.Store._ImageProcessLogs" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Picture" EntityType="MTModel.Store.Picture" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Product" EntityType="MTModel.Store.Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Store" EntityType="MTModel.Store.Store" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="_ImageProcessLogs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="PictureId" Type="int" />
+          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="PictureId" />
+          </Key>
+          <Property Name="PictureId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="int" />
+          <Property Name="MainPartyId" Type="int" />
+          <Property Name="PictureName" Type="nvarchar" MaxLength="50" />
+          <Property Name="OldPath" Type="nvarchar" MaxLength="50" />
+          <Property Name="PicturePath" Type="nvarchar" MaxLength="250" />
+          <Property Name="StoreDealerId" Type="int" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="int" />
+          <Property Name="ProductGroupId" Type="int" />
+          <Property Name="BrandId" Type="int" />
+          <Property Name="SeriesId" Type="int" />
+          <Property Name="ModelId" Type="int" />
+          <Property Name="MainPartyId" Type="int" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="LocalityId" Type="int" />
+          <Property Name="TownId" Type="int" />
+          <Property Name="DistrictId" Type="int" />
+          <Property Name="CurrencyId" Type="tinyint" />
+          <Property Name="ProductNo" Type="varchar" MaxLength="10" />
+          <Property Name="CategoryTreeName" Type="nvarchar" MaxLength="100" />
+          <Property Name="ProductName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ProductPrice" Type="money" />
+          <Property Name="ProductType" Type="varchar" MaxLength="50" />
+          <Property Name="ProductSalesType" Type="varchar" MaxLength="50" />
+          <Property Name="ProductDescription" Type="ntext" />
+          <Property Name="ProductRecordDate" Type="datetime" />
+          <Property Name="ProductShowcase" Type="bit" />
+          <Property Name="ProductAdvertBeginDate" Type="date" />
+          <Property Name="ProductAdvertEndDate" Type="date" />
+          <Property Name="ProductStatu" Type="varchar" MaxLength="50" />
+          <Property Name="ProductActiveType" Type="tinyint" />
+          <Property Name="OtherBrand" Type="varchar" MaxLength="100" />
+          <Property Name="OtherModel" Type="varchar" MaxLength="100" />
+          <Property Name="ModelYear" Type="int" />
+          <Property Name="ViewCount" Type="bigint" />
+          <Property Name="LastViewDate" Type="datetime" />
+          <Property Name="BriefDetail" Type="varchar" MaxLength="50" />
+          <Property Name="ProductActive" Type="bit" />
+          <Property Name="MoneyCondition" Type="bit" />
+          <Property Name="ProductLastUpdate" Type="datetime" />
+          <Property Name="SingularViewCount" Type="bigint" />
+          <Property Name="productrate" Type="decimal" Scale="5" />
+          <Property Name="MenseiId" Type="int" />
+          <Property Name="OrderStatus" Type="int" />
+          <Property Name="ReadyforSale" Type="bit" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="MainPartyId" />
+          </Key>
+          <Property Name="MainPartyId" Type="int" Nullable="false" />
+          <Property Name="PacketId" Type="int" />
+          <Property Name="StoreNo" Type="varchar" MaxLength="10" />
+          <Property Name="StoreName" Type="nvarchar" MaxLength="200" />
+          <Property Name="StoreEMail" Type="nvarchar" MaxLength="320" />
+          <Property Name="StoreWeb" Type="nvarchar" MaxLength="320" />
+          <Property Name="OldStoreLogo" Type="nvarchar" MaxLength="50" />
+          <Property Name="StoreLogo" Type="nvarchar" MaxLength="100" />
+          <Property Name="StoreActiveType" Type="tinyint" />
+          <Property Name="StorePacketBeginDate" Type="datetime" />
+          <Property Name="StorePacketEndDate" Type="datetime" />
+          <Property Name="StoreAbout" Type="ntext" />
+          <Property Name="StoreRecordDate" Type="datetime" />
+          <Property Name="StoreEstablishmentDate" Type="int" />
+          <Property Name="StoreCapital" Type="tinyint" />
+          <Property Name="StoreEmployeesCount" Type="tinyint" />
+          <Property Name="StoreEndorsement" Type="tinyint" />
+          <Property Name="StoreType" Type="tinyint" />
+          <Property Name="PurchasingDepartmentName" Type="varchar" MaxLength="50" />
+          <Property Name="PurchasingDepartmentEmail" Type="varchar" MaxLength="320" />
+          <Property Name="GeneralText" Type="ntext" />
+          <Property Name="HistoryText" Type="ntext" />
+          <Property Name="FounderText" Type="ntext" />
+          <Property Name="PhilosophyText" Type="ntext" />
+          <Property Name="ViewCount" Type="bigint" />
+          <Property Name="SingularViewCount" Type="bigint" />
+          <Property Name="StoreShowcase" Type="bit" />
+          <Property Name="StorePicture" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrderCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="storerate" Type="decimal" Scale="5" />
+          <Property Name="ProductCount" Type="int" />
+          <Property Name="ReadyForSale" Type="bit" />
+          <Property Name="StoreUniqueShortName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MTModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Picture" EntityType="MTModel.Picture" />
+          <EntitySet Name="Product" EntityType="MTModel.Product" />
+          <EntitySet Name="ImageProcessLogs" EntityType="MTModel.ImageProcessLog" />
+          <EntitySet Name="Stores" EntityType="MTModel.Store" />
+        </EntityContainer>
+        <EntityType Name="Picture">
+          <Key>
+            <PropertyRef Name="PictureId" />
+          </Key>
+          <Property Name="PictureId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" />
+          <Property Name="MainPartyId" Type="Int32" />
+          <Property Name="PictureName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="OldPath" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="PicturePath" Type="String" MaxLength="250" Unicode="true" FixedLength="false" />
+          <Property Name="StoreDealerId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryId" Type="Int32" />
+          <Property Name="ProductGroupId" Type="Int32" />
+          <Property Name="BrandId" Type="Int32" />
+          <Property Name="SeriesId" Type="Int32" />
+          <Property Name="ModelId" Type="Int32" />
+          <Property Name="MainPartyId" Type="Int32" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="LocalityId" Type="Int32" />
+          <Property Name="TownId" Type="Int32" />
+          <Property Name="DistrictId" Type="Int32" />
+          <Property Name="CurrencyId" Type="Byte" />
+          <Property Name="ProductNo" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="CategoryTreeName" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="ProductName" Type="String" MaxLength="200" Unicode="true" FixedLength="false" />
+          <Property Name="ProductPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ProductType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ProductSalesType" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ProductRecordDate" Type="DateTime" />
+          <Property Name="ProductShowcase" Type="Boolean" />
+          <Property Name="ProductAdvertBeginDate" Type="DateTime" />
+          <Property Name="ProductAdvertEndDate" Type="DateTime" />
+          <Property Name="ProductStatu" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ProductActiveType" Type="Byte" />
+          <Property Name="OtherBrand" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="OtherModel" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ModelYear" Type="Int32" />
+          <Property Name="ViewCount" Type="Int64" />
+          <Property Name="LastViewDate" Type="DateTime" />
+          <Property Name="BriefDetail" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="ProductActive" Type="Boolean" />
+          <Property Name="MoneyCondition" Type="Boolean" />
+          <Property Name="ProductLastUpdate" Type="DateTime" />
+          <Property Name="SingularViewCount" Type="Int64" />
+          <Property Name="productrate" Type="Decimal" Precision="18" Scale="5" />
+          <Property Name="MenseiId" Type="Int32" />
+          <Property Name="OrderStatus" Type="Int32" />
+          <Property Name="ReadyforSale" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="ImageProcessLog">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ProductId" />
+          <Property Type="Int32" Name="PictureId" />
+          <Property Type="String" Name="Message" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreatedOn" />
+        </EntityType>
+        <EntityType Name="Store">
+          <Key>
+            <PropertyRef Name="MainPartyId" />
+          </Key>
+          <Property Type="Int32" Name="MainPartyId" Nullable="false" />
+          <Property Type="Int32" Name="PacketId" />
+          <Property Type="String" Name="StoreNo" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="StoreName" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StoreEMail" MaxLength="320" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StoreWeb" MaxLength="320" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OldStoreLogo" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="StoreLogo" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="StoreActiveType" />
+          <Property Type="DateTime" Name="StorePacketBeginDate" />
+          <Property Type="DateTime" Name="StorePacketEndDate" />
+          <Property Type="String" Name="StoreAbout" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="StoreRecordDate" />
+          <Property Type="Int32" Name="StoreEstablishmentDate" />
+          <Property Type="Byte" Name="StoreCapital" />
+          <Property Type="Byte" Name="StoreEmployeesCount" />
+          <Property Type="Byte" Name="StoreEndorsement" />
+          <Property Type="Byte" Name="StoreType" />
+          <Property Type="String" Name="PurchasingDepartmentName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="PurchasingDepartmentEmail" MaxLength="320" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="GeneralText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HistoryText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FounderText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PhilosophyText" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Int64" Name="ViewCount" />
+          <Property Type="Int64" Name="SingularViewCount" />
+          <Property Type="Boolean" Name="StoreShowcase" />
+          <Property Type="String" Name="StorePicture" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="OrderCode" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Decimal" Name="storerate" Precision="18" Scale="5" />
+          <Property Type="Int32" Name="ProductCount" />
+          <Property Type="Boolean" Name="ReadyForSale" />
+          <Property Type="String" Name="StoreUniqueShortName" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MTModelStoreContainer" CdmEntityContainer="MTEntities">
+          <EntitySetMapping Name="Picture">
+            <EntityTypeMapping TypeName="MTModel.Picture">
+              <MappingFragment StoreEntitySet="Picture">
+                <ScalarProperty Name="PictureId" ColumnName="PictureId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
+                <ScalarProperty Name="PictureName" ColumnName="PictureName" />
+                <ScalarProperty Name="OldPath" ColumnName="OldPath" />
+                <ScalarProperty Name="PicturePath" ColumnName="PicturePath" />
+                <ScalarProperty Name="StoreDealerId" ColumnName="StoreDealerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="MTModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="ProductGroupId" ColumnName="ProductGroupId" />
+                <ScalarProperty Name="BrandId" ColumnName="BrandId" />
+                <ScalarProperty Name="SeriesId" ColumnName="SeriesId" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+                <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+                <ScalarProperty Name="TownId" ColumnName="TownId" />
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="ProductNo" ColumnName="ProductNo" />
+                <ScalarProperty Name="CategoryTreeName" ColumnName="CategoryTreeName" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductType" ColumnName="ProductType" />
+                <ScalarProperty Name="ProductSalesType" ColumnName="ProductSalesType" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="ProductRecordDate" ColumnName="ProductRecordDate" />
+                <ScalarProperty Name="ProductShowcase" ColumnName="ProductShowcase" />
+                <ScalarProperty Name="ProductAdvertBeginDate" ColumnName="ProductAdvertBeginDate" />
+                <ScalarProperty Name="ProductAdvertEndDate" ColumnName="ProductAdvertEndDate" />
+                <ScalarProperty Name="ProductStatu" ColumnName="ProductStatu" />
+                <ScalarProperty Name="ProductActiveType" ColumnName="ProductActiveType" />
+                <ScalarProperty Name="OtherBrand" ColumnName="OtherBrand" />
+                <ScalarProperty Name="OtherModel" ColumnName="OtherModel" />
+                <ScalarProperty Name="ModelYear" ColumnName="ModelYear" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="LastViewDate" ColumnName="LastViewDate" />
+                <ScalarProperty Name="BriefDetail" ColumnName="BriefDetail" />
+                <ScalarProperty Name="ProductActive" ColumnName="ProductActive" />
+                <ScalarProperty Name="MoneyCondition" ColumnName="MoneyCondition" />
+                <ScalarProperty Name="ProductLastUpdate" ColumnName="ProductLastUpdate" />
+                <ScalarProperty Name="SingularViewCount" ColumnName="SingularViewCount" />
+                <ScalarProperty Name="productrate" ColumnName="productrate" />
+                <ScalarProperty Name="MenseiId" ColumnName="MenseiId" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="ReadyforSale" ColumnName="ReadyforSale" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ImageProcessLogs">
+            <EntityTypeMapping TypeName="MTModel.ImageProcessLog">
+              <MappingFragment StoreEntitySet="_ImageProcessLogs">
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="PictureId" ColumnName="PictureId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stores">
+            <EntityTypeMapping TypeName="MTModel.Store">
+              <MappingFragment StoreEntitySet="Store">
+                <ScalarProperty Name="StoreUniqueShortName" ColumnName="StoreUniqueShortName" />
+                <ScalarProperty Name="ReadyForSale" ColumnName="ReadyForSale" />
+                <ScalarProperty Name="ProductCount" ColumnName="ProductCount" />
+                <ScalarProperty Name="storerate" ColumnName="storerate" />
+                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+                <ScalarProperty Name="StorePicture" ColumnName="StorePicture" />
+                <ScalarProperty Name="StoreShowcase" ColumnName="StoreShowcase" />
+                <ScalarProperty Name="SingularViewCount" ColumnName="SingularViewCount" />
+                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+                <ScalarProperty Name="PhilosophyText" ColumnName="PhilosophyText" />
+                <ScalarProperty Name="FounderText" ColumnName="FounderText" />
+                <ScalarProperty Name="HistoryText" ColumnName="HistoryText" />
+                <ScalarProperty Name="GeneralText" ColumnName="GeneralText" />
+                <ScalarProperty Name="PurchasingDepartmentEmail" ColumnName="PurchasingDepartmentEmail" />
+                <ScalarProperty Name="PurchasingDepartmentName" ColumnName="PurchasingDepartmentName" />
+                <ScalarProperty Name="StoreType" ColumnName="StoreType" />
+                <ScalarProperty Name="StoreEndorsement" ColumnName="StoreEndorsement" />
+                <ScalarProperty Name="StoreEmployeesCount" ColumnName="StoreEmployeesCount" />
+                <ScalarProperty Name="StoreCapital" ColumnName="StoreCapital" />
+                <ScalarProperty Name="StoreEstablishmentDate" ColumnName="StoreEstablishmentDate" />
+                <ScalarProperty Name="StoreRecordDate" ColumnName="StoreRecordDate" />
+                <ScalarProperty Name="StoreAbout" ColumnName="StoreAbout" />
+                <ScalarProperty Name="StorePacketEndDate" ColumnName="StorePacketEndDate" />
+                <ScalarProperty Name="StorePacketBeginDate" ColumnName="StorePacketBeginDate" />
+                <ScalarProperty Name="StoreActiveType" ColumnName="StoreActiveType" />
+                <ScalarProperty Name="StoreLogo" ColumnName="StoreLogo" />
+                <ScalarProperty Name="OldStoreLogo" ColumnName="OldStoreLogo" />
+                <ScalarProperty Name="StoreWeb" ColumnName="StoreWeb" />
+                <ScalarProperty Name="StoreEMail" ColumnName="StoreEMail" />
+                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+                <ScalarProperty Name="StoreNo" ColumnName="StoreNo" />
+                <ScalarProperty Name="PacketId" ColumnName="PacketId" />
+                <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="DBModel">
+        <EntityTypeShape EntityType="MTModel.Picture" Width="1.5" PointX="0.5" PointY="0.5" Height="2.3648893229166665" IsExpanded="true" />
+        <EntityTypeShape EntityType="MTModel.Product" Width="1.5" PointX="2.25" PointY="0.5" Height="8.7108365885416656" IsExpanded="true" />
+        <EntityTypeShape EntityType="MTModel.ImageProcessLog" Width="1.5" PointX="4" PointY="0.5" Height="1.9802864583333326" />
+        <EntityTypeShape EntityType="MTModel.Store" Width="1.5" PointX="5.875" PointY="0.5" Height="6.35837890625" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

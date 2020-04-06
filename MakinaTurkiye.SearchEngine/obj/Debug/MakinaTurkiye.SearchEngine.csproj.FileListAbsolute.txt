@@ -1,0 +1,6 @@
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\bin\Debug\MakinaTurkiye.SearchEngine.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\bin\Debug\MakinaTurkiye.SearchEngine.pdb
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.csproj.CoreCompileInputs.cache
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.pdb
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.csprojAssemblyReference.cache

@@ -1,0 +1,94 @@
+﻿.phone-area.sticky { background: #fff url('customer-support-icon.png') 20px 50% no-repeat; box-shadow: 0 10px 34px 0 rgba(0, 0, 0, 0.11); position: fixed; bottom: 15px; right: 60px; padding: 10px 30px 10px 20px; background-size: 44px; border-radius: 6px; z-index: 99; }
+
+    .phone-area.sticky .phone-title {
+        color: #2A2F38;
+    }
+
+    .phone-area.sticky .phone-number {
+        color: #9aa2b0;
+        font-size: 18px;
+        line-height: 32px;
+        font-weight: normal;
+    }
+
+	@media(min-width:768px) {
+		.phone-area.sticky .phone-number {
+			font-size: 18px;
+		}
+	}
+
+.phone-area-left.sticky {
+    background: #fff;
+    box-shadow: 0 10px 34px 0 rgba(0, 0, 0, 0.11);
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    /*padding: 19px 30px 16px 20px;*/
+    background-size: 44px;
+    border-radius: 6px;
+    z-index: 99;
+    width: 5%;
+}
+
+    .phone-area-left.sticky img {
+        width: 100%;
+    }
+
+    .phone-area-left.sticky .phone-title {
+        color: #2A2F38;
+    }
+
+    .phone-area-left.sticky .phone-number {
+        color: #9aa2b0;
+        font-size: 18px;
+        line-height: 32px;
+        font-weight: normal;
+    }
+
+
+.phone-area.sticky .phone-number:hover, .phone-area.sticky .phone-number:active, .phone-area.sticky .phone-number:focus {
+}
+
+.phone-area {
+    margin: 20px 0 0;
+    text-align: left;
+    background-image: url('../img/icon-call-white.svg');
+    background-position: 0 0px;
+    background-repeat: no-repeat;
+    background-size: 44px;
+    padding-left: 60px;
+    cursor:pointer;
+}
+
+.phone-area-left {
+    margin: 20px 0 0;
+    text-align: left;
+    background-image: url('../img/icon-call-white.svg');
+    background-position: 0 0px;
+    background-repeat: no-repeat;
+    background-size: 44px;
+    padding-left: 5px;
+}
+
+.phone-title {
+    text-align: left;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #fff;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.phone-number {
+    color: #fff;
+    font-size: 24px;
+    line-height: 32px;
+    font-weight: 500;
+    display: inline-block;
+    text-decoration: none;
+}
+
+    .phone-number:hover, .phone-number:active, .phone-number:focus {
+        text-decoration: none;
+        color: #008a52;
+    }

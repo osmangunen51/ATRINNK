@@ -1,0 +1,501 @@
+﻿a
+{
+  color: #06c;
+  text-decoration: none;
+}
+
+a:hover
+{
+  color: #06c;
+  text-decoration: underline;
+}
+
+#cs
+{
+  width: 100%;
+  font-family: "Segoe UI" , Verdana, Tahoma, Helvetica;
+  background-image: url('/content/ribbonimages/ribbon_background.png');
+  background-repeat: repeat-x;
+  background-position: 15px top;
+  float: left;
+}
+
+
+.RibbonGroup
+{
+  background: none;
+}
+
+.cstabs, .csmodal
+{
+  list-style-type: none;
+  text-align: left;
+  font-family: "Segoe UI" , Verdana, Tahoma, Helvetica;
+  font-size: 8pt;
+  height: 11px;
+  width: 400px;
+  margin: 0px;
+  padding: 0; 
+  margin-top: 15px;
+}
+
+.cstabs li, .csmodal li
+{
+  text-align: left;
+  float: left;
+  height: 19px;
+  margin-right: 3px;
+  -moz-border-radius: 3px;
+}
+
+.cstabs li a:hover
+{
+  background-image: url('/content/images/tabBg.jpg');
+  background-color: #f1f1f1;
+  border: solid 1px #d3d6d9;
+  background-repeat: repeat-x;
+  border-bottom: none;
+}
+
+.fileButton
+{
+  color: Red;
+}
+
+
+.cstabs a, .csmodal a
+{
+  padding: 5px 12px 3px 12px;
+  text-align: right;
+  font-size: 12px;
+  color: #000;
+  text-decoration: none;
+  border: solid 1px transparent;
+  cursor: default;
+  -moz-border-radius-topleft: 3px;
+  -moz-border-radius-topright: 3px;
+}
+
+
+.tab-content
+{
+  border: 1px solid #C0C0C0;
+  background-image: url('/content/ribbonimages/ribbon_background.png');
+  padding: 0px;
+  padding-top: 3px;
+  height: 85px;
+  background-position: top;
+  background-repeat: repeat-x;
+  background-color: #FFF;
+  width: 100%;
+  margin-top: 7px;
+}
+
+
+#selected
+{
+  color: #000;
+  border-left: 1px solid #C0C0C0;
+  border-right: 1px solid #C0C0C0;
+  border-top: 1px solid #C0C0C0;
+  border-bottom: 1px solid #FFFFFF;
+  margin: 0;
+  background-color: #FFFFFF;
+}
+
+
+
+img
+{
+  border: none 0;
+}
+
+/* Ribbon general styles */
+
+.Ribbon_Zone
+{
+  padding: 0px;
+  margin: 0px;
+}
+
+.Ribbon_Zone li
+{
+  margin: 0px;
+  float: left;
+  padding: 0px 5px 2px 5px;
+  list-style-type: none;
+  cursor: default;
+}
+
+.Ribbon_Zone li a
+{
+  color: #000;
+  text-decoration: none;
+}
+
+.RibbonSeparatorV
+{
+  position: relative;
+  height: 82px;
+  border-right: 1px solid #ffffff;
+  border-left: 1px solid #E0E0E0;
+}
+
+.RibbonGallerySubMenu
+{
+  position: absolute;
+  border: 1px solid #C0C0C0;
+  padding-right: 2px;
+  background: #fff;
+  z-index: 99;
+}
+
+.RibbonMenu
+{
+  position: absolute;
+  border: 1px solid #C0C0C0;
+  padding: 2px;
+  background: #fff;
+  z-index: 99;
+}
+
+.Ribbon_FileMenu_green
+{
+  color: #fff;
+  cursor: pointer;
+  float: left;
+  margin-right: 3px;
+  padding: 5px 14px 4px 14px;
+  text-align: center;
+  border-left: 1px solid green;
+  border-right: 1px solid green;
+  border-bottom: 1px solid green;
+  background: url(/Content/RibbonImages/FileMenu_Background_green.PNG) repeat-x;
+}
+
+.Ribbon_FileMenu_orange
+{
+  color: #fff;
+  cursor: pointer;
+  float: left;
+  margin-right: 3px;
+  padding: 5px 14px 4px 14px;
+  text-align: center;
+  border-left: 1px solid #bb0a00;
+  border-right: 1px solid #bb0a00;
+  border-bottom: 1px solid #bb0a00;
+  background: url(/Content/RibbonImages/FileMenu_Background_orange.PNG) repeat-x;
+}
+
+.Ribbon_FileMenu_blue
+{
+  color: #fff;
+  cursor: pointer;
+  margin-right: 0px;
+  margin-left:0px;
+  text-align: center;
+  border-left: 1px solid #183d98;
+  border-right: 1px solid #183d98;
+  background: url(/Content/RibbonImages/FileMenu_Background_blue.PNG) repeat-x;
+} 
+
+.Ribbon_FileMenu_purple
+{
+  color: #fff;
+  cursor: pointer;
+  margin-right: 3px;
+  text-align: center;
+  border-left: 1px solid #551a6b;
+  border-right: 1px solid #551a6b;
+  background: url(/Content/RibbonImages/FileMenu_Background_purple.PNG) repeat-x;
+}
+
+
+
+.RibbonColorPicker_Celldiv
+{
+  border-bottom: #e2e4e7 0px solid;
+  border-left: #e2e4e7 1px solid;
+  width: 11px;
+  border-top: #e2e4e7 0px solid;
+  border-right: #e2e4e7 1px solid;
+}
+
+.RibbonColorPicker_Cell-a:hover .RibbonColorPicker_Cellinternaldiv
+{
+  border: 1px solid orange;
+}
+
+.RibbonColorPicker_Cell
+{
+  padding-bottom: 0px;
+  padding-left: 2px;
+  width: 13px;
+  padding-right: 2px;
+  padding-top: 0px;
+}
+
+.RibbonColorPicker_Cellinternaldiv
+{
+  border-bottom: transparent 1px solid;
+  border-left: transparent 1px solid;
+  width: 9px;
+  height: 10px;
+  border-top: transparent 1px solid;
+  border-right: transparent 1px solid;
+}
+
+.ColorPickerSection
+{
+  margin-top: 2px;
+  border-bottom: #e2e4e7 1px solid;
+  border-top: #e2e4e7 1px solid;
+  padding-bottom: 4px;
+  background: #f0f2f5;
+  padding-left: 2px;
+  padding-right: 2px;
+  color: #4c535c;
+  font-weight: bold;
+  padding-top: 4px;
+}
+
+/* Ribbon Items Styles */
+
+.RibbonBigItem_Out, .RibbonBigItem_Over
+{
+  float: left; /*border: 1px solid transparent;*/
+  height: 66px;
+  position: relative;
+  -moz-border-radius: 3px;
+}
+
+.RibbonInnerItem_Out, .RibbonInnerItem_Over
+{
+  border: 1px solid transparent;
+  padding: 1px 4px;
+  float: left;
+  height: 62px;
+}
+
+.RibbonInnerItem_Over
+{
+  border: 1px solid #fdf9e8;
+}
+
+
+.RibbonBigItemLeft, .RibbonBigItemRight
+{
+  width: 9px;
+  position: absolute;
+  background-repeat: no-repeat;
+  height: 66px;
+  z-index: 5;
+}
+
+.RibbonBigItemLeft
+{
+  left: 0;
+}
+
+.RibbonBigItemRight
+{
+  right: 0;
+}
+
+.RibbonBigItemMiddle
+{
+  width: auto;
+  background-repeat: repeat-x;
+  height: 66px;
+  z-index: 1;
+  padding: 5px;
+}
+
+.RibbonBigItemInnerMiddle
+{
+  z-index: 6;
+  position: relative;
+}
+
+
+.RibbonSmallItemLeft, .RibbonSmallItemRight
+{
+  width: 3px;
+  position: absolute;
+  background-repeat: no-repeat;
+  height: 22px;
+  z-index: 5;
+}
+
+.RibbonSmallItemLeft
+{
+  left: 0;
+}
+
+.RibbonSmallItemRight
+{
+  right: 0;
+}
+
+.RibbonSmallItemMiddle
+{
+  background-repeat: repeat-x;
+  height: 14px;
+  z-index: 1;
+  padding: 5px;
+  padding-top: 3px;
+}
+
+.RibbonSmallItemInnerMiddle
+{
+  z-index: 6;
+  position: relative;
+  width: auto;
+}
+
+.RibbonGroupText
+{
+  font-size: 8pt;
+  height: 15px;
+  text-align: center;
+  color: #888888;
+}
+
+.RibbonBigItem_Over
+{
+  background-image: url('/Content/RibbonImages/ribbonMenu.png');
+  background-repeat: repeat-x;
+  border: 1px solid #f1c43f;
+}
+
+.FluentButton
+{
+  border: 1px solid #CCC;
+  background-color: #FFF;
+  padding: 2px 10px 2px 10px;
+  background-position: bottom center;
+  background-repeat: repeat-x;
+  background-image: url('/Content/RibbonImages/Ribbon_Button.png');
+  height: 60px;
+  width: 40px;
+  -moz-border-radius: 3px;
+  cursor: pointer;
+}
+
+.FluentButton_Over
+{
+  border: 1px solid #f1c43f;
+  cursor: pointer;
+  background: #fdeeb3;
+  height: 60px;
+  width: 40px;
+  -moz-border-radius: 3px;
+  padding: 2px 10px 2px 10px;
+}
+
+.FluentButton_Down
+{
+  border: 1px solid #f1c43f;
+  cursor: pointer;
+  background: #eed383;
+  height: 60px;
+  width: 40px;
+  -moz-border-radius: 3px;
+  padding: 2px 10px 2px 10px;
+}
+
+.RibbonSmallItem_Out, .RibbonSmallItem_Over
+{
+  height: 22px;
+  position: relative;
+  -moz-border-radius: 3px;
+}
+.RibbonSmallItem_Over
+{
+  background-image: url('/Content/RibbonImages/ribbonSMenu.png');
+  border: 1px solid #f1c43f;
+}
+
+.RibbonInnerSmallItem_Out, .RibbonInnerSmallItem_Over
+{
+  border: 1px solid transparent;
+  float: left;
+  width: 100%;
+  height: 16px;
+  text-align: left;
+}
+
+.RibbonInnerSmallItem_Over
+{
+  border: 1px solid #fdf9e8;
+  border-bottom-color: transparent;
+}
+
+.RibbonIconItem_Out
+{
+  float: left;
+  padding: 1px;
+  border: 0px solid #f1c43f;
+}
+.RibbonIconItem_Over
+{
+  float: left;
+  padding: 0px;
+  border: 1px solid #f1c43f;
+  cursor: pointer;
+  background: #fdeeb3;
+}
+
+
+.RibbonGallery
+{
+  float: left;
+  height: 64px;
+  background: #fff;
+  border: 1px solid #C0C0C0;
+  padding-right: 2px;
+}
+
+.RibbonGallerySubItem_Out
+{
+  margin: 2px 0px 2px 2px;
+  height: 52px;
+  width: 70px;
+  padding: 4px 6px 4px 6px;
+  float: left;
+}
+.RibbonGallerySubItem_Over
+{
+  margin: 2px 0px 2px 2px;
+  padding: 3px 5px 3px 5px;
+  height: 52px;
+  width: 70px;
+  cursor: pointer;
+  border: 1px solid #f1c43f;
+  background: #fdeeb3;
+  float: left;
+}
+
+
+.GalleryExpander_Out
+{
+  border-right: 1px solid #C0C0C0;
+  border-bottom: 1px solid #C0C0C0;
+  border-top: 1px solid #C0C0C0;
+  float: left;
+  height: 60px;
+  padding: 2px;
+  background: #FFF;
+  cursor: pointer;
+}
+.GalleryExpander_Over
+{
+  border-right: 1px solid #f1c43f;
+  border-bottom: 1px solid #f1c43f;
+  border-top: 1px solid #f1c43f;
+  float: left;
+  height: 60px;
+  padding: 2px;
+  background: #fdeeb3;
+  cursor: pointer;
+}

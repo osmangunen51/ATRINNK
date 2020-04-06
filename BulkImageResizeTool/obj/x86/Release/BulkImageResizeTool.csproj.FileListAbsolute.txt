@@ -1,0 +1,12 @@
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\bin\Release\BulkImageResizeTool.exe.config
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\bin\Release\BulkImageResizeTool.exe
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\bin\Release\BulkImageResizeTool.pdb
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\bin\Release\ImageResizer.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\bin\Release\ImageResizer.Plugins.Watermark.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\bin\Release\ImageResizer.xml
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\bin\Release\ImageResizer.Plugins.Watermark.xml
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\obj\x86\Release\BulkImageResizeTool.csprojAssemblyReference.cache
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\obj\x86\Release\BulkImageResizeTool.csproj.CoreCompileInputs.cache
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\obj\x86\Release\BulkImageResizeTool.csproj.CopyComplete
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\obj\x86\Release\BulkImageResizeTool.exe
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\BulkImageResizeTool\obj\x86\Release\BulkImageResizeTool.pdb

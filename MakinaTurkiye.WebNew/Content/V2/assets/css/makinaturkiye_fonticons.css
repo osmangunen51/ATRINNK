@@ -1,0 +1,226 @@
+@font-face {
+  font-family:'makinaturkiye_fonticons';
+  src:  url('../../../fonts/makinaturkiye_fonticons.eot?q55a5y');
+  src:  url('../../../fonts/makinaturkiye_fonticons.eot?q55a5y#iefix') format('embedded-opentype'),
+    url('../../../fonts/makinaturkiye_fonticons.ttf?q55a5y') format('truetype'),
+    url('../../../fonts/makinaturkiye_fonticons.woff?q55a5y') format('woff'),
+    url('../../../fonts/makinaturkiye_fonticons.svg?q55a5y#makinaturkiye_fonticons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'makinaturkiye_fonticons' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-filter:before {
+  content: "\e93e";
+}
+.icon-sort:before {
+  content: "\e93f";
+}
+.icon-map-pin:before {
+  content: "\e93d";
+}
+.icon-gps:before {
+  content: "\e939";
+}
+.icon-buffer:before {
+  content: "\e93a";
+}
+.icon-furniture:before {
+  content: "\e910";
+}
+.icon-box-closed:before {
+  content: "\e929";
+}
+.icon-desk:before {
+  content: "\e92a";
+}
+.icon-ventilator:before {
+  content: "\e92b";
+}
+.icon-tester:before {
+  content: "\e92c";
+}
+.icon-technology:before {
+  content: "\e92d";
+}
+.icon-storage:before {
+  content: "\e92e";
+}
+.icon-scale:before {
+  content: "\e92f";
+}
+.icon-delivery-truck:before {
+  content: "\e930";
+}
+.icon-printer:before {
+  content: "\e931";
+}
+.icon-laboratory:before {
+  content: "\e932";
+}
+.icon-welding:before {
+  content: "\e933";
+}
+.icon-toy-machine:before {
+  content: "\e934";
+}
+.icon-sound-cable:before {
+  content: "\e935";
+}
+.icon-lawnmower:before {
+  content: "\e936";
+}
+.icon-shirt:before {
+  content: "\e937";
+}
+.icon-gas-station:before {
+  content: "\e938";
+}
+.icon-scroll-up:before {
+  content: "\e90c";
+}
+.icon-paper-plane:before {
+  content: "\e90b";
+}
+.icon-close:before {
+  content: "\e920";
+}
+.icon-menu:before {
+  content: "\e921";
+}
+.icon-earth-globe:before {
+  content: "\e922";
+}
+.icon-speech-bubble:before {
+  content: "\e923";
+}
+.icon-user:before {
+  content: "\e924";
+}
+.icon-security:before {
+  content: "\e925";
+}
+.icon-blog-comment-speech-bubble-symbol:before {
+  content: "\e926";
+}
+.icon-video:before {
+  content: "\e927";
+}
+.icon-grid-world:before {
+  content: "\e928";
+}
+.icon-turkish-lira:before {
+  content: "\e900";
+}
+.icon-full-size:before {
+  content: "\e901";
+}
+.icon-smartphone:before {
+  content: "\e902";
+}
+.icon-whatsapp-logo:before {
+  content: "\e903";
+}
+.icon-phone-receiver:before {
+  content: "\e905";
+}
+.icon-flag .path1:before {
+  content: "\e906";
+  color: rgb(135, 27, 27);
+}
+.icon-flag .path2:before {
+  content: "\e907";
+  margin-left: -1em;
+  color: rgb(66, 74, 96);
+}
+.icon-flag .path3:before {
+  content: "\e908";
+  margin-left: -1em;
+  color: rgb(221, 53, 46);
+}
+.icon-flag .path4:before {
+  content: "\e909";
+  margin-left: -1em;
+  color: rgb(192, 58, 43);
+}
+.icon-flag .path5:before {
+  content: "\e90a";
+  margin-left: -1em;
+  color: rgb(176, 39, 33);
+}
+.icon-right-arrow:before {
+  content: "\e90d";
+}
+.icon-down-arrow:before {
+  content: "\e90e";
+}
+.icon-up-arrow:before {
+  content: "\e904";
+}
+.icon-left-arrow:before {
+  content: "\e90f";
+}
+.icon-search:before {
+  content: "\e911";
+}
+.icon-rewind:before {
+  content: "\e912";
+}
+.icon-fast-forward:before {
+  content: "\e913";
+}
+.icon-back:before {
+  content: "\e914";
+}
+.icon-next:before {
+  content: "\e915";
+}
+.icon-checked:before {
+  content: "\e916";
+}
+.icon-play-button:before {
+  content: "\e917";
+}
+.icon-fill-up-arrow:before {
+  content: "\e93b";
+}
+.icon-fill-down-arrow:before {
+  content: "\e93c";
+}
+.icon-exclamation-sign:before {
+  content: "\e918";
+}
+.icon-question-mark-on-a-circular-black-background:before {
+  content: "\e919";
+}
+.icon-favorite:before {
+  content: "\e91a";
+}
+.icon-social-twitter:before {
+  content: "\e91b";
+}
+.icon-social-facebook:before {
+  content: "\e91c";
+}
+.icon-social-linkedin:before {
+  content: "\e91d";
+}
+.icon-circle:before {
+  content: "\e91e";
+}
+.icon-briefcase:before {
+  content: "\e91f";
+}

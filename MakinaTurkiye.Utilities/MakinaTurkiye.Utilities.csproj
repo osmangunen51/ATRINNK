@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{53482EA7-D0EB-4F50-A04B-6EEDE701B53D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MakinaTurkiye.Utilities</RootNamespace>
+    <AssemblyName>MakinaTurkiye.Utilities</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.5.0.0\lib\net461\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.5.0.0\lib\net461\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonServiceLocator, Version=2.0.5.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.5\lib\net46\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7de548da2fbae0f0, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluentValidation.8.6.1\lib\net45\FluentValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.4.7.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.7.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.6.0-preview.18571.3\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\BaseAccountController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Infrastructure\AuthenticationDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\BulletinsDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\CheckoutsDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\CommonDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\ContentDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\CoreDependencyRegistrar.cs" />
+    <Compile Include="FileHelpers\FileHelper.cs" />
+    <Compile Include="FileHelpers\FileUploadHelper.cs" />
+    <Compile Include="FileHelpers\FileUrlHelper.cs" />
+    <Compile Include="FormatHelpers\CategorySyntaxType.cs" />
+    <Compile Include="FormatHelpers\FormatHelper.cs" />
+    <Compile Include="FormatHelpers\DecyptHelper.cs" />
+    <Compile Include="FormatHelpers\StringHelper.cs" />
+    <Compile Include="HttpHelpers\CategoryFilterHelper.cs" />
+    <Compile Include="HttpHelpers\QueryStringBuilder.cs" />
+    <Compile Include="HttpHelpers\UrlBuilder.cs" />
+    <Compile Include="ImageHelpers\ImageHelper.cs" />
+    <Compile Include="ImageHelpers\ProductImageSize.cs" />
+    <Compile Include="ImageHelpers\StoreNewImageSize.cs" />
+    <Compile Include="Infrastructure\CatalogDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\LogsDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\MediaDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\MembersDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\MessagesDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\PacketsDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\PaymentsDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\SeosDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\SettingsDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\StoresDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\UsersDependencyRegistrar.cs" />
+    <Compile Include="Infrastructure\VideosDependencyRegistrar.cs" />
+    <Compile Include="MailHelpers\MailHelper.cs" />
+    <Compile Include="Mvc\AllowSameSiteAttribute.cs" />
+    <Compile Include="Mvc\BaseMakinaTurkiyeModel.cs" />
+    <Compile Include="Mvc\CompressAttribute.cs" />
+    <Compile Include="Mvc\CustomWebFormViewEngine.cs" />
+    <Compile Include="Mvc\WhitespaceFilterAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seo\CookieWebClient.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Seo\HtmlText.cs" />
+    <Compile Include="Seo\ClientProcessor.cs" />
+    <Compile Include="Seo\Client.cs" />
+    <Compile Include="Seo\Keyword.cs" />
+    <Compile Include="Seo\KeywordAnalyzer.cs" />
+    <Compile Include="Seo\Stemmer.cs" />
+    <Compile Include="Seo\TitleExtractor.cs" />
+    <Compile Include="Seo\WordScraper.cs" />
+    <Compile Include="Settings\ApplicationSettings.cs" />
+    <Compile Include="VideoHelpers\VideoHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MakinaTurkiye.Caching\MakinaTurkiye.Caching.csproj">
+      <Project>{22C5F4C2-2DB3-468C-8A57-A54E4BCECC56}</Project>
+      <Name>MakinaTurkiye.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MakinaTurkiye.Core\MakinaTurkiye.Core.csproj">
+      <Project>{5C5E4D8D-D028-4514-A7A2-A52D03EDBDB4}</Project>
+      <Name>MakinaTurkiye.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MakinaTurkiye.Data\MakinaTurkiye.Data.csproj">
+      <Project>{2D2661D7-CBEF-4774-88CF-3BB36259082F}</Project>
+      <Name>MakinaTurkiye.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MakinaTurkiye.Entities\MakinaTurkiye.Entities.csproj">
+      <Project>{3BD34B52-76FA-410E-AEAE-7A0D7A732750}</Project>
+      <Name>MakinaTurkiye.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MakinaTurkiye.Logging\MakinaTurkiye.Logging.csproj">
+      <Project>{1129b94f-3bad-47b3-bc87-7f176686c57f}</Project>
+      <Name>MakinaTurkiye.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MakinaTurkiye.Services\MakinaTurkiye.Services.csproj">
+      <Project>{703A6535-115C-4056-97ED-48FD93D05C4C}</Project>
+      <Name>MakinaTurkiye.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

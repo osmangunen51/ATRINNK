@@ -1,0 +1,173 @@
+﻿
+.title
+{
+  font-size: 19px;
+  color: #000;
+  font-weight: 700;
+  display: block;
+  margin-left: 50px;
+}
+.sub_title
+{
+  color: #4c4c4c;
+  font-size: 16px;
+  margin: 0px 0px 15px 50px;
+  font-weight: 700;
+}
+.attention
+{
+  font-size: 10px;
+  color: #e73b49;
+  text-align: right;
+  display: block;
+}
+.sep_long
+{
+  width: 865px;
+  border-bottom: solid 2px #c9e6e2;
+  margin-bottom: 12px;
+  height: 2px;
+  line-height: 2px;
+  float: right;
+}
+.sep_short
+{
+  clear: both;
+  width: 382px;
+  border-bottom: solid 2px #c9e6e2;
+  margin-bottom: 12px;
+  height: 6px;
+  line-height: 6px;
+}
+.controls
+{
+  margin: 0px 35px 0px 39px;
+  font-size: 12px;
+}
+.description
+{
+  float: left;
+}
+.controls a
+{
+  color: #0769cd;
+  text-decoration: none;
+}
+
+.controls input, .checkboxlist
+{
+  border: solid 1px #c9e6e2;
+  border-top: solid 2px #c9e6e2;
+  height: 17px;
+  margin: 3px 5px 7px 5px;
+  font-size: 12px;
+  padding-top: 5px;
+}
+.checkboxlist
+{
+  padding: 20px;
+  padding-right: 6px;
+  height: auto;
+  float: left;
+}
+.controls select
+{
+  border: solid 1px #c9e6e2;
+  border-top: solid 2px #c9e6e2;
+  height: 20px;
+  margin: 0px 0px 7px 5px;
+  font-size: 12px;
+}
+.controls textarea
+{
+  border: solid 1px #c9e6e2;
+  border-top: solid 2px #c9e6e2;
+  height: 20px;
+  margin: 0px 0px 7px 5px;
+}
+
+.bina_kapi_no_input
+{
+  width: 63px;
+  padding-left: 10px;
+}
+.telTrunk_input
+{
+  width: 30px;
+}
+.tel_input
+{
+  width: 100px;
+}
+.small_input
+{
+  width: 120px;
+  font-size: 12px;
+  padding-left: 10px;
+}
+.big_input
+{
+  width: 200px;
+  font-size: 12px;
+  padding-left: 5px;
+}
+.big_select
+{
+  width: 215px;
+}
+.bigger_input
+{
+  width: 340px;
+}
+.bigger_select
+{
+  width: 345px;
+}
+.controls span
+{
+  font-size: 9px;
+  color: #b3b3b3;
+  margin-left: 5px;
+}
+
+.controls table tr td
+{
+  font-size: 12px;
+}
+.checkbox_item
+{
+  float: left;
+  margin-right: 15px;
+}
+.etiket
+{
+  color: #879a9e;
+  font-size: 12px;
+}
+.kurumsal_logo
+{
+  border: solid 1px #a6dae1;
+}
+.uyelik_tammalandi
+{
+  margin-left: 150px;
+  font-size: 12px;
+  line-height: 25px;
+  width: 285px;
+}
+.uyelik_tamamlandi a
+{
+  color: #ff0000;
+  text-decoration: underline;
+}
+.nextStep
+{
+  font-size: 12px;
+  color: #2f66b9;
+  font-weight: bold;
+  cursor: pointer;
+  float: right;
+  text-decoration: none;
+  background: none;
+  border: none;
+}

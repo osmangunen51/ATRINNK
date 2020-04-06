@@ -1,0 +1,11 @@
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\bin\Debug\MakinaTurkiye.Logging.SqlServer.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\bin\Debug\MakinaTurkiye.Logging.SqlServer.pdb
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\obj\Debug\MakinaTurkiye.Logging.SqlServer.csprojAssemblyReference.cache
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\obj\Debug\MakinaTurkiye.Logging.SqlServer.csproj.CoreCompileInputs.cache
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\obj\Debug\MakinaTurkiye.Logging.SqlServer.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\obj\Debug\MakinaTurkiye.Logging.SqlServer.pdb
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\bin\Debug\MakinaTurkiye.Logging.SqlServer.dll.config
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\bin\Debug\MakinaTurkiye.Logging.dll
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\bin\Debug\MakinaTurkiye.Logging.pdb
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\bin\Debug\MakinaTurkiye.Logging.dll.config
+D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Logging.SqlServer\obj\Debug\MakinaTurkiye.Logging.SqlServer.csproj.CopyComplete

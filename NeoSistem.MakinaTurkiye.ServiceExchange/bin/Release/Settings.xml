@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ServiceSettings>
+  <add name="KurXml" value="http://www.tcmb.gov.tr/kurlar/today.xml"/>
+  <add name="XmlExChangePath" value="D:\Project\NeoSistem.MakinaTurkiye\Project\NeoSistem.MakinaTurkiye.Web\ExChange\exChange.xml"/>
+  <add name="EventTimeBase" value="Daily"/>
+  <add name="TimeSpan" value="12:45 PM"/>
+</ServiceSettings>

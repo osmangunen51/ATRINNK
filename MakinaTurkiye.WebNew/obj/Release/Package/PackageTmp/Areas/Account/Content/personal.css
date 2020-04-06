@@ -1,0 +1,58 @@
+﻿.hesabim_orta_icerik2
+{
+  background-image: url(../images/hesabim_menu.png);
+  background-repeat: repeat-x;
+  float: left;
+  height: auto;
+  width: 588px;
+  border: 1px solid #B1CEE1;
+  padding-bottom: 30px;
+}
+.orta_baslik2
+{
+  font-family: Segoe UI, Arial;
+  font-size: 18px;
+  color: #191919;
+  font-weight: bold;
+  padding-bottom: 5px;
+  float: none;
+  height: auto;
+  width: auto;
+  padding-left: 20px;
+  margin-bottom: 35px;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #99D6DD;
+  padding-top: 5px;
+}
+
+.textPanel
+{
+  height: auto;
+  width: auto;
+  min-width: 700px;
+  padding-bottom: 5px;
+  float: left;
+}
+.textPanelTitle
+{
+  height: auto;
+  width: 100px;
+  float: left;
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #879A9E;
+  text-align: right;
+}
+.textPanelDesc
+{
+  float: left;
+  width: 600px;
+  padding-right: 30px;
+  height: auto;
+  padding-left: 6px;
+  text-align: left;
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #4C4C4C;
+}

@@ -1,0 +1,259 @@
+
+a
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #0769CD;
+  text-decoration: none;
+}
+.onaycontainer
+{
+  float: left;
+  height: auto;
+  width: 900px;
+  margin-top: 20px;
+  margin-right: auto;
+  margin-bottom: 0px;
+  margin-left: auto;
+  padding-top: 20px;
+  padding-right: 30px;
+  padding-bottom: 0px;
+  padding-left: 30px;
+}
+.baslik
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  font-weight: bold;
+  color: #003366;
+  background-color: #D2E1F4;
+  width: 768px;
+  padding-top: 5px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 30px;
+  height: 20px;
+  float: left;
+}
+.kayitcontent
+{
+  float: left;
+  height: auto;
+  width: 798px;
+  border: 1px solid #B1CEE1;
+  margin-top: 5px;
+  padding-bottom: 15px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  background-image: url(/Content/Images/onaybg.jpg);
+  background-repeat: repeat-x;
+}
+.content
+{
+  height: auto;
+  width: 800px;
+  float: left;
+  padding-top: 20px;
+  padding-right: 50px;
+  padding-bottom: 50px;
+  padding-left: 50px;
+  background-image: url(/Content/Images/kayit2.jpg);
+  background-repeat: repeat-y;
+}
+.kayitfooter
+{
+  float: left;
+  width: 900px;
+  height: 14px;
+  background-image: url(/Content/Images/kayit3.jpg);
+  background-repeat: no-repeat;
+}
+
+.kayit
+{
+  background-image: url(/Content/Images/kayit.jpg);
+  width: 850px;
+  height: 35px;
+  float: left;
+  font-family: Segoe UI, Arial;
+  font-size: 16px;
+  color: #003366;
+  font-weight: bold;
+  padding-top: 10px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 50px;
+}
+.yazi
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #0769CD;
+  text-align: right;
+  padding-top: 0px;
+  padding-right: 10px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  float: right;
+  height: auto;
+  width: auto;
+}
+.yazi2
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #4C4C4C;
+  margin-top: 80px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 120px;
+}
+.yazi3
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #4C4C4C;
+  margin-top: 30px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 120px;
+}
+.yazi4
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #4C4C4C;
+  margin-top: 30px;
+  margin-right: 0px;
+  margin-bottom: 30px;
+  margin-left: 120px;
+}
+
+.yazi5
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #0769CD;
+}
+.yazi6
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #4C4C4C;
+  font-weight: bold;
+}
+.baslik2
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  font-weight: bold;
+  color: #003366;
+  background-color: #D2E1F4;
+  width: 768px;
+  padding-top: 5px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 30px;
+  height: 20px;
+  float: left;
+  margin-top: 40px;
+}
+
+.resim
+{
+  background-image: url(/Content/Images/epostaonay.jpg);
+  background-repeat: no-repeat;
+  float: left;
+  height: 38px;
+  width: 424px;
+  margin-left: 120px;
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FF0000;
+  padding-top: 20px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 120px;
+}
+.spamresim
+{
+  background-image: url(/Content/Images/spam.jpg);
+  background-repeat: no-repeat;
+  float: right;
+  height: 286px;
+  width: 373px;
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FF0000;
+  margin: 20px;
+}
+
+.yazi7
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #FF0000;
+  margin-top: 80px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 40px;
+  font-weight: bold;
+  float: left;
+  width: 340px;
+}
+.yazi8
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #4C4C4C;
+  margin-top: 30px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 40px;
+  width: 340px;
+  float: left;
+}
+.yazi9
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #FF0000;
+  font-weight: bold;
+}
+.yazi10
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  color: #FF0000;
+}
+
+
+.yazicontent
+{
+  float: left;
+  height: auto;
+  width: 380px;
+}
+.kayitcontent2
+{
+  float: left;
+  height: auto;
+  width: 798px;
+  border: 1px solid #B1CEE1;
+  margin-top: 15px;
+  padding-bottom: 15px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-left: 0px;
+  background-image: url(/Content/Images/onaybg.jpg);
+  background-repeat: repeat-x;
+}

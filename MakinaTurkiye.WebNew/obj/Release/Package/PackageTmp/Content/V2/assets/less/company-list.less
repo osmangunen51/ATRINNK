@@ -1,0 +1,79 @@
+﻿.company-list-mt{
+    @media(min-width: 767px){
+        margin-right:0;
+    }
+
+    [class*="col-"]{
+        padding-right: 0;
+        padding-left: 0;
+         @media(min-width: 767px){
+            padding-left: 15px;
+        }
+    }
+
+
+    &__item{
+        min-height: 390px;
+        background-color: #fff;
+        border: 1px solid #ebebeb;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    &__title{
+        font-size: 16px;
+        font-weight:bold;
+        margin-bottom: 20px;
+        a{
+            color: #333;
+            text-decoration:none;
+        }
+    }
+
+    &__product-link{
+        display:block;
+        color: #ff6a00;
+    }
+
+    &__image{
+        
+        margin-bottom: 20px;
+        padding: 0 10px 0 0;
+   
+        @media(min-width: 767px){
+            width: 50%;
+            float:left;
+            min-height: 120px;
+        }
+    }
+    &__content{
+        padding: 0 10px;
+        margin-bottom: 20px;
+         @media(min-width: 767px){
+            width: 50%;
+            float:left;
+            min-height: 120px;
+        }
+    }
+
+
+    &__product-gallery{
+        &-item{
+            float:left;
+            margin: 3px;
+            border: 1px solid #d2d1d1;
+
+            &:hover{
+                border-color: #ff6a00;
+            }
+            img{
+                border-radius:0 !important;
+                border:none !important;
+               @media(min-width:768px){
+                   width: 84px;
+               }
+               
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+﻿.leftMenuTitle
+{
+  background-color: #a4c8de;
+  height: auto;
+  color: #fff;
+  font-weight: bold;
+  font-size: 14px;
+  padding-top: 3px;
+  padding-bottom:3px;
+  padding-left: 10px;
+}
+ 
+.leftmenuHover
+{
+  border-right: none;
+}
+.leftMenuContentHomePage li span
+{
+  font-size: 11px;
+  color: #02032f;
+  text-decoration: none;
+}
+
+
+.SectorsButton
+{
+  float: right;
+  width: auto;
+  height: auto;
+  font-size: 9px;
+  margin-right: 10px;
+}	

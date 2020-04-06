@@ -1,0 +1,45 @@
+﻿.updnWatermark
+{
+  position: absolute;	/* positioning container */
+  width: 0;
+  height: 1.25em;	/* must specify height for consistent vertical alignment */
+  margin:0px;
+  padding:0px;
+  margin-top:3px;
+}
+/* IE7/6 hasLayout hack */
+.updnWatermark
+{
+  *zoom: 1;
+}
+/* watermark label styling */
+.updnWatermark label
+{
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+  color: #4d4d4d;
+  padding-left: 10px;
+  height: 1.25em;	/* must specify height for consistent vertical alignment */
+  vertical-align: middle;
+  font-size:12px;
+  padding-top:3px;
+}
+.logout
+{
+  color:#d01e1e;
+  font-size:11px;
+  text-decoration:none;
+  cursor:pointer;
+ }
+ .logout:visited
+{
+  color: #d01e1e;
+  font-size:11px;
+  text-decoration:none;
+  cursor:pointer;
+ }
+ .logout:hover
+{
+  text-decoration:underline;
+ }

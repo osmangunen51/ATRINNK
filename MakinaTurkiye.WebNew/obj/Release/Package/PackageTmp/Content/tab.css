@@ -1,0 +1,115 @@
+﻿body
+{
+  margin: 0px;
+  padding: 0px;
+}
+
+ul.tabs
+{
+  list-style: none;
+  margin: 0 !important;
+  padding: 0;
+  height: 30px;
+}
+
+ul.tabs li
+{
+  float: left;
+  text-indent: 0;
+  padding: 0;
+  margin: 0 !important;
+  list-style-image: none !important;
+}
+
+ul.tabs a
+{
+  font-family: Segoe UI, Arial;
+  font-size: 12px;
+  font-weight: bold;
+  display: block;
+  height: 30px;
+  line-height: 30px;
+  width: 99px;
+  text-align: center;
+  text-decoration: none;
+  color: #003366;
+  padding: 0px;
+  margin: 0px;
+  background-color: #a3c9df;
+  border-top: solid 1px #fff;
+}
+
+ul.tabs a:active
+{
+  outline: none;
+}
+
+ul.tabs a:hover
+{
+  background-position: -554px -31px;
+  color: #fff;
+}
+
+ul.tabs a.current, ul.tabs a.current:hover, ul.tabs li.current a
+{
+  background-color: #fff;
+  cursor: default !important;
+  color: #003366 !important;
+  border: solid 1px #c0dae3;
+  border-bottom: none;
+}
+
+ul.tabs a.s
+{
+  background-position: -554px 0;
+  width: 55px;
+  border-top: solid 1px #fff;
+}
+ul.tabs a.s:hover
+{
+  background-position: -554px -31px;
+}
+ul.tabs a.s.current
+{
+  border: solid 1px #c0dae3;
+  background-color: #fff;
+  border-bottom: none;
+}
+
+ul.tabs a.l
+{
+  border: none;
+  width: 104px;
+  border-top: solid 1px #fff;
+}
+ul.tabs a.l:hover
+{
+  background-position: -247px -31px;
+}
+ul.tabs a.l.current
+{
+  border: solid 1px #c0dae3;
+  background-color: #fff;
+  border-bottom: none;
+}
+
+
+ul.tabs a.xl
+{
+  background-position: 0 -0px;
+  width: 248px;
+}
+ul.tabs a.xl:hover
+{
+  background-position: 0 -31px;
+}
+ul.tabs a.xl.current
+{
+  background-position: 0 -62px;
+}
+
+
+div.panes div.pane
+{
+  display: none;
+}
