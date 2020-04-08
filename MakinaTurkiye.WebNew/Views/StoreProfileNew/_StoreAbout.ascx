@@ -19,37 +19,36 @@
                         { %>
                     <tr>
                         <th style="width: 160px;">
-                            <h3>Firma Kısa Adı :
-                            </h3>
-                        </th>
+                          Firma Kısa Adı :
+                         </th>
                         <td>
                             <%=Model.StoreShortName%>
                         </td>
                     </tr>
                     <%} %>
                     <tr>
-                        <th style="width: 160px;"><h3>Firma Ünvanı :</h3>
+                        <th style="width: 160px;">Firma Ünvanı :
                         </th>
                         <td>
                             <%=Model.StoreName%>
                         </td>
                     </tr>
                     <tr>
-                        <th><h3>Faaliyet Tipi :</h3>
+                        <th>Faaliyet Tipi :
                         </th>
                         <td>
                             <%:Model.StoreActivity %>
                         </td>
                     </tr>
                     <tr>
-                        <th><h3>Firma Kısa Bilgi :</h3>
+                        <th>Firma Kısa Bilgi :
                         </th>
                         <td>
                             <%=Model.StoreAboutShort%>
                         </td>
                     </tr>
                     <tr>
-                        <th><h3>Çalışan Sayısı :</h3>
+                        <th>Çalışan Sayısı :
                         </th>
                         <td>
                             <%if (!string.IsNullOrEmpty(Model.StoreEmployeeCount))
@@ -65,7 +64,7 @@
                     <%if (Model.StoreType != null)
                         {  %>
                     <tr>
-                        <th width="30%"><h3>Şirket Türü :</h3>
+                        <th width="30%">Şirket Türü :
                         </th>
                         <td>
                             <%:Model.StoreType %>
@@ -73,7 +72,7 @@
                     </tr>
                     <%} %>
                     <tr>
-                        <th><h3>Kuruluş Yılı :</h3>
+                        <th>Kuruluş Yılı :
                         </th>
                         <td>
                             <%if (!string.IsNullOrEmpty(Model.StoreEstablishmentDate))
@@ -92,7 +91,7 @@
                     <%if (Model.StoreCapital != null)
                         { %>
                     <tr>
-                        <th width="30%"><h3>Sermaye :</h3>
+                        <th width="30%">Sermaye :
                         </th>
                         <td>
                             <%:Model.StoreCapital %>
@@ -100,7 +99,7 @@
                     </tr>
                     <%} %>
                     <tr>
-                        <th width="30%"><h3>Yıllık Ciro :</h3>
+                        <th width="30%">Yıllık Ciro :
                         </th>
                         <td>
                             <%if (!string.IsNullOrEmpty(Model.StoreEndorsement))
@@ -116,7 +115,7 @@
                     <%if (Model.StoreInfoNumberShow.TradeRegistryNoShow)
                         { %>
                     <tr>
-                        <th width="30%"><h3>Ticaret Sicil No:</h3>
+                        <th width="30%">Ticaret Sicil No:
                         </th>
                         <td>
                             <%:Model.TradeRegistrNo %>
@@ -126,7 +125,7 @@
                     <%if (Model.StoreInfoNumberShow.MersisNoShow)
                         { %>
                     <tr>
-                        <th width="30%"><h3>Mersis No:</h3>
+                        <th width="30%">Mersis No:
                         </th>
                         <td>
                             <%:Model.MersisNo %>
