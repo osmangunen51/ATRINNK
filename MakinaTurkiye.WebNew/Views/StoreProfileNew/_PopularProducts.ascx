@@ -13,7 +13,7 @@
         <div class="thumbnail thumbnail-mt">
             <a href="<%= item.ProductUrl %>">
                 <img src="<%:item.ProductImagePath %>" alt="<%=Html.Truncate(item.ProductName, 80)%>" title="<%=item.ProductName%>" />
-                <%if (item.FavoriteProductId > 0)
+<%--                <%if (item.FavoriteProductId > 0)
                     {%>
                 <div class="product-list-favorite-icon product-list-favorite-icon-c" onclick="RemoveFavoriteProductItem(<%:item.ProductId %>)" data-pid="<%:item.ProductId %>" data-productid="product-favorite-item-<%:item.ProductId %>" title="Favorilerden Kaldır"><i class="fa fa-heart"></i></div>
 
@@ -22,11 +22,11 @@
                     {%>
                 <div data-pid="<%:item.ProductId %>" onclick="AddFavoriteProductItem(<%:item.ProductId %>)" class="product-list-favorite-icon product-list-favorite-icon-c" data-productid="product-favorite-item-<%:item.ProductId %>" title="Favorilere Ekle"><i class="fa fa-heart-o"></i></div>
 
-                <%}%>
+                <%}%>--%>
                 <%if (item.HasVideo)
                     {
                 %>
-                <div class="product-list-video-icon" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
+                <div class="product-list-favorite-icon" style="left:0px;" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
 
                 <%
                     } %>

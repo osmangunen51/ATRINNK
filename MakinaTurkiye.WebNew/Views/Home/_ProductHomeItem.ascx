@@ -9,21 +9,12 @@
 
            title="<%:Model.ProductName %>" />
     </a>
-    <%if (Model.IsFavoriteProduct)
-        {%>
-    <div onclick="RemoveFavoriteProductItem(<%:Model.ProductId %>)" class="product-list-favorite-icon" data-productid="product-favorite-item-<%:Model.ProductId %>" title="Favorilerden Kaldır"><i class="fa fa-heart"></i></div>
 
-    <% }
-        else
-        {%>
-    <div onclick="AddFavoriteProductItem(<%:Model.ProductId %>)" class="product-list-favorite-icon" data-productid="product-favorite-item-<%:Model.ProductId %>" title="Favorilere Ekle"><i class="fa fa-heart-o"></i></div>
-
-    <%}%>
 
     <%if (Model.HasVideo)
         {
     %>
-    <div class="product-list-video-icon" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
+    <div class="product-list-favorite-icon" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
 
     <%
         } %>
