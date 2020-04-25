@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<ProductModel>"
     ValidateRequest="false" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
     <script type="text/javascript" src="/Content/v2/assets/js/CKEditor/ckeditor.js"></script>
     <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
@@ -461,22 +460,11 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Anahtar Kelimeler:</label>
                                 <div class="col-sm-10">
-                                    <input type="text" name="Keywords" data-role="tagsinput" class="form-control" /><br />
+                                    <input type="text" name="Keywords" data-role="tagsinput" class="form-control col-md-8" /><br />
                                     <small>Virgül ile ayırınız</small>
                                 </div>
                             </div>
 
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">Sertifikalar</label>
-                                <div class="col-sm-10">
-                                    <%foreach (var item in Model.CertificateTypes)
-                                        {%>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" name="certificateTypes" value ="<%:item.Value %>" /> <%:item.Text %>
-                                            </label>
-                                       <% } %>
-                                </div>
-                            </div>
                             <%foreach (var item in Model.MTProductPropertieModel.MTProductProperties)
                                 {%>
                             <div class="form-group">
@@ -923,7 +911,21 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <% } %>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">Sertifikalar</label>
+                                <div class="col-sm-10">
+                                    <%foreach (var item in Model.CertificateTypes)
+                                        {%>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" name="certificateTypes" checked value ="<%:item.Value %>" /> <%:item.Text %>
+                                            </label>
+                                       <% } %>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-9 btn-group">
                                     <button type="submit" class="btn btn-primary" id="btnSkip" onclick="return advertCheck();">

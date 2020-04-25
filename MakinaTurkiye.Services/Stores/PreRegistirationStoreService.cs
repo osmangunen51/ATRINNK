@@ -2,6 +2,7 @@
 using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Stores;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
@@ -47,6 +48,13 @@ namespace MakinaTurkiye.Services.Stores
             var preRegistrationStores = query.ToList();
             return new PagedList<PreRegistrationStore>(preRegistrationStores, page, pageSize, totalRecord);
 
+        }
+
+        public IList<PreRegistrationStore> GetPreRegistrationStoreSearchByName(string storeName)
+        {
+            var query = _preRegistrationStoreRepository.Table;
+            query = query.Where(x => x.StoreName.ToLower().Contains(storeName.ToLower()));
+            return query.ToList();
         }
 
         public void InsertPreRegistrationStore(PreRegistrationStore preRegistirationStore)

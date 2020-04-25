@@ -9,11 +9,11 @@
     </td>
     <td class="Cell">
         <%if (ViewData["Admin"] != null && Convert.ToBoolean(ViewData["Admin"]) == true)
-                  {%>
-                   <%: item.UserPass %>
-            <%}
-                  else { %>
-        
+            {%>
+        <%: item.UserPass %>
+        <%}
+            else
+            { %>
                 *****
         <%} %>
      
@@ -42,22 +42,28 @@
     <td class="Cell">
         <%if (item.EndWorkDate.HasValue && item.EndWorkDate.Value <= DateTime.Now.Date)
             {%>
-            <%:item.EndWorkDate.Value.ToString("dd MMMM yyyy") %> Tarihli İşten Ayrıldı 
+        <%:item.EndWorkDate.Value.ToString("dd MMMM yyyy") %> Tarihli İşten Ayrıldı 
         <% }
-                                                                                           else {%>
+            else
+            {%>
         Devam Ediyor
         <% } %>
     </td>
     <td class="CellEnd">
-              <%if (ViewData["Admin"] != null && Convert.ToBoolean(ViewData["Admin"]) == true)
-                  {%>
-                    <a href="/User/Edit/<%: item.UserId %>" style="padding-bottom: 5px;">
+        <%if (ViewData["Admin"] != null && Convert.ToBoolean(ViewData["Admin"]) == true)
+            {%>
+        <a href="/User/Edit/<%: item.UserId %>" style="padding-bottom: 5px;">
             <img style="float: left; margin-right: 10px; display: block;" src="/Content/images/edit.png" />
         </a><a style="cursor: pointer;" onclick="Delete(<%: item.UserId %>);">
             <img style="float: left; margin-right: 5px; display: block;" src="/Content/images/delete.png" />
         </a>
         <a href="/User/CreateMailTemplate/<%=item.UserId  %>">
             <img src="/Content/RibbonImages/mail.png" style="width: 16px;" /></a>
+
+            <a href="/User/Files?userId=<%=item.UserId  %>" style="float: left;" id="lightbox_click" rel="superbox[iframe]" title="Kullanıcı Dosyaları Ekle/Gör">
+                <img src="/Content/RibbonImages/AdvertisePublishAs.png" style="height:16px;" alt="Paket<br />Özellikleri">
+            </a>
+
         <% }%>
 
     </td>

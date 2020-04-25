@@ -1,10 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<NeoSistem.MakinaTurkiye.Web.Models.Statistics.MTProductStatisticViewModel>" %>
 
 <%@ Import Namespace="NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Ürün Görüntülenme İstatistikleri
 
-</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
         <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">

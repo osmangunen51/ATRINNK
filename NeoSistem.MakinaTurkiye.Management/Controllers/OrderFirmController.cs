@@ -136,7 +136,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 whereClause.Clear();
             }
             collection = dataOrder.Search(ref total, (int)Session[SessionPage], 1, whereClause.ToString(), STARTCOLUMN, ORDER).AsCollection<OrderModel>();
-            var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 select u;
+            var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 ||  g.UserGroupId==20 select u;
             List<SelectListItem> salesUserManagers = new List<SelectListItem>();
             salesUserManagers.Add(new SelectListItem { Text = "Tümü", Value = "0" });
             foreach (var item in salesUsers)
@@ -1573,6 +1573,74 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             return RedirectToAction("BillNumber", new { page = "success" });
         }
+
+
+        public ActionResult OrderCount()
+        {
+            var dateNow = DateTime.Now;
+            OrderCountModel model = new OrderCountModel();
+            string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
+            int counter = 1;
+
+            while (dateNow.Date.Month >= counter)
+            {
+                if (!string.IsNullOrEmpty(monthNames[counter-1]))
+                {
+                    if (dateNow.Date.Month >= counter)
+                    {
+                        model.Months.Add(
+                           new SelectListItem
+                           {
+                               Text = monthNames[counter - 1],
+                               Value = counter.ToString()
+                           });
+                        counter++;
+                    }
+                    else
+                        break;
+                }
+            }
+            model.Months.Reverse();
+
+            var orderCountList = PrepareOrderCoutModel(DateTime.Now);
+            model.OrderCountItems = orderCountList;
+            return View(model);
+        }
+
+        public List<OrderCountItemModel> PrepareOrderCoutModel(DateTime dateNow)
+        {
+
+            var orders = _orderService.GetAllOrders().Where(x => x.RecordDate.Date.Month == dateNow.Date.Month && x.RecordDate.Date.Year == dateNow.Date.Year);
+            var s = orders.Where(x => x.AuthorizedId > 0).GroupBy(x => (int)x.AuthorizedId).Select(g => new { id = g.Key, count = g.Count() }).OrderBy(x=>x.count);
+            List<OrderCountItemModel> list = new List<OrderCountItemModel>();
+            foreach (var item in s)
+            {
+                var user = entities.Users.FirstOrDefault(x => x.UserId == item.id);
+                var orderByuser = orders.Where(x => x.AuthorizedId == item.id);
+                decimal totalAmount = orderByuser.Select(x => x.OrderPrice).Sum();
+                var mainPartyIds = orderByuser.Select(x => x.MainPartyId).ToList();
+                var stores = _storeService.GetStoresByMainPartyIds(mainPartyIds);
+                var storeNames = string.Join(",", stores.Select(x => x.StoreShortName));
+                list.Add(new OrderCountItemModel
+                {
+                    Count = item.count,
+                    Username = user.UserName,
+                    TotalAmount = totalAmount.ToString("N2"),
+                    StoreNames = storeNames
+                });
+            }
+            return list;
+        }
+
+        [HttpGet]
+        public PartialViewResult OrderCountItem(string month)
+        {
+
+            var dateTime = new DateTime(DateTime.Now.Year, Convert.ToInt32(month), DateTime.Now.Date.Day);
+            var orderList = PrepareOrderCoutModel(dateTime);
+            return PartialView("_OrderCountList", orderList);
+        }
+
 
     }
 

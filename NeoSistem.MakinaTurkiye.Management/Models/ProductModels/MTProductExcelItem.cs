@@ -10,6 +10,8 @@
         public string WarrantyPeriod { get; set; }
         public double ProductPrice { get; set; }
         public string Mensei { get; set; }
+        public string Keywords { get; set; }
+        public bool Active { get; set; }
 
         public string Kdv { get; set; }
 

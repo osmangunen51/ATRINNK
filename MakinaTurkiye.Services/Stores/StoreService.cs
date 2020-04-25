@@ -39,13 +39,14 @@ namespace MakinaTurkiye.Services.Stores
         private readonly IRepository<StoreActivityType> _storeActivityTypeRepository;
         private readonly IRepository<DealerBrand> _dealarBrandRepository;
         private readonly IRepository<StoreCertificate> _storeCertificateRepository;
-
+        private readonly IRepository<StoreUpdated> _storeUpdatedRepository;
         #endregion
 
         #region Ctor
 
         public StoreService(IDbContext dbContext, IDataProvider dataProvider, IRepository<Store> storeRepository, ICacheManager cacheManager, IRepository<StoreActivityType> storeActivityTypeRepository, IRepository<DealerBrand> dealarBrandRepository
-            ,IRepository<StoreCertificate> storeCertificateRepository) : base(cacheManager)
+            , IRepository<StoreCertificate> storeCertificateRepository, IRepository<StoreUpdated> storeUpdatedRepository
+        ) : base(cacheManager)
         {
             this._dbContext = dbContext;
             this._dataProvider = dataProvider;
@@ -54,6 +55,7 @@ namespace MakinaTurkiye.Services.Stores
             this._storeActivityTypeRepository = storeActivityTypeRepository;
             this._dealarBrandRepository = dealarBrandRepository;
             this._storeCertificateRepository = storeCertificateRepository;
+            this._storeUpdatedRepository = storeUpdatedRepository;
         }
 
         #endregion
@@ -63,8 +65,8 @@ namespace MakinaTurkiye.Services.Stores
         public IList<Store> GetAllStores(StoreActiveTypeEnum? storeActiveType = null)
         {
             var query = _storeRepository.Table;
-            
-            if(storeActiveType!=null)
+
+            if (storeActiveType != null)
             {
                 query = query.Where(s => s.StoreActiveType == (byte)storeActiveType);
             }
@@ -73,8 +75,8 @@ namespace MakinaTurkiye.Services.Stores
             return query.ToList();
         }
 
-        public IPagedList<WebSearchStoreResult> SPWebSearch(out IList<int> filterableCityIds, out IList<int> filterableLocalityIds, 
-            out IList<int> filterableActivityIds, int categoryId = 0, int modelId = 0, int brandId = 0, int cityId = 0, 
+        public IPagedList<WebSearchStoreResult> SPWebSearch(out IList<int> filterableCityIds, out IList<int> filterableLocalityIds,
+            out IList<int> filterableActivityIds, int categoryId = 0, int modelId = 0, int brandId = 0, int cityId = 0,
             IList<int> localityIds = null,
             string searchText = "", int orderBy = 0, int pageIndex = 0, int pageSize = 0, string activityType = "")
         {
@@ -84,7 +86,7 @@ namespace MakinaTurkiye.Services.Stores
             filterableActivityIds = new List<int>();
 
             string localityIdsStr = "";
-            if (localityIds != null && localityIds.Count>0)
+            if (localityIds != null && localityIds.Count > 0)
             {
                 for (int i = 0; i < localityIds.Count; i++)
                 {
@@ -174,12 +176,12 @@ namespace MakinaTurkiye.Services.Stores
             string sql = "SP_WebSearchStore_new1 @CategoryId, @ModelId, @BrandId, @CityId, @LocalityIds, @SearchText, @OrderBy, @PageIndex, @PageSize, @ActivityType," +
                          " @TotalRecords output, @FilterableCityIds output, @FilterableLocalityIds output, @FilterableActivityIds output";
 
-            var stores = _dbContext.SqlQuery<WebSearchStoreResult>(sql,pCategoryId, pModelId, pBrandId, pCityId, pLocalityId, pSearchText, pOrderBy,
+            var stores = _dbContext.SqlQuery<WebSearchStoreResult>(sql, pCategoryId, pModelId, pBrandId, pCityId, pLocalityId, pSearchText, pOrderBy,
                 pPageIndex, pPageSize, pActivityType, pTotalRecords, pFilterableCityIds, pFilterableLocalityIds, pFilterableAcitivtyIds).ToList();
 
             int totalRecords = (pTotalRecords.Value != DBNull.Value) ? Convert.ToInt32(pTotalRecords.Value) : 0;
 
-           
+
             //get filterable 
             string filterableCityIdsStr = (pFilterableCityIds.Value != DBNull.Value) ? (string)pFilterableCityIds.Value : "";
             if (!string.IsNullOrEmpty(filterableCityIdsStr))
@@ -218,7 +220,7 @@ namespace MakinaTurkiye.Services.Stores
             int orderBy = 0, int pageIndex = 0, int pageSize = 0, string activityType = "")
         {
             string localityIdsText = string.Empty;
-            if(localityIds!=null && localityIds.Count>0)
+            if (localityIds != null && localityIds.Count > 0)
             {
                 foreach (var item in localityIds)
                 {
@@ -226,27 +228,29 @@ namespace MakinaTurkiye.Services.Stores
                 }
                 localityIdsText = localityIdsText.Substring(0, localityIdsText.Length - 1);
             }
-            string key = string.Format(STORES_SP_CATEGORYSTORES_BY_PARAMETER_KEY, categoryId, modelId, brandId, 
+            string key = string.Format(STORES_SP_CATEGORYSTORES_BY_PARAMETER_KEY, categoryId, modelId, brandId,
                          cityId, localityIdsText, searchText, orderBy, pageIndex, pageSize, activityType);
 
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var stores = this.SPWebSearch(out IList<int> filterableCityIds, out IList<int> filterableLocalityIds, out IList<int> filterableActivityIds,
-                            categoryId, modelId, brandId, cityId, localityIds, searchText, orderBy, pageIndex, pageSize, activityType);
+               categoryId, modelId, brandId, cityId, localityIds, searchText, orderBy, pageIndex, pageSize, activityType);
 
                 var result = new CategoryStoresResult
                 {
                     Stores = stores,
-                    FilterableCityIds=filterableActivityIds,
-                    FilterableLocalityIds=filterableLocalityIds,
-                    FilterableActivityIds=filterableActivityIds,
+                    FilterableCityIds = filterableCityIds,
+                    FilterableLocalityIds = filterableLocalityIds,
+                    FilterableActivityIds = filterableActivityIds,
                     PageIndex = stores.PageIndex,
                     PageSize = stores.PageSize,
                     TotalCount = stores.TotalCount,
                     TotalPages = stores.TotalPages,
                 };
                 return result;
+
             });
+
         }
 
         public IList<StoreForCategoryResult> GetSPStoresForCategoryByCategoryId(int categoryId)
@@ -328,7 +332,7 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentNullException("storeUrlName");
 
             string key = string.Format(STORES_BY_STORE_URL_NAME_KEY, storeUrlName);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _storeRepository.Table;
                 return query.FirstOrDefault(s => s.StoreUrlName == storeUrlName);
@@ -459,14 +463,14 @@ namespace MakinaTurkiye.Services.Stores
             return stores;
         }
 
-     
+
         public IList<StoreCertificate> GetStoreCertificatesByMainPartyId(int mainPartyId)
         {
             if (mainPartyId == 0)
                 throw new ArgumentNullException("mainPartyId");
 
             string key = string.Format(STORECERTIFICATES_BY_MAIN_PARTY_ID_KEY, mainPartyId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _storeCertificateRepository.Table;
                 query = query.Where(x => x.MainPartyId == mainPartyId).OrderBy(x => x.Order).ThenByDescending(x => x.StoreCertificateId);
@@ -512,11 +516,43 @@ namespace MakinaTurkiye.Services.Stores
 
         public StoreCertificate GetStoreCertificateByStoreCertificateId(int storeCertificateId)
         {
-            if (storeCertificateId <=0)
+            if (storeCertificateId <= 0)
                 throw new ArgumentNullException("storeCertificateId");
 
             var query = _storeCertificateRepository.Table;
             return query.FirstOrDefault(x => x.StoreCertificateId == storeCertificateId);
+        }
+
+        public IList<Store> GetStoresByMainPartyIds(List<int> mainPartyIds)
+        {
+            if (mainPartyIds.Count == 0)
+                throw new ArgumentNullException("mainPartyIds");
+            var query = _storeRepository.TableNoTracking;
+            query = query.Where(x => mainPartyIds.Contains(x.MainPartyId));
+            return query.ToList();
+        }
+
+        public void UpdateStoreUpdated(StoreUpdated storeUpdated)
+        {
+            if (storeUpdated == null)
+                throw new ArgumentNullException("storeUpdated");
+            _storeUpdatedRepository.Update(storeUpdated);
+        }
+
+        public void InsertStoreUpdated(StoreUpdated storeUpdated)
+        {
+            if (storeUpdated == null)
+                throw new ArgumentNullException("storeUpdated");
+            _storeUpdatedRepository.Insert(storeUpdated);
+        }
+
+        public StoreUpdated GetStoreUpdatedByMainPartyId(int mainPartyId)
+        {
+            if (mainPartyId == 0)
+                throw new ArgumentNullException("mainPartyId");
+
+            var query = _storeUpdatedRepository.Table;
+            return query.FirstOrDefault(x => x.MainPartyId == mainPartyId);
         }
 
         #endregion

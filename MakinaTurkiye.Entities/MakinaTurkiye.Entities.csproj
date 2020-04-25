@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DnsClient, Version=1.2.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
-      <HintPath>..\packages\DnsClient.1.2.0\lib\net45\DnsClient.dll</HintPath>
+      <HintPath>..\packages\DnsClient.1.2.0\lib\net471\DnsClient.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -49,7 +49,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
-      <Private>True</Private>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -70,6 +69,7 @@
     <Compile Include="StoredProcedures\Catalog\MostViewProductResultExtensions.cs" />
     <Compile Include="StoredProcedures\Catalog\ProductPropertieValueResult.cs" />
     <Compile Include="StoredProcedures\Catalog\ProductRecomandationResult.cs" />
+    <Compile Include="StoredProcedures\Catalog\SiteMapCategoryPlaceResult.cs" />
     <Compile Include="StoredProcedures\Catalog\SiteMapCategoryResult.cs" />
     <Compile Include="StoredProcedures\Catalog\SiteMapProductResult.cs" />
     <Compile Include="StoredProcedures\Catalog\SiteMapStoreCategoryResult.cs" />
@@ -87,6 +87,7 @@
     <Compile Include="StoredProcedures\Orders\OrderReportResultModel.cs" />
     <Compile Include="StoredProcedures\Search\SearchResult.cs" />
     <Compile Include="StoredProcedures\Stores\StatisticResult.cs" />
+    <Compile Include="StoredProcedures\Stores\StoreChangeInfoResult.cs" />
     <Compile Include="StoredProcedures\Videos\ProductAndStoreDetailResult.cs" />
     <Compile Include="StoredProcedures\Videos\SiteMapVideoResult.cs" />
     <Compile Include="Tables\Catalog\CertificateType.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="Tables\Stores\StoreNew.cs" />
     <Compile Include="Tables\Stores\StoreSector.cs" />
     <Compile Include="Tables\Stores\StoreStatistic.cs" />
+    <Compile Include="Tables\Stores\StoreUpdated.cs" />
     <Compile Include="Tables\Stores\WhatsappLog.cs" />
     <Compile Include="Tables\Users\Help.cs" />
     <Compile Include="Tables\Users\UserFile.cs" />

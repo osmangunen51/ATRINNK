@@ -1,8 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage< NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Videos.MTStoreVideoModel>" %>
-
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Tanıtım Videolarım - makinaturkiye.com
-</asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
     <script type="text/javascript">
         function DeleteVideo(newid) {

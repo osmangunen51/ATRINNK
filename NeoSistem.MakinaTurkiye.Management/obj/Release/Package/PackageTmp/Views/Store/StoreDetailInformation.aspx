@@ -229,7 +229,7 @@
                   </td>
                   <td>
                       <%string colorPacket = "#b68c05";
-                          if (storeInfo.PacketEndDate != null) { colorPacket = "#05762a"; }%>
+    if (storeInfo.PacketEndDate != null) { colorPacket = "#05762a"; }%>
                       <%if (string.IsNullOrEmpty(storeInfo.PacketName)) storeInfo.PacketName = "Tanımlanmamış"; %>
                    <span style="color:<%=colorPacket%>"><%: storeInfo.PacketName%></span>
                   </td>
@@ -306,7 +306,7 @@
                   </td>
                   <td>
                   <%if (!string.IsNullOrEmpty(storeInfo.StoreWebUrl)) {%>
-                           <a href="<%:!storeInfo.StoreWebUrl.Contains("http")?"http://" + storeInfo.StoreWebUrl :storeInfo.StoreWebUrl %>">
+                           <a href="<%:!storeInfo.StoreWebUrl.Contains("http") ? "http://" + storeInfo.StoreWebUrl : storeInfo.StoreWebUrl %>">
                       <%:storeInfo.StoreWebUrl %>               
                        </a>
                       <% } %>
@@ -357,7 +357,7 @@
                       <td><%:Model.MemberInformationModel.MemberName %> <%:Model.MemberInformationModel.MemberSurname %></td>
                   </tr>
                   <%foreach (var item in Model.MemberInformationModel.MemberEmails)
-                      {%>
+    {%>
                    <tr>
                       <td>E-posta
                       </td>
@@ -365,7 +365,14 @@
                       <td><a href="mailto:<%:item %>"><%:item%></a></td>
                   </tr>
                      <% } %>
-                  <tr></tr>
+                  <%if (storeInfo.StoreUpdatedDate.HasValue) {%>
+                                      <tr>
+                      <td>Bilgi Kontrollü Güncellenme Tarh.</td>
+                      <td>:</td>
+                      <td><%:storeInfo.StoreUpdatedDate.Value.ToString("dd.MM.yyyy HH:mm") %></td>
+                  </tr>
+                  <% } %>
+
             
               </table>
             </div>

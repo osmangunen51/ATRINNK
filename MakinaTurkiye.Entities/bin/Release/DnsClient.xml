@@ -3103,6 +3103,19 @@
             The list of name servers.
             </returns>
         </member>
+        <member name="M:DnsClient.NameServer.ResolveNameServersNative">
+            <summary>
+            Using my custom native implementation to support UWP apps and such until <see cref="M:System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces"/>
+            gets an implementation in netstandard2.1.
+            </summary>
+            <remarks>
+            DnsClient has been changed in version 1.1.0.
+            It will not invoke this when resolving default DNS servers. It is up to the user to decide what to do based on what platform the code is running on.
+            </remarks>
+            <returns>
+            The list of name servers.
+            </returns>
+        </member>
         <member name="T:DnsClient.QueryClass">
             <summary>
             CLASS fields appear in resource records.

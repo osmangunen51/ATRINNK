@@ -95,40 +95,40 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         //public void PrepareVideoDetailSeo(ProductAndStoreDetailResult product, Video video)
         //{
-            //if (!string.IsNullOrEmpty(video.VideoTitle))
-            //    CreateSeoParameter(SeoModel.SeoProductParemeters.ProductName, video.VideoTitle);
-            //else
-            //    CreateSeoParameter(SeoModel.SeoProductParemeters.ProductName, product.ProductName);
+        //if (!string.IsNullOrEmpty(video.VideoTitle))
+        //    CreateSeoParameter(SeoModel.SeoProductParemeters.ProductName, video.VideoTitle);
+        //else
+        //    CreateSeoParameter(SeoModel.SeoProductParemeters.ProductName, product.ProductName);
 
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.Category, product.CategoryName);
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.Brand, product.BrandName);
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.Model, product.ModelName);
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.ModelYear, product.ModelYear.ToString());
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.FirmName, product.StoreName);
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.ProductType, product.ProductTypeText);
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.ProductStatu, product.ProductStatuText);
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.Category, product.CategoryName);
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.Brand, product.BrandName);
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.Model, product.ModelName);
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.ModelYear, product.ModelYear.ToString());
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.FirmName, product.StoreName);
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.ProductType, product.ProductTypeText);
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.ProductStatu, product.ProductStatuText);
 
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.ProductSalesType, product.ProductSalesTypeText);
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.ProductSalesType, product.BriefDetailText);
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.ProductSalesType, product.ProductSalesTypeText);
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.ProductSalesType, product.BriefDetailText);
 
-            //CreateSeoParameter(SeoModel.SeoProductParemeters.Price, ViewData["dov"] != null ? ViewData["dov"].ToString() : "-");
+        //CreateSeoParameter(SeoModel.SeoProductParemeters.Price, ViewData["dov"] != null ? ViewData["dov"].ToString() : "-");
 
-            //if (product.StoreCityName != "" && product.StoreCityName != null)
-            //{
-            //    CreateSeoParameter(SeoModel.SeoProductParemeters.Sehir, product.StoreCityName);
-            //}
-            //else if (product.MemberCityName != "" && product.MemberCityName != null)
-            //{
-            //    CreateSeoParameter(SeoModel.SeoProductParemeters.Sehir, product.MemberCityName);
-            //}
-            //if (product.StoreLocalityName != "" && product.StoreLocalityName != null)
-            //{
-            //    CreateSeoParameter(SeoModel.SeoProductParemeters.Ilce, product.StoreLocalityName);
-            //}
-            //else if (product.MemberLocalityName != "" && product.MemberLocalityName != null)
-            //{
-            //    CreateSeoParameter(SeoModel.SeoProductParemeters.Ilce, product.MemberLocalityName);
-            //}
+        //if (product.StoreCityName != "" && product.StoreCityName != null)
+        //{
+        //    CreateSeoParameter(SeoModel.SeoProductParemeters.Sehir, product.StoreCityName);
+        //}
+        //else if (product.MemberCityName != "" && product.MemberCityName != null)
+        //{
+        //    CreateSeoParameter(SeoModel.SeoProductParemeters.Sehir, product.MemberCityName);
+        //}
+        //if (product.StoreLocalityName != "" && product.StoreLocalityName != null)
+        //{
+        //    CreateSeoParameter(SeoModel.SeoProductParemeters.Ilce, product.StoreLocalityName);
+        //}
+        //else if (product.MemberLocalityName != "" && product.MemberLocalityName != null)
+        //{
+        //    CreateSeoParameter(SeoModel.SeoProductParemeters.Ilce, product.MemberLocalityName);
+        //}
         //}
 
         private void PrepareNavigation(MTVideoViewModel model)
@@ -193,22 +193,26 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (categoryParentId > 0)
             {
                 var topCategories = _categoryService.GetSPTopCategories(categoryParentId);
-                var lastCategory = topCategories.LastOrDefault();
-                model.VideoCategoryModel.SelectedCategoryId = categoryParentId;
-                model.VideoCategoryModel.SelectedCategoryName = !string.IsNullOrEmpty(lastCategory.CategoryContentTitle) ? lastCategory.CategoryContentTitle : lastCategory.CategoryName;
-
-                foreach (var item in topCategories)
+                if (topCategories.Count > 0)
                 {
-                    model.VideoCategoryModel.VideoTopCategoryItemModels.Add(new MTVideoCategoryItemModel
-                    {
-                        CategoryName = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName,
-                        CategoryUrl = UrlBuilder.GetVideoCategoryUrl(item.CategoryId, item.CategoryName),
-                        CategoryType = item.CategoryType,
-                        CategoryId = item.CategoryId,
-                        CategoryParentId = item.CategoryParentId
-                    });
+                    var lastCategory = topCategories.LastOrDefault();
+                    model.VideoCategoryModel.SelectedCategoryId = categoryParentId;
+                    model.VideoCategoryModel.SelectedCategoryName = !string.IsNullOrEmpty(lastCategory.CategoryContentTitle) ? lastCategory.CategoryContentTitle : lastCategory.CategoryName;
 
+                    foreach (var item in topCategories)
+                    {
+                        model.VideoCategoryModel.VideoTopCategoryItemModels.Add(new MTVideoCategoryItemModel
+                        {
+                            CategoryName = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName,
+                            CategoryUrl = UrlBuilder.GetVideoCategoryUrl(item.CategoryId, item.CategoryName),
+                            CategoryType = item.CategoryType,
+                            CategoryId = item.CategoryId,
+                            CategoryParentId = item.CategoryParentId
+                        });
+
+                    }
                 }
+
             }
         }
 
@@ -353,13 +357,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 //}
             }
             var residualBill = 21 - videoModels.Count;
-            if (residualBill > 6 && categoryId >0 )
+            if (residualBill > 6 && categoryId > 0)
             {
 
                 List<MTVideoModel> similarVideos = new List<MTVideoModel>();
                 var category = _categoryService.GetCategoryByCategoryId(categoryId);
-                PrepareOtherVideoModels(videoModels.Count, categoryId, Convert.ToInt32(category.CategoryParentId), 21, similarVideos, 1);
-                model.SimilarVideos = similarVideos;
+                if (category != null)
+                {
+                    PrepareOtherVideoModels(videoModels.Count, categoryId, Convert.ToInt32(category.CategoryParentId), 21, similarVideos, 1);
+                    model.SimilarVideos = similarVideos;
+                }
+
             }
             model.VideoModels = videoModels;
         }
@@ -598,7 +606,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
             }
-            if (videoModels.Count < pageDimension && categoryParentId>0)
+            if (videoModels.Count < pageDimension && categoryParentId > 0)
             {
                 var category = _categoryService.GetCategoryByCategoryId(categoryParentId);
                 if (category != null)
@@ -644,12 +652,20 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //    SeoPageType = (byte)PageType.VideoCategoryPage;
             //}
 
+            if (categoryId != 0)
+            {
+                var category = _categoryService.GetCategoryByCategoryId(categoryId);
+                if (category == null)
+                {
+                    return RedirectPermanent(AppSettings.VideoUrlBase);
+                }
+            }
 
             string key = string.Format("makinaturkiye.video-pages-test");
             var testModel = _cacheManager.Get(key, () =>
             {
                 var model = new MTVideoViewModel();
-
+    
                 //popular videos
                 PreparePopularVideoModel(model);
                 //video category
@@ -663,7 +679,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 PreparePagingModel(categoryId, videoCountByCategoryId, model);
                 //navigation
                 PrepareNavigation(model);
-               
+
                 //similar
                 //seo parameter
                 //PrepareSeo(categoryId);
@@ -692,7 +708,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (product == null)
                 return RedirectPermanent(AppSettings.VideoUrlBase);
 
-     
+
 
             //string requestUrl = request.IsLocal ? request.Url.AbsolutePath : request.Url.AbsoluteUri;
             //bool urlCheck = requestUrl == url;

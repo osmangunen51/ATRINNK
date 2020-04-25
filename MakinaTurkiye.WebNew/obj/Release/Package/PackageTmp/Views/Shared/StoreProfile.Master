@@ -1,87 +1,11 @@
 ﻿<%@ Master Language="C#" Inherits="NeoSistem.MakinaTurkiye.Core.Web.ViewMasterPage" %>
-<%int page = 0;
-    string pageTitle = "";
-    string pageTitleNew = "";
-    if (Request.QueryString["page"] != null)
-    {
-        page = Convert.ToInt32(Request.QueryString["page"]);
-    }
-    if (Request.QueryString["currentPage"] != null)
-    {
-        page = Convert.ToInt32(Request.QueryString["currentPage"]);
-    }
-    if (ViewData["SEOPAGETYPE"] != null && ViewData["SEOPAGESPECIAL"] != null)
-    {
-        pageTitle = SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(), ViewData["SEOPAGESPECIAL"].ToInt32(), page).Title.Trim();
-%>
-<%pageTitleNew = pageTitle;%>
-<%}%>
-<% else if (ViewData["SEOPAGETYPE"] != null)
-    {
-        pageTitle = SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(), 0, page).Title.Trim();
-%>
-<%pageTitleNew = pageTitle;%>
-<% } %>
+
 <!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="utf-8">
-    <title><%:Html.Raw(pageTitleNew) %><asp:ContentPlaceHolder ID="TitleContent" runat="server" />
-    </title>
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-    <link rel="dns-prefetch" href="//www.googletagmanager.com">
-    <link rel="dns-prefetch" href="//www.google-analytics.com">
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//ajax.googleapis.com">
-    <link rel="dns-prefetch" href="//s.makinaturkiye.com">
-    <link rel="dns-prefetch" href="//connect.facebook.net">
-    <%if (ViewData["SEOPAGETYPE"] != null && ViewData["SEOPAGESPECIAL"] != null)
-        {  %>
-    <%= Html.RenderHtmlPartial("_MetaTag", SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),ViewData["SEOPAGESPECIAL"].ToInt32(),page))%>
-    <%} %>
-    <% else if (ViewData["SEOPAGETYPE"] != null)
-        {%>
-    <%= Html.RenderHtmlPartial("_MetaTag", SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),0,page))%>
-    <% } %>
-    <meta http-equiv="content-language" content="TR" />
-    <meta name="content-language" content="tr-TR" />
-    <meta http-equiv="X-UA-Compatible" content="IE=10;IE=9; IE=8; IE=7; IE=EDGE" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="jpeiLIXc-vAKBB2vjRZg3PluGG3hsty0n6vSXUr_C-A" />
-    <meta name="y_key" content="edbb7e17ada4b80f" />
-    <meta name="robots" content="NOODP">
-    <meta title="title" content="<%=pageTitle %>" />
-    <meta name="og:title" content="<%=pageTitle %>" />
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext" rel="stylesheet">
-    <script src="/Content/V2/assets/js/jquery.min.js?v=1"></script>
-    <script src="/Content/V2/assets/js/jquery.autocomplete.js"></script>
-    <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=4.4" defer></script>
-    <script src="/Content/V2/public/build/js/bundle-main-min.js?v=4.5" defer></script>
-    <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"></script>
-    <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=5.7" />
-       <meta name = "yandex-doğrulama" content = "0585f5b37b494a5f" />
-    <!-- Cookie Policy File -->
-
-    <!-- Cookie Policy File -->
-    <%--TODO Adil autoComplate calistiktan sonra bunu gulpa bagla--%>
+    <%: Html.Action("MetaTag","Common")%>
+    <%= Html.RenderHtmlPartial("_Head")%>
     <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
-    <link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
-    <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
-    <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css") %>" />
-    <!-- CSS -->
-    <meta name="alexaVerifyID" content="u8sVDfy1ch6DMlQb9Mwm7Ts0Hik" />
-    <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-TR7HZJT');</script>
-    <!-- End Google Tag Manager -->
-    <%Response.Flush(); %>
 </head>
 <body class="facelift-v2">
     <!-- Json Ld Ayar-->
@@ -119,7 +43,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-5 col-md-4 col-lg-3 stickem">
-					<asp:ContentPlaceHolder runat="server" ID="StoprofileMenu"></asp:ContentPlaceHolder>
+                    <asp:ContentPlaceHolder runat="server" ID="StoprofileMenu"></asp:ContentPlaceHolder>
                 </div>
                 <asp:ContentPlaceHolder runat="server" ID="StoreProfileContent">
                 </asp:ContentPlaceHolder>

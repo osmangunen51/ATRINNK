@@ -3413,6 +3413,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Int32> _StoreDealerId;
         partial void OnStoreDealerIdChanging(Nullable<global::System.Int32> value);
         partial void OnStoreDealerIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String PostCode
+        {
+            get
+            {
+                return _PostCode;
+            }
+            set
+            {
+                OnPostCodeChanging(value);
+                ReportPropertyChanging("PostCode");
+                _PostCode = StructuralObject.SetValidValue(value, true, "PostCode");
+                ReportPropertyChanged("PostCode");
+                OnPostCodeChanged();
+            }
+        }
+        private global::System.String _PostCode;
+        partial void OnPostCodeChanging(global::System.String value);
+        partial void OnPostCodeChanged();
 
         #endregion
 
@@ -16233,6 +16257,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private global::System.String _EBillNumber;
         partial void OnEBillNumberChanging(global::System.String value);
         partial void OnEBillNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> InvoiceDate
+        {
+            get
+            {
+                return _InvoiceDate;
+            }
+            set
+            {
+                OnInvoiceDateChanging(value);
+                ReportPropertyChanging("InvoiceDate");
+                _InvoiceDate = StructuralObject.SetValidValue(value, "InvoiceDate");
+                ReportPropertyChanged("InvoiceDate");
+                OnInvoiceDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _InvoiceDate;
+        partial void OnInvoiceDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnInvoiceDateChanged();
 
         #endregion
 

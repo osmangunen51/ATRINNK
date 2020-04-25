@@ -19,6 +19,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
         public bool HasImages { get; set; }
         public bool HasCatolog { get; set; }
         public bool HasNew { get; set; }
+        public bool HasStoreVideos { get; set; }
 
     }
 }

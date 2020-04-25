@@ -1,0 +1,25 @@
+.fast-access-bar {
+  margin-top: -20px;
+}
+.fast-access-bar__inner .breadcrumb.breadcrumb-mt {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.fast-access-bar__inner .breadcrumb.breadcrumb-mt li {
+  font-size: 11px;
+}
+.fast-access-bar.is-fixed {
+  margin-top: 0;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 2000;
+}
+.fast-access-bar.is-fixed .fast-access-bar__inner {
+  background-color: #d0d0d0;
+  background-repeat: repeat-x;
+  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.06), 1px 0 2px 0 rgba(0, 0, 0, 0.08);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.06), 1px 0 2px 0 rgba(0, 0, 0, 0.08);
+  padding: 0 20px;
+}

@@ -34,11 +34,8 @@
             {%>
         <i class="icon-down-arrow menuarrow"></i>
         <ul class="sub-menu">
-            a
-     
-
-    <% foreach (var itemParent in Model.MTCategoryItems.Where(c => c.CategoryParentId == item.CategoryId))
-        { %>
+            <% foreach (var itemParent in Model.MTCategoryItems.Where(c => c.CategoryParentId == item.CategoryId))
+                { %>
             <li class="sub-menu-item">
                 <a href="<%:itemParent.CategoryUrl %>"><%:itemParent.CategoryName %></a>
             </li>

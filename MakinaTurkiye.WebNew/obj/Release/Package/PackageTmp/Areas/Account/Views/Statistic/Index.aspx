@@ -1,9 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<NeoSistem.MakinaTurkiye.Web.Models.Statistics.ProductStatisticModel>" %>
 
 <%@ Import Namespace="NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    İstatistik
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <script type="text/javascript">
         function PageChangeStatic(p, d, a) {

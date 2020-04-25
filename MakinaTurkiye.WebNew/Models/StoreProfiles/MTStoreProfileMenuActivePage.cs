@@ -20,6 +20,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
         public string StoreImagesActive { get; set; }
         public string CatologActive { get; set; }
         public string NewActive { get; set; }
+        public string StoreVideosActive { get; set; }
     }
     
 }

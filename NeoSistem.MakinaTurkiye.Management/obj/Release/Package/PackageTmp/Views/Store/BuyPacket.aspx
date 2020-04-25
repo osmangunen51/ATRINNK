@@ -144,7 +144,7 @@
                     "TaxNo": $("#TaxNo").val(),
                     "DiscountType": $("#DiscounType").val(),
                     "DiscountAmount": $("#DiscountAmount").val(),
-                    "SalesType": $("#SalesType").val(),
+   
                     "PacketDay": $("#PacketDay").val()
                 },
                 dataType: 'json',
@@ -216,15 +216,7 @@
                 </td>
 
             </tr>
-            <tr>
-                <td>Satış Tipi</td>
-                <td>:</td>
-                <td>
-                    <select id="SalesType">
-                        <option value="0">Yeni Satış</option>
-                        <option value="1">Yenileme</option>
-                    </select>
-            </tr>
+
             <tr>
                 <td>Açıklama</td>
                 <td>:</td>

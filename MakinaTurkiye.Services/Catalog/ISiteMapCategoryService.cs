@@ -14,5 +14,8 @@ namespace MakinaTurkiye.Services.Catalog
         IList<SiteMapVideoCategoryResult> GetSiteMapVideoCategories();
 
         IList<SiteMapCategoryResult> GetSiteMapCategories(CategoryTypeEnum categoryType);
+
+        IList<SiteMapCategoryPlaceResult> GetSiteMapCategoriesPlace(CategoryPlaceTypeEnum categoryPlaceType);
+
     }
 }

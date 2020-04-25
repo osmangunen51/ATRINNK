@@ -14,7 +14,7 @@ namespace MakinaTurkiye.Entities.Tables.Users
         public bool IsFirst { get; set; }
         public DateTime? RecordDate { get; set; }
         public int? ProblemTypeId { get; set; }
-
+        public bool? IsWaiting { get; set; }
 
     }
 }

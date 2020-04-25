@@ -946,6 +946,12 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                constraints: new { username = new UserNameConstraint() });
 
             routes.MapRoute(
+  name: "StoreProfileProductsStoreVideos",
+  url: "{username}/tanitim-videolar",
+  defaults: new { controller = "StoreProfileNew", action = "StorePromotionVideo", username = UrlParameter.Optional },
+   constraints: new { username = new UserNameConstraint() });
+
+            routes.MapRoute(
               name: "StoreProfileProductsNewCategory",
               url: "{username}/{categoryname}-c-{CategoryId}",
               defaults: new { controller = "StoreProfileNew", action = "ProductsNew", username = UrlParameter.Optional, CategoryId = UrlParameter.Optional },

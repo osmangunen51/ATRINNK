@@ -11,13 +11,13 @@
       function DontAllowForAnotherTab() {
           $(".tabStore").each(function (index) {
          
-              if ($(this).attr("data-a") != "BrowseDesc1")
-              $(this).attr("href", "javascript:void(0)");
+              if ($(this).attr("data-a") == "BrowseDesc1")
+                  $(this).removeAttr("href");
              
           });
 
           $(".tabLi").each(function (index) {
-          if ($(this).attr("data-a") != "BrowseDesc1")
+          if ($(this).attr("data-a") == "BrowseDesc1")
               $(this).attr("onClick", "alert('Yönetici Seçiniz.');")
 
         

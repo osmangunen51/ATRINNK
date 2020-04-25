@@ -6,29 +6,11 @@
             data-ride="carousel">
             <div class="carousel-inner">
                 <div id="test-slider-1" class="item active">
-
-
                     <img style="width: auto; height: 100%; max-width: 100%;" src="<%:Model.AboutImagePath %>"
                         alt="<%:Model.StoreName%>" title="<%:Model.StoreName %>" />
                 </div>
-                <%-- <div id="test-slider-2" class="item">
-										  <img src="http://placehold.it/300x225&amp;text=2.+firma+resmi" alt="..">
-									 </div>
-									 <div id="test-slider-3" class="item">
-										  <img src="http://placehold.it/300x225&amp;text=3.+firma+resmi" alt="..">
-									 </div>
-									 <div id="test-slider-4" class="item">
-										  <img src="http://placehold.it/300x225&amp;text=4.+firma+resmi" alt="..">
-									 </div>--%>
             </div>
-            <%--<ol class="carousel-indicators">
-									 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-									 <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-									 <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-									 <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-								</ol>--%>
         </div>
-
         <div class="col-md-6">
 
             <table class="table table-striped">
@@ -36,8 +18,9 @@
                     <%if (!string.IsNullOrEmpty(Model.StoreShortName))
                         { %>
                     <tr>
-                        <th style="width: 160px;">Firma Kısa Adı :
-                        </th>
+                        <th style="width: 160px;">
+                          Firma Kısa Adı :
+                         </th>
                         <td>
                             <%=Model.StoreShortName%>
                         </td>
@@ -107,7 +90,7 @@
                     </tr>
                     <%if (Model.StoreCapital != null)
                         { %>
-                     <tr>
+                    <tr>
                         <th width="30%">Sermaye :
                         </th>
                         <td>
@@ -153,20 +136,16 @@
             </table>
         </div>
     </div>
+</div>
+<%if (!string.IsNullOrEmpty(Model.AboutText)) {%>
+<div class="row">
     <div class="col-sm-12 pt20 aboutusText">
-        <div class="col-md-12" id="aboutTextDetail" style="height:50px!important; overflow:hidden;">
-        <%= Html.Raw(Model.AboutText)%>
-            </div>
-        <%if (!Model.IsAboutText)
-            {%>
-
-       <p class="more-show-about" style="">Devamını Oku</p>
-
-        <% }
-            else if(Model.IsAboutText)
-            {%>
-        <a href="<%:Model.StoreUrl %>/hakkimizda">Devamını Oku..</a>
-        <% } %>
+        <div class="col-md-12" id="aboutTextDetail">
+            <%= Html.Raw(Model.AboutText)%>
+        </div>
     </div>
 
 </div>
+<% } %>
+
+

@@ -3,52 +3,8 @@
 <!doctype html>
 <html lang="tr">
 <head>
-    <meta charset="utf-8">
-    <title><%if (ViewData["SEOPAGETYPE"] != null && ViewData["SEOPAGESPECIAL"] != null)
-               {  %>
-        <%=SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),ViewData["SEOPAGESPECIAL"].ToInt32()).Title.Trim()%>
-        <%}%>
-        <% else if (ViewData["SEOPAGETYPE"] != null)
-            {%>
-        <%=SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),0).Title.Trim()%>
-        <% } %>
-        <asp:ContentPlaceHolder ID="TitleContent" runat="server" />
-    </title>
-    <meta http-equiv="x-dns-prefetch-control" content="on">
-    <link rel="dns-prefetch" href="//www.googletagmanager.com">
-    <link rel="dns-prefetch" href="//www.google-analytics.com">
-    <link rel="dns-prefetch" href="//fonts.googleapis.com">
-    <link rel="dns-prefetch" href="//ajax.googleapis.com">
-    <link rel="dns-prefetch" href="//s.makinaturkiye.com">
-    <link rel="dns-prefetch" href="//connect.facebook.net">
-    <%if (ViewData["SEOPAGETYPE"] != null && ViewData["SEOPAGESPECIAL"] != null)
-        {  %>
-    <%= Html.RenderHtmlPartial("_MetaTag", SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),ViewData["SEOPAGESPECIAL"].ToInt32()))%>
-    <%} %>
-    <% else if (ViewData["SEOPAGETYPE"] != null)
-        {%>
-    <%= Html.RenderHtmlPartial("_MetaTag", SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte(),0))%>
-    <% } %>
-    <meta name="author" content="Anexxa Bilişim Teknolojileri" />
-    <meta name="content-language" content="tr-TR" />
-    <%  string sayfaKontrol = SeoModel.GetPageType(ViewData["SEOPAGETYPE"].ToByte());
-        if (sayfaKontrol == "Kategori")
-        {
-            ViewData["bodyClass"] = "kategori";
-        }
-        else if (sayfaKontrol == "Sirketler")
-        {
-            ViewData["bodyClass"] = "sirket";
-        }
-        else if (sayfaKontrol == "Videolar")
-        {
-            ViewData["bodyClass"] = "video";
-        }
-        else
-        {
-            ViewData["bodyClass"] = "";
-        } %>
-
+    <%: Html.Action("MetaTag","Common",new { area = "" } )%>   
+    <%= Html.RenderHtmlPartial("_Head")%>   
 
     <% string memberName = string.Empty;
         int memberType = 0;
@@ -57,7 +13,6 @@
         {
             membermainPartyId = AuthenticationUser.Membership.MainPartyId;
         }
-
     %>
     <%int notReadInboxMessageCount = 0;
         int favoriteProductCount = 0;
@@ -84,32 +39,6 @@
             favoriteProductCount = favoriteProducts.Count;
         }
     %>
-    <meta http-equiv="content-language" content="TR" />
-    <meta http-equiv="window-target" content="_top" />
-    <meta name="distribution" content="" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta property="og:site_name" content="MakinaTurkiye.com" />
-    <meta property="og:type" content="product" />
-    <meta name="rating" content="general" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="google-site-verification" content="jpeiLIXc-vAKBB2vjRZg3PluGG3hsty0n6vSXUr_C-A" />
-    <meta name="y_key" content="edbb7e17ada4b80f" />
-    <meta name="robots" content="NOODP">
-    <link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=3" />
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext" rel="stylesheet">
-    <script src="/Content/V2/assets/js/jquery.min.js?v=4"></script>
-    <!-- CSS -->
-    <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=4.0" />
-    <!-- JS -->
-
-    <script src="/Content/V2/assets/js/jquery.autocomplete.js"></script>
-    <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"></script>
-    <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=3.3" defer></script>
-    <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
-    <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css") %>" />
-    <script src="/Content/V2/public/build/js/bundle-main-min.js?v=3.3" defer></script>
-    <meta name="alexaVerifyID" content="u8sVDfy1ch6DMlQb9Mwm7Ts0Hik" />
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
 
     <script type="text/javascript">
 
@@ -152,7 +81,7 @@
 </head>
 
 
-<body class="facelift-v2  <%=ViewData["bodyClass"].ToString()%>">
+<body class="facelift-v2">
 
 
     <!-- Google Tag Manager (noscript) -->

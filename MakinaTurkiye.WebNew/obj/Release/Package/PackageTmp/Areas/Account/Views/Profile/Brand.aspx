@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<StoreModel>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Markalarımız-Makina Türkiye
-</asp:Content>
+
+
 <asp:Content ID="Content3" ContentPlaceHolderID="HeaderContent" runat="server">
     <%=Html.RenderHtmlPartial("ProfileStyle")%>
     <script type="text/javascript">

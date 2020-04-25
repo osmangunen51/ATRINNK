@@ -27,6 +27,7 @@
     <EntitySetMapping Name="Addresses">
       <EntityTypeMapping TypeName="MakinaTurkiyeModel.Address">
         <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
           <ScalarProperty Name="AddressId" ColumnName="AddressId" />
           <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
           <ScalarProperty Name="CountryId" ColumnName="CountryId" />
@@ -616,6 +617,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="MakinaTurkiyeModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
           <ScalarProperty Name="EBillNumber" ColumnName="EBillNumber" />
           <ScalarProperty Name="IsRenewPacket" ColumnName="IsRenewPacket" />
           <ScalarProperty Name="PacketStartDate" ColumnName="PacketStartDate" />

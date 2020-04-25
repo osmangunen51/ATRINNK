@@ -1,20 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<StoreModel>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Firma Kapak Fotoğrafı Güncelle-Makina Türkiye
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
-
-    <%--    <script type="text/javascript">
-        function DeleteLogo() {
-            if ($('#hiddenDelete').val() == 'false') {
-                $('#hiddenDelete').val('true');
-                $('[data-rel="addlogo"]').show();
-                $('[data-rel="logo"]').hide();
-            }
-        }
-    </script>--%>
-
     <script type="text/javascript">
         function DeletePicture(ID) {
             if (confirm('Resimi Silmek istediğinizden eminmisiniz ?')) {
@@ -40,7 +27,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
-    
+
     <div class="row">
         <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
             <%= Html.RenderHtmlPartial("LeftMenu",Model.LeftMenu)%>
@@ -53,14 +40,15 @@
     <div class="row">
         <div class="col-sm-12 col-md-12">
             <div>
-            
+
                 <%using (Html.BeginForm("UpdateBanner", "Store", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", @class = "form-horizontal" }))
-                  {%>
+                    {%>
                 <input id="hiddenDelete" name="Delete" value="false" type="hidden" />
-                <div class="well  col-xs-12" style="background-color:#fff!important; border:1px solid #ccc;">
-                         <%if (ViewData["message"]!=null) {%>
+                <div class="well  col-xs-12" style="background-color: #fff!important; border: 1px solid #ccc;">
+                    <%if (ViewData["message"] != null)
+                        {%>
                     <div class="alert alert-warning">
-                      <strong>Hata!</strong><%:ViewData["message"] %>
+                        <strong>Hata!</strong><%:ViewData["message"] %>
                     </div>
                     <% } %>
                     <div class="row">
@@ -68,23 +56,23 @@
                             <img alt="" data-rel="addlogo" style="display: none" src="http://www.placehold.it/1400x250&amp;text=banner"
                                 class="img-thumbnail" />
                             <% if (!string.IsNullOrWhiteSpace(Model.StoreBanner))
-                               { %>
-                            <img class="pull-left img-thumbnail" id="imgBanner"   src="<%:Url.Content(ImageHelpers.GetStoreBanner(Model.Store.MainPartyId,Model.StoreBanner)+"?v="+DateTime.Now.ToString("yyyyMMddHHmmss")) %>" />
-                            <div onclick="DeletePicture(<%:Model.Store.MainPartyId %>)" style="cursor:pointer; text-decoration:underline; color:#333">Kaldır</div>
+                                { %>
+                            <img class="pull-left img-thumbnail" id="imgBanner" src="<%:Url.Content(ImageHelpers.GetStoreBanner(Model.Store.MainPartyId,Model.StoreBanner)+"?v="+DateTime.Now.ToString("yyyyMMddHHmmss")) %>" />
+                            <div onclick="DeletePicture(<%:Model.Store.MainPartyId %>)" style="cursor: pointer; text-decoration: underline; color: #333">Kaldır</div>
                             <% }
-                               else
-                               { %>
+                                else
+                                { %>
                             <img alt="" src="https://dummyimage.com/1400x250/efefef/000000.jpg&text=banner" class="img-thumbnail" />
                             <% } %>
                         </div>
                         <div class="col-md-12">
-                                <div class="hidden-sm hidden-xs alert alert-info">
+                            <div class="hidden-sm hidden-xs alert alert-info">
                                 <span class="glyphicon glyphicon-info-sign"></span>Önerilen boyutları minumum <b>1400x250</b> Banner fotoğrafı yüklemeniz kişiselleştirilmiş firma sayfası deneyimi sunmaktadır.
                            
                             </div>
                         </div>
-                        <div class="col-md-12" style="margin-left:15px;">
-                        
+                        <div class="col-md-12" style="margin-left: 15px;">
+
                             <div class="form-group">
                                 <%= Html.FileUploadFor(model => Model.Store.StoreLogo, new { @class = "" })%>
                                 <p class="help-block">
@@ -116,11 +104,10 @@
                         <b>Firma Profili </b>
                         <br>
                         <%foreach (var item in Model.HelpList)
-                          {%>
-                                  <i class="fa fa-angle-right"></i>&nbsp;&nbsp; <a href="<%:item.HelpCategoryName %>"><%:item.HelpCategoryName %> </a>
+                            {%>
+                        <i class="fa fa-angle-right"></i>&nbsp;&nbsp; <a href="<%:item.HelpCategoryName %>"><%:item.HelpCategoryName %> </a>
                         <br>
-                          <%} %>
-                    
+                        <%} %>
                     </div>
                 </div>
                 <%} %>

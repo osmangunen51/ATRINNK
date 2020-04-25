@@ -1,8 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master"
   Inherits="System.Web.Mvc.ViewPage<NeoSistem.MakinaTurkiye.Web.Models.Adverts.MTBrandViewModel>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
   <style type="text/css">
     .sectorPanel
