@@ -4,3 +4,9 @@ D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\Makina
 D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.pdb
 D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.csproj.CoreCompileInputs.cache
 D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.csprojAssemblyReference.cache
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\bin\Debug\MakinaTurkiye.Api.View.dll
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\bin\Debug\MakinaTurkiye.Api.View.pdb
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.csprojAssemblyReference.cache
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.csproj.CoreCompileInputs.cache
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.dll
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.pdb

@@ -4,3 +4,9 @@ D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSis
 D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.pdb
 D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csproj.CoreCompileInputs.cache
 D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csprojAssemblyReference.cache
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\bin\Debug\NeoSistem.EnterpriseEntity.Core.dll
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\bin\Debug\NeoSistem.EnterpriseEntity.Core.pdb
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csprojAssemblyReference.cache
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csproj.CoreCompileInputs.cache
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.dll
+D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.pdb
