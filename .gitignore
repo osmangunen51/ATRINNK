@@ -2,5 +2,10 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+<<<<<<< HEAD
 /MakinaTurkiye.Api.View/obj
 .vs/
+=======
+/.vs/NeoSistem.MakinaTurkiye/v15/Server/sqlite3
+
+>>>>>>> 721a0876de1715b7e4734a2463812a1bce9d090d
