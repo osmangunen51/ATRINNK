@@ -2218,6 +2218,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public JsonResult ProductStatisticCreate(int productId)
         {
             string ipAdress = Request.UserHostAddress;
+          //string ipAdress = "85.99.183.57";
             string country = "";
             string city = "";
 

@@ -38,7 +38,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             sitemapFiles.Add(this.generateSitemap_StoreCategory());
 
 
-
             sitemapFiles.Add(this.generateSitemap_video());
             sitemapFiles.Add(this.generateSitemap_videocategory());
 
