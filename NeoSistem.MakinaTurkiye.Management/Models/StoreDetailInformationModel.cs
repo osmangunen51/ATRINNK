@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Management.Models
 {
@@ -23,7 +24,5 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public int WhatsappClickCount { get; set; }
         public string MemberMainPartyId { get; set; }
 
-
     }
-
 }

@@ -350,20 +350,7 @@
             <%if (!string.IsNullOrEmpty(ViewBag.check))
         {
             %>
-            $.ajax({
-                url: 'https://www.makinaturkiye.com/cache/UpdateProduct',
-                type: 'post',
-                data:
-                    {
-                        id:<%=this.RouteData.Values["id"] %>
-                },
-                success: function (data) {
 
-                },
-                error: function (x, l, e) {
-
-                }
-            });
          <%}%>
             $.superbox.settings = {
                 closeTxt: "Kapat",

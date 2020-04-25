@@ -104,9 +104,10 @@
     </td>
     <td class="Cell">
         <%string webUrl = EnumModels.UrlHttpEdit(item.StoreWeb);  %>
-        <%if (!string.IsNullOrEmpty(webUrl)) {%>
-                    <a href="<%:webUrl %>" rel="external" onmousedown="this.target = '_blank';">
-          <%: webUrl.Replace("http://","").Replace("https://","")%>  </a>
+        <%if (!string.IsNullOrEmpty(webUrl))
+            {%>
+        <a href="<%:webUrl %>" rel="external" onmousedown="this.target = '_blank';">
+            <%: webUrl.Replace("http://","").Replace("https://","")%>  </a>
         <% } %>
 
     </td>
@@ -147,8 +148,8 @@
         <span style="color: #bababa;">Ç: </span><%=item.ViewCount%><br />
         <span style="color: #bababa;">T: </span><%=item.SingularViewCount%>
         <%}
-        else
-        {  %>
+            else
+            {  %>
 	 -
 	 <%} %>
     </td>
@@ -172,8 +173,8 @@
         <span style="color: #bababa;">T: </span><%=singleproduct%>
 
         <%}
-        else
-        {  %>
+            else
+            {  %>
 	 -
 	 <%} %>
     </td>
@@ -196,8 +197,8 @@
             <img src="/Content/images/rightAllow.png" />
         </a>
         <%}
-        else
-        {%>
+            else
+            {%>
         <a title="Detay" href="<%= AppSettings.MakinaTurkiyeWebUrl + "/sirket/"+item.MainPartyId+"/"+Helpers.ToUrl(item.StoreName)+"/sirketprofili" %>"
             target="_blank">
             <img src="/Content/images/rightAllow.png" />
@@ -248,6 +249,18 @@
             <img src="/Content/images/Accept-icon.png" />
         </a>
         <a href="/Member/SendSpecialEmailToStore/<%:item.MainPartyId.ToString() %>" title="Özel Mail Gönder">Ö.M</a>
+
+        <%} %>
+        <%if (item.StoreUpdatedDate.HasValue)
+            {%>
+        <span style="color:#027a14" title="Firma Bilgileri Güncelendi <%:item.StoreUpdatedDate.Value.ToString("dd.MM.yyyy HH:mm") %>">
+            F.B.G
+        </span>
+        <% }
+            else
+            {%>
+        <a onclick="MakeStoreControlled(<%:item.MainPartyId %>)" title="Firma Bilgileri Güncellendi Yap">F.B.G</a>
+
         <%} %>
     </td>
 </tr>
@@ -272,7 +285,7 @@
                         <%: page %></span>&nbsp;
 			 <% } %>
                     <% else
-                    { %>
+                        { %>
                     <a onclick="PagePost(<%: page %>)">
                         <%: page %></a>&nbsp;
 			 <% } %>
@@ -284,9 +297,9 @@
                         <option value="20" <%: Session["store_PAGEDIMENSION"].ToString() == "20" ? "selected=selected" : "" %>>20</option>
                         <option value="50" <%: Session["store_PAGEDIMENSION"].ToString() == "50" ? "selected=selected" : "" %>>50</option>
                         <option value="100" <%: Session["store_PAGEDIMENSION"].ToString() == "100" ? "selected=selected" : "" %>>100</option>
-                          <option value="250" <%: Session["store_PAGEDIMENSION"].ToString() == "250" ? "selected=selected" : "" %>>250</option>
-                               <option value="500" <%: Session["store_PAGEDIMENSION"].ToString() == "500" ? "selected=selected" : "" %>>500</option>
-                               <option value="750" <%: Session["store_PAGEDIMENSION"].ToString() == "750" ? "selected=selected" : "" %>>750</option>
+                        <option value="250" <%: Session["store_PAGEDIMENSION"].ToString() == "250" ? "selected=selected" : "" %>>250</option>
+                        <option value="500" <%: Session["store_PAGEDIMENSION"].ToString() == "500" ? "selected=selected" : "" %>>500</option>
+                        <option value="750" <%: Session["store_PAGEDIMENSION"].ToString() == "750" ? "selected=selected" : "" %>>750</option>
                     </select>
                 </li>
             </ul>
@@ -296,7 +309,7 @@
 <tr>
     <td class="ui-state ui-state-default" colspan="15" align="left" style="border-color: #DDD; border-top: none; border-bottom: none;">
         <div style="float: right;">
-             <b>Toplam Firma: <%:Model.TotalRecord %></b>
+            <b>Toplam Firma: <%:Model.TotalRecord %></b>
         </div>
 
     </td>
@@ -324,25 +337,31 @@
         };
         $.superbox();
     });
-        function ExportStores() {
-            var data = {
-                StoreNo: $('#StoreNo').val(),
-                StoreName: $('#StoreName').val(),
-                MainPartyFullName: $('#MainPartyFullName').val(),
-                StorePacketId: $('#StorePacketId').val(),
-                StoreRecordDate: $('#StoreRecordDate').val(),
-                StorePacketEndDate: $('#StorePacketEndDate').val(),
-                StoreActiveType: $('#StoreActiveType').val(),
-                StoreWeb: $('#StoreWeb').val(),
-                OrderName: $('#OrderName').val(),
-                PacketId: $('#PacketId').val(),
-                Order: $('#Order').val(),
-                Page: $('#Page').val(),
-                PageDimension: $('#PageDimension').val(),
-                PacketStatus: $('#PacketStatus').val(),
-                PortfoyUserId: $("#PortfoyUserId").val(),
-                AuthorizedId: $("#SalesUserId").val()
-            };
+
+    function MakeStoreControlled(mainPartyId) {
+        if (confirm('Firma bilgilerinin kontrollü güncellendiğini onaylıyor musunuz?')) {
+            location.href = "/Store/StoreInfoChecked/" + mainPartyId;
+        }
+    }
+    function ExportStores() {
+        var data = {
+            StoreNo: $('#StoreNo').val(),
+            StoreName: $('#StoreName').val(),
+            MainPartyFullName: $('#MainPartyFullName').val(),
+            StorePacketId: $('#StorePacketId').val(),
+            StoreRecordDate: $('#StoreRecordDate').val(),
+            StorePacketEndDate: $('#StorePacketEndDate').val(),
+            StoreActiveType: $('#StoreActiveType').val(),
+            StoreWeb: $('#StoreWeb').val(),
+            OrderName: $('#OrderName').val(),
+            PacketId: $('#PacketId').val(),
+            Order: $('#Order').val(),
+            Page: $('#Page').val(),
+            PageDimension: $('#PageDimension').val(),
+            PacketStatus: $('#PacketStatus').val(),
+            PortfoyUserId: $("#PortfoyUserId").val(),
+            AuthorizedId: $("#SalesUserId").val()
+        };
 
         var s = "?" + $.param(data) + "";
 
@@ -353,43 +372,16 @@
 </script>
 <style type="text/css">
     /* Custom Theme */
-    #superbox-overlay {
-        background: #e0e4cc;
-    }
+    #superbox-overlay { background: #e0e4cc; }
 
-    #superbox-container .loading {
-        width: 32px;
-        height: 32px;
-        margin: 0 auto;
-        text-indent: -9999px;
-        background: url(styles/loader.gif) no-repeat 0 0;
-    }
+    #superbox-container .loading { width: 32px; height: 32px; margin: 0 auto; text-indent: -9999px; background: url(styles/loader.gif) no-repeat 0 0; }
 
-    #superbox .close a {
-        float: right;
-        padding: 0 5px;
-        line-height: 20px;
-        background: #333;
-        cursor: pointer;
-    }
+    #superbox .close a { float: right; padding: 0 5px; line-height: 20px; background: #333; cursor: pointer; }
 
-        #superbox .close a span {
-            color: #fff;
-        }
+        #superbox .close a span { color: #fff; }
 
-    #superbox .nextprev a {
-        float: left;
-        margin-right: 5px;
-        padding: 0 5px;
-        line-height: 20px;
-        background: #333;
-        cursor: pointer;
-        color: #fff;
-    }
+    #superbox .nextprev a { float: left; margin-right: 5px; padding: 0 5px; line-height: 20px; background: #333; cursor: pointer; color: #fff; }
 
-    #superbox .nextprev .disabled {
-        background: #ccc;
-        cursor: default;
-    }
+    #superbox .nextprev .disabled { background: #ccc; cursor: default; }
 </style>
 

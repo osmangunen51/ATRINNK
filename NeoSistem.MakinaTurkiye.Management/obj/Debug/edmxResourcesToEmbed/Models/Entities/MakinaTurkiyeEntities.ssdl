@@ -48,6 +48,7 @@
     <Property Name="Street" Type="varchar" MaxLength="50" />
     <Property Name="AddressDefault" Type="bit" />
     <Property Name="StoreDealerId" Type="int" />
+    <Property Name="PostCode" Type="nvarchar" MaxLength="15" />
   </EntityType>
   <EntityType Name="AddressChangeHistory">
     <Key>
@@ -633,6 +634,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
     <Property Name="AuthorizedId" Type="int" />
     <Property Name="PacketStartDate" Type="date" />
     <Property Name="IsRenewPacket" Type="bit" />
+    <Property Name="InvoiceDate" Type="datetime" />
   </EntityType>
   <EntityType Name="OrderWriteLog">
     <Key>

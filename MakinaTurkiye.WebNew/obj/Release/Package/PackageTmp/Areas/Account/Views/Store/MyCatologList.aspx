@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores.StoresViewModel.MTStoreCatologViewModel>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Katologlarım
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
     <script type="text/javascript">
         function DeleteCatolog(catologId) {

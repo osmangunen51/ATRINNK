@@ -171,8 +171,16 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         memberName = member.MemberName + " " + member.MemberSurname;
                         memberNo = member.MemberSurname;
                     }
-                    model.Add(new StoreItem { StoreMainPartId = item.MainPartyId, StoreName = item.StoreName, StoreNo = item.StoreNo, MemberNo = memberNo, MemberNameSurname = memberName });
+                    model.Add(new StoreItem { StoreMainPartId = item.MainPartyId, StoreName = item.StoreName, StoreNo = item.StoreNo, MemberNo = memberNo, MemberNameSurname = memberName, Type = "Normal Kayıt" });
                 }
+
+                var preStores = _preRegistrationService.GetPreRegistrationStoreSearchByName(storename);
+                foreach (var item in preStores)
+                {
+                    model.Add(new StoreItem { StoreMainPartId = 0, StoreName = item.StoreName, MemberNameSurname = item.MemberName, Type = "Ön  Kayıt" });
+                }
+
+
             }
             if (model.Count == 0)
             {
@@ -252,7 +260,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 modelNew.Message = "İşlem başarıyla gerçekleşmiştir";
             }
 
-  
+
             return View(modelNew);
         }
     }

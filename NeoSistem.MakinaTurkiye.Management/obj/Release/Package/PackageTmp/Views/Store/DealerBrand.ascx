@@ -2,7 +2,7 @@
 <% foreach (var item in Model)
    { %>
 <div style="width: 90px; height: 70px; float: left; margin-bottom: 10px; text-align: center">
-  <img width="50" height="50" src="<%= FileHelpers.ImageThumbnailName(AppSettings.DealerBrandImageFolder + item.DealerBrandPicture) %>" />
+  <img width="50" height="50" src="<%= AppSettings.DealerBrandImageFolder + item.DealerBrandPicture %>" />
   <br />
   <span style="font-size: 12px;">
     <%=item.DealerBrandName %></span>

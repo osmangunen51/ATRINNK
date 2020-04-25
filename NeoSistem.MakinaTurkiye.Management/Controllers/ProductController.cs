@@ -706,6 +706,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 product.UrunAdi = item.ProductName;
                 product.UrunNo = item.ProductNo;
                 product.UrunId = item.ProductId;
+                product.Keywords =!string.IsNullOrEmpty(item.Keywords) ? item.Keywords : "";
                 if (item.MenseiId.HasValue)
                 {
                     var constantMensei = _constantService.GetConstantByConstantId((short)item.MenseiId.Value);
@@ -752,11 +753,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     o.ProductBriefDetail,
                     o.WarrantyPeriod,
                     o.ProductPrice,
-                    o.Mensei
+                    o.Mensei,
+                    o.Kdv,
+                    o.Keywords
                 }).ToList();
 
-            var properties = new[] { "UrunId", "UrunNo", "UrunAdi", "ProductDescription", "ProductBriefDetail", "WarrantyPeriod", "ProductPrice", "Mensei" };
-            var headers = new[] { "UrunId", "UrunNo", "UrunAdi", "ProductDescription", "ProductBriefDetail", "WarrantyPeriod", "ProductPrice", "Mensei" };
+            var properties = new[] { "UrunId", "UrunNo", "UrunAdi", "ProductDescription", "ProductBriefDetail", "WarrantyPeriod", "ProductPrice", "Mensei","Kdv","Keywords" };
+            var headers = new[] { "UrunId", "UrunNo", "UrunAdi", "ProductDescription", "ProductBriefDetail", "WarrantyPeriod", "ProductPrice", "Mensei", "Kdv", "Keywords" };
 
             var headerRow = sheet.CreateRow(0);
 
@@ -924,7 +927,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             string productDescription = sheet.GetRow(row).GetCell(3).StringCellValue;
                             string productBriefDetail = sheet.GetRow(row).GetCell(4).StringCellValue;
                             string warriantPeriodText = sheet.GetRow(row).GetCell(5).StringCellValue;
+                     
                             decimal productPrice = 0;
+                            string keywords = sheet.GetRow(row).GetCell(9).StringCellValue;
                             var cell = sheet.GetRow(row).GetCell(6);
                             IFormulaEvaluator evaluator = hssfwb.GetCreationHelper().CreateFormulaEvaluator();
                             if (cell != null)
@@ -956,6 +961,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             product.MenseiId = constantMensei != null ? constantMensei.ConstantId : product.MenseiId;
                             product.WarrantyPeriod = warriantPeriod != 0 ? warriantPeriod.ToString() : product.WarrantyPeriod;
                             product.ProductPrice = productPrice != 0 ? Convert.ToDecimal(productPrice) : product.ProductPrice;
+                            if (!string.IsNullOrEmpty(keywords))
+                                product.Keywords = keywords;
+
                             if (product.ProductPrice.HasValue && product.ProductPrice.Value > 0 && product.ProductPriceType != (byte)ProductPriceType.Price)
                             {
                                 product.ProductPriceType = (byte)ProductPriceType.Price;

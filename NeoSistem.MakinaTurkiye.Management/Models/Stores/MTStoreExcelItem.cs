@@ -34,5 +34,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Stores
         public string Phone2 { get; set; }
         public string Whatsapp { get; set; }
         public string Status { get; set; }
+
     }
 }

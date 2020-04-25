@@ -1,8 +1,8 @@
-using EEYS.Service.Areas.HelpPage.ModelDescriptions;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
+using EEYS.Service.Areas.HelpPage.ModelDescriptions;
 
 namespace EEYS.Service.Areas.HelpPage.Models
 {

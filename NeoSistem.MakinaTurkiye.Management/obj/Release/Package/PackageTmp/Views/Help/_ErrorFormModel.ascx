@@ -69,4 +69,9 @@
             <td></td>
             <td><%:Html.CheckBoxFor(x=>x.IsFirst) %> Öncelikli Yap</td>
         </tr>
+                <tr>
+            <td></td>
+            <td></td>
+            <td><%:Html.CheckBoxFor(x=>x.IsWaiting) %> İncelendi Beklemede </td>
+        </tr>
     </table>

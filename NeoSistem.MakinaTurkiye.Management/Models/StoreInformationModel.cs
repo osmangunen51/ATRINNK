@@ -24,7 +24,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string StoreLogo { get; set; }
         public string StoreOtherInfo { get; set; }
         public string StoreShortDetail { get; set; }
-        
-
+        public DateTime? StoreUpdatedDate { get; set; }
     }
 }

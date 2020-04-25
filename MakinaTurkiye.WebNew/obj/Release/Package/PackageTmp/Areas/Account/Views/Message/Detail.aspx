@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<MessageViewModel>" %>
 
-<asp:Content ID="Content4" ContentPlaceHolderID="TitleContent" runat="server">
-    Gelen Kutusu-Makina Türkiye
-</asp:Content>
+
 <asp:Content ID="Content5" ContentPlaceHolderID="HeaderContent" runat="server">
     <script type="text/javascript" language="javascript">
         function deleteMessage() {

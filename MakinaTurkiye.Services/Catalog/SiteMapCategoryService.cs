@@ -57,6 +57,19 @@ namespace MakinaTurkiye.Services.Catalog
             return categories;
         }
 
+        public IList<SiteMapCategoryPlaceResult> GetSiteMapCategoriesPlace(CategoryPlaceTypeEnum categoryPlaceType)
+        {
+            const string sql = "SP_CategoryPlace @Chosen";
+
+            var pCategoryType = _dataProvider.GetParameter();
+            pCategoryType.ParameterName = "Chosen";
+            pCategoryType.Value = categoryPlaceType;
+            pCategoryType.DbType = DbType.Int32;
+
+            var categories = _dbContext.SqlQuery<SiteMapCategoryPlaceResult>(sql, pCategoryType).ToList();
+            return categories;
+        }
+
         #endregion
     }
 }

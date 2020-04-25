@@ -53,6 +53,7 @@
           <Property Name="Street" Type="varchar" MaxLength="50" />
           <Property Name="AddressDefault" Type="bit" />
           <Property Name="StoreDealerId" Type="int" />
+          <Property Name="PostCode" Type="nvarchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="AddressChangeHistory">
           <Key>
@@ -638,6 +639,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="AuthorizedId" Type="int" />
           <Property Name="PacketStartDate" Type="date" />
           <Property Name="IsRenewPacket" Type="bit" />
+          <Property Name="InvoiceDate" Type="datetime" />
         </EntityType>
         <EntityType Name="OrderWriteLog">
           <Key>
@@ -3275,6 +3277,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <NavigationProperty Name="StoreDealer" Relationship="MakinaTurkiyeModel.FK_Address_StoreDealer" FromRole="Address" ToRole="StoreDealer" />
           <NavigationProperty Name="Town" Relationship="MakinaTurkiyeModel.FK_Address_Town" FromRole="Address" ToRole="Town" />
           <NavigationProperty Name="Phones" Relationship="MakinaTurkiyeModel.FK_Phone_Address" FromRole="Address" ToRole="Phone" />
+          <Property Name="PostCode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="AddressType">
           <Key>
@@ -4603,6 +4606,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <Property Name="PacketStartDate" Type="DateTime" Precision="0" />
           <Property Name="IsRenewPacket" Type="Boolean" />
           <Property Name="EBillNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Order_Order">
           <End Type="MakinaTurkiyeModel.Account" Role="Account" Multiplicity="0..1" />
@@ -5888,7 +5892,8 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
             <ScalarProperty Name="ActivityName" ColumnName="ActivityName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Addresses"><EntityTypeMapping TypeName="MakinaTurkiyeModel.Address"><MappingFragment StoreEntitySet="Address">
-            <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+            <ScalarProperty Name="PostCode" ColumnName="PostCode" />
+                <ScalarProperty Name="AddressId" ColumnName="AddressId" />
             <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
             <ScalarProperty Name="CountryId" ColumnName="CountryId" />
             <ScalarProperty Name="CityId" ColumnName="CityId" />
@@ -6319,6 +6324,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.Order">
               <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
                 <ScalarProperty Name="EBillNumber" ColumnName="EBillNumber" />
                 <ScalarProperty Name="IsRenewPacket" ColumnName="IsRenewPacket" />
                 <ScalarProperty Name="PacketStartDate" ColumnName="PacketStartDate" />

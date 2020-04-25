@@ -14,5 +14,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public bool IsFirst { get; set; }
         public DateTime? RecordDate { get; set; }
         public string ProblemTypeText { get; set; }
+        public bool IsWaiting { get; set; }
     }
 }

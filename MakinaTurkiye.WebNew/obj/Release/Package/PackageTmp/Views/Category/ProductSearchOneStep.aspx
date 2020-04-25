@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="NeoSistem.MakinaTurkiye.Core.Web.ViewPage<MTCategorySearchModel>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    <
-</asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="HeaderContent" runat="server">
     <meta name="robots" content="noindex, nofollow" />
 

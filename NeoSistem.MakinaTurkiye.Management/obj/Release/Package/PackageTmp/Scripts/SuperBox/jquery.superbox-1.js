@@ -19,7 +19,7 @@
             boxClasses: "",
             overlayOpacity: .8,
             boxWidth: "700",
-            boxHeight: "500",
+            boxHeight: "600",
             loadTxt: "Loading...",
             closeTxt: "Close",
             prevTxt: "Previous",

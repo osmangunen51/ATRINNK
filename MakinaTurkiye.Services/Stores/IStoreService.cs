@@ -24,7 +24,7 @@ namespace MakinaTurkiye.Services.Stores
         IList<StoreForCategoryResult> GetSPGetStoreForCategoryByCategoryIdAndBrandId(int categoryId = 0, int brandId = 0);
 
         IList<StoreForCategoryResult> GetSPStoreForCategorySearch(int categoryId, int brandId = 0, int countryId = 0, int cityId = 0, int localityId = 0);
-
+        IList<Store> GetStoresByMainPartyIds(List<int> mainPartyIds);
 
         Store GetStoreByMainPartyId(int mainPartyId);
 
@@ -55,5 +55,10 @@ namespace MakinaTurkiye.Services.Stores
         
 
         IList<StoreCertificate> GetStoreCertificatesByMainPartyId(int mainPartyId);
+
+        void UpdateStoreUpdated(StoreUpdated storeUpdated);
+        void InsertStoreUpdated(StoreUpdated storeUpdated);
+        StoreUpdated GetStoreUpdatedByMainPartyId(int mainPartyId);
+
     }
 }

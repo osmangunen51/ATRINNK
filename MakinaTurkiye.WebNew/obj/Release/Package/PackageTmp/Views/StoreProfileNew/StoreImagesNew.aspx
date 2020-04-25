@@ -19,18 +19,13 @@
     <%if (Model.StoreActiveType == 2)
         { %>
     <%:Html.Hidden("hdnStoreMainPartyId",Model.MainPartyId) %>
-    <div class="StoreProfileMenu mt20">
-    </div>
+
     <div class="col-sm-7 col-md-8 col-lg-9">
 
-        <div class="StoreProfileContent clearfix" id="StoreProfileVideosNew">
+        <div class="StoreProfileContent clearfix">
 
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <!--test asdada!-->
-                <div class="row hidden-xs">
-                    <div class="col-xs-12 sektorBack">
-                    </div>
-                </div>
+
                 <%foreach (var item in Model.ImagePath.ToList())
                     {%>
                 <div class="col-md-4 col-lg-3">

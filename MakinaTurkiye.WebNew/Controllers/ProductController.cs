@@ -543,6 +543,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             var product = _productService.GetProductByProductId(productId.Value);
+            var memberStore = new MemberStore();
+
+
             if (product == null)
             {
                 var deletedProduct = _deletedProductRedirectSerice.GetDeletedProductRedirectByProductId(productId.Value);
@@ -561,6 +564,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             else
             {
+                memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.MainPartyId.Value);
+                if (memberStore == null)
+                {
+                    string urlredirect = AppSettings.SiteAllCategoryUrl;
+                    return RedirectPermanent(urlredirect);
+                }
                 if (product.ProductActiveType == (byte)ProductActiveType.CopKutusuYeni || product.ProductActiveType == (byte)ProductActiveType.CopKutusunda)
                 {
                     var category = _categoryService.GetCategoryByCategoryId(product.CategoryId.Value);
@@ -601,7 +610,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ViewBag.Canonical = url;
 
             var model = new MTProductDetailViewModel();
-            var memberStore = new  MemberStore();
+
 
             if (AuthenticationUser.CurrentUser.Membership != null && (product.MainPartyId == AuthenticationUser.CurrentUser.Membership.MainPartyId && product.ProductActiveType == (byte)ProductActiveType.Inceleniyor) || pageType == "firstadd")
             {

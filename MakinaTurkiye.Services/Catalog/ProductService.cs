@@ -482,6 +482,9 @@ namespace MakinaTurkiye.Services.Catalog
             {
                 var query = _productRepository.Table;
                 query = query.Include(p => p.Category);
+                query = query.Include(p => p.Country);
+                query = query.Include(p => p.City);
+                query = query.Include(p => p.Locality);
                 var product = query.FirstOrDefault(p => p.ProductId == productId);
                 return product;
             });
@@ -672,18 +675,54 @@ namespace MakinaTurkiye.Services.Catalog
             if (categoryId == 0)
                 return new CategoryProductsResult();
 
-            string key = string.Format(PRODUCTS_SP_CATEGORYPRODUCTS_BY_PARAMETER_KEY, categoryId, brandId, modelId, seriresId,
-                searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize);
 
-            return _cacheManager.Get(key, () =>
+            if (string.IsNullOrEmpty(searchText))
+            {
+                string key = string.Format(PRODUCTS_SP_CATEGORYPRODUCTS_BY_PARAMETER_KEY, categoryId, brandId, modelId, seriresId,
+                    searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize);
+
+                return _cacheManager.Get(key, () =>
+                {
+                    var products = this.SPWebCategoryProduct(out List<FilterableCategoriesResult> filterableCategoryIds,
+                        out List<int> filterableCountryIds,
+                        out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
+                        out List<int> filterableModelIds, out List<int> filterableSeriesIds,
+                        out int newProductCount, out int usedProductCount, out int serviceProductCount,
+                        categoryId, brandId, modelId, seriresId,
+                        searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText);
+
+                    var result = new CategoryProductsResult
+                    {
+                        Products = products,
+                        FilterableCategoryIds = filterableCategoryIds,
+                        FilterableBrandIds = filterableBrandIds,
+                        FilterableCityIds = filterableCityIds,
+                        FilterableCountryIds = filterableCountryIds,
+                        FilterableLocalityIds = filterableLocalityIds,
+                        FilterableModelIds = filterableModelIds,
+                        FilterableSeriesIds = filterableSeriesIds,
+                        PageIndex = products.PageIndex,
+                        PageSize = products.PageSize,
+                        TotalCount = products.TotalCount,
+                        TotalPages = products.TotalPages,
+                        NewProductCount = newProductCount,
+                        UsedProductCount = usedProductCount,
+                        ServicesProductCount = serviceProductCount
+
+                    };
+                    return result;
+                });
+
+            }
+            else
             {
                 var products = this.SPWebCategoryProduct(out List<FilterableCategoriesResult> filterableCategoryIds,
-                    out List<int> filterableCountryIds,
-                    out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
-                    out List<int> filterableModelIds, out List<int> filterableSeriesIds,
-                    out int newProductCount, out int usedProductCount, out int serviceProductCount,
-                    categoryId, brandId, modelId, seriresId,
-                    searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText);
+          out List<int> filterableCountryIds,
+          out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
+          out List<int> filterableModelIds, out List<int> filterableSeriesIds,
+          out int newProductCount, out int usedProductCount, out int serviceProductCount,
+          categoryId, brandId, modelId, seriresId,
+          searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText);
 
                 var result = new CategoryProductsResult
                 {
@@ -705,7 +744,8 @@ namespace MakinaTurkiye.Services.Catalog
 
                 };
                 return result;
-            });
+            }
+
         }
 
 

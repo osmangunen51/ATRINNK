@@ -5,42 +5,32 @@
     <%=Html.RenderHtmlPartial("_HeaderContent") %>
 
     <script type="text/javascript">
-function CertificatePopUpGallery() {
-    $('.certificate-popup-gallery').magnificPopup({
-        delegate: 'div a',
-        type: 'image',
-        tLoading: 'Resim Yükeniyor #%curr%...',
-        mainClass: 'mfp-img-mobile',
-        gallery: {
-            enabled: true,
-            navigateByImgClick: true,
-            preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-        },
-        image: {
-            tError: '<a href="%url%"> #%curr%</a> resim yüklenemedi',
-            titleSrc: function (item) {
-                return item.el.attr('title') + '<small></small>';
-            }
+        function CertificatePopUpGallery() {
+            $('.certificate-popup-gallery').magnificPopup({
+                delegate: 'div a',
+                type: 'image',
+                tLoading: 'Resim Yükeniyor #%curr%...',
+                mainClass: 'mfp-img-mobile',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+                },
+                image: {
+                    tError: '<a href="%url%"> #%curr%</a> resim yüklenemedi',
+                    titleSrc: function (item) {
+                        return item.el.attr('title') + '<small></small>';
+                    }
+                }
+            });
         }
-    });
-}
 
 
         $(document).ready(function () {
-CertificatePopUpGallery();
-            $(".more-show-about").on("click", function () {
-                var showText = $(this).html();
-                if (showText == "Devamını Oku") {
-                    $("#aboutTextDetail").css("height", "auto");
-
-                    $(this).html("Daha Az");
-                }
-                else {
-                    $("#aboutTextDetail").css("height", "50px");
-                    $(this).html("Devamını Oku");
-                }
-            });
+            CertificatePopUpGallery();
         });
+
+
     </script>
 </asp:Content>
 <asp:Content ID="Content6" ContentPlaceHolderID="StoreProfileHeaderContent" runat="server">
@@ -84,6 +74,7 @@ CertificatePopUpGallery();
             <%} %>
 
             <div class="clearfix"></div>
+                    <%:Html.Hidden("showTextDetailHidden", Model.MTStoreAboutModel.AboutText) %>
             <%=Html.RenderHtmlPartial("_PopularProducts",Model.MTPopularProductsModels) %>
             <div class="clearfix"></div>
             <%=Html.RenderHtmlPartial("_StoreAbout",Model.MTStoreAboutModel) %>

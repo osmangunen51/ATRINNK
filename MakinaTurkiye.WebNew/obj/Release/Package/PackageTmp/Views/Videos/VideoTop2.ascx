@@ -128,7 +128,7 @@
          
         </div>
         <span class="clearfix"></span>&nbsp;<br />
-        <%:SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte()).Description%>
+     
     </div>
     <%-- <h4>
         Yorumlar <span class="text-muted">(3 Yorum) </span>

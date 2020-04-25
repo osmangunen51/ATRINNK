@@ -530,6 +530,7 @@
     <NavigationProperty Name="StoreDealer" Relationship="MakinaTurkiyeModel.FK_Address_StoreDealer" FromRole="Address" ToRole="StoreDealer" />
     <NavigationProperty Name="Town" Relationship="MakinaTurkiyeModel.FK_Address_Town" FromRole="Address" ToRole="Town" />
     <NavigationProperty Name="Phones" Relationship="MakinaTurkiyeModel.FK_Phone_Address" FromRole="Address" ToRole="Phone" />
+    <Property Name="PostCode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="AddressType">
     <Key>
@@ -1858,6 +1859,7 @@
     <Property Name="PacketStartDate" Type="DateTime" Precision="0" />
     <Property Name="IsRenewPacket" Type="Boolean" />
     <Property Name="EBillNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="FK_Order_Order">
     <End Type="MakinaTurkiyeModel.Account" Role="Account" Multiplicity="0..1" />

@@ -2891,6 +2891,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 model.StoreMemberDescriptionItems.Add(modelMemberdesc);
             }
             model.MemberMainPartyId = member.MainPartyId.ToString();
+
+            var storeUpdate = _storeService.GetStoreUpdatedByMainPartyId(store.MainPartyId);
+            if (storeUpdate != null)
+                model.StoreInformationModel.StoreUpdatedDate = storeUpdate.UpdatedDate;
             ViewData["StoreInformation"] = true;
             return View(model);
         }
@@ -3739,6 +3743,23 @@ descending
             return "ok";
         }
 
+        public ActionResult StoreInfoChecked(int id)
+        {
+            var storeUpdate = _storeService.GetStoreUpdatedByMainPartyId(id);
+            if (storeUpdate == null)
+            {
+                storeUpdate = new global::MakinaTurkiye.Entities.Tables.Stores.StoreUpdated();
+                storeUpdate.UpdatedDate = DateTime.Now;
+                storeUpdate.MainPartyId = id;
+                _storeService.InsertStoreUpdated(storeUpdate);
+            }
+            else
+            {
+                storeUpdate.UpdatedDate = DateTime.Now;
+                _storeService.UpdateStoreUpdated(storeUpdate);
+            }
+            return RedirectToAction("Index");
+        }
         #endregion
     }
 

@@ -7,5 +7,6 @@
         public string StoreName { get; set; }
         public string MemberNameSurname { get; set; }
         public string MemberNo { get; set; }
+        public string Type { get; set; }
     }
 }

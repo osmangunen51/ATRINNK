@@ -48,6 +48,27 @@
     <Property Name="Street" Type="varchar" MaxLength="50" />
     <Property Name="AddressDefault" Type="bit" />
     <Property Name="StoreDealerId" Type="int" />
+    <Property Name="PostCode" Type="nvarchar" MaxLength="15" />
+  </EntityType>
+  <EntityType Name="AddressChangeHistory">
+    <Key>
+      <PropertyRef Name="AddressChangeHistoryId" />
+    </Key>
+    <Property Name="AddressChangeHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ADdressId" Type="int" />
+    <Property Name="MainPartyId" Type="int" />
+    <Property Name="CountryId" Type="int" />
+    <Property Name="CityId" Type="int" />
+    <Property Name="LocalityId" Type="int" />
+    <Property Name="TownId" Type="int" />
+    <Property Name="AddressTypeId" Type="tinyint" />
+    <Property Name="Avenue" Type="varchar" MaxLength="500" />
+    <Property Name="ApartmentNo" Type="varchar" MaxLength="6" />
+    <Property Name="DoorNo" Type="varchar" MaxLength="4" />
+    <Property Name="Street" Type="varchar" MaxLength="50" />
+    <Property Name="AddressDefault" Type="bit" />
+    <Property Name="StoreDealerId" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
   </EntityType>
   <EntityType Name="AddressType">
     <Key>
@@ -126,13 +147,13 @@
     <Property Name="RecordCreatorId" Type="int" />
     <Property Name="LastUpdateDate" Type="datetime" />
     <Property Name="LastUpdaterId" Type="int" />
-    <Property Name="ProductCount" Type="int" />
     <Property Name="MainCategoryType" Type="tinyint" />
     <Property Name="Content" Type="text" />
     <Property Name="Title" Type="nvarchar" MaxLength="200" />
     <Property Name="Description" Type="nvarchar" MaxLength="300" />
     <Property Name="Keywords" Type="nvarchar" MaxLength="700" />
     <Property Name="CategoryIcon" Type="nvarchar" MaxLength="250" />
+    <Property Name="ProductCount" Type="int" />
     <Property Name="ProductCountAll" Type="int" />
     <Property Name="ProductCountNew" Type="int" />
     <Property Name="ProductCountOld" Type="int" />
@@ -143,6 +164,37 @@
     <Property Name="CategoryPath" Type="nvarchar" MaxLength="500" />
     <Property Name="CategoryPathUrl" Type="nvarchar" MaxLength="250" />
     <Property Name="BaseMenuOrder" Type="smallint" />
+  </EntityType>
+  <EntityType Name="CertificateTypeProduct">
+    <Key>
+      <PropertyRef Name="CertificateTypeProductId" />
+    </Key>
+    <Property Name="CertificateTypeProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CertificateTypeId" Type="int" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="StoreCertificateId" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ChangeLog">
+    <Key>
+      <PropertyRef Name="LogId" />
+      <PropertyRef Name="DatabaseName" />
+      <PropertyRef Name="EventType" />
+      <PropertyRef Name="ObjectName" />
+      <PropertyRef Name="ObjectType" />
+      <PropertyRef Name="SqlCommand" />
+      <PropertyRef Name="EventDate" />
+      <PropertyRef Name="LoginName" />
+    </Key>
+    <Property Name="LogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DatabaseName" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="EventType" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ObjectName" Type="varchar" MaxLength="256" Nullable="false" />
+    <Property Name="ObjectType" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="SqlCommand" Type="varchar(max)" Nullable="false" />
+    <Property Name="EventDate" Type="datetime" Nullable="false" />
+    <Property Name="LoginName" Type="varchar" MaxLength="256" Nullable="false" />
   </EntityType>
   <EntityType Name="City">
     <Key>
@@ -430,6 +482,19 @@
     <Property Name="UserIdName" Type="nvarchar" MaxLength="100" />
     <Property Name="FromUserIdName" Type="nvarchar" MaxLength="100" />
   </EntityType>
+  <EntityType Name="MemberSetting">
+    <Key>
+      <PropertyRef Name="MemberSettingId" />
+    </Key>
+    <Property Name="MemberSettingId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StoreMainPartyId" Type="int" />
+    <Property Name="MemberMainPartyId" Type="int" />
+    <Property Name="SettingId" Type="int" />
+    <Property Name="FirstValue" Type="nvarchar" MaxLength="50" />
+    <Property Name="SecondValue" Type="nvarchar" MaxLength="50" />
+    <Property Name="RecordDate" Type="date" />
+    <Property Name="UpdateDate" Type="date" />
+  </EntityType>
   <EntityType Name="MemberStore">
     <Key>
       <PropertyRef Name="MemberStoreId" />
@@ -569,6 +634,7 @@
     <Property Name="AuthorizedId" Type="int" />
     <Property Name="PacketStartDate" Type="date" />
     <Property Name="IsRenewPacket" Type="bit" />
+    <Property Name="InvoiceDate" Type="datetime" />
   </EntityType>
   <EntityType Name="OrderWriteLog">
     <Key>
@@ -665,6 +731,23 @@
     <Property Name="ActivationCode" Type="nvarchar" MaxLength="10" />
     <Property Name="WhatsappActive" Type="bit" />
   </EntityType>
+  <EntityType Name="PhoneChangeHistory">
+    <Key>
+      <PropertyRef Name="PhoneChangeHistoryId" />
+    </Key>
+    <Property Name="PhoneChangeHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PhoneId" Type="int" />
+    <Property Name="MainPartyId" Type="int" />
+    <Property Name="AddressId" Type="int" />
+    <Property Name="PhoneCulture" Type="nvarchar" MaxLength="6" />
+    <Property Name="PhoneAreaCode" Type="varchar" MaxLength="5" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+    <Property Name="PhoneType" Type="tinyint" />
+    <Property Name="GsmType" Type="tinyint" />
+    <Property Name="ActivationCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="active" Type="int" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
   <EntityType Name="Picture">
     <Key>
       <PropertyRef Name="PictureId" />
@@ -746,6 +829,29 @@
     <Property Name="DiscountAmount" Type="decimal" Precision="18" Scale="0" />
     <Property Name="DiscountType" Type="tinyint" />
   </EntityType>
+  <EntityType Name="ProductCatolog">
+    <Key>
+      <PropertyRef Name="ProductCatologId" />
+    </Key>
+    <Property Name="ProductCatologId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="ProductComment">
+    <Key>
+      <PropertyRef Name="ProductCommentId" />
+    </Key>
+    <Property Name="ProductCommentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductCommentBaseId" Type="int" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="MemberMainPartyId" Type="int" />
+    <Property Name="CommentText" Type="text" />
+    <Property Name="Rate" Type="tinyint" />
+    <Property Name="Status" Type="bit" />
+    <Property Name="RecordDate" Type="datetime" />
+    <Property Name="Viewed" Type="bit" />
+    <Property Name="Reported" Type="bit" />
+  </EntityType>
   <EntityType Name="ProductComplain">
     <Key>
       <PropertyRef Name="ProductComplainId" />
@@ -795,6 +901,21 @@
     <Property Name="OrderProductType" Type="tinyint" />
     <Property Name="CreditCardInstallmentId" Type="smallint" />
     <Property Name="Accepted" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ProductStatistic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" />
+    <Property Name="UserCity" Type="nvarchar" MaxLength="50" />
+    <Property Name="IpAdress" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserCountry" Type="nvarchar" MaxLength="50" />
+    <Property Name="ViewCount" Type="tinyint" />
+    <Property Name="SingularViewCount" Type="tinyint" />
+    <Property Name="Hour" Type="tinyint" />
+    <Property Name="RecordDate" Type="datetime" />
+    <Property Name="MemberMainPartyId" Type="int" />
   </EntityType>
   <EntityType Name="PurchaseRequest">
     <Key>
@@ -936,6 +1057,66 @@
     <Property Name="BrandDescription" Type="varchar(max)" />
     <Property Name="BrandPicture" Type="varchar" MaxLength="50" Nullable="false" />
   </EntityType>
+  <EntityType Name="StoreCatologFile">
+    <Key>
+      <PropertyRef Name="StoreCatologFileId" />
+    </Key>
+    <Property Name="StoreCatologFileId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StoreMainPartyId" Type="int" />
+    <Property Name="Name" Type="nvarchar" MaxLength="250" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="250" />
+    <Property Name="FileOrder" Type="int" />
+  </EntityType>
+  <EntityType Name="StoreCertificate">
+    <Key>
+      <PropertyRef Name="StoreCertificateId" />
+    </Key>
+    <Property Name="StoreCertificateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MainPartyId" Type="int" />
+    <Property Name="CertificateName" Type="nvarchar" MaxLength="250" />
+    <Property Name="Order" Type="int" />
+    <Property Name="RecordDate" Type="datetime" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="Active" Type="bit" />
+  </EntityType>
+  <EntityType Name="StoreChangeHistory">
+    <Key>
+      <PropertyRef Name="StoreChangeHistoryId" />
+    </Key>
+    <Property Name="StoreChangeHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PacketId" Type="int" />
+    <Property Name="StoreNo" Type="varchar" MaxLength="10" />
+    <Property Name="StoreName" Type="nvarchar" MaxLength="320" />
+    <Property Name="StoreEMail" Type="nvarchar" MaxLength="320" />
+    <Property Name="StoreWeb" Type="nvarchar" MaxLength="320" />
+    <Property Name="StoreLogo" Type="nvarchar" MaxLength="100" />
+    <Property Name="OldStoreLogo" Type="nvarchar" MaxLength="50" />
+    <Property Name="StoreActiveType" Type="tinyint" />
+    <Property Name="StorePacketBeginDate" Type="datetime" />
+    <Property Name="StorePAcketEndDate" Type="datetime" />
+    <Property Name="StoreAbout" Type="ntext" />
+    <Property Name="StoreRecordDate" Type="datetime" />
+    <Property Name="StoreEstablishmentDate" Type="int" />
+    <Property Name="StoreCapital" Type="tinyint" />
+    <Property Name="StoreEmployeesCount" Type="tinyint" />
+    <Property Name="StoreEndorsement" Type="tinyint" />
+    <Property Name="StoreType" Type="tinyint" />
+    <Property Name="PurchasingDepartmentName" Type="varchar" MaxLength="50" />
+    <Property Name="PurchasingDepartmentEmail" Type="varchar" MaxLength="320" />
+    <Property Name="GeneralText" Type="ntext" />
+    <Property Name="HistoryText" Type="ntext" />
+    <Property Name="FounderText" Type="ntext" />
+    <Property Name="PhilosophyText" Type="ntext" />
+    <Property Name="StorePicture" Type="nvarchar" MaxLength="50" />
+    <Property Name="OrderCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="StoreUniqueShortName" Type="nvarchar" MaxLength="50" />
+    <Property Name="TaxOffice" Type="nvarchar" MaxLength="250" />
+    <Property Name="TaxNumber" Type="nvarchar" MaxLength="40" />
+    <Property Name="MersisNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="TradeRegistrNo" Type="nvarchar" MaxLength="50" />
+    <Property Name="UpdatedDated" Type="datetime" />
+    <Property Name="MainPartyId" Type="int" />
+  </EntityType>
   <EntityType Name="StoreDealer">
     <Key>
       <PropertyRef Name="StoreDealerId" />
@@ -945,6 +1126,17 @@
     <Property Name="DealerName" Type="varchar" MaxLength="100" />
     <Property Name="DealerType" Type="tinyint" />
   </EntityType>
+  <EntityType Name="StoreInfoNumberShow">
+    <Key>
+      <PropertyRef Name="StoreInfoNumberShowID" />
+    </Key>
+    <Property Name="StoreInfoNumberShowID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StoreMainPartyID" Type="int" />
+    <Property Name="TaxNumberShow" Type="bit" />
+    <Property Name="TaxOfficeShow" Type="bit" />
+    <Property Name="TradeRegistryNoShow" Type="bit" />
+    <Property Name="MersisNoShow" Type="bit" />
+  </EntityType>
   <EntityType Name="Storeindirim">
     <Key>
       <PropertyRef Name="id" />
@@ -953,6 +1145,45 @@
     <Property Name="MainPartyId" Type="int" Nullable="false" />
     <Property Name="BeginDate" Type="date" />
     <Property Name="Enddate" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="StoreNew">
+    <Key>
+      <PropertyRef Name="StoreNewId" />
+    </Key>
+    <Property Name="StoreNewId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StoreMainPartyId" Type="int" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" />
+    <Property Name="Content" Type="text" />
+    <Property Name="RecordDate" Type="datetime" />
+    <Property Name="Active" Type="bit" />
+    <Property Name="UpdateDate" Type="datetime" />
+    <Property Name="ImageName" Type="nvarchar" MaxLength="250" />
+    <Property Name="ViewCount" Type="bigint" />
+    <Property Name="NewType" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="StoreSector">
+    <Key>
+      <PropertyRef Name="StoreSectorId" />
+    </Key>
+    <Property Name="StoreSectorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StoreMainPartyId" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="RecordDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="StoreStatistic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StoreId" Type="int" />
+    <Property Name="UserCity" Type="nvarchar" MaxLength="50" />
+    <Property Name="UserIp" Type="nvarchar" MaxLength="15" />
+    <Property Name="UserCountry" Type="nvarchar" MaxLength="50" />
+    <Property Name="ViewCount" Type="tinyint" />
+    <Property Name="SingularViewCount" Type="tinyint" />
+    <Property Name="RecordDate" Type="datetime" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -1044,6 +1275,156 @@
     <Property Name="VirtualPosPostUrl" Type="varchar" MaxLength="320" />
     <Property Name="VirtualPosActive" Type="bit" />
   </EntityType>
+  <Association Name="FK__Certifica__Produ__3D82CA82">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="CertificateTypeProduct" Type="Self.CertificateTypeProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="CertificateTypeProduct">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Certifica__Store__3E76EEBB">
+    <End Role="StoreCertificate" Type="Self.StoreCertificate" Multiplicity="0..1" />
+    <End Role="CertificateTypeProduct" Type="Self.CertificateTypeProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StoreCertificate">
+        <PropertyRef Name="StoreCertificateId" />
+      </Principal>
+      <Dependent Role="CertificateTypeProduct">
+        <PropertyRef Name="StoreCertificateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductCa__Produ__3F4C18B3">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProductCatolog" Type="Self.ProductCatolog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductCatolog">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductCo__Membe__57397C34">
+    <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+    <End Role="ProductComment" Type="Self.ProductComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="ProductComment">
+        <PropertyRef Name="MemberMainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductCo__Produ__555133C2">
+    <End Role="ProductComment" Type="Self.ProductComment" Multiplicity="0..1" />
+    <End Role="ProductComment1" Type="Self.ProductComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductComment">
+        <PropertyRef Name="ProductCommentId" />
+      </Principal>
+      <Dependent Role="ProductComment1">
+        <PropertyRef Name="ProductCommentBaseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductCo__Produ__564557FB">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProductComment" Type="Self.ProductComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductComment">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductSt__Membe__39B1D60A">
+    <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+    <End Role="ProductStatistic" Type="Self.ProductStatistic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="ProductStatistic">
+        <PropertyRef Name="MemberMainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StoreCert__MainP__6D1346F7">
+    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+    <End Role="StoreCertificate" Type="Self.StoreCertificate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="StoreCertificate">
+        <PropertyRef Name="MainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StoreNew__StoreM__7B8294F9">
+    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+    <End Role="StoreNew" Type="Self.StoreNew" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="StoreNew">
+        <PropertyRef Name="StoreMainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StoreSect__Categ__7DA67417">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="StoreSector" Type="Self.StoreSector" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="StoreSector">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StoreSett__MainP__63E8D24F">
+    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+    <End Role="MemberSetting" Type="Self.MemberSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="MemberSetting">
+        <PropertyRef Name="StoreMainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StoreStat__Store__75D0165B">
+    <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
+    <End Role="StoreStatistic" Type="Self.StoreStatistic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="StoreStatistic">
+        <PropertyRef Name="StoreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Address_AddressType">
     <End Role="AddressType" Type="Self.AddressType" Multiplicity="0..1" />
     <End Role="Address" Type="Self.Address" Multiplicity="*" />
@@ -1522,20 +1903,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Phone_MainParty">
-    <End Role="MainParty" Type="Self.MainParty" Multiplicity="0..1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Phone" Type="Self.Phone" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="MainParty">
-        <PropertyRef Name="MainPartyId" />
-      </Principal>
-      <Dependent Role="Phone">
-        <PropertyRef Name="MainPartyId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Picture_StoreDealer">
     <End Role="StoreDealer" Type="Self.StoreDealer" Multiplicity="0..1" />
     <End Role="Picture" Type="Self.Picture" Multiplicity="*" />
@@ -1548,19 +1915,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_Category">
-    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="CategoryId" />
-      </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="CategoryId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Product_CategoryBrand">
+  <Association Name="FK_Product_Category_Brand">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1572,7 +1927,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_CategoryModel">
+  <Association Name="FK_Product_Category_Category">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1580,11 +1935,11 @@
         <PropertyRef Name="CategoryId" />
       </Principal>
       <Dependent Role="Product">
-        <PropertyRef Name="ModelId" />
+        <PropertyRef Name="CategoryId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_CategoryProductGroup">
+  <Association Name="FK_Product_Category_ProductGrup">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1596,7 +1951,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_CategorySerie">
+  <Association Name="FK_Product_Category_Series">
     <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
     <ReferentialConstraint>
@@ -1677,6 +2032,20 @@
       </Principal>
       <Dependent Role="Product">
         <PropertyRef Name="MainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductStatistics">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="ProductStatistic" Type="Self.ProductStatistic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductStatistic">
+        <PropertyRef Name="ProductId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1941,6 +2310,7 @@
     <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ActivityType" EntityType="Self.ActivityType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AddressChangeHistory" EntityType="Self.AddressChangeHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AddressType" EntityType="Self.AddressType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AlertMessage" EntityType="Self.AlertMessage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Banner" EntityType="Self.Banner" Schema="dbo" store:Type="Tables" />
@@ -1948,6 +2318,7 @@
     <EntitySet Name="Board" EntityType="Self.Board" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="BoardDeveloper" EntityType="Self.BoardDeveloper" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CertificateTypeProduct" EntityType="Self.CertificateTypeProduct" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="CompanyDemandMembership" EntityType="Self.CompanyDemandMembership" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Constant" EntityType="Self.Constant" Schema="dbo" store:Type="Tables" />
@@ -1971,6 +2342,7 @@
     <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MemberDescription" EntityType="Self.MemberDescription" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MemberDescription_log" EntityType="Self.MemberDescription_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MemberSetting" EntityType="Self.MemberSetting" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MemberStore" EntityType="Self.MemberStore" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Message" EntityType="Self.Message" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="messagecheck" EntityType="Self.messagecheck" Schema="dbo" store:Type="Tables" />
@@ -1989,12 +2361,16 @@
     <EntitySet Name="PermissionGroup" EntityType="Self.PermissionGroup" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PermissionUser" EntityType="Self.PermissionUser" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Phone" EntityType="Self.Phone" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PhoneChangeHistory" EntityType="Self.PhoneChangeHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Picture" EntityType="Self.Picture" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductCatolog" EntityType="Self.ProductCatolog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductComment" EntityType="Self.ProductComment" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductComplain" EntityType="Self.ProductComplain" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductComplainDetail" EntityType="Self.ProductComplainDetail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductComplainType" EntityType="Self.ProductComplainType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProductSales" EntityType="Self.ProductSales" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProductStatistic" EntityType="Self.ProductStatistic" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PurchaseRequest" EntityType="Self.PurchaseRequest" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RelMainPartyCategory" EntityType="Self.RelMainPartyCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="SendMessageError" EntityType="Self.SendMessageError" Schema="dbo" store:Type="Tables" />
@@ -2004,8 +2380,14 @@
     <EntitySet Name="StoreActivityCategory" EntityType="Self.StoreActivityCategory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StoreActivityType" EntityType="Self.StoreActivityType" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StoreBrand" EntityType="Self.StoreBrand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StoreCatologFile" EntityType="Self.StoreCatologFile" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StoreCertificate" EntityType="Self.StoreCertificate" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StoreChangeHistory" EntityType="Self.StoreChangeHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="StoreDealer" EntityType="Self.StoreDealer" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StoreInfoNumberShow" EntityType="Self.StoreInfoNumberShow" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Storeindirim" EntityType="Self.Storeindirim" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StoreSector" EntityType="Self.StoreSector" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StoreStatistic" EntityType="Self.StoreStatistic" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Town" EntityType="Self.Town" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -2013,6 +2395,80 @@
     <EntitySet Name="UserLog" EntityType="Self.UserLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Video" EntityType="Self.Video" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="VirtualPos" EntityType="Self.VirtualPos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ChangeLog" EntityType="Self.ChangeLog" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[ChangeLog].[LogId] AS [LogId], 
+[ChangeLog].[DatabaseName] AS [DatabaseName], 
+[ChangeLog].[EventType] AS [EventType], 
+[ChangeLog].[ObjectName] AS [ObjectName], 
+[ChangeLog].[ObjectType] AS [ObjectType], 
+[ChangeLog].[SqlCommand] AS [SqlCommand], 
+[ChangeLog].[EventDate] AS [EventDate], 
+[ChangeLog].[LoginName] AS [LoginName]
+FROM [dbo].[ChangeLog] AS [ChangeLog]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="StoreNew" EntityType="Self.StoreNew" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+[StoreNew].[StoreNewId] AS [StoreNewId], 
+[StoreNew].[StoreMainPartyId] AS [StoreMainPartyId], 
+[StoreNew].[Title] AS [Title], 
+[StoreNew].[Content] AS [Content], 
+[StoreNew].[RecordDate] AS [RecordDate], 
+[StoreNew].[Active] AS [Active], 
+[StoreNew].[UpdateDate] AS [UpdateDate], 
+[StoreNew].[ImageName] AS [ImageName], 
+[StoreNew].[ViewCount] AS [ViewCount], 
+[StoreNew].[NewType] AS [NewType]
+FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__Certifica__Produ__3D82CA82" Association="Self.FK__Certifica__Produ__3D82CA82">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="CertificateTypeProduct" EntitySet="CertificateTypeProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Certifica__Store__3E76EEBB" Association="Self.FK__Certifica__Store__3E76EEBB">
+      <End Role="StoreCertificate" EntitySet="StoreCertificate" />
+      <End Role="CertificateTypeProduct" EntitySet="CertificateTypeProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductCa__Produ__3F4C18B3" Association="Self.FK__ProductCa__Produ__3F4C18B3">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductCatolog" EntitySet="ProductCatolog" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductCo__Membe__57397C34" Association="Self.FK__ProductCo__Membe__57397C34">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="ProductComment" EntitySet="ProductComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductCo__Produ__555133C2" Association="Self.FK__ProductCo__Produ__555133C2">
+      <End Role="ProductComment" EntitySet="ProductComment" />
+      <End Role="ProductComment1" EntitySet="ProductComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductCo__Produ__564557FB" Association="Self.FK__ProductCo__Produ__564557FB">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductComment" EntitySet="ProductComment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductSt__Membe__39B1D60A" Association="Self.FK__ProductSt__Membe__39B1D60A">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="ProductStatistic" EntitySet="ProductStatistic" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StoreCert__MainP__6D1346F7" Association="Self.FK__StoreCert__MainP__6D1346F7">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="StoreCertificate" EntitySet="StoreCertificate" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StoreNew__StoreM__7B8294F9" Association="Self.FK__StoreNew__StoreM__7B8294F9">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="StoreNew" EntitySet="StoreNew" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StoreSect__Categ__7DA67417" Association="Self.FK__StoreSect__Categ__7DA67417">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="StoreSector" EntitySet="StoreSector" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StoreSett__MainP__63E8D24F" Association="Self.FK__StoreSett__MainP__63E8D24F">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="MemberSetting" EntitySet="MemberSetting" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StoreStat__Store__75D0165B" Association="Self.FK__StoreStat__Store__75D0165B">
+      <End Role="Store" EntitySet="Store" />
+      <End Role="StoreStatistic" EntitySet="StoreStatistic" />
+    </AssociationSet>
     <AssociationSet Name="FK_Address_AddressType" Association="Self.FK_Address_AddressType">
       <End Role="AddressType" EntitySet="AddressType" />
       <End Role="Address" EntitySet="Address" />
@@ -2165,31 +2621,23 @@
       <End Role="Address" EntitySet="Address" />
       <End Role="Phone" EntitySet="Phone" />
     </AssociationSet>
-    <AssociationSet Name="FK_Phone_MainParty" Association="Self.FK_Phone_MainParty">
-      <End Role="MainParty" EntitySet="MainParty" />
-      <End Role="Phone" EntitySet="Phone" />
-    </AssociationSet>
     <AssociationSet Name="FK_Picture_StoreDealer" Association="Self.FK_Picture_StoreDealer">
       <End Role="StoreDealer" EntitySet="StoreDealer" />
       <End Role="Picture" EntitySet="Picture" />
     </AssociationSet>
-    <AssociationSet Name="FK_Product_Category" Association="Self.FK_Product_Category">
+    <AssociationSet Name="FK_Product_Category_Brand" Association="Self.FK_Product_Category_Brand">
       <End Role="Category" EntitySet="Category" />
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
-    <AssociationSet Name="FK_Product_CategoryBrand" Association="Self.FK_Product_CategoryBrand">
+    <AssociationSet Name="FK_Product_Category_Category" Association="Self.FK_Product_Category_Category">
       <End Role="Category" EntitySet="Category" />
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
-    <AssociationSet Name="FK_Product_CategoryModel" Association="Self.FK_Product_CategoryModel">
+    <AssociationSet Name="FK_Product_Category_ProductGrup" Association="Self.FK_Product_Category_ProductGrup">
       <End Role="Category" EntitySet="Category" />
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
-    <AssociationSet Name="FK_Product_CategoryProductGroup" Association="Self.FK_Product_CategoryProductGroup">
-      <End Role="Category" EntitySet="Category" />
-      <End Role="Product" EntitySet="Product" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Product_CategorySerie" Association="Self.FK_Product_CategorySerie">
+    <AssociationSet Name="FK_Product_Category_Series" Association="Self.FK_Product_Category_Series">
       <End Role="Category" EntitySet="Category" />
       <End Role="Product" EntitySet="Product" />
     </AssociationSet>
@@ -2216,6 +2664,10 @@
     <AssociationSet Name="FK_Product_MainParty" Association="Self.FK_Product_MainParty">
       <End Role="MainParty" EntitySet="MainParty" />
       <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductStatistics" Association="Self.FK_Product_ProductStatistics">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductStatistic" EntitySet="ProductStatistic" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_Town" Association="Self.FK_Product_Town">
       <End Role="Town" EntitySet="Town" />

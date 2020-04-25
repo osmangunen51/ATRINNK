@@ -21,6 +21,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public bool IsAdvice { get; set; }
         public bool IsSolved { get; set; }
         public bool IsFirst { get; set; }
+        public bool IsWaiting { get; set; }
        public List<SelectListItem> ErrorTypes { get; set; }
      }
 }

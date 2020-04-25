@@ -552,5 +552,6 @@
         [StringLengthValidation(50)]
         public string StoreUniqueShortName { get; set; }
 
+        public DateTime? StoreUpdatedDate { get; set; }
     }
 }

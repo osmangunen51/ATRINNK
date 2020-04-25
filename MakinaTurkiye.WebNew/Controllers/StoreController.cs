@@ -188,7 +188,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (filterableCityIds != null && filterableCityIds.Count > 0)
             {
                 int selectedCityId = GetCityIdByCityName();
-                var filterAbleCities = _addressService.GetCitiesByCityIds(filterableCityIds.Distinct().ToList()); ;
+                var filterAbleCities = _addressService.GetCitiesByCityIds(filterableCityIds.Distinct().ToList()); 
                 string filterUrl = QueryStringBuilder.RemoveQueryString(this.Request.Url.ToString(), CITY_ID_QUERY_STRING_KEY);
                 filterUrl = QueryStringBuilder.RemoveQueryString(filterUrl, PAGE_INDEX_QUERY_STRING_KEY);
                 filterUrl = QueryStringBuilder.RemoveQueryString(filterUrl, LOCALITY_ID_QUERY_STRING_KEY);
@@ -197,7 +197,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     Filtered = false,
                     FilterItemId = "0",
                     FilterItemName = "Tüm Şehirler",
-                    FilterItemStoreCount = 0,
+                    FilterItemStoreCount = filterableCityIds.Count,
                     FilterUrl = filterUrl
                 });
                 foreach (var item in filterAbleCities)

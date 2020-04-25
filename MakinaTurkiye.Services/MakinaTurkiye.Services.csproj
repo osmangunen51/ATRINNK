@@ -95,6 +95,7 @@
     <Compile Include="Catalog\CategoryPlaceChoiceService.cs" />
     <Compile Include="Catalog\CategoryPropertieService.cs" />
     <Compile Include="Catalog\CategoryService.cs" />
+    <Compile Include="Catalog\CategoryPlaceTypeEnum.cs" />
     <Compile Include="Catalog\CategoryTypeEnum.cs" />
     <Compile Include="Catalog\CertificateTypeService.cs" />
     <Compile Include="Catalog\DeletedProductRedirectService.cs" />

@@ -27,6 +27,7 @@
     <EntitySetMapping Name="Addresses">
       <EntityTypeMapping TypeName="MakinaTurkiyeModel.Address">
         <MappingFragment StoreEntitySet="Address">
+          <ScalarProperty Name="PostCode" ColumnName="PostCode" />
           <ScalarProperty Name="AddressId" ColumnName="AddressId" />
           <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
           <ScalarProperty Name="CountryId" ColumnName="CountryId" />
@@ -616,6 +617,7 @@
     <EntitySetMapping Name="Orders">
       <EntityTypeMapping TypeName="MakinaTurkiyeModel.Order">
         <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
           <ScalarProperty Name="EBillNumber" ColumnName="EBillNumber" />
           <ScalarProperty Name="IsRenewPacket" ColumnName="IsRenewPacket" />
           <ScalarProperty Name="PacketStartDate" ColumnName="PacketStartDate" />
@@ -1192,6 +1194,239 @@
           <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
           <ScalarProperty Name="descId" ColumnName="descId" />
           <ScalarProperty Name="MemberDescription_logId" ColumnName="MemberDescription_logId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StoreCatologFiles">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.StoreCatologFile">
+        <MappingFragment StoreEntitySet="StoreCatologFile">
+          <ScalarProperty Name="FileOrder" ColumnName="FileOrder" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="StoreMainPartyId" ColumnName="StoreMainPartyId" />
+          <ScalarProperty Name="StoreCatologFileId" ColumnName="StoreCatologFileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StoreCertificates">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.StoreCertificate">
+        <MappingFragment StoreEntitySet="StoreCertificate">
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+          <ScalarProperty Name="Order" ColumnName="Order" />
+          <ScalarProperty Name="CertificateName" ColumnName="CertificateName" />
+          <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
+          <ScalarProperty Name="StoreCertificateId" ColumnName="StoreCertificateId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StoreSectors">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.StoreSector">
+        <MappingFragment StoreEntitySet="StoreSector">
+          <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="StoreMainPartyId" ColumnName="StoreMainPartyId" />
+          <ScalarProperty Name="StoreSectorId" ColumnName="StoreSectorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StoreNews">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.StoreNew">
+        <MappingFragment StoreEntitySet="StoreNew">
+          <ScalarProperty Name="NewType" ColumnName="NewType" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="Active" ColumnName="Active" />
+          <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+          <ScalarProperty Name="Content" ColumnName="Content" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="StoreMainPartyId" ColumnName="StoreMainPartyId" />
+          <ScalarProperty Name="StoreNewId" ColumnName="StoreNewId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CertificateTypeProducts">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.CertificateTypeProduct">
+        <MappingFragment StoreEntitySet="CertificateTypeProduct">
+          <ScalarProperty Name="StoreCertificateId" ColumnName="StoreCertificateId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="CertificateTypeId" ColumnName="CertificateTypeId" />
+          <ScalarProperty Name="CertificateTypeProductId" ColumnName="CertificateTypeProductId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductCatologs">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.ProductCatolog">
+        <MappingFragment StoreEntitySet="ProductCatolog">
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductCatologId" ColumnName="ProductCatologId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductComments">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.ProductComment">
+        <MappingFragment StoreEntitySet="ProductComment">
+          <ScalarProperty Name="Reported" ColumnName="Reported" />
+          <ScalarProperty Name="Viewed" ColumnName="Viewed" />
+          <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="CommentText" ColumnName="CommentText" />
+          <ScalarProperty Name="MemberMainPartyId" ColumnName="MemberMainPartyId" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="ProductCommentBaseId" ColumnName="ProductCommentBaseId" />
+          <ScalarProperty Name="ProductCommentId" ColumnName="ProductCommentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductStatistics">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.ProductStatistic">
+        <MappingFragment StoreEntitySet="ProductStatistic">
+          <ScalarProperty Name="MemberMainPartyId" ColumnName="MemberMainPartyId" />
+          <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+          <ScalarProperty Name="Hour" ColumnName="Hour" />
+          <ScalarProperty Name="SingularViewCount" ColumnName="SingularViewCount" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="UserCountry" ColumnName="UserCountry" />
+          <ScalarProperty Name="IpAdress" ColumnName="IpAdress" />
+          <ScalarProperty Name="UserCity" ColumnName="UserCity" />
+          <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StoreChangeHistories">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.StoreChangeHistory">
+        <MappingFragment StoreEntitySet="StoreChangeHistory">
+          <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
+          <ScalarProperty Name="UpdatedDated" ColumnName="UpdatedDated" />
+          <ScalarProperty Name="TradeRegistrNo" ColumnName="TradeRegistrNo" />
+          <ScalarProperty Name="MersisNo" ColumnName="MersisNo" />
+          <ScalarProperty Name="TaxNumber" ColumnName="TaxNumber" />
+          <ScalarProperty Name="TaxOffice" ColumnName="TaxOffice" />
+          <ScalarProperty Name="StoreUniqueShortName" ColumnName="StoreUniqueShortName" />
+          <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
+          <ScalarProperty Name="StorePicture" ColumnName="StorePicture" />
+          <ScalarProperty Name="PhilosophyText" ColumnName="PhilosophyText" />
+          <ScalarProperty Name="FounderText" ColumnName="FounderText" />
+          <ScalarProperty Name="HistoryText" ColumnName="HistoryText" />
+          <ScalarProperty Name="GeneralText" ColumnName="GeneralText" />
+          <ScalarProperty Name="PurchasingDepartmentEmail" ColumnName="PurchasingDepartmentEmail" />
+          <ScalarProperty Name="PurchasingDepartmentName" ColumnName="PurchasingDepartmentName" />
+          <ScalarProperty Name="StoreType" ColumnName="StoreType" />
+          <ScalarProperty Name="StoreEndorsement" ColumnName="StoreEndorsement" />
+          <ScalarProperty Name="StoreEmployeesCount" ColumnName="StoreEmployeesCount" />
+          <ScalarProperty Name="StoreCapital" ColumnName="StoreCapital" />
+          <ScalarProperty Name="StoreEstablishmentDate" ColumnName="StoreEstablishmentDate" />
+          <ScalarProperty Name="StoreRecordDate" ColumnName="StoreRecordDate" />
+          <ScalarProperty Name="StoreAbout" ColumnName="StoreAbout" />
+          <ScalarProperty Name="StorePAcketEndDate" ColumnName="StorePAcketEndDate" />
+          <ScalarProperty Name="StorePacketBeginDate" ColumnName="StorePacketBeginDate" />
+          <ScalarProperty Name="StoreActiveType" ColumnName="StoreActiveType" />
+          <ScalarProperty Name="OldStoreLogo" ColumnName="OldStoreLogo" />
+          <ScalarProperty Name="StoreLogo" ColumnName="StoreLogo" />
+          <ScalarProperty Name="StoreWeb" ColumnName="StoreWeb" />
+          <ScalarProperty Name="StoreEMail" ColumnName="StoreEMail" />
+          <ScalarProperty Name="StoreName" ColumnName="StoreName" />
+          <ScalarProperty Name="StoreNo" ColumnName="StoreNo" />
+          <ScalarProperty Name="PacketId" ColumnName="PacketId" />
+          <ScalarProperty Name="StoreChangeHistoryId" ColumnName="StoreChangeHistoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StoreStatistics">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.StoreStatistic">
+        <MappingFragment StoreEntitySet="StoreStatistic">
+          <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+          <ScalarProperty Name="SingularViewCount" ColumnName="SingularViewCount" />
+          <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
+          <ScalarProperty Name="UserCountry" ColumnName="UserCountry" />
+          <ScalarProperty Name="UserIp" ColumnName="UserIp" />
+          <ScalarProperty Name="UserCity" ColumnName="UserCity" />
+          <ScalarProperty Name="StoreId" ColumnName="StoreId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StoreInfoNumberShows">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.StoreInfoNumberShow">
+        <MappingFragment StoreEntitySet="StoreInfoNumberShow">
+          <ScalarProperty Name="MersisNoShow" ColumnName="MersisNoShow" />
+          <ScalarProperty Name="TradeRegistryNoShow" ColumnName="TradeRegistryNoShow" />
+          <ScalarProperty Name="TaxOfficeShow" ColumnName="TaxOfficeShow" />
+          <ScalarProperty Name="TaxNumberShow" ColumnName="TaxNumberShow" />
+          <ScalarProperty Name="StoreMainPartyID" ColumnName="StoreMainPartyID" />
+          <ScalarProperty Name="StoreInfoNumberShowID" ColumnName="StoreInfoNumberShowID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ChangeLogs">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.ChangeLog">
+        <MappingFragment StoreEntitySet="ChangeLog">
+          <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+          <ScalarProperty Name="EventDate" ColumnName="EventDate" />
+          <ScalarProperty Name="SqlCommand" ColumnName="SqlCommand" />
+          <ScalarProperty Name="ObjectType" ColumnName="ObjectType" />
+          <ScalarProperty Name="ObjectName" ColumnName="ObjectName" />
+          <ScalarProperty Name="EventType" ColumnName="EventType" />
+          <ScalarProperty Name="DatabaseName" ColumnName="DatabaseName" />
+          <ScalarProperty Name="LogId" ColumnName="LogId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MemberSettings">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.MemberSetting">
+        <MappingFragment StoreEntitySet="MemberSetting">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
+          <ScalarProperty Name="SecondValue" ColumnName="SecondValue" />
+          <ScalarProperty Name="FirstValue" ColumnName="FirstValue" />
+          <ScalarProperty Name="SettingId" ColumnName="SettingId" />
+          <ScalarProperty Name="MemberMainPartyId" ColumnName="MemberMainPartyId" />
+          <ScalarProperty Name="StoreMainPartyId" ColumnName="StoreMainPartyId" />
+          <ScalarProperty Name="MemberSettingId" ColumnName="MemberSettingId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AddressChangeHistories">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.AddressChangeHistory">
+        <MappingFragment StoreEntitySet="AddressChangeHistory">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="StoreDealerId" ColumnName="StoreDealerId" />
+          <ScalarProperty Name="AddressDefault" ColumnName="AddressDefault" />
+          <ScalarProperty Name="Street" ColumnName="Street" />
+          <ScalarProperty Name="DoorNo" ColumnName="DoorNo" />
+          <ScalarProperty Name="ApartmentNo" ColumnName="ApartmentNo" />
+          <ScalarProperty Name="Avenue" ColumnName="Avenue" />
+          <ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeId" />
+          <ScalarProperty Name="TownId" ColumnName="TownId" />
+          <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+          <ScalarProperty Name="CityId" ColumnName="CityId" />
+          <ScalarProperty Name="CountryId" ColumnName="CountryId" />
+          <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
+          <ScalarProperty Name="ADdressId" ColumnName="ADdressId" />
+          <ScalarProperty Name="AddressChangeHistoryId" ColumnName="AddressChangeHistoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PhoneChangeHistories">
+      <EntityTypeMapping TypeName="MakinaTurkiyeModel.PhoneChangeHistory">
+        <MappingFragment StoreEntitySet="PhoneChangeHistory">
+          <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+          <ScalarProperty Name="GsmType" ColumnName="GsmType" />
+          <ScalarProperty Name="PhoneType" ColumnName="PhoneType" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneAreaCode" ColumnName="PhoneAreaCode" />
+          <ScalarProperty Name="PhoneCulture" ColumnName="PhoneCulture" />
+          <ScalarProperty Name="AddressId" ColumnName="AddressId" />
+          <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
+          <ScalarProperty Name="PhoneId" ColumnName="PhoneId" />
+          <ScalarProperty Name="PhoneChangeHistoryId" ColumnName="PhoneChangeHistoryId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

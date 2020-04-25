@@ -1,9 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings.OtherSettingsProductModel>" %>
 
 <%@ Import Namespace="NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Diğer Ayarlar
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <%

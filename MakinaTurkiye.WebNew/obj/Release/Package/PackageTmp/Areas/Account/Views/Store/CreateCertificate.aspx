@@ -1,14 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores.CreateStoreCertificateModel>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Firma Anasayfa Slider Resimleri Ekle/Güncelle-Makina Türkiye
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
     <style type="text/css">
-        .imgAdded {
-            margin-top: 10px;
-            margin-left: 10px;
-        }
+        .imgAdded { margin-top: 10px; margin-left: 10px; }
     </style>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -54,18 +49,19 @@
                 });
             }
         }
-              function ShowLoader() {
+        $("#CertificateTypeId").change(function () {
+            var val = $("#CertificateTypeId").val();
+            
+        });
+
+        function ShowLoader() {
             $("#loaderDiv").show();
         }
     </script>
     <style type="text/css">
-        #imagesAll {
-        }
+        #imagesAll { }
 
-            #imagesAll li {
-                float: left;
-                list-style-type: none;
-            }
+            #imagesAll li { float: left; list-style-type: none; }
     </style>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
@@ -107,7 +103,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-md-3">Sertifica Tipi</label>
+                                    <label class="col-md-3">Sertifika Tipi</label>
                                     <div class="col-md-9">
                                         <%:Html.DropDownListFor(x=>x.CertificateTypeId, Model.CertificateTypes, new {@class="selectpicker" , @title = "Seçiniz"}) %>
                                     </div>
