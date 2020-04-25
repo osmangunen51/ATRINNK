@@ -1,7 +1,10 @@
 ﻿using MakinaTurkiye.Core.Data;
+using MakinaTurkiye.Data;
+using MakinaTurkiye.Entities.StoredProcedures.Stores;
 using MakinaTurkiye.Entities.Tables.Stores;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
@@ -9,16 +12,20 @@ namespace MakinaTurkiye.Services.Stores
     public class StoreChangeHistoryService : IStoreChangeHistoryService
     {
         #region Fields
-
+        private readonly IDbContext _dbContext;
+        private readonly IDataProvider _dataProvider;
         private readonly IRepository<StoreChangeHistory> _storeChangeHistoryRepository;
 
         #endregion
 
         #region Ctor
 
-        public StoreChangeHistoryService(IRepository<StoreChangeHistory> storeChangeHistoryRepository)
+        public StoreChangeHistoryService(IRepository<StoreChangeHistory> storeChangeHistoryRepository,
+            IDbContext dbContext, IDataProvider dataProvider)
         {
             this._storeChangeHistoryRepository = storeChangeHistoryRepository;
+            this._dbContext = dbContext;
+            this._dataProvider = dataProvider;
         }
 
         #endregion
@@ -84,6 +91,33 @@ namespace MakinaTurkiye.Services.Stores
             storeChangeHistory.UpdatedDated = DateTime.Now;
 
             _storeChangeHistoryRepository.Insert(storeChangeHistory);
+        }
+
+        public List<StoreChangeInfoResult> SP_StoreInfoChange(int pageSize, int pageIndex, out int totalRecord)
+        {
+
+
+            var pPage = _dataProvider.GetParameter();
+            pPage.ParameterName = "PageSize";
+            pPage.Value = pageSize;
+            pPage.DbType = DbType.Int32;
+
+            var pPageInde = _dataProvider.GetParameter();
+            pPageInde.ParameterName = "PageIndex";
+            pPageInde.Value = pageIndex;
+            pPageInde.DbType = DbType.Int32;
+
+            var pTotalRecords = _dataProvider.GetParameter();
+            pTotalRecords.ParameterName = "TotalRecord";
+            pTotalRecords.DbType = DbType.Int32;
+            pTotalRecords.Direction = ParameterDirection.Output;
+
+
+            var result = _dbContext.SqlQuery<StoreChangeInfoResult>("SP_StoreInfoChange @PageSize, @PageIndex, @TotalRecord OUTPUT", pPage, pPageInde, pTotalRecords).ToList();
+
+            totalRecord = (pTotalRecords.Value != DBNull.Value) ? Convert.ToInt32(pTotalRecords.Value) : 0;
+            return result;
+
         }
 
         #endregion

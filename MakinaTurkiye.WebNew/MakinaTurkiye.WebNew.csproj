@@ -531,6 +531,7 @@
     <Compile Include="Models\StoreProfiles\MTStoreProfileProductsModel.cs" />
     <Compile Include="Models\StoreProfiles\MTStoreProfileVideoModel.cs" />
     <Compile Include="Models\StoreProfiles\MTStoreServicesModel.cs" />
+    <Compile Include="Models\StoreProfiles\MTStoreVideoModel.cs" />
     <Compile Include="Models\Stores\MTStoreActivityTypeFilterItemModel.cs" />
     <Compile Include="Models\Stores\MTStoreActivityTypeFilterModel.cs" />
     <Compile Include="Models\Statistics\MTStatisticModel.cs" />
@@ -2111,6 +2112,7 @@
     <Content Include="Views\StoreProfileNew\DealerNew.aspx" />
     <Content Include="Views\StoreProfileNew\CatologNew.aspx" />
     <Content Include="Views\StoreProfileNew\DealerShipNew.aspx" />
+    <Content Include="Views\StoreProfileNew\StorePromotionVideo.aspx" />
     <Content Include="Views\StoreProfileNew\_HeaderTop.ascx" />
     <Content Include="Views\StoreProfileNew\_LeftMenu.ascx" />
     <Content Include="Views\StoreProfileNew\StoreImagesNew.aspx" />

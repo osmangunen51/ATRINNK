@@ -270,19 +270,22 @@ namespace MakinaTurkiye.Services.Catalog
         public IList<ProductCategoryForSearchProductResult> GetSPProductCategoryForSearchProductOneStep(
             string searchText)
         {
-            string key = string.Format(CATEGORIES_SP_PRODUCTCATEGORY_ONE_STEP_FOR_SEARCH_TEXT_KEY, searchText);
-            return _cacheManager.Get(key, () => 
-            {
-                var pSearchText = _dataProvider.GetParameter();
-                pSearchText.ParameterName = "SearchText";
-                pSearchText.Value = searchText;
-                pSearchText.DbType = DbType.String;
+            //string key = string.Format(CATEGORIES_SP_PRODUCTCATEGORY_ONE_STEP_FOR_SEARCH_TEXT_KEY, searchText);
+            //return _cacheManager.Get(key, () => 
+            //{
 
-                IDataReader reader = _dbContext.ExecuteDataReader("SP_GetProductCategoryAndProductGroupsBySearch",
-                    CommandType.StoredProcedure, CommandBehavior.CloseConnection, pSearchText);
-                var productCategory = reader.DataReaderToObjectList<ProductCategoryForSearchProductResult>();
-                return productCategory;
-            });
+            //});
+
+
+            var pSearchText = _dataProvider.GetParameter();
+            pSearchText.ParameterName = "SearchText";
+            pSearchText.Value = searchText;
+            pSearchText.DbType = DbType.String;
+
+            IDataReader reader = _dbContext.ExecuteDataReader("SP_GetProductCategoryAndProductGroupsBySearch",
+                CommandType.StoredProcedure, CommandBehavior.CloseConnection, pSearchText);
+            var productCategory = reader.DataReaderToObjectList<ProductCategoryForSearchProductResult>();
+            return productCategory;
         }
 
         public IList<CategoryForStoreProfileResult> GetCategoriesByStoreMainPartyId(int mainPartyId)

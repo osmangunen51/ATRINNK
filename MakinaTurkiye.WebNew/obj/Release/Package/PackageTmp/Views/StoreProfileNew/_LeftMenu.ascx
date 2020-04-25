@@ -108,7 +108,7 @@
                 <% } %>
                 <%if (Model.MTStoreProfileMenuHasModel.HasImages)
                     {%>
-                <li class="<%: Model.MTStoreProfileMenuActivePage.StoreImagesActive %>"><span class="fa fa-video-camera" aria-hidden="true"></span><a href="<%=Model.StoreUrl %>/gorseller">Görsellerimiz</a>
+                <li class="<%: Model.MTStoreProfileMenuActivePage.StoreImagesActive %>"><span class="fa fa-image" aria-hidden="true"></span><a href="<%=Model.StoreUrl %>/gorseller">Görsellerimiz</a>
                 </li>
 
                 <% } %>
@@ -126,16 +126,21 @@
                     {%>
                 <li class="<%: Model.MTStoreProfileMenuActivePage.NewActive %>"><span class="fa fa-list" aria-hidden="true"></span><a href="<%=Model.StoreUrl %>/haberler">Haberler</a>	</li>
                 <% } %>
+                <%if (Model.MTStoreProfileMenuHasModel.HasStoreVideos)
+                    {%>
+                <li class="<%: Model.MTStoreProfileMenuActivePage.StoreVideosActive %>"><span class="fa fa-video-camera" aria-hidden="true"></span><a href="<%=Model.StoreUrl %>/tanitim-videolar">Tanıtım Videoları</a>	</li>
+                <% } %>
                 <li class="<%: Model.MTStoreProfileMenuActivePage.ConnectionActive %>"><span class="fa fa-phone" aria-hidden="true"></span><a href="<%=Model.StoreUrl %>/iletisim">İletişim</a>
                 </li>
             </ul>
         </nav>
         <%-- Store Menü --%>
 
-                <%var videoModel = Model.StoreVideo; %>
-        <%if(!string.IsNullOrEmpty(videoModel.VideoUrl)){%>
-                <div class="store-menu-video">
-       
+        <%var videoModel = Model.StoreVideo; %>
+        <%if (!string.IsNullOrEmpty(videoModel.VideoUrl))
+            {%>
+        <div class="store-menu-video">
+
             <div class="video-container" style="">
                 <span class="store-menu-video-title"><%:videoModel.VideoTitle %></span>
                 <a style="cursor: pointer" data-toggle="modal" data-target="#video5594">
@@ -165,17 +170,15 @@
                     </div>
                 </div>
             </div>
-        
+
         </div>
-        
+
         <%} %>
 
         <%-- Store Share --%>
         <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54cd19b3604b2ec3" async="async"></script>
         <div class="addthis_inline_share_toolbox"></div>
         <%-- Store Share --%>
-
-
     </div>
 
 

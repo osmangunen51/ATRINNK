@@ -1,5 +1,6 @@
 ﻿using MakinaTurkiye.Core;
 using MakinaTurkiye.Entities.Tables.Stores;
+using System.Collections.Generic;
 
 namespace MakinaTurkiye.Services.Stores
 {
@@ -13,5 +14,6 @@ namespace MakinaTurkiye.Services.Stores
        
         PreRegistrationStore GetPreRegistirationStoreByPreRegistrationStoreId(int preRegistraionStoreId);
 
+        IList<PreRegistrationStore> GetPreRegistrationStoreSearchByName(string storeName);
     }
 }

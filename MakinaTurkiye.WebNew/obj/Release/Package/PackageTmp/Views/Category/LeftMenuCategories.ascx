@@ -24,18 +24,13 @@
                      { %>
                         <span class="text-muted text-sm">(<%: item.ProductCount %>) </span>
                      <% } %>      
-                        
-                   
                 </a>
             </li>
             <% leftPX += " &nbsp; ";  %>
             <% } %>
-
             <% int itemIndex = 0; %>
             <% foreach (var item in Model.CategoryModel.CategoryItemModels.Where(c => c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Series))
                { %>
-
-
             <li title="<%:item.CategoryName %>" class="list-group-item <%: Model.CategoryModel.SelectedCategoryId== item.CategoryId ? "active" : string.Empty %>">
                 <%:MvcHtmlString.Create(leftPX) %>
                 <a href="<%:item.CategoryUrl %>">
@@ -43,12 +38,8 @@
                     <span class="text-muted text-sm">(<%:item.ProductCount %>) </span>
                 </a>
             </li>
-
-
            <%-- <% if (itemIndex <= 11)
                { %>
-
-
             <li title="<%:item.CategoryName %>" class="list-group-item <%: Model.CategoryModel.SelectedCategoryId== item.CategoryId ? "active" : string.Empty %>">
                 <%:MvcHtmlString.Create(leftPX) %>
                 <a href="<%:item.CategoryUrl %>">
@@ -56,23 +47,15 @@
                     <span class="text-muted text-sm">(<%:item.ProductCount %>) </span>
                 </a>
             </li>
-
-
-
             <%if (itemIndex == 11)
               {%>
             <li class="list-group-item showAllSubCat">
                 <%:MvcHtmlString.Create(leftPX) %> <a href="javascript:;">Tüm alt kategorileri göster <span class="icon-fill-down-arrow"></span></a>
             </li>
             <%} %>
-
-
             <%}
                else
                { %>
-
-
-
             <li title="<%:item.CategoryName %>" class="list-group-item subCatNone <%: Model.CategoryModel.SelectedCategoryId== item.CategoryId ? "active" : string.Empty %>" style="display: none;">
                 <%:MvcHtmlString.Create(leftPX) %>
                 <a href="<%:item.CategoryUrl %>">
@@ -80,14 +63,7 @@
                     <span class="text-muted text-sm">(<%:item.ProductCount %>) </span>
                 </a>
             </li>
-
-
-
             <%} %>--%>
-
-
-
-
             <% itemIndex++; %>
             <% } %>
 

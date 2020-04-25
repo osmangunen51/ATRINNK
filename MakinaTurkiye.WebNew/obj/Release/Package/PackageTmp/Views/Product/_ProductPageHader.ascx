@@ -21,9 +21,7 @@
             <h1 class="mt0 di2" itemprop="name">
                 <%:Model.ProductName%>
             </h1>
-            <span itemprop="description" style="display: none">
-                <%= SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte()).Description.Replace("\"","").Trim() %>
-            </span>
+
              <%if (Model.IsActive)
                 {%>
                 <div class="pull-right">

@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="System.Web.Mvc.ViewPage<MTAdvancedSearchModel>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Detaylı Arama-makinaturkiye.com
-</asp:Content>
+
 <asp:Content ID="Content3" ContentPlaceHolderID="HeaderContent" runat="server">
     <meta name="description" content="Makinaturkiye.com detaylı arama aracı sayesinde, binlerce ilan arasından detaylandırarak aradığınız ilana daha kolay ulaşabilirsiniz." />
     <style type="text/css">

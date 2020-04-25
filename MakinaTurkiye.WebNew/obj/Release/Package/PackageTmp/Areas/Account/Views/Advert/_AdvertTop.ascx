@@ -9,7 +9,7 @@
                 string newvalue = ((byte)DisplayType.List).ToString();
                 string urlList = "";
                 urlList = currentUrl.Replace("DisplayType=" + sCurrentValue, "DisplayType=" + newvalue);
-                
+
             %>
             <span class="btn btn-sm disabled btn-mt2">Görünüm: </span><a href="<%:urlList %>"
                 class="btn btn-sm btn-mt2 <%:(sCurrentValue==newvalue?"active":"") %>"><span class="glyphicon glyphicon-th"></span>
@@ -28,27 +28,26 @@
     <div class="hidden-sm hidden-xs col-md-8  col-lg-8 pl0 mb20">
         <div class="btn-group btn-group-justified">
             <span class="btn btn-sm disabled btn-mt2"></span>
-                        <div class="btn-group">
+            <div class="btn-group">
                 <a href="#" class="btn btn-sm btn-mt2 dropdown-toggle" data-toggle="dropdown">Sıralama
                                             <span class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-mt" role="menu">
-                <%foreach (var item in Model.MTOrderFilter.ToList())
-                    {%>
-                       <li class="<%:item.CssClass %>"><a href="<%:item.FilterUrl %>"><%:item.FilterName %> </a></li>
+                    <%foreach (var item in Model.MTOrderFilter.ToList())
+                        {%>
+                    <li class="<%:item.CssClass %>"><a href="<%:item.FilterUrl %>"><%:item.FilterName %> </a></li>
                     <%} %>
-                                      
-                                 
-                                          
                 </ul>
             </div>
             <div class="btn-group">
                 <a href="#" class="btn btn-sm btn-mt2 dropdown-toggle" data-toggle="dropdown">Kategoriler
                                             <span class="caret"></span></a>
                 <ul class="dropdown-menu dropdown-menu-mt" role="menu">
-                    <%--                                            <li><a href="#">Test </a></li>
-                                            <li><a href="#">Test </a></li>
-                                            <li><a href="#">Test </a></li>
-                                            <li><a href="#">Test </a></li>--%>
+                    <%for (int i = 0; i < Model.MTCategoriesFilter.Count; i++)
+                        {
+                            var categoryFilter = Model.MTCategoriesFilter[i];
+                    %>
+                    <li><a href="<%:categoryFilter.FilterUrl %>"><%:categoryFilter.FilterName %> </a></li>
+                    <% } %>
                 </ul>
             </div>
             <div class="btn-group">
@@ -57,11 +56,10 @@
                 <ul class="dropdown-menu dropdown-menu-mt" role="menu">
                     <%foreach (var item in Model.MTAdvertFilterItemModel)
                         {%>
-                                <li class="<%:item.CssClass%>"><a href="<%:item.FilterUrl %>"><%:item.FilterName %> 
+                    <li class="<%:item.CssClass%>"><a href="<%:item.FilterUrl %>"><%:item.FilterName %> 
                     </a></li>
-                    
-                        <%} %>
-        
+
+                    <%} %>
                 </ul>
             </div>
         </div>

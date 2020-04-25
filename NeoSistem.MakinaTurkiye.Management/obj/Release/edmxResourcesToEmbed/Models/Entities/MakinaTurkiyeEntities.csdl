@@ -414,6 +414,73 @@
       <End Role="MemberDescription" EntitySet="MemberDescriptions" />
       <End Role="MemberDescription_log" EntitySet="MemberDescription_log" />
     </AssociationSet>
+    <EntitySet Name="StoreCatologFiles" EntityType="MakinaTurkiyeModel.StoreCatologFile" />
+    <EntitySet Name="StoreCertificates" EntityType="MakinaTurkiyeModel.StoreCertificate" />
+    <EntitySet Name="StoreSectors" EntityType="MakinaTurkiyeModel.StoreSector" />
+    <EntitySet Name="StoreNews" EntityType="MakinaTurkiyeModel.StoreNew" />
+    <AssociationSet Name="FK__StoreSect__Categ__7DA67417" Association="MakinaTurkiyeModel.FK__StoreSect__Categ__7DA67417">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="StoreSector" EntitySet="StoreSectors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StoreCert__MainP__6D1346F7" Association="MakinaTurkiyeModel.FK__StoreCert__MainP__6D1346F7">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="StoreCertificate" EntitySet="StoreCertificates" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StoreNew__StoreM__7B8294F9" Association="MakinaTurkiyeModel.FK__StoreNew__StoreM__7B8294F9">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="StoreNew" EntitySet="StoreNews" />
+    </AssociationSet>
+    <EntitySet Name="CertificateTypeProducts" EntityType="MakinaTurkiyeModel.CertificateTypeProduct" />
+    <AssociationSet Name="FK__Certifica__Produ__3D82CA82" Association="MakinaTurkiyeModel.FK__Certifica__Produ__3D82CA82">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="CertificateTypeProduct" EntitySet="CertificateTypeProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Certifica__Store__3E76EEBB" Association="MakinaTurkiyeModel.FK__Certifica__Store__3E76EEBB">
+      <End Role="StoreCertificate" EntitySet="StoreCertificates" />
+      <End Role="CertificateTypeProduct" EntitySet="CertificateTypeProducts" />
+    </AssociationSet>
+    <EntitySet Name="ProductCatologs" EntityType="MakinaTurkiyeModel.ProductCatolog" />
+    <EntitySet Name="ProductComments" EntityType="MakinaTurkiyeModel.ProductComment" />
+    <EntitySet Name="ProductStatistics" EntityType="MakinaTurkiyeModel.ProductStatistic" />
+    <EntitySet Name="StoreChangeHistories" EntityType="MakinaTurkiyeModel.StoreChangeHistory" />
+    <EntitySet Name="StoreStatistics" EntityType="MakinaTurkiyeModel.StoreStatistic" />
+    <AssociationSet Name="FK__ProductCo__Membe__57397C34" Association="MakinaTurkiyeModel.FK__ProductCo__Membe__57397C34">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="ProductComment" EntitySet="ProductComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductSt__Membe__39B1D60A" Association="MakinaTurkiyeModel.FK__ProductSt__Membe__39B1D60A">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="ProductStatistic" EntitySet="ProductStatistics" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductCa__Produ__3F4C18B3" Association="MakinaTurkiyeModel.FK__ProductCa__Produ__3F4C18B3">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductCatolog" EntitySet="ProductCatologs" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductCo__Produ__564557FB" Association="MakinaTurkiyeModel.FK__ProductCo__Produ__564557FB">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductComment" EntitySet="ProductComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_ProductStatistics" Association="MakinaTurkiyeModel.FK_Product_ProductStatistics">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductStatistic" EntitySet="ProductStatistics" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ProductCo__Produ__555133C2" Association="MakinaTurkiyeModel.FK__ProductCo__Produ__555133C2">
+      <End Role="ProductComment" EntitySet="ProductComments" />
+      <End Role="ProductComment1" EntitySet="ProductComments" />
+    </AssociationSet>
+    <AssociationSet Name="FK__StoreStat__Store__75D0165B" Association="MakinaTurkiyeModel.FK__StoreStat__Store__75D0165B">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="StoreStatistic" EntitySet="StoreStatistics" />
+    </AssociationSet>
+    <EntitySet Name="StoreInfoNumberShows" EntityType="MakinaTurkiyeModel.StoreInfoNumberShow" />
+    <EntitySet Name="ChangeLogs" EntityType="MakinaTurkiyeModel.ChangeLog" />
+    <EntitySet Name="MemberSettings" EntityType="MakinaTurkiyeModel.MemberSetting" />
+    <AssociationSet Name="FK__StoreSett__MainP__63E8D24F" Association="MakinaTurkiyeModel.FK__StoreSett__MainP__63E8D24F">
+      <End Role="Store" EntitySet="Stores" />
+      <End Role="MemberSetting" EntitySet="MemberSettings" />
+    </AssociationSet>
+    <EntitySet Name="AddressChangeHistories" EntityType="MakinaTurkiyeModel.AddressChangeHistory" />
+    <EntitySet Name="PhoneChangeHistories" EntityType="MakinaTurkiyeModel.PhoneChangeHistory" />
   </EntityContainer>
   <EntityType Name="Account">
     <Key>
@@ -463,6 +530,7 @@
     <NavigationProperty Name="StoreDealer" Relationship="MakinaTurkiyeModel.FK_Address_StoreDealer" FromRole="Address" ToRole="StoreDealer" />
     <NavigationProperty Name="Town" Relationship="MakinaTurkiyeModel.FK_Address_Town" FromRole="Address" ToRole="Town" />
     <NavigationProperty Name="Phones" Relationship="MakinaTurkiyeModel.FK_Phone_Address" FromRole="Address" ToRole="Phone" />
+    <Property Name="PostCode" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="AddressType">
     <Key>
@@ -526,6 +594,7 @@
     <Property Name="CategoryPath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
     <Property Name="CategoryPathUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="BaseMenuOrder" Type="Int16" />
+    <NavigationProperty Name="StoreSectors" Relationship="MakinaTurkiyeModel.FK__StoreSect__Categ__7DA67417" FromRole="Category" ToRole="StoreSector" />
   </EntityType>
   <EntityType Name="City">
     <Key>
@@ -696,6 +765,8 @@
     <NavigationProperty Name="MemberDescriptions" Relationship="MakinaTurkiyeModel.FK_MemberDescription_Member" FromRole="Member" ToRole="MemberDescription" />
     <Property Name="FastMemberShipType" Type="Int32" />
     <Property Name="ForgetPasswodCode" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProductComments" Relationship="MakinaTurkiyeModel.FK__ProductCo__Membe__57397C34" FromRole="Member" ToRole="ProductComment" />
+    <NavigationProperty Name="ProductStatistics" Relationship="MakinaTurkiyeModel.FK__ProductSt__Membe__39B1D60A" FromRole="Member" ToRole="ProductStatistic" />
   </EntityType>
   <EntityType Name="MemberStore">
     <Key>
@@ -925,6 +996,10 @@
     <Property Name="ProductPriceWithDiscount" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="0" />
     <Property Name="DiscountType" Type="Byte" />
+    <NavigationProperty Name="CertificateTypeProducts" Relationship="MakinaTurkiyeModel.FK__Certifica__Produ__3D82CA82" FromRole="Product" ToRole="CertificateTypeProduct" />
+    <NavigationProperty Name="ProductCatologs" Relationship="MakinaTurkiyeModel.FK__ProductCa__Produ__3F4C18B3" FromRole="Product" ToRole="ProductCatolog" />
+    <NavigationProperty Name="ProductComments" Relationship="MakinaTurkiyeModel.FK__ProductCo__Produ__564557FB" FromRole="Product" ToRole="ProductComment" />
+    <NavigationProperty Name="ProductStatistics" Relationship="MakinaTurkiyeModel.FK_Product_ProductStatistics" FromRole="Product" ToRole="ProductStatistic" />
   </EntityType>
   <EntityType Name="PurchaseRequest">
     <Key>
@@ -1784,6 +1859,7 @@
     <Property Name="PacketStartDate" Type="DateTime" Precision="0" />
     <Property Name="IsRenewPacket" Type="Boolean" />
     <Property Name="EBillNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+    <Property Name="InvoiceDate" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="FK_Order_Order">
     <End Type="MakinaTurkiyeModel.Account" Role="Account" Multiplicity="0..1" />
@@ -2409,6 +2485,10 @@
     <Property Name="SeoTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="SeoDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="SeoKeyword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="StoreCertificates" Relationship="MakinaTurkiyeModel.FK__StoreCert__MainP__6D1346F7" FromRole="Store" ToRole="StoreCertificate" />
+    <NavigationProperty Name="StoreNews" Relationship="MakinaTurkiyeModel.FK__StoreNew__StoreM__7B8294F9" FromRole="Store" ToRole="StoreNew" />
+    <NavigationProperty Name="StoreStatistics" Relationship="MakinaTurkiyeModel.FK__StoreStat__Store__75D0165B" FromRole="Store" ToRole="StoreStatistic" />
+    <NavigationProperty Name="MemberSettings" Relationship="MakinaTurkiyeModel.FK__StoreSett__MainP__63E8D24F" FromRole="Store" ToRole="MemberSetting" />
   </EntityType>
   <Association Name="FK_CreditCardLog_Store">
     <End Type="MakinaTurkiyeModel.Store" Role="Store" Multiplicity="0..1" />
@@ -2639,4 +2719,408 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <EntityType Name="StoreCatologFile">
+    <Key>
+      <PropertyRef Name="StoreCatologFileId" />
+    </Key>
+    <Property Name="StoreCatologFileId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StoreMainPartyId" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="FileOrder" Type="Int32" />
+  </EntityType>
+  <EntityType Name="StoreCertificate">
+    <Key>
+      <PropertyRef Name="StoreCertificateId" />
+    </Key>
+    <Property Name="StoreCertificateId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MainPartyId" Type="Int32" />
+    <Property Name="CertificateName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Order" Type="Int32" />
+    <Property Name="RecordDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="Active" Type="Boolean" />
+    <NavigationProperty Name="Store" Relationship="MakinaTurkiyeModel.FK__StoreCert__MainP__6D1346F7" FromRole="StoreCertificate" ToRole="Store" />
+    <NavigationProperty Name="CertificateTypeProducts" Relationship="MakinaTurkiyeModel.FK__Certifica__Store__3E76EEBB" FromRole="StoreCertificate" ToRole="CertificateTypeProduct" />
+  </EntityType>
+  <EntityType Name="StoreSector">
+    <Key>
+      <PropertyRef Name="StoreSectorId" />
+    </Key>
+    <Property Name="StoreSectorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StoreMainPartyId" Type="Int32" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="RecordDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Category" Relationship="MakinaTurkiyeModel.FK__StoreSect__Categ__7DA67417" FromRole="StoreSector" ToRole="Category" />
+  </EntityType>
+  <EntityType Name="StoreNew">
+    <Key>
+      <PropertyRef Name="StoreNewId" />
+    </Key>
+    <Property Name="StoreNewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StoreMainPartyId" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="RecordDate" Type="DateTime" Precision="3" />
+    <Property Name="Active" Type="Boolean" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="ImageName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ViewCount" Type="Int64" />
+    <Property Name="NewType" Type="Byte" />
+    <NavigationProperty Name="Store" Relationship="MakinaTurkiyeModel.FK__StoreNew__StoreM__7B8294F9" FromRole="StoreNew" ToRole="Store" />
+  </EntityType>
+  <Association Name="FK__StoreSect__Categ__7DA67417">
+    <End Type="MakinaTurkiyeModel.Category" Role="Category" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MakinaTurkiyeModel.StoreSector" Role="StoreSector" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="StoreSector">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StoreCert__MainP__6D1346F7">
+    <End Type="MakinaTurkiyeModel.Store" Role="Store" Multiplicity="0..1" />
+    <End Type="MakinaTurkiyeModel.StoreCertificate" Role="StoreCertificate" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="StoreCertificate">
+        <PropertyRef Name="MainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StoreNew__StoreM__7B8294F9">
+    <End Type="MakinaTurkiyeModel.Store" Role="Store" Multiplicity="0..1" />
+    <End Type="MakinaTurkiyeModel.StoreNew" Role="StoreNew" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="StoreNew">
+        <PropertyRef Name="StoreMainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="CertificateTypeProduct">
+    <Key>
+      <PropertyRef Name="CertificateTypeProductId" />
+    </Key>
+    <Property Name="CertificateTypeProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CertificateTypeId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="StoreCertificateId" Type="Int32" />
+    <NavigationProperty Name="Product" Relationship="MakinaTurkiyeModel.FK__Certifica__Produ__3D82CA82" FromRole="CertificateTypeProduct" ToRole="Product" />
+    <NavigationProperty Name="StoreCertificate" Relationship="MakinaTurkiyeModel.FK__Certifica__Store__3E76EEBB" FromRole="CertificateTypeProduct" ToRole="StoreCertificate" />
+  </EntityType>
+  <Association Name="FK__Certifica__Produ__3D82CA82">
+    <End Type="MakinaTurkiyeModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="MakinaTurkiyeModel.CertificateTypeProduct" Role="CertificateTypeProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="CertificateTypeProduct">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Certifica__Store__3E76EEBB">
+    <End Type="MakinaTurkiyeModel.StoreCertificate" Role="StoreCertificate" Multiplicity="0..1" />
+    <End Type="MakinaTurkiyeModel.CertificateTypeProduct" Role="CertificateTypeProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StoreCertificate">
+        <PropertyRef Name="StoreCertificateId" />
+      </Principal>
+      <Dependent Role="CertificateTypeProduct">
+        <PropertyRef Name="StoreCertificateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ProductCatolog">
+    <Key>
+      <PropertyRef Name="ProductCatologId" />
+    </Key>
+    <Property Name="ProductCatologId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="FileName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="MakinaTurkiyeModel.FK__ProductCa__Produ__3F4C18B3" FromRole="ProductCatolog" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ProductComment">
+    <Key>
+      <PropertyRef Name="ProductCommentId" />
+    </Key>
+    <Property Name="ProductCommentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductCommentBaseId" Type="Int32" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="MemberMainPartyId" Type="Int32" />
+    <Property Name="CommentText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Rate" Type="Byte" />
+    <Property Name="Status" Type="Boolean" />
+    <Property Name="RecordDate" Type="DateTime" Precision="3" />
+    <Property Name="Viewed" Type="Boolean" />
+    <Property Name="Reported" Type="Boolean" />
+    <NavigationProperty Name="Member" Relationship="MakinaTurkiyeModel.FK__ProductCo__Membe__57397C34" FromRole="ProductComment" ToRole="Member" />
+    <NavigationProperty Name="Product" Relationship="MakinaTurkiyeModel.FK__ProductCo__Produ__564557FB" FromRole="ProductComment" ToRole="Product" />
+    <NavigationProperty Name="ProductComment1" Relationship="MakinaTurkiyeModel.FK__ProductCo__Produ__555133C2" FromRole="ProductComment" ToRole="ProductComment1" />
+    <NavigationProperty Name="ProductComment2" Relationship="MakinaTurkiyeModel.FK__ProductCo__Produ__555133C2" FromRole="ProductComment1" ToRole="ProductComment" />
+  </EntityType>
+  <EntityType Name="ProductStatistic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" />
+    <Property Name="UserCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IpAdress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ViewCount" Type="Byte" />
+    <Property Name="SingularViewCount" Type="Byte" />
+    <Property Name="Hour" Type="Byte" />
+    <Property Name="RecordDate" Type="DateTime" Precision="3" />
+    <Property Name="MemberMainPartyId" Type="Int32" />
+    <NavigationProperty Name="Member" Relationship="MakinaTurkiyeModel.FK__ProductSt__Membe__39B1D60A" FromRole="ProductStatistic" ToRole="Member" />
+    <NavigationProperty Name="Product" Relationship="MakinaTurkiyeModel.FK_Product_ProductStatistics" FromRole="ProductStatistic" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="StoreChangeHistory">
+    <Key>
+      <PropertyRef Name="StoreChangeHistoryId" />
+    </Key>
+    <Property Name="StoreChangeHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PacketId" Type="Int32" />
+    <Property Name="StoreNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="StoreName" Type="String" MaxLength="320" FixedLength="false" Unicode="true" />
+    <Property Name="StoreEMail" Type="String" MaxLength="320" FixedLength="false" Unicode="true" />
+    <Property Name="StoreWeb" Type="String" MaxLength="320" FixedLength="false" Unicode="true" />
+    <Property Name="StoreLogo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="OldStoreLogo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StoreActiveType" Type="Byte" />
+    <Property Name="StorePacketBeginDate" Type="DateTime" Precision="3" />
+    <Property Name="StorePAcketEndDate" Type="DateTime" Precision="3" />
+    <Property Name="StoreAbout" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StoreRecordDate" Type="DateTime" Precision="3" />
+    <Property Name="StoreEstablishmentDate" Type="Int32" />
+    <Property Name="StoreCapital" Type="Byte" />
+    <Property Name="StoreEmployeesCount" Type="Byte" />
+    <Property Name="StoreEndorsement" Type="Byte" />
+    <Property Name="StoreType" Type="Byte" />
+    <Property Name="PurchasingDepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PurchasingDepartmentEmail" Type="String" MaxLength="320" FixedLength="false" Unicode="false" />
+    <Property Name="GeneralText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="HistoryText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FounderText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhilosophyText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="StorePicture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="OrderCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="StoreUniqueShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TaxOffice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="TaxNumber" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="MersisNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TradeRegistrNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedDated" Type="DateTime" Precision="3" />
+    <Property Name="MainPartyId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="StoreStatistic">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StoreId" Type="Int32" />
+    <Property Name="UserCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserIp" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="UserCountry" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ViewCount" Type="Byte" />
+    <Property Name="SingularViewCount" Type="Byte" />
+    <Property Name="RecordDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Store" Relationship="MakinaTurkiyeModel.FK__StoreStat__Store__75D0165B" FromRole="StoreStatistic" ToRole="Store" />
+  </EntityType>
+  <Association Name="FK__ProductCo__Membe__57397C34">
+    <End Type="MakinaTurkiyeModel.Member" Role="Member" Multiplicity="0..1" />
+    <End Type="MakinaTurkiyeModel.ProductComment" Role="ProductComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="ProductComment">
+        <PropertyRef Name="MemberMainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductSt__Membe__39B1D60A">
+    <End Type="MakinaTurkiyeModel.Member" Role="Member" Multiplicity="0..1" />
+    <End Type="MakinaTurkiyeModel.ProductStatistic" Role="ProductStatistic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="ProductStatistic">
+        <PropertyRef Name="MemberMainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductCa__Produ__3F4C18B3">
+    <End Type="MakinaTurkiyeModel.Product" Role="Product" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MakinaTurkiyeModel.ProductCatolog" Role="ProductCatolog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductCatolog">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductCo__Produ__564557FB">
+    <End Type="MakinaTurkiyeModel.Product" Role="Product" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MakinaTurkiyeModel.ProductComment" Role="ProductComment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductComment">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_ProductStatistics">
+    <End Type="MakinaTurkiyeModel.Product" Role="Product" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MakinaTurkiyeModel.ProductStatistic" Role="ProductStatistic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="ProductStatistic">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ProductCo__Produ__555133C2">
+    <End Type="MakinaTurkiyeModel.ProductComment" Role="ProductComment" Multiplicity="0..1" />
+    <End Type="MakinaTurkiyeModel.ProductComment" Role="ProductComment1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductComment">
+        <PropertyRef Name="ProductCommentId" />
+      </Principal>
+      <Dependent Role="ProductComment1">
+        <PropertyRef Name="ProductCommentBaseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__StoreStat__Store__75D0165B">
+    <End Type="MakinaTurkiyeModel.Store" Role="Store" Multiplicity="0..1" />
+    <End Type="MakinaTurkiyeModel.StoreStatistic" Role="StoreStatistic" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="StoreStatistic">
+        <PropertyRef Name="StoreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="StoreInfoNumberShow">
+    <Key>
+      <PropertyRef Name="StoreInfoNumberShowID" />
+    </Key>
+    <Property Name="StoreInfoNumberShowID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StoreMainPartyID" Type="Int32" />
+    <Property Name="TaxNumberShow" Type="Boolean" />
+    <Property Name="TaxOfficeShow" Type="Boolean" />
+    <Property Name="TradeRegistryNoShow" Type="Boolean" />
+    <Property Name="MersisNoShow" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="ChangeLog">
+    <Key>
+      <PropertyRef Name="LogId" />
+      <PropertyRef Name="DatabaseName" />
+      <PropertyRef Name="EventType" />
+      <PropertyRef Name="ObjectName" />
+      <PropertyRef Name="ObjectType" />
+      <PropertyRef Name="SqlCommand" />
+      <PropertyRef Name="EventDate" />
+      <PropertyRef Name="LoginName" />
+    </Key>
+    <Property Name="LogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DatabaseName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="EventType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ObjectName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="ObjectType" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="SqlCommand" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EventDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LoginName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="MemberSetting">
+    <Key>
+      <PropertyRef Name="MemberSettingId" />
+    </Key>
+    <Property Name="MemberSettingId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StoreMainPartyId" Type="Int32" />
+    <Property Name="MemberMainPartyId" Type="Int32" />
+    <Property Name="SettingId" Type="Int32" />
+    <Property Name="FirstValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SecondValue" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="RecordDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Store" Relationship="MakinaTurkiyeModel.FK__StoreSett__MainP__63E8D24F" FromRole="MemberSetting" ToRole="Store" />
+  </EntityType>
+  <Association Name="FK__StoreSett__MainP__63E8D24F">
+    <End Type="MakinaTurkiyeModel.Store" Role="Store" Multiplicity="0..1" />
+    <End Type="MakinaTurkiyeModel.MemberSetting" Role="MemberSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Store">
+        <PropertyRef Name="MainPartyId" />
+      </Principal>
+      <Dependent Role="MemberSetting">
+        <PropertyRef Name="StoreMainPartyId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AddressChangeHistory">
+    <Key>
+      <PropertyRef Name="AddressChangeHistoryId" />
+    </Key>
+    <Property Name="AddressChangeHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ADdressId" Type="Int32" />
+    <Property Name="MainPartyId" Type="Int32" />
+    <Property Name="CountryId" Type="Int32" />
+    <Property Name="CityId" Type="Int32" />
+    <Property Name="LocalityId" Type="Int32" />
+    <Property Name="TownId" Type="Int32" />
+    <Property Name="AddressTypeId" Type="Byte" />
+    <Property Name="Avenue" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="ApartmentNo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+    <Property Name="DoorNo" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+    <Property Name="Street" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AddressDefault" Type="Boolean" />
+    <Property Name="StoreDealerId" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="PhoneChangeHistory">
+    <Key>
+      <PropertyRef Name="PhoneChangeHistoryId" />
+    </Key>
+    <Property Name="PhoneChangeHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PhoneId" Type="Int32" />
+    <Property Name="MainPartyId" Type="Int32" />
+    <Property Name="AddressId" Type="Int32" />
+    <Property Name="PhoneCulture" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneAreaCode" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneType" Type="Byte" />
+    <Property Name="GsmType" Type="Byte" />
+    <Property Name="ActivationCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="active" Type="Int32" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
 </Schema>

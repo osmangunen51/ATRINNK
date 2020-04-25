@@ -1,8 +1,8 @@
-using EEYS.Service.Areas.HelpPage.ModelDescriptions;
-using EEYS.Service.Areas.HelpPage.Models;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
+using EEYS.Service.Areas.HelpPage.ModelDescriptions;
+using EEYS.Service.Areas.HelpPage.Models;
 
 namespace EEYS.Service.Areas.HelpPage.Controllers
 {

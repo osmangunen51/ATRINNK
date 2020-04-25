@@ -60,5 +60,5 @@
     <div class="col-xs-12 col-sm-9 media text-center">
     </div>
     <span class="clearfix"></span>&nbsp;<br />
-    <%:SeoModel.GeneralforAll(ViewData["SEOPAGETYPE"].ToByte()).Description%>
+
 </div>

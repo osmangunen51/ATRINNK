@@ -27,7 +27,7 @@
         <table style="width: 100%; height: 100%;">
           <tr>
             <td align="center" valign="middle">
-              <img src="<%=AppSettings.StoreProfilePicture + FileHelpers.ImageThumbnailName(Model.StorePicture)%>"
+              <img src="<%=AppSettings.StoreProfilePicture + Model.StorePicture%>"
                 width="175" />
             </td>
           </tr>

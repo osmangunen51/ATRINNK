@@ -34,7 +34,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-        <div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px; border-width: 5px;"
+    <div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px; border-width: 5px;"
         id="preLoading">
         <span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>
         <strong>Yükleniyor.</strong> Lütfen bekleyiniz...
@@ -85,7 +85,24 @@
                     </td>
                     <td class="Cell"></td>
                     <td class="Cell"></td>
-                    <td class="Cell"></td>
+                    <td class="Cell">
+
+                        <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select id="ProblemSolved" onchange="FilterData()">
+                                            <option value="2">Tümü</option>
+                                            <option selected="selected" value="0">Çözülmeyenler</option>
+                                            <option value="1">Çözülenler</option>
+
+                                        </select>
+                                   
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
                     <td class="CellEnd"></td>
                 </tr>
             </thead>
@@ -108,12 +125,13 @@
                 data: {
                     'userId': userId,
                     'problemType': problemType,
-                    'type': type
+                    'type': type,
+                    'problemSolved': $("#ProblemSolved").val()
                 },
-             
+
                 success: function (data) {
                     $("#table").html(data);
-                           $("#preLoading").hide();
+                    $("#preLoading").hide();
                 },
                 error: function (request, error) {
                     alert("Request: " + JSON.stringify(error));

@@ -1,7 +1,9 @@
 ﻿using global::MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Common;
 using NeoSistem.MakinaTurkiye.Management.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -34,40 +36,72 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         public ActionResult index()
         {
+            int pageSize = 50;
+            int totalRecord;
+            var result = _storeChangeHistoryService.SP_StoreInfoChange(pageSize,1, out totalRecord);
+            FilterModel<global::MakinaTurkiye.Entities.StoredProcedures.Stores.StoreChangeInfoResult> model = new FilterModel<global::MakinaTurkiye.Entities.StoredProcedures.Stores.StoreChangeInfoResult>();
+            model.PageDimension = pageSize;
+            model.Source = result;
+            model.CurrentPage = 1;
+            model.TotalRecord = totalRecord;
 
-            return View();
+            return View(model);
         }
 
-        public ActionResult Store(int? page)
+        [HttpPost]
+        public PartialViewResult Index(int page)
+        {
+            int pageSize = 50;
+            int totalRecord;
+            var result = _storeChangeHistoryService.SP_StoreInfoChange(pageSize, page, out totalRecord);
+            FilterModel<global::MakinaTurkiye.Entities.StoredProcedures.Stores.StoreChangeInfoResult> model = new FilterModel<global::MakinaTurkiye.Entities.StoredProcedures.Stores.StoreChangeInfoResult>();
+            model.PageDimension = pageSize;
+            model.Source = result;
+            model.CurrentPage = page;
+            model.TotalRecord = totalRecord;
+            return PartialView("_StoreChangeList", model);
+        }
+
+        public ActionResult Store(int? page, int? mainpartyId)
         {
 
             int pageSize = 30;
    
             int skipRows = 0;
             ViewData["page"] = page == null ? 0 : (int)page;
+            
+            
             FilterModel<global::MakinaTurkiye.Entities.Tables.Stores.StoreChangeHistory> filterModel = new FilterModel<global::MakinaTurkiye.Entities.Tables.Stores.StoreChangeHistory>();
-            int totalCount = _storeChangeHistoryService.GetAllStoreChangeHistory().ToList().Count;
+            var result = new List<StoreChangeHistory>();
+            if (mainpartyId != null)
+                result = _storeChangeHistoryService.GetAllStoreChangeHistory().Where(x => x.MainPartyId == mainpartyId).ToList();
+            else
+                result = _storeChangeHistoryService.GetAllStoreChangeHistory().ToList();
+
+            int totalCount = result.ToList().Count;
             filterModel.TotalRecord = totalCount;
             filterModel.PageDimension = pageSize;
-            filterModel.Source = _storeChangeHistoryService.GetAllStoreChangeHistory().OrderByDescending(x => x.StoreChangeHistoryId).Skip(skipRows).Take(pageSize).ToList();
+            filterModel.Source = result.OrderByDescending(x => x.StoreChangeHistoryId).Skip(skipRows).Take(pageSize).ToList();
             filterModel.CurrentPage = 1;
 
             return View(filterModel);
 
         }
 
-        public ActionResult Phone(int? page)
+        public ActionResult Phone(int? page, int? mainPartyId)
         {
             int pageSize = 30;
             int skipRows = 0;
             skipRows = page == null || page == 0 ? 0 : (int)(page - 1) * pageSize;
             ViewData["page"] = page == null ? 0 : (int)page;
 
-            ViewData["pageNumbers"] = Convert.ToInt32(Math.Ceiling(_phoneChangeHistoryService.GetAllPhoneChangeHistory().ToList().Count / (float)pageSize));
-
-            var phoneChangeHistories = _phoneChangeHistoryService.GetAllPhoneChangeHistory().OrderByDescending(x => x.PhoneChangeHistoryId).Skip(skipRows).Take(pageSize).ToList();
-
-
+            var result =new List<global::MakinaTurkiye.Entities.Tables.Common.PhoneChangeHistory>();
+            if (mainPartyId != null)
+                result = _phoneChangeHistoryService.GetAllPhoneChangeHistory().Where(x => x.MainPartyId == mainPartyId).ToList();
+            else
+                result = _phoneChangeHistoryService.GetAllPhoneChangeHistory().ToList();
+            ViewData["pageNumbers"] = Convert.ToInt32(Math.Ceiling(result.ToList().Count / (float)pageSize));
+            var phoneChangeHistories = result.OrderByDescending(x => x.PhoneChangeHistoryId).Skip(skipRows).Take(pageSize).ToList();
             return View(phoneChangeHistories);
 
         }
@@ -85,16 +119,25 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             return View(phoneChange);
         }
 
-        public ActionResult Address(int? page)
+        public ActionResult Address(int? page, int? mainPartyId)
         {
             int pageSize = 30;
             int skipRows = 0;
             skipRows = page == null || page == 0 ? 0 : (int)(page - 1) * pageSize;
             ViewData["page"] = page == null ? 0 : (int)page;
 
-            ViewData["pageNumbers"] = Convert.ToInt32(Math.Ceiling(_addressChangeHistoryService.GetAllAddressChangeHistory().ToList().Count / (float)pageSize));
+            var result = new List<global::MakinaTurkiye.Entities.Tables.Common.AddressChangeHistory>();
 
-            var addressChangeHistories = _addressChangeHistoryService.GetAllAddressChangeHistory().OrderByDescending(x => x.AddressChangeHistoryId).Skip(skipRows).Take(pageSize).ToList();
+            if (mainPartyId != null)
+            {
+                result = _addressChangeHistoryService.GetAllAddressChangeHistory().Where(x => x.MainPartyId == mainPartyId).ToList();
+            }
+            else
+                result = _addressChangeHistoryService.GetAllAddressChangeHistory().ToList();
+
+            ViewData["pageNumbers"] = Convert.ToInt32(Math.Ceiling(result.Count / (float)pageSize));
+
+            var addressChangeHistories =result.OrderByDescending(x => x.AddressChangeHistoryId).Skip(skipRows).Take(pageSize).ToList();
 
             return View(addressChangeHistories);
         }

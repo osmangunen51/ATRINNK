@@ -176,8 +176,8 @@
     <div id="NewConstantForm" title="">
         <%= Html.RenderHtmlPartial("ConstantForm", new ConstantModel())%>
     </div>
-    <div style="width: auto; height: auto; float: left; padding: 10px 0px 10px 10px">
-        <select size="8" onchange="GetConstant($(this).val())">
+    <div style=" float: left; width:10%; padding-top:10; ">
+        <select size="25" onchange="GetConstant($(this).val())">
             <option value="0">< Sabit Tipi Seçiniz ></option>
             <option value="<%=(byte)ConstantType.ProductPayType%>">Ürün Ödeme Durumu</option>
             <option value="<%=(byte)ConstantType.ProductSalesType%>">Ürün Satış Durumu</option>
@@ -206,12 +206,12 @@
             <option value="<%=(byte)ConstantType.UserSpecialMailType %>">Kullanıcı Özel Mail Tipi</option>
             <option value="<%=(byte)ConstantType.ProblemType %>">Sorun Tipleri</option>
             <option value="<%=(byte)ConstantType.StoreProfileHomeDecriptionTemplate %>">Firma Profil Açklama Template</option>
-
+            <option value="<%=(byte)ConstantType.PaymentBank %>">Havale Bankalar</option>
         </select>&nbsp;&nbsp;
     <button onclick="openDialog();">
         Sabit Başlık Ekle</button>
     </div>
-    <div style="width: 100%; margin: 0 auto;">
+    <div style="width:90%; margin: 0 auto; float:left;">
         <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
             <thead>
                 <tr>

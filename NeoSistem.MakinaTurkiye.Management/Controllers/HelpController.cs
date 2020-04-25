@@ -278,7 +278,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     ProblemTypeText = problemTypeText,
                     FilePath = item.FilePath,
                     IsSolved = item.IsSolved,
-                    RecordDate = item.RecordDate
+                    RecordDate = item.RecordDate,
+                    IsWaiting = item.IsWaiting.HasValue ? item.IsWaiting.Value : false
                 });
             }
             return websiteErrorList;
@@ -323,6 +324,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.UserId = websiteErorr.UserId;
             model.IsFirst = websiteErorr.IsFirst;
             model.IsSolved = websiteErorr.IsSolved;
+            model.IsWaiting = websiteErorr.IsWaiting.HasValue ? websiteErorr.IsWaiting.Value : false;
             var constants = _constantService.GetConstantByConstantType(ConstantTypeEnum.ProblemType).OrderBy(x => x.Order).ThenBy(x => x.ConstantName);
             model.ErrorTypes.Add(new SelectListItem
             {
@@ -355,6 +357,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 webSiteError.UserId = (byte)model.UserId;
                 webSiteError.IsSolved = model.IsSolved;
                 webSiteError.IsFirst = model.IsFirst;
+                webSiteError.IsWaiting = model.IsWaiting;
                 if (!string.IsNullOrEmpty(model.ProblemType))
                     webSiteError.ProblemTypeId = Convert.ToInt32(model.ProblemType);
 

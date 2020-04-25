@@ -84,7 +84,6 @@
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Web.Mvc, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Mvc2Futures.2.0.50217.0\lib\Microsoft.Web.Mvc.dll</HintPath>
@@ -245,6 +244,7 @@
     <Compile Include="Models\Catolog\HomeSectorProductItem.cs" />
     <Compile Include="Models\Catolog\HomeSectorProductModel.cs" />
     <Compile Include="Models\CertificateModel.cs" />
+    <Compile Include="Models\ChangeLog\ChangeLogItem.cs" />
     <Compile Include="Models\FavoriteListItemModel.cs" />
     <Compile Include="Models\Logs\LogItemModel.cs" />
     <Compile Include="Models\MemberDescriptionCountModel.cs" />
@@ -252,6 +252,8 @@
     <Compile Include="Models\OrderExcelModel.cs" />
     <Compile Include="Models\OrderInstallmentItemModel.cs" />
     <Compile Include="Models\Orders\EbillNumberModel.cs" />
+    <Compile Include="Models\Orders\OrderCountItemModel.cs" />
+    <Compile Include="Models\Orders\OrderCountModel.cs" />
     <Compile Include="Models\Orders\OrderReportItemModel.cs" />
     <Compile Include="Models\Orders\OrderReportModel.cs" />
     <Compile Include="Models\PaymentItemModel.cs" />
@@ -418,15 +420,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-datepicker.css" />
-    <Content Include="Content\ffmpeg\avcodec-51.dll" />
-    <Content Include="Content\ffmpeg\avformat-51.dll" />
-    <Content Include="Content\ffmpeg\avutil-49.dll" />
-    <Content Include="Content\ffmpeg\ffmpeg.exe" />
-    <Content Include="Content\ffmpeg\ffplay.exe" />
-    <Content Include="Content\ffmpeg\ffprobe.exe" />
-    <Content Include="Content\ffmpeg\pthreadGC2.dll" />
-    <Content Include="Content\ffmpeg\SDL.dll" />
-    <Content Include="Content\ffmpeg\swscale-0.dll" />
     <Content Include="Content\Images\ac.png" />
     <Content Include="Content\Images\activationicon.png" />
     <Content Include="Content\Images\activityScopeArrow.png" />
@@ -1504,9 +1497,11 @@
     <Content Include="Views\ChangeLogs\phone.aspx" />
     <Content Include="Views\ChangeLogs\phonedetail.aspx" />
     <Content Include="Views\ChangeLogs\AddressList.ascx" />
+    <Content Include="Views\ChangeLogs\Index.aspx" />
     <Content Include="Views\ChangeLogs\storedetail.aspx" />
     <Content Include="Views\ChangeLogs\store.aspx" />
     <Content Include="Views\ChangeLogs\PhoneList.ascx" />
+    <Content Include="Views\ChangeLogs\_StoreChangeList.ascx" />
     <Content Include="Views\ChangeLogs\StoreList.ascx" />
     <Content Include="Views\CompanyDemand\DemandForPacket.aspx" />
     <Content Include="Views\Constant\PropertieAttr.aspx" />
@@ -1539,6 +1534,8 @@
     <Content Include="Views\Member\BulletinMember.aspx" />
     <Content Include="Views\Member\_BulletinRegisterList.ascx" />
     <Content Include="Views\OrderFirm\BillNumber.aspx" />
+    <Content Include="Views\OrderFirm\OrderCount.aspx" />
+    <Content Include="Views\OrderFirm\_OrderCountList.ascx" />
     <Content Include="Views\OrderFirm\_OrderReportList.ascx" />
     <Content Include="Views\OrderFirm\Reports.aspx" />
     <Content Include="Views\OrderFirm\OrderWriteLogs.aspx" />
@@ -1845,12 +1842,9 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>MakinaTurkiyeEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="packages.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Content\ffmpeg\ffmpeg.zip" />
     <Content Include="Content\teklif.pdf" />
     <Content Include="libman.json" />
+    <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Admin.pubxml" />
     <None Include="Properties\PublishProfiles\FikretPublish.pubxml" />
     <None Include="Properties\PublishProfiles\MustafaAdminPublish.pubxml" />
@@ -1908,6 +1902,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Browsers\" />
+    <Folder Include="Content\ffmpeg\" />
     <Folder Include="FilesError\" />
     <Folder Include="FilesMail\" />
     <Folder Include="FilesUser\" />

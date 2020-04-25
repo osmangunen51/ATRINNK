@@ -516,7 +516,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 headerModel.MTStoreProfileMenuActivePage.NewActive = "active";
                 currentText = " - Haberler";
             }
-
+            else if (currentPage == "StoreVideos")
+            {
+                headerModel.MTStoreProfileMenuActivePage.StoreVideosActive = "active";
+                currentText = " - Tanıtım Videoları";
+            }
             headerModel.StoreName = store.StoreName;
             if (!string.IsNullOrEmpty(store.StoreShortName))
             {
@@ -558,7 +562,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     VideoMinute = video.VideoMinute.HasValue ? video.VideoMinute.Value : (byte)0,
                     VideoSecond = video.VideoSecond.HasValue ? video.VideoSecond.Value : (byte)0,
                     VideoPath = video.VideoPath,
-                    VideoTitle = video.VideoTitle
+                    VideoTitle = video.VideoTitle,
+                    VideoUrl = video.VideoPath
                 };
             }
             return headerModel;
@@ -583,6 +588,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.MTStoreProfileMenuHasModel.HasImages = _pictureService.GetPictureByMainPartyId(store.MainPartyId).Where(x => x.StoreImageType == (byte)StoreImageType.StoreImage).ToList().Count > 0 ? true : false;
             model.MTStoreProfileMenuHasModel.HasCatolog = _storeCatologFileService.StoreCatologFilesByStoreMainPartyId(store.MainPartyId).Count > 0 ? true : false;
             model.MTStoreProfileMenuHasModel.HasNew = _storeNewService.GetStoreNewsByStoreMainPartyId(store.MainPartyId, StoreNewTypeEnum.Normal).Count > 0 ? true : false;
+            model.MTStoreProfileMenuHasModel.HasStoreVideos = _videoService.GetVideoByStoreMainPartyId(store.MainPartyId).Count > 0 ? true : false;
         }
 
         public void PrepareCategories(MTStoreProfileProductsModel model, Store store)
@@ -1534,6 +1540,83 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
         }
 
+
+
+        [HttpGet]
+        [Compress]
+        public async Task<ActionResult> StorePromotionVideo(string username, int? CategoryId)
+        {
+
+            if (!string.IsNullOrEmpty(username))
+            {
+                _storeService.CachingGetOrSetOperationEnabled = false;
+                var store = _storeService.GetStoreByStoreUrlName(username);
+
+                if (store != null)
+                {
+                    //SeoPageType = (byte)PageType.StoreImages;
+                    //CreateSeoForStore(store);
+                    var request = HttpContext.Request;
+                    ViewBag.Canonical = AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath;
+                    MTStoreVideoModel model = new MTStoreVideoModel();
+                    var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(store.MainPartyId);
+                    int memberMainPartyId = Convert.ToInt32(memberStore.MemberMainPartyId);
+                    model.MTStoreProfileHeaderModel = PrepareStoreProfileHeader("StoreVideos", store, memberMainPartyId);
+                    store.ViewCount += 1;
+                    model.MainPartyId = store.MainPartyId;
+                    model.StoreName = store.StoreName;
+                    model.StoreActiveType = Convert.ToByte(store.StoreActiveType);
+
+                    store.ViewCount += 1;
+                    if (!SessionSingularViewCountType.SingularViewCountTypes.Any(c => c.Key == store.MainPartyId && c.Value == SingularViewCountType.StoreProfile))
+                    {
+                        store.SingularViewCount += 1;
+
+                    }
+                    _storeService.UpdateStore(store);
+                    int categoryId = 0;
+                    if (CategoryId != null) categoryId = Convert.ToInt32(CategoryId);
+                    var storeVideos = _videoService.GetVideoByStoreMainPartyId(store.MainPartyId).OrderBy(x=>x.Order).ThenByDescending(x=>x.VideoId);
+                    foreach (var video in storeVideos)
+                    {
+                        model.MTVideoModels.Add(new MTVideoModel
+                        {
+                            PicturePath = ImageHelper.GetVideoImagePath(video.VideoPicturePath),
+                            VideoMinute = video.VideoMinute.HasValue ? video.VideoMinute.Value : (byte)0,
+                            VideoSecond = video.VideoSecond.HasValue ? video.VideoSecond.Value : (byte)0,
+                            VideoPath = video.VideoPath,
+                            VideoTitle = video.VideoTitle,
+                            VideoUrl = video.VideoPath,
+                            VideoId = video.VideoId
+                        });
+                     
+                    }
+
+                    return await Task.FromResult(View(model));
+                }
+                else
+                {
+
+                    Response.RedirectPermanent(Url.RouteUrl(new
+                    {
+                        controller = "Store",
+                        action = "Index"
+                    }));
+                    return null;
+                }
+            }
+            else
+            {
+
+                Response.RedirectPermanent(Url.RouteUrl(new
+                {
+                    controller = "Store",
+                    action = "Index"
+                }));
+                return null;
+            }
+        }
+
         [HttpGet]
         [Compress]
         public async Task<ActionResult> AuthorizedServicesNew(string username, string MainPartyId)
@@ -1821,6 +1904,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if (!string.IsNullOrEmpty(MainPartyId))
                 {
                     var store = _storeService.GetStoreByMainPartyId(Convert.ToInt32(MainPartyId));
+                    if (store == null)
+                    {
+                        StoreFailNew();
+                        return null;
+                    }
                     var url = UrlBuilder.GetStoreConnectUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
                     return RedirectPermanent(url);
                 }

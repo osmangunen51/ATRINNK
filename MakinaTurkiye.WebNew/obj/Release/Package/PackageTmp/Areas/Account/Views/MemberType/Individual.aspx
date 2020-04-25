@@ -1,8 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<MembershipViewModel>" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Bireysel Üyeliğe Geçiş-Makina Türkiye
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
     <style>
         .page-header { margin: 10px 0 20px; }
@@ -354,6 +352,15 @@
                         <div class="col-sm-2">
                             <%:Html.TextBoxFor(model => model.MembershipModel.DoorNo, 
                                     new Dictionary<string, object> { { "class", "form-control" }, {"maxLength","4"} }  )%>
+                        </div>
+                    </div>
+                                     <div class="form-group" data-rel="other-wrapper">
+                        <label for="inputPassword3" class="col-sm-3 control-label">
+                            Posta Kodu :
+                        </label>
+                        <div class="col-sm-6">
+                            <%:Html.TextBoxFor(model => model.MembershipModel.PostCode,
+                                    new Dictionary<string, object> { { "class", "form-control" },{"maxLength","11"} })%>
                         </div>
                     </div>
                     <div class="form-group" style="display: none" data-rel="phone-wrapper">

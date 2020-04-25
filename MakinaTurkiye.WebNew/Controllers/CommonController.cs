@@ -241,19 +241,38 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             else
             {
+                bool parameterCheck = false;
                 if (category != null)
                 {
 
-                    seo.Description = seo.Description.Replace("{Kategori}", category.CategoryName);
-                    seo.Keywords = seo.Keywords.Replace("{Kategori}", category.CategoryName);
-                    seo.Title = seo.Title.Replace("{Kategori}", category.CategoryName);
-
-                    seo.Description = seo.Description.Replace("{KategoriBaslik}", category.CategoryContentTitle);
-                    seo.Keywords = seo.Keywords.Replace("{KategoriBaslik}", category.CategoryContentTitle);
-                    seo.Title = seo.Title.Replace("{KategoriBaslik}", category.CategoryContentTitle);
-
-
                     var topCategories = _categoryService.GetSPTopCategories(categoryId);
+                    string categoryName = category.CategoryName;
+                    string categoryContentTile = "";
+                    if (!string.IsNullOrEmpty(category.CategoryContentTitle))
+                        categoryContentTile = category.CategoryContentTitle;
+
+                    if (category.CategoryType == (byte)CategoryTypeEnum.Brand || category.CategoryType == (byte)CategoryTypeEnum.Series || category.CategoryType == (byte)CategoryTypeEnum.Model)
+                    {
+                        var cat = topCategories.LastOrDefault(x => x.CategoryType == (byte)CategoryTypeEnum.Category);
+                        if (cat != null)
+                        {
+                            categoryName = cat.CategoryName;
+                            if (!string.IsNullOrEmpty(cat.CategoryContentTitle))
+                                categoryContentTile = cat.CategoryContentTitle;
+
+                        }
+                    }
+
+                    seo.Description = seo.Description.Replace("{Kategori}", categoryName);
+                    seo.Keywords = seo.Keywords.Replace("{Kategori}", categoryName);
+                    seo.Title = seo.Title.Replace("{Kategori}", categoryName);
+
+                    seo.Description = seo.Description.Replace("{KategoriBaslik}", categoryContentTile);
+                    seo.Keywords = seo.Keywords.Replace("{KategoriBaslik}", categoryContentTile);
+                    seo.Title = seo.Title.Replace("{KategoriBaslik}", categoryContentTile);
+
+
+
 
                     int i = 0;
                     string fistTopCategoryName = string.Empty;
@@ -311,6 +330,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         #region Replace
 
+
+                        var brand = topCategories.FirstOrDefault(c => c.CategoryType == (byte)CategoryTypeEnum.Brand);
+
+                        seo.Description = seo.Description.Replace("{Marka}", brand.CategoryName);
+                        seo.Keywords = seo.Keywords.Replace("{Marka}", brand.CategoryName);
+                        seo.Title = seo.Title.Replace("{Marka}", brand.CategoryName);
+
                         seo.Description = seo.Description.Replace("{ModelMarka}", category.CategoryName);
                         seo.Keywords = seo.Keywords.Replace("{ModelMarka}", category.CategoryName);
                         seo.Title = seo.Title.Replace("{ModelMarka}", category.CategoryName);
@@ -318,12 +344,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         #endregion
                     }
                     else if (seoIdNameEnum == SeoIdNameEnum.Model || seoIdNameEnum == SeoIdNameEnum.CategoryCity || seoIdNameEnum == SeoIdNameEnum.CategoryCountry ||
-                          seoIdNameEnum == SeoIdNameEnum.CategoryLocality)
+                          seoIdNameEnum == SeoIdNameEnum.CategoryLocality || seoIdNameEnum == SeoIdNameEnum.ModelCity || seoIdNameEnum == SeoIdNameEnum.ModelCountry || seoIdNameEnum == SeoIdNameEnum.ModelLocality)
                     {
                         #region Replace
 
                         var brand = topCategories.FirstOrDefault(c => c.CategoryType == (byte)CategoryTypeEnum.Brand);
-                        var topCategory = _categoryService.GetCategoryByCategoryId(brand.CategoryParentId.Value);
+
                         var series = topCategories.FirstOrDefault(c => c.CategoryType == (byte)CategoryTypeEnum.Series);
 
                         seo.Description = seo.Description.Replace("{Seri}", series != null ? series.CategoryName : "");
@@ -332,7 +358,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                         if (brand != null)
                         {
-                            string brandName = brand.CategoryName + "" + topCategory.CategoryName;
+                            var topCategory = _categoryService.GetCategoryByCategoryId(brand.CategoryParentId.Value);
+                            string brandName = brand.CategoryName + " " + topCategory.CategoryName;
 
                             seo.Description = seo.Description.Replace("{Marka}", brandName);
                             seo.Keywords = seo.Keywords.Replace("{Marka}", brandName);
@@ -412,6 +439,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             seo.Keywords = seo.Keywords.Replace("{Ilce}", locality.LocalityName);
                             seo.Title = seo.Title.Replace("{Ilce}", locality.LocalityName);
                         }
+                        parameterCheck = true;
                     }
 
                     if (cityId > 0)
@@ -423,6 +451,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             seo.Keywords = seo.Keywords.Replace("{Sehir}", city.CityName);
                             seo.Title = seo.Title.Replace("{Sehir}", city.CityName);
                         }
+                        parameterCheck = true;
                     }
 
                     if (countryId > 0)
@@ -434,14 +463,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             seo.Keywords = seo.Keywords.Replace("{Ulke}", country.CountryName);
                             seo.Title = seo.Title.Replace("{Ulke}", country.CountryName);
                         }
+                        parameterCheck = true;
                     }
                 }
 
+                if (parameterCheck == false && category != null)
+                {
+                    seo.Description = !string.IsNullOrEmpty(category.Description) ? category.Description : seo.Description;
+                    seo.Keywords = !string.IsNullOrEmpty(category.Keywords) ? category.Keywords : seo.Keywords;
+                    seo.Title = !string.IsNullOrEmpty(category.Title) ? category.Title : seo.Title;
+                }
 
-                model.Description = category != null && !string.IsNullOrEmpty(category.Description) ? category.Description : seo.Description;
-                model.Keywords = category != null && !string.IsNullOrEmpty(category.Keywords) ? category.Keywords : seo.Keywords;
+                model.Description = seo.Description;
+                model.Keywords = seo.Keywords;
                 model.Robots = seo.Robots;
-                model.Title = category != null && !string.IsNullOrEmpty(category.Title) ? category.Keywords : seo.Keywords;
+                model.Title = seo.Title;
             }
         }
 
@@ -497,7 +533,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.MainPartyId.Value);
             var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
 
-            if (!string.IsNullOrWhiteSpace(store.StoreName))
+            if (store != null && !string.IsNullOrWhiteSpace(store.StoreName))
             {
                 seo.Description = seo.Description.Replace("{FirmaAdi}", store.StoreName);
                 seo.Keywords = seo.Keywords.Replace("{FirmaAdi}", store.StoreName);
@@ -679,6 +715,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 case "AboutUsNew": seoIdNameEnum = SeoIdNameEnum.StoreAboutPage; break;
                 case "DealerNew": seoIdNameEnum = SeoIdNameEnum.StoreDealerPage; break;
                 case "CompanyProfileNew": seoIdNameEnum = SeoIdNameEnum.Store; break;
+                case "StorePromotionVideo": seoIdNameEnum = SeoIdNameEnum.StorePromotionVideo; break;
                 case "ProductsNew":
                     seoIdNameEnum = SeoIdNameEnum.Store;
                     categoryId = GetCategoryIdRouteData();
@@ -692,9 +729,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var seo = seos.First(s => s.SeoId == (int)seoIdNameEnum);
 
+            if (string.IsNullOrEmpty(seo.Keywords))
+                seo.Keywords = "";
+            if (string.IsNullOrEmpty(seo.Description))
+                seo.Description = "";
+
 
             seo.Description = seo.Description.Replace("{FirmaAdi}", store.StoreName);
-            seo.Keywords = seo.Keywords.Replace("{FirmaAdi}", store.StoreName);
+            if (!string.IsNullOrEmpty(seo.Keywords))
+                seo.Keywords = seo.Keywords.Replace("{FirmaAdi}", store.StoreName);
             seo.Title = seo.Title.Replace("{FirmaAdi}", store.StoreName);
 
             if (!string.IsNullOrEmpty(store.StoreShortName))
@@ -704,13 +747,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 seo.Title = seo.Title.Replace("{FirmaKisaAdi}", store.StoreShortName);
             }
             seo.Description = seo.Description.Replace("{FirmSeoTitle}", store.SeoTitle);
-            if (!string.IsNullOrEmpty(seo.Keywords))
-                seo.Keywords = seo.Keywords.Replace("{FirmSeoTitle}", store.SeoTitle);
+
+            seo.Keywords = seo.Keywords.Replace("{FirmSeoTitle}", store.SeoTitle);
             seo.Title = seo.Title.Replace("{FirmSeoTitle}", store.SeoTitle);
 
             seo.Description = seo.Description.Replace("{FirmSeoDecsription}", store.SeoDescription);
-            if (!string.IsNullOrEmpty(seo.Keywords))
-                seo.Keywords = seo.Keywords.Replace("{FirmSeoDecsription}", store.SeoDescription);
+
+            seo.Keywords = seo.Keywords.Replace("{FirmSeoDecsription}", store.SeoDescription);
             seo.Title = seo.Title.Replace("{FirmSeoDecsription}", store.SeoDescription);
 
             seo.Description = seo.Description.Replace("{FirmSeoKeyword}", store.SeoKeyword);

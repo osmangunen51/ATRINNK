@@ -49,14 +49,27 @@
                         </table>
                     </td>
                     <td class="Cell"></td>
-                    <td class="Cell"></td>
+                    <td class="Cell">
+                                                <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                <tr>
+
+                                    <td style="border: solid 1px #CCC; background-color: #FFF">
+                                        <input id="CreatedDate" class="Search date" autocomplete="off" style="width: 70%; border: none" />
+                                        <span class="ui-icon ui-icon-close searchClear" onclick="ClearSearch('UpdateDate');"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </td>
                     <td class="Cell" style="width: 7%;">
                         <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
                                 <tr>
 
                                     <td style="border: solid 1px #CCC; background-color: #FFF">
-                                        <input id="UpdateDate" class="Search date" style="width: 70%; border: none" />
+                                        <input id="UpdateDate" class="Search date" autocomplete="off" style="width: 70%; border: none" />
                                         <span class="ui-icon ui-icon-close searchClear" onclick="ClearSearch('UpdateDate');"></span>
                                     </td>
                                 </tr>
@@ -97,6 +110,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $('#UpdateDate').datepicker().val();
+           $('#CreatedDate').datepicker().val();
             $('.Search').keyup(function (e) {
                 if (e.keyCode == 13) {
                     $('#OrderType').val('1');
@@ -128,7 +142,8 @@
                     OrderColumn: $('#OrderName').val(),
                     OrderType: $("#OrderType").val(),
                     Date: $("#UpdateDate").val(),
-                    ConstantId: $("#ConstantId").val()
+                    ConstantId: $("#ConstantId").val(),
+                    CreatedDate: $("#CreatedDate").val()
                 },
                 type: 'post',
                 success: function (data) {

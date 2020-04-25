@@ -10,7 +10,7 @@
       {%>
     <div style="width: 50px; height: auto; float: left; margin-left: 7px;">
       <div style="width: 100%; height: auto; float: left;">
-        <img width="50" height="70" src="<%:FileHelpers.ImageThumbnailName(AppSettings.StoreDealerImageFolder + itemPicture.PicturePath) %>" />
+        <img width="50" height="70" src="<%:AppSettings.StoreDealerImageFolder + itemPicture.PicturePath %>" />
       </div>
       <div style="width: 100%; height: auto; float: left; text-align: center; margin-top: 4px;">
         <span style="font-size: 11px; color: #d73434; cursor: pointer;" onclick="DeletePicture('<%: itemPicture.PictureId %>');">

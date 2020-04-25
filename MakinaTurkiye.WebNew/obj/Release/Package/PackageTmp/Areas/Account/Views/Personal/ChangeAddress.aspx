@@ -1,9 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Account.Master" Inherits="System.Web.Mvc.ViewPage<AddressModel>" %>
 
 <%@ Import Namespace="System.Data" %>
-<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Adresimi Değiştir-Makina Türkiye
-</asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
     <script type="text/javascript">
         $(document).ready(function () {
@@ -388,6 +386,15 @@
                             <div class="col-sm-2">
                                 <%:Html.TextBoxFor(model => model.DoorNo, 
                                     new Dictionary<string, object> { { "class", "form-control" }, {"maxLength","4"} }  )%>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-3 control-label">
+                                Posta Kodu
+                            </label>
+                            <div class="col-sm-6">
+                                <%:Html.TextBoxFor(model => model.PostCode,
+                                new Dictionary<string, object> { { "class", "form-control" }, {"max-length","11" } })%>
                             </div>
                         </div>
                         <%= Html.RenderHtmlPartial("PhoneItem", Model.PhoneItems) %>

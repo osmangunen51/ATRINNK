@@ -59,11 +59,11 @@
         GSM :
     </label>
     <div class="col-sm-2">
-        <input type="text" data-validation-engine="validate[required]" name="InstitutionalGSMCulture" id="InstitutionalGSMCulture" value="<%:InstitutionalGSMCulture == "" || InstitutionalGSMCulture==null ? "+90" :InstitutionalGSMCulture  %>"
+        <input type="text" name="InstitutionalGSMCulture" id="InstitutionalGSMCulture" value="<%:InstitutionalGSMCulture == "" || InstitutionalGSMCulture==null ? "+90" :InstitutionalGSMCulture  %>"
             class="form-control" />
     </div>
     <div class="col-sm-2">
-        <select id="MembershipModel_InstitutionalGSMAreaCode" data-validation-engine="validate[funcCall[ifSelectNotEmpty]]" class="form-control" name="MembershipModel.InstitutionalGSMAreaCode">
+        <select id="MembershipModel_InstitutionalGSMAreaCode"  class="form-control" name="MembershipModel.InstitutionalGSMAreaCode">
             <option value="0" <%:gsmItem!= null  ? "selected=\"selected\"" : "" %>>Seç</option>
             <option value="530" <%:gsmItem!= null && gsmItem.PhoneAreaCode == "530" ? "selected=\"selected\"" : "" %>>
                 530</option>
@@ -142,7 +142,7 @@
         
     </div>
     <div class="col-sm-2">
-        <input type="text" data-validation-engine="validate[required]" name="InstitutionalGsmNumber" id="InstitutionalGsmNumber" value="<%:InstitutionalGSMNumber  %>"
+        <input type="text"  name="InstitutionalGsmNumber" id="InstitutionalGsmNumber" value="<%:InstitutionalGSMNumber  %>"
             class="form-control" />
     </div>
 </div>
@@ -154,7 +154,7 @@
                                     <%:Html.TextBox("GsmWhatsappCulture",InstitutionalWpCulture,new Dictionary<string, object> { { "class", "form-control" },{"Value","+90"}})%>
                                 </div>
                                 <div class="col-sm-2">
-                                    <select id="GsmWhatsappAreaCode" data-validation-engine="validate[funcCall[ifSelectNotEmpty]]" class="form-control" name="GsmWhatsappAreaCode">
+                                    <select id="GsmWhatsappAreaCode"  class="form-control" name="GsmWhatsappAreaCode">
             <option value="0" <%:wgsmItem!= null  ? "selected=\"selected\"" : "" %>>Seç</option>
             <option value="530" <%:wgsmItem!= null && wgsmItem.PhoneAreaCode == "530" ? "selected=\"selected\"" : "" %>>
                 530</option>
