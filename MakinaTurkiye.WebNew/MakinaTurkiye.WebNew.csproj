@@ -1272,6 +1272,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="manifest.json" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\AlperÇ.pubxml" />
     <None Include="Properties\PublishProfiles\ezeyrekFs.pubxml" />
@@ -1619,6 +1620,7 @@
     <Content Include="Content\V2\assets\js\CKEditor\skins\moono-lisa\images\spinner.gif" />
     <Content Include="Content\V2\assets\js\CKEditor\skins\moono-lisa\readme.md" />
     <None Include="Properties\PublishProfiles\TestFTP.pubxml" />
+    <Content Include="makinaturkiye.png" />
     <Content Include="Scripts\CKFinder\userfiles\.htaccess" />
     <Content Include="Scripts\CKFinder\ckfinder.html" />
     <Content Include="Scripts\CKFinder\ckfinder.js" />
