@@ -1,21 +1,6 @@
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\bin\Debug\NeoSistem.EnterpriseEntity.Core.dll
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\bin\Debug\NeoSistem.EnterpriseEntity.Core.pdb
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.dll
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.pdb
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csproj.CoreCompileInputs.cache
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csprojAssemblyReference.cache
-<<<<<<< HEAD
 D:\MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\bin\Debug\NeoSistem.EnterpriseEntity.Core.dll
 D:\MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\bin\Debug\NeoSistem.EnterpriseEntity.Core.pdb
 D:\MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csprojAssemblyReference.cache
 D:\MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csproj.CoreCompileInputs.cache
 D:\MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.dll
 D:\MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.pdb
-=======
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\bin\Debug\NeoSistem.EnterpriseEntity.Core.dll
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\bin\Debug\NeoSistem.EnterpriseEntity.Core.pdb
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csprojAssemblyReference.cache
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.csproj.CoreCompileInputs.cache
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.dll
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\NeoSistem.EnterpriseEntity.Core\obj\Debug\NeoSistem.EnterpriseEntity.Core.pdb
->>>>>>> 721a0876de1715b7e4734a2463812a1bce9d090d

@@ -1,16 +1,3 @@
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll.config
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.pdb
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.dll
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.dll
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.xml
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.xml
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CopyComplete
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.dll
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.pdb
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CoreCompileInputs.cache
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csprojAssemblyReference.cache
-<<<<<<< HEAD
 D:\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll.config
 D:\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll
 D:\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.pdb
@@ -23,17 +10,3 @@ D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.
 D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CopyComplete
 D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.dll
 D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.pdb
-=======
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll.config
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.pdb
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.dll
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.dll
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.xml
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.xml
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csprojAssemblyReference.cache
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CoreCompileInputs.cache
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CopyComplete
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.dll
-D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.pdb
->>>>>>> 721a0876de1715b7e4734a2463812a1bce9d090d
