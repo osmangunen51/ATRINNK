@@ -81,15 +81,20 @@
     </div>
     <%} %>
 
+
     <div style="position: absolute; right: 100px; top: 10px;">
         <a href="/MemberDescription/Notification" title="Bildirimler" id="notification"></a>
     </div>
     <div style="position: absolute; right: 190px; top: 10px;">
         <a href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
     </div>
+            <div style="position: absolute; right: 250px; top: 10px;">
+        <a href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
+    </div>
     <div style="float: right; position: absolute; right: 10px; top: 10px;">
         <a href="/Account/Logout">Çıkış Yap</a>
     </div>
+
 
 
     <%--    <div class="tabtabs" id="tabMainHome">
@@ -942,8 +947,14 @@
                                         {
                                             Id: 'MemberNotes', text: 'Üye</br>Açıklamaları', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'FilePrepareMenu.png', action: "window.location ='/MemberDescription';"
-                                        }]
+                                        },
+                                                  {
+                                            Id: 'StoreSeo', text: 'Seo</br>Açıklamaları', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'store-list.png', action: "window.location ='/StoreSeoNotification/AllSeoNotification';"
+                                        },
+                                    ]
                                 },
+
                                 {
                                     text: 'Görevler',
                                     type: Ribbon.GroupType.Group,

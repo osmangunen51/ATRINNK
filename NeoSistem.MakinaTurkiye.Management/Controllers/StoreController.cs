@@ -71,6 +71,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IStoreSectorService _storeSectorService;
         private readonly IStoreDiscountService _storeDiscountService;
+        private readonly IStoreSeoNotificationService _storeSeoNotificationService;
 
 
         #endregion
@@ -83,7 +84,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             , IOrderInstallmentService orderInstallmentService,
              IStoreSectorService storeSectorService,
              ICategoryService categoryService,
-              IStoreDiscountService storeDiscountService)
+              IStoreDiscountService storeDiscountService,
+              IStoreSeoNotificationService storeSeoNotificationService)
         {
             this._loginLogService = loginLogService;
             this._whatsapplogService = whatsapplogService;
@@ -100,7 +102,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             this._storeSectorService = storeSectorService;
             this._categoryService = categoryService;
             this._storeDiscountService = storeDiscountService;
-
+            this._storeSeoNotificationService = storeSeoNotificationService;
 
             _phoneService.CachingGetOrSetOperationEnabled = false;
 
@@ -2892,6 +2894,18 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             model.MemberMainPartyId = member.MainPartyId.ToString();
 
+            var storeSeoNotifications = _storeSeoNotificationService.GetStoreSeoNotificationsByStoreMainPartyId(store.MainPartyId).OrderByDescending(x=>x.StoreSeoNotificationId).Skip(0).Take(8);
+            foreach (var storeSeoNotification in storeSeoNotifications)
+            {
+                var fromUser = entities.Users.FirstOrDefault(x => x.UserId == storeSeoNotification.FromUserId);
+                model.StoreSeoNotificationItems.Add(new StoreMemberDescriptionItem
+                {
+                    DescId = storeSeoNotification.StoreSeoNotificationId,
+                    Description = storeSeoNotification.Text,
+                    RecordDate = storeSeoNotification.CreatedDate,
+                    UserName = fromUser.UserName
+                });
+            }
             var storeUpdate = _storeService.GetStoreUpdatedByMainPartyId(store.MainPartyId);
             if (storeUpdate != null)
                 model.StoreInformationModel.StoreUpdatedDate = storeUpdate.UpdatedDate;
