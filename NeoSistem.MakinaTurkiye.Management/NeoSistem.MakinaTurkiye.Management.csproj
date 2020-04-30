@@ -168,6 +168,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Email.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\StoreSeoNotificationController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationLogController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
@@ -332,6 +333,8 @@
     <Compile Include="Models\Stores\MTStoreExcelItem.cs" />
     <Compile Include="Models\Stores\StoreNewItem.cs" />
     <Compile Include="Models\Stores\StoreSectorModel.cs" />
+    <Compile Include="Models\Stores\StoreSeoNotificationFormModel.cs" />
+    <Compile Include="Models\Stores\StoreSeoNotificationModel.cs" />
     <Compile Include="Models\Stores\StoreUserItem.cs" />
     <Compile Include="Models\StoreWhatsappListItemModel.cs" />
     <Compile Include="Models\SurveyModel.cs" />
@@ -1675,6 +1678,12 @@
     <Content Include="Views\SEO\Index.aspx" />
     <Content Include="Views\SEO\SeoList.ascx" />
     <Content Include="Views\Shared\Header.ascx" />
+    <Content Include="Views\StoreSeoNotification\AllSeoNotification.aspx" />
+    <Content Include="Views\StoreSeoNotification\AllNotification.aspx" />
+    <Content Include="Views\StoreSeoNotification\Index.aspx" />
+    <Content Include="Views\StoreSeoNotification\Create.aspx" />
+    <Content Include="Views\StoreSeoNotification\_SeoNotificationList.ascx" />
+    <Content Include="Views\StoreSeoNotification\_StoreNotificationFormModel.ascx" />
     <Content Include="Views\Store\Address.ascx" />
     <Content Include="Views\Store\DealerBayiiAddressList.ascx" />
     <Content Include="Views\Store\DealerServisAddressList.ascx" />

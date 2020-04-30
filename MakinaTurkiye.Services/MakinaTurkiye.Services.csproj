@@ -194,6 +194,7 @@
     <Compile Include="Common\ConstantService.cs" />
     <Compile Include="Stores\IStoreCatologFileService.cs" />
     <Compile Include="Stores\IStoreSectorService.cs" />
+    <Compile Include="Stores\IStoreSeoNotificationService.cs" />
     <Compile Include="Stores\IStoreStatisticService.cs" />
     <Compile Include="Stores\PreRegistirationStoreService.cs" />
     <Compile Include="Stores\StoreActiveTypeEnum.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Stores\StoreNewTypeEnum.cs" />
     <Compile Include="Stores\StoreSectorService.cs" />
     <Compile Include="Stores\CategoryStoresResult.cs" />
+    <Compile Include="Stores\StoreSeoNotificationService.cs" />
     <Compile Include="Stores\StoreStatisticService.cs" />
     <Compile Include="Stores\WhatsappLogService.cs" />
     <Compile Include="Stores\IActivityTypeService.cs" />

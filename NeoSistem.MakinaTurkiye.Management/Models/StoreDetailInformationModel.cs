@@ -11,11 +11,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
             this.MemberInformationModel = new MemberInformationModel();
             this.StoreContactInfoModel = new StoreContactInfoModel();
             this.StoreMemberDescriptionItems = new List<StoreMemberDescriptionItem>();
+            this.StoreSeoNotificationItems = new List<StoreMemberDescriptionItem>();
         }
         public MemberInformationModel MemberInformationModel { get; set; }
         public StoreInformationModel StoreInformationModel { get; set; }
         public StoreContactInfoModel StoreContactInfoModel { get; set; }
         public List<StoreMemberDescriptionItem> StoreMemberDescriptionItems { get; set; }
+                   public List<StoreMemberDescriptionItem> StoreSeoNotificationItems { get; set; }
         public string StoreActivityTypes { get; set; }
         public int ActiveProductCount { get; set; }
         public int PasiveProductCount { get; set; }

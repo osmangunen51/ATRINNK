@@ -54,6 +54,7 @@ namespace MakinaTurkiye.Utilities.Infrastructure
             builder.RegisterType<StoreActivityCategoryService>().As<IStoreActivityCategoryService>().InstancePerLifetimeScope();
             builder.RegisterType<StoreSectorService>().As<IStoreSectorService>().InstancePerLifetimeScope();
             builder.RegisterType<StoreDiscountService>().As<IStoreDiscountService>().InstancePerLifetimeScope();
+            builder.RegisterType<StoreSeoNotificationService>().As<IStoreSeoNotificationService>().InstancePerLifetimeScope();
 
         }
 
