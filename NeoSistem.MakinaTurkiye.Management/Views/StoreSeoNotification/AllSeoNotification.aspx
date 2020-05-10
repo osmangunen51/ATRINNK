@@ -14,6 +14,7 @@
         <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
             <thead>
                 <tr>
+                    <td class="Header">Başlık</td>
                     <td class="Header">İçerik</td>
                     <td class="Header">İşlem Tarihi</td>
                     <td class="Header">Hatırlatma Tarihi</td>
@@ -23,6 +24,7 @@
                     <td class="Header HeaderEnd">Araçlar</td>
                 </tr>
                 <tr style="background-color: #F1F1F1">
+                            <td class="CellBegin" align="center"></td>
                     <td class="CellBegin" align="center"></td>
                     <td class="Cell" style="width: 8%;">
                         <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">

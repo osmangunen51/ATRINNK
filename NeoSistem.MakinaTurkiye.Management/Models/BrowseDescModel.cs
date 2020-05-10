@@ -20,6 +20,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public int StoreMainPartyId { get; set; }
         public int PreRegistrationStoreId { get; set; }
         public byte RegistrationType { get; set; }
+        public bool? IsProductAdded { get; set; }
 
     }
 }

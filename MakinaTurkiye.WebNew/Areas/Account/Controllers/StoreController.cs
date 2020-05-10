@@ -536,6 +536,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     {
                         CertificateTypeId = Convert.ToInt32(certificateType),
                         StoreCertificateId = certificateId,
+                        
                     };
                     _certificateTypeService.InsertCertificateTypeProduct(certificateTypeStore);
                 }

@@ -5,6 +5,7 @@
     {
 %>
 <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
+    <td class="Cell"><%:itemMemberDesc.Title %></td>
     <td class="Cell" style="font-size: 15px;"><% if (itemMemberDesc.Description != null)
                                                   { %>
         <%=Html.Raw(itemMemberDesc.Description)%>
@@ -41,7 +42,7 @@
 
 
 <tr>
-    <td class="ui-state ui-state-default" colspan="6" align="right" style="border-color: #DDD; border-top: none;">
+    <td class="ui-state ui-state-default" colspan="7" align="right" style="border-color: #DDD; border-top: none;">
         <div style="float: right;" class="pagination">
             <ul>
                 <% foreach (int page in Model.TotalLinkPages)

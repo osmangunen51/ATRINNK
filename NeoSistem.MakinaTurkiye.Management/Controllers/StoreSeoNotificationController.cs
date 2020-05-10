@@ -8,6 +8,8 @@ using MakinaTurkiye.Entities.Tables.Stores;
 using NeoSistem.MakinaTurkiye.Management.Models.Authentication;
 using System.Collections.Generic;
 using NeoSistem.MakinaTurkiye.Management.Models;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Utilities.FormatHelpers;
 
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
@@ -16,11 +18,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
     {
         IStoreSeoNotificationService _storeSeoNotificationService;
         IStoreService _storeService;
+        IConstantService _constantService;
 
-        public StoreSeoNotificationController(IStoreSeoNotificationService storeSeoNotificationService, IStoreService storeService)
+        public StoreSeoNotificationController(IStoreSeoNotificationService storeSeoNotificationService, IStoreService storeService,
+            IConstantService constantService)
         {
             _storeSeoNotificationService = storeSeoNotificationService;
             _storeService = storeService;
+            _constantService = constantService;
         }
         public ActionResult Index(int storeMainPartyId)
         {
@@ -32,15 +37,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 var fromUser = entites.Users.FirstOrDefault(x => x.UserId == item.FromUserId);
                 var toUser = entites.Users.FirstOrDefault(x => x.UserId == item.ToUserId);
+             
                 baseMemberDescriptions.Add(new BaseMemberDescriptionModelItem
                 {
-                    Description = item.Text,
+                    Description = FormatHelper.GetMemberDescriptionText(item.Text),
                     FromUserName = fromUser.UserName,
                     ToUserName = toUser.UserName,
                     StoreID = item.StoreMainPartyId,
                     LastDate = item.RemindDate,
                     InputDate = item.CreatedDate,
-                    ID = item.StoreSeoNotificationId
+                    ID = item.StoreSeoNotificationId,
+                    Title = item.ConstantId.HasValue ? _constantService.GetConstantByConstantId(item.ConstantId.Value).ConstantName : ""
                 });
             }
             StoreSeoNotificationModel model = new StoreSeoNotificationModel();
@@ -48,22 +55,49 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.StoreName = store.StoreName;
             return View(model);
         }
-        public ActionResult Create(int id, int? storeNotId)
+        public ActionResult Create(int? id, int? storeNotId)
         {
             var model = new StoreSeoNotificationFormModel();
-            model.StoreMainPartyId = id;
+
             var entities = new MakinaTurkiyeEntities();
             var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 21 || g.UserGroupId == 11 select new { u.UserName, u.UserId };
             foreach (var item in users1)
             {
                 model.ToUsers.Add(new SelectListItem { Text = item.UserName, Value = item.UserId.ToString() });
             }
+            var contstants = _constantService.GetConstantByConstantType(ConstantTypeEnum.SeoDecriptionTitle);
             if (storeNotId.HasValue)
             {
                 var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(storeNotId.Value);
                 model.PreviousText = storeSeoNotification.Text;
                 model.StoreSeoNotificationId = storeNotId.Value;
+                model.StoreMainPartyId = storeSeoNotification.StoreMainPartyId;
+                if (!storeSeoNotification.ConstantId.HasValue || storeSeoNotification.ConstantId == 0)
+                    model.Titles.Add(new SelectListItem { Text = "Seçiniz", Value = "0" });
+                foreach (var item in contstants)
+                {
+                    if (model.ConstantId == item.ConstantId)
+                    {
+                        model.Titles.Add(new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString(), Selected = true });
+                    }
+                    else
+                    {
+                        model.Titles.Add(new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString() });
+                    }
+
+                }
             }
+            else if (id.HasValue)
+            {
+                model.StoreMainPartyId = id.Value;
+                model.Titles.Add(new SelectListItem { Text = "Seçiniz", Value = "0" });
+                foreach (var item in contstants)
+                {
+                    model.Titles.Add(new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString() });
+                }
+            }
+
+
             return View(model);
         }
         [HttpPost]
@@ -75,59 +109,74 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 int year = 0, day = 0, month = 0;
                 int hour = 0, minute = 0;
                 DateTime lastDate = new DateTime();
-                if (string.IsNullOrEmpty(model.RemindDate))
+                if (model.ConstantId == 0)
                 {
-                    model.RemindDate = DateTime.Now.Date.ToString("dd.MM.yyyy");
+                    ModelState.AddModelError("ConstantId", "Lütfen Başlık Seçiniz");
                 }
                 else
                 {
-                    string[] time1 = model.RemindDate.ToString().Split('.');
-                    year = Convert.ToInt32(time1[2]);
-                    month = Convert.ToInt32(time1[1]);
-                    day = Convert.ToInt32(time1[0]);
-                }
-                if (!string.IsNullOrEmpty(time))
-                {
-                    hour = Convert.ToInt32(time.Split(':')[0]);
-                    minute = Convert.ToInt32(time.Split(':')[1]);
-                }
-                else
-                {
-                    hour = DateTime.Now.Hour;
-                    minute = DateTime.Now.Minute + 1;
-                    if (day != DateTime.Now.Day)
+                    if (string.IsNullOrEmpty(model.RemindDate))
                     {
-                        hour = 8;
-                        minute = 30;
+                        model.RemindDate = DateTime.Now.Date.ToString("dd.MM.yyyy");
                     }
-                }
-                lastDate = new DateTime(year, month, day, hour, minute, 0);
-                if (lastDate > DateTime.Now)
-                {
-                    var storeSeoNotification = new StoreSeoNotification
+                    else
                     {
-                        CreatedDate = DateTime.Now,
-                        RemindDate = lastDate,
-                        FromUserId = CurrentUserModel.CurrentManagement.UserId,
-                        ToUserId = Convert.ToByte(model.ToUserId),
-                        Status = 0,
-                        StoreMainPartyId = model.StoreMainPartyId,
-                        Text = model.Text
-                    };
-                    _storeSeoNotificationService.InsertStoreSeoNotification(storeSeoNotification);
+                        string[] time1 = model.RemindDate.ToString().Split('.');
+                        year = Convert.ToInt32(time1[2]);
+                        month = Convert.ToInt32(time1[1]);
+                        day = Convert.ToInt32(time1[0]);
+                    }
+                    if (!string.IsNullOrEmpty(time))
+                    {
+                        hour = Convert.ToInt32(time.Split(':')[0]);
+                        minute = Convert.ToInt32(time.Split(':')[1]);
+                    }
+                    else
+                    {
+                        hour = DateTime.Now.Hour;
+                        minute = DateTime.Now.Minute + 1;
+                        if (day != DateTime.Now.Day)
+                        {
+                            hour = 8;
+                            minute = 30;
+                        }
+                    }
+                    lastDate = new DateTime(year, month, day, hour, minute, 0);
+                    if (lastDate > DateTime.Now)
+                    {
+                        var storeSeoNotification = new StoreSeoNotification
+                        {
+                            CreatedDate = DateTime.Now,
+                            RemindDate = lastDate,
+                            FromUserId = CurrentUserModel.CurrentManagement.UserId,
+                            ToUserId = Convert.ToByte(model.ToUserId),
+                            Status = 0,
+                            StoreMainPartyId = model.StoreMainPartyId,
+                            ConstantId = model.ConstantId,
+                            Text = model.Text
+                        };
+                        if (model.StoreSeoNotificationId != 0)
+                        {
+                            var storeSeoNotificationPrev = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(model.StoreSeoNotificationId);
+                            storeSeoNotificationPrev.RemindDate = null;
+                            storeSeoNotification.Status = 1;
+                            _storeSeoNotificationService.UpdateStoreSeoNotification(storeSeoNotificationPrev);
+                            if (storeSeoNotificationPrev.ConstantId == model.ConstantId)
+                            {
+                                storeSeoNotification.Text = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + model.Text + "<span style='color:#44000d'>" + CurrentUserModel.CurrentManagement.UserName + "</span>"+ storeSeoNotificationPrev.Text;
+                            }
+                        }
+                        _storeSeoNotificationService.InsertStoreSeoNotification(storeSeoNotification);
 
-                    if (model.StoreSeoNotificationId != 0)
+
+                        return RedirectToAction("Index", new { storeMainPartyId = storeSeoNotification.StoreMainPartyId });
+                    }
+                    else
                     {
-                        var storeSeoNotificationPrev = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(model.StoreSeoNotificationId);
-                        storeSeoNotification.RemindDate = null;
-                        storeSeoNotification.Status = 1;
-                        _storeSeoNotificationService.UpdateStoreSeoNotification(storeSeoNotification);
+                        ModelState.AddModelError("RemindDate", "Tarih şuanki tarihten küçük olamaz");
                     }
                 }
-                else
-                {
-                    ModelState.AddModelError("RemindDate", "Tarih şuanki tarihten küçük olamaz");
-                }
+
             }
             else
             {
@@ -144,6 +193,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(model.StoreSeoNotificationId);
                 model.PreviousText = storeSeoNotification.Text;
                 model.StoreSeoNotificationId = model.StoreSeoNotificationId;
+
+            }
+            var contstants = _constantService.GetConstantByConstantType(ConstantTypeEnum.SeoDecriptionTitle);
+            if (model.ConstantId == 0)
+                model.Titles.Add(new SelectListItem { Text = "Seçiniz", Value = "0" });
+            foreach (var item in contstants)
+            {
+                if (model.ConstantId == item.ConstantId)
+                {
+                    model.Titles.Add(new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString(), Selected = true });
+                }
+                else
+                {
+                    model.Titles.Add(new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString() });
+                }
+
             }
 
             return View(model);
@@ -181,13 +246,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var toUser = entities.Users.FirstOrDefault(x => x.UserId == item.ToUserId);
                 baseMemberDescriptions.Add(new BaseMemberDescriptionModelItem
                 {
-                    Description = item.Text,
+                    Description = FormatHelper.GetMemberDescriptionText(item.Text),
                     FromUserName = fromUser.UserName,
                     ToUserName = toUser.UserName,
                     StoreID = item.StoreMainPartyId,
                     LastDate = item.RemindDate,
                     InputDate = item.CreatedDate,
-                    ID = item.StoreSeoNotificationId
+                    ID = item.StoreSeoNotificationId,
+                    Title = item.ConstantId.HasValue ? _constantService.GetConstantByConstantId(item.ConstantId.Value).ConstantName : ""
                 });
             }
             StoreSeoNotificationModel model = new StoreSeoNotificationModel();
@@ -201,7 +267,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
 
             FilterModel<BaseMemberDescriptionModelItem> model = new FilterModel<BaseMemberDescriptionModelItem>();
-            
+
             model.Source = PrepareAllStoreSeoNotificationItem(0, DateTime.Now, out totalRecord);
             model.TotalRecord = totalRecord;
             model.PageDimension = 50;
@@ -221,13 +287,15 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var toUser = entities.Users.FirstOrDefault(x => x.UserId == item.ToUserId);
                 baseMemberDescriptions.Add(new BaseMemberDescriptionModelItem
                 {
-                    Description = item.Text,
+                    Description = FormatHelper.GetMemberDescriptionText(item.Text),
                     FromUserName = fromUser.UserName,
                     ToUserName = toUser.UserName,
                     StoreID = item.StoreMainPartyId,
                     LastDate = item.RemindDate,
                     InputDate = item.CreatedDate,
-                    ID = item.StoreSeoNotificationId
+                    ID = item.StoreSeoNotificationId,
+                    Title = item.ConstantId.HasValue ? _constantService.GetConstantByConstantId(item.ConstantId.Value).ConstantName : ""
+
                 });
             }
 

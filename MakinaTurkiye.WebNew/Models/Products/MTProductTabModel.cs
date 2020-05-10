@@ -15,6 +15,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
             this.MTProductCatologs = new List<MTProductCatologItem>();
             this.MTProductComment = new MTProductCommentModel();
             this.ProductKeywords = new List<MTProductKeywordItem>();
+            this.Certificates = new Dictionary<string, string>();
         }
 
         public string ProductDescription { get; set; }
@@ -28,5 +29,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public Dictionary<int, List<MTProductVideoModel>> VideoModels { get; set; }
         public List<MTProductCatologItem> MTProductCatologs { get; set; }
         public MTProductCommentModel MTProductComment { get; set; }
+        public Dictionary<string, string> Certificates { get; set; }
     }
 }

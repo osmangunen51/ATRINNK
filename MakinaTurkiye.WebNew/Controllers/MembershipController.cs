@@ -2649,7 +2649,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 //var ctx = Request.GetOwinContext();
                 //var authManager = ctx.Authentication;
                 //authManager.SignIn(identity);
-
+                //var user = this.User
                 var redirect = GetRedirectUrl(model.ReturnUrl);
                 //AuthenticationUser.Membership = member;
 

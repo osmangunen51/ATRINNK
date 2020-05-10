@@ -149,6 +149,12 @@ namespace MakinaTurkiye.Services.Catalog
             var query = _certificateTypeProductRepository.Table;
             return query.FirstOrDefault(x => x.StoreCertificateId == storeCertificateId);
         }
+
+        public IList<CertificateTypeProduct> GetCertificateTypeProductsByCerticateTypeId(int certificateTypeId)
+        {
+            var query = _certificateTypeProductRepository.Table;
+            return query.Where(x => x.CertificateTypeId == certificateTypeId).ToList();
+        }
         #endregion
     }
 }

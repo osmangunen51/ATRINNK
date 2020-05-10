@@ -641,11 +641,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var listNew = list.GroupBy(x => x.UpdateDateNew).Select(x => new { totalCount = x.Sum(a => a.TotalCount), date1 = x.Key });
             totalCount = listNew.Count();
             listNew = listNew.OrderBy(x => x.date1).Skip(1 * 50 - 50).Take(50);
+            var userIds = list.Select(c => c.UserId).Distinct().ToList();
             List<MemberDescriptionCountModel> collection = new List<MemberDescriptionCountModel>();
             foreach (var item2 in listNew)
             {
                 var itemModel = new MemberDescriptionCountModel { TotalCount = item2.totalCount, UpdateDateNew = item2.date1 };
-                var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 18 select new { u.UserName, u.UserId };
+                var users1 = entities.Users.Where(x => userIds.Contains(x.UserId));
+
+              //  var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 18 || g.UserGroupId == 20 select new { u.UserName, u.UserId };
                 foreach (var item in users1)
                 {
                     itemModel.Usercounts.Add(new Usercount { Count = 0, UserName = item.UserName });
@@ -675,12 +678,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int totalCount = 0;
             var listNew = list.GroupBy(x => x.UpdateDateNew).Select(x => new { totalCount = x.Sum(a => a.TotalCount), date1 = x.Key });
             totalCount = listNew.Count();
+            var userIds = list.Select(c => c.UserId).Distinct().ToList();
             listNew = listNew.OrderBy(x => x.date1).Skip(CurrentPage * 50 - 50).Take(50);
             List<MemberDescriptionCountModel> collection = new List<MemberDescriptionCountModel>();
             foreach (var item2 in listNew)
             {
                 var itemModel = new MemberDescriptionCountModel { TotalCount = item2.totalCount, UpdateDateNew = item2.date1 };
-                var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 18 select new { u.UserName, u.UserId };
+                var users1 = entities.Users.Where(x => userIds.Contains(x.UserId));
+
                 foreach (var item in users1)
                 {
                     itemModel.Usercounts.Add(new Usercount { Count = 0, UserName = item.UserName });

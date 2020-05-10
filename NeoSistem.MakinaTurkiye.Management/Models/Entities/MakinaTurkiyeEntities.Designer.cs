@@ -25361,6 +25361,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private global::System.String _SeoKeyword;
         partial void OnSeoKeywordChanging(global::System.String value);
         partial void OnSeoKeywordChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> IsProductAdded
+        {
+            get
+            {
+                return _IsProductAdded;
+            }
+            set
+            {
+                OnIsProductAddedChanging(value);
+                ReportPropertyChanging("IsProductAdded");
+                _IsProductAdded = StructuralObject.SetValidValue(value, "IsProductAdded");
+                ReportPropertyChanged("IsProductAdded");
+                OnIsProductAddedChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _IsProductAdded;
+        partial void OnIsProductAddedChanging(Nullable<global::System.Boolean> value);
+        partial void OnIsProductAddedChanged();
 
         #endregion
 

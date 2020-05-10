@@ -486,6 +486,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             string actionName = this.ControllerContext.ParentActionViewContext.RouteData.GetRequiredString("action");
             SeoIdNameEnum seoIdNameEnum = actionName == "Index" ? SeoIdNameEnum.Help : SeoIdNameEnum.HelpCategory;
             var seo = seos.First(s => s.SeoId == (int)seoIdNameEnum);
+            int helpCategoryId = GetCategoryIdRouteData();
+            if (helpCategoryId != 0)
+            {
+                var helpCategory = _categoryService.GetCategoryByCategoryId(helpCategoryId);
+                seo.Title = seo.Title.Replace("{Kategori}", helpCategory.CategoryName);
+                seo.Keywords = seo.Keywords.Replace("{Kategori}", helpCategory.CategoryName);
+                seo.Description = seo.Description.Replace("{Kategori}", helpCategory.CategoryName);
+
+            }
 
             model.Description = seo.Description;
             model.Keywords = seo.Keywords;
@@ -664,7 +673,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (actionName == "Index")
             {
                 byte newType = GetNewTypeRouteData();
-                seoIdNameEnum = newType == (byte)StoreNewTypeEnum.Normal ? SeoIdNameEnum.StoreNewDetail : SeoIdNameEnum.SuccesstoriesDetail;
+                seoIdNameEnum = newType == (byte)StoreNewTypeEnum.Normal ? SeoIdNameEnum.StoreNewHome : SeoIdNameEnum.SuccessStories;
 
             }
             else if (actionName == "Detail")
@@ -679,14 +688,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (storeNew != null)
             {
                 seo.Description = seo.Description.Replace("{HaberAdi}", storeNew.Title);
-                seo.Keywords = seo.Keywords.Replace("{HaberAdi}", storeNew.Title);
+                if (seo.Keywords != null)
+                    seo.Keywords = seo.Keywords.Replace("{HaberAdi}", storeNew.Title);
                 seo.Title = seo.Title.Replace("{HaberAdi}", storeNew.Title);
 
                 var store = _storeService.GetStoreByMainPartyId(storeNew.StoreMainPartyId);
 
                 seo.Description = seo.Description.Replace("{FirmaAdi}", store.StoreName);
-                seo.Keywords = seo.Keywords.Replace("{FirmaAdi}", store.StoreName);
+                if (seo.Keywords != null)
+                    seo.Keywords = seo.Keywords.Replace("{FirmaAdi}", store.StoreName);
                 seo.Title = seo.Title.Replace("{FirmaAdi}", store.StoreName);
+
             }
 
             model.Description = seo.Description;
@@ -699,7 +711,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
             string actionName = this.ControllerContext.ParentActionViewContext.RouteData.GetRequiredString("action");
             SeoIdNameEnum seoIdNameEnum = SeoIdNameEnum.General;
-
             int categoryId = 0;
             switch (actionName)
             {
@@ -723,18 +734,25 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     break;
                 default: break;
             }
-
             string storeUsername = GetStoreUsernameRoutData();
             var store = _storeService.GetStoreByStoreUrlName(storeUsername);
-
             var seo = seos.First(s => s.SeoId == (int)seoIdNameEnum);
-
+            var adress = _addressService.GetAddressesByMainPartyId(store.MainPartyId);
             if (string.IsNullOrEmpty(seo.Keywords))
                 seo.Keywords = "";
             if (string.IsNullOrEmpty(seo.Description))
                 seo.Description = "";
-
-
+            if (adress.Count > 0)
+            {
+                if (adress.FirstOrDefault().City != null)
+                {
+                    string cityName = adress.FirstOrDefault().City.CityName;
+                    seo.Description = seo.Description.Replace("{Sehir}", cityName);
+                    if (!string.IsNullOrEmpty(seo.Keywords))
+                        seo.Keywords = seo.Keywords.Replace("{Sehir}", cityName);
+                    seo.Title = seo.Title.Replace("{Sehir}", cityName);
+                }
+            }
             seo.Description = seo.Description.Replace("{FirmaAdi}", store.StoreName);
             if (!string.IsNullOrEmpty(seo.Keywords))
                 seo.Keywords = seo.Keywords.Replace("{FirmaAdi}", store.StoreName);

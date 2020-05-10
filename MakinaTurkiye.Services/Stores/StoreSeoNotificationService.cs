@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MakinaTurkiye.Core.Data;
+using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.Tables.Stores;
 
 namespace MakinaTurkiye.Services.Stores
@@ -13,11 +14,13 @@ namespace MakinaTurkiye.Services.Stores
     {
         #region fields
         IRepository<StoreSeoNotification> _storeSeoNotificationRepository;
+        IDbContext _dbContext;
         #endregion
         #region const
-        public StoreSeoNotificationService(IRepository<StoreSeoNotification> storeSeoNotificationRepository)
+        public StoreSeoNotificationService(IRepository<StoreSeoNotification> storeSeoNotificationRepository, IDbContext dbContext)
         {
             _storeSeoNotificationRepository = storeSeoNotificationRepository;
+            _dbContext = dbContext;
         }
         #endregion
         #region methods
@@ -62,7 +65,7 @@ x.CreatedDate.Year == date.Year && x.CreatedDate.Month == date.Month && x.Create
             var query = _storeSeoNotificationRepository.Table;
             query = query.Where(x => x.Status == status && x.RemindDate.HasValue &&
             x.RemindDate.Value.Year == date.Year && x.RemindDate.Value.Month == date.Month && x.RemindDate.Value.Day == date.Day &&
-            x.RemindDate.Value.Hour <= date.Hour && x.RemindDate.Value.Minute <= date.Hour && x.ToUserId == userId).OrderByDescending(x => x.RemindDate.Value);
+            x.RemindDate.Value.Hour <= date.Hour && x.RemindDate.Value.Minute <= date.Minute && x.ToUserId == userId).OrderByDescending(x => x.RemindDate.Value);
             return query.ToList();
         }
 
@@ -81,6 +84,13 @@ x.CreatedDate.Year == date.Year && x.CreatedDate.Month == date.Month && x.Create
                 throw new ArgumentNullException("storeSeoNotificaiton");
 
             _storeSeoNotificationRepository.Insert(storeSeoNotification);
+        }
+
+        public void SP_StoreSeoNotificationChangeDateForRest()
+        {
+            
+                _dbContext.ExecuteSqlCommand("exec SP_StoreSeoNotificationChangeDateForRest");
+            
         }
 
         public void UpdateStoreSeoNotification(StoreSeoNotification storeSeoNotification)

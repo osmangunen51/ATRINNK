@@ -25,10 +25,20 @@
 
     <div style="margin-top: 20px;">
         <h2 style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Üye Açıklamaları - <%= Model.MemberNameSurname%>
+
             <%if (!string.IsNullOrEmpty(Model.AuthName))
                 {%>
             <span style="font-size: 13px"><%:Model.AuthName %></span>
             <% } %>
+            <%if (Model.IsProductAdded.HasValue && Model.IsProductAdded.Value)
+                {%>
+            <img src="/Content/images/Accept-icon.png" title="Veri Girişi Tamamlandı" />
+            <%}
+                else
+                { %>
+            <img src="/Content/images/cross.png" title="Veri Girişi Tamamlanmadı" />
+            <%
+                } %>
 
         </h2>
         <div style="float: left;">
@@ -129,7 +139,7 @@
 
                     </td>
                     <td class="Cell">
-                        <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title!="Bilgi +kayıt tar + tıklama sayısı+")
+                        <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+")
                             {%>
                         <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
                             <img src="/Content/images/ac.png" />

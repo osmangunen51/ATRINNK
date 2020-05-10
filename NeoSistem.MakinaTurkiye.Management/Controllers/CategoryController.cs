@@ -946,6 +946,27 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             var category = new Data.Category();
             var Dt = category.CategoryGetSectorItemsByCategoryParent(cId);
+
+            var category1 = _categoryService.GetCategoryByCategoryId(cId);
+            if (category1.CategoryType == (byte)CategoryType.Model || category1.CategoryType == (byte)CategoryType.Series)
+            {
+                if (category1.CategoryType == (byte)CategoryType.Series)
+                {
+                    if (entities.Products.Where(x => x.SeriesId == cId).Count() > 0)
+                    {
+                        return Json(false);
+                    }
+
+
+                }
+                else
+                {
+                    if (entities.Products.Where(x => x.ModelId == cId).Count() > 0)
+                    {
+                        return Json(false);
+                    }
+                }
+            }
             if (Dt.Rows.Count > 0)
             {
                 return Json(false);
@@ -955,6 +976,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 int row = category.Delete(cId);
                 return Json(row <= 0);
             }
+
         }
 
         public ActionResult addImages(int categoryId)
@@ -1685,7 +1707,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             string categoryName = sheet.GetRow(row).GetCell(2).StringCellValue;
                             string categoryContentTitle = sheet.GetRow(row).GetCell(3).StringCellValue;
                             string storePageTitle = sheet.GetRow(row).GetCell(4).StringCellValue;
-                            string keywords = sheet.GetRow(row).GetCell(5)!=null ?  sheet.GetRow(row).GetCell(5).StringCellValue:"";
+                            string keywords = sheet.GetRow(row).GetCell(5) != null ? sheet.GetRow(row).GetCell(5).StringCellValue : "";
                             string description = sheet.GetRow(row).GetCell(6).StringCellValue;
                             string pageTitle = sheet.GetRow(row).GetCell(7).StringCellValue;
                             string content = sheet.GetRow(row).GetCell(9).StringCellValue;

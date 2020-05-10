@@ -775,7 +775,7 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
             routes.MapRoute(
                 "ModelRouteNewOther",
                 "{modelName}-{brandName}-{categoryName}-m-{categoryId}-{selectedCategoryId}",
-                new { controller = "Category", action = "Index2", categoryId = UrlParameter.Optional, selectedCategoryId = UrlParameter.Optional },
+                new { controller = "Category", action = "Index2", categoryId = UrlParameter.Optional, selectedCategoryId = UrlParameter.Optional, modelName=UrlParameter.Optional },
                 new { categoryId = @"\d\d\d\d+" },
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 ).DataTokens.Add("RouteName", "ModelRouteNew");
@@ -788,11 +788,17 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 ).DataTokens.Add("RouteName", "ModelRouteNew");
 
-
+            routes.MapRoute(
+           "ModelRouteNewAnoter",
+          "{modelName}-{brandName}-m-{categoryId}-{selectedCategoryId}",
+           new { controller = "Category", action = "Index2", categoryId = UrlParameter.Optional },
+           new { categoryId = @"\d\d\d\d+" },
+           new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+           ).DataTokens.Add("RouteName", "ModelRouteNew");
 
             #region StoreProfile
 
-         
+
 
             routes.MapRoute(
                 "StoreProfileGeneral",

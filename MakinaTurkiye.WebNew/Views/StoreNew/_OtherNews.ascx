@@ -7,7 +7,7 @@
         <li class="list-group-item">
             <div style="float: left;">
                 <a href="<%:item.NewUrl %>" title="<%:item.Title %>">
-                    <img src="<%:item.ImagePath %>" style="width: 75px;" class="img-thumbnail" /></a>
+                    <img src="<%:item.ImagePath %>" alt="<%:item.Title %>" style="width: 75px;" class="img-thumbnail" /></a>
             </div>
             <div style="float: left; width: 175px;">
                 <a href="<%:item.NewUrl %>" title="<%:item.Title %>">

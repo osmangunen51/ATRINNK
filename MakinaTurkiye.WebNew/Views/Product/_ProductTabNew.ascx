@@ -28,6 +28,11 @@
             <li><a data-toggle="tab" href="#catolog">Dosyalar</a></li>
             <% } %>
             <li><a data-toggle="tab" href="#comments">Yorumlar <span class="badge badge-info" style="background-color: #fc8120;"><%:Model.MTProductComment.TotalProductComment %></span></a></li>
+            <%if (Model.Certificates.Count > 0)
+                {%>
+            <li><a data-toggle="tab" href="#certificates">Sertifikalar <span class="badge badge-info" style="background-color: #fc8120;"><%:Model.Certificates.Count%></span></a></li>
+
+            <% } %>
         </ul>
         <div class="tab-content">
             <div id="aciklama" class="clearfix tab-pane fade in active">
@@ -145,6 +150,27 @@
             <div id="comments" class="clearfix tab-pane fade" style="font-size: 15px;">
                 <%=Html.RenderHtmlPartial("_ProductComment",Model) %>
             </div>
+            <%if (Model.Certificates.Count > 0)
+                { %>
+            <div id="certificates" class="clearfix tab-pane fade" style="font-size: 15px;">
+                <div class="row">
+                    <div class="col-md-12 certificate-popup-gallery">
+
+                        <%foreach (KeyValuePair<string, string> entry in Model.Certificates)
+                            {%>
+                        <div class="col-md-3">
+                            <div style="height: 280px;">
+                                <a class="img-cerficate-link" href="<%:entry.Value.Replace("-500x800","_certificate")%>" title="<%:entry.Key %>">
+                                    <img class="img-responsive" style="border: 1px solid #ccc; height: 100%; -webkit-box-shadow: -2px 4px 7px -3px #000000; box-shadow: -2px 4px 7px -3px #000000;" src="<%:entry.Value.Replace("png","jpg") %>" alt="<%:entry.Key %>" />
+                                </a>
+                            </div>
+                            <p style="font-size: 14px; margin-top: 5px;"><%:entry.Key %></p>
+                        </div>
+                        <%} %>
+                    </div>
+                </div>
+            </div>
+            <%} %>
         </div>
     </div>
 </div>

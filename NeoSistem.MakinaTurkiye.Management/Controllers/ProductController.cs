@@ -706,7 +706,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 product.UrunAdi = item.ProductName;
                 product.UrunNo = item.ProductNo;
                 product.UrunId = item.ProductId;
-                product.Keywords =!string.IsNullOrEmpty(item.Keywords) ? item.Keywords : "";
+                product.Keywords = !string.IsNullOrEmpty(item.Keywords) ? item.Keywords : "";
                 if (item.MenseiId.HasValue)
                 {
                     var constantMensei = _constantService.GetConstantByConstantId((short)item.MenseiId.Value);
@@ -758,7 +758,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     o.Keywords
                 }).ToList();
 
-            var properties = new[] { "UrunId", "UrunNo", "UrunAdi", "ProductDescription", "ProductBriefDetail", "WarrantyPeriod", "ProductPrice", "Mensei","Kdv","Keywords" };
+            var properties = new[] { "UrunId", "UrunNo", "UrunAdi", "ProductDescription", "ProductBriefDetail", "WarrantyPeriod", "ProductPrice", "Mensei", "Kdv", "Keywords" };
             var headers = new[] { "UrunId", "UrunNo", "UrunAdi", "ProductDescription", "ProductBriefDetail", "WarrantyPeriod", "ProductPrice", "Mensei", "Kdv", "Keywords" };
 
             var headerRow = sheet.CreateRow(0);
@@ -787,9 +787,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 catch (Exception ex)
                 {
                     continue;
-                 
+
                 }
-      
+
             }
 
             using (var stream = new MemoryStream())
@@ -927,7 +927,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             string productDescription = sheet.GetRow(row).GetCell(3).StringCellValue;
                             string productBriefDetail = sheet.GetRow(row).GetCell(4).StringCellValue;
                             string warriantPeriodText = sheet.GetRow(row).GetCell(5).StringCellValue;
-                     
+
                             decimal productPrice = 0;
                             string keywords = sheet.GetRow(row).GetCell(9).StringCellValue;
                             var cell = sheet.GetRow(row).GetCell(6);
@@ -956,21 +956,25 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             var constantMensei = entities.Constants.FirstOrDefault(x => x.ConstantName == mensei);
 
                             var product = _productService.GetProductByProductId(productId);
-                            product.ProductName = productName;
-                            product.ProductDescription = productDescription;
-                            product.MenseiId = constantMensei != null ? constantMensei.ConstantId : product.MenseiId;
-                            product.WarrantyPeriod = warriantPeriod != 0 ? warriantPeriod.ToString() : product.WarrantyPeriod;
-                            product.ProductPrice = productPrice != 0 ? Convert.ToDecimal(productPrice) : product.ProductPrice;
-                            if (!string.IsNullOrEmpty(keywords))
-                                product.Keywords = keywords;
-
-                            if (product.ProductPrice.HasValue && product.ProductPrice.Value > 0 && product.ProductPriceType != (byte)ProductPriceType.Price)
+                            if (product != null)
                             {
-                                product.ProductPriceType = (byte)ProductPriceType.Price;
+                                product.ProductName = productName;
+                                product.ProductDescription = productDescription;
+                                product.MenseiId = constantMensei != null ? constantMensei.ConstantId : product.MenseiId;
+                                product.WarrantyPeriod = warriantPeriod != 0 ? warriantPeriod.ToString() : product.WarrantyPeriod;
+                                product.ProductPrice = productPrice != 0 ? Convert.ToDecimal(productPrice) : product.ProductPrice;
+                                if (!string.IsNullOrEmpty(keywords))
+                                    product.Keywords = keywords;
+
+                                if (product.ProductPrice.HasValue && product.ProductPrice.Value > 0 && product.ProductPriceType != (byte)ProductPriceType.Price)
+                                {
+                                    product.ProductPriceType = (byte)ProductPriceType.Price;
+                                }
+                                product.BriefDetail = constantProductBrief != null ? constantProductBrief.ConstantId.ToString() : "";
+                                _productService.UpdateProduct(product);
+                                updated = true;
                             }
-                            product.BriefDetail = constantProductBrief != null ? constantProductBrief.ConstantId.ToString() : "";
-                            _productService.UpdateProduct(product);
-                            updated = true;
+
                         }
                     }
                 }
@@ -1036,6 +1040,55 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                 }
 
+            }
+            else if (columncategory == "modelNon")
+            {
+                if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(productidforupdate))
+                {
+                    int productId = Int32.Parse(id);
+
+                    var product = entities.Products.FirstOrDefault(x => x.ProductId == productId);
+
+                    var curCategoryc = new Category
+                    {
+                        Active = true,
+                        CategoryName = productidforupdate,
+                        CategoryParentId = product.SeriesId != null ? product.SeriesId.Value : product.BrandId.Value,
+                        CategoryOrder = 1,
+                        CategoryType = (byte)CategoryType.Model,
+                        RecordDate = DateTime.Now,
+                        RecordCreatorId = 99,
+                        LastUpdateDate = DateTime.Now,
+                        LastUpdaterId = 99,
+                        ProductCount = 0,
+                        MainCategoryType = 1,
+                        Title = "",
+                        Keywords = "",
+                        Description = "",
+                        CategoryContentTitle = productidforupdate
+                    };
+                    entities.Categories.AddObject(curCategoryc);
+                    entities.SaveChanges();
+                    var topCategories = _categoryService.GetSPTopCategories(curCategoryc.CategoryId);
+                    var topCategoriesNames = topCategories.Select(x => x.CategoryContentTitle);
+
+                    curCategoryc.CategoryPath = String.Join(" - ", topCategoriesNames);
+                    curCategoryc.CategoryPathUrl = GetCategoryPathUrl(curCategoryc);
+                    entities.SaveChanges();
+
+                    int categoryModelId = curCategoryc.CategoryId;
+                    string updatableCategory = "";
+                    if (product.ModelId != null)
+                    {
+                        updatableCategory += product.ModelId + ".";
+                    }
+                    updatableCategory += categoryModelId + "." + product.BrandId + ".";
+                    product.OtherModel = String.Empty;
+                    product.ModelId = categoryModelId;
+                    product.CategoryTreeName = product.CategoryTreeName + categoryModelId + ".";
+                    product.ProductLastUpdate = DateTime.Now;
+                    entities.SaveChanges();
+                }
             }
             entities.SaveChanges();
 
@@ -3254,25 +3307,33 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             foreach (var item in productHomePages)
             {
                 var product = _productService.GetProductByProductId(item.ProductId);
-                var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.MainPartyId.Value);
-                var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-
-                source.Add(new HomeSectorProductItem
+                if (product != null)
                 {
+                    if (product.MainPartyId.HasValue)
+                    {
+                        var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.MainPartyId.Value);
+                        var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
 
-                    Active = item.Active,
-                    BeginDate = item.BeginDate.Value,
-                    EndDate = item.EndDate.Value,
-                    Id = item.ProductHomePageId,
-                    ProductId = item.ProductId,
-                    ProductName = product.ProductName,
-                    ProductNo = product.ProductNo,
-                    SectorName = item.Category.CategoryName,
-                    StoreName = store.StoreName,
-                    Type = item.Type.Value,
-                    ProductHomeOrder = product.ProductHomePageOrder
+                        source.Add(new HomeSectorProductItem
+                        {
 
-                });
+                            Active = item.Active,
+                            BeginDate = item.BeginDate.Value,
+                            EndDate = item.EndDate.Value,
+                            Id = item.ProductHomePageId,
+                            ProductId = item.ProductId,
+                            ProductName = product.ProductName,
+                            ProductNo = product.ProductNo,
+                            SectorName = item.Category.CategoryName,
+                            StoreName = store.StoreName,
+                            Type = item.Type.Value,
+                            ProductHomeOrder = product.ProductHomePageOrder
+
+                        });
+                    }
+
+                }
+
             }
 
         }
@@ -3313,7 +3374,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     CertificateTypeId = item.CertificateTypeId,
                     IconPath = AppSettings.CertificateTypeIconFolder + item.IconPath,
-                    Active=item.Active,
+                    Active = item.Active,
                     Name = item.Name,
                     Order = item.Order
                 });
@@ -3347,7 +3408,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             return RedirectToAction("CertificateTypes");
 
         }
-        public ActionResult CertificateTypeConfirm(int id) {
+        public ActionResult CertificateTypeConfirm(int id)
+        {
             var certificateType = _certificateTypeService.GetCertificateTypeByCertificateTypeId(id);
             certificateType.Active = true;
             _certificateTypeService.UpdateCertificateType(certificateType);

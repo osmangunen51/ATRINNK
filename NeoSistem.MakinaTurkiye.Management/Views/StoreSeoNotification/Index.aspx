@@ -23,9 +23,10 @@
         <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
             <thead>
                 <tr>
-                    <td class="Header">İçerik</td>
-                    <td class="Header">İşlem Tarihi</td>
-                    <td class="Header">Hatırlatma Tarihi</td>
+                    <td class="Header">Başlık</td>
+                    <td class="Header" style="width:35%;">İçerik</td>
+                    <td class="Header" style="width:5%;">İşlem Tarihi</td>
+                    <td class="Header" style="width:5%;">Hatırlatma Tarihi</td>
                     <td class="Header">Atayan</td>
                     <td class="Header">Atanan</td>
      
@@ -38,7 +39,8 @@
                     {
                 %>
                 <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
-                    <td class="Cell" style="font-size: 15px;"><% if (itemMemberDesc.Description != null)
+                    <td class="Cell"><%:itemMemberDesc.Title %></td>
+                    <td class="Cell" style="font-size: 15px; width:35%;"><% if (itemMemberDesc.Description != null)
                                                                   { %>
                         <%=Html.Raw(itemMemberDesc.Description)%>
                         <% }
@@ -95,7 +97,7 @@
                         if (data) {
                             $('#row' + descId).hide();
                         }
-                        alert(data.Message);
+                  
                     }
                 });
             }

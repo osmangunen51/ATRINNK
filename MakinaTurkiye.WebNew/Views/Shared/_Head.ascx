@@ -11,7 +11,7 @@
 <script src="/Content/V2/assets/js/jquery.min.js?v=1"></script>
 <script src="/Content/V2/assets/js/jquery.autocomplete.js"></script>
 <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=5.5" defer></script>
-<script src="/Content/V2/public/build/js/bundle-main-min.js?v=6.0" defer></script>
+<script src="/Content/V2/public/build/js/bundle-main-min.js?v=6.1" defer></script>
 <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"></script>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext" rel="stylesheet">
