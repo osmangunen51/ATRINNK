@@ -59,17 +59,25 @@
         <%-- <%: item.NameSeries%>--%>
     </td>
     <td class="Cell">
-        <%if (!string.IsNullOrEmpty(item.NameModel))
-            {  %>
         <div>
-            <%=Html.Label("",item.NameModel)%>
+            <%if (!string.IsNullOrEmpty(item.NameModel))
+                {  %>
+
+            <%=Html.Label("", item.NameModel)%>
             <input type="text" id="<%:item.ModelId %>" column="model" class="edit-input" style="display: none;" />
 
+
+            <%}
+    else {%>
+            <label for=""></label>
+            
+                      <input type="text" id="<%:item.ProductId %>"  column="modelNon" class="edit-input" style="display: none;" />
+            
+                    <% }%>
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
             </div>
         </div>
-        <%} %>
         <%-- <%: item.NameModel%>--%>
     </td>
     <td class="Cell" style="text-align: center; padding-top: 5px">

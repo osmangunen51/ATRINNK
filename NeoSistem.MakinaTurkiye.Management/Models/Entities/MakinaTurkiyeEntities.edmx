@@ -1035,6 +1035,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="SeoTitle" Type="nvarchar" MaxLength="150" />
           <Property Name="SeoDescription" Type="nvarchar" MaxLength="250" />
           <Property Name="SeoKeyword" Type="nvarchar(max)" />
+          <Property Name="IsProductAdded" Type="bit" />
         </EntityType>
         <EntityType Name="StoreActivityCategory">
           <Key>
@@ -5236,6 +5237,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <NavigationProperty Name="StoreNews" Relationship="MakinaTurkiyeModel.FK__StoreNew__StoreM__7B8294F9" FromRole="Store" ToRole="StoreNew" />
           <NavigationProperty Name="StoreStatistics" Relationship="MakinaTurkiyeModel.FK__StoreStat__Store__75D0165B" FromRole="Store" ToRole="StoreStatistic" />
           <NavigationProperty Name="MemberSettings" Relationship="MakinaTurkiyeModel.FK__StoreSett__MainP__63E8D24F" FromRole="Store" ToRole="MemberSetting" />
+          <Property Name="IsProductAdded" Type="Boolean" />
         </EntityType>
         <Association Name="FK_CreditCardLog_Store">
           <End Type="MakinaTurkiyeModel.Store" Role="Store" Multiplicity="0..1" />
@@ -6783,6 +6785,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <EntitySetMapping Name="Stores">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.Store">
               <MappingFragment StoreEntitySet="Store">
+                <ScalarProperty Name="IsProductAdded" ColumnName="IsProductAdded" />
                 <ScalarProperty Name="SeoKeyword" ColumnName="SeoKeyword" />
                 <ScalarProperty Name="SeoDescription" ColumnName="SeoDescription" />
                 <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />

@@ -1,5 +1,6 @@
 ﻿using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Stores;
 using Quartz;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ namespace MakinaTurkiye.Tasks.Members.Tasks
         {
             IMemberDescriptionService memberDescriptionService = EngineContext.Current.Resolve<IMemberDescriptionService>();
             memberDescriptionService.SP_MemberDescriptionsUpdateDateForRest();
+            IStoreSeoNotificationService storeSeoNotificationService = EngineContext.Current.Resolve<IStoreSeoNotificationService>();
+            storeSeoNotificationService.SP_StoreSeoNotificationChangeDateForRest();
             return Task.CompletedTask;
         }
     }

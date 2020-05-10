@@ -41,6 +41,7 @@ namespace NeoSistem.MakinaTurkiye.Web
         protected void Application_Error(object sender, EventArgs e)
         {
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
+
             if (config.ApplicationLogEnabled)
             {
                 Exception exception = Server.GetLastError();

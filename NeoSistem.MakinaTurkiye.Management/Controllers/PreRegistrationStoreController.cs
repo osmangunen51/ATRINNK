@@ -1,10 +1,15 @@
-﻿using MakinaTurkiye.Entities.Tables.Stores;
+﻿using MakinaTurkiye.Entities.Tables.Common;
+using MakinaTurkiye.Entities.Tables.Members;
+using MakinaTurkiye.Entities.Tables.Stores;
+using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Services.Stores;
 using NeoSistem.MakinaTurkiye.Management.Models;
 using NeoSistem.MakinaTurkiye.Management.Models.PreRegistrations;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -17,16 +22,21 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly IMemberService _memberService;
         private readonly IMemberStoreService _memberStoreService;
         private readonly IMemberDescriptionService _memberDescriptonService;
+        private readonly IPacketService _packetService;
+        private readonly IPhoneService _phoneService;
 
         public PreRegistrationStoreController(IPreRegistirationStoreService preRegistirationStoreService, IStoreService storeService,
             IMemberService memberService, IMemberStoreService memberStoreService,
-            IMemberDescriptionService memberDescriptonService)
+            IMemberDescriptionService memberDescriptonService, IPacketService packetService,
+            IPhoneService phoneService)
         {
             this._preRegistrationService = preRegistirationStoreService;
             this._storeService = storeService;
             this._memberService = memberService;
             this._memberStoreService = memberStoreService;
             this._memberDescriptonService = memberDescriptonService;
+            this._packetService = packetService;
+            this._phoneService = phoneService;
         }
         // GET: PreRegistrationStore
         public ActionResult Index()
@@ -39,6 +49,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
             foreach (var item in stores)
             {
+                bool isInserted = false;
+                if (!string.IsNullOrEmpty(item.Email))
+                {
+                    isInserted = _memberService.GetMemberByMemberEmail(item.Email) != null ? true : false;
+                }
                 source.Add(new PreRegistrationItem
                 {
                     Email = item.Email,
@@ -51,7 +66,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     WebUrl = item.WebUrl,
                     PhoneNumber2 = item.PhoneNumber2,
                     PhoneNumber3 = item.PhoneNumber3,
-                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId)
+                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
+                    IsInserted = isInserted
                 });
             }
             preRegistrations.Source = source;
@@ -70,6 +86,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
             foreach (var item in stores)
             {
+                bool isInserted = false;
+                if (!string.IsNullOrEmpty(item.Email))
+                {
+                    isInserted = _memberService.GetMemberByMemberEmail(item.Email) != null ? true : false;
+                }
                 source.Add(new PreRegistrationItem
                 {
                     Email = item.Email,
@@ -82,7 +103,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     RecordDate = item.RecordDate,
                     PhoneNumber2 = item.PhoneNumber2,
                     PhoneNumber3 = item.PhoneNumber3,
-                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId)
+                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
+                    IsInserted =isInserted
                 });
             }
             preRegistrations.Source = source;
@@ -262,6 +284,166 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
 
             return View(modelNew);
+        }
+        public ActionResult NewStore(int preRegistrationId)
+        {
+            try
+            {
+                var preRegisterStore = _preRegistrationService.GetPreRegistirationStoreByPreRegistrationStoreId(preRegistrationId);
+
+
+                var mainParty = new MainParty
+                {
+                    Active = false,
+                    MainPartyType = (byte)2,
+                    MainPartyRecordDate = DateTime.Now,
+                    MainPartyFullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(preRegisterStore.MemberName.ToLower() + " " + preRegisterStore.MemberSurname.ToLower())
+                };
+                _memberService.InsertMainParty(mainParty);
+
+                var member = new Member
+                {
+                    MainPartyId = mainParty.MainPartyId,
+                    Gender = true,
+                    MemberEmail = preRegisterStore.Email,
+                    MemberName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(!string.IsNullOrEmpty(preRegisterStore.PhoneNumber) ? preRegisterStore.MemberName.ToLower() : preRegisterStore.StoreName.ToLower()),
+                    MemberPassword = "",
+                    MemberSurname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(preRegisterStore.MemberSurname.ToLower()),
+                    MemberType = (byte)MemberType.FastIndividual,
+                    Active = false
+                };
+                string memberNo = "##";
+                for (int i = 0; i < 7 - mainParty.MainPartyId.ToString().Length; i++)
+                {
+                    memberNo = memberNo + "0";
+                }
+                memberNo = memberNo + mainParty.MainPartyId;
+                member.MemberNo = memberNo;
+
+                _memberService.InsertMember(member);
+                var curStoreMainParty = new MainParty
+                {
+                    Active = false,
+                    MainPartyType = (byte)MainPartyType.Firm,
+                    MainPartyRecordDate = DateTime.Now,
+                    MainPartyFullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(preRegisterStore.StoreName.ToLower()),
+                };
+                _memberService.InsertMainParty(curStoreMainParty);
+
+
+                var storeMainPartyId = curStoreMainParty.MainPartyId;
+                var packet = _packetService.GetPacketByIsStandart(true);
+                var curStore = new Store
+                {
+
+                    MainPartyId = storeMainPartyId,
+                    PacketId = packet.PacketId,
+                    StoreActiveType = (byte)PacketStatu.Inceleniyor,
+                    StoreEMail = member.MemberEmail,
+                    StorePacketBeginDate = DateTime.Now,
+                    StorePacketEndDate = DateTime.Now.AddDays(packet.PacketDay),
+                    StoreName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(preRegisterStore.StoreName.ToLower()),
+                    StoreWeb = preRegisterStore.WebUrl,
+                    StoreRecordDate = DateTime.Now
+                };
+                string storeNo = "###";
+                for (int i = 0; i < 6 - storeMainPartyId.ToString().Length; i++)
+                {
+                    storeNo = storeNo + "0";
+                }
+                storeNo = storeNo + storeMainPartyId;
+                curStore.StoreNo = storeNo;
+
+                _storeService.InsertStore(curStore);
+
+                var curMemberStore = new MemberStore
+                {
+                    MemberMainPartyId = member.MainPartyId,
+                    StoreMainPartyId = storeMainPartyId
+                };
+
+                _memberStoreService.InsertMemberStore(curMemberStore);
+
+                if (!string.IsNullOrEmpty(preRegisterStore.PhoneNumber) && preRegisterStore.PhoneNumber.Length > 6)
+                {
+                    var phoneNumbers = clearPhoneNumber(preRegisterStore.PhoneNumber);
+                    var phone = new Phone
+                    {
+                        MainPartyId = storeMainPartyId,
+                        PhoneCulture = phoneNumbers[0],
+                        PhoneAreaCode = phoneNumbers[1],
+                        PhoneNumber = phoneNumbers[2],
+                        PhoneType = (byte)PhoneType.Gsm,
+                        active = 1
+                    };
+                    _phoneService.InsertPhone(phone);
+                }
+                if (!string.IsNullOrEmpty(preRegisterStore.PhoneNumber2) && preRegisterStore.PhoneNumber2.Length > 6)
+                {
+                    var phoneNumbers = clearPhoneNumber(preRegisterStore.PhoneNumber2);
+                    var phone = new Phone
+                    {
+                        MainPartyId = storeMainPartyId,
+                        PhoneCulture = phoneNumbers[0],
+                        PhoneAreaCode = phoneNumbers[1],
+                        PhoneNumber = phoneNumbers[2],
+                        PhoneType = (byte)PhoneType.Phone,
+                        active = 1
+                    };
+                    _phoneService.InsertPhone(phone);
+                }
+                if (!string.IsNullOrEmpty(preRegisterStore.PhoneNumber3) && preRegisterStore.PhoneNumber3.Length > 6)
+                {
+                    var phoneNumbers = clearPhoneNumber(preRegisterStore.PhoneNumber3);
+                    var phone = new Phone
+                    {
+                        MainPartyId = storeMainPartyId,
+                        PhoneCulture = phoneNumbers[0],
+                        PhoneAreaCode = phoneNumbers[1],
+                        PhoneNumber = phoneNumbers[2],
+                        PhoneType = (byte)PhoneType.Phone,
+                        active = 1
+                    };
+                    _phoneService.InsertPhone(phone);
+                }
+
+                return RedirectToAction("Index", "Store");
+
+            }
+            catch (Exception ex)
+            {
+
+                TempData["ErrorMessage"] = "Hızlı firma üyeliği için şartlar sağlanmadı. Lütfen kendiniz üye yapınız.Hata Mesajı:"+ex.Message;
+                return RedirectToAction("Index");
+            }
+ 
+           
+
+        }
+        private string[] clearPhoneNumber(string phoneNumber)
+        {
+            string[] phoneNumbers = new string[3];
+    
+            phoneNumber = phoneNumber.Replace("(", "").Replace(")", "").Replace(" ","");
+            if (phoneNumber.StartsWith("+"))
+            {
+                phoneNumbers[0] = phoneNumber.Substring(0, 3);
+                phoneNumbers[1] = phoneNumber.Substring(3, 3);
+                phoneNumbers[2] = phoneNumber.Substring(6, phoneNumber.Length-6);
+            }
+            else if (phoneNumber.StartsWith("90"))
+            {
+                phoneNumbers[0] = phoneNumber.Substring(0, 2);
+                phoneNumbers[1] = phoneNumber.Substring(2, 3);
+                phoneNumbers[2] = phoneNumber.Substring(5, phoneNumber.Length-5);
+            }
+            else
+            {
+                phoneNumbers[0] = phoneNumber.Substring(0, 1);
+                phoneNumbers[1] = phoneNumber.Substring(1, 3);
+                phoneNumbers[2] = phoneNumber.Substring(4, phoneNumber.Length-4);
+            }
+            return phoneNumbers;
         }
     }
 }

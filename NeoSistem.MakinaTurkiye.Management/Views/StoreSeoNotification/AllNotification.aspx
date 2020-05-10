@@ -13,6 +13,7 @@
         <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
             <thead>
                 <tr>
+                    <td class="Header">Başlık</td>
                     <td class="Header">İçerik</td>
                     <td class="Header">İşlem Tarihi</td>
                     <td class="Header">Hatırlatma Tarihi</td>
@@ -28,6 +29,7 @@
                     {
                 %>
                 <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
+                    <td class="Cell"><%:itemMemberDesc.Title %></td>
                     <td class="Cell" style="font-size: 15px;"><% if (itemMemberDesc.Description != null)
                                                                   { %>
                         <%=Html.Raw(itemMemberDesc.Description)%>

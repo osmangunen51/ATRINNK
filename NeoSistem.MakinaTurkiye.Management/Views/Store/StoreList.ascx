@@ -17,6 +17,7 @@
         <%: item.StoreName %><br />
         <font style="color: #027a14">
           <%:item.StoreShortName %>
+
       </font>
     </td>
     <td class="Cell" align="center">
@@ -270,7 +271,11 @@
         <a onclick="MakeStoreControlled(<%:item.MainPartyId %>)" title="Firma Bilgileri Güncellendi Yap">F.B.G</a>
 
         <%} %>
-        
+                    <%if (NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId == 1) {
+                    %>
+            <a  style="cursor:pointer; color:Blue;" onclick="DeleteStore(<%:item.MainPartyId %>)">(Sil)</a>
+            <%
+                } %>
     </td>
 </tr>
 <% } %>
@@ -378,6 +383,8 @@
         var url = '/Store/ExportStores' + s;
         window.open(url);
     }
+
+
 </script>
 <style type="text/css">
     /* Custom Theme */

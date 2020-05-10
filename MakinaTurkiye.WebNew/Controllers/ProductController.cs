@@ -90,7 +90,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IFavoriteProductService favoriteProductService, ICategoryService categoryService,
             IMemberService memberService, IPictureService pictureService, IMemberStoreService memberStoreService,
             IAddressService addressService, IVideoService videoService, IFavoriteStoreService favoriteStoreService,
-            ICategoryPropertieService categoryPropertieService, IStoreStatisticService storeStatisticService, 
+            ICategoryPropertieService categoryPropertieService, IStoreStatisticService storeStatisticService,
             IProductStatisticService productStatisticService,
             IPhoneService phoneService, IProductComplainService productComplainService,
             IConstantService constantService,
@@ -287,8 +287,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var whatsappMessageTypes = _mobileMessageService.GetMobileMessagesByMessageType(MobileMessageTypeEnum.Whatsapp);
             string wpMessagecontent = "Merhaba #urunlinki# ilanınız için makinaturkiye.com üzerinden ulaşıyorum";
-            model.WhatsappMessageItem = new MTWhatsappMessageItem {MessageContent = wpMessagecontent.Replace("#urunlinki#", model.ProductUrl), MessageName="",MessageId=1 } ;
-            
+            model.WhatsappMessageItem = new MTWhatsappMessageItem { MessageContent = wpMessagecontent.Replace("#urunlinki#", model.ProductUrl), MessageName = "", MessageId = 1 };
+
 
             if (store != null)
             {
@@ -470,7 +470,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 //}
 
-                var  webPage = new Schema.NET.WebPage
+                var webPage = new Schema.NET.WebPage
                 {
                     Name = model.ProductDetailModel.ProductName.CheckNullString(),
                     InLanguage = "tr-TR",
@@ -581,6 +581,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                 }
             }
+
 
             var url = Request.Url.AbsolutePath;
 
@@ -745,6 +746,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             model.ProductDetailModel.ButtonDeliveryStatusText = string.Format("{0} 'de Teslim", model.ProductDetailModel.DeliveryStatus);
             string categoryNameUrl = !string.IsNullOrEmpty(product.Category.CategoryContentTitle) ? product.Category.CategoryContentTitle : product.Category.CategoryName;
+
+
 
             if (product.Brand != null)
             {
@@ -1046,7 +1049,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     });
 
                 }
- 
+
 
             }
             SearchModel<MTProductCommentItem> productCommentItemsModel = new SearchModel<MTProductCommentItem>();
@@ -1079,8 +1082,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var productCertificates = _cerfificateService.GetCertificateTypeProductsByProductId(product.ProductId);
             if (productCertificates.Count > 0)
             {
-                var certificateNames = _cerfificateService.GetCertificatesByIds(productCertificates.Select(x => x.CertificateTypeId).ToList()).Select(x=>x.Name);
+                var certificateNames = _cerfificateService.GetCertificatesByIds(productCertificates.Select(x => x.CertificateTypeId).ToList()).Select(x => x.Name);
                 model.ProductDetailModel.Certificates = string.Join(",", certificateNames);
+                foreach (var productCertificate in productCertificates)
+                {
+                    if (productCertificate.StoreCertificateId.HasValue)
+                    {
+                        var ceritifcate = _cerfificateService.GetCertificateTypeByCertificateTypeId(productCertificate.CertificateTypeId);
+                        var picturesCertificate = _pictureService.GetPictureByStoreCertificateId(productCertificate.StoreCertificateId.Value);
+                        foreach (var item in picturesCertificate)
+                        {
+                            model.ProductTabModel.Certificates.Add(ceritifcate.Name, AppSettings.StoreCertificateImageFolder + item.PicturePath.Replace("_certificate", "-500x800"));
+                        }
+                    }
+
+                }
             }
             #endregion
             //ürün görünün güncelleme
@@ -1132,7 +1148,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             }
 
-           
+
             //seo
             //if (!string.IsNullOrWhiteSpace(model.ProductStoreModel.StoreName))
             //{
@@ -2218,7 +2234,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public JsonResult ProductStatisticCreate(int productId)
         {
             string ipAdress = Request.UserHostAddress;
-          //string ipAdress = "85.99.183.57";
+            //string ipAdress = "85.99.183.57";
             string country = "";
             string city = "";
 

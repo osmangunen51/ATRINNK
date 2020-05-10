@@ -7,7 +7,17 @@
 
     <tr>
 
-
+    <td>
+             <div class="editor-label">
+                Başlık
+            </div>
+            <div class="editor-field">
+                <%:Html.DropDownListFor(x=>x.ConstantId, Model.Titles) %>
+ 
+                <br />
+                <%: Html.ValidationMessageFor(model => model.ConstantId) %>
+            </div>
+    </td>
         <td>
             <div class="editor-label">
                 Hatırlatma Tarihi
@@ -65,7 +75,7 @@
         </td>
     </tr>
     <tr>
-        <td colspan="3">
+        <td colspan="4">
             <div class="editor-field">
 
                 Açıklama:
