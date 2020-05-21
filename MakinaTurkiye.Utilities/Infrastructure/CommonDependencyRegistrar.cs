@@ -33,6 +33,7 @@ namespace MakinaTurkiye.Utilities.Infrastructure
             builder.RegisterType<PhoneChangeHistoryService>().As<IPhoneChangeHistoryService>().InstancePerLifetimeScope();
             builder.RegisterType<AddressChangeHistoryService>().As<IAddressChangeHistoryService>().InstancePerLifetimeScope();
             builder.RegisterType<CurrencyService>().As<ICurrencyService>().InstancePerLifetimeScope();
+            builder.RegisterType<UrlRedirectService>().As<IUrlRedirectService>().InstancePerLifetimeScope();
         }
 
         public int Order => 2;

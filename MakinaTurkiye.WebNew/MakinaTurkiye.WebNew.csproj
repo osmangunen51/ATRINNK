@@ -97,8 +97,14 @@
     <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Owin.Security, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.Security.4.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.21\lib\net461\Microsoft.Rest.ClientRuntime.dll</HintPath>
@@ -219,6 +225,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Areas\Account\AccountAreaRegistration.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -628,6 +635,7 @@
     <Content Include="Content\V2\assets\js\MtAccountForm.js" />
     <Content Include="Content\V2\assets\js\MtFormsValidate.js" />
     <Content Include="Content\V2\fonts\Flaticon.svg" />
+    <Content Include="Content\V2\images\home-b-bg-main.png" />
     <Content Include="Content\V2\images\customer-support-icon.png" />
     <Content Include="Content\jQuery-Cookie-Disclaimer\demo\demo-policy-example.html" />
     <Content Include="Content\jQuery-Cookie-Disclaimer\demo\demo.css" />
@@ -673,24 +681,35 @@
     <Content Include="Content\V2\assets\jquery-ui-1.12.1.custom\AUTHORS.txt" />
     <Content Include="Content\V2\assets\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
     <Content Include="Content\V2\images\homebanner_watermark.png" />
+    <Content Include="Content\V2\images\icon\leads-arrow-left.png" />
+    <Content Include="Content\V2\images\icon\scroll-arrow.png" />
+    <Content Include="Content\V2\images\icon\search-icon.png" />
     <Content Include="Content\V2\images\loader-banner.gif" />
     <Content Include="Content\V2\images\loading-horizontal.gif" />
     <Content Include="Content\V2\images\makinaturkiye-dark.png" />
+    <Content Include="Content\V2\images\mega-menu-bg.png" />
     <Content Include="Content\V2\images\menu-loading.gif" />
+    <Content Include="Content\V2\images\newsletter-bg.png" />
     <Content Include="Content\V2\images\not-found.png" />
     <Content Include="Content\V2\images\pdf-icon.png" />
     <Content Include="Content\V2\images\resim-buyult.png" />
+    <Content Include="Content\V2\images\icon\search-input-detail-icon.png" />
     <Content Include="Content\V2\images\social\blog.png" />
+    <Content Include="Content\V2\images\social\facebook-icon.png" />
     <Content Include="Content\V2\images\social\facebook.png" />
     <Content Include="Content\V2\images\social\google-plus.png" />
+    <Content Include="Content\V2\images\social\instagram-icon.png" />
     <Content Include="Content\V2\images\social\instagram.png" />
+    <Content Include="Content\V2\images\social\linkedin-icon.png" />
     <Content Include="Content\V2\images\social\linkedin.png" />
+    <Content Include="Content\V2\images\social\pinterest-icon.png" />
     <Content Include="Content\V2\images\social\pinterest-logo.png" />
     <Content Include="Content\V2\images\social\social_fb.jpg" />
     <Content Include="Content\V2\images\social\social_gg.jpg" />
     <Content Include="Content\V2\images\social\social_in.jpg" />
     <Content Include="Content\V2\images\social\social_inst.jpg" />
     <Content Include="Content\V2\images\social\social_tw.jpg" />
+    <Content Include="Content\V2\images\social\twitter-icon.png" />
     <Content Include="Content\V2\images\social\twitter.png" />
     <Content Include="Content\V2\images\social\whatsapp.png" />
     <Content Include="Content\V2\loading-horizontal.gif" />
@@ -1953,6 +1972,7 @@
     <Content Include="Views\Home\_HomeSuccessStories.ascx" />
     <Content Include="Views\Home\_HomeNews.ascx" />
     <Content Include="Views\Home\_ProductMayLike.ascx" />
+    <Content Include="Views\Home\_SelectedProductCategoryAjax.ascx" />
     <Content Include="Views\Home\_SelectedProductCategory.ascx" />
     <Content Include="Views\MembershipSales\BeforePayCreditCard.aspx" />
     <Content Include="Views\MembershipSales\PayWithCreditCard.aspx" />
@@ -2031,6 +2051,7 @@
     <Content Include="Views\Product\_SimilarProductNew2.ascx" />
     <Content Include="Views\Product\_StoreOtherProductNew.ascx" />
     <Content Include="Views\Shared\Account.Master" />
+    <Content Include="Views\Shared\_Bulletin.ascx" />
     <Content Include="Views\Shared\_Header.ascx" />
     <Content Include="Views\Shared\_Head.ascx" />
     <Content Include="Views\StoreNew\Detail.aspx" />

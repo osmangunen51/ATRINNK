@@ -26,6 +26,10 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using NeoSistem.EnterpriseEntity.Extensions.Data;
 using MakinaTurkiye.Utilities.Mvc;
+using MakinaTurkiye.Caching;
+using System.Text;
+using System.Web.UI;
+using System.IO;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -251,7 +255,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var bannerItemModel = new MTHomeBannerModel
                 {
                     Index = index,
-                    Url = bannerPc.BannerLink
+                    Url = bannerPc.BannerLink,
+                    ImageTag = bannerPc.BannerAltTag
                 };
                 bannerItemModel.PicturePathPc = ImageHelper.GetBannerImagePath(bannerPc.BannerResource);
                 if (bannerTablet != null)
@@ -333,7 +338,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
         }
 
-        private void PrepareHomeCategoryProductModels(MTAllSelectedProductModel model, int skip = 0, int take = 1)
+        private void PrepareHomeCategoryProductModels(List<MTAllSelectedProductModel> modelList, int skip = 0, int take = 1)
         {
             IBaseMenuService _baseMenuService = EngineContext.Current.Resolve<IBaseMenuService>();
             ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
@@ -341,76 +346,83 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IPictureService _pictureService = EngineContext.Current.Resolve<IPictureService>();
             IFavoriteProductService _favoriteProductService = EngineContext.Current.Resolve<IFavoriteProductService>();
             IProductHomePageService _productHomePageService = EngineContext.Current.Resolve<IProductHomePageService>();
-
-            var baseMenu = _baseMenuService.GetAllBaseMenus(skip, take).FirstOrDefault();
-            //var categories = baseMenu.BaseMenuCategories.OrderBy(x => x.Category.BaseMenuOrder).ToList();
-            var categories = _baseMenuService.GetBaseMenuCategoriesByBaseMenuId(baseMenu.BaseMenuId);
-
-            List<MTHomeAdModel> listAllProduct = new List<MTHomeAdModel>();
-
-            int mainPartyId = AuthenticationUser.Membership.MainPartyId;
-            foreach (var item in categories)
+            byte index = 0;
+            var baseMenus = _baseMenuService.GetAllBaseMenus(skip, take);
+            foreach (var baseMenu in baseMenus)
             {
+                MTAllSelectedProductModel model = new MTAllSelectedProductModel();
+                var categories = _baseMenuService.GetBaseMenuCategoriesByBaseMenuId(baseMenu.BaseMenuId);
 
-                model.CategoryModel.Add(new MTHomeCategoryModel
-                {
-                    CategoryId = item.CategoryId,
-                    CategoryName = item.Category.CategoryName
-                });
+                List<MTHomeAdModel> listAllProduct = new List<MTHomeAdModel>();
 
-                var productHomePages = _productHomePageService.GetProductHomePagesByCategoryId(item.CategoryId);
-                if (productHomePages.Count > 0)
+                int mainPartyId = AuthenticationUser.Membership.MainPartyId;
+                foreach (var item in categories)
                 {
-                    var productIds = productHomePages.Select(x => x.ProductId).ToList();
-                    var products = _productService.GetProductsByProductIds(productIds).Where(x => x.ProductActive == true);
-                    byte index = 0;
-                    foreach (var product in products)
+
+                    model.CategoryModel.Add(new MTHomeCategoryModel
                     {
-                        bool addedFavorite = false;
+                        CategoryId = item.CategoryId,
+                        CategoryName = item.Category.CategoryName
+                    });
 
-                        if (mainPartyId != 0)
+                    var productHomePages = _productHomePageService.GetProductHomePagesByCategoryId(item.CategoryId);
+                    if (productHomePages.Count > 0)
+                    {
+                        var productIds = productHomePages.Select(x => x.ProductId).ToList();
+                        var products = _productService.GetProductsByProductIds(productIds).Where(x => x.ProductActive == true);
+       
+                        foreach (var product in products)
                         {
-                            var favoriteProduct = _favoriteProductService.GetFavoriteProductByMainPartyIdWithProductId(mainPartyId, product.ProductId);
-                            if (favoriteProduct != null)
+                            bool addedFavorite = false;
+
+                            if (mainPartyId != 0)
                             {
-                                addedFavorite = true;
+                                var favoriteProduct = _favoriteProductService.GetFavoriteProductByMainPartyIdWithProductId(mainPartyId, product.ProductId);
+                                if (favoriteProduct != null)
+                                {
+                                    addedFavorite = true;
+                                }
                             }
-                        }
-                        var productPicture = _pictureService.GetFirstPictureByProductId(product.ProductId);
+                            var productPicture = _pictureService.GetFirstPictureByProductId(product.ProductId);
 
-                        var productItemModel = new MTHomeAdModel
-                        {
-                            ProductId = product.ProductId,
-                            CategoryName = item.Category.CategoryName,
-                            PicturePath = ImageHelper.GetProductImagePath(product.ProductId, productPicture.PicturePath, ProductImageSize.px200x150),
-                            ProductName = product.ProductName,
-                            ProductUrl = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName),
-                            TruncatedProductName = StringHelper.Truncate(product.ProductName, 50, true),
-                            HasVideo = product.HasVideo,
-                            IsFavoriteProduct = addedFavorite,
-                            ProductPrice = product.ProductPriceType == (byte)ProductPriceType.Price ? product.GetFormattedPrice() : "",
-                            CurrencyCssName = product.GetCurrencyCssName(),
-                            Index = index++
+                            var productItemModel = new MTHomeAdModel
+                            {
+                                ProductId = product.ProductId,
+                                CategoryName = item.Category.CategoryName,
+                                PicturePath = ImageHelper.GetProductImagePath(product.ProductId, productPicture.PicturePath, ProductImageSize.px200x150),
+                                ProductName = product.ProductName,
+                                ProductUrl = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName),
+                                TruncatedProductName = StringHelper.Truncate(product.ProductName, 50, true),
+                                HasVideo = product.HasVideo,
+                                IsFavoriteProduct = addedFavorite,
+                                ProductPrice = product.ProductPriceType == (byte)ProductPriceType.Price ? product.GetFormattedPrice() : "",
+                                CurrencyCssName = product.GetCurrencyCssName(),
+                                Index = index++
 
-                        };
-                        if (product.BrandId.HasValue)
-                        {
-                            var brand = _categoryService.GetCategoryByCategoryId(product.BrandId.Value);
-                            productItemModel.BrandName = brand != null ? brand.CategoryName : "";
+                            };
+                            if (product.BrandId.HasValue)
+                            {
+                                var brand = _categoryService.GetCategoryByCategoryId(product.BrandId.Value);
+                                productItemModel.BrandName = brand != null ? brand.CategoryName : "";
+                            }
+                            listAllProduct.Add(productItemModel);
+                            model.Products.Add(productItemModel);
                         }
-                        listAllProduct.Add(productItemModel);
-                        model.Products.Add(productItemModel);
                     }
+
                 }
 
+                if (listAllProduct.Count > 0)
+                    AddRandomHomeAdModel(model, listAllProduct);
+
+                model.Index = skip;
+                model.BackgrounCss = baseMenu.BackgroundCss;
+                model.TabBackgroundCss = baseMenu.TabBackgroundCss;
+
+                modelList.Add(model);
             }
+            //var categories = baseMenu.BaseMenuCategories.OrderBy(x => x.Category.BaseMenuOrder).ToList();
 
-            if (listAllProduct.Count > 0)
-                AddRandomHomeAdModel(model, listAllProduct);
-
-            model.Index = skip;
-            model.BackgrounCss = baseMenu.BackgroundCss;
-            model.TabBackgroundCss = baseMenu.TabBackgroundCss;
         }
 
         private void AddRandomHomeAdModel(MTAllSelectedProductModel model, List<MTHomeAdModel> products)
@@ -496,37 +508,80 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
 
             //SeoPageType = (byte)PageType.General;
+            ICacheManager _cacheManager = EngineContext.Current.Resolve<ICacheManager>();
+            string key = string.Format("makinaturkiye.home-pages-test");
+            var testModel = _cacheManager.Get(key, () =>
+            {
+                MTHomeModel model = new MTHomeModel();
+                PrepareCategoryModels(model);
+                PrepareSliderBannerMoldes(model);
+                PreparePopularStoreModel(model);
 
-            MTHomeModel model = new MTHomeModel();
-            PrepareCategoryModels(model);
-            PrepareSliderBannerMoldes(model);
-            PreparePopularStoreModel(model);
+                IConstantService constantService = EngineContext.Current.Resolve<IConstantService>();
+                var constant = constantService.GetConstantByConstantId(235);
+                model.ConstantTitle = constant.ConstantTitle;
+                model.ConstantProperty = constant.ContstantPropertie;
 
-            IConstantService constantService = EngineContext.Current.Resolve<IConstantService>();
-            var constant = constantService.GetConstantByConstantId(235);
-            model.ConstantTitle = constant.ConstantTitle;
-            model.ConstantProperty = constant.ContstantPropertie;
+                //PrepareHomeCategoryProductModels(model.MTAllSelectedProduct,0, 1);
 
-            //PrepareHomeCategoryProductModels(model.MTAllSelectedProduct,0, 1);
+                //PreparePopularVideoModels(model);
+                //PreparePopularAdModels(model);
+                //PrepareHomeLeftCategories(model);
+                var modelSelected = new List<MTAllSelectedProductModel>();
+                PrepareHomeCategoryProductModels(modelSelected, 0, 1);
+                model.MTAllSelectedProduct = modelSelected;
+                return model;
+            });
 
-            //PreparePopularVideoModels(model);
-            //PreparePopularAdModels(model);
-            //PrepareHomeLeftCategories(model);
-            //PrepareHomeCategoryProductModels(model);
             //PrepareProductRecomandation(model);
             //PrepareNewsModel(model);
             //PrepareSuccessStories(model);
 
 
-            return await Task.FromResult(View(model));
+            return await Task.FromResult(View(testModel));
         }
 
         [HttpGet]
-        public PartialViewResult ProductSeletected(int skip)
+        public JsonResult ProductSeletected(int skip)
         {
-            var model = new MTAllSelectedProductModel();
-            PrepareHomeCategoryProductModels(model, skip, 1);
-            return PartialView("_SelectedProductCategory", model);
+            string key = string.Format("makinaturkiye.home-pages-selected-product-{0}",skip);
+            ICacheManager _cacheManager = EngineContext.Current.Resolve<ICacheManager>();
+            var testModel = _cacheManager.Get(key, () =>
+            {
+                var model = new List<MTAllSelectedProductModel>();
+                ResponseModel<string> resModel = new ResponseModel<string>();
+                PrepareHomeCategoryProductModels(model, skip, 1);
+                if (model.Count > 0)
+                {
+                    resModel.Result = RenderPartialToString("~/Views/Home/_SelectedProductCategoryAjax.ascx", model);
+                    resModel.IsSuccess = true;
+                }
+                else
+                {
+                    resModel.IsSuccess = false;
+
+                }
+                return resModel;
+            });
+            return Json(testModel, JsonRequestBehavior.AllowGet);
+        }
+        protected static string RenderPartialToString(string controlName, object viewData)
+        {
+            ViewPage viewPage = new ViewPage() { ViewContext = new ViewContext() };
+
+            viewPage.ViewData = new ViewDataDictionary(viewData);
+            viewPage.Controls.Add(viewPage.LoadControl(controlName));
+
+            StringBuilder sb = new StringBuilder();
+            using (StringWriter sw = new StringWriter(sb))
+            {
+                using (HtmlTextWriter tw = new HtmlTextWriter(sw))
+                {
+                    viewPage.RenderControl(tw);
+                }
+            }
+
+            return sb.ToString();
         }
 
         public ActionResult _MainMenu()

@@ -63,5 +63,8 @@ namespace MakinaTurkiye.Services.Catalog
         //IList<Category> GetCategoriesByCategoryParentId(int categoryParentId);
 
         IList<AllSubCategoryItemResult> GetSPAllSubCategoriesByCategoryId(int categoryId);
+
+        void ClearAllCache();
+
     }
 }

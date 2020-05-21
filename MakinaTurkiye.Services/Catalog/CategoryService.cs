@@ -610,6 +610,11 @@ namespace MakinaTurkiye.Services.Catalog
             _categoryRepository.Delete(category);
         }
 
+        public void ClearAllCache()
+        {
+            _cacheManager.Clear();
+        }
+
 
         #endregion
 

@@ -106,6 +106,7 @@
           <Property Name="BannerDescription" Type="varchar" MaxLength="500" />
           <Property Name="BannerOrder" Type="varchar" MaxLength="500" />
           <Property Name="BannerImageType" Type="smallint" />
+          <Property Name="BannerAltTag" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="BaseMemberDescription">
           <Key>
@@ -3301,6 +3302,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <NavigationProperty Name="Category" Relationship="MakinaTurkiyeModel.FK_Banner_Category" FromRole="Banner" ToRole="Category" />
           <Property Name="BannerOrder" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="BannerImageType" Type="Int16" />
+          <Property Name="BannerAltTag" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Category">
           <Key>
@@ -5914,7 +5916,8 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
             <ScalarProperty Name="AddressTypeName" ColumnName="AddressTypeName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Banners"><EntityTypeMapping TypeName="MakinaTurkiyeModel.Banner"><MappingFragment StoreEntitySet="Banner">
-            <ScalarProperty Name="BannerImageType" ColumnName="BannerImageType" />
+            <ScalarProperty Name="BannerAltTag" ColumnName="BannerAltTag" />
+                <ScalarProperty Name="BannerImageType" ColumnName="BannerImageType" />
                 <ScalarProperty Name="BannerOrder" ColumnName="BannerOrder" />
                 <ScalarProperty Name="BannerId" ColumnName="BannerId" />
             <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />

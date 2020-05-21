@@ -217,6 +217,7 @@
     <Compile Include="Controllers\CompanyDemandController .cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\SeoDefinitionController.cs" />
+    <Compile Include="Controllers\UrlRedirectController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Controllers\VirtualPosController.cs" />
     <Compile Include="Controllers\NotificationFormController.cs" />
@@ -278,6 +279,7 @@
     <Compile Include="Models\Orders\OrderCountModel.cs" />
     <Compile Include="Models\Orders\OrderReportItemModel.cs" />
     <Compile Include="Models\Orders\OrderReportModel.cs" />
+    <Compile Include="Models\Orders\SalesResponsibleUpdateModel.cs" />
     <Compile Include="Models\PaymentItemModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\CityModel.cs" />
@@ -365,6 +367,7 @@
     <Compile Include="Models\TypeVariables.cs" />
     <Compile Include="Models\UpdateDateDescriptionModel.cs" />
     <Compile Include="Models\UpdatePayDateModel.cs" />
+    <Compile Include="Models\UrlRedirectModels\UrlRedirectItem.cs" />
     <Compile Include="Models\UserGroupModel.cs" />
     <Compile Include="Models\UserMailTemplateListItemModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -1558,6 +1561,7 @@
     <Content Include="Views\Member\SendSpecialEmailToStore.aspx" />
     <Content Include="Views\Member\BulletinMember.aspx" />
     <Content Include="Views\Member\_BulletinRegisterList.ascx" />
+    <Content Include="Views\OrderFirm\SalesResponsibleUpdate.aspx" />
     <Content Include="Views\OrderFirm\BillNumber.aspx" />
     <Content Include="Views\OrderFirm\OrderCount.aspx" />
     <Content Include="Views\OrderFirm\_OrderCountList.ascx" />
@@ -1762,6 +1766,9 @@
     <Content Include="Views\Survey\SurveyList.ascx" />
     <Content Include="Views\Survey\SurveyOptionList.ascx" />
     <Content Include="Views\Survey\SurveyOptions.ascx" />
+    <Content Include="Views\UrlRedirect\Create.aspx" />
+    <Content Include="Views\UrlRedirect\Index.aspx" />
+    <Content Include="Views\UrlRedirect\_UrlRedirectList.ascx" />
     <Content Include="Views\UserGroup\Create.aspx" />
     <Content Include="Views\UserGroup\Edit.aspx" />
     <Content Include="Views\UserGroup\Index.aspx" />

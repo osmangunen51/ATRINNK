@@ -95,11 +95,7 @@
                 data: {},
                 success: function (data) {
                     if (data != false) {
-                    
-                        if (data > 0) {
-                                $("#notSeo").html("<span style='color:red'>"+data + " </span> seo bildirim");
-                        }
-
+                        $("#notSeo").html("<span style='color:red'>" + data.Count + " </span> seo bildirim");
                     }
 
                 },
@@ -118,7 +114,7 @@
     <div class="ContentTopSep">
     </div>
     <div class="Content">
-        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        <asp:contentplaceholder id="MainContent" runat="server" />
     </div>
 </body>
 </html>

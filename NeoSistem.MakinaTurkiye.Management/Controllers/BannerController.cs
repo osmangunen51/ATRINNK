@@ -482,6 +482,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             BannerDescription = model.Banner7Desc,
                             BannerOrder = model.Banner7Order,
                             CategoryId = null,
+                            BannerAltTag = Request.Form["BannerAltTag"],
                             BannerImageType = Convert.ToInt16(Request.Form.Get("ImageType"))
                         };
 

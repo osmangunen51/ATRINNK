@@ -2,11 +2,12 @@
 
 <div class="product-card-home-selected">
         <a href="<%=Model.ProductUrl%>" class="product-card-home-selected-image" title="<%:Model.ProductName %>">
-        <img alt="<%:Model.ProductName %>"
+        <img  alt="<%:Model.ProductName %>"
             
-           
-           src="<%:Model.PicturePath.Replace("160x120","200x150")  %>"
-
+            
+            data-src="<%:Model.PicturePath.Replace("160x120","200x150")  %>"
+  src="/UserFiles/image-loading.png"
+                class="img-lazy"
            title="<%:Model.ProductName %>" />
     </a>
 

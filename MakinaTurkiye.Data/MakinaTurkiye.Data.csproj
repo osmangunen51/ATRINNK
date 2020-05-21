@@ -81,6 +81,7 @@
     <Compile Include="Mapping\Tables\Catalog\CertificateTypeMap.cs" />
     <Compile Include="Mapping\Tables\Catalog\CertificateTypeProductMap.cs" />
     <Compile Include="Mapping\Tables\Catalog\DeletedProductRedirectMap.cs" />
+    <Compile Include="Mapping\Tables\Common\UrlRedirectMap.cs" />
     <Compile Include="Mapping\Tables\Content\BaseMenuCategoryMap.cs" />
     <Compile Include="Mapping\Tables\Content\BaseMenuImageMap.cs" />
     <Compile Include="Mapping\Tables\Content\BaseMenuMap.cs" />

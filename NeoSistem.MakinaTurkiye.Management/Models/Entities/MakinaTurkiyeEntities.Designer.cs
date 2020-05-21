@@ -4661,6 +4661,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Int16> _BannerImageType;
         partial void OnBannerImageTypeChanging(Nullable<global::System.Int16> value);
         partial void OnBannerImageTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String BannerAltTag
+        {
+            get
+            {
+                return _BannerAltTag;
+            }
+            set
+            {
+                OnBannerAltTagChanging(value);
+                ReportPropertyChanging("BannerAltTag");
+                _BannerAltTag = StructuralObject.SetValidValue(value, true, "BannerAltTag");
+                ReportPropertyChanged("BannerAltTag");
+                OnBannerAltTagChanged();
+            }
+        }
+        private global::System.String _BannerAltTag;
+        partial void OnBannerAltTagChanging(global::System.String value);
+        partial void OnBannerAltTagChanged();
 
         #endregion
 

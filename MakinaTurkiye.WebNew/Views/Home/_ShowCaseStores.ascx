@@ -21,7 +21,7 @@
                             <!-- Sol -->
                             <div class="firma-one-cikan-type-heading-sol">
                                 <div class="firma-one-cikan-logo">
-                                    <img src="<%=store.StoreLogo %>" alt="<%=store.StoreName %>" width="80" height="80" style="width: 80px; height: 80px;">
+                                    <img src="/UserFiles/image-loading.png" data-src="<%=store.StoreLogo %>" class="img-lazy" alt="<%=store.StoreName %>" width="80" height="80" style="width: 80px; height: 80px;">
                                 </div>
                             </div>
                             <!-- Sol -->
@@ -46,7 +46,8 @@
                               {%>
                             <div class="firma-one-type-image-box">
                                 <a href="<%=picture.ProductUrl %>">
-                                    <img src="<%=picture.PicturePath %>" alt="<%=picture.PictureName %>" title="<%=picture.PictureName %>" class="img-responsive">
+                                    <img   src="/UserFiles/image-loading.png"
+                            data-src="<%=picture.PicturePath %>" alt="<%=picture.PictureName %>" title="<%=picture.PictureName %>" class="img-responsive img-lazy" />
                                 </a>
                             </div>
                             <% } %>

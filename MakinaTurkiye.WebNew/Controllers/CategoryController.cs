@@ -260,6 +260,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 BannerResource = k.BannerResource,
                 CategoryId = k.CategoryId,
                 BannerType = k.BannerType,
+                BannerAltTag = k.BannerAltTag
             }).ToList();
             model.BannerModels = bannerItems;
 
@@ -1728,9 +1729,29 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
             var modelCategoryOneStep = new MTCategorySearchModel();
+
+
+
             if (searchText.Length >= 3)
             {
+
                 string keyword = searchText.Trim();
+                string cookieName = "Makinaturkiye_SearhTexts";
+                string searchTexts = GetCookie(cookieName);
+                if (!string.IsNullOrEmpty(searchTexts))
+                {
+                    if(searchTexts.IndexOf(keyword) < 0)
+                    {
+                        searchTexts += "," + keyword;
+                        DeleteCookie(cookieName);
+                        CreateCookie(cookieName, searchTexts, DateTime.Now.AddDays(10));
+                    }
+  
+                }
+                else
+                {
+                    CreateCookie(cookieName, keyword, DateTime.Now.AddDays(10));
+                }
                 var searchScore = _searchScoreService.GetSearchScoreByKeyword(keyword);
                 if (searchScore != null)
                 {
@@ -2691,6 +2712,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     bannerItemModel.SliderImagePathTablet = ImageHelper.GetCategoryBannerImagePath(bannerTablet.BannerResource);
                 if (bannerMobile != null)
                     bannerItemModel.SliderImagePathMobile = ImageHelper.GetCategoryBannerImagePath(bannerMobile.BannerResource);
+
+                bannerItemModel.AltTag = !string.IsNullOrEmpty(bannerPc.BannerAltTag) ? bannerPc.BannerAltTag : "";
+
                 model.MTCategoSliderItems.Add(bannerItemModel);
             }
         }

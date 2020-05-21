@@ -22,14 +22,14 @@
             var productPrice = MakeMoneytoint(productPriceVal);
 
             if ($("#DiscountType").val() == '<%:(byte)ProductDiscountType.Amount%>') {
- 
-                        var newPrice = Number(productPrice) - Number($("#DiscountAmount").val());
-    
-                    $("#TotalPrice").val(newPrice);
-                
 
-                    }
-                    else if ($("#DiscountType").val() == '<%:(byte)ProductDiscountType.Percentage%>') {
+                var newPrice = Number(productPrice) - Number($("#DiscountAmount").val());
+
+                $("#TotalPrice").val(newPrice);
+
+
+            }
+            else if ($("#DiscountType").val() == '<%:(byte)ProductDiscountType.Percentage%>') {
                 var newPrice = Number(productPrice) - Number(productPrice) * Number($("#DiscountAmount").val()) / 100;
                 $("#TotalPrice").val(newPrice);
             }
@@ -40,7 +40,7 @@
                 if (this.value == '<%:(byte)ProductDiscountType.Amount%>') {
                     $("#DiscountTypeLabel").html("İndirim Miktarı");
                     $("#DiscountAmountContainer").show();
-                     WriteTotalRecord()
+                    WriteTotalRecord()
 
 
                 }
@@ -85,7 +85,7 @@
                     data: { productname: productName },
                     type: "POST",
                     success: function (data) {
-              
+
                         if (data) {
                             anyProductName = false;
                             $("#checkProduct").show();
@@ -914,18 +914,22 @@
 
 
                             <% } %>
-                            
+                            <%if (Model.CertificateTypes.Count > 0)
+                                {%>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">Sertifikalar</label>
                                 <div class="col-sm-10">
                                     <%foreach (var item in Model.CertificateTypes)
                                         {%>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" name="certificateTypes" checked value ="<%:item.Value %>" /> <%:item.Text %>
-                                            </label>
-                                       <% } %>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="certificateTypes" checked value="<%:item.Value %>" />
+                                        <%:item.Text %>
+                                    </label>
+                                    <% } %>
                                 </div>
                             </div>
+                            <% } %>
+
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-9 btn-group">
                                     <button type="submit" class="btn btn-primary" id="btnSkip" onclick="return advertCheck();">
@@ -940,7 +944,7 @@
         </div>
     </div>
     <script type="text/javascript" defer="defer">
-        var editor = CKEDITOR.replace('ProductDescription', { toolbar: 'webtool' ,   format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address;div', enterMode: CKEDITOR.ENTER_DIV});
+        var editor = CKEDITOR.replace('ProductDescription', { toolbar: 'webtool', format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address;div', enterMode: CKEDITOR.ENTER_DIV });
         CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
     </script>
 </asp:Content>

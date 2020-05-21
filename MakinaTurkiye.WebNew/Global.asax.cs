@@ -8,6 +8,7 @@ using MakinaTurkiye.Core.Configuration;
 using MakinaTurkiye.Utilities.Mvc;
 using MakinaTurkiye.Logging;
 using NeoSistem.MakinaTurkiye.Web.Controllers;
+using MakinaTurkiye.Services.Common;
 
 namespace NeoSistem.MakinaTurkiye.Web
 {
@@ -50,16 +51,20 @@ namespace NeoSistem.MakinaTurkiye.Web
                 exception.Data.Add("Url", Context.Request.Url.ToString());
                 exception.HelpLink = Context.Request.Url.ToString();
                 logger.Error("Global.asax error", exception);
-
                 HttpException httpException = exception as HttpException;
                 RouteData routeData = new RouteData();
                 routeData.Values.Add("controller", "Home");
-
+                string PrmQuery = Context.Request.Url.PathAndQuery.ToString();                
+                IUrlRedirectService _urlRedirectService = EngineContext.Current.Resolve<IUrlRedirectService>();
+                var urlRedirect = _urlRedirectService.GetUrlRedirectByOldUrl(PrmQuery);
+                if (urlRedirect != null)
+                {
+                    Context.Response.RedirectPermanent(urlRedirect.NewUrl);
+                }
                 if (httpException != null || exception != null)
                 {
                     if (httpException != null)
                     {
-
                         if (httpException.ErrorCode == 404)
                         {
                             //ILog log = log4net.LogManager.GetLogger("global.asax");
@@ -71,7 +76,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                             string RedirectUrl = "";
                             int NSayisi = 0;
                             string DomainUrl = Context.Request.Url.ToString().Replace(Context.Request.Url.PathAndQuery, "");
-                            string PrmQuery = Context.Request.Url.PathAndQuery.ToString();
+                           
                             for (int Don = PrmQuery.Length - 1; Don > -1; Don--)
                             {
                                 int n;

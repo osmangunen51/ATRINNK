@@ -10,21 +10,23 @@
         </h2>
     </div>
     <div style="width: 100%; margin: 0 auto;">
-       <%:Html.Hidden("currentPage", Model.CurrentPage) %>
+        <%:Html.Hidden("currentPage", Model.CurrentPage) %>
         <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
             <thead>
                 <tr>
-                    <td class="Header">Başlık</td>
-                    <td class="Header">İçerik</td>
-                    <td class="Header">İşlem Tarihi</td>
-                    <td class="Header">Hatırlatma Tarihi</td>
-                    <td class="Header">Atayan</td>
-                    <td class="Header">Atanan</td>
+                    <td class="Header" style="width: 10%">Firma Adı</td>
+                    <td class="Header" style="width: 7%">Başlık</td>
+                    <td class="Header" style="width: 45%">İçerik</td>
+                    <td class="Header" style="width: 5%">İşlem Tarihi</td>
+                    <td class="Header" style="width: 5%">Hatırlatma Tarihi</td>
+                    <td class="Header" style="width: 5%">Atayan</td>
+                    <td class="Header" style="width: 5%">Atanan</td>
 
-                    <td class="Header HeaderEnd">Araçlar</td>
+                    <td class="Header HeaderEnd" style="width: 5%">Araçlar</td>
                 </tr>
                 <tr style="background-color: #F1F1F1">
-                            <td class="CellBegin" align="center"></td>
+                    <td class="CellBegin" align="center"></td>
+                    <td class="Cell"></td>
                     <td class="CellBegin" align="center"></td>
                     <td class="Cell" style="width: 8%;">
                         <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
@@ -68,17 +70,17 @@
             });
 
         });
-       function PagePost(p){
-           $("#currentPage").val(p);
-           SearchPost();
+        function PagePost(p) {
+            $("#currentPage").val(p);
+            SearchPost();
         }
         function SearchPost() {
-                    $('#preLoading').show();
+            $('#preLoading').show();
             $.ajax({
                 url: '/StoreSeoNotification/AllSeoNotification',
                 data: {
                     page: $("#currentPage").val(),
-                    createdDate :$("#createdDate").val()
+                    createdDate: $("#createdDate").val()
                 },
                 type: 'post',
                 success: function (data) {

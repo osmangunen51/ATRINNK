@@ -5,6 +5,7 @@
     {
 %>
 <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
+    <td class="Cell"><a href="/Store/EditStore/<%:itemMemberDesc.StoreID %>"><%:itemMemberDesc.StoreName %></a></td>
     <td class="Cell"><%:itemMemberDesc.Title %></td>
     <td class="Cell" style="font-size: 15px;"><% if (itemMemberDesc.Description != null)
                                                   { %>

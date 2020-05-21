@@ -103,7 +103,7 @@
                 { %>
         <%:item.CreditCardName %>
         <br />
-        <% if (item.CreditCardCount != null && item.CreditCardCount > 0)
+        <% if (item.CreditCardCount > 0)
             { %>
     (<%:item.CreditCardCount%>
     Taksit)
@@ -111,6 +111,9 @@
         else
         { %>
     (Tek Çekim)
+        <%if (item.PriceCheck.HasValue &&  item.PriceCheck == false) {%>
+            (Ödeme Başarısız)
+        <% } %>
     <% } %>
         <% } %>
     </td>
@@ -274,7 +277,9 @@
         <% } %>
     </td>
     <td class="Cell">
-        <%=item.SalesUserName %>
+        <%=item.SalesUserName %> &nbsp;
+                    <a href="/OrderFirm/SalesResponsibleUpdate?orderId=<%=item.OrderId  %>" style="float: left;" id="lightbox_click" rel="superbox[iframe]" title="Satış Sorumlusu Değiştir"><img src="/Content/images/edit.png"></a>
+
     </td>
     <% int onayli = 2;
         var faturalimi = (from d in olustur.Faturachecks

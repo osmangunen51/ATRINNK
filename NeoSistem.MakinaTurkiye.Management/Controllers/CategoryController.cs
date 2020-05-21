@@ -994,6 +994,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             foreach (var item in banners)
             {
                 item.BannerResource = AppSettings.CategoryBannerImagesFolder + item.BannerResource;
+                
                 model.BannerItems.Add(item);
             }
 
@@ -1059,6 +1060,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         BannerDescription = Request.Form["Description"],
                         BannerOrder = Request.Form["Order"],
                         CategoryId = categoryId,
+                        BannerAltTag = Request.Form["BannerAltTag"],
                         BannerImageType = Convert.ToInt16(Request.Form.Get("ImageType"))
                     };
 
@@ -1729,6 +1731,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             ViewBag.Updated = updated;
             return View();
 
+        }
+
+        public ActionResult ClearAllCache()
+        {
+            _categoryService.ClearAllCache();
+            TempData["Message"] = "Cache Sıfırlanmıştır";
+            return RedirectToAction("AllIndex");
         }
         #endregion
 

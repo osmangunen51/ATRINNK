@@ -14,13 +14,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
             this.MTProductTechnicalInfoItems = new List<MTProductTechnicalInfoItem>();
             this.MTProductCatologs = new List<MTProductCatologItem>();
             this.MTProductComment = new MTProductCommentModel();
-            this.ProductKeywords = new List<MTProductKeywordItem>();
+           // this.ProductKeywords = new List<MTProductKeywordItem>();
             this.Certificates = new Dictionary<string, string>();
         }
 
         public string ProductDescription { get; set; }
 
-        public List<MTProductKeywordItem> ProductKeywords { get; set; }
+       // public List<MTProductKeywordItem> ProductKeywords { get; set; }
         public string MapCode { get; set; }
         public long ProductViewCount { get; set; }
         public string ProductName { get; set; }

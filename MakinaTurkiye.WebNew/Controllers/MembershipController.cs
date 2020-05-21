@@ -148,11 +148,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         #region Ctor
 
-        public MembershipController(IMemberService memberService, 
-            ICompanyDemandMembershipService companyDemandMembershipService, 
+        public MembershipController(IMemberService memberService,
+            ICompanyDemandMembershipService companyDemandMembershipService,
             ILoginLogService loginLogService,
             IMemberStoreService memberStoreService,
-            IBulletinService bulettinService, 
+            IBulletinService bulettinService,
             ICategoryService categoryService,
             IStoreService storeService,
             IProductService productService,
@@ -201,7 +201,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //SeoPageType = (byte)PageType.General;
             return View();
         }
-      
+
         [HttpGet]
         public ActionResult ForgettedPassowrd(string userId)
         {
@@ -221,7 +221,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public ActionResult ForgettedPassowrd(MembershipViewModel model, string passwordCode)
         {
             string[] memberHeader = new string[2];
-    
+
             if (string.IsNullOrEmpty(passwordCode))
             {
 
@@ -261,7 +261,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         public JsonResult CheckEmailForNewMember(string email)
         {
-            var member= _memberService.GetMemberByMemberEmail(email);
+            var member = _memberService.GetMemberByMemberEmail(email);
 
             var anyUser = member != null;
             return Json(anyUser, JsonRequestBehavior.AllowGet);
@@ -270,7 +270,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public string CheckMail(string email)
         {
             var itemMember = _memberService.GetMemberByMemberEmail(email);
-            var itemStore =  _storeService.GetStoreByStoreEmail(email);
+            var itemStore = _storeService.GetStoreByStoreEmail(email);
             if (itemMember != null || itemStore != null)
             {
                 return "false";
@@ -538,7 +538,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (!string.IsNullOrEmpty(model.MemberEmail))
             {
                 var anyMember = _memberService.GetMemberByMemberEmail(model.MemberEmail);
-                if (anyMember==null)
+                if (anyMember == null)
                 {
                     if (MembershipType == (byte)MemberType.FastIndividual)
                     {
@@ -595,7 +595,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                         ////Response.Cookies["MainPartyId"].Expires = DateTime.Now.AddDays(1);
                         ////Response.Cookies.Add(MainPartyId);
-                      
+
                         LogOn = true;
                     }
                     else
@@ -605,16 +605,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else
                 {
-                    if(anyMember.ActivationCode==profileId)
+                    if (anyMember.ActivationCode == profileId)
                     {
-                        _authenticationService.SignIn(anyMember, true);
+                        //  _authenticationService.SignIn(anyMember, true);
 
                         ////AuthenticationUser.Membership = memberUser;
-                        //var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, anyMember.MainPartyId.ToString()) }, "LoginCookie");
+                        var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, anyMember.MainPartyId.ToString()) }, "LoginCookie");
 
-                        //var ctx = Request.GetOwinContext();
-                        //var authManager = ctx.Authentication;
-                        //authManager.SignIn(identity);
+                        var ctx = Request.GetOwinContext();
+                        var authManager = ctx.Authentication;
+                        authManager.SignIn(identity);
                     }
                     LogOn = true;
                 }
@@ -788,7 +788,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     string activCode = Guid.NewGuid().ToString("N").ToUpper().Substring(0, 6);
                     var anyUser = _memberService.GetMemberByMemberEmail(model.MemberEmail);
-                    if (anyUser==null)
+                    if (anyUser == null)
                     {
                         InsertMember(model);
                         return View("MembershipApproval");
@@ -815,7 +815,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             sonKod = sonKod.Substring(0, 6);
 
             var member = _memberService.GetMemberByActivationCode(sonKod);
-            if(member!=null)
+            if (member != null)
                 sonKod = CreateActiveCode();
             return sonKod;
         }
@@ -1060,7 +1060,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             #endregion
-            
+
 
             SessionMembershipViewModel.Flush();
             ActivationCodeSend(model.MembershipModel.MemberEmail, activCode, model.MembershipModel.MemberName + " " + model.MembershipModel.MemberSurname);
@@ -1209,7 +1209,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 };
                 _phoneService.InsertPhone(phoneFax);
             }
-           
+
             SessionMembershipViewModel.Flush();
             ActivationCodeSend(model.MembershipModel.MemberEmail, activCode, model.MembershipModel.MemberName + " " + model.MembershipModel.MemberSurname);
         }
@@ -1470,7 +1470,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     return RedirectToAction("HizliUyelik/UyelikTipi-20", "Uyelik");
                 }
                 string activCode = Guid.NewGuid().ToString("N").ToUpper();
-              
+
 
                 var memberMainParty = new MainParty
                 {
@@ -1602,7 +1602,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     address.TownId = null;
 
                 _addressService.InsertAdress(address);
-                
+
                 if (model.MembershipModel.InstitutionalPhoneNumber != null && !string.IsNullOrWhiteSpace(model.MembershipModel.InstitutionalPhoneNumber))
                 {
                     var phone1 = new Phone
@@ -1677,7 +1677,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             var storeActivityType = new StoreActivityType
                             {
                                 StoreId = storeMainPartyId,
-                                ActivityTypeId =Convert.ToByte(model.MembershipModel.ActivityName.GetValue(i))
+                                ActivityTypeId = Convert.ToByte(model.MembershipModel.ActivityName.GetValue(i))
                             };
                             _storeActivityTypeService.InsertStoreActivityType(storeActivityType);
                         }
@@ -1691,7 +1691,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         var storeActivityCategory = new StoreActivityCategory
                         {
                             MainPartyId = storeMainPartyId,
-                            CategoryId =int.Parse(relCategory[i])
+                            CategoryId = int.Parse(relCategory[i])
                         };
                         _storeActivityCategoryService.InsertStoreActivityCategory(storeActivityCategory);
                     }
@@ -1700,7 +1700,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     MemberMainPartyId = memberMainPartyId,
                     StoreMainPartyId = storeMainPartyId,
-                    MemberStoreType=1
+                    MemberStoreType = 1
                 };
                 _memberStoreService.InsertMemberStore(memberStore);
 
@@ -1773,7 +1773,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public JsonResult Towns(int? id)
         {
             IList<Town> townItems = _addressService.GetTownsByLocalityId(id.Value);
-     
+
             townItems.Insert(0, new Town { TownId = 0, TownName = "< Lütfen Seçiniz >" });
 
             return Json(new SelectList(townItems, "TownId", "TownName"), JsonRequestBehavior.AllowGet);
@@ -1836,7 +1836,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (result)
             {
-                
+
 
                 var value = Guid.NewGuid().ToString("N");
                 member.MemberPassword = value.Substring(0, 8);
@@ -1905,15 +1905,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 #endregion
 
-                _authenticationService.SignIn(member, true);
+                //_authenticationService.SignIn(member, true);
 
                 //EnterpriseFormsAuthentication.CreateFormsAuthenticationTicket(member.MemberEmail, member.MemberType.Value.ToString("G"));
-                //var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
+                var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
 
 
-                //var ctx = Request.GetOwinContext();
-                //var authManager = ctx.Authentication;
-                //authManager.SignIn(identity);
+                var ctx = Request.GetOwinContext();
+                var authManager = ctx.Authentication;
+                authManager.SignIn(identity);
 
                 //if (Session["ProductDetailModel"] != null)
                 //{
@@ -1935,14 +1935,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ViewData["activationCode"] = id;
 
             var member = _memberService.GetMemberByActivationCode(id);
-            _authenticationService.SignIn(member, true);
+            //  _authenticationService.SignIn(member, true);
 
             //EnterpriseFormsAuthentication.CreateFormsAuthenticationTicket(member.MemberEmail, member.MemberType.Value.ToString("G"));
-            //var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
+            var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
 
-            //var ctx = Request.GetOwinContext();
-            //var authManager = ctx.Authentication;
-            //authManager.SignIn(identity);
+            var ctx = Request.GetOwinContext();
+            var authManager = ctx.Authentication;
+            authManager.SignIn(identity);
 
             return View();
         }
@@ -1976,7 +1976,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                     #region kullanıcı
 
-                    
+
                     MailMessage mailh = new MailMessage();
 
                     MessagesMT mailTemplate = _messagesMTService.GetMessagesMTByMessageMTName("Hizliuyelik");
@@ -2051,16 +2051,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     #endregion
                 }
 
-                _authenticationService.SignIn(member, true);
+                //_authenticationService.SignIn(member, true);
 
                 //EnterpriseFormsAuthentication.CreateFormsAuthenticationTicket(member.MemberEmail, member.MemberType.Value.ToString("G"));
-                //var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
+                var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
 
 
 
-                //var ctx = Request.GetOwinContext();
-                //var authManager = ctx.Authentication;
-                //authManager.SignIn(identity);
+                var ctx = Request.GetOwinContext();
+                var authManager = ctx.Authentication;
+                authManager.SignIn(identity);
 
                 if (Session["ProductDetailModel"] != null)
                 {
@@ -2121,7 +2121,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     sc.EnableSsl = true;
                     sc.Credentials = new NetworkCredential(mailTemp.Mail, mailTemp.MailPassword);
                     sc.Send(mail);
-                    
+
                     #endregion
 
                     #region bilgimakina
@@ -2179,7 +2179,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     //Mailinizi gönderiyoruz.
 
                     #region kullanıcı
-                   
+
 
 
                     MailMessage mailh = new MailMessage();
@@ -2234,7 +2234,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     try
                     {
                         #region kullanici
-                        
+
 
                         MailMessage maill = new MailMessage();
                         maill.From = new MailAddress(mailTemplate.Mail, mailTemplate.MailSendFromName);
@@ -2295,16 +2295,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     #endregion
                 }
 
-                _authenticationService.SignIn(member, true);
+                // _authenticationService.SignIn(member, true);
 
                 //EnterpriseFormsAuthentication.CreateFormsAuthenticationTicket(member.MemberEmail, member.MemberType.Value.ToString("G"));
-                //var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
+                var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
 
 
 
-                //var ctx = Request.GetOwinContext();
-                //var authManager = ctx.Authentication;
-                //authManager.SignIn(identity);
+                var ctx = Request.GetOwinContext();
+                var authManager = ctx.Authentication;
+                authManager.SignIn(identity);
 
                 if (Session["ProductDetailModel"] != null)
                 {
@@ -2329,7 +2329,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
             string zipCode = "";
             Town town = _addressService.GetTownByTownId(TownId);
-            if(town!=null)
+            if (town != null)
             {
                 var district = _addressService.GetDistrictByDistrictId(town.DistrictId.Value);
                 if (district != null)
@@ -2434,13 +2434,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         /// <param name="userName"></param>
         /// <param name="recerateLink"></param>
         /// <param name="isInfo">isInfo=>infoMail:newLinkMail</param>
-        public void ReCreateLinkSend(string Email, string[] userNameSurname, bool isInfo,string code)
+        public void ReCreateLinkSend(string Email, string[] userNameSurname, bool isInfo, string code)
         {
 
             try
             {
 
-                
+
                 string actLink = AppSettings.SiteUrl + "Uyelik/SifremiUnuttum/" + code;
                 if (!isInfo)
                 {
@@ -2469,7 +2469,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mail.To.Add(Email);
                     mail.Subject = mailTemp.MessagesMTTitle;
                     string template = mailTemp.MessagesMTPropertie;
-                    template = template.Replace("#uyeadisoyadi#", userNameSurname[0]+" "+userNameSurname[1]);
+                    template = template.Replace("#uyeadisoyadi#", userNameSurname[0] + " " + userNameSurname[1]);
                     mail.Body = template;
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
@@ -2494,7 +2494,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             try
             {
-                
+
                 MailMessage mail = new MailMessage();
                 MessagesMT mailMessage = _messagesMTService.GetMessagesMTByMessageMTName("Aktivasyon");
 
@@ -2598,8 +2598,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if (!string.IsNullOrEmpty(Request.Cookies["MainPartyId"].Value))
                 {
                     int mainPartyId = Convert.ToInt32(Request.Cookies["MainPartyId"].Value);
-                    
-                    var member =_memberService.GetMemberByMainPartyId(mainPartyId);
+
+                    var member = _memberService.GetMemberByMainPartyId(mainPartyId);
                     if (member != null)
                     {
                         ViewData["mail"] = member.MemberEmail;
@@ -2643,86 +2643,53 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (member != null && member.Active.Value)
             {
-                _authenticationService.SignIn(member, model.Remember);
+                // _authenticationService.SignIn(member, model.Remember);
 
-                //var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
-                //var ctx = Request.GetOwinContext();
-                //var authManager = ctx.Authentication;
-                //authManager.SignIn(identity);
-                //var user = this.User
-                var redirect = GetRedirectUrl(model.ReturnUrl);
-                //AuthenticationUser.Membership = member;
-
-                if (member.MemberType == (byte)MemberType.Enterprise)
+                if (member.MemberPassword == model.Password)
                 {
-                    var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(member.MainPartyId);
-                    LoginLog loginLog = new LoginLog();
-                    loginLog.StoreMainPartyId = Convert.ToInt32(memberStore.StoreMainPartyId);
-                    loginLog.LoginDate = DateTime.Now;
-                    loginLog.IpAddress = Request.ServerVariables["REMOTE_ADDR"];
-                    _loginLogService.InsertLoginLog(loginLog);
+                    var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
+                    var ctx = Request.GetOwinContext();
+                    var authManager = ctx.Authentication;
+                    authManager.SignIn(identity);
+                    var user = this.User;
+                    var redirect = GetRedirectUrl(model.ReturnUrl);
+                    // AuthenticationUser.Membership = member;
 
-                }
+                    if (member.MemberType == (byte)MemberType.Enterprise)
+                    {
+                        var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(member.MainPartyId);
+                        LoginLog loginLog = new LoginLog();
+                        loginLog.StoreMainPartyId = Convert.ToInt32(memberStore.StoreMainPartyId);
+                        loginLog.LoginDate = DateTime.Now;
+                        loginLog.IpAddress = Request.ServerVariables["REMOTE_ADDR"];
+                        _loginLogService.InsertLoginLog(loginLog);
 
-                //if (model.Remember)
-                //{
-                //    HttpCookie MainPartyId = new HttpCookie("mtCookie");
-                //    Response.Cookies["MainPartyId"].Value = member.MainPartyId.ToString();
-                //    Response.Cookies["MainPartyId"].Expires = DateTime.Now.AddDays(30);
-                //    Response.Cookies.Add(MainPartyId);
-                //}
-                //else
-                //{
-                //    if (Request.Cookies["MainPartyId"] != null)
-                //    {
-                //        Response.Cookies["MainPartyId"].Expires = DateTime.Now.AddDays(-1);
-                //    }
-                //}
-
-                string linkRef = string.Empty;
-
-                //if (Request.Cookies["mtMail"] != null)
-                //{
-                //    if (Request.Cookies["mtMail"].Expires >= DateTime.Now || !string.IsNullOrEmpty(Request.Cookies["mtMail"].Value))
-                //    {
-                //        string productNumber = Request.Cookies["mtMail"].Values.GetValues("productNumber").FirstOrDefault();
-                //        string memberNumber = Request.Cookies["mtMail"].Values.GetValues("memberNumber").FirstOrDefault();
-                //        string mtMail = Request.Cookies["mtMail"].Values.GetValues("mtMail").FirstOrDefault();
-                //        Request.Cookies["mtMail"].Value = null;
-                //        Request.Cookies["mtMail"].Expires = DateTime.Now.AddDays(-1);
-
-                //        linkRef = "/Account/Message/Index?MessagePageType=1&UyeNo=-99&UrunNo=-100";
-                //        linkRef = linkRef.Replace("-99", memberNumber).Replace("-100", productNumber);
+                    }
 
 
-                //        return Redirect(linkRef);
-                //    }
-                //}
+
+                    string linkRef = string.Empty;
+
+                    responseModel.IsSuccess = true;
+                    responseModel.Message = "Giriş işlemi başarılı";
 
 
-                //if (SessionProductSalesModel.ProductSalesViewModel.ProductDetailInfo != null)
-                //{
-                //    if (AuthenticationUser.Membership.MemberType == 5)
-                //    {
-                //        return View("/Areas/Account/Views/MemberType/Individual");
-                //    }
-                //    else
-                //    {
-                //        return RedirectToAction("ProductSales", "Product");
-                //    }
-                //}
-                responseModel.IsSuccess = true;
-                responseModel.Message = "Giriş işlemi başarılı";
-                if (TempData["RedirectUrl"] != null)
-                {
+                    if (TempData["RedirectUrl"] != null)
+                    {
 
-                    responseModel.Result.ReturnUrl = TempData["RedirectUrl"].ToString();
+                        responseModel.Result.ReturnUrl = TempData["RedirectUrl"].ToString();
+                    }
+                    else
+                    {
+                        responseModel.Result.ReturnUrl = redirect;
+                    }
+
                 }
                 else
                 {
-                    responseModel.Result.ReturnUrl = redirect;
+                    responseModel.IsSuccess = false;
+                    responseModel.Message = "Email adresi veya parolanız yanlıştır.";
                 }
-
             }
             else if (member != null && member.Active.Value == false)
             {
@@ -2749,14 +2716,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (member != null && member.Active.Value)
             {
-                _authenticationService.SignIn(member, true);
+                //  _authenticationService.SignIn(member, true);
 
-                //var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
+                var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
 
 
-                //var ctx = Request.GetOwinContext();
-                //var authManager = ctx.Authentication;
-                //authManager.SignIn(identity);
+                var ctx = Request.GetOwinContext();
+                var authManager = ctx.Authentication;
+                authManager.SignIn(identity);
 
                 if (member.MemberType == (byte)MemberType.Enterprise && returnUrl != "/account/advert/advert")
                 {
@@ -2894,8 +2861,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public ActionResult Logout()
         {
             //AuthenticationUser.Flush();
-            //Session.Abandon();
-            //Session.Clear();
+            Session.Abandon();
+            Session.Clear();
             //if (Request.Cookies["mtCookie"] != null)
             //{
             //    HttpCookie aCookie;
@@ -2905,10 +2872,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //    aCookie.Expires = DateTime.Now.AddDays(-1);
             //    Response.Cookies.Add(aCookie);
             //}
-            //var ctx = Request.GetOwinContext();
-            //var authManager = ctx.Authentication;
 
-            //authManager.SignOut("LoginCookie");
+            var ctx = Request.GetOwinContext();
+            var authManager = ctx.Authentication;
+
+            authManager.SignOut("LoginCookie");
 
             _authenticationService.SignOut();
 
