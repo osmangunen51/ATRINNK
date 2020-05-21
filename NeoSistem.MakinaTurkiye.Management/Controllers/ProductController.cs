@@ -60,7 +60,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly IProductHomePageService _productHomePageService;
         private readonly ICategoryPlaceChoiceService _categoryPlaceChoiceService;
         private readonly ICertificateTypeService _certificateTypeService;
-
+        private readonly IDeletedProductRedirectService _deletedProductRedirectService;
         #endregion
 
         #region Ctor
@@ -74,7 +74,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             IMemberStoreService memberStoreService, IMemberService memberService,
             IProductHomePageService productHomePageService,
             ICategoryPlaceChoiceService categoryPlaceChoiceService,
-            ICertificateTypeService certificateTypeService)
+            ICertificateTypeService certificateTypeService, IDeletedProductRedirectService deletedProductRedirectService)
         {
             this._categoryService = categoryService;
             this._productService = productService;
@@ -90,6 +90,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             this._productHomePageService = productHomePageService;
             this._categoryPlaceChoiceService = categoryPlaceChoiceService;
             this._certificateTypeService = certificateTypeService;
+            this._deletedProductRedirectService = deletedProductRedirectService;
+
         }
 
         #endregion
@@ -3422,6 +3424,47 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             FileHelpers.Delete(AppSettings.CertificateTypeIconFolder + certificate.IconPath);
             _certificateTypeService.DeleteCertificateType(certificate);
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+
+
+        [HttpPost]
+        public JsonResult ProductDelete(int id)
+        {
+            try
+            {
+                var product = _productService.GetProductByProductId(id);
+                var item = product;
+                var deletedProduct = new global::MakinaTurkiye.Entities.Tables.Catalog.DeletedProductRedirect();
+                deletedProduct.CategoryId = item.CategoryId.HasValue ? item.CategoryId.Value : 0;
+                deletedProduct.ProductId = item.ProductId;
+                _deletedProductRedirectService.InsertDeletedProductRedirect(deletedProduct);
+                var pictures = _pictureService.GetPicturesByProductId(item.ProductId, false);
+                FileHelpers.DeleteFullPath(AppSettings.ProductImageFolder + item.ProductId);
+                foreach (var picture in pictures)
+                {
+                    var thumbSizes = AppSettings.ProductThumbSizes.Replace("*", "").Split(';');
+                    _pictureService.DeletePicture(picture);
+                }
+                var videos = _videoService.GetVideosByProductId(item.ProductId);
+                foreach (var video in videos)
+                {
+                    FileHelpers.Delete(AppSettings.VideoFolder + video.VideoPath);
+                    FileHelpers.Delete(AppSettings.VideoThumbnailFolder + video.VideoPicturePath);
+                    _videoService.DeleteVideo(video);
+                }
+                _productService.DeleteProduct(item);
+                return Json(true, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception)
+            {
+                return Json(false, JsonRequestBehavior.AllowGet);
+            }
+
+ 
+
+
         }
 
 

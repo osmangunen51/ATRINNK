@@ -48,7 +48,7 @@
                 </p>
                 <%=Model.ProductSeoDescription %>
 
-                <%if (Model.ProductKeywords.Count > 0)
+<%--                <%if (Model.ProductKeywords.Count > 0)
                     {%>
                 <div class="product-keywords">
                     <%foreach (var keyword in Model.ProductKeywords)
@@ -56,7 +56,7 @@
                     <span class="product-keywords-item"><%:keyword.Keyword %></span>
                     <% } %>
                 </div>
-                <% } %>
+                <% } %>--%>
 
                 <div style="font-size: 12px; margin-top: 20px;">Bu ilan <b style="font-size: 14px;"><%=Model.ProductViewCount %></b> kez incelenmiştir.</div>
 

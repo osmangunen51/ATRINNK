@@ -110,10 +110,13 @@
     <Compile Include="Catalog\ISiteMapCategoryService.cs" />
     <Compile Include="Catalog\ProductActiveTypeEnum.cs" />
     <Compile Include="Catalog\SiteMapCategoryService.cs" />
+    <Compile Include="Catalog\SiteMapCategoryTypeEnum.cs" />
     <Compile Include="Common\ConstantTypeEnum.cs" />
     <Compile Include="Common\CurrencyService.cs" />
+    <Compile Include="Common\IUrlRedirectService.cs" />
     <Compile Include="Common\ICurrencyService.cs" />
     <Compile Include="Common\PhoneTypeEnum.cs" />
+    <Compile Include="Common\UrlRedirectService.cs" />
     <Compile Include="Content\BaseMenuService.cs" />
     <Compile Include="Content\IBaseMenuService.cs" />
     <Compile Include="ICachingSupported.cs" />

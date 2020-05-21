@@ -191,7 +191,12 @@
                                     {
                                         Id: 'HomeProductChoosed', text: 'Seçilen<br> Sektör Ürünleri', type: Ribbon.ButtonType.BigItem,
                                         align: 'left', image: 'AdvertCheck.png', action: "window.location = '/Product/HomeSectorProduct';"
-                                    }]
+                                    },
+                                           {
+                                        Id: 'UrlRedirect', text: 'Url<br> Yönlendirme', type: Ribbon.ButtonType.BigItem,
+                                        align: 'left', image: 'AdvertList.png', action: "window.location = '/UrlRedirect';"
+                                    }
+                                ]
                             }
                         ]
                     });

@@ -31,7 +31,7 @@
             var lazyloadImages;
 
             if ("IntersectionObserver" in window) {
-                lazyloadImages = document.querySelectorAll(".img-thumbnail");
+                lazyloadImages = document.querySelectorAll(".img-lazy");
                 var imageObserver = new IntersectionObserver(function (entries, observer) {
                     entries.forEach(function (entry) {
                         if (entry.isIntersecting) {
@@ -48,7 +48,7 @@
                 });
             } else {
                 var lazyloadThrottleTimeout;
-                lazyloadImages = document.querySelectorAll(".img-thumbnail");
+                lazyloadImages = document.querySelectorAll(".img-lazy");
 
                 function lazyload() {
                     if (lazyloadThrottleTimeout) {
@@ -824,7 +824,7 @@
         var app = "1";
         if (Request.Url.Segments.Length > 2)
         {
-            app = Request.Url.Segments.Length == 2 ? "" : Request.Url.Segments[3];
+            app = Request.Url.Segments.Length == 2 ? "" : Request.Url.Segments[2];
         }
 
         if (app != "Sektor" || app != "Sektor/" || app == "1")

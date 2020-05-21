@@ -31,18 +31,23 @@
                 if (memberDescription.IndexOf("~") > 0)
                 {
 
+
+                    string[] members = memberDescription.Split('~');
+                    int counter = 1;
+                    string container = "<div id='description-container' style='height:200px; width:100%; position: relative;  overflow: scroll; '>{0}</div>";
+                    foreach (var item in members)
+                    {
+                        text += item.Replace("<p>", "").Replace("</p>", "") + "<br>";
+                        counter++;
+                    }
+                    if (counter > 3)
+                    {
+                        text = string.Format(container, text);
+                    }
                 }
-                string[] members = memberDescription.Split('~');
-                int counter = 1;
-                string container = "<div id='description-container' style='height:200px; width:100%; position: relative;  overflow: scroll; '>{0}</div>";
-                foreach (var item in members)
+                else
                 {
-                    text += item.Replace("<p>", "").Replace("</p>", "") + "<br>";
-                    counter++;
-                }
-                if (counter > 3)
-                {
-                    text = string.Format(container, text);
+                    text = memberDescription;
                 }
             }
             if (memberDescription.Contains("<img"))

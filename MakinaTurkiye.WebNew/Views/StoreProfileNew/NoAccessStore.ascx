@@ -16,7 +16,7 @@
                 <br>
                 Lütfen adresi doğru yazdığınızdan emin olun.
                 <br>
-                Eğer Sık Kullanılanlar listesinden bu sayfaya yönlendirildiyseniz, <a href=<%:AppSettings.SiteUrl %>">Makina
+                Eğer Sık Kullanılanlar listesinden bu sayfaya yönlendirildiyseniz, <a href="<%:AppSettings.SiteUrl %>">Makina
                     Türkiye Anasayfa </a>veya <a href="/sirketler" style="font-size:14px">Mağazalar</a> linklerini kullanarak
                 ulaşmaya çalışın.
                 <br>

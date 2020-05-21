@@ -144,32 +144,40 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     lastDate = new DateTime(year, month, day, hour, minute, 0);
                     if (lastDate > DateTime.Now)
                     {
-                        var storeSeoNotification = new StoreSeoNotification
-                        {
-                            CreatedDate = DateTime.Now,
-                            RemindDate = lastDate,
-                            FromUserId = CurrentUserModel.CurrentManagement.UserId,
-                            ToUserId = Convert.ToByte(model.ToUserId),
-                            Status = 0,
-                            StoreMainPartyId = model.StoreMainPartyId,
-                            ConstantId = model.ConstantId,
-                            Text = model.Text
-                        };
+                   
                         if (model.StoreSeoNotificationId != 0)
                         {
                             var storeSeoNotificationPrev = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(model.StoreSeoNotificationId);
-                            storeSeoNotificationPrev.RemindDate = null;
-                            storeSeoNotification.Status = 1;
-                            _storeSeoNotificationService.UpdateStoreSeoNotification(storeSeoNotificationPrev);
+                            storeSeoNotificationPrev.RemindDate = lastDate;
+                            storeSeoNotificationPrev.Status = 0;
                             if (storeSeoNotificationPrev.ConstantId == model.ConstantId)
                             {
-                                storeSeoNotification.Text = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + model.Text + "<span style='color:#44000d'>" + CurrentUserModel.CurrentManagement.UserName + "</span>"+ storeSeoNotificationPrev.Text;
+                                storeSeoNotificationPrev.Text = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + model.Text + "-" + "<span style='color:#44000d; font-weight:600;'>" + CurrentUserModel.CurrentManagement.UserName + "</span>" + "~" + storeSeoNotificationPrev.Text;
                             }
+                            _storeSeoNotificationService.UpdateStoreSeoNotification(storeSeoNotificationPrev);
                         }
-                        _storeSeoNotificationService.InsertStoreSeoNotification(storeSeoNotification);
+                        else
+                        {
+                            string text ="<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + model.Text + "<span style='color:#44000d'>" + CurrentUserModel.CurrentManagement.UserName + "</span>";
+                            ;
+                            var storeSeoNotification = new StoreSeoNotification
+                            {
+                                CreatedDate = DateTime.Now,
+                                RemindDate = lastDate,
+                                FromUserId = CurrentUserModel.CurrentManagement.UserId,
+                                ToUserId = Convert.ToByte(model.ToUserId),
+                                Status = 0,
+                                StoreMainPartyId = model.StoreMainPartyId,
+                                ConstantId = model.ConstantId,
+                                Text = text
+                            };
+                            _storeSeoNotificationService.InsertStoreSeoNotification(storeSeoNotification);
+
+                        }
 
 
-                        return RedirectToAction("Index", new { storeMainPartyId = storeSeoNotification.StoreMainPartyId });
+
+                        return RedirectToAction("Index", new { storeMainPartyId = model.StoreMainPartyId });
                     }
                     else
                     {
@@ -223,7 +231,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             if (entities.PermissionUsers.Any(x => x.UserId == userId && (x.UserGroupId == 11 || x.UserGroupId == 21)) == true)
             {
                 var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationsByDateWithStatus(DateTime.Now, 0, userId);
-                return Json(storeSeoNotification.Count, JsonRequestBehavior.AllowGet);
+                return Json(new {Count = storeSeoNotification.Count }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -244,6 +252,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 var fromUser = entities.Users.FirstOrDefault(x => x.UserId == item.FromUserId);
                 var toUser = entities.Users.FirstOrDefault(x => x.UserId == item.ToUserId);
+                var store = _storeService.GetStoreByMainPartyId(item.StoreMainPartyId);
                 baseMemberDescriptions.Add(new BaseMemberDescriptionModelItem
                 {
                     Description = FormatHelper.GetMemberDescriptionText(item.Text),
@@ -253,6 +262,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     LastDate = item.RemindDate,
                     InputDate = item.CreatedDate,
                     ID = item.StoreSeoNotificationId,
+                    StoreName = store.StoreName,
                     Title = item.ConstantId.HasValue ? _constantService.GetConstantByConstantId(item.ConstantId.Value).ConstantName : ""
                 });
             }
@@ -285,12 +295,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 var fromUser = entities.Users.FirstOrDefault(x => x.UserId == item.FromUserId);
                 var toUser = entities.Users.FirstOrDefault(x => x.UserId == item.ToUserId);
+                var store = _storeService.GetStoreByMainPartyId(item.StoreMainPartyId);
                 baseMemberDescriptions.Add(new BaseMemberDescriptionModelItem
                 {
                     Description = FormatHelper.GetMemberDescriptionText(item.Text),
                     FromUserName = fromUser.UserName,
                     ToUserName = toUser.UserName,
                     StoreID = item.StoreMainPartyId,
+                    StoreName = store.StoreName,
                     LastDate = item.RemindDate,
                     InputDate = item.CreatedDate,
                     ID = item.StoreSeoNotificationId,

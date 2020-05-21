@@ -13,6 +13,7 @@
         <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
             <thead>
                 <tr>
+                    <td class="Header">Firma Adı</td>
                     <td class="Header">Başlık</td>
                     <td class="Header">İçerik</td>
                     <td class="Header">İşlem Tarihi</td>
@@ -29,6 +30,7 @@
                     {
                 %>
                 <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
+                        <td class="Cell"><a href="/Store/Edit/<%:itemMemberDesc.StoreID %>"><%:itemMemberDesc.StoreName %></a></td>
                     <td class="Cell"><%:itemMemberDesc.Title %></td>
                     <td class="Cell" style="font-size: 15px;"><% if (itemMemberDesc.Description != null)
                                                                   { %>
@@ -56,9 +58,6 @@
                         <a href="/StoreSeoNotification/Create/<%:Request.QueryString["storeMainPartyId"] %>?storeNotId=<%:itemMemberDesc.ID %>">
                             <img src="/Content/images/ac.png" />
                         </a>
-
-
-
                     </td>
                 </tr>
 

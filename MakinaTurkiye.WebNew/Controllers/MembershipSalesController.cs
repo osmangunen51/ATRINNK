@@ -662,7 +662,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     PacketStatu = (byte)PacketStatu.Inceleniyor,
                     OrderType = SessionPacketModel.PacketModel.OrderType,
                     OrderPacketType = (byte)OrderPacketType.Normal,
-                    RecordDate = DateTime.Now
+                    RecordDate = DateTime.Now,
+                    PriceCheck = false
                 };
 
 
@@ -1155,8 +1156,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     OrderPacketType = (byte)OrderPacketType.Normal,
                     OrderPrice = SessionPacketModel.PacketModel.OrderPrice,
                     PriceCheck = false,
-                    PacketDay = SessionPacketModel.PacketModel.PacketDay,
-
+                    PacketDay = SessionPacketModel.PacketModel.PacketDay
                 };
                 if (SessionPacketModel.PacketModel.CreditCardInstallmentId != 0)
                     order.CreditCardInstallmentId = SessionPacketModel.PacketModel.CreditCardInstallmentId;
@@ -1330,14 +1330,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     store.ProductCount = packetfeauture.FeatureProcessCount;
                 }
                 var orderLastList = _orderService.GetOrdersByMainPartyId(store.MainPartyId);
-                foreach (var item in orderLastList.ToList())
+                if (!order.ProductId.HasValue)
                 {
-                    item.OrderPacketEndDate = store.StorePacketEndDate;
-                    _orderService.UpdateOrder(item);
+                    foreach (var item in orderLastList.ToList())
+                    {
+                        item.OrderPacketEndDate = store.StorePacketEndDate;
+                        _orderService.UpdateOrder(item);
+                    }
+
+                    store.StorePacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
+                    _storeService.UpdateStore(store);
+
                 }
 
-                store.StorePacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
-                _storeService.UpdateStore(store);
                 order.PacketStatu = (byte)PacketStatu.Onaylandi;
                 order.OrderPacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
                 order.PriceCheck = true;
@@ -1864,7 +1869,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     sc.Send(mail);
                     #endregion
                     store.PacketId = packet.PacketId;
-                    store.StorePacketBeginDate = DateTime.Now;
+                    var recordDate = DateTime.Now;
+                    if (packet.PacketPrice > 0 && store.StorePacketEndDate > DateTime.Now)
+                    {
+                        recordDate = store.StorePacketEndDate.Value;
+                    }
+                    store.StorePacketBeginDate = recordDate;
                     _storeService.UpdateStore(store);
 
 
@@ -1926,11 +1936,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var orderDopings = _orderService.GetAllOrders().Where(x => x.OrderPacketType == (byte)OrderPacketType.Doping);
                 OrderNo = orderDopings.Count() + OrderNo;
                 var packetStore = _packetService.GetPacketByPacketId(store.PacketId);
-                var recordDate = DateTime.Now;
-                if (packetStore.PacketPrice > 0 && store.StorePacketEndDate > DateTime.Now)
-                {
-                    recordDate = store.StorePacketEndDate.Value;
-                }
+
                 if (store.AuthorizedId.HasValue)
                     order.AuthorizedId = store.AuthorizedId.Value;
 

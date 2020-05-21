@@ -44,7 +44,7 @@ namespace MakinaTurkiye.Services.Catalog
             return categories;
         }
 
-        public IList<SiteMapCategoryResult> GetSiteMapCategories(CategoryTypeEnum categoryType)
+        public IList<SiteMapCategoryResult> GetSiteMapCategories(SiteMapCategoryTypeEnum categoryType)
         {
             const string sql = "SP_GetSiteMapCategory @CategoryType";
 

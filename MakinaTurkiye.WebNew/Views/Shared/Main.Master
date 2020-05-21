@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="tr">
 <head>
- <link rel="manifest" href="manifest.json">
+
  <%: Html.Action("MetaTag","Common")%>
  <%= Html.RenderHtmlPartial("_Head")%>
  <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
@@ -42,6 +42,8 @@
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         </asp:ContentPlaceHolder>
     </div>
+
+    <%=Html.RenderHtmlPartial("_Bulletin") %>
     <%:Html.Action("Content","Footer") %>
 
 

@@ -52,7 +52,7 @@
                         <% if (!string.IsNullOrEmpty(model.PicturePath))
                             {%>
                         <img
-                            class="img-thumbnail"
+                            class="img-thumbnail img-lazy"
                             src="/UserFiles/image-loading.png"
                             data-src="<%=model.PicturePath.Replace("160x120","200x150") %>"
                             alt="<%:model.ProductName %>"

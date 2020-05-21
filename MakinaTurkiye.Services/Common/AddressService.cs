@@ -117,6 +117,7 @@ namespace MakinaTurkiye.Services.Common
                 query = query.Include(x => x.City);
                 query = query.Include(x => x.Locality);
 
+                query = query.Include(x => x.Town);
                 return query.FirstOrDefault(a => a.MainPartyId == mainPartyId);
             });
         }

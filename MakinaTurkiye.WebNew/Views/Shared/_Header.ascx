@@ -40,8 +40,8 @@
         <div class="new-header__top clearfix">
             <div class="new-header__top-left">
                 <a class="site-logo" href="<%:AppSettings.SiteUrlWithoutLastSlash %>">
-                    <img src="<%:Url.Content("~/Content/V2/images/makinaturkiye.png") %>"
-                        srcset="<%:Url.Content("~/Content/V2/images/makinaturkiye.png") %> 1x, <%:Url.Content("~/Content/V2/images/makinaturkiye.png") %> 2x" alt="Makina Türkiye Logo" width="226" height="30">
+                    <img src="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %>"
+                        srcset="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 1x, <%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 2x" alt="Makina Türkiye Logo" width="226" height="30">
                 </a>
             </div>
             <div class="new-header__top-right">
@@ -100,95 +100,75 @@
                                 <span class="icon-briefcase"></span>Firma
                             </a>
                         </li>
-                        <%if (membermainPartyId == 0)
-                            {%>
-
-
-                        <li class="user-topmenu__item">
-                            <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi" class="user-topmenu__link">
-                            İlan Ekle&nbsp<i class="fa fa-plus"></i>
-                            </a>
-                        </li>
-
-                        <%}
-                            else
-                            {%>
-
-                        <li class="user-topmenu__item">
-                            <a href="/Account/Advert/Advert" class="user-topmenu__link">İlan Ekle&nbsp<i class="fa fa-plus"></i>
-                            </a>
-                        </li>
-                        <%} %>
-                        <li class="user-topmenu__item">
+          
+                        <li class="user-topmenu__item" style="margin-right:10px">
                             <div class="dropdown ac-dropdown">
 
-                                <a style="cursor: pointer;" class="user-topmenu__link" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <a style="cursor: pointer;" class="user-topmenu loginBtn" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <%if (membermainPartyId == 0)
                                         {%>
-                                     Giriş Yap
+                                GİRİŞ YAP
                                     <% }
                                         else
                                         {%>
-                                    <%:AuthenticationUser.CurrentUser.Membership.MemberName+" "+ AuthenticationUser.CurrentUser.Membership.MemberSurname %>
+                                    <% memberName = AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname;
+                                        memberName = memberName.Length > 12 ? memberName.Substring(0, 12) + ".." : memberName;
+                                        %>
+                                        <%:memberName %>
                                     <%
                                         }%>
 
 
-                                    <i class="icon-down-arrow" style="float: right; padding-top:5px; padding-left:4px;"></i>
                                 </a>
-                                 <%string baseUrl = AppSettings.SiteUrlWithoutLastSlash; %>
+                                <%string baseUrl = AppSettings.SiteUrlWithoutLastSlash; %>
                                 <ul class="dropdown-menu account-dropdown" aria-labelledby="dropdownMenu1">
                                     <%if (membermainPartyId == 0)
                                         {%>
 
-                                    <li class="welcome-ac">
-                                        <div class="message">
-                                            Makinaturkiye.com'a hoşgeldin
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                    
-                                                <a class="btn btn-register btn-register-header" href="<%:baseUrl%>/uyelik/hizliuyelik/uyeliktipi-0">Kayıt Ol</a>
-                                            </div>
-                                            <div class="col-md-5" style="padding-left: 5px;">
-                                                <a class="btn btn-login btn-sign-header" href="<%:baseUrl%>/uyelik/kullanicigirisi">Üye Girişi</a>
-                                            </div>
-                                        </div>
+                            
+                                  <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi">Giriş Yap</a>
+                                      <a href="<%:baseUrl%>/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
 
+                                  </li>   
+                                      
+                    
+                                    <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a>
+
+                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a>
+                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a>
+                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a>
                                     </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a></li>
-                                    <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a></li>
-                                    <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a></li>
-
-                                    <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a></li>
+                        
                                     <% }
                                         else
                                         {%>
-                                    <li><a href="<%:baseUrl%>/Account/Home">Hesabım</a></li>
-                                    <li><a href="<%:baseUrl%>/Account/Personal">Profilim</a></li>
-                                    <li><a href="<%:baseUrl%>/Account/Advert/Index?ProductActive=1&DisplayType=2">İlanlarım</a></li>
-                                    <li><a href="<%:baseUrl%>/Account/Message/Index?MessagePageType=0">Mesajlarım
-                                        <%if (notReadInboxMessageCount != 0) {%>
-                                                   <span class="badge badge-primary" style="background-color:#ef0d0d"><%:notReadInboxMessageCount %></span>
+                                    <li><a href="<%:baseUrl%>/Account/Home">Hesabım</a>
+                                        <a href="<%:baseUrl%>/Account/Personal">Profilim</a>
+                                        <a href="<%:baseUrl%>/Account/Advert/Index?ProductActive=1&DisplayType=2">İlanlarım</a>
+                                        <a href="<%:baseUrl%>/Account/Message/Index?MessagePageType=0">Mesajlarım
+                                        <%if (notReadInboxMessageCount != 0)
+                                            {%>
+                                        <span class="badge badge-primary" style="background-color: #ef0d0d"><%:notReadInboxMessageCount %></span>
                                         <% } %>
-                                        </a></li>
-
-                                    <li><a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product">Favorilerim
-                                               <%if (favoriteProductCount != 0) {%>
-                                                   <span class="badge badge-primary"><%:favoriteProductCount %></span>
+                                    </a>
+                                        <a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product">Favorilerim
+                                               <%if (favoriteProductCount != 0)
+                                            {%>
+                                        <span class="badge badge-primary"><%:favoriteProductCount %></span>
                                         <% } %>
 
-                                        </a></li>
+                                    </a>
+                                    </li>
+    
                                     <%if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
                                         { %>
-                                    <li><a tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal"> Firma Ayarları </a></li>
+                                    <li><a tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal">Firma Ayarları </a></li>
                                     <%}
                                         else
                                         {%>
 
                                     <%}%>
-                                    <li role="presentation" class="divider"></li>
+       
                                     <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">
                                         <span class="glyphicon glyphicon-log-out" style="padding-right: 5px;"></span>Çıkış </a></li>
                                     <% } %>
@@ -198,11 +178,30 @@
 
 
                         </li>
+                                      <%if (membermainPartyId == 0)
+                            {%>
+
+
+                        <li class="user-topmenu__item">
+                            <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi" class="user-topmenu addAdvert">İLAN EKLE</i>
+                            </a>
+                        </li>
+
+                        <%}
+                            else
+                            {%>
+
+                        <li class="user-topmenu__item">
+                            <a href="/Account/Advert/Advert" class="user-topmenu addAdvert">İLAN EKLE
+                            </a>
+                        </li>
+                        <%} %>
+
                         <%if (membermainPartyId != 0)
                             { %>
                         <%if (notReadInboxMessageCount > 0)
                             { %>
-                        <li class="user-topmenu__item"><a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="hidden-xs plr5 tooltips tooltip-mt badge-link" data-toggle="tooltip" data-placement="bottom"
+                        <li class="user-topmenu__item" style="margin-top:13px;" ><a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="hidden-xs plr5 tooltips tooltip-mt badge-link" data-toggle="tooltip" data-placement="bottom"
                             title="<%=notReadInboxMessageCount %> Okunmamış mesajınız var.">
                             <span class="badge-link__count"><%=notReadInboxMessageCount %></span>
                             <span class="text-md glyphicon glyphicon-envelope"></span>
@@ -211,7 +210,7 @@
                         <% } %>
                         <%if (favoriteProductCount > 0)
                             { %>
-                        <li class="user-topmenu__item"><a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product" id="favoriteProductCount" class="hidden-xs plr5 tooltips tooltip-mt badge-link" data-toggle="tooltip" data-placement="bottom"
+                        <li class="user-topmenu__item" style="margin-top:13px;"><a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product" id="favoriteProductCount" class="hidden-xs plr5 tooltips tooltip-mt badge-link" data-toggle="tooltip" data-placement="bottom"
                             title="<%=favoriteProductCount %> favorilere eklenmiş ürününüz var">
                             <span class="badge-link__count"><%=favoriteProductCount %></span>
                             <span class="text-md  glyphicon glyphicon-heart"></span>
@@ -234,14 +233,14 @@
                             {
                                 searchText = Request.QueryString["SearchText"].ToString();
                             }%>
-                        <input type="text" id="SearchText" value="<%:searchText %>" name="SearchText" autocomplete="off" class="search-text-autocomplate" placeholder="Ara..." required x-webkit-speech speech>
-                        <button><span class="glyphicon glyphicon-search"></span></button>
+                        <input type="text" id="SearchText" value="<%:searchText %>" name="SearchText" autocomplete="off" class="search-text-autocomplate" placeholder="Ürün, Kategori, Firma veya Video Ara" required x-webkit-speech speech>
+                        <span>
+                            <img src="/Content/v2/images/icon/search-icon.png" alt="Ara">
+                        </span>
                     </form>
 
                 </div>
-                <a href="<%:AppSettings.SiteUrl %>detayli-arama" rel="nofollow" class="detayli-arama-btn hidden-xs">
-                    <i class="fa fa-plus"></i>Detaylı
-                        Arama</a>
+        <a href="https://www.makinaturkiye.com/detayli-arama" rel="nofollow" class="detayli-arama-btn hidden-xs"> <i class="fa fa-plus"></i>Detaylı Arama</a>
 
             </div>
 
@@ -283,15 +282,16 @@
                         {
                             memberName = AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname;
                             memberType = (byte)AuthenticationUser.Membership.MemberType;
+                            memberName = memberName.Length > 12 ? memberName.Substring(0, 12) + ".." : memberName;
                     %>
 
-                    <li ><a href="<%:AppSettings.SiteUrl %>Account/Home" class="plr5"><span class="text-md  glyphicon glyphicon-user"></span>
+                    <li><a href="<%:AppSettings.SiteUrl %>Account/Home" class="plr5"><span class="text-md  glyphicon glyphicon-user"></span>
                         <%=memberName %>
                     </a>
 
 
                     </li>
-                    <li class="dropdown" ><a href="#" id="A2" class="plr5" data-toggle="dropdown"><span
+                    <li class="dropdown"><a href="#" id="A2" class="plr5" data-toggle="dropdown"><span
                         class="caret"></span>
                         <div class="visible-xs">
                             <span class="caret"></span>&nbsp;Ayarlar
@@ -350,13 +350,13 @@
                     </li>
                     <%} %>
                     <li>
-                        <a  title="Çıkış Yap" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat"><span style="font-size: 20px;" class="glyphicon glyphicon-log-out" style="padding-right: 5px;"></span></a>
+                        <a title="Çıkış Yap" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat"><span style="font-size: 20px;" class="glyphicon glyphicon-log-out" style="padding-right: 5px;"></span></a>
                     </li>
 
                     <% }
                         else
                         { %>
-                    <li><a class="btn btn-login" href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi">Giriş Yap</a> </li>
+                    <li><a class="btn-login" href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi">Giriş Yap</a> </li>
                     <% } %>
                     <li><a href="<%:AppSettings.SiteUrl %>Account/ilan/Comments" id="" style="display: none;" class="hidden-xs plr5 tooltips tooltip-mt badge-link commentLi" data-toggle="tooltip" data-placement="bottom"
                         title="İncelenmemiş yorum bulunmaktadır.">
@@ -383,7 +383,7 @@
         serviceUrl: '<%=Url.Action("Index", "Search")%>',
         showNoSuggestionNotice: true,
         noSuggestionNotice: '',
-        minChars: 1,
+        minChars: 0,
         noCache: true,
         groupby: 'category',
         maxHeight: 600,
@@ -400,19 +400,23 @@
             console.log(suggestion);
             console.log(currentValue);
             var pattern, words;
-            if (!currentValue) {
+            if (!currentValue && suggestion.data.category !== "Gecmis") {
                 return suggestion.value;
             }
             words = utils.escapeRegExChars(currentValue);
             words = words.split(' ').join('|');
             pattern = '(' + words + ')';
 
-            if (suggestion.data.category !== Category) {
+            if (suggestion.data.category !== Category && suggestion.data.category !== "Gecmis") {
                 Category = suggestion.data.category;
                 return "<span class='suggestion-wrapper'><span class='suggestion-group'>" + suggestion.data.category + "</span></span>";
             }
             else {
 
+            }
+
+            if (suggestion.data.category == "Gecmis" && suggestion.Url == "#") {
+                return "<span class='suggestion-wrapper'><span class='suggestion-group'>" + suggestion.Name + "</span></span>";
             }
             return "<span class='suggestion-wrapper'><span class='suggestion-value'>" + suggestion.Name.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
                 .replace(/&/g, '&amp;')
@@ -423,7 +427,7 @@
         },
         onSelect: function (suggestion) {
             console.log(suggestion);
-            if (suggestion.data.category == "Oneri") {
+            if (suggestion.data.category == "Oneri" || suggestion.data.category == "Gecmis") {
                 $('#SearchText').val(suggestion.Name);
                 this.form.submit();
             }
@@ -454,7 +458,10 @@
                 }
             }
         }
-    });
+    }).on('focus', function(event) {
+    var self = this;
+    $(self).autocomplete( "search", this.value);
+});
 </script>
 <script type="text/javascript">
     $(document).ready(function () {

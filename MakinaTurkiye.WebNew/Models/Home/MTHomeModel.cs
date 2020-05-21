@@ -21,7 +21,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
             this.MTMayLikeProductModel = new MTMayLikeProductModel();
             this.StoreNewItems = new List<MTStoreNewItem>();
             this.SuccessStories = new List<MTStoreNewItem>();
-            this.MTAllSelectedProduct = new MTAllSelectedProductModel();
+            this.MTAllSelectedProduct = new List<MTAllSelectedProductModel>();
         }
 
         public List<MTHomeCategoryModel> CategoryModels { get; set; }
@@ -35,7 +35,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
         public List<MTStoreNewItem> StoreNewItems { get; set; }
         public List<MTStoreNewItem> SuccessStories { get; set; }
 
-        public MTAllSelectedProductModel MTAllSelectedProduct { get; set; }
+        public List<MTAllSelectedProductModel> MTAllSelectedProduct { get; set; }
 
         public string ConstantTitle { get; set; }
         public string ConstantProperty { get; set; }

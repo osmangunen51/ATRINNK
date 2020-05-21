@@ -206,7 +206,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         {
             if (product.Locality != null && product.City != null)
             {
-                return string.Format("{0} / {1} / {2}", product.Locality.LocalityName, product.City.CityName, product.Country.CountryName);
+                return string.Format("{0} / {1} / {2}", product.Town!=null ?  product.Town.TownName : "", product.Locality.LocalityName, product.City.CityName, product.Country.CountryName);
             }
             return string.Empty;
         }

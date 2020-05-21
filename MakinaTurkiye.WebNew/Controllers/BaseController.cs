@@ -75,6 +75,30 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
         }
 
+        protected void CreateCookie(string name, string value, DateTime expireDate)
+        {
+            HttpCookie cookieVisitor = new HttpCookie(name, value);
+            cookieVisitor.Expires = expireDate;
+            if (!Request.IsLocal)
+                cookieVisitor.Domain = ".makinaturkiye.com";
+            Response.Cookies.Add(cookieVisitor);
+        }
+        protected string GetCookie(string name)
+        {
+            if (Request.Cookies[name] != null)
+            {
+                return Request.Cookies[name].Value;
+            }
+            return null;
+        }
+        protected void DeleteCookie(string name)
+        {
+            if (Request.Cookies[name] != null)
+            {
+                Response.Cookies.Remove(name);
+                Response.Cookies[name].Expires = DateTime.Now.AddDays(-1);
+            }
+        }
 
         private const string ViewNavigation = "ViewNavigation";
 
@@ -114,12 +138,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     string canonical = request.Url.AbsolutePath;
                     if (request.Url.Query.Contains("page"))
                     {
-                        
+
                         canonical += $"?page={request.QueryString["page"].ToString()}";
 
                     }
 
-                    filterContext.Controller.ViewBag.Canonical =  AppSettings.SiteUrlWithoutLastSlash+canonical;
+                    filterContext.Controller.ViewBag.Canonical = AppSettings.SiteUrlWithoutLastSlash + canonical;
 
                 }
             }
@@ -422,7 +446,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         #region Url Kýsmýnda Þehir ve Ýlçe Ýsimlerinin Alýnmasý
-       
+
         /// <summary>
         /// Url'deki cityId deðerini döndürür tanýmlý deðilse "0" döndürür
         /// </summary>

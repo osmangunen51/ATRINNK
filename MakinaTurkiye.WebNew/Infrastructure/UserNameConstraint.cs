@@ -12,41 +12,20 @@ namespace NeoSistem.MakinaTurkiye.Web.Infrastructure
 
         public bool Match(HttpContextBase httpContext, Route route, string parameterName, RouteValueDictionary values, RouteDirection routeDirection)
         {
-            if(values["username"].ToString()!="")
+            if (values["username"] != null && !string.IsNullOrEmpty(values["username"].ToString()))
             {
-                List<string> usedLink = new List<string>() { "Videos", "Videolar", "Sirketler", "Store", "Yardim", "Help", "KullanimKosullari", "SiteHaritasi", "SiteMap", "Error404", "HataSayfasi", "Urunler", "Blog", "testfile", "mblog", "detayli-arama","alim-talebi" };
-           
-                // Get the username from the url
-            var username = values["username"].ToString().ToLower();
-            // Check for a match (assumes case insensitive)
-            string[] usernames = username.Split('-');
-               bool anyNumber=false;
+                List<string> usedLink = new List<string>() { "Videos", "Videolar", "Sirketler", "Store", "Yardim", "Help", "KullanimKosullari", "SiteHaritasi", "SiteMap", "Error404", "HataSayfasi", "Urunler", "Blog", "testfile", "mblog", "detayli-arama", "alim-talebi","Category","Index","Home" };
 
-               foreach (var item in usernames)
-               {
-                   int number;
-                   anyNumber = Int32.TryParse(item, out number);
-               }
-                //üstteki döngü kaldırılacak unutma,2 gün içerisinde 
+                string userName = values["username"].ToString().ToLower();
 
-            if(!usedLink.Any(x=>x.ToLower()==username) && usernames.Length<=3 && anyNumber==false)
-            {
-                if (username == null || username=="")
-                    return false;
-                else
-                return true;
+                if (!usedLink.Any(x => x.ToLower() == userName))
+                {
+                    return true;
+                }
             }
-            else
-            {
-                return false;
-            }
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         }
     }
-  
-    
+
+
 }

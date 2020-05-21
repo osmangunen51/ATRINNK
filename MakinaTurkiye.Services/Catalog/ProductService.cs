@@ -488,11 +488,15 @@ namespace MakinaTurkiye.Services.Catalog
                 query = query.Include(p => p.Country);
                 query = query.Include(p => p.City);
                 query = query.Include(p => p.Locality);
+                query = query.Include(p => p.Town);
                 var product = query.FirstOrDefault(p => p.ProductId == productId);
+                if (product != null)
+                {
                 if (product.BrandId.HasValue)
                     product.Brand = _categoryService.GetCategoryByCategoryId(product.BrandId.Value);
                 if (product.ModelId.HasValue)
                     product.Model = _categoryService.GetCategoryByCategoryId(product.ModelId.Value);
+                }
                 return product;
             });
         }

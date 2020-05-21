@@ -77,9 +77,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(model);
         }
       
-        public ActionResult Detail(int newId)
+        public ActionResult Detail(int? newId)
         {
-            var storeNew = _storeNewService.GetStoreNewByStoreNewId(newId);
+            if (!newId.HasValue)
+                return RedirectPermanent("/");
+
+            var storeNew = _storeNewService.GetStoreNewByStoreNewId(newId.Value);
 
             //if (storeNew.NewType == (byte)StoreNewType.Normal)
             //    SeoPageType = (byte)PageType.StoreNewDetail;

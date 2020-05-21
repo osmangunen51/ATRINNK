@@ -23,7 +23,8 @@
 		  nextTxt: "Sonraki",
 		  prevTxt: "Önceki"
 		};
-		$.superbox();
+         $.superbox();
+
 	 });
 	 </script>
 		<style type="text/css">
@@ -662,6 +663,9 @@
   <%: Html.Hidden("ModalId", 0) %>
   <%: Html.Hidden("ParentId", 1) %>
   <%: Html.Hidden("SourceId", 0) %>
+    <%if (TempData["Message"] != null) {%>
+            <p style="color:#026904; font-size:15px;"><%:TempData["Message"].ToString() %></p>
+    <% } %>
   <table class="TableList" width="100%" cellpadding="3" cellspacing="0">
     <thead>
       <tr>
@@ -672,6 +676,9 @@
                         where c.MainCategoryType == (byte)MainCategoryType.Ana_Kategori
                         select c).Count(); %>
           (Toplam : <%=cou %>)
+
+                <a  href="/Category/ClearAllCache"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" style="float:right;" aria-disabled="false"><span class="ui-button-text">
+            &nbsp;&nbsp;&nbsp;&nbsp;Cache Sıfırla&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
         </td>
         <td class="Header" style="width: 230px">
           &nbsp;&nbsp;&nbsp;&nbsp;

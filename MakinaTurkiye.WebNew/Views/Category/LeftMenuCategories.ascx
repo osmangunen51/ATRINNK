@@ -15,7 +15,7 @@
             <% foreach (var item in Model.CategoryModel.TopCategoryItemModels.Where(c => c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Series))
                { %>
 
-            <li title="<%:item.CategoryName %>>" class="list-group-item <%: Model.CategoryModel.SelectedCategoryId== item.CategoryId ? "active" : string.Empty %>">
+            <li title="<%:item.CategoryName %>" class="list-group-item <%: Model.CategoryModel.SelectedCategoryId== item.CategoryId ? "active" : string.Empty %>">
                 <%:MvcHtmlString.Create(leftPX) %>
                 <a href="<%:item.CategoryUrl %>">
                     <%:item.TruncatedCategoryName%>

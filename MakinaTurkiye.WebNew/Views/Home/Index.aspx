@@ -3,12 +3,6 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
     <link rel="canonical" href="https://www.makinaturkiye.com" />
     <script type="text/javascript">
-        $(document).ready(function () {
-
-            GetProductRecomandation();
-
-            GetProductSelected(0, 1);
-        });
         function GetProductRecomandation() {
             $.ajax({
                 type: 'get',
@@ -59,7 +53,7 @@
                                 item.trigger('prev.owl.carousel', [300]);
 
                             });
-               
+
 
                         }
                     });
@@ -80,12 +74,7 @@
                 }
             });
         }
-
-
-        function GetProductSelected(skip, counter) {
-            if (counter == 9) {
-                return 0;
-            }
+         function GetProductSelected(skip, counter) {
 
             $.ajax({
 
@@ -95,39 +84,52 @@
                     'skip': skip
                 },
                 success: function (data) {
-                    $("#category-selected-home").append(data);
-                    $("#imgLoading").hide();
-                    var owlOwerflowedp = $('.overflowdouble-p');
-                    if (owlOwerflowedp != undefined) {
-                        owlOwerflowedp.owlCarousel({
-                            margin: 0,
-                            loop: true,
-                            nav: false,
-                            autoplay: true,
-                            autoplayTimeout: 4000,
-                            autoplayHoverPause: true,
-                            responsive: {
-                                0: {
-                                    items: 2
-                                },
-                                600: {
-                                    items: 4
-                                },
-                                1000: {
-                                    items: 6
-                                }
-                            }
-                        });
-                        $('.overflow-carousel-selected:not(.owlTemplate) .overflow-next1').click(function () {
-                            owlOwerflowedp.trigger('next.owl.carousel');
-                        });
-                        $('.overflow-carousel-selected:not(.owlTemplate) .overflow-prev1').click(function () {
-                            owlOwerflowedp.trigger('prev.owl.carousel', [300]);
-                        });
+           
+                    if (data.IsSuccess) {
+                        var page = Number($("#Page").val()) + 1;
 
+                        $("#Page").val(page);
+                        $("#category-selected-home").append(data.Result);
+                        $("#imgLoading").hide();
+                        var owlOwerflowedp = $('.overflowdouble-p');
+                        if (owlOwerflowedp != undefined) {
+                            owlOwerflowedp.owlCarousel({
+                                margin: 0,
+                                loop: true,
+                                nav: false,
+                                autoplay: true,
+
+                                autoplayTimeout: 4000,
+                                autoplayHoverPause: true,
+                                responsive: {
+                                    0: {
+                                        items: 2
+                                    },
+                                    600: {
+                                        items: 4
+                                    },
+                                    1000: {
+                                        items: 6
+                                    }
+                                }
+                            });
+                            $('.overflow-carousel-selected:not(.owlTemplate) .overflow-next1').click(function () {
+                                owlOwerflowedp.trigger('next.owl.carousel');
+                            });
+                            $('.overflow-carousel-selected:not(.owlTemplate) .overflow-prev1').click(function () {
+                                owlOwerflowedp.trigger('prev.owl.carousel', [300]);
+                            });
+
+                        }
+                        counter++;
+                
+                        $("#RequestScrool").val("1");
                     }
-                    counter++;
-                     GetProductSelected(skip + 1, counter);
+                    else {
+                        $("#RequestScrool").val("0");
+                        $("#imgLoading").hide();
+                    }
+
 
                 },
                 error: function (request, error) {
@@ -135,14 +137,92 @@
                 }
             });
         }
+        document.addEventListener("DOMContentLoaded", function () {
+            var lazyloadImages;
 
+            if ("IntersectionObserver" in window) {
+                lazyloadImages = document.querySelectorAll(".img-lazy");
+                var imageObserver = new IntersectionObserver(function (entries, observer) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            var image = entry.target;
+                            image.src = image.dataset.src;
+
+                            imageObserver.unobserve(image);
+                        }
+                    });
+                });
+
+                lazyloadImages.forEach(function (image) {
+                    imageObserver.observe(image);
+                });
+            } else {
+                var lazyloadThrottleTimeout;
+                lazyloadImages = document.querySelectorAll(".img-lazy");
+
+                function lazyload() {
+                    if (lazyloadThrottleTimeout) {
+                        clearTimeout(lazyloadThrottleTimeout);
+                    }
+
+                    lazyloadThrottleTimeout = setTimeout(function () {
+                        var scrollTop = window.pageYOffset;
+                        lazyloadImages.forEach(function (img) {
+                            if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                                img.src = img.dataset.src;
+                                //img.classList.remove('img-thumbnail');
+                            }
+                        });
+                        if (lazyloadImages.length == 0) {
+                            document.removeEventListener("scroll", lazyload);
+                            window.removeEventListener("resize", lazyload);
+                            window.removeEventListener("orientationChange", lazyload);
+                        }
+                    }, 20);
+                }
+
+                document.addEventListener("scroll", lazyload);
+                window.addEventListener("resize", lazyload);
+                window.addEventListener("orientationChange", lazyload);
+            }
+        })
+        var c = 1;
+        $(window).scroll(function () {
+            var requestScroll = $("#RequestScrool").val();
+
+            var b = $(".new-header").height() + $(".main-navigation").height() + $(".home-banner-area ").height()-200;
+            var a = $(document).height() - $("#category-selected-home").height()+100 - $(".productMayLike").height() - $(".one-cikan-firma-urunleri").height() - $(".subscribe").height() - $(".footer").height();
+    
+            if ($(window).scrollTop() > b) {
+                if (requestScroll == 1 && c < 10) {
+                    if (c < 8) {
+                        $("#imgLoading").show();
+                        $("#RequestScrool").val("0");
+                        GetProductSelected($("#Page").val(), c);
+                        if (c == 4) {
+                            $("#category-selected-home").append($("#advertiseHomeContent").html());
+
+                        }
+                    }
+                    else {
+                        GetProductRecomandation();
+                    }
+                    c++;
+                }
+            }
+
+        });
 
     </script>
     <link rel="canonical" href="https://www.makinaturkiye.com" />
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="HomePageSlider" runat="server">
-    <div class="home-banner-area">
+    <%:Html.Hidden("RequestScrool",1) %>
+    <%:Html.Hidden("Page",2) %>
+    <%if (!Request.Browser.IsMobileDevice)
+        {%>
+    <div class="home-banner-area hidden-xs">
         <div class="row">
             <%--       <%=Html.Partial("_HomeLeftCategories",Model.HomeLeftCategoriesModel) %>--%>
             <div class="col-xs-12 col-lg-12">
@@ -150,17 +230,42 @@
             </div>
         </div>
     </div>
+    <% } %>
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-    <%=Html.RenderHtmlPartial("_SelectedProductCategory", Model.MTAllSelectedProduct) %>
+
+
     <%--   <%= Html.Partial("_ProductRelatedCategories", Model.HomeProductsRelatedCategoryModel)  %>--%>
 
 
     <%--        <%= Html.Partial("_PopularAds", Model.PopularAdModels) %>--%>
     <div id="category-selected-home" style="position: relative;">
-        <img src="../../Content/V2/images/loading.gif" style="text-align: center; width: 32px; position: absolute; left: 50%;" id="imgLoading" />
+
+        <%=Html.RenderHtmlPartial("_SelectedProductCategory", Model.MTAllSelectedProduct) %>
+
+
+
     </div>
+            <img src="../../Content/V2/images/loading.gif" style="text-align: center; width: 32px; position: absolute; left: 50%; display: none;" id="imgLoading" />
+    <div style="display:none;" id="advertiseHomeContent">
+    <div class="advertiseHome" >
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 col-md-offset-1 aos-init aos-animate" data-aos="fade-right" data-aos-offset="200" data-aos-delay="100" data-aos-duration="1000">
+                        <span>İlan Verin</span>
+                        <p>İlan vermek ve diğer tüm avantajlardan yararlanmak için üye olun!</p>
+                    </div>
+                    <div class="col-md-4 col-sm-6 clearfix aos-init aos-animate" data-aos="fade-up">
+                        <div class="clearfix buttons">
+                            <a href="<%:AppSettings.SiteUrl %>/uyelik/hizliuyelik/uyeliktipi-0">ÜYE OL</a>
+                            <a href="<%:AppSettings.SiteUrl %>/uyelik/kullanicigirisi">GİRİŞ YAP</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
     <div class="productMayLike">
         <%--            <%=Html.Partial("_ProductMayLike",Model.MTMayLikeProductModel) %>--%>
     </div>

@@ -81,6 +81,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private readonly IDeletedProductRedirectService _deletedProductRedirectSerice;
         private readonly IAuthenticationService _authenticationService;
         private readonly ICertificateTypeService _cerfificateService;
+  
 
         #endregion
 
@@ -815,31 +816,32 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductTabModel.ProductDescription = product.ProductDescription;
             model.ProductTabModel.ProductName = product.ProductName;
             model.ProductTabModel.ProductViewCount = product.ViewCount.Value;
-            if (!string.IsNullOrEmpty(product.Keywords))
-            {
-                string searchUrl = AppSettings.SiteUrlWithoutLastSlash + "/kelime-arama?SearchText={0}";
-                if (product.Keywords.IndexOf(",") > 0)
-                {
-                    var keywords = product.Keywords.Split(',');
 
-                    foreach (var item in keywords)
-                    {
-                        model.ProductTabModel.ProductKeywords.Add(new MTProductKeywordItem
-                        {
-                            Keyword = item,
-                            Url = string.Format(searchUrl, item)
-                        });
-                    }
-                }
-                else
-                {
-                    model.ProductTabModel.ProductKeywords.Add(new MTProductKeywordItem
-                    {
-                        Keyword = product.Keywords,
-                        Url = string.Format(searchUrl, product.Keywords)
-                    });
-                }
-            }
+            //if (!string.IsNullOrEmpty(product.Keywords))
+            //{
+            //    string searchUrl = AppSettings.SiteUrlWithoutLastSlash + "/kelime-arama?SearchText={0}";
+            //    if (product.Keywords.IndexOf(",") > 0)
+            //    {
+            //        var keywords = product.Keywords.Split(',');
+
+            //        foreach (var item in keywords)
+            //        {
+            //            model.ProductTabModel.ProductKeywords.Add(new MTProductKeywordItem
+            //            {
+            //                Keyword = item,
+            //                Url = string.Format(searchUrl, item)
+            //            });
+            //        }
+            //    }
+            //    else
+            //    {
+            //        model.ProductTabModel.ProductKeywords.Add(new MTProductKeywordItem
+            //        {
+            //            Keyword = product.Keywords,
+            //            Url = string.Format(searchUrl, product.Keywords)
+            //        });
+            //    }
+            //}
 
             if (memberStore != null)
             {
@@ -2286,5 +2288,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
 
         }
+
+
     }
 }
