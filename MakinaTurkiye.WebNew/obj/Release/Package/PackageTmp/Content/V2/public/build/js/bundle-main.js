@@ -1696,14 +1696,7 @@ $(document).ready(function () {
         });
     });
 
-    if ($("#country").length > 0) {
-        $.getJSON("https://freegeoip.net/json/", function (data) {
-            var country = data.country_name;
-            var ip = data.ip;
-            $("#country").val(country);
 
-        });
-    }
     if ($("#productDetail").length > 0) {
         $("#productDetail").validationEngine();
     }

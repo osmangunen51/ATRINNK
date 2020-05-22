@@ -37,13 +37,13 @@
         <asp:ContentPlaceHolder ID="HomePageSlider" runat="server">
         </asp:ContentPlaceHolder>
     <div class="main-container container">
-      
+
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         </asp:ContentPlaceHolder>
     </div>
     <%:Html.Action("Content","Footer") %>
 
-    
+
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -53,9 +53,9 @@
       xfbml      : true,
       version    : 'v4.0'
     });
-      
-    FB.AppEvents.logPageView();   
-      
+
+    FB.AppEvents.logPageView();
+
   };
 
   (function(d, s, id){
@@ -66,7 +66,7 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-     
-  
+
+
 </body>
 </html>
