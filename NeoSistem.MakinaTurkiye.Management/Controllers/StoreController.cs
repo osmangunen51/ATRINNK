@@ -71,6 +71,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IStoreSectorService _storeSectorService;
         private readonly IStoreDiscountService _storeDiscountService;
+        private readonly IStoreSeoNotificationService _storeSeoNotificationService;
 
 
         #endregion
@@ -83,7 +84,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             , IOrderInstallmentService orderInstallmentService,
              IStoreSectorService storeSectorService,
              ICategoryService categoryService,
-              IStoreDiscountService storeDiscountService)
+              IStoreDiscountService storeDiscountService,
+              IStoreSeoNotificationService storeSeoNotificationService)
         {
             this._loginLogService = loginLogService;
             this._whatsapplogService = whatsapplogService;
@@ -100,7 +102,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             this._storeSectorService = storeSectorService;
             this._categoryService = categoryService;
             this._storeDiscountService = storeDiscountService;
-
+            this._storeSeoNotificationService = storeSeoNotificationService;
 
             _phoneService.CachingGetOrSetOperationEnabled = false;
 
@@ -855,6 +857,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 model.WhatsappClickCount = 0;
             var curStore = entities.Stores.SingleOrDefault(c => c.MainPartyId == id);
             UpdateClass(curStore, model);
+
             TempData["type"] = model.StoreActiveType;
             curStore.StoreLogo = !String.IsNullOrEmpty(curStore.StoreLogo) ? ("" + curStore.StoreLogo.Replace(".", "_th.")) : "";
             ViewData["Store"] = true;
@@ -989,8 +992,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             store.SeoDescription = model.SeoDescription;
             store.SeoTitle = model.SeoTitle;
             store.StorePacketBeginDate = model.StorePacketBeginDate;
-
-
+            store.IsProductAdded = model.IsProductAdded;
             store.StorePacketEndDate = model.StorePacketEndDate;
             //store.StoreUniqueShortName = model.StoreUniqueShortName;
             store.TaxOffice = model.TaxOffice;
@@ -2892,6 +2894,18 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             model.MemberMainPartyId = member.MainPartyId.ToString();
 
+            var storeSeoNotifications = _storeSeoNotificationService.GetStoreSeoNotificationsByStoreMainPartyId(store.MainPartyId).OrderByDescending(x=>x.StoreSeoNotificationId).Skip(0).Take(8);
+            foreach (var storeSeoNotification in storeSeoNotifications)
+            {
+                var fromUser = entities.Users.FirstOrDefault(x => x.UserId == storeSeoNotification.FromUserId);
+                model.StoreSeoNotificationItems.Add(new StoreMemberDescriptionItem
+                {
+                    DescId = storeSeoNotification.StoreSeoNotificationId,
+                    Description = storeSeoNotification.Text,
+                    RecordDate = storeSeoNotification.CreatedDate,
+                    UserName = fromUser.UserName
+                });
+            }
             var storeUpdate = _storeService.GetStoreUpdatedByMainPartyId(store.MainPartyId);
             if (storeUpdate != null)
                 model.StoreInformationModel.StoreUpdatedDate = storeUpdate.UpdatedDate;
@@ -3551,14 +3565,15 @@ descending
         }
 
 
-        public string DeleteAll(int page)
+        public ActionResult DeleteStore(int storeMainPartyId)
         {
-            var stores = entities.Stores.Where(x => x.StoreActiveType == 4).OrderBy(x => x.MainPartyId).Skip((page * 100) - 100).Take(100);
-            //var stores = entities.Stores.Where(x => x.MainPartyId == 68047);
+            //var stores = entities.Stores.Where(x => x.StoreActiveType == 4).OrderBy(x => x.MainPartyId).Skip((page * 100) - 100).Take(100);
+            var stores = entities.Stores.Where(x => x.MainPartyId == storeMainPartyId);
 
             var basePath = "C:/Web/s.makinaturkiye.com";
             foreach (var item in stores)
             {
+
                 var storeLogoPath = basePath + "/Store/" + item.MainPartyId;
                 FileHelpers.DeleteFullPath(storeLogoPath);
                 var bannerFile = "/UserFiles/StoreBanner/" + item.StoreBanner;
@@ -3698,6 +3713,14 @@ descending
                     entities.MemberStores.DeleteObject(memberStore);
                 }
 
+                #region products
+                var products = entities.Products.Where(x => x.MainPartyId == memberStores.FirstOrDefault().MemberMainPartyId);
+                foreach (var product in products)
+                {
+                    product.ProductActive = false;
+                    product.ProductActiveType = (byte)ProductActiveTypeEnum.CopKutusuYeni;
+                }
+                #endregion
                 var storeDealers = entities.StoreDealers.Where(x => x.MainPartyId == item.MainPartyId);
                 foreach (var storeDealer in storeDealers)
                 {
@@ -3737,12 +3760,9 @@ descending
                 }
                 entities.Stores.DeleteObject(item);
             }
-
-
             entities.SaveChanges();
-            return "ok";
+            return RedirectToAction("Index");
         }
-
         public ActionResult StoreInfoChecked(int id)
         {
             var storeUpdate = _storeService.GetStoreUpdatedByMainPartyId(id);

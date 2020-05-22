@@ -1,9 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" ViewStateMode="Disabled" MasterPageFile="~/Views/Shared/Account.Master"
     Inherits="System.Web.Mvc.ViewPage<NeoSistem.MakinaTurkiye.Web.Models.MemberShip.MTMembershipFormModel>" %>
 
-<%--<asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-  Üye Ol - makinaturkiye.com
-</asp:Content>--%>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
     <link rel="canonical" href="https://www.makinaturkiye.com/uyelik/hizliuyelik/uyeliktipi-0" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>

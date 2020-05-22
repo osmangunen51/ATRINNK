@@ -17,7 +17,7 @@
   z-index: 2000;
 }
 .fast-access-bar.is-fixed .fast-access-bar__inner {
-  background-color: #d0d0d0;
+  background-color: #f0f0f0;
   background-repeat: repeat-x;
   -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.06), 1px 0 2px 0 rgba(0, 0, 0, 0.08);
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1), 0 0 4px 0 rgba(0, 0, 0, 0.06), 1px 0 2px 0 rgba(0, 0, 0, 0.08);

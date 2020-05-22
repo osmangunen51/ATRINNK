@@ -2,8 +2,14 @@
 <!doctype html>
 <html lang="tr">
 <head>
+<<<<<<< HEAD
  <%: Html.Action("MetaTag","Common")%>   
  <%= Html.RenderHtmlPartial("_Head")%>   
+=======
+
+ <%: Html.Action("MetaTag","Common")%>
+ <%= Html.RenderHtmlPartial("_Head")%>
+>>>>>>> fd5f6acdb3ea18a5a41ae923f745b314e051c0bd
  <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
 </head>
 <body class="facelift-v2">
@@ -41,6 +47,8 @@
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         </asp:ContentPlaceHolder>
     </div>
+
+    <%=Html.RenderHtmlPartial("_Bulletin") %>
     <%:Html.Action("Content","Footer") %>
 
 

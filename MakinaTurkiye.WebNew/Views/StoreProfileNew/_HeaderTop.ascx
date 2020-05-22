@@ -11,10 +11,11 @@
 %>
     <%:Html.Hidden("hdnStoreMainPartyId",Model.MainPartyId) %>
 <div class="store-profile-header">
-	<div class="store-profile-header__cover" style="<%: styleBackground%>">
+	<div class="store-profile-header__cover hidden-xs" style="<%: styleBackground%>">
 
 
 	</div>
+    <div class="store-profile-header__cover visible-xs" style="background-image: url(&quot;/Content/V2/images/cover1.jpg&quot;);" > </div>
 	<div class="store-profile-header__info">
 		<div class="container">
 			<div class="row">

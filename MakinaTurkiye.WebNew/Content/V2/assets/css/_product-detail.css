@@ -101,6 +101,10 @@ img.res-buyut {
   border: none;
   color: #e0e0e0;
   text-shadow: none;
+  top: 0px;
+}
+.resim-urun .carousel .carousel-control.left {
+  left: 5px;
 }
 /* KUCUK RESIMLER ALAN */
 #kresim .carousel-control {

@@ -986,7 +986,7 @@ function categorybannerSlider() {
 function homebannerSlider() {
 
     var $homebannerBig = $('.home-banner-carousel');
-    var $homebannerThumb = $('.home-banner-carousel__controller');
+
     var syncedSecondary = true;
     $homebannerBig.owlCarousel({
         items: 1,
@@ -998,7 +998,7 @@ function homebannerSlider() {
         //animateIn: 'fadeIn',
         lazyLoad: true,
         margin: 0,
-        dots: false,
+        dots: true,
         touchDrag: true,
         responsiveRefreshRate: 200,
         mouseDrag: false,
@@ -1021,71 +1021,12 @@ function homebannerSlider() {
         //'<i class="fa fa-arrow-left" aria-hidden="true"></i>',
         //'<i class="fa fa-arrow-right" aria-hidden="true"></i>'
         //]
-    }).on('changed.owl.carousel', syncPosition);
-
-    $homebannerThumb
-        .on('initialized.owl.carousel', function () {
-            $homebannerThumb.find(".owl-item").eq(0).addClass("current");
-        })
-        .owlCarousel({
-            items: 12,
-            loop: 0,
-            margin: 10,
-            nav: false,
-            dots: false,
-            touchDrag: false,
-            mouseDrag: false,
-            //slideTransition: 'ease',
-        }).on("changed.owl.carousel", syncPosition2);
-
-
-
-    function syncPosition(el) {
-        //if you set loop to false, you have to restore this next line
-        //var current = el.item.index;
-
-        //if you disable loop you have to comment this block
-        var count = el.item.count - 1;
-        var current = Math.round(el.item.index - (el.item.count / 2) - .5);
-
-        if (current < 0) {
-            current = count;
-        }
-        if (current > count) {
-            current = 0;
-        }
-
-        //end block
-
-        $homebannerThumb
-            .find(".owl-item")
-            .removeClass("current")
-            .eq(current)
-            .addClass("current");
-        var onscreen = $homebannerThumb.find('.owl-item.active').length - 1;
-        var start = $homebannerThumb.find('.owl-item.active').first().index();
-        var end = $homebannerThumb.find('.owl-item.active').last().index();
-
-        if (current > end) {
-            $homebannerThumb.data('owl.carousel').to(current, 100, true);
-        }
-        if (current < start) {
-            $homebannerThumb.data('owl.carousel').to(current - onscreen, 100, true);
-        }
-    }
-
-    function syncPosition2(el) {
-        if (syncedSecondary) {
-            var number = el.item.index;
-            $homebannerBig.data('owl.carousel').to(number, 100, true);
-        }
-    }
-
-    $homebannerThumb.on("mouseenter", ".owl-item", function (e) {
-        e.preventDefault();
-        var number = $(this).index();
-        $homebannerBig.data('owl.carousel').to(number, 300, true);
     });
+
+
+
+
+
 }
 
 
@@ -1148,9 +1089,9 @@ function categoryFirmSliderInit() {
 
 function cookiePolicyInit() {
     $('body').cookieDisclaimer({
-        style: "light",
+        style: " dark",
         settings: {
-            style: ''
+            style: ' col-md-4'
         },
         text: "<i class='fa fa-info-circle'></i>Hizmetlerimizden en iyi şekilde faydalanabilmeniz için çerezler kullanıyoruz. makinaturkiye.com'u kullanarak çerezlere izin vermiş olursunuz.<a href='/cerez-politikasi-y-183318'>Çerez politikamız için tıklayın.</a>",
         acceptBtn: {
@@ -1286,10 +1227,13 @@ $(document).ready(function () {
                 if (dataId) {
                     GetSubMenu(dataId, this);
                 }
-                $(this).find('.dropdown-menu').show();
+
+                $(this).find('.dropdown-menu').delay(300).show(0);
+     
+             
 
             }, function () {
-                $(this).find('.dropdown-menu').hide();
+                $(this).find('.dropdown-menu').hide(0);
             });
         }
         else {
@@ -1517,7 +1461,7 @@ $(document).ready(function () {
         $('.js-hamburger').eq(0).trigger('click');
     });
 
-    $('.js-scroll-top').on('click', function () {
+    $('.upBtn').on('click', function () {
 
         $("html, body").animate({
             scrollTop: 0
@@ -1667,15 +1611,6 @@ $(document).ready(function () {
             $(".js-sticky-header").hide();
             //$('.new-header').removeClass('is-fixed');
         }
-
-
-        if (top >= 500) {
-            $('.js-scroll-top').show();
-        } else {
-            $('.js-scroll-top').hide();
-        }
-
-
     })
 
     $("#facebookLogin").click(function () {
@@ -3149,12 +3084,14 @@ function ChooseMembershipForm() {
         $(".loading-membership").show();
         var email = $("#Email").val();
         var password = $("#Password").val();
+        var returnUrl = $("#ReturnUrl").val();
         $.ajax({
             url: '/Membership/Logon',
             type: 'post',
             data: {
                 Email: email,
-                Password: password
+                Password: password,
+                ReturnUrl: returnUrl
             },
             dataType: 'json',
             success: function (data) {

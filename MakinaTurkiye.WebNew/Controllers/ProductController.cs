@@ -81,6 +81,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private readonly IDeletedProductRedirectService _deletedProductRedirectSerice;
         private readonly IAuthenticationService _authenticationService;
         private readonly ICertificateTypeService _cerfificateService;
+  
 
         #endregion
 
@@ -90,7 +91,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IFavoriteProductService favoriteProductService, ICategoryService categoryService,
             IMemberService memberService, IPictureService pictureService, IMemberStoreService memberStoreService,
             IAddressService addressService, IVideoService videoService, IFavoriteStoreService favoriteStoreService,
-            ICategoryPropertieService categoryPropertieService, IStoreStatisticService storeStatisticService, 
+            ICategoryPropertieService categoryPropertieService, IStoreStatisticService storeStatisticService,
             IProductStatisticService productStatisticService,
             IPhoneService phoneService, IProductComplainService productComplainService,
             IConstantService constantService,
@@ -287,8 +288,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var whatsappMessageTypes = _mobileMessageService.GetMobileMessagesByMessageType(MobileMessageTypeEnum.Whatsapp);
             string wpMessagecontent = "Merhaba #urunlinki# ilanınız için makinaturkiye.com üzerinden ulaşıyorum";
-            model.WhatsappMessageItem = new MTWhatsappMessageItem {MessageContent = wpMessagecontent.Replace("#urunlinki#", model.ProductUrl), MessageName="",MessageId=1 } ;
-            
+            model.WhatsappMessageItem = new MTWhatsappMessageItem { MessageContent = wpMessagecontent.Replace("#urunlinki#", model.ProductUrl), MessageName = "", MessageId = 1 };
+
 
             if (store != null)
             {
@@ -470,7 +471,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 //}
 
-                var  webPage = new Schema.NET.WebPage
+                var webPage = new Schema.NET.WebPage
                 {
                     Name = model.ProductDetailModel.ProductName.CheckNullString(),
                     InLanguage = "tr-TR",
@@ -581,6 +582,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                 }
             }
+
 
             var url = Request.Url.AbsolutePath;
 
@@ -746,6 +748,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductDetailModel.ButtonDeliveryStatusText = string.Format("{0} 'de Teslim", model.ProductDetailModel.DeliveryStatus);
             string categoryNameUrl = !string.IsNullOrEmpty(product.Category.CategoryContentTitle) ? product.Category.CategoryContentTitle : product.Category.CategoryName;
 
+
+
             if (product.Brand != null)
             {
                 model.ProductDetailModel.BrandName = product.Brand.CategoryName;
@@ -812,31 +816,32 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductTabModel.ProductDescription = product.ProductDescription;
             model.ProductTabModel.ProductName = product.ProductName;
             model.ProductTabModel.ProductViewCount = product.ViewCount.Value;
-            if (!string.IsNullOrEmpty(product.Keywords))
-            {
-                string searchUrl = AppSettings.SiteUrlWithoutLastSlash + "/kelime-arama?SearchText={0}";
-                if (product.Keywords.IndexOf(",") > 0)
-                {
-                    var keywords = product.Keywords.Split(',');
 
-                    foreach (var item in keywords)
-                    {
-                        model.ProductTabModel.ProductKeywords.Add(new MTProductKeywordItem
-                        {
-                            Keyword = item,
-                            Url = string.Format(searchUrl, item)
-                        });
-                    }
-                }
-                else
-                {
-                    model.ProductTabModel.ProductKeywords.Add(new MTProductKeywordItem
-                    {
-                        Keyword = product.Keywords,
-                        Url = string.Format(searchUrl, product.Keywords)
-                    });
-                }
-            }
+            //if (!string.IsNullOrEmpty(product.Keywords))
+            //{
+            //    string searchUrl = AppSettings.SiteUrlWithoutLastSlash + "/kelime-arama?SearchText={0}";
+            //    if (product.Keywords.IndexOf(",") > 0)
+            //    {
+            //        var keywords = product.Keywords.Split(',');
+
+            //        foreach (var item in keywords)
+            //        {
+            //            model.ProductTabModel.ProductKeywords.Add(new MTProductKeywordItem
+            //            {
+            //                Keyword = item,
+            //                Url = string.Format(searchUrl, item)
+            //            });
+            //        }
+            //    }
+            //    else
+            //    {
+            //        model.ProductTabModel.ProductKeywords.Add(new MTProductKeywordItem
+            //        {
+            //            Keyword = product.Keywords,
+            //            Url = string.Format(searchUrl, product.Keywords)
+            //        });
+            //    }
+            //}
 
             if (memberStore != null)
             {
@@ -1046,7 +1051,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     });
 
                 }
- 
+
 
             }
             SearchModel<MTProductCommentItem> productCommentItemsModel = new SearchModel<MTProductCommentItem>();
@@ -1079,8 +1084,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var productCertificates = _cerfificateService.GetCertificateTypeProductsByProductId(product.ProductId);
             if (productCertificates.Count > 0)
             {
-                var certificateNames = _cerfificateService.GetCertificatesByIds(productCertificates.Select(x => x.CertificateTypeId).ToList()).Select(x=>x.Name);
+                var certificateNames = _cerfificateService.GetCertificatesByIds(productCertificates.Select(x => x.CertificateTypeId).ToList()).Select(x => x.Name);
                 model.ProductDetailModel.Certificates = string.Join(",", certificateNames);
+                foreach (var productCertificate in productCertificates)
+                {
+                    if (productCertificate.StoreCertificateId.HasValue)
+                    {
+                        var ceritifcate = _cerfificateService.GetCertificateTypeByCertificateTypeId(productCertificate.CertificateTypeId);
+                        var picturesCertificate = _pictureService.GetPictureByStoreCertificateId(productCertificate.StoreCertificateId.Value);
+                        foreach (var item in picturesCertificate)
+                        {
+                            model.ProductTabModel.Certificates.Add(ceritifcate.Name, AppSettings.StoreCertificateImageFolder + item.PicturePath.Replace("_certificate", "-500x800"));
+                        }
+                    }
+
+                }
             }
             #endregion
             //ürün görünün güncelleme
@@ -1132,7 +1150,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             }
 
-           
+
             //seo
             //if (!string.IsNullOrWhiteSpace(model.ProductStoreModel.StoreName))
             //{
@@ -2218,7 +2236,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public JsonResult ProductStatisticCreate(int productId)
         {
             string ipAdress = Request.UserHostAddress;
-          //string ipAdress = "85.99.183.57";
+            //string ipAdress = "85.99.183.57";
             string country = "";
             string city = "";
 
@@ -2270,5 +2288,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
 
         }
+
+
     }
 }

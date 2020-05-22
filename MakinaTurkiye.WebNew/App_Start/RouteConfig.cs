@@ -39,23 +39,24 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
             ));
 
 
+
             routes.Add("DomainRouteForNew", new DomainRoute(
                 "haber.makinaturkiye.com", // Domain with parameters 
                 "",    // URL with parameters 
                 new { controller = "StoreNew", action = "Index" },
-                   new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" } ));
+                   new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
 
             routes.Add("DomainRouteForNewDetail", new DomainRoute(
                 "urun.makinaturkiye.com", // Domain with parameters 
                 "{newname}-h-{newId}",    // URL with parameters 
-                
+
                 new { controller = "StoreNew", action = "Detail" },
                        new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
 
             routes.Add("DomainRouteForProduct", new DomainRoute(
                 "urun.makinaturkiye.com", // Domain with parameters 
                 "{productName}-p-{productId}",    // URL with parameters 
-                
+
                 new { controller = "Product", action = "DetailClear" }  // Parameter defaults 
                 ));
 
@@ -775,7 +776,7 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
             routes.MapRoute(
                 "ModelRouteNewOther",
                 "{modelName}-{brandName}-{categoryName}-m-{categoryId}-{selectedCategoryId}",
-                new { controller = "Category", action = "Index2", categoryId = UrlParameter.Optional, selectedCategoryId = UrlParameter.Optional },
+                new { controller = "Category", action = "Index2", categoryId = UrlParameter.Optional, selectedCategoryId = UrlParameter.Optional, modelName = UrlParameter.Optional },
                 new { categoryId = @"\d\d\d\d+" },
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 ).DataTokens.Add("RouteName", "ModelRouteNew");
@@ -788,11 +789,17 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 ).DataTokens.Add("RouteName", "ModelRouteNew");
 
-
+            routes.MapRoute(
+           "ModelRouteNewAnoter",
+          "{modelName}-{brandName}-m-{categoryId}-{selectedCategoryId}",
+           new { controller = "Category", action = "Index2", categoryId = UrlParameter.Optional },
+           new { categoryId = @"\d\d\d\d+" },
+           new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+           ).DataTokens.Add("RouteName", "ModelRouteNew");
 
             #region StoreProfile
 
-         
+
 
             routes.MapRoute(
                 "StoreProfileGeneral",
@@ -926,12 +933,66 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 );
 
+
+
             routes.MapRoute(
-                 name: "CompanyProfileNewRoute",
-                 url: "{username}",
-                 defaults: new { controller = "StoreProfileNew", action = "CompanyProfileNew", username = UrlParameter.Optional },
-                  constraints: new { username = new UserNameConstraint() }
-             );
+                "SearchMainPage",
+                "Videolar/{query}/",
+                new
+                {
+                    controller = "Videos",
+                    action = "Index",
+                    categoryId = UrlParameter.Optional,
+                    categoryName = UrlParameter.Optional
+                },
+                new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+                );
+
+            routes.MapRoute(
+            name: "AdvancedSearch",
+            url: "detayli-arama",
+            defaults: new { controller = "Category", action = "AdvancedSearch", username = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+           "HelpDetailRouteNew",
+           "{categoryname}-y-{CategoryId}",
+           new { controller = "Help", action = "YardimDetay", categoryId = UrlParameter.Optional },
+           new { CategoryId = @"\d\d\d\d+" },
+           new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+           );
+
+            routes.MapRoute(
+            "DefaultSearch",
+            "Search/Index",
+            new { controller = "Search", action = "Index" },
+            new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+            );
+
+
+
+            routes.MapRoute(
+     "NewDetail",
+     "{newname}-h-{newId}",
+     new { controller = "StoreNew", action = "Detail", newId = UrlParameter.Optional },
+     new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+     );
+
+
+            routes.MapRoute(
+     "ProductRequest",
+     "alim-talebi",
+     new { controller = "ProductRequest", action = "step1", newId = UrlParameter.Optional },
+     new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+     );
+
+
+            routes.MapRoute(
+     name: "CompanyProfileNewRoute",
+     url: "{username}",
+     defaults: new { controller = "StoreProfileNew", action = "CompanyProfileNew", username = UrlParameter.Optional },
+      constraints: new { username = new UserNameConstraint() }
+ );
 
             routes.MapRoute(
                 name: "CompanyProfileNewRouteWithParam",
@@ -1029,57 +1090,6 @@ defaults: new { controller = "StoreProfileNew", action = "News", username = UrlP
 constraints: new { username = new UserNameConstraint() }
 );
 
-
-            routes.MapRoute(
-                "SearchMainPage",
-                "Videolar/{query}/",
-                new
-                {
-                    controller = "Videos",
-                    action = "Index",
-                    categoryId = UrlParameter.Optional,
-                    categoryName = UrlParameter.Optional
-                },
-                new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
-                );
-
-            routes.MapRoute(
-            name: "AdvancedSearch",
-            url: "detayli-arama",
-            defaults: new { controller = "Category", action = "AdvancedSearch", username = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-           "HelpDetailRouteNew",
-           "{categoryname}-y-{CategoryId}",
-           new { controller = "Help", action = "YardimDetay", categoryId = UrlParameter.Optional },
-           new { CategoryId = @"\d\d\d\d+" },
-           new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
-           );
-
-            routes.MapRoute(
-            "DefaultSearch",
-            "Search/Index",
-            new { controller = "Search", action = "Index" },
-            new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
-            );
-
-
-
-            routes.MapRoute(
-     "NewDetail",
-     "{newname}-h-{newId}",
-     new { controller = "StoreNew", action = "Detail", newId = UrlParameter.Optional },
-     new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
-     );
-
-
-            routes.MapRoute(
-     "ProductRequest",
-     "alim-talebi",
-     new { controller = "ProductRequest", action = "step1", newId = UrlParameter.Optional },
-     new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
-     );
 
             routes.MapRoute(
             "Default",

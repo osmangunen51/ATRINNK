@@ -35,6 +35,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public MTProductComplainModel ProductComplainModel { get; set; }
         public ProductContactModel ProductContanctModel { get; set; }
         public MTJsonLdModel MtJsonLdModel { get; set; }
+
         public bool OnlyStoreSee { get; set; }
         public bool ProductActive { get; set; }
     }

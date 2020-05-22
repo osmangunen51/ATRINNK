@@ -110,10 +110,13 @@
     <Compile Include="Catalog\ISiteMapCategoryService.cs" />
     <Compile Include="Catalog\ProductActiveTypeEnum.cs" />
     <Compile Include="Catalog\SiteMapCategoryService.cs" />
+    <Compile Include="Catalog\SiteMapCategoryTypeEnum.cs" />
     <Compile Include="Common\ConstantTypeEnum.cs" />
     <Compile Include="Common\CurrencyService.cs" />
+    <Compile Include="Common\IUrlRedirectService.cs" />
     <Compile Include="Common\ICurrencyService.cs" />
     <Compile Include="Common\PhoneTypeEnum.cs" />
+    <Compile Include="Common\UrlRedirectService.cs" />
     <Compile Include="Content\BaseMenuService.cs" />
     <Compile Include="Content\IBaseMenuService.cs" />
     <Compile Include="ICachingSupported.cs" />
@@ -194,6 +197,7 @@
     <Compile Include="Common\ConstantService.cs" />
     <Compile Include="Stores\IStoreCatologFileService.cs" />
     <Compile Include="Stores\IStoreSectorService.cs" />
+    <Compile Include="Stores\IStoreSeoNotificationService.cs" />
     <Compile Include="Stores\IStoreStatisticService.cs" />
     <Compile Include="Stores\PreRegistirationStoreService.cs" />
     <Compile Include="Stores\StoreActiveTypeEnum.cs" />
@@ -205,6 +209,7 @@
     <Compile Include="Stores\StoreNewTypeEnum.cs" />
     <Compile Include="Stores\StoreSectorService.cs" />
     <Compile Include="Stores\CategoryStoresResult.cs" />
+    <Compile Include="Stores\StoreSeoNotificationService.cs" />
     <Compile Include="Stores\StoreStatisticService.cs" />
     <Compile Include="Stores\WhatsappLogService.cs" />
     <Compile Include="Stores\IActivityTypeService.cs" />

@@ -45,19 +45,21 @@ namespace MakinaTurkiye.Services.Catalog
         private readonly IRepository<Product> _productRepository;
         private readonly ICacheManager _cacheManager;
         private readonly IFavoriteProductService _favoriteProductService;
+        private readonly ICategoryService _categoryService;
 
         #endregion
 
         #region Ctor
 
         public ProductService(IDbContext dbContext, IDataProvider dataProvider, IRepository<Product> productRepository,
-            ICacheManager cacheManager, IFavoriteProductService favoriteProductService) : base(cacheManager)
+            ICacheManager cacheManager, IFavoriteProductService favoriteProductService, ICategoryService categoryService) : base(cacheManager)
         {
             this._dbContext = dbContext;
             this._dataProvider = dataProvider;
             this._productRepository = productRepository;
             this._cacheManager = cacheManager;
             this._favoriteProductService = favoriteProductService;
+            this._categoryService = categoryService;
         }
 
         #endregion
@@ -482,10 +484,19 @@ namespace MakinaTurkiye.Services.Catalog
             {
                 var query = _productRepository.Table;
                 query = query.Include(p => p.Category);
+
                 query = query.Include(p => p.Country);
                 query = query.Include(p => p.City);
                 query = query.Include(p => p.Locality);
+                query = query.Include(p => p.Town);
                 var product = query.FirstOrDefault(p => p.ProductId == productId);
+                if (product != null)
+                {
+                if (product.BrandId.HasValue)
+                    product.Brand = _categoryService.GetCategoryByCategoryId(product.BrandId.Value);
+                if (product.ModelId.HasValue)
+                    product.Model = _categoryService.GetCategoryByCategoryId(product.ModelId.Value);
+                }
                 return product;
             });
         }
@@ -1113,7 +1124,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         public void CalculateSPProductRate()
         {
-            _dbContext.ExecuteSqlCommand("exec SP_PRODUCTRATECALCULATENEW");
+            _dbContext.ExecuteSqlCommand("exec ProductRateCalculate");
         }
 
         public void CheckSPProductSearch(int productId)

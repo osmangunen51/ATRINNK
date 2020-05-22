@@ -13,6 +13,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public string BannerDescription { get; set; }
         public byte? BannerType { get; set; }
         public string BannerLink { get; set; }
-       
+       public string BannerAltTag { get; set; }
     }
 }

@@ -1642,6 +1642,31 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
 
+
+        public ActionResult SalesResponsibleUpdate(int orderId)
+        {
+            SalesResponsibleUpdateModel model = new SalesResponsibleUpdateModel();
+            model.OrderId = orderId;
+            var order = _orderService.GetOrderByOrderId(orderId);
+            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 select new { u.UserName, u.UserId };
+            foreach (var item in users1)
+            {
+                model.SalesResponsibleUser.Add(new SelectListItem { Text = item.UserName, Value = item.UserId.ToString(), Selected = item.UserId==order.AuthorizedId});
+            }
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult SalesResponsibleUpdate(string OrderId, string SalesUserId)
+        {
+            var order = _orderService.GetOrderByOrderId(Convert.ToInt32(OrderId));
+            order.AuthorizedId =Convert.ToInt32(SalesUserId);
+            _orderService.UpdateOrder(order);
+            TempData["Message"] = "Başarıyla Kayıt Edilmiştir";
+            return RedirectToAction("SalesResponsibleUpdate", new {orderId = OrderId });
+        }
+
     }
 
 

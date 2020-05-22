@@ -6,12 +6,14 @@
         $(".loading-membership").show();
         var email = $("#Email").val();
         var password = $("#Password").val();
+        var returnUrl = $("#ReturnUrl").val();
         $.ajax({
             url: '/Membership/Logon',
             type: 'post',
             data: {
                 Email: email,
-                Password: password
+                Password: password,
+                ReturnUrl: returnUrl
             },
             dataType: 'json',
             success: function (data) {

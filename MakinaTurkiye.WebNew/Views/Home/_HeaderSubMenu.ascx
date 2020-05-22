@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MTBaseSubMenuModel>" %>
 
 <%string menuCss = "col-md-12";
-    string subMenuCss = "col-md-3";
+    string subMenuCss = "col-md-2";
     if (Model.ImageModels.Count > 0)
     {
         menuCss = "col-md-9";
@@ -12,21 +12,21 @@
         {%>
     <section class="col-sm-12  <%:subMenuCss %>" style="padding: 0px;">
         <ul>
-            <li class="dropdown-header col-md-12" style="padding: 0px;">
+            <li class="dropdown-header col-md-12">
                 <a href="<%:category.CategoryUrl %>">
-                    <%if (category.CategoryName.ToLower().Contains("makin")) {
-                            category.CategoryName = category.CategoryName.Split(' ')[0];
-                        } %>
-                    <%:category.CategoryName %> makinelerini gör <i class="fa fa-chevron-right" style="padding-left: 3px;"></i>
-
-                </a>
+                <%if (category.CategoryName.ToLower().Contains("makin"))
+                    {
+                        category.CategoryName = category.CategoryName.Split(' ')[0];
+                    } %>
+                <%:category.CategoryName %>
+                    </a>
             </li>
             <%int counter = 1;
 
             %>
-            <%foreach (var subCategory in category.SubCategoryModels)
+            <%foreach (var subCategory in category.SubCategoryModels.Skip(0).Take(8))
                 {%>
-            <li class="col-md-6 col-sm-12" style="padding-left: 5px;">
+            <li class="col-md-12 col-sm-12" style="padding-left: 5px;">
                 <a href="<%:subCategory.CategoryUrl %>">
                     <%string seperator = category.SubCategoryModels.Count != counter ? "," : "";  %>
                     <%:Html.Raw(subCategory.CategoryName) %>
@@ -34,10 +34,15 @@
                     <% counter++;
                     %>
                 </a>
-
-
             </li>
             <%} %>
+            <%if (category.SubCategoryModels.Count > 8)
+                {%>
+            <li class="col-md-12 col-sm-12" style="padding-left: 5px;">
+                <a href="<%:category.CategoryUrl %>"> <i class="fa fa-plus" style="font-size:16px; font-weight:500; color:#ff6a00;"></i> Tümü
+                </a>
+            </li>
+            <% } %>
         </ul>
     </section>
     <%} %>

@@ -31,7 +31,7 @@
 }
 @media (min-width: 768px) {
   .store-profile-header__info {
-    background-color: #eeeeee;
+    background-color: #f9f9f9;
   }
   .store-profile-header__info.is-fixed {
     position: fixed;

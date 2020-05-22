@@ -15,5 +15,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.PreRegistrations
         public bool HasDescriptions { get; set; }
         public DateTime RecordDate { get; set; }
         public string WebUrl { get; set; }
+        public bool IsInserted { get; set; }
     }
 }

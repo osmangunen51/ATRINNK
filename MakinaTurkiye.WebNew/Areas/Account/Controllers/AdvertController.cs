@@ -402,7 +402,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 var filterUrl = Request.Url.ToString();
                 if (filterUrl.IndexOf("categoryId") > 0)
                 {
-                    filterUrl = Regex.Replace(filterUrl, @"([?&]categoryId)=[^?&]+","$1=" + item.CategoryId);
+                    filterUrl = Regex.Replace(filterUrl, @"([?&]categoryId)=[^?&]+", "$1=" + item.CategoryId);
                 }
                 else
                     filterUrl += "&categoryId=" + item.CategoryId;
@@ -628,7 +628,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 if (model.ModelId.HasValue)
                 {
                     var modelModel = _categoryService.GetCategoryByCategoryId(model.ModelId.Value);
-                    if (model != null)
+                    if (modelModel != null)
                     {
                         model.ModelName = modelModel.CategoryName;
                     }
@@ -736,6 +736,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 foreach (var item in storeCertificates)
                 {
                     var certificateType = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(item.StoreCertificateId);
+
                     if (certificateType != null)
                     {
                         var listItem = new SelectListItem
@@ -751,7 +752,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     }
                 }
 
-          
+
 
 
 
@@ -1067,7 +1068,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     product.BriefDetail = model.BriefDetail; //BriefDetail;
                     product.ProductActiveType = (byte)ProductActiveType.Inceleniyor;
 
-                    
+
                     //product.ProductName = model.ProductName;
                     string productName = LimitText(model.ProductName, 100);
                     var productNumbers = _productService.GetProductsByProductName(productName);
@@ -1153,17 +1154,24 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                     if (certificateTypes != null)
                     {
+                        var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
                         var certificateTypeProducts = _certificateTypeService.GetCertificateTypeProductsByProductId(id, false);
                         foreach (var item in certificateTypeProducts)
                         {
                             _certificateTypeService.DeleteCertificateTypeProduct(item);
                         }
+
                         for (int i = 0; i < certificateTypes.Length; i++)
                         {
+
+                            var storeCertificate = _certificateTypeService.GetCertificateTypeProductsByCerticateTypeId(Convert.ToInt32(certificateTypes[i])).FirstOrDefault(x => x.StoreCertificateId != null);
+                            
+
                             var certificateTypeProduct = new CertificateTypeProduct
                             {
                                 ProductId = product.ProductId,
-                                CertificateTypeId = Convert.ToInt32(certificateTypes[i])
+                                CertificateTypeId = Convert.ToInt32(certificateTypes[i]),
+                                StoreCertificateId = storeCertificate != null ? storeCertificate.StoreCertificateId : null
                             };
                             _certificateTypeService.InsertCertificateTypeProduct(certificateTypeProduct);
                         }
@@ -2881,9 +2889,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             productNo = productNo + producId;
 
-            var product = _productService.GetProductByProductId(producId);
-            product.ProductNo = productNo;
-            _productService.UpdateProduct(product);
+           
+            curProduct.ProductNo = productNo;
+            _productService.UpdateProduct(curProduct);
 
             curProduct.ProductId = producId;
             curProduct.ProductNo = productNo;

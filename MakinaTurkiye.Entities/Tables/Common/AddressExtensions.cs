@@ -49,7 +49,7 @@ namespace MakinaTurkiye.Entities.Tables.Common
         {
             if (address.Locality != null && address.City != null)
             {
-                return string.Format("{0} / {1} / {2}", address.Locality.LocalityName, address.City.CityName, address.Country.CountryName);
+                return string.Format("{0} / {1} / {2}",address.Town!=null ? address.Town.TownName:"" , address.Locality.LocalityName, address.City.CityName, address.Country.CountryName);
             }
             return string.Empty;
         }

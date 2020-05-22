@@ -22,6 +22,7 @@ namespace MakinaTurkiye.Services.Catalog
         IList<CertificateTypeProduct> GetCertificateTypeProductsByProductId(int productId, bool setCache = true);
         CertificateTypeProduct GetCertificateTypeProductsByStoreCertificateId(int storeCertficiateId);
 
+        IList<CertificateTypeProduct> GetCertificateTypeProductsByCerticateTypeId(int certificateTypeId);
 
     }
 }

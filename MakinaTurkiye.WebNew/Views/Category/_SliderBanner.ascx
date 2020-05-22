@@ -18,7 +18,7 @@
                  <img src="<%:item.SliderImagePathMobile %>" alt="slider <%:counter %>" />
             <%}
                                                                       else {%>
-                  <img src="<%:item.SliderImagePathPc %>" alt="slider <%:counter %>" />
+                  <img src="<%:item.SliderImagePathPc %>" alt="<%=!string.IsNullOrEmpty(item.AltTag) ? item.AltTag : "slider"+counter %>" />
             <% } %>
            
         </picture>

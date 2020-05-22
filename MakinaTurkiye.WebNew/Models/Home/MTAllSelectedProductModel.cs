@@ -17,5 +17,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
         public int Index { get; set; }
         public string BackgrounCss { get; set; }
         public string TabBackgroundCss { get; set; }
+        
     }
 }

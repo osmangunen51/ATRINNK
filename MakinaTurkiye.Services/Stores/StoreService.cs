@@ -423,8 +423,8 @@ namespace MakinaTurkiye.Services.Stores
         public IList<Store> GetStoreSearchByStoreName(string storeName)
         {
             var query = _storeRepository.Table;
-            query = query.Where(x => x.StoreName.ToUpper().StartsWith(storeName.ToUpper())
-            || x.StoreShortName.ToUpper().StartsWith(storeName.ToUpper()));
+            query = query.Where(x => x.StoreName.ToUpper().Contains(storeName.ToUpper())
+            || x.StoreShortName.ToUpper().Contains(storeName.ToUpper()));
             return query.ToList();
 
         }

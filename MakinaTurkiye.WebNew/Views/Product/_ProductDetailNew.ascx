@@ -7,7 +7,6 @@
             <h1><%:Model.ProductName %></h1>
         </div>
         <span class="ilan-no">İlan No: <%:Model.ProductNo %></span>
-
         <hr>
         <div class="row pad-15">
             <div class="col-md-7 col-xs-12">
@@ -15,11 +14,9 @@
                     <%if (Model.Price != "" && (Model.ProductPriceType == (byte)ProductPriceType.Price || Model.ProductPriceType == (byte)ProductPriceType.PriceRange))
                         { %>
                     <div class="flex-col-8">
-
                         <span class="<%:!string.IsNullOrEmpty(Model.ProductPriceWithDiscount) ? "old-price":"" %>">
                             <i class="<%:Model.ProductCurrencySymbol %>"></i>
                             <%:Model.PriceWithoutCurrency%> </span>
-
                         <%if (!string.IsNullOrEmpty(Model.ProductPriceWithDiscount))
                             {
                         %>
@@ -27,8 +24,6 @@
                         <span>
                             <i class="<%:Model.ProductCurrencySymbol %> flex-col-8 "></i>
                             <%:Model.ProductPriceWithDiscount %>
-
-                          
                         </span>
                         <%
                             } %>
@@ -42,11 +37,9 @@
                         <small style="font-size: 10px;"><%:Model.UnitTypeText %></small>
                         <br />
                         <%} %>
-                                              
-                                            KDV
-                                      <br>
-                        DAHİL 
-                               
+                            KDV
+                               <br>
+                        DAHİL    
                     </span>
                     <%}
                         else if (Model.Fob == true)
@@ -58,10 +51,9 @@
                         <small style="font-size: 10px;"><%:Model.UnitTypeText %></small>
                         <br />
                         <%} %>
-                                           FOB
-                                           <br />
-                        Fiyatı
-                             
+                          FOB
+                        <br />
+                        Fiyatı                        
                     </span>
                     <%}%>
                     <%else if (Model.Kdv == false)
@@ -71,26 +63,22 @@
                             { %>
                         <small style="font-size: 10px;"><%:Model.UnitTypeText %></small><br />
                         <%} %>
-                                            KDV
-
-                                      <br>
-                        Hariç
-                                    
+                             KDV
+                               <br>
+                        Hariç           
                     </span>
                     <% }%>
-
                     <%}
                         else
                         { %>
                     <span style="font-size: 15px;">Fiyat Sorunuz</span>
-
                     <%} %>
                 </div>
             </div>
             <div class="col-md-5 col-xs-12">
                 <%if (Model.ProductActive)
                     { %>
-                <button class="label label-danger btn-block btnClik btn-1" data-toggle="modal" data-target="#PostCommentsModal" style="border: 0px;" <%--rel="nofollow"--%> title="<%:Model.StoreName %> iletişim sayfası"><b>Satıcı İle İletişim Kur </b></button>
+                <button class="label label-danger btn-block btnClik btn-1" data-toggle="modal" data-target="#PostCommentsModal" style="border: 0px;" title="<%:Model.StoreName %> iletişim sayfası"><i class="fa fa-phone" style="padding-right:5px;"></i><b>Satıcı İle İletişim Kur </b></button>
                 <%}
                     else
                     {%>
@@ -100,7 +88,6 @@
         </div>
         <div class="urun-bilgi-tablo">
             <table class="table teble-border">
-
                 <tr>
                     <td style="width: 100px;">Kategori:
                     </td>

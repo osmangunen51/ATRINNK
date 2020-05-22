@@ -25,32 +25,37 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
     {
         private const string URL = "https://www.makinaturkiye.com/";
         private const string PRODUCT_URL = "https://urun.makinaturkiye.com/";
+        private const string VIDEO_URL = "https://video.makinaturkiye.com/";
+        private const string STORE_URL = "https://magaza.makinaturkiye.com/";
+
 
         public ActionResult Index()
         {
 
             IList<string> sitemapFiles = new List<string>();
 
+            sitemapFiles.Add(this.generateSitemap_categoryproductgroup());
 
-            sitemapFiles = sitemapFiles.Union(this.generateSitemapForProducts()).ToList();
+
             sitemapFiles.Add(this.generateSitemapForStores());
             sitemapFiles.Add(this.generateSitemapForNews());
-            sitemapFiles.Add(this.generateSitemap_StoreCategory());
 
 
-            sitemapFiles.Add(this.generateSitemap_video());
-            sitemapFiles.Add(this.generateSitemap_videocategory());
+
 
             sitemapFiles.Add(this.generateSitemap_categorysector());
             sitemapFiles.Add(this.generateSitemap_categorybrand());
-            sitemapFiles.Add(this.generateSitemap_categoryproductgroup());
+
+            sitemapFiles.Add(this.generateSitemap_productGroupBrand());
             sitemapFiles.Add(this.generateSitemap_categoryorta());
             sitemapFiles.Add(this.generateSitemap_categoryserie());
             sitemapFiles = sitemapFiles.Union(this.generateSitemap_categorymodels()).ToList();
             sitemapFiles.Add(this.generateSitemap_categoryCountry());
 
+
             sitemapFiles.Add(this.generateSitemap_categoryCity());
             sitemapFiles.Add(this.generateSitemap_categoryLocality());
+
 
             //unedited
 
@@ -95,6 +100,91 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
 
+        public ActionResult ProductSiteMapIndex()
+        {
+            IList<string> sitemapFiles = new List<string>();
+
+            sitemapFiles = sitemapFiles.Union(this.generateSitemapForProducts()).ToList();
+            var smIndex = new SitemapIndexXml();
+            foreach (string sitemapFile in sitemapFiles)
+            {
+                var smnIndex = new SitemapIndexNode
+                {
+                    lastmodified = DateTime.Now,
+                    location = PRODUCT_URL + "Sitemaps/Products/" + sitemapFile
+                };
+                smIndex.items.Add(smnIndex);
+            }
+        
+            string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
+            string rootSitemapFileName = "rootSitemap.xml";
+            FileHelper.WriteToFile("/Sitemaps/Products/" + rootSitemapFileName, resultXml);
+
+            // push sitemaps to search engines
+            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, rootSitemapFileName);
+
+            return Content("OK!");
+        }
+
+        public ActionResult VideoSiteMapIndex()
+        {
+            IList<string> sitemapFiles = new List<string>();
+
+            sitemapFiles.Add(this.generateSitemap_video());
+            sitemapFiles.Add(this.generateSitemap_videocategory());
+
+            var smIndex = new SitemapIndexXml();
+            foreach (string sitemapFile in sitemapFiles)
+            {
+                var smnIndex = new SitemapIndexNode
+                {
+                    lastmodified = DateTime.Now,
+                    location = VIDEO_URL + "Sitemaps/Videos/" + sitemapFile
+                };
+                smIndex.items.Add(smnIndex);
+            }
+
+            string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
+            string rootSitemapFileName = "rootSitemap.xml";
+            FileHelper.WriteToFile("/Sitemaps/Videos/" + rootSitemapFileName, resultXml);
+
+            // push sitemaps to search engines
+            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, rootSitemapFileName);
+
+            return Content("OK!");
+        }
+
+
+        public ActionResult StoreSiteMapIndex()
+        {
+            IList<string> sitemapFiles = new List<string>();
+
+            sitemapFiles.Add(this.generateSitemap_StoreCategory());
+
+            var smIndex = new SitemapIndexXml();
+            foreach (string sitemapFile in sitemapFiles)
+            {
+                var smnIndex = new SitemapIndexNode
+                {
+                    lastmodified = DateTime.Now,
+                    location = STORE_URL + "Sitemaps/Stores/" + sitemapFile
+                };
+                smIndex.items.Add(smnIndex);
+            }
+
+            string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
+            string rootSitemapFileName = "rootSitemap.xml";
+            FileHelper.WriteToFile("/Sitemaps/Stores/" + rootSitemapFileName, resultXml);
+
+            // push sitemaps to search engines
+            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, rootSitemapFileName);
+
+            return Content("OK!");
+        }
+
         #region Sitemap Generations
         protected List<string> generateSitemapForProducts()
         {
@@ -123,7 +213,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 string resultXml = XmlHelper.SerializeToString(sm, Encoding.UTF8);
                 string sitemapFileName = String.Format("sitemap_Products-{0}.xml", (i + 1).ToString("00"));
-                FileHelper.WriteToFile("/Sitemaps/" + sitemapFileName, resultXml);
+                FileHelper.WriteToFile("/Sitemaps/Products/" + sitemapFileName, resultXml);
                 sitemapFiles.Add(sitemapFileName);
             }
             return sitemapFiles;
@@ -178,7 +268,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
             var categories = siteMapCategoryService.GetSiteMapStoreCategories();
             string fileName = "sitemap_StoreCategory.xml";
-            var path = Server.MapPath("/sitemaps/" + fileName);
+            var path = Server.MapPath("/sitemaps/Stores/" + fileName);
             var writer = new XmlTextWriter(path, Encoding.UTF8);
             writer.Formatting = Formatting.Indented;
             writer.WriteStartDocument();
@@ -235,7 +325,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var videos = videoService.GetSiteMapVideos();
 
             string fileName = "sitemap_Video.xml";
-            var path = Server.MapPath("/sitemaps/" + fileName);
+            var path = Server.MapPath("/sitemaps/Videos/" + fileName);
             var writer = new XmlTextWriter(path, Encoding.UTF8);
             writer.Formatting = Formatting.Indented;
             writer.WriteStartDocument();
@@ -285,7 +375,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             string fileName = "sitemap_CategoryVideo.xml";
 
-            var path = Server.MapPath("/sitemaps/" + fileName);
+            var path = Server.MapPath("/sitemaps/Videos/" + fileName);
             var writer = new XmlTextWriter(path, Encoding.UTF8);
             writer.Formatting = Formatting.Indented;
 
@@ -317,7 +407,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
 
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
-            var categories = siteMapCategoryService.GetSiteMapCategories(CategoryTypeEnum.Sector);
+            var categories = siteMapCategoryService.GetSiteMapCategories(SiteMapCategoryTypeEnum.Sector);
 
             string fileName = "sitemap-category-sector.xml";
 
@@ -349,7 +439,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         protected string generateSitemap_categorybrand()
         {
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
-            var categories = siteMapCategoryService.GetSiteMapCategories(CategoryTypeEnum.Brand);
+            var categories = siteMapCategoryService.GetSiteMapCategories(SiteMapCategoryTypeEnum.Brand);
 
             string fileName = "sitemap-category-brand.xml";
 
@@ -377,10 +467,40 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             return fileName;
         }
+        protected string generateSitemap_productGroupBrand()
+        {
+            ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
+            var categories = siteMapCategoryService.GetSiteMapCategories(SiteMapCategoryTypeEnum.ProductGroupBrand);
+
+            string fileName = "sitemap-category-product-group-brand.xml";
+
+            var path = Server.MapPath("/sitemaps/" + fileName);
+            var writer = new XmlTextWriter(path, Encoding.UTF8);
+            XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
+
+            //var entries = _context.CategorySiteMapping((byte)CategoryType.ProductGroup).ToList();
+            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.TopCategoryParentId.Value, !string.IsNullOrEmpty(entry.TopCategoryContentTitle) ? entry.TopCategoryContentTitle : entry.TopCategoryName, entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle)?entry.CategoryContentTitle:entry.CategoryName), entry => DateTime.Now);
+            var sitemap = new XDocument(
+                new XDeclaration("1.0", "utf-8", "yes"),
+                new XElement(ns + "urlset",
+                    from u in urls
+                    select
+                    new XElement(ns + "url",
+                    new XElement(ns + "loc", u.Key),
+                   new XElement(ns + "priority", "1.0")
+                      )
+                    )
+                  );
+
+            sitemap.Save(writer);
+            writer.Close();
+
+            return fileName;
+        }
         protected string generateSitemap_categoryproductgroup()
         {
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
-            var categories = siteMapCategoryService.GetSiteMapCategories(CategoryTypeEnum.ProductGroup);
+            var categories = siteMapCategoryService.GetSiteMapCategories(SiteMapCategoryTypeEnum.ProductGroup);
 
             string fileName = "sitemap-category-product-group.xml";
 
@@ -410,7 +530,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         protected string generateSitemap_categoryorta()
         {
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
-            var categories = siteMapCategoryService.GetSiteMapCategories(CategoryTypeEnum.Category);
+            var categories = siteMapCategoryService.GetSiteMapCategories(SiteMapCategoryTypeEnum.Category);
 
             string fileName = "sitemap-category.xml";
 
@@ -442,7 +562,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         protected string generateSitemap_categoryserie()
         {
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
-            var categories = siteMapCategoryService.GetSiteMapCategories(CategoryTypeEnum.Series);
+            var categories = siteMapCategoryService.GetSiteMapCategories(SiteMapCategoryTypeEnum.Series);
 
             string fileName = "sitemap-category-series.xml";
 
@@ -524,7 +644,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         protected List<string> generateSitemap_categorymodels()
         {
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
-            var categories = siteMapCategoryService.GetSiteMapCategories(CategoryTypeEnum.Model);
+            var categories = siteMapCategoryService.GetSiteMapCategories(SiteMapCategoryTypeEnum.Model);
             List<string> sitemapFiles = new List<string>();
             int categoryTotalCount = categories.Count();
             int slice = 4000;

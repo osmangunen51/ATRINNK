@@ -1851,6 +1851,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 var store = entities.Stores.First(x => x.MainPartyId == storeM.StoreMainPartyId);
 
+                model.IsProductAdded = store.IsProductAdded;
+
                 storeName = store.StoreName;
                 model.StoreMainPartyId = store.MainPartyId;
                 var curAuth = entities.Users.FirstOrDefault(x => x.UserId == store.AuthorizedId);
@@ -2592,7 +2594,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 MemberDescUp.BaseID = AnyDesc.ID;
 
                             MemberDescUp.Status = 0;
-                            DescriptionNew = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + DescriptionNew + "-" + "<span style='color:#44000d'>" + CurrentUserModel.CurrentManagement.UserName + "</span>" + "~" + MemberDescUp.Description;
+                            DescriptionNew = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + DescriptionNew + "-" + "<span style='color:#44000d; font-weight:600;'>" + CurrentUserModel.CurrentManagement.UserName + "</span>" + "~" + MemberDescUp.Description;
                             MemberDescUp.Description = DescriptionNew;
                             MemberDescUp.UpdateDate = lastDate;
                             MemberDescUp.FromUserId = CurrentUserModel.CurrentManagement.UserId;

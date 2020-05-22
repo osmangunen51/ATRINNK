@@ -108,8 +108,8 @@
 
                 <div class="new-header__top-left">
                     <a class="site-logo" href="<%:AppSettings.SiteUrl %>">
-                        <img src="<%:Url.Content("~/Content/V2/images/makinaturkiye.png") %>"
-                            srcset="<%:Url.Content("~/Content/V2/images/makinaturkiye.png") %> 1x, <%:Url.Content("~/Content/V2/images/makinaturkiye.png") %> 2x" alt="Makina Türkiye Logo" width="226" height="30">
+                        <img src="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %>"
+                            srcset="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 1x, <%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 2x" alt="Makina Türkiye Logo" width="226" height="30">
                     </a>
                 </div>
                 <div class="new-header__top-right">
@@ -133,36 +133,26 @@
 
                             <%if (membermainPartyId == 0)
                                 {%>
-
-
                             <li class="user-topmenu__item">
-                                <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi" rel="nofollow" class="user-topmenu__link">İlan Ekle&nbsp<i class="fa fa-plus"></i>
-                                </a>
+                                <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi" rel="nofollow" class="user-topmenu addAdvert">İLAN EKLE</a>
                             </li>
-
                             <%}
                                 else
                                 {%>
                             <li class="user-topmenu__item">
-                                <a href="/Account/Advert/Advert" class="user-topmenu__link">
-                                    <span class="icon-favorite"></span>İlan Ekle
+                                <a href="/Account/Advert/Advert" class="user-topmenu addAdvert">
+                                İLAN EKLE
                                 </a>
                             </li>
                             <%} %>
-
-
                             <%if (notReadInboxMessageCount > 0)
                                 { %>
-
                             <li class="user-topmenu__item hidden-sm hidden-md hidden-lg">
                                 <a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
                                     <span class="icon-paper-plane"></span>Mesajlar <span class="label label-primary pull-right"><%=notReadInboxMessageCount %></span>
                                 </a>
                             </li>
-
                             <% } %>
-
-
                             <li class="user-topmenu__item hidden-sm hidden-md hidden-lg commentLi" style="display: none;">
                                 <a href="<%:AppSettings.SiteUrl %>/account/ilan/Comments" class="user-topmenu__link">
                                     <span class="glyphicon glyphicon-comment"></span>Yorumlar <span class="label label-primary pull-right commentCountvalue"></span>
@@ -185,7 +175,7 @@
                         <%} %>
                     </div>
 
-                    <ul class="nav navbar-nav navbar-right" role="menu">
+                    <ul class="nav navbar-nav navbar-right navbar-account-mt" role="menu">
                         <% 
                             if (AuthenticationUser.Membership != null)
                             {
@@ -199,7 +189,7 @@
                         %>
 
 
-                        <li><a href="<%:AppSettings.SiteUrl %>Account/Home" class="plr5"><span class="text-md  glyphicon glyphicon-user"></span>
+                        <li ><a href="<%:AppSettings.SiteUrl %>Account/Home" class="plr5"><span class="text-md  glyphicon glyphicon-user"></span>
 
                             <%=memberName %>
                         </a></li>

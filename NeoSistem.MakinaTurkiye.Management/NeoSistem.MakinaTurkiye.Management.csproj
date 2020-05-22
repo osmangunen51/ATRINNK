@@ -82,6 +82,24 @@
     <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=2.0.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.2.0.1\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=59d6d24383174ac4, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocation.1.0.0\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Interception.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Interception.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Unity.Interception.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
@@ -108,6 +126,9 @@
     </Reference>
     <Reference Include="NPOI.OpenXmlFormats, Version=2.4.1.0, Culture=neutral, PublicKeyToken=0df73ec7942b34e1, processorArchitecture=MSIL">
       <HintPath>..\packages\NPOI.2.4.1\lib\net45\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="Quartz, Version=3.0.7.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <HintPath>..\packages\Quartz.3.0.7\lib\net452\Quartz.dll</HintPath>
@@ -168,6 +189,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Email.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\StoreSeoNotificationController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationLogController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
@@ -195,6 +217,7 @@
     <Compile Include="Controllers\CompanyDemandController .cs" />
     <Compile Include="Controllers\PropertyController.cs" />
     <Compile Include="Controllers\SeoDefinitionController.cs" />
+    <Compile Include="Controllers\UrlRedirectController.cs" />
     <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Controllers\VirtualPosController.cs" />
     <Compile Include="Controllers\NotificationFormController.cs" />
@@ -256,6 +279,7 @@
     <Compile Include="Models\Orders\OrderCountModel.cs" />
     <Compile Include="Models\Orders\OrderReportItemModel.cs" />
     <Compile Include="Models\Orders\OrderReportModel.cs" />
+    <Compile Include="Models\Orders\SalesResponsibleUpdateModel.cs" />
     <Compile Include="Models\PaymentItemModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\CityModel.cs" />
@@ -332,6 +356,8 @@
     <Compile Include="Models\Stores\MTStoreExcelItem.cs" />
     <Compile Include="Models\Stores\StoreNewItem.cs" />
     <Compile Include="Models\Stores\StoreSectorModel.cs" />
+    <Compile Include="Models\Stores\StoreSeoNotificationFormModel.cs" />
+    <Compile Include="Models\Stores\StoreSeoNotificationModel.cs" />
     <Compile Include="Models\Stores\StoreUserItem.cs" />
     <Compile Include="Models\StoreWhatsappListItemModel.cs" />
     <Compile Include="Models\SurveyModel.cs" />
@@ -341,6 +367,7 @@
     <Compile Include="Models\TypeVariables.cs" />
     <Compile Include="Models\UpdateDateDescriptionModel.cs" />
     <Compile Include="Models\UpdatePayDateModel.cs" />
+    <Compile Include="Models\UrlRedirectModels\UrlRedirectItem.cs" />
     <Compile Include="Models\UserGroupModel.cs" />
     <Compile Include="Models\UserMailTemplateListItemModel.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -431,6 +458,7 @@
     <Content Include="Content\Images\cancelled.png" />
     <Content Include="Content\Images\ChartResetToMatchStyle.png" />
     <Content Include="Content\Images\check.png" />
+    <Content Include="Content\Images\cross.png" />
     <Content Include="Content\Images\downar.png" />
     <Content Include="Content\Images\favorite-icon.png" />
     <Content Include="Content\Images\ikon_ozel_mesaj_gonder.png" />
@@ -1533,6 +1561,7 @@
     <Content Include="Views\Member\SendSpecialEmailToStore.aspx" />
     <Content Include="Views\Member\BulletinMember.aspx" />
     <Content Include="Views\Member\_BulletinRegisterList.ascx" />
+    <Content Include="Views\OrderFirm\SalesResponsibleUpdate.aspx" />
     <Content Include="Views\OrderFirm\BillNumber.aspx" />
     <Content Include="Views\OrderFirm\OrderCount.aspx" />
     <Content Include="Views\OrderFirm\_OrderCountList.ascx" />
@@ -1675,6 +1704,12 @@
     <Content Include="Views\SEO\Index.aspx" />
     <Content Include="Views\SEO\SeoList.ascx" />
     <Content Include="Views\Shared\Header.ascx" />
+    <Content Include="Views\StoreSeoNotification\AllSeoNotification.aspx" />
+    <Content Include="Views\StoreSeoNotification\AllNotification.aspx" />
+    <Content Include="Views\StoreSeoNotification\Index.aspx" />
+    <Content Include="Views\StoreSeoNotification\Create.aspx" />
+    <Content Include="Views\StoreSeoNotification\_SeoNotificationList.ascx" />
+    <Content Include="Views\StoreSeoNotification\_StoreNotificationFormModel.ascx" />
     <Content Include="Views\Store\Address.ascx" />
     <Content Include="Views\Store\DealerBayiiAddressList.ascx" />
     <Content Include="Views\Store\DealerServisAddressList.ascx" />
@@ -1731,6 +1766,9 @@
     <Content Include="Views\Survey\SurveyList.ascx" />
     <Content Include="Views\Survey\SurveyOptionList.ascx" />
     <Content Include="Views\Survey\SurveyOptions.ascx" />
+    <Content Include="Views\UrlRedirect\Create.aspx" />
+    <Content Include="Views\UrlRedirect\Index.aspx" />
+    <Content Include="Views\UrlRedirect\_UrlRedirectList.ascx" />
     <Content Include="Views\UserGroup\Create.aspx" />
     <Content Include="Views\UserGroup\Edit.aspx" />
     <Content Include="Views\UserGroup\Index.aspx" />

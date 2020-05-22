@@ -54,6 +54,7 @@ namespace MakinaTurkiye.Services.Common
         UserSpecialMailType = 27,
         ProblemType = 28,
         StoreProfileHomeDecriptionTemplate = 29,
-        PaymentBank  = 30
+        PaymentBank  = 30,
+       SeoDecriptionTitle = 31
     }
 }

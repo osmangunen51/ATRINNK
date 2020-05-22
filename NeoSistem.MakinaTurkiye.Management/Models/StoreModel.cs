@@ -548,10 +548,15 @@
         public MainPartyIdEposta EpostaMainPartyId { get; set; }
         public bool? IsAllowProductSellUrl { get; set; }
 
+        public bool? IsProductAdded { get; set; }
+
         [DisplayName("Firma Sub Domain İsmi")]
         [StringLengthValidation(50)]
         public string StoreUniqueShortName { get; set; }
 
         public DateTime? StoreUpdatedDate { get; set; }
+
+        public int SeoStoreNotificationCount { get; set; }
+ 
     }
 }

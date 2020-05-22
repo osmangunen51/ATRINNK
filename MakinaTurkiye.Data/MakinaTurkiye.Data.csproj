@@ -81,6 +81,7 @@
     <Compile Include="Mapping\Tables\Catalog\CertificateTypeMap.cs" />
     <Compile Include="Mapping\Tables\Catalog\CertificateTypeProductMap.cs" />
     <Compile Include="Mapping\Tables\Catalog\DeletedProductRedirectMap.cs" />
+    <Compile Include="Mapping\Tables\Common\UrlRedirectMap.cs" />
     <Compile Include="Mapping\Tables\Content\BaseMenuCategoryMap.cs" />
     <Compile Include="Mapping\Tables\Content\BaseMenuImageMap.cs" />
     <Compile Include="Mapping\Tables\Content\BaseMenuMap.cs" />
@@ -162,6 +163,7 @@
     <Compile Include="Mapping\Tables\Stores\StoreDiscountMap.cs" />
     <Compile Include="Mapping\Tables\Stores\StoreNewMap.cs" />
     <Compile Include="Mapping\Tables\Stores\StoreSectorMap.cs" />
+    <Compile Include="Mapping\Tables\Stores\StoreSeoNotificationMap.cs" />
     <Compile Include="Mapping\Tables\Stores\StoreStatistisMap.cs" />
     <Compile Include="Mapping\Tables\Stores\StoreUpdatedMap.cs" />
     <Compile Include="Mapping\Tables\Stores\WhatsappLogMap.cs" />

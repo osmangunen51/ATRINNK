@@ -18,10 +18,10 @@ namespace MakinaTurkiye.Utilities.Controllers
         {
             base.Initialize(requestContext);
 
-            IAuthenticationService authenticationService = EngineContext.Current.Resolve<IAuthenticationService>();
-            var authenticatedMember= authenticationService.GetAuthenticatedMember();
-            if(authenticatedMember==null)
-                requestContext.HttpContext.Response.Redirect("/");
+            //IAuthenticationService authenticationService = EngineContext.Current.Resolve<IAuthenticationService>();
+            //var authenticatedMember= authenticationService.GetAuthenticatedMember();
+            //if(authenticatedMember==null)
+            //    requestContext.HttpContext.Response.Redirect("/");
 
             //Cache operations
         }
