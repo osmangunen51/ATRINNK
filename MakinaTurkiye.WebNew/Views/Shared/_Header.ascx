@@ -390,7 +390,6 @@
         appendTo: $('#SearchText').parentNode,
         autoSelectFirst: false,
         formatGroup: function (category) {
-            console.log(category);
             return "<span class='disabled suggestion-wrapper'><span class='suggestion-value'>" + category + "</span></span>";
         },
         onSearchComplete: function (query, suggestions) {
@@ -418,7 +417,7 @@
             if (suggestion.data.category == "Gecmis" && suggestion.Url == "#") {
                 return "<span class='suggestion-wrapper'><span class='suggestion-group'>" + suggestion.Name + "</span></span>";
             }
-            return "<span class='suggestion-wrapper'><span class='suggestion-value'>" + suggestion.Name.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
+            return "<span class='suggestion-wrapper' ><span class='suggestion-value'>" + suggestion.Name.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')

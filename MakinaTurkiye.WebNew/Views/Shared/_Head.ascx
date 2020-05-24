@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<dynamic>" %>
-<<<<<<< HEAD
 <link rel="manifest" href="manifest.json">
 <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 <link rel="dns-prefetch" href="//www.google-analytics.com" />
@@ -7,7 +6,7 @@
 <link rel="dns-prefetch" href="//ajax.googleapis.com" />
 <link rel="dns-prefetch" href="//s.makinaturkiye.com" />
 <link rel="dns-prefetch" href="//connect.facebook.net" />
-=======
+
 
 <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
@@ -15,7 +14,7 @@
 <link rel="dns-prefetch" href="https://ajax.googleapis.com" />
 <link rel="dns-prefetch" href="https://s.makinaturkiye.com" />
 <link rel="dns-prefetch" href="https://connect.facebook.net" />
->>>>>>> fd5f6acdb3ea18a5a41ae923f745b314e051c0bd
+
 <link rel="alternate" href="<%:Request.Url.ToString() %>" hreflang="tr" />
 
 <script src="/Content/V2/assets/js/jquery.min.js?v=1"  ></script>

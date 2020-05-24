@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity.Infrastructure;
+using System.Globalization;
 using System.Linq;
 namespace MakinaTurkiye.Services.Search
 {
@@ -52,6 +53,7 @@ namespace MakinaTurkiye.Services.Search
             foreach (var SonucItem in Result)
             {
                 List<string> InputListesi = new List<string>();
+                SonucItem.Name= new CultureInfo("tr-TR").TextInfo.ToTitleCase(SonucItem.Name.ToLower());
                 InputListesi.AddRange(SonucItem.Name.Split(' ').ToList());
                 bool Islem = true;
                 string Metin = SonucItem.Name.Trim();
@@ -114,6 +116,7 @@ namespace MakinaTurkiye.Services.Search
             {
                 if (SonucItem.Name!=null)
                 {
+                    SonucItem.Name = new CultureInfo("tr-TR").TextInfo.ToTitleCase(SonucItem.Name.ToLower());
                     List<string> InputListesi = new List<string>();
                     if (!string.IsNullOrEmpty(SonucItem.Name))
                     {
@@ -383,6 +386,10 @@ namespace MakinaTurkiye.Services.Search
         }
         public IList<SearchResult> SearchSuggest(string SearchText)
         {
+            if (SearchText== "Teknoset")
+            {
+
+            }
             List<SearchResult> Sonuc = new List<SearchResult>();
             ProductSuggestResponse SncSnc = ElasticSearchClient.Suggest(GlobalSuggetSearchIndexName, SearchText);
             Sonuc = SncSnc.Suggests.Select(Snc =>

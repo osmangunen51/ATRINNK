@@ -10,3 +10,15 @@ D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.
 D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CopyComplete
 D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.dll
 D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.pdb
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll.config
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\MakinaTurkiye.Entities.pdb
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.xml
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.xml
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csprojAssemblyReference.cache
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CoreCompileInputs.cache
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CopyComplete
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.pdb
