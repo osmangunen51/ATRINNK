@@ -33,7 +33,7 @@
                             <tbody>
                                 <tr>
                                     <td style="border: solid 1px #CCC; background-color: #FFF;">
-                                        <input value="<%:DateTime.Now.ToString("dd.MM.yyyy") %>" id="createdDate" class="Search date" style="width: 75%; border: none;" />
+                                        <input  id="createdDate" class="Search date" style="width: 75%; border: none;" />
 
                                         <span class="ui-icon ui-icon-close searchClear"
                                             onclick="clearSearch('date');" style="width: 7%;"></span>

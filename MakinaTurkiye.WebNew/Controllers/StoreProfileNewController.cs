@@ -902,10 +902,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 var store = _storeService.GetStoreByStoreUrlName(username);
                 var request = HttpContext.Request;
-                if (request.Url.AbsolutePath.Any(x => char.IsUpper(x)))
-                {
-                    return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath.ToLower());
-                }
+
+ 
 
                 ViewBag.Canonical = AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath;
 
@@ -941,6 +939,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     //SeoPageType = (byte)PageType.StoreProductPage;
 
+                    if (request.Url.AbsolutePath.Any(x => char.IsUpper(x)))
+                    {
+                        return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath.ToLower());
+                    }
 
                     var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(store.MainPartyId);
                     int memberMainPartyId = Convert.ToInt32(memberStore.MemberMainPartyId);

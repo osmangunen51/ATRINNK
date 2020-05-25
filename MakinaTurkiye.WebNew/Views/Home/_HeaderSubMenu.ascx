@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MTBaseSubMenuModel>" %>
 
 <%string menuCss = "col-md-12";
-    string subMenuCss = "col-md-2";
+    string subMenuCss = "col-md-3";
     if (Model.ImageModels.Count > 0)
     {
         menuCss = "col-md-9";
@@ -22,11 +22,15 @@
                     </a>
             </li>
             <%int counter = 1;
-
+                string subLiClass = "col-md-6 col-sm-6";
+                if (category.SubCategoryModels.Count > 20)
+                {
+                    subLiClass = "col-md-4 col-sm-4";
+                }
             %>
-            <%foreach (var subCategory in category.SubCategoryModels.Skip(0).Take(8))
+            <%foreach (var subCategory in category.SubCategoryModels)
                 {%>
-            <li class="col-md-12 col-sm-12" style="padding-left: 5px;">
+            <li class="<%:subLiClass %>" style="padding-left: 5px;">
                 <a href="<%:subCategory.CategoryUrl %>">
                     <%string seperator = category.SubCategoryModels.Count != counter ? "," : "";  %>
                     <%:Html.Raw(subCategory.CategoryName) %>
@@ -36,13 +40,7 @@
                 </a>
             </li>
             <%} %>
-            <%if (category.SubCategoryModels.Count > 8)
-                {%>
-            <li class="col-md-12 col-sm-12" style="padding-left: 5px;">
-                <a href="<%:category.CategoryUrl %>"> <i class="fa fa-plus" style="font-size:16px; font-weight:500; color:#ff6a00;"></i> Tümü
-                </a>
-            </li>
-            <% } %>
+         
         </ul>
     </section>
     <%} %>

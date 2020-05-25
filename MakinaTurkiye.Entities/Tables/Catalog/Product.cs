@@ -85,6 +85,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         public decimal? DiscountAmount { get; set; }
         public byte? DiscountType { get; set; }
       
+        public decimal? ProductPriceForOrder { get; set; }
 
         public virtual Country Country { get; set; }
         public virtual City City { get; set; }
@@ -95,6 +96,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         public virtual Category Category { get; set; }
         public virtual Category Brand { get; set; }
         public virtual Category Model { get; set; }
+
 
 
         //public virtual ICollection<ProductComplain> ProductComplains

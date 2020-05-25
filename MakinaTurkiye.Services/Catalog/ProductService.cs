@@ -492,10 +492,10 @@ namespace MakinaTurkiye.Services.Catalog
                 var product = query.FirstOrDefault(p => p.ProductId == productId);
                 if (product != null)
                 {
-                if (product.BrandId.HasValue)
-                    product.Brand = _categoryService.GetCategoryByCategoryId(product.BrandId.Value);
-                if (product.ModelId.HasValue)
-                    product.Model = _categoryService.GetCategoryByCategoryId(product.ModelId.Value);
+                    if (product.BrandId.HasValue)
+                        product.Brand = _categoryService.GetCategoryByCategoryId(product.BrandId.Value);
+                    if (product.ModelId.HasValue)
+                        product.Model = _categoryService.GetCategoryByCategoryId(product.ModelId.Value);
                 }
                 return product;
             });
@@ -1142,6 +1142,16 @@ namespace MakinaTurkiye.Services.Catalog
                 throw new ArgumentNullException("product");
 
             product.ProductRecordDate = DateTime.Now;
+
+            if (product.ProductPriceWithDiscount > 0)
+                product.ProductPriceForOrder = product.ProductPriceWithDiscount;
+            else if (product.ProductPriceType == 239 && product.ProductPriceBegin != 0)
+                product.ProductPriceForOrder = product.ProductPriceBegin;
+            else if (product.ProductPriceType == 238 && product.ProductPrice != 0)
+                product.ProductPriceForOrder = product.ProductPrice;
+            else
+                product.ProductPriceForOrder = 99999999999;
+
             _productRepository.Insert(product);
         }
 
@@ -1150,7 +1160,19 @@ namespace MakinaTurkiye.Services.Catalog
             if (product == null)
                 throw new ArgumentNullException("product");
 
+            if (product.ProductPriceWithDiscount > 0)
+                product.ProductPriceForOrder = product.ProductPriceWithDiscount;
+
+            else if (product.ProductPriceType == 239 && product.ProductPriceBegin != 0)
+                product.ProductPriceForOrder = product.ProductPriceBegin;
+            else if (product.ProductPriceType == 238)
+                product.ProductPriceForOrder = product.ProductPrice;
+            else
+                product.ProductPriceForOrder = 99999999999;
+
+
             _productRepository.Update(product);
+
 
             if (removeCache)
             {

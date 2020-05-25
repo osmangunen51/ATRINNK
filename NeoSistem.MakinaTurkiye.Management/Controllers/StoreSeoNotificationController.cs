@@ -238,8 +238,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
 
-
-
         }
 
         public ActionResult AllNotification()
@@ -278,13 +276,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             FilterModel<BaseMemberDescriptionModelItem> model = new FilterModel<BaseMemberDescriptionModelItem>();
 
-            model.Source = PrepareAllStoreSeoNotificationItem(0, DateTime.Now, out totalRecord);
+            model.Source = PrepareAllStoreSeoNotificationItem(0,null, out totalRecord);
             model.TotalRecord = totalRecord;
             model.PageDimension = 50;
             model.CurrentPage = 1;
             return View(model);
         }
-        private List<BaseMemberDescriptionModelItem> PrepareAllStoreSeoNotificationItem(int page, DateTime createdDate, out int totalRecord)
+        private List<BaseMemberDescriptionModelItem> PrepareAllStoreSeoNotificationItem(int page, DateTime? createdDate, out int totalRecord)
         {
             List<BaseMemberDescriptionModelItem> baseMemberDescriptions = new List<BaseMemberDescriptionModelItem>();
             var entities = new MakinaTurkiyeEntities();

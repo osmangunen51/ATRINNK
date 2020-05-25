@@ -6496,6 +6496,7 @@ input[type="color"]:focus,
   overflow: hidden;
 }
 .product-card-home-selected:hover .product-card-home-selected-image img {
+  transform: scale(1.2);
   border: 1px solid #e1e1e1;
 }
 .product-card-home-selected:hover .product-card-home-selected-image .product-card-home-selected-title {

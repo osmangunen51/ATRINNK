@@ -59,9 +59,10 @@ namespace MakinaTurkiye.Services.Seos
         SuccesstoriesDetail = 52,
         ProductRequest = 53,
 
-        SectorLocality = 54,
+        SectorCountry = 54,
+ 
         SectorCity = 55,
-        SectorCountry = 56,
+        SectorLocality = 56,
 
         ProductGrupLocality = 59,
         ProductGrupCity = 58,
