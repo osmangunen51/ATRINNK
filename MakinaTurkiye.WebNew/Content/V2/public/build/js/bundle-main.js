@@ -1231,8 +1231,7 @@ $(document).ready(function () {
     hasVideoLinkClick();
     productHoverItem();
     pagerGoto();
-    //ProductPopupGallery();
-   // CertificatePopUpGallery();
+
 
     function toggleNavbarMethod() {
         if ($(window).width() > 991) {
@@ -1241,13 +1240,14 @@ $(document).ready(function () {
                 if (dataId) {
                     GetSubMenu(dataId, this);
                 }
-
-                $(this).find('.dropdown-menu').delay(300).show(0);
-     
-             
+               
+                $(this).find('.dropdown-menu').stop(true, true).delay(350).fadeIn(0);
+ 
+   
 
             }, function () {
-                $(this).find('.dropdown-menu').hide(0);
+
+                $(this).find('.dropdown-menu').stop(true, true).delay(350).fadeOut(0);
             });
         }
         else {
