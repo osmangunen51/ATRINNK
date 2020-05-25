@@ -475,6 +475,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         category.CategoryPath = String.Join(" - ", topCategoriesNames);
                         category.CategoryPathUrl = GetCategoryPathUrl(category);
                         _categoryService.UpdateCategory(category);
+         
 
                         entities.SP_DeleteCategoryBottomByKeyCategoryId(olCategoryParentId);
                         entities.SP_DeleteCategoryBottomByKeyCategoryId(category.CategoryParentId);
@@ -507,6 +508,19 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             _categoryService.UpdateCategory(cat);
                         }
 
+
+                        var bottomCategories = _categoryService.GetSPBottomCategories(category.CategoryId);
+                        foreach (var item in bottomCategories)
+                        {
+                            var categoryBottom = _categoryService.GetCategoryByCategoryId(item.CategoryId);
+                            var topCategoriesNames1 = _categoryService.GetSPTopCategories(item.CategoryId).Select(x => x.CategoryContentTitle).ToList();
+
+                            categoryBottom.CategoryPath = String.Join(" - ", topCategoriesNames1);
+                            categoryBottom.CategoryPathUrl = GetCategoryPathUrl(categoryBottom);
+
+                                _categoryService.UpdateCategory(categoryBottom);
+
+                        }
 
                         string containid = sourceId.ToString();
                         string treeName = String.Empty;
@@ -586,7 +600,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                         entities.SaveChanges();
 
-                        category.CategoryPath = GetCategoryPathUrl(category);
+                        category.CategoryPathUrl = GetCategoryPathUrl(category);
                         _categoryService.UpdateCategory(category);
                         foreach (var item in q)
                         {
@@ -599,6 +613,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                             }
                         }
+
                     }
                 }
             }

@@ -458,7 +458,8 @@
             }
         }
     }).on('focus', function(event) {
-    var self = this;
+        var self = this;
+        $("#SearchText").val("");
     $(self).autocomplete( "search", this.value);
 });
 </script>
