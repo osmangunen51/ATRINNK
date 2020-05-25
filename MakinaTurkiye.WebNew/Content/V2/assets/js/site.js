@@ -825,13 +825,27 @@ function setOwlStageHeight(event) {
 
 
 function showSubCategory() {
-    $('.subCategory .showAllSub').on('click', function () {
+    $('.subCategory .showAllSub').unbind().click(function () {
+
         var that = $(this);
         var text = that.children('b');
         var icon = that.children('span');
-        text.html(text.html() == "Tümünü Gör" ? "Tümünü Gizle" : "Tümünü Gör");
-        icon.toggleClass("icon-fill-up-arrow icon-fill-down-arrow");
-        that.closest('.result-category__item').toggleClass('expanded');
+
+       // that.children('b').html(that.children('b').html() == "Tümünü Gör" ? "Tümünü Gizle" : "Tümünü Gör");
+        //icon.toggleClass("icon-fill-up-arrow icon-fill-down-arrow");
+     
+        if (text.html() == "Tümünü Gör") {
+            that.closest('.result-category__item').addClass('expanded');
+            text.html("Tümünü Gizle");
+            icon.attr("class", "icon-fill-up-arrow");
+  
+        }
+        else {
+            that.closest('.result-category__item').removeClass('expanded');
+            text.html("Tümünü Gör");
+            icon.attr("class", "icon-fill-down-arrow");
+        }
+      
     });
 }
 
@@ -1217,8 +1231,7 @@ $(document).ready(function () {
     hasVideoLinkClick();
     productHoverItem();
     pagerGoto();
-    //ProductPopupGallery();
-   // CertificatePopUpGallery();
+
 
     function toggleNavbarMethod() {
         if ($(window).width() > 991) {
@@ -1227,13 +1240,14 @@ $(document).ready(function () {
                 if (dataId) {
                     GetSubMenu(dataId, this);
                 }
-
-                $(this).find('.dropdown-menu').delay(300).show(0);
-     
-             
+               
+                $(this).find('.dropdown-menu').stop(true, true).delay(350).fadeIn(0);
+ 
+   
 
             }, function () {
-                $(this).find('.dropdown-menu').hide(0);
+
+                $(this).find('.dropdown-menu').stop(true, true).delay(350).fadeOut(0);
             });
         }
         else {

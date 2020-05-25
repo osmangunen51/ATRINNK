@@ -1885,6 +1885,7 @@
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Admin.pubxml" />
     <None Include="Properties\PublishProfiles\FikretPublish.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\MustafaAdminPublish.pubxml" />
     <None Include="Properties\PublishProfiles\nzmhtpgl.pubxml" />
     <Content Include="Scripts\CKEditor\CHANGES.md" />

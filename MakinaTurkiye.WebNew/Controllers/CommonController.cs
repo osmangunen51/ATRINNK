@@ -779,9 +779,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (!string.IsNullOrEmpty(store.StoreShortName))
             {
-                seo.Description = seo.Description.Replace("{FirmaKisaAdi}", store.StoreShortName);
-                seo.Keywords = seo.Keywords.Replace("{FirmaKisaAdi}", store.StoreShortName);
-                seo.Title = seo.Title.Replace("{FirmaKisaAdi}", store.StoreShortName);
+                seo.Description = seo.Description.Replace("{FirmaKısaAdi}", store.StoreShortName);
+                seo.Keywords = seo.Keywords.Replace("{FirmaKısaAdi}", store.StoreShortName);
+                seo.Title = seo.Title.Replace("{FirmaKısaAdi}", store.StoreShortName);
             }
             seo.Description = seo.Description.Replace("{FirmSeoTitle}", store.SeoTitle);
 
