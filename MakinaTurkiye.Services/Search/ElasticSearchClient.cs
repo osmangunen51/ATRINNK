@@ -87,11 +87,9 @@ namespace MakinaTurkiye.Services.Search
                                      .Index(indexName.ToLowerInvariant())
                                      .Suggest(su => su
                                           .Completion("suggestions", c => c
-                                               .Field(f => f.Suggest)
                                                .Prefix(keyword)
-                                               .Fuzzy(f => f
-                                                   .Fuzziness(Fuzziness.Auto)
-                                               )
+                                               .Field(f => f.Suggest).SkipDuplicates(true)
+                                               
                                                .Size(1000))
                                              ));
 

@@ -386,10 +386,6 @@ namespace MakinaTurkiye.Services.Search
         }
         public IList<SearchResult> SearchSuggest(string SearchText)
         {
-            if (SearchText== "Teknoset")
-            {
-
-            }
             List<SearchResult> Sonuc = new List<SearchResult>();
             ProductSuggestResponse SncSnc = ElasticSearchClient.Suggest(GlobalSuggetSearchIndexName, SearchText);
             Sonuc = SncSnc.Suggests.Select(Snc =>
