@@ -2346,7 +2346,6 @@
     <Content Include="Content\menuX.css" />
     <Content Include="Views\Category\SearchResults.aspx" />
     <Content Include="Views\Category\_CategoryBannerItems.ascx" />
-    <Content Include="Views\Category\Index.aspx" />
     <Content Include="Views\Category\LeftMenuCategories.ascx" />
     <Content Include="Views\Category\LeftMenuSectorCategories.ascx" />
     <Content Include="Views\Category\ProductHeader.ascx" />

@@ -11,11 +11,11 @@
 <script src="/Content/V2/assets/js/jquery.min.js?v=1"  ></script>
 <script src="/Content/V2/assets/js/jquery.autocomplete.js" > </script>
 <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=6.9" defer></script>
-<script src="/Content/V2/public/build/js/bundle-main-min.js?v=7.9" defer></script>
+<script src="/Content/V2/public/build/js/bundle-main-min.js?v=8.0" defer></script>
 <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"  async></script>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=7.7" />
+<link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=7.8" />
 <link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
 <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
 <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css") %>" />

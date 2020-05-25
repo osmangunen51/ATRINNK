@@ -230,7 +230,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var seo = seos.FirstOrDefault(s => s.SeoId == (int)seoIdNameEnum);
             string description = seo.Description;
-            string keywords = seo.Keywords;
+            string keywords =!string.IsNullOrEmpty(seo.Keywords) ? seo.Keywords : "";
             string title = seo.Title;
 
             if (seoIdNameEnum == SeoIdNameEnum.ProductSearchPage)
@@ -275,6 +275,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
 
                     description = description.Replace("{Kategori}", categoryName);
+
                     keywords = keywords.Replace("{Kategori}", categoryName);
                     title = title.Replace("{Kategori}", categoryName);
 
@@ -483,6 +484,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     description = !string.IsNullOrEmpty(category.Description) ? category.Description : description;
                     keywords = !string.IsNullOrEmpty(category.Keywords) ? category.Keywords : keywords;
                     title = !string.IsNullOrEmpty(category.Title) ? category.Title : title;
+                }
+                if (GetPageQueryString() > 1)
+                {
+                    description+= " - "+ GetPageQueryString();
+                    keywords +=  " - " + GetPageQueryString();
+                    title += " - " + GetPageQueryString();
                 }
 
                 model.Description = description;

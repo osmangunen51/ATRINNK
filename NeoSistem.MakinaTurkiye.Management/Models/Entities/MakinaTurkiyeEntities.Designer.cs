@@ -20477,6 +20477,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Byte> _DiscountType;
         partial void OnDiscountTypeChanging(Nullable<global::System.Byte> value);
         partial void OnDiscountTypeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Decimal> ProductPriceForOrder
+        {
+            get
+            {
+                return _ProductPriceForOrder;
+            }
+            set
+            {
+                OnProductPriceForOrderChanging(value);
+                ReportPropertyChanging("ProductPriceForOrder");
+                _ProductPriceForOrder = StructuralObject.SetValidValue(value, "ProductPriceForOrder");
+                ReportPropertyChanged("ProductPriceForOrder");
+                OnProductPriceForOrderChanged();
+            }
+        }
+        private Nullable<global::System.Decimal> _ProductPriceForOrder;
+        partial void OnProductPriceForOrderChanging(Nullable<global::System.Decimal> value);
+        partial void OnProductPriceForOrderChanged();
 
         #endregion
 

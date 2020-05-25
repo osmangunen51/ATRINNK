@@ -63,7 +63,10 @@
                     </li>
                     <li>
                         <a class="<%= queryOrder == "encokgoruntulenen" ? activeCss : string.Empty%>" href="<%: Request.FilePath %><%:countryFilter %><%:cityFilter %><%:localityFilter %><%= display %><%: searchText %><%:page  %><%:querySearchType %>">En Çok Görüntülenen</a>
-<%--                         <a class="<%= queryOrder == "fiyat-artan" ? activeCss : string.Empty%>" href="<%: Request.FilePath %><%:countryFilter %><%:cityFilter %><%:localityFilter %><%= display %><%: searchText %><%:page  %><%:querySearchType %>&amp;Order=fiyat-artan">Fiyata Göre Artan</a>--%>
+                    </li>
+                                    <li>
+                  <a class="<%= queryOrder == "fiyat-artan" ? activeCss : string.Empty%>" href="<%: Request.FilePath %><%:countryFilter %><%:cityFilter %><%:localityFilter %><%= display %><%: searchText %><%:page  %><%:querySearchType %>&amp;Order=fiyat-artan">Fiyata Göre Artan</a>
+
                     </li>
                 </ul>
             </div>
