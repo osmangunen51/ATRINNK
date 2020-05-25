@@ -132,7 +132,7 @@
                         <%:type %>
                     </td>
                     <td class="Cell">
-                        <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+")
+                        <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+" &&  itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
                             {%>
                         <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
                             <img src="/Content/images/ac.png" alt="" />

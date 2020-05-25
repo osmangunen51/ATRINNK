@@ -1515,13 +1515,15 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     curProduct.DiscountAmount = model.DiscountAmount;
                     curProduct.ProductPriceWithDiscount = Convert.ToDecimal(coll["TotalPrice"]);
-
+                    curProduct.ProductPriceForOrder = Convert.ToDecimal(coll["TotalPrice"]);
                 }
                 else
                 {
                     curProduct.DiscountAmount = 0;
                     curProduct.ProductPriceWithDiscount = 0;
+                    curProduct.ProductPriceForOrder = model.ProductPrice;
                 }
+                curProduct.ProductPrice = model.ProductPrice;
                 curProduct.ProductPrice = model.ProductPrice;
                 curProduct.ProductPriceBegin = 0;
                 curProduct.ProductPriceLast = 0;
@@ -1535,15 +1537,21 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                 curProduct.ProductPriceBegin = model.ProductPriceBegin;
                 curProduct.ProductPriceLast = model.ProductPriceLast;
+                curProduct.ProductPriceForOrder = model.ProductPriceBegin;
+
+
             }
             else
             {
                 curProduct.ProductPrice = 0;
                 curProduct.ProductPriceBegin = 0;
                 curProduct.ProductPriceLast = 0;
+                curProduct.ProductPriceForOrder = 99999999999;
             }
 
             curProduct.ProductSellUrl = model.ProductSellUrl;
+
+
 
             //if (model.Doping && !curProduct.Doping)
             //{
@@ -3462,7 +3470,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
 
- 
+
 
 
         }

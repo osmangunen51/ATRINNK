@@ -63,6 +63,7 @@ x.CreatedDate.Year == date.Year && x.CreatedDate.Month == date.Month && x.Create
         public IList<StoreSeoNotification> GetStoreSeoNotificationsByDateWithStatus(DateTime date, byte status, byte userId)
         {
             var query = _storeSeoNotificationRepository.Table;
+
             query = query.Where(x => x.Status == status && x.RemindDate.HasValue &&
             x.RemindDate.Value.Year == date.Year && x.RemindDate.Value.Month == date.Month && x.RemindDate.Value.Day == date.Day &&
             x.RemindDate.Value.Hour <= date.Hour && x.RemindDate.Value.Minute <= date.Minute && x.ToUserId == userId).OrderByDescending(x => x.RemindDate.Value);

@@ -43,7 +43,7 @@
 
 
 <tr>
-    <td class="ui-state ui-state-default" colspan="7" align="right" style="border-color: #DDD; border-top: none;">
+    <td class="ui-state ui-state-default" colspan="8" align="right" style="border-color: #DDD; border-top: none;">
         <div style="float: right;" class="pagination">
             <ul>
                 <% foreach (int page in Model.TotalLinkPages)

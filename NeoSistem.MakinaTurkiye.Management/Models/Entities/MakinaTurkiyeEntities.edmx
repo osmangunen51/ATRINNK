@@ -834,6 +834,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="ProductPriceWithDiscount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="DiscountAmount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="DiscountType" Type="tinyint" />
+          <Property Name="ProductPriceForOrder" Type="money" />
         </EntityType>
         <EntityType Name="ProductCatolog">
           <Key>
@@ -3750,6 +3751,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <NavigationProperty Name="ProductCatologs" Relationship="MakinaTurkiyeModel.FK__ProductCa__Produ__3F4C18B3" FromRole="Product" ToRole="ProductCatolog" />
           <NavigationProperty Name="ProductComments" Relationship="MakinaTurkiyeModel.FK__ProductCo__Produ__564557FB" FromRole="Product" ToRole="ProductComment" />
           <NavigationProperty Name="ProductStatistics" Relationship="MakinaTurkiyeModel.FK_Product_ProductStatistics" FromRole="Product" ToRole="ProductStatistic" />
+          <Property Name="ProductPriceForOrder" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="PurchaseRequest">
           <Key>
@@ -6144,6 +6146,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
             <ScalarProperty Name="StoreDealerId" ColumnName="StoreDealerId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="MakinaTurkiyeModel.Product"><MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ProductPriceForOrder" ColumnName="ProductPriceForOrder" />
                 <ScalarProperty Name="DiscountType" ColumnName="DiscountType" />
                 <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
                 <ScalarProperty Name="ProductPriceWithDiscount" ColumnName="ProductPriceWithDiscount" />

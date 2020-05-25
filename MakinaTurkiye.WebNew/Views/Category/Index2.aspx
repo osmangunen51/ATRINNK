@@ -516,6 +516,7 @@
                         <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=z-a">Z-a</option>
                         <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=soneklenen">Son Eklenen</option>
                         <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>">En Çok Görüntülenen</option>
+                                   <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=fiyat-artan">Fiyat Artan</option>
                         <%--                           <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=fiyat-artan">Fiyata Göre Artan</option>--%>
                     </select>
                 </div>
