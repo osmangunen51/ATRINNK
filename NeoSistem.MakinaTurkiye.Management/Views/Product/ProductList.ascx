@@ -75,7 +75,7 @@
     else {%>
             <label for=""></label>
             
-                      <input type="text" id="<%:item.ProductId %>"  column="modelNon" class="edit-input" style="display: none;" />
+                      <textarea type="text" id="<%:item.ProductId %>"  column="modelNon" class="edit-input" style="display: none; width:150px;" ></textarea>
             
                     <% }%>
             <div class="controls">

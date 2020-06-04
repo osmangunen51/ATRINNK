@@ -396,6 +396,7 @@
     <Compile Include="Models\Home\MTHomeModel.cs" />
     <Compile Include="Models\Home\MTHomeProductRelatedItem.cs" />
     <Compile Include="Models\Home\MTHomeProductsRelatedCategoryModel.cs" />
+    <Compile Include="Models\Home\MTHomeSectorItem.cs" />
     <Compile Include="Models\Home\MTHomeStoreModel.cs" />
     <Compile Include="Models\Home\MTHomeVideoModel.cs" />
     <Compile Include="Models\Home\MTStoreNewItem.cs" />
@@ -681,6 +682,7 @@
     <Content Include="Content\V2\assets\jquery-ui-1.12.1.custom\AUTHORS.txt" />
     <Content Include="Content\V2\assets\jquery-ui-1.12.1.custom\external\jquery\jquery.js" />
     <Content Include="Content\V2\images\homebanner_watermark.png" />
+    <Content Include="Content\V2\images\icon\icons.png" />
     <Content Include="Content\V2\images\icon\leads-arrow-left.png" />
     <Content Include="Content\V2\images\icon\scroll-arrow.png" />
     <Content Include="Content\V2\images\icon\search-icon.png" />
@@ -1966,6 +1968,7 @@
     <Content Include="Views\Category\ProductViewList - Copy.ascx" />
     <Content Include="Views\Category\_SliderBanner.ascx" />
     <Content Include="Views\Home\CallYou.ascx" />
+    <Content Include="Views\Home\_HomeSector.ascx" />
     <Content Include="Views\Home\_ProductHomeItem.ascx" />
     <Content Include="Views\Home\_HeaderSubMenu.ascx" />
     <Content Include="Views\Home\_HeaderBaseMenu.ascx" />

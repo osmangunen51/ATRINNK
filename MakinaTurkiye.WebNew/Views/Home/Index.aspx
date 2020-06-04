@@ -235,7 +235,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
-
+    <%=Html.RenderHtmlPartial("_HomeSector",Model.HomeSectorItems) %>
     <%--   <%= Html.Partial("_ProductRelatedCategories", Model.HomeProductsRelatedCategoryModel)  %>--%>
 
 
@@ -343,4 +343,7 @@
         </div>
     </div>--%>
     <%--    <%= Html.RenderHtmlPartial("CallYou",Model.companyMembershipDemand) %>--%>
+
+
+        <%=Html.RenderHtmlPartial("_Bulletin") %>
 </asp:Content>

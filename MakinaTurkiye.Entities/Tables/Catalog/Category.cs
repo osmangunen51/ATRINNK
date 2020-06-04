@@ -43,6 +43,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         public string CategoryPath { get; set; }
         public string CategoryPathUrl { get; set; }
         public Int16 ? BaseMenuOrder { get; set; }
+        public string HomeImagePath { get; set; }
 
         //public virtual ICollection<BaseMenuCategory> BaseMenuCategories
         //{

@@ -1242,7 +1242,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var orderdescriptions = _orderService.GetOrderDescriptionsByOrderId(model.OrderId).OrderByDescending(x => x.OrderDescriptionId).ToList();
             foreach (var item in orderdescriptions)
             {
-                model.UpdatePayDateModels.Add(new UpdatePayDateModel { Description = item.Description, UpdatePayDateId = item.OrderDescriptionId, WillPayDate = item.PayDate });
+                model.UpdatePayDateModels.Add(new UpdatePayDateModel { Description = item.Description, UpdatePayDateId = item.OrderDescriptionId, WillPayDate = item.PayDate,RecordDate=item.RecordDate });
             }
             var orderInstallments = _orderInstallmentService.GetOrderInstallmentsByOrderId(model.OrderId);
             foreach (var item in orderInstallments)

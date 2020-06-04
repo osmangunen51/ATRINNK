@@ -457,13 +457,13 @@
                                     <%:Html.TextAreaFor(model => model.ProductDescription, new { style = "width:640px; height:355px;" })%>
                                 </div>
                             </div>
-                            <div class="form-group">
+         <%--                   <div class="form-group">
                                 <label class="col-sm-2 control-label">Anahtar Kelimeler:</label>
                                 <div class="col-sm-10">
                                     <input type="text" name="Keywords" data-role="tagsinput" class="form-control col-md-8" /><br />
                                     <small>Virgül ile ayırınız</small>
                                 </div>
-                            </div>
+                            </div>--%>
 
                             <%foreach (var item in Model.MTProductPropertieModel.MTProductProperties)
                                 {%>

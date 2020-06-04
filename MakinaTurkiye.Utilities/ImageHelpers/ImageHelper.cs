@@ -246,6 +246,13 @@ name[1]);
 
         }
 
+        public static string GetHomeSectorImagePath(string imagePath)
+        {
+            if (imagePath == null)
+                return "";
+
+            return string.Format("//s.makinaturkiye.com/Images/CategoryHomePageImageFolder/{0}", imagePath);
+        }
 
 
         public static string GetBannerImagePath(string bannerResource)

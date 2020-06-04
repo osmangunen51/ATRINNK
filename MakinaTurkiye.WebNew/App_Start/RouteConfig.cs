@@ -96,6 +96,36 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                 },
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
 
+            routes.Add("DomainStoreWrongUrl4", new DomainRoute(
+    "magaza.makinaturkiye.com",
+    "search/index",
+    new
+    {
+        controller = "Store",
+        action = "StoreWrongUrl"
+    },
+    new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
+
+            routes.Add("DomainVideoWrongUrl", new DomainRoute(
+"video.makinaturkiye.com",
+"search/index",
+new
+{
+    controller = "Video",
+    action = "Redirect301"
+},
+new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
+            routes.Add("DomainVideoWrongUrl2", new DomainRoute(
+"video.makinaturkiye.com",
+"Home/GetStoreProductComment",
+new
+{
+    controller = "Video",
+    action = "Redirect301"
+},
+new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
+
+
 
             routes.Add("DomainStoreCategoryNew", new DomainRoute(
                 "magaza.makinaturkiye.com", // Domain with parameters 
@@ -129,6 +159,7 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                 categoryName = UrlParameter.Optional
             }  // Parameter defaults 
             ));
+
 
             routes.MapRoute(
             "redirectController",

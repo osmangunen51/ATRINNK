@@ -69,14 +69,14 @@ namespace MakinaTurkiye.Services.Catalog
         public IList<ProductForStoreResult> GetSPProductForStoreByCategoryId(int categoryId = 0, int memberMainPartyId = 0, int topCount = 5)
         {
 
-            if (categoryId <= 0)
-                throw new ArgumentNullException("categoryId");
+            //if (categoryId <= 0)
+            //    throw new ArgumentNullException("categoryId");
 
-            if (memberMainPartyId <= 0)
-                throw new ArgumentNullException("memberMainPartyId");
+            //if (memberMainPartyId <= 0)
+            //    throw new ArgumentNullException("memberMainPartyId");
 
-            if (topCount <= 0)
-                throw new ArgumentNullException("topCount");
+            //if (topCount <= 0)
+            //    throw new ArgumentNullException("topCount");
 
 
             string key = string.Format(PRODUCTS_SP_PRODUCTFORSTORE_BY_CATEGORY_ID_KEY, categoryId, memberMainPartyId, topCount);
@@ -541,8 +541,8 @@ namespace MakinaTurkiye.Services.Catalog
                         p =>
                             p.MainPartyId == mainPartId && p.ProductId != nonProductId && p.ProductActive == true &&
                             p.ProductActiveType == 1);
+                query = query.OrderBy(x=>x.Sort).ThenBy(p => p.productrate);
                 query = query.Take(topCount);
-                query = query.OrderBy(p => p.productrate);
                 return query.ToList();
             });
         }

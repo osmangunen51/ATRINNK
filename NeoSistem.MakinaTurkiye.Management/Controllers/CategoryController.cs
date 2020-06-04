@@ -475,7 +475,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         category.CategoryPath = String.Join(" - ", topCategoriesNames);
                         category.CategoryPathUrl = GetCategoryPathUrl(category);
                         _categoryService.UpdateCategory(category);
-         
+
 
                         entities.SP_DeleteCategoryBottomByKeyCategoryId(olCategoryParentId);
                         entities.SP_DeleteCategoryBottomByKeyCategoryId(category.CategoryParentId);
@@ -518,7 +518,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             categoryBottom.CategoryPath = String.Join(" - ", topCategoriesNames1);
                             categoryBottom.CategoryPathUrl = GetCategoryPathUrl(categoryBottom);
 
-                                _categoryService.UpdateCategory(categoryBottom);
+                            _categoryService.UpdateCategory(categoryBottom);
 
                         }
 
@@ -991,15 +991,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 int row = category.Delete(cId);
                 return Json(row <= 0);
             }
-
         }
-
         public ActionResult addImages(int categoryId)
         {
             var category = _categoryService.GetCategoryByCategoryId(categoryId);
             CategoryImageModel model = new CategoryImageModel();
             IconModel iconModel = new IconModel();
-
 
             iconModel.IconUrl = AppSettings.CategoryIconImageFolder + category.CategoryIcon;
             model.IconModel = iconModel;
@@ -1009,13 +1006,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             foreach (var item in banners)
             {
                 item.BannerResource = AppSettings.CategoryBannerImagesFolder + item.BannerResource;
-                
                 model.BannerItems.Add(item);
             }
-
+            if (!string.IsNullOrEmpty(category.HomeImagePath))
+                model.HomePageImagePath = AppSettings.CategoryHomePageImageFolder + category.HomeImagePath;
             return View(model);
         }
-
         [HttpPost]
         public ActionResult addImages(CategoryImageModel model)
         {
@@ -1033,9 +1029,20 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         string fileName = FileHelpers.Upload(AppSettings.CategoryIconImageFolder, Request.Files[inputTagName.ToString()]);
                         oldIcon.CategoryIcon = fileName;
                         model.IconModel.IconUrl = AppSettings.CategoryIconImageFolder + fileName;
+                        entities.SaveChanges();
+                    }
+                    else if (inputTagName.ToString() == "HomePageImagePath")
+                    {
+                        var category = entities.Categories.SingleOrDefault(c => c.CategoryId == model.CategoryId);
+                        if (category != null)
+                        {
+                            FileHelpers.Delete(AppSettings.CategoryIconImageFolder + category.HomeImagePath);
+                        }
+                        string fileName = FileHelpers.Upload(AppSettings.CategoryHomePageImageFolder, Request.Files[inputTagName.ToString()]);
+                        category.HomeImagePath = fileName;
+                        model.HomePageImagePath = AppSettings.CategoryHomePageImageFolder + fileName;
 
                         entities.SaveChanges();
-
                     }
                 }
             }

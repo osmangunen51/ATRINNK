@@ -16,6 +16,7 @@ using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Management.Models;
 using NeoSistem.MakinaTurkiye.Management.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Management.Models.Entities;
+using NeoSistem.MakinaTurkiye.Management.Models.Orders;
 using NeoSistem.MakinaTurkiye.Management.Models.Stores;
 using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NPOI.HSSF.UserModel;
@@ -1585,16 +1586,37 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         public ActionResult StoreContactInfo(int id)
         {
 
-            var model = new StoreModel();
+            var model = new StoreContactOrderModel();
 
 
-            var phone = entities.Phones.Where(c => c.MainPartyId == id).ToList();
+            var phones = entities.Phones.Where(c => c.MainPartyId == id).ToList();
             var store = entities.Stores.FirstOrDefault(x => x.MainPartyId == id);
             var memberStore = entities.MemberStores.FirstOrDefault(x => x.StoreMainPartyId == id);
 
-            model.StoreEMail = entities.Members.FirstOrDefault(x => x.MainPartyId == memberStore.MemberMainPartyId).MemberEmail;
-            model.PhoneItems = phone;
-            model.IsWhatsappNotUsing = false;
+            model.Email = entities.Members.FirstOrDefault(x => x.MainPartyId == memberStore.MemberMainPartyId).MemberEmail;
+            model.Phones = phones;
+            model.IsWhatsappUsing = false;
+            model.Address = entities.Addresses.FirstOrDefault(x => x.MainPartyId == id);
+            model.MemberMainPartyId = memberStore.MemberMainPartyId.Value;
+            var memberDescriptions = entities.MemberDescriptions.Where(x => x.MainPartyId == memberStore.MemberMainPartyId && x.ConstantId != null).OrderByDescending(x => x.descId);
+            var memberPayment = memberDescriptions.FirstOrDefault(x => x.Title== "Ödeme");
+            var modelMemberdescPayment = new StoreMemberDescriptionItem { DescId = memberPayment.descId, Description = memberPayment.Description, Title = memberPayment.Title };
+            var userFromPayment = entities.Users.FirstOrDefault(x => x.UserId == memberPayment.FromUserId);
+            if (userFromPayment != null)
+                modelMemberdescPayment.UserName = userFromPayment.UserName;
+            modelMemberdescPayment.UserName = userFromPayment.UserName;
+            model.StoreMemberDescriptions.Add(modelMemberdescPayment);
+
+            foreach (var item in memberDescriptions.Skip(0).Take(2))
+            {
+                var modelMemberdesc = new StoreMemberDescriptionItem { DescId = item.descId, Description = item.Description, Title = item.Title };
+                if (item.Date.HasValue)
+                    modelMemberdesc.RecordDate = item.Date.Value;
+                var userFrom = entities.Users.FirstOrDefault(x => x.UserId == item.FromUserId);
+                if (userFrom != null)
+                    modelMemberdesc.UserName = userFrom.UserName;
+                model.StoreMemberDescriptions.Add(modelMemberdesc);
+            }
             return View(model);
         }
 

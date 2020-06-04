@@ -14,6 +14,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
         {
             get { return ConfigurationManager.AppSettings["CategoryIconImageFolder"].ToString(); }
         }
+        public static string CategoryHomePageImageFolder
+        {
+            get { return ConfigurationManager.AppSettings["CategoryHomePageImageFolder"].ToString(); }
+        }
         public static string BannerImagesFolder
         {
             get { return ConfigurationManager.AppSettings["BannerImagesFolder"].ToString(); }

@@ -94,6 +94,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         private readonly IStoreSectorService _storeSectorService;
         private readonly ICurrencyService _currencyService;
         private readonly ICertificateTypeService _certificateTypeService;
+        private readonly IMemberService _memberService;
+
 
 
         public AdvertController(IProductService productService,
@@ -104,7 +106,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             IMemberStoreService memberStoreService, IStoreService storeService,
             IPacketService packetService, ICategoryService categoryService,
             IAddressService addressService, IPictureService pictureService,
-            IStoreSectorService storeSectorService, ICurrencyService currencyService, ICertificateTypeService certificateTypeService)
+            IStoreSectorService storeSectorService, ICurrencyService currencyService, ICertificateTypeService certificateTypeService,
+            IMemberService memberService)
         {
             this._productService = productService;
             this._videoService = videoService;
@@ -120,6 +123,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._productCommentService = productCommentService;
             this._storeSectorService = storeSectorService;
             this._currencyService = currencyService;
+            this._memberService = memberService;
             this._certificateTypeService = certificateTypeService;
             this._productService.CachingGetOrSetOperationEnabled = false;
             this._videoService.CachingGetOrSetOperationEnabled = false;
@@ -641,7 +645,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 model.AllowSellUrl = CheckAllowProductSellUrl();
                 model.ProductSellUrl = product.ProductSellUrl;
-                model.Keywords = product.Keywords;
+                //model.Keywords = product.Keywords;
                 model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.MyAds, (byte)LeftMenuConstants.MyAd.AllAd);
 
                 Session["ProductActiveType"] = product.ProductActiveType;
@@ -1033,7 +1037,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     product.ProductDescription = !string.IsNullOrEmpty(model.ProductDescription) ? model.ProductDescription.CleanProductDescriptionText() : "";
                     product.ProductStatu = model.ProductStatu;
                     product.ReadyforSale = model.ReadyforSale;
-                    product.Keywords = model.Keywords;
+                    //product.Keywords = model.Keywords;
                     if (!string.IsNullOrWhiteSpace(model.OtherBrand))
                     {
                         product.OtherBrand = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.OtherBrand.ToLower());
@@ -2707,8 +2711,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 WarrantyPeriod = modelProduct.WarrantyPeriod,
                 UnitType = coll["UnitType"].ToString(),
                 ProductPriceType = Convert.ToByte(productPriceType),
-                ProductSellUrl = modelProduct.ProductSellUrl,
-                Keywords = modelProduct.Keywords
+                ProductSellUrl = modelProduct.ProductSellUrl
             };
             string productPrice = ProductPrice1;
             System.Globalization.CultureInfo culInfo = new System.Globalization.CultureInfo("tr-TR");
@@ -3350,11 +3353,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             productComments = productComments.OrderByDescending(x => x.ProductCommentId).Skip(page * pageDimension - pageDimension).Take(pageDimension).ToList();
             foreach (var item in productComments)
             {
+                var member = _memberService.GetMemberByMainPartyId(item.MemberMainPartyId);
+                item.Product = _productService.GetProductByProductId(item.ProductId);
 
                 commentsList.Add(new MTProductCommentStoreItem
                 {
                     CommentText = item.CommentText,
-                    MemberNameSurname = item.Member.MemberName + " " + item.Member.MemberSurname,
+                    MemberNameSurname = member.MemberName + " " + member.MemberSurname,
                     Rate = item.Rate.Value,
                     RecordDate = item.RecordDate,
                     ProductCommentId = item.ProductCommentId,
@@ -3391,6 +3396,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             productComments = productComments.OrderByDescending(x => x.ProductCommentId).Skip(page * pageDimension - pageDimension).Take(pageDimension).ToList();
             foreach (var item in productComments)
             {
+                item.Member = _memberService.GetMemberByMainPartyId(item.MemberMainPartyId);
+                item.Product = _productService.GetProductByProductId(item.ProductId);
                 commentsList.Add(new MTProductCommentStoreItem
                 {
                     CommentText = item.CommentText,
@@ -3420,6 +3427,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             _productCommentService.UpdateProductComment(productComment);
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult UpdateProductsUpdateDate()
+        {
+            int memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
+            _productService.CachingGetOrSetOperationEnabled = false;
+            var products = _productService.GetProductsByMainPartyId(memberMainPartyId,true);
+    
+            foreach (var item in products)
+            {
+                item.ProductLastUpdate = DateTime.Now;
+                _productService.UpdateProduct(item);
+
+            }
+            TempData["Message"] = "Ürünler Güncellenmiştir";
+            return Redirect("/Account/Advert/Index?ProductActive=1&DisplayType=2");
         }
 
     }

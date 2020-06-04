@@ -5,11 +5,13 @@
     <div class="container">
         <div class="row" style="margin-bottom: 30px">
             <div class="col-md-12">
-                <img src="/Content/V2/images/makinaturkiye-dark.png" srcset="/Content/V2/images/makinaturkiye-dark.png 1x, /Content/V2/images/makinaturkiye-dark.png 2x" alt="Makina Türkiye Alt Logo" width="226" height="30">
+                <a class="footer-logo" href="<%:AppSettings.SiteUrlWithoutLastSlash %>">
+                    <img src="/Content/V2/images/makinaturkiye-dark.png" srcset="/Content/V2/images/makinaturkiye-dark.png 1x, /Content/V2/images/makinaturkiye-dark.png 2x" alt="Makina Türkiye Alt Logo" width="226" height="30">
+                </a>
             </div>
         </div>
 
-<%--                <div class="footer__top row">
+        <%--                <div class="footer__top row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
                 <p class="ebulten-form__label">e-bülten üyeliği ile yeniliklerimizden haberdar olun</p>
                 <div class="ebulten-form clearfix">
@@ -28,11 +30,11 @@
                             string cssMd = "flex-md-3 flex-lg-3";
                             if (item.FooterParentName == "Kategori")
                             {
-                                cssMd = "flex-md-3 flex-lg-3";
+                                cssMd = "flex-md-2 flex-lg-2";
                             }
 
                     %>
-                    <div class="menu flex-xs-6  flex-sm-4 <%:cssMd %>" data-parent="<%:item.FooterParentName %>">
+                    <div class="menu col-6 col-md-4 col-xl-2" data-parent="<%:item.FooterParentName %>">
                         <h4><%:item.FooterParentName %></h4>
                         <ul class="list-unstyled" role="menu">
                             <%foreach (var itemFooterContent in item.FooterContents)
@@ -76,24 +78,23 @@
                             </li>
                             <li>
                                 <a href="https://tr.pinterest.com/makinaturkiyecom/" rel="nofollow" target="_blank">
-                                    <img src="/Content/v2/images/social/blog.png" style="width:16px;" alt="İnstagram">
+                                    <img src="/Content/v2/images/social/blog.png" style="width: 16px;" alt="İnstagram">
                                     Blog</a>
                             </li>
                         </ul>
 
-                        <h4><a style="color: #0c3871" href="<%:AppSettings.VideoUrlBase %>">Videolar</a></h4>
                     </div>
 
                 </div>
                 <div class="row copyright-v2">
-                    <div class="col-xs-12">
+                
 
                         <div class="copyright-v2__inner">
                             <p>Copyright © 2010-<%:DateTime.Now.Year %> makinaturkiye.com</p>
-                                        <a href="javascript:;" class="upBtn">Başa Dön</a>
+                            <a href="javascript:;" class="btn upBtn">Başa Dön</a>
                         </div>
-            
-                    </div>
+
+                   
                 </div>
             </div>
         </div>

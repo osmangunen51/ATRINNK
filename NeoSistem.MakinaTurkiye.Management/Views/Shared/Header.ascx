@@ -76,23 +76,25 @@
         int demandForPacketNumber = entities.CompanyDemandMemberships.Where(c => c.isDemandForPacket == true && c.Status == 0).ToList().Count; %>
     <%if (demandForPacketNumber > 0)
         { %>
-    <div style="position: absolute; right: 175px; top: 10px;">
+    <div style="position: absolute; right: 245px; top: 10px;">
         <a href="/CompanyDemand/DemandForPacket?pagetype=DemandsForPacket" title="İndirimli paket bilgi talebi"><font style="color: red"><%:demandForPacketNumber %></font>Bilgi Talebi</a>
     </div>
     <%} %>
 
 
-    <div style="position: absolute; right: 100px; top: 10px;">
-        <a href="/MemberDescription/Notification" title="Bildirimler" id="notification"></a>
+
+
+            <div style="position: absolute; right: 350px; top: 10px;">
+        <a  style="padding:2px;"  href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
     </div>
-    <div style="position: absolute; right: 190px; top: 10px;">
-        <a href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
+        <div style="position: absolute; right: 180px; top: 10px;">
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style="padding:2px;" href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
     </div>
-            <div style="position: absolute; right: 250px; top: 10px;">
-        <a href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
+        <div style="position: absolute; right: 80px; top: 10px;">
+        <a  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style="padding:2px;"  href="/MemberDescription/Notification" title="Bildirimler" id="notification"></a>
     </div>
     <div style="float: right; position: absolute; right: 10px; top: 10px;">
-        <a href="/Account/Logout">Çıkış Yap</a>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding:2px;" href="/Account/Logout">Çıkış Yap</a>
     </div>
 
 

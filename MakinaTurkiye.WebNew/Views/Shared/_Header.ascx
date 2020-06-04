@@ -6,13 +6,11 @@
     {
         membermainPartyId = AuthenticationUser.Membership.MainPartyId;
     }
-
 %>
 <%
     MakinaTurkiyeEntities makinaTurkiyeEntities = new MakinaTurkiyeEntities();
     int favoriteProductCount = 0;
     var dataMessage = new NeoSistem.MakinaTurkiye.Data.Message();
-
     int notReadInboxMessageCount = 0;
     if (AuthenticationUser.Membership != null)
     {
@@ -21,14 +19,12 @@
         if (memberStore != null)
         {
             memberMainPartyIds = makinaTurkiyeEntities.MemberStores.Where(x => x.StoreMainPartyId == memberStore.StoreMainPartyId).Select(x => x.MemberMainPartyId).ToList();
-
         }
         else
         {
             memberMainPartyIds.Add(AuthenticationUser.Membership.MainPartyId);
         }
         var messageCount = makinaTurkiyeEntities.messagechecks.Where(c => memberMainPartyIds.Contains(c.MainPartyId)).ToList().Count;
-
         var inboxMessageCount = dataMessage.GetItemsByMainPartyIds(string.Join(", ", memberMainPartyIds), (byte)MessageType.Inbox).Rows.Count;
         notReadInboxMessageCount = inboxMessageCount - messageCount;
         var favoriteProducts = makinaTurkiyeEntities.FavoriteProducts.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
@@ -41,29 +37,27 @@
             <div class="new-header__top-left">
                 <a class="site-logo" href="<%:AppSettings.SiteUrlWithoutLastSlash %>">
                     <img src="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %>"
-                        srcset="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 1x, <%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 2x" alt="Makina Türkiye Logo" width="226" height="30">
-                </a>
+                        srcset="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 1x, <%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 2x" alt="makinaturkiye.com" width="226" height="30">
+                          <span class="site-slogan">Dünya'nın Makinesi Bir Arada</span>
+                    </a>
+   
             </div>
             <div class="new-header__top-right">
-                <%if (membermainPartyId == 0)
-                    {%>
-                <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi" class="hidden-md hidden-lg btn-ilan-ekle">İlan Ekle&nbsp<i class="fa fa-plus"></i>
+                <a href="<%:AppSettings.VideoUrlBase %>" class="hidden-md hidden-lg">
+                    <i class="mt-icon icon-play-mt"></i>
                 </a>
-                <%}
-                    else
-                    {%>
-                <a href="/Account/Advert/Advert" class="hidden-md hidden-lg btn-ilan-ekle">İlan Ekle&nbsp<i class="fa fa-plus"></i>
+                <a href="https://blog.makinaturkiye.com" class="hidden-md hidden-lg">
+                    <i class="mt-icon icon-blog-mt"></i>
                 </a>
-                <%} %>
-
+                <a href="<%:AppSettings.SiteUrl+"yardim" %>" class="hidden-md hidden-lg">
+                    <i class="mt-icon icon-answer-mt"></i>
+                </a>
                 <div class="hidden-xs hidden-sm">
-
                     <%
                         if (membermainPartyId != 0)
                         {
                             memberName = AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname;
                             memberType = (byte)AuthenticationUser.Membership.MemberType; %>
-
                     <div class="user-member-name clearfix">
                         <span><%=memberName %></span>
                         <a href="<%:AppSettings.SiteUrl %>Account/Home">Hesabım</a>
@@ -100,23 +94,68 @@
                                 <span class="icon-briefcase"></span>Firma
                             </a>
                         </li>
-          
-                        <li class="user-topmenu__item" style="margin-right:10px">
-                            <div class="dropdown ac-dropdown">
+                        <li class="user-topmenu__item">
+                            <a href="<%if (membermainPartyId != 0)
+                                {%>
+                                    <%:AppSettings.SiteUrl + "Account/Advert/Advert" %>
+                                <% }
+                                else
+                                {%>
+                             <%:AppSettings.SiteUrl + "uyelik/kullanicigirisi" %>  
+                                <%}%>
+                                "
+                                class="user-topmenu">
+                                <i class="mt-icon icon-advertise-mt"></i>
+                                <span class="text">İlan Ver</span>
+                            </a>
+                        </li>
+                        <%if (membermainPartyId != 0)
+                            { %>
+                        <%if (favoriteProductCount > 0)
+                            { %>
+                        <li class="user-topmenu__item"><a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product" id="favoriteProductCount" class="user-topmenu hidden-xs">
+                            <i class="mt-icon icon-favorite-mt"></i>
+                            <span class="text">Favoriler</span>
+                            <span class="badge"><%=favoriteProductCount %></span>
 
-                                <a style="cursor: pointer;" class="user-topmenu loginBtn" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                    <%if (membermainPartyId == 0)
-                                        {%>
-                                GİRİŞ YAP
-                                    <% }
-                                        else
-                                        {%>
-                                    <% memberName = AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname;
-                                        memberName = memberName.Length > 12 ? memberName.Substring(0, 12) + ".." : memberName;
+                        </a>
+                        </li>
+                        <%} %>
+
+                        <%if (notReadInboxMessageCount > 0)
+                            { %>
+                        <li class="user-topmenu__item">
+
+                            <a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="user-topmenu">
+                                <i class="mt-icon icon-message-mt"></i>
+                                <span class="text">Mesajlar</span>
+                                <span class="badge"><%=notReadInboxMessageCount %></span>
+                            </a>
+                        </li>
+
+                        <% } %>
+
+                        <%} %>
+
+                        <li class="user-topmenu__item" style="margin-right: 10px">
+                            <div class="dropdown ac-dropdown">
+                                <a style="cursor: pointer;" class="user-topmenu hidden-xs" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i class="mt-icon icon-user-mt"></i>
+
+                                    <span class="text">
+                                        <%if (membermainPartyId == 0)
+                                            {%>
+                                        Giriş Yap
+                                            <% }
+                                                else
+                                                {%>
+                                        <% memberName = AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname;
+                                            memberName = memberName.Length > 12 ? memberName.Substring(0, 12) + ".." : memberName;
                                         %>
                                         <%:memberName %>
-                                    <%
-                                        }%>
+                                        <%
+                                            }%>
+                                        <i class="fa fa-caret-down" style="position: absolute"></i></span>
 
 
                                 </a>
@@ -125,20 +164,20 @@
                                     <%if (membermainPartyId == 0)
                                         {%>
 
-                            
-                                  <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi">Giriş Yap</a>
-                                      <a href="<%:baseUrl%>/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
 
-                                  </li>   
-                                      
-                    
+                                    <li><a class="bold" href="<%:baseUrl%>/uyelik/kullanicigirisi">Giriş Yap</a>
+                                        <a class="bold" href="<%:baseUrl%>/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
+
+                                    </li>
+
+
                                     <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a>
 
                                         <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a>
                                         <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a>
                                         <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a>
                                     </li>
-                        
+
                                     <% }
                                         else
                                         {%>
@@ -148,18 +187,18 @@
                                         <a href="<%:baseUrl%>/Account/Message/Index?MessagePageType=0">Mesajlarım
                                         <%if (notReadInboxMessageCount != 0)
                                             {%>
-                                        <span class="badge badge-primary" style="background-color: #ef0d0d"><%:notReadInboxMessageCount %></span>
-                                        <% } %>
-                                    </a>
+                                            <span class="badge badge-primary" style="background-color: #ef0d0d"><%:notReadInboxMessageCount %></span>
+                                            <% } %>
+                                        </a>
                                         <a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product">Favorilerim
                                                <%if (favoriteProductCount != 0)
-                                            {%>
-                                        <span class="badge badge-primary"><%:favoriteProductCount %></span>
-                                        <% } %>
+                                                   {%>
+                                            <span class="badge badge-primary"><%:favoriteProductCount %></span>
+                                            <% } %>
 
-                                    </a>
+                                        </a>
                                     </li>
-    
+
                                     <%if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
                                         { %>
                                     <li><a tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal">Firma Ayarları </a></li>
@@ -168,80 +207,68 @@
                                         {%>
 
                                     <%}%>
-       
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">
-                                        <span class="glyphicon glyphicon-log-out" style="padding-right: 5px;"></span>Çıkış </a></li>
+
+                                    <li role="presentation"><a role="menuitem"  tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">Çıkış Yap </a></li>
                                     <% } %>
                                 </ul>
                             </div>
-
-
-
                         </li>
-                                      <%if (membermainPartyId == 0)
-                            {%>
-
-
-                        <li class="user-topmenu__item">
-                            <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi" class="user-topmenu addAdvert">İLAN EKLE</i>
-                            </a>
-                        </li>
-
-                        <%}
-                            else
-                            {%>
-
-                        <li class="user-topmenu__item">
-                            <a href="/Account/Advert/Advert" class="user-topmenu addAdvert">İLAN EKLE
-                            </a>
-                        </li>
-                        <%} %>
-
-                        <%if (membermainPartyId != 0)
-                            { %>
-                        <%if (notReadInboxMessageCount > 0)
-                            { %>
-                        <li class="user-topmenu__item" style="margin-top:13px;" ><a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="hidden-xs plr5 tooltips tooltip-mt badge-link" data-toggle="tooltip" data-placement="bottom"
-                            title="<%=notReadInboxMessageCount %> Okunmamış mesajınız var.">
-                            <span class="badge-link__count"><%=notReadInboxMessageCount %></span>
-                            <span class="text-md glyphicon glyphicon-envelope"></span>
-                        </a></li>
-
-                        <% } %>
-                        <%if (favoriteProductCount > 0)
-                            { %>
-                        <li class="user-topmenu__item" style="margin-top:13px;"><a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product" id="favoriteProductCount" class="hidden-xs plr5 tooltips tooltip-mt badge-link" data-toggle="tooltip" data-placement="bottom"
-                            title="<%=favoriteProductCount %> favorilere eklenmiş ürününüz var">
-                            <span class="badge-link__count"><%=favoriteProductCount %></span>
-                            <span class="text-md  glyphicon glyphicon-heart"></span>
-                        </a>
-                        </li>
-                        <%} %>
-                        <%} %>
                     </ul>
                 </div>
             </div>
             <div class="new-header__top-center">
-                <div class="new-header__search">
-                    <%string searchLink = AppSettings.SiteUrl + "kelime-arama?CategoryId=0";
-                    %>
-                    <form class="navbar-form" action="<%:searchLink %>" method="get" role="search">
-                        <div class="input-group-btn dropdown-dynamic hidden-xs">
-                        </div>
-                        <%string searchText = "";
-                            if (Request.QueryString["SearchText"] != null)
-                            {
-                                searchText = Request.QueryString["SearchText"].ToString();
-                            }%>
-                        <input type="text" id="SearchText" value="<%:searchText %>" name="SearchText" autocomplete="off" class="search-text-autocomplate" placeholder="Ürün, Kategori, Firma veya Video Ara" required x-webkit-speech speech>
-                        <span>
-                            <img src="/Content/v2/images/icon/search-icon.png" alt="Ara">
-                        </span>
-                    </form>
-
+                <div class="row">
+                    <div class="new-header__search">
+                        <%string searchLink = AppSettings.SiteUrl + "kelime-arama?CategoryId=0";
+                        %>
+                        <form class="navbar-form" action="<%:searchLink %>" method="get" role="search">
+                            <%string searchText = "";
+                                if (Request.QueryString["SearchText"] != null)
+                                {
+                                    searchText = Request.QueryString["SearchText"].ToString();
+                                }%>
+                                <span>
+                                <img src="/Content/v2/images/icon/search-icon.png" alt="Ara">
+                            </span>
+                            <input type="text" id="SearchText" value="<%:searchText %>" name="SearchText" autocomplete="off" class="search-text-autocomplate" placeholder="Ürün, Kategori, Firma veya Video Ara" required x-webkit-speech speech>
+                         <div class="input-group-append">
+                                <a href="<%:AppSettings.SiteUrlWithoutLastSlash+"/detayli-arama" %>"  class="btn site-search__btn" ">
+                                    <span class="icon">
+                                        <i class="fa fa-angle-down"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-        <a href="https://www.makinaturkiye.com/detayli-arama" rel="nofollow" class="detayli-arama-btn hidden-xs"> <i class="fa fa-plus"></i>Detaylı Arama</a>
-
+                <div class="row hidden-xs hidden-sm">
+                    <div class="site-search__bottom">
+                        <ul class="site-search__store">
+                            <li <%--class="dropdown  ac-dropdown"--%>>
+                                <a href="<%:AppSettings.StoreAllUrl %>" <%--class="dropdown-toggle" data-toggle="dropdown"--%>>Tüm Mağazalar<%--<i class="fa fa-caret-down" style="float: right; padding: 3px;"></i>--%></a>
+                                <div class="dropdown-menu ">
+                                    <h4 class="search-store_title">Tüm Mağazalar</h4>
+                                    <div class="scrollable" id="StoreCategories">
+                                    </div>
+                                </div>
+                            </li>
+                            <%--             <li>
+                                <a href="<%:AppSettings.SiteUrlWithoutLastSlash %>/alim-talebi">Alım Talebi</a>
+                            </li>--%>
+                        </ul>
+                        <ul class="site-search__links">
+                            <li>
+                                <a target="_blank" href="<%:AppSettings.VideoUrlBase %>">Videolar</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="https://blog.makinaturkiye.com">Blog</a>
+                            </li>
+                            <li>
+                                <a target="_blank" href="<%:AppSettings.SiteUrlWithoutLastSlash %>/yardim">Yardım</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -380,7 +407,7 @@
     };
     var Category = "Oneri";
     $('#SearchText').Autocomplete({
-        serviceUrl: '<%=Url.Action("Index", "Search")%>',
+        serviceUrl: '<%=AppSettings.SiteUrl + Url.Action("Index", "Search")%>',
         showNoSuggestionNotice: true,
         noSuggestionNotice: '',
         minChars: 0,
@@ -457,17 +484,18 @@
                 }
             }
         }
-    }).on('focus', function(event) {
+    }).on('focus', function (event) {
         var self = this;
         $("#SearchText").val("");
-    $(self).autocomplete( "search", this.value);
-});
+        $(self).autocomplete("search", this.value);
+    });
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajax({
             url: '<%:AppSettings.SiteUrl+"/Home/GetStoreProductComment"%>',
             data: {},
+            contentType: "application/json",
             type: 'post',
             success: function (data) {
                 if (data != 0) {

@@ -383,7 +383,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         public List<MTProductCatologItem> MTProductCatologItems { get; set; }
 
         public bool AllowSellUrl { get; set; }
-        public string Keywords { get; set; }
+        //public string Keywords { get; set; }
         public string ProductSellUrl { get; set; }
 
         public List<SelectListItem> CertificateTypes { get; set; }

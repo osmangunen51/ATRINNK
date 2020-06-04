@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="System.Web.Mvc.ViewUserControl<List<MTCategorySliderItem>>" %>
 
-<%if (Model.Count > 0)
+<%if (Model.Count > 0 && Request.QueryString["SearchText"]==null)
     {%>
 <div class="category-banner-carousel owl-carousel owl-theme">
     <%

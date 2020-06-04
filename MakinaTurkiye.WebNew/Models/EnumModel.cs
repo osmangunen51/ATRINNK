@@ -488,6 +488,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         CopKutusuYeni = 8
     }
 
+
+    [Flags]
+
+    public enum ProductStatus : byte
+    {
+        NewProduct=72,
+        SecondHand=73
+    }
+
+
+
     [Flags]
     public enum ProductActive : byte
     {

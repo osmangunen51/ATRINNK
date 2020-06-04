@@ -536,11 +536,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         #endregion
 
         [Compress]
-        public ActionResult DetailClear(int? productId, string productGroupName, string firstCategoryName, string productName, string pageType)
+        public ActionResult 
+            DetailClear(int? productId, string productGroupName, string firstCategoryName, string productName, string pageType)
         {
             if (!productId.HasValue)
             {
-                return RedirectToAction("HataSayfasi", "Common");
+                return RedirectPermanent(AppSettings.SiteAllCategoryUrl);
+
             }
 
             var product = _productService.GetProductByProductId(productId.Value);
@@ -726,9 +728,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductDetailModel.IsActive = product.GetActiveStatus();
             model.ProductDetailModel.BriefDetail = product.GetBriefDetailText();
             model.ProductDetailModel.SalesType = product.GetProductSalesTypeText();
-            if (product.ModelYear.HasValue && product.ModelYear.Value > 0)
+            if (product.ModelYear.HasValue && product.ModelYear.Value > 0 && !string.IsNullOrEmpty(product.ProductStatu))
             {
-                model.ProductDetailModel.ModelYear = product.ModelYear.Value.ToString();
+                byte number;
+                bool isByte = Byte.TryParse(product.ProductStatu, out number);
+                if(isByte && number== (byte)ProductStatus.SecondHand)
+                {
+                    model.ProductDetailModel.ModelYear = product.ModelYear.Value.ToString();
+                }    
             }
             model.ProductDetailModel.WarriantyPerriod = product.WarrantyPeriod;
             if (!string.IsNullOrEmpty(model.ProductDetailModel.BriefDetail))
@@ -759,7 +766,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             model.ProductDetailModel.CategoryName = product.Category.CategoryName;
             model.ProductDetailModel.CategoryUrl = UrlBuilder.GetCategoryUrl(product.CategoryId.Value, categoryNameUrl, null, null);
-            if (product.Model != null)
+            if (product.Model != null && product.Brand!=null)
             {
                 model.ProductDetailModel.ModelName = product.Model.CategoryName;
                 model.ProductDetailModel.ModelUrl = UrlBuilder.GetModelUrl(product.ModelId.Value, product.Model.CategoryName, product.Brand.CategoryName, categoryNameUrl, product.Category.CategoryId);

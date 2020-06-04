@@ -712,8 +712,19 @@
                                     else
                                     {
                                         if (string.IsNullOrEmpty(Model.SpesificCategoryNameForModelH1))
-                                        { %>
-                                <%:Model.CategoryModel.TopCategoryItemModels.LastOrDefault(c=>c.CategoryType!=(byte)CategoryType.Brand && c.CategoryType!=(byte)CategoryType.Model && c.CategoryType!=(byte)CategoryType.Series ).CategoryName%>
+                                        {  var topCategory = Model.CategoryModel.TopCategoryItemModels.LastOrDefault(c => c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Series);
+                                            if (!string.IsNullOrWhiteSpace(topCategory.CategoryContentTitle))
+                                            {
+                                                %>
+                                <%:topCategory.CategoryContentTitle %>
+                                <%
+                                    }
+                                    else {
+                                        %>
+                                <%:topCategory.CategoryName %>
+                                   <% }
+                                            %>
+                   
 
                                 <%}
                                     }%>

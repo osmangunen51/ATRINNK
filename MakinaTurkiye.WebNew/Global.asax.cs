@@ -146,10 +146,14 @@ namespace NeoSistem.MakinaTurkiye.Web
 
             // Call target Controller and pass the routeData.
             IController errorController = EngineContext.Current.Resolve<CommonController>();
+            routeData.Values["controller"] = "Common";
+            routeData.Values["action"] = "HataSayfasi";
+            routeData.Values["error"] = exception;
 
-            routeData.Values.Add("controller", "Common");
-            routeData.Values.Add("action", "HataSayfasi");
-            routeData.Values.Add("error", exception);
+            //routeData.Values.Add("error", exception);
+            //routeData.Values.Add("controller", "Common");
+            //routeData.Values.Add("action", "HataSayfasi");
+ 
 
             Server.ClearError();
 

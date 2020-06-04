@@ -14,6 +14,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Catolog
         public string CategoryName { get; set; }
         
         public IconModel IconModel { get; set; }
+            public string HomePageImagePath { get; set; }
         public List<Banner> BannerItems { get; set; }
     }
 }

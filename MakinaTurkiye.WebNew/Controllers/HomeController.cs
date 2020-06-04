@@ -477,7 +477,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 storeSuccessList.Add(new MTStoreNewItem { Date = item.RecordDate.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture), ImagePath = imagePath, NewUrl = UrlBuilder.GetStoreNewUrl(item.StoreNewId, item.Title), Title = item.Title });
             }
-            model.SuccessStories = storeSuccessList;
+            //model.SuccessStories = storeSuccessList;
         }
 
         private void PrepareNewsModel(MTHomeModel model)
@@ -496,7 +496,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 storeNewList.Add(new MTStoreNewItem { Date = item.RecordDate.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture), ImagePath = imagePath, NewUrl = UrlBuilder.GetStoreNewUrl(item.StoreNewId, item.Title), Title = item.Title });
             }
-            model.StoreNewItems = storeNewList;
+            //model.StoreNewItems = storeNewList;
         }
 
         #endregion
@@ -517,11 +517,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 PrepareSliderBannerMoldes(model);
                 PreparePopularStoreModel(model);
 
+                PrepareHomeSectorItems(model);
+
                 IConstantService constantService = EngineContext.Current.Resolve<IConstantService>();
                 var constant = constantService.GetConstantByConstantId(235);
                 model.ConstantTitle = constant.ConstantTitle;
                 model.ConstantProperty = constant.ContstantPropertie;
-
+   
                 //PrepareHomeCategoryProductModels(model.MTAllSelectedProduct,0, 1);
 
                 //PreparePopularVideoModels(model);
@@ -539,6 +541,23 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
             return await Task.FromResult(View(testModel));
+        }
+
+        public void PrepareHomeSectorItems(MTHomeModel model)
+        {
+            var categoryService =EngineContext.Current.Resolve<ICategoryService>();
+            var sectorCategories = categoryService.GetMainCategories().Where(x=>x.HomeImagePath!=null);
+            foreach (var item in sectorCategories)
+            {
+
+                model.HomeSectorItems.Add(new MTHomeSectorItem
+                {
+                    CategoryContentTitle = item.CategoryContentTitle,
+                    CategoryName = item.CategoryName,
+                    CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, item.CategoryName, null, string.Empty),
+                    ImagePath = ImageHelper.GetHomeSectorImagePath(item.HomeImagePath)
+                });
+            }
         }
 
         [HttpGet]
@@ -631,7 +650,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             return View(model);
         }
-
+        [AllowSameSite]
         public PartialViewResult GetSubMenu(int id)
         {
             IBaseMenuService _baseMenuService = EngineContext.Current.Resolve<IBaseMenuService>();
@@ -729,7 +748,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             return PartialView(model);
         }
-
+        [AllowSameSite]
         [HttpPost]
         public JsonResult GetStoreProductComment()
         {

@@ -10,7 +10,7 @@
     
     if (Model != null && Model.Any(c => c.BannerType == (byte)BannerType.CategoryBanner1))
     { 
-    var banner1 = Model.SingleOrDefault(c => c.BannerType == (byte)BannerType.CategoryBanner1); 
+    var banner1 = Model.FirstOrDefault(c => c.BannerType == (byte)BannerType.CategoryBanner1); 
 
     if (banner1 != null)
     { 

@@ -170,6 +170,7 @@
           <Property Name="CategoryPath" Type="nvarchar" MaxLength="500" />
           <Property Name="CategoryPathUrl" Type="nvarchar" MaxLength="250" />
           <Property Name="BaseMenuOrder" Type="smallint" />
+          <Property Name="HomeImagePath" Type="nvarchar" MaxLength="150" />
         </EntityType>
         <EntityType Name="CertificateTypeProduct">
           <Key>
@@ -1923,54 +1924,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Product_Category_Brand">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="BrandId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Category_Category">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Category_ProductGrup">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="ProductGroupId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Product_Category_Series">
-          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-          <End Role="Product" Type="Self.Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Category">
-              <PropertyRef Name="CategoryId" />
-            </Principal>
-            <Dependent Role="Product">
-              <PropertyRef Name="SeriesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Product_City">
           <End Role="City" Type="Self.City" Multiplicity="0..1" />
           <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -2632,22 +2585,6 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <AssociationSet Name="FK_Picture_StoreDealer" Association="Self.FK_Picture_StoreDealer">
             <End Role="StoreDealer" EntitySet="StoreDealer" />
             <End Role="Picture" EntitySet="Picture" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Category_Brand" Association="Self.FK_Product_Category_Brand">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Category_Category" Association="Self.FK_Product_Category_Category">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Category_ProductGrup" Association="Self.FK_Product_Category_ProductGrup">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Product" EntitySet="Product" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Category_Series" Association="Self.FK_Product_Category_Series">
-            <End Role="Category" EntitySet="Category" />
-            <End Role="Product" EntitySet="Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Product_City" Association="Self.FK_Product_City">
             <End Role="City" EntitySet="City" />
@@ -3346,6 +3283,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <Property Name="CategoryPathUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="BaseMenuOrder" Type="Int16" />
           <NavigationProperty Name="StoreSectors" Relationship="MakinaTurkiyeModel.FK__StoreSect__Categ__7DA67417" FromRole="Category" ToRole="StoreSector" />
+          <Property Name="HomeImagePath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -5929,6 +5867,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
             <ScalarProperty Name="BannerDescription" ColumnName="BannerDescription" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Categories"><EntityTypeMapping TypeName="MakinaTurkiyeModel.Category"><MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="HomeImagePath" ColumnName="HomeImagePath" />
                 <ScalarProperty Name="BaseMenuOrder" ColumnName="BaseMenuOrder" />
                 <ScalarProperty Name="CategoryPathUrl" ColumnName="CategoryPathUrl" />
                 <ScalarProperty Name="CategoryPath" ColumnName="CategoryPath" />

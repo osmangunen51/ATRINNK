@@ -542,11 +542,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             break;
                     }
                 }
-                //else
-                //{
-                //    productsForStore = _productService.GetSPProductForStoreByCategoryId(categoryId, item.MemberMainPartyId, 6);
-                //}
-                if(productsForStore!=null)
+                else
+                {
+                    productsForStore = _productService.GetSPProductForStoreByCategoryId(0, item.MemberMainPartyId, 6);
+
+                }
+
+                if (productsForStore!=null)
                 {
                     foreach (var productItem in productsForStore)
                     {
@@ -662,6 +664,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //    ViewData["SEOPAGETYPE"] = 29;
 
             Category category = null;
+     
+            if (!Request.IsLocal && categoryId==0)
+            {
+                if (Request.Url.ToString().ToLower().Contains("sirketler")){
+                    return RedirectPermanent(AppSettings.StoreAllUrl);
+                }
+            }
             if (categoryId > 0)
             {
                 category = _categoryService.GetCategoryByCategoryId(categoryId);
@@ -944,17 +953,27 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return PartialView(model);
         }
 
-        public ActionResult StoreWrongUrl(int categoryId)
+        public ActionResult StoreWrongUrl(int? categoryId)
         {
-            var category = _categoryService.GetCategoryByCategoryId(categoryId);
-            if (category == null)
+            if (categoryId.HasValue)
+            {
+                var category = _categoryService.GetCategoryByCategoryId(categoryId.Value);
+                if (category == null)
+                {
+                    return RedirectPermanent(AppSettings.StoreAllUrl);
+                }
+                var storeUrl = UrlBuilder.GetStoreCategoryUrl(category.CategoryId, FormatHelper.GetCategoryNameWithSynTax(category.CategoryName, CategorySyntaxType.Store));
+                return RedirectPermanent(storeUrl);
+            }
+            else
             {
                 return RedirectPermanent(AppSettings.StoreAllUrl);
             }
-            var storeUrl = UrlBuilder.GetStoreCategoryUrl(category.CategoryId, FormatHelper.GetCategoryNameWithSynTax(category.CategoryName, CategorySyntaxType.Store));
-            return RedirectPermanent(storeUrl);
+
 
         }
+
+
 
         #endregion
 

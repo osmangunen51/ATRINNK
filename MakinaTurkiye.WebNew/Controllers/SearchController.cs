@@ -1,5 +1,6 @@
 ﻿using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Search;
+using MakinaTurkiye.Utilities.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
     [AllowAnonymous]
+    [AllowSameSite]
     public class SearchController : BaseController
     {
         private readonly ISearchService SearchService;
@@ -61,9 +63,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     if (searchTexts.Contains(","))
                     {
                         string[] itemSearchTexts = searchTexts.Split(',');
-                        for (int i = 0; i < itemSearchTexts.Length; i++)
+                       var reversed =   itemSearchTexts.Reverse().ToList();
+                        int numbers = reversed.Count() > 12 ? 12 : reversed.Count();
+                        
+                        for (int i = 0; i < numbers; i++)
                         {
-                            Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = itemSearchTexts[i], data = new data { category = "Gecmis" }, Url = "" });
+                            Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = reversed[i], data = new data { category = "Gecmis" }, Url = "" });
                         }
                     }
                     else

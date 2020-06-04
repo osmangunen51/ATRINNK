@@ -23,6 +23,9 @@
 
     <div class="col-sm-7 col-md-8 col-lg-9">
 
+        <%if (Model.MTProductsProductListModel.MTProductsPageProductLists.Source.Count() > 0)
+            {
+        %>
         <div class="store-product-container">
 
             <div class="col-md-12" style="padding: 0px;">
@@ -71,10 +74,28 @@
                     </div>
                 </div>
             </div>
-            <!-- /.col-md-5 main content -->
+    
         </div>
-
         <%}
+            else
+            {%>
+        <div class="row">
+            <div class="col-md-12 search-no-result-container">
+                <div class="col-md-6 message">
+                    <img src="../../Content/V2/images/not-found.png" />
+                    <p class="message-text">
+                        Bu kategoride ürün  bulunamamıştır.
+                    </p>
+                    <div>
+                        Dilerseniz firmanın <a href="<%:Model.MTStoreProfileHeaderModel.StoreUrl %>">ansayfasına</a>  veya <a href="<%:AppSettings.SiteAllCategoryUrl %>">tüm ürünler</a> sayfamıza bakabilirsiniz.
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <%}%>
+        <%}
+
             else
             { %>
         <%=Html.Action("NoAccessStore",new{id=Model.MTProductsProductListModel.StoreMainPartyId}) %>

@@ -3,10 +3,10 @@
 <%if (Model.SelectedCategoryId == 0)
     {  %>
 
-<ul class="dropdown-menu supporter-nav" role="menu">
+<ul class="search-store__list" role="menu">
     <% foreach (var item in Model.StoreCategoryItemModels)
         { %>
-    <li role="menuitem" class="supporer-menu-item">
+    <li role="menuitem" >
         <a href="<%: item.CategoryUrl %>" rel="nofollow">
             <%= item.CategoryName %>
         </a>

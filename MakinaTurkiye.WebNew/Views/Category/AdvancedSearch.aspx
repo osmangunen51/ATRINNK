@@ -257,10 +257,10 @@
         <%--<h1 style="font-size:20px">Detaylı Arama</h1>--%>
        
         <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-            <li class="nav-item active">
+<%--            <li class="nav-item active">
                    <a class="nav-link active" id="advert-tab" data-toggle="tab" href="#advert" role="tab" aria-controls="home" aria-selected="true">Ürün Ara</a>
-            </li>
-             <li class="nav-item">
+            </li>--%>
+<%--             <li class="nav-item">
                    <a class="nav-link active" id="advert-tab2" data-toggle="tab" href="#advert" role="tab" aria-controls="home" aria-selected="true">Firma Arama</a>
             </li>
              <li class="nav-item">
@@ -268,7 +268,7 @@
             </li>
              <li class="nav-item">
                    <a class="nav-link active" id="advert-tab4" data-toggle="tab" href="#advert" role="tab" aria-controls="home" aria-selected="true">Ürün Kodu İle Arama</a>
-            </li>
+            </li>--%>
 
         </ul>
         <div class="tab-content" id="myTabContent">
