@@ -778,14 +778,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + username);
                 }
+    
                 _storeService.CachingGetOrSetOperationEnabled = false;
                 var store = _storeService.GetStoreByStoreUrlName(username);
                 if (store != null)
                 {
 
                     var url = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
-                    var request = HttpContext.Request;
-                    string urlCheck = request.Url.AbsolutePath;
+                    if(!Request.IsLocal && Request.Url.ToString().Contains("https://urun"))
+                    {
+                        return RedirectPermanent(url);
+                    }
 
                     //Seo
                     //SeoPageType = (byte)PageType.Store;
@@ -814,7 +817,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                     _storeService.UpdateStore(store);
 
-                    ViewBag.Canonical = AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath;
+                    ViewBag.Canonical = AppSettings.SiteUrlWithoutLastSlash + Request.Url.AbsolutePath;
                     var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(store.MainPartyId);
                     if (memberStore==null)
                     {
@@ -901,44 +904,56 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             else
             {
                 var store = _storeService.GetStoreByStoreUrlName(username);
-                var request = HttpContext.Request;
 
- 
 
-                ViewBag.Canonical = AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath;
 
-                Category category = null;
-
-                if (!string.IsNullOrEmpty(CategoryId))
-                {
-                    int categoryId = Convert.ToInt32(CategoryId);
-                    category = _categoryService.GetCategoryByCategoryId(categoryId);
-                    if (category == null)
-                    {
-                        if (store != null)
-                            return RedirectPermanent(UrlBuilder.GetProductUrlForStoreProfile(store.MainPartyId, store.StoreName, store.StoreUrlName));
-                        else
-                            return RedirectPermanent(AppSettings.SiteAllCategoryUrl);
-                    }
-                    if (store == null)
-                    {
-                        string urlNew = AppSettings.SiteAllCategoryUrl;
-                        if (category != null)
-                        {
-                            if ((category.CategoryType == (byte)CategoryType.Category ||
-                                category.CategoryType == (byte)CategoryType.ProductGroup ||
-                                category.CategoryType == (byte)CategoryType.Sector))
-                                urlNew = UrlBuilder.GetCategoryUrl(categoryId, category.CategoryName, null, string.Empty);
-                        }
-
-                        return RedirectPermanent(urlNew);
-                    }
-
-                }
                 if (store != null)
                 {
                     //SeoPageType = (byte)PageType.StoreProductPage;
+                    var request = HttpContext.Request;
 
+                    string url = UrlBuilder.GetStoreProfileProductUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
+                    
+
+                    ViewBag.Canonical = AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath;
+
+                    Category category = null;
+
+                    if (!string.IsNullOrEmpty(CategoryId))
+                    {
+                        int categoryId = Convert.ToInt32(CategoryId);
+                        category = _categoryService.GetCategoryByCategoryId(categoryId);
+                        if (category == null)
+                        {
+                            if (store != null)
+                                return RedirectPermanent(UrlBuilder.GetProductUrlForStoreProfile(store.MainPartyId, store.StoreName, store.StoreUrlName));
+                            else
+                                return RedirectPermanent(AppSettings.SiteAllCategoryUrl);
+                        }
+                        if (store == null)
+                        {
+                            string urlNew = AppSettings.SiteAllCategoryUrl;
+                            if (category != null)
+                            {
+                                if ((category.CategoryType == (byte)CategoryType.Category ||
+                                    category.CategoryType == (byte)CategoryType.ProductGroup ||
+                                    category.CategoryType == (byte)CategoryType.Sector))
+                                    urlNew = UrlBuilder.GetCategoryUrl(categoryId, category.CategoryName, null, string.Empty);
+                            }
+
+                            return RedirectPermanent(urlNew);
+                        }
+
+                        url = UrlBuilder.GetStoreProfileProductCategoryUrl(category.CategoryId, category.CategoryName, store.StoreUrlName);
+                    }
+
+                    if (!Request.IsLocal)
+                    {
+                        if (url != Request.Url.ToString())
+                        {
+                            return RedirectPermanent(url);
+                        }
+                    }
                     if (request.Url.AbsolutePath.Any(x => char.IsUpper(x)))
                     {
                         return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath.ToLower());

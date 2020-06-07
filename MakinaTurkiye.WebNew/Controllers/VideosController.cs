@@ -691,6 +691,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return await Task.FromResult(View(testModel));
         }
 
+
+
         public ActionResult VideoItems2(int VideoId)
         {
             var request = HttpContext.Request;
@@ -1140,6 +1142,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         //    return dizi[0];
         //}
 
+        public ActionResult Redirect301()
+        {
+            return RedirectPermanent(AppSettings.VideoUrlBase);
+        }
         #endregion
     }
 }

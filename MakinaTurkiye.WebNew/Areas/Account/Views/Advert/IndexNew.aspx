@@ -69,7 +69,7 @@
         }
         $(document).ready(function () {
 
-                       jQuery.curCSS = function (element, prop, val) {
+            jQuery.curCSS = function (element, prop, val) {
                 return jQuery(element).css(prop, val);
             };
             $("#productNameForSearch").autocomplete({
@@ -156,20 +156,26 @@
             </h4>
         </div>
     </div>
-
     <div class="row">
-
         <div class="col-sm-12 col-md-12">
             <div>
                 <div class="loading">Loading&#8230;</div>
                 <div class="well store-panel-container">
+
                     <div class="row m5">
                         <%=Html.RenderHtmlPartial("_AdvertTop",Model.MTAdvertsTopViewModel) %>
+                        <%if (TempData["Message"] != null)
+                            {%>
+                        <div class="alert alert-success" style="margin-top:10px;" role="alert">
+                            <strong>Başarılı!</strong><%:TempData["Message"] %>
+                        </div>
+                        <% } %>
                         <%if (Model.DisplayType == (byte)DisplayType.List)
                             {%>
                         <div class="row" style="margin-bottom: 15px;">
                             <div class="col-md-12">
                                 <form action="javascript:void(0)">
+
                                     <div class="input-group">
 
                                         <input type="text" class="form-control" name="productNameForSearch" id="productNameForSearch" placeholder="Anahtar Kelime..(ürün arama)" aria-describedby="basic-addon2">
@@ -180,7 +186,7 @@
                                         </span>
 
                                     </div>
-
+                                    <div style="float: right;"><a href="/Account/Advert/UpdateProductsUpdateDate" style="color: #333;">Tüm İlanları Güncelle</a></div>
                                 </form>
 
                             </div>
@@ -199,8 +205,8 @@
                                     %>
                                     <%= Html.RenderHtmlPartial("_AdvertListWindow", Model.MTProducts) %>
                                     <%}
-                                    else
-                                    {%>
+                                        else
+                                        {%>
                                     <%=Html.RenderHtmlPartial("_AdvertListTable",Model.MTProducts) %>
                                     <% } %>
 

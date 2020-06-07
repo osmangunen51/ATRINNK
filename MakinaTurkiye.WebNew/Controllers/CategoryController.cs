@@ -25,6 +25,7 @@ using NeoSistem.MakinaTurkiye.Web.Models.Videos;
 using Schema.NET;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -201,7 +202,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     else if (c.CategoryType == (byte)CategoryType.Model)
                     {
-
+                        var link = Request.Url.AbsolutePath;
                         if (string.IsNullOrEmpty(selectedCategoryId))
                         {
                             string brandName = string.Empty;
@@ -215,16 +216,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             }
 
 
+                            string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
 
-                            if (c.CategoryType == (byte)CategoryType.Model)
-                            {
-
-                                string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
-
-                                var url = UrlBuilder.GetModelUrl(c.CategoryId, c.CategoryName, brandName, categoryNameUrl, Convert.ToInt32(c.CategoryParentId));
+                            var url = UrlBuilder.GetModelUrl(c.CategoryId, c.CategoryName, brandName, categoryNameUrl, Convert.ToInt32(c.CategoryParentId));
+                            if (link != url)
                                 return url;
-                            }
+
                         }
+                
+
                     }
                 }
             }
@@ -1428,7 +1428,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     categoryUrl = UrlBuilder.GetSerieUrl(item.CategoryId, categoryNameUrl, brand.CategoryName, topCategory.CategoryName);
                 }
                 navigationUrl = categoryUrl.Replace(":443", "");
-                alMenu.Add(new Navigation(item.CategoryName, navigationUrl, Navigation.TargetType._self));
+                var categoryName = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
+                alMenu.Add(new Navigation(categoryName, navigationUrl, Navigation.TargetType._self));
                 string navigationUrl1 = categoryUrl.Replace(":443", "").Replace(AppSettings.SiteUrlWithoutLastSlash, "");
                 alMenuSecond.Add(new Navigation(categoryNameUrl, navigationUrl1, Navigation.TargetType._self));
 
@@ -1477,7 +1478,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 int selectedCityId = GetCityIdRouteData();
                 int selectedLocalityId = GetLocalityIdRouteData();
 
-                IList<StoreForCategoryResult> categoryStores = _storeService.GetSPStoreForCategorySearch(selectedCategoryId, selectedBrandId, selectedCountryId, selectedCityId, selectedLocalityId);
+                IList<StoreForCategoryResult> categoryStores = _storeService.GetSPStoreForCategorySearch(selectedCategoryId, selectedBrandId, selectedCountryId, selectedCityId, selectedLocalityId).OrderBy(x => x.MainPartyId).Skip(0).Take(8).ToList();
 
                 model.StoreModel.SelectedCategoryId = categoryAndBrand.CategoryId;
                 model.StoreModel.SelectedCategoryType = categoryAndBrand.CategoryType.Value;
@@ -1486,7 +1487,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     model.StoreModel.SelectedCategoryName = categoryAndBrand.CategoryContentTitle;
 
                 List<int?> Liste = categoryStores.Select(x => (int?)x.MainPartyId).ToList();
-                var StoreListesi = _storeService.GetStoresByMainPartyIds(Liste).ToList();
+                var StoreListesi = _storeService.GetStoresByMainPartyIds(Liste).OrderBy(x => x.storerate).ToList();
                 foreach (var item in categoryStores)
                 {
                     string storeUrlName = StoreListesi.FirstOrDefault(x => x.MainPartyId == item.MainPartyId).StoreUrlName;
@@ -1735,18 +1736,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (searchText.Length >= 3)
             {
 
-                string keyword = searchText.Trim();
+                string keyword = new CultureInfo("tr-TR").TextInfo.ToTitleCase(searchText.Trim());
                 string cookieName = "Makinaturkiye_SearhTexts";
                 string searchTexts = GetCookie(cookieName);
                 if (!string.IsNullOrEmpty(searchTexts))
                 {
-                    if(searchTexts.IndexOf(keyword) < 0)
+
+                    if (searchTexts.IndexOf(keyword) < 0)
                     {
-                        searchTexts += "," + keyword;
+                        searchTexts += "," + new CultureInfo("tr-TR").TextInfo.ToTitleCase(keyword);
                         DeleteCookie(cookieName);
                         CreateCookie(cookieName, searchTexts, DateTime.Now.AddDays(10));
                     }
-  
+
                 }
                 else
                 {
@@ -2462,6 +2464,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public async Task<ActionResult> Index2(string selectedCategoryId, string SearchText)
         {
             var request = HttpContext.Request;
+            if (request.Url.ToString() == "https://www.makinaturkiye.com/urun-kategori-c-0")
+            {
+                return RedirectPermanent("https://urun.makinaturkiye.com");
+            }
 
 
             var yenilink = PrepareForLink(selectedCategoryId);
@@ -2713,7 +2719,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if (bannerMobile != null)
                     bannerItemModel.SliderImagePathMobile = ImageHelper.GetCategoryBannerImagePath(bannerMobile.BannerResource);
 
-                bannerItemModel.AltTag = !string.IsNullOrEmpty(bannerPc.BannerAltTag) ? bannerPc.BannerAltTag : "";
+                bannerItemModel.AltTag = !string.IsNullOrEmpty(bannerPc.BannerAltTag) ? bannerPc.BannerAltTag : model.CategoryModel.SelectedCategoryContentTitle;
 
                 model.MTCategoSliderItems.Add(bannerItemModel);
             }

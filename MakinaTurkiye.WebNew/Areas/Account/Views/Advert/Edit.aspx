@@ -562,14 +562,14 @@
                             <%: Html.ValidationMessageFor(m => m.ProductDescription)%>
                         </div>
                     </div>
-                    <div class="form-group">
+<%--                    <div class="form-group">
                         <label class="col-sm-3 control-label">Anahtar Kelimeler:</label>
                         <div class="col-sm-9">
 
                             <input type="text" name="Keywords" value="<%:Model.Keywords %>"  data-role="tagsinput" class="form-control" /><br />
                             <small>Virgül ile ayırınız</small>
                         </div>
-                    </div>
+                    </div>--%>
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label">Sertifikalar</label>

@@ -625,6 +625,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             seo.Keywords = seo.Keywords.Replace("{Fiyati}", product.GetFormattedPrice());
             seo.Title = seo.Title.Replace("{Fiyati}", product.GetFormattedPrice());
 
+            
+
             if (product.City != null && !string.IsNullOrEmpty(product.City.CityName))
             {
                 seo.Description = seo.Description.Replace("{Sehir}", product.City.CityName);
@@ -639,6 +641,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 seo.Title = seo.Title.Replace("{Ilce}", product.Locality.LocalityName);
             }
 
+            var keyWordsWithComma = string.Join(",", product.ProductName.Replace("-","").Replace("/","").Replace("_","").Split(' ').ToList());
+            seo.Keywords = seo.Keywords + "," + keyWordsWithComma;
             model.Description = seo.Description;
             model.Keywords = seo.Keywords;
             model.Robots = seo.Robots;
@@ -777,11 +781,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 seo.Keywords = seo.Keywords.Replace("{FirmaAdi}", store.StoreName);
             seo.Title = seo.Title.Replace("{FirmaAdi}", store.StoreName);
 
+            string storeShortName = "";
+
             if (!string.IsNullOrEmpty(store.StoreShortName))
             {
-                seo.Description = seo.Description.Replace("{FirmaKısaAdi}", store.StoreShortName);
-                seo.Keywords = seo.Keywords.Replace("{FirmaKısaAdi}", store.StoreShortName);
-                seo.Title = seo.Title.Replace("{FirmaKısaAdi}", store.StoreShortName);
+                seo.Description = seo.Description.Replace("{FirmaKisaAdi}", store.StoreShortName);
+                seo.Keywords = seo.Keywords.Replace("{FirmaKisaAdi}", store.StoreShortName);
+                seo.Title = seo.Title.Replace("{FirmaKisaAdi}", store.StoreShortName);
             }
             seo.Description = seo.Description.Replace("{FirmSeoTitle}", store.SeoTitle);
 
@@ -809,8 +815,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                     categoryNameSeoText = categoryParent.CategoryName + " " + categoryNameSeoText;
                 }
-
-
                 seo.Description = seo.Description.Replace("{Kategori}", categoryNameSeoText);
                 if (!string.IsNullOrEmpty(seo.Keywords))
                     seo.Keywords = seo.Keywords.Replace("{Kategori}", categoryNameSeoText);

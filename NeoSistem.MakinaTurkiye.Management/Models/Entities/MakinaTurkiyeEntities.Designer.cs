@@ -6068,6 +6068,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Int16> _BaseMenuOrder;
         partial void OnBaseMenuOrderChanging(Nullable<global::System.Int16> value);
         partial void OnBaseMenuOrderChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String HomeImagePath
+        {
+            get
+            {
+                return _HomeImagePath;
+            }
+            set
+            {
+                OnHomeImagePathChanging(value);
+                ReportPropertyChanging("HomeImagePath");
+                _HomeImagePath = StructuralObject.SetValidValue(value, true, "HomeImagePath");
+                ReportPropertyChanged("HomeImagePath");
+                OnHomeImagePathChanged();
+            }
+        }
+        private global::System.String _HomeImagePath;
+        partial void OnHomeImagePathChanging(global::System.String value);
+        partial void OnHomeImagePathChanged();
 
         #endregion
 

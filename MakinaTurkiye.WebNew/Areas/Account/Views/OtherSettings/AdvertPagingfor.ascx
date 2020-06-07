@@ -1,5 +1,61 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<SearchModel<NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert.MTProductItem>>" %>
 
+<style type="text/css">
+    .clearable { position: relative; display: inline-block; }
+        .clearable input[type=text] { padding-right: 24px; width: 100%; box-sizing: border-box; }
+    .clearable__clear { display: none; position: absolute; right: 0; top: 0; padding: 0 8px; font-style: normal; font-size: 1.2em; user-select: none; cursor: pointer; }
+    .clearable input::-ms-clear { /* Remove IE default X */ display: none; }
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".clearable").each(function () {
+
+            var $inp = $(this).find("input:text"),
+                $cle = $(this).find(".clearable__clear");
+
+            $inp.on("input", function () {
+                $cle.toggle(!!this.value);
+            });
+
+            $cle.on("touchstart click", function (e) {
+                e.preventDefault();
+                $inp.val("").trigger("input");
+            });
+
+        });
+        $('.searchText').on('keypress', function (e) {
+            if (e.which === 13) {
+                var currentPage = $("#CurrentPage").val();
+
+                PageChangeOtherSettings(currentPage, 2, 1);
+
+
+            }
+        });
+    });
+
+    
+    function PageChangeOtherSettings(p, d, a) {
+        $(".loading").show();
+        $.ajax({
+            url: '/Account/OtherSettings/AdvertPagingfor',
+            type: 'post',
+            data: {
+                page: p, displayType: d, advertListType: 7, ProductActiveType: a,
+                productNo: $("#ProductNo").val(), 
+                productName: $("#ProductName").val(),
+                categoryName: $("#CategoryName").val(),
+                brandName: $("#BrandName").val()
+            },
+            success: function (data) {
+                $(".loading").hide();
+                $('#Advert').html(data);
+            }
+        });
+    }
+</script>
+<%:Html.HiddenFor(x=>x.CurrentPage) %>
+          <div class="loading">Loading&#8230;</div>
 <table class="table table-hover table-condensed">
     <thead>
         <tr>
@@ -7,9 +63,34 @@
             </th>
             <th>Ürün Adı
             </th>
-            <th>Fiyatı
-            </th>
+            <th>Kategori</th>
+            <th>Marka</th>
+            <th>Fiyatı</th>
             <th></th>
+        </tr>
+        <tr>
+            <td>
+                <span class="clearable">
+                    <input class="searchText  form-control" id="ProductNo" type="text" value="#" />
+                    <i class="clearable__clear">&times;</i>
+                </span></td>
+            <td>
+                <span class="clearable">
+                    <input class="searchText form-control" type="text" id="ProductName" placeholder="Ürün Adı" />
+                    <i class="clearable__clear">&times;</i>
+                </span></td>
+
+            <td>
+                <span class="clearable">
+                    <input class="searchText  form-control" type="text" id="CategoryName" placeholder="Kategori.." />
+                    <i class="clearable__clear">&times;</i>
+                </span></td>
+            <td><span class="clearable">
+                <input class="searchText  form-control" type="text" id="BrandName" placeholder="Marka.." />
+                <i class="clearable__clear">&times;</i>
+            </span></td>
+            <td></td>
+            <td></td>
         </tr>
     </thead>
     <tbody>
@@ -28,14 +109,59 @@
                     <%=Helpers.Truncate(count.ProductName, 100)%></a>
             </td>
             <td>
+                <%:count.CategoryName %>
+            </td>
+            <td>
+                <%:count.BrandName %>
+            </td>
+            <td>
+                <%if (count.ProductPriceType == 238)
+                    {%>
                 <div id="priceEditWrapper<%:count.ProductId %>" style="display: none;">
-                    <%:Html.TextBox("editPriceValue", count.ProductPriceDecimal.Value.ToString("N2"), new {@id="editPriceValue"+count.ProductId ,@class="form-control"})%>
+                    <%string productPrice = count.ProductPriceDecimal.Value.ToString("N2");
+                        if (count.ProductPriceWithDiscountDecimal != 0)
+                        {
+                            productPrice = count.ProductPriceWithDiscountDecimal.Value.ToString("N2"); %>
+                    <% }%>
+                    <%:Html.TextBox("editPriceValue", productPrice, new { @id = "editPriceValue" + count.ProductId, @class = "form-control" })%>
                     <button type="button" class="btn btn-info" onclick="PriceEditClick(<%:count.ProductId %>)">Kaydet</button>
                     <button type="button" class="btn btn-info" onclick="PriceEditCancel(<%:count.ProductId %>)">İptal</button>
                 </div>
                 <div id="priceDisplay<%:count.ProductId %>">
-                    <span id="priceDisplayValue<%:count.ProductId %>" style="width: 50px!important;"><%=count.ProductPrice%></span> - <a href="#" onclick="PriceEditShow(<%=count.ProductId %>)" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <span id="priceDisplayValue<%:count.ProductId %>" style="width: 50px!important;">
+                        <%if (!string.IsNullOrEmpty(count.ProductPriceWithDiscount))
+                            {
+
+                        %>
+                        <span style="text-decoration: line-through;"><%:count.ProductPrice %></span>
+                        <%:count.ProductPriceWithDiscount %>
+                        <%
+                            }
+                            else
+                            {%>
+                        <%:count.ProductPrice %>
+                        <%
+                            } %>
+                        <i class="<%:count.CurrencyCssText %>"></i>
+                        <%if (count.IsKdv)
+                            {%>
+                            Kdv Dahil
+                        <% }
+                            else
+                            {%>
+                            Kdv Hariç
+                        <% } %>
+                    </span>
+                    <a href="#" onclick="PriceEditShow(<%=count.ProductId %>)" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
                 </div>
+                <% }
+                    else
+                    {
+                %>
+                <span><%:count.ProductPrice %></span>
+                <a href="/Account/advert/Edit/<%:count.ProductId %>" target="_blank" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
+                <%} %>
+
             </td>
             <td>
                 <a href="<%=productUrl%>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;İncele </a>
@@ -69,10 +195,10 @@
                 else
                 { %>
             <li>
-                <a onclick="PageChangeOtherSettings(<%: item %>,2,1);" href="#"><%: item%></a></li>
+                <a onclick="PageChangeOtherSettings(<%: item %>,2,1);"><%: item%></a></li>
             <% } %>
             <% } %>
-            <li><a href="#" onclick="PageChangeOtherSettings(<%: pageCount%>,2,1);">&raquo; </a></li>
+            <li><a  onclick="PageChangeOtherSettings(<%: pageCount%>,2,1);">&raquo; </a></li>
         </ul>
     </div>
 </div>

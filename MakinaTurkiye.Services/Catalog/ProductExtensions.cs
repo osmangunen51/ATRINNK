@@ -104,5 +104,7 @@ namespace MakinaTurkiye.Services.Catalog
                 return constant.ConstantName;
             return string.Empty;
         }
+
+
     }
 }

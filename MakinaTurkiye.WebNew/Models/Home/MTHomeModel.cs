@@ -19,11 +19,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
             this.HomeLeftCategoriesModel = new MTHomeLeftCategoriesModel();
             this.HomeProductsRelatedCategoryModel = new MTHomeProductsRelatedCategoryModel();
             this.MTMayLikeProductModel = new MTMayLikeProductModel();
-            this.StoreNewItems = new List<MTStoreNewItem>();
-            this.SuccessStories = new List<MTStoreNewItem>();
+            //this.StoreNewItems = new List<MTStoreNewItem>();
+            //this.SuccessStories = new List<MTStoreNewItem>();
+            this.HomeSectorItems = new List<MTHomeSectorItem>();
             this.MTAllSelectedProduct = new List<MTAllSelectedProductModel>();
         }
 
+       
         public List<MTHomeCategoryModel> CategoryModels { get; set; }
         public List<MTHomeVideoModel> PopularVideoModels { get; set; }
         public List<MTHomeBannerModel> SliderBannerMoldes { get; set; }
@@ -32,8 +34,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
         public MTHomeLeftCategoriesModel HomeLeftCategoriesModel { get; set; }
         public MTHomeProductsRelatedCategoryModel HomeProductsRelatedCategoryModel { get; set; }
         public MTMayLikeProductModel MTMayLikeProductModel { get; set; }
-        public List<MTStoreNewItem> StoreNewItems { get; set; }
-        public List<MTStoreNewItem> SuccessStories { get; set; }
+        //public List<MTStoreNewItem> StoreNewItems { get; set; }
+        //public List<MTStoreNewItem> SuccessStories { get; set; }
+        public List<MTHomeSectorItem> HomeSectorItems { get; set; }
 
         public List<MTAllSelectedProductModel> MTAllSelectedProduct { get; set; }
 

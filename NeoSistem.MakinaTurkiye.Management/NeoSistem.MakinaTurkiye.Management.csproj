@@ -280,6 +280,7 @@
     <Compile Include="Models\Orders\OrderReportItemModel.cs" />
     <Compile Include="Models\Orders\OrderReportModel.cs" />
     <Compile Include="Models\Orders\SalesResponsibleUpdateModel.cs" />
+    <Compile Include="Models\Orders\StoreContactOrderModel.cs" />
     <Compile Include="Models\PaymentItemModel.cs" />
     <Compile Include="Models\PaymentModel.cs" />
     <Compile Include="Models\CityModel.cs" />

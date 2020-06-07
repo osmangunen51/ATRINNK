@@ -57,10 +57,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         #endregion
 
         #region Ctor
-        public HomeController(IOrderService orderService, IProductCommentService productCommentService, 
+        public HomeController(IOrderService orderService, IProductCommentService productCommentService,
             IPacketService packetService, IMemberService memberService,
-            IStoreService storeService, IMemberStoreService memberStoreService, 
-            IAddressService addressService, IPhoneService phoneService, ICategoryService categoryService, 
+            IStoreService storeService, IMemberStoreService memberStoreService,
+            IAddressService addressService, IPhoneService phoneService, ICategoryService categoryService,
             IMessageService messageService, IProductService productService,
             IMessagesMTService messagesMTService, ICategoryPlaceChoiceService categoryPlaceChoiceService)
         {
@@ -78,7 +78,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._messagesMTService = messagesMTService;
             this._categoryPlaceChoiceService = categoryPlaceChoiceService;
 
-            this._packetService.CachingGetOrSetOperationEnabled=false;
+            this._packetService.CachingGetOrSetOperationEnabled = false;
             this._memberService.CachingGetOrSetOperationEnabled = false;
             this._storeService.CachingGetOrSetOperationEnabled = false;
             this._memberStoreService.CachingGetOrSetOperationEnabled = false;
@@ -187,7 +187,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             string mainPartyIdsPar = String.Join(", ", mainPartyIds);
             model.InboxMessageCount = dataMessage.GetItemsByMainPartyIds(mainPartyIdsPar, (byte)MessageType.Inbox).Rows.Count;
 
-            model.ProductCount =  _productService.GetNumberOfProductsByMainPartyId(AuthenticationUser.Membership.MainPartyId);
+            model.ProductCount = _productService.GetNumberOfProductsByMainPartyId(AuthenticationUser.Membership.MainPartyId);
 
             var viewCount = _productService.GetViewOfProductsByMainPartyId(AuthenticationUser.Membership.MainPartyId);
             model.ProductTotalViewCount = viewCount;
@@ -296,7 +296,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 model.AccountHomeCenterCenterModel.LastPage = "bireyselUyelikOnay";
 
 
-               // return RedirectToAction("Index", "Message", new { MessagePageType = 2, messages = "true" });
+                // return RedirectToAction("Index", "Message", new { MessagePageType = 2, messages = "true" });
 
             }
             else if (gelenSayfa == "KurumsalOnay")
@@ -360,8 +360,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 store1 = _storeService.GetStoreByMainPartyId(Convert.ToInt32(memberStore.StoreMainPartyId));
                 if (store1 != null)
                 {
-                    model.AccountHomeCenterCenterModel.ViewSingularCount = store1.SingularViewCount.Value;
-                    model.AccountHomeCenterCenterModel.ViewMultipleCount = store1.ViewCount.Value;
+                    model.AccountHomeCenterCenterModel.ViewSingularCount = store1.SingularViewCount.HasValue ? store1.SingularViewCount.Value : 0;
+                    model.AccountHomeCenterCenterModel.ViewMultipleCount = store1.ViewCount.HasValue ? store1.ViewCount.Value : 0;
                     curMainPartyId = store1.MainPartyId;
                     var orderList = _orderService.GetOrdersByMainPartyId(store1.MainPartyId);
                     if (orderList.Count > 0)
@@ -469,7 +469,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, product.ProductName)
                     });
                 }
-   
+
             }
             commentModel.Source = commentList;
             model.AccountHomeCenterCenterModel.ProductComments = commentModel;
@@ -540,13 +540,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                             var categorymodelname = "";
 
-                            if (product.Model!=null)
+                            if (product.Model != null)
                             {
                                 categorymodelname = product.Model.CategoryName;
 
                             }
                             string categorybrandname = "";
-                            if (product.Brand!=null)
+                            if (product.Brand != null)
                             {
                                 categorybrandname = product.Brand.CategoryName;
                             }

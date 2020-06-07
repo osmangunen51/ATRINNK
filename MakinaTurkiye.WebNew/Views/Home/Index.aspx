@@ -235,7 +235,7 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
-
+    <%=Html.RenderHtmlPartial("_HomeSector",Model.HomeSectorItems) %>
     <%--   <%= Html.Partial("_ProductRelatedCategories", Model.HomeProductsRelatedCategoryModel)  %>--%>
 
 
@@ -258,8 +258,8 @@
                     </div>
                     <div class="col-md-4 col-sm-6 clearfix aos-init aos-animate" data-aos="fade-up">
                         <div class="clearfix buttons">
-                            <a href="<%:AppSettings.SiteUrl %>/uyelik/hizliuyelik/uyeliktipi-0">ÜYE OL</a>
-                            <a href="<%:AppSettings.SiteUrl %>/uyelik/kullanicigirisi">GİRİŞ YAP</a>
+                            <a href="<%:AppSettings.SiteUrl %>uyelik/hizliuyelik/uyeliktipi-0">ÜYE OL</a>
+                            <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi">GİRİŞ YAP</a>
                         </div>
                     </div>
                 </div>
@@ -343,4 +343,7 @@
         </div>
     </div>--%>
     <%--    <%= Html.RenderHtmlPartial("CallYou",Model.companyMembershipDemand) %>--%>
+
+
+        <%=Html.RenderHtmlPartial("_Bulletin") %>
 </asp:Content>

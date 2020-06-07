@@ -3,8 +3,8 @@
 <!doctype html>
 <html lang="tr">
 <head>
-    <%: Html.Action("MetaTag","Common",new { area = "" } )%>   
-    <%= Html.RenderHtmlPartial("_Head")%>   
+    <%: Html.Action("MetaTag","Common",new { area = "" } )%>
+    <%= Html.RenderHtmlPartial("_Head")%>
 
     <% string memberName = string.Empty;
         int memberType = 0;
@@ -97,14 +97,7 @@
 
             <div class="new-header__top clearfix">
 
-                <%if (!Request.Url.ToString().ToLower().Contains("account"))
-                    {%>
-                <a href="javascript:;"
-                    class="header__mobile-menu js-hamburger  hidden-sm hidden-md hidden-lg">
-                    <span class="header__mobile-menu-icon icon-menu"></span>
-                </a>
-                <% }
-                %>
+
 
                 <div class="new-header__top-left">
                     <a class="site-logo" href="<%:AppSettings.SiteUrl %>">
@@ -114,68 +107,26 @@
                 </div>
                 <div class="new-header__top-right">
 
-                    <div class="responsive-menu js-responsive-menu">
 
-                        <%
-                            if (membermainPartyId != 0)
-                            {
-                                memberName = AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname;
-                                memberType = (byte)AuthenticationUser.Membership.MemberType; %>
-
-                        <div class="user-member-name clearfix">
-                            <span><%=memberName %></span>
-                            <a href="<%:AppSettings.SiteUrl %>Account/Home">Hesabım</a>
-                        </div>
-                        <% }  %>
+                    <ul class="user-topmenu">
 
 
-                        <ul class="user-topmenu">
-
-                            <%if (membermainPartyId == 0)
+                        <li class="user-topmenu__item">
+                            <a href="<%if (membermainPartyId != 0)
                                 {%>
-                            <li class="user-topmenu__item">
-                                <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi" rel="nofollow" class="user-topmenu addAdvert">İLAN EKLE</a>
-                            </li>
-                            <%}
+                                    <%:AppSettings.SiteUrl + "Account/Advert/Advert" %>
+                                <% }
                                 else
                                 {%>
-                            <li class="user-topmenu__item">
-                                <a href="/Account/Advert/Advert" class="user-topmenu addAdvert">
-                                İLAN EKLE
-                                </a>
-                            </li>
-                            <%} %>
-                            <%if (notReadInboxMessageCount > 0)
-                                { %>
-                            <li class="user-topmenu__item hidden-sm hidden-md hidden-lg">
-                                <a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
-                                    <span class="icon-paper-plane"></span>Mesajlar <span class="label label-primary pull-right"><%=notReadInboxMessageCount %></span>
-                                </a>
-                            </li>
-                            <% } %>
-                            <li class="user-topmenu__item hidden-sm hidden-md hidden-lg commentLi" style="display: none;">
-                                <a href="<%:AppSettings.SiteUrl %>/account/ilan/Comments" class="user-topmenu__link">
-                                    <span class="glyphicon glyphicon-comment"></span>Yorumlar <span class="label label-primary pull-right commentCountvalue"></span>
-                                </a>
-                            </li>
-                        </ul>
-                        <%
-                            if (membermainPartyId != 0)
-                            { %>
-                        <div class="responsive-menu-bottom hidden-sm hidden-md hidden-lg">
-                            <a class="btn btn-logout" href="<%:AppSettings.SiteUrl%>Uyelik/OturumuKapat">Çıkış</a>
-                        </div>
-                        <% }
-                            else
-                            { %>
-                        <div class="responsive-menu-bottom hidden-sm hidden-md hidden-lg">
-                            <a class="btn btn-login" rel="nofollow" href="<%:AppSettings.SiteUrl%>uyelik/kullanicigirisi">Üye Girişi</a>
-                            <a class="btn btn-register" rel="nofollow" href="<%:AppSettings.SiteUrl%>uyelik/hizliuyelik/uyeliktipi-0">Kayıt Ol</a>
-                        </div>
-                        <%} %>
-                    </div>
+                             <%:AppSettings.SiteUrl + "uyelik/kullanicigirisi" %>  
+                                <%}%>
+                                "
+                                class="user-topmenu">
+                                <i class="mt-icon icon-advertise-mt"></i>
+                                <span class="text">İlan Ver</span>
+                            </a>
+                        </li>
 
-                    <ul class="nav navbar-nav navbar-right navbar-account-mt" role="menu">
                         <% 
                             if (AuthenticationUser.Membership != null)
                             {
@@ -188,70 +139,130 @@
                                 memberType = (byte)AuthenticationUser.Membership.MemberType;
                         %>
 
+                        <%if (favoriteProductCount > 0)
+                            { %>
+                        <li class="user-topmenu__item"><a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product" id="favoriteProductCount" class="user-topmenu hidden-xs">
+                            <i class="mt-icon icon-favorite-mt"></i>
+                            <span class="text">Favoriler</span>
+                            <span class="badge"><%=favoriteProductCount %></span>
 
-                        <li ><a href="<%:AppSettings.SiteUrl %>Account/Home" class="plr5"><span class="text-md  glyphicon glyphicon-user"></span>
-
-                            <%=memberName %>
-                        </a></li>
-                        <li class="dropdown"><a href="#" id="A2" class="plr5" data-toggle="dropdown"><span
-                            class="hidden-xs caret"></span>
-                            <div class="visible-xs">
-                                <span class="caret"></span>&nbsp;Ayarlar
-                            </div>
                         </a>
-                            <ul class="dropdown-menu dropdown-menu-mt" role="menu" aria-labelledby="dropdownMenu1">
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Home"><i
-                                    class="fa fa-angle-right"></i>&nbsp; Hesabım </a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal"><i
-                                    class="fa fa-angle-right"></i>&nbsp; Profilim </a></li>
-                                <%if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
-                                    { %>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Advert/Index?ProductActive=1&DisplayType=2"><i class="fa fa-angle-right"></i>&nbsp; İlanlarım </a></li>
-                                <%}
-                                    else
-                                    {%>
-
-                                <%}%>
-
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0"><i class="fa fa-angle-right"></i>&nbsp; Mesajlarım </a></li>
-
-
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Favorite/Product"><i class="fa fa-angle-right"></i>&nbsp; Favorilerim </a></li>
-
-                                <%if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
-                                    { %>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal"><i class="fa fa-angle-right"></i>&nbsp; Firma Ayarları </a></li>
-                                <%}
-                                    else
-                                    {%>
-
-                                <%}%>
-
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">
-                                    <span class="glyphicon glyphicon-log-out" style="padding-right: 5px;"></span>Çıkış </a></li>
-                            </ul>
                         </li>
+                        <%} %>
 
                         <%if (notReadInboxMessageCount > 0)
                             { %>
-                        <li><a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="hidden-xs plr5 tooltips tooltip-mt badge-link" data-toggle="tooltip" data-placement="bottom"
-                            title="<%=notReadInboxMessageCount %> Okunmamış mesajınız var.">
-                            <span class="badge-link__count"><%=notReadInboxMessageCount %></span>
-                            <span class="text-md glyphicon glyphicon-envelope"></span>
-                        </a></li>
+                        <li class="user-topmenu__item">
+
+                            <a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="user-topmenu">
+                                <i class="mt-icon icon-message-mt"></i>
+                                <span class="text">Mesajlar</span>
+                                <span class="badge"><%=notReadInboxMessageCount %></span>
+                            </a>
+                        </li>
 
                         <% } %>
 
+
+                        <li class="user-topmenu__item">
+                            <div class="dropdown ac-dropdown">
+                                <a style="cursor: pointer;" class="user-topmenu hidden-xs" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i class="mt-icon icon-user-mt"></i>
+
+                                    <span class="text">
+                                        <%if (membermainPartyId == 0)
+                                            {%>
+                                        Giriş Yap
+                                            <% }
+                                                else
+                                                {%>
+                                        <% memberName = AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname;
+                                            memberName = memberName.Length > 12 ? memberName.Substring(0, 12) + ".." : memberName;
+                                        %>
+                                        <%:memberName %>
+                                        <%
+                                            }%>
+                                        <i class="fa fa-caret-down hidden-xs" style="position: absolute"></i></span>
+
+
+                                </a>
+                                <%string baseUrl = AppSettings.SiteUrlWithoutLastSlash; %>
+                                <ul class="dropdown-menu account-dropdown hidden-xs" aria-labelledby="dropdownMenu1">
+                                    <%if (membermainPartyId == 0)
+                                        {%>
+
+
+                                    <li><a class="bold" href="<%:baseUrl%>/uyelik/kullanicigirisi">Giriş Yap</a>
+                                        <a class="bold" href="<%:baseUrl%>/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
+
+                                    </li>
+
+
+                                    <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a>
+
+                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a>
+                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a>
+                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a>
+                                    </li>
+
+                                    <% }
+                                        else
+                                        {%>
+                                    <li><a href="<%:baseUrl%>/Account/Home">Hesabım</a>
+                                        <a href="<%:baseUrl%>/Account/Personal">Profilim</a>
+                                        <a href="<%:baseUrl%>/Account/Advert/Index?ProductActive=1&DisplayType=2">İlanlarım</a>
+                                        <a href="<%:baseUrl%>/Account/Message/Index?MessagePageType=0">Mesajlarım
+                                        <%if (notReadInboxMessageCount != 0)
+                                            {%>
+                                            <span class="badge badge-primary" style="background-color: #ef0d0d"><%:notReadInboxMessageCount %></span>
+                                            <% } %>
+                                        </a>
+                                        <a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product">Favorilerim
+                                               <%if (favoriteProductCount != 0)
+                                                   {%>
+                                            <span class="badge badge-primary"><%:favoriteProductCount %></span>
+                                            <% } %>
+
+                                        </a>
+                                    </li>
+
+                                    <%if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
+                                        { %>
+                                    <li><a tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal">Firma Ayarları </a></li>
+                                    <%}
+                                        else
+                                        {%>
+
+                                    <%}%>
+
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">Çıkış Yap
+
+
+                                    </a></li>
+                                    <% } %>
+                                </ul>
+                            </div>
+                        </li>
+
                         <% }
+
                         %>
 
-                        <li><a href="<%:AppSettings.SiteUrl %>Account/ilan/Comments" id="" style="display: none;" class="hidden-xs plr5 tooltips tooltip-mt badge-link commentLi" data-toggle="tooltip" data-placement="bottom"
-                            title="İncelenmemiş yorum bulunmaktadır.">
-                            <span class="badge-link__count commentCountvalue"></span>
-                            <span class="text-md glyphicon glyphicon-comment"></span>
-                        </a></li>
+                
+                        <%if (membermainPartyId > 0)
+                            {%>
+                        <li class="hiden-md hidden-lg user-topmenu__item">
+                            <a title="Çıkış Yap" class="user-topmenu" href="https://www.makinaturkiye.com/Uyelik/OturumuKapat">
+                                <span style="font-size: 20px; padding-bottom: 5px;" class="glyphicon glyphicon-log-out"></span>
+
+                                <span class="text">Çıkış Yap 
+                                </span>
+                            </a>
+                        </li>
+
+                        <% } %>
                     </ul>
+
                 </div>
 
 

@@ -123,18 +123,7 @@
                     </td>
                 </tr>
                 <% }
-                    if (Model.ProductStatuConstantId == 72)
-                    {%>
-                <tr>
-                    <td>Model Yılı:
-                    </td>
-                    <td>
-                        <%:DateTime.Now.Date.Year%>
-                    </td>
-                </tr>
-                <% }
-                    else
-                    {
+
                         if (!string.IsNullOrEmpty(Model.ModelYear))
                         {%>
                 <tr>
@@ -144,8 +133,8 @@
                         <%: Model.ModelYear%>
                     </td>
                 </tr>
-                <%}
-                    }%>
+                <%}%>
+      
 
                 <%if (!string.IsNullOrEmpty(Model.ProductType))
                     {%>

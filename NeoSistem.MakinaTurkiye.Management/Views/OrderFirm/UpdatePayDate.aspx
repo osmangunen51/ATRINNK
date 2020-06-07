@@ -70,7 +70,8 @@
             <thead>
                 <td class="Header HeaderBegin">#</td>
                 <td class="Header">Açıklama</td>
-                <td class="Header">Tarih</td>
+                <td class="Header">H.Tarih</td>
+                <td class="Header">E.Tarih</td>
                 <td class="Header HeaderEnd">Araçlar</td>
             </thead>
             <%foreach (var item in Model.UpdatePayDateModels)
@@ -84,6 +85,12 @@
                 </td>
                 <td class="Cell">
                     <%:string.Format("{0:dd/MM/yyyy}",item.WillPayDate)%>
+                </td>
+                <td class="Cell">
+                    <%if (item.RecordDate.HasValue)
+                        {%>
+                    <%:string.Format("{0:dd/MM/yyyy}",item.RecordDate.Value)%>
+                    <% } %>
                 </td>
                 <td class="Cell CellEnd">
                     <a title="Sil" style="cursor: pointer;" onclick="DeleteOrderDesc(<%:item.UpdatePayDateId %>)">

@@ -33,21 +33,23 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
 
             IList<string> sitemapFiles = new List<string>();
+            this.generateSitemap_categoryproductgroup();
 
-            sitemapFiles.Add(this.generateSitemap_categoryproductgroup());
+            //  sitemapFiles.Add(this.generateSitemap_categoryproductgroup());
 
-
-            sitemapFiles.Add(this.generateSitemapForStores());
+            this.generateSitemapForStores();
+            //  sitemapFiles.Add(            this.generateSitemapForStores());
             sitemapFiles.Add(this.generateSitemapForNews());
 
 
 
-
-            sitemapFiles.Add(this.generateSitemap_categorysector());
+            this.generateSitemap_categorysector();
+           // sitemapFiles.Add(this.generateSitemap_categorysector());
             sitemapFiles.Add(this.generateSitemap_categorybrand());
 
             sitemapFiles.Add(this.generateSitemap_productGroupBrand());
-            sitemapFiles.Add(this.generateSitemap_categoryorta());
+            this.generateSitemap_categoryorta();
+          //  sitemapFiles.Add(this.generateSitemap_categoryorta());
             sitemapFiles.Add(this.generateSitemap_categoryserie());
             sitemapFiles = sitemapFiles.Union(this.generateSitemap_categorymodels()).ToList();
             sitemapFiles.Add(this.generateSitemap_categoryCountry());
@@ -115,7 +117,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 };
                 smIndex.items.Add(smnIndex);
             }
-        
+
             string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
             string rootSitemapFileName = "rootSitemap.xml";
             FileHelper.WriteToFile("/Sitemaps/Products/" + rootSitemapFileName, resultXml);
@@ -194,13 +196,29 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             List<string> sitemapFiles = new List<string>();
             int slice = 5000;
             var products = productService.GetSiteMapProducts();
+
             int productTotalCount = products.Count();
+            bool isAdded = false;
             for (int i = 0; i < (productTotalCount / slice) + 1; i++)
             {
                 var sm = new SitemapXml();
                 var productList = products.Skip(i * slice).Take(slice).ToList();
+                if (isAdded == false)
+                {
+                    var smn1 = new SitemapNode
+                    {
+                        changefrequency = ChangeFrequency.daily,
+                        lastmodified = DateTime.Now.AddDays(-30).Date,
+                        location = "https://urun.makinaturkiye.com",
+                        priority = 0.9f
+                    };
+                    sm.items.Add(smn1);
+                    isAdded = true;
+                }
+
                 foreach (var product in productList)
                 {
+
                     double itemUpdatedDateBefore = DateTime.Now.Subtract(product.ProductRecordDate).TotalDays;
                     var smn = new SitemapNode
                     {
@@ -276,6 +294,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             // add namespaces
             writer.WriteAttributeString("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
 
+
+            writer.WriteStartElement("url");
+            writer.WriteElementString("loc", "https://magaza.makinaturkiye.com");
+            // start:optional
+            writer.WriteElementString("priority", "0.7");
+            writer.WriteEndElement(); //url
             // fake loop
             foreach (var item in categories)
             {
@@ -335,6 +359,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             writer.WriteAttributeString("xmlns", "video", null, "http://www.google.com/schemas/sitemap-video/1.0");
 
             // fake loop
+
             foreach (var item in videos)
             {
                 writer.WriteStartElement("url");
@@ -383,7 +408,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             writer.WriteStartElement("urlset");
             // add namespaces
             writer.WriteAttributeString("xmlns", "http://www.sitemaps.org/schemas/sitemap/0.9");
-            // fake loop
+
+
+            writer.WriteStartElement("url");
+            // required
+            string urlBase = "https://video.makinaturkiye.com";
+            writer.WriteElementString("loc", urlBase);
+            // start:optional
+            writer.WriteElementString("priority", "0.8");
+            writer.WriteEndElement(); //url
+
             foreach (var item in categories)
             {
                 writer.WriteStartElement("url");
@@ -409,14 +443,25 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
             var categories = siteMapCategoryService.GetSiteMapCategories(SiteMapCategoryTypeEnum.Sector);
 
+            categories.Add(new global::MakinaTurkiye.Entities.StoredProcedures.Catalog.SiteMapCategoryResult
+            {
+                BrandName = "",
+                CategoryContentTitle = "",
+                CategoryId = 0,
+                CategoryName = "",
+            });
+
             string fileName = "sitemap-category-sector.xml";
 
             var path = Server.MapPath("/sitemaps/" + fileName);
             var writer = new XmlTextWriter(path, Encoding.UTF8);
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
-            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId,
-                                                     !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, ""),
+            var urls = categories.ToDictionary(entry =>
+            entry.CategoryId!=0?
+            UrlBuilder.GetCategoryUrl(entry.CategoryId,
+                                                     !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, ""):
+                                                     "https://www.makinaturkiye.com",
                                                      entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
@@ -457,7 +502,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     select
                     new XElement(ns + "url",
                     new XElement(ns + "loc", u.Key),
-                   new XElement(ns + "priority", "0.6")
+                   new XElement(ns + "priority", "0.9")
                       )
                     )
                   );
@@ -479,7 +524,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
             //var entries = _context.CategorySiteMapping((byte)CategoryType.ProductGroup).ToList();
-            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.TopCategoryParentId.Value, !string.IsNullOrEmpty(entry.TopCategoryContentTitle) ? entry.TopCategoryContentTitle : entry.TopCategoryName, entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle)?entry.CategoryContentTitle:entry.CategoryName), entry => DateTime.Now);
+            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.TopCategoryParentId.Value, !string.IsNullOrEmpty(entry.TopCategoryContentTitle) ? entry.TopCategoryContentTitle : entry.TopCategoryName, entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName), entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XElement(ns + "urlset",
@@ -509,9 +554,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
             //var entries = _context.CategorySiteMapping((byte)CategoryType.ProductGroup).ToList();
-            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, ""), entry => DateTime.Now);
+            var urls = categories.ToDictionary(entry =>
+            UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, ""),
+            entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
+
                 new XElement(ns + "urlset",
                     from u in urls
                     select
@@ -520,6 +568,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                    new XElement(ns + "priority", "1.0")
                       )
                     )
+
                   );
 
             sitemap.Save(writer);
@@ -659,7 +708,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         changefrequency = ChangeFrequency.daily,
                         lastmodified = DateTime.Now,
                         location = UrlBuilder.GetModelUrl(category.CategoryId, category.CategoryName, category.BrandName, category.FirstCategoryName, category.CategoryParentId.Value),
-                        priority = 0.2f
+                        priority = 0.9f
                     };
                     sm.items.Add(smn);
                 }
@@ -763,13 +812,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var path = Server.MapPath("/sitemaps/" + fileName);
             var writer = new XmlTextWriter(path, Encoding.UTF8);
-       
+
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
 
-     
+
             var categories = siteMapCategoryService.GetSiteMapCategoriesPlace(CategoryPlaceTypeEnum.Locality);
-            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "") + "?ulke=" + entry.CountryId + "&sehir="+entry.UpPlaceId +"&ilce="+ Helpers.ToUrl(entry.PlaceName + "-" + entry.PlaceId), entry => DateTime.Now);
+            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "") + "?ulke=" + entry.CountryId + "&sehir=" + entry.UpPlaceId + "&ilce=" + Helpers.ToUrl(entry.PlaceName + "-" + entry.PlaceId), entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XElement(ns + "urlset",

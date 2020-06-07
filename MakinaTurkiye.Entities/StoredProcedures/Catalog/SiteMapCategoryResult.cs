@@ -22,6 +22,7 @@
         public string BrandName { get; set; }
 
         public string FirstCategoryName { get; set; }
+        public string FirstCategoryContentTitle { get; set; }
 
     }
 }

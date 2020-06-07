@@ -124,7 +124,7 @@
                         </div>
                         <div class="btn-group pull-left hidden-xs">
 
-                            <div class="btn-group">
+                            <div class="dropdown">
                                 <a href="#" id="btnGroupVerticalDrop1" class="btn btn-sm btn-mt2 dropdown-toggle"
                                     data-toggle="dropdown">Sıralama <span class="caret"></span></a>
                                 <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="btnGroupVerticalDrop1">

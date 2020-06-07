@@ -4,13 +4,11 @@
     <div class="collapse navbar-collapse js-navbar-collapse container-fluid">
         <div class="mobile-main-menu">
             <ul class="nav navbar-nav ">
-                <li class="dropdown" id="CustomerCategories">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="">
-                        <span>Tedarikçi Mağazalar
+                <li >
+                    <a href="<%:AppSettings.SiteAllCategoryUrl %>" >
+                        <span>Tüm <br />Kategoriler
                         </span>
-                        <span class="hidden-md hidden-lg" style="float: right;">
-                            <i class="icon-down-arrow"></i>
-                        </span>
+            
                     </a>
                 </li>
                 <%foreach (var item in Model.ToList())
@@ -28,7 +26,7 @@
                             <i class="icon-down-arrow" style="float: right;" ></i>
                         </span>
                     </a>
-                  <ul class="dropdown-menu mega-dropdown-menu">
+                  <ul class="dropdown-menu mega-dropdown-menu container-fluid">
                       <div style="text-align:center;">
                           <img src="/Content/V2/images/menu-loading.gif" style=" height:64px;"  />
                       </div>
