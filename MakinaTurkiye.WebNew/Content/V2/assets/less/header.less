@@ -297,7 +297,6 @@
         }
 
         span {
-            height: 27px;
             width: 27px;
             border-radius: 100%;
             -webkit-border-radius: 100%;
@@ -365,6 +364,10 @@
                 border: none !important;
                 box-shadow: none !important;
             }
+
+            &::placeholder {
+                color: #e6e6e6;
+            }
         }
 
         .input-group-btn {
@@ -390,17 +393,20 @@
         }
 
         button {
+            width: 27px;
+            border-radius: 100%;
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            -o-border-radius: 100%;
+            -ms-border-radius: 100%;
             position: absolute;
-            right: -1px;
-            width: 45px;
-            height: 30px;
-            background-color: #fd4c26;
+            left: 8px;
+            top: 11px;
+            z-index: 100;
+            display: inline-block;
+            text-align: center;
+            background-color: transparent !important;
             border: none;
-            outline: none;
-            top: 0;
-            color: #fff;
-            border-radius: 0 3px 3px 0;
-            line-height: 1;
         }
     }
 
@@ -810,7 +816,7 @@
 
 //mega-menu
 .main-navigation {
-    background-color: #fff;
+    background-color: #0C3871;
     border-radius: 0px !important;
     margin-top: -1px;
     border-top-left-radius: 0;
@@ -838,7 +844,8 @@
     line-height: 17px;
     text-align: center;
     padding: 0.75rem 1rem;
-    color: #4F4F4F !important;
+    color: #fff !important;
+    transition: background-color 0.2s ease;
 }
 
 .CustomerCategories:hover {
@@ -1056,7 +1063,7 @@ li {
 }
 
 .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
-    background-color: #0c3871;
+    background-color: #f9401b!important;
     color: #fff !important;
 }
 

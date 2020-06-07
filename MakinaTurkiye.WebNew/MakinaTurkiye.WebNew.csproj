@@ -1231,6 +1231,7 @@
     <None Include="Properties\PublishProfiles\AlperÇ.pubxml" />
     <None Include="Properties\PublishProfiles\ezeyrekFs.pubxml" />
     <None Include="Properties\PublishProfiles\fikretakinPublish.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\MustafaPublish.pubxml" />
     <None Include="Properties\PublishProfiles\df_publish.pubxml" />
     <Content Include="Content\V2\assets\js\CKEditor\adapters\jquery.js" />

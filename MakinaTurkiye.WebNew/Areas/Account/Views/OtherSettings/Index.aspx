@@ -47,17 +47,6 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="HeaderContent" runat="server">
         <script type="text/javascript">
-        function PageChangeOtherSettings(p, d, a) {
-            $.ajax({
-                url: '/Account/OtherSettings/AdvertPagingfor',
-                type: 'post',
-                data: { page: p, displayType: d, advertListType: 7, ProductActiveType: a },
-                success: function (data) {
-               
-                    $('#Advert').html(data);
-                }
-            });
-        }
 
 
 
