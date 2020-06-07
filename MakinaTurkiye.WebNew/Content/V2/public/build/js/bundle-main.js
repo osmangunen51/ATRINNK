@@ -585,7 +585,7 @@ function SendMessagePopup(senderMainPartyID1, error1, code) {
             //                  CategoryName: $('#Edit_Name').val(),
             //                  CategoryOrder: $('#Edit_Order').val()
 
-            //email: $(this).val(), productNumber: productNo, memberNumber: memberNo 
+            //email: $(this).val(), productNumber: productNo, memberNumber: memberNo
 
         },
         success: function (data) {
@@ -833,19 +833,19 @@ function showSubCategory() {
 
        // that.children('b').html(that.children('b').html() == "Tümünü Gör" ? "Tümünü Gizle" : "Tümünü Gör");
         //icon.toggleClass("icon-fill-up-arrow icon-fill-down-arrow");
-     
+
         if (text.html() == "Tümünü Gör") {
             that.closest('.result-category__item').addClass('expanded');
             text.html("Tümünü Gizle");
             icon.attr("class", "icon-fill-up-arrow");
-  
+
         }
         else {
             that.closest('.result-category__item').removeClass('expanded');
             text.html("Tümünü Gör");
             icon.attr("class", "icon-fill-down-arrow");
         }
-      
+
     });
 }
 
@@ -1217,7 +1217,7 @@ $(document).ready(function () {
         //e.relatedTarget // previous active tab
 
         var crousalClass = $(this).attr("data-crousal");
- 
+
         $("." + crousalClass).trigger('refresh.owl.carousel');
     });
 
@@ -1227,7 +1227,7 @@ $(document).ready(function () {
     var activationCode = "";
     cookiePolicyInit();
     mainMenuColorChange();
-    facebookLoginClickEvent();
+    //facebookLoginClickEvent();
     hasVideoLinkClick();
     productHoverItem();
     pagerGoto();
@@ -1240,10 +1240,10 @@ $(document).ready(function () {
                 if (dataId) {
                     GetSubMenu(dataId, this);
                 }
-               
+
                 $(this).find('.dropdown-menu').stop(true, true).delay(350).fadeIn(0);
- 
-   
+
+
 
             }, function () {
 
@@ -1347,7 +1347,7 @@ $(document).ready(function () {
     }
 
 
-    //Sektör sayfası 
+    //Sektör sayfası
     if ($('.sidebarBanner').length > 0) {
         $('.sidebarBanner').theiaStickySidebar({
             additionalMarginTop: 50,
@@ -1935,7 +1935,7 @@ $(document).ready(function () {
                             //                  CategoryName: $('#Edit_Name').val(),
                             //                  CategoryOrder: $('#Edit_Order').val()
 
-                            //email: $(this).val(), productNumber: productNo, memberNumber: memberNo 
+                            //email: $(this).val(), productNumber: productNo, memberNumber: memberNo
                         },
                         success: function (data) {
                             if (data) {
@@ -2262,7 +2262,7 @@ $(window).resize(function () {
     }
 });
 //video
-//Ahmet.js değişikler 
+//Ahmet.js değişikler
 
 function PopupCenter(url, title, w, h) {
     //AdilD
@@ -2470,7 +2470,7 @@ $(window).on("resize", function () {
 
 
 $(document).on("click", ".menutoggleicon", function () {
-    // $(ClonedCategories).find(".active").removeClass("active"); 
+    // $(ClonedCategories).find(".active").removeClass("active");
     if ($(this).parent().parent().hasClass("active")) {
         $(this).parent().parent().removeClass("active");
 
@@ -2547,7 +2547,7 @@ var ClonedCustomers = $("#CustomerCategories [role=menubar]").clone();
 
 
 
-//$("input[name='SearchText']").autocomplete({ 
+//$("input[name='SearchText']").autocomplete({
 //    minLength: 3,
 //    source: function (request, response) {
 //        $.ajax({
@@ -2906,7 +2906,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         message: 'Bu Email adresi kullanılmaktadır',
                         url: '/Membership/CheckMemberEmail/'
                     }
-                    
+
                 }
             },
             password: {
@@ -3186,7 +3186,7 @@ function DeleteStoreActivityCategory(id) {
             }
         });
 
-    } 
+    }
 
 }
 
@@ -3226,9 +3226,9 @@ function AddFavoriteProductItem(id) {
             },
         success: function (data) {
             if (data == true) {
- 
+
                 var item = $("[data-productid=product-favorite-item-" + id + "]");
-               
+
                 $("[data-productid=product-favorite-item-" + id + "]").attr("onclick", "RemoveFavoriteProductItem("+id+")");
                 $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
 
@@ -3282,7 +3282,7 @@ $(document).ready(function () {
     $(".product-list-favorite-icon-c").click(function (event) {
         event.preventDefault();
     });
-      
+
 });
 ﻿var isEmail = true;
 $(document).ready(function () {
@@ -3300,9 +3300,9 @@ $(document).ready(function () {
 
     $('[data-rel="countryId"]').change(function () {
         var countryId = $(this).val();
-   
+
         getCultureCode(countryId, function (cultureCode) {
-        
+
             $('#MembershipModel_InstitutionalPhoneCulture,#MembershipModel_InstitutionalGSMCulture,#MembershipModel_InstitutionalPhoneCulture2,#MembershipModel_InstitutionalFaxCulture').val(cultureCode);
         });
         phoneWrapper.slideDown();
@@ -3359,7 +3359,7 @@ $(document).ready(function () {
                         $('#DropDownInstitutionalPhoneAreaCode,#DropDownInstitutionalPhoneAreaCode2,#DropDownInstitutionalFaxAreaCode').show();
                         $('#TextInstitutionalPhoneAreaCode,#TextInstitutionalPhoneAreaCode2,#TextInstitutionalFaxAreaCode').val('').hide();
                     } else {
-                       
+
                         $('#TextInstitutionalPhoneAreaCode,#InstitutionalPhoneAreaCode,#TextInstitutionalPhoneAreaCode2,#TextInstitutionalFaxAreaCode').val(areaCode).show();
                         $('#MembershipModel_InstitutionalPhoneAreaCode,#MembershipModel_InstitutionalPhoneAreaCode2,#MembershipModel_InstitutionalFaxAreaCode').val(areaCode);
                         $('#DropDownInstitutionalPhoneAreaCode,#DropDownInstitutionalPhoneAreaCode2,#DropDownInstitutionalFaxAreaCode').hide();
@@ -3374,7 +3374,7 @@ $(document).ready(function () {
 
         $('#TextInstitutionalPhoneAreaCode').keyup(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode').val($(this).val());
-        
+
         });
         $('#TextInstitutionalPhoneAreaCode2').keyup(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode2').val($(this).val());
@@ -3384,7 +3384,7 @@ $(document).ready(function () {
         });
         $('#DropDownInstitutionalPhoneAreaCode').change(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode').val($(this).val());
-       
+
         });
         $('#DropDownInstitutionalPhoneAreaCode2').change(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode2').val($(this).val());
@@ -3456,7 +3456,7 @@ $(document).ready(function () {
 
     });
 
-    //bireysel, kurumsal 
+    //bireysel, kurumsal
     $('[data-toggle="tab"]').click(function () {
         var selectedType = ($(this).attr('href') == "#bireysel" ? 10 : 20);
         $('[data-rel="MembershipType"]').val(selectedType);
@@ -3480,7 +3480,7 @@ $(document).ready(function () {
     //                }, 1000);
     //                return false;
     //            }
-    //            
+    //
     //        }
     //    });
 
@@ -3534,7 +3534,7 @@ $(document).ready(function () {
         var telNo = $("#MembershipModel_InstitutionalPhoneNumber").val();
         var gsm = $("#MembershipModel_InstitutionalGSMAreaCode").val();
         var gsmAna = $("#MembershipModel_InstitutionalGSMNumber").val();
-        
+
         if (isEmail) {
           //  $('#formFastMembership').submit();
             $('[data-rel="email-wrapper').hide();

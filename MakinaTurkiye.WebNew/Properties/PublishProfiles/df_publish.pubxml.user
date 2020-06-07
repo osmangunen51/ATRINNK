@@ -222,7 +222,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:30</publishTime>
     </File>
     <File Include="Areas/Account/Views/Advert/ProductInfo.aspx">
-      <publishTime>04/26/2020 18:54:30</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Areas/Account/Views/Advert/ProductVideos.aspx">
       <publishTime>04/26/2020 18:54:30</publishTime>
@@ -560,6 +560,27 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Autofac.Integration.Mvc.dll">
       <publishTime>04/26/2020 18:55:06</publishTime>
     </File>
+    <File Include="bin/DotNetOpenAuth.AspNet.dll">
+      <publishTime>02/24/2013 03:02:58</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.Core.dll">
+      <publishTime>02/24/2013 03:03:00</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.GoogleOAuth2.dll">
+      <publishTime>08/11/2013 14:58:46</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.OAuth.Consumer.dll">
+      <publishTime>02/24/2013 03:03:04</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.OAuth.dll">
+      <publishTime>02/24/2013 03:03:06</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.OpenId.dll">
+      <publishTime>02/24/2013 03:03:14</publishTime>
+    </File>
+    <File Include="bin/DotNetOpenAuth.OpenId.RelyingParty.dll">
+      <publishTime>02/24/2013 03:03:16</publishTime>
+    </File>
     <File Include="bin/Elasticsearch.Net.dll">
       <publishTime>04/26/2020 18:55:06</publishTime>
     </File>
@@ -582,43 +603,43 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:55:07</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Caching.dll">
-      <publishTime>04/27/2020 02:51:50</publishTime>
+      <publishTime>06/05/2020 03:16:55</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Caching.dll.config">
       <publishTime>04/26/2020 18:54:20</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Core.dll">
-      <publishTime>04/27/2020 02:51:54</publishTime>
+      <publishTime>06/05/2020 03:16:56</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Core.dll.config">
       <publishTime>04/26/2020 18:54:21</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Data.dll">
-      <publishTime>04/27/2020 02:52:00</publishTime>
+      <publishTime>06/05/2020 03:16:57</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Data.dll.config">
       <publishTime>04/26/2020 18:54:22</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Entities.dll">
-      <publishTime>04/27/2020 02:51:50</publishTime>
+      <publishTime>06/05/2020 03:16:55</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Entities.dll.config">
       <publishTime>04/26/2020 18:54:22</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Logging.dll">
-      <publishTime>04/27/2020 02:51:59</publishTime>
+      <publishTime>06/05/2020 03:16:57</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Logging.dll.config">
       <publishTime>04/26/2020 18:54:23</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Services.dll">
-      <publishTime>04/27/2020 02:52:04</publishTime>
+      <publishTime>06/07/2020 23:24:06</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Services.dll.config">
       <publishTime>04/26/2020 18:54:25</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Utilities.dll">
-      <publishTime>04/27/2020 02:52:08</publishTime>
+      <publishTime>06/07/2020 23:24:08</publishTime>
     </File>
     <File Include="bin/MakinaTurkiye.Utilities.dll.config">
       <publishTime>04/26/2020 18:54:28</publishTime>
@@ -659,6 +680,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Microsoft.Extensions.Primitives.dll">
       <publishTime>04/26/2020 18:55:09</publishTime>
     </File>
+    <File Include="bin/Microsoft.Owin.dll">
+      <publishTime>11/12/2019 18:46:02</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Host.SystemWeb.dll">
+      <publishTime>11/12/2019 18:47:54</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.Cookies.dll">
+      <publishTime>11/12/2019 18:45:52</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Owin.Security.dll">
+      <publishTime>11/12/2019 18:45:42</publishTime>
+    </File>
     <File Include="bin/Microsoft.Practices.EnterpriseLibrary.Caching.dll">
       <publishTime>04/26/2020 18:55:06</publishTime>
     </File>
@@ -674,38 +707,47 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
       <publishTime>04/26/2020 18:55:09</publishTime>
     </File>
+    <File Include="bin/Mono.Math.dll">
+      <publishTime>02/24/2013 03:03:14</publishTime>
+    </File>
     <File Include="bin/NeoSistem.EnterpriseEntity.Business.dll">
-      <publishTime>04/27/2020 02:51:53</publishTime>
+      <publishTime>06/07/2020 23:24:04</publishTime>
     </File>
     <File Include="bin/NeoSistem.EnterpriseEntity.Business.dll.config">
       <publishTime>04/26/2020 18:54:53</publishTime>
     </File>
     <File Include="bin/NeoSistem.EnterpriseEntity.Core.dll">
-      <publishTime>04/26/2020 18:54:53</publishTime>
+      <publishTime>06/07/2020 23:24:02</publishTime>
     </File>
     <File Include="bin/NeoSistem.EnterpriseEntity.DataCache.dll">
-      <publishTime>04/27/2020 02:51:56</publishTime>
+      <publishTime>06/07/2020 23:24:05</publishTime>
     </File>
     <File Include="bin/NeoSistem.EnterpriseEntity.DataCache.dll.config">
       <publishTime>04/26/2020 18:54:53</publishTime>
     </File>
     <File Include="bin/NeoSistem.MakinaTurkiye.BaseModule.dll">
-      <publishTime>04/27/2020 02:52:11</publishTime>
+      <publishTime>06/07/2020 23:24:10</publishTime>
     </File>
     <File Include="bin/NeoSistem.MakinaTurkiye.BaseModule.dll.config">
       <publishTime>04/26/2020 18:54:55</publishTime>
     </File>
     <File Include="bin/NeoSistem.MakinaTurkiye.Core.dll">
-      <publishTime>04/27/2020 02:51:50</publishTime>
+      <publishTime>06/05/2020 03:16:55</publishTime>
     </File>
     <File Include="bin/NeoSistem.MakinaTurkiye.Web.dll">
-      <publishTime>04/27/2020 02:52:25</publishTime>
+      <publishTime>06/08/2020 01:19:41</publishTime>
     </File>
     <File Include="bin/Nest.dll">
       <publishTime>04/26/2020 18:55:09</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>04/26/2020 18:55:11</publishTime>
+    </File>
+    <File Include="bin/Org.Mentalis.Security.Cryptography.dll">
+      <publishTime>02/24/2013 03:03:14</publishTime>
+    </File>
+    <File Include="bin/Owin.dll">
+      <publishTime>05/22/2020 15:30:16</publishTime>
     </File>
     <File Include="bin/QueryString.NETCore.dll">
       <publishTime>04/26/2020 18:55:12</publishTime>
@@ -972,7 +1014,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:43</publishTime>
     </File>
     <File Include="Content/jQuery-Cookie-Disclaimer/dist/jquery.cookieDisclaimer.js">
-      <publishTime>04/26/2020 18:54:43</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/jQuery-Cookie-Disclaimer/dist/jquery.cookieDisclaimer.min.js">
       <publishTime>04/26/2020 18:54:43</publishTime>
@@ -1674,7 +1716,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:31</publishTime>
     </File>
     <File Include="Content/V2/assets/css/autocomplete.css">
-      <publishTime>04/26/2020 18:54:31</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Content/V2/assets/css/bootstrap-datepicker.min.css">
       <publishTime>04/26/2020 18:54:31</publishTime>
@@ -1722,7 +1764,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:31</publishTime>
     </File>
     <File Include="Content/V2/assets/css/jquery.autocomplete.css">
-      <publishTime>04/26/2020 18:54:31</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Content/V2/assets/css/lightbox.css">
       <publishTime>04/26/2020 18:54:31</publishTime>
@@ -1746,10 +1788,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:31</publishTime>
     </File>
     <File Include="Content/V2/assets/css/site.css">
-      <publishTime>04/26/2020 18:54:31</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/assets/css/style-v2.css">
-      <publishTime>04/26/2020 18:54:31</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Content/V2/assets/css/summernote-bs3.css">
       <publishTime>04/26/2020 18:54:31</publishTime>
@@ -3111,7 +3153,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:32</publishTime>
     </File>
     <File Include="Content/V2/assets/js/MtAjaxCalls.js">
-      <publishTime>04/26/2020 18:54:32</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/assets/js/MtFormsValidate.js">
       <publishTime>04/26/2020 18:54:32</publishTime>
@@ -3135,7 +3177,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:32</publishTime>
     </File>
     <File Include="Content/V2/assets/js/site.js">
-      <publishTime>04/26/2020 18:54:33</publishTime>
+      <publishTime>05/27/2020 20:08:02</publishTime>
     </File>
     <File Include="Content/V2/assets/js/summernote.min.js">
       <publishTime>04/26/2020 18:54:33</publishTime>
@@ -3147,16 +3189,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
     <File Include="Content/V2/assets/less/fast-access-bar.less">
-      <publishTime>04/26/2020 18:54:33</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/assets/less/header.less">
-      <publishTime>04/26/2020 18:54:33</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Content/V2/assets/less/product-list.less">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
     <File Include="Content/V2/assets/less/store-profile-header.less">
-      <publishTime>04/26/2020 18:54:33</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/assets/less/style-v2.css">
       <publishTime>04/26/2020 18:54:33</publishTime>
@@ -3165,13 +3207,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
     <File Include="Content/V2/assets/less/style-v2.less">
-      <publishTime>04/26/2020 18:54:33</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/assets/less/style-v2.min.css">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
     <File Include="Content/V2/assets/less/_product-detail.less">
-      <publishTime>04/26/2020 18:54:33</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/assets/less/_selected-products.less">
       <publishTime>04/26/2020 18:54:33</publishTime>
@@ -3263,6 +3305,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/V2/images/hemen-tikla.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
+    <File Include="Content/V2/images/home-b-bg-main.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
     <File Include="Content/V2/images/homebanner_watermark.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
@@ -3271,6 +3316,18 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/V2/images/icon-pre.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
+    </File>
+    <File Include="Content/V2/images/icon/leads-arrow-left.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
+    <File Include="Content/V2/images/icon/scroll-arrow.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
+    <File Include="Content/V2/images/icon/search-icon.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
+    <File Include="Content/V2/images/icon/search-input-detail-icon.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/images/kredi-karti.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
@@ -3317,6 +3374,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/V2/images/mailingbanner.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
+    <File Include="Content/V2/images/makinaturkiye-dark.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
     <File Include="Content/V2/images/makinaturkiye.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
@@ -3326,8 +3386,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/V2/images/market-icon.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
+    <File Include="Content/V2/images/mega-menu-bg.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
     <File Include="Content/V2/images/menu-loading.gif">
       <publishTime>04/26/2020 18:54:33</publishTime>
+    </File>
+    <File Include="Content/V2/images/newsletter-bg.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/images/next.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
@@ -3371,17 +3437,29 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/V2/images/social/blog.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
+    <File Include="Content/V2/images/social/facebook-icon.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
     <File Include="Content/V2/images/social/facebook.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
     <File Include="Content/V2/images/social/google-plus.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
+    <File Include="Content/V2/images/social/instagram-icon.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
     <File Include="Content/V2/images/social/instagram.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
+    <File Include="Content/V2/images/social/linkedin-icon.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
     <File Include="Content/V2/images/social/linkedin.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
+    </File>
+    <File Include="Content/V2/images/social/pinterest-icon.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/images/social/pinterest-logo.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
@@ -3401,6 +3479,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/V2/images/social/social_tw.jpg">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
+    <File Include="Content/V2/images/social/twitter-icon.png">
+      <publishTime>05/22/2020 15:30:11</publishTime>
+    </File>
     <File Include="Content/V2/images/social/twitter.png">
       <publishTime>04/26/2020 18:54:33</publishTime>
     </File>
@@ -3417,7 +3498,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:43</publishTime>
     </File>
     <File Include="Content/V2/public/build/css/bundle-main.css">
-      <publishTime>04/26/2020 18:54:43</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Content/V2/public/build/css/images/ui-bg_diagonals-thick_18_b81900_40x40.png">
       <publishTime>04/26/2020 18:54:43</publishTime>
@@ -3459,16 +3540,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:43</publishTime>
     </File>
     <File Include="Content/V2/public/build/js/bundle-main-min.js">
-      <publishTime>04/26/2020 18:54:43</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Content/V2/public/build/js/bundle-main.js">
-      <publishTime>04/26/2020 18:54:43</publishTime>
+      <publishTime>05/27/2020 20:05:33</publishTime>
     </File>
     <File Include="Content/V2/public/build/js/bundle-plugins-min.js">
-      <publishTime>04/26/2020 18:54:43</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/V2/public/build/js/bundle-plugins.js">
-      <publishTime>04/26/2020 18:54:43</publishTime>
+      <publishTime>05/22/2020 15:30:11</publishTime>
     </File>
     <File Include="Content/video-js-7.4.1/alt/video-js-cdn.css">
       <publishTime>04/26/2020 18:54:43</publishTime>
@@ -4818,16 +4899,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Category/Index2.aspx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Views/Category/LeftMenuCategories.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Category/LeftMenuSectorCategories.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Category/ProductHeader.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Views/Category/ProductSearchOneStep.aspx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -4836,7 +4917,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Category/ProductViewList.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Category/ProductViewWindow.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -4887,7 +4968,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Category/_SliderBanner.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Category/_TopSellerProduct.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -4899,7 +4980,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Footer/Content.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Header/_HeaderTopMenu.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -4926,7 +5007,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Home/Index.aspx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Home/_HeaderBaseMenu.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -4935,7 +5016,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Home/_HeaderSubMenu.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Views/Home/_HomeLeftCategories.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -4956,7 +5037,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Home/_ProductHomeItem.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Home/_ProductMayLike.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -4965,7 +5046,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Home/_SelectedProductCategory.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
+    </File>
+    <File Include="Views/Home/_SelectedProductCategoryAjax.ascx">
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Home/_SelectedProductItems.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -4977,10 +5061,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Home/_ShowCaseStores.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Home/_SliderBanner.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Home/_Videos.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -4998,7 +5082,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Membership/FastMembership.aspx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Membership/ForgetPassword.aspx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -5040,7 +5124,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Membership/_LoginForm.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>06/08/2020 01:11:49</publishTime>
     </File>
     <File Include="Views/Membership/_RegisterForm.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -5133,10 +5217,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Product/_ProductDetailNew.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Product/_ProductHeader.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Product/_ProductMegaPicture.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -5178,7 +5262,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Product/_ProductTabNew.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Product/_ProductVideo.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -5205,19 +5289,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/Shared/Account.Master">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Shared/Main.Master">
-      <publishTime>04/27/2020 01:33:26</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Views/Shared/StoreProfile.Master">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
+    </File>
+    <File Include="Views/Shared/_Bulletin.ascx">
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/Shared/_Head.ascx">
-      <publishTime>04/27/2020 01:31:20</publishTime>
+      <publishTime>05/27/2020 19:28:20</publishTime>
     </File>
     <File Include="Views/Shared/_Header.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/27/2020 17:51:07</publishTime>
     </File>
     <File Include="Views/Store/Index.aspx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -5268,7 +5355,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/StoreNew/Detail.aspx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/StoreNew/Index.aspx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -5277,7 +5364,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/StoreNew/_OtherNews.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/StoreProfileNew/AboutUsNew.aspx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -5310,7 +5397,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/StoreProfileNew/NoAccessStore.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/StoreProfileNew/Paging.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -5334,7 +5421,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
     <File Include="Views/StoreProfileNew/_HeaderTop.ascx">
-      <publishTime>04/26/2020 18:54:46</publishTime>
+      <publishTime>05/22/2020 15:30:12</publishTime>
     </File>
     <File Include="Views/StoreProfileNew/_LeftMenu.ascx">
       <publishTime>04/26/2020 18:54:46</publishTime>
@@ -5414,8 +5501,605 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/_ViewStart.cshtml">
       <publishTime>04/26/2020 18:54:46</publishTime>
     </File>
+    <File Include="Viewsbbb/Category/AdvancedSearch.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/AllSectorProducts.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/Index2.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/LeftMenuCategories.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/LeftMenuSectorCategories.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/ProductHeader.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/ProductSearchOneStep.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/ProductViewList%2520-%2520Copy.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/ProductViewList.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/ProductViewWindow.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/SearchResults.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_CategoryBannerItems.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_CategoryContent.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_CategoryHorizontalBannerItem.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_CategorySectorBannerItems.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_CategoryStore.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_CategoryStores.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_MostViewProduct.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_Paging.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_ProductLeftCategories.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_ProductPaging.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_SearchProductList.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_SearchProductWindow.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_SectorCategoryList.cshtml">
+      <publishTime>05/28/2020 11:50:47</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_SectorCategoryListMenu.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_SliderBanner.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Category/_TopSellerProduct.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Common/HataSayfasi.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Common/MetaTag.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Footer/Content.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Header/_HeaderTopMenu.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Help/Index.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Help/Menu.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Help/MenuSub.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Help/YardimDetay.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/AllSelectedProduct.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/CallYou.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/Error.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/Index.cshtml">
+      <publishTime>05/28/2020 11:50:54</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/MessageViewProduct.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_HeaderBaseMenu.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_HeaderMainMenu.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_HeaderSubMenu.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_HomeLeftCategories.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_HomeNews.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_HomeSuccessStories.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_MainMenu.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_NewAddedProducts.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_PopularAds.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_ProductHomeItem.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_ProductMayLike.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_ProductRelatedCategories.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_SelectedProductCategory.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_SelectedProductCategoryAjax.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_SelectedProductItems.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_SelectedProducts.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_ShowCaseProducts.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_ShowCaseStores.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_SliderBanner.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Home/_Videos.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/Activation.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/BulletinRegister.cshtml">
+      <publishTime>05/28/2020 11:50:47</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/CallYou.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/createPassword.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/FastMembership.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/ForgetPassword.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/InstitutionalStep1.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/InstitutionalStep2.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/InstitutionalStep3.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/InstitutionalStep4.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/InstitutionalStep5.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/LeftPanel.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/LoginError.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/LogOn.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/MembershipApproval.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/reCreatePassword.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/SendMailSucces.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/sendNewPasswordLink.cshtml">
+      <publishTime>05/28/2020 11:28:08</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/_LoginForm.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Membership/_RegisterForm.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/BankTransfer.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/BeforePayCreditCard.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/CreditCard.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/DiscountPackets.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/FinishSales.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/FourStep.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/FourStepNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/NotificationForm.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/OneStep.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/PayWithCreditCard.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/PosComplete.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/Secure.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/sonuc.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/ThreeStep.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/TwoStep.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/VirtualPosComplete.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/MembershipSales/_TaxAndAddressForm.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Message/Send.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Performance/Index.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Performance/Index2.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/CheckGoogle.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/DetailClear.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/DetailNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/ProductContact.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_AuthorizedOtherProduct.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductComment.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductCommentList.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductComplain.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductDetail.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductDetailNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductHeader.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductMegaPicture.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductPageHader.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductPageHaderNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductPicture.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductPictureNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductSocial.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductStore.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductStoreContact.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductStoreMessage.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductStoreMessageNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductStoreNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductStorePhones.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductTab.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductTabNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_ProductVideo.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_SameProduct.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_SimilarProduct.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_SimilarProductNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_SimilarProductNew2.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_StoreOtherProduct.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Product/_StoreOtherProductNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/ProductRequest/step1.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Shared/_Bulletin.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Shared/_Head.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Shared/_Header.cshtml">
+      <publishTime>05/28/2020 11:50:47</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/Index.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/List.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/SearchResults.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/SearchStore.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/StoreSearch.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/Window.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_FAGFSearch.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_FilterActivityType.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_FilterAddressBox.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_HeaderStoreCategoryGeneral.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_StoreCategories.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_StoreCategoryGeneral.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_StorePaging.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_StoreViewList.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_StoreViewListV2.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/Store/_StoreViewWindow.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreNew/Detail.cshtml">
+      <publishTime>05/28/2020 11:50:14</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreNew/Index.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreNew/_NewItem.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreNew/_OtherNews.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/AboutUsNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/AuthorizedServicesNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/BranchNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/BrandNew.cshtml">
+      <publishTime>05/28/2020 11:50:47</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/CatologNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/CompanyProfileNew.cshtml">
+      <publishTime>05/28/2020 11:28:09</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/ConnectionNew.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/DealerNew.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/DealerShipNew.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/News.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/NoAccessStore.cshtml">
+      <publishTime>05/28/2020 11:50:47</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/Paging.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/ProductsNew.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/StoreImagesNew.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/StorePromotionVideo.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/VideosNew.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_CategoryProduct.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_HeaderContent.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_HeaderTop.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_LeftMenu.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_PopularProducts.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_ProductsProductList.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_ProductsProductWindow.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_StoreAbout.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_StoreCertificates.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_StoreImagesAndVideos.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_StoreMemberAndMap.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_VideoCategories.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/StoreProfileNew/_VideoViewWindow.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/Index.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/StoreAndProductInf.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/VideoItems.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/VideoItems2.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/VideoSearch.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/VideoTop2.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/_OtherVideos.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/_PopularVideos.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/_SimilarVideos.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/_VideoCategories.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/_VideoItemVideo.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/_VideoList.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/_VideoPaging.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
+    <File Include="Viewsbbb/Videos/_VideoViewWindow.cshtml">
+      <publishTime>05/28/2020 11:28:10</publishTime>
+    </File>
     <File Include="Web.config">
-      <publishTime>04/27/2020 02:52:31</publishTime>
+      <publishTime>06/07/2020 23:24:22</publishTime>
     </File>
     <File Include="Web.sitemap">
       <publishTime>04/26/2020 18:54:46</publishTime>

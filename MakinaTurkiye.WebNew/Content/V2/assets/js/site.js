@@ -5,6 +5,10 @@
 
 /**kategori image lazy loading finish */
 
+
+
+
+
 function NewPhoneNumberWrapperShow() {
     $("#noActivationWrapper").show();
     $("#PhoneActivation-wrapper").hide();
@@ -386,11 +390,13 @@ function RemoveFavoriteProduct(id) {
         }
     });
 }
+
 $("#productNumberForInf").keyup(function () {
     if (this.value.match(/[^0-9]/g)) {
         this.value = this.value.replace(/[^0-9]/g, '');
     }
 });
+
 function AddInfoForDemand() {
     var productNum = $.trim($("#productNumberForInf").val());
     if (productNum != "") {
@@ -585,7 +591,7 @@ function SendMessagePopup(senderMainPartyID1, error1, code) {
             //                  CategoryName: $('#Edit_Name').val(),
             //                  CategoryOrder: $('#Edit_Order').val()
 
-            //email: $(this).val(), productNumber: productNo, memberNumber: memberNo 
+            //email: $(this).val(), productNumber: productNo, memberNumber: memberNo
 
         },
         success: function (data) {
@@ -833,19 +839,19 @@ function showSubCategory() {
 
        // that.children('b').html(that.children('b').html() == "Tümünü Gör" ? "Tümünü Gizle" : "Tümünü Gör");
         //icon.toggleClass("icon-fill-up-arrow icon-fill-down-arrow");
-     
+
         if (text.html() == "Tümünü Gör") {
             that.closest('.result-category__item').addClass('expanded');
             text.html("Tümünü Gizle");
             icon.attr("class", "icon-fill-up-arrow");
-  
+
         }
         else {
             that.closest('.result-category__item').removeClass('expanded');
             text.html("Tümünü Gör");
             icon.attr("class", "icon-fill-down-arrow");
         }
-      
+
     });
 }
 
@@ -1217,7 +1223,7 @@ $(document).ready(function () {
         //e.relatedTarget // previous active tab
 
         var crousalClass = $(this).attr("data-crousal");
- 
+
         $("." + crousalClass).trigger('refresh.owl.carousel');
     });
 
@@ -1240,10 +1246,10 @@ $(document).ready(function () {
                 if (dataId) {
                     GetSubMenu(dataId, this);
                 }
-               
+
                 $(this).find('.dropdown-menu').stop(true, true).delay(350).fadeIn(0);
- 
-   
+
+
 
             }, function () {
 
@@ -1347,7 +1353,7 @@ $(document).ready(function () {
     }
 
 
-    //Sektör sayfası 
+    //Sektör sayfası
     if ($('.sidebarBanner').length > 0) {
         $('.sidebarBanner').theiaStickySidebar({
             additionalMarginTop: 50,
@@ -1935,7 +1941,7 @@ $(document).ready(function () {
                             //                  CategoryName: $('#Edit_Name').val(),
                             //                  CategoryOrder: $('#Edit_Order').val()
 
-                            //email: $(this).val(), productNumber: productNo, memberNumber: memberNo 
+                            //email: $(this).val(), productNumber: productNo, memberNumber: memberNo
                         },
                         success: function (data) {
                             if (data) {
@@ -2262,7 +2268,7 @@ $(window).resize(function () {
     }
 });
 //video
-//Ahmet.js değişikler 
+//Ahmet.js değişikler
 
 function PopupCenter(url, title, w, h) {
     //AdilD
@@ -2470,7 +2476,7 @@ $(window).on("resize", function () {
 
 
 $(document).on("click", ".menutoggleicon", function () {
-    // $(ClonedCategories).find(".active").removeClass("active"); 
+    // $(ClonedCategories).find(".active").removeClass("active");
     if ($(this).parent().parent().hasClass("active")) {
         $(this).parent().parent().removeClass("active");
 
@@ -2547,7 +2553,7 @@ var ClonedCustomers = $("#CustomerCategories [role=menubar]").clone();
 
 
 
-//$("input[name='SearchText']").autocomplete({ 
+//$("input[name='SearchText']").autocomplete({
 //    minLength: 3,
 //    source: function (request, response) {
 //        $.ajax({
@@ -2878,7 +2884,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 })(jQuery);
 
-
-//lazy loading images
 
 

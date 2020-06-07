@@ -1,0 +1,43 @@
+﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles.MTStoreProfileAboutUsModel>
+
+@section HeaderContent {
+
+    @Html.RenderHtmlPartial("_HeaderContent")
+
+}
+    @section StoreProfileHeaderContent {
+
+                  @if (Model.StoreActiveType == 2)
+        {  
+            } 
+        @Html.RenderHtmlPartial("_HeaderTop",Model.MTStoreProfileHeaderModel)
+    
+}
+@section StoprofileMenu {
+
+           @if (Model.StoreActiveType == 2)
+        {  
+    @Html.RenderHtmlPartial("_LeftMenu", Model.MTStoreProfileHeaderModel)
+
+    } 
+    
+}
+
+
+ @section StoreProfileContent {
+
+     @if(Model.StoreActiveType==2) {
+     <div class="col-sm-7 col-md-8 col-lg-9">
+            <div class="StoreProfileContent aboutusText">
+                  @Model.GeneralText
+              </div>
+
+     <div class="clearfix"></div>       
+     </div>   
+        
+    } else{
+       @Html.Action("NoAccessStore",new{id=Model.MainPartyId})
+    } 
+
+
+}
