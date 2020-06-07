@@ -20,6 +20,8 @@ using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings;
 
 using NeoSistem.EnterpriseEntity.Extensions.Data;
 using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Entities.Tables.Catalog;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -29,19 +31,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         private readonly IProductService _productService;
         private readonly IMemberStoreService _memberStoreService;
         private readonly IStoreService _storeService;
-
+        private readonly ICategoryService _categoryService;
 
         int TotalRecord = 0;
         byte pageDimension = 50;
 
-
         public OtherSettingsController(IConstantService constantService, IStoreService storeService,
-                                       IProductService productService, IMemberStoreService memberStoreService)
+                                       IProductService productService, IMemberStoreService memberStoreService, ICategoryService categoryService)
         {
             this._constantService = constantService;
             this._productService = productService;
             this._memberStoreService = memberStoreService;
             this._storeService = storeService;
+            this._categoryService = categoryService;
 
             this._constantService.CachingGetOrSetOperationEnabled=false;
             this._productService.CachingGetOrSetOperationEnabled = false;
@@ -72,14 +74,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var mainPartyIds = _memberStoreService.GetMemberStoresByStoreMainPartyId(memberStore.StoreMainPartyId.Value).Select(x => x.MemberMainPartyId).ToList();
             var products = _productService.GetAllProductsByMainPartyIds(mainPartyIds);
 
-            if (pageType == "5")
-            {
-                products = (from a in products
-                            where ((a.ProductPriceType == (byte)ProductPriceType.Price || a.ProductPriceType == null))
-                            orderby a.productrate
-                            descending
-                            select a).ToList();
-            }
+            //if (pageType == "5")
+            //{
+            //    products = (from a in products
+            //                where ((a.ProductPriceType == (byte)ProductPriceType.Price || a.ProductPriceType == null))
+            //                orderby a.productrate
+            //                descending
+            //                select a).ToList();
+            //}
+            
             if (!string.IsNullOrEmpty(productName))
             {
                 products = products.Where(x => x.ProductName.ToLower().Contains(productName.ToLower())).ToList();
@@ -98,6 +101,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             foreach (var item in products.OrderByDescending(x => x.Sort).ThenBy(x => x.ProductName).Skip(skip).Take(pageDimension))
             {
+                if(item.ModelId.HasValue)
+                    item.Model =  _categoryService.GetCategoryByCategoryId(item.ModelId.Value);
+                if (item.BrandId.HasValue)
+                    item.Brand = _categoryService.GetCategoryByCategoryId(item.BrandId.Value);
+
                 source.Add(new MTProductItem
                 {
                     BrandName = item.Brand != null ? item.Brand.CategoryName : "",
@@ -115,11 +123,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ProductStatusText = item.GetProductStatuText(),
                     ProductTypeText = item.GetProductTypeText(),
                     SalesTypeText = item.GetProductSalesTypeText(),
+                    ProductPrice=item.GetFormattedPrice(),
                     ProductPriceDecimal = item.ProductPrice,
                     ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : (byte)0,
                     ViewCount = item.ViewCount.Value,
                     CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : (byte)0,
+                    CurrencyCssText = item.GetCurrencyCssName(),
                     Doping = item.Doping,
+                    ProductPriceWithDiscount=  item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : "",
+                    ProductPriceWithDiscountDecimal = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value : 0,
                     Sort = item.Sort.HasValue ? item.Sort.Value : 0
                 });
             }
@@ -165,50 +177,69 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             int ProductID = Convert.ToInt32(ProductId);
             decimal Price = Convert.ToDecimal(PriceNumber);
             var product = _productService.GetProductByProductId(ProductID);
-            if (Price > 0)
+            if(product.DiscountType.HasValue && product.DiscountType.Value != 0)
             {
-                product.ProductPrice = Price;
-
-                product.ProductPriceType = (byte)ProductPriceType.Price;
+                product.ProductPriceWithDiscount = Price;
+                product.DiscountType = 2;
+                product.DiscountAmount = product.ProductPrice - Price;
                 _productService.UpdateProduct(product);
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
-            return Json(false, JsonRequestBehavior.AllowGet);
-        }
-        [HttpPost]
-        public ActionResult AdvertPagingfor(int page, byte displayType, byte advertListType, byte ProductActiveType)
-        {
-            var dataProduct = new Data.Product();
-            var getProduct = new SearchModel<ProductModel>
+            else
             {
-                CurrentPage = page,
-                PageDimension = 100,
-                TotalRecord = TotalRecord
-            };
+                if (Price > 0)
+                {
+                    product.ProductPrice = Price;
 
-            var data = dataProduct.GetSearchWebByProductActiveType(ref TotalRecord, getProduct.PageDimension, getProduct.CurrentPage, (byte)advertListType, AuthenticationUser.Membership.MainPartyId).AsCollection<ProductModel>();
+                    product.ProductPriceType = (byte)ProductPriceType.Price;
+                    _productService.UpdateProduct(product);
+                    return Json(true, JsonRequestBehavior.AllowGet);
 
-            getProduct.Source = data;
-            getProduct.TotalRecord = TotalRecord;
+                }
 
-            string userControlName = string.Empty;
-            var pageType = (DisplayType)displayType;
-            switch (pageType)
-            {
-                case DisplayType.Window:
-                    userControlName = "/Areas/Account/Views/Statistic/ProductOnebyOne.ascx";
-                    break;
-                case DisplayType.List:
-                    userControlName = "/Areas/Account/Views/Statistic/.ascx";
-                    break;
-                case DisplayType.Text:
-                    userControlName = "/Areas/Account/Views/Statistic/ProductOnebyOne.ascx";
-                    break;
-                default:
-                    break;
             }
 
-            return View(getProduct);
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult AdvertPagingfor(int page, byte displayType, byte advertListType, byte ProductActiveType,string productNo, string productName, string categoryName, string brandName)
+        {
+
+            var model = new OtherSettingsProductModel();
+            model.MTProductItems = PrepareProductModel(page,"5",productName, productNo,categoryName, brandName);
+
+            //var dataProduct = new Data.Product();
+            //var getProduct = new SearchModel<ProductModel>
+            //{
+            //    CurrentPage = page,
+            //    PageDimension = 100,
+            //    TotalRecord = TotalRecord
+            //};
+
+            //var data = dataProduct.GetSearchWebByProductActiveType(ref TotalRecord, getProduct.PageDimension, getProduct.CurrentPage, (byte)advertListType, AuthenticationUser.Membership.MainPartyId).AsCollection<ProductModel>();
+
+            //getProduct.Source = data;
+            //getProduct.TotalRecord = TotalRecord;
+
+            //string userControlName = string.Empty;
+            //var pageType = (DisplayType)displayType;
+            //switch (pageType)
+            //{
+            //    case DisplayType.Window:
+            //        userControlName = "/Areas/Account/Views/Statistic/ProductOnebyOne.ascx";
+            //        break;
+            //    case DisplayType.List:
+            //        userControlName = "/Areas/Account/Views/Statistic/.ascx";
+            //        break;
+            //    case DisplayType.Text:
+            //        userControlName = "/Areas/Account/Views/Statistic/ProductOnebyOne.ascx";
+            //        break;
+            //    default:
+            //        break;
+            //}
+
+           return View(model.MTProductItems);
         }
         [HttpPost]
         public ActionResult AdvertSortList(string page, string categoryName, string productNo, string brandName, string productName)

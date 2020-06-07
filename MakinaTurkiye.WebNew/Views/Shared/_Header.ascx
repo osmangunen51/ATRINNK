@@ -79,7 +79,7 @@
                         <% } %>
 
                         <li class="user-topmenu__item hidden-sm hidden-md hidden-lg commentLi" style="display: none;">
-                            <a href="<%:AppSettings.SiteUrl %>/account/ilan/Comments" class="user-topmenu__link">
+                            <a href="<%:AppSettings.SiteUrl %>account/ilan/Comments" class="user-topmenu__link">
                                 <span class="glyphicon glyphicon-comment"></span>Yorumlar <span class="label label-primary pull-right commentCountvalue"></span>
                             </a>
                         </li>
@@ -227,9 +227,9 @@
                                 {
                                     searchText = Request.QueryString["SearchText"].ToString();
                                 }%>
-                                <span>
+                                <button type="submit">
                                 <img src="/Content/v2/images/icon/search-icon.png" alt="Ara">
-                            </span>
+                            </button>
                             <input type="text" id="SearchText" value="<%:searchText %>" name="SearchText" autocomplete="off" class="search-text-autocomplate" placeholder="Ürün, Kategori, Firma veya Video Ara" required x-webkit-speech speech>
                          <div class="input-group-append">
                                 <a href="<%:AppSettings.SiteUrlWithoutLastSlash+"/detayli-arama" %>"  class="btn site-search__btn" ">

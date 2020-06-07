@@ -33,6 +33,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
         public int Sort { get; set; }
         public decimal? ProductPriceDecimal { get; set; }
         public string ProductPriceWithDiscount { get; set; }
+        public decimal? ProductPriceWithDiscountDecimal { get; set; }
+        public bool IsKdv { get; set; }
+
 
     }
 }
