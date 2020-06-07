@@ -20,15 +20,10 @@ namespace MakinaTurkiye.Utilities.Mvc
             if(config.CompressEnabled)
             {
                 HttpRequestBase request = filterContext.HttpContext.Request;
-
                 string acceptEncoding = request.Headers["Accept-Encoding"];
-
                 if (string.IsNullOrEmpty(acceptEncoding)) return;
-
                 acceptEncoding = acceptEncoding.ToLowerInvariant();
-
                 HttpResponseBase response = filterContext.HttpContext.Response;
-
                 if (acceptEncoding.Contains("gzip"))
                 {
                     response.AppendHeader("Content-encoding", "gzip");

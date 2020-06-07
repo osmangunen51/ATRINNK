@@ -20,6 +20,7 @@ namespace MakinaTurkiye.Tasks.SearchEngine.ElasticSearch.Tasks
             {
                 ISearchService searchService = EngineContext.Current.Resolve<ISearchService>();
                 searchService.CreateAndYukleSuggestSearchIndex();
+                searchService.CreateAndYukleSearchGenelIndex();
             }
             catch(Exception ex)
             {

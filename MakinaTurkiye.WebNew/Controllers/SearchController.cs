@@ -81,19 +81,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     IpAdresListesi.AddRange(System.Web.Configuration.WebConfigurationManager.AppSettings.Get("ElasticSearch:IpAdresListesi").Split(',').ToList());
                 }
                 DeveloperGosterim = IpAdresListesi.Contains(this.IpAdres);
-
+                // DeveloperGosterim = true;
 
                 var DbSonucListesi = SearchService.SearchSuggest(query);
-                foreach (var item in DbSonucListesi.Distinct().OrderByDescending(x => x.Score).Take(7).ToList())
+                int EklenenSayisi = 1;
+                foreach (var item in DbSonucListesi.Distinct().OrderByDescending(x => x.Score).ToList())
                 {
-
                     if (DeveloperGosterim)
                     {
                         ItemOneri = new SearchAutoCompleteItem()
                         {
                             Name = string.Format("{0}  | Skoru : {1}", item.Name, item.Score),
                             data = new data() { category = string.Format("{0}", item.Category) },
-                            Url = item.Url
+                            Url = item.Url,
                         };
                     }
                     else
@@ -107,8 +107,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     if (!EklenenListesi.Contains(ItemOneri.Name))
                     {
+                        EklenenSayisi++;
                         Sonuc.suggestions.Add(ItemOneri);
                         EklenenListesi.Add(ItemOneri.Name);
+                        if (EklenenSayisi>7)
+                        {
+                            break;
+                        }
                     }
                 }
 
@@ -128,6 +133,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         if (DeveloperGosterim)
                         {
+
                             ItemCategory = new SearchAutoCompleteItem()
                             {
                                 Name = string.Format("{0}  | Skoru : {1}", item.Name, item.Score),
@@ -144,11 +150,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 Url = item.Url
                             };
                         }
-                        if (!EklenenListesi.Contains(ItemCategory.Name))
-                        {
-                            Sonuc.suggestions.Add(ItemCategory);
-                            EklenenListesi.Add(ItemCategory.Name);
-                        }
+                        Sonuc.suggestions.Add(ItemCategory);
+                        EklenenListesi.Add(ItemCategory.Name);
                     }
                 }
 
@@ -313,9 +316,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
 
             }
-
-
-
             return Json(Sonuc, JsonRequestBehavior.AllowGet);
         }
     }

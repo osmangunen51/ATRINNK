@@ -105,7 +105,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         //    return builder.ToString();
         //}
 
- 
+
 
         //public static string AddressEdit(AddressModel model)
         //{
@@ -388,7 +388,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         /// </summary>
         FastIndividual = 5,
         /// <summary>
-        ///Bireysel 
+        ///Bireysel
         /// </summary>
         Individual = 10,
         /// <summary>
@@ -568,7 +568,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         Facebook = 10,
         Phone = 20,
         ProductComplain = 30,
-        Google = 30
+        Google = 40
     }
     public enum LogType : byte
     {
@@ -600,7 +600,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
     {
         Bayii = 1,
         YetkiliServis = 2,
-        Sube = 3  
+        Sube = 3
     }
 
 

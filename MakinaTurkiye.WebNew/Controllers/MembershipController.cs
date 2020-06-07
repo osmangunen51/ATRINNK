@@ -524,10 +524,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(model);
         }
 
+
+        public void GoogleLogin(string email, string name, string gender, string lastname, string location)
+        {
+
+
+        }
+
+
         [HttpPost]
         public ActionResult SocialMembership(MembershipModel model, byte MembershipType, string profileId, byte? fastmembershipType)
         {
-
             var LogOn = false;
             if (model.Year > 0 && model.Month > 0 && model.Day > 0)
             {
@@ -623,10 +630,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return Json(LogOn);
         }
 
+
         public ActionResult CompanyMemberShipDemand()
         {
             return View();
         }
+
+
+
+
+
 
         [HttpPost]
         public JsonResult CompanyMemberShipDemand(CompanyDemandMembership model)
@@ -2428,7 +2441,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         /// <summary>
-        /// 
+        ///
         /// </summary>
         /// <param name="Email"></param>"makinaturkiye@makinaturkiye.com", "haciosman666"
         /// <param name="userName"></param>

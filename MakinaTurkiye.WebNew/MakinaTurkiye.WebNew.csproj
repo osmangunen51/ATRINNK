@@ -75,6 +75,27 @@
     <Reference Include="Autofac.Integration.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.Mvc5.5.0.0\lib\net461\Autofac.Integration.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.2.2.13055\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.2.2.13055\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.GoogleOAuth2, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.GoogleOAuth2.1.1.1\lib\net40\DotNetOpenAuth.GoogleOAuth2.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -152,8 +173,16 @@
       <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Net.Http, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.0.20505.0\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Sockets" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Numerics.Vectors, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -1225,6 +1254,207 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Viewsbbb\Category\AdvancedSearch.cshtml" />
+    <Content Include="Viewsbbb\Category\AllSectorProducts.cshtml" />
+    <Content Include="Viewsbbb\Category\Index2.cshtml" />
+    <Content Include="Viewsbbb\Category\LeftMenuCategories.cshtml" />
+    <Content Include="Viewsbbb\Category\LeftMenuSectorCategories.cshtml" />
+    <Content Include="Viewsbbb\Category\ProductHeader.cshtml" />
+    <Content Include="Viewsbbb\Category\ProductSearchOneStep.cshtml" />
+    <Content Include="Viewsbbb\Category\ProductViewList%2520-%2520Copy.cshtml" />
+    <Content Include="Viewsbbb\Category\ProductViewList.cshtml" />
+    <Content Include="Viewsbbb\Category\ProductViewWindow.cshtml" />
+    <Content Include="Viewsbbb\Category\SearchResults.cshtml" />
+    <Content Include="Viewsbbb\Category\_CategoryBannerItems.cshtml" />
+    <Content Include="Viewsbbb\Category\_CategoryContent.cshtml" />
+    <Content Include="Viewsbbb\Category\_CategoryHorizontalBannerItem.cshtml" />
+    <Content Include="Viewsbbb\Category\_CategorySectorBannerItems.cshtml" />
+    <Content Include="Viewsbbb\Category\_CategoryStore.cshtml" />
+    <Content Include="Viewsbbb\Category\_CategoryStores.cshtml" />
+    <Content Include="Viewsbbb\Category\_MostViewProduct.cshtml" />
+    <Content Include="Viewsbbb\Category\_Paging.cshtml" />
+    <Content Include="Viewsbbb\Category\_ProductLeftCategories.cshtml" />
+    <Content Include="Viewsbbb\Category\_ProductPaging.cshtml" />
+    <Content Include="Viewsbbb\Category\_SearchProductList.cshtml" />
+    <Content Include="Viewsbbb\Category\_SearchProductWindow.cshtml" />
+    <Content Include="Viewsbbb\Category\_SectorCategoryList.cshtml" />
+    <Content Include="Viewsbbb\Category\_SectorCategoryListMenu.cshtml" />
+    <Content Include="Viewsbbb\Category\_SliderBanner.cshtml" />
+    <Content Include="Viewsbbb\Category\_TopSellerProduct.cshtml" />
+    <Content Include="Viewsbbb\Common\HataSayfasi.cshtml" />
+    <Content Include="Viewsbbb\Common\MetaTag.cshtml" />
+    <Content Include="Viewsbbb\Footer\Content.cshtml" />
+    <Content Include="Viewsbbb\Header\_HeaderTopMenu.cshtml" />
+    <Content Include="Viewsbbb\Help\Index.cshtml" />
+    <Content Include="Viewsbbb\Help\Menu.cshtml" />
+    <Content Include="Viewsbbb\Help\MenuSub.cshtml" />
+    <Content Include="Viewsbbb\Help\YardimDetay.cshtml" />
+    <Content Include="Viewsbbb\Home\AllSelectedProduct.cshtml" />
+    <Content Include="Viewsbbb\Home\CallYou.cshtml" />
+    <Content Include="Viewsbbb\Home\Error.cshtml" />
+    <Content Include="Viewsbbb\Home\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Viewsbbb\Home\MessageViewProduct.cshtml" />
+    <Content Include="Viewsbbb\Home\_HeaderBaseMenu.cshtml" />
+    <Content Include="Viewsbbb\Home\_HeaderMainMenu.cshtml" />
+    <Content Include="Viewsbbb\Home\_HeaderSubMenu.cshtml" />
+    <Content Include="Viewsbbb\Home\_HomeLeftCategories.cshtml" />
+    <Content Include="Viewsbbb\Home\_HomeNews.cshtml" />
+    <Content Include="Viewsbbb\Home\_HomeSuccessStories.cshtml" />
+    <Content Include="Viewsbbb\Home\_MainMenu.cshtml" />
+    <Content Include="Viewsbbb\Home\_NewAddedProducts.cshtml" />
+    <Content Include="Viewsbbb\Home\_PopularAds.cshtml" />
+    <Content Include="Viewsbbb\Home\_ProductHomeItem.cshtml" />
+    <Content Include="Viewsbbb\Home\_ProductMayLike.cshtml" />
+    <Content Include="Viewsbbb\Home\_ProductRelatedCategories.cshtml" />
+    <Content Include="Viewsbbb\Home\_SelectedProductCategory.cshtml" />
+    <Content Include="Viewsbbb\Home\_SelectedProductCategoryAjax.cshtml" />
+    <Content Include="Viewsbbb\Home\_SelectedProductItems.cshtml" />
+    <Content Include="Viewsbbb\Home\_SelectedProducts.cshtml" />
+    <Content Include="Viewsbbb\Home\_ShowCaseProducts.cshtml" />
+    <Content Include="Viewsbbb\Home\_ShowCaseStores.cshtml" />
+    <Content Include="Viewsbbb\Home\_SliderBanner.cshtml" />
+    <Content Include="Viewsbbb\Home\_Videos.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\BankTransfer.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\BeforePayCreditCard.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\CreditCard.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\DiscountPackets.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\FinishSales.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\FourStep.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\FourStepNew.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\NotificationForm.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\OneStep.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\PayWithCreditCard.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\PosComplete.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\Secure.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\sonuc.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\ThreeStep.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\TwoStep.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\VirtualPosComplete.cshtml" />
+    <Content Include="Viewsbbb\MembershipSales\_TaxAndAddressForm.cshtml" />
+    <Content Include="Viewsbbb\Membership\Activation.cshtml" />
+    <Content Include="Viewsbbb\Membership\BulletinRegister.cshtml" />
+    <Content Include="Viewsbbb\Membership\CallYou.cshtml" />
+    <Content Include="Viewsbbb\Membership\createPassword.cshtml" />
+    <Content Include="Viewsbbb\Membership\FastMembership.cshtml" />
+    <Content Include="Viewsbbb\Membership\ForgetPassword.cshtml" />
+    <Content Include="Viewsbbb\Membership\InstitutionalStep1.cshtml" />
+    <Content Include="Viewsbbb\Membership\InstitutionalStep2.cshtml" />
+    <Content Include="Viewsbbb\Membership\InstitutionalStep3.cshtml" />
+    <Content Include="Viewsbbb\Membership\InstitutionalStep4.cshtml" />
+    <Content Include="Viewsbbb\Membership\InstitutionalStep5.cshtml" />
+    <Content Include="Viewsbbb\Membership\LeftPanel.cshtml" />
+    <Content Include="Viewsbbb\Membership\LoginError.cshtml" />
+    <Content Include="Viewsbbb\Membership\LogOn.cshtml" />
+    <Content Include="Viewsbbb\Membership\MembershipApproval.cshtml" />
+    <Content Include="Viewsbbb\Membership\reCreatePassword.cshtml" />
+    <Content Include="Viewsbbb\Membership\SendMailSucces.cshtml" />
+    <Content Include="Viewsbbb\Membership\sendNewPasswordLink.cshtml" />
+    <Content Include="Viewsbbb\Membership\_LoginForm.cshtml" />
+    <Content Include="Viewsbbb\Membership\_RegisterForm.cshtml" />
+    <Content Include="Viewsbbb\Message\Send.cshtml" />
+    <Content Include="Viewsbbb\Performance\Index.cshtml" />
+    <Content Include="Viewsbbb\Performance\Index2.cshtml" />
+    <Content Include="Viewsbbb\ProductRequest\step1.cshtml" />
+    <Content Include="Viewsbbb\Product\CheckGoogle.cshtml" />
+    <Content Include="Viewsbbb\Product\DetailClear.cshtml" />
+    <Content Include="Viewsbbb\Product\DetailNew.cshtml" />
+    <Content Include="Viewsbbb\Product\ProductContact.cshtml" />
+    <Content Include="Viewsbbb\Product\_AuthorizedOtherProduct.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductComment.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductCommentList.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductComplain.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductDetail.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductDetailNew.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductHeader.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductMegaPicture.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductPageHader.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductPageHaderNew.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductPicture.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductPictureNew.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductSocial.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductStore.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductStoreContact.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductStoreMessage.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductStoreMessageNew.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductStoreNew.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductStorePhones.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductTab.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductTabNew.cshtml" />
+    <Content Include="Viewsbbb\Product\_ProductVideo.cshtml" />
+    <Content Include="Viewsbbb\Product\_SameProduct.cshtml" />
+    <Content Include="Viewsbbb\Product\_SimilarProduct.cshtml" />
+    <Content Include="Viewsbbb\Product\_SimilarProductNew.cshtml" />
+    <Content Include="Viewsbbb\Product\_SimilarProductNew2.cshtml" />
+    <Content Include="Viewsbbb\Product\_StoreOtherProduct.cshtml" />
+    <Content Include="Viewsbbb\Product\_StoreOtherProductNew.cshtml" />
+    <Content Include="Viewsbbb\Shared\_Bulletin.cshtml" />
+    <Content Include="Viewsbbb\Shared\_Head.cshtml" />
+    <Content Include="Viewsbbb\Shared\_Header.cshtml" />
+    <Content Include="Viewsbbb\StoreNew\Detail.cshtml" />
+    <Content Include="Viewsbbb\StoreNew\Index.cshtml" />
+    <Content Include="Viewsbbb\StoreNew\_NewItem.cshtml" />
+    <Content Include="Viewsbbb\StoreNew\_OtherNews.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\AboutUsNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\AuthorizedServicesNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\BranchNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\BrandNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\CatologNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\CompanyProfileNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\ConnectionNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\DealerNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\DealerShipNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\News.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\NoAccessStore.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\Paging.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\ProductsNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\StoreImagesNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\StorePromotionVideo.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\VideosNew.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_CategoryProduct.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_HeaderContent.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_HeaderTop.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_LeftMenu.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_PopularProducts.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_ProductsProductList.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_ProductsProductWindow.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_StoreAbout.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_StoreCertificates.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_StoreImagesAndVideos.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_StoreMemberAndMap.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_VideoCategories.cshtml" />
+    <Content Include="Viewsbbb\StoreProfileNew\_VideoViewWindow.cshtml" />
+    <Content Include="Viewsbbb\Store\Index.cshtml" />
+    <Content Include="Viewsbbb\Store\List.cshtml" />
+    <Content Include="Viewsbbb\Store\SearchResults.cshtml" />
+    <Content Include="Viewsbbb\Store\SearchStore.cshtml" />
+    <Content Include="Viewsbbb\Store\StoreSearch.cshtml" />
+    <Content Include="Viewsbbb\Store\Window.cshtml" />
+    <Content Include="Viewsbbb\Store\_FAGFSearch.cshtml" />
+    <Content Include="Viewsbbb\Store\_FilterActivityType.cshtml" />
+    <Content Include="Viewsbbb\Store\_FilterAddressBox.cshtml" />
+    <Content Include="Viewsbbb\Store\_HeaderStoreCategoryGeneral.cshtml" />
+    <Content Include="Viewsbbb\Store\_StoreCategories.cshtml" />
+    <Content Include="Viewsbbb\Store\_StoreCategoryGeneral.cshtml" />
+    <Content Include="Viewsbbb\Store\_StorePaging.cshtml" />
+    <Content Include="Viewsbbb\Store\_StoreViewList.cshtml" />
+    <Content Include="Viewsbbb\Store\_StoreViewListV2.cshtml" />
+    <Content Include="Viewsbbb\Store\_StoreViewWindow.cshtml" />
+    <Content Include="Viewsbbb\Videos\Index.cshtml" />
+    <Content Include="Viewsbbb\Videos\StoreAndProductInf.cshtml" />
+    <Content Include="Viewsbbb\Videos\VideoItems.cshtml" />
+    <Content Include="Viewsbbb\Videos\VideoItems2.cshtml" />
+    <Content Include="Viewsbbb\Videos\VideoSearch.cshtml" />
+    <Content Include="Viewsbbb\Videos\VideoTop2.cshtml" />
+    <Content Include="Viewsbbb\Videos\_OtherVideos.cshtml" />
+    <Content Include="Viewsbbb\Videos\_PopularVideos.cshtml" />
+    <Content Include="Viewsbbb\Videos\_SimilarVideos.cshtml" />
+    <Content Include="Viewsbbb\Videos\_VideoCategories.cshtml" />
+    <Content Include="Viewsbbb\Videos\_VideoItemVideo.cshtml" />
+    <Content Include="Viewsbbb\Videos\_VideoList.cshtml" />
+    <Content Include="Viewsbbb\Videos\_VideoPaging.cshtml" />
+    <Content Include="Viewsbbb\Videos\_VideoViewWindow.cshtml" />
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\AlperÇ.pubxml" />
     <None Include="Properties\PublishProfiles\ezeyrekFs.pubxml" />

@@ -78,7 +78,7 @@ namespace MakinaTurkiye.Services.Search
             if (Liste.Count>0)
             {
                 var Sonuc = _elasticClient.IndexMany<Product>(Liste, indexName);
-            }           
+            }
         }
 
         public ProductSuggestResponse Suggest(string indexName, string keyword)
@@ -88,8 +88,7 @@ namespace MakinaTurkiye.Services.Search
                                      .Suggest(su => su
                                           .Completion("suggestions", c => c
                                                .Prefix(keyword)
-                                               .Field(f => f.Suggest).SkipDuplicates(true)
-                                               
+                                               .Field(f => f.Suggest)
                                                .Size(1000))
                                              ));
 
@@ -107,6 +106,44 @@ namespace MakinaTurkiye.Services.Search
                                };
                 SuggestsListesi = suggests.ToList();
             }
+            return new ProductSuggestResponse
+            {
+                Suggests = SuggestsListesi
+            };
+        }
+
+        public ProductSuggestResponse Search(string indexName, string keyword)
+        {
+            IEnumerable<ProductSuggest> Liste = new List<ProductSuggest>();
+            var SuggestsListesi = _elasticClient.Search<Product>(s => s
+            .Index(indexName.ToLowerInvariant())
+            .From(0)
+            .Size(10000).
+                Query(x=>x.Match(c => c
+                .Field(p => p.Name)
+                .Analyzer("standard")
+                .Boost(1.1)
+                .Query(keyword)
+                .Fuzziness(Fuzziness.Auto)
+                .FuzzyTranspositions()
+                .FuzzyRewrite(MultiTermQueryRewrite.TopTermsBlendedFreqs(10))
+                .Name("named_query")
+            ))
+            .Sort(ss => ss
+                .Field(x=>x.Field(y=>y.Suggest.Weight)
+                    .Order(SortOrder.Descending)
+                    .MissingLast()
+                    .UnmappedType(FieldType.Integer)
+                    .Mode(SortMode.Max)
+                )
+            ))
+            .Documents.Select(x=>new ProductSuggest() {
+                Id=x.Id,
+                Name=x.Name,
+                Url=x.Url,
+                Category=x.Category,
+                Score= x.Suggest.Weight.Value
+            });
             return new ProductSuggestResponse
             {
                 Suggests = SuggestsListesi

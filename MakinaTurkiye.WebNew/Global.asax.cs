@@ -54,7 +54,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                 HttpException httpException = exception as HttpException;
                 RouteData routeData = new RouteData();
                 routeData.Values.Add("controller", "Home");
-                string PrmQuery = Context.Request.Url.PathAndQuery.ToString();                
+                string PrmQuery = Context.Request.Url.PathAndQuery.ToString();
                 IUrlRedirectService _urlRedirectService = EngineContext.Current.Resolve<IUrlRedirectService>();
                 var urlRedirect = _urlRedirectService.GetUrlRedirectByOldUrl(PrmQuery);
                 if (urlRedirect != null)
@@ -76,7 +76,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                             string RedirectUrl = "";
                             int NSayisi = 0;
                             string DomainUrl = Context.Request.Url.ToString().Replace(Context.Request.Url.PathAndQuery, "");
-                           
+
                             for (int Don = PrmQuery.Length - 1; Don > -1; Don--)
                             {
                                 int n;
@@ -146,10 +146,33 @@ namespace NeoSistem.MakinaTurkiye.Web
 
             // Call target Controller and pass the routeData.
             IController errorController = EngineContext.Current.Resolve<CommonController>();
+            // Keylerin Olma Durumları Control Edildi...
+            // Hata Vermesi engellendi..
+            if (routeData.Values.ContainsKey("controller"))
+            {
+                routeData.Values["controller"] = "Common";
+            }
+            else
+            {
+                routeData.Values.Add("controller", "Common");
+            }
+            if (routeData.Values.ContainsKey("action"))
+            {
+                routeData.Values["action"] = "HataSayfasi";
+            }
+            else
+            {
+                routeData.Values.Add("action", "HataSayfasi");
+            }
 
-            routeData.Values.Add("controller", "Common");
-            routeData.Values.Add("action", "HataSayfasi");
-            routeData.Values.Add("error", exception);
+            if (routeData.Values.ContainsKey("error"))
+            {
+                routeData.Values["error"] = exception;
+            }
+            else
+            {
+                routeData.Values.Add("error", exception);
+            }
 
             Server.ClearError();
 

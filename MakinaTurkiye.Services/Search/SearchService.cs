@@ -24,7 +24,7 @@ namespace MakinaTurkiye.Services.Search
 
         public string GlobalSuggetSearchIndexName { get; set; } = "GlobalSuggetSearchIndexName";
         public string GlobalSearchGenelIndexName { get; set; } = "GlobalSearchGenelIndexName";
-       
+
         #endregion
 
         #region Ctor
@@ -171,7 +171,7 @@ namespace MakinaTurkiye.Services.Search
                     Kayit.Id = index;
                     Liste.Add(Kayit);
                 }
-                
+
             }
             if (ElasticSearchClient.CheckIndex(GlobalSearchGenelIndexName.ToLowerInvariant()))
             {
@@ -301,7 +301,7 @@ namespace MakinaTurkiye.Services.Search
 
         public void IndexAraVeriYukle(string AramaTxt)
         {
-            
+
         }
         public void CreateProductSearchIndexSade()
         {
@@ -322,7 +322,7 @@ namespace MakinaTurkiye.Services.Search
         //            foreach (var item in Result)
         //            {
         //                ListeMetin.AddRange(item.Name.Split(' '));
-    
+
         //            }
         //            ListeMetin = ListeMetin.Distinct().ToList();
         //            List<MakinaTurkiye.Services.Search.Product> Liste = new List<Search.Product>();
@@ -384,6 +384,7 @@ namespace MakinaTurkiye.Services.Search
                 ElasticSearchClient.IndexVeriYukle(GlobalSearchGenelIndexName.ToLowerInvariant(), Liste);
             }
         }
+
         public IList<SearchResult> SearchSuggest(string SearchText)
         {
             List<SearchResult> Sonuc = new List<SearchResult>();
@@ -403,7 +404,7 @@ namespace MakinaTurkiye.Services.Search
         public IList<SearchResult> SearchCategory(string SearchText)
         {
             List<SearchResult> Sonuc = new List<SearchResult>();
-            ProductSuggestResponse SncSnc = ElasticSearchClient.Suggest(GlobalSearchGenelIndexName, SearchText);
+            ProductSuggestResponse SncSnc = ElasticSearchClient.Search(GlobalSearchGenelIndexName, SearchText);
             Sonuc = SncSnc.Suggests.Select(Snc =>
                       new SearchResult()
                       {
@@ -415,7 +416,7 @@ namespace MakinaTurkiye.Services.Search
                 ).ToList();
             return Sonuc;
         }
-        #endregion 
+        #endregion
 
         public void Search(string SeacrhText)
         {
