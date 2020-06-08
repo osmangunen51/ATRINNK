@@ -44,7 +44,7 @@
         </asp:ContentPlaceHolder>
     </div>
 
-    <%=Html.RenderHtmlPartial("_Bulletin") %>
+
     <%:Html.Action("Content","Footer") %>
 
 

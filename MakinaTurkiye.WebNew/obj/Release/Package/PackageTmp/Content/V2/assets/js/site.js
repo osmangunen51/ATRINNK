@@ -146,8 +146,7 @@ function facebookLoginClickEvent() {
                 FB.login(function (response) {
 
                     if (response.authResponse) {
-                        console.log(response);
-                        console.log(response.authResponse.accessToken);
+
                         var faceMemberToken = response.authResponse.accessToken;
                         var faceProfilId = response.authResponse.userID;
                         FB.api('/me?fields=id,email,name,first_name,last_name,age_range,gender,locale,picture,verified&access_token' + response.authResponse.accessToken, FacebookAjaxResponse,
@@ -431,7 +430,8 @@ function SendMessageforpro(messagetype) {
     obj.redirect = '/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
     $.ajax({
         url: '/Product/IsAuthenticate',
-        data: obj,
+        data: JSON.stringify(obj),
+        contentType: "application/json",      
         success: function (data) {
             if (data == true) {
                 var memberNo = $('#hiddenMemberNo').val();
@@ -1167,9 +1167,9 @@ function GetHeaderSectorStoreCategory() {
         data: {},
         success: function (data) {
 
-            $('#CustomerCategories').append(data);
+            $('#StoreCategories').html(data);
 
-            var ClonedCategories2 = $("#CustomerCategories [role=menubar]").clone();
+            var ClonedCategories2 = $("#StoreCategories [role=menubar]").clone();
             //$("#MobileCustomersContainer").children("a").append($(DownIcon).clone());
             $("#MobileCustomersContainer").append(ClonedCategories2);
 
@@ -1184,7 +1184,7 @@ function GetSubMenu(id, thisobj) {
 
     var data = $('.mega-dropdown-menu', thisobj).html();
 
-
+       
     if (data.indexOf("loading") > 0) {
 
         $.ajax({
@@ -1196,9 +1196,9 @@ function GetSubMenu(id, thisobj) {
             },
             //contentType: "application/json; charset=utf-8",
             success: function (msg) {
-                console.log(msg);
+ 
                 if (msg) {
-                    console.log(msg, "success");
+     
                     $('.mega-dropdown-menu', thisobj).html(msg);
                 }
             },
@@ -1226,6 +1226,16 @@ $(document).ready(function () {
 
         $("." + crousalClass).trigger('refresh.owl.carousel');
     });
+
+    $('#btnGroupVerticalDrop1').unbind().on('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+       
+        $(this).parent().find(".dropdown-menu").slideToggle();
+
+
+    });
+
 
     //GetHeaderSectorCategory();
     GetHeaderSectorStoreCategory();
@@ -1257,11 +1267,27 @@ $(document).ready(function () {
             });
         }
         else {
+      
 
 
-            $(".main-navigation .dropdown").off("mouseover").off("mouseout"), $(".main-navigation .dropdown").click(function () { var e = $(this).attr("data-menu-id"); e && GetSubMenu(e, this) })
+            $(".main-navigation .dropdown .dropdown-toggle").unbind().on('click', function (event) {
 
-
+                event.preventDefault();
+                event.stopPropagation();
+                $(this).parent().siblings().removeClass('open');
+          
+                var parentAttrClass = $(this).parent().attr("class");
+                $(this).parent().addClass('open');
+                var dataId = $(this).parent().attr("data-menu-id");
+                if (dataId) {
+                    GetSubMenu(dataId, $(this).parent());
+                }                
+                if (parentAttrClass.indexOf("open") > 0) {
+                    $(this).parent().removeClass("open");
+                }
+  
+   
+            });
         }
     }
     toggleNavbarMethod();
@@ -1278,6 +1304,7 @@ $(document).ready(function () {
             $(this).toggleClass('open');
         }
     );
+
 
     // productImageResize();
     mailActivationValidate();
