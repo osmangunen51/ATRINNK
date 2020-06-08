@@ -35,44 +35,13 @@
     </div>
     <hr />
     <div class="form-group">
-            <!--<div class="col-md-6"  style="padding-left:0px; padding-right:10px;">
-                  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-            </div>
-            <div class="col-md-6" style="padding-left:0px; padding-right:0px;">
-            <a class="btn  btn-info btn-facebook-login js-facebook-login col-md-6" href="javascript:;"
-                data-max-rows="1" data-scope="email,public_profile" data-size="medium" data-show-faces="false" data-auto-logout-link="true"
-                style="color: #fff; border-color: #3B5998; background: #3B5998; width: 100%;"><i class="fa fa-facebook fa-fw"></i>Facebook ile bağlan
-            </a>
-            </div>!-->
     <a class="btn  btn-info btn-facebook-login js-facebook-login" href="javascript:;"
         data-max-rows="1" data-scope="email,public_profile" data-size="medium" data-show-faces="false" data-auto-logout-link="true"
         style="color: #fff; border-color: #3B5998; background: #3B5998; width: 100%;"><i class="fa fa-facebook fa-fw"></i>Facebook ile bağlan
     </a>
-<%--<div id="gSignInWrapper">
-    <span class="label">Sign in with:</span>
-    <div id="customBtn" class="customGPlusSignIn">
-      <span class="icon"></span>
-      <span class="buttonText">Google</span>
     </div>
-  </div>--%>
-<%--  <div id="name"></div>
-  <script>startApp();</script>--%>
-        </div>
-<%--<script type="text/javascript">
-    function onSignIn(googleUser) {
-        var profile = googleUser.getBasicProfile();
-        console.log(profile);
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-}
-</script>--%>
-
 <script type="text/javascript">
     (function ($) {
-
-
         $(document).ready(function () {
             function include(file) {
                 var script = document.createElement('script');
@@ -87,12 +56,8 @@
             var VALIDURL = 'https://www.googleapis.com/oauth2/v1/tokeninfo?access_token=';
             var SCOPE = 'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email';
             var CLIENTID = '991245376477-kivpob864itrc7m9njo6o8vmjplu7fm2.apps.googleusercontent.com';
-            //var REDIRECT = 'http://localhost:35882/Membership/GoogleLogin';
-            //var LOGOUT = 'http://localhost:35882/Membership/Logout';
-
-            var REDIRECT = 'https://makinaturkiye.com/Membership/GoogleLogin';
-            var LOGOUT = 'https://makinaturkiye.com/Membership/Logout';
-
+            var REDIRECT = 'https://www.makinaturkiye.com/Membership/GoogleLogin/';
+            var LOGOUT = 'https://www.makinaturkiye.com/Membership/Logout/';
             var TYPE = 'token';
             var _url = OAUTHURL + 'scope=' + SCOPE + '&client_id=' + CLIENTID + '&redirect_uri=' + REDIRECT + '&response_type=' + TYPE;
             var acToken;
@@ -116,7 +81,7 @@
                         }
                     }
                     catch (e) {
-
+                        console.log(e);
                     }
                 }, 500);
             }
@@ -155,11 +120,10 @@
                             success: function (resp) {
                                 user = resp;
                                 console.log(user);
-                                alert('123');
                                 $.ajax({
                                     async: true,
                                     type: "post",
-                                    url: '/Membership/SocialMembership',
+                                    url: 'https://www.makinaturkiye.com/Membership/SocialMembership',
                                     data: JSON.stringify({
                                         "model": {
                                             "MemberName": user.family_name,
