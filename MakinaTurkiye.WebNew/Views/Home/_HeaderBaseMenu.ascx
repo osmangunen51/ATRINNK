@@ -27,8 +27,8 @@
                         </span>
                     </a>
                   <ul class="dropdown-menu mega-dropdown-menu container-fluid">
-                      <div style="text-align:center;">
-                          <img src="/Content/V2/images/menu-loading.gif" style=" height:64px;"  />
+                      <div style="text-align:center;" id="loading">
+                       
                       </div>
                       </ul>
                 </li>

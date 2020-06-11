@@ -79,6 +79,7 @@
     <Compile Include="StoredProcedures\Catalog\TopCategoryResultExtensions.cs" />
     <Compile Include="StoredProcedures\Catalog\WebCategoryProductResultExtensions.cs" />
     <Compile Include="StoredProcedures\Members\BaseMemberDescriptionForStore.cs" />
+    <Compile Include="StoredProcedures\Members\MemberByPhoneResult.cs" />
     <Compile Include="StoredProcedures\Members\MemberDescriptionCount.cs" />
     <Compile Include="StoredProcedures\Members\MemberDescriptionForStore.cs" />
     <Compile Include="StoredProcedures\Members\MemberDescriptionTaskItem.cs" />

@@ -687,15 +687,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         return RedirectPermanent(url);
                     }
 
-                    //if (string.IsNullOrEmpty(searchText))
-                    //{
-                    //    string url = PrepareForLink(category);
-                    //    string urlCheck = Request.IsLocal ? Request.Url.AbsolutePath : Request.Url.AbsoluteUri;
-                    //    if (urlCheck != url)
-                    //    {
-                    //        return RedirectPermanent(url);
-                    //    }
-                    //}
+                    if (string.IsNullOrEmpty(searchText))
+                    {
+                        string url = PrepareForLink(category);
+                        string urlWithPath = Request.Url.AbsoluteUri;
+                        if (Request.Url.AbsoluteUri.ToString().IndexOf("?") > 0)
+                        {
+                            urlWithPath = Request.Url.AbsoluteUri.Substring(0, Request.Url.AbsoluteUri.ToString().IndexOf("?"));
+                        }
+   
+                        string urlCheck = Request.IsLocal ? Request.Url.AbsolutePath : urlWithPath;
+                        if (urlCheck != url)
+                        {
+                            return RedirectPermanent(url);
+                        }
+                    }
                 }
             }
 
@@ -781,8 +787,25 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var categoryParent = _categoryService.GetCategoryByCategoryId(category.CategoryParentId.Value);
                     if (category != null)
                     {
-                        string categoryNameLink = !string.IsNullOrEmpty(categoryParent.CategoryContentTitle) ? categoryParent.CategoryContentTitle : categoryParent.CategoryName;
-                        redirectUrl = UrlBuilder.GetStoreCategoryUrl(categoryParent.CategoryId, categoryNameLink);
+                        string urlName = "";
+                        if (!string.IsNullOrEmpty(category.StorePageTitle))
+                        {
+                            if (category.StorePageTitle.Contains("Firma"))
+                            {
+                                urlName = FormatHelper.GetCategoryNameWithSynTax(category.StorePageTitle, CategorySyntaxType.CategoryNameOnyl);
+                            }
+                            else
+                            {
+                                urlName = FormatHelper.GetCategoryNameWithSynTax(category.StorePageTitle, CategorySyntaxType.Store);
+
+                            }
+                        }
+                        else if (!string.IsNullOrEmpty(category.CategoryContentTitle))
+                            urlName = FormatHelper.GetCategoryNameWithSynTax(category.CategoryContentTitle, CategorySyntaxType.Store);
+                        else
+                            urlName = FormatHelper.GetCategoryNameWithSynTax(category.CategoryName, CategorySyntaxType.Store);
+
+                        redirectUrl = UrlBuilder.GetStoreCategoryUrl(categoryParent.CategoryId, urlName);
 
                     }
                 }

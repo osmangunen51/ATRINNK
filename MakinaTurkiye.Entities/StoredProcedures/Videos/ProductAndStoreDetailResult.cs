@@ -2,7 +2,7 @@
 {
     public class ProductAndStoreDetailResult
     {
-        public int StoreMainPartyId { get; set; }
+        public int? StoreMainPartyId { get; set; }
         public string StoreLogo { get; set; }
         public int MainPartyId { get; set; }
         public int CategoryId { get; set; }

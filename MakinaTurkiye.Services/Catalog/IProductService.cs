@@ -43,7 +43,7 @@ namespace MakinaTurkiye.Services.Catalog
         IList<Product> GetProductsByCategoryIds(List<int> CatList);
 
         IList<Product> GetProductsByMainPartyId(int mainPartyId, bool showHidden=false);
-        IList<Product> GetAllProductsByMainPartyIds(List<int?> mainPartyIds);
+        IList<Product> GetAllProductsByMainPartyIds(List<int?> mainPartyIds, bool includeBrand=false);
 
         IList<Product> GetProductsByProductName(string productName);
 

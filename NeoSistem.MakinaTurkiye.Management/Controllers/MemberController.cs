@@ -31,6 +31,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
     using global::MakinaTurkiye.Utilities.MailHelpers;
     using Models;
     using NeoSistem.EnterpriseEntity.Business;
+    using NeoSistem.MakinaTurkiye.Management.Models.MemberModels;
     using System.IO;
     using System.Web;
 
@@ -2880,7 +2881,52 @@ new { controller = "Member", action = "BrowseDesc1", id = redirectId }));
             var bulletin = _bulletinService.GetBulletinMemberByBulletinMemberId(id);
             _bulletinService.DeleteBulletinMember(bulletin);
             return Json(true, JsonRequestBehavior.AllowGet);
-
+        }
+        public ActionResult SearchPhone()
+        {
+            return View();
+        }
+        [HttpPost]
+       public ActionResult SearchPhone(string phoneText)
+        {
+            var records = _memberService.SPGetInfoByPhone(phoneText);
+            List<SearchPhoneModel> model = new List<SearchPhoneModel>();
+            foreach (var item in records)
+            {
+                SearchPhoneModel searchPhone = new SearchPhoneModel();
+                if (item.MemberType == 2)
+                {
+                    var preRegistrationStore = _preRegistrationStoreService.GetPreRegistirationStoreByPreRegistrationStoreId(item.PreRegistrationStoreId);
+                    searchPhone.NameSurname = preRegistrationStore.MemberName+" -"+preRegistrationStore.StoreName;
+                    searchPhone.MemberTypeText = "Ön Kayıt";
+                }
+                else
+                {
+                    var member = _memberService.GetMemberByMainPartyId(item.MainPartyId);
+                    if (member != null)
+                    {
+                        searchPhone.NameSurname = member.MemberName + " " + member.MemberSurname;
+                        searchPhone.MemberTypeText = "Normal Üye";
+                    }
+                    else
+                    {
+                        var store = _storeService.GetStoreByMainPartyId(item.MainPartyId);
+                        if (store != null)
+                        {
+                            searchPhone.MemberTypeText = "Firma";
+                            searchPhone.NameSurname = store.StoreName;
+                            searchPhone.Url = "/Store/EditStore/" + item.MainPartyId;
+                        }
+                    }
+                }
+                searchPhone.MemberType = item.MemberType;
+                searchPhone.PhoneNumber = item.PhoneNumber;
+                if (!string.IsNullOrEmpty(searchPhone.MemberTypeText))
+                {
+                    model.Add(searchPhone);
+                }
+            }
+            return PartialView("_SearchPhoneList",model);
         }
         #endregion
     }

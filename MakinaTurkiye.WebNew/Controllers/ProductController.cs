@@ -49,6 +49,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
     [AllowAnonymous]
     [Compress]
+    [AllowSameSite]
     public class ProductController : BaseController
     {
 
@@ -168,12 +169,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var categoryNameUrl = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
                 if (item.CategoryParentId == null)
                 {
-                    alMenu.Add(new Navigation(item.CategoryName, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
+                    alMenu.Add(new Navigation(categoryNameUrl, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
                 }
                 else if (item.CategoryType == (byte)CategoryType.ProductGroup)
                 {
+                    
 
-                    alMenu.Add(new Navigation(item.CategoryName, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
+                    alMenu.Add(new Navigation(categoryNameUrl, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
                 }
                 else if (item.CategoryType == (byte)CategoryType.Brand)
                 {
@@ -214,7 +216,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     alMenu.Add(new Navigation(item.CategoryName, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
                 }
             }
-            alMenu.Add(new Navigation(productName, Request.FilePath, Navigation.TargetType._self));
+            alMenu.Add(new Navigation(productName,UrlBuilder.GetProductUrl(productId, productName), Navigation.TargetType._self));
             model.MtJsonLdModel.Navigations = alMenu;
             StringBuilder navigation = new StringBuilder();
             navigation.AppendLine("<ol class='breadcrumb breadcrumb-mt'>");
@@ -222,9 +224,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 Navigation nn = (Navigation)alMenu[i];
 
-                if (String.IsNullOrEmpty(nn.Url) || i == alMenu.Count - 1)
+                if (String.IsNullOrEmpty(nn.Url) || i == alMenu.Count-1)
                 {
-                    navigation.AppendLine("<li class='active'>" + nn.Title + "</li>");
+                    navigation.AppendLine("<li><a target='"+nn.Target+"' href='"+nn.Url+"'>"+  nn.Title + "</a></li>");
                 }
                 else
                 {
@@ -884,7 +886,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             #endregion
-            PrepareSimilarProducts(model);
+            //PrepareSimilarProducts(model);
 
             #region saticimesaj
             if (product.GetActiveStatus())
@@ -1910,6 +1912,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         [HttpGet]
+        [AllowSameSite]
         public ActionResult AddFavoriteStoreProduct(int id)
         {
             if (AuthenticationUser.Membership.MainPartyId > 0)
@@ -1936,6 +1939,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         [HttpGet]
+        [AllowSameSite]
         public ActionResult RemoveFavoriteStoreProduct(int id)
         {
             if (AuthenticationUser.Membership.MainPartyId > 0)
@@ -1957,6 +1961,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         [HttpPost]
+        [AllowSameSite]
         public JsonResult AddFavoriteProduct(int ProductId)
         {
             if (AuthenticationUser.Membership != null)
@@ -2001,6 +2006,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         [HttpPost]
+        [AllowSameSite]
         public ActionResult RemoveFavoriteProduct(int ProductId)
         {
             var result = false;
@@ -2016,6 +2022,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return Json(result);
         }
 
+        [AllowSameSite]
         public ActionResult IsAuthenticate(string redirect)
         {
             if (AuthenticationUser.Membership.MainPartyId > 0)
@@ -2028,6 +2035,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         [HttpGet]
+
         public ActionResult ProductContact(int productId)
         {//AdilD
             var model = new ProductContactModel();
@@ -2084,6 +2092,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         [HttpPost]
+        [AllowSameSite]
         public JsonResult AddWhatsappLog(int storeId)
         {
             var store = _storeService.GetStoreByMainPartyId(storeId);
@@ -2168,6 +2177,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         [HttpPost]
+        [AllowSameSite]
         public JsonResult AddProductComment(string CommentText, byte Rate, string ProductId)
         {
             if (AuthenticationUser.Membership.MainPartyId != 0)
@@ -2240,6 +2250,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         [HttpPost]
+        [AllowSameSite]
         public JsonResult ProductStatisticCreate(int productId)
         {
             string ipAdress = Request.UserHostAddress;

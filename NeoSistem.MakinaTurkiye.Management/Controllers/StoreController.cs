@@ -1595,6 +1595,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             model.Email = entities.Members.FirstOrDefault(x => x.MainPartyId == memberStore.MemberMainPartyId).MemberEmail;
             model.Phones = phones;
+            model.IsProductAdded = store.IsProductAdded;
+            model.StoreMainPartyId = store.MainPartyId;
             model.IsWhatsappUsing = false;
             model.Address = entities.Addresses.FirstOrDefault(x => x.MainPartyId == id);
             model.MemberMainPartyId = memberStore.MemberMainPartyId.Value;

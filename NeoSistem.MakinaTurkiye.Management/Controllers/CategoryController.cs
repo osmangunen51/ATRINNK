@@ -468,7 +468,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         category.CategoryParentId = parentCategory.CategoryId;
 
                         _categoryService.UpdateCategory(category);
-                        var topCategoriesNames = _categoryService.GetSPTopCategories(category.CategoryId).Select(x => x.CategoryContentTitle).ToList();
+                        var topCategoriesNames = _categoryService.GetSPTopCategories(category.CategoryId).Select(x => x.CategoryName).ToList();
 
 
 
@@ -886,6 +886,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             else
                 categoryUrl = UrlBuilder.ToUrl(category.CategoryName);
 
+         
             return Json(new
             {
                 CategoryParentId = category.CategoryParentId,
@@ -912,6 +913,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             if (category != null)
             {
 
+
                 category.CategoryOrder = model.CategoryOrder;
                 //category.Active = model.Active;
                 category.LastUpdateDate = DateTime.Now;
@@ -925,9 +927,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 category.CategoryPathUrl = GetCategoryPathUrl(category);
                 if (model.BaseMenuOrder.HasValue)
                     category.BaseMenuOrder = model.BaseMenuOrder.Value;
+                if (category.CategoryType == (byte)CategoryType.Model || category.CategoryType == (byte)CategoryType.Brand)
+                {
+                    category.CategoryContentTitle = category.CategoryName;
+                }
                 entities.SaveChanges();
                 var topCategories = _categoryService.GetSPTopCategories(category.CategoryId);
-                var topCategoriesNames = topCategories.Select(x => x.CategoryContentTitle).ToList();
+                var topCategoriesNames = topCategories.Select(x => x.CategoryName).ToList();
 
                 category.CategoryPath = String.Join(" - ", topCategoriesNames);
                 entities.SaveChanges();

@@ -65,11 +65,15 @@
     });
     $('#login-form').bootstrapValidator({
         message: 'Bu değer valid değildir',
+        live: 'enabled',
+        trigger: null,
+        submitButton: '$user_fact_form button[type="submit"]',
         feedbackIcons: {
             valid: 'fa fa-sync',
             invalid: 'fa fa-exclamation',
             validating: 'fa fa-check'
         },
+
         fields: {
             Email: {
                 message: 'Email Adresi Zorunludur',
@@ -95,7 +99,42 @@
                 }
             }
         }
-    });
+    }).on('success.form.bv', function (e) {
+   e.preventDefault();
+
+        $(".loading-membership").show();
+        var email = $("#Email").val();
+        var password = $("#Password").val();
+        var returnUrl = $("#ReturnUrl").val();
+        $.ajax({
+            url: '/Membership/Logon',
+            type: 'post',
+            data: {
+                Email: email,
+                Password: password,
+                ReturnUrl: returnUrl
+            },
+            dataType: 'json',
+            success: function (data) {
+                $(".loading-membership").hide();
+                if (data.IsSuccess) {
+
+                    window.location = data.Result.ReturnUrl;
+                }
+                else {
+                    console.log(data.Message);
+                    $("#MembershipError").fadeIn();
+                    $("#MembershipError").html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i>' + data.Message);
+
+                }
+            },
+            error: function (request, error) {
+                $(".loading-membership").hide();
+                alert("Request: " + JSON.stringify(request));
+            }
+        });
+     });
+    
     $('#register-form').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {

@@ -235,7 +235,10 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
-    <%=Html.RenderHtmlPartial("_HomeSector",Model.HomeSectorItems) %>
+    <%if (!Request.Browser.IsMobileDevice) {%>
+            <%=Html.RenderHtmlPartial("_HomeSector",Model.HomeSectorItems) %>
+    <% } %>
+
     <%--   <%= Html.Partial("_ProductRelatedCategories", Model.HomeProductsRelatedCategoryModel)  %>--%>
 
 

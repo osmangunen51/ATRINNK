@@ -59,7 +59,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             return View(model);
         }
-        public SearchModel<MTProductItem> PrepareProductModel(int pageIndex, string pageType , string productName="", string productNo="", string categoryName="",string brandName="")
+        public SearchModel<MTProductItem> PrepareProductModel(int pageIndex, string pageType , string productName="", string productNo="", string categoryName="",string brandName="",string modelName ="", bool search=false)
         {
             var getProduct = new SearchModel<MTProductItem>
             {
@@ -72,7 +72,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             int mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(mainPartyId);
             var mainPartyIds = _memberStoreService.GetMemberStoresByStoreMainPartyId(memberStore.StoreMainPartyId.Value).Select(x => x.MemberMainPartyId).ToList();
-            var products = _productService.GetAllProductsByMainPartyIds(mainPartyIds);
+            var products = new List<global::MakinaTurkiye.Entities.Tables.Catalog.Product>();
+            if(search==true)
+            {
+                products =_productService.GetAllProductsByMainPartyIds(mainPartyIds,true).ToList();
+            }
+            else
+            {
+                products = _productService.GetAllProductsByMainPartyIds(mainPartyIds).ToList();
+            }
+
 
             //if (pageType == "5")
             //{
@@ -95,9 +104,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 products = products.Where(x => x.Category.CategoryName.ToLower().Contains(categoryName.ToLower())).ToList();
             }
+
             if (!string.IsNullOrEmpty(brandName))
             {
                 products = products.Where(x => x.Brand.CategoryName.ToLower().Contains(brandName.ToLower())).ToList();
+            }
+            if (!string.IsNullOrEmpty(modelName))
+            {
+                products = products.Where(x => x.Model.CategoryName.ToLower().Contains(modelName.ToLower())).ToList();
             }
             foreach (var item in products.OrderByDescending(x => x.Sort).ThenBy(x => x.ProductName).Skip(skip).Take(pageDimension))
             {
@@ -203,11 +217,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdvertPagingfor(int page, byte displayType, byte advertListType, byte ProductActiveType,string productNo, string productName, string categoryName, string brandName)
+        public ActionResult AdvertPagingfor(int page, byte displayType, byte advertListType, byte ProductActiveType,string productNo, string productName, string categoryName, string brandName,string modelName)
         {
 
             var model = new OtherSettingsProductModel();
-            model.MTProductItems = PrepareProductModel(page,"5",productName, productNo,categoryName, brandName);
+            model.MTProductItems = PrepareProductModel(page,"5",productName, productNo,categoryName, brandName, modelName,true);
 
             //var dataProduct = new Data.Product();
             //var getProduct = new SearchModel<ProductModel>

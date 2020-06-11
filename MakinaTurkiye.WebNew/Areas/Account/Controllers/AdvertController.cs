@@ -591,7 +591,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 var cityItems = dataAddress.CityGetItemByCountryId(product.CountryId.Value).AsCollection<CityModel>().ToList();
                 cityItems.Insert(0, new CityModel { CityId = 0, CityName = "< Lütfen Seçiniz >" });
 
-                model.TotalPrice = product.ProductPriceWithDiscount.HasValue ? product.ProductPriceWithDiscount.Value.ToString() : "0";
+                model.TotalPrice = product.ProductPriceWithDiscount.HasValue ? product.ProductPriceWithDiscount.Value.ToString("0#.00") : "0";
                 model.DiscountAmount = product.DiscountAmount.HasValue ? product.DiscountAmount.Value : 0;
                 model.DiscountType = product.DiscountType.HasValue ? product.DiscountType.Value : (byte)0;
 
@@ -935,11 +935,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         product.DiscountType = Convert.ToByte(model.DiscountType);
                         if (model.DiscountType != 0)
                         {
-
+             
+                 
                             if (!string.IsNullOrEmpty(coll["DiscountAmount"]))
                             {
                                 product.DiscountAmount = Convert.ToDecimal(model.DiscountAmount);
-                                product.ProductPriceWithDiscount = Convert.ToDecimal(coll["totalPrice"], cultInfo.NumberFormat);
+                                string totalPrice = coll["TotalPrice"];
+                                if (totalPrice.IndexOf('.') > 0 && totalPrice.IndexOf(",") > 0)
+                                {
+                                    totalPrice = totalPrice.Replace(".", "");
+                                }
+                                else
+                                {
+                                    totalPrice = totalPrice.Replace(".", ",");
+                                }
+                                product.ProductPriceWithDiscount = Convert.ToDecimal(totalPrice, cultInfo.NumberFormat);
 
                             }
 
@@ -2711,7 +2721,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 WarrantyPeriod = modelProduct.WarrantyPeriod,
                 UnitType = coll["UnitType"].ToString(),
                 ProductPriceType = Convert.ToByte(productPriceType),
-                ProductSellUrl = modelProduct.ProductSellUrl
+                ProductSellUrl = modelProduct.ProductSellUrl,
+                Keywords = PrepareKeyword(productName)
+
             };
             string productPrice = ProductPrice1;
             System.Globalization.CultureInfo culInfo = new System.Globalization.CultureInfo("tr-TR");
@@ -2742,15 +2754,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     if (!string.IsNullOrEmpty(coll["DiscountAmount"]))
                     {
                         curProduct.DiscountAmount = Convert.ToDecimal(modelProduct.DiscountAmount);
-                        curProduct.ProductPriceWithDiscount = Convert.ToDecimal(coll["totalPrice"], culInfo.NumberFormat);
-
+                        string totalPrice = coll["TotalPrice"];
+                        if (totalPrice.IndexOf('.') > 0 && totalPrice.IndexOf(",") > 0)
+                        {
+                            totalPrice = totalPrice.Replace(".", "");
+                        }
+                        else
+                        {
+                            totalPrice = totalPrice.Replace(".", ",");
+                        }
+                        curProduct.ProductPriceWithDiscount = Convert.ToDecimal(totalPrice, culInfo.NumberFormat);
                     }
 
                 }
-
-
-
-
                 curProduct.ProductPrice = Convert.ToDecimal(productPrice, culInfo.NumberFormat);
             }
             else if (productPriceType == Convert.ToString((byte)ProductPriceType.PriceRange))//product price  
@@ -2932,6 +2948,28 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
             }
             return RedirectToAction("Picture", "Advert");
+        }
+        public string PrepareKeyword(string productName)
+        {
+            string keyword = "";
+            if (productName.Contains("Makinası"))
+            {
+                keyword = productName.Replace("Makinası","Makinesi").ToLower();
+            }
+            else if(productName.Contains("Makinesi"))
+            {
+                keyword = productName.Replace("Makinesi", "Makinası").ToLower();
+            }
+            else if (productName.Contains("Makineleri"))
+            {
+                keyword = productName.Replace("Makineleri", "Makinaları").ToLower();
+            }
+            else if (productName.Contains("Makinaları"))
+            {
+                keyword = productName.Replace("Makinaları", "Makineleri").ToLower();
+            }
+
+            return keyword;
         }
 
         public bool CheckAllowProductSellUrl()

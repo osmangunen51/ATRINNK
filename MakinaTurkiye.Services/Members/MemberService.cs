@@ -53,7 +53,7 @@ namespace MakinaTurkiye.Services.Members
             return _cacheManager.Get(key, () =>
              {
                  var query = _memberRepository.Table;
-                 return query.First(m => m.MainPartyId == mainPartyId);
+                 return query.FirstOrDefault(m => m.MainPartyId == mainPartyId);
              });
 
         }
@@ -200,6 +200,27 @@ namespace MakinaTurkiye.Services.Members
             var member = query.FirstOrDefault(m => m.MemberPassword == memberPassword);
             return member;
 
+        }
+
+        public IList<MemberByPhoneResult> SPGetInfoByPhone(string phoneNumber)
+        {
+            phoneNumber = phoneNumber.Trim().Replace(" ","").Replace("+","").Replace("(","").Replace(")","").Replace("-","");
+            if (phoneNumber.StartsWith("0"))
+            {
+                phoneNumber = phoneNumber.Substring(1, phoneNumber.Length-1);
+            }
+            else if (phoneNumber.StartsWith("9"))
+            {
+                phoneNumber = phoneNumber.Substring(2, phoneNumber.Length - 2);
+            }
+            var pPhoneNumber = _dataProvider.GetParameter();
+            pPhoneNumber.ParameterName = "PhoneNumber";
+            pPhoneNumber.Value = phoneNumber;
+            pPhoneNumber.DbType = DbType.String;
+
+
+            var list = _dbContext.SqlQuery<MemberByPhoneResult>("SP_GetInfoByPhone @PhoneNumber",  pPhoneNumber);
+            return list.ToList();
         }
 
 

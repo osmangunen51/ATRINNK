@@ -34,6 +34,7 @@ using System.IO;
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
     [AllowAnonymous]
+
     public class HomeController : BaseController
     {
 
@@ -514,11 +515,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 MTHomeModel model = new MTHomeModel();
                 PrepareCategoryModels(model);
-                PrepareSliderBannerMoldes(model);
+                if (!Request.Browser.IsMobileDevice)
+                {
+                    PrepareSliderBannerMoldes(model);
+                }
+
                 PreparePopularStoreModel(model);
-
-                PrepareHomeSectorItems(model);
-
+                if (!Request.Browser.IsMobileDevice)
+                {
+                    PrepareHomeSectorItems(model);
+                }
                 IConstantService constantService = EngineContext.Current.Resolve<IConstantService>();
                 var constant = constantService.GetConstantByConstantId(235);
                 model.ConstantTitle = constant.ConstantTitle;
@@ -748,6 +754,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             return PartialView(model);
         }
+
         [AllowSameSite]
         [HttpPost]
         public JsonResult GetStoreProductComment()

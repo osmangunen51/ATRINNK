@@ -6,7 +6,7 @@
         function DeleteVideo(id) {
             if (confirm('Kaydı Silmek istediğinizden eminmisiniz ?')) {
                 $.ajax({
-                    url: '/Account/Advert/DeleteProductVideo',
+                    url: '/Account/ilan/DeleteProductVideo',
                     data: { videoId: id },
                     type: 'post',
                     dataType: 'json',
