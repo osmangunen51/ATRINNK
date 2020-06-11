@@ -15,7 +15,7 @@ namespace MakinaTurkiye.Utilities.Mvc
 
             var domains = new List<string> { "magaza.makinaturkiye.com", "makinaturkiye.com","urun.makinaturkiye.com","video.makinaturkiye.com" };
 
-            if (domains.Contains(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Host))
+            if (filterContext.RequestContext.HttpContext.Request.UrlReferrer!=null && domains.Contains(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Host))
             {
                 filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");
             }

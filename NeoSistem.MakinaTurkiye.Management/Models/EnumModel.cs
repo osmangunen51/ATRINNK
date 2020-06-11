@@ -50,13 +50,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
             {
                 builder.AppendFormat("/ {0} ", model.DoorNo);
             }
-
-
             builder.AppendFormat("{0} {1} {2}/{3}", model.Town != null ? model.Town.TownName : "", model.Locality != null ? model.Locality.LocalityName : "", model.City != null ? model.City.CityName : "-", model.Country != null ? model.Country.CountryName : "-");
-
-
             return builder.ToString();
         }
+
         public static string AddressEditForOrder(Address model)
         {
             var entities = new MakinaTurkiyeEntities();

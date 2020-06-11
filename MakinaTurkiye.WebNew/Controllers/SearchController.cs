@@ -75,9 +75,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = searchTexts, data = new data { category = "Gecmis" }, Url = "" });
                     }
-
                 }
-
             }
             else
             {
@@ -110,11 +108,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             Url = item.Url
                         };
                     }
-                    if (!EklenenListesi.Contains(ItemOneri.Name))
+                    if (!EklenenListesi.Contains(ItemOneri.Name.Trim()))
                     {
                         EklenenSayisi++;
                         Sonuc.suggestions.Add(ItemOneri);
-                        EklenenListesi.Add(ItemOneri.Name);
+                        EklenenListesi.Add(ItemOneri.Name.Trim());
                         if (EklenenSayisi>7)
                         {
                             break;
@@ -156,7 +154,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             };
                         }
                         Sonuc.suggestions.Add(ItemCategory);
-                        EklenenListesi.Add(ItemCategory.Name);
+                        EklenenListesi.Add(ItemCategory.Name.Trim());
                     }
                 }
 
