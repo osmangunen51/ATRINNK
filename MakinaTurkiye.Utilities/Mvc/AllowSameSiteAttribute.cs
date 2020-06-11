@@ -14,20 +14,26 @@ namespace MakinaTurkiye.Utilities.Mvc
             var response = filterContext.RequestContext.HttpContext.Response;
 
             var domains = new List<string> { "magaza.makinaturkiye.com", "makinaturkiye.com","urun.makinaturkiye.com","video.makinaturkiye.com" };
+<<<<<<< HEAD
 
             if (filterContext.RequestContext.HttpContext.Request.UrlReferrer!=null && domains.Contains(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Host))
+=======
+            if (filterContext.RequestContext.HttpContext.Request.UrlReferrer != null)
+>>>>>>> 037a3a3edd97e1d5c3e6d77f48e77aee339a4019
             {
-                filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");
+                if (domains.Contains(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Host))
+                {
+                    filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");
+                }
+
+                filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Headers", "*");
+                filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Credentials", "true");
+
+                if (response != null)
+                {
+                    response.AddHeader("Set-Cookie", "HttpOnly;Secure;SameSite=None");
+                }
             }
-
-            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Headers", "*");
-            filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Credentials", "true");
-
-            if (response != null)
-            {
-                response.AddHeader("Set-Cookie", "HttpOnly;Secure;SameSite=None");
-            }
-
             base.OnActionExecuting(filterContext);
         }
     }

@@ -40,10 +40,8 @@ gulp.task('pack-js-plugins', function () {
         'assets/js/jquery.maskMoney.js',
         'assets/js/jquery.metadata.js',
         'assets/js/jquery.validate.min.js',
-
-
         "assets/js/jquery.magnific-popup.min.js",
-        "assets/js/bootstrap-select.min.js"
+        "assets/js/bootstrap-select.min.js"        
 
 	])
         .pipe(bom())

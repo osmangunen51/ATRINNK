@@ -4,8 +4,7 @@
 <head>
  <%: Html.Action("MetaTag","Common")%>   
  <%= Html.RenderHtmlPartial("_Head")%>  
- <%: Html.Action("MetaTag","Common")%>
- <%= Html.RenderHtmlPartial("_Head")%>
+
  <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
 </head>
 <body class="facelift-v2">

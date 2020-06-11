@@ -567,13 +567,17 @@ namespace MakinaTurkiye.Services.Catalog
             });
         }
 
-        public IList<Product> GetAllProductsByMainPartyIds(List<int?> mainPartyIds)
+        public IList<Product> GetAllProductsByMainPartyIds(List<int?> mainPartyIds, bool includeBrand = false)
         {
             if (mainPartyIds.Count == 0)
                 throw new ArgumentNullException("mainPartyId");
             var query = _productRepository.Table;
             query = query.Include(x => x.Category);
-
+            if (includeBrand == true)
+            {
+                query = query.Include(x => x.Brand);
+                query = query.Include(x => x.Model);
+            }
             query = query.Include(x => x.Country);
             query = query.Include(x => x.City);
             query = query.Include(x => x.Locality);

@@ -17,6 +17,19 @@
             }
             return productPrice;
         }
+        function formatMoney(number, decPlaces, decSep, thouSep) {
+            decPlaces = isNaN(decPlaces = Math.abs(decPlaces)) ? 2 : decPlaces,
+                decSep = typeof decSep === "undefined" ? "," : decSep;
+            thouSep = typeof thouSep === "undefined" ? "." : thouSep;
+            var sign = number < 0 ? "-" : "";
+            var i = String(parseInt(number = Math.abs(Number(number) || 0).toFixed(decPlaces)));
+            var j = (j = i.length) > 3 ? j % 3 : 0;
+
+            return sign +
+                (j ? i.substr(0, j) + thouSep : "") +
+                i.substr(j).replace(/(\decSep{3})(?=\decSep)/g, "$1" + thouSep) +
+                (decPlaces ? decSep + Math.abs(number - i).toFixed(decPlaces).slice(2) : "");
+        }
         function WriteTotalRecord() {
 
 
@@ -29,15 +42,18 @@
 
                 var newPrice = Number(productPrice) - Number($("#DiscountAmount").val());
 
-                $("#TotalPrice").val(newPrice);
+                $("#TotalPrice").val(formatMoney(newPrice));
+
 
 
 
             }
             else if ($("#DiscountType").val() == '<%:(byte)ProductDiscountType.Percentage%>') {
                 var newPrice = Number(productPrice) - Number(productPrice) * Number($("#DiscountAmount").val()) / 100;
-                $("#TotalPrice").val(newPrice);
+                console.log(newPrice, Number(productPrice));
+                $("#TotalPrice").val(formatMoney(newPrice));
             }
+            $("#TotalPrice").maskMoney();
         }
         $(document).ready(function () {
 
@@ -73,7 +89,7 @@
             $('#ProductPrice1').maskMoney();
             $('#ProductPriceBegin').maskMoney();
             $('#ProductPriceLast').maskMoney();
-
+            $('#TotalPrice').maskMoney();
             $('input[rel=ProductName]').change(function () {
                 var productName = $('#ProductName').val();
                 $.ajax({
@@ -251,11 +267,11 @@
                     url: '/Account/ilan/DeletePictureEdit',
                     type: 'Post',
                     data:
-                    {
-                        ProductId: <%=this.RouteData.Values["id"] %>,
-                        PictureId: pictureId,
-                        PictureName: pictureName
-                    },
+                        {
+                            ProductId: <%=this.RouteData.Values["id"] %>,
+                            PictureId: pictureId,
+                            PictureName: pictureName
+                        },
                     success: function (data) {
                         $('#divPictureList').html(data);
                         alert('Resim başarıyla silinmiştir');
@@ -292,10 +308,10 @@
                     url: '/Account/ilan/DeleteVideoEdit',
                     type: 'Post',
                     data:
-                    {
-                        ProductId: productId,
-                        VideoId: videoId
-                    },
+                        {
+                            ProductId: productId,
+                            VideoId: videoId
+                        },
                     success: function (data) {
                         $('#divVideoList').html(data);
                         alert('Video başarıyla silinmiştir');
@@ -562,7 +578,7 @@
                             <%: Html.ValidationMessageFor(m => m.ProductDescription)%>
                         </div>
                     </div>
-<%--                    <div class="form-group">
+                    <%--                    <div class="form-group">
                         <label class="col-sm-3 control-label">Anahtar Kelimeler:</label>
                         <div class="col-sm-9">
 
@@ -1008,7 +1024,9 @@
                                 Yeni Fiyat
                             </label>
                             <div class="col-sm-3">
-                                <%:Html.TextBoxFor(x=>x.TotalPrice,new {@class="form-control" }) %>
+
+                                <input type="text" id="TotalPrice" name="TotalPrice" value="<%:Model.TotalPrice %>" class="form-control" data-thousands="." data-decimal="," />
+
                             </div>
                         </div>
                     </div>

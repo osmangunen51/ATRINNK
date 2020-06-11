@@ -120,6 +120,9 @@ namespace MakinaTurkiye.Services.Seos
         StoreNewManagment=98,
         StoreUsersManagment = 99,
         StoreVideosManagment =100,
-        StorePromotionVideo=101
+        StorePromotionVideo=101,
+
+        Register = 103,
+        AdvancedSearch = 104
     }
 }

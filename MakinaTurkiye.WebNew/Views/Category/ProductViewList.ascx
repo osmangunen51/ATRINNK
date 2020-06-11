@@ -31,11 +31,11 @@
         ++i;
         if (otherIndexNumber != 0 && otherIndexNumber % 3 == 0 && ((otherIndexNumber - 1) / 3) < Model.BannerModels.Count)
         {%>
-  
+
     <%}
 
     %>
-    <%string productUrl =MakinaTurkiye.Utilities.HttpHelpers.UrlBuilder.GetProductUrl(model.ProductId, model.ProductName); %>
+    <%string productUrl = MakinaTurkiye.Utilities.HttpHelpers.UrlBuilder.GetProductUrl(model.ProductId, model.ProductName); %>
 
     <% string s = model.ModelYear.ToString();
         string Marka = (model.BrandName != null || model.BrandName != "") ? model.BrandName : "";
@@ -50,13 +50,27 @@
                     class="product-list-mt__link clearfix">
                     <div class="product-list-mt__image-area">
                         <% if (!string.IsNullOrEmpty(model.PicturePath))
+                            {
+                                if (i < 5)
+                                {%>
+                        <img
+                            class="img-thumbnail"
+                            src="<%=model.PicturePath.Replace("160x120","200x150") %>"
+                            alt="<%:model.ProductName %>"
+                            title="<%:model.ProductName %>" />
+
+                        <% }
+                            else
                             {%>
+
                         <img
                             class="img-thumbnail img-lazy"
                             src="/UserFiles/image-loading.png"
                             data-src="<%=model.PicturePath.Replace("160x120","200x150") %>"
                             alt="<%:model.ProductName %>"
                             title="<%:model.ProductName %>" />
+                        <% } %>
+
 
                         <%} %>
                         <%else
@@ -84,7 +98,7 @@
                         <div class="product-list-video-icon" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
 
                         <%
-                        } %>
+                            } %>
                     </div>
 
                     <span class="product-list-mt__advert-no product-list-mt__advert-no--mobile"><%:model.ProductNo %></span>
@@ -120,9 +134,10 @@
                             <% if (model.Price != "Fiyat Sorunuz")
                                 {%>
                             <span class="<%:!string.IsNullOrEmpty(model.ProductPriceWithDiscount) ? "old-price" : "" %>"><%:model.Price%></span>
-                            <%if (!string.IsNullOrEmpty(model.ProductPriceWithDiscount)) {%>
-                               <i itemprop="priceCurrency" class="<%=model.CurrencyCss %>"></i>
-                                <span><%:model.ProductPriceWithDiscount %></span>
+                            <%if (!string.IsNullOrEmpty(model.ProductPriceWithDiscount))
+                                {%>
+                            <i itemprop="priceCurrency" class="<%=model.CurrencyCss %>"></i>
+                            <span><%:model.ProductPriceWithDiscount %></span>
                             <% } %>
                             <% }
                                 else

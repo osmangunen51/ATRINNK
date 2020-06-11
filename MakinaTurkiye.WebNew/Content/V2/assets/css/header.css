@@ -245,6 +245,11 @@
 .new-header__search form {
   padding: 0;
   margin: 0;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 100%;
 }
 .new-header__search span {
   width: 27px;
@@ -298,7 +303,7 @@
   width: 100%;
   font-family: Arial, sans-serif;
   color: #828282;
-  font-size: 15px;
+  font-size: 16px;
   border: 0px;
   padding-left: 40px;
   position: relative;

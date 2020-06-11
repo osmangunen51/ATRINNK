@@ -26,5 +26,7 @@ namespace MakinaTurkiye.Services.Members
 
         Member GetMemberByMemberPassword(string memberPassword);
 
+        IList<MemberByPhoneResult> SPGetInfoByPhone(string phoneNumber);
+
     }
 }

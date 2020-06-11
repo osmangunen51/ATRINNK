@@ -50,29 +50,8 @@
             $("#ajaxSuccess").hide();
         }
 
-                function CertificatePopUpGallery() {
-            $('.certificate-popup-gallery').magnificPopup({
-                delegate: 'div a',
-                type: 'image',
-                tLoading: 'Resim Yükeniyor #%curr%...',
-                mainClass: 'mfp-img-mobile',
-                gallery: {
-                    enabled: true,
-                    navigateByImgClick: true,
-                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-                },
-                image: {
-                    tError: '<a href="%url%"> #%curr%</a> resim yüklenemedi',
-                    titleSrc: function (item) {
-                        return item.el.attr('title') + '<small></small>';
-                    }
-                }
-            });
-        }
 
 
-        $(document).ready(function () {
-            CertificatePopUpGallery();
-        });
+
 </script>
 
