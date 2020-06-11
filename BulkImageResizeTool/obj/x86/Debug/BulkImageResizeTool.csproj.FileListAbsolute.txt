@@ -30,3 +30,15 @@ D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\BulkImageResizeTool\obj\x86\Debug\Bu
 D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\BulkImageResizeTool\obj\x86\Debug\BulkImageResizeTool.csproj.CopyComplete
 D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\BulkImageResizeTool\obj\x86\Debug\BulkImageResizeTool.exe
 D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\BulkImageResizeTool\obj\x86\Debug\BulkImageResizeTool.pdb
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\bin\Debug\BulkImageResizeTool.exe.config
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\bin\Debug\BulkImageResizeTool.exe
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\bin\Debug\BulkImageResizeTool.pdb
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\bin\Debug\ImageResizer.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\bin\Debug\ImageResizer.Plugins.Watermark.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\bin\Debug\ImageResizer.xml
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\bin\Debug\ImageResizer.Plugins.Watermark.xml
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\obj\x86\Debug\BulkImageResizeTool.csprojAssemblyReference.cache
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\obj\x86\Debug\BulkImageResizeTool.csproj.CoreCompileInputs.cache
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\obj\x86\Debug\BulkImageResizeTool.csproj.CopyComplete
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\obj\x86\Debug\BulkImageResizeTool.exe
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\BulkImageResizeTool\obj\x86\Debug\BulkImageResizeTool.pdb

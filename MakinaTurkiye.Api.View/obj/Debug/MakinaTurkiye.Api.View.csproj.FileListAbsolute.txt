@@ -10,3 +10,9 @@ D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\Mak
 D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.csproj.CoreCompileInputs.cache
 D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.dll
 D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.pdb
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.Api.View\bin\Debug\MakinaTurkiye.Api.View.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.Api.View\bin\Debug\MakinaTurkiye.Api.View.pdb
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.csprojAssemblyReference.cache
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.csproj.CoreCompileInputs.cache
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.Api.View\obj\Debug\MakinaTurkiye.Api.View.pdb

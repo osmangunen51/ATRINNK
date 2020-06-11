@@ -10,3 +10,9 @@ D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug
 D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.csproj.CoreCompileInputs.cache
 D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.dll
 D:\MakinaTurkiyeGit\NeoSistem.MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.pdb
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\bin\Debug\MakinaTurkiye.SearchEngine.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\bin\Debug\MakinaTurkiye.SearchEngine.pdb
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.csprojAssemblyReference.cache
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.csproj.CoreCompileInputs.cache
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.dll
+C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.pdb
