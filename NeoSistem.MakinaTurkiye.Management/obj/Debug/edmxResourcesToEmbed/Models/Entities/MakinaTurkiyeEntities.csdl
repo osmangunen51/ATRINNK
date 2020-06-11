@@ -553,6 +553,7 @@
     <NavigationProperty Name="Category" Relationship="MakinaTurkiyeModel.FK_Banner_Category" FromRole="Banner" ToRole="Category" />
     <Property Name="BannerOrder" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
     <Property Name="BannerImageType" Type="Int16" />
+    <Property Name="BannerAltTag" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="Category">
     <Key>
@@ -595,6 +596,7 @@
     <Property Name="CategoryPathUrl" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
     <Property Name="BaseMenuOrder" Type="Int16" />
     <NavigationProperty Name="StoreSectors" Relationship="MakinaTurkiyeModel.FK__StoreSect__Categ__7DA67417" FromRole="Category" ToRole="StoreSector" />
+    <Property Name="HomeImagePath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="City">
     <Key>
@@ -1000,6 +1002,7 @@
     <NavigationProperty Name="ProductCatologs" Relationship="MakinaTurkiyeModel.FK__ProductCa__Produ__3F4C18B3" FromRole="Product" ToRole="ProductCatolog" />
     <NavigationProperty Name="ProductComments" Relationship="MakinaTurkiyeModel.FK__ProductCo__Produ__564557FB" FromRole="Product" ToRole="ProductComment" />
     <NavigationProperty Name="ProductStatistics" Relationship="MakinaTurkiyeModel.FK_Product_ProductStatistics" FromRole="Product" ToRole="ProductStatistic" />
+    <Property Name="ProductPriceForOrder" Type="Decimal" Precision="19" Scale="4" />
   </EntityType>
   <EntityType Name="PurchaseRequest">
     <Key>
@@ -2489,6 +2492,7 @@
     <NavigationProperty Name="StoreNews" Relationship="MakinaTurkiyeModel.FK__StoreNew__StoreM__7B8294F9" FromRole="Store" ToRole="StoreNew" />
     <NavigationProperty Name="StoreStatistics" Relationship="MakinaTurkiyeModel.FK__StoreStat__Store__75D0165B" FromRole="Store" ToRole="StoreStatistic" />
     <NavigationProperty Name="MemberSettings" Relationship="MakinaTurkiyeModel.FK__StoreSett__MainP__63E8D24F" FromRole="Store" ToRole="MemberSetting" />
+    <Property Name="IsProductAdded" Type="Boolean" />
   </EntityType>
   <Association Name="FK_CreditCardLog_Store">
     <End Type="MakinaTurkiyeModel.Store" Role="Store" Multiplicity="0..1" />

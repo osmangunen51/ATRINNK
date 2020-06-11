@@ -5,6 +5,10 @@
 
 /**kategori image lazy loading finish */
 
+
+
+
+
 function NewPhoneNumberWrapperShow() {
     $("#noActivationWrapper").show();
     $("#PhoneActivation-wrapper").hide();
@@ -335,7 +339,7 @@ function AddFavoriteProduct(id) {
     //            var image = '<img src=\'/Content/Images/load.gif\' />'
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenize ekleniyor.. &nbsp;&nbsp;' + image);
     $.ajax({
-        url: '/Product/AddFavoriteProduct',
+        url: 'https://urun.makinaturkiye.com/Product/AddFavoriteProduct',
         type: 'post',
         dataType: 'json',
         data:
@@ -353,7 +357,7 @@ function AddFavoriteProduct(id) {
             else {
                 $("#FavoriteProductLoading").hide();
                 //  $.facebox('Görüntülemiş olduğunuz ürünü favori ürünlerinize eklemek için sitemize üye girişi yapmanız veya üye olmanız gerekmektedir.');
-                window.location.href = '/Uyelik/kullanicigirisi';
+                window.location.href = 'https://www.makinaturkiye.com/Uyelik/kullanicigirisi';
             }
         },
         error: function (x, l, e) {
@@ -368,7 +372,7 @@ function RemoveFavoriteProduct(id) {
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenizden çıkarılıyor.. &nbsp;&nbsp;' + image);
 
     $.ajax({
-        url: '/Product/RemoveFavoriteProduct',
+        url: 'https://urun.makinaturkiye.com/Product/RemoveFavoriteProduct',
         type: 'post',
         data:
             {
@@ -385,11 +389,13 @@ function RemoveFavoriteProduct(id) {
         }
     });
 }
+
 $("#productNumberForInf").keyup(function () {
     if (this.value.match(/[^0-9]/g)) {
         this.value = this.value.replace(/[^0-9]/g, '');
     }
 });
+
 function AddInfoForDemand() {
     var productNum = $.trim($("#productNumberForInf").val());
     if (productNum != "") {
@@ -421,7 +427,7 @@ function SendMessageforpro(messagetype) {
     var productNo = $('#hiddenProductNo').val()
     productNo = productNo.replace('#', '');
     var obj = new Object();
-    obj.redirect = '/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
+    obj.redirect = 'https://www.makinaturkiye.com/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
     $.ajax({
         url: '/Product/IsAuthenticate',
         data: JSON.stringify(obj),
@@ -435,7 +441,7 @@ function SendMessageforpro(messagetype) {
                 productNo = productNo.replace('#', '');
 
                 //                                                window.location.href = '/Mesaj/UyeNo=' + memberNo + '/UrunNo=' + productNo;
-                window.location.href = '/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
+                window.location.href = 'https://www.makinaturkiye.com/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
 
             }
             else {
@@ -1180,7 +1186,7 @@ function GetSubMenu(id, thisobj) {
 
        
     if (data.indexOf("loading") > 0) {
-
+        $('.mega-dropdown-menu', thisobj).find("#loading").html('<img src="../../Content/V2/images/loading.gif" />');
         $.ajax({
             type: "get", //rest Type
             dataType: 'json', //mispelled
@@ -1237,7 +1243,7 @@ $(document).ready(function () {
     var activationCode = "";
     cookiePolicyInit();
     mainMenuColorChange();
-    //facebookLoginClickEvent();
+    facebookLoginClickEvent();
     hasVideoLinkClick();
     productHoverItem();
     pagerGoto();
@@ -2906,8 +2912,6 @@ document.addEventListener("DOMContentLoaded", function () {
 })(jQuery);
 
 
-//lazy loading images
-
 
 
 ﻿$(document).ready(function () {
@@ -2933,7 +2937,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         message: 'Bu Email adresi kullanılmaktadır',
                         url: '/Membership/CheckMemberEmail/'
                     }
-
+                    
                 }
             },
             password: {
@@ -2977,11 +2981,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     $('#login-form').bootstrapValidator({
         message: 'Bu değer valid değildir',
+        live: 'enabled',
+        trigger: null,
+        submitButton: '$user_fact_form button[type="submit"]',
         feedbackIcons: {
             valid: 'fa fa-sync',
             invalid: 'fa fa-exclamation',
             validating: 'fa fa-check'
         },
+
         fields: {
             Email: {
                 message: 'Email Adresi Zorunludur',
@@ -3007,7 +3015,42 @@ document.addEventListener("DOMContentLoaded", function () {
                 }
             }
         }
-    });
+    }).on('success.form.bv', function (e) {
+   e.preventDefault();
+
+        $(".loading-membership").show();
+        var email = $("#Email").val();
+        var password = $("#Password").val();
+        var returnUrl = $("#ReturnUrl").val();
+        $.ajax({
+            url: '/Membership/Logon',
+            type: 'post',
+            data: {
+                Email: email,
+                Password: password,
+                ReturnUrl: returnUrl
+            },
+            dataType: 'json',
+            success: function (data) {
+                $(".loading-membership").hide();
+                if (data.IsSuccess) {
+
+                    window.location = data.Result.ReturnUrl;
+                }
+                else {
+                    console.log(data.Message);
+                    $("#MembershipError").fadeIn();
+                    $("#MembershipError").html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i>' + data.Message);
+
+                }
+            },
+            error: function (request, error) {
+                $(".loading-membership").hide();
+                alert("Request: " + JSON.stringify(request));
+            }
+        });
+     });
+    
     $('#register-form').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
@@ -3117,47 +3160,7 @@ function ChooseMembershipForm() {
         }
     });
 }
-﻿$("#btnLogin").click(function () {
-
-    var validator = $('#login-form').data('bootstrapValidator');
-    validator.validate();
-    if (validator.isValid()) {
-        $(".loading-membership").show();
-        var email = $("#Email").val();
-        var password = $("#Password").val();
-        var returnUrl = $("#ReturnUrl").val();
-        $.ajax({
-            url: '/Membership/Logon',
-            type: 'post',
-            data: {
-                Email: email,
-                Password: password,
-                ReturnUrl: returnUrl
-            },
-            dataType: 'json',
-            success: function (data) {
-                $(".loading-membership").hide();
-                if (data.IsSuccess) {
-
-                    window.location = data.Result.ReturnUrl;
-                }
-                else {
-                    console.log(data.Message);
-                    $("#MembershipError").fadeIn();
-                    $("#MembershipError").html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i>' + data.Message);
-
-                }
-            },
-            error: function (request, error) {
-                $(".loading-membership").hide();
-                alert("Request: " + JSON.stringify(request));
-            }
-        });
-    }
-
-
-});
-
+﻿
 $("#ActivityCategory").change(function () {
     var sectorId = this.value;
     $("#SubCategory").html("");
@@ -3213,7 +3216,7 @@ function DeleteStoreActivityCategory(id) {
             }
         });
 
-    }
+    } 
 
 }
 
@@ -3253,9 +3256,9 @@ function AddFavoriteProductItem(id) {
             },
         success: function (data) {
             if (data == true) {
-
+ 
                 var item = $("[data-productid=product-favorite-item-" + id + "]");
-
+               
                 $("[data-productid=product-favorite-item-" + id + "]").attr("onclick", "RemoveFavoriteProductItem("+id+")");
                 $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
 
@@ -3309,7 +3312,7 @@ $(document).ready(function () {
     $(".product-list-favorite-icon-c").click(function (event) {
         event.preventDefault();
     });
-
+      
 });
 ﻿var isEmail = true;
 $(document).ready(function () {
@@ -3327,9 +3330,9 @@ $(document).ready(function () {
 
     $('[data-rel="countryId"]').change(function () {
         var countryId = $(this).val();
-
+   
         getCultureCode(countryId, function (cultureCode) {
-
+        
             $('#MembershipModel_InstitutionalPhoneCulture,#MembershipModel_InstitutionalGSMCulture,#MembershipModel_InstitutionalPhoneCulture2,#MembershipModel_InstitutionalFaxCulture').val(cultureCode);
         });
         phoneWrapper.slideDown();
@@ -3386,7 +3389,7 @@ $(document).ready(function () {
                         $('#DropDownInstitutionalPhoneAreaCode,#DropDownInstitutionalPhoneAreaCode2,#DropDownInstitutionalFaxAreaCode').show();
                         $('#TextInstitutionalPhoneAreaCode,#TextInstitutionalPhoneAreaCode2,#TextInstitutionalFaxAreaCode').val('').hide();
                     } else {
-
+                       
                         $('#TextInstitutionalPhoneAreaCode,#InstitutionalPhoneAreaCode,#TextInstitutionalPhoneAreaCode2,#TextInstitutionalFaxAreaCode').val(areaCode).show();
                         $('#MembershipModel_InstitutionalPhoneAreaCode,#MembershipModel_InstitutionalPhoneAreaCode2,#MembershipModel_InstitutionalFaxAreaCode').val(areaCode);
                         $('#DropDownInstitutionalPhoneAreaCode,#DropDownInstitutionalPhoneAreaCode2,#DropDownInstitutionalFaxAreaCode').hide();
@@ -3401,7 +3404,7 @@ $(document).ready(function () {
 
         $('#TextInstitutionalPhoneAreaCode').keyup(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode').val($(this).val());
-
+        
         });
         $('#TextInstitutionalPhoneAreaCode2').keyup(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode2').val($(this).val());
@@ -3411,7 +3414,7 @@ $(document).ready(function () {
         });
         $('#DropDownInstitutionalPhoneAreaCode').change(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode').val($(this).val());
-
+       
         });
         $('#DropDownInstitutionalPhoneAreaCode2').change(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode2').val($(this).val());
@@ -3483,7 +3486,7 @@ $(document).ready(function () {
 
     });
 
-    //bireysel, kurumsal
+    //bireysel, kurumsal 
     $('[data-toggle="tab"]').click(function () {
         var selectedType = ($(this).attr('href') == "#bireysel" ? 10 : 20);
         $('[data-rel="MembershipType"]').val(selectedType);
@@ -3507,7 +3510,7 @@ $(document).ready(function () {
     //                }, 1000);
     //                return false;
     //            }
-    //
+    //            
     //        }
     //    });
 
@@ -3561,7 +3564,7 @@ $(document).ready(function () {
         var telNo = $("#MembershipModel_InstitutionalPhoneNumber").val();
         var gsm = $("#MembershipModel_InstitutionalGSMAreaCode").val();
         var gsmAna = $("#MembershipModel_InstitutionalGSMNumber").val();
-
+        
         if (isEmail) {
           //  $('#formFastMembership').submit();
             $('[data-rel="email-wrapper').hide();
