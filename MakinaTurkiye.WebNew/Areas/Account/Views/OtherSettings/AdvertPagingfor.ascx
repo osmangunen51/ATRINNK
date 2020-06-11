@@ -45,7 +45,8 @@
                 productNo: $("#ProductNo").val(), 
                 productName: $("#ProductName").val(),
                 categoryName: $("#CategoryName").val(),
-                brandName: $("#BrandName").val()
+                brandName: $("#BrandName").val(),
+                modelName:$("#ModelName").val()
             },
             success: function (data) {
                 $(".loading").hide();
@@ -65,6 +66,7 @@
             </th>
             <th>Kategori</th>
             <th>Marka</th>
+            <th>Model</th>
             <th>Fiyatı</th>
             <th></th>
         </tr>
@@ -87,6 +89,11 @@
                 </span></td>
             <td><span class="clearable">
                 <input class="searchText  form-control" type="text" id="BrandName" placeholder="Marka.." />
+                <i class="clearable__clear">&times;</i>
+            </span></td>
+            <td>
+            <span class="clearable">
+                <input class="searchText  form-control" type="text" id="ModelName" placeholder="Model.." />
                 <i class="clearable__clear">&times;</i>
             </span></td>
             <td></td>
@@ -114,6 +121,7 @@
             <td>
                 <%:count.BrandName %>
             </td>
+            <td><%:count.ModelName %></td>
             <td>
                 <%if (count.ProductPriceType == 238)
                     {%>
@@ -164,7 +172,7 @@
 
             </td>
             <td>
-                <a href="<%=productUrl%>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;İncele </a>
+                <a href="/Account/ilan/edit/<%=count.ProductId%>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;Düzenle </a>
             </td>
         </tr>
         <%

@@ -53,34 +53,37 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             List<string> EklenenListesi = new List<string>();
             SearchAutoCompleteResult Sonuc = new SearchAutoCompleteResult();
             SearchAutoCompleteItem ItemOneri;
-            if (query.Length == 0)
-            {
-                string cookieName = "Makinaturkiye_SearhTexts";
-                string searchTexts = GetCookie(cookieName);
-                if (!string.IsNullOrEmpty(searchTexts))
-                {
-                    Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = "Geçmiş Aramalar", data = new data { category = "Gecmis" }, Url = "#" });
-                    if (searchTexts.Contains(","))
-                    {
-                        string[] itemSearchTexts = searchTexts.Split(',');
-                       var reversed =   itemSearchTexts.Reverse().ToList();
-                        int numbers = reversed.Count() > 12 ? 12 : reversed.Count();
-                        
-                        for (int i = 0; i < numbers; i++)
-                        {
-                            Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = reversed[i], data = new data { category = "Gecmis" }, Url = "" });
-                        }
-                    }
-                    else
-                    {
-                        Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = searchTexts, data = new data { category = "Gecmis" }, Url = "" });
-                    }
+            //if (query.Length == 0)
+            //{
+            //    string cookieName = "Makinaturkiye_SearhTexts";
+            //    string searchTexts = GetCookie(cookieName);
+            //    if (!string.IsNullOrEmpty(searchTexts))
+            //    {
+            //        Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = "Geçmiş Aramalar", data = new data { category = "Gecmis" }, Url = "#" });
+            //        if (searchTexts.Contains(","))
+            //        {
+            //            string[] itemSearchTexts = searchTexts.Split(',');
+            //           var reversed =   itemSearchTexts.Reverse().ToList();
+            //            int numbers = reversed.Count() > 12 ? 12 : reversed.Count();
 
-                }
+            //            for (int i = 0; i < numbers; i++)
+            //            {
+            //                Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = reversed[i], data = new data { category = "Gecmis" }, Url = "" });
+            //            }
+            //        }
+            //        else
+            //        {
+            //            Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = searchTexts, data = new data { category = "Gecmis" }, Url = "" });
+            //        }
 
-            }
-            else
+            //    }
+
+            //}
+            //else
+            //{
+            if (!string.IsNullOrEmpty(query))
             {
+
                 if (!string.IsNullOrEmpty(System.Web.Configuration.WebConfigurationManager.AppSettings.Get("ElasticSearch:IpAdresListesi")))
                 {
                     IpAdresListesi.AddRange(System.Web.Configuration.WebConfigurationManager.AppSettings.Get("ElasticSearch:IpAdresListesi").Split(',').ToList());
@@ -115,7 +118,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         EklenenSayisi++;
                         Sonuc.suggestions.Add(ItemOneri);
                         EklenenListesi.Add(ItemOneri.Name);
-                        if (EklenenSayisi>7)
+                        if (EklenenSayisi > 7)
                         {
                             break;
                         }
@@ -319,9 +322,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         }
                     }
                 }
-
             }
             return Json(Sonuc, JsonRequestBehavior.AllowGet);
+
         }
     }
 }

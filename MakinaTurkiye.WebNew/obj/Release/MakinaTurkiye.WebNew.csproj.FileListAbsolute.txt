@@ -493,3 +493,12 @@ C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.WebNew\bin\DotNetOpenAu
 C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.WebNew\bin\DotNetOpenAuth.OpenId.RelyingParty.xml
 C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Org.Mentalis.Security.Cryptography.xml
 C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Mono.Math.xml
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Security.Cookies.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Security.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Owin.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.xml
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Security.xml
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Security.Cookies.xml

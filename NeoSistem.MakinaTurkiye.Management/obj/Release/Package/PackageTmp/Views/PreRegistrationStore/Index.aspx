@@ -83,6 +83,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <%:Html.HiddenFor(x=>x.CurrentPage, new {@id="Page" }) %>
+    <%if (TempData["ErrorMessage"] != null) {%>
+        <p style="color:#ac0b0b"><%:TempData["ErrorMessage"].ToString() %></p>
+    <% } %>
     <div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px; border-width: 5px;"
         id="preLoading">
         <span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>

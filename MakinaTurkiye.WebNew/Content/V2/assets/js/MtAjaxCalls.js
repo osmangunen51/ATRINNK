@@ -1,44 +1,4 @@
-﻿$("#btnLogin").click(function () {
-
-    var validator = $('#login-form').data('bootstrapValidator');
-    validator.validate();
-    if (validator.isValid()) {
-        $(".loading-membership").show();
-        var email = $("#Email").val();
-        var password = $("#Password").val();
-        var returnUrl = $("#ReturnUrl").val();
-        $.ajax({
-            url: '/Membership/Logon',
-            type: 'post',
-            data: {
-                Email: email,
-                Password: password,
-                ReturnUrl: returnUrl
-            },
-            dataType: 'json',
-            success: function (data) {
-                $(".loading-membership").hide();
-                if (data.IsSuccess) {
-
-                    window.location = data.Result.ReturnUrl;
-                }
-                else {
-                    console.log(data.Message);
-                    $("#MembershipError").fadeIn();
-                    $("#MembershipError").html('<i class="fa fa-exclamation-circle" aria-hidden="true"></i>' + data.Message);
-
-                }
-            },
-            error: function (request, error) {
-                $(".loading-membership").hide();
-                alert("Request: " + JSON.stringify(request));
-            }
-        });
-    }
-
-
-});
-
+﻿
 $("#ActivityCategory").change(function () {
     var sectorId = this.value;
     $("#SubCategory").html("");

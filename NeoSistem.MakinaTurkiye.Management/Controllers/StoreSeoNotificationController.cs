@@ -37,7 +37,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 var fromUser = entites.Users.FirstOrDefault(x => x.UserId == item.FromUserId);
                 var toUser = entites.Users.FirstOrDefault(x => x.UserId == item.ToUserId);
-             
+
                 baseMemberDescriptions.Add(new BaseMemberDescriptionModelItem
                 {
                     Description = FormatHelper.GetMemberDescriptionText(item.Text),
@@ -60,23 +60,21 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var model = new StoreSeoNotificationFormModel();
 
             var entities = new MakinaTurkiyeEntities();
-            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 21 || g.UserGroupId == 11 select new { u.UserName, u.UserId };
-            foreach (var item in users1)
-            {
-                model.ToUsers.Add(new SelectListItem { Text = item.UserName, Value = item.UserId.ToString() });
-            }
+            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where (g.UserGroupId == 21 || g.UserGroupId == 11 || g.UserGroupId == 7) && u.Active == true select new { u.UserName, u.UserId };
+            var storeSeoNotification = new StoreSeoNotification();
             var contstants = _constantService.GetConstantByConstantType(ConstantTypeEnum.SeoDecriptionTitle);
             if (storeNotId.HasValue)
             {
-                var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(storeNotId.Value);
+                storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(storeNotId.Value);
                 model.PreviousText = storeSeoNotification.Text;
                 model.StoreSeoNotificationId = storeNotId.Value;
                 model.StoreMainPartyId = storeSeoNotification.StoreMainPartyId;
                 if (!storeSeoNotification.ConstantId.HasValue || storeSeoNotification.ConstantId == 0)
                     model.Titles.Add(new SelectListItem { Text = "Seçiniz", Value = "0" });
+
                 foreach (var item in contstants)
                 {
-                    if (model.ConstantId == item.ConstantId)
+                    if (storeSeoNotification.ConstantId == item.ConstantId)
                     {
                         model.Titles.Add(new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString(), Selected = true });
                     }
@@ -86,6 +84,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     }
 
                 }
+                model.ToUserId = storeSeoNotification.ToUserId;
+                model.ConstantId = storeSeoNotification.ConstantId.HasValue ? storeSeoNotification.ConstantId.Value : (short)0;
             }
             else if (id.HasValue)
             {
@@ -95,6 +95,21 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     model.Titles.Add(new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString() });
                 }
+            }
+
+            foreach (var item in users1.OrderBy(x => x.UserName))
+            {
+                var element = new SelectListItem
+                {
+                    Text = item.UserName,
+                    Value = item.UserId.ToString()
+                };
+                if (storeSeoNotification != null && item.UserId == storeSeoNotification.ToUserId)
+                {
+                    element.Selected = true;
+                }
+
+                model.ToUsers.Add(element);
             }
 
 
@@ -144,22 +159,41 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     lastDate = new DateTime(year, month, day, hour, minute, 0);
                     if (lastDate > DateTime.Now)
                     {
-                   
+
                         if (model.StoreSeoNotificationId != 0)
                         {
                             var storeSeoNotificationPrev = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(model.StoreSeoNotificationId);
                             storeSeoNotificationPrev.RemindDate = lastDate;
                             storeSeoNotificationPrev.Status = 0;
+                            storeSeoNotificationPrev.ToUserId = Convert.ToByte(model.ToUserId);
                             if (storeSeoNotificationPrev.ConstantId == model.ConstantId)
                             {
                                 storeSeoNotificationPrev.Text = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + model.Text + "-" + "<span style='color:#44000d; font-weight:600;'>" + CurrentUserModel.CurrentManagement.UserName + "</span>" + "~" + storeSeoNotificationPrev.Text;
+                                _storeSeoNotificationService.UpdateStoreSeoNotification(storeSeoNotificationPrev);
                             }
-                            _storeSeoNotificationService.UpdateStoreSeoNotification(storeSeoNotificationPrev);
+                            else
+                            {
+                                string text = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + model.Text + "<span style='color:#44000d'>" + CurrentUserModel.CurrentManagement.UserName + "</span>";
+
+                                var storeSeoNotification = new StoreSeoNotification
+                                {
+                                    CreatedDate = DateTime.Now,
+                                    RemindDate = lastDate,
+                                    FromUserId = CurrentUserModel.CurrentManagement.UserId,
+                                    ToUserId = Convert.ToByte(model.ToUserId),
+                                    Status = 0,
+                                    StoreMainPartyId = model.StoreMainPartyId,
+                                    ConstantId = model.ConstantId,
+                                    Text = text
+                                };
+                                _storeSeoNotificationService.InsertStoreSeoNotification(storeSeoNotification);
+                            }
+
                         }
                         else
                         {
-                            string text ="<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + model.Text + "<span style='color:#44000d'>" + CurrentUserModel.CurrentManagement.UserName + "</span>";
-                            ;
+                            string text = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + model.Text + "<span style='color:#44000d'>" + CurrentUserModel.CurrentManagement.UserName + "</span>";
+
                             var storeSeoNotification = new StoreSeoNotification
                             {
                                 CreatedDate = DateTime.Now,
@@ -191,8 +225,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 ModelState.AddModelError("Text", "Lütfen açıklama giriniz");
             }
             var entities = new MakinaTurkiyeEntities();
-            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 21 || g.UserGroupId == 11 select new { u.UserName, u.UserId };
-            foreach (var item in users1)
+            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where (g.UserGroupId == 21 || g.UserGroupId == 11 || g.UserGroupId == 7) && u.Active == true select new { u.UserName, u.UserId };
+            foreach (var item in users1.OrderBy(x => x.UserName))
             {
                 model.ToUsers.Add(new SelectListItem { Text = item.UserName, Value = item.UserId.ToString() });
             }
@@ -231,7 +265,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             if (entities.PermissionUsers.Any(x => x.UserId == userId && (x.UserGroupId == 11 || x.UserGroupId == 21)) == true)
             {
                 var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationsByDateWithStatus(DateTime.Now, 0, userId);
-                return Json(new {Count = storeSeoNotification.Count }, JsonRequestBehavior.AllowGet);
+                return Json(new { Count = storeSeoNotification.Count }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -276,7 +310,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             FilterModel<BaseMemberDescriptionModelItem> model = new FilterModel<BaseMemberDescriptionModelItem>();
 
-            model.Source = PrepareAllStoreSeoNotificationItem(0,null, out totalRecord);
+            model.Source = PrepareAllStoreSeoNotificationItem(0, null, out totalRecord);
             model.TotalRecord = totalRecord;
             model.PageDimension = 50;
             model.CurrentPage = 1;

@@ -9,7 +9,7 @@
     style="border: solid 1px #bababa;" />
   <a style="cursor: pointer; text-decoration: none;" onclick="DeleteVideo('<%=item.VideoId %>');">
     Videoyu Sil</a>
- <%if (item.ShowOnShowcase.HasValue && !item.ShowOnShowcase.Value)
+ <%if (!item.ShowOnShowcase.HasValue ||  (item.ShowOnShowcase.HasValue && !item.ShowOnShowcase.Value))
    {%>
       <br /> 
       <hr />

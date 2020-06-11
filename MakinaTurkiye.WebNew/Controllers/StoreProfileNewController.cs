@@ -760,17 +760,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
             if (string.IsNullOrEmpty(username))
             {
-                //ExceptionHandler.HandleException(Server.GetLastError());
-
                 var store = _storeService.GetStoreByMainPartyId(Convert.ToInt32(MainPartyId));
                 if (store != null)
                 {
                     string url = UrlBuilder.GetBrandUrlForStoreProfile(store.MainPartyId, store.StoreName, store.StoreUrlName);
                     return RedirectPermanent(url);
-
-                }
-
-                return RedirectToAction("HataSayfasi", "Common");
+               }
+                return RedirectPermanent(AppSettings.SiteUrl);
             }
             else
             {
@@ -778,14 +774,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + username);
                 }
-    
+
                 _storeService.CachingGetOrSetOperationEnabled = false;
                 var store = _storeService.GetStoreByStoreUrlName(username);
                 if (store != null)
                 {
 
                     var url = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
-                    if(!Request.IsLocal && Request.Url.ToString().Contains("https://urun"))
+                    if (!Request.IsLocal && Request.Url.ToString().Contains("https://urun"))
                     {
                         return RedirectPermanent(url);
                     }
@@ -819,7 +815,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                     ViewBag.Canonical = AppSettings.SiteUrlWithoutLastSlash + Request.Url.AbsolutePath;
                     var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(store.MainPartyId);
-                    if (memberStore==null)
+                    if (memberStore == null)
                     {
                         return RedirectToAction("Index", "Store");
                     }
@@ -913,7 +909,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var request = HttpContext.Request;
 
                     string url = UrlBuilder.GetStoreProfileProductUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
-                    
+
 
                     ViewBag.Canonical = AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath;
 
@@ -1228,20 +1224,23 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     else
                     {
-                        store = _storeService.GetStoreByMainPartyId(Convert.ToInt32(MainPartyId));
-                        if (store != null)
-                        {
-                            var url = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName) + "/hakkimizda";
-                            return RedirectPermanent(url);
-                        }
-                        StoreFailNew();
-                        return null;
+                        return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash);
                     }
+
+
                 }
                 else
                 {
-                    //ExceptionHandler.HandleException(Server.GetLastError());
-                    return RedirectToAction("HataSayfasi", "Common");
+
+                    var store = _storeService.GetStoreByMainPartyId(Convert.ToInt32(MainPartyId));
+                    if (store != null)
+                    {
+                        var url = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName) + "/hakkimizda";
+                        return RedirectPermanent(url);
+                    }
+                    StoreFailNew();
+                    return null;
+
 
                 }
 
@@ -1283,9 +1282,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 model.Phones.AddRange(_phoneService.GetPhonesAddressId(address.AddressId));
                                 branchesAnyAdress = true;
                             }
-                            
+
                         }
-            
+
 
                         model.MainPartyId = store.MainPartyId;
                         store.ViewCount += 1;
@@ -1593,7 +1592,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     _storeService.UpdateStore(store);
                     int categoryId = 0;
                     if (CategoryId != null) categoryId = Convert.ToInt32(CategoryId);
-                    var storeVideos = _videoService.GetVideoByStoreMainPartyId(store.MainPartyId).OrderBy(x=>x.Order).ThenByDescending(x=>x.VideoId);
+                    var storeVideos = _videoService.GetVideoByStoreMainPartyId(store.MainPartyId).OrderBy(x => x.Order).ThenByDescending(x => x.VideoId);
                     foreach (var video in storeVideos)
                     {
                         model.MTVideoModels.Add(new MTVideoModel
@@ -1606,7 +1605,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             VideoUrl = video.VideoPath,
                             VideoId = video.VideoId
                         });
-                     
+
                     }
 
                     return await Task.FromResult(View(model));

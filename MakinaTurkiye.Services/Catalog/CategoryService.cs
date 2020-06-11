@@ -546,7 +546,7 @@ namespace MakinaTurkiye.Services.Catalog
                 query = query.Where(c => c.CategoryType < (byte)categoryType);
                 if (categoryParentId != 0)
                     query = query.Where(c => c.CategoryParentId == categoryParentId);
-
+                query = query.OrderBy(x => x.CategoryOrder).ThenBy(x => x.CategoryName);
                 var categories = query.ToList();
 
                 return categories;
@@ -614,6 +614,8 @@ namespace MakinaTurkiye.Services.Catalog
         {
             _cacheManager.Clear();
         }
+
+
 
 
         #endregion

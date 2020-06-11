@@ -333,6 +333,23 @@
           }
         });
       }
+      }
+
+    function DeleteProductSure(productId) {
+      if (confirm('Kaydı Silmek istediğinizden eminmisiniz, bu işlem geri alınamaz?')) {
+        $.ajax({
+          url: '/Product/ProductDelete',
+          data: { id: productId },
+          type: 'post',
+          dataType: 'json',
+          success: function (data) {
+      
+            if (data) {
+              $('#row' + productId).hide();
+            }
+          }
+        });
+      }
     }
 
     function clearSearch(Id) {

@@ -14,14 +14,12 @@
 
     </script>
     <style type="text/css">
-        .editor-label {
-            padding-top: 5px;
-        }
+        .editor-label { padding-top: 5px; }
     </style>
 
 </asp:Content>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<asp:content id="Content2" contentplaceholderid="MainContent" runat="server">
 
     <div style="margin-left: 30px; margin-top: 30px; width: 70%;">
         <h2>Üye Açıklama Girişi</h2>
@@ -153,22 +151,12 @@
 </td>
                     </tr>
                 </table>
-
-
-
-
-
-
-
-
-
-
         </fieldset>
 
         <% } %>
     </div>
 
-</asp:Content>
+</asp:content>
 
 
 

@@ -1,29 +1,30 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Main.Master" Inherits="NeoSistem.MakinaTurkiye.Core.Web.ViewPage<MTProductDetailViewModel>" %>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="HeaderContent" runat="server">
     <script type="text/javascript">
         function ProductPopupGallery() {
-    $('.product-popup-gallery').magnificPopup({
-        delegate: 'div a',
-        type: 'image',
-        tLoading: 'Resim Yükeniyor #%curr%...',
-        mainClass: 'mfp-img-mobile',
-        gallery: {
-            enabled: true,
-            navigateByImgClick: true,
-            preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
-        },
-        image: {
-            tError: '<a href="%url%"> #%curr%</a> resim yüklenemedi',
-            titleSrc: function (item) {
-                return item.el.attr('title') + '<small></small>';
-            }
+            $('.product-popup-gallery').magnificPopup({
+                delegate: 'div a',
+                type: 'image',
+                tLoading: 'Resim Yükeniyor #%curr%...',
+                mainClass: 'mfp-img-mobile',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+                },
+                image: {
+                    tError: '<a href="%url%"> #%curr%</a> resim yüklenemedi',
+                    titleSrc: function (item) {
+                        return item.el.attr('title') + '<small></small>';
+                    }
+                }
+            });
         }
-    });
-}
         function ProductCommentPage(p) {
             $.ajax({
                 url: '/Product/ProductCommentPagination',
-                     contentType: "application/json",
+                contentType: "application/json",
                 dataType: "json",
                 data: JSON.stringify({ ProductId: <%:Model.ProductDetailModel.ProductId%>, page: p }),
                 type: 'post',
@@ -43,15 +44,34 @@
             );
 
         }
+                        function CertificatePopUpGallery() {
+            $('.certificate-popup-gallery').magnificPopup({
+                delegate: 'div a',
+                type: 'image',
+                tLoading: 'Resim Yükeniyor #%curr%...',
+                mainClass: 'mfp-img-mobile',
+                gallery: {
+                    enabled: true,
+                    navigateByImgClick: true,
+                    preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
+                },
+                image: {
+                    tError: '<a href="%url%"> #%curr%</a> resim yüklenemedi',
+                    titleSrc: function (item) {
+                        return item.el.attr('title') + '<small></small>';
+                    }
+                }
+            });
+        }
         $(document).ready(function () {
-              
+            CertificatePopUpGallery();
             ProductPopupGallery();
-      
+
             $("#btnProductCommentInValid").click(function () {
 
                 $.ajax({
                     url: '/Product/AddProductComment',
-                         contentType: "application/json",
+                    contentType: "application/json",
                     dataType: "json",
                     data: JSON.stringify({ CommentText: "", Rate: 0, ProductId: '<%:Model.ProductDetailModel.ProductId%>' }),
                     type: 'post',
@@ -82,7 +102,7 @@
                     //ajax post et
                     $.ajax({
                         url: '/Product/AddProductComment',
-                             contentType: "application/json",
+                        contentType: "application/json",
                         dataType: "json",
                         data: JSON.stringify({ CommentText: commentText, Rate: rate, ProductId: '<%:Model.ProductDetailModel.ProductId%>' }),
                         type: 'post',
@@ -123,7 +143,7 @@
     <%=Html.RenderHtmlPartial("_ProductHeader") %>
     <%if (!Model.ProductDetailModel.IsActive)
         { %>
-            
+
     <%}
         else
         {
@@ -134,13 +154,13 @@
 
         function AddWhatsappLog(id) {
             $.ajax({
-                url: '/Product/AddWhatsappLog',
+                url:'/Product/AddWhatsappLog',
                 data: JSON.stringify({ storeId: id }),
                 contentType: "application/json",
                 dataType: "json",
-                       header: {
-                'X-Robots-Tag': 'googlebot: nofollow'
-            },
+                header: {
+                    'X-Robots-Tag': 'googlebot: nofollow'
+                },
                 type: 'post',
                 success: function (data) {
 
@@ -175,9 +195,9 @@
                 url: '/Product/ProductStatisticCreate',
                 contentType: "application/json",
                 dataType: "json",
-                       header: {
-                'X-Robots-Tag': 'googlebot: nofollow'
-            },
+                header: {
+                    'X-Robots-Tag': 'googlebot: nofollow'
+                },
                 data: JSON.stringify({ productId: <%:Model.ProductDetailModel.ProductId%> }),
                 type: 'post',
 
@@ -192,9 +212,9 @@
                 contentType: "application/json",
                 dataType: "json",
                 url: '/Product/GetSimilarProducts',
-                       header: {
-                'X-Robots-Tag': 'googlebot: nofollow'
-            },
+                header: {
+                    'X-Robots-Tag': 'googlebot: nofollow'
+                },
                 data: JSON.stringify({ categoryId: '<%:Model.ProductDetailModel.CategoryId%>', ProductId: '<%=Model.ProductDetailModel.ProductId%>' }),
                 success: function (data) {
                     $(".SimilarProductWrapper").html(data);
@@ -274,11 +294,7 @@
 
     <%=Html.RenderHtmlPartial("_ProductPageHaderNew",Model.ProductPageHeaderModel) %>
     <style>
-        .addthis_inline_share_toolbox {
-            padding-top: 10px;
-            padding-bottom: 0;
-            margin-bottom: 0px;
-        }
+        .addthis_inline_share_toolbox { padding-top: 10px; padding-bottom: 0; margin-bottom: 0px; }
     </style>
     <div class="row urun-detay">
         <%if (Model.OnlyStoreSee)

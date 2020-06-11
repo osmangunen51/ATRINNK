@@ -272,6 +272,7 @@
     <Compile Include="Models\Logs\LogItemModel.cs" />
     <Compile Include="Models\MemberDescriptionCountModel.cs" />
     <Compile Include="Models\MemberInformationModel.cs" />
+    <Compile Include="Models\MemberModels\SearchPhoneModel.cs" />
     <Compile Include="Models\OrderExcelModel.cs" />
     <Compile Include="Models\OrderInstallmentItemModel.cs" />
     <Compile Include="Models\Orders\EbillNumberModel.cs" />
@@ -669,6 +670,7 @@
     <Content Include="Content\RibbonImages\password.png" />
     <Content Include="Content\RibbonImages\phone-list.png" />
     <Content Include="Content\RibbonImages\phone-message.png" />
+    <Content Include="Content\RibbonImages\phone-search.png" />
     <Content Include="Content\RibbonImages\preregister.png" />
     <Content Include="Content\RibbonImages\receipt-report.png" />
     <Content Include="Content\RibbonImages\ReviewInkCommentEraser.png" />
@@ -1559,8 +1561,10 @@
     <Content Include="Views\MemberDescription\AllTask.aspx" />
     <Content Include="Views\MemberDescription\UpdateDescriptionDate.aspx" />
     <Content Include="Views\MemberDescription\_NotificationCountList.ascx" />
+    <Content Include="Views\Member\SearchPhone.aspx" />
     <Content Include="Views\Member\SendSpecialEmailToStore.aspx" />
     <Content Include="Views\Member\BulletinMember.aspx" />
+    <Content Include="Views\Member\_SearchPhoneList.ascx" />
     <Content Include="Views\Member\_BulletinRegisterList.ascx" />
     <Content Include="Views\OrderFirm\SalesResponsibleUpdate.aspx" />
     <Content Include="Views\OrderFirm\BillNumber.aspx" />
@@ -1946,7 +1950,6 @@
     <Folder Include="FilesError\" />
     <Folder Include="FilesMail\" />
     <Folder Include="FilesUser\" />
-    <Folder Include="Models\MemberModels\" />
     <Folder Include="Scripts\CKEditor\images\" />
     <Folder Include="Scripts\CKEditor\plugins\a11yhelp\lang\" />
     <Folder Include="Scripts\CKEditor\plugins\iframedialog\" />

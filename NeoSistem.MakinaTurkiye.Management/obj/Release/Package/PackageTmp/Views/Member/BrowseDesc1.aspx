@@ -3,7 +3,6 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="TitleContent" runat="server">
     BrowseDesc
 </asp:Content>
-
 <asp:Content ID="Content5" ContentPlaceHolderID="MainContent" runat="server">
     <%if (Model.BaseMemberDescriptionModelItems.Where(x => x.LastDate != null).Count() == 0)
         {
@@ -22,14 +21,24 @@
     </button>
     <%
         } %>
-
+    <button type="button" style="width: 100px; float: right; height: 35px; margin-right: 200px; margin-top: 20px;" onclick="window.location='/StoreSeoNotification/Index?storeMainPartyId=<%:Model.StoreMainPartyId %>'">
+        Yeni Seo Açıklama 
+    </button>
     <div style="margin-top: 20px;">
         <h2 style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Üye Açıklamaları - <%= Model.MemberNameSurname%>
             <%if (!string.IsNullOrEmpty(Model.AuthName))
                 {%>
             <span style="font-size: 13px"><%:Model.AuthName %></span>
             <% } %>
-
+            <%if (Model.IsProductAdded.HasValue && Model.IsProductAdded.Value)
+                {%>
+            <img src="/Content/images/Accept-icon.png" title="Veri Girişi Tamamlandı" alt="Veri Girişi Tamamlandı" />
+            <%}
+                else
+                { %>
+            <img src="/Content/images/cross.png" title="Veri Girişi Tamamlanmadı" alt="Veri Girişi Tamamlanmadı" />
+            <%
+                } %>
         </h2>
         <div style="float: left;">
             <%if (string.IsNullOrEmpty(Model.AuthName))
@@ -50,13 +59,10 @@
                     </td>
                     <td>
                         <input type="submit" value="Kaydet" /></td>
-
                     <%} %>
                 </tr>
             </table>
             <% } %>
-
-
             <% } %>
         </div>
     </div>
@@ -102,7 +108,6 @@
                         <%=Html.Raw(itemMemberDesc.Description)%>
                         <% }
                         %>
-
                     </td>
                     <td class="Cell"><% if (itemMemberDesc.InputDate != null)
                                          {
@@ -117,7 +122,6 @@
                                              Response.Write("<font style='color:#C5D5DD'>" + lastDate[1] + "</font>");
                                          } %></td>
                     <td class="Cell" style="background-color: #2776e5; color: #fff"><%:itemMemberDesc.UserName %></td>
-
                     <td class="Cell" style="background-color: #31c854; color: #fff">
                         <%:itemMemberDesc.ToUserName %>
                     </td>
@@ -126,13 +130,12 @@
                             if (!itemMemberDesc.StoreID.HasValue)
                             { type = "Ön Kayıt"; }%>
                         <%:type %>
-
                     </td>
                     <td class="Cell">
-                        <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title!="Bilgi +kayıt tar + tıklama sayısı+")
+                        <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+" &&  itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
                             {%>
                         <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
-                            <img src="/Content/images/ac.png" />
+                            <img src="/Content/images/ac.png" alt="" />
                         </a>
 
                         <a style="cursor: pointer;" onclick="DeletePost(<%:itemMemberDesc.ID %>);">

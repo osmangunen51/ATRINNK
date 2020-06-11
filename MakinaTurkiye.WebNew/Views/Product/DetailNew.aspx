@@ -91,7 +91,7 @@
       </div>
     <div class="row">
         <%=Html.RenderHtmlPartial("_StoreOtherProduct", Model.StoreOtherProductModel)%>
-        <%=Html.RenderHtmlPartial("_SimilarProduct",Model.SimilarProductModel) %>
+<%--        <%=Html.RenderHtmlPartial("_SimilarProduct",Model.SimilarProductModel) %>--%>
       
     </div>
     <%  } %>

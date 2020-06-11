@@ -120,6 +120,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 case "SearchResults": seoIdNameEnum = SeoIdNameEnum.ProductSearchPage; break;
                 case "ProductSearchOneStep": seoIdNameEnum = SeoIdNameEnum.ProductSearchPage; break;
+                case "AdvancedSearch":seoIdNameEnum = SeoIdNameEnum.AdvancedSearch;break;
                 case "Index2":
 
                     if (categoryId == 0)
@@ -541,7 +542,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private void PrepareMetaTagModelForMembership(MetaTagModel model, IList<Seo> seos)
         {
             string actionName = this.ControllerContext.ParentActionViewContext.RouteData.GetRequiredString("action");
-            SeoIdNameEnum seoIdNameEnum = actionName == "LogOn" ? SeoIdNameEnum.Uyelik : SeoIdNameEnum.General;
+            SeoIdNameEnum seoIdNameEnum = SeoIdNameEnum.General;
+            if (actionName == "LogOn")
+            {
+                seoIdNameEnum = SeoIdNameEnum.Uyelik;
+            }
+            else if(actionName=="FastMembership")
+            {
+                seoIdNameEnum = SeoIdNameEnum.Register;
+            }
             var seo = seos.First(s => s.SeoId == (int)seoIdNameEnum);
 
             model.Description = seo.Description;
@@ -621,9 +630,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             seo.Keywords = seo.Keywords.Replace("{KisaDetay}", product.GetBriefDetailText());
             seo.Title = seo.Title.Replace("{KisaDetay}", product.GetBriefDetailText());
 
-            seo.Description = seo.Description.Replace("{Fiyati}", product.GetFormattedPrice());
-            seo.Keywords = seo.Keywords.Replace("{Fiyati}", product.GetFormattedPrice());
-            seo.Title = seo.Title.Replace("{Fiyati}", product.GetFormattedPrice());
+            seo.Description = seo.Description.Replace("{Fiyati}", product.GetFormattedPriceWithCurrency());
+            seo.Keywords = seo.Keywords.Replace("{Fiyati}", product.GetFormattedPriceWithCurrency());
+            seo.Title = seo.Title.Replace("{Fiyati}", product.GetFormattedPriceWithCurrency());
 
             
 

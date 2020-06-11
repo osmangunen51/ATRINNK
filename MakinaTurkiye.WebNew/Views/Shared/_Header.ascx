@@ -484,11 +484,8 @@
                 }
             }
         }
-    }).on('focus', function (event) {
-        var self = this;
-        $("#SearchText").val("");
-        $(self).autocomplete("search", this.value);
     });
+
 </script>
 <script type="text/javascript">
     $(document).ready(function () {

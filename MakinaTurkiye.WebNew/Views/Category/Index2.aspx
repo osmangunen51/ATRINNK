@@ -310,7 +310,7 @@
     <div class="fast-access-bar hidden-xs">
         <div class="fast-access-bar__inner">
             <div class="row clearfix">
-                <div class="col-xs-12 col-md-6">
+                <div class="col-xs-12 col-md-12">
                     <%= Model.CategoryModel.Navigation%>
                 </div>
             </div>

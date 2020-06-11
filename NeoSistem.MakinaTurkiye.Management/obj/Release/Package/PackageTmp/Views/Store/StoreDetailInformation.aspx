@@ -189,7 +189,7 @@
     <tr>
       <td>
             <%--     GENEL BİLGİLER--%>
-            <div style="width: 520px; float: left; margin-right: 10px; min-height:400px;  padding-right:5px; padding-left:5px;   border: 1px solid #cab2b2;
+            <div style="width: 30%; float: left; margin-right: 10px; min-height:400px;  padding-right:5px; padding-left:5px;   border: 1px solid #cab2b2;
     margin-left: 10px;
     margin-top: 5px;">
               <table border="0" cellpadding="5" cellspacing="0">
@@ -377,7 +377,7 @@
               </table>
             </div>
             <div style="float: left; min-height:400px;
-    width: 400px;
+    width: 30%;
     height: auto;
     background: #eceaea;
     padding-left: 5px;
@@ -467,7 +467,7 @@
               </table>
             </div>
           <div style="float:left; border: 1px solid #cab2b2;
-    width: 20%;
+    width: 15%;
     margin-top: 5px;
     margin-left: 10px; min-height:400px;">
             <table>
@@ -481,6 +481,27 @@
                             <td colspan="3">
                                <b> <%:item.Title %></b>(<%:item.UserName %>)<br />
                                 <span style="padding-left:5px; font-size:12px;"><%:Html.Raw(item.Description) %></span> <b style="font-size:12px; color:#0fe54e"><br /><%:item.RecordDate.HasValue==true?item.RecordDate.ToDateTime().ToString("dd-MM-yyyy hh:mm"):"" %></b>
+                            </td>
+                        </tr>
+                    <%} %>
+            </table>
+              </div>
+
+                    <div style="float:left; border: 1px solid #cab2b2;
+    width: 15%;
+    margin-top: 5px;
+    margin-left: 10px; min-height:400px;">
+            <table>
+                <tr>
+                    <td colspan="3"><a style="font-size:15px; font-weight:600" href="/StoreSeoNotification/Index?storeMainPartyId=<%:Model.StoreInformationModel.StoreMainPartyId %>">Son Seo Açıklama</a></td>
+                </tr>
+               
+              <%foreach (var item in Model.StoreSeoNotificationItems)
+                    {%>
+                        <tr>
+                            <td colspan="3">
+      
+                                <span style="padding-left:5px; font-size:12px;"><%:Html.Raw(item.Description) %>(<%:item.UserName %>)<br /></span> <b style="font-size:12px; color:#0fe54e"><br /><%:item.RecordDate.HasValue==true?item.RecordDate.ToDateTime().ToString("dd-MM-yyyy hh:mm"):"" %></b>
                             </td>
                         </tr>
                     <%} %>

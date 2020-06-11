@@ -37,7 +37,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             //  sitemapFiles.Add(this.generateSitemap_categoryproductgroup());
 
-            this.generateSitemapForStores();
+
             //  sitemapFiles.Add(            this.generateSitemapForStores());
             sitemapFiles.Add(this.generateSitemapForNews());
 
@@ -120,11 +120,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
             string rootSitemapFileName = "rootSitemap.xml";
+         
             FileHelper.WriteToFile("/Sitemaps/Products/" + rootSitemapFileName, resultXml);
 
             // push sitemaps to search engines
-            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, rootSitemapFileName);
-            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, rootSitemapFileName);
+            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, "Products/" + rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Products/"+rootSitemapFileName);
 
             return Content("OK!");
         }
@@ -152,8 +153,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             FileHelper.WriteToFile("/Sitemaps/Videos/" + rootSitemapFileName, resultXml);
 
             // push sitemaps to search engines
-            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, rootSitemapFileName);
-            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, rootSitemapFileName);
+            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, "Videos/" + rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Videos/" + rootSitemapFileName);
 
             return Content("OK!");
         }
@@ -177,12 +178,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
-            string rootSitemapFileName = "rootSitemap.xml";
+            string rootSitemapFileName ="rootSitemap.xml";
             FileHelper.WriteToFile("/Sitemaps/Stores/" + rootSitemapFileName, resultXml);
 
             // push sitemaps to search engines
-            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, rootSitemapFileName);
-            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, rootSitemapFileName);
+            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, "Stores/" + rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Stores/"+ rootSitemapFileName);
+
+            this.generateSitemapForStores();
 
             return Content("OK!");
         }
@@ -234,6 +237,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 FileHelper.WriteToFile("/Sitemaps/Products/" + sitemapFileName, resultXml);
                 sitemapFiles.Add(sitemapFileName);
             }
+
             return sitemapFiles;
         }
         protected string generateSitemapForStores()
@@ -256,6 +260,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             string resultXml = XmlHelper.SerializeToString(sm, Encoding.UTF8);
             string sitemapFileName = "sitemap_Stores.xml";
             FileHelper.WriteToFile("/Sitemaps/" + sitemapFileName, resultXml);
+            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, sitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, sitemapFileName);
             return sitemapFileName;
         }
         protected string generateSitemapForNews()
@@ -478,7 +484,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             sitemap.Save(writer);
             writer.Close();
-
+            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, fileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, fileName);
             return fileName;
         }
         protected string generateSitemap_categorybrand()
@@ -573,7 +580,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             sitemap.Save(writer);
             writer.Close();
-
+            var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, fileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, fileName);
             return fileName;
         }
         protected string generateSitemap_categoryorta()

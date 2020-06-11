@@ -14,6 +14,7 @@
                     <%if (Model.Price != "" && (Model.ProductPriceType == (byte)ProductPriceType.Price || Model.ProductPriceType == (byte)ProductPriceType.PriceRange))
                         { %>
                     <div class="flex-col-8">
+                  
                         <span class="<%:!string.IsNullOrEmpty(Model.ProductPriceWithDiscount) ? "old-price":"" %>">
                             <i class="<%:Model.ProductCurrencySymbol %>"></i>
                             <%:Model.PriceWithoutCurrency%> </span>
