@@ -5,7 +5,6 @@ D:\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.dll
 D:\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.dll
 D:\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\DnsClient.xml
 D:\MakinaTurkiye\MakinaTurkiye.Entities\bin\Debug\System.Buffers.xml
-D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csprojAssemblyReference.cache
 D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CoreCompileInputs.cache
 D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CopyComplete
 D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.dll
@@ -45,3 +44,4 @@ F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye
 F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csproj.CopyComplete
 F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.dll
 F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.pdb
+D:\MakinaTurkiye\MakinaTurkiye.Entities\obj\Debug\MakinaTurkiye.Entities.csprojAssemblyReference.cache

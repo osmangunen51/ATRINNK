@@ -704,3 +704,12 @@ F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.WebNew\obj\Debug\MakinaTurkiye.W
 F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.WebNew\obj\Debug\MakinaTurkiye.WebNew.csproj.CopyComplete
 F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.WebNew\obj\Debug\NeoSistem.MakinaTurkiye.Web.dll
 F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.WebNew\obj\Debug\NeoSistem.MakinaTurkiye.Web.pdb
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Host.SystemWeb.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Security.Cookies.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Security.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Owin.dll
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.xml
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Host.SystemWeb.xml
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Security.xml
+D:\MakinaTurkiye\MakinaTurkiye.WebNew\bin\Microsoft.Owin.Security.Cookies.xml

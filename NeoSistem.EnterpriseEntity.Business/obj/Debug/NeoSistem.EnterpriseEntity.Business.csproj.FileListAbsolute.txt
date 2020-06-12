@@ -86,3 +86,5 @@ F:\Proje\Bitbucket\MakinaTurkiye2\NeoSistem.EnterpriseEntity.Business\obj\Debug\
 F:\Proje\Bitbucket\MakinaTurkiye2\NeoSistem.EnterpriseEntity.Business\obj\Debug\NeoSistem.EnterpriseEntity.Business.csproj.CopyComplete
 F:\Proje\Bitbucket\MakinaTurkiye2\NeoSistem.EnterpriseEntity.Business\obj\Debug\NeoSistem.EnterpriseEntity.Business.dll
 F:\Proje\Bitbucket\MakinaTurkiye2\NeoSistem.EnterpriseEntity.Business\obj\Debug\NeoSistem.EnterpriseEntity.Business.pdb
+D:\MakinaTurkiye\NeoSistem.EnterpriseEntity.Business\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.dll
+D:\MakinaTurkiye\NeoSistem.EnterpriseEntity.Business\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Caching.xml

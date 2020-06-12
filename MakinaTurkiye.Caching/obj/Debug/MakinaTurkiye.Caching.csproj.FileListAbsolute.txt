@@ -46,7 +46,6 @@ D:\MakinaTurkiye\MakinaTurkiye.Caching\bin\Debug\System.Runtime.CompilerServices
 D:\MakinaTurkiye\MakinaTurkiye.Caching\bin\Debug\System.Threading.Channels.xml
 D:\MakinaTurkiye\MakinaTurkiye.Caching\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\MakinaTurkiye\MakinaTurkiye.Caching\bin\Debug\System.ValueTuple.xml
-D:\MakinaTurkiye\MakinaTurkiye.Caching\obj\Debug\MakinaTurkiye.Caching.csprojAssemblyReference.cache
 D:\MakinaTurkiye\MakinaTurkiye.Caching\obj\Debug\MakinaTurkiye.Caching.csproj.CoreCompileInputs.cache
 D:\MakinaTurkiye\MakinaTurkiye.Caching\obj\Debug\MakinaTurkiye.Caching.csproj.CopyComplete
 D:\MakinaTurkiye\MakinaTurkiye.Caching\obj\Debug\MakinaTurkiye.Caching.dll
@@ -210,3 +209,4 @@ F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Caching\obj\Debug\MakinaTurkiye.
 F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Caching\obj\Debug\MakinaTurkiye.Caching.csproj.CopyComplete
 F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Caching\obj\Debug\MakinaTurkiye.Caching.dll
 F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Caching\obj\Debug\MakinaTurkiye.Caching.pdb
+D:\MakinaTurkiye\MakinaTurkiye.Caching\obj\Debug\MakinaTurkiye.Caching.csprojAssemblyReference.cache

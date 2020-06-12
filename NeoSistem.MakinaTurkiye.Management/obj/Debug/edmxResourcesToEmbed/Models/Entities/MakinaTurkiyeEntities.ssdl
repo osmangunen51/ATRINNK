@@ -101,6 +101,7 @@
     <Property Name="BannerDescription" Type="varchar" MaxLength="500" />
     <Property Name="BannerOrder" Type="varchar" MaxLength="500" />
     <Property Name="BannerImageType" Type="smallint" />
+    <Property Name="BannerAltTag" Type="nvarchar" MaxLength="250" />
   </EntityType>
   <EntityType Name="BaseMemberDescription">
     <Key>
@@ -164,6 +165,7 @@
     <Property Name="CategoryPath" Type="nvarchar" MaxLength="500" />
     <Property Name="CategoryPathUrl" Type="nvarchar" MaxLength="250" />
     <Property Name="BaseMenuOrder" Type="smallint" />
+    <Property Name="HomeImagePath" Type="nvarchar" MaxLength="150" />
   </EntityType>
   <EntityType Name="CertificateTypeProduct">
     <Key>
@@ -828,6 +830,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
     <Property Name="ProductPriceWithDiscount" Type="decimal" Precision="18" Scale="0" />
     <Property Name="DiscountAmount" Type="decimal" Precision="18" Scale="0" />
     <Property Name="DiscountType" Type="tinyint" />
+    <Property Name="ProductPriceForOrder" Type="money" />
   </EntityType>
   <EntityType Name="ProductCatolog">
     <Key>
@@ -1030,6 +1033,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
     <Property Name="SeoTitle" Type="nvarchar" MaxLength="150" />
     <Property Name="SeoDescription" Type="nvarchar" MaxLength="250" />
     <Property Name="SeoKeyword" Type="nvarchar(max)" />
+    <Property Name="IsProductAdded" Type="bit" />
   </EntityType>
   <EntityType Name="StoreActivityCategory">
     <Key>
@@ -1915,54 +1919,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primar
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Product_Category_Brand">
-    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="CategoryId" />
-      </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="BrandId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Product_Category_Category">
-    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="CategoryId" />
-      </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="CategoryId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Product_Category_ProductGrup">
-    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="CategoryId" />
-      </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="ProductGroupId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Product_Category_Series">
-    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
-    <End Role="Product" Type="Self.Product" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Category">
-        <PropertyRef Name="CategoryId" />
-      </Principal>
-      <Dependent Role="Product">
-        <PropertyRef Name="SeriesId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Product_City">
     <End Role="City" Type="Self.City" Multiplicity="0..1" />
     <End Role="Product" Type="Self.Product" Multiplicity="*" />
@@ -2624,22 +2580,6 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
     <AssociationSet Name="FK_Picture_StoreDealer" Association="Self.FK_Picture_StoreDealer">
       <End Role="StoreDealer" EntitySet="StoreDealer" />
       <End Role="Picture" EntitySet="Picture" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Product_Category_Brand" Association="Self.FK_Product_Category_Brand">
-      <End Role="Category" EntitySet="Category" />
-      <End Role="Product" EntitySet="Product" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Product_Category_Category" Association="Self.FK_Product_Category_Category">
-      <End Role="Category" EntitySet="Category" />
-      <End Role="Product" EntitySet="Product" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Product_Category_ProductGrup" Association="Self.FK_Product_Category_ProductGrup">
-      <End Role="Category" EntitySet="Category" />
-      <End Role="Product" EntitySet="Product" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Product_Category_Series" Association="Self.FK_Product_Category_Series">
-      <End Role="Category" EntitySet="Category" />
-      <End Role="Product" EntitySet="Product" />
     </AssociationSet>
     <AssociationSet Name="FK_Product_City" Association="Self.FK_Product_City">
       <End Role="City" EntitySet="City" />

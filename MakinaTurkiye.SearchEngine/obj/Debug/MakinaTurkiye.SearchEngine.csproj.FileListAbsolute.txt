@@ -16,3 +16,9 @@ C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\obj\Debug
 C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.csproj.CoreCompileInputs.cache
 C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.dll
 C:\Users\Tuanna\Source\Repos\MakinaTurkiye2\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.pdb
+D:\MakinaTurkiye\MakinaTurkiye.SearchEngine\bin\Debug\MakinaTurkiye.SearchEngine.dll
+D:\MakinaTurkiye\MakinaTurkiye.SearchEngine\bin\Debug\MakinaTurkiye.SearchEngine.pdb
+D:\MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.csprojAssemblyReference.cache
+D:\MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.csproj.CoreCompileInputs.cache
+D:\MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.dll
+D:\MakinaTurkiye\MakinaTurkiye.SearchEngine\obj\Debug\MakinaTurkiye.SearchEngine.pdb

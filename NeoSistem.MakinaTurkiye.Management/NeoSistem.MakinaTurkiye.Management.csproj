@@ -272,6 +272,7 @@
     <Compile Include="Models\Logs\LogItemModel.cs" />
     <Compile Include="Models\MemberDescriptionCountModel.cs" />
     <Compile Include="Models\MemberInformationModel.cs" />
+    <Compile Include="Models\MemberModels\SearchPhoneModel.cs" />
     <Compile Include="Models\OrderExcelModel.cs" />
     <Compile Include="Models\OrderInstallmentItemModel.cs" />
     <Compile Include="Models\Orders\EbillNumberModel.cs" />
@@ -1946,7 +1947,6 @@
     <Folder Include="FilesError\" />
     <Folder Include="FilesMail\" />
     <Folder Include="FilesUser\" />
-    <Folder Include="Models\MemberModels\" />
     <Folder Include="Scripts\CKEditor\images\" />
     <Folder Include="Scripts\CKEditor\plugins\a11yhelp\lang\" />
     <Folder Include="Scripts\CKEditor\plugins\iframedialog\" />
