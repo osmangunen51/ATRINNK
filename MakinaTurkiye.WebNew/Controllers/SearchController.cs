@@ -126,14 +126,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
 
                 DbSonucListesi = SearchService.SearchCategory(query);
-                var DtKategori = DbSonucListesi.Where(x => x.Category == "Kategori Arama Sonuçları").ToList();
+                var DtKategori = DbSonucListesi.Where(x => x.Category == "Ürün Kategorileri").ToList();
                 if (DtKategori.Count > 0)
                 {
                     SearchAutoCompleteItem ItemCategory;
                     ItemCategory = new SearchAutoCompleteItem()
                     {
                         Name = "",
-                        data = new data() { category = "Kategori Arama Sonuçları" },
+                        data = new data() { category = "Ürün Kategorileri" },
                         Url = "#"
                     };
                     Sonuc.suggestions.Add(ItemCategory);
@@ -163,7 +163,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                 }
 
-                var DtMarka = DbSonucListesi.Where(x => x.Category == "Marka Arama Sonuçları").ToList();
+                var DtMarka = DbSonucListesi.Where(x => x.Category == "Markalar").ToList();
                 if (DtMarka.Count > 0)
                 {
                     EklenenListesi = new List<string>();
@@ -171,7 +171,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     ItemMarka = new SearchAutoCompleteItem()
                     {
                         Name = "",
-                        data = new data() { category = "Marka Arama Sonuçları" },
+                        data = new data() { category = "Markalar" },
                         Url = "#"
                     };
                     Sonuc.suggestions.Add(ItemMarka);
@@ -203,7 +203,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                 }
 
-                var DtStore = DbSonucListesi.Where(x => x.Category == "Firma Arama Sonuçları").ToList();
+                var DtStore = DbSonucListesi.Where(x => x.Category == "Firma Kategorileri").ToList();
                 if (DtStore.Count > 0)
                 {
                     EklenenListesi = new List<string>();
@@ -211,7 +211,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     ItemStore = new SearchAutoCompleteItem()
                     {
                         Name = "",
-                        data = new data() { category = "Firma Arama Sonuçları" },
+                        data = new data() { category = "Firma Kategorileri" },
                         Url = "#"
                     };
                     Sonuc.suggestions.Add(ItemStore);
@@ -243,7 +243,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                 }
 
-                var DtVideo = DbSonucListesi.Where(x => x.Category == "Video Arama Sonuçları").ToList();
+                var DtVideo = DbSonucListesi.Where(x => x.Category == "Videolar").ToList();
                 if (DtVideo.Count > 0)
                 {
                     EklenenListesi = new List<string>();
@@ -251,7 +251,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     ItemVideo = new SearchAutoCompleteItem()
                     {
                         Name = "",
-                        data = new data() { category = "Video Arama Sonuçları" },
+                        data = new data() { category = "Videolar" },
                         Url = "#"
                     };
                     Sonuc.suggestions.Add(ItemVideo);
@@ -283,7 +283,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                 }
 
-                var DtTedarikci = DbSonucListesi.Where(x => x.Category == "Tedarikçi Arama Sonuçları").ToList();
+                var DtTedarikci = DbSonucListesi.Where(x => x.Category == "Tedarikçiler").ToList();
                 if (DtTedarikci.Count > 0)
                 {
                     EklenenListesi = new List<string>();
@@ -291,7 +291,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     ItemTedarikci = new SearchAutoCompleteItem()
                     {
                         Name = "",
-                        data = new data() { category = "Tedarikçi Arama Sonuçları" },
+                        data = new data() { category = "Tedarikçiler" },
                         Url = "#"
                     };
                     Sonuc.suggestions.Add(ItemTedarikci);

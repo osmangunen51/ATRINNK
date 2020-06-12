@@ -21,7 +21,6 @@
     if (lastCh=="/") {
         url = url.Substring(0, url.Length - 1);
     }%>
-<link rel="alternate" href="<%:url %>" hreflang="tr" />
 
 
   <script src="/Content/V2/assets/js/jquery.min.js?v=1"  ></script>
@@ -31,10 +30,10 @@
 <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js" ></script>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap"  rel="stylesheet">
-<link  rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=8.4" />
+<link  rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=8.6" />
 
 <link  rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
-<link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css") %>" />
+<link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v=3") %>" />
 
 
 
