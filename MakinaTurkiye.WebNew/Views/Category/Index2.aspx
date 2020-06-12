@@ -15,8 +15,9 @@
     <link rel="next" href="<%:Model.NextPageUrl%>" />
     <%} %>
 
-    <% if(!this.Context.IsDebuggingEnabled) { %>
-     <meta name="robots" content="INDEX,FOLLOW" />
+    <% if (!this.Context.IsDebuggingEnabled)
+        { %>
+    <meta name="robots" content="INDEX,FOLLOW" />
     <% }%>
 
     <script type="text/javascript">
@@ -516,7 +517,7 @@
                         <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=z-a">Z-a</option>
                         <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=soneklenen">Son Eklenen</option>
                         <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>">En Çok Görüntülenen</option>
-                                   <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=fiyat-artan">Fiyat Artan</option>
+                        <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=fiyat-artan">Fiyat Artan</option>
                         <%--                           <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=fiyat-artan">Fiyata Göre Artan</option>--%>
                     </select>
                 </div>
@@ -661,8 +662,10 @@
             <%} %>
             <div class="row clearfix">
                 <div class="col-xs-12">
-                        <%=Html.RenderHtmlPartial("_SliderBanner",Model.MTCategoSliderItems) %>
+                    <%=Html.RenderHtmlPartial("_SliderBanner",Model.MTCategoSliderItems) %>
                     <div class="categort-filter">
+                        <%if (string.IsNullOrEmpty(Model.SearchText))
+                            {%>
                         <div class=" section-title section-title--left section-title--category">
                             <h1><%string brandName = "";
                                     if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
@@ -675,7 +678,7 @@
                                  <%}%>
                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
-                                                  Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                      Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                     {%>
                                 <%brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName%>
@@ -712,19 +715,21 @@
                                     else
                                     {
                                         if (string.IsNullOrEmpty(Model.SpesificCategoryNameForModelH1))
-                                        {  var topCategory = Model.CategoryModel.TopCategoryItemModels.LastOrDefault(c => c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Series);
+                                        {
+                                            var topCategory = Model.CategoryModel.TopCategoryItemModels.LastOrDefault(c => c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Series);
                                             if (!string.IsNullOrWhiteSpace(topCategory.CategoryContentTitle))
                                             {
-                                                %>
+                                %>
                                 <%:topCategory.CategoryContentTitle %>
                                 <%
                                     }
-                                    else {
-                                        %>
+                                    else
+                                    {
+                                %>
                                 <%:topCategory.CategoryName %>
-                                   <% }
-                                            %>
-                   
+                                <% }
+                                %>
+
 
                                 <%}
                                     }%>
@@ -748,6 +753,8 @@
                                     { %>
                                         (<%:Model.SameCategoryH1 %>)
                                 <%} %>
+
+
                                 <%if (Request.QueryString["page"] != null)
                                     { %>
                                 <span class="small"><%:Model.PagingModel.CurrentPageIndex%>. Sayfa</span>
@@ -756,6 +763,9 @@
                             </h1>
                             <span>kategorisinde <strong><%:Model.TotalItemCount%> </strong>adet ürün</span>
                         </div>
+                        <% } %>
+
+
 
                         <% if (!string.IsNullOrEmpty(Model.SearchText))
                             { %>
@@ -767,7 +777,7 @@
                             else
                             {
                         %> 
-                                "<strong><%:Model.SearchText %> / <%:Model.CategoryModel.SelectedCategoryName%></strong>" kategorisinde <span style="color: #8f0100; font-weight: 700;"><%:Model.FilteringContext.TotalItemCount%></span> <strong>Adet</strong> ürün bulundu.
+                                "<strong><%:Model.SearchText %>" araması için "<%:Model.CategoryModel.SelectedCategoryContentTitle%>"</strong> kategorisinde <span style="color: #8f0100; font-weight: 700;"><%:Model.FilteringContext.TotalItemCount%></span> <strong>Adet</strong> sonuç bulundu.
                         <%} %>
 
                         </span>
