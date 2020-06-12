@@ -14,6 +14,8 @@ namespace MakinaTurkiye.Utilities.Mvc
             var response = filterContext.RequestContext.HttpContext.Response;
 
             var domains = new List<string> { "magaza.makinaturkiye.com", "makinaturkiye.com","urun.makinaturkiye.com","video.makinaturkiye.com" };
+<<<<<<< HEAD
+
             if (filterContext.RequestContext.HttpContext.Request.UrlReferrer!=null && domains.Contains(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Host))
 =======
             if (filterContext.RequestContext.HttpContext.Request.UrlReferrer != null)
@@ -23,6 +25,7 @@ namespace MakinaTurkiye.Utilities.Mvc
                 {
                     filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Origin", "*");
                 }
+
                 filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Headers", "*");
                 filterContext.RequestContext.HttpContext.Response.AddHeader("Access-Control-Allow-Credentials", "true");
 
