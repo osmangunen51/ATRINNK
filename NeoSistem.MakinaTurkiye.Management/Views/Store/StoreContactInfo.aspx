@@ -1,5 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" Inherits="System.Web.Mvc.ViewPage< NeoSistem.MakinaTurkiye.Management.Models.Orders.StoreContactOrderModel>" %>
 
+
+
 <div style="width: 800px; float: left; margin: 20px 0px 0px 20px">
     <div style="float: left; width: 50%;">
         <%:EnumModels.AddressEdit(Model.Address) %>
@@ -34,33 +36,12 @@
             }%>
     Email:
         <%:Model.Email %>
-        <br />
-       <b>Ürün Eklenme:</b>  
-        <% string text = "";
-            if (!Model.IsProductAdded.HasValue)
-            {
-                text = "Belirtilmedi";
-            }
-            else
-            {
-                if (Model.IsProductAdded.Value == true)
-                {
-                    text = "<b style='color:red'>Tamamlandı</b>";
-                }
-                else
-                {
-                    text = "<b style='color:green'>Tamamlandı</span>";
-                }
-            } %>
-        <%=text %> <br />
-        <a target="_blank" href="/Member/BrowseDesc1/<%:Model.MemberMainPartyId %>">Üye Açıklamalar</a><br />
-        <a href="/StoreSeoNotification/Index?storeMainPartyId=<%:Model.StoreMainPartyId %>" target="_blank">Seo Açıklamaları</a>
     </div>
     <div style="float: left; width: 50%;">
 
         <table>
             <tr>
-                <td colspan="3"><a style="font-size: 15px; font-weight: 600" target="_blank" href="/Member/BrowseDesc1/<%:Model.MemberMainPartyId %>">Son Üye Açıklama</a></td>
+                <td colspan="3"><a style="font-size: 15px; font-weight: 600" href="/Member/MemberDescription/<%:Model.MemberMainPartyId %>">Son Üye Açıklama</a></td>
             </tr>
 
             <%foreach (var item in Model.StoreMemberDescriptions)

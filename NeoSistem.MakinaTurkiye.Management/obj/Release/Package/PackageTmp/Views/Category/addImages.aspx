@@ -83,8 +83,6 @@
     <div class="tab">
         <button class="tablinks" onclick="openTab(event, 'Banner')">Banner</button>
         <button class="tablinks" onclick="openTab(event, 'Icon')">İkon</button>
-        <button class="tablinks" onclick="openTab(event, 'ListImage')">Anasayfa Görsel</button>
-
     </div>
     <div id="Banner" class="tabcontent">
         <h3>Banner Ekle</h3>
@@ -114,14 +112,7 @@
                     <%=Html.TextBox("Order","", new { style = "width: 244px;" })%>
                 </div>
             </div>
-                        <div style="width: 100%; float: left; margin-top: 5px;">
-                <div style="width: 10%; float: left;">
-                    Alt Etiket
-                </div>
-                <div style="width: 90%; float: left;">
-                    <%=Html.TextBox("BannerAltTag","", new { style = "width: 244px;" })%>
-                </div>
-            </div>
+
             <div style="width: 100%; float: left; margin-top: 5px;">
                 <div style="width: 10%; float: left;">
                     Link
@@ -182,14 +173,6 @@
                 </div>
                 <div style="width: 90%; float: left;">
                     <label><%:item.BannerOrder %></label>
-                </div>
-            </div>
-                        <div style="width: 100%; float: left; margin-top: 5px;">
-                <div style="width: 10%; float: left;">
-                    Alt Tag
-                </div>
-                <div style="width: 90%; float: left;">
-                    <label><%:item.BannerAltTag %></label>
                 </div>
             </div>
             <div style="width: 100%; float: left; margin-top: 5px">
@@ -270,52 +253,6 @@
                             <% if (Model.IconModel.IconUrl != "")
                                 { %>
                             <img src="<%:Model.IconModel.IconUrl %>" />
-
-                            <% } %>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-        </div>
-        <% } %>
-    </div>
-
-        <div id="ListImage" class="tabcontent" style="display: none;">
-        <h3>İcon Ekle</h3>
-        <% using (Html.BeginForm("addImages", "Category", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            { %>
-        <%:Html.HiddenFor(x => x.CategoryId) %>
-        <div style="width: 845px; height: auto; float: left; margin-left: 20px; margin-top: 20px;">
-            <div style="float: left; width: 600px; float: left; border: dashed 1px #bababa; height: 132px; padding: 10px;">
-                <div style="width: 98%; height: auto; border-bottom: dashed 1px #bababa; padding: 5px;">
-                    <span style="font-weight: bold; font-size: 14px">İcon</span>
-                </div>
-                <div style="width: 100%; float: left; margin-top: 10px;">
-                    <div style="width: 10%; float: left;">
-                        Dosya
-       
-                    </div>
-
-                    <div style="width: 90%; float: left;">
-                        <div style="width: auto; float: left;">
-                            <%:Html.FileUploadFor(x=>x.HomePageImagePath, new { @style="border: none; width: 250px; height: 22px; border: solid 1px #bababa"}) %>
-                        </div>
-                        <div style="float: left;">
-                            <button type="submit">
-                                Ekle</button>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div style="width: 170px; float: left; border: dashed 1px #bababa; margin-left: 10px; height: 150px;">
-                <table cellpadding="0" cellspacing="0" width="100%" style="height: 100%;">
-                    <tr>
-                        <td align="center" valign="middle">
-                            <% if (Model.HomePageImagePath != "")
-                                { %>
-                            <img src="<%:Model.HomePageImagePath %>" />
 
                             <% } %>
                         </td>

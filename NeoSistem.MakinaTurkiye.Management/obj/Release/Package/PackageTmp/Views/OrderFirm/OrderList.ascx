@@ -103,7 +103,7 @@
                 { %>
         <%:item.CreditCardName %>
         <br />
-        <% if (item.CreditCardCount > 0)
+        <% if (item.CreditCardCount != null && item.CreditCardCount > 0)
             { %>
     (<%:item.CreditCardCount%>
     Taksit)
@@ -111,9 +111,6 @@
         else
         { %>
     (Tek Çekim)
-        <%if (item.PriceCheck.HasValue &&  item.PriceCheck == false) {%>
-            (Ödeme Başarısız)
-        <% } %>
     <% } %>
         <% } %>
     </td>
@@ -256,18 +253,9 @@
                 style = "color:#ccc;";
             }%>
         <span style="<%: style%> float:left;"><%:(item.PayDate!=null)?Convert.ToDateTime(item.PayDate).ToString("dd/MM/yyyy"):item.RecordDate.ToString("dd/MM/yyyy")%></span>
-        <div style="float:right">
-        <%if (item.IsProductAdded.HasValue && item.IsProductAdded.Value == true)
-                {%>
-            <img title="Veri Girişi Tamamlandı" src="/Content/images/Accept-icon.png">
-        <% }
-                                                                               else { %>
-            <img title="Veri Girişi Yapılmadı" style="width: 16px;" src="../../Content/Images/cancel.png">
-        <% } %>
-               <a href="/OrderFirm/UpdatePayDate?orderId=<%=item.OrderId  %>" style="float: right;" id="lightbox_click" rel="superbox[iframe]"
+        <a href="/OrderFirm/UpdatePayDate?orderId=<%=item.OrderId  %>" style="float: right;" id="lightbox_click" rel="superbox[iframe]"
             title="Yeni Tarih Ekle">
             <img src="/Content/images/edit.png" /></a>
-        </div>   
     </td>
     <td class="Cell">
         <% if (item.PacketStatu == (byte)PacketStatu.Inceleniyor)
@@ -277,9 +265,7 @@
         <% } %>
     </td>
     <td class="Cell">
-        <%=item.SalesUserName %> &nbsp;
-                    <a href="/OrderFirm/SalesResponsibleUpdate?orderId=<%=item.OrderId  %>" style="float: left;" id="lightbox_click" rel="superbox[iframe]" title="Satış Sorumlusu Değiştir"><img src="/Content/images/edit.png"></a>
-
+        <%=item.SalesUserName %>
     </td>
     <% int onayli = 2;
         var faturalimi = (from d in olustur.Faturachecks

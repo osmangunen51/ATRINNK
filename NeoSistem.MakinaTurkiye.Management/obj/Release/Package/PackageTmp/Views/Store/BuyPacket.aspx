@@ -144,16 +144,20 @@
                     "TaxNo": $("#TaxNo").val(),
                     "DiscountType": $("#DiscounType").val(),
                     "DiscountAmount": $("#DiscountAmount").val(),
+   
                     "PacketDay": $("#PacketDay").val()
                 },
                 dataType: 'json',
                 success: function (data) {
+
+
                     $("#OrderType").val("0");
                     $("#Description").val("");
                     $("#Installment").val("0");
                     $("#creditDatesContainer").html("");
                     alert("Paket satın alma işlemi tamamlanmıştır");
                     $("#preLoading").hide();
+
                 },
                 error: function (request, error) {
                     $("#preLoading").hide();
@@ -208,7 +212,9 @@
                         <option value="<%:(byte)Ordertype.KrediKartiVade %>">Vadeli Kredi Kartı</option>
                         <option value="<%:(byte)Ordertype.HavaleTaksit %>">Taksitli Havale</option>
                     </select>
+
                 </td>
+
             </tr>
 
             <tr>

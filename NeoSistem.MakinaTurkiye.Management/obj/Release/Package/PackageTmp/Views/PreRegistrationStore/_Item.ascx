@@ -30,17 +30,6 @@
             <img src="/Content/images/product.png">
             <% } %>  
         </a>
-        <%if (item.IsInserted)
-            {%>
-        <span title="Firma Olarak Eklenmiş.">
-        F.Eklendi
-            </span>
-        <% }
-                                  else {%>
-                      <a  href="/PreRegistrationStore/NewStore?preRegistrationId=<%=item.Id  %>" title="Firma Kaydı Olarak Ekle" >Firma O.</a>
-        <% } %>
-  
-
     </td>
 </tr>
 <%count = count + 1; %>

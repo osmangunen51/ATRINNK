@@ -400,10 +400,6 @@ Firmalar
         }
       });
 
-    }    function DeleteStore(id) {
-        if (confirm('Tamamen silmek istediğinize eminmisiniz, bu işlem geri alınamaz?')) {
-                     window.location.href = '/Store/DeleteStore?storeMainPartyId='+id; 
-        }
     }
   </script>
 </asp:Content>

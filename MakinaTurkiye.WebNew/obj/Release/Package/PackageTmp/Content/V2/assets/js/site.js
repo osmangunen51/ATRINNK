@@ -339,7 +339,7 @@ function AddFavoriteProduct(id) {
     //            var image = '<img src=\'/Content/Images/load.gif\' />'
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenize ekleniyor.. &nbsp;&nbsp;' + image);
     $.ajax({
-        url: 'https://urun.makinaturkiye.com/Product/AddFavoriteProduct',
+        url: '/Product/AddFavoriteProduct',
         type: 'post',
         dataType: 'json',
         data:
@@ -357,7 +357,7 @@ function AddFavoriteProduct(id) {
             else {
                 $("#FavoriteProductLoading").hide();
                 //  $.facebox('Görüntülemiş olduğunuz ürünü favori ürünlerinize eklemek için sitemize üye girişi yapmanız veya üye olmanız gerekmektedir.');
-                window.location.href = 'https://www.makinaturkiye.com/Uyelik/kullanicigirisi';
+                window.location.href = '/Uyelik/kullanicigirisi';
             }
         },
         error: function (x, l, e) {
@@ -372,7 +372,7 @@ function RemoveFavoriteProduct(id) {
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenizden çıkarılıyor.. &nbsp;&nbsp;' + image);
 
     $.ajax({
-        url: 'https://urun.makinaturkiye.com/Product/RemoveFavoriteProduct',
+        url: '/Product/RemoveFavoriteProduct',
         type: 'post',
         data:
             {
@@ -427,7 +427,7 @@ function SendMessageforpro(messagetype) {
     var productNo = $('#hiddenProductNo').val()
     productNo = productNo.replace('#', '');
     var obj = new Object();
-    obj.redirect = 'https://www.makinaturkiye.com/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
+    obj.redirect = '/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
     $.ajax({
         url: '/Product/IsAuthenticate',
         data: JSON.stringify(obj),
@@ -441,7 +441,7 @@ function SendMessageforpro(messagetype) {
                 productNo = productNo.replace('#', '');
 
                 //                                                window.location.href = '/Mesaj/UyeNo=' + memberNo + '/UrunNo=' + productNo;
-                window.location.href = 'https://www.makinaturkiye.com/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
+                window.location.href = '/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
 
             }
             else {
@@ -1186,7 +1186,7 @@ function GetSubMenu(id, thisobj) {
 
        
     if (data.indexOf("loading") > 0) {
-        $('.mega-dropdown-menu', thisobj).find("#loading").html('<img src="../../Content/V2/images/loading.gif" />');
+
         $.ajax({
             type: "get", //rest Type
             dataType: 'json', //mispelled

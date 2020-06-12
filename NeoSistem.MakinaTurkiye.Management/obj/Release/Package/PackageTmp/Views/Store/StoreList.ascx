@@ -17,7 +17,6 @@
         <%: item.StoreName %><br />
         <font style="color: #027a14">
           <%:item.StoreShortName %>
-
       </font>
     </td>
     <td class="Cell" align="center">
@@ -249,21 +248,13 @@
         <a title="Firma Kısa Adı Tanımlı" href="javascript:void(0)" target="_blank">
             <img src="/Content/images/Accept-icon.png" />
         </a>
-        <%string backColor = "transparent";
-            if (item.SeoStoreNotificationCount > 0)
-            {
-                backColor = "#54b354";
-            }
-            %>
-        <a  title="Firma Seo Açıklama" href="/StoreSeoNotification/Index?storeMainPartyId=<%:item.MainPartyId %>" target="_blank">
-            <img  src="/Content/RibbonImages/store-list.png" style="width: 16px;background-color:<%:backColor%>;" />
-        </a>
         <a href="/Member/SendSpecialEmailToStore/<%:item.MainPartyId.ToString() %>" title="Özel Mail Gönder">Ö.M</a>
 
         <%} %>
         <%if (item.StoreUpdatedDate.HasValue)
             {%>
-        <span style="color: #027a14" title="Firma Bilgileri Güncelendi <%:item.StoreUpdatedDate.Value.ToString("dd.MM.yyyy HH:mm") %>">F.B.G
+        <span style="color:#027a14" title="Firma Bilgileri Güncelendi <%:item.StoreUpdatedDate.Value.ToString("dd.MM.yyyy HH:mm") %>">
+            F.B.G
         </span>
         <% }
             else
@@ -271,11 +262,6 @@
         <a onclick="MakeStoreControlled(<%:item.MainPartyId %>)" title="Firma Bilgileri Güncellendi Yap">F.B.G</a>
 
         <%} %>
-                    <%if (NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId == 1) {
-                    %>
-            <a  style="cursor:pointer; color:Blue;" onclick="DeleteStore(<%:item.MainPartyId %>)">(Sil)</a>
-            <%
-                } %>
     </td>
 </tr>
 <% } %>
@@ -383,8 +369,6 @@
         var url = '/Store/ExportStores' + s;
         window.open(url);
     }
-
-
 </script>
 <style type="text/css">
     /* Custom Theme */

@@ -55,7 +55,6 @@
     <EntitySetMapping Name="Banners">
       <EntityTypeMapping TypeName="MakinaTurkiyeModel.Banner">
         <MappingFragment StoreEntitySet="Banner">
-          <ScalarProperty Name="BannerAltTag" ColumnName="BannerAltTag" />
           <ScalarProperty Name="BannerImageType" ColumnName="BannerImageType" />
           <ScalarProperty Name="BannerOrder" ColumnName="BannerOrder" />
           <ScalarProperty Name="BannerId" ColumnName="BannerId" />
@@ -70,7 +69,6 @@
     <EntitySetMapping Name="Categories">
       <EntityTypeMapping TypeName="MakinaTurkiyeModel.Category">
         <MappingFragment StoreEntitySet="Category">
-          <ScalarProperty Name="HomeImagePath" ColumnName="HomeImagePath" />
           <ScalarProperty Name="BaseMenuOrder" ColumnName="BaseMenuOrder" />
           <ScalarProperty Name="CategoryPathUrl" ColumnName="CategoryPathUrl" />
           <ScalarProperty Name="CategoryPath" ColumnName="CategoryPath" />
@@ -384,7 +382,6 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="MakinaTurkiyeModel.Product">
         <MappingFragment StoreEntitySet="Product">
-          <ScalarProperty Name="ProductPriceForOrder" ColumnName="ProductPriceForOrder" />
           <ScalarProperty Name="DiscountType" ColumnName="DiscountType" />
           <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
           <ScalarProperty Name="ProductPriceWithDiscount" ColumnName="ProductPriceWithDiscount" />
@@ -1079,7 +1076,6 @@
     <EntitySetMapping Name="Stores">
       <EntityTypeMapping TypeName="MakinaTurkiyeModel.Store">
         <MappingFragment StoreEntitySet="Store">
-          <ScalarProperty Name="IsProductAdded" ColumnName="IsProductAdded" />
           <ScalarProperty Name="SeoKeyword" ColumnName="SeoKeyword" />
           <ScalarProperty Name="SeoDescription" ColumnName="SeoDescription" />
           <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />

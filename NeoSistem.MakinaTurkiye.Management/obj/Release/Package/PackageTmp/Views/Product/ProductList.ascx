@@ -13,9 +13,8 @@
 
         <div>
 
-            <textarea  id="<%:item.ProductId %>" rows="4" cols="5" column="product" class="edit-input" style="display: none; width:200px;"></textarea>
             <%= Html.Label("",item.ProductName)%>
-
+            <input type="text" id="<%:item.ProductId %>" column="product" class="edit-input" style="display: none;" />
             <%--  <%: item.ProductName%>--%>
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
@@ -32,9 +31,8 @@
         <div>
             <%=Html.Label("",item.NameBrand)%>
 
+            <input type="text" id=" <%:item.BrandId %>" column="brand" class="edit-input" style="display: none;" />
 
-
-            <textarea  column="brand"  id=" <%:item.BrandId %>" class="edit-input" style="display: none;  width:150px;" ></textarea>
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
             </div>
@@ -50,8 +48,8 @@
             {  %>
         <div>
             <%=Html.Label(item.NameSeries)%>
+            <input type="text" id="<%:item.SeriesId %>" column="serie" class="edit-input" style="display: none;" />
 
-                        <textarea  column="serie"   id="<%:item.SeriesId %>"   class="edit-input" style="display: none;  width:150px;" ></textarea>
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
             </div>
@@ -61,27 +59,17 @@
         <%-- <%: item.NameSeries%>--%>
     </td>
     <td class="Cell">
+        <%if (!string.IsNullOrEmpty(item.NameModel))
+            {  %>
         <div>
-            <%if (!string.IsNullOrEmpty(item.NameModel))
-                {  %>
+            <%=Html.Label("",item.NameModel)%>
+            <input type="text" id="<%:item.ModelId %>" column="model" class="edit-input" style="display: none;" />
 
-            <%=Html.Label("", item.NameModel)%>
-                                    <textarea  column="model"   id="<%:item.ModelId %>"   class="edit-input" style="display: none;  width:150px;" ></textarea>
-
-
-
-
-            <%}
-    else {%>
-            <label for=""></label>
-            
-                      <textarea type="text" id="<%:item.ProductId %>"  column="modelNon" class="edit-input" style="display: none; width:150px;" ></textarea>
-            
-                    <% }%>
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
             </div>
         </div>
+        <%} %>
         <%-- <%: item.NameModel%>--%>
     </td>
     <td class="Cell" style="text-align: center; padding-top: 5px">
@@ -263,11 +251,6 @@
             <img src="/Content/images/hemen_satma.png" />
         </a>
         <%} %>
-                    <%if (NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId == 1) {
-                    %>
-            <a  style="cursor:pointer; color:Blue;" onclick="DeleteProductSure(<%:item.ProductId %>)">(Sil)</a>
-            <%
-                } %>
     </td>
     <td class="CellEnd" align="center">
         <%:Html.CheckBox("CheckItems", new { value = item.ProductId, @class="CheckItems" })%>
@@ -337,10 +320,10 @@
 
             var lbl = dad.find('label');
             lbl.hide();
-            dad.find('textarea').val(lbl.text()).show().css('height', '100%').focus();
+            dad.find('input[type="text"]').val(lbl.text()).show().css('width', '92%').css('height', '100%').focus();
         });
 
-        $('textarea').focusout(function () {
+        $('input[type=text]').focusout(function () {
             var productidforupdate = $(this).val();
             var productidd = $(this).attr("id");
             var columncategory = $(this).attr("column");

@@ -119,14 +119,13 @@ namespace MakinaTurkiye.Services.Search
             .Index(indexName.ToLowerInvariant())
             .From(0)
             .Size(10000).
-                Query(x=>x.Match(c => c
+                Query(x=>x.MatchPhrasePrefix(c => c
                 .Field(p => p.Name)
                 .Analyzer("standard")
                 .Boost(1.1)
                 .Query(keyword)
-                .Fuzziness(Fuzziness.Auto)
-                .FuzzyTranspositions()
-                .FuzzyRewrite(MultiTermQueryRewrite.TopTermsBlendedFreqs(10))
+                .MaxExpansions(2)
+                .Slop(2)
                 .Name("named_query")
             ))
             .Sort(ss => ss

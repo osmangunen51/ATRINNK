@@ -34,3 +34,15 @@ C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\obj\Release\Ma
 C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\obj\Release\MakinaTurkiye.Entities.csproj.CopyComplete
 C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\obj\Release\MakinaTurkiye.Entities.dll
 C:\Users\Tuanna\Source\Repos\MakinaTurkiye\MakinaTurkiye.Entities\obj\Release\MakinaTurkiye.Entities.pdb
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\bin\Release\MakinaTurkiye.Entities.dll.config
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\bin\Release\MakinaTurkiye.Entities.dll
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\bin\Release\MakinaTurkiye.Entities.pdb
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\bin\Release\DnsClient.dll
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\bin\Release\System.Buffers.dll
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\bin\Release\DnsClient.xml
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\bin\Release\System.Buffers.xml
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\obj\Release\MakinaTurkiye.Entities.csprojAssemblyReference.cache
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\obj\Release\MakinaTurkiye.Entities.csproj.CoreCompileInputs.cache
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\obj\Release\MakinaTurkiye.Entities.csproj.CopyComplete
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\obj\Release\MakinaTurkiye.Entities.dll
+F:\Proje\Bitbucket\MakinaTurkiye2\MakinaTurkiye.Entities\obj\Release\MakinaTurkiye.Entities.pdb

@@ -69,9 +69,8 @@
 
 
     </ul>
-    <div id="newNot" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style=" padding: 5px; display:none; color:#850101; position: absolute; right: 240px; top: 8px;">
-
-        </div>
+    <div id="newNot" style="background-color: #2db007; display: none; color: #fff; padding: 5px; position: absolute; right: 240px; top: 3px;">
+    </div>
 
     <% MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
         int demandForPacketNumber = entities.CompanyDemandMemberships.Where(c => c.isDemandForPacket == true && c.Status == 0).ToList().Count; %>
@@ -218,7 +217,7 @@
                                 {
                                     text: 'Üye Yönetimi',
                                     type: Ribbon.GroupType.Group,
-                                    width: '250px',
+                                    width: '150px',
                                     buttons: [
                                         {
                                             Id: 'MemberManage', text: 'Tüm Üyeler', type: Ribbon.ButtonType.BigItem,
@@ -227,11 +226,7 @@
                                         {
                                             Id: 'MemberBulletin', text: 'Bülten Üyeleri', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'newspaper.png', action: "window.location = '/Member/BulletinMember';"
-                                        },
-                                            {
-                                            Id: 'MemberSearchPhone', text: 'Numaraya Göre Bul', type: Ribbon.ButtonType.BigItem,
-                                            align: 'left', image: 'phone-search.png', action: "window.location = '/Member/SearchPhone';"
-                                        },
+                                        }
                                     ]
                                 }
                             ]

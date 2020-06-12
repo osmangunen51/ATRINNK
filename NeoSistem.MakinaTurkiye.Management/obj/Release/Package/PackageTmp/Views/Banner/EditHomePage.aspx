@@ -95,15 +95,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div style="width: 100%; float: left; margin-top: 5px;">
-                <div style="width: 10%; float: left;">
-                    Alt Etiket
-                </div>
-                <div style="width: 90%; float: left;">
-                    <%=Html.TextBox("BannerAltTag","", new { style = "width: 244px;" })%>
-                </div>
-            </div>
+
             <div style="width: 100%; float: left; margin-top: 5px;">
                 <div style="width: 10%; float: left;">
                     Sıra
@@ -175,15 +167,6 @@
                     <label><%:item.BannerOrder != null ? item.BannerOrder.ToString() : ""%></label>
                 </div>
             </div>
-            
-            <div style="width: 100%; float: left; margin-top: 5px;">
-                <div style="width: 10%; float: left;">
-                   Alt Etiket
-                </div>
-                <div style="width: 90%; float: left;">
-                    <label><%:item.BannerAltTag%></label>
-                </div>
-            </div>
             <div style="width:100%; float:left; margin-top:5px">
                    <div style="width: 10%; float: left;">
                    Resim Tipi
@@ -205,7 +188,6 @@
                     <label><%:type%></label>
                 </div>
             </div>
-           
             <div style="width: 100%; float: left; margin-top: 5px;">
                 <div style="width: 10%; float: left;">
                     Link

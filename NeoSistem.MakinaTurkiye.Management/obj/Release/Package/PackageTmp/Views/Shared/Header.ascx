@@ -69,35 +69,27 @@
 
 
     </ul>
-    <div id="newNot" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style=" padding: 5px; display:none; color:#850101; position: absolute; right: 240px; top: 8px;">
-
-        </div>
+    <div id="newNot" style="background-color: #2db007; display: none; color: #fff; padding: 5px; position: absolute; right: 240px; top: 3px;">
+    </div>
 
     <% MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
         int demandForPacketNumber = entities.CompanyDemandMemberships.Where(c => c.isDemandForPacket == true && c.Status == 0).ToList().Count; %>
     <%if (demandForPacketNumber > 0)
         { %>
-    <div style="position: absolute; right: 245px; top: 10px;">
+    <div style="position: absolute; right: 175px; top: 10px;">
         <a href="/CompanyDemand/DemandForPacket?pagetype=DemandsForPacket" title="İndirimli paket bilgi talebi"><font style="color: red"><%:demandForPacketNumber %></font>Bilgi Talebi</a>
     </div>
     <%} %>
 
-
-
-
-            <div style="position: absolute; right: 350px; top: 10px;">
-        <a  style="padding:2px;"  href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
+    <div style="position: absolute; right: 100px; top: 10px;">
+        <a href="/MemberDescription/Notification" title="Bildirimler" id="notification"></a>
     </div>
-        <div style="position: absolute; right: 180px; top: 10px;">
-        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style="padding:2px;" href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
-    </div>
-        <div style="position: absolute; right: 80px; top: 10px;">
-        <a  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style="padding:2px;"  href="/MemberDescription/Notification" title="Bildirimler" id="notification"></a>
+    <div style="position: absolute; right: 190px; top: 10px;">
+        <a href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
     </div>
     <div style="float: right; position: absolute; right: 10px; top: 10px;">
-        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding:2px;" href="/Account/Logout">Çıkış Yap</a>
+        <a href="/Account/Logout">Çıkış Yap</a>
     </div>
-
 
 
     <%--    <div class="tabtabs" id="tabMainHome">
@@ -194,12 +186,7 @@
                                     {
                                         Id: 'HomeProductChoosed', text: 'Seçilen<br> Sektör Ürünleri', type: Ribbon.ButtonType.BigItem,
                                         align: 'left', image: 'AdvertCheck.png', action: "window.location = '/Product/HomeSectorProduct';"
-                                    },
-                                           {
-                                        Id: 'UrlRedirect', text: 'Url<br> Yönlendirme', type: Ribbon.ButtonType.BigItem,
-                                        align: 'left', image: 'AdvertList.png', action: "window.location = '/UrlRedirect';"
-                                    }
-                                ]
+                                    }]
                             }
                         ]
                     });
@@ -218,7 +205,7 @@
                                 {
                                     text: 'Üye Yönetimi',
                                     type: Ribbon.GroupType.Group,
-                                    width: '250px',
+                                    width: '150px',
                                     buttons: [
                                         {
                                             Id: 'MemberManage', text: 'Tüm Üyeler', type: Ribbon.ButtonType.BigItem,
@@ -227,11 +214,7 @@
                                         {
                                             Id: 'MemberBulletin', text: 'Bülten Üyeleri', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'newspaper.png', action: "window.location = '/Member/BulletinMember';"
-                                        },
-                                            {
-                                            Id: 'MemberSearchPhone', text: 'Numaraya Göre Bul', type: Ribbon.ButtonType.BigItem,
-                                            align: 'left', image: 'phone-search.png', action: "window.location = '/Member/SearchPhone';"
-                                        },
+                                        }
                                     ]
                                 }
                             ]
@@ -959,14 +942,8 @@
                                         {
                                             Id: 'MemberNotes', text: 'Üye</br>Açıklamaları', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'FilePrepareMenu.png', action: "window.location ='/MemberDescription';"
-                                        },
-                                                  {
-                                            Id: 'StoreSeo', text: 'Seo</br>Açıklamaları', type: Ribbon.ButtonType.BigItem,
-                                            align: 'left', image: 'store-list.png', action: "window.location ='/StoreSeoNotification/AllSeoNotification';"
-                                        },
-                                    ]
+                                        }]
                                 },
-
                                 {
                                     text: 'Görevler',
                                     type: Ribbon.GroupType.Group,

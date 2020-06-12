@@ -3,13 +3,16 @@
 <%:Html.HiddenFor(x=>x.StoreMainPartyId) %>
 <%:Html.HiddenFor(x=>x.StoreSeoNotificationId) %>
 <table>
+
+
     <tr>
+
     <td>
              <div class="editor-label">
                 Başlık
             </div>
             <div class="editor-field">
-                <%:Html.DropDownList("ConstantId", Model.Titles) %>
+                <%:Html.DropDownListFor(x=>x.ConstantId, Model.Titles) %>
  
                 <br />
                 <%: Html.ValidationMessageFor(model => model.ConstantId) %>
@@ -106,7 +109,9 @@
                     Kaydet
                 </button>
 
-
+                <button type="button" style="width: 70px; height: 35px;" onclick="window.location='/Member/BrowseDesc/<%:ViewData["mid"] %>'">
+                    İptal
+                </button>
             </p>
             <% } %>
             </div>
