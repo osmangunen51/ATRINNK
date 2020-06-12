@@ -139,6 +139,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             Url = item.Url
                         };
                     }
+
                     if (!EklenenListesi.Contains(ItemOneri.Name.Trim()))
                     {
                         EklenenSayisi++;

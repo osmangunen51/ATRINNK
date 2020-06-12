@@ -124,8 +124,6 @@ namespace MakinaTurkiye.Services.Search
                 .Analyzer("standard")
                 .Boost(1.1)
                 .Query(keyword)
-                .MaxExpansions(2)
-                .Slop(2)
                 .Name("named_query")
             ))
             .Sort(ss => ss
