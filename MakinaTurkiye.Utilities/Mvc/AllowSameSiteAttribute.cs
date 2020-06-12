@@ -15,7 +15,9 @@ namespace MakinaTurkiye.Utilities.Mvc
 
             var domains = new List<string> { "magaza.makinaturkiye.com", "makinaturkiye.com","urun.makinaturkiye.com","video.makinaturkiye.com" };
             if (filterContext.RequestContext.HttpContext.Request.UrlReferrer!=null && domains.Contains(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Host))
+=======
             if (filterContext.RequestContext.HttpContext.Request.UrlReferrer != null)
+>>>>>>> 037a3a3edd97e1d5c3e6d77f48e77aee339a4019
             {
                 if (domains.Contains(filterContext.RequestContext.HttpContext.Request.UrlReferrer.Host))
                 {
