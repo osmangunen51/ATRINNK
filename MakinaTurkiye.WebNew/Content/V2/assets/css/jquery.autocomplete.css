@@ -1,5 +1,4 @@
-﻿.autocomplete-suggestions 
-{
+﻿.autocomplete-suggestions {
     background-color: #fff;
     border-radius: 4px;
     border: 1px solid #ccc;
@@ -7,7 +6,7 @@
     font-size: .875em;
     margin-left: 1px;
     clear: both;
-    padding-bottom:10px;
+    padding-bottom: 10px;
 }
 
 .autocomplete-suggestion {
@@ -16,18 +15,15 @@
     height: 32px;
 }
 
-.autocomplete-selected 
-{
+.autocomplete-selected {
     background-color: #EBEEF4;
 }
 
-.autocomplete-suggestions strong 
-{
-   font-weight: 800;
+.autocomplete-suggestions strong {
+    font-weight: 800;
 }
 
-.suggestion-wrapper
-{
+.suggestion-wrapper {
     display: block;
     height: 20px;
     overflow: hidden;
@@ -35,9 +31,26 @@
     text-overflow: ellipsis;
     vertical-align: middle;
     line-height: 12px;
-    padding:7px;
+    padding: 7px;
 }
-.suggestion-group { display: block; line-height: normal; font-weight: 700; font-size:12px; padding-bottom:3px; color: black; border-bottom: 1px solid #5a5a5a; clear: left; *padding: 0; border-top: 0; text-align: center; position: relative; *position: static; top: -10px; margin-top: 5px; }
+
+.suggestion-group {
+    display: block;
+    line-height: normal;
+    font-weight: 700;
+    font-size: 14px;
+    padding-bottom: 3px;
+    color: black;
+    border-bottom: 1px solid #5a5a5a;
+    clear: left;
+    *padding: 0;
+    border-top: 0;
+    text-align: center;
+    position: relative;
+    *position: static;
+    top: -10px;
+    margin-top: 5px;
+}
 
 
 
@@ -48,33 +61,56 @@
     display: block;
     line-height: normal;
     font-weight: 500;
-    color: #424242;
-    height:32px;
+    color: #484848;
+    height: 32px;
+    font-size:13px
 }
 
 
 
 @media(max-width: 768px) {
-    .suggestion-value { font-size: 10px; }
+    .suggestion-value {
+        font-size: 10px;
+    }
 }
 
-.sub-text 
-{
+.sub-text {
     color: #999;
     font-size: 11px;
     font-weight: normal;
 }
-.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
-.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+
+.autocomplete-suggestions {
+    border: 1px solid #999;
+    background: #FFF;
+    overflow: auto;
+}
+
+.autocomplete-suggestion {
+    padding: 2px 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
 .autocomplete-selected {
     background: #F0F0F0;
     display: block;
     line-height: normal;
     font-weight: 500;
     color: #000000;
-    padding-bottom:20px;
+    padding-bottom: 20px;
 }
-.autocomplete-suggestions strong{font-weight:700; color:#000;}
-.autocomplete-group { padding: 2px 5px; }
-    .autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
 
+.autocomplete-suggestions strong {
+    font-weight: 700;
+    color: #000;
+}
+
+.autocomplete-group {
+    padding: 2px 5px;
+}
+
+    .autocomplete-group strong {
+        display: block;
+        border-bottom: 1px solid #000;
+    }

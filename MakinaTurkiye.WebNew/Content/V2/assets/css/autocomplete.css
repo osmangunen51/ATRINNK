@@ -1,13 +1,85 @@
-﻿.ui-corner-all { -moz-border-radius: 4px 4px 4px 4px; }
-.ui-widget-content { background: none; border: 1px solid black; background-color: #fff !important;padding-bottom:50px;}
-.ui-widget { font-family: Verdana,Arial,sans-serif; font-size: 15px; }
-.ui-menu { display: block; float: left; list-style: none outside none; margin: 0; padding: 2px; }
-.ui-autocomplete { cursor: default; position: absolute;padding-bottom:50px; }
-.ui-menu .ui-menu-item { clear: left; float: left; margin: 0; padding: 0; width: 100%; }
-    .ui-menu .ui-menu-item a { display: block; padding: 3px 3px 3px 3px; text-decoration: none; cursor: pointer; background-color: white; font-size: 13px; }
-        .ui-menu .ui-menu-item a:hover { display: block; padding: 3px 3px 3px 3px; text-decoration: none; color: #000; font-weight: bold; cursor: pointer; background-color: white; }
-    .ui-menu .ui-menu-item:hover a { font-size: 13px; }
-    .ui-menu .ui-menu-item:hover { color: #000; font-weight: bold; }
-.ui-menu-item div { font-size: 13px; color: #000; }
-    .ui-menu-item div:hover { font-size: 13px; color: #000; font-weight: bold; border: 1px solid #ccc; }
-.ui-menu-item .ui-menu-item-wrapper.ui-state-active { background: #e1e1e1 !important; font-weight: bold !important; border:0px; color: #000 !important; font-size:13px; }
+﻿.ui-corner-all {
+    -moz-border-radius: 4px 4px 4px 4px;
+}
+
+.ui-widget-content {
+    background: none;
+    border: 1px solid black;
+    background-color: #fff !important;
+    padding-bottom: 50px;
+}
+
+.ui-widget {
+    font-family: Verdana,Arial,sans-serif;
+    font-size: 15px;
+}
+
+.ui-menu {
+    display: block;
+    float: left;
+    list-style: none outside none;
+    margin: 0;
+    padding: 2px;
+}
+
+.ui-autocomplete {
+    cursor: default;
+    position: absolute;
+    padding-bottom: 50px;
+}
+
+.ui-menu .ui-menu-item {
+    clear: left;
+    float: left;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+    .ui-menu .ui-menu-item a {
+        display: block;
+        padding: 3px 3px 3px 3px;
+        text-decoration: none;
+        cursor: pointer;
+        background-color: white;
+        font-size: 13px;
+    }
+
+        .ui-menu .ui-menu-item a:hover {
+            display: block;
+            padding: 3px 3px 3px 3px;
+            text-decoration: none;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: white;
+        }
+
+    .ui-menu .ui-menu-item:hover a {
+        font-size: 13px;
+    }
+
+    .ui-menu .ui-menu-item:hover {
+        color: #000;
+        font-weight: bold;
+    }
+
+.ui-menu-item div {
+    font-size: 13px;
+    color: #000;
+}
+
+    .ui-menu-item div:hover {
+        font-size: 13px;
+        color: #000;
+        font-weight: bold;
+        border: 1px solid #ccc;
+    }
+
+.ui-menu-item .ui-menu-item-wrapper.ui-state-active {
+    background: #e1e1e1 !important;
+    font-weight: bold !important;
+    border: 0px;
+    color: #000 !important;
+    font-size: 13px;
+}
