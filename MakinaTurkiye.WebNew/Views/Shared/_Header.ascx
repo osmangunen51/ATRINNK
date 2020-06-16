@@ -409,102 +409,104 @@
     var Category = "Oneri";
     $('#SearchText').Autocomplete({
         serviceUrl: '<%=AppSettings.SiteUrl + Url.Action("Index", "Search")%>',
-        showNoSuggestionNotice: true,
-        noSuggestionNotice: '',
-        minChars: 2,
-        noCache: true,
-        groupby: 'category',
-        maxHeight: 600,
-        appendTo: $('#SearchText').parentNode,
-        autoSelectFirst: false,
-        formatGroup: function (category) {
-            return "<span class='disabled suggestion-wrapper'><span class='suggestion-value'>" + category + "</span></span>";
-        },
-        onSearchComplete: function (query, suggestions) {
-            Category = "Oneri";
-        },
-        formatResult: function (suggestion, currentValue) {
+       showNoSuggestionNotice: true,
+       noSuggestionNotice: '',
+       minChars: 2,
+       noCache: true,
+       groupby: 'category',
+       maxHeight: 600,
+       appendTo: $('#SearchText').parentNode,
+       autoSelectFirst: false,
+       formatGroup: function (category) {
+           return "<span class='disabled suggestion-wrapper'><span class='suggestion-value'>" + category + "</span></span>";
+       },
+       onSearchComplete: function (query, suggestions) {
+           Category = "Oneri";
+       },
+       formatResult: function (suggestion, currentValue) {
 
-         
-                $(".overlay-body").show();
-              $(".new-header__search").css("z-index", "5000");
-            var pattern, words;
-            if (!currentValue && suggestion.data.category !== "Gecmis") {
-                return suggestion.value;
-            }
-            words = utils.escapeRegExChars(currentValue);
-            words = words.split(' ').join('|');
-            pattern = '(' + words + ')';
 
-            if (suggestion.data.category !== Category && suggestion.data.category !== "Gecmis") {
-                Category = suggestion.data.category;
-                return "<span class='suggestion-wrapper'><span class='suggestion-group'><span>" + suggestion.data.category + "<span></span></span>";
-            }
-            else {
+           $(".overlay-body").show();
+           $(".new-header__search").css("z-index", "5000");
+           var pattern, words;
+           if (!currentValue && suggestion.data.category !== "Gecmis") {
+               return suggestion.value;
+           }
+           words = utils.escapeRegExChars(currentValue);
+           words = words.split(' ').join('|');
+           pattern = '(' + words + ')';
 
-            }
+           if (suggestion.data.category !== Category && suggestion.data.category !== "Gecmis") {
+               Category = suggestion.data.category;
+               return "<span class='suggestion-wrapper'><span class='suggestion-group'><span>" + suggestion.data.category + "<span></span></span>";
+           }
+           else {
 
-            if (suggestion.data.category == "Gecmis" && suggestion.Url == "#") {
-                return "<span class='suggestion-wrapper'><span class='suggestion-group'><span>" + suggestion.Name + "</span></span></span>";
-            }
-            if (suggestion.Name.length > 85) {
-                            return "<span class='suggestion-wrapper' ><span class='suggestion-value' style='direction:rtl'>" + suggestion.Name.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/&lt;(\/?strong)&gt;/g, '<$1>') + "</span></span>";
-            }
-            else {
-                            return "<span class='suggestion-wrapper' ><span class='suggestion-value'>" + suggestion.Name.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
-                .replace(/&/g, '&amp;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;')
-                .replace(/"/g, '&quot;')
-                .replace(/&lt;(\/?strong)&gt;/g, '<$1>') + "</span></span>";
-            }
+           }
 
-        },
-        onSelect: function (suggestion) {
-            console.log(suggestion);
+           if (suggestion.data.category == "Gecmis" && suggestion.Url == "#") {
+               return "<span class='suggestion-wrapper'><span class='suggestion-group'><span>" + suggestion.Name + "</span></span></span>";
+           }
+           if (suggestion.Name.length > 85) {
+               return "<span class='suggestion-wrapper' ><span class='suggestion-value' style='direction:rtl'>" + suggestion.Name.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
+                   .replace(/&/g, '&amp;')
+                   .replace(/</g, '&lt;')
+                   .replace(/>/g, '&gt;')
+                   .replace(/"/g, '&quot;')
+                   .replace(/&lt;(\/?strong)&gt;/g, '<$1>') + "</span></span>";
+           }
+           else {
+               return "<span class='suggestion-wrapper' ><span class='suggestion-value'>" + suggestion.Name.replace(new RegExp(pattern, 'gi'), '<strong>$1<\/strong>')
+                   .replace(/&/g, '&amp;')
+                   .replace(/</g, '&lt;')
+                   .replace(/>/g, '&gt;')
+                   .replace(/"/g, '&quot;')
+                   .replace(/&lt;(\/?strong)&gt;/g, '<$1>') + "</span></span>";
+           }
 
-            if (suggestion.data.category == "Oneri" || suggestion.data.category == "Gecmis") {
-                $('#SearchText').val(suggestion.Name);
-                this.form.submit();
-            }
-            if (suggestion.data.category == "Markalar") {
-                if (suggestion.url != "#") {
-                    window.location = suggestion.Url;
-                }
-            }
-            if (suggestion.data.category == "Ürün Kategorileri") {
-                if (suggestion.url != "#") {
-                    window.location = suggestion.Url;
-                }
-            }
-            else if (suggestion.data.category == "Firma Kategorileri") {
-                if (suggestion.url != "#") {
-                    window.location = suggestion.Url;
-                }
-            }
-            else if (suggestion.data.category == "Videolar") {
-                if (suggestion.url != "#") {
-                    window.location = suggestion.Url;
+       },
+       onSelect: function (suggestion) {
+           console.log(suggestion);
 
-                }
-            }
-            else if (suggestion.data.category == "Tedarikçiler") {
-                if (suggestion.url != "#") {
-                    window.location = suggestion.Url;
-                }
-            }
-        }
-    });
-    $( document ).ready(function() {
-$( "#SearchText" ).focus(function() {
+           if (suggestion.data.category == "Oneri" || suggestion.data.category == "Gecmis") {
+               $('#SearchText').val(suggestion.Name);
+               this.form.submit();
+           }
+           if (suggestion.data.category == "Markalar") {
+               if (suggestion.url != "#") {
+                   window.location = suggestion.Url;
+               }
+           }
+           if (suggestion.data.category == "Ürün Kategorileri") {
+               if (suggestion.url != "#") {
+                   window.location = suggestion.Url;
+               }
+           }
+           else if (suggestion.data.category == "Firma Kategorileri") {
+               if (suggestion.url != "#") {
+                   window.location = suggestion.Url;
+               }
+           }
+           else if (suggestion.data.category == "Videolar") {
+               if (suggestion.url != "#") {
+                   window.location = suggestion.Url;
 
+               }
+           }
+           else if (suggestion.data.category == "Tedarikçiler") {
+               if (suggestion.url != "#") {
+                   window.location = suggestion.Url;
+               }
+           }
+       }
+   });
+    $(document).ready(function () {
+        $("input[id='SearchText']").click(function () {
+            $(this).val('');
         });
-
+        $("#SearchText").focus(function () {
+            $(this).val('');
+        });
         $("#SearchText").focusout(function(){
     $(".overlay-body").hide();
 });

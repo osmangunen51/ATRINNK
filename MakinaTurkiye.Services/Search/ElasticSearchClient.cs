@@ -91,7 +91,7 @@ namespace MakinaTurkiye.Services.Search
                                                .Field(f => f.Suggest)
                                                .Size(1000))
                                              ));
-
+          
             List<ProductSuggest> SuggestsListesi = new List<ProductSuggest>();
             if (searchResponse.Suggest.ContainsKey("suggestions"))
             {
@@ -119,27 +119,30 @@ namespace MakinaTurkiye.Services.Search
             .Index(indexName.ToLowerInvariant())
             .From(0)
             .Size(10000).
-                Query(x=>x.MatchPhrasePrefix(c => c
-                .Field(p => p.Name)
-                .Analyzer("standard")
-                .Boost(1.1)
-                .Query(keyword)
-                .Name("named_query")
+                Query(x => x.MatchPhrasePrefix(c => c
+                  .Field(p => p.Name)
+                  .Analyzer("standard")
+                  .Boost(1.1)
+                  .Query(keyword)
+                  .MaxExpansions(2)
+                  .Slop(2)
+                  .Name("named_query")
             ))
             .Sort(ss => ss
-                .Field(x=>x.Field(y=>y.Suggest.Weight)
+                .Field(x => x.Field(y => y.Suggest.Weight)
                     .Order(SortOrder.Descending)
                     .MissingLast()
                     .UnmappedType(FieldType.Integer)
                     .Mode(SortMode.Max)
                 )
             ))
-            .Documents.Select(x=>new ProductSuggest() {
-                Id=x.Id,
-                Name=x.Name,
-                Url=x.Url,
-                Category=x.Category,
-                Score= x.Suggest.Weight.Value
+            .Documents.Select(x => new ProductSuggest()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Url = x.Url,
+                Category = x.Category,
+                Score = x.Suggest.Weight.Value
             });
             return new ProductSuggestResponse
             {
