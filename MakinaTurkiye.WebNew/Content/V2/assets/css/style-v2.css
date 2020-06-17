@@ -4765,7 +4765,7 @@ img.res-buyut {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 93%;
+    width: 1200px;
     max-width: 1650px;
     padding: 0;
   }
@@ -6579,7 +6579,7 @@ input[type="color"]:focus,
   background-color: #fff;
   padding: 3px;
   height: 24px;
-  left: 38px;
+  left: 15px;
   width: 24px;
   border: 1px solid #ccc;
   border-radius: 25%;
@@ -7089,6 +7089,7 @@ input[type="color"]:focus,
 .term-text-container {
   display: flex;
   justify-content: center;
+  width: 350px!important;
 }
 .cdbtn.cookie {
   margin: 0px !important;
@@ -7387,10 +7388,10 @@ input[type="color"]:focus,
 }
 .category-item__body {
   display: flex;
-  -webkit-align-items: flex-start;
-  align-items: flex-start;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
+  -webkit-align-items: flex-end;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
   -ms-flex-direction: column;
   flex-direction: column;
   position: absolute;
@@ -7401,10 +7402,14 @@ input[type="color"]:focus,
   padding: 1.5rem;
 }
 .category-item__title {
-  color: #F2F2F2;
+  color: #fff;
   font-family: Arial;
   font-size: 18px;
   line-height: 20px;
+  position: absolute;
+  bottom: 10px;
+  text-transform: uppercase;
+  text-align: center;
 }
 .category-item img {
   border-radius: 0.25rem;
@@ -7469,4 +7474,7 @@ input[type="color"]:focus,
   /*dim the background*/
   display: none;
   transition: background-color 1000ms linear;
+}
+.panel-mtv2 .panel-body .list-group-item a {
+  font-size: 14px !important;
 }

@@ -23,11 +23,9 @@
         }
         function ProductCommentPage(p) {
             $.ajax({
-                url: '/Product/ProductCommentPagination',
-                contentType: "application/json",
-                dataType: "json",
-                data: JSON.stringify({ ProductId: <%:Model.ProductDetailModel.ProductId%>, page: p }),
-                type: 'post',
+                url: 'https://wwww.makinaturkiye.com/ajax/ProductCommentPagination',
+                data: { ProductId: <%:Model.ProductDetailModel.ProductId%>, page: p },
+                type: 'get',
                 success: function (data) {
                     if (data) {
                         $("#productCommentContainer").html(data);
@@ -70,11 +68,10 @@
             $("#btnProductCommentInValid").click(function () {
 
                 $.ajax({
-                    url: '/Product/AddProductComment',
-                    contentType: "application/json",
-                    dataType: "json",
-                    data: JSON.stringify({ CommentText: "", Rate: 0, ProductId: '<%:Model.ProductDetailModel.ProductId%>' }),
-                    type: 'post',
+                    url: '<%:AppSettings.SiteUrlWithoutLastSlash%>/ajax/AddProductComment',
+
+                    data: { CommentText: "", Rate: 0, ProductId: '<%:Model.ProductDetailModel.ProductId%>' },
+                    type: 'get',
                     success: function (data) {
                         if (data) {
                             $("#CommentForm").slideUp();
@@ -101,11 +98,9 @@
                 else {
                     //ajax post et
                     $.ajax({
-                        url: '/Product/AddProductComment',
-                        contentType: "application/json",
-                        dataType: "json",
-                        data: JSON.stringify({ CommentText: commentText, Rate: rate, ProductId: '<%:Model.ProductDetailModel.ProductId%>' }),
-                        type: 'post',
+                        url: '<%:AppSettings.SiteUrlWithoutLastSlash%>/ajax/AddProductComment',
+                        data: { CommentText: commentText, Rate: rate, ProductId: '<%:Model.ProductDetailModel.ProductId%>' },
+                        type: 'get',
                         success: function (data) {
                             if (data) {
                                 $("#CommentForm").slideUp();
@@ -154,14 +149,9 @@
 
         function AddWhatsappLog(id) {
             $.ajax({
-                url:'/Product/AddWhatsappLog',
-                data: JSON.stringify({ storeId: id }),
-                contentType: "application/json",
-                dataType: "json",
-                header: {
-                    'X-Robots-Tag': 'googlebot: nofollow'
-                },
-                type: 'post',
+                url:'<%:AppSettings.SiteUrlWithoutLastSlash%>/ajax/AddWhatsappLog',
+                data: { storeId: id },
+                type:'get',
                 success: function (data) {
 
                 }
@@ -192,14 +182,12 @@
         });
         function SetProductStatistic() {
             $.ajax({
-                url: '/Product/ProductStatisticCreate',
-                contentType: "application/json",
-                dataType: "json",
+                url: 'https://www.makinaturkiye.com/ajax/ProductStatisticCreate',
                 header: {
                     'X-Robots-Tag': 'googlebot: nofollow'
                 },
-                data: JSON.stringify({ productId: <%:Model.ProductDetailModel.ProductId%> }),
-                type: 'post',
+                data: { productId: <%:Model.ProductDetailModel.ProductId%> },
+                type: 'get',
 
                 success: function (data) {
                 }

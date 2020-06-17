@@ -1121,6 +1121,14 @@ defaults: new { controller = "StoreProfileNew", action = "News", username = UrlP
 constraints: new { username = new UserNameConstraint() }
 );
 
+            routes.MapRoute(
+     "CatalogAjax",
+     "ajax/{action}/{id}",
+     new { controller = "CatologAjax", action = UrlParameter.Optional, id = UrlParameter.Optional },
+     new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+     );
+
+
 
             routes.MapRoute(
             "Default",

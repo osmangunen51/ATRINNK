@@ -11,13 +11,11 @@
     <div class="col-6 col-md-4 col-lg-3">
         <a href="<%:item.CategoryUrl %>" class="category-item" title="<%:item.CategoryContentTitle %>">
             <img
-                  src="https://s.makinaturkiye.com/image-loading.png"
-                data-src="<%:item.ImagePath %>" 
-                class="img-lazy"
+                src="<%:item.ImagePath %>"
                 alt="<%:item.CategoryContentTitle %> ">
             <div class="category-item__body">
-                <h3 class="category-item__title"><%:item.CategoryName %></h3>
-                <span class="btn btn-white btn-explore"><i class="fa fa-arrow-right"></i></span>
+                <h3 class="category-item__title"><%:item.CategoryContentTitle %></h3>
+
             </div>
         </a>
 

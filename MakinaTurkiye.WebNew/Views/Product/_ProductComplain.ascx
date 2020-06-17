@@ -5,7 +5,7 @@ role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
             <div class="modal-dialog">   
              
          <div class="modal-content">
-         <%using (Ajax.BeginForm("ProductComplainAdd", "Product", new AjaxOptions { UpdateTargetId = "satutusTalep", LoadingElementId = "loading", OnSuccess = "onSuccess", OnFailure = "ajaxError", OnBegin = "onBeginSend" }))
+         <%using (Ajax.BeginForm("ProductComplainAdd", "CatologAjax",FormMethod.Post ,  new AjaxOptions { UpdateTargetId = "satutusTalep", LoadingElementId = "loading", OnSuccess = "onSuccess", OnFailure = "ajaxError", OnBegin = "onBeginSend" }))
                   { %>
                 <%:Html.ValidationSummary(true) %>
                     <div class="modal-header">

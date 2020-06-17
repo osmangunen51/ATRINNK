@@ -33,7 +33,7 @@
 %>
 <div class="overlay-body"></div>
 <div class="new-header">
-    <div class="container-fluid">
+    <div class="container">
         <div class="new-header__top clearfix">
             <div class="new-header__top-left">
                 <a class="site-logo" href="<%:AppSettings.SiteUrlWithoutLastSlash %>">
@@ -408,7 +408,7 @@
     };
     var Category = "Oneri";
     $('#SearchText').Autocomplete({
-        serviceUrl: '<%=AppSettings.SiteUrl + Url.Action("Index", "Search")%>',
+        serviceUrl: '<%=AppSettings.SiteUrlWithoutLastSlash + Url.Action("Index", "Search")%>',
         showNoSuggestionNotice: true,
         noSuggestionNotice: '',
         minChars: 2,
@@ -516,7 +516,7 @@ $( "#SearchText" ).focus(function() {
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajax({
-            url: '<%:AppSettings.SiteUrl+"/Home/GetStoreProductComment"%>',
+            url: '<%:AppSettings.SiteUrlWithoutLastSlash+"/Home/GetStoreProductComment"%>',
             data: {},
             contentType: "application/json",
             type: 'post',

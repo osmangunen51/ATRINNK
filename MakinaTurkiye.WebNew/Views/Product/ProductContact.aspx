@@ -25,7 +25,7 @@
         function AddWhatsappLog(id)
         {
             $.ajax({
-                url: '/Product/AddWhatsappLog',
+                url: '<%:AppSettings.SiteAllCategoryUrl%>/ajax/AddWhatsappLog',
                 data: { storeId: id },
                 type: 'post',
                 success: function (data) {
