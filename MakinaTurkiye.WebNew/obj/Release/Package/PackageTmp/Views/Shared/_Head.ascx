@@ -15,19 +15,28 @@
 <link rel="dns-prefetch" href="https://s.makinaturkiye.com" />
 <link rel="dns-prefetch" href="https://connect.facebook.net" />
 
-<link rel="alternate" href="<%:Request.Url.ToString() %>" hreflang="tr" />
+<link  rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
+<% string url = Request.Url.ToString();
+    string lastCh = url.Substring((url.Length - 1), 1);
+    if (lastCh=="/") {
+        url = url.Substring(0, url.Length - 1);
+    }%>
 
-<script src="/Content/V2/assets/js/jquery.min.js?v=1"  ></script>
+
+  <script src="/Content/V2/assets/js/jquery.min.js?v=1"  ></script>
 <script src="/Content/V2/assets/js/jquery.autocomplete.js" > </script>
 <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=6.9" defer></script>
-<script src="/Content/V2/public/build/js/bundle-main-min.js?v=8.2" defer></script>
+<script src="/Content/V2/public/build/js/bundle-main-min.js?v=8.5" defer></script>
 <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js" ></script>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap"  rel="stylesheet">
-<link rel="stylesheet"  href="/Content/V2/public/build/css/bundle-main.css?v=8.4" />
-<link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
-<link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
-<link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css") %>" />
+<link  rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=8.6" />
+
+<link  rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
+<link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v=3") %>" />
+
+
+
 
 <script async>(function (w, d, s, l, i) {
         w[l] = w[l] || []; w[l].push({

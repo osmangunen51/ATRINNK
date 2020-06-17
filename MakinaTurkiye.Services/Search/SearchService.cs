@@ -156,6 +156,7 @@ namespace MakinaTurkiye.Services.Search
                     {
                         InputListesi.Add(SonucItem.Name);
                     }
+                   
                     MakinaTurkiye.Services.Search.Product Kayit = new MakinaTurkiye.Services.Search.Product()
                     {
                         Name =(!string.IsNullOrEmpty(SonucItem.Path) ? SonucItem.Path : SonucItem.Name),

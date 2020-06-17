@@ -56,7 +56,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             List<string> IpAdresListesi = new List<string>();
             List<string> EklenenListesi = new List<string>();
             SearchAutoCompleteResult Sonuc = new SearchAutoCompleteResult();
-            SearchAutoCompleteItem ItemOneri;
 
             if (!string.IsNullOrEmpty(query))
             {
@@ -66,12 +65,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     IpAdresListesi.AddRange(System.Web.Configuration.WebConfigurationManager.AppSettings.Get("ElasticSearch:IpAdresListesi").Split(',').ToList());
                 }
                 DeveloperGosterim = IpAdresListesi.Contains(this.IpAdres);
-                // DeveloperGosterim = true;
-
                 var DbSonucListesi = SearchService.SearchSuggest(query);
                 int EklenenSayisi = 1;
                 foreach (var item in DbSonucListesi.Distinct().OrderByDescending(x => x.Score).ToList())
                 {
+                    SearchAutoCompleteItem ItemOneri;
+
                     if (DeveloperGosterim)
                     {
                         ItemOneri = new SearchAutoCompleteItem()
@@ -90,7 +89,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             Url = item.Url
                         };
                     }
-
                     if (!EklenenListesi.Contains(ItemOneri.Name.Trim()))
                     {
                         EklenenSayisi++;
@@ -104,25 +102,31 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         }
                     }
                 }
-
                 DbSonucListesi = SearchService.SearchCategory(query);
-                var DtKategori = DbSonucListesi.Where(x => x.Category == "Ürün Kategorileri").ToList();
+
+                #region Kategori
+                var DtKategori = DbSonucListesi.Where(x => x.Category == "Kategoriler").ToList();
+                DtKategori = DtKategori.Distinct().OrderByDescending(x => x.Score).ToList();
+
                 if (DtKategori.Count > 0)
                 {
+                    EklenenSayisi = 0;
+                    EklenenListesi.Clear();
+                    SearchAutoCompleteItem ItemOneri;
                     SearchAutoCompleteItem ItemCategory;
                     ItemCategory = new SearchAutoCompleteItem()
                     {
                         Name = "",
-                        data = new data() { category = "Ürün Kategorileri" },
+                        data = new data() { category = "Kategoriler" },
                         Url = "#"
                     };
                     Sonuc.suggestions.Add(ItemCategory);
-                    foreach (var item in DtKategori.Distinct().OrderByDescending(x => x.Score).Take(3).ToList())
+                    foreach (var item in DtKategori)
                     {
                         if (DeveloperGosterim)
                         {
 
-                            ItemCategory = new SearchAutoCompleteItem()
+                            ItemOneri = new SearchAutoCompleteItem()
                             {
                                 Name = string.Format("{0}  | Skoru : {1}", item.Name, item.Score),
                                 data = new data() { category = string.Format("{0}", item.Category) },
@@ -131,35 +135,51 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         }
                         else
                         {
-                            ItemCategory = new SearchAutoCompleteItem()
+                            ItemOneri = new SearchAutoCompleteItem()
                             {
                                 Name = item.Name,
                                 data = new data() { category = string.Format("{0}", item.Category) },
                                 Url = item.Url
                             };
                         }
-                        Sonuc.suggestions.Add(ItemCategory);
-                        EklenenListesi.Add(ItemCategory.Name.Trim());
+                        if (!EklenenListesi.Contains(ItemOneri.Name))
+                        {
+                            EklenenSayisi++;
+                            Sonuc.suggestions.Add(ItemOneri);
+                            EklenenListesi.Add(ItemOneri.Name);
+                            if (EklenenSayisi >3)
+                            {
+                                break;
+                            }
+                        }
                     }
                 }
-
-                var DtMarka = DbSonucListesi.Where(x => x.Category == "Markalar").ToList();
-                if (DtMarka.Count > 0)
+                #endregion Kategori
+                
+                #region Firma
+                var DtFirma = DbSonucListesi.Where(x => x.Category == "Firmalar").ToList();
+                DtFirma = DtFirma.Distinct().OrderByDescending(x => x.Score).ToList();
+                if (DtFirma.Count > 0)
                 {
-                    EklenenListesi = new List<string>();
-                    SearchAutoCompleteItem ItemMarka;
-                    ItemMarka = new SearchAutoCompleteItem()
+                    EklenenSayisi = 0;
+                    EklenenListesi.Clear();
+                    SearchAutoCompleteItem ItemCategory;
+                    ItemCategory = new SearchAutoCompleteItem()
                     {
                         Name = "",
-                        data = new data() { category = "Markalar" },
+                        data = new data() { category = "Firmalar" },
                         Url = "#"
                     };
-                    Sonuc.suggestions.Add(ItemMarka);
-                    foreach (var item in DtMarka.Distinct().OrderByDescending(x => x.Score).Take(3).ToList())
+                    Sonuc.suggestions.Add(ItemCategory);
+
+                    foreach (var item in DtFirma)
                     {
+                        SearchAutoCompleteItem ItemOneri;
+                       
                         if (DeveloperGosterim)
                         {
-                            ItemMarka = new SearchAutoCompleteItem()
+
+                            ItemOneri = new SearchAutoCompleteItem()
                             {
                                 Name = string.Format("{0}  | Skoru : {1}", item.Name, item.Score),
                                 data = new data() { category = string.Format("{0}", item.Category) },
@@ -168,78 +188,51 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         }
                         else
                         {
-                            ItemMarka = new SearchAutoCompleteItem()
+                            ItemOneri = new SearchAutoCompleteItem()
                             {
                                 Name = item.Name,
                                 data = new data() { category = string.Format("{0}", item.Category) },
                                 Url = item.Url
                             };
                         }
-                        if (!EklenenListesi.Contains(ItemMarka.Name))
+                        if (!EklenenListesi.Contains(ItemOneri.Name))
                         {
-                            Sonuc.suggestions.Add(ItemMarka);
-                            EklenenListesi.Add(ItemMarka.Name);
+                            EklenenSayisi++;
+                            Sonuc.suggestions.Add(ItemOneri);
+                            EklenenListesi.Add(ItemOneri.Name);
+                            if (EklenenSayisi > 3)
+                            {
+                                break;
+                            }
                         }
                     }
                 }
+                #endregion Firma
 
-                var DtStore = DbSonucListesi.Where(x => x.Category == "Firma Kategorileri").ToList();
-                if (DtStore.Count > 0)
-                {
-                    EklenenListesi = new List<string>();
-                    SearchAutoCompleteItem ItemStore;
-                    ItemStore = new SearchAutoCompleteItem()
-                    {
-                        Name = "",
-                        data = new data() { category = "Firma Kategorileri" },
-                        Url = "#"
-                    };
-                    Sonuc.suggestions.Add(ItemStore);
-                    foreach (var item in DtStore.Distinct().OrderByDescending(x => x.Score).Take(3).ToList())
-                    {
-                        if (DeveloperGosterim)
-                        {
-                            ItemStore = new SearchAutoCompleteItem()
-                            {
-                                Name = string.Format("{0}  | Skoru : {1}", item.Name, item.Score),
-                                data = new data() { category = string.Format("{0}", item.Category) },
-                                Url = item.Url
-                            };
-                        }
-                        else
-                        {
-                            ItemStore = new SearchAutoCompleteItem()
-                            {
-                                Name = item.Name,
-                                data = new data() { category = string.Format("{0}", item.Category) },
-                                Url = item.Url
-                            };
-                        }
-                        if (!EklenenListesi.Contains(ItemStore.Name))
-                        {
-                            Sonuc.suggestions.Add(ItemStore);
-                            EklenenListesi.Add(ItemStore.Name);
-                        }
-                    }
-                }
-
+                #region Video
                 var DtVideo = DbSonucListesi.Where(x => x.Category == "Videolar").ToList();
+                DtVideo = DtVideo.Distinct().OrderByDescending(x => x.Score).ToList();
+
                 if (DtVideo.Count > 0)
                 {
-                    EklenenListesi = new List<string>();
-                    SearchAutoCompleteItem ItemVideo;
-                    ItemVideo = new SearchAutoCompleteItem()
+                    EklenenSayisi = 0;
+                    EklenenListesi.Clear();
+
+                    SearchAutoCompleteItem ItemCategory;
+                    ItemCategory = new SearchAutoCompleteItem()
                     {
                         Name = "",
                         data = new data() { category = "Videolar" },
                         Url = "#"
                     };
-                    Sonuc.suggestions.Add(ItemVideo);
-                    foreach (var item in DtVideo.Distinct().OrderByDescending(x => x.Score).Take(3).ToList())
+                    Sonuc.suggestions.Add(ItemCategory);
+                    foreach (var item in DtVideo)
                     {
+                        SearchAutoCompleteItem ItemOneri;
                         if (DeveloperGosterim)
                         {
-                            ItemVideo = new SearchAutoCompleteItem()
+
+                            ItemOneri = new SearchAutoCompleteItem()
                             {
                                 Name = string.Format("{0}  | Skoru : {1}", item.Name, item.Score),
                                 data = new data() { category = string.Format("{0}", item.Category) },
@@ -248,38 +241,55 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         }
                         else
                         {
-                            ItemVideo = new SearchAutoCompleteItem()
+                            ItemOneri = new SearchAutoCompleteItem()
                             {
                                 Name = item.Name,
                                 data = new data() { category = string.Format("{0}", item.Category) },
                                 Url = item.Url
                             };
                         }
-                        if (!EklenenListesi.Contains(ItemVideo.Name))
+                        if (!EklenenListesi.Contains(ItemOneri.Name))
                         {
-                            Sonuc.suggestions.Add(ItemVideo);
-                            EklenenListesi.Add(ItemVideo.Name);
+                            EklenenSayisi++;
+                            Sonuc.suggestions.Add(ItemOneri);
+                            EklenenListesi.Add(ItemOneri.Name);
+                            if (EklenenSayisi > 3)
+                            {
+                                break;
+                            }
                         }
                     }
                 }
 
-                var DtTedarikci = DbSonucListesi.Where(x => x.Category == "Tedarikçiler").ToList();
-                if (DtTedarikci.Count > 0)
+                #endregion Video
+
+                #region Tedarik
+                var DtTedarik = DbSonucListesi.Where(x => x.Category == "Tedarikçiler").ToList();
+                DtTedarik = DtTedarik.Distinct().OrderByDescending(x => x.Score).ToList();
+                if (DtTedarik.Count > 0)
                 {
-                    EklenenListesi = new List<string>();
-                    SearchAutoCompleteItem ItemTedarikci;
-                    ItemTedarikci = new SearchAutoCompleteItem()
+
+                    EklenenSayisi = 0;
+                    EklenenListesi.Clear();
+
+                    SearchAutoCompleteItem ItemCategory;
+                    ItemCategory = new SearchAutoCompleteItem()
                     {
                         Name = "",
                         data = new data() { category = "Tedarikçiler" },
                         Url = "#"
                     };
-                    Sonuc.suggestions.Add(ItemTedarikci);
-                    foreach (var item in DtTedarikci.Distinct().OrderByDescending(x => x.Score).Take(3).ToList())
+                    Sonuc.suggestions.Add(ItemCategory);
+
+                    EklenenListesi.Clear();
+                    foreach (var item in DtTedarik)
                     {
+                        SearchAutoCompleteItem ItemOneri;
+
                         if (DeveloperGosterim)
                         {
-                            ItemTedarikci = new SearchAutoCompleteItem()
+
+                            ItemOneri = new SearchAutoCompleteItem()
                             {
                                 Name = string.Format("{0}  | Skoru : {1}", item.Name, item.Score),
                                 data = new data() { category = string.Format("{0}", item.Category) },
@@ -288,23 +298,29 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         }
                         else
                         {
-                            ItemTedarikci = new SearchAutoCompleteItem()
+                            ItemOneri = new SearchAutoCompleteItem()
                             {
                                 Name = item.Name,
                                 data = new data() { category = string.Format("{0}", item.Category) },
                                 Url = item.Url
                             };
                         }
-                        if (!EklenenListesi.Contains(ItemTedarikci.Name))
+                        if (!EklenenListesi.Contains(ItemOneri.Name))
                         {
-                            Sonuc.suggestions.Add(ItemTedarikci);
-                            EklenenListesi.Add(ItemTedarikci.Name);
+                            EklenenSayisi++;
+                            Sonuc.suggestions.Add(ItemOneri);
+                            EklenenListesi.Add(ItemOneri.Name);
+                            if (EklenenSayisi > 3)
+                            {
+                                break;
+                            }
                         }
                     }
                 }
+                #endregion Tedarik
+
             }
             return Json(Sonuc, JsonRequestBehavior.AllowGet);
-
         }
 
     }
