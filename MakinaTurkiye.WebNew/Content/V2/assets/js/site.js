@@ -339,9 +339,8 @@ function AddFavoriteProduct(id) {
     //            var image = '<img src=\'/Content/Images/load.gif\' />'
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenize ekleniyor.. &nbsp;&nbsp;' + image);
     $.ajax({
-        url: 'https://urun.makinaturkiye.com/Product/AddFavoriteProduct',
-        type: 'post',
-        dataType: 'json',
+        url: 'https://www.makinaturkiye.com/ajax/AddFavoriteProduct',
+        type: 'get',
         data:
             {
                 ProductId: id
@@ -372,8 +371,8 @@ function RemoveFavoriteProduct(id) {
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenizden çıkarılıyor.. &nbsp;&nbsp;' + image);
 
     $.ajax({
-        url: 'https://urun.makinaturkiye.com/Product/RemoveFavoriteProduct',
-        type: 'post',
+        url: 'https://www.makinaturkiye.com/Product/RemoveFavoriteProduct',
+        type: 'get',
         data:
             {
                 ProductId: id
@@ -429,9 +428,9 @@ function SendMessageforpro(messagetype) {
     var obj = new Object();
     obj.redirect = 'https://www.makinaturkiye.com/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
     $.ajax({
-        url: '/Product/IsAuthenticate',
-        data: JSON.stringify(obj),
-        contentType: "application/json",      
+        url: 'https://www.makinaturkiye.com/ajax/IsAuthenticate',
+        data: obj,
+        type:'get',
         success: function (data) {
             if (data == true) {
                 var memberNo = $('#hiddenMemberNo').val();
@@ -1811,8 +1810,8 @@ $(document).ready(function () {
 
         if (!isValidate) {
             $.ajax({
-                url: '/Product/CheckEmail',
-                type: "post",
+                url: '/ajax/CheckEmail',
+                type: "get",
                 data: { email: $(this).val(), productNumber: productNo, memberNumber: memberNo },
                 success: function (data) {
                     if (data) {

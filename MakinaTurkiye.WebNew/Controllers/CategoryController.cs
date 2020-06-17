@@ -466,7 +466,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         StoreConnectUrl = UrlBuilder.GetStoreConnectUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, store.StoreUrlName),
                         ProductContactUrl = UrlBuilder.GetProductContactUrl(product.ProductId, product.StoreName),
                         KdvOrFobText = product.GetKdvOrFobText(),
-                        FavoriteProductId = product.FavoriteProductId,
+        
                         ProductPriceWithDiscount = product.DiscountType.HasValue && product.DiscountType.Value != 0 ? product.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
                     };
 
@@ -1365,9 +1365,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IList<Navigation> alMenu = new List<Navigation>();
             IList<Navigation> alMenuSecond = new List<Navigation>();
             alMenu.Add(new Navigation("Ana Sayfa", "/", Navigation.TargetType._self));
-            alMenu.Add(new Navigation("Kategoriler", "/urun-kategori-c-0", Navigation.TargetType._self));
+       
             alMenuSecond.Add(new Navigation("Ana Sayfa", "/", Navigation.TargetType._self));
-            alMenuSecond.Add(new Navigation("Kategoriler", "/urun-kategori-c-0", Navigation.TargetType._self));
 
             int selectedCategoryId = 0;
             if (GetSeriesIdRoutData() != 0)
@@ -1737,23 +1736,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
 
                 string keyword = new CultureInfo("tr-TR").TextInfo.ToTitleCase(searchText.Trim());
-                string cookieName = "Makinaturkiye_SearhTexts";
-                string searchTexts = GetCookie(cookieName);
-                if (!string.IsNullOrEmpty(searchTexts))
-                {
-
-                    if (searchTexts.IndexOf(keyword) < 0)
-                    {
-                        searchTexts += "," + new CultureInfo("tr-TR").TextInfo.ToTitleCase(keyword);
-                        DeleteCookie(cookieName);
-                        CreateCookie(cookieName, searchTexts, DateTime.Now.AddDays(10));
-                    }
-
-                }
-                else
-                {
-                    CreateCookie(cookieName, keyword, DateTime.Now.AddDays(10));
-                }
                 var searchScore = _searchScoreService.GetSearchScoreByKeyword(keyword);
                 if (searchScore != null)
                 {

@@ -183,6 +183,7 @@ namespace NeoSistem.MakinaTurkiye.Web
         public void Application_BeginRequest(object sender, EventArgs e)
         {
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
+
             if(!config.ApplicationTestModeEnabled)
             {
                 if (!Request.IsLocal)

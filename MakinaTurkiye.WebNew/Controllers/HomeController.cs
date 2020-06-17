@@ -521,10 +521,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
 
                 PreparePopularStoreModel(model);
-                if (!Request.Browser.IsMobileDevice)
-                {
-                    PrepareHomeSectorItems(model);
-                }
+
                 IConstantService constantService = EngineContext.Current.Resolve<IConstantService>();
                 var constant = constantService.GetConstantByConstantId(235);
                 model.ConstantTitle = constant.ConstantTitle;

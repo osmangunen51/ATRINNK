@@ -4,13 +4,7 @@
     <div class="collapse navbar-collapse js-navbar-collapse container-fluid">
         <div class="mobile-main-menu">
             <ul class="nav navbar-nav ">
-                <li >
-                    <a href="<%:AppSettings.SiteAllCategoryUrl %>" >
-                        <span>Tüm <br />Kategoriler
-                        </span>
-            
-                    </a>
-                </li>
+
                 <%foreach (var item in Model.ToList())
                     {%>
                 <li class="dropdown mega-dropdown" data-menu-id="<%:item.BaseMenuId %>">

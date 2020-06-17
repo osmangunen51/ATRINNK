@@ -51,26 +51,15 @@
                     <div class="product-list-mt__image-area">
                         <% if (!string.IsNullOrEmpty(model.PicturePath))
                             {
-                                if (i < 5)
-                                {%>
+                                %>
                         <img
                             class="img-thumbnail"
                             src="<%=model.PicturePath.Replace("160x120","200x150") %>"
                             alt="<%:model.ProductName %>"
                             title="<%:model.ProductName %>" />
 
-                        <% }
-                            else
-                            {%>
-
-                        <img
-                            class="img-thumbnail img-lazy"
-                            src="/UserFiles/image-loading.png"
-                            data-src="<%=model.PicturePath.Replace("160x120","200x150") %>"
-                            alt="<%:model.ProductName %>"
-                            title="<%:model.ProductName %>" />
-                        <% } %>
-
+                   
+   
 
                         <%} %>
                         <%else
@@ -82,16 +71,7 @@
                             title="<%:model.ProductName%>"
                             alt="<%:model.ProductName%>" />
                         <%} %>
-                        <%if (model.FavoriteProductId > 0)
-                            {%>
-                        <div class="product-list-favorite-icon product-list-favorite-icon-c" onclick="RemoveFavoriteProductItem(<%:model.ProductId %>)" data-pid="<%:model.ProductId %>" data-productid="product-favorite-item-<%:model.ProductId %>" title="Favorilerden Kaldır"><i class="fa fa-heart"></i></div>
 
-                        <% }
-                            else
-                            {%>
-                        <div data-pid="<%:model.ProductId %>" onclick="AddFavoriteProductItem(<%:model.ProductId %>)" class="product-list-favorite-icon product-list-favorite-icon-c" data-productid="product-favorite-item-<%:model.ProductId %>" title="Favorilere Ekle"><i class="fa fa-heart-o"></i></div>
-
-                        <%}%>
                         <%if (model.HasVideo)
                             {
                         %>

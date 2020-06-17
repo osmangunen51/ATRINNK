@@ -33,7 +33,7 @@
 %>
 <div class="overlay-body"></div>
 <div class="new-header">
-    <div class="container-fluid">
+    <div class="container">
         <div class="new-header__top clearfix">
             <div class="new-header__top-left">
                 <a class="site-logo" href="<%:AppSettings.SiteUrlWithoutLastSlash %>">
@@ -407,7 +407,10 @@
         }
     };
     var Category = "Oneri";
-    $('#SearchText').Autocomplete({
+
+    $( document ).ready(function() {
+$( "#SearchText" ).focus(function() {
+
         serviceUrl: '<%=AppSettings.SiteUrl + Url.Action("Index", "Search")%>',
        showNoSuggestionNotice: true,
        noSuggestionNotice: '',
@@ -506,6 +509,7 @@
         });
         $("#SearchText").focus(function () {
             $(this).val('');
+
         });
         $("#SearchText").focusout(function(){
     $(".overlay-body").hide();
@@ -518,7 +522,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajax({
-            url: '<%:AppSettings.SiteUrl+"/Home/GetStoreProductComment"%>',
+            url: '<%:AppSettings.SiteUrlWithoutLastSlash+"/Home/GetStoreProductComment"%>',
             data: {},
             contentType: "application/json",
             type: 'post',

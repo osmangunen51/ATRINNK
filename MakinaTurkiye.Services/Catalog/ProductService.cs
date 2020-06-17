@@ -1203,6 +1203,16 @@ namespace MakinaTurkiye.Services.Catalog
             _cacheManager.Remove(key);
         }
 
+        public void SPUpdateProductSearchCategoriesByCategoryId(int categoryId)
+        {
+      
+            if (categoryId == 0)
+                throw new ArgumentNullException("productId");
+
+            string sqlCommand = String.Format("exec SP_UpdateProductSearchCategoriesByCategoryId {0}", categoryId);
+            _dbContext.ExecuteSqlCommand(sqlCommand);
+        }
+
         #endregion
 
     }
