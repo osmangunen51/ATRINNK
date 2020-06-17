@@ -366,7 +366,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         categoryItemModel.CategoryName = FormatHelper.GetCategoryNameWithSynTax(item.CategoryName, CategorySyntaxType.CategoryNameOnyl);
                         categoryItemModel.CategoryUrl = UrlBuilder.GetStoreCategoryUrl(item.CategoryId, storePageTitle, selectedOrderby);
                     }
-                    categoryItemModel.CategoryContentTitle = item.CategoryContentTitle;
+                    categoryItemModel.CategoryContentTitle = storePageTitle;
                     model.StoreCategoryModel.SelectedCategoryName = storePageTitle;
                     
                     model.StoreCategoryModel.StoreTopCategoryItemModels.Add(categoryItemModel);
@@ -484,7 +484,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 var url =item.CategoryUrl;
 
-                alMenu.Add(new Navigation(item.CategoryName, url, Navigation.TargetType._self));
+
+                alMenu.Add(new Navigation(item.CategoryContentTitle, url, Navigation.TargetType._self));
             }
             model.Navigation = LoadNavigationV3(alMenu);
         }

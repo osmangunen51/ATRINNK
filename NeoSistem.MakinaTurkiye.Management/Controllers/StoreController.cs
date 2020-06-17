@@ -1593,11 +1593,15 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var store = entities.Stores.FirstOrDefault(x => x.MainPartyId == id);
             var memberStore = entities.MemberStores.FirstOrDefault(x => x.StoreMainPartyId == id);
 
-            model.Email = entities.Members.FirstOrDefault(x => x.MainPartyId == memberStore.MemberMainPartyId).MemberEmail;
+            var member = _memberService.GetMemberByMainPartyId(memberStore.MemberMainPartyId.Value);
+
+            model.Email =member.MemberEmail;
             model.Phones = phones;
             model.IsProductAdded = store.IsProductAdded;
             model.StoreMainPartyId = store.MainPartyId;
             model.IsWhatsappUsing = false;
+            model.StoreName = store.StoreName;
+            model.MemberNameSurname = member.MemberName + " " + member.MemberSurname;
             model.Address = entities.Addresses.FirstOrDefault(x => x.MainPartyId == id);
             model.MemberMainPartyId = memberStore.MemberMainPartyId.Value;
             var memberDescriptions = entities.MemberDescriptions.Where(x => x.MainPartyId == memberStore.MemberMainPartyId && x.ConstantId != null).OrderByDescending(x => x.descId);

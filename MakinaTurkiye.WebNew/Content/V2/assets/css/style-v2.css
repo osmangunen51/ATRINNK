@@ -7475,6 +7475,12 @@ input[type="color"]:focus,
   display: none;
   transition: background-color 1000ms linear;
 }
-.panel-mtv2 .panel-body .list-group-item a {
-  font-size: 14px !important;
+@media (max-width: 992px) {
+  .panel-mtv2 .panel-body .list-group-item a {
+    font-size: 14px !important;
+  }
+}
+.section-title--category h1,
+.section-title--category span {
+  background-color: #fff;
 }

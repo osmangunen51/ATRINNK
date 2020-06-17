@@ -2,6 +2,7 @@
 using MakinaTurkiye.Services.Search;
 using MakinaTurkiye.Utilities.Mvc;
 using NeoSistem.MakinaTurkiye.Web.Helpers;
+using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpGet]
         public ActionResult Index(string query)
         {
+            if (Request.Url.AbsoluteUri.ToString().Contains("urun"))
+            {
+                return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash+"/search/index");
+            }
             bool DeveloperGosterim = false;
             List<string> IpAdresListesi = new List<string>();
             List<string> EklenenListesi = new List<string>();

@@ -408,7 +408,7 @@
     };
     var Category = "Oneri";
     $('#SearchText').Autocomplete({
-        serviceUrl: '<%=AppSettings.SiteUrl + Url.Action("Index", "Search")%>',
+        serviceUrl: '<%=AppSettings.SiteUrlWithoutLastSlash + Url.Action("Index", "Search")%>',
         showNoSuggestionNotice: true,
         noSuggestionNotice: '',
         minChars: 2,
