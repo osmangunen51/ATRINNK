@@ -20,6 +20,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Orders
         public int StoreMainPartyId { get; set; }
         public bool? IsProductAdded { get; set; }
         public bool IsWhatsappUsing { get; set; }
+        public string StoreName { get; set; }
+        public string MemberNameSurname { get; set; }
         public Address Address { get; set; }
         public List<Phone> Phones { get; set; }
 

@@ -1011,7 +1011,8 @@ function homebannerSlider() {
         items: 1,
         loop: true,
         autoplay: 1,
-        autoplayTimeout: 9000,
+        smartSpeed:1000,
+        autoplayTimeout: 4000,
         autoplayHoverPause: true,
         //animateOut: 'fadeOut',
         //animateIn: 'fadeIn',
@@ -1244,7 +1245,7 @@ $(document).ready(function () {
     mainMenuColorChange();
     facebookLoginClickEvent();
     hasVideoLinkClick();
-    productHoverItem();
+  //  productHoverItem();
     pagerGoto();
 
 
