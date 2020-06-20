@@ -1245,7 +1245,7 @@ $(document).ready(function () {
     mainMenuColorChange();
     facebookLoginClickEvent();
     hasVideoLinkClick();
-    productHoverItem();
+  //  productHoverItem();
     pagerGoto();
 
 

@@ -477,12 +477,12 @@
                     window.location = suggestion.Url;
                 }
             }
-            if (suggestion.data.category == "Ürün Kategorileri") {
+            if (suggestion.data.category == "Kategoriler") {
                 if (suggestion.url != "#") {
                     window.location = suggestion.Url;
                 }
             }
-            else if (suggestion.data.category == "Firma Kategorileri") {
+            else if (suggestion.data.category == "Firmalar") {
                 if (suggestion.url != "#") {
                     window.location = suggestion.Url;
                 }

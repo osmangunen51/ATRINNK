@@ -223,7 +223,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 return url;
 
                         }
-                
+
 
                     }
                 }
@@ -451,9 +451,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         ProductNo = product.ProductNo,
                         ProductPiceDesc = product.ProductPrice.HasValue ? product.ProductPrice.Value : 0,
                         CurrencySymbol = product.GetCurrencySymbol(),
-                        //ProductSalesTypeText = product.ProductSalesTypeText,
-                        //ProductStatuText = product.ProductStatuText,
-                        //ProductTypeText = product.ProductTypeText,
+                        ProductSalesTypeText = product.ProductSalesTypeText,
+                        ProductStatuText = product.ProductStatuText,
+                        ProductTypeText = product.ProductTypeText,
                         SeriesId = product.SeriesId,
                         StoreName = store.StoreShortName,
                         //ProductDescription = product.ProductDescription,
@@ -466,7 +466,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         StoreConnectUrl = UrlBuilder.GetStoreConnectUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, store.StoreUrlName),
                         ProductContactUrl = UrlBuilder.GetProductContactUrl(product.ProductId, product.StoreName),
                         KdvOrFobText = product.GetKdvOrFobText(),
-        
+
                         ProductPriceWithDiscount = product.DiscountType.HasValue && product.DiscountType.Value != 0 ? product.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
                     };
 
@@ -909,6 +909,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 countryUrl += "&SearchText=" + searchText;
                             }
                         }
+                        if (Request.QueryString["Gorunum"]!=null)
+                        {
+                            countryUrl += countryUrl.Contains("?") ? "&Gorunum=" + Request.QueryString["Gorunum"].ToString() : "?Gorunum=" + Request.QueryString["Gorunum"].ToString();
+                        }
 
                         countryDataFilterModel.ItemModels.Add(new DataFilterItemModel
                         {
@@ -962,6 +966,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         if (!string.IsNullOrEmpty(searchText))
                         {
                             cityUrl += "&SearchText=" + searchText;
+                        }
+
+                        if (Request.QueryString["Gorunum"] != null)
+                        {
+                            cityUrl += "&Gorunum=" + Request.QueryString["Gorunum"].ToString();
                         }
 
                         cityDataFilterModel.ItemModels.Add(new DataFilterItemModel
@@ -1020,6 +1029,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             {
                                 localityUrl += "&SearchText=" + searchText;
                             }
+                            if (Request.QueryString["Gorunum"]!=null)
+                            {
+                                localityUrl += "&Gorunum=" + Request.QueryString["Gorunum"].ToString();
+                            }
+
 
                             localityDataFilterModel.ItemModels.Add(new DataFilterItemModel
                             {
@@ -1085,6 +1099,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 catFilterModel.LocalityName = localityName;
             }
 
+            if (Request.QueryString["Gorunum"] != null)
+            {
+                catFilterModel.ViewType = Request.QueryString["Gorunum"].ToString();
+            }
             return catFilterModel;
         }
 
@@ -1365,7 +1383,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IList<Navigation> alMenu = new List<Navigation>();
             IList<Navigation> alMenuSecond = new List<Navigation>();
             alMenu.Add(new Navigation("Ana Sayfa", "/", Navigation.TargetType._self));
-       
+
             alMenuSecond.Add(new Navigation("Ana Sayfa", "/", Navigation.TargetType._self));
 
             int selectedCategoryId = 0;

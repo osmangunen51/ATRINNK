@@ -11,6 +11,7 @@
         public string SearchText { get; set; }
         public int CustomFilterId { get; set; }
         public string SearchType { get; set; }
+        public string ViewType { get; set; }
     }
 
 }

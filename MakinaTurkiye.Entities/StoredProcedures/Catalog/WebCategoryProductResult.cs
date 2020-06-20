@@ -21,13 +21,13 @@
 
         public string StoreName { get; set; }
 
-        //public string BriefDetailText { get; set; }
-        //public string ProductStatuText { get; set; }
-        //public string ProductTypeText { get; set; }
-        //public string ProductSalesTypeText { get; set; }
+        public string BriefDetailText { get; set; }
+        public string ProductStatuText { get; set; }
+        public string ProductTypeText { get; set; }
+        public string ProductSalesTypeText { get; set; }
 
         public bool Doping { get; set; }
-        //public string? ProductDescription { get; set; }
+
         public bool HasVideo { get; set; }
         public int? StoreMainPartyId { get; set; }
         public byte? ProductPriceType { get; set; }
@@ -39,7 +39,6 @@
         public int? FavoriteProductId { get; set; }
         public byte ? DiscountType { get; set; }
         public decimal? ProductPriceWithDiscount { get; set; }
-        
         //public string ProductType { get; set; }
         //public string ProductStatu { get; set; }
         //public string BriefDetail { get; set; }
