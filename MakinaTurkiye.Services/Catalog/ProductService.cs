@@ -541,7 +541,7 @@ namespace MakinaTurkiye.Services.Catalog
                         p =>
                             p.MainPartyId == mainPartId && p.ProductId != nonProductId && p.ProductActive == true &&
                             p.ProductActiveType == 1);
-                query = query.OrderBy(x=>x.Sort).ThenBy(p => p.productrate);
+                query = query.OrderBy(x => x.Sort).ThenBy(p => p.productrate);
                 query = query.Take(topCount);
                 return query.ToList();
             });
@@ -694,17 +694,18 @@ namespace MakinaTurkiye.Services.Catalog
             if (string.IsNullOrEmpty(searchText))
             {
                 string key = string.Format(PRODUCTS_SP_CATEGORYPRODUCTS_BY_PARAMETER_KEY, categoryId, brandId, modelId, seriresId,
-                    searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize);
-
+searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize);
                 return _cacheManager.Get(key, () =>
                 {
+
+
                     var products = this.SPWebCategoryProduct(out List<FilterableCategoriesResult> filterableCategoryIds,
-                        out List<int> filterableCountryIds,
-                        out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
-                        out List<int> filterableModelIds, out List<int> filterableSeriesIds,
-                        out int newProductCount, out int usedProductCount, out int serviceProductCount,
-                        categoryId, brandId, modelId, seriresId,
-                        searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText);
+        out List<int> filterableCountryIds,
+        out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
+        out List<int> filterableModelIds, out List<int> filterableSeriesIds,
+        out int newProductCount, out int usedProductCount, out int serviceProductCount,
+        categoryId, brandId, modelId, seriresId,
+        searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText);
 
                     var result = new CategoryProductsResult
                     {
@@ -1205,7 +1206,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         public void SPUpdateProductSearchCategoriesByCategoryId(int categoryId)
         {
-      
+
             if (categoryId == 0)
                 throw new ArgumentNullException("productId");
 
