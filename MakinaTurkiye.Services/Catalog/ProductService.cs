@@ -1170,7 +1170,7 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
 
             else if (product.ProductPriceType == 239 && product.ProductPriceBegin != 0)
                 product.ProductPriceForOrder = product.ProductPriceBegin;
-            else if (product.ProductPriceType == 238)
+            else if (product.ProductPriceType == 238 && product.ProductPrice!=0)
                 product.ProductPriceForOrder = product.ProductPrice;
             else
                 product.ProductPriceForOrder = 99999999999;

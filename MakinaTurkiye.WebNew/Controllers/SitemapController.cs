@@ -44,8 +44,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
             this.generateSitemap_categorysector();
-           // sitemapFiles.Add(this.generateSitemap_categorysector());
-            sitemapFiles.Add(this.generateSitemap_categorybrand());
+            // sitemapFiles.Add(this.generateSitemap_categorysector());
+            this.generateSitemap_categorybrand();
+            //sitemapFiles.Add();
 
             sitemapFiles.Add(this.generateSitemap_productGroupBrand());
             this.generateSitemap_categoryorta();

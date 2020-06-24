@@ -8,6 +8,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
     public class MTProductPageHeaderModel
     {
         public string Navigation { get; set; }
+        public string MobileNavigation { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public bool IsFavoriteProduct { get; set; }

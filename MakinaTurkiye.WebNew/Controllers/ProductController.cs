@@ -208,7 +208,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                         categoryNameUrl = !string.IsNullOrEmpty(cat.CategoryContentTitle) ? cat.CategoryContentTitle : cat.CategoryName;
                         var catName = UrlBuilder.ToUrl(categoryNameUrl);
-                        alMenu.Add(new Navigation(categoryNameUrl, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-" + brandName + "-" + catName + "-s-" + item.CategoryId.ToString(), Navigation.TargetType._self));
+                        alMenu.Add(new Navigation(item.CategoryName, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-" + brandName + "-" + catName + "-s-" + item.CategoryId.ToString(), Navigation.TargetType._self));
                     }
                 }
                 else
@@ -239,6 +239,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return navigation.ToString();
         }
 
+        
         private void ActivationCodeSend(string Email, string activationCode, string nameSurname)
         {
             try
@@ -705,6 +706,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                                                    product.SeriesId.HasValue ? product.SeriesId.Value : 0,
                                                                    product.BrandId.HasValue ? product.BrandId.Value : 0,
                                                                    product.CategoryId.HasValue ? product.CategoryId.Value : 0, out unifiedCategories, model);
+
+            //model.ProductPageHeaderModel.MobileNavigation = GetMobileNavigation(product.ProductId, product.ProductName,
+            //                                           product.ModelId.HasValue ? product.ModelId.Value : 0,
+            //                                           product.SeriesId.HasValue ? product.SeriesId.Value : 0,
+            //                                           product.BrandId.HasValue ? product.BrandId.Value : 0,
+            //                                           product.CategoryId.HasValue ? product.CategoryId.Value : 0, out unifiedCategories, model);
 
             #endregion
             #region product

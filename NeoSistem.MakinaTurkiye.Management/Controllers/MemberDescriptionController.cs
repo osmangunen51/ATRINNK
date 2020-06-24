@@ -712,7 +712,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             return PartialView("_NotificationCountList", model);
         }
-        #endregion
 
+        public string UpdateDescs()
+        {
+            _memberDescService.SP_UpdateMemberDescriptions();
+            return "Güncelleştirme Başarılı";
+        }
+        #endregion
     }
 }
