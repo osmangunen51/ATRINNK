@@ -331,7 +331,7 @@
   font-size: 15px;
   text-transform: uppercase;
 }
-.theiaStickySidebar {
+.theiaStickySidebar .filters__inner {
   border-radius: 4px;
   background-color: #FFF;
   border: 1px solid #E0E0E0;

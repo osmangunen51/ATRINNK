@@ -3738,9 +3738,25 @@ descending
                 {
                     var member = entities.Members.FirstOrDefault(x => x.MainPartyId == memberStore.MemberMainPartyId);
                     member.MemberType = (byte)MemberType.FastIndividual;
+
+                    var memberDescriptions = entities.MemberDescriptions.Where(x => x.MainPartyId == memberStore.MemberMainPartyId);
+                    foreach (var memberDescription in memberDescriptions)
+                    {
+                        entities.MemberDescriptions.DeleteObject(memberDescription);
+                    }
+                    var baseMemberDescriptions = entities.BaseMemberDescriptions.Where(x => x.MainPartyId == memberStore.MemberMainPartyId);
+                    foreach (var baseMemberDescription in baseMemberDescriptions)
+                    {
+                        entities.BaseMemberDescriptions.DeleteObject(baseMemberDescription);
+                    }
                     entities.MemberStores.DeleteObject(memberStore);
                 }
 
+                var storeSeoNotifications = _storeSeoNotificationService.GetStoreSeoNotificationsByStoreMainPartyId(item.MainPartyId);
+                foreach (var storeSeoNotification in storeSeoNotifications)
+                {
+                    _storeSeoNotificationService.DeleteStoreSeoNotification(storeSeoNotification);
+                }
                 #region products
                 var products = entities.Products.Where(x => x.MainPartyId == memberStores.FirstOrDefault().MemberMainPartyId);
                 foreach (var product in products)

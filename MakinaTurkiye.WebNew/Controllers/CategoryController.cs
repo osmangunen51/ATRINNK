@@ -1518,7 +1518,25 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         PictureLogoPath = ImageHelpers.GetStoreImage(item.MainPartyId, item.StoreLogo, "120")
                     });
                 }
-                model.StoreModel.StoreCategoryUrl = UrlBuilder.GetStoreCategoryUrl(categoryAndBrand.CategoryId, categoryAndBrand.CategoryName);
+                string storePageTitle = "";
+                if (!string.IsNullOrEmpty(categoryAndBrand.StorePageTitle))
+                {
+                    if (categoryAndBrand.StorePageTitle.Contains("Firma"))
+                    {
+                        storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.StorePageTitle, CategorySyntaxType.CategoryNameOnyl);
+                    }
+                    else
+                    {
+                        storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.StorePageTitle, CategorySyntaxType.Store);
+
+                    }
+                }
+                else if (!string.IsNullOrEmpty(categoryAndBrand.CategoryContentTitle))
+                    storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.CategoryContentTitle, CategorySyntaxType.Store);
+                else
+                    storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.CategoryName, CategorySyntaxType.Store);
+
+                model.StoreModel.StoreCategoryUrl = UrlBuilder.GetStoreCategoryUrl(categoryAndBrand.CategoryId, storePageTitle);
             }
             catch
             {
@@ -2771,12 +2789,31 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         PictureLogoPath = ImageHelpers.GetStoreImage(item.MainPartyId, item.StoreLogo, "120")
                     });
                 }
+                string storePageTitle = "";
+                if (!string.IsNullOrEmpty(categoryAndBrand.StorePageTitle))
+                {
+                    if (categoryAndBrand.StorePageTitle.Contains("Firma"))
+                    {
+                        storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.StorePageTitle, CategorySyntaxType.CategoryNameOnyl);
+                    }
+                    else
+                    {
+                        storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.StorePageTitle, CategorySyntaxType.Store);
+
+                    }
+                }
+                else if (!string.IsNullOrEmpty(categoryAndBrand.CategoryContentTitle))
+                    storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.CategoryContentTitle, CategorySyntaxType.Store);
+                else
+                    storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.CategoryName, CategorySyntaxType.Store);
+
+                model.StoreCategoryUrl = UrlBuilder.GetStoreCategoryUrl(model.SelectedCategoryId, storePageTitle);
+           
             }
             catch
             {
 
             }
-            model.StoreCategoryUrl = UrlBuilder.GetStoreCategoryUrl(model.SelectedCategoryId, model.SelectedCategoryName);
 
             return PartialView("_CategoryStores", model);
         }

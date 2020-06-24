@@ -1967,7 +1967,7 @@
     <Content Include="Views\Category\AdvancedSearch.aspx" />
     <Content Include="Views\Category\AllSectorProducts.aspx" />
     <Content Include="Views\Category\Index2.aspx" />
-    <Content Include="Views\Category\ProductViewList - Copy.ascx" />
+    <Content Include="Views\Category\ProductViewGalery.ascx" />
     <Content Include="Views\Category\_SliderBanner.ascx" />
     <Content Include="Views\Home\CallYou.ascx" />
     <Content Include="Views\CatologAjax\_HomeSector.ascx" />

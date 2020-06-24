@@ -585,5 +585,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             return PartialView("_HomeSector", model);
         }
+
+        [HttpGet]
+        public JsonResult GetStoreProductComment()
+        {
+            if (AuthenticationUser.CurrentUser.Membership != null && AuthenticationUser.CurrentUser.Membership.MainPartyId != 0)
+            {
+                var mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
+                IProductCommentService _productCommentService = EngineContext.Current.Resolve<IProductCommentService>();
+                var productComments = _productCommentService.GetProductCommentsForStoreByMemberMainPartyId(mainPartyId).Where(x => x.Viewed == false).ToList();
+
+                return Json(productComments.Count, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(0, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

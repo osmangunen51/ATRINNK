@@ -516,10 +516,10 @@ $( "#SearchText" ).focus(function() {
 <script type="text/javascript">
     $(document).ready(function () {
         $.ajax({
-            url: '<%:AppSettings.SiteUrlWithoutLastSlash+"/Home/GetStoreProductComment"%>',
+            url: '<%:AppSettings.SiteUrlWithoutLastSlash+"/ajax/GetStoreProductComment"%>',
             data: {},
             contentType: "application/json",
-            type: 'post',
+            type: 'get',
             success: function (data) {
                 if (data != 0) {
                     $(".commentLi").show();

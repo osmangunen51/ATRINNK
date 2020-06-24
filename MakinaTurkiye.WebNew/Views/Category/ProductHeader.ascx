@@ -12,13 +12,13 @@
     string displayList = "";
     if (string.IsNullOrEmpty(Request.QueryString["ulke"]))
     {
-        display = string.IsNullOrEmpty(Request.QueryString["Gorunum"]) ? "?Gorunum=Liste" : "?Gorunum=" + Request.QueryString["Gorunum"];
+        display = string.IsNullOrEmpty(Request.QueryString["Gorunum"]) ? "?Gorunum=Galeri" : "?Gorunum=" + Request.QueryString["Gorunum"];
         displayGrid = "?Gorunum=Galeri";
         displayList = "?Gorunum=Liste";
     }
     else
     {
-        display = string.IsNullOrEmpty(Request.QueryString["Gorunum"]) ? "&Gorunum=Liste" : "&Gorunum=" + Request.QueryString["Gorunum"].ToString();
+        display = string.IsNullOrEmpty(Request.QueryString["Gorunum"]) ? "&Gorunum=Galeri" : "&Gorunum=" + Request.QueryString["Gorunum"].ToString();
         displayGrid = "&Gorunum=Galeri";
         displayList = "&Gorunum=Liste";
     }

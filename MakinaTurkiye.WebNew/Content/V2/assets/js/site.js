@@ -1238,7 +1238,7 @@ $(document).ready(function () {
 
 
     //GetHeaderSectorCategory();
-    GetHeaderSectorStoreCategory();
+   // GetHeaderSectorStoreCategory();
     var senderMainPartyId;
     var activationCode = "";
     cookiePolicyInit();
@@ -1343,7 +1343,7 @@ $(document).ready(function () {
             margin: 10,
             nav: true,
             autoplay: true,
-            items: 8,
+            items: 6,
             autoplayHoverPause: true,
             autoplaySpeed: 1000,
             autoHeight: true,
@@ -1354,13 +1354,13 @@ $(document).ready(function () {
                     items: 2
                 },
                 768: {
-                    items: 4
+                    items: 3
                 },
                 991: {
-                    items: 6
+                    items: 5
                 },
                 1200: {
-                    items: 8
+                    items: 6
                 }
             }
         })

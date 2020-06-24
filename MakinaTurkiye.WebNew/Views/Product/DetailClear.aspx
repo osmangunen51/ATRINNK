@@ -64,6 +64,25 @@
         $(document).ready(function () {
             CertificatePopUpGallery();
             ProductPopupGallery();
+             let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+
+            if (isMobile) {
+
+                var i = 0;
+                var count = $(".breadcrumb-mt li").length;
+                $(".breadcrumb-mt li").each(function (index) {
+                    if (index == 0) {
+                              $(this).show();
+                    }
+                    else if (index == count - 1) {
+                          $(this).css("display", "none");
+                    }
+                    else if (index < count - 4)
+                    {
+                        $(this).css("display", "none");
+                    }
+                 });
+            }
 
             $("#btnProductCommentInValid").click(function () {
 
