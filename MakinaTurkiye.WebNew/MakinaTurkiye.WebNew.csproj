@@ -36,6 +36,7 @@
     <Use64BitIISExpress />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,15 +52,6 @@
     <DeployIisAppPath>TestMakinaTurkiye/MakinaTurkiyeV2.Web_deploy</DeployIisAppPath>
     <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
     <ExcludeApp_Data>false</ExcludeApp_Data>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -1977,6 +1969,7 @@
     <Content Include="Views\Home\_HomeSuccessStories.ascx" />
     <Content Include="Views\Home\_HomeNews.ascx" />
     <Content Include="Views\Home\_ProductMayLike.ascx" />
+    <Content Include="Views\CatologAjax\_HomeShowCaseProducts.ascx" />
     <Content Include="Views\Home\_SelectedProductCategoryAjax.ascx" />
     <Content Include="Views\Home\_SelectedProductCategory.ascx" />
     <Content Include="Views\MembershipSales\BeforePayCreditCard.aspx" />

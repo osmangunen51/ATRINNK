@@ -32,7 +32,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public MTProductStoreModel ProductStoreModel { get; set; }
         public MTProductPageHeaderModel ProductPageHeaderModel { get; set; }
         public MTProductStoreMessageModel ProductStoreMessageModel { get; set; }
-        public MTProductComplainModel ProductComplainModel { get; set; }
+
         public ProductContactModel ProductContanctModel { get; set; }
         public MTJsonLdModel MtJsonLdModel { get; set; }
 

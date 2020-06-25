@@ -157,10 +157,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         var url = Request.Url.AbsolutePath;
 
+                        if (!Request.IsLocal)
+                        {
+                            url = AppSettings.SiteUrlWithoutLastSlash + url;
+                        }
 
-#if !DEBUG
-                         url= AppSettings.SiteUrlWithoutLastSlash +url;
-#endif
                         string categoryNameForUrl = c.CategoryName;
                         if (!string.IsNullOrEmpty(c.CategoryContentTitle)) categoryNameForUrl = c.CategoryContentTitle;
 
@@ -173,9 +174,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     else if (c.CategoryType == (byte)CategoryType.Brand)
                     {
                         var url = Request.Url.AbsolutePath;
-#if !DEBUG
-                                                     url= AppSettings.SiteUrlWithoutLastSlash +url;
-#endif
+                        if (!Request.IsLocal)
+                        {
+                            url = AppSettings.SiteUrlWithoutLastSlash + url;
+                        }
+
 
                         if (ustCat != null)
                         {
@@ -192,10 +195,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
 
                         var url = Request.Url.AbsolutePath;
-
-#if !DEBUG
-                       url= AppSettings.SiteUrlWithoutLastSlash +url;
-#endif
+                        if (!Request.IsLocal)
+                        {
+                            url = AppSettings.SiteUrlWithoutLastSlash + url;
+                        }
 
                         var topCategories = _categoryService.GetSPTopCategories(c.CategoryId);
                         return string.Empty;

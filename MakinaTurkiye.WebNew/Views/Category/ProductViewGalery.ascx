@@ -98,7 +98,7 @@
                             <h3 class="product-list-mt__title">
                                 <%:model.ProductName%>&nbsp;
                                 <%if (!string.IsNullOrEmpty(model.BrandName)) {%>
-                                    <span style="color:#d0d0d0">
+                                    <span style="color:#7b7b7b">
                                     (<%=model.BrandName%><%:!string.IsNullOrEmpty(model.ModelName) ?", "+model.ModelName:"" %>)
                                     </span>
                                 <% } %>
