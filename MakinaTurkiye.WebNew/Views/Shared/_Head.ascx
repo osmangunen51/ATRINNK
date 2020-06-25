@@ -24,11 +24,11 @@
   <script src="/Content/V2/assets/js/jquery.min.js?v=1"  ></script>
 <script src="/Content/V2/assets/js/jquery.autocomplete.js" > </script>
 <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=6.9" defer></script>
-<script src="/Content/V2/public/build/js/bundle-main-min.js?v=9.3" defer></script>
+<script src="/Content/V2/public/build/js/bundle-main-min.js?v=9.4" defer></script>
 <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js" ></script>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap"  rel="stylesheet">
-<link  rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=9.4" />
+<link  rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=9.5" />
 
 <link  rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
 <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v=3") %>" />

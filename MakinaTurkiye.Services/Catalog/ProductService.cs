@@ -31,7 +31,7 @@ namespace MakinaTurkiye.Services.Catalog
         private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_BRAND_ID_KEY = "makinaturkiye.product.sp.productforstore.bybrandid-{0}-{1}-{2}";
         private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_MODEL_ID_KEY = "makinaturkiye.product.sp.productforstore.bymodelid-{0}-{1}-{2}";
         private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_CATEGORY_ID_KEY = "makinaturkiye.product.sp.productforstore.bycategoryid-{0}-{1}-{2}";
-
+        private const string PRODUCTS_SHOWCASE_KEY = "makinaturkiye.product.showcase";
 
         private const string CATEGORY_PATTERN_KEY = "makinaturkiye.category";
         private const string PRODUCTS_PATTERN_KEY = "makinaturkiye.product.";
@@ -1214,6 +1214,16 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
             _dbContext.ExecuteSqlCommand(sqlCommand);
         }
 
+        public IList<Product> GetProductsByShowCase()
+        {
+            string key = PRODUCTS_SHOWCASE_KEY;
+            return _cacheManager.Get(key, () =>
+            {
+                var query = _productRepository.Table;
+                return query.Where(x => x.ProductShowcase == true).ToList();
+            });
+            
+        }
         #endregion
 
     }

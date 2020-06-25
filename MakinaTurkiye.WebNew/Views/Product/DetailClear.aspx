@@ -70,6 +70,9 @@
 
                 var i = 0;
                 var count = $(".breadcrumb-mt li").length;
+                $(".fast-access-bar").css("margin-top", "-20px");
+                $(".fast-access-bar").removeAttr("class");
+               
                 $(".breadcrumb-mt li").each(function (index) {
                     if (index == 0) {
                               $(this).show();
@@ -304,6 +307,12 @@
         .addthis_inline_share_toolbox { padding-top: 10px; padding-bottom: 0; margin-bottom: 0px; }
     </style>
     <div class="row urun-detay">
+        <div class="col-md-12">
+        <h1 class="product-detail__title">
+           
+            <%:Model.ProductDetailModel.ProductName %>
+        </h1>
+            </div>
         <%if (Model.OnlyStoreSee)
             { %>
         <div class="flex-row flex-lg-nowrap flex-md-nowrap" style="padding-left: 15px; padding-right: 15px; margin-bottom: 20px;">
@@ -314,62 +323,31 @@
         </div>
         <%} %>
         <div class="flex-row flex-lg-nowrap flex-md-nowrap" style="padding-left: 15px; padding-right: 15px;">
-            <div class="flex-xs-12 flex-sm-12 flex-md-9 flex-lg-9">
+            <div class="flex-xs-12 flex-sm-12 flex-md-9 flex-lg-6">
                 <div class="flex-row">
-                    <div class="flex-xs-12 flex-md-5 flex-sm-5 flex-lg-5 p-r-lg-15 p-r-md-15  p-r-sm-15">
+                    <div class="flex-xs-12 flex-md-12 flex-sm-12 flex-lg-12 p-r-lg-15 p-r-md-15  p-r-sm-15">
                         <div class="thumbnail">
                             <%=Html.RenderHtmlPartial("_ProductPictureNew",Model.ProductPictureModels)%>
                         </div>
-                        <div class="thumbnail text-center" style="padding: 10px; margin-bottom: 20px;">
-                            <ul class="nav nav-pills favoriler">
-                                <%string removeFavoriProductCss = "";  %>
-                                <%string addFavoriProductCss = "";  %>
-                                <% if (Model.ProductPageHeaderModel.IsFavoriteProduct)
-                                    { %>
-                                <% addFavoriProductCss = addFavoriProductCss + "display:none;"; %>
-                                <% }
-                                    else
-                                    { %>
-                                <% removeFavoriProductCss = removeFavoriProductCss + "display:none;"; %>
-                                <% } %>
-
-                                <li class="favori">
-                                    <a href="#" id="aRemoveFavoriteProduct" rel="nofollow" onclick="RemoveFavoriteProduct('<%=Model.ProductDetailModel.ProductId %>','<%=Model.ProductDetailModel.ProductName %>');"
-                                        style="<%=removeFavoriProductCss %>"><span class="glyphicon glyphicon-ok"></span>&nbsp;Favorilerimden Kaldır</a>
-                                    <a href="#" id="aAddFavoriteProduct" rel="nofollow" style="<%=addFavoriProductCss %>" onclick="AddFavoriteProduct('<%=Model.ProductDetailModel.ProductId %>','<%=Model.ProductDetailModel.ProductName %>');"><i class="fa fa-heart-o"></i>&nbsp;Favorilerime Ekle
-                                          <img src="../../Content/V2/images/loading.gif" style="width: 16px; float: right; display: none;" id="FavoriteProductLoading" />
-                                    </a>
-
-                                </li>
-                                <li class="yazdir"><a href="javascript:void(0)" onclick="window.print();"><i class="fa fa-print"></i>&nbsp;Yazdır</a> </li>
-                                <li class="sikayet"><a data-toggle="modal" data-target="#ComplaintModal" id="ComplaintProduct" href="#"><i class="fa fa-flag"></i>&nbsp;Şikayet Et</a> </li>
-                                <%=Html.RenderHtmlPartial("_ProductComplain",Model.ProductComplainModel) %>
-                            </ul>
-                            <div style="margin: auto; display: inline-block; position: relative" class="text-center">
-                                <%=Html.RenderHtmlPartial("_ProductSocial") %>
-                            </div>
-                        </div>
                     </div>
-                    <div class="flex-xs-12 flex-md-7 flex-sm-7 flex-lg-7 p-r-lg-15 p-r-md-15 ">
-                        <%=Html.RenderHtmlPartial("_ProductDetailNew", Model.ProductDetailModel)%>
-                    </div>
-                    <div class="flex-xs-12  p-r-lg-15 p-r-md-15">
-                        <%=Html.RenderHtmlPartial("_ProductTabNew",Model.ProductTabModel) %>
-                    </div>
+    
                 </div>
             </div>
+                     <div class="flex-xs-12 flex-md-7 flex-sm-7 flex-lg-3 p-r-lg-15 p-r-md-15 ">
+                        <%=Html.RenderHtmlPartial("_ProductDetailNew", Model.ProductDetailModel)%>
+                    </div>
             <div class="flex-xs-12 flex-sm-12 flex-md-3 flex-lg-3 rightSidebar">
                 <div>
                     <div class="affixRight" data-bottom-fix="#fixthis">
                         <div style="display: block;">
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12 col-md-12 col-lg-12">
-                                    <div class="firma-bilgisi">
-                                        <div class="panel panel-default bilgi-alan">
+                                    
+                                 
                                             <%=Html.RenderHtmlPartial("_ProductStoreNew", Model.ProductStoreModel)%>
                                             <%=Html.RenderHtmlPartial("_StoreOtherProductNew", Model.StoreOtherProductModel)%>
-                                        </div>
-                                    </div>
+                                   
+                                    
                                 </div>
                                 <%--         <div class="col-sm-6 col-xs-12 col-md-12 col-lg-12 hidden-xs">
                                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -389,6 +367,10 @@
                 </div>
             </div>
         </div>
+            
+                    <div class="flex-xs-12  p-r-lg-15 p-r-md-15">
+                        <%=Html.RenderHtmlPartial("_ProductTabNew",Model.ProductTabModel) %>
+                    </div>
         <div class="col-xs-12" id="fixthis">
             <%=Html.RenderHtmlPartial("_SimilarProductNew",Model.SimilarProductModel) %>
         </div>

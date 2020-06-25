@@ -410,9 +410,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             productComplainModel.ProductName = model.ProductDetailModel.ProductName;
             productComplainModel.ProductCityName = model.ProductDetailModel.Location;
-            model.ProductComplainModel = productComplainModel;
-            model.ProductComplainModel.ProductId = model.ProductDetailModel.ProductId;
-            model.ProductComplainModel.IsMember = IsMember;
+            model.ProductDetailModel.ProductComplainModel = productComplainModel;
+            model.ProductDetailModel.ProductComplainModel.ProductId = model.ProductDetailModel.ProductId;
+            model.ProductDetailModel.ProductComplainModel.IsMember = IsMember;
         }
 
         private void PrepareJsonLd(MTProductDetailViewModel model)
@@ -591,16 +591,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
             var url = Request.Url.AbsolutePath;
+            if (!Request.IsLocal)
+            {
+                url = Request.Url.AbsoluteUri;
+            }
 
-#if !DEBUG
-             url =   Request.Url.AbsoluteUri;
-#endif
+
             var link = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
 
-#if !DEBUG
-            link =link+Request.Url.Query;
-#endif
-
+            if (!Request.IsLocal)
+            {
+                link = link + Request.Url.Query;
+            }
 
             #region productstatisticmong
 
@@ -698,7 +700,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 //favorite  product
                 var favoriteProduct = _favoriteProductService.GetFavoriteProductByMainPartyIdWithProductId(AuthenticationUser.Membership.MainPartyId, product.ProductId);
-                model.ProductPageHeaderModel.IsFavoriteProduct = favoriteProduct != null ? true : false;
+                model.ProductDetailModel.IsFavoriteProduct = favoriteProduct != null ? true : false;
             }
             unifiedCategories = string.Empty;
             model.ProductPageHeaderModel.Navigation = GetNavigation(product.ProductId, product.ProductName,
@@ -960,7 +962,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
             //satıcının diğer ilanları
-            var otherProducts = _productService.GetProductsByMainPartIdAndNonProductId(product.MainPartyId.Value, product.ProductId);
+            var otherProducts = _productService.GetProductsByMainPartIdAndNonProductId(product.MainPartyId.Value, product.ProductId,4);
             int storeOtherProductIndex = 1;
             foreach (var item in otherProducts)
             {

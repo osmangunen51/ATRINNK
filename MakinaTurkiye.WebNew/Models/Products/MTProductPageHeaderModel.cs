@@ -11,7 +11,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public string MobileNavigation { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-        public bool IsFavoriteProduct { get; set; }
+
         public int MainPartyId { get; set; }
         public string MemberEmail { get; set; }
         public bool IsActive { get; set; }

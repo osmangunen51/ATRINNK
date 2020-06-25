@@ -7,9 +7,11 @@ using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Media;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
 using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Utilities.FormatHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using MakinaTurkiye.Utilities.Mvc;
@@ -601,6 +603,34 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
+        }
+            
+
+        [HttpGet]
+        public PartialViewResult GetProductShowCase()
+        {
+            IProductService _productService = EngineContext.Current.Resolve<IProductService>();
+            ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
+            IPictureService _pictureService = EngineContext.Current.Resolve<IPictureService>();
+
+            var products = _productService.GetProductsByShowCase();
+            List<MTHomeAdModel> source = new List<MTHomeAdModel>();
+            foreach (var item in products)
+            {
+                var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
+                if (picture != null)
+                {
+                    source.Add(new MTHomeAdModel
+                    {
+                        ProductName = item.ProductName,
+                        TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
+                        ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
+                        PicturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150)
+                    });
+                }
+
+            }
+            return PartialView("_HomeShowCaseProducts", source);
         }
     }
 }
