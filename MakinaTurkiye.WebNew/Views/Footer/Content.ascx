@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<List<NeoSistem.MakinaTurkiye.Web.Models.Footer.MTFooterParentModel>>" %>
 
+<div onclick="topFunction()" id="myBtn" class="mobile-top" title="Go to top"><span class="more-less icon-up-arrow"></span></div>
 
 <div class="footer">
     <div class="container">
@@ -91,7 +92,7 @@
 
                         <div class="copyright-v2__inner">
                             <p>Copyright © 2010-<%:DateTime.Now.Year %> makinaturkiye.com</p>
-                            <a href="javascript:;" class="btn upBtn">Başa Dön</a>
+                            <a href="javascript:;" class="btn upBtn hidden-xs">Başa Dön</a>
                         </div>
 
                    

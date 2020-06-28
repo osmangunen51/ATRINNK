@@ -27,6 +27,10 @@
             $('#carouselExampleControls').carousel();
              let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
             if (isMobile) {
+                                var i = 0;
+                var count = $(".breadcrumb-mt li").length;
+                $(".fast-access-bar").css("margin-top", "-20px");
+                $(".fast-access-bar").removeAttr("class");
                 var i = 0;
                 var count = $(".breadcrumb-mt li").length;
                 $(".breadcrumb-mt li").each(function (index) {
