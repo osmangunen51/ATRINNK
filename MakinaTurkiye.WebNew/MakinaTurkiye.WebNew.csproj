@@ -2089,8 +2089,8 @@
     <Content Include="Views\Store\_HeaderStoreCategoryGeneral.ascx" />
     <Content Include="Views\Store\_StoreCategoryGeneral.ascx" />
     <Content Include="Views\Videos\VideoSearch.aspx" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\StoreProfile.Master" />
+    <Content Include="Views\Home\TestCs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Account\Content\hesabim_ortak.css" />
