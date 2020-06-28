@@ -620,7 +620,7 @@
                 <% string page = ""; if (Request.QueryString["Sayfa"] != null) { page = "&Sayfa=" + Request.QueryString["Sayfa"]; }  %>
                 <% string querySearchType = string.IsNullOrEmpty(Request.QueryString["SearchType"]) ? "" : "&SearchType=" + Request.QueryString["SearchType"].ToString(); %>
 
-                <div class="mobile-filter-buttons visible-xs">
+                <div class="mobile-filter-buttons mobile-filter-top-alignment visible-xs">
                     <a href="javascript:;" class="js-toggle-filter"><span class="icon-filter"></span>Detaylandır</a>
                     <a href="javascript:;" class="js-toggle-sort"><span class="icon-sort"></span>Sırala</a>
                     <select class="mobile-sort" style="position: absolute; right: 0; width: 50%; height: 100%; opacity: 0">
