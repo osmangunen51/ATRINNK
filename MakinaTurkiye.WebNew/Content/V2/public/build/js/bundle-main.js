@@ -1216,6 +1216,21 @@ function GetSubMenu(id, thisobj) {
 
     }
 }
+function topFunction() {
+
+    $("html, body").animate({
+        scrollTop: 0
+    }, "slow");
+}
+function scrollFunction() {
+    var mybutton = document.getElementById("myBtn");
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+}
+
 
 $(document).ready(function () {
     $('.product-category-tab-container .nav-item a').on('shown.bs.tab', function (e) {
@@ -1305,6 +1320,17 @@ $(document).ready(function () {
         }
     );
 
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    var isMobile1 = window.matchMedia("only screen and (max-width: 760px)").matches;
+    if (isMobile1) {
+        window.onscroll = function () { scrollFunction() };
+    }
+
+
+
+
+    // When the user clicks on the button, scroll to the top of the document
 
     // productImageResize();
     mailActivationValidate();

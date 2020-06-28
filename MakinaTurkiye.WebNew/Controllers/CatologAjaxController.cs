@@ -623,7 +623,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     source.Add(new MTHomeAdModel
                     {
                         ProductName = item.ProductName,
-                        TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
+                        TruncatedProductName = StringHelper.Truncate(item.ProductName, 55),
                         ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
                         PicturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150)
                     });
