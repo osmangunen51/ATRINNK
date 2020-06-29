@@ -212,7 +212,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var smn1 = new SitemapNode
                     {
                         changefrequency = ChangeFrequency.daily,
-                        lastmodified = DateTime.Now.AddDays(-30).Date,
+                        lastmodified = DateTime.Now.Date,
                         location = "https://urun.makinaturkiye.com",
                         priority = 0.9f
                     };
@@ -227,7 +227,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var smn = new SitemapNode
                     {
                         changefrequency = ChangeFrequency.daily,
-                        lastmodified = itemUpdatedDateBefore > 30 ? DateTime.Now.AddDays(-30).Date : product.ProductRecordDate.Date,
+                        lastmodified = itemUpdatedDateBefore > 30 ? DateTime.Now.Date : product.ProductRecordDate.Date,
                         location = string.Format("{0}{1}", PRODUCT_URL, Helpers.ToUrl(product.ProductName + "-p-" + product.ProductId)),
                         priority = 0.9f
                     };
