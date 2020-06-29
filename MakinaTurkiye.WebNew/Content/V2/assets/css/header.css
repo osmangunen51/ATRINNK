@@ -709,7 +709,7 @@
   position: static !important;
 }
 .main-navigation div > ul > li {
-  width: 11%;
+  width: 10%;
   text-align: center;
 }
 .main-navigation div > ul > li > a {
@@ -890,7 +890,7 @@
   line-height: 1;
 }
 .main-navigation div .navbar-nav > li {
-  width: 11%;
+  width: 10%;
 }
 .navbar-inverse .navbar-nav > li > a:focus,
 .navbar-inverse .navbar-nav > li > a:hover {
