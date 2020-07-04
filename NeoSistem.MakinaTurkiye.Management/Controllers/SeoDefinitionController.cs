@@ -53,9 +53,15 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryKeyword.CategoryName, CategorySyntaxType.Store);
                         Url = UrlBuilder.GetStoreCategoryUrl(categoryKeyword.CategoryId, storePageTitle);
                     }
-#if DEBUG
-                    Url = "https://www.makinaturkiye.com" + Url;
-#endif
+                    if (Request.IsLocal)
+                    {
+                        Url = "https://www.makinaturkiye.com" + Url;
+                    }
+                    else
+                    {
+
+                    }
+
                     model.KeywordAnalysis = Analyzer.GetUrlAnalizWithUrl(Url);
                 }
             }

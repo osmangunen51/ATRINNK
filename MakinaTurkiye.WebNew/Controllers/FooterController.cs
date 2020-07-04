@@ -4,6 +4,7 @@ using NeoSistem.MakinaTurkiye.Web.Models.Footer;
 using System.Collections.Generic;
 using MakinaTurkiye.Services.Content;
 using System.Threading.Tasks;
+using MakinaTurkiye.Caching;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -13,14 +14,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         #region Fields
 
         private readonly IFooterService _footerService;
+        private readonly ICacheManager _cacheManager;
+
 
         #endregion
 
         #region Ctor
 
-        public FooterController(IFooterService footerService)
+        public FooterController(IFooterService footerService, ICacheManager cacheManager)
         {
             this._footerService = footerService;
+            this._cacheManager = cacheManager;
+
         }
 
         #endregion
@@ -30,27 +35,33 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [ChildActionOnly]
         public ActionResult Content()
         {
-            var sayfa = Request.QueryString["page"];
-            var footerParent = _footerService.GetAllFooterParent();
-            List<MTFooterParentModel> footerParents = new List<MTFooterParentModel>();
-
-            foreach (var item in footerParent)
+            //var sayfa = Request.QueryString["page"];
+            string key = string.Format("makinaturkiye.footer-content-test");
+            var testModel = _cacheManager.Get(key, () =>
             {
-                MTFooterParentModel footerParentItem = new MTFooterParentModel();
-                footerParentItem.FooterParentId = item.FooterParentId;
-                footerParentItem.FooterParentName = item.FooterParentName;
-                foreach (var item1 in item.FooterContents.OrderBy(x => x.DisplayOrder))
+                var footerParent = _footerService.GetAllFooterParent();
+                List<MTFooterParentModel> footerParents = new List<MTFooterParentModel>();
+
+                foreach (var item in footerParent)
                 {
-                    MTFooterContentModel footerContentModel = new MTFooterContentModel
+                    MTFooterParentModel footerParentItem = new MTFooterParentModel();
+                    footerParentItem.FooterParentId = item.FooterParentId;
+                    footerParentItem.FooterParentName = item.FooterParentName;
+                    foreach (var item1 in item.FooterContents.OrderBy(x => x.DisplayOrder))
                     {
-                        FooterContentName = item1.FooterContentName,
-                        FooterContentUrl = item1.FooterContentUrl
-                    };
-                    footerParentItem.FooterContents.Add(footerContentModel);
+                        MTFooterContentModel footerContentModel = new MTFooterContentModel
+                        {
+                            FooterContentName = item1.FooterContentName,
+                            FooterContentUrl = item1.FooterContentUrl
+                        };
+                        footerParentItem.FooterContents.Add(footerContentModel);
+                    }
+                    footerParents.Add(footerParentItem);
                 }
-                footerParents.Add(footerParentItem);
-            }
-            return PartialView(footerParents);
+                return footerParents;
+            });
+
+            return PartialView(testModel);
         }
 
         #endregion

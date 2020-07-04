@@ -36,6 +36,7 @@
     <Use64BitIISExpress />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -51,15 +52,6 @@
     <DeployIisAppPath>TestMakinaTurkiye/MakinaTurkiyeV2.Web_deploy</DeployIisAppPath>
     <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
     <ExcludeApp_Data>false</ExcludeApp_Data>
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
@@ -287,6 +279,7 @@
     <Compile Include="Areas\Account\Models\Videos\MTStoreVideoModel.cs" />
     <Compile Include="Areas\Account\Models\Videos\MTStoreVideoItemModel.cs" />
     <Compile Include="Areas\Account\Models\Videos\MTVideoCreateModel.cs" />
+    <Compile Include="Controllers\CatologAjaxController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Factories\IProductModelFactory.cs" />
     <Compile Include="Factories\ProductModelFactory.cs" />
@@ -1231,6 +1224,7 @@
     <None Include="Properties\PublishProfiles\AlperÇ.pubxml" />
     <None Include="Properties\PublishProfiles\ezeyrekFs.pubxml" />
     <None Include="Properties\PublishProfiles\fikretakinPublish.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\MustafaPublish.pubxml" />
     <None Include="Properties\PublishProfiles\df_publish.pubxml" />
     <Content Include="Content\V2\assets\js\CKEditor\adapters\jquery.js" />
@@ -1965,16 +1959,17 @@
     <Content Include="Views\Category\AdvancedSearch.aspx" />
     <Content Include="Views\Category\AllSectorProducts.aspx" />
     <Content Include="Views\Category\Index2.aspx" />
-    <Content Include="Views\Category\ProductViewList - Copy.ascx" />
+    <Content Include="Views\Category\ProductViewGalery.ascx" />
     <Content Include="Views\Category\_SliderBanner.ascx" />
     <Content Include="Views\Home\CallYou.ascx" />
-    <Content Include="Views\Home\_HomeSector.ascx" />
+    <Content Include="Views\CatologAjax\_HomeSector.ascx" />
     <Content Include="Views\Home\_ProductHomeItem.ascx" />
     <Content Include="Views\Home\_HeaderSubMenu.ascx" />
     <Content Include="Views\Home\_HeaderBaseMenu.ascx" />
     <Content Include="Views\Home\_HomeSuccessStories.ascx" />
     <Content Include="Views\Home\_HomeNews.ascx" />
     <Content Include="Views\Home\_ProductMayLike.ascx" />
+    <Content Include="Views\CatologAjax\_HomeShowCaseProducts.ascx" />
     <Content Include="Views\Home\_SelectedProductCategoryAjax.ascx" />
     <Content Include="Views\Home\_SelectedProductCategory.ascx" />
     <Content Include="Views\MembershipSales\BeforePayCreditCard.aspx" />
@@ -2035,7 +2030,7 @@
     <Content Include="Views\Performance\Index2.aspx" />
     <Content Include="Views\Performance\Index.aspx" />
     <Content Include="Views\Product\DetailClear.aspx" />
-    <Content Include="Views\Product\_ProductCommentList.ascx" />
+    <Content Include="Views\CatologAjax\_ProductCommentList.ascx" />
     <Content Include="Views\Product\_ProductComment.ascx" />
     <Content Include="Views\Product\_ProductDetailNew.ascx" />
     <Content Include="Views\Product\_ProductDetail.ascx" />
@@ -2094,8 +2089,8 @@
     <Content Include="Views\Store\_HeaderStoreCategoryGeneral.ascx" />
     <Content Include="Views\Store\_StoreCategoryGeneral.ascx" />
     <Content Include="Views\Videos\VideoSearch.aspx" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\StoreProfile.Master" />
+    <Content Include="Views\Home\TestCs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Account\Content\hesabim_ortak.css" />

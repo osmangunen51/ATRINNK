@@ -3,9 +3,7 @@
 <input type="hidden" id="hdnMainPartyId" value="<%:Model.MainPartyId %>" />
 <input type="hidden" id="hdnMemberEmail" value="<%:Model.MemberEmail %>" />
 
-
-
-<div class="fast-access-bar hidden-xs">
+<div class="fast-access-bar">
     <div class="fast-access-bar__inner">
         <div class="row clearfix">
             <div class="col-xs-12 col-md-12">
@@ -14,3 +12,4 @@
         </div>
     </div>
 </div>
+

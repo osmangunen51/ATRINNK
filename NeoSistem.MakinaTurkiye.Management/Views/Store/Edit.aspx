@@ -621,10 +621,10 @@
                                                 silindi = true;
                                             }
                     %>
-                    İnceleniyor&nbsp;<%: Html.RadioButton("PacketStatu", "0", inceleniyor)%>&nbsp;&nbsp;
-                    Onaylandı&nbsp;<%: Html.RadioButton("PacketStatu", "1", onaylandi)%>&nbsp;&nbsp;
-                    Onaylanmadı&nbsp;<%: Html.RadioButton("PacketStatu", "2", onaylanmadi)%>&nbsp;&nbsp;
-                    Silindi&nbsp;<%: Html.RadioButton("PacketStatu", "3", silindi)%>&nbsp;&nbsp;
+                    &nbsp;<%: Html.RadioButton("PacketStatu", "0", inceleniyor)%>&nbsp;&nbsp;İnceleniyor
+                    &nbsp;<%: Html.RadioButton("PacketStatu", "1", onaylandi)%>&nbsp;&nbsp;Onaylandı
+                    &nbsp;<%: Html.RadioButton("PacketStatu", "2", onaylanmadi)%>&nbsp;&nbsp;Onaylanmadı
+                    &nbsp;<%: Html.RadioButton("PacketStatu", "3", silindi)%>&nbsp;&nbsp;Silindi
                   </td>
                                     <td>
                                         <%: Html.ValidationMessageFor(m => m.PacketStatu)%>

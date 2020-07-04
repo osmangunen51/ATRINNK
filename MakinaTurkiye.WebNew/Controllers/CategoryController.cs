@@ -157,10 +157,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         var url = Request.Url.AbsolutePath;
 
+                        if (!Request.IsLocal)
+                        {
+                            url = AppSettings.SiteUrlWithoutLastSlash + url;
+                        }
 
-#if !DEBUG
-                         url= AppSettings.SiteUrlWithoutLastSlash +url;
-#endif
                         string categoryNameForUrl = c.CategoryName;
                         if (!string.IsNullOrEmpty(c.CategoryContentTitle)) categoryNameForUrl = c.CategoryContentTitle;
 
@@ -173,9 +174,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     else if (c.CategoryType == (byte)CategoryType.Brand)
                     {
                         var url = Request.Url.AbsolutePath;
-#if !DEBUG
-                                                     url= AppSettings.SiteUrlWithoutLastSlash +url;
-#endif
+                        if (!Request.IsLocal)
+                        {
+                            url = AppSettings.SiteUrlWithoutLastSlash + url;
+                        }
+
 
                         if (ustCat != null)
                         {
@@ -192,10 +195,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
 
                         var url = Request.Url.AbsolutePath;
-
-#if !DEBUG
-                       url= AppSettings.SiteUrlWithoutLastSlash +url;
-#endif
+                        if (!Request.IsLocal)
+                        {
+                            url = AppSettings.SiteUrlWithoutLastSlash + url;
+                        }
 
                         var topCategories = _categoryService.GetSPTopCategories(c.CategoryId);
                         return string.Empty;
@@ -223,7 +226,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 return url;
 
                         }
-                
+
 
                     }
                 }
@@ -451,9 +454,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         ProductNo = product.ProductNo,
                         ProductPiceDesc = product.ProductPrice.HasValue ? product.ProductPrice.Value : 0,
                         CurrencySymbol = product.GetCurrencySymbol(),
-                        //ProductSalesTypeText = product.ProductSalesTypeText,
-                        //ProductStatuText = product.ProductStatuText,
-                        //ProductTypeText = product.ProductTypeText,
+                        ProductSalesTypeText = product.ProductSalesTypeText,
+                        ProductStatuText = product.ProductStatuText,
+                        ProductTypeText = product.ProductTypeText,
                         SeriesId = product.SeriesId,
                         StoreName = store.StoreShortName,
                         //ProductDescription = product.ProductDescription,
@@ -466,7 +469,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         StoreConnectUrl = UrlBuilder.GetStoreConnectUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, store.StoreUrlName),
                         ProductContactUrl = UrlBuilder.GetProductContactUrl(product.ProductId, product.StoreName),
                         KdvOrFobText = product.GetKdvOrFobText(),
-                        FavoriteProductId = product.FavoriteProductId,
+
                         ProductPriceWithDiscount = product.DiscountType.HasValue && product.DiscountType.Value != 0 ? product.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
                     };
 
@@ -909,6 +912,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 countryUrl += "&SearchText=" + searchText;
                             }
                         }
+                        if (Request.QueryString["Gorunum"]!=null)
+                        {
+                            countryUrl += countryUrl.Contains("?") ? "&Gorunum=" + Request.QueryString["Gorunum"].ToString() : "?Gorunum=" + Request.QueryString["Gorunum"].ToString();
+                        }
 
                         countryDataFilterModel.ItemModels.Add(new DataFilterItemModel
                         {
@@ -962,6 +969,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         if (!string.IsNullOrEmpty(searchText))
                         {
                             cityUrl += "&SearchText=" + searchText;
+                        }
+
+                        if (Request.QueryString["Gorunum"] != null)
+                        {
+                            cityUrl += "&Gorunum=" + Request.QueryString["Gorunum"].ToString();
                         }
 
                         cityDataFilterModel.ItemModels.Add(new DataFilterItemModel
@@ -1020,6 +1032,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             {
                                 localityUrl += "&SearchText=" + searchText;
                             }
+                            if (Request.QueryString["Gorunum"]!=null)
+                            {
+                                localityUrl += "&Gorunum=" + Request.QueryString["Gorunum"].ToString();
+                            }
+
 
                             localityDataFilterModel.ItemModels.Add(new DataFilterItemModel
                             {
@@ -1085,6 +1102,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 catFilterModel.LocalityName = localityName;
             }
 
+            if (Request.QueryString["Gorunum"] != null)
+            {
+                catFilterModel.ViewType = Request.QueryString["Gorunum"].ToString();
+            }
             return catFilterModel;
         }
 
@@ -1365,9 +1386,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IList<Navigation> alMenu = new List<Navigation>();
             IList<Navigation> alMenuSecond = new List<Navigation>();
             alMenu.Add(new Navigation("Ana Sayfa", "/", Navigation.TargetType._self));
-            alMenu.Add(new Navigation("Kategoriler", "/urun-kategori-c-0", Navigation.TargetType._self));
+
             alMenuSecond.Add(new Navigation("Ana Sayfa", "/", Navigation.TargetType._self));
-            alMenuSecond.Add(new Navigation("Kategoriler", "/urun-kategori-c-0", Navigation.TargetType._self));
 
             int selectedCategoryId = 0;
             if (GetSeriesIdRoutData() != 0)
@@ -1501,7 +1521,25 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         PictureLogoPath = ImageHelpers.GetStoreImage(item.MainPartyId, item.StoreLogo, "120")
                     });
                 }
-                model.StoreModel.StoreCategoryUrl = UrlBuilder.GetStoreCategoryUrl(categoryAndBrand.CategoryId, categoryAndBrand.CategoryName);
+                string storePageTitle = "";
+                if (!string.IsNullOrEmpty(categoryAndBrand.StorePageTitle))
+                {
+                    if (categoryAndBrand.StorePageTitle.Contains("Firma"))
+                    {
+                        storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.StorePageTitle, CategorySyntaxType.CategoryNameOnyl);
+                    }
+                    else
+                    {
+                        storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.StorePageTitle, CategorySyntaxType.Store);
+
+                    }
+                }
+                else if (!string.IsNullOrEmpty(categoryAndBrand.CategoryContentTitle))
+                    storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.CategoryContentTitle, CategorySyntaxType.Store);
+                else
+                    storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.CategoryName, CategorySyntaxType.Store);
+
+                model.StoreModel.StoreCategoryUrl = UrlBuilder.GetStoreCategoryUrl(categoryAndBrand.CategoryId, storePageTitle);
             }
             catch
             {
@@ -1737,23 +1775,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
 
                 string keyword = new CultureInfo("tr-TR").TextInfo.ToTitleCase(searchText.Trim());
-                string cookieName = "Makinaturkiye_SearhTexts";
-                string searchTexts = GetCookie(cookieName);
-                if (!string.IsNullOrEmpty(searchTexts))
-                {
-
-                    if (searchTexts.IndexOf(keyword) < 0)
-                    {
-                        searchTexts += "," + new CultureInfo("tr-TR").TextInfo.ToTitleCase(keyword);
-                        DeleteCookie(cookieName);
-                        CreateCookie(cookieName, searchTexts, DateTime.Now.AddDays(10));
-                    }
-
-                }
-                else
-                {
-                    CreateCookie(cookieName, keyword, DateTime.Now.AddDays(10));
-                }
                 var searchScore = _searchScoreService.GetSearchScoreByKeyword(keyword);
                 if (searchScore != null)
                 {
@@ -2771,12 +2792,31 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         PictureLogoPath = ImageHelpers.GetStoreImage(item.MainPartyId, item.StoreLogo, "120")
                     });
                 }
+                string storePageTitle = "";
+                if (!string.IsNullOrEmpty(categoryAndBrand.StorePageTitle))
+                {
+                    if (categoryAndBrand.StorePageTitle.Contains("Firma"))
+                    {
+                        storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.StorePageTitle, CategorySyntaxType.CategoryNameOnyl);
+                    }
+                    else
+                    {
+                        storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.StorePageTitle, CategorySyntaxType.Store);
+
+                    }
+                }
+                else if (!string.IsNullOrEmpty(categoryAndBrand.CategoryContentTitle))
+                    storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.CategoryContentTitle, CategorySyntaxType.Store);
+                else
+                    storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryAndBrand.CategoryName, CategorySyntaxType.Store);
+
+                model.StoreCategoryUrl = UrlBuilder.GetStoreCategoryUrl(model.SelectedCategoryId, storePageTitle);
+           
             }
             catch
             {
 
             }
-            model.StoreCategoryUrl = UrlBuilder.GetStoreCategoryUrl(model.SelectedCategoryId, model.SelectedCategoryName);
 
             return PartialView("_CategoryStores", model);
         }

@@ -1,6 +1,8 @@
 ﻿using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Search;
 using MakinaTurkiye.Utilities.Mvc;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
+using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,9 +35,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
     public class SearchController : BaseController
     {
         private readonly ISearchService SearchService;
-        public SearchController(ISearchService SearchService)
+        private readonly IProductStatisticService _productStatisticService;
+
+        public SearchController(ISearchService SearchService, IProductStatisticService productStatisticService)
         {
             this.SearchService = SearchService;
+            this._productStatisticService = productStatisticService;
 
         }
         public ActionResult IndexOlustur()
@@ -48,34 +53,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpGet]
         public ActionResult Index(string query)
         {
+            if (Request.Url.AbsoluteUri.ToString().Contains("urun"))
+            {
+                return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash+"/search/index");
+            }
             bool DeveloperGosterim = false;
             List<string> IpAdresListesi = new List<string>();
             List<string> EklenenListesi = new List<string>();
             SearchAutoCompleteResult Sonuc = new SearchAutoCompleteResult();
-            if (query.Length == 0)
-            {
-                string cookieName = "Makinaturkiye_SearhTexts";
-                string searchTexts = GetCookie(cookieName);
-                if (!string.IsNullOrEmpty(searchTexts))
-                {
-                    Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = "Geçmiş Aramalar", data = new data { category = "Gecmis" }, Url = "#" });
-                    if (searchTexts.Contains(","))
-                    {
-                        string[] itemSearchTexts = searchTexts.Split(',');
-                       var reversed =   itemSearchTexts.Reverse().ToList();
-                        int numbers = reversed.Count() > 12 ? 12 : reversed.Count();
-                        
-                        for (int i = 0; i < numbers; i++)
-                        {
-                            Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = reversed[i], data = new data { category = "Gecmis" }, Url = "" });
-                        }
-                    }
-                    else
-                    {
-                        Sonuc.suggestions.Add(new SearchAutoCompleteItem { Name = searchTexts, data = new data { category = "Gecmis" }, Url = "" });
-                    }
-                }
-            }
 
             if (!string.IsNullOrEmpty(query))
             {
@@ -342,5 +327,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             return Json(Sonuc, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

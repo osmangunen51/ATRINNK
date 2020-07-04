@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<dynamic>" %>
-<link rel="manifest" href="manifest.json">
 <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 <link rel="dns-prefetch" href="//www.google-analytics.com" />
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
@@ -12,7 +11,6 @@
 <link rel="dns-prefetch" href="https://www.google-analytics.com" />
 <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
 <link rel="dns-prefetch" href="https://ajax.googleapis.com" />
-<link rel="dns-prefetch" href="https://s.makinaturkiye.com" />
 <link rel="dns-prefetch" href="https://connect.facebook.net" />
 
 <link  rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
@@ -26,11 +24,11 @@
   <script src="/Content/V2/assets/js/jquery.min.js?v=1"  ></script>
 <script src="/Content/V2/assets/js/jquery.autocomplete.js" > </script>
 <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=6.9" defer></script>
-<script src="/Content/V2/public/build/js/bundle-main-min.js?v=8.5" defer></script>
+<script src="/Content/V2/public/build/js/bundle-main-min.js?v=9.5" defer></script>
 <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js" ></script>
 
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap"  rel="stylesheet">
-<link  rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=8.6" />
+<link  rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=9.9" />
 
 <link  rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
 <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v=3") %>" />

@@ -938,6 +938,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 category.CategoryPath = String.Join(" - ", topCategoriesNames);
                 entities.SaveChanges();
 
+                _productService.SPUpdateProductSearchCategoriesByCategoryId(model.CategoryId);
+
             }
             string categoryUrl = "";
             if (!string.IsNullOrEmpty(category.CategoryContentTitle))

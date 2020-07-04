@@ -339,9 +339,8 @@ function AddFavoriteProduct(id) {
     //            var image = '<img src=\'/Content/Images/load.gif\' />'
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenize ekleniyor.. &nbsp;&nbsp;' + image);
     $.ajax({
-        url: 'https://urun.makinaturkiye.com/Product/AddFavoriteProduct',
-        type: 'post',
-        dataType: 'json',
+        url: 'https://www.makinaturkiye.com/ajax/AddFavoriteProduct',
+        type: 'get',
         data:
             {
                 ProductId: id
@@ -372,8 +371,8 @@ function RemoveFavoriteProduct(id) {
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenizden çıkarılıyor.. &nbsp;&nbsp;' + image);
 
     $.ajax({
-        url: 'https://urun.makinaturkiye.com/Product/RemoveFavoriteProduct',
-        type: 'post',
+        url: 'https://www.makinaturkiye.com/Product/RemoveFavoriteProduct',
+        type: 'get',
         data:
             {
                 ProductId: id
@@ -429,9 +428,9 @@ function SendMessageforpro(messagetype) {
     var obj = new Object();
     obj.redirect = 'https://www.makinaturkiye.com/Account/Message/Index?MessagePageType=1&UyeNo=' + memberNo + '&UrunNo=' + productNo;
     $.ajax({
-        url: '/Product/IsAuthenticate',
-        data: JSON.stringify(obj),
-        contentType: "application/json",      
+        url: 'https://www.makinaturkiye.com/ajax/IsAuthenticate',
+        data: obj,
+        type:'get',
         success: function (data) {
             if (data == true) {
                 var memberNo = $('#hiddenMemberNo').val();
@@ -1012,7 +1011,8 @@ function homebannerSlider() {
         items: 1,
         loop: true,
         autoplay: 1,
-        autoplayTimeout: 9000,
+        smartSpeed:1000,
+        autoplayTimeout: 4000,
         autoplayHoverPause: true,
         //animateOut: 'fadeOut',
         //animateIn: 'fadeIn',
@@ -1216,6 +1216,21 @@ function GetSubMenu(id, thisobj) {
 
     }
 }
+function topFunction() {
+
+    $("html, body").animate({
+        scrollTop: 0
+    }, "slow");
+}
+function scrollFunction() {
+    var mybutton = document.getElementById("myBtn");
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        mybutton.style.display = "block";
+    } else {
+        mybutton.style.display = "none";
+    }
+}
+
 
 $(document).ready(function () {
     $('.product-category-tab-container .nav-item a').on('shown.bs.tab', function (e) {
@@ -1238,14 +1253,14 @@ $(document).ready(function () {
 
 
     //GetHeaderSectorCategory();
-    GetHeaderSectorStoreCategory();
+   // GetHeaderSectorStoreCategory();
     var senderMainPartyId;
     var activationCode = "";
     cookiePolicyInit();
     mainMenuColorChange();
     facebookLoginClickEvent();
     hasVideoLinkClick();
-    productHoverItem();
+  //  productHoverItem();
     pagerGoto();
 
 
@@ -1306,6 +1321,17 @@ $(document).ready(function () {
     );
 
 
+    // When the user scrolls down 20px from the top of the document, show the button
+    var isMobile1 = window.matchMedia("only screen and (max-width: 760px)").matches;
+    if (isMobile1) {
+        window.onscroll = function () { scrollFunction() };
+    }
+
+
+
+
+    // When the user clicks on the button, scroll to the top of the document
+
     // productImageResize();
     mailActivationValidate();
     checkitem();
@@ -1343,7 +1369,7 @@ $(document).ready(function () {
             margin: 10,
             nav: true,
             autoplay: true,
-            items: 8,
+            items: 6,
             autoplayHoverPause: true,
             autoplaySpeed: 1000,
             autoHeight: true,
@@ -1354,13 +1380,13 @@ $(document).ready(function () {
                     items: 2
                 },
                 768: {
-                    items: 4
+                    items: 3
                 },
                 991: {
-                    items: 6
+                    items: 5
                 },
                 1200: {
-                    items: 8
+                    items: 6
                 }
             }
         })
@@ -1811,8 +1837,8 @@ $(document).ready(function () {
 
         if (!isValidate) {
             $.ajax({
-                url: '/Product/CheckEmail',
-                type: "post",
+                url: '/ajax/CheckEmail',
+                type: "get",
                 data: { email: $(this).val(), productNumber: productNo, memberNumber: memberNo },
                 success: function (data) {
                     if (data) {
@@ -3247,9 +3273,8 @@ function AddFavoriteProductItem(id) {
 
     $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
     $.ajax({
-        url: '/Product/AddFavoriteProduct',
-        type: 'post',
-        dataType: 'json',
+        url: 'https://www.makinaturkiye.com/ajax/AddFavoriteProduct',
+        type: 'get',
         data:
             {
                 ProductId: id
@@ -3282,8 +3307,8 @@ function RemoveFavoriteProductItem(id) {
 
 
     $.ajax({
-        url: '/Product/RemoveFavoriteProduct',
-        type: 'post',
+        url: 'https://www.makinaturkiye.com/ajax/RemoveFavoriteProduct',
+        type: 'get',
         data:
             {
                 ProductId: id

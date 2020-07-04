@@ -83,13 +83,16 @@ namespace MakinaTurkiye.Services.Catalog
 
         void CheckSPProductSearch(int productId);
 
+        void SPUpdateProductSearchCategoriesByCategoryId(int categoryId);
+
         IList<Product> GetProductsByProductIds(List<int> ProductIds,int take = 0);
+        IList<Product> GetProductsByShowCase();
 
         IList<Product> GetSPFavoriteProductsByMainPartyId(int mainPartyId, int page, int pageSize, out int totalRecord);
         IList<Product> GetProductByProductActiveType(ProductActiveTypeEnum productActiveTypeEnum);
 
         IList<SiteMapProductResult> GetSiteMapProducts();
-
+        
 
     }
 }

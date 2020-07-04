@@ -2,10 +2,10 @@
 
 <%if(Model.ProductItemModels.Count>0) 
     {%>
-<header style="margin-top:0px;">
+<header style="margin-top:0px;" class="hidden-xs">
             <div class="menu">
               <div  class="urun-bilgisi">
-                <div class="panel urun-alan" style="margin-bottom:0;">
+
                <%--   <div class="panel-heading">
                     <div class="urunler-link">
                       <div class="row">
@@ -20,30 +20,21 @@
                       </div>
                     </div>
                   </div>--%>
-                    <div class="panel-body" style="margin-top:0px;padding-top:0px;padding-bottom:0px;">
+                    <div class="">
                             <%  foreach (var item in Model.ProductItemModels.Take(5))
                         { %>
 
-                      <div class="urunler-item">
-                        <div class="row">
-                          <div class="col-md-6 col-xs-6">
-                            <div class="firma-logo">
-                              <a href="<%:item.ProductUrl %>"><img alt="<%:item.ProductName %>" src="<%:item.SmallPicturePah.Replace("100x75","200x150") %>"></a>
+                        <a href="<%:item.ProductUrl %>" class="saller-prd">
+                            <div class="saller-prd__image">
+                                <img  alt="<%:item.ProductName %>" src="<%:item.SmallPicturePah.Replace("100x75","200x150") %>">
                             </div>
-                          </div>
-                          <div class="col-md-6 col-xs-6">
-                            <div class="urun-baslik">
-                              <a href="<%:item.ProductUrl %>" style="font-weight:normal;"><%:item.ProductName %></a> <br>
-                              <%--<span><%:item.ModelName %></span>--%>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                            <h5 class="saller-prd__title"><%:item.ProductName %></h5>
+                        </a>
                         <%} %>
                
                     </div>
                 </div>
-              </div>
+     
             </div>
           </header>
           <script type="text/javascript">

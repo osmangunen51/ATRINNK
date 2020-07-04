@@ -2,8 +2,10 @@
 
 
 
-<div style="width: 800px; float: left; margin: 20px 0px 0px 20px">
+<div style="width: 700px; float: left; margin: 20px 0px 0px 20px">
     <div style="float: left; width: 50%;">
+        <b>Firma Adı:</b><%:Model.StoreName %><br />
+        <b>Yetkili Adı:</b><%:Model.MemberNameSurname %><br />
         <%:EnumModels.AddressEdit(Model.Address) %>
         <br />
         <% foreach (var item in Model.Phones)

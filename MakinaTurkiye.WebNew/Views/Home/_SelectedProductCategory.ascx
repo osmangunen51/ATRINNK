@@ -35,9 +35,7 @@
                             <div class="product-card-home-selected">
                                 <a href="<%=product.ProductUrl%>" class="product-card-home-selected-image" title="<%:product.ProductName %>">
                                     <img alt="<%:product.ProductName %>"
-                                        data-src="<%:product.PicturePath.Replace("160x120","200x150")  %>"
-                                        src="/UserFiles/image-loading.png"
-                                        class="img-lazy"
+                                        src="<%:product.PicturePath.Replace("160x120","200x150")  %>"
                                         title="<%:product.ProductName %>" />
                                     
                                 <%if (product.HasVideo)

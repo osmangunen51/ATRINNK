@@ -42,7 +42,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public int? StoreMainPartyId { get; set;}
         public string ProductContactUrl { get; set; }
         public string KdvOrFobText { get; set; }
-        public int? FavoriteProductId { get; set; }
+
         public string ProductPriceWithDiscount { get; set; }
         
     }

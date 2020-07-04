@@ -10,7 +10,7 @@
                 data: {},
                 success: function (data) {
                     $('.productMayLike').html(data);
-
+                    $(".advertiseHome").show();
                     var owlTemplate = $('.owlTemplate');
                     $.each(owlTemplate, function () {
                         var item = $(this).find(".bottom-slider");
@@ -71,72 +71,73 @@
                 },
                 error: function (x, y, z) {
                     //alert('Bir Hata Oluştu. Lütfen Destek Ekibimiz ile İletişime Geçiniz');
+                    console.log("hata");
                 }
             });
         }
-         function GetProductSelected(skip, counter) {
+        //function GetProductSelected(skip, counter) {
 
-            $.ajax({
+        //    $.ajax({
 
-                url: '/Home/ProductSeletected',
-                type: 'GET',
-                data: {
-                    'skip': skip
-                },
-                success: function (data) {
-           
-                    if (data.IsSuccess) {
-                        var page = Number($("#Page").val()) + 1;
+        //        url: '/Home/ProductSeletected',
+        //        type: 'GET',
+        //        data: {
+        //            'skip': skip
+        //        },
+        //        success: function (data) {
 
-                        $("#Page").val(page);
-                        $("#category-selected-home").append(data.Result);
-                        $("#imgLoading").hide();
-                        var owlOwerflowedp = $('.overflowdouble-p');
-                        if (owlOwerflowedp != undefined) {
-                            owlOwerflowedp.owlCarousel({
-                                margin: 0,
-                                loop: true,
-                                nav: false,
-                                autoplay: true,
+        //            if (data.IsSuccess) {
+        //                var page = Number($("#Page").val()) + 1;
 
-                                autoplayTimeout: 4000,
-                                autoplayHoverPause: true,
-                                responsive: {
-                                    0: {
-                                        items: 2
-                                    },
-                                    600: {
-                                        items: 4
-                                    },
-                                    1000: {
-                                        items: 6
-                                    }
-                                }
-                            });
-                            $('.overflow-carousel-selected:not(.owlTemplate) .overflow-next1').click(function () {
-                                owlOwerflowedp.trigger('next.owl.carousel');
-                            });
-                            $('.overflow-carousel-selected:not(.owlTemplate) .overflow-prev1').click(function () {
-                                owlOwerflowedp.trigger('prev.owl.carousel', [300]);
-                            });
+        //                $("#Page").val(page);
+        //                $("#category-selected-home").append(data.Result);
+        //                $("#imgLoading").hide();
+        //                var owlOwerflowedp = $('.overflowdouble-p');
+        //                if (owlOwerflowedp != undefined) {
+        //                    owlOwerflowedp.owlCarousel({
+        //                        margin: 0,
+        //                        loop: true,
+        //                        nav: false,
+        //                        autoplay: true,
 
-                        }
-                        counter++;
-                
-                        $("#RequestScrool").val("1");
-                    }
-                    else {
-                        $("#RequestScrool").val("0");
-                        $("#imgLoading").hide();
-                    }
+        //                        autoplayTimeout: 4000,
+        //                        autoplayHoverPause: true,
+        //                        responsive: {
+        //                            0: {
+        //                                items: 2
+        //                            },
+        //                            600: {
+        //                                items: 4
+        //                            },
+        //                            1000: {
+        //                                items: 6
+        //                            }
+        //                        }
+        //                    });
+        //                    $('.overflow-carousel-selected:not(.owlTemplate) .overflow-next1').click(function () {
+        //                        owlOwerflowedp.trigger('next.owl.carousel');
+        //                    });
+        //                    $('.overflow-carousel-selected:not(.owlTemplate) .overflow-prev1').click(function () {
+        //                        owlOwerflowedp.trigger('prev.owl.carousel', [300]);
+        //                    });
+
+        //                }
+        //                counter++;
+
+        //                $("#RequestScrool").val("1");
+        //            }
+        //            else {
+        //                $("#RequestScrool").val("0");
+        //                $("#imgLoading").hide();
+        //            }
 
 
-                },
-                error: function (request, error) {
-                    console.log(request);
-                }
-            });
-        }
+        //        },
+        //        error: function (request, error) {
+        //            console.log(request);
+        //        }
+        //    });
+        //}
         document.addEventListener("DOMContentLoaded", function () {
             var lazyloadImages;
 
@@ -187,29 +188,78 @@
             }
         })
         var c = 1;
+        var sectorLoaded = 0;
+        function GetProductsShowCase() {
+                                    $.ajax({
+
+                        url: '<%:AppSettings.SiteUrlWithoutLastSlash%>/ajax/GetProductShowCase',
+                        type: 'GET',
+                        data: {
+                        },
+
+                        success: function (data) {
+                            $("#home-showcase").html(data);
+
+                            //$("#category-selected-home").append($("#advertiseHomeContent").html());
+                                           //GetProductRecomandation();
+
+
+                        },
+                        error: function (request, error) {
+                            alert("Request: " + JSON.stringify(request));
+                        }
+                    });
+
+        }
         $(window).scroll(function () {
             var requestScroll = $("#RequestScrool").val();
+            var requestScroolSector = $("#RequestScroolSector").val();
+            var sectorHeight = $(".new-header").height() + $(".main-navigation").height() - 200;
+            var b = $(".new-header").height() + $(".main-navigation").height() + $(".home-banner-area ").height() + $("#home-sector").height() - 200;
 
-            var b = $(".new-header").height() + $(".main-navigation").height() + $(".home-banner-area ").height()-200;
-            var a = $(document).height() - $("#category-selected-home").height()+100 - $(".productMayLike").height() - $(".one-cikan-firma-urunleri").height() - $(".subscribe").height() - $(".footer").height();
-    
-            if ($(window).scrollTop() > b) {
-                if (requestScroll == 1 && c < 10) {
-                    if (c < 8) {
-                        $("#imgLoading").show();
-                        $("#RequestScrool").val("0");
-                        GetProductSelected($("#Page").val(), c);
-                        if (c == 4) {
-                            $("#category-selected-home").append($("#advertiseHomeContent").html());
 
+            if ($(window).scrollTop() > sectorHeight) {
+                if (requestScroolSector == 1) {
+                    $.ajax({
+
+                        url: '<%:AppSettings.SiteUrlWithoutLastSlash%>/ajax/GetHomeSector',
+                        type: 'GET',
+                        data: {
+                        },
+
+                        success: function (data) {
+                            $("#home-sector").html(data);
+                            $("#RequestScroolSector").val("0");
+                            GetProductsShowCase();
+               
+                        },
+                        error: function (request, error) {
+                            alert("Request: " + JSON.stringify(request));
                         }
-                    }
-                    else {
-                        GetProductRecomandation();
-                    }
-                    c++;
+                    });
+
+     
+ 
                 }
+
             }
+            //if ($(window).scrollTop() > b ) {
+            //    if (requestScroll == 1 && c < 10 && sectorLoaded==0) {
+            //        if (c < 8) {
+            //            $("#imgLoading").show();
+            //            $("#RequestScrool").val("0");
+            //            GetProductSelected($("#Page").val(), c);
+            //            if (c == 4) {
+            //                $("#category-selected-home").append($("#advertiseHomeContent").html());
+
+            //            }
+            //        }
+            //        else {
+            //            GetProductRecomandation();
+            //        }
+            //        c++;
+            //    }
+            //}
 
         });
 
@@ -219,6 +269,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="HomePageSlider" runat="server">
     <%:Html.Hidden("RequestScrool",1) %>
+    <%:Html.Hidden("RequestScroolSector",1) %>
     <%:Html.Hidden("Page",2) %>
     <%if (!Request.Browser.IsMobileDevice)
         {%>
@@ -235,24 +286,22 @@
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
 
-    <%if (!Request.Browser.IsMobileDevice) {%>
+    <div id="home-sector">
+    </div>
+    <%--    <%if (!Request.Browser.IsMobileDevice) {%>
             <%=Html.RenderHtmlPartial("_HomeSector",Model.HomeSectorItems) %>
-    <% } %>
+    <% } %>--%>
 
     <%--   <%= Html.Partial("_ProductRelatedCategories", Model.HomeProductsRelatedCategoryModel)  %>--%>
 
 
     <%--        <%= Html.Partial("_PopularAds", Model.PopularAdModels) %>--%>
-    <div id="category-selected-home" style="position: relative;">
-
-        <%=Html.RenderHtmlPartial("_SelectedProductCategory", Model.MTAllSelectedProduct) %>
-
+    
+    <div class="home-showcase" id="home-showcase">
 
 
     </div>
-            <img src="../../Content/V2/images/loading.gif" style="text-align: center; width: 32px; position: absolute; left: 50%; display: none;" id="imgLoading" />
-    <div style="display:none;" id="advertiseHomeContent">
-    <div class="advertiseHome" >
+        <div class="advertiseHome" style="display:none;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 col-sm-6 col-md-offset-1 aos-init aos-animate" data-aos="fade-right" data-aos-offset="200" data-aos-delay="100" data-aos-duration="1000">
@@ -268,7 +317,7 @@
                 </div>
             </div>
         </div>
-        </div>
+
     <div class="productMayLike">
         <%--            <%=Html.Partial("_ProductMayLike",Model.MTMayLikeProductModel) %>--%>
     </div>
@@ -348,5 +397,5 @@
     <%--    <%= Html.RenderHtmlPartial("CallYou",Model.companyMembershipDemand) %>--%>
 
 
-        <%=Html.RenderHtmlPartial("_Bulletin") %>
+    <%=Html.RenderHtmlPartial("_Bulletin") %>
 </asp:Content>

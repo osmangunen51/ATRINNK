@@ -28,6 +28,10 @@ namespace NeoSistem.MakinaTurkiye.Web
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new CustomWebFormViewEngine());
+            //ViewEngines.Engines.Clear();
+
+            // register Razor view engine only
+            ViewEngines.Engines.Add(new RazorViewEngine());
 
             ILogger logger = EngineContext.Current.Resolve<ILogger>();
             logger.Fatal("Application start");
@@ -69,6 +73,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                         {
                             //ILog log = log4net.LogManager.GetLogger("global.asax");
                             //log.Error($"404 error kod: {httpException.Message.ToString()}");
+                            GetGeneralErrorPage(exception, routeData);
                         }
                         // 404 Hatalarının Dz
                         if (httpException.Message.Contains("was not found or does not implement IController."))
@@ -183,6 +188,7 @@ namespace NeoSistem.MakinaTurkiye.Web
         public void Application_BeginRequest(object sender, EventArgs e)
         {
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
+
             if(!config.ApplicationTestModeEnabled)
             {
                 if (!Request.IsLocal)

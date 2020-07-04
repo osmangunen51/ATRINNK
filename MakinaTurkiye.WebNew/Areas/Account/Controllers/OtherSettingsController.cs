@@ -79,7 +79,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             else
             {
-                products = _productService.GetAllProductsByMainPartyIds(mainPartyIds).ToList();
+                products = _productService.GetAllProductsByMainPartyIds(mainPartyIds, false).ToList();
             }
 
 

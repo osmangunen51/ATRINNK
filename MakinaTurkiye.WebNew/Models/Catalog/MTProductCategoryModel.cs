@@ -28,7 +28,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
     public IList<MTCategoryItemModel> TopCategoryItemModels { get; set; }
     public IList<MTProductSearchOneStepCategoryItemModel> SubCategories { get; set; }
     public MTJsonLdModel MtJsonLdModel { get; set; }
-
     public string Navigation { get; set; }
   }
 }

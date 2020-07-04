@@ -1610,7 +1610,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         public List<OrderCountItemModel> PrepareOrderCoutModel(DateTime dateNow)
         {
 
-            var orders = _orderService.GetAllOrders().Where(x => x.RecordDate.Date.Month == dateNow.Date.Month && x.RecordDate.Date.Year == dateNow.Date.Year);
+            var orders = _orderService.GetAllOrders().Where(x => x.RecordDate.Date.Month == dateNow.Date.Month && x.RecordDate.Date.Year == dateNow.Date.Year && x.OrderCancelled!=true);
             var s = orders.Where(x => x.AuthorizedId > 0).GroupBy(x => (int)x.AuthorizedId).Select(g => new { id = g.Key, count = g.Count() }).OrderBy(x=>x.count);
             List<OrderCountItemModel> list = new List<OrderCountItemModel>();
             foreach (var item in s)

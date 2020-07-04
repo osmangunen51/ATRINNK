@@ -40,9 +40,9 @@
                 <% removeFavoriStoreCss = removeFavoriStoreCss + "display:none;"; %>
                 <% } %>
                 <%if(AuthenticationUser.Membership!=null){ %>
-                 <a id="aRemoveFavoriteStore" href="/Product/RemoveFavoriteStoreProduct/<%:Model.MainPartyId %>"
+                 <a id="aRemoveFavoriteStore" href="<%:AppSettings.SiteUrlWithoutLastSlash %>/ajax/RemoveFavoriteStoreProduct/<%:Model.MainPartyId %>"
                     style="<%=removeFavoriStoreCss %>" class="product-store-information__follow-button btn btn-xs btn-success"><span class="glyphicon glyphicon-ok"></span>&nbsp;Takibi Bırak </a>
-                <a class="product-store-information__follow-button btn btn-xs btn-info" id="aAddFavoriteStore"  href="/Product/AddFavoriteStoreProduct/<%:Model.MainPartyId %>"><span class='glyphicon glyphicon-bookmark'></span>&nbsp;Takip Et</a>
+                <a class="product-store-information__follow-button btn btn-xs btn-info" id="aAddFavoriteStore"  href="<%:AppSettings.SiteUrlWithoutLastSlash %>/ajax/AddFavoriteStoreProduct/<%:Model.MainPartyId %>"><span class='glyphicon glyphicon-bookmark'></span>&nbsp;Takip Et</a>
                 <%}else{ %>
                 <a class="product-store-information__follow-button btn btn-xs btn-info" data-toggle="modal" data-target=".bs-example-modal-sm" id="aAddFavoriteStore"  onclick="StoreFallowError()"><span class='glyphicon glyphicon-bookmark'></span>&nbsp;Takip Et</a>
 

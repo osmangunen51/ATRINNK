@@ -131,7 +131,12 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             {
                 query.Add("SearchType", filterHelper.SearchType);
             }
-            
+            if (!string.IsNullOrEmpty(filterHelper.ViewType))
+            {
+                query.Add("Gorunum", filterHelper.ViewType);
+            }
+
+
             uriBuilder.Query = query.ToString();
     
             var result = uriBuilder.ToString().Replace(":443", "");

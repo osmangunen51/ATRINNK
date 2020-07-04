@@ -321,6 +321,12 @@ namespace MakinaTurkiye.Services.Members
             _dbContext.ExecuteSqlCommand("exec SP_MemberDescriptionChangeDateForRest");
         }
 
+        public void SP_UpdateMemberDescriptions()
+        {
+            _dbContext.ExecuteSqlCommand("exec SP_UpdateMemberDescriptions");
+        }
+
+
         #endregion
     }
 }

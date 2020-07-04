@@ -31,7 +31,7 @@ namespace MakinaTurkiye.Services.Catalog
         private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_BRAND_ID_KEY = "makinaturkiye.product.sp.productforstore.bybrandid-{0}-{1}-{2}";
         private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_MODEL_ID_KEY = "makinaturkiye.product.sp.productforstore.bymodelid-{0}-{1}-{2}";
         private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_CATEGORY_ID_KEY = "makinaturkiye.product.sp.productforstore.bycategoryid-{0}-{1}-{2}";
-
+        private const string PRODUCTS_SHOWCASE_KEY = "makinaturkiye.product.showcase";
 
         private const string CATEGORY_PATTERN_KEY = "makinaturkiye.category";
         private const string PRODUCTS_PATTERN_KEY = "makinaturkiye.product.";
@@ -541,7 +541,7 @@ namespace MakinaTurkiye.Services.Catalog
                         p =>
                             p.MainPartyId == mainPartId && p.ProductId != nonProductId && p.ProductActive == true &&
                             p.ProductActiveType == 1);
-                query = query.OrderBy(x=>x.Sort).ThenBy(p => p.productrate);
+                query = query.OrderBy(x => x.Sort).ThenBy(p => p.productrate);
                 query = query.Take(topCount);
                 return query.ToList();
             });
@@ -694,17 +694,18 @@ namespace MakinaTurkiye.Services.Catalog
             if (string.IsNullOrEmpty(searchText))
             {
                 string key = string.Format(PRODUCTS_SP_CATEGORYPRODUCTS_BY_PARAMETER_KEY, categoryId, brandId, modelId, seriresId,
-                    searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize);
-
+searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize);
                 return _cacheManager.Get(key, () =>
                 {
+
+
                     var products = this.SPWebCategoryProduct(out List<FilterableCategoriesResult> filterableCategoryIds,
-                        out List<int> filterableCountryIds,
-                        out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
-                        out List<int> filterableModelIds, out List<int> filterableSeriesIds,
-                        out int newProductCount, out int usedProductCount, out int serviceProductCount,
-                        categoryId, brandId, modelId, seriresId,
-                        searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText);
+        out List<int> filterableCountryIds,
+        out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
+        out List<int> filterableModelIds, out List<int> filterableSeriesIds,
+        out int newProductCount, out int usedProductCount, out int serviceProductCount,
+        categoryId, brandId, modelId, seriresId,
+        searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText);
 
                     var result = new CategoryProductsResult
                     {
@@ -1169,7 +1170,7 @@ namespace MakinaTurkiye.Services.Catalog
 
             else if (product.ProductPriceType == 239 && product.ProductPriceBegin != 0)
                 product.ProductPriceForOrder = product.ProductPriceBegin;
-            else if (product.ProductPriceType == 238)
+            else if (product.ProductPriceType == 238 && product.ProductPrice!=0)
                 product.ProductPriceForOrder = product.ProductPrice;
             else
                 product.ProductPriceForOrder = 99999999999;
@@ -1203,6 +1204,26 @@ namespace MakinaTurkiye.Services.Catalog
             _cacheManager.Remove(key);
         }
 
+        public void SPUpdateProductSearchCategoriesByCategoryId(int categoryId)
+        {
+
+            if (categoryId == 0)
+                throw new ArgumentNullException("productId");
+
+            string sqlCommand = String.Format("exec SP_UpdateProductSearchCategoriesByCategoryId {0}", categoryId);
+            _dbContext.ExecuteSqlCommand(sqlCommand);
+        }
+
+        public IList<Product> GetProductsByShowCase()
+        {
+            string key = PRODUCTS_SHOWCASE_KEY;
+            return _cacheManager.Get(key, () =>
+            {
+                var query = _productRepository.Table;
+                return query.Where(x => x.ProductShowcase == true).ToList();
+            });
+            
+        }
         #endregion
 
     }

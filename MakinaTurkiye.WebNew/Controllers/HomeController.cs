@@ -286,30 +286,49 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 });
             }
         }
+        //private void PrepareProductShowCaseModels(MTHomeModel model)
+        //{
+        //    IProductService _productService = EngineContext.Current.Resolve<IProductService>();
+        //    ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
+        //    IPictureService _pictureService = EngineContext.Current.Resolve<IPictureService>();
 
-        private void PreparePopularAdModels(MTHomeModel model)
-        {
-            IProductService _productService = EngineContext.Current.Resolve<IProductService>();
-            ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
-            var popularProducts = _productService.GetSPPopularProducts();
-            List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
-            var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();
-            foreach (var item in popularProducts)
-            {
-                var category = CategoryList.FirstOrDefault(x => x.CategoryId == item.CategoryId);
-                string categoryNameForUrl = !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName;
-                model.PopularAdModels.Add(new MTHomeAdModel
-                {
-                    CategoryName = item.CategoryName,
-                    TruncatedCategoryName = StringHelper.Truncate(item.CategoryName, 30),
-                    ProductName = item.ProductName,
-                    TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
-                    ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
-                    SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty),
-                    PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.x160x120)
-                });
-            }
-        }
+        //    var products = _productService.GetProductsByShowCase();
+
+        //    foreach (var item in products)
+        //    {
+        //        var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
+        //        model.ShowCaseProducts.Add(new MTHomeAdModel
+        //        {
+        //            ProductName = item.ProductName,
+        //            TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
+        //            ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
+        //            PicturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150)
+        //        });
+        //    }
+        //}
+        //private void PreparePopularAdModels(MTHomeModel model)
+        //{
+        //    IProductService _productService = EngineContext.Current.Resolve<IProductService>();
+        //    ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
+        //    var popularProducts = _productService.GetSPPopularProducts();
+        //    List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
+        //    var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();
+        //    foreach (var item in popularProducts)
+        //    {
+        //        var category = CategoryList.FirstOrDefault(x => x.CategoryId == item.CategoryId);
+        //        string categoryNameForUrl = !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName;
+        //        model.PopularAdModels.Add(new MTHomeAdModel
+        //        {
+        //            CategoryName = item.CategoryName,
+        //            TruncatedCategoryName = StringHelper.Truncate(item.CategoryName, 30),
+        //            ProductName = item.ProductName,
+        //            TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
+        //            ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
+        //            SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty),
+        //            PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.x160x120)
+        //        });
+        //    }
+        //}
 
         private void PrepareCategoryModels(MTHomeModel model)
         {
@@ -521,22 +540,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
 
                 PreparePopularStoreModel(model);
-                if (!Request.Browser.IsMobileDevice)
-                {
-                    PrepareHomeSectorItems(model);
-                }
+
                 IConstantService constantService = EngineContext.Current.Resolve<IConstantService>();
                 var constant = constantService.GetConstantByConstantId(235);
                 model.ConstantTitle = constant.ConstantTitle;
                 model.ConstantProperty = constant.ContstantPropertie;
-   
+
                 //PrepareHomeCategoryProductModels(model.MTAllSelectedProduct,0, 1);
 
                 //PreparePopularVideoModels(model);
-                //PreparePopularAdModels(model);
+               //  PrepareProductShowCaseModels(model);
+               // PreparePopularAdModels(model);
                 //PrepareHomeLeftCategories(model);
+
                 var modelSelected = new List<MTAllSelectedProductModel>();
-                PrepareHomeCategoryProductModels(modelSelected, 0, 1);
+                //PrepareHomeCategoryProductModels(modelSelected, 0, 1);
                 model.MTAllSelectedProduct = modelSelected;
                 return model;
             });
@@ -643,17 +661,41 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public ActionResult _HeaderBaseMenu()
         {
             IBaseMenuService _baseMenuService = EngineContext.Current.Resolve<IBaseMenuService>();
+
             var baseMenus = _baseMenuService.GetAllBaseMenu();
+
             List<MTBaseMenuModel> model = new List<MTBaseMenuModel>();
+
             foreach (var item in baseMenus)
             {
                 MTBaseMenuModel menuModel = new MTBaseMenuModel();
+
+                var baseMenuCategories = _baseMenuService.GetBaseMenuCategoriesByBaseMenuId(item.BaseMenuId);
+
+                foreach (var category in baseMenuCategories)
+                {
+                    string urlCategoryname = category.Category.CategoryName;
+
+                    if (!string.IsNullOrEmpty(category.Category.CategoryContentTitle))
+                        urlCategoryname = category.Category.CategoryContentTitle;
+
+                    var categoryModel = new MTHomeCategoryModel
+                    {
+                        CategoryName = category.Category.CategoryName,
+                        CategoryId = category.Category.CategoryId,
+                        CategoryIcon = category.Category.CategoryIcon,
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty)
+                    };
+
+                    menuModel.CategoryModels.Add(categoryModel);
+                }
+
                 menuModel.BaseMenuName = item.BaseMenuName;
                 menuModel.BaseMenuId = item.BaseMenuId;
 
                 model.Add(menuModel);
-
             }
+
             return View(model);
         }
         [AllowSameSite]
@@ -755,23 +797,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return PartialView(model);
         }
 
-        [AllowSameSite]
-        [HttpPost]
-        public JsonResult GetStoreProductComment()
-        {
-            if (AuthenticationUser.CurrentUser.Membership != null && AuthenticationUser.CurrentUser.Membership.MainPartyId != 0)
-            {
-                var mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
-                IProductCommentService _productCommentService = EngineContext.Current.Resolve<IProductCommentService>();
-                var productComments = _productCommentService.GetProductCommentsForStoreByMemberMainPartyId(mainPartyId).Where(x => x.Viewed == false).ToList();
 
-                return Json(productComments.Count, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json(0, JsonRequestBehavior.AllowGet);
-            }
-        }
 
         [HttpGet]
         public ActionResult GetProductRecomandation()
@@ -999,5 +1025,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
         #endregion
+
+
+        public ActionResult TestCs()
+        {
+
+            return View();
+        }
     }
 }

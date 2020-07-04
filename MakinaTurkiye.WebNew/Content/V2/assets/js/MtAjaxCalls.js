@@ -85,9 +85,8 @@ function AddFavoriteProductItem(id) {
 
     $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
     $.ajax({
-        url: '/Product/AddFavoriteProduct',
-        type: 'post',
-        dataType: 'json',
+        url: 'https://www.makinaturkiye.com/ajax/AddFavoriteProduct',
+        type: 'get',
         data:
             {
                 ProductId: id
@@ -120,8 +119,8 @@ function RemoveFavoriteProductItem(id) {
 
 
     $.ajax({
-        url: '/Product/RemoveFavoriteProduct',
-        type: 'post',
+        url: 'https://www.makinaturkiye.com/ajax/RemoveFavoriteProduct',
+        type: 'get',
         data:
             {
                 ProductId: id
