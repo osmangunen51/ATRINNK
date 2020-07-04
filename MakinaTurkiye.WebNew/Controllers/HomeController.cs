@@ -661,17 +661,41 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public ActionResult _HeaderBaseMenu()
         {
             IBaseMenuService _baseMenuService = EngineContext.Current.Resolve<IBaseMenuService>();
+
             var baseMenus = _baseMenuService.GetAllBaseMenu();
+
             List<MTBaseMenuModel> model = new List<MTBaseMenuModel>();
+
             foreach (var item in baseMenus)
             {
                 MTBaseMenuModel menuModel = new MTBaseMenuModel();
+
+                var baseMenuCategories = _baseMenuService.GetBaseMenuCategoriesByBaseMenuId(item.BaseMenuId);
+
+                foreach (var category in baseMenuCategories)
+                {
+                    string urlCategoryname = category.Category.CategoryName;
+
+                    if (!string.IsNullOrEmpty(category.Category.CategoryContentTitle))
+                        urlCategoryname = category.Category.CategoryContentTitle;
+
+                    var categoryModel = new MTHomeCategoryModel
+                    {
+                        CategoryName = category.Category.CategoryName,
+                        CategoryId = category.Category.CategoryId,
+                        CategoryIcon = category.Category.CategoryIcon,
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty)
+                    };
+
+                    menuModel.CategoryModels.Add(categoryModel);
+                }
+
                 menuModel.BaseMenuName = item.BaseMenuName;
                 menuModel.BaseMenuId = item.BaseMenuId;
 
                 model.Add(menuModel);
-
             }
+
             return View(model);
         }
         [AllowSameSite]
