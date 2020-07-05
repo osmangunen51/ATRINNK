@@ -73,7 +73,7 @@ namespace MakinaTurkiye.Services.Content
             string key = string.Format(BASEMENUS_BY_ALL_KEY, showHidden);
             return _cacheManager.Get(key, () => 
             {
-                var query = _baseMenuRepository.Table;
+                var query = _baseMenuRepository.Table.OrderBy(x=>x.Order);
 
                 var baseMenus = query.ToList();
                 return baseMenus;

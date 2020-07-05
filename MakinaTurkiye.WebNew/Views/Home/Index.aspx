@@ -190,25 +190,26 @@
         var c = 1;
         var sectorLoaded = 0;
         function GetProductsShowCase() {
-                                    $.ajax({
+            $.ajax({
 
-                        url: '<%:AppSettings.SiteUrlWithoutLastSlash%>/ajax/GetProductShowCase',
-                        type: 'GET',
-                        data: {
-                        },
+                url: '<%:AppSettings.SiteUrlWithoutLastSlash%>/ajax/GetProductShowCase',
+                type: 'GET',
+                data: {
+                },
 
-                        success: function (data) {
-                            $("#home-showcase").html(data);
+                success: function (data) {
+                    $("#home-showcase").html(data);
 
-                            //$("#category-selected-home").append($("#advertiseHomeContent").html());
-                                           //GetProductRecomandation();
+                    //$("#category-selected-home").append($("#advertiseHomeContent").html());
+                    //GetProductRecomandation();
 
 
-                        },
-                        error: function (request, error) {
-                            alert("Request: " + JSON.stringify(request));
-                        }
-                    });
+                },
+                error: function (request, error) {
+
+                    console.log("Request: " + JSON.stringify(request));
+                }
+            });
 
         }
         $(window).scroll(function () {
@@ -231,15 +232,15 @@
                             $("#home-sector").html(data);
                             $("#RequestScroolSector").val("0");
                             GetProductsShowCase();
-               
+
                         },
                         error: function (request, error) {
-                            alert("Request: " + JSON.stringify(request));
+                            console.log("Request: " + JSON.stringify(request));
                         }
                     });
 
-     
- 
+
+
                 }
 
             }
@@ -296,27 +297,82 @@
 
 
     <%--        <%= Html.Partial("_PopularAds", Model.PopularAdModels) %>--%>
-    
+
     <div class="home-showcase" id="home-showcase">
+
+        <div class="row" style="margin-top: 1.5rem;">
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="javascript:void(0)" class="category-item">
+                    <img
+                        class="img-thumbnail"
+                        src="/UserFiles/image-loading.png"
+                        alt="Yükleniyor 1" />
+                    <div class="category-item__body">
+                        <h3 class="category-item__title">Yükleniyor</h3>
+
+                    </div>
+                </a>
+
+            </div>
+            <div class="col-6 col-md-4 col-lg-3">
+                <a href="javascript:void(0)" class="category-item">
+                              <img
+                        class="img-thumbnail"
+                        src="/UserFiles/image-loading.png"
+                        alt="Yükleniyor 1" />
+                    <div class="category-item__body">
+                        <h3 class="category-item__title">Yükleniyor</h3>
+
+                    </div>
+                </a>
+
+            </div>
+                        <div class="col-6 col-md-4 col-lg-3">
+                <a href="javascript:void(0)" class="category-item">
+                              <img
+                        class="img-thumbnail"
+                        src="/UserFiles/image-loading.png"
+                        alt="Yükleniyor 1" />
+                    <div class="category-item__body">
+                        <h3 class="category-item__title">Yükleniyor</h3>
+
+                    </div>
+                </a>
+
+            </div>
+                        <div class="col-6 col-md-4 col-lg-3">
+                <a href="javascript:void(0)" class="category-item">
+                              <img
+                        class="img-thumbnail"
+                        src="/UserFiles/image-loading.png"
+                        alt="Yükleniyor 1" />
+                    <div class="category-item__body">
+                        <h3 class="category-item__title">Yükleniyor</h3>
+
+                    </div>
+                </a>
+
+            </div>
+        </div>
 
 
     </div>
-        <div class="advertiseHome" style="display:none;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 col-md-offset-1 aos-init aos-animate" data-aos="fade-right" data-aos-offset="200" data-aos-delay="100" data-aos-duration="1000">
-                        <span>İlan Verin</span>
-                        <p>İlan vermek ve diğer tüm avantajlardan yararlanmak için üye olun!</p>
-                    </div>
-                    <div class="col-md-4 col-sm-6 clearfix aos-init aos-animate" data-aos="fade-up">
-                        <div class="clearfix buttons">
-                            <a href="<%:AppSettings.SiteUrl %>uyelik/hizliuyelik/uyeliktipi-0">ÜYE OL</a>
-                            <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi">GİRİŞ YAP</a>
-                        </div>
+    <div class="advertiseHome" style="display: none;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-6 col-md-offset-1 aos-init aos-animate" data-aos="fade-right" data-aos-offset="200" data-aos-delay="100" data-aos-duration="1000">
+                    <span>İlan Verin</span>
+                    <p>İlan vermek ve diğer tüm avantajlardan yararlanmak için üye olun!</p>
+                </div>
+                <div class="col-md-4 col-sm-6 clearfix aos-init aos-animate" data-aos="fade-up">
+                    <div class="clearfix buttons">
+                        <a href="<%:AppSettings.SiteUrl %>uyelik/hizliuyelik/uyeliktipi-0">ÜYE OL</a>
+                        <a href="<%:AppSettings.SiteUrl %>uyelik/kullanicigirisi">GİRİŞ YAP</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     <div class="productMayLike">
         <%--            <%=Html.Partial("_ProductMayLike",Model.MTMayLikeProductModel) %>--%>

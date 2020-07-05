@@ -1286,16 +1286,18 @@ $(document).ready(function () {
 
 
             $(".main-navigation .dropdown .dropdown-toggle").unbind().on('click', function (event) {
-
+  
+                var categoryId = $(this).attr("data-cat-id");
+                console.log("clicked", categoryId);
                 event.preventDefault();
                 event.stopPropagation();
                 $(this).parent().siblings().removeClass('open');
           
                 var parentAttrClass = $(this).parent().attr("class");
                 $(this).parent().addClass('open');
-                var dataId = $(this).parent().attr("data-menu-id");
-                if (dataId) {
-                    GetSubMenu(dataId, $(this).parent());
+                if (categoryId) {
+           
+                    GetSubMenu(categoryId, $(this).parent());
                 }                
                 if (parentAttrClass.indexOf("open") > 0) {
                     $(this).parent().removeClass("open");

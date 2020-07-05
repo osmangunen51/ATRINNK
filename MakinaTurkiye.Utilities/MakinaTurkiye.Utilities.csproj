@@ -161,10 +161,6 @@
     <Compile Include="VideoHelpers\VideoHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\MakinaTurkiye.Caching\MakinaTurkiye.Caching.csproj">
       <Project>{22C5F4C2-2DB3-468C-8A57-A54E4BCECC56}</Project>
       <Name>MakinaTurkiye.Caching</Name>
@@ -190,7 +186,10 @@
       <Name>MakinaTurkiye.Services</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

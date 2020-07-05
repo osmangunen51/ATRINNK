@@ -2490,19 +2490,23 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 return RedirectPermanent("https://urun.makinaturkiye.com");
             }
 
-
-            var yenilink = PrepareForLink(selectedCategoryId);
-
-            if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
+            if (!Request.IsLocal)
             {
-                //ExceptionHandler.HandleException(Server.GetLastError());
-                if (request.Url.AbsoluteUri.StartsWith("https://video.") == true)
-                {
-                    return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
-                }
+                var yenilink = PrepareForLink(selectedCategoryId);
 
-                return RedirectPermanent(yenilink);
+                if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
+                {
+                    //ExceptionHandler.HandleException(Server.GetLastError());
+                    if (request.Url.AbsoluteUri.StartsWith("https://video.") == true)
+                    {
+                        return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
+                    }
+
+                    return RedirectPermanent(yenilink);
+                }
             }
+
+
 
 
             #region redirect

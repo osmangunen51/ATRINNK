@@ -1330,54 +1330,6 @@
     <Content Include="Scripts\CKFinder\core\images\ckfminus.gif" />
     <Content Include="Scripts\CKFinder\core\images\ckfnothumb.gif" />
     <Content Include="Scripts\CKFinder\core\images\ckfplus.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\ai.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\avi.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\bmp.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\cs.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\default.icon.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\dll.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\doc.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\exe.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\fla.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\gif.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\jpg.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\js.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\mdb.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\mp3.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\pdf.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\ppt.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\rdp.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\swf.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\swt.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\txt.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\vsd.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\xls.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\xml.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\16\zip.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\ai.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\avi.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\bmp.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\cs.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\default.icon.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\dll.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\doc.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\exe.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\fla.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\gif.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\jpg.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\js.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\mdb.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\mp3.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\pdf.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\ppt.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\rdp.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\swf.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\swt.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\txt.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\vsd.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\xls.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\xml.gif" />
-    <Content Include="Scripts\CKFinder\core\images\icons\32\zip.gif" />
     <Content Include="Scripts\CKFinder\core\images\spacer.gif" />
     <Content Include="Scripts\CKFinder\core\images\toolbar\add.gif" />
     <Content Include="Scripts\CKFinder\core\images\toolbar\delete.gif" />
@@ -1793,15 +1745,6 @@
     <Content Include="Views\CreditCard\CreditCardInstallment.ascx" />
     <Content Include="Views\VirtualPos\VirtualPostInstallment.ascx" />
     <Content Include="Views\VirtualPos\VirtualPostInstallmentForEdit.ascx" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\JQuery.debug.js">
       <DependentUpon>JQuery.js</DependentUpon>
@@ -1821,7 +1764,6 @@
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\Site.Master" />
-    <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Email.resx">
@@ -1940,6 +1882,14 @@
     <None Include="Views\UserGroup\vssver2.scc" />
     <None Include="Views\User\vssver2.scc" />
     <None Include="Views\VirtualPos\vssver2.scc" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Web.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Browsers\" />
@@ -2044,6 +1994,7 @@
     <Folder Include="Scripts\CKEditor\_source\skins\office2003\images\" />
     <Folder Include="Scripts\CKEditor\_source\skins\v2\images\" />
     <Folder Include="Scripts\CKEditor\_source\themes\default\" />
+    <Folder Include="Scripts\CKFinder\core\images\icons\" />
     <Folder Include="UserFiles\" />
     <Folder Include="Views\HeadAlertMessage\" />
     <Folder Include="Views\Transfer\" />

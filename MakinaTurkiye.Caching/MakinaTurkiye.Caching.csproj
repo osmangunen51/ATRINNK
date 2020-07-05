@@ -129,6 +129,12 @@
   <ItemGroup>
     <Compile Include="CacheExtensions.cs" />
     <Compile Include="CachingDefaults.cs" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="ICachingOperation.cs" />
     <Compile Include="ICacheManager.cs" />
     <Compile Include="ILocker.cs" />
@@ -141,10 +147,6 @@
     <Compile Include="Redis\IRedisConnectionWrapper.cs" />
     <Compile Include="Redis\RedisConnectionWrapper.cs" />
     <Compile Include="ShouldSerializeContractResolver.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

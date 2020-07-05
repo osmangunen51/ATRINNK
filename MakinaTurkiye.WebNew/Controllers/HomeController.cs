@@ -683,7 +683,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         CategoryName = category.Category.CategoryName,
                         CategoryId = category.Category.CategoryId,
-                        CategoryIcon = category.Category.CategoryIcon,
+                        CategoryIcon =ImageHelper.GetCategoryIconPath(category.Category.CategoryIcon),
                         CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty)
                     };
 
@@ -705,61 +705,77 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
             MTBaseSubMenuModel model = new MTBaseSubMenuModel();
             var baseMenu = _baseMenuService.GetBaseMenuByBaseMenuId(id);
-            var baseMenuCategories = _baseMenuService.GetBaseMenuCategoriesByBaseMenuId(baseMenu.BaseMenuId);
-            foreach (var category in baseMenuCategories)
+            if (baseMenu == null)
             {
-                string urlCategoryname = category.Category.CategoryName;
-                if (!string.IsNullOrEmpty(category.Category.CategoryContentTitle))
-                    urlCategoryname = category.Category.CategoryContentTitle;
-                var categoryModel = new MTHomeCategoryModel
+                var categories = _categoryService.GetCategoriesByCategoryParentId(id);
+                foreach (var item in categories)
                 {
-                    CategoryName = category.Category.CategoryName,
-                    CategoryId = category.Category.CategoryId,
-                    CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty),
-
-
-                };
-                var subCategories = _categoryService.GetCategoriesByCategoryParentId(category.CategoryId);
-                foreach (var subItem in subCategories.OrderBy(x => x.CategoryOrder).ThenBy(x => x.CategoryName))
-                {
-                    string categoryUrlName = subItem.CategoryName;
-                    if (!string.IsNullOrEmpty(subItem.CategoryContentTitle))
-                        categoryUrlName = subItem.CategoryContentTitle;
-                    var subCategory = new MTHomeCategoryModel
+                    model.CategoryModels.Add(new MTHomeCategoryModel
                     {
-                        CategoryName = subItem.CategoryName,
-                        ProductCount = subItem.ProductCount.Value,
-                        CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)
+                        CategoryName = item.CategoryName,
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName, null, null)
+                    });
+                }
+            }
+            else
+            {
+                var baseMenuCategories = _baseMenuService.GetBaseMenuCategoriesByBaseMenuId(baseMenu.BaseMenuId);
+                foreach (var category in baseMenuCategories)
+                {
+                    string urlCategoryname = category.Category.CategoryName;
+                    if (!string.IsNullOrEmpty(category.Category.CategoryContentTitle))
+                        urlCategoryname = category.Category.CategoryContentTitle;
+                    var categoryModel = new MTHomeCategoryModel
+                    {
+                        CategoryName = category.Category.CategoryName,
+                        CategoryId = category.Category.CategoryId,
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty),
+
+
                     };
-                    var subSubCategories = _categoryService.GetCategoriesByCategoryParentId(subItem.CategoryId);
-                    foreach (var subSubItem in subSubCategories)
+                    var subCategories = _categoryService.GetCategoriesByCategoryParentId(category.CategoryId);
+                    foreach (var subItem in subCategories.OrderBy(x => x.CategoryOrder).ThenBy(x => x.CategoryName))
                     {
-                        categoryUrlName = subSubItem.CategoryName;
-                        if (!string.IsNullOrEmpty(subSubItem.CategoryContentTitle))
-                            categoryUrlName = subSubItem.CategoryContentTitle;
-                        var subSubCategory = new MTHomeCategoryModel
+                        string categoryUrlName = subItem.CategoryName;
+                        if (!string.IsNullOrEmpty(subItem.CategoryContentTitle))
+                            categoryUrlName = subItem.CategoryContentTitle;
+                        var subCategory = new MTHomeCategoryModel
                         {
-                            CategoryName = subSubItem.CategoryName,
-                            ProductCount = subSubItem.ProductCount.Value,
+                            CategoryName = subItem.CategoryName,
+                            ProductCount = subItem.ProductCount.Value,
                             CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)
                         };
-                        subCategory.SubCategoryModels.Add(subSubCategory);
+                        var subSubCategories = _categoryService.GetCategoriesByCategoryParentId(subItem.CategoryId);
+                        foreach (var subSubItem in subSubCategories)
+                        {
+                            categoryUrlName = subSubItem.CategoryName;
+                            if (!string.IsNullOrEmpty(subSubItem.CategoryContentTitle))
+                                categoryUrlName = subSubItem.CategoryContentTitle;
+                            var subSubCategory = new MTHomeCategoryModel
+                            {
+                                CategoryName = subSubItem.CategoryName,
+                                ProductCount = subSubItem.ProductCount.Value,
+                                CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)
+                            };
+                            subCategory.SubCategoryModels.Add(subSubCategory);
 
+                        }
+                        categoryModel.SubCategoryModels.Add(subCategory);
                     }
-                    categoryModel.SubCategoryModels.Add(subCategory);
+
+                    model.CategoryModels.Add(categoryModel);
                 }
 
-                model.CategoryModels.Add(categoryModel);
+                foreach (var item in baseMenu.BaseMenuImages)
+                {
+                    string url = "";
+                    if (!string.IsNullOrEmpty(item.Url))
+                        url = item.Url;
+                    model.ImageModels.Add(url, "https://s.makinaturkiye.com/" + AppSettings.BaseMenuImageFolder + item.MenuImagePath);
+
+                }
             }
 
-            foreach (var item in baseMenu.BaseMenuImages)
-            {
-                string url = "";
-                if (!string.IsNullOrEmpty(item.Url))
-                    url = item.Url;
-                model.ImageModels.Add(url, "https://s.makinaturkiye.com/" + AppSettings.BaseMenuImageFolder + item.MenuImagePath);
-
-            }
             return PartialView("_HeaderSubMenu", model);
         }
 

@@ -24,14 +24,15 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 model.Enabled = seoDefinition.Enabled;
                 model.SeoContent = seoDefinition.SeoContent;
                 model.Title = seoDefinition.Title;
-                using (ClientProcessor Analyzer=new ClientProcessor())
+                using (ClientProcessor Analyzer = new ClientProcessor())
                 {
                     //model.Keywords=Analyzer.GetUrlAnalizWithTxt(seoDefinition.SeoContent);
                     var categoryKeyword = entities.Categories.FirstOrDefault(c => c.CategoryId == entityId);
                     string Url = "";
-                    if (entityTypeId == (byte)SeoDefinitionType.Category) {
+                    if (entityTypeId == (byte)SeoDefinitionType.Category)
+                    {
                         string categoryUrlName = !string.IsNullOrEmpty(categoryKeyword.CategoryContentTitle) ? categoryKeyword.CategoryContentTitle : categoryKeyword.CategoryName;
-                        Url = UrlBuilder.GetCategoryUrl(categoryKeyword.CategoryId, categoryUrlName, null, null);
+                        Url = "https://www.makinaturkiye.com/"+ UrlBuilder.ToUrl(categoryUrlName + "-c-" + categoryKeyword.CategoryId);
                     }
                     else
                     {
@@ -52,16 +53,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryKeyword.CategoryContentTitle, CategorySyntaxType.Store);
                         else
                             storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryKeyword.CategoryName, CategorySyntaxType.Store);
-                        Url = UrlBuilder.GetStoreCategoryUrl(categoryKeyword.CategoryId, storePageTitle);
-                    }
-                    if (Request.IsLocal)
-                    {
-                        Url = "https://www.makinaturkiye.com" + Url;
-                    }
-                    else
-                    {
 
+                        Url = "https://magaza.makinaturkiye.com/"+ UrlBuilder.ToUrl(storePageTitle+"-sc-"+ categoryKeyword.CategoryId);
                     }
+        
 
                     model.KeywordAnalysis = Analyzer.GetUrlAnalizWithUrl(Url);
                 }
@@ -106,7 +101,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     seoDefinition.Enabled = model.Enabled;
                     seoDefinition.EntityId = model.EntityId;
                     seoDefinition.EntityTypeId = model.EntityTypeId;
-                
+
                     entities.SeoDefinitions.AddObject(seoDefinition);
                 }
                 else
@@ -120,7 +115,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         }
                         else
                         {
-                                
+
                             seoDefinition.SeoContent = model.SeoContent;
                             seoDefinition.UpdatedDate = DateTime.Now;
                         }

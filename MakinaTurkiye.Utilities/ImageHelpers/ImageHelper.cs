@@ -263,5 +263,9 @@ name[1]);
         {
             return string.Format("//s.makinaturkiye.com//Banner/CategoryImages/{0}", bannerResource);
         }
+        public static string GetCategoryIconPath(string bannerResource)
+        {
+            return string.Format("//s.makinaturkiye.com/Images/CategoryIconImageFolder/{0}", bannerResource);
+        }
     }
 }
