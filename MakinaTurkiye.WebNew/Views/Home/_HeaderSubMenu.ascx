@@ -3,6 +3,7 @@
 <%
     bool isMobile = Request.Browser.IsMobileDevice;
 
+
 %>
 <%string menuCss = "col-md-12";
     string subMenuCss = "col-md-3";

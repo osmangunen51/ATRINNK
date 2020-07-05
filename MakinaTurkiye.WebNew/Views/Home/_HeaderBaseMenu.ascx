@@ -3,6 +3,7 @@
 <%
     bool isMobile = Request.Browser.IsMobileDevice;
 
+
 %>
 
 <nav class="navbar navbar-inverse main-navigation navbar-expand-md">
@@ -17,17 +18,17 @@
                     <%foreach (var category in item.CategoryModels)
                         {%>
                     <li class="dropdown mega-dropdown" data-menu-id="<%:item.BaseMenuId %>" >
-                        <a href="#" class="dropdown-toggle hm-item hm-text" data-cat-id="<%:category.CategoryId %>" data-toggle="dropdown" >
+                        <div  class="hm-item hm-text"  >
                             <span class="hm-image-container">
                                 <img class="hm-image" src="<%:category.CategoryIcon %>" alt="" style="width:24px;">
                             </span>
                             <span>
-
+                                <a href="<%=category.CategoryUrl %>">
                                 <%=category.CategoryName %>
-
-                                <i class="hm-icon"></i>
+                                    </a>
+                                <i class="hm-icon dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;"  data-cat-id="<%:category.CategoryId %>" ></i>
                             </span>
-                        </a>
+                        </div>
                         <ul class="dropdown-menu mega-dropdown-menu container-fluid" style="margin-top: 5px;">
                             <div id="loading" style="text-align: center;"></div>
                         </ul>
