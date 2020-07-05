@@ -1293,14 +1293,15 @@ $(document).ready(function () {
                 event.stopPropagation();
                 $(this).parent().siblings().removeClass('open');
           
-                var parentAttrClass = $(this).parent().attr("class");
-                $(this).parent().addClass('open');
+                var parentAttrClass = $(this).parent().parent().parent().attr("class");
+                console.log(parentAttrClass);
+                $(this).parent().parent().parent().addClass('open');
                 if (categoryId) {
            
-                    GetSubMenu(categoryId, $(this).parent());
+                    GetSubMenu(categoryId, $(this).parent().parent().parent());
                 }                
                 if (parentAttrClass.indexOf("open") > 0) {
-                    $(this).parent().removeClass("open");
+                    $(this).parent().parent().parent().removeClass("open");
                 }
   
    

@@ -1311,6 +1311,19 @@
   .mobile-hm .hm-text {
     color: rgba(0, 0, 0, 0.87) !important;
     letter-spacing: 0.15px;
+    font-size: 15px;
+    text-transform: uppercase;
+    text-align: initial;
+    font-weight: 500;
+    min-height: 30px !important;
+    padding-top: 5px;
+    font-family: Raleway, sans-serif;
+    padding-left: 1rem;
+  }
+  .mobile-hm .hm-text a {
+    color: rgba(0, 0, 0, 0.87) !important;
+    letter-spacing: 0.15px;
+    font-size: 16px;
   }
   .mobile-hm .hm-image-container {
     margin-right: 0.75rem;
@@ -1320,13 +1333,13 @@
   }
   .mobile-hm .hm-icon {
     position: absolute;
-    right: 0;
+    right: 5px;
     color: rgba(0, 0, 0, 0.87);
     font-family: makinaturkiye_fonticons;
     font-style: normal;
     font-weight: 900;
   }
   .mobile-hm .hm-icon::before {
-    content: "\e90d";
+    content: "\e90e";
   }
 }
