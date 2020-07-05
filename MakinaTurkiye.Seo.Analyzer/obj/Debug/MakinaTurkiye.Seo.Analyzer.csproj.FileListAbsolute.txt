@@ -1,9 +1,0 @@
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Seo.Analyzer\bin\Debug\MakinaTurkiye.Seo.Analyzer.dll
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Seo.Analyzer\bin\Debug\MakinaTurkiye.Seo.Analyzer.pdb
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Seo.Analyzer\bin\Debug\MakinaTurkiye.Seo.Http.dll
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Seo.Analyzer\bin\Debug\MakinaTurkiye.Seo.Http.pdb
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Seo.Analyzer\obj\Debug\MakinaTurkiye.Seo.Analyzer.csprojAssemblyReference.cache
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Seo.Analyzer\obj\Debug\MakinaTurkiye.Seo.Analyzer.csproj.CoreCompileInputs.cache
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Seo.Analyzer\obj\Debug\MakinaTurkiye.Seo.Analyzer.csproj.CopyComplete
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Seo.Analyzer\obj\Debug\MakinaTurkiye.Seo.Analyzer.dll
-D:\Mevlut\Project\ConnectedProjects\MakinaTurkiye\NeoSistem.MakinaTurkiye\MakinaTurkiye.Seo.Analyzer\obj\Debug\MakinaTurkiye.Seo.Analyzer.pdb

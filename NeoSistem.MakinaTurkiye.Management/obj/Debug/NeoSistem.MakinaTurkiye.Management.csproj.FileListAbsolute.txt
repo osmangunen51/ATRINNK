@@ -1,4 +1,0 @@
-D:\MakinaTurkiye\NeoSistem.MakinaTurkiye.Management\obj\Debug\NeoSistem.MakinaTurkiye.Management.csprojAssemblyReference.cache
-D:\MakinaTurkiye\NeoSistem.MakinaTurkiye.Management\obj\Debug\NeoSistem.MakinaTurkiye.Management.Properties.Resources.resources
-D:\MakinaTurkiye\NeoSistem.MakinaTurkiye.Management\obj\Debug\NeoSistem.MakinaTurkiye.Management.csproj.GenerateResource.cache
-D:\MakinaTurkiye\NeoSistem.MakinaTurkiye.Management\obj\Debug\NeoSistem.MakinaTurkiye.Management.csproj.CoreCompileInputs.cache
