@@ -2501,7 +2501,7 @@ body {
 }
 
 .category-firms {
-    margin-bottom:20px;
+    margin-bottom: 20px;
 
     .owl-carousel {
         .owl-nav {
@@ -2516,6 +2516,10 @@ body {
                 //background-color: @brand-sub-primary;
                 text-align: center;
                 margin-top: -20px;
+
+                @media(max-width:768px) {
+                    display: none;
+                }
 
                 &:before {
                     content: '\e90f';
@@ -2542,6 +2546,10 @@ body {
                 //background-color: @brand-sub-primary;
                 text-align: center;
                 margin-top: -20px;
+
+                @media(max-width:768px) {
+                    display: none;
+                }
 
                 &:before {
                     content: '\e90d';
@@ -2645,6 +2653,10 @@ body {
     border-radius: 4px;
     background-color: #FFF;
     border: 1px solid #E0E0E0;
+    @media(max-width:768px){
+        margin-left:10px;
+        margin-right:0px;
+          }
 
     &__view__buttons {
         display: -webkit-box;
@@ -3486,27 +3498,32 @@ img {
     left: 0;
     bottom: 0;
     width: 100%;
-    height: 50px;
-    background-color: #165cb3;
+    height:50px;
+    background-color: transparent;
     text-align: center;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    padding: 1rem;
+    margin-bottom:1rem;
 
     a {
         width: 50%;
-        height: 50px;
-        color: #fff;
+        height: 40px;
+        color: #333;
         float: left;
-        line-height: 48px;
+        line-height: 40px;
         font-size: 15px;
+        background-color: #fff;
+        border-radius: 4px;
+        background-color: #FFF;
+        border: 1px solid #E0E0E0;
 
         + a {
-            border-left: 1px solid darken(#165cb3, 10%);
+            float: right;
         }
 
         &:hover, &:focus {
             text-decoration: none;
-            background-color: darken(#165cb3, 10%);
         }
 
         span {

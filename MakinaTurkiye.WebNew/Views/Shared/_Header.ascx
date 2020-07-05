@@ -514,7 +514,7 @@ $( "#SearchText" ).focus(function() {
 
 </script>
 <script type="text/javascript">
-    $(document).ready(function () {
+<%--    $(document).ready(function () {
         $.ajax({
             url: '<%:AppSettings.SiteUrlWithoutLastSlash+"/ajax/GetStoreProductComment"%>',
             data: {},
@@ -529,6 +529,6 @@ $( "#SearchText" ).focus(function() {
             }
         }
         );
-    });
+    });--%>
 
 </script>

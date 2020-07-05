@@ -94,6 +94,8 @@
     <Compile Include="Tables\Catalog\CertificateType.cs" />
     <Compile Include="Tables\Catalog\CertificateTypeProduct.cs" />
     <Compile Include="Tables\Catalog\DeletedProductRedirect.cs" />
+    <Compile Include="Tables\Catalog\StoreProductCreatePropertie.cs" />
+    <Compile Include="Tables\Catalog\StoreProductCreateSetting.cs" />
     <Compile Include="Tables\Common\UrlRedirect.cs" />
     <Compile Include="Tables\Content\BaseMenu.cs" />
     <Compile Include="Tables\Content\BaseMenuCategory.cs" />

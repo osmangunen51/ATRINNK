@@ -30,7 +30,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     var categoryKeyword = entities.Categories.FirstOrDefault(c => c.CategoryId == entityId);
                     string Url = "";
                     if (entityTypeId == (byte)SeoDefinitionType.Category) {
-                        Url = UrlBuilder.GetCategoryUrl(categoryKeyword.CategoryId, categoryKeyword.CategoryName, null, null);
+                        string categoryUrlName = !string.IsNullOrEmpty(categoryKeyword.CategoryContentTitle) ? categoryKeyword.CategoryContentTitle : categoryKeyword.CategoryName;
+                        Url = UrlBuilder.GetCategoryUrl(categoryKeyword.CategoryId, categoryUrlName, null, null);
                     }
                     else
                     {

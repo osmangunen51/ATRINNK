@@ -258,9 +258,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Areas\Account\Controllers\StoreNewController.cs" />
+    <Compile Include="Areas\Account\Controllers\ProductCreateSettingController.cs" />
     <Compile Include="Areas\Account\Controllers\UsersController.cs" />
     <Compile Include="Areas\Account\Controllers\VideoController.cs" />
     <Compile Include="Areas\Account\Models\Advert\MTProductUpdateVideoModel.cs" />
+    <Compile Include="Areas\Account\Models\Advert\ProductCreateSettingModel.cs" />
+    <Compile Include="Areas\Account\Models\Advert\ProductCreateSettingItem.cs" />
     <Compile Include="Areas\Account\Models\FavoriteProducts\FavoriteProductViewModel.cs" />
     <Compile Include="Areas\Account\Models\Messages\MemberMessageDetailModel.cs" />
     <Compile Include="Areas\Account\Models\OtherSettings\OtherSettingsProductModel.cs" />
@@ -567,6 +570,7 @@
     <Content Include="Areas\Account\Views\OtherSettings\ProductPrice.ascx" />
     <Content Include="Areas\Account\Views\OtherSettings\ProductSort.ascx" />
     <Content Include="Areas\Account\Views\Personal\ChangeEmail.aspx" />
+    <Content Include="Areas\Account\Views\ProductCreateSetting\Index.aspx" />
     <Content Include="Areas\Account\Views\Profile\DealerBrand.ascx" />
     <Content Include="Areas\Account\Views\Profile\StoreProfileHomeDescription.aspx" />
     <Content Include="Areas\Account\Views\Shared\_ProductItemBox.ascx" />

@@ -121,7 +121,7 @@
 
                             </div>    
  
-    <script>
+<%--    <script>
         window.fbAsyncInit = function () {
             FB.init({
                 appId: '333739580327457',
@@ -138,7 +138,7 @@
             js.src = "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    </script>
+    </script>--%>
 
             
           <%--  <div class="alert alert-danger" id="mailinfo"> <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp; <span>Mesaj gönderebilmek için üye olmalısınız üyelik sayfasına yönlendiriliyorsunuz...</span></div>--%>

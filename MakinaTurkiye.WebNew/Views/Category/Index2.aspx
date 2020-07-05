@@ -345,7 +345,7 @@
 
                         <div class="filters__header row visible-xs">
                             <div class="col-xs-12">
-                                <a href="javascript:;" class="js-close-filters"><span class="icon-close"></span></a>Detaylandır
+                                <a href="javascript:;" class="js-close-filters"><span class="icon-close"></span></a>Filterele
                             </div>
                         </div>
 
@@ -621,7 +621,7 @@
                 <% string querySearchType = string.IsNullOrEmpty(Request.QueryString["SearchType"]) ? "" : "&SearchType=" + Request.QueryString["SearchType"].ToString(); %>
 
                 <div class="mobile-filter-buttons mobile-filter-top-alignment visible-xs">
-                    <a href="javascript:;" class="js-toggle-filter"><span class="icon-filter"></span>Detaylandır</a>
+                    <a href="javascript:;" class="js-toggle-filter"><span class="icon-filter"></span>Filterele</a>
                     <a href="javascript:;" class="js-toggle-sort"><span class="icon-sort"></span>Sırala</a>
                     <select class="mobile-sort" style="position: absolute; right: 0; width: 50%; height: 100%; opacity: 0">
                         <option value="<%: Request.FilePath %><%= display %><%:page  %><%:querySearchType %>&amp;Order=a-z">a-Z</option>
@@ -771,7 +771,7 @@
             </div>--%>
 
             <%} %>
-            <div class="row clearfix">
+            <div class="row clearfix" >
                 <div class="col-xs-12">
                     <%=Html.RenderHtmlPartial("_SliderBanner",Model.MTCategoSliderItems) %>
                     <div class="categort-filter">

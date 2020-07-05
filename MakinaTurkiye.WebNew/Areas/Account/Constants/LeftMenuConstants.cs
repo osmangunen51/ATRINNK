@@ -131,6 +131,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
             leftMenuItems.Add(new LeftMenuItems { Name = "İlan Ekle", IsActive = (itemActive == (byte)MyAd.AddAd ? true : false), ControlNubmer = (byte)MyAd.AddAd, Url = "/Account/ilan/Advert" });
             leftMenuItems.Add(new LeftMenuItems { Name = "Tüm İlanlar", IsActive = (itemActive == (byte)MyAd.AllAd ? true : false), ControlNubmer = (byte)MyAd.AllAd, Url = "/Account/ilan/Index?ProductActiveType=7&DisplayType=2" });
             leftMenuItems.Add(new LeftMenuItems { Name = "Yorumlar", IsActive = (itemActive == (byte)MyAd.Comments ? true : false), ControlNubmer = (byte)MyAd.Comments, Url = "/Account/ilan/Comments" });
+            //leftMenuItems.Add(new LeftMenuItems { Name = "İlan Ayarları", IsActive = (itemActive == (byte)MyAd.Settings ? true : false), ControlNubmer = (byte)MyAd.Settings, Url = "/Account/ilan/ProductCreateSetting" });
+
 
 
             return leftMenuItems;
@@ -252,7 +254,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
         {
             AllAd = 15,
             AddAd = 16,
-            Comments = 250
+            Comments = 250,
+            Settings = 251
         }
 
         public enum MyMessage

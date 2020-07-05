@@ -183,7 +183,7 @@
 
         $(document).ready(function () {
 
-            SetProductStatistic();
+
             $("#PhoneNumber").mask("(999) 999-9999");
             $("#PhoneNumberAgain").mask("(999) 999-9999");
 
@@ -202,6 +202,17 @@
                 }
             });
         });
+        $(window).scroll(function () {
+            var request = $("#RequestStatistic").val();
+            if ($(window).scrollTop() > 150) {
+                if (request == 0) {
+                    SetProductStatistic();
+                                    
+
+                }
+
+            }
+        });
         function SetProductStatistic() {
             $.ajax({
                 url: 'https://www.makinaturkiye.com/ajax/ProductStatisticCreate',
@@ -212,6 +223,7 @@
                 type: 'get',
 
                 success: function (data) {
+                     $("#RequestStatistic").val("1");
                 }
             }
             );
@@ -300,7 +312,7 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-
+    <%:Html.Hidden("RequestStatistic","0") %>
 
     <%=Html.RenderHtmlPartial("_ProductPageHaderNew",Model.ProductPageHeaderModel) %>
     <style>

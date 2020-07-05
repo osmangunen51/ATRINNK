@@ -721,14 +721,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var url = Request.Url.AbsolutePath;
 
-#if !DEBUG
-             url =   Request.Url.AbsoluteUri;
-#endif
+            if (!Request.IsLocal)
+            {
+                url = Request.Url.AbsoluteUri;
+            }
+
             var link = UrlBuilder.GetVideoUrl(video.VideoId, product.ProductName);
 
-#if !DEBUG
-            link =link+Request.Url.Query;
-#endif
+            if (!Request.IsLocal)
+            {
+                link = link + Request.Url.Query;
+            }
             if (url != link)
                 return RedirectPermanent(link);
 

@@ -54,6 +54,8 @@ namespace MakinaTurkiye.Utilities.Infrastructure
             builder.RegisterType<CertificateTypeService>().As<ICertificateTypeService>()
         .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("cache_static")).InstancePerLifetimeScope();
 
+            builder.RegisterType<StoreProductCreateSettingService>().As<IStoreProductCreateSettingService>().InstancePerLifetimeScope();
+
         }
 
         public int Order => 2;
