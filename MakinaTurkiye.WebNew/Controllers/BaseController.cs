@@ -258,7 +258,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     navigation.AppendLine(" <li><a target='" + nn.Target + "' href='" + AppSettings.SiteUrl + "" + nn.Url + "'>" + nn.Title + "</a></li>");
                 }
             }
-
             navigation.AppendLine("</ol>");
             NavigationContent = navigation.ToString();
         }

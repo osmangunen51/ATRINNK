@@ -265,7 +265,7 @@
         });
 
     </script>
-    <link rel="canonical" href="https://www.makinaturkiye.com" />
+    <%--<link rel="canonical" href="https://www.makinaturkiye.com" />--%>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="HomePageSlider" runat="server">
@@ -286,9 +286,19 @@
 </asp:Content>
 
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
-
-    <div id="home-sector">
+    <div class="row">
+        <div class="col-md-12" style="margin-top:10px;">
+            <div class="home-showcase__header">
+                 <h1 style="color: #fff !important;margin: 0px;font-family: Arial; line-height: 24px !important;font-size:18px">Dünya'nın Makinası Bir Arada</h1>
+            </div>
+            <div class="home-showcase__body">
+                    <div id="home-sector">
+                    </div>
+            </div>
+        </div>
     </div>
+
+
     <%--    <%if (!Request.Browser.IsMobileDevice) {%>
             <%=Html.RenderHtmlPartial("_HomeSector",Model.HomeSectorItems) %>
     <% } %>--%>
@@ -390,15 +400,15 @@
         <div class="col-md-6">
                <%=Html.RenderHtmlPartial("_HomeSuccessStories",Model.SuccessStories) %>
         </div>
-  
+
     </div>--%>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="home-seo-content">
-                <h1>
-                    <%= Model.ConstantTitle%> 
-                </h1>
+                <h2>
+                    <%= Model.ConstantTitle%>
+                </h2>
                 <%= Model.ConstantProperty%>
             </div>
         </div>
@@ -412,7 +422,7 @@
 
         <div class="col-xs-12 text-dark text-center">
             <h1 style="font-size: 12px; font-weight: bold; color: #2d6ab4">
-                <%= SeoModel.GetConstantsTitle(235)%> 
+                <%= SeoModel.GetConstantsTitle(235)%>
             </h1>
             <%= SeoModel.GetConstantsProperty(235)%>
         </div>
@@ -434,7 +444,7 @@
 
         <div class="home-content-right col-sm-7 col-md-8 col-lg-9">
             <div class="row">
-                  
+
             </div>
             <div class="row" style="margin-bottom: -1%;">
                 <%= Html.Partial("_PopularAds", Model.PopularAdModels) %>
@@ -444,7 +454,7 @@
             </div>
             <div class="col-xs-12 text-dark text-center">
                 <h1 style="font-size: 12px; font-weight: bold; color: #2d6ab4">
-                    <%= SeoModel.GetConstantsTitle(235)%> 
+                    <%= SeoModel.GetConstantsTitle(235)%>
                 </h1>
                     <%= SeoModel.GetConstantsProperty(235)%>
             </div>

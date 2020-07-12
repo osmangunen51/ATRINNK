@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="home-showcase__header">
-            <h4>Vitrindeki Ürünler</h4>
+            <h2 style="color: #fff !important;margin: 0px;font-family: Arial; line-height: 24px !important;font-size:18px">Vitrindeki Makina ve Ekipmanlar</h2>
         </div>
         <div class="home-showcase__body">
             <%foreach (var item in Model)

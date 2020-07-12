@@ -4,7 +4,7 @@
 <div class="row one-cikan-firma-urunleri">
     <div class="col-xs-12">
         <h2 class="section-title">
-            <span>Öne Çıkan Firmalar</span>
+            <span>Öne Çıkan Makina ve Ekipman Tedarikçileri</span>
         </h2>
     </div>
 
@@ -80,7 +80,7 @@
                             foreach (var store in Model.ToList())
                             {
                                 if (pageCount == 0)
-                                { 
+                                {
                         %>
                         <div class="item <%= Model.First() == store? "active" : string.Empty %>">
                             <%}%>
@@ -98,7 +98,7 @@
                                     </a>
                                 </div>
                             </div>
-                            <%  
+                            <%
                         pageCount += 1;
                         if (pageCount % 10 == 0)
                         { %>
@@ -129,7 +129,7 @@
     </div>
 </div>
 </div>--%>
- 
+
 
 
 

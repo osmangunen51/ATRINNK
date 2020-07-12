@@ -4,13 +4,13 @@
 
 <div class="footer">
     <div class="container">
-        <div class="row" style="margin-bottom: 30px">
+       <%-- <div class="row" style="margin-bottom: 30px">
             <div class="col-md-12">
                 <a class="footer-logo" href="<%:AppSettings.SiteUrlWithoutLastSlash %>">
                     <img src="/Content/V2/images/makinaturkiye-dark.png" srcset="/Content/V2/images/makinaturkiye-dark.png 1x, /Content/V2/images/makinaturkiye-dark.png 2x" alt="Makina Türkiye Alt Logo" width="226" height="30">
                 </a>
             </div>
-        </div>
+        </div>--%>
 
         <%--                <div class="footer__top row">
             <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-4 col-md-offset-4">
@@ -88,14 +88,14 @@
 
                 </div>
                 <div class="row copyright-v2">
-                
+
 
                         <div class="copyright-v2__inner">
                             <p>Copyright © 2010-<%:DateTime.Now.Year %> makinaturkiye.com</p>
                             <a href="javascript:;" class="btn upBtn hidden-xs">Başa Dön</a>
                         </div>
 
-                   
+
                 </div>
             </div>
         </div>

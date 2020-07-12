@@ -1,11 +1,9 @@
 ﻿<%@ Master Language="C#" Inherits="NeoSistem.MakinaTurkiye.Core.Web.ViewMasterPage" %>
 <!doctype html>
 <html lang="tr">
-<head>
- <%: Html.Action("MetaTag","Common")%>   
- <%= Html.RenderHtmlPartial("_Head")%>  
-
+<head><%: Html.Action("MetaTag","Common")%><%= Html.RenderHtmlPartial("_Head")%>
  <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+<link rel="alternate" hreflang="tr-TR" href="<%=AppSettings.SiteUrlWithoutLastSlash + Request.Url.AbsolutePath%>"/>
 </head>
 <body class="facelift-v2">
     <!-- Json Ld Ayar-->
@@ -42,7 +40,6 @@
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         </asp:ContentPlaceHolder>
     </div>
-
 
     <%:Html.Action("Content","Footer") %>
 

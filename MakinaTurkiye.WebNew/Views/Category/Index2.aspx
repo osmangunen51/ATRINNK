@@ -218,7 +218,7 @@
     <%=Html.RenderHtmlPartial("CategoryHeaderContent")%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <% 
+    <%
         if (Model.CategoryModel.SelectedCategoryId == 0)
         { %>
     <%--<%=Html.RenderHtmlPartial("LeftMenuSectorCategories")%>--%>
@@ -265,18 +265,18 @@
                                         <div class="product-card-02" style="margin: 10px;">
                                             <div class="product-image">
                                                 <a href="<%:item.ProductUrl %>">
-                                                    <%  
+                                                    <%
                                                    if (!string.IsNullOrEmpty(item.SmallPicturePah))
                                                    {
                                                     %>
                                                     <img alt="<%=item.SmallPictureName %>" src="<%=item.SmallPicturePah %>" title="<%=item.SmallPictureName %>">
-                                                    <% 
+                                                    <%
                                }
                                else
                                { %>
                                                     <img src="https://dummyimage.com/150x100/efefef/000000.jpg&text=urun%20resmi%20bulunamad%C4%B1" alt="<%=Html.Truncate(item.ProductName, 80)%>" title="<%=Html.Truncate(item.ProductName, 80)%>" />
                                                     <% }
-                                                    %> 
+                                                    %>
                                                 </a>
                                             </div>
                                             <div class="product-content" style="min-width: 180px;">
@@ -362,11 +362,11 @@
                                                       string brandName = "";
                                                       if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
                                                       {%>
-                                      Sıfır   
+                                      Sıfır
                                  <%}
                                      else if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Used)
                                      {%>
-                                      İkinci El  
+                                      İkinci El
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
@@ -445,9 +445,9 @@
                                                     { %>
                                         (<%:Model.SameCategoryH1 %>)
                                 <%} %>
-                                            
+
                                             </h1>
-                           
+
                                         </div>
                                     </div>
 
@@ -785,11 +785,11 @@
                                             <strong>
                                 <% if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
                                     {%>
-                                      Sıfır   
+                                      Sıfır
                                  <%}
                                      else if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Used)
                                      {%>
-                                      İkinci El  
+                                      İkinci El
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
@@ -873,13 +873,10 @@
                                                  </h2>
                                         <span>&nbsp; aramanızda <font class="text-danger"><%:Model.TotalItemCount%> </font>adet ilan bulundu     <%if (Request.QueryString["page"] != null)
                                             { %>
-                                            <span class="small"><%:Model.PagingModel.CurrentPageIndex%>. Sayfa</span>
+                                            <span class="small">&nbsp;<%:Model.PagingModel.CurrentPageIndex%>. Sayfa</span>
                                             <%} %></span>
 
                                         <% } %>
-
-
-
                                         <% if (!string.IsNullOrEmpty(Model.SearchText))
                                             { %>
 
@@ -889,19 +886,18 @@
                         <%}
                             else
                             {
-                        %> 
+                        %>
                                 "<%:Model.SearchText %>" araması için <strong>"<%:Model.CategoryModel.SelectedCategoryContentTitle%>"</strong> kategorisinde <span class="text-danger"><%:Model.FilteringContext.TotalItemCount%></span> Adet sonuç bulundu.
                         <%} %>
 
 
                                         <% }%>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                         <%= Html.RenderHtmlPartial("ProductHeader", Model.FilteringContext)%>
-             
+
 
                     </div>
                 </div>
@@ -972,7 +968,7 @@
         <%=Html.RenderHtmlPartial("_MostViewProduct",Model.MostViewedProductModel) %>
     </div>
 
-    <% 
+    <%
         var app = "1";
         if (Request.Url.Segments.Length > 2)
         {
