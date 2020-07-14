@@ -100,6 +100,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 case "account/storenew": PrepareMetaTagModelForAccountStoreNew(model, seos); break;
                 case "account/users": PrepareMetaTagModelForAccountUsers(model, seos); break;
                 case "account/video": PrepareMetaTagModelForAccountStoreVideos(model, seos); break;
+              
                 default:
                     break;
             }
@@ -551,7 +552,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 seoIdNameEnum = SeoIdNameEnum.Register;
             }
-            var seo = seos.First(s => s.SeoId == (int)seoIdNameEnum);
+            else if (actionName == "ForgettedPassowrd")
+            {
+                seoIdNameEnum = SeoIdNameEnum.ForgettedPassowrd;
+            }
+            var seo = seos.FirstOrDefault(s => s.SeoId == (int)seoIdNameEnum);
 
             model.Description = seo.Description;
             model.Keywords = seo.Keywords;
