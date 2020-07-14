@@ -10,7 +10,7 @@
     <% if (Model.ActiveCategory != null)
         { %>
     <%LeftMargin += 10; %>
-    <%foreach (var item in Model.MTTopCategoryItems.Where(x=>x.).ToList())
+    <%foreach (var item in Model.MTTopCategoryItems.ToList())
         {
             LeftMargin += 10;%>
                     <li style="margin-left:<%:LeftMargin+"px"%> "><a href="<%:item.CategoryUrl %>">
