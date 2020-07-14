@@ -2,8 +2,8 @@
 <!doctype html>
 <html lang="tr">
 <head><%: Html.Action("MetaTag","Common")%><%= Html.RenderHtmlPartial("_Head")%>
- <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
-<link rel="alternate" hreflang="tr-TR" href="<%=AppSettings.SiteUrlWithoutLastSlash + Request.Url.AbsolutePath%>"/>
+<asp:ContentPlaceHolder ID="HeaderContent" runat="server"/>
+<link rel="alternate" hreflang="tr-TR" href="<%=Request.Url.ToString()%>"/>
 </head>
 <body class="facelift-v2">
     <!-- Json Ld Ayar-->
@@ -30,9 +30,7 @@
     <!-- End Google Tag Manager (noscript) -->
     <div id="fb-root"></div>
     <div class="responsive-overlay"></div>
-
         <%=Html.RenderHtmlPartial("_Header") %>
-
         <asp:ContentPlaceHolder ID="HomePageSlider" runat="server">
         </asp:ContentPlaceHolder>
     <div class="main-container container">
@@ -40,10 +38,7 @@
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         </asp:ContentPlaceHolder>
     </div>
-
     <%:Html.Action("Content","Footer") %>
-
-
 <script>
   window.fbAsyncInit = function() {
     FB.init({
@@ -55,7 +50,6 @@
     });
     FB.AppEvents.logPageView();
   };
-
   (function(d, s, id){
      var js, fjs = d.getElementsByTagName(s)[0];
      if (d.getElementById(id)) {return;}

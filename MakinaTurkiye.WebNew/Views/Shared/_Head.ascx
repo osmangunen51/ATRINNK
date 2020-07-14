@@ -13,7 +13,8 @@
 <link  rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
 <% string url = Request.Url.ToString();
     string lastCh = url.Substring((url.Length - 1), 1);
-    if (lastCh=="/") {
+    if (lastCh=="/") 
+    {
         url = url.Substring(0, url.Length - 1);
     }%>
 <script src="/Content/V2/assets/js/jquery.min.js?v=1"  ></script>
