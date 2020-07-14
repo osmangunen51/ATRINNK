@@ -681,12 +681,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else
                 {
-                    if (category.CategoryType == (byte)CategoryType.Model || category.CategoryType == (byte)CategoryType.Brand)
-                    {
-                        var categoryParent = _categoryService.GetCategoryByCategoryId(Convert.ToInt32(category.CategoryParentId));
-                        var url = UrlBuilder.GetStoreCategoryUrl(categoryParent.CategoryId, FormatHelper.GetCategoryNameWithSynTax(categoryParent.CategoryName, CategorySyntaxType.Store));
-                        return RedirectPermanent(url);
-                    }
+    
 
                     if (string.IsNullOrEmpty(searchText))
                     {
@@ -831,9 +826,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (string.IsNullOrEmpty(searchText))
             {
-                if (!request.Url.PathAndQuery.Contains("order"))
-                    model.CanonicalUrl = "https://magaza.makinaturkiye.com" + request.Url.PathAndQuery;
-                else
+         
                     model.CanonicalUrl = "https://magaza.makinaturkiye.com" + request.Url.AbsolutePath;
             }
 

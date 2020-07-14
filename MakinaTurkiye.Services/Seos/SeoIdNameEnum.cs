@@ -123,6 +123,7 @@ namespace MakinaTurkiye.Services.Seos
         StorePromotionVideo=101,
 
         Register = 103,
-        AdvancedSearch = 104
+        AdvancedSearch = 104,
+        ForgettedPassowrd = 106
     }
 }

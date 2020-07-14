@@ -660,6 +660,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     return RedirectPermanent(AppSettings.VideoUrlBase);
                 }
             }
+            else
+            {
+                if (!request.IsLocal && Request.Url.ToString().Contains("videolar"))
+                {
+                    return RedirectPermanent(AppSettings.VideoUrlBase);
+                }
+            }
 
             string key = string.Format("makinaturkiye.video-pages-test");
             var testModel = _cacheManager.Get(key, () =>
@@ -695,6 +702,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         public ActionResult VideoItems2(int VideoId)
         {
+
             var request = HttpContext.Request;
             ViewBag.Canonical = "https://video.makinaturkiye.com" + request.Url.AbsolutePath;
 
