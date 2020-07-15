@@ -114,7 +114,7 @@
                         <!-- Logo -->
                         <div class="urun-iletisim-firma-logo">
                             <a href="<%:Model.StoreUrl %>">
-                            <img src="<%=Model.StoreModel.StoreLogoPath %>"" width="99" height="66">
+                            <img src="<%=Model.StoreModel.StoreLogoPath %>"" width="99" height="66" alt="<%=Model.StoreModel.StoreShortName%>">
                              </a>
                         </div>
                         <!-- Logo -->

@@ -9,7 +9,7 @@
                     <div class="urun-iletisim-heading">
                         <div class="urun-iletisim-firma-logo">
                             <a href="<%:Model.StoreUrl %>">
-                                <img src="<%=Model.StoreModel.StoreLogoPath %>" width="99" height="66">
+                                <img src="<%=Model.StoreModel.StoreLogoPath %>" width="99" height="66" alt="<%=Model.StoreModel.StoreShortName%>">
                             </a>
                         </div>
                         <div class="urun-iletisim-firma-adi">
@@ -34,7 +34,7 @@
                     <%if ( AuthenticationUser.CurrentUser.Membership==null || AuthenticationUser.CurrentUser.Membership.MainPartyId == 0) {%>
                                     <li ><a data-toggle="tab" href="#message">Mesaj Gönder</a></li>
                     <% } %>
-        
+
                 </ul>
                 <div class="tab-content">
                     <div id="contact" class="tab-pane fade in active">
@@ -46,7 +46,6 @@
                         <%=Html.RenderHtmlPartial("_ProductStoreMessageNew", Model.StoreMessage) %>
                     </div>
                     <%} %>
-
 
                 </div>
             </div>

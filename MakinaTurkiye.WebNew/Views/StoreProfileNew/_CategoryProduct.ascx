@@ -3,8 +3,6 @@
 
     if (Model.ActiveCategory != null) { display = "display:block; list-style-type:none;"; }%>
 <ul class="sub-menu" style="<%: display%>">
-    <% if (Model.MTTopCategoryItems.Count > 0)
-        { %>
     <%--Üst Kategoriler--%>
     <%int LeftMargin = 0;  %>
     <% if (Model.ActiveCategory != null)
@@ -52,8 +50,7 @@
     </li>
     <% }
                 }
-            }
-        } %>
+            }%>
 </ul>
 
 

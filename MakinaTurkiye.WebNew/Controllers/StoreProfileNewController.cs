@@ -765,7 +765,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     string url = UrlBuilder.GetBrandUrlForStoreProfile(store.MainPartyId, store.StoreName, store.StoreUrlName);
                     return RedirectPermanent(url);
-               }
+                }
                 return RedirectPermanent(AppSettings.SiteUrl);
             }
             else
@@ -1793,7 +1793,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if (store != null)
                 {
 
-                    //seo 
+                    //seo
                     //SeoPageType = (byte)PageType.StoreConnectionPage;
                     //CreateSeoForStore(store);
                     var request = HttpContext.Request;

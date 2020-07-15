@@ -17,8 +17,6 @@
     .btn-default-price-color {
         background-color: #314288;
     }
-
-
 </style>
     <script type="text/javascript">
    

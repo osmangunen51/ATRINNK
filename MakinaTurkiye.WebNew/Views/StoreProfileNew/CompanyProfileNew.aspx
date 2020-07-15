@@ -42,8 +42,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="StoprofileMenu" runat="server">
     <%if (Model.StoreActiveType == 2)
         {  %>
-    <%=Html.RenderHtmlPartial("_LeftMenu", Model.MTStoreProfileHeaderModel)%>
-
+            <%=Html.RenderHtmlPartial("_LeftMenu", Model.MTStoreProfileHeaderModel)%>
     <%} %>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="StoreProfileContent" runat="server">

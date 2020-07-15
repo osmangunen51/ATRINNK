@@ -144,7 +144,7 @@
             <div class="video-container" style="">
                 <span class="store-menu-video-title"><%:videoModel.VideoTitle %></span>
                 <a style="cursor: pointer" data-toggle="modal" data-target="#video5594">
-                    <img class="img-responsive" src="<%:videoModel.PicturePath %>">
+                    <img class="img-responsive" src="<%:videoModel.PicturePath %>" alt="<%:videoModel.VideoTitle%>">
                 </a>
                 <div class="minute-container" style="position: absolute;">
                     <%:videoModel.VideoMinute %>:<%:videoModel.VideoSecond %>

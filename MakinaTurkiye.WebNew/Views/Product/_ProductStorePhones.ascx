@@ -5,7 +5,7 @@
             <div class="urun-iletisim-urun-detay ">
                 <div class="urun-iletisim-urun-detay-photo">
                     <a href="<%:Model.ProductUrl %>">
-                        <img src="<%=Model.ProductPictureUrl %>" width="180" height="135" class="img-responsive">
+                        <img src="<%=Model.ProductPictureUrl %>" width="180" height="135" class="img-responsive" alt="<%=Model.ProductName%>">
                     </a>
                 </div>
                 <div class="urun-iletisim-urun-detay-urun-adi">
@@ -31,7 +31,7 @@
                             <%  }
                                 else if (phone.PhoneType == PhoneType.Whatsapp)
                                 {%>
-                            <img src="https://www.makinaturkiye.com/Content/SocialIcon/wp-24.png">
+                            <img src="https://www.makinaturkiye.com/Content/SocialIcon/wp-24.png" alt="whatsapp simge">
                             <% }
                                 else if (phone.PhoneType == PhoneType.Gsm)//gsm ve digerleri icin
                                 { %>

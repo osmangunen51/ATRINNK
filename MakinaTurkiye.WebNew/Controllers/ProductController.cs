@@ -82,7 +82,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private readonly IDeletedProductRedirectService _deletedProductRedirectSerice;
         private readonly IAuthenticationService _authenticationService;
         private readonly ICertificateTypeService _cerfificateService;
-  
+
 
         #endregion
 
@@ -137,7 +137,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         #endregion
 
-        #region Utilities 
+        #region Utilities
 
         private string GetNavigation(int productId, string productName, int modelId, int seriesId, int brandId, int categoryId, out string unifiedCategories, MTProductDetailViewModel model)
         {
@@ -173,7 +173,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else if (item.CategoryType == (byte)CategoryType.ProductGroup)
                 {
-                    
+
 
                     alMenu.Add(new Navigation(categoryNameUrl, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
                 }
@@ -213,7 +213,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else
                 {
-                   
+
                     alMenu.Add(new Navigation(categoryNameUrl, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
                 }
             }
@@ -239,7 +239,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return navigation.ToString();
         }
 
-        
+
         private void ActivationCodeSend(string Email, string activationCode, string nameSurname)
         {
             try
@@ -288,7 +288,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.MemberMainPartyId = Convert.ToInt32(product.MainPartyId);
 
             model.ProductUrl = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
-            //store 
+            //store
 
             var whatsappMessageTypes = _mobileMessageService.GetMobileMessagesByMessageType(MobileMessageTypeEnum.Whatsapp);
             string wpMessagecontent = "Merhaba #urunlinki# ilanınız için makinaturkiye.com üzerinden ulaşıyorum";
@@ -540,7 +540,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         #endregion
 
         [Compress]
-        public ActionResult 
+        public ActionResult
             DetailClear(int? productId, string productGroupName, string firstCategoryName, string productName, string pageType)
         {
             if (!productId.HasValue)
@@ -694,7 +694,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductPageHeaderModel.MainPartyId = product.MainPartyId.Value;
             model.ProductPageHeaderModel.MemberEmail = member.MemberEmail;
             model.ProductPageHeaderModel.IsActive = product.GetActiveStatus();
-            PreviousAndNextProductFind(model, product);
+            //PreviousAndNextProductFind(model, product);
             if (AuthenticationUser.Membership != null)
             {
 
@@ -747,7 +747,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if(isByte && number== (byte)ProductStatus.SecondHand)
                 {
                     model.ProductDetailModel.ModelYear = product.ModelYear.Value.ToString();
-                }    
+                }
             }
             model.ProductDetailModel.WarriantyPerriod = product.WarrantyPeriod;
             if (!string.IsNullOrEmpty(model.ProductDetailModel.BriefDetail))
@@ -1122,53 +1122,37 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
             //ürün görünün güncelleme
 
-            try
+            var updatedProduct = _productService.GetProductByProductId(product.ProductId);
+
+            if (!SessionSingularViewCountType.SingularViewCountTypes.Any(c => c.Key == productId && c.Value == SingularViewCountType.Product))
             {
-                if (!SessionSingularViewCountType.SingularViewCountTypes.Any(c => c.Key == productId && c.Value == SingularViewCountType.Product))
-                {
-                    var productStatistic = new ProductStatistic();
-                    if (product.MainPartyId.HasValue)
-                        productStatistic.MemberMainPartyId = product.MainPartyId.Value;
+                var productStatistic = new ProductStatistic();
+                if (product.MainPartyId.HasValue)
+                    productStatistic.MemberMainPartyId = product.MainPartyId.Value;
 
-                    string ipAdress = Request.UserHostAddress;
-                    DateTime dateNow = DateTime.Now;
-                    DateTime recordDate = DateTime.Now;
-                    productStatistic.RecordDate = dateNow;
-                    productStatistic.IpAdress = ipAdress;
-                    productStatistic.ProductId = model.ProductDetailModel.ProductId;
-                    productStatistic.SingularViewCount = 1;
-                    productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
-                    productStatistic.ViewCount = 1;
-                    _productStatisticService.InsertProductStatistic(productStatistic);
+                string ipAdress = Request.UserHostAddress;
+                DateTime dateNow = DateTime.Now;
+                DateTime recordDate = DateTime.Now;
+                productStatistic.RecordDate = dateNow;
+                productStatistic.IpAdress = ipAdress;
+                productStatistic.ProductId = model.ProductDetailModel.ProductId;
+                productStatistic.SingularViewCount = 1;
+                productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
+                productStatistic.ViewCount = 1;
+                _productStatisticService.InsertProductStatistic(productStatistic);
 
-                    SessionStatisticIds.StatisticIds.Add(productId.Value, productStatistic.Id.ToString());
+                SessionStatisticIds.StatisticIds.Add(productId.Value, productStatistic.Id.ToString());
 
-                    _productService.CachingGetOrSetOperationEnabled = false;
-                    var updatedProduct = _productService.GetProductByProductId(product.ProductId);
-
-                    updatedProduct.SingularViewCount += 1;
-                    _productService.UpdateProduct(updatedProduct);
-
-                    SessionSingularViewCountType.SingularViewCountTypes.Add(productId.Value, SingularViewCountType.Product);
-                }
-            }
-            finally
-            {
-
-            }
-            try
-            {
                 _productService.CachingGetOrSetOperationEnabled = false;
-                var updatedProduct = _productService.GetProductByProductId(product.ProductId);
-
-                updatedProduct.ViewCount += 1;
+                updatedProduct.SingularViewCount += 1;
                 _productService.UpdateProduct(updatedProduct);
-            }
-            finally
-            {
 
+                SessionSingularViewCountType.SingularViewCountTypes.Add(productId.Value, SingularViewCountType.Product);
             }
 
+            _productService.CachingGetOrSetOperationEnabled = false;
+            updatedProduct.ViewCount += 1;
+            _productService.UpdateProduct(updatedProduct);
 
             //seo
             //if (!string.IsNullOrWhiteSpace(model.ProductStoreModel.StoreName))
@@ -1734,7 +1718,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {//AdilD
             var model = new ProductContactModel();
 
-            //product 
+            //product
             var product = _productService.GetProductByProductId(productId);
             model.ProductId = product.ProductId;
             model.ProductName = product.ProductName;
@@ -1746,7 +1730,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.MemberMainPartyId = Convert.ToInt32(product.MainPartyId);
 
             model.ProductUrl = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
-            //store 
+            //store
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.MainPartyId.Value);
             if (memberStore != null)
             {

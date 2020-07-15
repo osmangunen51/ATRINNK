@@ -76,8 +76,8 @@
             <div class="col-md-12  col-xs-12">
                 <%if (Model.ProductActive)
                     { %>
-                <button class="btn btn-success btn-contact" data-toggle="modal" data-target="#PostCommentsModal" style="border: 0px;" title="<%:Model.StoreName %> iletişim sayfası"><i class="fa fa-phone" style="padding-right: 5px;"></i><b>İletişim </b></button>
-                <%}
+                        <button class="btn btn-success btn-contact" data-toggle="modal" data-target="#PostCommentsModal" style="border: 0px;" title="<%:Model.StoreName %> iletişim sayfası"><i class="fa fa-phone" style="padding-right: 5px;"></i><b>İletişim </b></button>
+                    <%}
                     else
                     {%>
                 <div class="btn btn-warning  btnClik btn-1" style="width: 100%;">Bu ilan yayında değildir</div>

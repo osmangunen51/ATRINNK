@@ -726,10 +726,7 @@
 
 
         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 category-list-wrapper">
-
-
-
-            <div class="row clearfix category-firm-slider-wrapper hidden">
+            <%--<div class="row clearfix category-firm-slider-wrapper hidden">
                 <div class="col-xs-12">
                     <div class="category-firm-slider owl-carousel owl-theme">
 
@@ -751,7 +748,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div>--%>
 
 
 
