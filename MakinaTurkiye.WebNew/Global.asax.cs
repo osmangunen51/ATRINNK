@@ -132,6 +132,10 @@ namespace NeoSistem.MakinaTurkiye.Web
                             {
                                 Context.Response.RedirectPermanent(RedirectUrl);
                             }
+                            else
+                            {
+                                GetGeneralErrorPage(exception, routeData);
+                            }
                         }
                         else
                         {
