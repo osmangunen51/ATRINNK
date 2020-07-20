@@ -1120,6 +1120,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
             }
             #endregion
+
             //ürün görünün güncelleme
 
             var updatedProduct = _productService.GetProductByProductId(product.ProductId);
@@ -1196,7 +1197,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             //}
 
-
             if (product.GetActiveStatus())
             {
                 //var seo = SeoModel.GeneralforAll(Convert.ToByte(ViewData["SEOPAGETYPE"]), Convert.ToByte(ViewData["SeoPageSpecial"]));
@@ -1206,12 +1206,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 PrepareJsonLd(model);
             }
-
             return View(viewName: "DetailClear", model: model);
         }
-
-
-
 
 
         [HttpPost]

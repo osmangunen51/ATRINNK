@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" Inherits="NeoSistem.MakinaTurkiye.Core.Web.ViewUserControl<NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles.MTCategoryModel>" %>
 <%string display = "";
-
-    if (Model.ActiveCategory != null) { display = "display:block; list-style-type:none;"; }%>
+if (Model.ActiveCategory != null) { display = "display:block; list-style-type:none;"; }%>
 <ul class="sub-menu" style="<%: display%>">
     <%--Üst Kategoriler--%>
     <%int LeftMargin = 0;  %>
@@ -11,20 +10,20 @@
     <%foreach (var item in Model.MTTopCategoryItems.ToList())
         {
             LeftMargin += 10;%>
-                    <li style="margin-left:<%:LeftMargin+"px"%> "><a href="<%:item.CategoryUrl %>">
+    <li style="margin-left:<%:LeftMargin+"px"%> "><a href="<%:item.CategoryUrl %>">
         <%: item.CategoryName%></a></li>
         <%} %>
-    <%--Aktif Kategori--%>
-    <li class="sub-menu-item"><a href="<%: Request.FilePath %>?CategoryId=<%: Model.ActiveCategory.CategoryId %>">
-        <%: Model.ActiveCategory.CategoryName%></a></li>
-    <%LeftMargin += 1; %>
-    <%--Alt Kategoriler--%>
+        <%--Aktif Kategori--%>
+        <li class="sub-menu-item"><a href="<%: Request.FilePath %>?CategoryId=<%: Model.ActiveCategory.CategoryId %>">
+            <%: Model.ActiveCategory.CategoryName%></a></li>
+        <%LeftMargin += 1; %>
+        <%--Alt Kategoriler--%>
 
-    <% foreach (var item in Model.MTTopCategoryItems.Where(c => c.CategoryParentId == Model.ActiveCategory.CategoryId && c.CategoryType != (byte)CategoryType.Model).OrderBy(c => c.CategoryName))
-        { %>
-    <li class="sub-menu-item">&nbsp;&nbsp;&nbsp;<a href="<%:item.CategoryUrl %>">
-        <%: item.CategoryName%></a>      </li>
-    <% } %>
+        <% foreach (var item in Model.MTTopCategoryItems.Where(c => c.CategoryParentId == Model.ActiveCategory.CategoryId && c.CategoryType != (byte)CategoryType.Model).OrderBy(c => c.CategoryName))
+            { %>
+        <li class="sub-menu-item">&nbsp;&nbsp;&nbsp;<a href="<%:item.CategoryUrl %>">
+            <%: item.CategoryName%></a>      </li>
+        <% } %>
 
     <% }
         else

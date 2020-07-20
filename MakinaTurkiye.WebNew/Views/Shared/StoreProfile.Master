@@ -10,20 +10,21 @@
 <body class="facelift-v2">
     <!-- Json Ld Ayar-->
     <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Organization",
-  "url": "https://www.makinaturkiye.com",
-  "name": "makinaturkiye.com",
-  "logo" : "https://www.makinaturkiye.com/Content/V2/images/makinaturkiye.png",
-  "contactPoint": {
-    "@type": "ContactPoint",
-    "telephone": "+90 212 255 7152",
-    "contactType": "Customer service"
-  }
-}
+        {
+          "@context": "http://schema.org",
+          "@type": "Organization",
+          "url": "https://www.makinaturkiye.com",
+          "name": "makinaturkiye.com",
+          "logo" : "https://www.makinaturkiye.com/Content/V2/images/makinaturkiye.png",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+90 212 255 7152",
+            "contactType": "Customer service"
+          }
+        }
     </script>
     <!-- Json Ld Ayar-->
+
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7HZJT"
