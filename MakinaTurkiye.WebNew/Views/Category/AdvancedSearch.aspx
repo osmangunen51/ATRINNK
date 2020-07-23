@@ -243,9 +243,9 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-      <h2 class="section-title" style="margin:0px 0px 20px">
+      <h1 class="section-title" style="margin:0px 0px 20px">
                 <span>Detaylı Arama</span>
-        </h2> 
+        </h1> 
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-9 ">
 
@@ -383,13 +383,12 @@
 
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 ">
-            <div class="panel panel-default" style="margin-top:38px;">
+            <div class="panel panel-default" >
                 <div class="panel-heading">
                     <h3 class="panel-title">Arama İpuçları</h3>
                 </div>
                 <div class="panel-body">
                     <p>MakinaTürkiye arama motoru, büyük/küçük harf ayrımı yapmamaktadır.</p>
-                    <p><a href="#">Diğer ayrıntılar için tıklayın</a></p>
                 </div>
             </div>
         </div>

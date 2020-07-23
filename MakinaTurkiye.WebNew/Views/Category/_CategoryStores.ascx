@@ -3,39 +3,7 @@
 
 <%if (gorunumt != "3")
     {  %>
-<div class="row clearfix">
 
-    <div class="col-xs-12">
-        <h2 class="section-title-category section-title--left">
-            <span>
-                <a href="<%:Model.StoreCategoryUrl %>" title="<%:Model.SelectedCategoryName %> Firmaları">
-
-                    <% if (Model.SelectedCategoryType >= (byte)CategoryType.Brand)
-                        { %>
-                    <% if (Model.SelectedCategoryType == (byte)CategoryType.Brand)
-                        { %>
-                    <%:Model.SelectedCategoryName%>
-                    <%--<%:Model.TopCategoryItems.FirstOrDefault(c=> c.CategoryId == Model.ActiveCategory.CategoryParentId.Value).CategoryName %>--%>
-                    <% }
-                        else
-                        { %>
-                    <%-- <%:Model.TopCategoryItems.FirstOrDefault(c=> c.CategoryId == Model.ActiveCategory.CategoryParentId.Value).CategoryName %>--%>
-                    <%:Model.SelectedCategoryName%>
-                    <% } %>
-                    <% }
-                        else
-                        { %>
-                    <%if (Model.SelectedCategoryType == (byte)CategoryType.Brand)
-                        {  %>
-                    <%:Model.SelectedCategoryName%>
-                    <%} %>
-                    <%:Model.SelectedCategoryName%>
-                    <% } %>Firmaları 
-                </a>
-            </span>
-
-        </h2>
-    </div>
 
 
     <div class="col-xs-12">
@@ -77,5 +45,5 @@
             </div>
         </div>
     </div>
-</div>
+
 <% } %>
