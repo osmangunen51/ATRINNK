@@ -270,7 +270,21 @@
         }
       });      
     }
-
+      function BrandCheck() {
+          if ($("#DropDownBrand").val() != "") {
+              if ($("#DropDownBrand").val() == "0") {
+                  if ($("#OtherBrand").val() == "") {
+                      alert("Diğer Marka Ekleyiniz.");
+                      return false;
+                  }
+              }
+              return true;
+          }
+          else {
+              alert("Lütfen marka seçiniz.");
+              return false;
+          }
+      }
   </script>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
@@ -319,7 +333,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-9 btn-group">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" class="btn btn-primary" onclick="return BrandCheck();">
                               Devam
                             </button>
                             </div>

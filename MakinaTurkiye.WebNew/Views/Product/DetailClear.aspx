@@ -42,7 +42,7 @@
             );
 
         }
-                        function CertificatePopUpGallery() {
+        function CertificatePopUpGallery() {
             $('.certificate-popup-gallery').magnificPopup({
                 delegate: 'div a',
                 type: 'image',
@@ -64,7 +64,7 @@
         $(document).ready(function () {
             CertificatePopUpGallery();
             ProductPopupGallery();
-             let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+            let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
 
             if (isMobile) {
 
@@ -72,19 +72,18 @@
                 var count = $(".breadcrumb-mt li").length;
                 $(".fast-access-bar").css("margin-top", "-20px");
                 $(".fast-access-bar").removeAttr("class");
-               
+
                 $(".breadcrumb-mt li").each(function (index) {
                     if (index == 0) {
-                              $(this).show();
+                        $(this).show();
                     }
                     else if (index == count - 1) {
-                          $(this).css("display", "none");
-                    }
-                    else if (index < count - 4)
-                    {
                         $(this).css("display", "none");
                     }
-                 });
+                    else if (index < count - 4) {
+                        $(this).css("display", "none");
+                    }
+                });
             }
 
             $("#btnProductCommentInValid").click(function () {
@@ -173,7 +172,7 @@
             $.ajax({
                 url:'<%:AppSettings.SiteUrlWithoutLastSlash%>/ajax/AddWhatsappLog',
                 data: { storeId: id },
-                type:'get',
+                type: 'get',
                 success: function (data) {
 
                 }
@@ -207,7 +206,7 @@
             if ($(window).scrollTop() > 150) {
                 if (request == 0) {
                     SetProductStatistic();
-                                    
+
 
                 }
 
@@ -223,7 +222,7 @@
                 type: 'get',
 
                 success: function (data) {
-                     $("#RequestStatistic").val("1");
+                    $("#RequestStatistic").val("1");
                 }
             }
             );
@@ -320,11 +319,11 @@
     </style>
     <div class="row urun-detay">
         <div class="col-md-12">
-        <h1 class="product-detail__title">
-           
-            <%:Model.ProductDetailModel.ProductName %>
-        </h1>
-            </div>
+            <h1 class="product-detail__title">
+
+                <%:Model.ProductDetailModel.ProductName %>
+            </h1>
+        </div>
         <%if (Model.OnlyStoreSee)
             { %>
         <div class="flex-row flex-lg-nowrap flex-md-nowrap" style="padding-left: 15px; padding-right: 15px; margin-bottom: 20px;">
@@ -342,24 +341,20 @@
                             <%=Html.RenderHtmlPartial("_ProductPictureNew",Model.ProductPictureModels)%>
                         </div>
                     </div>
-    
+
                 </div>
             </div>
-                     <div class="flex-xs-12 flex-md-7 flex-sm-7 flex-lg-3 p-r-lg-15 p-r-md-15 ">
-                        <%=Html.RenderHtmlPartial("_ProductDetailNew", Model.ProductDetailModel)%>
-                    </div>
+            <div class="flex-xs-12 flex-md-7 flex-sm-7 flex-lg-3 p-r-lg-15 p-r-md-15 ">
+                <%=Html.RenderHtmlPartial("_ProductDetailNew", Model.ProductDetailModel)%>
+            </div>
             <div class="flex-xs-12 flex-sm-12 flex-md-3 flex-lg-3 rightSidebar">
                 <div>
                     <div class="affixRight" data-bottom-fix="#fixthis">
                         <div style="display: block;">
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12 col-md-12 col-lg-12">
-                                    
-                                 
-                                            <%=Html.RenderHtmlPartial("_ProductStoreNew", Model.ProductStoreModel)%>
-                                            <%=Html.RenderHtmlPartial("_StoreOtherProductNew", Model.StoreOtherProductModel)%>
-                                   
-                                    
+                                    <%=Html.RenderHtmlPartial("_ProductStoreNew", Model.ProductStoreModel)%>
+                                    <%=Html.RenderHtmlPartial("_StoreOtherProductNew", Model.StoreOtherProductModel)%>
                                 </div>
                                 <%--         <div class="col-sm-6 col-xs-12 col-md-12 col-lg-12 hidden-xs">
                                     <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
@@ -373,20 +368,17 @@
                                     </script>
                                 </div>--%>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-            
-                    <div class="flex-xs-12  p-r-lg-15 p-r-md-15">
-                        <%=Html.RenderHtmlPartial("_ProductTabNew",Model.ProductTabModel) %>
-                    </div>
+        <div class="flex-xs-12  p-r-lg-15 p-r-md-15">
+            <%=Html.RenderHtmlPartial("_ProductTabNew",Model.ProductTabModel) %>
+        </div>
         <div class="col-xs-12" id="fixthis">
             <%=Html.RenderHtmlPartial("_SimilarProductNew",Model.SimilarProductModel) %>
         </div>
-
         <%--        <div class="col-xs-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -430,16 +422,13 @@
                     </div>
                 </div>
             </div>
-
         </div>--%>
     </div>
     <%=Html.RenderHtmlPartial("_ProductStoreContact",Model.ProductContanctModel) %>
     <%if (!string.IsNullOrEmpty(Model.MtJsonLdModel.JsonLdString))
         {%>
-    <script type="application/ld+json">
-       
+    <script type="application/ld+json">       
          <%=Model.MtJsonLdModel.JsonLdString %>
     </script>
-
     <% } %>
 </asp:Content>
