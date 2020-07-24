@@ -1,4 +1,4 @@
-namespace EEYS.Service.Areas.HelpPage.ModelDescriptions
+namespace MakinaTurkiye.Api.Areas.HelpPage.ModelDescriptions
 {
     public class KeyValuePairModelDescription : ModelDescription
     {

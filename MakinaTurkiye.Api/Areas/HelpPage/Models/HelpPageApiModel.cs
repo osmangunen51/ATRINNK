@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using EEYS.Service.Areas.HelpPage.ModelDescriptions;
+using MakinaTurkiye.Api.Areas.HelpPage.ModelDescriptions;
 
-namespace EEYS.Service.Areas.HelpPage.Models
+namespace MakinaTurkiye.Api.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

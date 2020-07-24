@@ -1,4 +1,6 @@
-﻿using MakinaTurkiye.Core.Infrastructure;
+﻿using MakinaTurkiye.Api;
+using MakinaTurkiye.Core.Infrastructure;
+using Swashbuckle.Application;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;

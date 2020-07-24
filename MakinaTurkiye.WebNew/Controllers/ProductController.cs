@@ -571,6 +571,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             else
             {
+                try
+                {
+                    _productService.CachingGetOrSetOperationEnabled = false;
+                    product = _productService.GetProductByProductId(productId.Value);
+                    product.ViewCount += 1;
+                    _productService.UpdateProduct(product);
+                }
+                finally
+                {
+
+                }
+
                 memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.MainPartyId.Value);
                 if (memberStore == null)
                 {
@@ -1122,38 +1134,44 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
             //ürün görünün güncelleme
-
             var updatedProduct = _productService.GetProductByProductId(product.ProductId);
+            
 
-            if (!SessionSingularViewCountType.SingularViewCountTypes.Any(c => c.Key == productId && c.Value == SingularViewCountType.Product))
+            try
             {
-                var productStatistic = new ProductStatistic();
-                if (product.MainPartyId.HasValue)
-                    productStatistic.MemberMainPartyId = product.MainPartyId.Value;
+                if (!SessionSingularViewCountType.SingularViewCountTypes.Any(c => c.Key == productId && c.Value == SingularViewCountType.Product))
+                {
+                    var productStatistic = new ProductStatistic();
+                    if (product.MainPartyId.HasValue)
+                        productStatistic.MemberMainPartyId = product.MainPartyId.Value;
 
-                string ipAdress = Request.UserHostAddress;
-                DateTime dateNow = DateTime.Now;
-                DateTime recordDate = DateTime.Now;
-                productStatistic.RecordDate = dateNow;
-                productStatistic.IpAdress = ipAdress;
-                productStatistic.ProductId = model.ProductDetailModel.ProductId;
-                productStatistic.SingularViewCount = 1;
-                productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
-                productStatistic.ViewCount = 1;
-                _productStatisticService.InsertProductStatistic(productStatistic);
+                    string ipAdress = Request.UserHostAddress;
+                    DateTime dateNow = DateTime.Now;
+                    DateTime recordDate = DateTime.Now;
+                    productStatistic.RecordDate = dateNow;
+                    productStatistic.IpAdress = ipAdress;
+                    productStatistic.ProductId = model.ProductDetailModel.ProductId;
+                    productStatistic.SingularViewCount = 1;
+                    productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
+                    productStatistic.ViewCount = 1;
+                    _productStatisticService.InsertProductStatistic(productStatistic);
 
-                SessionStatisticIds.StatisticIds.Add(productId.Value, productStatistic.Id.ToString());
+                    SessionStatisticIds.StatisticIds.Add(productId.Value, productStatistic.Id.ToString());
 
-                _productService.CachingGetOrSetOperationEnabled = false;
-                updatedProduct.SingularViewCount += 1;
-                _productService.UpdateProduct(updatedProduct);
+                    _productService.CachingGetOrSetOperationEnabled = false;
+                    updatedProduct.SingularViewCount += 1;
+                    _productService.UpdateProduct(updatedProduct);
 
-                SessionSingularViewCountType.SingularViewCountTypes.Add(productId.Value, SingularViewCountType.Product);
+                    SessionSingularViewCountType.SingularViewCountTypes.Add(productId.Value, SingularViewCountType.Product);
+                }
             }
+            finally
+            {
 
-            _productService.CachingGetOrSetOperationEnabled = false;
-            updatedProduct.ViewCount += 1;
-            _productService.UpdateProduct(updatedProduct);
+            }
+            
+
+           
 
             //seo
             //if (!string.IsNullOrWhiteSpace(model.ProductStoreModel.StoreName))

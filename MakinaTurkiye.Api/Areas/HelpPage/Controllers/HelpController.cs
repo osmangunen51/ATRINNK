@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using EEYS.Service.Areas.HelpPage.ModelDescriptions;
-using EEYS.Service.Areas.HelpPage.Models;
+using MakinaTurkiye.Api.Areas.HelpPage.ModelDescriptions;
+using MakinaTurkiye.Api.Areas.HelpPage.Models;
 
-namespace EEYS.Service.Areas.HelpPage.Controllers
+namespace MakinaTurkiye.Api.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.
