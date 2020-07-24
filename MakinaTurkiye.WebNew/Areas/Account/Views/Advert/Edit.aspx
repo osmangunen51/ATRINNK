@@ -951,7 +951,7 @@
                         </div>
                     </div>
                     <div id="price-range">
-                        <div class="form-group" style="display: none;">
+                        <div class="form-group" >
                             <label class="col-sm-3 control-label">
                                 Fiyat Aralığı
                             </label>
