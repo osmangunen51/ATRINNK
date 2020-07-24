@@ -2170,7 +2170,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     treeName += treeList[i].ToString() + ".";
             }
 
-            if (!string.IsNullOrEmpty(model.OtherBrand) && model.OtherModel.Trim() == "")
+            if (!string.IsNullOrEmpty(model.OtherBrand) && model.OtherBrand.Trim() == "")
                 model.OtherBrand = null;
             if (!string.IsNullOrEmpty(model.OtherModel) && model.OtherModel.Trim() == "") model.OtherModel = null;
 

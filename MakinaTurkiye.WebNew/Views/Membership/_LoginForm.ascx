@@ -2,7 +2,6 @@
 
 <meta name="google-signin-client_id" content="638267544487-nqpu1s475ju88si2rpper76f0rs5e03o.apps.googleusercontent.com">
 <form action="javascript:void(0)" id="login-form">
-
     <%:Html.HiddenFor(x=>x.ReturnUrl) %>
     <div class="form-group">
         <label>Email*</label>

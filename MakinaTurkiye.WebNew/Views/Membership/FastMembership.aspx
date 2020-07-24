@@ -39,6 +39,7 @@
                 <div class="panel-body">
                     <% using (Html.BeginForm("FastMemberShip", "membership", FormMethod.Post, new { @id = "register-form" }))
                         {%>
+            
         
                     <%=Html.RenderHtmlPartial("_RegisterForm", Model) %>
                     <%} %>

@@ -119,7 +119,7 @@ function onSignIn(googleUser) {
     <div class="row sign-in-container">
 
 
-
+    
         <div class="col-xs-12 col-sm-5 col-md-4">
             <%if (TempData["MessageError"] != null)
                 { %>
@@ -152,6 +152,7 @@ function onSignIn(googleUser) {
             <div class="loading-membership">
                 <img src="../../Content/V2/images/menu-loading.gif" style="width: 64px" />
             </div>
+              
             <ul class="nav nav-tabs login-tabs">
 
                 <li class="<%:Model.LoginTabType==(byte)LoginTabType.Login?"active":""  %>"><a data-toggle="tab" href="#login">Giriş Yap</a></li>

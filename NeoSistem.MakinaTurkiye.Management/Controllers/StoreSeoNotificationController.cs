@@ -262,7 +262,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             var entities = new MakinaTurkiyeEntities();
             var userId = CurrentUserModel.CurrentManagement.UserId;
-            if (entities.PermissionUsers.Any(x => x.UserId == userId && (x.UserGroupId == 11 || x.UserGroupId == 21)) == true)
+            if (entities.PermissionUsers.Any(x => x.UserId == userId && (x.UserGroupId == 11 || x.UserGroupId == 21 || x.UserGroupId ==7)) == true)
             {
                 var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationsByDateWithStatus(DateTime.Now, 0, userId);
                 return Json(new { Count = storeSeoNotification.Count }, JsonRequestBehavior.AllowGet);

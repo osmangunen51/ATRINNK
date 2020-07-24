@@ -844,7 +844,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #region tab
 
             //map, view count, description
-            model.ProductTabModel.ProductDescription = product.ProductDescription;
+            model.ProductTabModel.ProductDescription = product.ProductDescription.Replace("h1","h2");
             model.ProductTabModel.ProductName = product.ProductName;
             model.ProductTabModel.ProductViewCount = product.ViewCount.Value;
 
