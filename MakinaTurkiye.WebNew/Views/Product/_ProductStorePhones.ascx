@@ -5,8 +5,15 @@
             <div class="urun-iletisim-urun-detay ">
                 <div class="urun-iletisim-urun-detay-photo">
                     <a href="<%:Model.ProductUrl %>">
-                        <img src="<%=Model.ProductPictureUrl %>" width="180" height="135" class="img-responsive" alt="<%=Model.ProductName%>">
-                    </a>
+                        <%if (!string.IsNullOrEmpty(Model.ProductPictureUrl))
+                                    {%>
+                                          <img src="<%=Model.ProductPictureUrl %>" width="180" height="135" class="img-responsive" alt="<%=Model.ProductName%>">
+                                    <%}
+                                else
+                                {%>
+                                     <img src="//s.makinaturkiye.com/no-image_200x150.png" alt="Resim bulunamadı" title="Resim bulunamadı" />
+                                <%}%>
+                        </a>
                 </div>
                 <div class="urun-iletisim-urun-detay-urun-adi">
                     <span><b><%=Model.ProductName %></b></span>

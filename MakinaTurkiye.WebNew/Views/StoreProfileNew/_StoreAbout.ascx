@@ -6,8 +6,17 @@
             data-ride="carousel">
             <div class="carousel-inner">
                 <div id="test-slider-1" class="item active">
-                    <img style="width: auto; height: 100%; max-width: 100%;" src="<%:Model.AboutImagePath %>"
+                    <%if (!string.IsNullOrEmpty(Model.AboutImagePath))
+                                    {%>
+                                          <img style="width: auto; height: 100%; max-width: 100%;" src="<%:Model.AboutImagePath %>"
                         alt="<%:Model.StoreName%>" title="<%:Model.StoreName %>" />
+                                    <%}
+                                else
+                                {%>
+                                     <img src="//s.makinaturkiye.com/no-image_570x380.png" alt="Resim bulunamadı" title="Resim bulunamadı" />
+                                <%}%>
+
+                    
                 </div>
             </div>
         </div>
