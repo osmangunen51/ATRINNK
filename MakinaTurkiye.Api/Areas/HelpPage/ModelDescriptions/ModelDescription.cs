@@ -1,6 +1,6 @@
 using System;
 
-namespace EEYS.Service.Areas.HelpPage.ModelDescriptions
+namespace MakinaTurkiye.Api.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

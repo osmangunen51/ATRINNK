@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace EEYS.Service.Areas.HelpPage.ModelDescriptions
+namespace MakinaTurkiye.Api.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

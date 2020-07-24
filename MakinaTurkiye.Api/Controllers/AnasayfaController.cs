@@ -6,8 +6,10 @@ namespace MakinaTurkiye.Api.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "MakinaTürkiye Servisi";
+            ViewBag.Title = "Makina Türkiye Servisi";
             return View();
+            //Response.Redirect("~/swagger/ui/index", true);
+            //return null;
         }
     }
 }

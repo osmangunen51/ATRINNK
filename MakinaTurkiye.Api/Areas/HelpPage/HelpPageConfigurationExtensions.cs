@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using EEYS.Service.Areas.HelpPage.ModelDescriptions;
-using EEYS.Service.Areas.HelpPage.Models;
+using MakinaTurkiye.Api.Areas.HelpPage.ModelDescriptions;
+using MakinaTurkiye.Api.Areas.HelpPage.Models;
 
-namespace EEYS.Service.Areas.HelpPage
+namespace MakinaTurkiye.Api.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

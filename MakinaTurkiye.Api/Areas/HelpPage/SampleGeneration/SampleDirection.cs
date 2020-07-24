@@ -1,4 +1,4 @@
-namespace EEYS.Service.Areas.HelpPage
+namespace MakinaTurkiye.Api.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

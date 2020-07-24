@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace EEYS.Service.Areas.HelpPage
+namespace MakinaTurkiye.Api.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

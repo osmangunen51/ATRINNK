@@ -28,23 +28,34 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var Result = ProductService.GetProductByProductId(No);
-                ProcessStatus.Result =new{
-                    Id= Result.ProductId,
-                    Name =Result.ProductName,
-                    Price = Result.ProductPrice
-                } ;
-                ProcessStatus.Message.Header = "Product İşlemleri";
-                ProcessStatus.Message.Text = "Başarılı";
-                ProcessStatus.Status = true;
+                if (Result != null)
+                {
+                    ProcessStatus.Result = new
+                    {
+                        Id = Result.ProductId,
+                        Name = Result.ProductName,
+                        Price = Result.ProductPrice
+                    };
+                    ProcessStatus.Message.Header = "Product Operations";
+                    ProcessStatus.Message.Text = "Success";
+                    ProcessStatus.Status = true;
+                }
+                else
+                {
+                    ProcessStatus.Message.Header = "Product Operations";
+                    ProcessStatus.Message.Text = "Entity Not Found";
+                    ProcessStatus.Status = false;
+                    ProcessStatus.Result = null;
+                }
+  
             }
             catch (Exception Error)
             {
-                ProcessStatus.Message.Header = "Product İşlemleri";
-                ProcessStatus.Message.Text = "Başarısız";
+                ProcessStatus.Message.Header = "Product Operations";
+                ProcessStatus.Message.Text = "Error";
                 ProcessStatus.Status = false;
                 ProcessStatus.Result = null;
                 ProcessStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
