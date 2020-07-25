@@ -31,7 +31,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
         public Phone Phone { get; set; } 
 
         public IyzicoPayment(Order order, Member member, global::MakinaTurkiye.Entities.Tables.Common.Address address, Packet packet,
-            string amount, string creditCardNumber, string cardNameSurname, string cvv2, string expireMont, string expireYear, int? dopingDay, string callBackUrl, Phone phone)
+            string amount, string creditCardNumber, string cardNameSurname, string cvv2, string expireMont, string expireYear, int? dopingDay, string callBackUrl, Phone phone, string installment)
         {
             this.Order = order;
             this.Member = member;
@@ -46,6 +46,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
             this.DopingDay = dopingDay;
             this.CallBakUrl = callBackUrl;
             this.Phone = phone;
+            this.Installment = installment;
 
         }
         public IyzicoResultModel CreatePaymentRequest()
@@ -60,11 +61,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
             request.Price = this.Amount;
             request.PaidPrice = this.Amount;
             request.Currency = Iyzipay.Model.Currency.TRY.ToString();
-            //request.Installment =Convert.ToInt32(taksit);
             if (!string.IsNullOrEmpty(this.Installment))
                 request.Installment = Convert.ToInt32(this.Installment);
             else
                 request.Installment = 1;
+
             request.BasketId = Order.OrderId.ToString();
             request.PaymentChannel = PaymentChannel.WEB.ToString();
             request.PaymentGroup = PaymentGroup.PRODUCT.ToString();

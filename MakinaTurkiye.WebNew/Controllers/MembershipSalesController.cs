@@ -1174,7 +1174,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(memberStore.StoreMainPartyId.Value, PhoneTypeEnum.Gsm);
 
             var iyzicoPayment = new IyzicoPayment(order, member, address, packet, tutar, pan, kartisim, cv2,
-                Ecom_Payment_Card_ExpDate_Month, Ecom_Payment_Card_ExpDate_Year, null, "/membershipsales/resultpay",phone);
+                Ecom_Payment_Card_ExpDate_Month, Ecom_Payment_Card_ExpDate_Year, null, "/membershipsales/resultpay",phone, taksit);
             var result = iyzicoPayment.CreatePaymentRequest();
 
             //------------------------------------------------------------
@@ -1547,7 +1547,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         packetModel.PacketName = packet.PacketName;
                         packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
                         if (!string.IsNullOrEmpty(priceAmount))
-                            packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount);
+                            packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".",","));
                         else
                             if (paid != 0)
                             packetModel.PayPriceAmount = order.OrderPrice - paid;
@@ -1664,7 +1664,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(memberStore.StoreMainPartyId.Value, PhoneTypeEnum.Gsm);
 
             IyzicoPayment iyzicoPayment = new IyzicoPayment(order, member, adressNew, packet, tutar, pan, kartisim, cv2, Ecom_Payment_Card_ExpDate_Month,
-                    Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone);
+                    Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone,taksit);
 
             var paymentResult = iyzicoPayment.CreatePaymentRequest();
             if (paymentResult.HtmlContent != null)
@@ -1700,7 +1700,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 if (decimal.Parse(tutar) != order.OrderPrice)
                 {
-                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = decimal.Parse(tutar), OrderId = order.OrderId });
+                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount =tutar, OrderId = order.OrderId });
 
                 }
             }
