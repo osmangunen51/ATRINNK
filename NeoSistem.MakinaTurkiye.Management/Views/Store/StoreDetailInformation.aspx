@@ -231,7 +231,7 @@
                       <%string colorPacket = "#b68c05";
     if (storeInfo.PacketEndDate != null) { colorPacket = "#05762a"; }%>
                       <%if (string.IsNullOrEmpty(storeInfo.PacketName)) storeInfo.PacketName = "Tanımlanmamış"; %>
-                   <span style="color:<%=colorPacket%>"><%: storeInfo.PacketName%></span>
+                   <span style="color:#FF0010"><%: storeInfo.PacketName%></span>
                   </td>
              
                 </tr>
@@ -242,7 +242,7 @@
                   <td>
                     :
                   </td>
-                  <td>
+                  <td style="color:#FF0010">
                   <%if (storeInfo.PacketEndDate != null) { %>
                       <%:storeInfo.PacketEndDate.ToDateTime().ToString("dd-MM-yyyy") %>                
                   <%} %>
@@ -304,9 +304,9 @@
                   <td>
                     :
                   </td>
-                  <td>
+                  <td >
                   <%if (!string.IsNullOrEmpty(storeInfo.StoreWebUrl)) {%>
-                           <a href="<%:!storeInfo.StoreWebUrl.Contains("http") ? "http://" + storeInfo.StoreWebUrl : storeInfo.StoreWebUrl %>">
+                           <a style="color:#FF0010" href="<%:!storeInfo.StoreWebUrl.Contains("http") ? "http://" + storeInfo.StoreWebUrl : storeInfo.StoreWebUrl %>">
                       <%:storeInfo.StoreWebUrl %>               
                        </a>
                       <% } %>
@@ -395,7 +395,7 @@
                    <tr>
                       <td>Ürün İstatistikleri</td>
                       <td>:</td>
-                      <td><span style="font-size:12px">Aktif Ürün:<%:Model.ActiveProductCount %> <br />Pasif Ürün:<%:Model.PasiveProductCount%>
+                      <td><span  style="font-size:12px; color:#FF0010">Aktif Ürün:<%:Model.ActiveProductCount %> <br />Pasif Ürün:<%:Model.PasiveProductCount%>
                           <br /><%:Model.SingularProductViewCount %> Tekil<br /><%:Model.ProductViewCount %> Çoğul
                           </span></td>
                   </tr>
@@ -403,7 +403,7 @@
                   <tr>
                       <td>Whatsapp Tıklanma Sayısı</td>
                       <td>:</td>
-                     <td> <%:Model.WhatsappClickCount %></td>
+                     <td style="color:#FF0010"> <%:Model.WhatsappClickCount %></td>
                   </tr>
          
                 <tr>
@@ -436,8 +436,9 @@
                       <td>Adres</td>
                       <td>:</td>
                       <td><%:Model.StoreContactInfoModel.StoreAddress %></td>
-                  </tr>
-                  <%foreach (var item in Model.StoreContactInfoModel.StorePhones)
+                  </tr>  
+                
+                     <%foreach (var item in Model.StoreContactInfoModel.StorePhones)
                       {
                           string phoneType = "Sabit";
                           if (item.PhoneType == (byte)PhoneType.Fax)
