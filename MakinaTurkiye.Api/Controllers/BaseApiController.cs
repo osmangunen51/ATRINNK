@@ -14,7 +14,7 @@ namespace MakinaTurkiye.Api.Controllers
         {
             get
             {
-                _Ip =GetClientIp();
+                _Ip = GetClientIp();
                 return _Ip;
             }
             set

@@ -1,8 +1,8 @@
+using MakinaTurkiye.Api.Areas.HelpPage.ModelDescriptions;
+using MakinaTurkiye.Api.Areas.HelpPage.Models;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using MakinaTurkiye.Api.Areas.HelpPage.ModelDescriptions;
-using MakinaTurkiye.Api.Areas.HelpPage.Models;
 
 namespace MakinaTurkiye.Api.Areas.HelpPage.Controllers
 {

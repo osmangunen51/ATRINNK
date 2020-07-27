@@ -1,24 +1,17 @@
+using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Utilities.ImageHelpers;
-using MMakinaTurkiye.Api.View;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Web.Http;
-using System.Web.Mvc;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace MakinaTurkiye.Api.Controllers
 {
-    public class BannerController : ApiController
+    public class BannerController : BaseApiController
     {
         private readonly IBannerService ProductService;
         public BannerController()
@@ -58,7 +51,7 @@ namespace MakinaTurkiye.Api.Controllers
                     index++;
                 }
 
-                if (Result != null  && Result.Count()>0)
+                if (Result != null && Result.Count() > 0)
                 {
                     ProcessStatus.Result = Result;
                     ProcessStatus.Message.Header = "Banners Operations";
@@ -72,7 +65,7 @@ namespace MakinaTurkiye.Api.Controllers
                     ProcessStatus.Status = false;
                     ProcessStatus.Result = null;
                 }
-  
+
             }
             catch (Exception Error)
             {
@@ -85,7 +78,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-       
+
 
     }
 }

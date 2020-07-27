@@ -1,7 +1,10 @@
-using System.Web.Http;
-using WebActivatorEx;
 using MakinaTurkiye.Api;
 using Swashbuckle.Application;
+using Swashbuckle.Swagger;
+using System.Collections.Generic;
+using System.Web.Http;
+using System.Web.Http.Description;
+using WebActivatorEx;
 
 [assembly: PreApplicationStartMethod(typeof(SwaggerConfig), "Register")]
 
@@ -32,10 +35,17 @@ namespace MakinaTurkiye.Api
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
+
+                        c.RootUrl(x => "https://api.makinaturkiye.com/");
+                        //c.RootUrl(x => "http://localhost:1300/");
+                        c.Schemes(new[] { "http", "https" });
+
+
                         c.SingleApiVersion("v1", "Makina Türkiye Api");
+                        c.OperationFilter<AddRequiredAuthorizationHeaderParameter>();
                         c.PrettyPrint();
                         c.IgnoreObsoleteActions();
-                        c.GroupActionsBy(apiDesc => apiDesc.HttpMethod.ToString());
+                        //c.GroupActionsBy(apiDesc => apiDesc.HttpMethod.ToString());
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
                         //c.PrettyPrint();
@@ -251,7 +261,43 @@ namespace MakinaTurkiye.Api
                         // "apiKeyIn" can either be "query" or "header"
                         //
                         //c.EnableApiKeySupport("apiKey", "header");
+
+                        c.EnableApiKeySupport("Token", "header");
+                        c.EnableApiKeySupport("Key", "header");
+
+
                     });
+        }
+
+        public class AddRequiredAuthorizationHeaderParameter : IOperationFilter
+        {
+            public void Apply(Operation operation, SchemaRegistry schemaRegistry, ApiDescription apiDescription)
+            {
+                if (operation.parameters == null) operation.parameters = new List<Parameter>();
+                if (operation.operationId.Contains("GetAccessToken"))
+                {
+                }
+                else
+                {
+                    operation.parameters.Add(new Parameter
+                    {
+                        name = "Token",
+                        @in = "header",
+                        type = "string",
+                        required = true,
+                        description = "Token"
+                    });
+
+                    operation.parameters.Add(new Parameter
+                    {
+                        name = "Key",
+                        @in = "header",
+                        type = "string",
+                        required = true,
+                        description = "Key"
+                    });
+                }
+            }
         }
     }
 }

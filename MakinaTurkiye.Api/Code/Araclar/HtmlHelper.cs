@@ -22,7 +22,7 @@ namespace MakinaTurkiye.Api.Araclar
             if (!string.IsNullOrEmpty(serverUrl))
             {
                 serverUrl = ResolveUrl(serverUrl);
-                result = new Uri(result,serverUrl);
+                result = new Uri(result, serverUrl);
             }
             if (forceHttps && !string.Equals(result, Uri.UriSchemeHttps))
             {

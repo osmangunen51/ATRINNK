@@ -1,17 +1,13 @@
 ﻿
-namespace MMakinaTurkiye.Api.View
+namespace MakinaTurkiye.Api.View
 {
     using System;
     using System.Collections.Generic;
-    using System.Text;
-    using System.Linq;
     using System.ComponentModel;
+    using System.Linq;
 
     public static class EnumModel
     {
-        //test zorunlu
-
-
         public static Dictionary<string, int> GetMonth()
         {
             var monthItems = new Dictionary<string, int>();
@@ -340,8 +336,8 @@ namespace MMakinaTurkiye.Api.View
 
     public enum ProductStatus : byte
     {
-        NewProduct=72,
-        SecondHand=73
+        NewProduct = 72,
+        SecondHand = 73
     }
 
 

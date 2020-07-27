@@ -1,14 +1,14 @@
 ﻿using System;
 
-namespace MMakinaTurkiye.Api.View
+namespace MakinaTurkiye.Api.View
 {
     public class Message
     {
-        public string Header { get; set; } ="";
+        public string Header { get; set; } = "";
         public string Text { get; set; } = "";
     }
 
-    public  class ProcessStatus
+    public class ProcessStatus
     {
         public bool Status { get; set; } = false;
         public object Result { get; set; }

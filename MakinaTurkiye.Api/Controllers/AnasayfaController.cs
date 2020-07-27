@@ -8,8 +8,6 @@ namespace MakinaTurkiye.Api.Controllers
         {
             ViewBag.Title = "Makina Türkiye Servisi";
             return View();
-            //Response.Redirect("~/swagger/ui/index", true);
-            //return null;
         }
     }
 }
