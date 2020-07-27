@@ -89,7 +89,7 @@
 <%}
     else
     { %>
-<img src="//s.makinaturkiye.com/no-image.png" alt="Resim bulunamadı" title="Resim bulunamadı" />
+    <img src="//s.makinaturkiye.com/no-image_500x375.png" alt="Resim bulunamadı" title="Resim bulunamadı" />
 <%} %>
 
 <%--

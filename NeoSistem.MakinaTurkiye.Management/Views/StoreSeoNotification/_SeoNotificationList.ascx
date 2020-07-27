@@ -19,7 +19,7 @@
                              Response.Write(Inputdate[0] + " ");
                              Response.Write("<font style='color:#C5D5DD'>" + Inputdate[1] + "</font>");
                          }%></td>
-    <td class="Cell"><%if (itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
+    <td class="Cell"><%if (itemMemberDesc.LastDate!=null)
                          {
                              string[] lastDate = itemMemberDesc.LastDate.ToString().Split(' ');
                              Response.Write(lastDate[0] + " ");

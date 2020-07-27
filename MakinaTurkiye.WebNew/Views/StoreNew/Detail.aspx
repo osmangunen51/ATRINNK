@@ -52,7 +52,7 @@
                 <div class="col-md-12">
                     <div class="pull-left">
                         <a href="<%:Model.NewStoreModel.StoreUrl %>" title="<%:Model.NewStoreModel.StoreName %>" class="pull-left">
-                            <img src="<%:Model.NewStoreModel.StoreLogoPath %>" class="img-rounded img-responsive" alt="<%:Model.NewStoreModel.StoreName %>" style="border: 1px solid #ccc;" />
+                            <img src="<%:Model.NewStoreModel.StoreLogoPath %>" class="img-rounded img-responsive" alt="<%:Model.NewStoreModel.StoreName%>" style="border: 1px solid #ccc;" />
                         </a>
                     </div>
                     <div class="pull-left new-store-info" style="margin-left:5px;">

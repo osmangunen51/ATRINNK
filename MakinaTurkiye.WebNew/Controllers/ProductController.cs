@@ -844,7 +844,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #region tab
 
             //map, view count, description
-            model.ProductTabModel.ProductDescription = product.ProductDescription.Replace("h1","h2");
+            if (product.ProductDescription == null)
+            {
+                model.ProductTabModel.ProductDescription = product.ProductName;
+            }
+            else
+            {
+                model.ProductTabModel.ProductDescription = product.ProductDescription.Replace("h1", "h2");
+            }
+
             model.ProductTabModel.ProductName = product.ProductName;
             model.ProductTabModel.ProductViewCount = product.ViewCount.Value;
 
@@ -996,12 +1004,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     CurrencyCss = item.GetCurrencyCssName(),
                     Price = item.GetFormattedPrice()
                 };
-
                 model.StoreOtherProductModel.ProductItemModels.Add(otherProduct);
                 storeOtherProductIndex++;
             }
-
-
             #region producttecnicalinfo
 
             var productTechnicalInfos = _categoryPropertieService.GetProductPropertieValuesResultByProductId(product.ProductId);

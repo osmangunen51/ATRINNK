@@ -235,7 +235,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(model.StoreSeoNotificationId);
                 model.PreviousText = storeSeoNotification.Text;
                 model.StoreSeoNotificationId = model.StoreSeoNotificationId;
-
             }
             var contstants = _constantService.GetConstantByConstantType(ConstantTypeEnum.SeoDecriptionTitle);
             if (model.ConstantId == 0)
@@ -250,13 +249,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     model.Titles.Add(new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString() });
                 }
-
             }
-
             return View(model);
         }
-
-
         [HttpGet]
         public JsonResult GetCountSeoNotification()
         {
@@ -271,9 +266,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
-
         }
-
         public ActionResult AllNotification()
         {
             var userId = CurrentUserModel.CurrentManagement.UserId;

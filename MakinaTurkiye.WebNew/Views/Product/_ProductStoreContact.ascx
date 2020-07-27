@@ -9,7 +9,7 @@
                     <div class="urun-iletisim-heading">
                         <div class="urun-iletisim-firma-logo">
                             <a href="<%:Model.StoreUrl %>">
-                                <img src="<%=Model.StoreModel.StoreLogoPath %>" width="99" height="66" alt="<%=Model.StoreModel.StoreShortName%>">
+                                <img src="<%=Model.StoreModel.StoreLogoPath %>" width="99" height="66" alt="<%=(!string.IsNullOrEmpty(Model.StoreModel.StoreShortName)?Model.StoreModel.StoreShortName:Model.StoreModel.StoreName)%>">
                             </a>
                         </div>
                         <div class="urun-iletisim-firma-adi">

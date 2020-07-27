@@ -25,10 +25,19 @@
                         { %>
 
                         <a href="<%:item.ProductUrl %>" class="saller-prd">
-                            <div class="saller-prd__image">
-                                <img  alt="<%:item.ProductName %>" src="<%:item.SmallPicturePah.Replace("100x75","200x150") %>">
-                            </div>
-                            <h5 class="saller-prd__title"><%:item.ProductName %></h5>
+                             <%if (!string.IsNullOrEmpty(item.SmallPicturePah))
+                                    {%>
+                                         <div class="saller-prd__image">
+                                           <img  alt="<%:item.ProductName %>" src="<%:item.SmallPicturePah.Replace("100x75","200x150") %>">
+                                        </div>
+                                    <%}
+                                else
+                                {%>
+                                     <div class="saller-prd__image" style="width:100%">
+                                         <img src="//s.makinaturkiye.com/no-image_200x150.png" alt="Resim bulunamadı" title="Resim bulunamadı" />
+                                     </div>
+                                <%}%>
+                            <h5 class="saller-prd__title"><%:item.ProductName%></h5>
                         </a>
                         <%} %>
                

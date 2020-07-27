@@ -80,7 +80,7 @@
                         <img
                             class="img-thumbnail broken-image"
                             src="/UserFiles/image-loading.png"
-                            data-src="<%=model.PicturePath %>"
+                            data-src="//s.makinaturkiye.com/no-image_200x150.png"
                             title="<%:model.ProductName%>"
                             alt="<%:model.ProductName%>" />
                         <%} %>
