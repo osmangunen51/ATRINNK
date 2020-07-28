@@ -1512,9 +1512,11 @@
     <Content Include="Views\MemberDescription\AllTask.aspx" />
     <Content Include="Views\MemberDescription\UpdateDescriptionDate.aspx" />
     <Content Include="Views\MemberDescription\_NotificationCountList.ascx" />
+    <Content Include="Views\Member\SearchPhone.aspx" />
     <Content Include="Views\Member\SendSpecialEmailToStore.aspx" />
     <Content Include="Views\Member\BulletinMember.aspx" />
     <Content Include="Views\Member\_BulletinRegisterList.ascx" />
+    <Content Include="Views\Member\_SearchPhoneList.ascx" />
     <Content Include="Views\OrderFirm\SalesResponsibleUpdate.aspx" />
     <Content Include="Views\OrderFirm\BillNumber.aspx" />
     <Content Include="Views\OrderFirm\OrderCount.aspx" />

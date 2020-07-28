@@ -10,7 +10,7 @@ if (Model.ActiveCategory != null) { display = "display:block; list-style-type:no
     <%foreach (var item in Model.MTTopCategoryItems.ToList())
         {
             LeftMargin += 10;%>
-    <li style="margin-left:<%:LeftMargin+"px"%> "><a href="<%:item.CategoryUrl %>">
+    <li class="sub-menu-item" ><a href="<%:item.CategoryUrl %>">
         <%: item.CategoryName%></a></li>
         <%} %>
         <%--Aktif Kategori--%>
