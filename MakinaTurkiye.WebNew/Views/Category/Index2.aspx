@@ -25,9 +25,9 @@
             //GetMostViewedProductAjax();
             //GetStoreWithAjax();
             $('#carouselExampleControls').carousel();
-             let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+            let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
             if (isMobile) {
-                                var i = 0;
+                var i = 0;
                 var count = $(".breadcrumb-mt li").length;
                 $(".fast-access-bar").css("margin-top", "-20px");
                 $(".fast-access-bar").removeAttr("class");
@@ -35,13 +35,12 @@
                 var count = $(".breadcrumb-mt li").length;
                 $(".breadcrumb-mt li").each(function (index) {
                     if (index == 0) {
-                              $(this).show();
+                        $(this).show();
                     }
-                    else if (index < count - 2)
-                    {
+                    else if (index < count - 2) {
                         $(this).css("display", "none");
                     }
-                 });
+                });
             }
         });
         //lazyloading
@@ -360,11 +359,11 @@
                                         <div class="panel-body collapse in CategoryLeftCategoryTop" id="menu-body2">
                                             <h1>
 
-                                                  <%
-                                                      string brandName = "";
-                                         
-                                                      if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
-                                                      {%>
+                                                <%
+                                                    string brandName = "";
+
+                                                    if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
+                                                    {%>
                                       Sıfır
                                  <%}
                                      else if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Used)
@@ -373,41 +372,41 @@
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
-                                                              Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                                  Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                     {%>
                                                 <%brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
-                                              <%categoryTitle = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName;  %>
+                                                <%categoryTitle = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName;  %>
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName%>
                                                 <%}
                                                     else
                                                     {%>
                                                 <%if (!string.IsNullOrEmpty(Model.SpesificBrandName))
                                                     { %>
-                                                  <%categoryTitle = Model.SpesificBrandName; %>
+                                                <%categoryTitle = Model.SpesificBrandName; %>
                                                 <%=Model.SpesificBrandName%>
                                                 <%}
                                                     } %>
 
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Model") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.Any(k => k.Selected))
                                                     {%>
-                                                    <%categoryTitle += " " + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
+                                                <%categoryTitle += " " + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.FirstOrDefault(k=>k.Selected).FilterName%>
                                                 <%} %>
                                                 <%if (!string.IsNullOrEmpty(Model.SpesificCategoryNameForModelH1) && brandName != Model.SpesificCategoryNameForModelH1)
                                                     { %>
-                                                        <%categoryTitle += " " + Model.SpesificCategoryNameForModelH1; %>
+                                                <%categoryTitle += " " + Model.SpesificCategoryNameForModelH1; %>
                                                 <%:Model.SpesificCategoryNameForModelH1 %>
 
                                                 <%} %>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Seri") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.Any(k => k.Selected))
                                                     {%>
-                                                       <%categoryTitle += " " +Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.FirstOrDefault(k=>k.Selected).FilterName; %>
+                                                <%categoryTitle += " " + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.FirstOrDefault(k=>k.Selected).FilterName%>
                                                 <%} %>
 
                                                 <%if (Model.CategoryModel.SelectedCategoryType != (byte)CategoryType.Brand && Model.CategoryModel.SelectedCategoryType != (byte)CategoryType.Series && Model.CategoryModel.SelectedCategoryType != (byte)CategoryType.Model)
                                                     {%>
-                                                <%categoryTitle += " " +Model.CategoryModel.SelectedCategoryContentTitle;%>
+                                                <%categoryTitle += " " + Model.CategoryModel.SelectedCategoryContentTitle;%>
                                                 <%:Model.CategoryModel.SelectedCategoryContentTitle%>
                                                 <%}
                                                     else
@@ -418,15 +417,15 @@
                                                             if (!string.IsNullOrWhiteSpace(topCategory.CategoryContentTitle))
                                                             {
                                                 %>
-                                                     <%categoryTitle += " "+topCategory.CategoryContentTitle;%>
+                                                <%categoryTitle += " " + topCategory.CategoryContentTitle;%>
                                                 <%:topCategory.CategoryContentTitle %>
                                                 <%
                                                     }
                                                     else
                                                     {
                                                         categoryTitle += " " + topCategory.CategoryName;
-                                                        %>
-                                                
+                                                %>
+
                                                 <%:topCategory.CategoryName %>
                                                 <% }
                                                 %>
@@ -437,12 +436,12 @@
 
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "İlçe") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "İlçe").ItemModels.Any(k => k.Selected))
                                                     {
-                                                        %>
+                                                %>
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "İlçe").ItemModels.FirstOrDefault(k=>k.Selected).FilterName%>
                                                 <%} %>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Şehir") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.Any(k => k.Selected))
                                                     {
-                                                        %>
+                                                %>
 
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName%>
                                                 <%}
@@ -450,7 +449,7 @@
                                                     { %>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Ülke") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Ülke").ItemModels.Any(k => k.Selected))
                                                     {
-                                                        %>
+                                                %>
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Ülke").ItemModels.FirstOrDefault(k => k.Selected).FilterName%>
                                                 <%}
                                                     } %>
@@ -781,20 +780,20 @@
             </div>--%>
 
             <%} %>
-            <div class="row clearfix" >
+            <div class="row clearfix">
                 <div class="col-xs-12">
                     <%=Html.RenderHtmlPartial("_SliderBanner",Model.MTCategoSliderItems) %>
                     <div class="categort-filter">
-                                <div class="categort-filter__bottom">
-                                         <div class="row">
-                                           <div class="col-md-12">
+                        <div class="categort-filter__bottom">
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="categort-filter__result-text">
                                         <h2>
                                             <%if (string.IsNullOrEmpty(Model.SearchText))
                                                 {%>
                                             <strong>
-                                <% if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
-                                    {%>
+                                                <% if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
+                                                    {%>
                                       Sıfır
                                  <%}
                                      else if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Used)
@@ -803,7 +802,7 @@
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
-                                                              Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                                  Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                     {%>
                                                 <%brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName%>
@@ -880,7 +879,7 @@
                                 <%} %>
                                     kategorisi
                                             </strong>
-                                                 </h2>
+                                        </h2>
                                         <span>&nbsp; aramanızda <font class="text-danger"><%:Model.TotalItemCount%> </font>adet ilan bulundu     <%if (Request.QueryString["page"] != null)
                                             { %>
                                             <span class="small">&nbsp;<%:Model.PagingModel.CurrentPageIndex%>. Sayfa</span>
@@ -907,8 +906,6 @@
                             </div>
                         </div>
                         <%= Html.RenderHtmlPartial("ProductHeader", Model.FilteringContext)%>
-
-
                     </div>
                 </div>
             </div>
@@ -970,7 +967,7 @@
             <h2 class="section-title-category section-title--left">
                 <span>
 
-                    <%:categoryTitle+" "%> Popüler Ürünler
+                    <%:categoryTitle+ " "%> Popüler Ürünler
                 </span>
             </h2>
         </div>
@@ -993,29 +990,29 @@
     %>
     <div class="row clearfix">
 
-    <div class="col-xs-12">
-        <h2 class="section-title-category section-title--left">
-            <span>
-                <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
+        <div class="col-xs-12">
+            <h2 class="section-title-category section-title--left">
+                <span>
+                    <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
 
-                     <%:categoryTitle+" " %>Firmaları 
-                </a>
-            </span>
+                        <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>Firmaları 
+                    </a>
+                </span>
 
-        </h2>
-    </div>
-
-
-    <%=Html.RenderHtmlPartial("_CategoryStores", Model.StoreModel)%>
-
+            </h2>
         </div>
+
+        <% Model.StoreModel.SelectedCategoryName = categoryTitle; %>
+        <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
+        <%=Html.RenderHtmlPartial("_CategoryStores", Model.StoreModel)%>
+    </div>
     <% }
         }%>
 
 
     <%if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent) || !string.IsNullOrEmpty(Model.SeoModel.Description))
         { %>
-    <div class="alert alert-info alert-mt-category" >
+    <div class="alert alert-info alert-mt-category">
         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
             ×
         </button>

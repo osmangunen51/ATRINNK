@@ -32,7 +32,7 @@
                     <div class="sector-firms-slider__category">
                         <a href="<%:item.StoreProductCategoryUrl %>" class="btn-xs btn btn-store-category">
                             <%--<span><%:Html.Truncatet(Model.SelectedCategoryName, 38) %></span>--%>
-                            <span><%:Html.Truncatet(Model.SelectedCategoryName, 38) %></span>
+                            <span><%:Html.Truncatet(Model.SelectedCategoryName, 38) + " " + Model.SelectedCity %></span>
                         </a>
                     </div>
                 </div>

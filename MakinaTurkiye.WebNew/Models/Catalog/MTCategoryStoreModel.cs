@@ -15,6 +15,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
 
         public int SelectedCategoryId { get; set; }
         public string SelectedCategoryName { get; set; }
+        public string SelectedCity { get; set; }
         public byte SelectedCategoryType { get; set; }
 
         public string StoreCategoryUrl { get; set; }
