@@ -105,7 +105,7 @@
                                     else
                                     {%>
                                 <%=Model.StoreCategoryModel.SelectedCategoryName%> <%=Model.FilteringContext.MtStoreActivityTypeFilterModel.SelectedActivityTypeFilterName %>
-                                <%}%>                         
+                                <%}%>
                             </h1>
                             <span><strong><%=Model.FilteringContext.TotalItemCount %></strong> Tedarikçi</span>
                         </div>
@@ -157,21 +157,20 @@
             <% }
                 else
                 {%>
-            <div class="row">
-                <div class="col-md-12 search-no-result-container">
-                    <div class="col-md-6 message">
-                        <img src="../../Content/V2/images/not-found.png" />
-                        <p class="message-text">
-                            Ulaşmaya çalıştığınız sayfa kaldırılmış veya aktif olmayabilir.
-                        </p>
-                        <div>
-                            3 saniye içinde en uygun sayfaya yönlendirileceksiniz. Lütfen bekleyiniz.
-                    <meta http-equiv="refresh" content="3;url=<%:Model.RedirectUrl %>" />
+                    <div class="row">
+                        <div class="col-md-12 search-no-result-container">
+                            <div class="col-md-6 message">
+                                <img src="../../Content/V2/images/not-found.png" />
+                                <p class="message-text">
+                                    Ulaşmaya çalıştığınız sayfa kaldırılmış veya aktif olmayabilir.
+                                </p>
+                               <%-- <div>
+                                    3 saniye içinde en uygun sayfaya yönlendirileceksiniz. Lütfen bekleyiniz.
+                            <meta http-equiv="refresh" content="3;url=<%:Model.RedirectUrl %>" />
+                                </div>--%>
+                            </div>
                         </div>
-
                     </div>
-                </div>
-            </div>
             <% } %>
         </div>
 

@@ -807,6 +807,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 model.RedirectUrl = redirectUrl;
             }
+
             #region canonicals
 
             if (model.StorePagingModel.TotalPageCount > model.StorePagingModel.CurrentPageIndex + 1)

@@ -1,20 +1,14 @@
+using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Catalog;
-using MMakinaTurkiye.Api.View;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Mvc;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace MakinaTurkiye.Api.Controllers
 {
-    public class ProductController : ApiController
+    public class ProductController : BaseApiController
     {
         private readonly IProductService ProductService;
         public ProductController()
@@ -47,7 +41,7 @@ namespace MakinaTurkiye.Api.Controllers
                     ProcessStatus.Status = false;
                     ProcessStatus.Result = null;
                 }
-  
+
             }
             catch (Exception Error)
             {

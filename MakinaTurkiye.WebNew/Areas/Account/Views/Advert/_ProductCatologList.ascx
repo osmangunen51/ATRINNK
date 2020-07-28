@@ -10,7 +10,7 @@
 <div class="col-md-2" id="catolog<%:item.CatologId %>">
     <div class="thumbnail thumbnail-mt">
         <a target="_blank" href="<%:item.FilePath%>" class="pdf-icon-link">
-            <img class="pdf-icon" src="/Content/V2/images/pdf-icon.png" /></a>
+            <img class="pdf-icon" src="/Content/V2/images/pdf-icon.png"  alt="pdf ikon"/></a>
         <a onclick="DeleteCatolog(<%:item.CatologId %>)" style="cursor:pointer;">Sil</a>
     </div>
 </div>
