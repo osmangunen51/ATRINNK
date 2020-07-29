@@ -217,7 +217,7 @@
                                 {
                                     text: 'Üye Yönetimi',
                                     type: Ribbon.GroupType.Group,
-                                    width: '150px',
+                                    width: '280px',
                                     buttons: [
                                         {
                                             Id: 'MemberManage', text: 'Tüm Üyeler', type: Ribbon.ButtonType.BigItem,
@@ -226,6 +226,11 @@
                                         {
                                             Id: 'MemberBulletin', text: 'Bülten Üyeleri', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'newspaper.png', action: "window.location = '/Member/BulletinMember';"
+                                        },
+                                  
+                                        {
+                                              Id: 'MemberSearchByPhone', text: 'Numaraya Göre Bul', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'phone-search.png', action: "window.location = '/Member/SearchPhone';"
                                         }
                                     ]
                                 }
