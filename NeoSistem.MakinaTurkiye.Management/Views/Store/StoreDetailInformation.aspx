@@ -457,7 +457,7 @@
                   <tr>
                         <td><%:phoneType %></td>   
                   <td>:</td>
-                  <td><%:Html.Raw(item.PhoneCulture+" "+item.PhoneAreaCode+" "+item.PhoneNumber) %></td>
+                  <td style="color:#FF0010;"><%:Html.Raw(item.PhoneCulture+" "+item.PhoneAreaCode+" "+item.PhoneNumber) %></td>
                       </tr>
                      <% } %>
                   <tr>
