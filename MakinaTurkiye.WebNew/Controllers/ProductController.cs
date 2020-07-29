@@ -217,7 +217,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     alMenu.Add(new Navigation(categoryNameUrl, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
                 }
             }
-            alMenu.Add(new Navigation(productName,UrlBuilder.GetProductUrl(productId, productName), Navigation.TargetType._self));
+            alMenu.Add(new Navigation(productName, UrlBuilder.GetProductUrl(productId, productName), Navigation.TargetType._self));
             model.MtJsonLdModel.Navigations = alMenu;
             StringBuilder navigation = new StringBuilder();
             navigation.AppendLine("<ol class='breadcrumb breadcrumb-mt'>");
@@ -225,9 +225,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 Navigation nn = (Navigation)alMenu[i];
 
-                if (String.IsNullOrEmpty(nn.Url) || i == alMenu.Count-1)
+                if (String.IsNullOrEmpty(nn.Url) || i == alMenu.Count - 1)
                 {
-                    navigation.AppendLine("<li><a target='"+nn.Target+"' href='"+nn.Url+"'>"+  nn.Title + "</a></li>");
+                    navigation.AppendLine("<li><a target='" + nn.Target + "' href='" + nn.Url + "'>" + nn.Title + "</a></li>");
                 }
                 else
                 {
@@ -760,7 +760,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 byte number;
                 bool isByte = Byte.TryParse(product.ProductStatu, out number);
-                if(isByte && number== (byte)ProductStatus.SecondHand)
+                if (isByte && number == (byte)ProductStatus.SecondHand)
                 {
                     model.ProductDetailModel.ModelYear = product.ModelYear.Value.ToString();
                 }
@@ -794,7 +794,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             model.ProductDetailModel.CategoryName = product.Category.CategoryName;
             model.ProductDetailModel.CategoryUrl = UrlBuilder.GetCategoryUrl(product.CategoryId.Value, categoryNameUrl, null, null);
-            if (product.Model != null && product.Brand!=null)
+            if (product.Model != null && product.Brand != null)
             {
                 model.ProductDetailModel.ModelName = product.Model.CategoryName;
                 model.ProductDetailModel.ModelUrl = UrlBuilder.GetModelUrl(product.ModelId.Value, product.Model.CategoryName, product.Brand.CategoryName, categoryNameUrl, product.Category.CategoryId);
@@ -986,7 +986,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
             //satıcının diğer ilanları
-            var otherProducts = _productService.GetProductsByMainPartIdAndNonProductId(product.MainPartyId.Value, product.ProductId,4);
+            var otherProducts = _productService.GetProductsByMainPartIdAndNonProductId(product.MainPartyId.Value, product.ProductId, 4);
             int storeOtherProductIndex = 1;
             for (int Step = 0; Step < otherProducts.Count(); Step++)
             {
@@ -1106,7 +1106,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #region picture
             //picture
             var pictures = _pictureService.GetPicturesByProductId(product.ProductId);
-            for (int Step = 0; Step <pictures.Count(); Step++)
+            for (int Step = 0; Step < pictures.Count(); Step++)
             {
                 var item = pictures[Step];
                 model.ProductPictureModels.Add(new MTProductPictureModel
@@ -1135,7 +1135,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         var picturesCertificate = _pictureService.GetPictureByStoreCertificateId(productCertificate.StoreCertificateId.Value);
                         foreach (var item in picturesCertificate)
                         {
-                            model.ProductTabModel.Certificates.Add(ceritifcate.Name, AppSettings.StoreCertificateImageFolder + item.PicturePath.Replace("_certificate", "-500x800"));
+                            model.ProductTabModel.Certificates.Add(!string.IsNullOrWhiteSpace(ceritifcate.Name) ? ceritifcate.Name : "", AppSettings.StoreCertificateImageFolder + item.PicturePath.Replace("_certificate", "-500x800"));
                         }
                     }
 
