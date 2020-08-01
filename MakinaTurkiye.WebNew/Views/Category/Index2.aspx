@@ -372,7 +372,7 @@
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
-                                                                  Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                                                      Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                     {%>
                                                 <%brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                                 <%categoryTitle = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName;  %>
@@ -802,7 +802,7 @@
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
-                                                                  Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                                                      Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                     {%>
                                                 <%brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName%>
@@ -989,7 +989,6 @@
             {
     %>
     <div class="row clearfix">
-
         <div class="col-xs-12">
             <h2 class="section-title-category section-title--left">
                 <span>
@@ -1000,16 +999,15 @@
                     </a>--%>
                      <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
 
-                     <%:categoryTitle+" " %>Firmaları
-                         </a>
-
+                        <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>Firmaları 
+                    </a>
                 </span>
 
             </h2>
-        </div>
+    </div>
 
         <% Model.StoreModel.SelectedCategoryName = categoryTitle; %>
-<%--        <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>--%>
+        <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
         <%=Html.RenderHtmlPartial("_CategoryStores", Model.StoreModel)%>
     </div>
     <% }
