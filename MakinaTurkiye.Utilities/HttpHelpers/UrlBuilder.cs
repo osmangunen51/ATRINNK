@@ -184,6 +184,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         public static string GetProductUrl(int id, string productName)
         {
+            
             string url = GetHost(HostNameType.Product) + "/" + ToUrl(productName + "-p-" + id);
             return url;
         }

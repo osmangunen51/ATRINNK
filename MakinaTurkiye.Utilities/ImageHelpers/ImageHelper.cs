@@ -36,7 +36,7 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
 
             if (size == 300)
             {
-               
+
                 return string.Format("//s.makinaturkiye.com/Store/{0}/thumbs/{1}-{2}x200.jpg", storeId, storeLogo.Replace("_logo", "").Replace(".jpg", ""), size);
             }
             else
@@ -51,11 +51,11 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
                 return "//s.makinaturkiye.com/no-image.png";
             }
 
-      
+
 
                 return string.Format("//s.makinaturkiye.com/Store/{0}/thumbs/{1}-{2}x{3}.jpg", storeId, storeLogo.Replace("_logo", "").Replace(".jpg", ""), width,height);
-            
-        
+
+
         }
         public static string GetStoreNewImagePath(string imageName,string imageSize)
         {
@@ -87,11 +87,12 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
             {
                 if (!productImageName.Contains(".jpg"))
                     productImageName = productImageName + ".jpg";
+                //productImageName = productImageName.Replace(".jpg", ".webp");
                 string[] name = productImageName.Split('.');
                 string picturePathIsExist = string.Empty;
                 if (imageSize == ProductImageSize.px100)
                 {
-                
+
                     //System.IO.Path.Combine(, fileName);
                     picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-100X.{2}", productId, name[0],
                         name[1]);
@@ -102,7 +103,7 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
                     }
                     else
                     {
-                        imageSize = imageSize = ProductImageSize.px100x75;
+                        imageSize = ProductImageSize.px100x75;
                     }
                 }
 #if !DEBUG

@@ -993,17 +993,23 @@
         <div class="col-xs-12">
             <h2 class="section-title-category section-title--left">
                 <span>
-                    <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
+                    <%--Bu kısımda null gelen lamda sorguları var. kontrol etmek lazım --%>
+                   <%-- <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
 
-                        <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>Firmaları 
-                    </a>
+                        <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>Firmaları
+                    </a>--%>
+                     <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
+
+                     <%:categoryTitle+" " %>Firmaları
+                         </a>
+
                 </span>
 
             </h2>
         </div>
 
         <% Model.StoreModel.SelectedCategoryName = categoryTitle; %>
-        <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
+<%--        <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>--%>
         <%=Html.RenderHtmlPartial("_CategoryStores", Model.StoreModel)%>
     </div>
     <% }

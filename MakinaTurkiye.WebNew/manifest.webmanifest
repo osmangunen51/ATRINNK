@@ -1,0 +1,32 @@
+﻿{
+  "name": "Makina Türkiye",
+  "short_name": "MakinaTurkiye",
+  "description": "Makina Türkiye Online Magaza",
+  "icons": [
+    {
+      "src": "https://makinaturkiye.com/makinaturkiye.png",
+      "type": "image/PNG",
+      "sizes": "144x144"
+    }
+  ],
+  "start_url": "https://makinaturkiye.com",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#0c3871",
+  "shortcuts": [
+    {
+      "name": "Makina Türkiye",
+      "short_name": "MakinaTurkiye",
+      "description": "Makina Türkiye Online Magaza",
+      "url": "https://makinaturkiye.com",
+      "icons": [
+        {
+          "src": "https://makinaturkiye.com/makinaturkiye.png",
+          "type": "image/PNG",
+          "sizes": "144x144"
+        }
+      ]
+    }
+  ]
+}
