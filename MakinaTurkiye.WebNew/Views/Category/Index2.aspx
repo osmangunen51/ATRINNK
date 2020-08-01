@@ -372,7 +372,7 @@
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
-                                                                  Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                                                      Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                     {%>
                                                 <%brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                                 <%categoryTitle = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName;  %>
@@ -802,7 +802,7 @@
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
-                                                                  Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                                                      Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                     {%>
                                                 <%brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName%>
@@ -989,21 +989,37 @@
             {
     %>
     <div class="row clearfix">
-
         <div class="col-xs-12">
             <h2 class="section-title-category section-title--left">
                 <span>
                     <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
 
-                        <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>Firmaları 
+                        <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Şehir") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.Any(k => k.Selected))
+                            {%>
+                        <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>
+                        <%}
+                            else
+                            { %>
+                        <%:categoryTitle%>
+                        <%}%> Firmaları                  
                     </a>
                 </span>
 
             </h2>
-        </div>
+    </div>
 
-        <% Model.StoreModel.SelectedCategoryName = categoryTitle; %>
+    <% Model.StoreModel.SelectedCategoryName = categoryTitle; %>
+        <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Şehir") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.Any(k => k.Selected))
+            {%>
         <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
+        <%}
+            else
+            { %>
+        <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Ülke") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Ülke").ItemModels.Any(k => k.Selected))
+            {%>
+        <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Ülke").ItemModels.FirstOrDefault(k => k.Selected).FilterName%>
+        <%}
+            } %>
         <%=Html.RenderHtmlPartial("_CategoryStores", Model.StoreModel)%>
     </div>
     <% }
