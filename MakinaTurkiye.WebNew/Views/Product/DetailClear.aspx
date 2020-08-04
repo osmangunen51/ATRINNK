@@ -427,7 +427,7 @@
     <%=Html.RenderHtmlPartial("_ProductStoreContact",Model.ProductContanctModel) %>
     <%if (!string.IsNullOrEmpty(Model.MtJsonLdModel.JsonLdString))
         {%>
-    <script type="application/ld+json">       
+    <script type="application/ld+json">
          <%=Model.MtJsonLdModel.JsonLdString %>
     </script>
     <% } %>

@@ -1221,7 +1221,7 @@
       <LastGenOutput>MakinaTurkiyeEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="manifest.json" />
+    <Content Include="manifest.webmanifest" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
@@ -1911,6 +1911,7 @@
     <Content Include="Content\V2\assets\js\jquery.maskMoney.js" />
     <Content Include="Content\V2\assets\js\jquery.metadata.js" />
     <Content Include="Content\V2\assets\js\jquery.validate.min.js" />
+    <Content Include="service-worker.js" />
     <Content Include="UserFiles\Product\WaterMarks\400x300-wm.png" />
     <Content Include="UserFiles\Product\WaterMarks\900x675-wm.png" />
     <Content Include="Views\Category\AdvancedSearch.aspx" />

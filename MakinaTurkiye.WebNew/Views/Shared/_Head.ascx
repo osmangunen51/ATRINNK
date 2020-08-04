@@ -1,4 +1,14 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<dynamic>" %>
+<!-- Add to home screen for Safari on iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="MakinaTurkiye">
+<meta name="msapplication-TileImage" content="https://makinaturkiye.com/makinaturkiye.png">
+<meta name="msapplication-TileColor" content="#0c3871">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="https://makinaturkiye.com/makinaturkiye.png">
+<meta name="theme-color" content="#0c3871"/>
+
 <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 <link rel="dns-prefetch" href="//www.google-analytics.com" />
 <link rel="dns-prefetch" href="//fonts.googleapis.com" />
@@ -13,7 +23,7 @@
 <link  rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
 <% string url = Request.Url.ToString();
     string lastCh = url.Substring((url.Length - 1), 1);
-    if (lastCh=="/") 
+    if (lastCh=="/")
     {
         url = url.Substring(0, url.Length - 1);
     }%>
