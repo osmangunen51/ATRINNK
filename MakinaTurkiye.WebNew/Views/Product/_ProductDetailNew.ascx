@@ -32,8 +32,8 @@
                             { %>
                         <small><%:Model.UnitTypeText %>,
                         <%} %>
-                            KDV
-                        DAHİL    </small>
+                           <%-- KDV
+                        DAHİL--%>    </small>
                     </div>
                     <%}
                         else if (Model.Fob == true)
@@ -57,7 +57,7 @@
                             { %>
                         <small><%:Model.UnitTypeText %>
                             <%} %>
-                             KDV Hariç           
+                            +KDV <%--HARİÇ--%>         
                         </small>
                     </div>
                     <% }%>

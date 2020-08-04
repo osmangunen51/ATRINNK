@@ -73,7 +73,7 @@
                         <%if (!string.IsNullOrEmpty(Model.Price))
                             { %>
 
-                        <small style="display: block; font-weight: 500; padding-left: 18px; font-size: 10px;"><%:Model.KdvOrFobText %></small>
+                        <small style="display: block;  font-weight: 500; color:black; padding-left: 18px; font-size: 10px;"><%:Model.KdvOrFobText %></small>
                         <%} %>
                         <%} %>
                     </p>

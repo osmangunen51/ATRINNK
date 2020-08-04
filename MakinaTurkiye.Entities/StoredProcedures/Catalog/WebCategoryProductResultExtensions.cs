@@ -43,11 +43,11 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
         public static string GetKdvOrFobText(this WebCategoryProductResult product)
         {
             if (product.Kdv == true)
-                return "Kdv Dahil";
+                return "";
             else if (product.Fob == true)
                 return "FOB Fiyatı";
             else if (product.Kdv == false)
-                return "Kdv Hariç";
+                return "+Kdv";
     
             return string.Empty;
         }
