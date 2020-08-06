@@ -247,6 +247,7 @@
                         <ul class="site-search__store">
                             <li <%--class="dropdown  ac-dropdown"--%>>
                                 <a href="<%:AppSettings.StoreAllUrl %>" <%--class="dropdown-toggle" data-toggle="dropdown"--%>>Tüm Mağazalar<%--<i class="fa fa-caret-down" style="float: right; padding: 3px;"></i>--%></a>
+                                <a href="<%:AppSettings.SiteAllCategoryUrl %>" <%--class="dropdown-toggle" data-toggle="dropdown"--%>>Tüm Kategoriler<%--<i class="fa fa-caret-down" style="float: right; padding: 3px;"></i>--%></a>
                                 <div class="dropdown-menu ">
                                     <h4 class="search-store_title">Tüm Mağazalar</h4>
                                     <div class="scrollable" id="StoreCategories">
