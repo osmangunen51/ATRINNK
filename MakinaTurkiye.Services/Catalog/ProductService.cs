@@ -626,6 +626,51 @@ namespace MakinaTurkiye.Services.Catalog
             });
         }
 
+        public IList<Product> GetProductsWithPageNo(int PageNo=0, int PageSize=50)
+        {
+            var query = _productRepository.Table.OrderBy(x=>x.ProductId).Skip(PageNo * PageSize).Take(PageSize);
+            return query.ToList();
+        }
+
+
+        public IList<Product> GetProductsAll()
+        {
+            var query = _productRepository.Table.OrderBy(x=>x.ProductId);
+            return query.ToList();
+        }
+
+        public IList<Product> Search(string name="",string companyName="",string country = "",string town="",bool isnew=true,bool isold=true, bool sortByViews= true, bool sortByDate= true,decimal minPrice=0,decimal maxPrice=0,int PageNo = 0, int PageSize = 50)
+        {
+            List<int> CategoryIdList = _categoryService.GetCategoriesByName(companyName).Select(x=>x.CategoryId).ToList();
+            var query = _productRepository.Table.OrderBy(x =>
+            ( x.ProductName.Contains(name) | name == "") && (CategoryIdList.Contains((int)x.CategoryId) | companyName == "")
+            &&
+            (
+                (x.ProductPrice >= minPrice| minPrice==0 ) && (x.ProductPrice <= maxPrice | maxPrice==0
+                )
+            )
+            &&
+            (x.City.CityName.Contains(town) | town=="")
+            &&
+            (x.Country.CountryName.Contains(country) | country == "")
+            );
+
+            query = query.OrderBy(x => x.ProductName);
+
+            if (sortByViews)
+            {
+                query = query.OrderByDescending(x => x.ViewCount);
+            }
+            if (sortByDate)
+            {
+                query = query.OrderByDescending(x => x.ProductRecordDate);
+            }
+            return query.Skip(PageNo * PageSize).Take(PageSize).ToList();
+        }
+
+
+
+
         public IList<Product> GetProductsByCategoryIds(List<int> categoryIds)
         {
             if (categoryIds == null)
@@ -1222,7 +1267,7 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
                 var query = _productRepository.Table;
                 return query.Where(x => x.ProductShowcase == true).ToList();
             });
-            
+
         }
         #endregion
 

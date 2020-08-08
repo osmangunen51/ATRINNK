@@ -29,15 +29,6 @@ namespace MakinaTurkiye.Api
                     No = RouteParameter.Optional
                 }
             );
-
-            config.Routes.MapHttpRoute(
-                name: "DefaultApi2",
-                routeTemplate: "{controller}/{action}/{PrmTxt}",
-                defaults: new
-                {
-                    PrmTxt = RouteParameter.Optional
-                }
-            );
         }
     }
 }

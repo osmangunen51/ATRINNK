@@ -23,6 +23,7 @@ namespace MakinaTurkiye.Services.Catalog
         private const string CATEGORIES_BOTTOM_CATEGORIES_BY_CATEGORY_ID_KEY = "makinaturkiye.category.bottom-category.bycategoryId-{0}";
         private const string CATEGORIES_BY_CATEGORYPARENT_ID_KEY = "makinaturkiye.category.bycategoryparentId-{0}";
         private const string CATEGORIES_BY_CATEGORY_IDS_KEY = "makinaturkiye.category.bycategoryIds-{0}";
+        private const string CATEGORIES_BY_CATEGORY_NAME_KEY = "makinaturkiye.category.bycategoryname-{0}";
         private const string CATEGORIES_BY_CATEGORY_ID_KEY = "makinaturkiye.category.bycategoryId-{0}";
         private const string CATEGORIES_BY_MAIN_CATEGORY_TYPE_KEY = "makinaturkiye.category.bymaincategorytype-{0}";
         private const string CATEGORIES_BY_CATEGORYPARENT_ID_KEY_ASYNC ="makinaturkiye.category.bycategoryparentId-{0}-async";
@@ -418,6 +419,33 @@ namespace MakinaTurkiye.Services.Catalog
             });
         }
 
+
+        public IList<Category> GetCategoriesByName(string Name)
+        {
+            string key = string.Format(CATEGORIES_BY_CATEGORY_NAME_KEY,Name);
+            return _cacheManager.Get(key, () =>
+            {
+                var query = _categoryRepository.Table;
+                query = query.Where(c =>(c.CategoryType== (byte)CategoryTypeEnum.Sector | c.CategoryType == (byte)CategoryTypeEnum.Category) && c.CategoryName.Contains(Name));
+                query = query.OrderBy(c => c.CategoryName);
+                return query.ToList();
+            });
+        }
+
+        public IList<Category> GetAllCategories()
+        {
+            string key = string.Format(CATEGORIES_BY_CATEGORY_NAME_KEY, "GetAllCategories");
+            return _cacheManager.Get(key, () =>
+            {
+                var query = _categoryRepository.Table;
+                query = query.Where(c => (c.CategoryType == (byte)CategoryTypeEnum.Sector | c.CategoryType == (byte)CategoryTypeEnum.Category));
+                query = query.OrderBy(c => c.CategoryName);
+                return query.ToList();
+            });
+        }
+
+
+
         public IList<Category> GetCategoriesByCategoryIds(List<int> categoryIds)
         {
             if (categoryIds == null || categoryIds.Count == 0)
@@ -562,13 +590,6 @@ namespace MakinaTurkiye.Services.Catalog
 
             var categories = _dbContext.SqlQuery<AllSubCategoryItemResult>("SP_GetAllSubCategoriesByCategoryId @CategoryId", pCategoryId);
             return categories.ToList();
-        }
-
-        public IList<Category> GetAllCategories()
-        {
-            var query = _categoryRepository.Table;
-            query = query.Where(x => x.Active == true && x.ProductCount > 0);
-            return query.ToList();
         }
 
         public bool IsCategoryHaveProduct(int categoryId, int storeId)

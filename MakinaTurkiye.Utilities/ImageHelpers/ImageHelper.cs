@@ -87,7 +87,7 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
             {
                 if (!productImageName.Contains(".jpg"))
                     productImageName = productImageName + ".jpg";
-                //productImageName = productImageName.Replace(".jpg", ".webp");
+                productImageName = productImageName.Replace(".jpg", ".webp");
                 string[] name = productImageName.Split('.');
                 string picturePathIsExist = string.Empty;
                 if (imageSize == ProductImageSize.px100)

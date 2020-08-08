@@ -197,7 +197,7 @@ namespace MakinaTurkiye.Api
                         c.DocumentTitle("My Swagger UI");
                         // Use the "InjectStylesheet" option to enrich the UI with one or more additional CSS stylesheets.
                         // The file must be included in your project as an "Embedded Resource", and then the resource's
-                        // "Logical Name" is passed to the method as shown below. 
+                        // "Logical Name" is passed to the method as shown below.
                         //
                         c.InjectStylesheet(thisAssembly, "MakinaTurkiye.Api.SwaggerUI.style.css");
                         c.InjectJavaScript(thisAssembly, "MakinaTurkiye.Api.SwaggerUI.script.js");

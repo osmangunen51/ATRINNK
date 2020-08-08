@@ -9,6 +9,7 @@ namespace MakinaTurkiye.Services.Catalog
 {
     public interface ICategoryService : ICachingSupported
     {
+        IList<Category> GetCategoriesByName(string Name);
         IList<Category> GetAllCategories();
 
         IList<TopCategoryResult> GetSPTopCategories(int categoryId);

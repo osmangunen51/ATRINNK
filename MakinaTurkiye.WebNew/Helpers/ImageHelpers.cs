@@ -21,9 +21,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
                 //#if DEBUG
                 //                return "//s.makinaturkiye.com";
                 //#else
-                //                    return "//s.makinaturkiye.com"; 
+                //                    return "//s.makinaturkiye.com";
                 //#endif
-                return "https://s.makinaturkiye.com"; 
+                return "https://s.makinaturkiye.com";
             }
         }
         public static string GetStoreBanner(int storeId, string banner)
@@ -85,6 +85,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
 
                 if (!imageName.Contains(".jpg"))
                     imageName = imageName + ".jpg";
+
+                imageName = imageName.Replace(".jpg", ".webp");
+
                 string[] name = imageName.Split('.');
 
 
@@ -122,10 +125,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
                             builder.Attributes.Add("src", imagePath);
                         break;
                     default:
-                        return MvcHtmlString.Create(string.Empty);                   
+                        return MvcHtmlString.Create(string.Empty);
                 }
             }
-
             return MvcHtmlString.Create(builder.ToString(TagRenderMode.SelfClosing));
         }
 
@@ -137,7 +139,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
             px160x120,
             px180x135,
             px400x300,
-            px900x675           
+            px900x675
         }
 
 
