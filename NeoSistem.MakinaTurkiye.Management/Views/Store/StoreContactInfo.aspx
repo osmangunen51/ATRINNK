@@ -15,23 +15,33 @@
         <% string phoneType = string.Empty;
             if (item.PhoneType == (byte)PhoneType.Fax)
             {
-                phoneType = "Fax :";
+                phoneType = "Fax :"; %>
+        <%:phoneType %>
+        <%:item.PhoneCulture%>&nbsp;<%:item.PhoneAreaCode%>&nbsp;<%:item.PhoneNumber%><%
+
             }
             else if (item.PhoneType == (byte)PhoneType.Gsm)
             {
-                phoneType = "Gsm :";
+                phoneType = "Gsm :";%>
+        <%:phoneType %>
+        <%:item.PhoneCulture%>&nbsp;<%:item.PhoneAreaCode%>&nbsp;<%:item.PhoneNumber%><%
             }
             else if (item.PhoneType == (byte)PhoneType.Phone)
             {
-                phoneType = "Phone :";
+                phoneType = "Phone :";%>
+        <%:phoneType %>
+        <%:item.PhoneCulture%>&nbsp;<%:item.PhoneAreaCode%>&nbsp;<%:item.PhoneNumber%><%
             }
             else if (item.PhoneType == (byte)PhoneType.Whatsapp)
             {
-                phoneType = "Whatsapp";
+                phoneType = "Whatsapp";%>
+        <%:phoneType %> 
+
+        <a style="font-size: 15px; font-weight: 600" href="https://api.whatsapp.com/send?phone=<%:item.PhoneCulture%>&nbsp;<%:item.PhoneAreaCode%>&nbsp;<%:item.PhoneNumber%>" target="_blank" ><%:item.PhoneCulture%>&nbsp;<%:item.PhoneAreaCode%>&nbsp;<%:item.PhoneNumber%></a> 
+        
+        <%
             }
-        %>
-        <%:phoneType %>
-        <%:item.PhoneCulture%>&nbsp;<%:item.PhoneAreaCode%>&nbsp;<%:item.PhoneNumber%>
+        %>        
         <br />
 
         <% }

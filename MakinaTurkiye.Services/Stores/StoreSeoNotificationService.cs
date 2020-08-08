@@ -66,7 +66,8 @@ x.CreatedDate.Year == date.Year && x.CreatedDate.Month == date.Month && x.Create
 
             query = query.Where(x => x.Status == status && x.RemindDate.HasValue &&
             x.RemindDate.Value.Year == date.Year && x.RemindDate.Value.Month == date.Month && x.RemindDate.Value.Day == date.Day &&
-            x.RemindDate.Value.Hour <= date.Hour && x.RemindDate.Value.Minute <= date.Minute && x.ToUserId == userId).OrderByDescending(x => x.RemindDate.Value);
+            ((x.RemindDate.Value.Hour < date.Hour) || (x.RemindDate.Value.Hour==date.Hour && x.RemindDate.Value.Minute<=date.Minute)) 
+            && x.ToUserId == userId).OrderByDescending(x => x.RemindDate.Value);
             return query.ToList();
         }
 

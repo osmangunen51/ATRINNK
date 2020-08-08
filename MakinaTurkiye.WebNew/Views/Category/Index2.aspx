@@ -998,8 +998,14 @@
                         <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>Firmaları
                     </a>--%>
                      <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
+                        <% string name = "";
+                            if(Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null)
+                            {
+                                name = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
+                            }
+                            %>
 
-                        <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>Firmaları 
+                        <%:categoryTitle + " "  +  name  +" " %>Firmaları 
                     </a>
                 </span>
 
@@ -1007,7 +1013,10 @@
     </div>
 
         <% Model.StoreModel.SelectedCategoryName = categoryTitle; %>
-        <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
+        <%if (Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null) { %>
+                    <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
+
+        <%} %>
         <%=Html.RenderHtmlPartial("_CategoryStores", Model.StoreModel)%>
     </div>
     <% }

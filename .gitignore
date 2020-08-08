@@ -79,4 +79,5 @@ _[Ss]cripts
 /.vs/config/applicationhost.config
 /.vs/NeoSistem.MakinaTurkiye/DesignTimeBuild/.dtbcache
 /MakinaTurkiye.WebNew/Properties/PublishProfiles
+/NeoSistem.MakinaTurkiye.Management\Properties\PublishProfiles
 /.vs
