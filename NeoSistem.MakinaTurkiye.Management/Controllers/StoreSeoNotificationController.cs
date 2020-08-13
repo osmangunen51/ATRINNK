@@ -60,7 +60,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var model = new StoreSeoNotificationFormModel();
 
             var entities = new MakinaTurkiyeEntities();
-            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where (g.UserGroupId == 21 || g.UserGroupId == 11 || g.UserGroupId == 7 || g.UserGroupId ==18) && u.Active == true select new { u.UserName, u.UserId };
+            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where (g.UserGroupId == 21 || g.UserGroupId == 11 || g.UserGroupId == 7 || g.UserGroupId == 18) && u.Active == true select new { u.UserName, u.UserId };
             var storeSeoNotification = new StoreSeoNotification();
             var contstants = _constantService.GetConstantByConstantType(ConstantTypeEnum.SeoDecriptionTitle);
             if (storeNotId.HasValue)
@@ -257,7 +257,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             var entities = new MakinaTurkiyeEntities();
             var userId = CurrentUserModel.CurrentManagement.UserId;
-            if (entities.PermissionUsers.Any(x => x.UserId == userId && (x.UserGroupId == 11 || x.UserGroupId == 21 || x.UserGroupId ==7 || x.UserGroupId ==18 )) == true)
+            if (entities.PermissionUsers.Any(x => x.UserId == userId && (x.UserGroupId == 11 || x.UserGroupId == 21 || x.UserGroupId == 7 || x.UserGroupId == 18)) == true)
             {
                 var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationsByDateWithStatus(DateTime.Now, 0, userId);
                 return Json(new { Count = storeSeoNotification.Count }, JsonRequestBehavior.AllowGet);
@@ -288,6 +288,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     InputDate = item.CreatedDate,
                     ID = item.StoreSeoNotificationId,
                     StoreName = store.StoreName,
+                    IsFirst = item.IsFirst.HasValue ? item.IsFirst.Value : false,
                     Title = item.ConstantId.HasValue ? _constantService.GetConstantByConstantId(item.ConstantId.Value).ConstantName : ""
                 });
             }
@@ -361,6 +362,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(id);
             _storeSeoNotificationService.DeleteStoreSeoNotification(storeSeoNotification);
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult FirstProcess(int id, int isFirst)
+        {
+            var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(id);
+            storeSeoNotification.IsFirst = Convert.ToBoolean(isFirst);
+           
+            _storeSeoNotificationService.UpdateStoreSeoNotification(storeSeoNotification);
+            return RedirectToAction("AllNotification");
+
         }
     }
 }

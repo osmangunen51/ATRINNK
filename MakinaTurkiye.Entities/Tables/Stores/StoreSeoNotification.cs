@@ -18,6 +18,7 @@ namespace MakinaTurkiye.Entities.Tables.Stores
         public DateTime? RemindDate { get; set; }
         public byte Status { get; set; }
 
+        public bool? IsFirst { get; set; }
 
     }
 }

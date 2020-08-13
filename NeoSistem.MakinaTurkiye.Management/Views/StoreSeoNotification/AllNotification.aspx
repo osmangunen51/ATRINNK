@@ -28,9 +28,25 @@
                 <%int row = 0; %>
                 <%foreach (var itemMemberDesc in Model.BaseMemberDescriptionModelItems.ToList())
                     {
+                        string backgroundColor = "";
+                        var compateFisrst = DateTime.Compare(itemMemberDesc.LastDate.Value.AddMinutes(45), DateTime.Now);
+              
+                        if (compateFisrst > 0 && itemMemberDesc.IsFirst)
+                        {
+                            backgroundColor = "background-color:#f97b7b";
+                            if (itemMemberDesc.LastDate.Value.AddMinutes(30) > DateTime.Now)
+                            {
+                                backgroundColor = "background-color:#f1dc65";
+                            }
+                        }
+                        else if ( itemMemberDesc.IsFirst)
+                        {
+                            backgroundColor = "background-color:#f97b7b";
+                        }
+
                 %>
-                <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
-                        <td class="Cell"><a href="/Store/Edit/<%:itemMemberDesc.StoreID %>"><%:itemMemberDesc.StoreName %></a></td>
+                <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>" style=" <%=backgroundColor%>">
+                    <td class="Cell"><a href="/Store/EditStore/<%:itemMemberDesc.StoreID %>"><%:itemMemberDesc.StoreName %></a></td>
                     <td class="Cell"><%:itemMemberDesc.Title %></td>
                     <td class="Cell" style="font-size: 15px;"><% if (itemMemberDesc.Description != null)
                                                                   { %>
@@ -58,6 +74,14 @@
                         <a href="/StoreSeoNotification/Create/<%:Request.QueryString["storeMainPartyId"] %>?storeNotId=<%:itemMemberDesc.ID %>">
                             <img src="/Content/images/ac.png" />
                         </a>
+                        <% if (itemMemberDesc.IsFirst == true)
+                            {%>
+                        <a style="color: #339966;" href="/StoreSeoNotification/FirstProcess/<%:itemMemberDesc.ID %>?isFirst=0"><b>Öncelikli</b> Kaldır</a>
+                        <%}
+                            else
+                            {%>
+                        <a href="/StoreSeoNotification/FirstProcess/<%:itemMemberDesc.ID %>?isFirst=1">Öncelik Ver</a>
+                        <%} %>
                     </td>
                 </tr>
 
