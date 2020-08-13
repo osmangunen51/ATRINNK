@@ -64,11 +64,16 @@ x.CreatedDate.Year == date.Year && x.CreatedDate.Month == date.Month && x.Create
         {
             var query = _storeSeoNotificationRepository.Table;
 
+
             query = query.Where(x => x.Status == status && x.RemindDate.HasValue &&
             x.RemindDate.Value.Year == date.Year && x.RemindDate.Value.Month == date.Month && x.RemindDate.Value.Day == date.Day &&
-            ((x.RemindDate.Value.Hour < date.Hour) || (x.RemindDate.Value.Hour==date.Hour && x.RemindDate.Value.Minute<=date.Minute)) 
-            && x.ToUserId == userId).OrderByDescending(x => x.RemindDate.Value);
-            return query.ToList();
+            ((x.RemindDate.Value.Hour < date.Hour) || (x.RemindDate.Value.Hour == date.Hour && x.RemindDate.Value.Minute <= date.Minute))
+            && x.ToUserId == userId);
+            var queryIsFirst = query.Where(x => x.IsFirst == true).OrderByDescending(x => x.RemindDate.Value).ToList();
+            var queryAll = query.Where(x => x.IsFirst == false || !x.IsFirst.HasValue).OrderByDescending(x => x.RemindDate.Value).ToList();
+            queryIsFirst.AddRange(queryAll);
+
+            return queryIsFirst.ToList();
         }
 
         public IList<StoreSeoNotification> GetStoreSeoNotificationsByStoreMainPartyId(int storeMainPartyId)
