@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumModel.cs" />
+    <Compile Include="Result\ProductSearchResult.cs" />
     <Compile Include="SearchInput.cs" />
     <Compile Include="User.cs" />
     <Compile Include="MTHomeBannerModel.cs" />

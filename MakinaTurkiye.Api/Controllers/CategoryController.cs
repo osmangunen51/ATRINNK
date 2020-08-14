@@ -1,6 +1,7 @@
 using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Utilities.ImageHelpers;
 using System;
 using System.Net;
 using System.Net.Http;
@@ -24,7 +25,10 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = CategoryService.GetCategoryByCategoryId(No);
                 if (Result != null)
                 {
+                    Result.CategoryIcon = ImageHelper.GetCategoryIconPath(Result.CategoryIcon);
                     ProcessStatus.Result = Result;
+                    ProcessStatus.ActiveResultRowCount = 1;
+                    ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
                     ProcessStatus.Message.Header = "Category Operations";
                     ProcessStatus.Message.Text = "Success";
                     ProcessStatus.Status = true;
@@ -54,7 +58,15 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessStatus ProcessStatus = new ProcessStatus();
             try
             {
-                ProcessStatus.Result = CategoryService.GetAllCategories();
+                var Result = CategoryService.GetAllCategories();
+                foreach (var item in Result)
+                {
+                    item.CategoryIcon = ImageHelper.GetCategoryIconPath(item.CategoryIcon);
+                }
+                ProcessStatus.Result = Result;
+                ProcessStatus.ActiveResultRowCount = Result.Count;
+                ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
+
                 ProcessStatus.Message.Header = "Category İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
                 ProcessStatus.Status = true;
@@ -76,7 +88,14 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessStatus ProcessStatus = new ProcessStatus();
             try
             {
-                ProcessStatus.Result = CategoryService.GetCategoriesByName(Name);
+                var Result = CategoryService.GetCategoriesByName(Name);
+                foreach (var item in Result)
+                {
+                    item.CategoryIcon = ImageHelper.GetCategoryIconPath(item.CategoryIcon);
+                }
+                ProcessStatus.Result = Result;
+                ProcessStatus.ActiveResultRowCount = Result.Count;
+                ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
                 ProcessStatus.Message.Header = "Category İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
                 ProcessStatus.Status = true;
@@ -98,7 +117,14 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessStatus ProcessStatus = new ProcessStatus();
             try
             {
-                ProcessStatus.Result = CategoryService.GetMainCategories();
+                var Result = CategoryService.GetMainCategories();
+                foreach (var item in Result)
+                {
+                    item.CategoryIcon = ImageHelper.GetCategoryIconPath(item.CategoryIcon);
+                }    
+                ProcessStatus.Result = Result;
+                ProcessStatus.ActiveResultRowCount = Result.Count;
+                ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
                 ProcessStatus.Message.Header = "Category İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
                 ProcessStatus.Status = true;

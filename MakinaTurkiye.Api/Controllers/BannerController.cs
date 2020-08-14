@@ -54,6 +54,9 @@ namespace MakinaTurkiye.Api.Controllers
                 if (Result != null && Result.Count() > 0)
                 {
                     ProcessStatus.Result = Result;
+                    ProcessStatus.ActiveResultRowCount = Result.Count();
+                    ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
+
                     ProcessStatus.Message.Header = "Banners Operations";
                     ProcessStatus.Message.Text = "Success";
                     ProcessStatus.Status = true;

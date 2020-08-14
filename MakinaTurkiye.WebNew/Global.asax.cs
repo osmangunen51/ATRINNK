@@ -197,31 +197,31 @@ namespace NeoSistem.MakinaTurkiye.Web
             {
                 if (!Request.IsLocal)
                 {
-                    //string host = Request.Url.Host;
-                    //bool nonwww = false;
-                    //var nodes = host.Split('.');
-                    //if (nodes[0] != "www" && nodes[0] == "makinaturkiye")
-                    //{
-                    //    nonwww = true;
-                    //    host = "www." + Request.Url.Host;
-                    //}
-                    //switch (Request.Url.Scheme)
-                    //{
-                    //    case "https":
-                    //        if (nonwww)
-                    //        {
-                    //            var path = "https://" + host + Request.Url.PathAndQuery;
-                    //            Response.AddHeader("Strict-Transport-Security", "max-age=31536000");
-                    //            Response.Status = "301 Moved Permanently";
-                    //            Response.AddHeader("Location", path);
-                    //        }
-                    //        break;
-                    //    case "http":
-                    //        var path2 = "https://" + host + Request.Url.PathAndQuery;
-                    //        Response.Status = "301 Moved Permanently";
-                    //        Response.AddHeader("Location", path2);
-                    //        break;
-                    //}
+                    string host = Request.Url.Host;
+                    bool nonwww = false;
+                    var nodes = host.Split('.');
+                    if (nodes[0] != "www" && nodes[0] == "makinaturkiye")
+                    {
+                        nonwww = true;
+                        host = "www." + Request.Url.Host;
+                    }
+                    switch (Request.Url.Scheme)
+                    {
+                        case "https":
+                            if (nonwww)
+                            {
+                                var path = "https://" + host + Request.Url.PathAndQuery;
+                                Response.AddHeader("Strict-Transport-Security", "max-age=31536000");
+                                Response.Status = "301 Moved Permanently";
+                                Response.AddHeader("Location", path);
+                            }
+                            break;
+                        case "http":
+                            var path2 = "https://" + host + Request.Url.PathAndQuery;
+                            Response.Status = "301 Moved Permanently";
+                            Response.AddHeader("Location", path2);
+                            break;
+                    }
                 }
             }
         }

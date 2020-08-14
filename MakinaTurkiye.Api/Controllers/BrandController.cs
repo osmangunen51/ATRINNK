@@ -26,6 +26,9 @@ namespace MakinaTurkiye.Api.Controllers
                 if (Result != null)
                 {
                     ProcessStatus.Result = Result;
+                    ProcessStatus.ActiveResultRowCount = Result.Count();
+                    ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
+
                     ProcessStatus.Message.Header = "Brand Operations";
                     ProcessStatus.Message.Text = "Success";
                     ProcessStatus.Status = true;
@@ -55,7 +58,10 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessStatus ProcessStatus = new ProcessStatus();
             try
             {
-                ProcessStatus.Result =BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand);
+                var Result = BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand);
+                ProcessStatus.Result = Result;
+                ProcessStatus.ActiveResultRowCount = Result.Count;
+                ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
                 ProcessStatus.Message.Header = "Brand İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
                 ProcessStatus.Status = true;
@@ -77,7 +83,11 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessStatus ProcessStatus = new ProcessStatus();
             try
             {
-                ProcessStatus.Result = BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x=>x.CategoryName.Contains(Name));
+                var Result = BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x => x.CategoryName.Contains(Name));
+                ProcessStatus.Result = Result;
+                ProcessStatus.ActiveResultRowCount = Result.Count();
+                ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
+
                 ProcessStatus.Message.Header = "Brand İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
                 ProcessStatus.Status = true;

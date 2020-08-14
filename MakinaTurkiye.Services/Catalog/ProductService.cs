@@ -639,7 +639,7 @@ namespace MakinaTurkiye.Services.Catalog
             return query.ToList();
         }
 
-        public IList<Product> Search(string name="",string companyName="",string country = "",string town="",bool isnew=true,bool isold=true, bool sortByViews= true, bool sortByDate= true,decimal minPrice=0,decimal maxPrice=0,int PageNo = 0, int PageSize = 50)
+        public IList<Product> Search(out int TotolRowCount,string name="",string companyName="",string country = "",string town="",bool isnew=true,bool isold=true, bool sortByViews= true, bool sortByDate= true,decimal minPrice=0,decimal maxPrice=0,int PageNo = 0, int PageSize = 50)
         {
             List<int> CategoryIdList = _categoryService.GetCategoriesByName(companyName).Select(x=>x.CategoryId).ToList();
             var query = _productRepository.Table.OrderBy(x =>
@@ -665,6 +665,7 @@ namespace MakinaTurkiye.Services.Catalog
             {
                 query = query.OrderByDescending(x => x.ProductRecordDate);
             }
+            TotolRowCount = query.Count();
             return query.Skip(PageNo * PageSize).Take(PageSize).ToList();
         }
 

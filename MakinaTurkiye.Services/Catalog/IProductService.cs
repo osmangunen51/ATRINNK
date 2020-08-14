@@ -10,7 +10,7 @@ namespace MakinaTurkiye.Services.Catalog
     public interface IProductService : ICachingSupported
     {
         IList<Product> GetProductsAll();
-        IList<Product> Search(string name = "", string companyName = "", string country = "", string town = "", bool isnew = true, bool isold = true, bool sortByViews = true, bool sortByDate = true, decimal minPrice = 0, decimal maxPrice = 0, int PageNo = 0, int PageSize = 50);
+        IList<Product> Search(out int TotalRowCount,string name = "", string companyName = "", string country = "", string town = "", bool isnew = true, bool isold = true, bool sortByViews = true, bool sortByDate = true, decimal minPrice = 0, decimal maxPrice = 0, int PageNo = 0, int PageSize = 50);
         IList<Product> GetProductsWithPageNo(int PageNo = 0, int PageSize = 50);
         IList<ProductForStoreResult> GetSPProductForStoreByCategoryId(int categoryId = 0, int memberMainPartyId = 0, int topCount = 10);
 
