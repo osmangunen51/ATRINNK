@@ -46,7 +46,7 @@ namespace NeoSistem.MakinaTurkiye.Web
         protected void Application_Error(object sender, EventArgs e)
         {
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
-
+   
             if (config.ApplicationLogEnabled)
             {
                 Exception exception = Server.GetLastError();
@@ -181,9 +181,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                 routeData.Values.Add("error", exception);
             }
 
-            routeData.Values["controller"] = "Common";
-            routeData.Values["action"] = "HataSayfasi";
-            routeData.Values["error"] = exception;
+
             Server.ClearError();
             errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
         }
