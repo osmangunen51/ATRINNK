@@ -5,7 +5,7 @@
     <script type="text/javascript" src="/Content/v2/assets/js/CKEditor/ckeditor.js"></script>
     <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
 
-    <script src="/Scripts/jquery.maskMoney.js" type="text/javascript"></script>
+    <script src="/Content/v2/assets/js/jquery.maskMoney.js" type="text/javascript"></script>
     <script type="text/javascript">
         function MakeMoneytoint(productPriceVal) {
             var productPrice = 0;

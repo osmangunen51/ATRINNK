@@ -44,9 +44,9 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: '<%:AppSettings.SiteUrl+"/Home/GetStoreProductComment"%>',
+                url: '<%:AppSettings.SiteUrl+"/ajax/GetStoreProductComment"%>',
                 data: {},
-                type: 'post',
+                type: 'get',
                 success: function (data) {
                     if (data != 0) {
                         $(".commentLi").show();
