@@ -323,9 +323,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         string iconLink = @"<a class=""column"" href=""/Category/addImages?categoryId=" + item.CategoryId + "" + "\"" + ">Görsel Ekle</a>";
                         node.tool = string.Format(@"<div class=""column sort"">{3}</div><div class=column>{0}</div>
                                     <a parentid=""{1}"" style='width:100px!important;'  treeid=""#{1}""class=""column {4}"">{5}</a>
-                                    <a class=""column edit"" categoryid=""{1}"" href=""#{1}"">Düzenle {6}</a> 
+                                    <a class=""column edit"" categoryid=""{1}"" href=""#{1}"">Düzenle {6}</a>
                                     <a class=column onclick=""return Delete('#{1}',{1});"" href=""#"">{2}</a>
-                                    
+
                                 <a class=column href=""/Banner/Edit/" + item.CategoryId.ToString() + "\"" + ">Banner Ekle</a>" + excelLink + seoContentLink + iconLink + seoStoreContentLink,
                                                  ((CategoryType_tr)item.CategoryType).ToString("G").Replace("_", " "), item.CategoryId, "Sil", item.CategoryOrder, item.CategoryType < 3 || item.CategoryType == 6 ? "categoryButton" : "categoryButton2", item.CategoryType == 5 ? "&nbsp;" : "Alt Kategori Ekle", seoVar);
 
@@ -352,7 +352,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                         node.tool = string.Format(@"<div class=""column sort"">{4}</div><div class=column>{0}</div>
                                         <a parentid=""{1}"" style='width:100px!important;' treeid=""#{1}"" class=""column sector""  href='#'>Alt Kategori Ekle</a>
-                                        <a class=""column edit"" categoryid=""{1}"" href=""#{1}"">Düzenle {5}</a> 
+                                        <a class=""column edit"" categoryid=""{1}"" href=""#{1}"">Düzenle {5}</a>
                                         <a class=column style='width:50px!important!' onclick=""return Delete('#{1}',{1});"" href=""#"">{3}</a>
                                         <a class=column href=""/Banner/Edit/" + item.CategoryId.ToString() + "\"" + ">Banner Ekle</a>" + seoContentLink + IconLink + seoStoreContentLink, "Sektör", item.CategoryId, item.CategoryParentId, "Sil", item.CategoryOrder, seoVar);
 
@@ -886,7 +886,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             else
                 categoryUrl = UrlBuilder.ToUrl(category.CategoryName);
 
-         
+
             return Json(new
             {
                 CategoryParentId = category.CategoryParentId,
@@ -1676,7 +1676,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 cell.SetCellValue(headers[i]);
             }
 
-            // fill content 
+            // fill content
             for (int i = 0; i < items2.Count; i++)
             {
                 var rowIndex = i + 1;
@@ -1713,29 +1713,29 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             bool updated = false;
             if (file != null && file.ContentLength > 0)
             {
-                HttpPostedFileBase files = file; //Read the Posted Excel File  
-                ISheet sheet; //Create the ISheet object to read the sheet cell values  
-                string filename = Path.GetFileName(Server.MapPath(files.FileName)); //get the uploaded file name  
-                var fileExt = Path.GetExtension(filename); //get the extension of uploaded excel file  
+                HttpPostedFileBase files = file; //Read the Posted Excel File
+                ISheet sheet; //Create the ISheet object to read the sheet cell values
+                string filename = Path.GetFileName(Server.MapPath(files.FileName)); //get the uploaded file name
+                var fileExt = Path.GetExtension(filename); //get the extension of uploaded excel file
                 string[] arr = new string[] { ".xls", ".xlsx" };
                 if (arr.Contains(fileExt))
                 {
                     if (fileExt == ".xls")
                     {
-                        HSSFWorkbook hssfwb = new HSSFWorkbook(files.InputStream); //HSSWorkBook object will read the Excel 97-2000 formats  
-                        sheet = hssfwb.GetSheetAt(0); //get first Excel sheet from workbook  
+                        HSSFWorkbook hssfwb = new HSSFWorkbook(files.InputStream); //HSSWorkBook object will read the Excel 97-2000 formats
+                        sheet = hssfwb.GetSheetAt(0); //get first Excel sheet from workbook
                     }
                     else
                     {
-                        XSSFWorkbook hssfwb = new XSSFWorkbook(files.InputStream); //XSSFWorkBook will read 2007 Excel format  
-                        sheet = hssfwb.GetSheetAt(0); //get first Excel sheet from workbook   
+                        XSSFWorkbook hssfwb = new XSSFWorkbook(files.InputStream); //XSSFWorkBook will read 2007 Excel format
+                        sheet = hssfwb.GetSheetAt(0); //get first Excel sheet from workbook
                     }
 
-                    for (int row = 1; row <= sheet.LastRowNum; row++) //Loop the records upto filled row  
+                    for (int row = 1; row <= sheet.LastRowNum; row++) //Loop the records upto filled row
                     {
-                        if (sheet.GetRow(row) != null) //null is when the row only contains empty cells   
+                        if (sheet.GetRow(row) != null) //null is when the row only contains empty cells
                         {
-                            string categoryId = sheet.GetRow(row).GetCell(0).StringCellValue; //Here for sample , I just save the value in "value" field, Here you can write your custom logics...  
+                            string categoryId = sheet.GetRow(row).GetCell(0).StringCellValue; //Here for sample , I just save the value in "value" field, Here you can write your custom logics...
                             string categoryName = sheet.GetRow(row).GetCell(2).StringCellValue;
                             string categoryContentTitle = sheet.GetRow(row).GetCell(3).StringCellValue;
                             string storePageTitle = sheet.GetRow(row).GetCell(4).StringCellValue;

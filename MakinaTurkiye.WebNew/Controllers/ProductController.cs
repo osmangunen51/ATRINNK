@@ -1091,9 +1091,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         RecordDate = item.RecordDate.ToString("dd MMMM, yyyy", CultureInfo.CurrentCulture),
                         Location = location
                     });
-
                 }
             }
+
             SearchModel<MTProductCommentItem> productCommentItemsModel = new SearchModel<MTProductCommentItem>();
             productCommentItemsModel.CurrentPage = currentPageComment;
             productCommentItemsModel.Source = productCommentItems;
