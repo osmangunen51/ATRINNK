@@ -1,30 +1,40 @@
 ﻿{
-  "name": "Makina Türkiye",
+  "name": "MakinaTürkiye",
   "short_name": "MakinaTurkiye",
   "description": "Makina Türkiye Online Magaza",
   "icons": [
     {
-      "src": "https://makinaturkiye.com/makinaturkiye.png",
+      "src": "https://www.makinaturkiye.com/makinaturkiye.png",
       "type": "image/PNG",
       "sizes": "144x144"
+    },
+    {
+      "src": "https://www.makinaturkiye.com/makinaturkiye512x512.png",
+      "type": "image/PNG",
+      "sizes": "512x512"
     }
   ],
-  "start_url": "https://makinaturkiye.com",
+  "start_url": "https://www.makinaturkiye.com",
   "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
   "theme_color": "#0c3871",
   "shortcuts": [
     {
-      "name": "Makina Türkiye",
+      "name": "MakinaTürkiye",
       "short_name": "MakinaTurkiye",
-      "description": "Makina Türkiye Online Magaza",
-      "url": "https://makinaturkiye.com",
+      "description": "MakinaTürkiye Online Magaza",
+      "url": "https://www.makinaturkiye.com",
       "icons": [
         {
-          "src": "https://makinaturkiye.com/makinaturkiye.png",
+          "src": "https://www.makinaturkiye.com/makinaturkiye.png",
           "type": "image/PNG",
           "sizes": "144x144"
+        },
+        {
+          "src": "https://www.makinaturkiye.com/makinaturkiye512x512.png",
+          "type": "image/PNG",
+          "sizes": "512x512"
         }
       ]
     }

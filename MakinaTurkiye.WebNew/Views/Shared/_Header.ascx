@@ -44,13 +44,13 @@
    
             </div>
             <div class="new-header__top-right">
-                <a href="<%:AppSettings.VideoUrlBase %>" class="hidden-md hidden-lg">
+                <a href="<%:AppSettings.VideoUrlBase %>" class="hidden-md hidden-lg" title="Video">
                     <i class="mt-icon icon-play-mt"></i>
                 </a>
-                <a href="https://blog.makinaturkiye.com" class="hidden-md hidden-lg">
+                <a href="https://blog.makinaturkiye.com" class="hidden-md hidden-lg" title="Blog">
                     <i class="mt-icon icon-blog-mt"></i>
                 </a>
-                <a href="<%:AppSettings.SiteUrl+"yardim" %>" class="hidden-md hidden-lg">
+                <a href="<%:AppSettings.SiteUrl+"yardim" %>" class="hidden-md hidden-lg" title="Yardım">
                     <i class="mt-icon icon-answer-mt"></i>
                 </a>
                 <div class="hidden-xs hidden-sm">
@@ -233,7 +233,7 @@
                             </button>
                             <input type="text" id="SearchText" value="<%:searchText %>" name="SearchText" autocomplete="off" class="search-text-autocomplate" placeholder="Ürün, Kategori, Firma veya Video Ara" required x-webkit-speech speech>
                          <div class="input-group-append">
-                                <a href="<%:AppSettings.SiteUrlWithoutLastSlash+"/detayli-arama" %>"  class="btn site-search__btn" ">
+                                <a href="<%:AppSettings.SiteUrlWithoutLastSlash+"/detayli-arama" %>"  class="btn site-search__btn" title="Detaylı Arama">
                                     <span class="icon">
                                         <i class="fa fa-angle-down"></i>
                                     </span>
@@ -277,7 +277,7 @@
 
         <div class="new-header__bottom clearfix hidden-md hidden-lg">
             <div class="new-header__bottom-left hidden-md">
-                <a href="javascript:void(0)" class="navbar-toggle header__mobile-menu " type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                <a title="" href="javascript:void(0)" class="navbar-toggle header__mobile-menu " type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
                     <span class="header__mobile-menu-icon icon-menu"></span>
                 </a>
             </div>

@@ -131,7 +131,7 @@
                                 Web Adresi:
                             </label>
                             <div class="col-md-4">
-                                <%=Html.TextBoxFor(m => m.WebUrl, new { @class = "form-control" ,@placeholder="örn:http://makinaturkiye.com"})%>
+                                <%=Html.TextBoxFor(m => m.WebUrl, new { @class = "form-control" ,@placeholder="örn:https://www.makinaturkiye.com"})%>
                             </div>
                             <label for="inputPassword3" class="col-sm-2 control-label">
                                 Açıklama:

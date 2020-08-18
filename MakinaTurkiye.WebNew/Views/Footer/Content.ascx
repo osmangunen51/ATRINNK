@@ -37,7 +37,7 @@
                     %>
                     <div class="menu col-6 col-md-4 col-xl-2" data-parent="<%:item.FooterParentName %>">
                         <h4><%:item.FooterParentName %></h4>
-                        <ul class="list-unstyled" role="menu">
+                        <ul class="list-unstyled">
                             <%foreach (var itemFooterContent in item.FooterContents)
                                 {%>
                             <li><a href="<%:itemFooterContent.FooterContentUrl %>"><%:itemFooterContent.FooterContentName %></a></li>
@@ -47,9 +47,9 @@
 
                     <%} %>
 
-                    <div class="menu socialM flex-xs-6 flex-sm-4 flex-md-2 flex-lg-3" role="menu">
+                    <div class="menu socialM flex-xs-6 flex-sm-4 flex-md-2 flex-lg-3">
                         <h4>Sosyal Medya</h4>
-                        <ul class="list-unstyled" role="menu">
+                        <ul class="list-unstyled">
                             <li class="">
                                 <a href="https://www.facebook.com/makinaturkiyecom" target="_blank" rel="nofollow">
                                     <img src="/Content/v2/images/social/facebook-icon.png" alt="Facebook">
