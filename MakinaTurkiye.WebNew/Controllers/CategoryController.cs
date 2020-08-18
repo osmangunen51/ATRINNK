@@ -245,6 +245,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 if (link != url)
                                     return url;
                             }
+                            else
+                            {
+                                 ustCatBrand = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
+                                 ustCat = _categoryService.GetCategoryByCategoryId(ustCatBrand.CategoryParentId.Value);
+                                string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
+
+                                var url = UrlBuilder.GetModelUrl(c.CategoryId, c.CategoryName, ustCatBrand.CategoryName, categoryNameUrl, Convert.ToInt32(c.CategoryParentId));
+                                if (link != url)
+                                    return url;
+
+                            }
                         }
 
 
@@ -2526,21 +2537,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             var yenilink = PrepareForLink(selectedCategoryId);
+            if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
+            {
+                //ExceptionHandler.HandleException(Server.GetLastError());
+                if (request.Url.AbsoluteUri.StartsWith("https://video.") == true)
+                {
+                    return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
+                }
+
+                return RedirectPermanent(yenilink);
+            }
 
             if (!Request.IsLocal)
             {
 
 
-                if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
-                {
-                    //ExceptionHandler.HandleException(Server.GetLastError());
-                    if (request.Url.AbsoluteUri.StartsWith("https://video.") == true)
-                    {
-                        return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
-                    }
 
-                    return RedirectPermanent(yenilink);
-                }
             }
 
 
