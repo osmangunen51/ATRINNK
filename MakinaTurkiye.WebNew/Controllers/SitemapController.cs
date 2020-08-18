@@ -33,25 +33,27 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
 
             IList<string> sitemapFiles = new List<string>();
-            this.generateSitemap_categoryproductgroup();
+           // //this.generateSitemap_categoryproductgroup();
 
             //  sitemapFiles.Add(this.generateSitemap_categoryproductgroup());
 
 
             //  sitemapFiles.Add(            this.generateSitemapForStores());
-            sitemapFiles.Add(this.generateSitemapForNews());
+           
+            
+            ////sitemapFiles.Add(this.generateSitemapForNews());
 
 
 
-            this.generateSitemap_categorysector();
+           //// this.generateSitemap_categorysector();
             // sitemapFiles.Add(this.generateSitemap_categorysector());
-            this.generateSitemap_categorybrand();
+           //// this.generateSitemap_categorybrand();
             //sitemapFiles.Add();
 
-            sitemapFiles.Add(this.generateSitemap_productGroupBrand());
-            this.generateSitemap_categoryorta();
+           //// sitemapFiles.Add(this.generateSitemap_productGroupBrand());
+         ////   this.generateSitemap_categoryorta();
           //  sitemapFiles.Add(this.generateSitemap_categoryorta());
-            sitemapFiles.Add(this.generateSitemap_categoryserie());
+          ////  sitemapFiles.Add(this.generateSitemap_categoryserie());
             sitemapFiles = sitemapFiles.Union(this.generateSitemap_categorymodels()).ToList();
             sitemapFiles.Add(this.generateSitemap_categoryCountry());
 
@@ -716,7 +718,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         changefrequency = ChangeFrequency.daily,
                         lastmodified = DateTime.Now,
-                        location = UrlBuilder.GetModelUrl(category.CategoryId, category.CategoryName, category.BrandName, category.FirstCategoryName, category.CategoryParentId.Value),
+                        location = UrlBuilder.GetModelUrl(category.CategoryId, category.CategoryName, category.BrandName, category.FirstCategoryContentTitle, category.CategoryParentId.Value),
                         priority = 0.9f
                     };
                     sm.items.Add(smn);
