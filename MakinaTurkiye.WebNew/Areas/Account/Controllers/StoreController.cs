@@ -354,7 +354,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             CreateStoreCertificateModel model = new CreateStoreCertificateModel();
             model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.StoreSettings, (byte)LeftMenuConstants.StoreSettingGeneralInfo.StoreCertificate);
-            var certificateTypes = _certificateTypeService.GetCertificateTypes().Where(x=>x.Active==true).ToList();
+            var certificateTypes = _certificateTypeService.GetCertificateTypes().Where(x => x.Active == true).ToList();
             for (int i = 0; i < certificateTypes.Count; i++)
             {
                 var certificateItem = certificateTypes[i];
@@ -382,90 +382,111 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(memberMainPartyId);
             var storeModel = _storeService.GetStoreByMainPartyId(Convert.ToInt32(memberStore.StoreMainPartyId));
 
-
-            for (int i = 0; i < Request.Files.Count; i++)
+            if (Request.Files.Count > 0 && Request.Files[0].ContentLength>0)
             {
-
-                int storeCertificateId = 0;
-                if (i == 0)
-                {
-                    var storeCertificate = new StoreCertificate();
-                    storeCertificate.Active = true;
-                    storeCertificate.RecordDate = DateTime.Now;
-                    storeCertificate.UpdateDate = DateTime.Now;
-                    storeCertificate.CertificateName = model.CeritificateName;
-                    storeCertificate.Order = model.Order;
-                    storeCertificate.MainPartyId = memberStore.StoreMainPartyId.Value;
-                    _storeService.InsertStoreCertificate(storeCertificate);
-
-                    storeCertificateId = storeCertificate.StoreCertificateId;
-                    if (model.CertificateTypeId != 0 && model.CertificateTypeId!= 99999)
-                    {
-                        var certificateTypeProduct = new CertificateTypeProduct
-                        {
-                            StoreCertificateId = storeCertificateId,
-                            CertificateTypeId = model.CertificateTypeId
-                        };
-                        _certificateTypeService.InsertCertificateTypeProduct(certificateTypeProduct);
-                    }
-                    else
-                    {
-                        var certificateType = new CertificateType
-                        {
-                            Name = storeCertificate.CertificateName,
-                            CreatedDate = DateTime.Now,
-                            UpdatedDate = storeCertificate.UpdateDate,
-                            Order = 0,
-                            Active = false,
-                            InsertedStoreMainPartyId = memberStore.StoreMainPartyId.Value
-                        };
-                        _certificateTypeService.InsertCertificateType(certificateType);
-
-                        var certificateTypeProduct = new CertificateTypeProduct
-                        {
-                            StoreCertificateId = storeCertificateId,
-                            CertificateTypeId = certificateType.CertificateTypeId
-                        };
-                        _certificateTypeService.InsertCertificateTypeProduct(certificateTypeProduct);
-                    }
-                }
-                HttpPostedFileBase file = Request.Files[i];
-
-                if (ImageContentType.Any(x => x == file.ContentType) && file.ContentLength > 0)
+                for (int i = 0; i < Request.Files.Count; i++)
                 {
 
-                    string oldfile = file.FileName;
-                    string mapPath = this.Server.MapPath(AppSettings.StoreCertificateImageFolder);
-                    string uzanti = oldfile.Substring(oldfile.LastIndexOf("."), oldfile.Length - oldfile.LastIndexOf("."));
-                    var fileName = Guid.NewGuid().ToString("N") + "_certificate";
-                    string filename = fileName + uzanti;
-                    var targetFile = new FileInfo(mapPath + filename);
-
-                    if (targetFile.Exists)
+                    int storeCertificateId = 0;
+                    if (i == 0)
                     {
-                        fileName = Guid.NewGuid().ToString("N") + "_certificate";
-                        filename = fileName + uzanti;
+                        var storeCertificate = new StoreCertificate();
+                        storeCertificate.Active = true;
+                        storeCertificate.RecordDate = DateTime.Now;
+                        storeCertificate.UpdateDate = DateTime.Now;
+                        storeCertificate.CertificateName = model.CeritificateName;
+                        storeCertificate.Order = model.Order;
+                        storeCertificate.MainPartyId = memberStore.StoreMainPartyId.Value;
+                        _storeService.InsertStoreCertificate(storeCertificate);
+
+                        storeCertificateId = storeCertificate.StoreCertificateId;
+                        if (model.CertificateTypeId != 0 && model.CertificateTypeId != 99999)
+                        {
+                            var certificateTypeProduct = new CertificateTypeProduct
+                            {
+                                StoreCertificateId = storeCertificateId,
+                                CertificateTypeId = model.CertificateTypeId
+                            };
+                            _certificateTypeService.InsertCertificateTypeProduct(certificateTypeProduct);
+                        }
+                        else
+                        {
+                            var certificateType = new CertificateType
+                            {
+                                Name = storeCertificate.CertificateName,
+                                CreatedDate = DateTime.Now,
+                                UpdatedDate = storeCertificate.UpdateDate,
+                                Order = 0,
+                                Active = false,
+                                InsertedStoreMainPartyId = memberStore.StoreMainPartyId.Value
+                            };
+                            _certificateTypeService.InsertCertificateType(certificateType);
+
+                            var certificateTypeProduct = new CertificateTypeProduct
+                            {
+                                StoreCertificateId = storeCertificateId,
+                                CertificateTypeId = certificateType.CertificateTypeId
+                            };
+                            _certificateTypeService.InsertCertificateTypeProduct(certificateTypeProduct);
+                        }
                     }
+                    HttpPostedFileBase file = Request.Files[i];
 
-                    string storeBannerImageFileSavePath = mapPath + filename;
-                    Request.Files[i].SaveAs(storeBannerImageFileSavePath);
-                    List<string> thubmsizes = new List<string>();
-                    thubmsizes.Add("500x800");
-                    ImageProcessHelper.ImageResize(storeBannerImageFileSavePath, mapPath + fileName.Replace("_certificate", ""), thubmsizes);
-
-                    var curPicture = new Picture()
+                    if (ImageContentType.Any(x => x == file.ContentType) && file.ContentLength > 0)
                     {
-                        PicturePath = filename,
-                        ProductId = null,
-                        MainPartyId = memberStore.StoreMainPartyId,
-                        PictureName = String.Empty,
-                        StoreImageType = (byte)StoreImageTypeEnum.StoreCertificate,
-                        StoreCertificateId = storeCertificateId
-                    };
-                    _pictureService.InsertPicture(curPicture);
+
+                        string oldfile = file.FileName;
+                        string mapPath = this.Server.MapPath(AppSettings.StoreCertificateImageFolder);
+                        string uzanti = oldfile.Substring(oldfile.LastIndexOf("."), oldfile.Length - oldfile.LastIndexOf("."));
+                        var fileName = Guid.NewGuid().ToString("N") + "_certificate";
+                        string filename = fileName + uzanti;
+                        var targetFile = new FileInfo(mapPath + filename);
+
+                        if (targetFile.Exists)
+                        {
+                            fileName = Guid.NewGuid().ToString("N") + "_certificate";
+                            filename = fileName + uzanti;
+                        }
+
+                        string storeBannerImageFileSavePath = mapPath + filename;
+                        Request.Files[i].SaveAs(storeBannerImageFileSavePath);
+                        List<string> thubmsizes = new List<string>();
+                        thubmsizes.Add("500x800");
+                        ImageProcessHelper.ImageResize(storeBannerImageFileSavePath, mapPath + fileName.Replace("_certificate", ""), thubmsizes);
+
+                        var curPicture = new Picture()
+                        {
+                            PicturePath = filename,
+                            ProductId = null,
+                            MainPartyId = memberStore.StoreMainPartyId,
+                            PictureName = String.Empty,
+                            StoreImageType = (byte)StoreImageTypeEnum.StoreCertificate,
+                            StoreCertificateId = storeCertificateId
+                        };
+                        _pictureService.InsertPicture(curPicture);
+                    }
                 }
+                return RedirectToAction("Certificate");
             }
-            return RedirectToAction("Certificate");
+            else
+            {
+                CreateStoreCertificateModel modelNew = new CreateStoreCertificateModel();
+                modelNew.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.StoreSettings, (byte)LeftMenuConstants.StoreSettingGeneralInfo.StoreCertificate);
+                var certificateTypes = _certificateTypeService.GetCertificateTypes().Where(x => x.Active == true).ToList();
+                for (int i = 0; i < certificateTypes.Count; i++)
+                {
+                    var certificateItem = certificateTypes[i];
+                    model.CertificateTypes.Add(new SelectListItem
+                    {
+                        Text = certificateItem.Name,
+                        Value = certificateItem.CertificateTypeId.ToString()
+                    });
+                }
+                modelNew.CertificateTypes.Add(new SelectListItem { Text = "Diğer", Value = "99999" });
+                ModelState.AddModelError("CertificateImages", "Sertifika İçin Fotoğraf Seçmelisiniz");
+                return View(modelNew);
+            }
+       
 
         }
         public ActionResult Certificate()
@@ -548,7 +569,23 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         [HttpPost]
         public JsonResult DeleteCertificate(int id)
         {
+
+      
             var certificate = _storeService.GetStoreCertificateByStoreCertificateId(id);
+            List<int> ids = new List<int>();
+            ids.Add(id);
+
+            var certificateTypes=_certificateTypeService.GetCertificatesByIds(ids);
+            foreach (var item in certificateTypes)
+            {
+                _certificateTypeService.DeleteCertificateType(item);
+
+            }
+
+            var certificateTypeProduct = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(id);
+                _certificateTypeService.DeleteCertificateTypeProduct(certificateTypeProduct);
+       
+
             var pictures = _pictureService.GetPictureByStoreCertificateId(id);
             foreach (var item in pictures)
             {

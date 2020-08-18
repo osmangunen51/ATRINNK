@@ -15,6 +15,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores
         }
         public string CeritificateName { get; set; }
         public int Order { get; set; }
+
         public int CertificateTypeId { get; set; }
         public List<SelectListItem> CertificateTypes { get; set; }
         public LeftMenuModel LeftMenu { get; set; }
