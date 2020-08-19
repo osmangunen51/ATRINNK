@@ -118,7 +118,7 @@
                                 <% }
                                 else
                                 {%>
-                             <%:AppSettings.SiteUrl + "uyelik/kullanicigirisi" %>  
+                             <%:AppSettings.SiteUrl + "uyelik/kullanicigirisi" %>
                                 <%}%>
                                 "
                                 class="user-topmenu">
@@ -127,7 +127,7 @@
                             </a>
                         </li>
 
-                        <% 
+                        <%
                             if (AuthenticationUser.Membership != null)
                             {
                                 membermainPartyId = AuthenticationUser.Membership.MainPartyId;
@@ -192,32 +192,32 @@
                                         {%>
 
 
-                                    <li><a class="bold" href="<%:baseUrl%>/uyelik/kullanicigirisi">Giriş Yap</a>
-                                        <a class="bold" href="<%:baseUrl%>/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
+                                    <li style="margin-top:5px;"><a style="font-size:13px!important;" class="bold" href="<%:baseUrl%>/uyelik/kullanicigirisi">Giriş Yap</a>
+                                        <a style="font-size:13px!important;" class="bold" href="<%:baseUrl%>/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
 
                                     </li>
 
 
-                                    <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a>
+                                    <li style="margin-top:5px;"><a style="font-size:13px!important;" href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a>
 
-                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a>
-                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a>
-                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a>
+                                        <a style="font-size:13px!important;" href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a>
+                                        <a style="font-size:13px!important;" href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a>
+                                        <a style="font-size:13px!important;" href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a>
                                     </li>
 
                                     <% }
                                         else
                                         {%>
-                                    <li><a href="<%:baseUrl%>/Account/Home">Hesabım</a>
-                                        <a href="<%:baseUrl%>/Account/Personal">Profilim</a>
-                                        <a href="<%:baseUrl%>/Account/Advert/Index?ProductActive=1&DisplayType=2">İlanlarım</a>
-                                        <a href="<%:baseUrl%>/Account/Message/Index?MessagePageType=0">Mesajlarım
+                                    <li style="margin-top:5px;"><a style="font-size:13px!important;" href="<%:baseUrl%>/Account/Home">Hesabım</a>
+                                        <a style="font-size:13px!important;" href="<%:baseUrl%>/Account/Personal">Profilim</a>
+                                        <a style="font-size:13px!important;" href="<%:baseUrl%>/Account/Advert/Index?ProductActive=1&DisplayType=2">İlanlarım</a>
+                                        <a style="font-size:13px!important;" href="<%:baseUrl%>/Account/Message/Index?MessagePageType=0">Mesajlarım
                                         <%if (notReadInboxMessageCount != 0)
                                             {%>
                                             <span class="badge badge-primary" style="background-color: #ef0d0d"><%:notReadInboxMessageCount %></span>
                                             <% } %>
                                         </a>
-                                        <a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product">Favorilerim
+                                        <a style="font-size:13px!important;" href="<%:AppSettings.SiteUrl %>Account/Favorite/Product">Favorilerim
                                                <%if (favoriteProductCount != 0)
                                                    {%>
                                             <span class="badge badge-primary"><%:favoriteProductCount %></span>
@@ -228,49 +228,34 @@
 
                                     <%if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
                                         { %>
-                                    <li><a tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal">Firma Ayarları </a></li>
+                                    <li style="margin-top:5px;"><a style="font-size:13px!important;" tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal">Firma Ayarları </a></li>
                                     <%}
                                         else
                                         {%>
-
                                     <%}%>
-
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">Çıkış Yap
-
-
+                                    <li style="margin-top:5px;"><a style="font-size:13px!important;" role="presentation" role="menuitem" tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">Çıkış Yap
                                     </a></li>
                                     <% } %>
                                 </ul>
                             </div>
                         </li>
-
                         <% }
-
                         %>
-
-                
                         <%if (membermainPartyId > 0)
                             {%>
-                        <li class="hiden-md hidden-lg user-topmenu__item">
-                            <a title="Çıkış Yap" class="user-topmenu" href="https://www.makinaturkiye.com/Uyelik/OturumuKapat">
-                                <span style="font-size: 20px; padding-bottom: 5px;" class="glyphicon glyphicon-log-out"></span>
+                                <li style="margin-top:5px;" class="hiden-md hidden-lg user-topmenu__item">
+                                    <a style="font-size:13px!important;" title="Çıkış Yap" class="user-topmenu" href="https://www.makinaturkiye.com/Uyelik/OturumuKapat">
+                                        <span style="font-size: 20px; padding-bottom: 5px;" class="glyphicon glyphicon-log-out"></span>
 
-                                <span class="text">Çıkış Yap 
-                                </span>
-                            </a>
-                        </li>
-
+                                        <span class="text">Çıkış Yap
+                                        </span>
+                                    </a>
+                                </li>
                         <% } %>
                     </ul>
-
                 </div>
-
-
             </div>
-
             <div class="new-header__bottom clearfix hidden">
-
-
                 <div class="new-header__bottom-left hidden-xs">
                     <div class="header-button header-category-wrapper">
                         <h3 class="header-button-trigger">
@@ -280,11 +265,9 @@
                                 <i class="icon-down-arrow"></i>
                             </a>
                         </h3>
-
                         <div class="header-category" id="SectorsCategories">
                         </div>
                     </div>
-
                     <div class="header-button header-sector-wrapper">
                         <h3 class="header-button-trigger">
                             <a href="<%:AppSettings.SiteUrl%>sirketler">
@@ -296,11 +279,7 @@
                         <div class="header-category" id="CustomerCategories">
                         </div>
                     </div>
-
                 </div>
-
-
-
                 <div class="new-header__bottom-center">
                     <%--    <%:Html.Action("_HeaderTopMenu","Header", new { area=""}) %>--%>
                 </div>
@@ -309,21 +288,15 @@
             </div>
         </div>
     </div>
-
-
     <div class="main-container container" style="padding-top: 20px;">
 
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         </asp:ContentPlaceHolder>
     </div>
-
-
     <%:Html.Action("Content", "Footer", new { area=""})%>
-
     <span class="scroll-top js-scroll-top">
         <span class="icon-scroll-up"></span>
     </span>
-
     <script>
         window.fbAsyncInit = function () {
             FB.init({
@@ -337,7 +310,6 @@
             FB.AppEvents.logPageView();
 
         };
-
         (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }

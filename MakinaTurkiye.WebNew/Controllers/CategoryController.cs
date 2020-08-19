@@ -245,17 +245,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 if (link != url)
                                     return url;
                             }
-                            else
-                            {
-                                 ustCatBrand = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
-                                 ustCat = _categoryService.GetCategoryByCategoryId(ustCatBrand.CategoryParentId.Value);
-                                string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
+                            //else
+                            //{
+                            //     ustCatBrand = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
+                            //     ustCat = _categoryService.GetCategoryByCategoryId(ustCatBrand.CategoryParentId.Value);
+                            //    string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
 
-                                var url = UrlBuilder.GetModelUrl(c.CategoryId, c.CategoryName, ustCatBrand.CategoryName, categoryNameUrl, Convert.ToInt32(c.CategoryParentId));
-                                if (link != url)
-                                    return url;
+                            //    var url = UrlBuilder.GetModelUrl(c.CategoryId, c.CategoryName, ustCatBrand.CategoryName, categoryNameUrl, Convert.ToInt32(c.CategoryParentId));
+                            //    if (link != url)
+                            //        return url;
 
-                            }
+                            //}
                         }
 
 
@@ -1497,7 +1497,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     string navigationUrl1 = categoryUrl.Replace(":443", "").Replace(AppSettings.SiteUrlWithoutLastSlash, "");
                     alMenuSecond.Add(new Navigation(categoryNameUrl, navigationUrl1, Navigation.TargetType._self));
                 }
-         
+
 
             }
 

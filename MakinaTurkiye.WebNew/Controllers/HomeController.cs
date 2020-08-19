@@ -390,7 +390,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         var productIds = productHomePages.Select(x => x.ProductId).ToList();
                         var products = _productService.GetProductsByProductIds(productIds).Where(x => x.ProductActive == true);
-       
+
                         foreach (var product in products)
                         {
                             bool addedFavorite = false;
@@ -521,14 +521,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         #endregion
 
+
+        private readonly ICacheManager _cacheManager;
+        private readonly IConstantService _constantService;
+
+        public HomeController(ICacheManager cacheManager, IConstantService constantService)
+        {
+            this._cacheManager = cacheManager;
+            this._constantService = constantService;
+        }
+
         #region Methods
 
         [Compress]
         public async Task<ActionResult> Index()
         {
-
             //SeoPageType = (byte)PageType.General;
-            ICacheManager _cacheManager = EngineContext.Current.Resolve<ICacheManager>();
             string key = string.Format("makinaturkiye.home-pages-test");
             var testModel = _cacheManager.Get(key, () =>
             {
@@ -541,8 +549,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 PreparePopularStoreModel(model);
 
-                IConstantService constantService = EngineContext.Current.Resolve<IConstantService>();
-                var constant = constantService.GetConstantByConstantId(235);
+                var constant = _constantService.GetConstantByConstantId(235);
                 model.ConstantTitle = constant.ConstantTitle;
                 model.ConstantProperty = constant.ContstantPropertie;
 
@@ -558,14 +565,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.MTAllSelectedProduct = modelSelected;
                 return model;
             });
-
             //PrepareProductRecomandation(model);
             //PrepareNewsModel(model);
             //PrepareSuccessStories(model);
-
-
             return await Task.FromResult(View(testModel));
         }
+
 
         public void PrepareHomeSectorItems(MTHomeModel model)
         {
@@ -853,7 +858,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                     foreach (var item in results)
                     {
-                    
+
                         modelItem.Products.Add(new MTMayLikeProductItem
                         {
                             BrandName = item.CategoryName,

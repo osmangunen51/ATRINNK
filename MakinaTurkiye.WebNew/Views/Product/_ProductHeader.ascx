@@ -47,9 +47,5 @@
             $("#ajaxError").show();
             $("#ajaxSuccess").hide();
         }
-
-
-
-
 </script>
 

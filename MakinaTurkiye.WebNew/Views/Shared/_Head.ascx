@@ -1,9 +1,4 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<dynamic>" %>
-<!-- Add to home screen for Safari on iOS -->
-
-<%if (!Request.IsLocal)
-    {
-%>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="MakinaTurkiye">
@@ -12,9 +7,6 @@
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="apple-touch-icon" href="https://makinaturkiye.com/makinaturkiye.png">
 <meta name="theme-color" content="#0c3871" />
-<%
-    } %>
-
 
 <link rel="dns-prefetch" href="//www.googletagmanager.com" />
 <link rel="dns-prefetch" href="//www.google-analytics.com" />
@@ -28,12 +20,11 @@
 <link rel="dns-prefetch" href="https://ajax.googleapis.com" />
 <link rel="dns-prefetch" href="https://connect.facebook.net" />
 <link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
-<% string url = Request.Url.ToString();
-    string lastCh = url.Substring((url.Length - 1), 1);
-    if (lastCh == "/")
-    {
-        url = url.Substring(0, url.Length - 1);
-    }%>
+
+<%--<%:Scripts.Render("~/js") %>
+<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
+<%:Styles.Render("~/css") %>--%>
+
 <script src="/Content/V2/assets/js/jquery.min.js?v=1"></script>
 <script src="/Content/V2/assets/js/jquery.autocomplete.js"> </script>
 <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=6.9" defer></script>
@@ -43,6 +34,7 @@
 <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=10.2" />
 <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/autocomplete.css") %>" />
 <link rel="stylesheet" href="<%:Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v=3") %>" />
+
 <script async>(function (w, d, s, l, i) {
         w[l] = w[l] || []; w[l].push({
             'gtm.start':

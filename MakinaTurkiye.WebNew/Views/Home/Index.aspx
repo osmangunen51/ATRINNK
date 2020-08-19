@@ -297,15 +297,11 @@
             </div>
         </div>
     </div>
-
-
     <%--    <%if (!Request.Browser.IsMobileDevice) {%>
             <%=Html.RenderHtmlPartial("_HomeSector",Model.HomeSectorItems) %>
     <% } %>--%>
 
     <%--   <%= Html.Partial("_ProductRelatedCategories", Model.HomeProductsRelatedCategoryModel)  %>--%>
-
-
     <%--        <%= Html.Partial("_PopularAds", Model.PopularAdModels) %>--%>
 
     <div class="home-showcase" id="home-showcase">
@@ -463,5 +459,5 @@
     <%--    <%= Html.RenderHtmlPartial("CallYou",Model.companyMembershipDemand) %>--%>
 
 
-    <%=Html.RenderHtmlPartial("_Bulletin") %>
+<%--    <%=Html.RenderHtmlPartial("_Bulletin") %>--%>
 </asp:Content>

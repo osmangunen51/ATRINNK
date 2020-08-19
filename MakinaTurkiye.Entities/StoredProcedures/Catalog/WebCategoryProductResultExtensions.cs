@@ -47,8 +47,8 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
             else if (product.Fob == true)
                 return "FOB Fiyatı";
             else if (product.Kdv == false)
-                return "+Kdv";
-    
+                return "+KDV";
+
             return string.Empty;
         }
         public static string GetFormattedPrice(this WebCategoryProductResult product)
@@ -110,10 +110,10 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
             {
                 if (product.ProductPriceType == PriceTypeDiscuss)
                     return "Fiyat Görüşülür";
-                else 
+                else
                     return "Fiyat Sorunuz";
             }
         }
- 
+
     }
 }

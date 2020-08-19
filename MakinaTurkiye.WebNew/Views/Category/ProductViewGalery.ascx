@@ -97,14 +97,14 @@
                         <div class="product-list-mt__title-info">
                             <h3 class="product-list-mt__title">
                                 <%:model.ProductName%>&nbsp;
-                                <%if (!string.IsNullOrEmpty(model.BrandName)) {%>
-                                    <span style="color:#7b7b7b">
-                                    (<%=model.BrandName%><%:!string.IsNullOrEmpty(model.ModelName) ?", "+model.ModelName:"" %>)
+                            </h3>
+                             <%if (!string.IsNullOrEmpty(model.BrandName)) {%>
+                                    <span style="color:#4e6dde;margin-top:10px;">
+                                    <%=model.BrandName%> | <%:!string.IsNullOrEmpty(model.ModelName) ?model.ModelName:"" %>
                                     </span>
                                 <% } %>
-                            </h3>
                         </div>
-                        <div class="row">
+                        <%--<div class="row">
                             <div class="col-md-12">
                                 <p class="product-list-mt__advert-no" style="float: left;"><%:model.ProductNo %></p>
                                 <div class="product-list-mt__features" style="float: right">
@@ -116,10 +116,10 @@
                                 </div>
                                 <div style="clear"></div>
                             </div>
-                        </div>
+                        </div>--%>
 
 
-                        <p class="product-list-mt__price">
+                        <p class="product-list-mt__price" style="margin-top:10px;font-weight:700;font-size:18px">
 
                             <%if (string.IsNullOrEmpty(model.Price) || (model.ProductPriceType != (byte)ProductPriceType.Price && model.ProductPriceType != (byte)ProductPriceType.PriceRange))
                                 {%>
@@ -150,14 +150,11 @@
                             <%if (!string.IsNullOrEmpty(model.Price))
                                 { %>
 
-                            <small style=" font-weight: 500; padding-left: 4px; font-size: 10px;"><%:model.KdvOrFobText %></small>
+                                    <small style=" font-weight: 700; padding-left: 0px; font-size: 11px;color:#8a8a8a"><%:model.KdvOrFobText %></small>
                             <%} %>
                             <%} %>
                         </p>
-
-
                     </div>
-
                 </a>
                 <%--        <div class="product-list-mt__footer">
                     <a

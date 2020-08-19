@@ -250,6 +250,10 @@ name[1]);
             }
 
         }
+        public static string GetLogo()
+        {
+            return string.Format("//www.makinaturkiye.com/Content/V2/images/makinaturkiye-dark.png");
+        }
 
 
         public static string GetHomeSectorImagePath(string imagePath)

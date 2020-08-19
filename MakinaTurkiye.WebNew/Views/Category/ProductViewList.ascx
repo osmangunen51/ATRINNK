@@ -83,7 +83,7 @@
                                 <%:model.ProductName%>
                             </h3>
 
-                            <p class="product-list-mtgrid__brandmodel">
+                            <p class="product-list-mtgrid__brandmodel" style="margin-top:10px;">
                                 <%: Marka%> | <%: Modeli%>
                             </p>
                         </div>
@@ -105,8 +105,8 @@
                                         {%>
                                              <li><%:item %></li>
                                         <%} %>
-                           
-                 
+
+
                                 </ul>
                             </div>
                             <%
@@ -166,15 +166,15 @@
                         <% } %>
                         <%if (!string.IsNullOrEmpty(model.Price))
                             { %>
-
-                        <p><%:model.KdvOrFobText %></p>
+                                <small style=" font-weight: 700; padding-left: 0px; font-size: 11px;color:#8a8a8a"><%:model.KdvOrFobText %></small>
+<%--                        <p><%:model.KdvOrFobText %></p>--%>
                         <%} %>
                         <%} %>
                     </p>
 
 
                     <p class="product-list-mtgrid__advert-no"><%:model.ProductNo %></p>
-                    <p class="product-list-mtgrid__store"><a href="<%:model.StoreUrl %>"><%:model.StoreName %></a></p>
+                    <p class="product-list-mtgrid__store" style="margin-top:10px;"><a href="<%:model.StoreUrl %>"><%:model.StoreName %></a></p>
                     <div class="product-list-mtgrid__extra-buttons hidden-xs">
                         <%if (model.HasVideo) {%>
                                      <a title="Bu Ürün İçin Video Eklenmiştir" href="javascript:;" rel="nofollow" class="btn btn-sm btn-primary">
@@ -186,11 +186,11 @@
                           <a href="javascript:;" rel="nofollow" class="btn btn-sm btn-success">
                             D</a>
                         <%} %>
-          
+
                     </div>
                     <div class="product-list-mt__features">
 
-            
+
                     </div>
                 </div>
 

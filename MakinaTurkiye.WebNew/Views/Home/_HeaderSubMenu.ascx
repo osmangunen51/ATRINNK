@@ -38,23 +38,23 @@
             %>
             <%if (isMobile)
                 {%>
-            <li style="padding-left: 5px;">
-                <a href="<%:category.CategoryUrl %>">
-                    <%:Html.Raw(category.CategoryName) %>
-                    <% counter++;
-                    %>
-                </a>
-            </li>
+                <li style="padding-left: 5px;">
+                    <a href="<%:category.CategoryUrl %>">
+                        <%:Html.Raw(category.CategoryName) %>
+                        <% counter++;
+                        %>
+                    </a>
+                </li>
             <% }
                 else
                 {%>
             <%foreach (var subCategory in category.SubCategoryModels)
                 {%>
-            <li class="<%:subLiClass %>" style="padding-left: 5px;">
-                <a href="<%:subCategory.CategoryUrl %>">
-                    <%string seperator = category.SubCategoryModels.Count != counter ? "," : "";  %>
-                    <%:Html.Raw(subCategory.CategoryName) %>
 
+            <li style="padding-left: 5px;display:inline-block">
+ <a href="<%:subCategory.CategoryUrl %>" style="margin-left:10px;">
+                    <%string seperator = category.SubCategoryModels.Count != counter ? ",  " : "";  %>
+                    <%:Html.Raw(subCategory.CategoryName)+seperator%>
                     <% counter++;
                     %>
                 </a>

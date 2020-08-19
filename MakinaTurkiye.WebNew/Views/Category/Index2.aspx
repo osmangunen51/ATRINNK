@@ -229,10 +229,10 @@
                     <%= Model.CategoryModel.Navigation%>
                 </div>
             </div>
-            <h1 style="font-size: 22px; padding-bottom: 5px; margin-top: 0px;"><b>Tüm Kategoriler</b></h1>
+           <%-- <h1 style="font-size: 22px; padding-bottom: 5px; margin-top: 0px;"><b>Tüm Kategoriler</b></h1>
             <div class="row">
                 <%=Html.RenderHtmlPartial("_SectorCategoryListMenu")%>
-            </div>
+            </div>--%>
         </div>
     </div>
     <div class="row clearfix cg-container">

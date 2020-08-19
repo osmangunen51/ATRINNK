@@ -216,6 +216,7 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NonOrderingBundleOrderer.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Areas\Account\AccountAreaRegistration.cs">
@@ -712,6 +713,7 @@
     <Content Include="Content\V2\images\social\twitter.png" />
     <Content Include="Content\V2\images\social\whatsapp.png" />
     <Content Include="Content\V2\loading-horizontal.gif" />
+    <Content Include="Content\V2\public\build\css\bundle-main.css" />
     <Content Include="Content\V2\public\build\css\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
     <Content Include="Content\V2\public\build\css\images\ui-bg_diagonals-thick_20_666666_40x40.png" />
     <Content Include="Content\V2\public\build\css\images\ui-bg_glass_100_f6f6f6_1x400.png" />
@@ -1149,7 +1151,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Content Include="Content\V2\public\build\css\bundle-main.css" />
     <Content Include="Content\V2\public\build\js\bundle-main-min.js" />
     <Content Include="Content\V2\public\build\js\bundle-main.js" />
     <Content Include="Content\V2\public\build\js\bundle-plugins-min.js" />

@@ -34,17 +34,18 @@
             this.btnDizinSec = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.PnlEkAyar = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtLog = new System.Windows.Forms.TextBox();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tlstrpbtnTemizle = new System.Windows.Forms.ToolStripButton();
-            this.txtLog = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.PnlEkAyar = new System.Windows.Forms.GroupBox();
             this.btnDurdur = new System.Windows.Forms.Button();
+            this.btnBaslatDurdur = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
-            this.PnlEkAyar.SuspendLayout();
-            this.toolStrip1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
+            this.PnlEkAyar.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -64,7 +65,6 @@
             this.txtPath.Location = new System.Drawing.Point(59, 0);
             this.txtPath.Multiline = true;
             this.txtPath.Name = "txtPath";
-            this.txtPath.ReadOnly = true;
             this.txtPath.Size = new System.Drawing.Size(639, 30);
             this.txtPath.TabIndex = 5;
             // 
@@ -100,16 +100,31 @@
             this.panel2.Size = new System.Drawing.Size(773, 676);
             this.panel2.TabIndex = 1;
             // 
-            // PnlEkAyar
+            // groupBox2
             // 
-            this.PnlEkAyar.Controls.Add(this.btnDurdur);
-            this.PnlEkAyar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.PnlEkAyar.Location = new System.Drawing.Point(0, 0);
-            this.PnlEkAyar.Name = "PnlEkAyar";
-            this.PnlEkAyar.Size = new System.Drawing.Size(773, 114);
-            this.PnlEkAyar.TabIndex = 0;
-            this.PnlEkAyar.TabStop = false;
-            this.PnlEkAyar.Text = "Ek Ayarlar";
+            this.groupBox2.Controls.Add(this.txtLog);
+            this.groupBox2.Controls.Add(this.toolStrip1);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(0, 89);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(773, 587);
+            this.groupBox2.TabIndex = 1;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "İşlem Logları";
+            // 
+            // txtLog
+            // 
+            this.txtLog.BackColor = System.Drawing.Color.Black;
+            this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtLog.ForeColor = System.Drawing.Color.Bisque;
+            this.txtLog.Location = new System.Drawing.Point(3, 41);
+            this.txtLog.Multiline = true;
+            this.txtLog.Name = "txtLog";
+            this.txtLog.ReadOnly = true;
+            this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.txtLog.Size = new System.Drawing.Size(767, 543);
+            this.txtLog.TabIndex = 7;
+            this.txtLog.Text = "...";
             // 
             // toolStrip1
             // 
@@ -131,39 +146,37 @@
             this.tlstrpbtnTemizle.Text = "Temizle";
             this.tlstrpbtnTemizle.Click += new System.EventHandler(this.tlstrpbtnTemizle_Click);
             // 
-            // txtLog
+            // PnlEkAyar
             // 
-            this.txtLog.BackColor = System.Drawing.Color.Black;
-            this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtLog.ForeColor = System.Drawing.Color.Bisque;
-            this.txtLog.Location = new System.Drawing.Point(3, 41);
-            this.txtLog.Multiline = true;
-            this.txtLog.Name = "txtLog";
-            this.txtLog.ReadOnly = true;
-            this.txtLog.Size = new System.Drawing.Size(767, 518);
-            this.txtLog.TabIndex = 7;
-            this.txtLog.Text = "dasdas";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtLog);
-            this.groupBox2.Controls.Add(this.toolStrip1);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(0, 114);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(773, 562);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "İşlem Logları";
+            this.PnlEkAyar.Controls.Add(this.btnDurdur);
+            this.PnlEkAyar.Controls.Add(this.btnBaslatDurdur);
+            this.PnlEkAyar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.PnlEkAyar.Location = new System.Drawing.Point(0, 0);
+            this.PnlEkAyar.Name = "PnlEkAyar";
+            this.PnlEkAyar.Size = new System.Drawing.Size(773, 89);
+            this.PnlEkAyar.TabIndex = 0;
+            this.PnlEkAyar.TabStop = false;
+            this.PnlEkAyar.Text = "Ek Ayarlar";
             // 
             // btnDurdur
             // 
-            this.btnDurdur.Location = new System.Drawing.Point(323, 50);
+            this.btnDurdur.Location = new System.Drawing.Point(381, 19);
             this.btnDurdur.Name = "btnDurdur";
             this.btnDurdur.Size = new System.Drawing.Size(136, 43);
-            this.btnDurdur.TabIndex = 5;
-            this.btnDurdur.Text = "Başlat";
+            this.btnDurdur.TabIndex = 6;
+            this.btnDurdur.Text = "Durdur";
             this.btnDurdur.UseVisualStyleBackColor = true;
+            this.btnDurdur.Click += new System.EventHandler(this.btnDurdur_Click);
+            // 
+            // btnBaslatDurdur
+            // 
+            this.btnBaslatDurdur.Location = new System.Drawing.Point(239, 19);
+            this.btnBaslatDurdur.Name = "btnBaslatDurdur";
+            this.btnBaslatDurdur.Size = new System.Drawing.Size(136, 43);
+            this.btnBaslatDurdur.TabIndex = 5;
+            this.btnBaslatDurdur.Text = "Başlat";
+            this.btnBaslatDurdur.UseVisualStyleBackColor = true;
+            this.btnBaslatDurdur.Click += new System.EventHandler(this.btnBaslatDurdur_Click);
             // 
             // FrmMain
             // 
@@ -175,14 +188,15 @@
             this.Name = "FrmMain";
             this.Text = "Image To WebP";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmMain_FormClosed);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
-            this.PnlEkAyar.ResumeLayout(false);
-            this.toolStrip1.ResumeLayout(false);
-            this.toolStrip1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.PnlEkAyar.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -199,6 +213,7 @@
         private System.Windows.Forms.TextBox txtLog;
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripButton tlstrpbtnTemizle;
+        private System.Windows.Forms.Button btnBaslatDurdur;
         private System.Windows.Forms.Button btnDurdur;
     }
 }

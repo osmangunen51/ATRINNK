@@ -7,6 +7,8 @@
 <meta title="title" content="<%=Model.Title %>" />  <!-- Social: Facebook / Open Graph -->
 <meta name="og:description" content="<%=Model.Description %>" />
 <meta name="og:title" content="<%=Model.Title %>" />
+<meta name="og:url" content="<%=Model.Url%>" />
+<meta name="og:image" content="<%=Model.Image%>" />
 <meta property="og:type" content="website"/>
 <meta property="article:author" content="https://www.facebook.com/makinaturkiyecom">
 <meta property="article:publisher" content="https://www.facebook.com/makinaturkiyecom"><!-- Social: Twitter -->

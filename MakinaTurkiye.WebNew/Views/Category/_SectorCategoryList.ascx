@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<MTCategoryProductViewModel>" %>
 
-<%--        <% 
-                  
+<%--        <%
+
                        if (Model.ParentCategoryItems.First() == i)
                        { %>
         <%= Html.RenderHtmlPartial("_CategorySectorBannerItems", Model.BannerModels)%>
@@ -21,7 +21,7 @@
                     var categoryUrlName = !string.IsNullOrEmpty(i.CategoryContentTitle) ? i.CategoryContentTitle : i.CategoryName;
     %>
 
-   
+
     <div class="panel sector-category-list__item <%--anchor<%=categoryListIndex %>--%> <%=Helpers.ToUrl(i.CategoryName)%> clearfix">
         <div class="sector-category-list__big-title" role="tab" data-role="anchor-<%=Helpers.ToUrl(i.CategoryName)%>-scroll" id="heading<%=categoryListIndex %>">
             <% if (Model.CategoryModel.SelectedCategoryId == 0)
@@ -34,13 +34,13 @@
             <%=i.CategoryName%> <%
                    } %>
             <span class="text-muted text-ln">(<%=i.ProductCount%>)</span>
-            <a 
-                class="hidden-lg" 
-                role="button" 
-                data-toggle="collapse" 
-                data-parent="#sectorAccordian" 
-                href="#subitems_<%=categoryListIndex %>" 
-                aria-expanded="false" 
+            <a
+                class="hidden-lg"
+                role="button"
+                data-toggle="collapse"
+                data-parent="#sectorAccordian"
+                href="#subitems_<%=categoryListIndex %>"
+                aria-expanded="false"
                 aria-controls="subitems_<%=categoryListIndex %>">
            <span class="icon-down-arrow"></span>
         </a>
@@ -59,11 +59,11 @@
                         {
             %>
             <li class="s_category__sub-item">
-                <a href="<%:AppSettings.SiteUrl %><%:urlHead %>"><%: item.CategoryName%></a>
+                <a href="<%:AppSettings.SiteUrl %><%:urlHead %>"><%:(HttpContext.Current.Request.Browser.IsMobileDevice) ? item.CategoryName : item.CategoryContentTitle%></a>
                 <span class="text-muted text-sm">(<%:item.ProductCount%>)</span>
             </li>
 
-            <%       
+            <%
                            }
                        }
                    }

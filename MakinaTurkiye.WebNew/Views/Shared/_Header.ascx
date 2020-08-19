@@ -41,7 +41,7 @@
                         srcset="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 1x, <%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 2x" alt="makinaturkiye.com" width="226" height="30">
                           <span class="site-slogan">Dünya'nın Makinesi Bir Arada</span>
                     </a>
-   
+
             </div>
             <div class="new-header__top-right">
                 <a href="<%:AppSettings.VideoUrlBase %>" class="hidden-md hidden-lg" title="Video">
@@ -50,9 +50,9 @@
                 <a href="https://blog.makinaturkiye.com" class="hidden-md hidden-lg" title="Blog">
                     <i class="mt-icon icon-blog-mt"></i>
                 </a>
-                <a href="<%:AppSettings.SiteUrl+"yardim" %>" class="hidden-md hidden-lg" title="Yardım">
+                <%--<a href="<%:AppSettings.SiteUrl+"yardim" %>" class="hidden-md hidden-lg" title="Yardım">
                     <i class="mt-icon icon-answer-mt"></i>
-                </a>
+                </a>--%>
                 <div class="hidden-xs hidden-sm">
                     <%
                         if (membermainPartyId != 0)
@@ -102,7 +102,7 @@
                                 <% }
                                 else
                                 {%>
-                             <%:AppSettings.SiteUrl + "uyelik/kullanicigirisi" %>  
+                             <%:AppSettings.SiteUrl + "uyelik/kullanicigirisi" %>
                                 <%}%>
                                 "
                                 class="user-topmenu">
@@ -244,15 +244,17 @@
                 </div>
                 <div class="row hidden-xs hidden-sm">
                     <div class="site-search__bottom">
-                        <ul class="site-search__store">
+                        <ul class="site-search__links">
                             <li <%--class="dropdown  ac-dropdown"--%>>
-                                <a href="<%:AppSettings.StoreAllUrl %>" <%--class="dropdown-toggle" data-toggle="dropdown"--%>>Tüm Mağazalar<%--<i class="fa fa-caret-down" style="float: right; padding: 3px;"></i>--%></a>
-                                <a href="<%:AppSettings.SiteAllCategoryUrl %>" <%--class="dropdown-toggle" data-toggle="dropdown"--%>>Tüm Kategoriler<%--<i class="fa fa-caret-down" style="float: right; padding: 3px;"></i>--%></a>
-                                <div class="dropdown-menu ">
-                                    <h4 class="search-store_title">Tüm Mağazalar</h4>
+                                <a style="color:#828282" href="<%:AppSettings.StoreAllUrl %>" <%--class="dropdown-toggle" data-toggle="dropdown"--%>>Mağazalar<%--<i class="fa fa-caret-down" style="float: right; padding: 3px;"></i>--%></a>
+<%--                                <div class="dropdown-menu ">
+                                    <h4 class="search-store_title">Mağazalar</h4>
                                     <div class="scrollable" id="StoreCategories">
                                     </div>
-                                </div>
+                                </div>--%>
+                            </li>
+                            <li <%--class="dropdown  ac-dropdown"--%>>
+                                <a style="color:#828282" href="<%:AppSettings.SiteAllCategoryUrl %>" <%--class="dropdown-toggle" data-toggle="dropdown"--%>>Kategoriler<%--<i class="fa fa-caret-down" style="float: right; padding: 3px;"></i>--%></a>
                             </li>
                             <%--             <li>
                                 <a href="<%:AppSettings.SiteUrlWithoutLastSlash %>/alim-talebi">Alım Talebi</a>
@@ -265,9 +267,9 @@
                             <li>
                                 <a target="_blank" href="https://blog.makinaturkiye.com">Blog</a>
                             </li>
-                            <li>
+                           <%-- <li>
                                 <a target="_blank" href="<%:AppSettings.SiteUrlWithoutLastSlash %>/yardim">Yardım</a>
-                            </li>
+                            </li>--%>
                         </ul>
                     </div>
                 </div>
@@ -301,7 +303,7 @@
             </div>
             <div class="new-header__bottom-right hidden-md hidden-lg">
                 <ul class="nav navbar-nav navbar-right" role="menu">
-                    <% 
+                    <%
                         if (AuthenticationUser.Membership != null)
                         {
                             membermainPartyId = AuthenticationUser.Membership.MainPartyId;
@@ -426,7 +428,7 @@
         },
         formatResult: function (suggestion, currentValue) {
 
-         
+
                 $(".overlay-body").show();
               $(".new-header__search").css("z-index", "5000");
             var pattern, words;

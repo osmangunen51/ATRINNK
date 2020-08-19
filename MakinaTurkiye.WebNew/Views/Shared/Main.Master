@@ -1,9 +1,10 @@
 ﻿<%@ Master Language="C#" Inherits="NeoSistem.MakinaTurkiye.Core.Web.ViewMasterPage" %>
 <!doctype html>
 <html lang="tr">
-<head><%: Html.Action("MetaTag","Common")%><%= Html.RenderHtmlPartial("_Head")%>
+<head><%: Html.Action("MetaTag","Common")%>
+<%= Html.RenderHtmlPartial("_Head")%>
 <asp:ContentPlaceHolder ID="HeaderContent" runat="server"/>
-<link rel="alternate" hreflang="tr-TR" href="<%=Request.Url.ToString()%>"/>
+<link rel="alternate" def hreflang="tr-TR" href="<%=Request.Url.ToString()%>"/>
 
 </head>
 <body class="facelift-v2">

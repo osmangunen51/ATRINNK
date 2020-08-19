@@ -9,6 +9,7 @@ using MakinaTurkiye.Utilities.Mvc;
 using MakinaTurkiye.Logging;
 using NeoSistem.MakinaTurkiye.Web.Controllers;
 using MakinaTurkiye.Services.Common;
+using System.Web.Optimization;
 
 namespace NeoSistem.MakinaTurkiye.Web
 {
@@ -35,6 +36,8 @@ namespace NeoSistem.MakinaTurkiye.Web
 
             ILogger logger = EngineContext.Current.Resolve<ILogger>();
             logger.Fatal("Application start");
+
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
         private void Application_End()
@@ -46,7 +49,7 @@ namespace NeoSistem.MakinaTurkiye.Web
         protected void Application_Error(object sender, EventArgs e)
         {
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
-   
+
             if (config.ApplicationLogEnabled)
             {
                 Exception exception = Server.GetLastError();
@@ -197,11 +200,11 @@ namespace NeoSistem.MakinaTurkiye.Web
                 {
                     string host = Request.Url.Host;
                     //System.IO.File.AppendAllText(@"c:\web\makinaturkiye.com\content\url.txt",$"{host}{Environment.NewLine}");
-                    if (host.ToLower()== "www.makinaturkiye.com/")
-                    {
-                        string Url = "https://wwww.makinaturkiye.com";
-                        Response.RedirectPermanent(Url,true);
-                    }
+                    //if (host.ToLower()== "www.makinaturkiye.com/")
+                    //{
+                    //    string Url = "https://wwww.makinaturkiye.com";
+                    //    Response.RedirectPermanent(Url,true);
+                    //}
                     //bool nonwww = false;
                     //var nodes = host.Split('.');
                     //if (nodes[0] != "www" && nodes[0] == "makinaturkiye")

@@ -13,6 +13,9 @@ using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Entities.StoredProcedures.Catalog;
 using MakinaTurkiye.Utilities.FormatHelpers;
 using MakinaTurkiye.Services.Common;
+using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
+using MakinaTurkiye.Utilities.ImageHelpers;
+using MakinaTurkiye.Services.Media;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -27,12 +30,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private readonly IProductService _productService;
         private readonly IMemberStoreService _memberStoreService;
         private readonly IAddressService _addressService;
+        private readonly IPictureService _pictureService;
 
         public CommonController(ISeoDefinitionService seoDefinitionService,
             IStoreNewService storeNewService, ICategoryService categoryService,
             IVideoService videoService, IStoreService storeService,
             IProductService productService, IMemberStoreService memberStoreService,
-            IAddressService addressService)
+            IAddressService addressService, IPictureService pictureService)
         {
             _seoDefinitionService = seoDefinitionService;
             _storeNewService = storeNewService;
@@ -42,6 +46,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             _productService = productService;
             _memberStoreService = memberStoreService;
             _addressService = addressService;
+            _pictureService = pictureService;
         }
 
         [ChildActionOnly]
@@ -100,7 +105,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 case "account/storenew": PrepareMetaTagModelForAccountStoreNew(model, seos); break;
                 case "account/users": PrepareMetaTagModelForAccountUsers(model, seos); break;
                 case "account/video": PrepareMetaTagModelForAccountStoreVideos(model, seos); break;
-              
+
                 default:
                     break;
             }
@@ -234,6 +239,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             string description = seo.Description;
             string keywords =!string.IsNullOrEmpty(seo.Keywords) ? seo.Keywords : "";
             string title = seo.Title;
+            string url = this.Request.Url.ToString();
+            string img = "";
 
             if (seoIdNameEnum == SeoIdNameEnum.ProductSearchPage)
             {
@@ -321,6 +328,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         description = description.Replace("{IlkUstKategori}", string.Empty);
                         description = description.Replace("{IlkUstKategori}", string.Empty);
                         title = title.Replace("{IlkUstKategori}", string.Empty);
+
                     }
                     else
                     {
@@ -332,6 +340,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         description = description.Replace("{IlkUstKategori}", fistTopCategoryName);
                         title = title.Replace("{IlkUstKategori}", fistTopCategoryName);
                     }
+                    img = ImageHelper.GetCategoryIconPath(category.CategoryIcon);
 
                     description = description.Replace("{UstKategori}", topCategoriesNameText);
                     keywords = keywords.Replace("{UstKategori}", topCategoriesNameText);
@@ -354,6 +363,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         description = description.Replace("{ModelMarka}", category.CategoryName);
                         keywords = keywords.Replace("{ModelMarka}", category.CategoryName);
                         title = title.Replace("{ModelMarka}", category.CategoryName);
+
+
 
                         #endregion
                     }
@@ -431,6 +442,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         keywords = keywords.Replace("{Seri}", category.CategoryName);
                         title = title.Replace("{Seri}", category.CategoryName);
 
+
+
+
                         #endregion
                     }
                     else if (seoIdNameEnum == SeoIdNameEnum.ProductGroup || seoIdNameEnum == SeoIdNameEnum.ProductGrupCity || seoIdNameEnum == SeoIdNameEnum.ProductGrupCity ||
@@ -493,12 +507,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     keywords +=  " - " + GetPageQueryString();
                     title += " - " + GetPageQueryString();
                 }
-
-                model.Description = description;
-                model.Keywords = keywords;
-                model.Robots = seo.Robots;
-                model.Title = title;
             }
+            model.Description = description;
+            model.Keywords = keywords;
+            model.Robots = seo.Robots;
+            model.Title = title;
+            model.Url = url;
+            model.Image = img;
+
+
         }
 
         private void PrepareMetaTagModelForHelp(MetaTagModel model, IList<Seo> seos)
@@ -506,6 +523,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             string actionName = this.ControllerContext.ParentActionViewContext.RouteData.GetRequiredString("action");
             SeoIdNameEnum seoIdNameEnum = actionName == "Index" ? SeoIdNameEnum.Help : SeoIdNameEnum.HelpCategory;
             var seo = seos.First(s => s.SeoId == (int)seoIdNameEnum);
+            string url = this.Request.Url.ToString();
+            string img = "";
+
             int helpCategoryId = GetCategoryIdRouteData();
             if (helpCategoryId != 0)
             {
@@ -513,6 +533,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 seo.Title = seo.Title.Replace("{Kategori}", helpCategory.CategoryName);
                 seo.Keywords = seo.Keywords.Replace("{Kategori}", helpCategory.CategoryName);
                 seo.Description = seo.Description.Replace("{Kategori}", helpCategory.CategoryName);
+                img = ImageHelper.GetCategoryIconPath(helpCategory.CategoryIcon);
 
             }
 
@@ -520,6 +541,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.Keywords = seo.Keywords;
             model.Robots = seo.Robots;
             model.Title = seo.Title;
+
+            model.Url = url;
+            model.Image = img;
+
         }
 
         private void PrepareMetaTagModelForHome(MetaTagModel model, IList<Seo> seos)
@@ -529,6 +554,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.Keywords = seo.Keywords;
             model.Robots = seo.Robots;
             model.Title = seo.Title;
+            model.Image = ImageHelper.GetLogo();
+            model.Url = this.Request.Url.ToString();
         }
 
         private void PrepareMetaTagModelForCommon(MetaTagModel model, IList<Seo> seos)
@@ -639,7 +666,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             seo.Keywords = seo.Keywords.Replace("{Fiyati}", product.GetFormattedPriceWithCurrency());
             seo.Title = seo.Title.Replace("{Fiyati}", product.GetFormattedPriceWithCurrency());
 
-            
+
 
             if (product.City != null && !string.IsNullOrEmpty(product.City.CityName))
             {
@@ -661,6 +688,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.Keywords = seo.Keywords;
             model.Robots = seo.Robots;
             model.Title = seo.Title;
+            model.Image = ImageHelper.GetLogo();
+            model.Url = this.Request.Url.ToString();
+            var MainPicture = _pictureService.GetFirstPictureByProductId(product.ProductId);
+            model.Image= ImageHelper.GetProductImagePath(product.ProductId, MainPicture.PicturePath, ProductImageSize.px200x150);
         }
 
         private void PrepareMetaTagModelForProductRequest(MetaTagModel model, IList<Seo> seos)
