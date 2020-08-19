@@ -206,6 +206,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     else if (c.CategoryType == (byte)CategoryType.Model)
                     {
                         var link = Request.Url.AbsolutePath;
+
+                        if (!Request.IsLocal)
+                        {
+                            link = AppSettings.SiteUrlWithoutLastSlash + link;
+                        }
                         if (string.IsNullOrEmpty(selectedCategoryId))
                         {
                             string brandName = string.Empty;
@@ -2537,24 +2542,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             var yenilink = PrepareForLink(selectedCategoryId);
+            if(!Request.IsLocal)
+
             if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
             {
                 //ExceptionHandler.HandleException(Server.GetLastError());
-                if (request.Url.AbsoluteUri.StartsWith("https://video.") == true)
+                if (request.Url.AbsoluteUri.StartsWith("https://video."))
                 {
                     return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
                 }
 
                 return RedirectPermanent(yenilink);
             }
-
-            if (!Request.IsLocal)
-            {
-
-
-
-            }
-
 
 
 
