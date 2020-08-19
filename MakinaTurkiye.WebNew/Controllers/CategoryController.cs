@@ -206,6 +206,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     else if (c.CategoryType == (byte)CategoryType.Model)
                     {
                         var link = Request.Url.AbsolutePath;
+
+                        if (!Request.IsLocal)
+                        {
+                            link = AppSettings.SiteUrlWithoutLastSlash + link;
+                        }
+
                         if (string.IsNullOrEmpty(selectedCategoryId))
                         {
                             string brandName = string.Empty;
@@ -247,8 +253,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             }
                             else
                             {
-                                 ustCatBrand = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
-                                 ustCat = _categoryService.GetCategoryByCategoryId(ustCatBrand.CategoryParentId.Value);
+                                ustCatBrand = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
+                                ustCat = _categoryService.GetCategoryByCategoryId(ustCatBrand.CategoryParentId.Value);
                                 string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
 
                                 var url = UrlBuilder.GetModelUrl(c.CategoryId, c.CategoryName, ustCatBrand.CategoryName, categoryNameUrl, Convert.ToInt32(c.CategoryParentId));
@@ -257,6 +263,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                             }
                         }
+
+
 
 
                     }
@@ -1475,7 +1483,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var topCategory = topCategories.LastOrDefault(k => k.CategoryType == (byte)CategoryType.Category);
                     if (topCategory == null)
                         topCategory = topCategories.LastOrDefault(k => k.CategoryType == (byte)CategoryType.ProductGroup);
-                    if(brand!=null)
+                    if (brand != null)
                         categoryUrl = UrlBuilder.GetModelUrl(item.CategoryId, categoryNameUrl, brand.CategoryName, topCategory.CategoryName, selectedCategoryId);
 
 
@@ -1497,7 +1505,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     string navigationUrl1 = categoryUrl.Replace(":443", "").Replace(AppSettings.SiteUrlWithoutLastSlash, "");
                     alMenuSecond.Add(new Navigation(categoryNameUrl, navigationUrl1, Navigation.TargetType._self));
                 }
-         
+
 
             }
 
@@ -2537,24 +2545,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             var yenilink = PrepareForLink(selectedCategoryId);
-            if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
-            {
-                //ExceptionHandler.HandleException(Server.GetLastError());
-                if (request.Url.AbsoluteUri.StartsWith("https://video.") == true)
-                {
-                    return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
-                }
-
-                return RedirectPermanent(yenilink);
-            }
-
             if (!Request.IsLocal)
-            {
 
+                if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
+                {
+                    //ExceptionHandler.HandleException(Server.GetLastError());
+                    if (request.Url.AbsoluteUri.StartsWith("https://video."))
+                    {
+                        return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
+                    }
 
-
-            }
-
+                    return RedirectPermanent(yenilink);
+                }
 
 
 
@@ -2568,10 +2570,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             int countryId = GetCountryIdRouteData();
             if (countryId != 0)
             {
-                if (request.Url.AbsolutePath.Substring(request.Url.AbsolutePath.Length - 1, 1) != "/")
-                {
-                    return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath + "/");
-                }
+                //if (request.Url.AbsolutePath.Substring(request.Url.AbsolutePath.Length - 1, 1) != "/")
+                //{
+                //    return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + request.Url.AbsolutePath + "/");
+                //}
             }
             int index = request.Url.AbsolutePath.IndexOf("-c-");
             if (index > 0)
@@ -2669,8 +2671,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             var modelUpperCategory = _categoryService.GetCategoryByCategoryId(selectedCategory.CategoryParentId.Value);
 
                             var brandCategory = _categoryService.GetCategoryByCategoryId(modelUpperCategory.CategoryParentId.Value);
+                            var selectedCategoryTopCategory = _categoryService.GetCategoryByCategoryId(brandCategory.CategoryParentId.Value);
 
-                            redirectUrl = UrlBuilder.GetCountryUrl(countryId, "türkiye", category.CategoryId, category.CategoryName, brandId, "");
+
+
+                            redirectUrl = UrlBuilder.GetModelUrl(selectedCategory.CategoryId, categoryNameUrl,
+                                modelUpperCategory.CategoryName, selectedCategoryTopCategory.CategoryName,
+                                selectedCategoryTopCategory.CategoryId);
+
                             return RedirectPermanent(redirectUrl);
 
                         }
