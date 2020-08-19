@@ -30,7 +30,7 @@
                             </span>
                         </div>
                         <ul class="dropdown-menu mega-dropdown-menu container-fluid" style="margin-top: 5px;">
-                            <div id="loading" style="text-align: center;"></div>
+                            <div class="loading" style="text-align: center;"></div>
                         </ul>
                     </li>
                     <%} %>
@@ -56,7 +56,7 @@
                         </span>
                     </a>
                     <ul class="dropdown-menu mega-dropdown-menu container-fluid">
-                        <div style="text-align: center;" id="loading"></div>
+                        <div style="text-align: center;" class="loading"></div>
                     </ul>
                 </li>
                 <%} %>

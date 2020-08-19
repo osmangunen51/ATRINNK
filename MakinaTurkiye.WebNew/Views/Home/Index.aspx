@@ -3,79 +3,79 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
     <link rel="canonical" href="https://www.makinaturkiye.com" />
     <script type="text/javascript">
-        function GetProductRecomandation() {
-            $.ajax({
-                type: 'get',
-                url: '/Home/GetProductRecomandation',
-                data: {},
-                success: function (data) {
-                    $('.productMayLike').html(data);
-                    $(".advertiseHome").show();
-                    var owlTemplate = $('.owlTemplate');
-                    $.each(owlTemplate, function () {
-                        var item = $(this).find(".bottom-slider");
-                        if (item != undefined) {
-                            item.owlCarousel({
-                                margin: 0,
-                                loop: true,
-                                nav: false,
-                                autoplay: true,
-                                autoplayTimeout: 5000,
-                                autoplayHoverPause: true,
-                                autoWidth: true,
-                                responsive: {
-                                    0: {
-                                        items: 1,
-                                        slideBy: 1
-                                    },
-                                    768: {
-                                        items: 2,
-                                        slideBy: 2
-                                    },
-                                    992: {
-                                        items: 3,
-                                        slideBy: 3
+        //function GetProductRecomandation() {
+        //    $.ajax({
+        //        type: 'get',
+        //        url: '/Home/GetProductRecomandation',
+        //        data: {},
+        //        success: function (data) {
+        //            $('.productMayLike').html(data);
+        //            $(".advertiseHome").show();
+        //            var owlTemplate = $('.owlTemplate');
+        //            $.each(owlTemplate, function () {
+        //                var item = $(this).find(".bottom-slider");
+        //                if (item != undefined) {
+        //                    item.owlCarousel({
+        //                        margin: 0,
+        //                        loop: true,
+        //                        nav: false,
+        //                        autoplay: true,
+        //                        autoplayTimeout: 5000,
+        //                        autoplayHoverPause: true,
+        //                        autoWidth: true,
+        //                        responsive: {
+        //                            0: {
+        //                                items: 1,
+        //                                slideBy: 1
+        //                            },
+        //                            768: {
+        //                                items: 2,
+        //                                slideBy: 2
+        //                            },
+        //                            992: {
+        //                                items: 3,
+        //                                slideBy: 3
 
-                                    },
-                                    1200: {
-                                        items: 5,
-                                        slideBy: 5
-                                    }
-                                }
-                            })
-                            var nextItem = $(this).find(".overflow-next");
-                            var prevItem = $(this).find(".overflow-prev");
-                            $(nextItem).click(function () {
-                                item.trigger('next.owl.carousel');
+        //                            },
+        //                            1200: {
+        //                                items: 5,
+        //                                slideBy: 5
+        //                            }
+        //                        }
+        //                    })
+        //                    var nextItem = $(this).find(".overflow-next");
+        //                    var prevItem = $(this).find(".overflow-prev");
+        //                    $(nextItem).click(function () {
+        //                        item.trigger('next.owl.carousel');
 
-                            });
-                            $(prevItem).click(function () {
-                                item.trigger('prev.owl.carousel', [300]);
+        //                    });
+        //                    $(prevItem).click(function () {
+        //                        item.trigger('prev.owl.carousel', [300]);
 
-                            });
-
-
-                        }
-                    });
-                    function setOwlStageHeight(event) {
-                        var maxHeight = 0;
-                        $('.owl-item.active').each(function () { // LOOP THROUGH ACTIVE ITEMS
-                            var thisHeight = parseInt($(this).height());
-                            maxHeight = (maxHeight >= thisHeight ? maxHeight : thisHeight);
-                        });
-                        $('.owl-carousel').css('height', maxHeight);
-                        $('.owl-stage-outer').css('height', maxHeight); // CORRECT DRAG-AREA SO BUTTONS ARE CLICKABLE
-                    }
+        //                    });
 
 
-                },
-                error: function (x, y, z) {
-                    //alert('Bir Hata Oluştu. Lütfen Destek Ekibimiz ile İletişime Geçiniz');
-                    console.log("hata");
-                }
-            });
-        }
-        //function GetProductSelected(skip, counter) {
+        //                }
+        //            });
+        //            function setOwlStageHeight(event) {
+        //                var maxHeight = 0;
+        //                $('.owl-item.active').each(function () { // LOOP THROUGH ACTIVE ITEMS
+        //                    var thisHeight = parseInt($(this).height());
+        //                    maxHeight = (maxHeight >= thisHeight ? maxHeight : thisHeight);
+        //                });
+        //                $('.owl-carousel').css('height', maxHeight);
+        //                $('.owl-stage-outer').css('height', maxHeight); // CORRECT DRAG-AREA SO BUTTONS ARE CLICKABLE
+        //            }
+
+
+        //        },
+        //        error: function (x, y, z) {
+        //            //alert('Bir Hata Oluştu. Lütfen Destek Ekibimiz ile İletişime Geçiniz');
+        //            console.log("hata");
+        //        }
+        //    });
+        //}
+        ////function GetProductSelected(skip, counter) {
 
         //    $.ajax({
 
@@ -367,7 +367,7 @@
 
 
     </div>
-    <div class="advertiseHome" style="display: none;">
+   <%-- <div class="advertiseHome" style="display: none;">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-md-offset-1 aos-init aos-animate" data-aos="fade-right" data-aos-offset="200" data-aos-delay="100" data-aos-duration="1000">
@@ -382,7 +382,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>--%>
 
     <div class="productMayLike">
         <%--            <%=Html.Partial("_ProductMayLike",Model.MTMayLikeProductModel) %>--%>

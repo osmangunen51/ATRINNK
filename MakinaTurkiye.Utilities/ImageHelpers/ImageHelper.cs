@@ -87,7 +87,7 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
             {
                 if (!productImageName.Contains(".jpg"))
                     productImageName = productImageName + ".jpg";
-                productImageName = productImageName.Replace(".jpg", ".webp");
+                //productImageName = productImageName.Replace(".jpg", ".webp");
                 string[] name = productImageName.Split('.');
                 string picturePathIsExist = string.Empty;
                 if (imageSize == ProductImageSize.px100)
@@ -128,6 +128,10 @@ name[1]);
                     }
                 }
 #endif
+
+                productImageName = productImageName.Replace(".jpg", ".webp");
+                name = productImageName.Split('.');
+
                 switch (imageSize)
                 {
                     case ProductImageSize.px100:
@@ -246,6 +250,7 @@ name[1]);
             }
 
         }
+
 
         public static string GetHomeSectorImagePath(string imagePath)
         {
