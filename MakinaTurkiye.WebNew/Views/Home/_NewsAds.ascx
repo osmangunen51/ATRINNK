@@ -6,16 +6,16 @@
               font-size: 24px;
               font-weight: 700;
               line-height: 27px;">
-            <span>En Yeni İlanlar</span>
+            <span>En Yeni Makina İlanları</span>
         </h2>
     </div>
     <div class="col-xs-12">
         <div class="row">
             <div class="col-md-2 col-sm-12 hidden-xs" style="margin: 0px;
-    padding-top: 10px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 10px;">
+                padding-top: 10px;
+                padding-right: 0px;
+                padding-bottom: 0px;
+                padding-left: 10px;">
                 <center><img height="100%" class="img-responsive " src="../../Content/V2/images/newadsbanner.png" /></center>
              </div>
             <div class="col-md-10 col-sm-12 category-popular-product" style="padding:10px;padding-right: 30px;">

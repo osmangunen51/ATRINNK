@@ -589,20 +589,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 //PreparePopularVideoModels(model);
                 //  PrepareProductShowCaseModels(model);
-                //if (!Request.Browser.IsMobileDevice)
-                //{
-
-                //}
-                PrepareNewsAdModels(model);
-
+                if (!Request.Browser.IsMobileDevice)
+                {
+                    PrepareNewsAdModels(model);
+                }
                 //PrepareHomeLeftCategories(model);
-
                 var modelSelected = new List<MTAllSelectedProductModel>();
                 //PrepareHomeCategoryProductModels(modelSelected, 0, 1);
                 model.MTAllSelectedProduct = modelSelected;
                 PrepareNewsModel(model);
                 return model;
             });
+
             //PrepareProductRecomandation(model);
 
             //PrepareSuccessStories(model);

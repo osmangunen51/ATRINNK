@@ -317,10 +317,9 @@
             </div>
         </div>
     </div>
-    <%=Html.Partial("_NewsAds",Model.NewsAdModels)%>
-    <%--    <%if (!Request.Browser.IsMobileDevice) {%>
-            <%=Html.RenderHtmlPartial("_HomeSector",Model.HomeSectorItems) %>
-    <% } %>--%>
+        <%if (!Request.Browser.IsMobileDevice) {%>
+                <%=Html.Partial("_NewsAds",Model.NewsAdModels)%>
+    <% } %>
 
     <%--   <%= Html.Partial("_ProductRelatedCategories", Model.HomeProductsRelatedCategoryModel)  %>--%>
     <%--        <%= Html.Partial("_PopularAds", Model.PopularAdModels) %>--%>
