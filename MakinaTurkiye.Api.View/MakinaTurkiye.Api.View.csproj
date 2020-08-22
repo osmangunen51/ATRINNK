@@ -47,7 +47,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EnumModel.cs" />
-    <Compile Include="LoginModel.cs" />
     <Compile Include="MemberEmailPassword.cs" />
     <Compile Include="Result\ProductSearchResult.cs" />
     <Compile Include="SearchInput.cs" />
