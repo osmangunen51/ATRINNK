@@ -63,6 +63,7 @@ Thumbs.db
 *.suo
 *.user
 *.[Cc]ache
+*.cache
 *[Rr]esharper*
 packages
 NuGet.exe
