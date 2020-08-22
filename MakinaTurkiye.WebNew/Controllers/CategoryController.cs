@@ -253,15 +253,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             }
                             else
                             {
-                                 ustCatBrand = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
-                                 ustCat = _categoryService.GetCategoryByCategoryId(ustCatBrand.CategoryParentId.Value);
+                                ustCatBrand = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
+                                ustCat = _categoryService.GetCategoryByCategoryId(ustCatBrand.CategoryParentId.Value);
                                 string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
 
-                            //    var url = UrlBuilder.GetModelUrl(c.CategoryId, c.CategoryName, ustCatBrand.CategoryName, categoryNameUrl, Convert.ToInt32(c.CategoryParentId));
-                            //    if (link != url)
-                            //        return url;
+                                var url = UrlBuilder.GetModelUrl(c.CategoryId, c.CategoryName, ustCatBrand.CategoryName, categoryNameUrl, Convert.ToInt32(c.CategoryParentId));
+                                if (link != url)
+                                    return url;
 
-                            //}
+                            }
                         }
 
 
@@ -508,7 +508,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         StoreConnectUrl = UrlBuilder.GetStoreConnectUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, store.StoreUrlName),
                         ProductContactUrl = UrlBuilder.GetProductContactUrl(product.ProductId, product.StoreName),
                         KdvOrFobText = product.GetKdvOrFobText(),
-
                         ProductPriceWithDiscount = product.DiscountType.HasValue && product.DiscountType.Value != 0 ? product.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
                     };
 
@@ -3083,4 +3082,3 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         #endregion
     }
 }
-

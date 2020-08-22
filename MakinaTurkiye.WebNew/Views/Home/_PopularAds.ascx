@@ -8,7 +8,7 @@
     <div class="col-xs-12">
         <div class="overflow-carousel" id="PopulerProductContainer">
             <div class="owl-carousel overflowdouble" id="popularitemscarousel">
-                <% 
+                <%
                     int StepCounter = 0;
                     foreach (var populerAd in Model)
                     {
@@ -73,4 +73,3 @@
 
 
 
- 

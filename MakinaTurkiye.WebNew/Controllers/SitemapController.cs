@@ -240,7 +240,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 FileHelper.WriteToFile("/Sitemaps/Products/" + sitemapFileName, resultXml);
                 sitemapFiles.Add(sitemapFileName);
             }
-
             return sitemapFiles;
         }
         protected string generateSitemapForStores()

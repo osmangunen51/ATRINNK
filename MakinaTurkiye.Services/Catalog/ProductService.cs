@@ -17,7 +17,7 @@ namespace MakinaTurkiye.Services.Catalog
     {
 
         #region Constants
-
+        private const string PRODUCTS_BY_NEWS_PRODUCTS_KEY = "makinaturkiye.product.newsproduct.bynoneparameter";
         private const string PRODUCTS_BY_PORULAR_PRODUCTS_KEY = "makinaturkiye.product.popularproduct.bynoneparameter";
         private const string PRODUCTS_BY_PRODUCT_ID_KEY = "makinaturkiye.product.byproductId-{0}";
         private const string PRODUCTS_BY_MAINPARTY_ID_AND_NON_PRODUCT_ID_KEY = "makinaturkiye.product.bymainpartyId-nonproductId-{0}-{1}-{2}";
@@ -473,6 +473,27 @@ namespace MakinaTurkiye.Services.Catalog
                 return popularProducts.ToList();
             });
         }
+
+
+        public IList<PopularProductResult> GetSPNewProducts()
+        {
+
+            string key = PRODUCTS_BY_NEWS_PRODUCTS_KEY;
+
+            return _cacheManager.Get(key, () =>
+            {
+                const int topCount = 36;
+                var pTopCount = _dataProvider.GetParameter();
+                pTopCount.ParameterName = "TopCount";
+                pTopCount.Value = topCount;
+                pTopCount.DbType = DbType.Int32;
+
+                var popularProducts = _dbContext.SqlQuery<PopularProductResult>("SP_GetNewsProductTopCount @TopCount", pTopCount);
+                return popularProducts.ToList();
+            });
+        }
+
+
 
         public Product GetProductByProductId(int productId)
         {

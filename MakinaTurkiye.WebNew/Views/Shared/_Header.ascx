@@ -72,7 +72,7 @@
                             { %>
 
                         <li class="user-topmenu__item hidden-sm hidden-md hidden-lg">
-                            <a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
+                            <a  style="font-size:13px !important;margin-bottom:5px;"  href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
                                 <span class="icon-paper-plane"></span>Mesajlar <span class="label label-primary pull-right"><%=notReadInboxMessageCount %></span>
                             </a>
                         </li>
@@ -80,18 +80,18 @@
                         <% } %>
 
                         <li class="user-topmenu__item hidden-sm hidden-md hidden-lg commentLi" style="display: none;">
-                            <a href="<%:AppSettings.SiteUrl %>account/ilan/Comments" class="user-topmenu__link">
+                            <a  style="font-size:13px !important;margin-bottom:5px;"  href="<%:AppSettings.SiteUrl %>account/ilan/Comments" class="user-topmenu__link">
                                 <span class="glyphicon glyphicon-comment"></span>Yorumlar <span class="label label-primary pull-right commentCountvalue"></span>
                             </a>
                         </li>
 
                         <li class="user-topmenu__item hidden-sm hidden-md hidden-lg" id="MobileCategoriesContainer">
-                            <a href="<%:AppSettings.SiteAllCategoryUrl%>" class="user-topmenu__link">
+                            <a  style="font-size:13px !important;margin-bottom:5px;"  href="<%:AppSettings.SiteAllCategoryUrl%>" class="user-topmenu__link">
                                 <span class="icon-menu"></span>Kategori
                             </a>
                         </li>
                         <li class="user-topmenu__item hidden-sm hidden-md hidden-lg" id="MobileCustomersContainer">
-                            <a href="<%:AppSettings.SiteUrl%>sirketler" class="user-topmenu__link">
+                            <a  style="font-size:13px !important;margin-bottom:5px;"  href="<%:AppSettings.SiteUrl%>sirketler" class="user-topmenu__link">
                                 <span class="icon-briefcase"></span>Firma
                             </a>
                         </li>
@@ -114,7 +114,7 @@
                             { %>
                         <%if (favoriteProductCount > 0)
                             { %>
-                        <li class="user-topmenu__item"><a href="<%:AppSettings.SiteUrl %>Account/Favorite/Product" id="favoriteProductCount" class="user-topmenu hidden-xs">
+                        <li class="user-topmenu__item"><a  style="font-size:13px !important;margin-bottom:5px;"  href="<%:AppSettings.SiteUrl %>Account/Favorite/Product" id="favoriteProductCount" class="user-topmenu hidden-xs">
                             <i class="mt-icon icon-favorite-mt"></i>
                             <span class="text">Favoriler</span>
                             <span class="badge"><%=favoriteProductCount %></span>
@@ -127,7 +127,7 @@
                             { %>
                         <li class="user-topmenu__item">
 
-                            <a href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="user-topmenu">
+                            <a  style="font-size:13px !important;margin-bottom:5px;"  href="<%:AppSettings.SiteUrl %>Account/Message/Index?MessagePageType=0" class="user-topmenu">
                                 <i class="mt-icon icon-message-mt"></i>
                                 <span class="text">Mesajlar</span>
                                 <span class="badge"><%=notReadInboxMessageCount %></span>
@@ -140,7 +140,7 @@
 
                         <li class="user-topmenu__item" style="margin-right: 10px">
                             <div class="dropdown ac-dropdown">
-                                <a style="cursor: pointer;" class="user-topmenu hidden-xs" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <a  style="font-size:13px !important;margin-bottom:5px;"  style="cursor: pointer;" class="user-topmenu hidden-xs" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <i class="mt-icon icon-user-mt"></i>
 
                                     <span class="text">
@@ -166,26 +166,26 @@
                                         {%>
 
 
-                                    <li><a class="bold" href="<%:baseUrl%>/uyelik/kullanicigirisi">Giriş Yap</a>
-                                        <a class="bold" href="<%:baseUrl%>/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
+                                    <li><a style="font-size: 13px" class="bold" href="<%:baseUrl%>/uyelik/kullanicigirisi">Giriş Yap</a>
+                                        <a  style="font-size:13px !important;margin-bottom:5px;" class="bold" href="<%:baseUrl%>/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
 
                                     </li>
 
 
-                                    <li><a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a>
+                                    <li><a style="font-size:13px !important;margin-bottom:5px;" href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a>
 
-                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a>
-                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a>
-                                        <a href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a>
+                                        <a style="font-size:13px !important;margin-bottom:5px;" href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a>
+                                        <a  style="font-size:13px !important;margin-bottom:5px;" href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a>
+                                        <a  style="font-size:13px !important;margin-bottom:5px;" href="<%:baseUrl%>/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a>
                                     </li>
 
                                     <% }
                                         else
                                         {%>
-                                    <li><a href="<%:baseUrl%>/Account/Home">Hesabım</a>
-                                        <a href="<%:baseUrl%>/Account/Personal">Profilim</a>
-                                        <a href="<%:baseUrl%>/Account/Advert/Index?ProductActive=1&DisplayType=2">İlanlarım</a>
-                                        <a href="<%:baseUrl%>/Account/Message/Index?MessagePageType=0">Mesajlarım
+                                    <li><a  style="font-size:13px !important;margin-bottom:5px;" href="<%:baseUrl%>/Account/Home">Hesabım</a>
+                                        <a  style="font-size:13px !important;margin-bottom:5px;" href="<%:baseUrl%>/Account/Personal">Profilim</a>
+                                        <a  style="font-size:13px !important;margin-bottom:5px;" href="<%:baseUrl%>/Account/Advert/Index?ProductActive=1&DisplayType=2">İlanlarım</a>
+                                        <a  style="font-size:13px !important;margin-bottom:5px;" href="<%:baseUrl%>/Account/Message/Index?MessagePageType=0">Mesajlarım
                                         <%if (notReadInboxMessageCount != 0)
                                             {%>
                                             <span class="badge badge-primary" style="background-color: #ef0d0d"><%:notReadInboxMessageCount %></span>
@@ -202,14 +202,14 @@
 
                                     <%if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
                                         { %>
-                                    <li><a tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal">Firma Ayarları </a></li>
+                                    <li><a  style="font-size:13px !important;margin-bottom:5px;"  tabindex="-1" href="<%:AppSettings.SiteUrl %>Account/Personal">Firma Ayarları </a></li>
                                     <%}
                                         else
                                         {%>
 
                                     <%}%>
 
-                                    <li role="presentation"><a role="menuitem"  tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">Çıkış Yap </a></li>
+                                    <li role="presentation"><a  style="font-size:13px !important;margin-bottom:5px;"  role="menuitem"  tabindex="-1" href="<%:AppSettings.SiteUrl %>Uyelik/OturumuKapat">Çıkış Yap </a></li>
                                     <% } %>
                                 </ul>
                             </div>

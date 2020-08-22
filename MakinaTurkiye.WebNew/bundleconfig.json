@@ -1,0 +1,14 @@
+[
+  {
+    "outputFileName": "Content/V2/assets/js/jquery-ui-1.9.2.custom.min.js",
+    "inputFiles": [
+      "Content/V2/assets/js/jquery-ui-1.9.2.custom.js"
+    ]
+  },
+  {
+    "outputFileName": "Content/V2/assets/js/jquery.autocomplete.min.js",
+    "inputFiles": [
+      "Content/V2/assets/js/jquery.autocomplete.js"
+    ]
+  }
+]

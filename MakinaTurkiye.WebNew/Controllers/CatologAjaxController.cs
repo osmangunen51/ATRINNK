@@ -604,7 +604,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 return Json(0, JsonRequestBehavior.AllowGet);
             }
         }
-            
+
 
         [HttpGet]
         public PartialViewResult GetProductShowCase()

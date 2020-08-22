@@ -80,6 +80,7 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
 
         public static string GetProductImagePath(int productId, string productImageName, ProductImageSize imageSize)
         {
+
             if (string.IsNullOrEmpty(productImageName))
                 return "//s.makinaturkiye.com/no-image.png";
 
@@ -90,44 +91,32 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
                 //productImageName = productImageName.Replace(".jpg", ".webp");
                 string[] name = productImageName.Split('.');
                 string picturePathIsExist = string.Empty;
-                if (imageSize == ProductImageSize.px100)
-                {
 
-                    //System.IO.Path.Combine(, fileName);
-                    picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-100X.{2}", productId, name[0],
-                        name[1]);
-
-                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
-                    {
-                        imageSize = ProductImageSize.px100;
-                    }
-                    else
-                    {
-                        imageSize = ProductImageSize.px100x75;
-                    }
-                }
-#if !DEBUG
-
+                #if !DEBUG
                 string imageSizeName = imageSize.ToString();
-                if (imageSize == ProductImageSize.x160x120)
-                    imageSizeName = "160x120";
-                picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-" + imageSizeName.Replace("px", "") + ".{2}", productId, name[0],
-                 name[1]);
-                if (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
-                {
+                                if (imageSize == ProductImageSize.x160x120)
+                                    imageSizeName = "160x120";
+                                picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-" + imageSizeName.Replace("px", "") + ".{2}", productId, name[0],
+                                 name[1]);
+                                if (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
+                                {
 
-                    picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-400x300.{2}", productId, name[0],
-name[1]);
-                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
-                    {
-                        imageSize = ProductImageSize.px400x300;
-                    }
-                    else
-                    {
-                        imageSize = ProductImageSize.NoImage;
-                    }
-                }
-#endif
+                                    picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-400x300.{2}", productId, name[0],
+                name[1]);
+                                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
+                                    {
+                                        imageSize = ProductImageSize.px400x300;
+                                    }
+                                    else
+                                    {
+                                        imageSize = ProductImageSize.NoImage;
+                                    }
+                                }
+
+                #endif
+
+
+
 
                 productImageName = productImageName.Replace(".jpg", ".webp");
                 name = productImageName.Split('.');
@@ -261,7 +250,11 @@ name[1]);
             if (imagePath == null)
                 return "";
 
-            return string.Format("//s.makinaturkiye.com/Images/CategoryHomePageImageFolder/{0}", imagePath);
+            imagePath = imagePath.ToLower();
+            imagePath = string.Format("//s.makinaturkiye.com/Images/CategoryHomePageImageFolder/{0}", imagePath);
+            imagePath=imagePath.Replace(".png", ".webp");
+            imagePath=imagePath.Replace(".jpg", ".webp");
+            return imagePath;
         }
 
 

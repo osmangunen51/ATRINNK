@@ -30,6 +30,12 @@ namespace MakinaTurkiye.Services.Catalog
             int localityId = 0, int orderById = 0, int pageIndex = 0, int pageSize = 0, string searchText = "");
 
         IList<PopularProductResult> GetSPPopularProducts();
+        /// <summary>
+        /// Home İçin Yeni Eklenen Ürünleri Çekmek Amacıyla Yazıldı. Sp  çağırmaktadır.
+        /// </summary>
+        /// <returns></returns>
+        IList<PopularProductResult> GetSPNewProducts();
+
         IList<ProductRecomandationResult> GetSPProductRecomandation(string categoryId, string modelId, string brandId);
 
 
@@ -51,7 +57,7 @@ namespace MakinaTurkiye.Services.Catalog
         IList<Product> GetProductsByProductName(string productName);
 
         void InsertProduct(Product product);
-        
+
         void UpdateProduct(Product product, bool removeCache = false);
         void DeleteProduct(Product product);
 
@@ -95,7 +101,7 @@ namespace MakinaTurkiye.Services.Catalog
         IList<Product> GetProductByProductActiveType(ProductActiveTypeEnum productActiveTypeEnum);
 
         IList<SiteMapProductResult> GetSiteMapProducts();
-        
+
 
     }
 }

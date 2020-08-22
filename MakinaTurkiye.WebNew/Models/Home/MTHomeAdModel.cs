@@ -20,6 +20,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
         public bool IsFavoriteProduct { get; set; }
         public string ProductPrice { get; set; }
         public string CurrencyCssName { get; set; }
+        
+        public string CurrencyCss { get; set; }
+        public string CurrencyName { get; set; }
+        public byte? ProductPriceType { get; set; }
+        public string KdvOrFobText { get; set; }
         public byte Index { get; set; }
     }
 }

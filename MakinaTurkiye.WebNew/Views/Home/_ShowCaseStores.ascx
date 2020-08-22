@@ -3,9 +3,13 @@
 
 <div class="row one-cikan-firma-urunleri">
     <div class="col-xs-12">
-        <h2 class="section-title">
-            <span>Öne Çıkan Makina ve Ekipman Tedarikçileri</span>
-        </h2>
+         <div>
+            <h2 style="color: #0350a5;
+              font-family: Arial;
+              font-size: 24px;
+              font-weight: 700;
+              line-height: 27px;">Öne Çıkan Makina ve Ekipman Tedarikçileri</h2>
+            </div>
     </div>
 
     <div class="col-xs-12">

@@ -52,6 +52,57 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
             }
         }
 
+
+        public static string GetCurrencyCssName(this string CurrencyName)
+        {
+            if (CurrencyName==string.Empty)
+                return string.Empty;
+
+            switch (CurrencyName)
+            {
+                case "TL": return "fa fa-turkish-lira";
+                case "USD": return "fa fa-usd";
+                case "EUR": return "fa fa-eur";
+                case "": return "fa fa-jpy";
+                default: return "fa fa-turkish-lira";
+            }
+        }
+
+
+        public static string GetFormattedPrice(this decimal ProductPrice, byte ProductPriceType)
+        {
+            byte PriceTypePrice = 238;
+            byte PriceTypeRange = 239;
+            byte PriceTypeDiscuss = 241;
+            //byte PriceTypeAsk = 240;
+
+            if (ProductPriceType == PriceTypePrice || (ProductPriceType == 0 || ProductPriceType == null))
+            {
+                if (ProductPrice == null || ProductPrice == 0)
+                    return string.Empty;
+                //return ProductPrice.Value.ToString("0.##").Replace(",", ".");
+                string price = ProductPrice.ToString("0.00");
+                if (string.Format("{0:#,0.00}", Convert.ToDouble(price)).EndsWith(",00"))
+                {
+                    price = string.Format("{0:#,0.00}", Convert.ToDouble(price)).Replace(",00", "");
+                }
+                else
+                {
+
+                    price = string.Format("{0:#,0.00}", Convert.ToDouble(price));
+                }
+                return string.Format("{0}", price);
+            }
+            else
+            {
+                if (ProductPriceType == PriceTypeDiscuss)
+                    return "Fiyat Görüşülür";
+                else
+                    return "Fiyat Sorunuz";
+            }
+        }
+
+
         public static string GetFormattedPrice(this Product product)
         {
             byte PriceTypePrice = 238;

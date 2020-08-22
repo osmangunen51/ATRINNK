@@ -306,29 +306,61 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         //        });
         //    }
         //}
-        //private void PreparePopularAdModels(MTHomeModel model)
-        //{
-        //    IProductService _productService = EngineContext.Current.Resolve<IProductService>();
-        //    ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
-        //    var popularProducts = _productService.GetSPPopularProducts();
-        //    List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
-        //    var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();
-        //    foreach (var item in popularProducts)
-        //    {
-        //        var category = CategoryList.FirstOrDefault(x => x.CategoryId == item.CategoryId);
-        //        string categoryNameForUrl = !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName;
-        //        model.PopularAdModels.Add(new MTHomeAdModel
-        //        {
-        //            CategoryName = item.CategoryName,
-        //            TruncatedCategoryName = StringHelper.Truncate(item.CategoryName, 30),
-        //            ProductName = item.ProductName,
-        //            TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
-        //            ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
-        //            SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty),
-        //            PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.x160x120)
-        //        });
-        //    }
-        //}
+
+
+        private void PreparePopularAdModels(MTHomeModel model)
+        {
+            IProductService _productService = EngineContext.Current.Resolve<IProductService>();
+            ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
+            var popularProducts = _productService.GetSPPopularProducts();
+            List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
+            var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();
+            foreach (var item in popularProducts)
+            {
+                var category = CategoryList.FirstOrDefault(x => x.CategoryId == item.CategoryId);
+                string categoryNameForUrl = !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName;
+                model.PopularAdModels.Add(new MTHomeAdModel
+                {
+                    CategoryName = item.CategoryName,
+                    TruncatedCategoryName = StringHelper.Truncate(item.CategoryName, 30),
+                    ProductName = item.ProductName,
+                    TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
+                    ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
+                    SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty),
+                    PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.x160x120)
+                });
+            }
+        }
+
+        private void PrepareNewsAdModels(MTHomeModel model)
+        {
+            IProductService _productService = EngineContext.Current.Resolve<IProductService>();
+            ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
+            var popularProducts = _productService.GetSPNewProducts();
+            List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
+            var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();
+            foreach (var item in popularProducts)
+            {
+                var category = CategoryList.FirstOrDefault(x => x.CategoryId == item.CategoryId);
+                string categoryNameForUrl = !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName;
+                model.NewsAdModels.Add(new MTHomeAdModel
+                {
+                    CategoryName = item.CategoryName,
+                    TruncatedCategoryName = StringHelper.Truncate(item.CategoryName, 30),
+                    ProductName = item.ProductName,
+                    TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
+                    ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
+                    SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty),
+                    PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.x160x120),
+                    CurrencyName=item.CurrencyName,
+                    ProductPriceType=item.ProductPriceType,
+                    ProductPrice = item.ProductPriceType == (byte)ProductPriceType.Price ? item.ProductPrice.GetFormattedPrice((byte)item.ProductPriceType) : "",
+                    CurrencyCssName = item.CurrencyName.GetCurrencyCssName(),
+                });
+            }
+        }
+
+
 
         private void PrepareCategoryModels(MTHomeModel model)
         {
@@ -516,7 +548,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 storeNewList.Add(new MTStoreNewItem { Date = item.RecordDate.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture), ImagePath = imagePath, NewUrl = UrlBuilder.GetStoreNewUrl(item.StoreNewId, item.Title), Title = item.Title });
             }
-            //model.StoreNewItems = storeNewList;
+            model.StoreNewItems = storeNewList;
         }
 
         #endregion
@@ -556,17 +588,23 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 //PrepareHomeCategoryProductModels(model.MTAllSelectedProduct,0, 1);
 
                 //PreparePopularVideoModels(model);
-               //  PrepareProductShowCaseModels(model);
-               // PreparePopularAdModels(model);
+                //  PrepareProductShowCaseModels(model);
+                //if (!Request.Browser.IsMobileDevice)
+                //{
+
+                //}
+                PrepareNewsAdModels(model);
+
                 //PrepareHomeLeftCategories(model);
 
                 var modelSelected = new List<MTAllSelectedProductModel>();
                 //PrepareHomeCategoryProductModels(modelSelected, 0, 1);
                 model.MTAllSelectedProduct = modelSelected;
+                PrepareNewsModel(model);
                 return model;
             });
             //PrepareProductRecomandation(model);
-            //PrepareNewsModel(model);
+
             //PrepareSuccessStories(model);
             return await Task.FromResult(View(testModel));
         }

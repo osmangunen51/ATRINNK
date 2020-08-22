@@ -691,7 +691,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.Image = ImageHelper.GetLogo();
             model.Url = this.Request.Url.ToString();
             var MainPicture = _pictureService.GetFirstPictureByProductId(product.ProductId);
-            model.Image= ImageHelper.GetProductImagePath(product.ProductId, MainPicture.PicturePath, ProductImageSize.px200x150);
+            if (MainPicture != null)
+            {
+                model.Image = ImageHelper.GetProductImagePath(product.ProductId, MainPicture.PicturePath, ProductImageSize.px200x150);
+            }
+            else
+            {
+                model.Image = ImageHelper.GetProductImagePath(product.ProductId,"",ProductImageSize.px200x150);
+            }
+            
         }
 
         private void PrepareMetaTagModelForProductRequest(MetaTagModel model, IList<Seo> seos)

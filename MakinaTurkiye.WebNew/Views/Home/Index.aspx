@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
     <link rel="canonical" href="https://www.makinaturkiye.com" />
     <script type="text/javascript">
+
         //function GetProductRecomandation() {
         //    $.ajax({
         //        type: 'get',
@@ -212,13 +213,31 @@
             });
 
         }
-        $(window).scroll(function () {
+
+        function SectorLoading() {
+            $.ajax({
+
+                url: '<%:AppSettings.SiteUrlWithoutLastSlash%>/ajax/GetHomeSector',
+                type: 'GET',
+                data: {
+                },
+                success: function (data) {
+                    $("#home-sector").html(data);
+                    $("#RequestScroolSector").val("0");
+                    GetProductsShowCase();
+
+                },
+                error: function (request, error) {
+                    console.log("Request: " + JSON.stringify(request));
+                }
+            });
+        }
+        SectorLoading();
+       <%-- $(window).scroll(function () {
             var requestScroll = $("#RequestScrool").val();
             var requestScroolSector = $("#RequestScroolSector").val();
             var sectorHeight = $(".new-header").height() + $(".main-navigation").height() - 200;
             var b = $(".new-header").height() + $(".main-navigation").height() + $(".home-banner-area ").height() + $("#home-sector").height() - 200;
-
-
             if ($(window).scrollTop() > sectorHeight) {
                 if (requestScroolSector == 1) {
                     $.ajax({
@@ -227,7 +246,6 @@
                         type: 'GET',
                         data: {
                         },
-
                         success: function (data) {
                             $("#home-sector").html(data);
                             $("#RequestScroolSector").val("0");
@@ -239,10 +257,7 @@
                         }
                     });
 
-
-
                 }
-
             }
             //if ($(window).scrollTop() > b ) {
             //    if (requestScroll == 1 && c < 10 && sectorLoaded==0) {
@@ -262,7 +277,7 @@
             //    }
             //}
 
-        });
+        });--%>
 
     </script>
     <%--<link rel="canonical" href="https://www.makinaturkiye.com" />--%>
@@ -288,15 +303,21 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
         <div class="col-md-12" style="margin-top:10px;">
-            <div class="home-showcase__header">
-                 <h1 style="color: #fff !important;margin: 0px;font-family: Arial; line-height: 24px !important;font-size:18px">Dünya'nın Makinası Bir Arada</h1>
+            <div>
+                 <%--<h1 style="color: #fff !important;margin: 0px;font-family: Arial; line-height: 24px !important;font-size:18px">Dünya'nın Makinası Bir Arada</h1>--%>
+                <h1 style="color: #0350a5;
+              font-family: Arial;
+              font-size: 24px;
+              font-weight: 700;
+              line-height: 27px;">Dünya'nın Makinası Bir Arada</h1>
             </div>
-            <div class="home-showcase__body">
+            <div class="home-showcase__body" style="margin:0px;padding:0px;">
                     <div id="home-sector">
                     </div>
             </div>
         </div>
     </div>
+    <%=Html.Partial("_NewsAds",Model.NewsAdModels)%>
     <%--    <%if (!Request.Browser.IsMobileDevice) {%>
             <%=Html.RenderHtmlPartial("_HomeSector",Model.HomeSectorItems) %>
     <% } %>--%>
@@ -304,63 +325,7 @@
     <%--   <%= Html.Partial("_ProductRelatedCategories", Model.HomeProductsRelatedCategoryModel)  %>--%>
     <%--        <%= Html.Partial("_PopularAds", Model.PopularAdModels) %>--%>
 
-    <div class="home-showcase" id="home-showcase">
-
-        <div class="row" style="margin-top: 1.5rem;">
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="javascript:void(0)" class="category-item">
-                    <img
-                        class="img-thumbnail"
-                        src="/UserFiles/image-loading.png"
-                        alt="Yükleniyor 1" />
-                    <div class="category-item__body">
-                        <h3 class="category-item__title">Yükleniyor</h3>
-
-                    </div>
-                </a>
-
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="javascript:void(0)" class="category-item">
-                              <img
-                        class="img-thumbnail"
-                        src="/UserFiles/image-loading.png"
-                        alt="Yükleniyor 1" />
-                    <div class="category-item__body">
-                        <h3 class="category-item__title">Yükleniyor</h3>
-
-                    </div>
-                </a>
-
-            </div>
-                        <div class="col-6 col-md-4 col-lg-3">
-                <a href="javascript:void(0)" class="category-item">
-                              <img
-                        class="img-thumbnail"
-                        src="/UserFiles/image-loading.png"
-                        alt="Yükleniyor 1" />
-                    <div class="category-item__body">
-                        <h3 class="category-item__title">Yükleniyor</h3>
-
-                    </div>
-                </a>
-
-            </div>
-                        <div class="col-6 col-md-4 col-lg-3">
-                <a href="javascript:void(0)" class="category-item">
-                              <img
-                        class="img-thumbnail"
-                        src="/UserFiles/image-loading.png"
-                        alt="Yükleniyor 1" />
-                    <div class="category-item__body">
-                        <h3 class="category-item__title">Yükleniyor</h3>
-
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
+    <div  id="home-showcase" style="background-color:none !important;;margin:0px;padding:0px;border-radius:2px;">
 
     </div>
    <%-- <div class="advertiseHome" style="display: none;">
@@ -384,20 +349,16 @@
         <%--            <%=Html.Partial("_ProductMayLike",Model.MTMayLikeProductModel) %>--%>
     </div>
 
-    <%--        <%=Html.Partial("_PopularAds",Model.PopularAdModels) %>--%>
-
     <%=Html.Partial("_ShowCaseStores",Model.StoreModels) %>
-
-
-    <%--<div class="row">
+    <div class="row">
         <div class="col-md-12">
-               <%=Html.RenderHtmlPartial("_HomeNews",Model.StoreNewItems) %>
+               <%--<%=Html.RenderHtmlPartial("_HomeNews",Model.StoreNewItems) %>--%>
         </div>
-        <div class="col-md-6">
+       <%-- <div class="col-md-6">
                <%=Html.RenderHtmlPartial("_HomeSuccessStories",Model.SuccessStories) %>
-        </div>
+        </div>--%>
 
-    </div>--%>
+    </div>
 
     <div class="row">
         <div class="col-xs-12">
