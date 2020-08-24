@@ -84,14 +84,14 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        public HttpResponseMessage LogOn(LoginModel model)
+        public HttpResponseMessage LogOn(MemberEmailPassword model)
         {
             ProcessStatus processStatus = new ProcessStatus();
 
-            var member = _memberService.GetMemberByMemberEmail(model.Email);
+            var member = _memberService.GetMemberByMemberEmail(model.MemberEmail);
             if (member != null)
             {
-                if (member.MemberPassword == model.Password)
+                if (member.MemberPassword == model.MemberPassword)
                 {
                     var sendErrorMessage = _messageService.GetSendMessageErrorsBySenderId(member.MainPartyId);
                     if (member.FastMemberShipType == (byte)FastMembershipType.Phone && sendErrorMessage == null)
@@ -106,7 +106,7 @@ namespace MakinaTurkiye.Api.Controllers
             {
                 // _authenticationService.SignIn(member, model.Remember);
 
-                if (member.MemberPassword == model.Password)
+                if (member.MemberPassword == model.MemberPassword)
                 {
                     if (member.MemberType == (byte)MemberType.Enterprise)
                     {
