@@ -140,5 +140,30 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
+        public HttpResponseMessage GetSubCategories(int No)
+        {
+            ProcessStatus ProcessStatus = new ProcessStatus();
+            try
+            {
+                var Result = CategoryService.GetCategoriesByCategoryParentId(No);
+               
+                ProcessStatus.Result = Result;
+                ProcessStatus.ActiveResultRowCount = Result.Count;
+                ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
+                ProcessStatus.Message.Header = "Alt Category İşlemleri";
+                ProcessStatus.Message.Text = "Başarılı";
+                ProcessStatus.Status = true;
+            }
+            catch (Exception Error)
+            {
+                ProcessStatus.Message.Header = "Alt Category İşlemleri";
+                ProcessStatus.Message.Text = "Başarısız";
+                ProcessStatus.Status = false;
+                ProcessStatus.Result = null;
+                ProcessStatus.Error = Error;
+
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
+        }
     }
 }

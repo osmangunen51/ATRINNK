@@ -9,6 +9,8 @@ namespace MakinaTurkiye.Services.Members
         Member GetMemberByMainPartyId(int mainPartyId);
         Member GetMemberByMemberEmail(string memberEmail);
         Member GetMemberWithLogin(string memberEmail, string memberPassword);
+        List<Member> GetAllMembers();
+        List<Member> GetMembersByMainPartyId(int Id);
 
         MainParty GetMainPartyByMainPartyId(int mainPartyId);
        
