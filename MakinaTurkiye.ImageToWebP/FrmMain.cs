@@ -70,32 +70,19 @@ namespace MakinaTurkiye.ImageToWebP
                         //Bitmap bmp = (Bitmap)Image.FromFile(Dosya.FullName);
                         string simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension,".webp");
                         System.IO.FileInfo DosyaKontrol = new FileInfo(simpleLosslessFileName);
-                        //if (!DosyaKontrol.Exists)
-                        //{
-                        //    using (WebP webp = new WebP())
-                        //        rawWebP = webp.EncodeLossless(bmp);
-                        //    File.WriteAllBytes(simpleLosslessFileName, rawWebP);
-                        //    LogEkle($"{Dosya.FullName} İşlemi Tamamlandı");
-                        //}
-                        //else
-                        //{
-                        //    LogEkle($"{simpleLosslessFileName} Zaten Var.");
-                        //}
-
-                        if (DosyaKontrol.Exists)
+                        if (!DosyaKontrol.Exists)
                         {
-                            DosyaKontrol.Delete();
+                            using (var outputFile = File.Open(simpleLosslessFileName, FileMode.Create))
+                            using (var inputFile = File.Open(Dosya.FullName, FileMode.Open))
+                            {
+                                encoder.Encode(inputFile, outputFile);
+                            }
+                            LogEkle($"{Dosya.FullName} İşlemi Tamamlandı");
                         }
-                        //using (WebP webp = new WebP())
-                        //    rawWebP = webp.EncodeLossless(bmp,9);
-                        //File.WriteAllBytes(simpleLosslessFileName, rawWebP);
-                        using (var outputFile = File.Open(simpleLosslessFileName, FileMode.Create))
-                        using (var inputFile = File.Open(Dosya.FullName, FileMode.Open))
+                        else
                         {
-                            encoder.Encode(inputFile, outputFile);
+                            LogEkle($"{simpleLosslessFileName} Zaten Var.");
                         }
-
-                        LogEkle($"{Dosya.FullName} İşlemi Tamamlandı");
 
                     }
                     catch (Exception Hata)
