@@ -35,6 +35,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
         public string ProductPriceWithDiscount { get; set; }
         public decimal? ProductPriceWithDiscountDecimal { get; set; }
         public bool IsKdv { get; set; }
+        public bool ShowDopingForm { get; set; }
+
 
 
     }
