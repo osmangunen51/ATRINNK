@@ -192,7 +192,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     productActive = int.Parse(Request.QueryString["ProductActive"]);
 
                 model.PageTitle = "Tüm İlanlarım";
-
+                var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                bool showDopingForm = store.PacketId == 29;
 
                 model.DisplayType = displayType;
                 model.ProductActiveType = productActiveType;
@@ -221,7 +222,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 int totalCount = products.Count;
                 products = products.Skip(takeFrom).Take(pageDimension).ToList();
                 SearchModel<MTProductItem> searchModel = new SearchModel<MTProductItem>();
-                searchModel.Source = PrepapareProductsModel(products);
+                searchModel.Source = PrepapareProductsModel(products,  showDopingForm);
                 searchModel.TotalRecord = totalCount;
                 searchModel.PageDimension = pageDimension;
                 searchModel.CurrentPage = page;
@@ -238,7 +239,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
 
         }
-        public List<MTProductItem> PrepapareProductsModel(List<global::MakinaTurkiye.Entities.Tables.Catalog.Product> products)
+        public List<MTProductItem> PrepapareProductsModel(List<global::MakinaTurkiye.Entities.Tables.Catalog.Product> products, bool showDopingForm)
         {
             List<MTProductItem> productsModel = new List<MTProductItem>();
             foreach (var item in products)
@@ -277,6 +278,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : (byte)0,
                     CurrencyCssText = item.GetCurrencyCssName(),
                     Doping = item.Doping,
+                    ShowDopingForm = showDopingForm,
                     ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
                 });
             }
@@ -1434,7 +1436,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
 
             int takeFrom = page * pageDimension - pageDimension;
-
+            var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+            bool showDopingForm = store.PacketId == 29;
             List<MTProductItem> productModels = new List<MTProductItem>();
             foreach (var item in products.Skip(takeFrom).Take(pageDimension))
             {
@@ -1466,7 +1469,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ViewCount = item.ViewCount.Value,
                     CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : (byte)0,
                     CurrencyCssText = item.GetCurrencyCssName(),
-                    Doping = item.Doping
+                    Doping = item.Doping,
+                    ShowDopingForm = showDopingForm
                 });
             }
 
