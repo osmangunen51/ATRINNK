@@ -22,11 +22,11 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessStatus ProcessStatus = new ProcessStatus();
             try
             {
-                var Result = CategoryService.GetCategoryByCategoryId(No);
-                if (Result != null)
+                var result = CategoryService.GetCategoryByCategoryId(No);
+                if (result != null)
                 {
-                    Result.CategoryIcon = ImageHelper.GetCategoryIconPath(Result.CategoryIcon);
-                    ProcessStatus.Result = Result;
+                    result.CategoryIcon = result.CategoryIcon != null ? "https:" + ImageHelper.GetCategoryIconPath(result.CategoryIcon):null;
+                    ProcessStatus.Result = result;
                     ProcessStatus.ActiveResultRowCount = 1;
                     ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
                     ProcessStatus.Message.Header = "Category Operations";
@@ -61,7 +61,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = CategoryService.GetAllCategories();
                 foreach (var item in Result)
                 {
-                    item.CategoryIcon = ImageHelper.GetCategoryIconPath(item.CategoryIcon);
+                    item.CategoryIcon = item.CategoryIcon != null ? "https:" +ImageHelper.GetCategoryIconPath(item.CategoryIcon):null;
                 }
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
@@ -91,7 +91,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = CategoryService.GetCategoriesByName(Name);
                 foreach (var item in Result)
                 {
-                    item.CategoryIcon = ImageHelper.GetCategoryIconPath(item.CategoryIcon);
+                    item.CategoryIcon = item.CategoryIcon != null ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon):null;
                 }
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
@@ -120,7 +120,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = CategoryService.GetMainCategories();
                 foreach (var item in Result)
                 {
-                    item.CategoryIcon = ImageHelper.GetCategoryIconPath(item.CategoryIcon);
+                    item.CategoryIcon = item.CategoryIcon != null ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon):null;
                 }    
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
@@ -140,7 +140,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
-        public HttpResponseMessage GetSubCategories(int No)
+        public HttpResponseMessage GetSubCategoriesByParentId(int No)
         {
             ProcessStatus ProcessStatus = new ProcessStatus();
             try

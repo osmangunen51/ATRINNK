@@ -41,11 +41,11 @@ namespace MakinaTurkiye.Api.Controllers
                         Url = bannerPc.BannerLink,
                         ImageTag = bannerPc.BannerAltTag
                     };
-                    bannerItemModel.PicturePathPc = ImageHelper.GetBannerImagePath(bannerPc.BannerResource);
+                    bannerItemModel.PicturePathPc = bannerPc.BannerResource != null ? "https:" + ImageHelper.GetBannerImagePath(bannerPc.BannerResource):null;
                     if (bannerTablet != null)
-                        bannerItemModel.PicturePathTablet = ImageHelper.GetBannerImagePath(bannerTablet.BannerResource);
+                        bannerItemModel.PicturePathTablet = bannerTablet.BannerResource != null ? "https:" + ImageHelper.GetBannerImagePath(bannerTablet.BannerResource):null;
                     if (bannerMobile != null)
-                        bannerItemModel.PicturePathMobile = ImageHelper.GetBannerImagePath(bannerMobile.BannerResource);
+                        bannerItemModel.PicturePathMobile = bannerMobile.BannerResource != null ? "https:" + ImageHelper.GetBannerImagePath(bannerMobile.BannerResource):null;
 
                     Result.Add(bannerItemModel);
                     index++;
