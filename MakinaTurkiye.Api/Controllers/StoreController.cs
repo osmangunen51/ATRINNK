@@ -25,7 +25,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = _storeService.GetStoreSearchByStoreName(Name);
                 foreach (var item in Result)
                 {
-                    item.StoreLogo = item.StoreLogo != null ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
+                    item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
                 }
                 processStatus.Result = Result;
                 processStatus.ActiveResultRowCount = Result.Count;

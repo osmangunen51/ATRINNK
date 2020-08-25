@@ -56,7 +56,7 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
                     if (picture != null)
-                        picturePath = picture.PicturePath != null ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(TmpResult.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                     TmpResult.MainPicture = picturePath;
@@ -119,7 +119,7 @@ namespace MakinaTurkiye.Api.Controllers
                         string picturePath = "";
                         var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                         if (picture != null)
-                            picturePath = picture.PicturePath != null ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                         var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                         var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                         item.MainPicture = picturePath;
@@ -184,7 +184,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                 foreach (var item in TmpResult)
                 {
-                    item.MainPicture = item.MainPicture != null ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
+                    item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
                 }
 
                 ProcessStatus.Result = TmpResult;
@@ -234,7 +234,7 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                     if (picture != null)
-                        picturePath = picture.PicturePath != null ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                     item.MainPicture = picturePath;
@@ -290,7 +290,7 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                     if (picture != null)
-                        picturePath = picture.PicturePath != null ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                     item.MainPicture = picturePath;
