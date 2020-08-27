@@ -21,7 +21,6 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IMemberStoreService _memberStoreService;
         private readonly IStoreService _storeService;
 
-
         public ProductController()
         {
             ProductService = EngineContext.Current.Resolve<IProductService>();
@@ -57,12 +56,11 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
                     if (picture != null)
-                        picturePath = ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px200x150);
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(TmpResult.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                     TmpResult.MainPicture = picturePath;
                     TmpResult.StoreName = store.StoreName;
-
                     ProcessStatus.Result = TmpResult;
 
                     ProcessStatus.ActiveResultRowCount = 1;
@@ -78,7 +76,6 @@ namespace MakinaTurkiye.Api.Controllers
                     ProcessStatus.Status = false;
                     ProcessStatus.Result = null;
                 }
-
             }
             catch (Exception Error)
             {
@@ -122,7 +119,7 @@ namespace MakinaTurkiye.Api.Controllers
                         string picturePath = "";
                         var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                         if (picture != null)
-                            picturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150);
+                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                         var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                         var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                         item.MainPicture = picturePath;
@@ -155,18 +152,18 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetWithCategory(int No,int Page=0,int PageSize=50)
+        public HttpResponseMessage GetWithCategory(int No, int Page = 0, int PageSize = 50)
         {
             ProcessStatus ProcessStatus = new ProcessStatus();
             try
             {
                 var Result = ProductService.GetSPMostViewProductsByCategoryId(No);
-                ProcessStatus.TotolRowCount= Result.Count();
-                if (ProcessStatus.TotolRowCount<PageSize)
+                ProcessStatus.TotolRowCount = Result.Count();
+                if (ProcessStatus.TotolRowCount < PageSize)
                 {
                     Page = 0;
                 }
-                Result = Result.Skip(PageSize* Page).Take(PageSize).ToList();
+                Result = Result.Skip(PageSize * Page).Take(PageSize).ToList();
 
                 List<MakinaTurkiye.Api.View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
                         new MakinaTurkiye.Api.View.Result.ProductSearchResult
@@ -180,14 +177,14 @@ namespace MakinaTurkiye.Api.Controllers
                             StoreName = Snc.StoreName,
                             ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
                             ProductPriceType = (byte)Snc.ProductPriceType,
-                            ProductPriceLast = (Snc.ProductPriceLast.HasValue? Snc.ProductPriceLast.Value:0),
+                            ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
                             ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
                         }
                     ).ToList();
 
                 foreach (var item in TmpResult)
                 {
-                    item.MainPicture = ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150);
+                    item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
                 }
 
                 ProcessStatus.Result = TmpResult;
@@ -237,7 +234,7 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                     if (picture != null)
-                        picturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150);
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                     item.MainPicture = picturePath;
@@ -258,11 +255,9 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.Status = false;
                 ProcessStatus.Result = null;
                 ProcessStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
-
 
         public HttpResponseMessage Search([FromBody]SearchInput Model)
         {
@@ -270,7 +265,7 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 int TotalRowCount = 0;
-                var Result = ProductService.Search(out TotalRowCount, Model.name, Model.companyName, Model.country, Model.town, Model.isnew, Model.isold, Model.sortByViews, Model.sortByDate, Model.minPrice, Model.maxPrice, Model.Page, Model.PageSize) ;
+                var Result = ProductService.Search(out TotalRowCount, Model.name, Model.companyName, Model.country, Model.town, Model.isnew, Model.isold, Model.sortByViews, Model.sortByDate, Model.minPrice, Model.maxPrice, Model.Page, Model.PageSize);
 
                 List<MakinaTurkiye.Api.View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
                         new MakinaTurkiye.Api.View.Result.ProductSearchResult
@@ -295,7 +290,7 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                     if (picture != null)
-                        picturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150);
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                     item.MainPicture = picturePath;
@@ -318,11 +313,8 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.Status = false;
                 ProcessStatus.Result = null;
                 ProcessStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
-
-
     }
 }

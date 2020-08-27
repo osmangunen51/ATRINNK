@@ -141,7 +141,7 @@
             <div class="col-xs-3 col-md-4">
                 <div class="col-md-6">
                     <div>
-                        <%if (model.ProductActiveType == (byte)ProductActiveType.Onaylandi && model.Doping != true)
+                        <%if (model.ProductActiveType == (byte)ProductActiveType.Onaylandi && model.Doping != true && model.ShowDopingForm)
                             {%>
                         <div>
                             <a class="btn btn-sm  background-mt-btn" data-toggle="modal" onclick="ShowProductDoping(<%:model.ProductId %>)" data-target="#GetDopingModal" style="margin-top: 20px; margin-top: 0px; padding: 5px;">

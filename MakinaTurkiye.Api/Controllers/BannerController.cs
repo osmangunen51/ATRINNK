@@ -7,13 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 
 namespace MakinaTurkiye.Api.Controllers
 {
     public class BannerController : BaseApiController
     {
         private readonly IBannerService ProductService;
+
         public BannerController()
         {
             ProductService = EngineContext.Current.Resolve<IBannerService>();
@@ -41,11 +41,11 @@ namespace MakinaTurkiye.Api.Controllers
                         Url = bannerPc.BannerLink,
                         ImageTag = bannerPc.BannerAltTag
                     };
-                    bannerItemModel.PicturePathPc = ImageHelper.GetBannerImagePath(bannerPc.BannerResource);
+                    bannerItemModel.PicturePathPc = !string.IsNullOrEmpty(bannerPc.BannerResource) ? "https:" + ImageHelper.GetBannerImagePath(bannerPc.BannerResource) : null;
                     if (bannerTablet != null)
-                        bannerItemModel.PicturePathTablet = ImageHelper.GetBannerImagePath(bannerTablet.BannerResource);
+                        bannerItemModel.PicturePathTablet = !string.IsNullOrEmpty(bannerTablet.BannerResource) ? "https:" + ImageHelper.GetBannerImagePath(bannerTablet.BannerResource) : null;
                     if (bannerMobile != null)
-                        bannerItemModel.PicturePathMobile = ImageHelper.GetBannerImagePath(bannerMobile.BannerResource);
+                        bannerItemModel.PicturePathMobile = !string.IsNullOrEmpty(bannerMobile.BannerResource) ? "https:" + ImageHelper.GetBannerImagePath(bannerMobile.BannerResource) : null;
 
                     Result.Add(bannerItemModel);
                     index++;
@@ -68,7 +68,6 @@ namespace MakinaTurkiye.Api.Controllers
                     ProcessStatus.Status = false;
                     ProcessStatus.Result = null;
                 }
-
             }
             catch (Exception Error)
             {
@@ -80,8 +79,5 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
-
-
-
     }
 }
