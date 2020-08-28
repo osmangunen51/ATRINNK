@@ -39,7 +39,7 @@
                 <a class="site-logo" href="<%:AppSettings.SiteUrlWithoutLastSlash %>">
                     <img src="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %>"
                         srcset="<%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 1x, <%:Url.Content("~/Content/V2/images/makinaturkiye-dark.png") %> 2x" alt="makinaturkiye.com" width="226" height="30">
-                          <span class="site-slogan">Dünya'nın Makinesi Bir Arada</span>
+                          <span class="site-slogan">Dünya'nın Makinası Bir Arada</span>
                     </a>
 
             </div>
