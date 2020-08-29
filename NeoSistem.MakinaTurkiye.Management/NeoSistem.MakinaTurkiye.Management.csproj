@@ -1766,6 +1766,30 @@
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\Site.Master" />
+    <Content Include="webp\libwebp\bin\cwebp.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="webp\libwebp\bin\dwebp.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="webp\libwebp\bin\freeglut.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="webp\libwebp\bin\gif2webp.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="webp\libwebp\bin\vwebp.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="webp\libwebp\bin\webpmux.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="webp\libwebp\include\webp\decode.h" />
+    <Content Include="webp\libwebp\include\webp\demux.h" />
+    <Content Include="webp\libwebp\include\webp\encode.h" />
+    <Content Include="webp\libwebp\include\webp\mux.h" />
+    <Content Include="webp\libwebp\include\webp\mux_types.h" />
+    <Content Include="webp\libwebp\include\webp\types.h" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_GlobalResources\Email.resx">
@@ -1819,6 +1843,10 @@
     <ProjectReference Include="..\NeoSistem.MakinaTurkiye.Core\NeoSistem.MakinaTurkiye.Core.csproj">
       <Project>{2AB87953-145F-4334-BB14-E7D1FBB466B0}</Project>
       <Name>NeoSistem.MakinaTurkiye.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebPWrapper\WebPWrapper.csproj">
+      <Project>{c6f4b456-bfaf-4d54-bdb0-9db44b9dbf17}</Project>
+      <Name>WebPWrapper</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -1892,6 +1920,9 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="webp\libwebp\lib\libwebp.lib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Browsers\" />
