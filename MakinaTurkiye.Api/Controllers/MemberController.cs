@@ -31,7 +31,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetMemberInfo(int No)
         {
-            View.ProcessResult processStatus = new View.ProcessResult();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 //var result = _memberService.GetAllMembers();
