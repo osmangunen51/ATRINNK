@@ -13,7 +13,7 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Http;
-using ProcessStatus = MakinaTurkiye.Api.View.ProcessStatus;
+using ProcessResult = MakinaTurkiye.Api.View.ProcessResult;
 
 
 namespace MakinaTurkiye.Api.Controllers
@@ -37,7 +37,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage FastMembership([FromBody]UserRegister Model)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 if (Model.IsContractChecked)
@@ -84,7 +84,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage LogOn(MemberEmailPassword model)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
 
             var member = _memberService.GetMemberByMemberEmail(model.MemberEmail);
             if (member != null)
@@ -161,7 +161,7 @@ namespace MakinaTurkiye.Api.Controllers
         [System.Web.Http.HttpGet]
         public HttpResponseMessage ForgettedPassowrd(string userEmail)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
 
             try
             {

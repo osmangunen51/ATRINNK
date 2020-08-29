@@ -13,7 +13,7 @@ namespace MakinaTurkiye.Api.Controllers
         [System.Web.Http.HttpPost]
         public HttpResponseMessage GetAccessToken([FromBody]User Model)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 if (Model.Username == "makinaturkiye" && Model.Password == "makinaturkiye")

@@ -21,7 +21,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetAll()
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 IBannerService _bannerService = EngineContext.Current.Resolve<IBannerService>();

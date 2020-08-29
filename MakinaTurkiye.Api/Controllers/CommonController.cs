@@ -22,7 +22,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetAllLocalityByCityId(int CityId)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var locality = _addressService.GetLocalitiesByCityId(CityId);
@@ -55,7 +55,7 @@ namespace MakinaTurkiye.Api.Controllers
         }
         public HttpResponseMessage GetAllCityByCountryId(int CountryId)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var city = _addressService.GetCitiesByCountryId(CountryId);
@@ -88,7 +88,7 @@ namespace MakinaTurkiye.Api.Controllers
         }
         public HttpResponseMessage GetAllCountries()
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var country = _addressService.GetAllCountries();
@@ -122,7 +122,7 @@ namespace MakinaTurkiye.Api.Controllers
         }
         public HttpResponseMessage GetCountriesByCountryId(int countryId)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var Countries = new List<Entities.Tables.Common.Country>();
@@ -157,7 +157,7 @@ namespace MakinaTurkiye.Api.Controllers
         }
         public HttpResponseMessage GetTownsByLocalityId(int LocalityId)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var country = _addressService.GetTownsByLocalityId(LocalityId);

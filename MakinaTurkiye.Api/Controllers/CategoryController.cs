@@ -19,7 +19,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage Get(int No)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var result = CategoryService.GetCategoryByCategoryId(No);
@@ -54,7 +54,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetAll()
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = CategoryService.GetAllCategories();
@@ -83,7 +83,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetWithName(string Name)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = CategoryService.GetCategoriesByName(Name);
@@ -111,7 +111,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetMainCategories()
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = CategoryService.GetMainCategories();
@@ -139,7 +139,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetSubCategoriesByParentId(int No)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = CategoryService.GetCategoriesByCategoryParentId(No);

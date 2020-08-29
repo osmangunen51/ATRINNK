@@ -19,7 +19,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage Get(int No)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x=>x.CategoryId==No);
@@ -55,7 +55,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetAll()
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand);
@@ -80,7 +80,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetWithName(string Name)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x => x.CategoryName.Contains(Name));

@@ -31,7 +31,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage Get(int No)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = ProductService.GetProductByProductId(No);
@@ -90,7 +90,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetWithPageNo(int No)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = ProductService.GetProductsWithPageNo(No);
@@ -154,7 +154,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetWithCategory(int No, int Page = 0, int PageSize = 50)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = ProductService.GetSPMostViewProductsByCategoryId(No);
@@ -207,7 +207,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetAll()
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = ProductService.GetProductsAll();
@@ -261,7 +261,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage Search([FromBody]SearchInput Model)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 int TotalRowCount = 0;

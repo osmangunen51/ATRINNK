@@ -19,7 +19,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetWithName(string Name)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var Result = _storeService.GetStoreSearchByStoreName(Name);

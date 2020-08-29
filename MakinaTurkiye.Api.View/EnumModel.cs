@@ -209,10 +209,10 @@ namespace MakinaTurkiye.Api.View
     [Flags]
     public enum PhoneType : byte
     {
-        Phone,
-        Fax,
-        Gsm,
-        Whatsapp
+        Phone=0,
+        Fax = 1,
+        Gsm = 2,
+        Whatsapp = 3
     }
 
     [Flags]

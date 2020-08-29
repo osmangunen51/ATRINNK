@@ -8,7 +8,7 @@ namespace MakinaTurkiye.Api.View
         public string Text { get; set; } = "";
     }
 
-    public class ProcessStatus
+    public class ProcessResult
     {
         public bool Status { get; set; } = false;
         public object Result { get; set; }
