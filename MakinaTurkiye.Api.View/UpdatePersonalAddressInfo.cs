@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Api.View
+﻿namespace MakinaTurkiye.Api.View
 {
     public class UpdatePersonalAddressInfo
     {
@@ -35,7 +29,5 @@ namespace MakinaTurkiye.Api.View
         public string FaxCountryCode { get; set; }
         public string FaxAreaCode { get; set; }
         public string Fax { get; set; }
-
-
     }
 }

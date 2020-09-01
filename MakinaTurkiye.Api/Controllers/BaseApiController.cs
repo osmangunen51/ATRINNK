@@ -5,11 +5,11 @@ using System.Web.Http;
 
 namespace MakinaTurkiye.Api.Controllers
 {
-
     [MakinaTurkiye.Api.Code.ApiAuthorize]
     public class BaseApiController : ApiController
     {
         private string _Ip = "";
+
         public string Ip
         {
             get

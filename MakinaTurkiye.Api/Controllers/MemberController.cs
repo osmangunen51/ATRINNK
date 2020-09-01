@@ -252,13 +252,13 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Message.Text = "Başarılı";
                 processStatus.Status = true;
             }
-            catch (Exception Error)
+            catch (Exception ex)
             {
                 processStatus.Message.Header = "Kullanıcı İşlemleri";
                 processStatus.Message.Text = "Başarısız";
                 processStatus.Status = false;
                 processStatus.Result = null;
-                processStatus.Error = Error;
+                processStatus.Error = ex;
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
@@ -528,7 +528,6 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Status = false;
                     processStatus.Result = "Yanlış Aktivasyon kodu girdiniz !";
                 }
-
             }
             catch (Exception ex)
             {
@@ -547,10 +546,10 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var member = _memberService.GetMemberByMemberEmail(model.OldEmail);
-                if (member != null && 
-                    (!string.IsNullOrEmpty(model.NewEmailAgain)) && 
+                if (member != null &&
+                    (!string.IsNullOrEmpty(model.NewEmailAgain)) &&
                     model.NewEmailAgain == model.NewEmail &&
-                    model.MemberMainPartyId == member.MainPartyId && 
+                    model.MemberMainPartyId == member.MainPartyId &&
                     member.MemberPassword == model.MemberPassword
                     )
                 {
@@ -568,7 +567,6 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Status = false;
                     processStatus.Result = "Güncelleme esnasında hata ile karşılaşıldı!";
                 }
-
             }
             catch (Exception ex)
             {
@@ -579,6 +577,5 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
     }
 }

@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Api.View
 {
-   public class UpdatePeronalInfoModel
+    public class UpdatePeronalInfoModel
     {
         public int MemberMainPartyId { get; set; }
         public string Email { get; set; }
@@ -16,6 +12,5 @@ namespace MakinaTurkiye.Api.View
         public DateTime BirthDate { get; set; }
         public bool GenderMan { get; set; }
         public bool GenderWoman { get; set; }
-
     }
 }

@@ -2,23 +2,20 @@
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Web;
 
 namespace MakinaTurkiye.Api.Helpers
 {
-    public  class SmsHelper
+    public class SmsHelper
     {
         private string kNumber = ConfigurationManager.AppSettings["smsKno"];
         private string password = ConfigurationManager.AppSettings["smsSifre"];
         private string uName = ConfigurationManager.AppSettings["smsKadi"];
-        private  string gonderen = ConfigurationManager.AppSettings["smsObj"];
-        
-        public   string SendPhoneMessage(string gsmNumber, string message)
+        private string gonderen = ConfigurationManager.AppSettings["smsObj"];
+
+        public string SendPhoneMessage(string gsmNumber, string message)
         {
             string tur = "Turkce";
             string smsNN = "data=<sms><kno>" + kNumber + "</kno><kulad>" + uName + "</kulad><sifre>" + password + "</sifre>" +
@@ -29,6 +26,7 @@ namespace MakinaTurkiye.Api.Helpers
             "<tur>" + tur + "</tur></sms>";
             return XmlPost("http://panel.vatansms.com/panel/smsgonderNNpost.php", smsNN);
         }
+
         public string SendSmsOnlyPassword(string gsmNumber, string message)
         {
             string tur = "Turkce";
@@ -40,7 +38,8 @@ namespace MakinaTurkiye.Api.Helpers
             "<tur>" + tur + "</tur></sms>";
             return XmlPost("http://panel.vatansms.com/panel/smsgonderNNpost.php", smsNN);
         }
-        public   string XmlPost(string PostAddress, string xmlData)
+
+        public string XmlPost(string PostAddress, string xmlData)
         {
             using (WebClient wUpload = new WebClient())
             {
@@ -60,14 +59,13 @@ namespace MakinaTurkiye.Api.Helpers
             foreach (char k in code)
             {
                 if (char.IsNumber(k)) lastCode = lastCode + k;
-
             }
 
             lastCode = lastCode.Substring(0, 6);
 
             IPhoneService phoneService = EngineContext.Current.Resolve<IPhoneService>();
             var mCode = phoneService.GetPhoneByActivationCode(lastCode);
-            if (mCode !=null)
+            if (mCode != null)
                 lastCode = CreateActiveCode();
             return lastCode;
         }
@@ -79,18 +77,14 @@ namespace MakinaTurkiye.Api.Helpers
             foreach (char k in code)
             {
                 if (char.IsNumber(k)) lastPassword = lastPassword + k;
-
             }
             lastPassword = lastPassword.Substring(0, 6);
 
             IMemberService memberService = EngineContext.Current.Resolve<IMemberService>();
             var mCode = memberService.GetMemberByMemberPassword(lastPassword); ;
-            if (mCode!=null)
+            if (mCode != null)
                 lastPassword = CreateOnlyUsePassword();
             return lastPassword;
-
         }
-
-
     }
 }
