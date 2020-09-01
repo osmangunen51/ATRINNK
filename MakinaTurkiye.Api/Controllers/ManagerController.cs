@@ -1,10 +1,9 @@
+using MakinaTurkiye.Api.Helpers;
 using MakinaTurkiye.Api.View;
 using System;
-using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -25,14 +24,7 @@ namespace MakinaTurkiye.Api.Controllers
                         Text = "Başarıyla Girildi"
                     };
 
-                    string Key = ConfigurationManager.AppSettings["Token:Sifre-Key"].ToString();
-                    View.Token Token = new Token()
-                    {
-                        Key = "makinaturkiye",
-                        PrivateAnahtar = "makinaturkiye"
-                    };
-
-                    string TxtToken = Newtonsoft.Json.JsonConvert.SerializeObject(Token, Newtonsoft.Json.Formatting.None).Sifrele(Key);
+                    string TxtToken = CheckClaims.GetDefaultAccessToken();
                     var Snc = new
                     {
                         KullaniciAd = "makinaturkiye",
@@ -40,7 +32,9 @@ namespace MakinaTurkiye.Api.Controllers
                         AdSoyad = "makinaturkiye",
                         Token = TxtToken
                     };
+
                     ProcessStatus.Result = Snc;
+
                     return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
                 }
                 else
@@ -54,7 +48,6 @@ namespace MakinaTurkiye.Api.Controllers
                     };
                     return Request.CreateResponse(HttpStatusCode.NotFound, ProcessStatus);
                 }
-
             }
             catch (Exception Error)
             {

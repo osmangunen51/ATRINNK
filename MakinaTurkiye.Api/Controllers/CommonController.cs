@@ -41,7 +41,7 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Message.Text = "Başarısız";
                     processStatus.Status = false;
                     processStatus.Result = "Sorgu sonucu boş!";
-                }               
+                }
             }
             catch (Exception Error)
             {
@@ -53,6 +53,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetAllCityByCountryId(int CountryId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -86,6 +87,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetAllCountries()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -108,7 +110,6 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Status = false;
                     processStatus.Result = "Sorgu sonucu boş!";
                 }
-                
             }
             catch (Exception Error)
             {
@@ -120,6 +121,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetCountriesByCountryId(int countryId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -143,7 +145,7 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Message.Text = "Başarısız";
                     processStatus.Status = false;
                     processStatus.Result = "Sorgu sonucu boş!";
-                }    
+                }
             }
             catch (Exception Error)
             {
@@ -155,6 +157,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetTownsByLocalityId(int LocalityId)
         {
             ProcessResult processStatus = new ProcessResult();

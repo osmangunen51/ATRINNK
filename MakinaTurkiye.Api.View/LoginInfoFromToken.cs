@@ -2,11 +2,15 @@
 
 namespace MakinaTurkiye.Api.View
 {
-    public class Token
+    public class LoginInfoFromToken
     {
         public string Key { get; set; } = "";
         public DateTime StartDate { get; set; } = DateTime.Now;
         public DateTime EndDate { get; set; } = DateTime.Now.AddDays(365);
         public string PrivateAnahtar { get; set; } = "";
+        public string LoginMemberEmail { get; set; } = "";
+        public string MemberEmail { get; set; } = "";
+        public string MemberNameSurname { get; set; } = "";
+
     }
 }
