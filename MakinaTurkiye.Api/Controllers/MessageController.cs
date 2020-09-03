@@ -29,24 +29,24 @@ namespace MakinaTurkiye.Api.Controllers
 
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
 
-                if (member != null)
-                {
-                    var favoriteStore = _favoriteStoreService.GetFavoriteStoreByMemberMainPartyIdWithStoreMainPartyId(member.MainPartyId, storesId);
+                //if (member != null)
+                //{
+                //    var favoriteStore = _favoriteStoreService.GetFavoriteStoreByMemberMainPartyIdWithStoreMainPartyId(member.MainPartyId, storesId);
 
-                    _favoriteStoreService.DeleteFavoriteStore(favoriteStore);
+                //    _favoriteStoreService.DeleteFavoriteStore(favoriteStore);
 
-                    processStatus.Result = "Firma başarıyla favorilerden silinmiştir.";
-                    processStatus.Message.Header = "delete Favorite Store";
-                    processStatus.Message.Text = "Başarılı";
-                    processStatus.Status = true;
-                }
-                else
-                {
-                    processStatus.Result = "Login üye bulunamadı";
-                    processStatus.Message.Header = "delete Favorite Store";
-                    processStatus.Message.Text = "Başarısız";
-                    processStatus.Status = false;
-                }
+                //    processStatus.Result = "Firma başarıyla favorilerden silinmiştir.";
+                //    processStatus.Message.Header = "delete Favorite Store";
+                //    processStatus.Message.Text = "Başarılı";
+                //    processStatus.Status = true;
+                //}
+                //else
+                //{
+                //    processStatus.Result = "Login üye bulunamadı";
+                //    processStatus.Message.Header = "delete Favorite Store";
+                //    processStatus.Message.Text = "Başarısız";
+                //    processStatus.Status = false;
+                //}
             }
             catch (Exception ex)
             {

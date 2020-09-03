@@ -14,5 +14,6 @@ namespace MakinaTurkiye.Services.Stores
         void InsertFavoriteStore(FavoriteStore favoriteStore);
 
         void DeleteFavoriteStore(FavoriteStore favoriteStore);
+
     }
 }

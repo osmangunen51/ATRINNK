@@ -50,15 +50,12 @@ namespace MakinaTurkiye.Services.Stores
                 return query.FirstOrDefault(fp => fp.MemberMainPartyId == memberMainPartyId && fp.StoreMainPartyId == storeMainPartyId);
             });
         }
-        public IPagedList<FavoriteStore> GetAllFavoriteStore(int pageSize, int page, out int totalCount)
+        public IList<FavoriteStore> GetAllFavoriteStore(int pageSize, int page)
         {
             var favoriteStore = _favoriteStoreRepository.Table;
-            totalCount = favoriteStore.ToList().Count;
             favoriteStore = favoriteStore.OrderByDescending(x => x.FavoriteMainPartyId).Skip((pageSize * page) - pageSize).Take(pageSize);
-            return new PagedList<FavoriteStore>(favoriteStore, page, pageSize, totalCount);
-
+            return new PagedList<FavoriteStore>(favoriteStore, page, pageSize);
         }
-
         public List<FavoriteStore> GetFavoriteStores()
         {
             var query = _favoriteStoreRepository.Table;
@@ -78,6 +75,8 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentNullException("favoriteStore");
             _favoriteStoreRepository.Delete(favoriteStore);
         }
+
+        
 
         #endregion
     }
