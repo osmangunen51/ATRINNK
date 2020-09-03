@@ -5,13 +5,13 @@ using MakinaTurkiye.Utilities.ImageHelpers;
 using System;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 
 namespace MakinaTurkiye.Api.Controllers
 {
     public class CategoryController : BaseApiController
     {
         private readonly ICategoryService CategoryService;
+
         public CategoryController()
         {
             CategoryService = EngineContext.Current.Resolve<ICategoryService>();
@@ -19,14 +19,14 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage Get(int No)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = CategoryService.GetCategoryByCategoryId(No);
-                if (Result != null)
+                var result = CategoryService.GetCategoryByCategoryId(No);
+                if (result != null)
                 {
-                    Result.CategoryIcon = ImageHelper.GetCategoryIconPath(Result.CategoryIcon);
-                    ProcessStatus.Result = Result;
+                    result.CategoryIcon = !string.IsNullOrEmpty(result.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(result.CategoryIcon) : null;
+                    ProcessStatus.Result = result;
                     ProcessStatus.ActiveResultRowCount = 1;
                     ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
                     ProcessStatus.Message.Header = "Category Operations";
@@ -40,7 +40,6 @@ namespace MakinaTurkiye.Api.Controllers
                     ProcessStatus.Status = false;
                     ProcessStatus.Result = null;
                 }
-
             }
             catch (Exception Error)
             {
@@ -55,13 +54,13 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetAll()
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = CategoryService.GetAllCategories();
                 foreach (var item in Result)
                 {
-                    item.CategoryIcon = ImageHelper.GetCategoryIconPath(item.CategoryIcon);
+                    item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
                 }
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
@@ -78,20 +77,19 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.Status = false;
                 ProcessStatus.Result = null;
                 ProcessStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
         public HttpResponseMessage GetWithName(string Name)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = CategoryService.GetCategoriesByName(Name);
                 foreach (var item in Result)
                 {
-                    item.CategoryIcon = ImageHelper.GetCategoryIconPath(item.CategoryIcon);
+                    item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
                 }
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
@@ -107,21 +105,20 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.Status = false;
                 ProcessStatus.Result = null;
                 ProcessStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
         public HttpResponseMessage GetMainCategories()
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = CategoryService.GetMainCategories();
                 foreach (var item in Result)
                 {
-                    item.CategoryIcon = ImageHelper.GetCategoryIconPath(item.CategoryIcon);
-                }    
+                    item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
+                }
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
                 ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
@@ -136,17 +133,17 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.Status = false;
                 ProcessStatus.Result = null;
                 ProcessStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
-        public HttpResponseMessage GetSubCategories(int No)
+
+        public HttpResponseMessage GetSubCategoriesByParentId(int No)
         {
-            ProcessStatus ProcessStatus = new ProcessStatus();
+            ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = CategoryService.GetCategoriesByCategoryParentId(No);
-               
+
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
                 ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
@@ -161,7 +158,6 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.Status = false;
                 ProcessStatus.Result = null;
                 ProcessStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }

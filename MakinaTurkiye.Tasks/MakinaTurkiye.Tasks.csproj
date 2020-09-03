@@ -71,6 +71,8 @@
     <Compile Include="SearchEngine\ElasticSearch\Tasks\CommonIndexTask.cs" />
     <Compile Include="SearchEngine\ElasticSearch\Tasks\SuggestIndexTask.cs" />
     <Compile Include="Settings\ProductSettings.cs" />
+    <Compile Include="WebP\Schedulers\WebPScheduler.cs" />
+    <Compile Include="WebP\Task\WebP.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MakinaTurkiye.Core\MakinaTurkiye.Core.csproj">
@@ -97,10 +99,37 @@
       <Project>{2AB87953-145F-4334-BB14-E7D1FBB466B0}</Project>
       <Name>NeoSistem.MakinaTurkiye.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebPWrapper\WebPWrapper.csproj">
+      <Project>{C6F4B456-BFAF-4D54-BDB0-9DB44B9DBF17}</Project>
+      <Name>WebPWrapper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <Content Include="WebP\libwebp\lib\libwebp.lib">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WebP\libwebp\include\webp\decode.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebP\libwebp\include\webp\demux.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebP\libwebp\include\webp\encode.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebP\libwebp\include\webp\mux.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebP\libwebp\include\webp\mux_types.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebP\libwebp\include\webp\types.h">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

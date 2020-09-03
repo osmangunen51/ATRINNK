@@ -22,7 +22,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage GetAllLocalityByCityId(int CityId)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var locality = _addressService.GetLocalitiesByCityId(CityId);
@@ -41,7 +41,7 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Message.Text = "Başarısız";
                     processStatus.Status = false;
                     processStatus.Result = "Sorgu sonucu boş!";
-                }               
+                }
             }
             catch (Exception Error)
             {
@@ -53,9 +53,10 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetAllCityByCountryId(int CountryId)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var city = _addressService.GetCitiesByCountryId(CountryId);
@@ -86,9 +87,10 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetAllCountries()
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var country = _addressService.GetAllCountries();
@@ -108,7 +110,6 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Status = false;
                     processStatus.Result = "Sorgu sonucu boş!";
                 }
-                
             }
             catch (Exception Error)
             {
@@ -120,9 +121,10 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetCountriesByCountryId(int countryId)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var Countries = new List<Entities.Tables.Common.Country>();
@@ -143,7 +145,7 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Message.Text = "Başarısız";
                     processStatus.Status = false;
                     processStatus.Result = "Sorgu sonucu boş!";
-                }    
+                }
             }
             catch (Exception Error)
             {
@@ -155,9 +157,10 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetTownsByLocalityId(int LocalityId)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var country = _addressService.GetTownsByLocalityId(LocalityId);

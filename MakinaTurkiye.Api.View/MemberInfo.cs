@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Api.View
 {
@@ -20,7 +17,5 @@ namespace MakinaTurkiye.Api.View
         public int Gender { get; set; }
         public DateTime? BirthDate { get; set; }
         public List<Address> Address { get; set; }
-        
-        
     }
 }

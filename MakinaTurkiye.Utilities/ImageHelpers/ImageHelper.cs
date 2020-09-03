@@ -118,7 +118,7 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
 
 
 
-                productImageName = productImageName.Replace(".jpg", ".webp");
+                //productImageName = productImageName.Replace(".jpg", ".webp");
                 name = productImageName.Split('.');
 
                 switch (imageSize)
@@ -252,8 +252,8 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
 
             imagePath = imagePath.ToLower();
             imagePath = string.Format("//s.makinaturkiye.com/Images/CategoryHomePageImageFolder/{0}", imagePath);
-            imagePath=imagePath.Replace(".png", ".webp");
-            imagePath=imagePath.Replace(".jpg", ".webp");
+            //imagePath=imagePath.Replace(".png", ".webp");
+            //imagePath=imagePath.Replace(".jpg", ".webp");
             return imagePath;
         }
 

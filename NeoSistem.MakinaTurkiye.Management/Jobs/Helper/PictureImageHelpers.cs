@@ -1,10 +1,12 @@
 ﻿using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Management.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-
+using WebPWrapper;
+using WebPWrapper.Encoder;
 
 namespace NeoSistem.MakinaTurkiye.Management.Helper
 {
@@ -71,7 +73,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                 HttpPostedFileBase file = imageFiles.Files[i];
                 // TODO  : resim gerekenden küçükse arkaplanı şeffaf olarak kaydetmesini sağla.
                 //transparent background için png kayıt şart white backgroundu jpg ile oluır.
-                //fill image 
+                //fill image
                 if (file.ContentLength > 0)
                 {
                     if (this.ImageContentType.Any(fc => fc == file.ContentType))
@@ -86,12 +88,69 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                         filePath = HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName;
                         file.SaveAs(filePath);
 
-                        bool thumbResult = ImageProcessHelper.ImageResize(HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName,
-                        HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count), this.ThumbSizes);
+
+                        bool thumbResult = ImageProcessHelper.ImageResize(HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName,HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count), this.ThumbSizes);
+                        if (thumbResult)
+                        {
+                            #region Webp Dönüşümü
+                            
+                            /*Resimler boyutlandırıldıktan sonra webp formatları oluşturulmaktadır.*/
+
+                            var builder = new WebPEncoderBuilder();
+                            var encoder = builder
+                                .LowMemory()
+                                .MultiThread()
+                                .Build();
+
+
+                            System.IO.FileInfo Dosya = new FileInfo(filePath);
+
+                            string simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension, ".webp");
+                            System.IO.FileInfo DosyaKontrol = new FileInfo(simpleLosslessFileName);
+                            if (!DosyaKontrol.Exists)
+                            {
+                                using (var outputFile = File.Open(simpleLosslessFileName, FileMode.Create))
+                                using (var inputFile = File.Open(Dosya.FullName, FileMode.Open))
+                                {
+                                    encoder.Encode(inputFile, outputFile);
+                                }
+                            }
+
+                            foreach (var thumbsize in this.ThumbSizes)
+                            {
+                                byte[] rawWebP;
+                                try
+                                {
+
+                                    string SourceFile = HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count);
+                                    SourceFile = SourceFile + "-" + thumbsize.Replace("x*", "X").Replace("*x", "X");
+                                    Dosya = new FileInfo(SourceFile);
+
+                                    simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension, ".webp");
+                                    DosyaKontrol = new FileInfo(simpleLosslessFileName);
+                                    if (!DosyaKontrol.Exists)
+                                    {
+                                        using (var outputFile = File.Open(simpleLosslessFileName, FileMode.Create))
+                                        using (var inputFile = File.Open(Dosya.FullName, FileMode.Open))
+                                        {
+                                            encoder.Encode(inputFile, outputFile);
+                                        }
+                                    }
+                                }
+                                catch (Exception Hata)
+                                {
+
+                                }
+                            }
+                            #endregion
+                        }
 
                         pictureList.Add(new PictureModel { PictureId = count, ProductId = productID, PicturePath = fileName });
-
                         count++;
+
+
+
+
                     }
 
                 }

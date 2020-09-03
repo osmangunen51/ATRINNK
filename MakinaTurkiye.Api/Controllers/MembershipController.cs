@@ -1,7 +1,9 @@
-﻿using MakinaTurkiye.Api.View;
+﻿using MakinaTurkiye.Api.Helpers;
+using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Logs;
 using MakinaTurkiye.Entities.Tables.Messages;
+using MakinaTurkiye.Services.Authentication;
 using MakinaTurkiye.Services.Logs;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
@@ -13,8 +15,7 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Http;
-using ProcessStatus = MakinaTurkiye.Api.View.ProcessStatus;
-
+using ProcessResult = MakinaTurkiye.Api.View.ProcessResult;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -25,6 +26,7 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IMessageService _messageService;
         private readonly ILoginLogService _loginLogService;
         private readonly IMemberStoreService _memberStoreService;
+        private readonly IAuthenticationService _authenticationService;
 
         public MembershipController()
         {
@@ -33,11 +35,12 @@ namespace MakinaTurkiye.Api.Controllers
             _messageService = EngineContext.Current.Resolve<IMessageService>();
             _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
             _loginLogService = EngineContext.Current.Resolve<ILoginLogService>();
+            _authenticationService = EngineContext.Current.Resolve<IAuthenticationService>();
         }
 
         public HttpResponseMessage FastMembership([FromBody]UserRegister Model)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 if (Model.IsContractChecked)
@@ -84,7 +87,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage LogOn(MemberEmailPassword model)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
 
             var member = _memberService.GetMemberByMemberEmail(model.MemberEmail);
             if (member != null)
@@ -104,7 +107,6 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Message.Text = "Giriş işlemi başarısız";
                     processStatus.Status = false;
                     processStatus.Result = "Email veya şifreyi kontrol edin";
-
                 }
                 if (member.Active.HasValue && member.Active.Value)
                 {
@@ -112,6 +114,8 @@ namespace MakinaTurkiye.Api.Controllers
 
                     if (member.MemberPassword == model.MemberPassword)
                     {
+                        _authenticationService.SignIn(member, true);
+
                         if (member.MemberType == (byte)MemberType.Enterprise)
                         {
                             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(member.MainPartyId);
@@ -125,10 +129,19 @@ namespace MakinaTurkiye.Api.Controllers
                         processStatus.Message.Header = "User Login";
                         processStatus.Message.Text = "Giriş işlemi başarılı";
                         processStatus.Status = true;
-                        processStatus.Result = "Başarılı Şekilde Giriş yaptınız!";
+                        var accesToken = GetMemberAccessToken(model);
+                        var result = new
+                        {
+                            member.MainPartyId,
+                            Key = "makinaturkiye",
+                            MemberNameSurname = member.MemberName + " " + member.MemberSurname,
+                            Token = accesToken,
+                        };
+
+                        processStatus.Result = result;
 
                         return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-                    }                    
+                    }
                     else
                     {
                         processStatus.Message.Header = "User Login";
@@ -161,7 +174,7 @@ namespace MakinaTurkiye.Api.Controllers
         [System.Web.Http.HttpGet]
         public HttpResponseMessage ForgettedPassowrd(string userEmail)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
 
             try
             {
@@ -198,7 +211,6 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Status = false;
                     processStatus.Result = "Şifre yenileme işlemi başarısız.";
                 }
-
 
                 //if (string.IsNullOrEmpty(passwordCode))
                 //{
@@ -261,6 +273,46 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
+        public HttpResponseMessage Logout()
+        {
+            ProcessResult ProcessStatus = new ProcessResult();
+
+            try
+            {
+                var loginMemberEmail = Request.CheckLoginUserClaims().MemberEmail;
+
+                _authenticationService.SignOut();
+                ProcessStatus.Status = true;
+                ProcessStatus.Message = ProcessStatus.Message = new View.Message()
+                {
+                    Header = "Logout",
+                    Text = "Başarıyla çıkış yapıldı"
+                };
+
+                var TxtToken = CheckClaims.GetDefaultAccessToken();
+
+                var Snc = new
+                {
+                    KullaniciAd = "makinaturkiye",
+                    Key = "makinaturkiye",
+                    AdSoyad = "makinaturkiye",
+                    Token = TxtToken
+                };
+                ProcessStatus.Result = Snc;
+            }
+            catch (Exception ex)
+            {
+                ProcessStatus.Status = false;
+                ProcessStatus.Error = ex;
+                ProcessStatus.Message = ProcessStatus.Message = new View.Message()
+                {
+                    Header = "Logout",
+                    Text = string.Format("Hata Oluştu : {0}", ex.Message)
+                };
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
+        }
 
         private void InsertMember(UserRegister model)
         {
@@ -388,6 +440,36 @@ namespace MakinaTurkiye.Api.Controllers
             catch (Exception ex)
             {
                 //ExceptionHandler.HandleException(ex);
+            }
+        }
+
+        private string GetMemberAccessToken(MemberEmailPassword model)
+        {
+            string TxtToken = "";
+            try
+            {
+                var member = _memberService.GetMemberByMemberEmail(model.MemberEmail);
+                if (member != null)
+                {
+                    if (member.MemberPassword == model.MemberPassword)
+                    {
+                        string Key = ConfigurationManager.AppSettings["Token:Sifre-Key"].ToString();
+                        LoginInfoFromToken token = new LoginInfoFromToken()
+                        {
+                            Key = "makinaturkiye",
+                            PrivateAnahtar = "makinaturkiye",
+                            MemberEmail = member.MemberEmail,
+                            MemberNameSurname = member.MemberName + " " + member.MemberSurname
+                        };
+                        TxtToken = Newtonsoft.Json.JsonConvert.SerializeObject(token, Newtonsoft.Json.Formatting.None).Sifrele(Key);
+                    };
+                }
+
+                return TxtToken;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

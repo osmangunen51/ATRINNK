@@ -223,7 +223,7 @@ namespace NeoSistem.EnterpriseEntity.Business
     /// <param name="prms">Sql parametreleri</param>
     /// <returns>Okunabilir bir IDataReader döndürür.</returns>
     protected virtual IDataReader ExecuteReader(string procName, ICollection<IDataParameter> prms)
-    {
+     {
       IDataReader dataReader = null;
       DbCommand command = null;
 
@@ -236,7 +236,7 @@ namespace NeoSistem.EnterpriseEntity.Business
         dataReader = this.DatabaseInstance.ExecuteReader(command);
         command.Dispose();
       }
-      catch (System.Exception ex)
+      catch (System.Exception Hata)
       {
         command.Dispose();
       }

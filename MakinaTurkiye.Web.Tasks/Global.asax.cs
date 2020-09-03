@@ -4,6 +4,7 @@ using MakinaTurkiye.Tasks.Catolog.Schedulers;
 using MakinaTurkiye.Tasks.Members.Schedulers;
 using MakinaTurkiye.Tasks.Messages.Schedulers;
 using MakinaTurkiye.Tasks.SearchEngine.ElasticSearch.Schedulers;
+using MakinaTurkiye.Tasks.WebP.Schedulers;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -37,6 +38,7 @@ namespace MakinaTurkiye.Web.Tasks
                 ProductHomePageReminderMailSendScheduler.Start();
                 MemberDescriptionRestScheduler.Start();
                 ProductRateCalculateScheduler.Start();
+                WebPScheduler.Start();
             }
         }
     }

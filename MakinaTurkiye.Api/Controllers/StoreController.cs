@@ -3,11 +3,8 @@ using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -19,15 +16,16 @@ namespace MakinaTurkiye.Api.Controllers
         {
             _storeService = EngineContext.Current.Resolve<IStoreService>();
         }
+
         public HttpResponseMessage GetWithName(string Name)
         {
-            ProcessStatus processStatus = new ProcessStatus();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 var Result = _storeService.GetStoreSearchByStoreName(Name);
                 foreach (var item in Result)
                 {
-                    item.StoreLogo = ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo,300);
+                    item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
                 }
                 processStatus.Result = Result;
                 processStatus.ActiveResultRowCount = Result.Count;
@@ -43,7 +41,6 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Status = false;
                 processStatus.Result = null;
                 processStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
