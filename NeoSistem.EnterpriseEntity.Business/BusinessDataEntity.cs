@@ -236,7 +236,7 @@ namespace NeoSistem.EnterpriseEntity.Business
         dataReader = this.DatabaseInstance.ExecuteReader(command);
         command.Dispose();
       }
-      catch (System.Exception)
+      catch (System.Exception ex)
       {
         command.Dispose();
       }

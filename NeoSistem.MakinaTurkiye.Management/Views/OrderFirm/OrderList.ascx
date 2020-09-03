@@ -166,8 +166,12 @@
                     deger = (DateTime)descs;
                     string degerimiz = deger.ToString();
                     var order = (from o in olustur.Orders where o.OrderId == item.OrderId select o).FirstOrDefault();
-                    order.OrderPacketEndDate = (DateTime)descs;
+                    if (order != null)
+                    {
+                                 order.OrderPacketEndDate = (DateTime)descs;
                     olustur.SaveChanges();
+                    }
+           
 
                 }
             }

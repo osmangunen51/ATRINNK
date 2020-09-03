@@ -6,7 +6,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
 {
     public static class ImageHelpers
     {
-        public static string CDNhost{ get{ return "//s.makinaturkiye.com"; } }
+        public static string CDNhost { get { return "//s.makinaturkiye.com"; } }
 
         public static MvcHtmlString GetProductImage(this HtmlHelper helper, int? productID, string imageName, ImageSize imageSize, IDictionary<string, object> htmlAttributes = null)
         {
@@ -48,7 +48,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                             builder.Attributes.Add("src", imagePath);
                         break;
                     default:
-                        return MvcHtmlString.Create(string.Empty); 
+                        return MvcHtmlString.Create(string.Empty);
                 }
             }
 
@@ -67,8 +67,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                 }
                 else
                 {
-                    return string.Format(CDNhost + "/Store/{0}/thumbs/{1}-{2}x{2}.jpg", storeId,
-                                     logo.Replace("_logo", "").Replace(".jpg", ""), size);
+                    if (logo != null)
+                    {
+                        return string.Format(CDNhost + "/Store/{0}/thumbs/{1}-{2}x{2}.jpg", storeId,
+                 logo.Replace("_logo", "").Replace(".jpg", ""), size);
+                    }
+                    return "";
                 }
 
 
