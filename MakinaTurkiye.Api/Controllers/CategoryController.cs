@@ -17,12 +17,12 @@ namespace MakinaTurkiye.Api.Controllers
             CategoryService = EngineContext.Current.Resolve<ICategoryService>();
         }
 
-        public HttpResponseMessage Get(int No)
+        public HttpResponseMessage Get(int categoryId)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var result = CategoryService.GetCategoryByCategoryId(No);
+                var result = CategoryService.GetCategoryByCategoryId(categoryId);
                 if (result != null)
                 {
                     result.CategoryIcon = !string.IsNullOrEmpty(result.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(result.CategoryIcon) : null;
@@ -137,12 +137,12 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetSubCategoriesByParentId(int No)
+        public HttpResponseMessage GetSubCategoriesByParentId(int parentId)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = CategoryService.GetCategoriesByCategoryParentId(No);
+                var Result = CategoryService.GetCategoriesByCategoryParentId(parentId);
 
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;

@@ -279,7 +279,7 @@ namespace MakinaTurkiye.Api.Controllers
 
             try
             {
-                var loginMemberEmail = Request.CheckLoginUserClaims().MemberEmail;
+                var loginMemberEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
 
                 _authenticationService.SignOut();
                 ProcessStatus.Status = true;
@@ -458,8 +458,8 @@ namespace MakinaTurkiye.Api.Controllers
                         {
                             Key = "makinaturkiye",
                             PrivateAnahtar = "makinaturkiye",
-                            MemberEmail = member.MemberEmail,
-                            MemberNameSurname = member.MemberName + " " + member.MemberSurname
+                            LoginMemberEmail = member.MemberEmail,
+                            LoginMemberNameSurname = member.MemberName + " " + member.MemberSurname
                         };
                         TxtToken = Newtonsoft.Json.JsonConvert.SerializeObject(token, Newtonsoft.Json.Formatting.None).Sifrele(Key);
                     };

@@ -9,8 +9,6 @@ namespace MakinaTurkiye.Api.View
         public DateTime EndDate { get; set; } = DateTime.Now.AddDays(365);
         public string PrivateAnahtar { get; set; } = "";
         public string LoginMemberEmail { get; set; } = "";
-        public string MemberEmail { get; set; } = "";
-        public string MemberNameSurname { get; set; } = "";
-
+        public string LoginMemberNameSurname { get; set; } = "";
     }
 }

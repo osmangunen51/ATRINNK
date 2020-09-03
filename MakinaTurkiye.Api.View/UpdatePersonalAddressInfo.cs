@@ -2,9 +2,6 @@
 {
     public class UpdatePersonalAddressInfo
     {
-        public int MemberMainPartyId { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
         public Country Country { get; set; }
         public City City { get; set; }
         public Locality Locality { get; set; }

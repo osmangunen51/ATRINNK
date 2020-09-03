@@ -1,7 +1,9 @@
 ﻿using MakinaTurkiye.Caching;
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Stores;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
@@ -48,7 +50,21 @@ namespace MakinaTurkiye.Services.Stores
                 return query.FirstOrDefault(fp => fp.MemberMainPartyId == memberMainPartyId && fp.StoreMainPartyId == storeMainPartyId);
             });
         }
+        public IPagedList<FavoriteStore> GetAllFavoriteStore(int pageSize, int page, out int totalCount)
+        {
+            var favoriteStore = _favoriteStoreRepository.Table;
+            totalCount = favoriteStore.ToList().Count;
+            favoriteStore = favoriteStore.OrderByDescending(x => x.FavoriteMainPartyId).Skip((pageSize * page) - pageSize).Take(pageSize);
+            return new PagedList<FavoriteStore>(favoriteStore, page, pageSize, totalCount);
 
+        }
+
+        public List<FavoriteStore> GetFavoriteStores()
+        {
+            var query = _favoriteStoreRepository.Table;
+            return query.ToList();
+
+        }
         public void InsertFavoriteStore(FavoriteStore favoriteStore)
         {
             if (favoriteStore == null)

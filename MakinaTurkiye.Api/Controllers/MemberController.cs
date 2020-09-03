@@ -29,13 +29,133 @@ namespace MakinaTurkiye.Api.Controllers
             _mobileMessageService = EngineContext.Current.Resolve<IMobileMessageService>();
         }
 
-        public HttpResponseMessage GetMemberInfo(int No)
+        public HttpResponseMessage GetLoginMemberInfo()
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+
+                if (member != null)
+                {
+                    var userAddresses = _addressService.GetAddressesByMainPartyId(member.MainPartyId).ToList();
+                    var AddressList = new List<View.Address>();
+
+                    foreach (var userAdress in userAddresses)
+                    {
+                        var cityData = new View.City();
+                        var countryData = new View.Country();
+                        var townData = new View.Town();
+                        var localityData = new View.Locality();
+                        if (userAdress.Locality != null && userAdress.Locality.LocalityId > 0)
+                        {
+                            var locality = _addressService.GetLocalityByLocalityId(userAdress.Locality.LocalityId);
+                            if (locality != null)
+                            {
+                                localityData.LocalityId = locality.LocalityId;
+                                localityData.LocalityName = locality.LocalityName;
+                            }
+                        }
+
+                        if (userAdress.City != null && userAdress.City.CityId > 0)
+                        {
+                            var city = _addressService.GetCityByCityId(userAdress.City.CityId);
+                            if (city != null)
+                            {
+                                cityData.CityId = city.CityId;
+                                cityData.CityName = city.CityName;
+                            }
+                        }
+
+                        if (userAdress.Country != null && userAdress.Country.CountryId > 0)
+                        {
+                            var country = _addressService.GetCountryByCountryId(userAdress.Country.CountryId);
+                            if (country != null)
+                            {
+                                countryData.CountryId = country.CountryId;
+                                countryData.CountryName = country.CountryName;
+                            }
+                        }
+                        if (userAdress.Town != null && userAdress.Town.TownId > 0)
+                        {
+                            var town = _addressService.GetTownByTownId(userAdress.Town.TownId);
+                            if (town != null)
+                            {
+                                townData.TownId = town.TownId;
+                                townData.TownName = town.TownName;
+                            }
+                        }
+
+                        var adress = new View.Address()
+                        {
+                            City = cityData,
+                            Locality = localityData,
+                            Country = countryData,
+                            Town = townData,
+                            AddressId = userAdress.AddressId,
+                            AdressDefault = userAdress.AddressDefault,
+                            ApartmentNo = userAdress.ApartmentNo,
+                            Avenue = userAdress.Avenue,
+                            DoorNo = userAdress.DoorNo,
+                            PostCode = userAdress.PostCode,
+                            StoreDealerId = userAdress.StoreDealerId,
+                            Street = userAdress.Street
+                        };
+                        AddressList.Add(adress);
+                    }
+                    var memberInfo = new MemberInfo()
+                    {
+                        Active = member.Active,
+                        BirthDate = member.BirthDate,
+                        Gender = member.Gender.HasValue && member.Gender.Value ? 1 : 0,
+                        MainPartyId = member.MainPartyId,
+                        MemberEmail = member.MemberEmail,
+                        MemberName = member.MemberName,
+                        MemberNo = member.MemberNo,
+                        MemberPassword = null,
+                        MemberSurname = member.MemberSurname,
+                        MemberTitleType = member.MemberTitleType,
+                        MemberType = member.MemberType,
+                        Address = AddressList
+                    };
+                    processStatus.Result = memberInfo;
+                    processStatus.Message.Header = "Kullanıcı İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Kullanıcı İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "Login kullanıcı bulunamadı";
+                }
+
+                //foreach (var item in Result)
+                //{
+                //    item.StoreLogo = ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300);
+                //}
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Kullanıcı İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        public HttpResponseMessage GetMemberInfo(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
             try
             {
                 //var result = _memberService.GetAllMembers();
-                var result = _memberService.GetMembersByMainPartyId(No);
+                var result = _memberService.GetMembersByMainPartyId(MainPartyId);
                 //var result = _memberService.GetMemberByMainPartyId(Id);
                 var memberInfoList = new List<MemberInfo>();
                 //var memberList = new List<Member>();
@@ -269,8 +389,10 @@ namespace MakinaTurkiye.Api.Controllers
 
             try
             {
-                var member = _memberService.GetMemberByMainPartyId(model.MemberMainPartyId);
-                if (member != null && model.NewPassword == model.NewPasswordAgain && member.MemberPassword == model.OldPassword && model.Email == member.MemberEmail)
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null && model.NewPassword == model.NewPasswordAgain && member.MemberPassword == model.OldPassword)
                 {
                     member.MemberPassword = model.NewPassword;
                     _memberService.UpdateMember(member);
@@ -305,8 +427,10 @@ namespace MakinaTurkiye.Api.Controllers
 
             try
             {
-                var member = _memberService.GetMemberByMainPartyId(model.MemberMainPartyId);
-                if (member != null && model.Email == member.MemberEmail && model.GenderWoman != model.GenderMan && member.MemberPassword == model.Password)
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null && model.GenderWoman != model.GenderMan && member.MemberPassword == model.Password)
                 {
                     member.MemberName = model.Name;
                     member.MemberSurname = model.Surname;
@@ -344,10 +468,12 @@ namespace MakinaTurkiye.Api.Controllers
 
             try
             {
-                var member = _memberService.GetMemberByMainPartyId(model.MemberMainPartyId);
-                if (member != null && model.Email == member.MemberEmail && member.MemberPassword == model.Password)
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null)
                 {
-                    var userAddresses = _addressService.GetAddressesByMainPartyId(model.MemberMainPartyId).ToList();
+                    var userAddresses = _addressService.GetAddressesByMainPartyId(member.MainPartyId).ToList();
 
                     //Adres işlemleri
                     if (userAddresses.Count == 0)
@@ -363,7 +489,7 @@ namespace MakinaTurkiye.Api.Controllers
                             DoorNo = model.DoorNo,
                             PostCode = model.PostCode,
                             Street = model.Street,
-                            MainPartyId = model.MemberMainPartyId,
+                            MainPartyId = member.MainPartyId,
                             AddressDefault = true,
                             StoreDealerId = null,
                         };
@@ -382,13 +508,12 @@ namespace MakinaTurkiye.Api.Controllers
                             userAdress.DoorNo = model.DoorNo;
                             userAdress.PostCode = model.PostCode;
                             userAdress.Street = model.Street;
-
                             _addressService.UpdateAddress(userAdress);
                         }
                     }
 
                     //Telefon işlemleri
-                    var userPhones = _phoneService.GetPhonesByMainPartyId(model.MemberMainPartyId).ToList();
+                    var userPhones = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).ToList();
                     var isCurrentGsmSame = userPhones.Where(x => x.PhoneType == (int)PhoneTypeEnum.Gsm &&
                                                                     x.active == 1 &&
                                                                     x.PhoneCulture == model.GsmCountryCode &&
@@ -408,7 +533,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                     var phoneGsm = new Phone()
                     {
-                        MainPartyId = model.MemberMainPartyId,
+                        MainPartyId = member.MainPartyId,
                         PhoneCulture = model.GsmCountryCode,
                         PhoneAreaCode = model.GsmAreaCode,
                         PhoneNumber = model.Gsm,
@@ -418,7 +543,7 @@ namespace MakinaTurkiye.Api.Controllers
                     };
                     var phoneWhatsapp = new Phone()
                     {
-                        MainPartyId = model.MemberMainPartyId,
+                        MainPartyId = member.MainPartyId,
                         PhoneCulture = model.WhatsappGsmCountryCode,
                         PhoneAreaCode = model.WhatsappGsmAreaCode,
                         PhoneNumber = model.WhatsappGsm,
@@ -426,7 +551,7 @@ namespace MakinaTurkiye.Api.Controllers
                     };
                     var phone1 = new Phone()
                     {
-                        MainPartyId = model.MemberMainPartyId,
+                        MainPartyId = member.MainPartyId,
                         PhoneCulture = model.Phone1CountryCode,
                         PhoneAreaCode = model.Phone1AreaCode,
                         PhoneNumber = model.Phone1,
@@ -434,7 +559,7 @@ namespace MakinaTurkiye.Api.Controllers
                     };
                     var phone2 = new Phone()
                     {
-                        MainPartyId = model.MemberMainPartyId,
+                        MainPartyId = member.MainPartyId,
                         PhoneCulture = model.Phone2CountryCode,
                         PhoneAreaCode = model.Phone2AreaCode,
                         PhoneNumber = model.Phone2,
@@ -442,7 +567,7 @@ namespace MakinaTurkiye.Api.Controllers
                     };
                     var fax = new Phone()
                     {
-                        MainPartyId = model.MemberMainPartyId,
+                        MainPartyId = member.MainPartyId,
                         PhoneCulture = model.FaxCountryCode,
                         PhoneAreaCode = model.FaxAreaCode,
                         PhoneNumber = model.Fax,
@@ -545,11 +670,13 @@ namespace MakinaTurkiye.Api.Controllers
 
             try
             {
-                var member = _memberService.GetMemberByMemberEmail(model.OldEmail);
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null &&
                     (!string.IsNullOrEmpty(model.NewEmailAgain)) &&
                     model.NewEmailAgain == model.NewEmail &&
-                    model.MemberMainPartyId == member.MainPartyId &&
+                    LoginUserEmail == model.OldEmail &&
                     member.MemberPassword == model.MemberPassword
                     )
                 {
