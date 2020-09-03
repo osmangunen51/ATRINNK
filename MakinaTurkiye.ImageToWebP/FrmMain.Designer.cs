@@ -55,25 +55,28 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(773, 30);
+            this.panel1.Size = new System.Drawing.Size(1031, 37);
             this.panel1.TabIndex = 0;
             // 
             // txtPath
             // 
             this.txtPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtPath.Location = new System.Drawing.Point(59, 0);
+            this.txtPath.Location = new System.Drawing.Point(79, 0);
+            this.txtPath.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtPath.Multiline = true;
             this.txtPath.Name = "txtPath";
-            this.txtPath.Size = new System.Drawing.Size(639, 30);
+            this.txtPath.Size = new System.Drawing.Size(852, 37);
             this.txtPath.TabIndex = 5;
             // 
             // btnDizinSec
             // 
             this.btnDizinSec.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnDizinSec.Location = new System.Drawing.Point(698, 0);
+            this.btnDizinSec.Location = new System.Drawing.Point(931, 0);
+            this.btnDizinSec.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDizinSec.Name = "btnDizinSec";
-            this.btnDizinSec.Size = new System.Drawing.Size(75, 30);
+            this.btnDizinSec.Size = new System.Drawing.Size(100, 37);
             this.btnDizinSec.TabIndex = 4;
             this.btnDizinSec.Text = "Seç...";
             this.btnDizinSec.UseVisualStyleBackColor = true;
@@ -83,9 +86,9 @@
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Left;
             this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(20);
+            this.label1.Margin = new System.Windows.Forms.Padding(27, 25, 27, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 30);
+            this.label1.Size = new System.Drawing.Size(79, 37);
             this.label1.TabIndex = 2;
             this.label1.Text = "Klasör";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -95,9 +98,10 @@
             this.panel2.Controls.Add(this.groupBox2);
             this.panel2.Controls.Add(this.PnlEkAyar);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(0, 30);
+            this.panel2.Location = new System.Drawing.Point(0, 37);
+            this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(773, 676);
+            this.panel2.Size = new System.Drawing.Size(1031, 832);
             this.panel2.TabIndex = 1;
             // 
             // groupBox2
@@ -105,9 +109,11 @@
             this.groupBox2.Controls.Add(this.txtLog);
             this.groupBox2.Controls.Add(this.toolStrip1);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(0, 89);
+            this.groupBox2.Location = new System.Drawing.Point(0, 110);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(773, 587);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(1031, 722);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "İşlem Logları";
@@ -117,22 +123,24 @@
             this.txtLog.BackColor = System.Drawing.Color.Black;
             this.txtLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txtLog.ForeColor = System.Drawing.Color.Bisque;
-            this.txtLog.Location = new System.Drawing.Point(3, 41);
+            this.txtLog.Location = new System.Drawing.Point(4, 50);
+            this.txtLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
             this.txtLog.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtLog.Size = new System.Drawing.Size(767, 543);
+            this.txtLog.Size = new System.Drawing.Size(1023, 668);
             this.txtLog.TabIndex = 7;
             this.txtLog.Text = "...";
             // 
             // toolStrip1
             // 
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tlstrpbtnTemizle});
-            this.toolStrip1.Location = new System.Drawing.Point(3, 16);
+            this.toolStrip1.Location = new System.Drawing.Point(4, 19);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(767, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(1023, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -142,7 +150,7 @@
             this.tlstrpbtnTemizle.Image = ((System.Drawing.Image)(resources.GetObject("tlstrpbtnTemizle.Image")));
             this.tlstrpbtnTemizle.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tlstrpbtnTemizle.Name = "tlstrpbtnTemizle";
-            this.tlstrpbtnTemizle.Size = new System.Drawing.Size(66, 22);
+            this.tlstrpbtnTemizle.Size = new System.Drawing.Size(84, 28);
             this.tlstrpbtnTemizle.Text = "Temizle";
             this.tlstrpbtnTemizle.Click += new System.EventHandler(this.tlstrpbtnTemizle_Click);
             // 
@@ -152,17 +160,20 @@
             this.PnlEkAyar.Controls.Add(this.btnBaslatDurdur);
             this.PnlEkAyar.Dock = System.Windows.Forms.DockStyle.Top;
             this.PnlEkAyar.Location = new System.Drawing.Point(0, 0);
+            this.PnlEkAyar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.PnlEkAyar.Name = "PnlEkAyar";
-            this.PnlEkAyar.Size = new System.Drawing.Size(773, 89);
+            this.PnlEkAyar.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PnlEkAyar.Size = new System.Drawing.Size(1031, 110);
             this.PnlEkAyar.TabIndex = 0;
             this.PnlEkAyar.TabStop = false;
             this.PnlEkAyar.Text = "Ek Ayarlar";
             // 
             // btnDurdur
             // 
-            this.btnDurdur.Location = new System.Drawing.Point(381, 19);
+            this.btnDurdur.Location = new System.Drawing.Point(508, 23);
+            this.btnDurdur.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDurdur.Name = "btnDurdur";
-            this.btnDurdur.Size = new System.Drawing.Size(136, 43);
+            this.btnDurdur.Size = new System.Drawing.Size(181, 53);
             this.btnDurdur.TabIndex = 6;
             this.btnDurdur.Text = "Durdur";
             this.btnDurdur.UseVisualStyleBackColor = true;
@@ -170,9 +181,10 @@
             // 
             // btnBaslatDurdur
             // 
-            this.btnBaslatDurdur.Location = new System.Drawing.Point(239, 19);
+            this.btnBaslatDurdur.Location = new System.Drawing.Point(319, 23);
+            this.btnBaslatDurdur.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnBaslatDurdur.Name = "btnBaslatDurdur";
-            this.btnBaslatDurdur.Size = new System.Drawing.Size(136, 43);
+            this.btnBaslatDurdur.Size = new System.Drawing.Size(181, 53);
             this.btnBaslatDurdur.TabIndex = 5;
             this.btnBaslatDurdur.Text = "Başlat";
             this.btnBaslatDurdur.UseVisualStyleBackColor = true;
@@ -180,11 +192,12 @@
             // 
             // FrmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(773, 706);
+            this.ClientSize = new System.Drawing.Size(1031, 869);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FrmMain";
             this.Text = "Image To WebP";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

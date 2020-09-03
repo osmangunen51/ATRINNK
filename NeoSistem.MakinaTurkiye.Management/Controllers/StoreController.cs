@@ -3404,7 +3404,7 @@ descending
 
                     var orderInstallment = new global::MakinaTurkiye.Entities.Tables.Checkouts.OrderInstallment();
                     orderInstallment.OrderId = order.OrderId;
-                    orderInstallment.PayDate = Convert.ToDateTime(item);
+                    orderInstallment.PayDate = DateTime.ParseExact(item, "dd.MM.yyyy", null);
                     orderInstallment.Amunt = order.OrderPrice / model.Installment;
                     orderInstallment.IsPaid = false;
                     orderInstallment.RecordDate = DateTime.Now;
@@ -3412,7 +3412,7 @@ descending
                     installmentTextMail = installmentTextMail + " " + orderInstallment.PayDate.ToString("dd/MMM/yyyy") + "<br/>";
                     installmentdates.Add(orderInstallment.PayDate);
                     if (c == 1)
-                        firstDate = Convert.ToDateTime(item);
+                        firstDate = DateTime.ParseExact(item, "dd.MM.yyyy", null);
                     c++;
                 }
             }

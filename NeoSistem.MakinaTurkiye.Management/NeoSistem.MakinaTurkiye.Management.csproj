@@ -1766,24 +1766,6 @@
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Shared\Site.Master" />
-    <Content Include="webp\libwebp\bin\cwebp.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="webp\libwebp\bin\dwebp.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="webp\libwebp\bin\freeglut.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="webp\libwebp\bin\gif2webp.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="webp\libwebp\bin\vwebp.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="webp\libwebp\bin\webpmux.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="webp\libwebp\include\webp\decode.h" />
     <Content Include="webp\libwebp\include\webp\demux.h" />
     <Content Include="webp\libwebp\include\webp\encode.h" />
@@ -2031,6 +2013,7 @@
     <Folder Include="UserFiles\" />
     <Folder Include="Views\HeadAlertMessage\" />
     <Folder Include="Views\Transfer\" />
+    <Folder Include="webp\libwebp\bin\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
