@@ -136,7 +136,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 whereClause.Clear();
             }
             collection = dataOrder.Search(ref total, (int)Session[SessionPage], 1, whereClause.ToString(), STARTCOLUMN, ORDER).AsCollection<OrderModel>();
-            var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 ||  g.UserGroupId==20 select u;
+            var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 select u;
             List<SelectListItem> salesUserManagers = new List<SelectListItem>();
             salesUserManagers.Add(new SelectListItem { Text = "Tümü", Value = "0" });
             foreach (var item in salesUsers)
@@ -1242,7 +1242,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var orderdescriptions = _orderService.GetOrderDescriptionsByOrderId(model.OrderId).OrderByDescending(x => x.OrderDescriptionId).ToList();
             foreach (var item in orderdescriptions)
             {
-                model.UpdatePayDateModels.Add(new UpdatePayDateModel { Description = item.Description, UpdatePayDateId = item.OrderDescriptionId, WillPayDate = item.PayDate,RecordDate=item.RecordDate });
+                model.UpdatePayDateModels.Add(new UpdatePayDateModel { Description = item.Description, UpdatePayDateId = item.OrderDescriptionId, WillPayDate = item.PayDate, RecordDate = item.RecordDate });
             }
             var orderInstallments = _orderInstallmentService.GetOrderInstallmentsByOrderId(model.OrderId);
             foreach (var item in orderInstallments)
@@ -1282,7 +1282,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             newPayment.PaidAmount = PaidPrice;
             if (!string.IsNullOrEmpty(model.PayDate))
             {
-                newPayment.PaymentDate = Convert.ToDateTime(model.PayDate);
+                newPayment.PaymentDate = DateTime.ParseExact(model.PayDate, "dd.MM.yyyy", null);
             }
 
             newPayment.Description = model.Description;
@@ -1299,17 +1299,67 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             if (firstOrderInstallment != null)
             {
                 var rest = firstOrderInstallment.Amunt - PaidPrice;
-                firstOrderInstallment.IsPaid = true;
-                firstOrderInstallment.PaymentId = newPayment.PaymentId;
-                if (orderInstallMents.Count > 1)
+                if (rest >= 0)
                 {
-                    var secondInstallment = orderInstallMents[1];
-                    secondInstallment.Amunt += rest;
-                    order.PayDate = secondInstallment.PayDate;
-                    _orderInstallmentService.UpdateOrderInstallment(secondInstallment);
-                    _orderService.UpdateOrder(order);
+                    firstOrderInstallment.IsPaid = true;
+                    firstOrderInstallment.PaymentId = newPayment.PaymentId;
+                    if (orderInstallMents.Count > 1)
+                    {
+                        var secondInstallment = orderInstallMents[1];
+                        secondInstallment.Amunt += rest;
+                        order.PayDate = secondInstallment.PayDate;
+                        _orderInstallmentService.UpdateOrderInstallment(secondInstallment);
+                        _orderService.UpdateOrder(order);
+                    }
+
+                }
+                else
+                {
+                    firstOrderInstallment.IsPaid = true;
+                    firstOrderInstallment.PaymentId = newPayment.PaymentId;
+                    if (orderInstallMents.Count > 1)
+                    {
+                        for (int i = 1; i < orderInstallMents.Count; i++)
+                        {
+                            if (rest != 0)
+                            {
+                                var secondInstallment = orderInstallMents[i];
+                                if (Math.Abs(rest) > secondInstallment.Amunt) //--1400 800 
+                                {
+                                    rest = Math.Abs(rest) - secondInstallment.Amunt;
+
+                                    secondInstallment.IsPaid = true;
+                                }
+                                else
+                                {
+                                    if (orderInstallMents[i + 1] != null)
+                                    {
+                                        var anotherIns = orderInstallMents[i + 1];
+                                        anotherIns.Amunt =anotherIns.Amunt+ (secondInstallment.Amunt + rest);
+                                        _orderInstallmentService.UpdateOrderInstallment(anotherIns);
+
+                                    }
+                                    else
+                                    {
+                                        secondInstallment.Amunt = secondInstallment.Amunt + rest;
+                                    }
+                                    secondInstallment.IsPaid = true;
+                                    rest = 0;
+
+                                }
+
+                                order.PayDate = secondInstallment.PayDate;
+                                _orderInstallmentService.UpdateOrderInstallment(secondInstallment);
+                                _orderService.UpdateOrder(order);
+                            }
+                        }
+
+                    }
+
+
                 }
                 _orderInstallmentService.UpdateOrderInstallment(firstOrderInstallment);
+
             }
             if (newPayment.RestAmount == 0)
             {
@@ -1584,7 +1634,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             while (dateNow.Date.Month >= counter)
             {
-                if (!string.IsNullOrEmpty(monthNames[counter-1]))
+                if (!string.IsNullOrEmpty(monthNames[counter - 1]))
                 {
                     if (dateNow.Date.Month >= counter)
                     {
@@ -1610,8 +1660,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         public List<OrderCountItemModel> PrepareOrderCoutModel(DateTime dateNow)
         {
 
-            var orders = _orderService.GetAllOrders().Where(x => x.RecordDate.Date.Month == dateNow.Date.Month && x.RecordDate.Date.Year == dateNow.Date.Year && x.OrderCancelled != true && x.OrderPacketType!=2);
-            var s = orders.Where(x => x.AuthorizedId > 0).GroupBy(x => (int)x.AuthorizedId).Select(g => new { id = g.Key, count = g.Count() }).OrderBy(x=>x.count);
+            var orders = _orderService.GetAllOrders().Where(x => x.RecordDate.Date.Month == dateNow.Date.Month && x.RecordDate.Date.Year == dateNow.Date.Year && x.OrderCancelled != true && x.OrderPacketType != 2);
+            var s = orders.Where(x => x.AuthorizedId > 0).GroupBy(x => (int)x.AuthorizedId).Select(g => new { id = g.Key, count = g.Count() }).OrderBy(x => x.count);
             List<OrderCountItemModel> list = new List<OrderCountItemModel>();
             foreach (var item in s)
             {
@@ -1651,7 +1701,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 select new { u.UserName, u.UserId };
             foreach (var item in users1)
             {
-                model.SalesResponsibleUser.Add(new SelectListItem { Text = item.UserName, Value = item.UserId.ToString(), Selected = item.UserId==order.AuthorizedId});
+                model.SalesResponsibleUser.Add(new SelectListItem { Text = item.UserName, Value = item.UserId.ToString(), Selected = item.UserId == order.AuthorizedId });
             }
 
             return View(model);
@@ -1661,10 +1711,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         public ActionResult SalesResponsibleUpdate(string OrderId, string SalesUserId)
         {
             var order = _orderService.GetOrderByOrderId(Convert.ToInt32(OrderId));
-            order.AuthorizedId =Convert.ToInt32(SalesUserId);
+            order.AuthorizedId = Convert.ToInt32(SalesUserId);
             _orderService.UpdateOrder(order);
             TempData["Message"] = "Başarıyla Kayıt Edilmiştir";
-            return RedirectToAction("SalesResponsibleUpdate", new {orderId = OrderId });
+            return RedirectToAction("SalesResponsibleUpdate", new { orderId = OrderId });
         }
 
     }
