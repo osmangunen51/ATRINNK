@@ -8,6 +8,7 @@ using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -154,108 +155,113 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult processStatus = new ProcessResult();
             try
             {
-                //var result = _memberService.GetAllMembers();
-                var result = _memberService.GetMembersByMainPartyId(MainPartyId);
-                //var result = _memberService.GetMemberByMainPartyId(Id);
-                var memberInfoList = new List<MemberInfo>();
-                //var memberList = new List<Member>();
-                //memberList.Add(result);
-                foreach (var resul in result)
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+
+                if (member != null)
                 {
-                    var userAddresses = _addressService.GetAddressesByMainPartyId(resul.MainPartyId).ToList();
-                    var AddressList = new List<View.Address>();
-
-                    foreach (var userAdress in userAddresses)
+                    var results = _memberService.GetMembersByMainPartyId(MainPartyId);
+                    var memberInfoList = new List<MemberInfo>();
+                    foreach (var result in results)
                     {
-                        var cityData = new View.City();
-                        var countryData = new View.Country();
-                        var townData = new View.Town();
-                        var localityData = new View.Locality();
-                        if (userAdress.Locality != null && userAdress.Locality.LocalityId > 0)
-                        {
-                            var locality = _addressService.GetLocalityByLocalityId(userAdress.Locality.LocalityId);
-                            if (locality != null)
-                            {
-                                localityData.LocalityId = locality.LocalityId;
-                                localityData.LocalityName = locality.LocalityName;
-                            }
-                        }
+                        var userAddresses = _addressService.GetAddressesByMainPartyId(result.MainPartyId).ToList();
+                        var AddressList = new List<View.Address>();
 
-                        if (userAdress.City != null && userAdress.City.CityId > 0)
+                        foreach (var userAdress in userAddresses)
                         {
-                            var city = _addressService.GetCityByCityId(userAdress.City.CityId);
-                            if (city != null)
+                            var cityData = new View.City();
+                            var countryData = new View.Country();
+                            var townData = new View.Town();
+                            var localityData = new View.Locality();
+                            if (userAdress.Locality != null && userAdress.Locality.LocalityId > 0)
                             {
-                                cityData.CityId = city.CityId;
-                                cityData.CityName = city.CityName;
+                                var locality = _addressService.GetLocalityByLocalityId(userAdress.Locality.LocalityId);
+                                if (locality != null)
+                                {
+                                    localityData.LocalityId = locality.LocalityId;
+                                    localityData.LocalityName = locality.LocalityName;
+                                }
                             }
-                        }
 
-                        if (userAdress.Country != null && userAdress.Country.CountryId > 0)
-                        {
-                            var country = _addressService.GetCountryByCountryId(userAdress.Country.CountryId);
-                            if (country != null)
+                            if (userAdress.City != null && userAdress.City.CityId > 0)
                             {
-                                countryData.CountryId = country.CountryId;
-                                countryData.CountryName = country.CountryName;
+                                var city = _addressService.GetCityByCityId(userAdress.City.CityId);
+                                if (city != null)
+                                {
+                                    cityData.CityId = city.CityId;
+                                    cityData.CityName = city.CityName;
+                                }
                             }
-                        }
-                        if (userAdress.Town != null && userAdress.Town.TownId > 0)
-                        {
-                            var town = _addressService.GetTownByTownId(userAdress.Town.TownId);
-                            if (town != null)
-                            {
-                                townData.TownId = town.TownId;
-                                townData.TownName = town.TownName;
-                            }
-                        }
 
-                        var adress = new View.Address()
+                            if (userAdress.Country != null && userAdress.Country.CountryId > 0)
+                            {
+                                var country = _addressService.GetCountryByCountryId(userAdress.Country.CountryId);
+                                if (country != null)
+                                {
+                                    countryData.CountryId = country.CountryId;
+                                    countryData.CountryName = country.CountryName;
+                                }
+                            }
+                            if (userAdress.Town != null && userAdress.Town.TownId > 0)
+                            {
+                                var town = _addressService.GetTownByTownId(userAdress.Town.TownId);
+                                if (town != null)
+                                {
+                                    townData.TownId = town.TownId;
+                                    townData.TownName = town.TownName;
+                                }
+                            }
+
+                            var adress = new View.Address()
+                            {
+                                City = cityData,
+                                Locality = localityData,
+                                Country = countryData,
+                                Town = townData,
+                                AddressId = userAdress.AddressId,
+                                AdressDefault = userAdress.AddressDefault,
+                                ApartmentNo = userAdress.ApartmentNo,
+                                Avenue = userAdress.Avenue,
+                                DoorNo = userAdress.DoorNo,
+                                PostCode = userAdress.PostCode,
+                                StoreDealerId = userAdress.StoreDealerId,
+                                Street = userAdress.Street
+                            };
+                            AddressList.Add(adress);
+                        }
+                        var memberInfo = new MemberInfo()
                         {
-                            City = cityData,
-                            Locality = localityData,
-                            Country = countryData,
-                            Town = townData,
-                            AddressId = userAdress.AddressId,
-                            AdressDefault = userAdress.AddressDefault,
-                            ApartmentNo = userAdress.ApartmentNo,
-                            Avenue = userAdress.Avenue,
-                            DoorNo = userAdress.DoorNo,
-                            PostCode = userAdress.PostCode,
-                            StoreDealerId = userAdress.StoreDealerId,
-                            Street = userAdress.Street
+                            Active = result.Active,
+                            BirthDate = result.BirthDate,
+                            Gender = result.Gender.HasValue && result.Gender.Value ? 1 : 0,
+                            MainPartyId = result.MainPartyId,
+                            MemberEmail = result.MemberEmail,
+                            MemberName = result.MemberName,
+                            MemberNo = result.MemberNo,
+                            MemberPassword = null,
+                            MemberSurname = result.MemberSurname,
+                            MemberTitleType = result.MemberTitleType,
+                            MemberType = result.MemberType,
+                            Address = AddressList
                         };
-                        AddressList.Add(adress);
+
+                        memberInfoList.Add(memberInfo);
                     }
-                    var memberInfo = new MemberInfo()
-                    {
-                        Active = resul.Active,
-                        BirthDate = resul.BirthDate,
-                        Gender = resul.Gender.HasValue && resul.Gender.Value ? 1 : 0,
-                        MainPartyId = resul.MainPartyId,
-                        MemberEmail = resul.MemberEmail,
-                        MemberName = resul.MemberName,
-                        MemberNo = resul.MemberNo,
-                        MemberPassword = null,
-                        MemberSurname = resul.MemberSurname,
-                        MemberTitleType = resul.MemberTitleType,
-                        MemberType = resul.MemberType,
-                        Address = AddressList
-                    };
 
-                    memberInfoList.Add(memberInfo);
+                    processStatus.Result = memberInfoList;
+                    processStatus.TotolRowCount = memberInfoList.Count;
+                    processStatus.Message.Header = "Kullanıcı İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
                 }
-
-                //foreach (var item in Result)
-                //{
-                //    item.StoreLogo = ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300);
-                //}
-                processStatus.Result = memberInfoList;
-                processStatus.ActiveResultRowCount = memberInfoList.Count;
-                processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
-                processStatus.Message.Header = "Kullanıcı İşlemleri";
-                processStatus.Message.Text = "Başarılı";
-                processStatus.Status = true;
+                else
+                {
+                    processStatus.Message.Header = "Kullanıcı İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "Login kullanıcı bulunamadı";
+                }
             }
             catch (Exception Error)
             {
@@ -390,24 +396,33 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
-
-                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
-                if (member != null && model.NewPassword == model.NewPasswordAgain && member.MemberPassword == model.OldPassword)
-                {
-                    member.MemberPassword = model.NewPassword;
-                    _memberService.UpdateMember(member);
-
-                    processStatus.Message.Header = "Kullanıcı şifre işlemleri";
-                    processStatus.Message.Text = "Başarılı";
-                    processStatus.Status = true;
-                    processStatus.Result = "Şifre değiştirme işlemi başarılı bir şekilde gerçekleşmiştir";
-                }
-                else
+                if (model.NewPassword.Length < 6)
                 {
                     processStatus.Message.Header = "Kullanıcı şifre işlemleri";
                     processStatus.Message.Text = "Başarısız";
                     processStatus.Status = false;
-                    processStatus.Result = "Şifre değiştirme işlemi başarısızdır";
+                    processStatus.Result = "Şifre en az 6 karakterden oluşmalıdır";
+                }
+                else
+                {
+                    var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                    if (member != null && model.NewPassword == model.NewPasswordAgain && member.MemberPassword == model.OldPassword)
+                    {
+                        member.MemberPassword = model.NewPassword;
+                        _memberService.UpdateMember(member);
+
+                        processStatus.Message.Header = "Kullanıcı şifre işlemleri";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
+                        processStatus.Result = "Şifre değiştirme işlemi başarılı bir şekilde gerçekleşmiştir";
+                    }
+                    else
+                    {
+                        processStatus.Message.Header = "Kullanıcı şifre işlemleri";
+                        processStatus.Message.Text = "Başarısız";
+                        processStatus.Status = false;
+                        processStatus.Result = "Şifre değiştirme işlemi başarısızdır";
+                    }
                 }
             }
             catch (Exception ex)
@@ -428,7 +443,7 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
-
+                
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null && model.GenderWoman != model.GenderMan && member.MemberPassword == model.Password)
                 {
@@ -437,6 +452,11 @@ namespace MakinaTurkiye.Api.Controllers
                     member.BirthDate = model.BirthDate;
                     member.Gender = model.GenderWoman;
                     _memberService.UpdateMember(member);
+                    
+                    var existMainParty = _memberService.GetMainPartyByMainPartyId(member.MainPartyId);
+                    existMainParty.MainPartyFullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.Name.ToLower() + " " + model.Surname.ToLower());
+                   
+                    _memberService.UpdateMainParty(existMainParty);
 
                     processStatus.Message.Header = "Kullanıcı Kişisel bilgi işlemleri";
                     processStatus.Message.Text = "Başarılı";

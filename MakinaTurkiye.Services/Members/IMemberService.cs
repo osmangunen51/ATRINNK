@@ -15,7 +15,7 @@ namespace MakinaTurkiye.Services.Members
         MainParty GetMainPartyByMainPartyId(int mainPartyId);
        
         void InsertMainParty(MainParty mainParty);
-
+        void UpdateMainParty(MainParty mainParty);
 
         void InsertMember(Member member);
         void UpdateMember(Member member);

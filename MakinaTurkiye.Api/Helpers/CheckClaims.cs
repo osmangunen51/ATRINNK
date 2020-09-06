@@ -17,12 +17,15 @@ namespace MakinaTurkiye.Api.Helpers
                 string TxtToken = Request.Headers.GetValues("Token").First();
                 string Key = ConfigurationManager.AppSettings["Token:Sifre-Key"].ToString();
                 TxtToken = TxtToken.Coz(Key);
-
                 token = JsonConvert.DeserializeObject<LoginInfoFromToken>(TxtToken);
                 if (token.EndDate < DateTime.Now)
                 {
-                    GetDefaultAccessToken();
+                    TxtToken = GetDefaultAccessToken();
+                    TxtToken = TxtToken.Coz(Key);
+                    token = JsonConvert.DeserializeObject<LoginInfoFromToken>(TxtToken);
+
                 }
+                               
             }
             catch (Exception ex)
             {

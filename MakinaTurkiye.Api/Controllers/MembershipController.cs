@@ -106,7 +106,7 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Message.Header = "User Login";
                     processStatus.Message.Text = "Giriş işlemi başarısız";
                     processStatus.Status = false;
-                    processStatus.Result = "Email veya şifreyi kontrol edin";
+                    processStatus.Result = "Email adresi veya parolanız yanlıştır.";
                 }
                 if (member.Active.HasValue && member.Active.Value)
                 {
@@ -459,7 +459,9 @@ namespace MakinaTurkiye.Api.Controllers
                             Key = "makinaturkiye",
                             PrivateAnahtar = "makinaturkiye",
                             LoginMemberEmail = member.MemberEmail,
-                            LoginMemberNameSurname = member.MemberName + " " + member.MemberSurname
+                            LoginMemberNameSurname = member.MemberName + " " + member.MemberSurname,
+                             //EndDate =  DateTime.Now.AddDays(365),
+
                         };
                         TxtToken = Newtonsoft.Json.JsonConvert.SerializeObject(token, Newtonsoft.Json.Formatting.None).Sifrele(Key);
                     };

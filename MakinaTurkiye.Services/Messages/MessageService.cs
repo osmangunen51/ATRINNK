@@ -188,5 +188,19 @@ namespace MakinaTurkiye.Services.Messages
 
             _messageCheckRepository.Delete(messageCheck);
         }
+
+        public IList<MessageMainParty> GetAllMessageMainParty(int memberMainPartyId, byte messageType)
+        {
+            var messageMainPartyList = new List<MessageMainParty>();
+           var messageMainPartyRepo  =  _messageMainPartyRepository.Table;
+            //if(messageType == 2)
+            //    messageMainPartyList = messageMainPartyRepo.Where(m => m.MessageType == (byte)messageType && (m.MainPartyId == memberMainPartyId || m.InOutMainPartyId == memberMainPartyId)).ToList();
+
+            //else
+                messageMainPartyList = messageMainPartyRepo.Where(m => m.MessageType == (byte)messageType && m.MainPartyId == memberMainPartyId).ToList();
+
+            return messageMainPartyList;
+        }
+
     }
 }

@@ -177,6 +177,14 @@ namespace MakinaTurkiye.Services.Members
             return query.FirstOrDefault(x => x.MainPartyId == mainPartyId);
         }
 
+        public void UpdateMainParty(MainParty mainParty)
+        {
+            if (mainParty == null)
+                throw new ArgumentNullException("UpdateMainParty");
+
+            _mainPartyRepository.Update(mainParty);
+        }
+
         public Member GetMemberByForgetPasswordCode(string forgetPasswordCode)
         {
             if (string.IsNullOrEmpty(forgetPasswordCode))

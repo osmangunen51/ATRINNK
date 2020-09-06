@@ -30,7 +30,7 @@ namespace MakinaTurkiye.Api.Controllers
             _storeService = EngineContext.Current.Resolve<IStoreService>();
         }
 
-        public HttpResponseMessage GetFavoriteProductsByLoginUser(int page, int pageDimension)
+        public HttpResponseMessage GetFavoriteProductsByLoginUser()
         {
             ProcessResult processStatus = new ProcessResult();
 
@@ -42,12 +42,9 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (member != null)
                 {
-                    int totalRecord = 0;
-
-                    var favoriteProducts = _productService.GetSPFavoriteProductsByMainPartyId(member.MainPartyId, page, pageDimension, out totalRecord);
+                    var favoriteProducts = _favoriteProductService.GetFavoriteProducts().Where(x => x.MainPartyId == member.MainPartyId).ToList();
                     processStatus.Result = favoriteProducts;
-                    processStatus.ActiveResultRowCount = favoriteProducts.Count;
-                    processStatus.TotolRowCount = totalRecord;
+                    processStatus.TotolRowCount = favoriteProducts.Count;
                     processStatus.Message.Header = "Favorite Products";
                     processStatus.Message.Text = "Başarılı";
                     processStatus.Status = true;
@@ -83,24 +80,36 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (member != null)
                 {
-                    var comminProduct = _productService.GetProductByProductId(productId);
-                    var favoriteProduct = new FavoriteProduct()
+                    var favoriteProducts = _favoriteProductService.GetFavoriteProducts().Where(x => x.MainPartyId == member.MainPartyId && x.ProductId == productId).ToList();
+
+                    if (favoriteProducts != null)
                     {
-                        CreatedDate = DateTime.Now,
-                        MainPartyId = member.MainPartyId,
-                        ProductId = comminProduct.ProductId
-                    };
+                        processStatus.Result = "Bu ürünü zaten favorilere eklemişsiniz!";
+                        processStatus.Message.Header = "add Favorite Products";
+                        processStatus.Message.Text = "Başarısız";
+                        processStatus.Status = false;
+                    }
+                    else
+                    {
+                        var comminProduct = _productService.GetProductByProductId(productId);
+                        var favoriteProduct = new FavoriteProduct()
+                        {
+                            CreatedDate = DateTime.Now,
+                            MainPartyId = member.MainPartyId,
+                            ProductId = comminProduct.ProductId
+                        };
 
-                    _favoriteProductService.InsertFavoriteProduct(favoriteProduct);
+                        _favoriteProductService.InsertFavoriteProduct(favoriteProduct);
 
-                    processStatus.Result = "Ürün başarıyla favorilere eklenmiştir.";
-                    processStatus.Message.Header = "add Favorite Products";
-                    processStatus.Message.Text = "Başarılı";
-                    processStatus.Status = true;
+                        processStatus.Result = "Ürün başarıyla favorilere eklenmiştir.";
+                        processStatus.Message.Header = "add Favorite Products";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
+                    }
                 }
                 else
                 {
-                    processStatus.Result = "Login üye bulunamadı";
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
                     processStatus.Message.Header = "add Favorite Products";
                     processStatus.Message.Text = "Başarısız";
                     processStatus.Status = false;
@@ -129,18 +138,30 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (member != null)
                 {
-                    var favoriteProduct = _favoriteProductService.GetFavoriteProductByMainPartyIdWithProductId(member.MainPartyId, productId);
+                    var favoriteProduct = _favoriteProductService.GetFavoriteProducts().Where(x => x.MainPartyId == member.MainPartyId && x.ProductId == productId).ToList();
+                    if (favoriteProduct.Count != 0)
+                    {
+                        foreach (var favProd in favoriteProduct)
+                            _favoriteProductService.DeleteFavoriteProduct(favProd);
 
-                    _favoriteProductService.DeleteFavoriteProduct(favoriteProduct);
+                        processStatus.Result = "Ürün başarıyla favorilerden silinmiştir.";
+                        processStatus.Message.Header = "delete Favorite Products";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
+                    }
+                    else
+                    {
+                        processStatus.Result = "Favorilerinizde olmayan ürünü çıkarmaya çalışıyorsunuz.";
+                        processStatus.Message.Header = "delete Favorite Products";
+                        processStatus.Message.Text = "Başarısız";
+                        processStatus.Status = false;
+                    }
 
-                    processStatus.Result = "Ürün başarıyla favorilerden silinmiştir.";
-                    processStatus.Message.Header = "delete Favorite Products";
-                    processStatus.Message.Text = "Başarılı";
-                    processStatus.Status = true;
+
                 }
                 else
                 {
-                    processStatus.Result = "Login üye bulunamadı";
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
                     processStatus.Message.Header = "delete Favorite Products";
                     processStatus.Message.Text = "Başarısız";
                     processStatus.Status = false;
@@ -178,7 +199,7 @@ namespace MakinaTurkiye.Api.Controllers
                 }
                 else
                 {
-                    processStatus.Result = "Login üye bulunamadı";
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
                     processStatus.Message.Header = "Favorite Stores";
                     processStatus.Message.Text = "Başarısız";
                     processStatus.Status = false;
@@ -207,19 +228,31 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (member != null)
                 {
-                    var comminStore = _storeService.GetStoreByMainPartyId(storesId);
-                    var favoriteStore = new FavoriteStore()
+                    var existFavoriteStore = _favoriteStoreService.GetFavoriteStoreByMemberMainPartyIdWithStoreMainPartyId(member.MainPartyId, storesId);
+                    if (existFavoriteStore == null)
                     {
-                        MemberMainPartyId = member.MainPartyId,
-                        StoreMainPartyId = comminStore.MainPartyId
-                    };
+                        var comminStore = _storeService.GetStoreByMainPartyId(storesId);
+                        var favoriteStore = new FavoriteStore()
+                        {
+                            MemberMainPartyId = member.MainPartyId,
+                            StoreMainPartyId = comminStore.MainPartyId
+                        };
 
-                    _favoriteStoreService.InsertFavoriteStore(favoriteStore);
+                        _favoriteStoreService.InsertFavoriteStore(favoriteStore);
 
-                    processStatus.Result = "Firma başarıyla favorilere eklenmiştir.";
-                    processStatus.Message.Header = "add Favorite Store";
-                    processStatus.Message.Text = "Başarılı";
-                    processStatus.Status = true;
+                        processStatus.Result = "Firma başarıyla favorilere eklenmiştir.";
+                        processStatus.Message.Header = "add Favorite Store";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
+                    }
+                    else
+                    {
+                        processStatus.Result = "Bu Firmayı zaten favorilere eklemişsiniz!";
+                        processStatus.Message.Header = "add Favorite Store";
+                        processStatus.Message.Text = "Başarısız";
+                        processStatus.Status = false;
+                    }
+
                 }
                 else
                 {
@@ -253,13 +286,23 @@ namespace MakinaTurkiye.Api.Controllers
                 if (member != null)
                 {
                     var favoriteStore = _favoriteStoreService.GetFavoriteStoreByMemberMainPartyIdWithStoreMainPartyId(member.MainPartyId, storesId);
+                    if (favoriteStore != null)
+                    {
+                        _favoriteStoreService.DeleteFavoriteStore(favoriteStore);
 
-                    _favoriteStoreService.DeleteFavoriteStore(favoriteStore);
+                        processStatus.Result = "Firma başarıyla favorilerden silinmiştir.";
+                        processStatus.Message.Header = "delete Favorite Store";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
+                    }
+                    else
+                    {
+                        processStatus.Result = "Favorilerinizde olmayan Firmayı çıkarmaya çalışıyorsunuz.";
+                        processStatus.Message.Header = "delete Favorite Store";
+                        processStatus.Message.Text = "Başarısız";
+                        processStatus.Status = false;
+                    }
 
-                    processStatus.Result = "Firma başarıyla favorilerden silinmiştir.";
-                    processStatus.Message.Header = "delete Favorite Store";
-                    processStatus.Message.Text = "Başarılı";
-                    processStatus.Status = true;
                 }
                 else
                 {

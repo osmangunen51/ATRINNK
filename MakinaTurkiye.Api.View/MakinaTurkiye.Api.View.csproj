@@ -55,6 +55,8 @@
     <Compile Include="Locality.cs" />
     <Compile Include="MemberEmailPassword.cs" />
     <Compile Include="MemberInfo.cs" />
+    <Compile Include="MemberInfoForPrivateMessage.cs" />
+    <Compile Include="MessageViewModel.cs" />
     <Compile Include="PhoneActivationModel.cs" />
     <Compile Include="Result\ProductSearchResult.cs" />
     <Compile Include="SearchInput.cs" />
@@ -69,6 +71,12 @@
     <Compile Include="StringExtentions.cs" />
     <Compile Include="LoginInfoFromToken.cs" />
     <Compile Include="UserRegister.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MakinaTurkiye.Entities\MakinaTurkiye.Entities.csproj">
+      <Project>{3BD34B52-76FA-410E-AEAE-7A0D7A732750}</Project>
+      <Name>MakinaTurkiye.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
