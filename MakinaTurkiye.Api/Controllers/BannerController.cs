@@ -12,11 +12,11 @@ namespace MakinaTurkiye.Api.Controllers
 {
     public class BannerController : BaseApiController
     {
-        private readonly IBannerService ProductService;
+        private readonly IBannerService _productService;
 
-        public BannerController()
+        public BannerController(IBannerService productService)
         {
-            ProductService = EngineContext.Current.Resolve<IBannerService>();
+            _productService = productService;
         }
 
         public HttpResponseMessage GetAll()

@@ -11,10 +11,10 @@ namespace MakinaTurkiye.Api.Controllers
 {
     public class BrandController : BaseApiController
     {
-        private readonly ICategoryService BrandService;
-        public BrandController()
+        private readonly ICategoryService _categoryService;
+        public BrandController(ICategoryService categoryService)
         {
-            BrandService = EngineContext.Current.Resolve<ICategoryService>();
+            _categoryService = categoryService;
         }
 
         public HttpResponseMessage Get(int No)
@@ -22,7 +22,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x=>x.CategoryId==No);
+                var Result = _categoryService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x=>x.CategoryId==No);
                 if (Result != null)
                 {
                     ProcessStatus.Result = Result;
@@ -58,7 +58,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand);
+                var Result = _categoryService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand);
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
                 ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
@@ -83,7 +83,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = BrandService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x => x.CategoryName.Contains(Name));
+                var Result = _categoryService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x => x.CategoryName.Contains(Name));
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count();
                 ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;

@@ -10,11 +10,11 @@ namespace MakinaTurkiye.Api.Controllers
 {
     public class CategoryController : BaseApiController
     {
-        private readonly ICategoryService CategoryService;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController()
+        public CategoryController(ICategoryService categoryService)
         {
-            CategoryService = EngineContext.Current.Resolve<ICategoryService>();
+            _categoryService = categoryService;
         }
 
         public HttpResponseMessage Get(int categoryId)
@@ -22,7 +22,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var result = CategoryService.GetCategoryByCategoryId(categoryId);
+                var result = _categoryService.GetCategoryByCategoryId(categoryId);
                 if (result != null)
                 {
                     result.CategoryIcon = !string.IsNullOrEmpty(result.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(result.CategoryIcon) : null;
@@ -57,7 +57,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = CategoryService.GetAllCategories();
+                var Result = _categoryService.GetAllCategories();
                 foreach (var item in Result)
                 {
                     item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
@@ -86,7 +86,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = CategoryService.GetCategoriesByName(Name);
+                var Result = _categoryService.GetCategoriesByName(Name);
                 foreach (var item in Result)
                 {
                     item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
@@ -114,7 +114,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = CategoryService.GetMainCategories();
+                var Result = _categoryService.GetMainCategories();
                 foreach (var item in Result)
                 {
                     item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
@@ -142,7 +142,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = CategoryService.GetCategoriesByCategoryParentId(parentId);
+                var Result = _categoryService.GetCategoriesByCategoryParentId(parentId);
 
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;

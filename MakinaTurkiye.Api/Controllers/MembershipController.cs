@@ -7,6 +7,7 @@ using MakinaTurkiye.Services.Authentication;
 using MakinaTurkiye.Services.Logs;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
+using MakinaTurkiye.Services.Stores;
 using System;
 using System.Configuration;
 using System.Globalization;
@@ -27,15 +28,20 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly ILoginLogService _loginLogService;
         private readonly IMemberStoreService _memberStoreService;
         private readonly IAuthenticationService _authenticationService;
+        private readonly IStoreService _storeService;
 
-        public MembershipController()
+        public MembershipController(IMemberService memberService, IMessagesMTService messagesMTService, IMessageService messageService,
+                                ILoginLogService loginLogService, IMemberStoreService memberStoreService, IAuthenticationService authenticationService, 
+                                IStoreService storeService
+                                )
         {
-            _memberService = EngineContext.Current.Resolve<IMemberService>();
-            _messagesMTService = EngineContext.Current.Resolve<IMessagesMTService>();
-            _messageService = EngineContext.Current.Resolve<IMessageService>();
-            _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
-            _loginLogService = EngineContext.Current.Resolve<ILoginLogService>();
-            _authenticationService = EngineContext.Current.Resolve<IAuthenticationService>();
+            _memberService = memberService;
+            _messagesMTService = messagesMTService;
+            _messageService = messageService;
+            _memberStoreService = memberStoreService;
+            _loginLogService = loginLogService;
+            _authenticationService = authenticationService;
+            _storeService = storeService;
         }
 
         public HttpResponseMessage FastMembership([FromBody]UserRegister Model)
@@ -212,56 +218,6 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Result = "Şifre yenileme işlemi başarısız.";
                 }
 
-                //if (string.IsNullOrEmpty(passwordCode))
-                //{
-                //    var memberInfo = _memberService.GetMemberByMemberEmail(model.MemberEmail);
-                //    if (memberInfo != null)
-                //    {
-                //        string code = DateTime.Now.Ticks.ToString();
-                //        memberInfo.ForgetPasswodCode = code;
-                //        _memberService.UpdateMember(memberInfo);
-                //        memberHeader[0] = memberInfo.MemberName;
-                //        memberHeader[1] = memberInfo.MemberSurname;
-                //        ReCreateLinkSend(memberInfo.MemberEmail, memberHeader, false, code);
-
-                //        processStatus.Message.Header = "Forgotten Password";
-                //        processStatus.Message.Text = "İşlem başarılı";
-                //        processStatus.Status = true;
-                //        processStatus.Result = "Şifre yenileme işlemi başarılı şekilde tamamlanmıştır. Lütfen mail adresinize gönderilen linki kullanarak şifrenizi sıfırlayabilirsiniz.";
-                //    }
-                //    else
-                //    {
-                //        processStatus.Message.Header = "Forgotten Password";
-                //        processStatus.Message.Text = "İşlem başarısız";
-                //        processStatus.Status = false;
-                //        processStatus.Result = "Sistemde kayıtlı email bulunamadı.";
-                //    }
-                //}
-                //else
-                //{
-                //    var memberInfo = _memberService.GetMemberByForgetPasswordCode(passwordCode);
-                //    if (memberInfo != null)
-                //    {
-                //        memberInfo.MemberPassword = model.MemberPassword;
-                //        memberInfo.ForgetPasswodCode = "";
-                //        _memberService.UpdateMember(memberInfo);
-                //        memberHeader[0] = memberInfo.MemberName;
-                //        memberHeader[1] = memberInfo.MemberSurname;
-                //        ReCreateLinkSend(memberInfo.MemberEmail, memberHeader, true, "");
-
-                //        processStatus.Message.Header = "Forgotten Password";
-                //        processStatus.Message.Text = "İşlem başarılı";
-                //        processStatus.Status = true;
-                //        processStatus.Result = "Şifre yenileme işlemi başarılı şekilde tamamlanmıştır. Lütfen mail adresinize gönderilen linki kullanarak şifrenizi sıfırlayabilirsiniz.";
-                //    }
-                //    else
-                //    {
-                //        processStatus.Message.Header = "Forgotten Password";
-                //        processStatus.Message.Text = "İşlem başarısız";
-                //        processStatus.Status = false;
-                //        processStatus.Result = "Şifre yenileme işlemi başarısız.";
-                //    }
-                //}
             }
             catch (Exception ex)
             {
@@ -460,7 +416,7 @@ namespace MakinaTurkiye.Api.Controllers
                             PrivateAnahtar = "makinaturkiye",
                             LoginMemberEmail = member.MemberEmail,
                             LoginMemberNameSurname = member.MemberName + " " + member.MemberSurname,
-                             //EndDate =  DateTime.Now.AddDays(365),
+                            //EndDate =  DateTime.Now.AddDays(365),
 
                         };
                         TxtToken = Newtonsoft.Json.JsonConvert.SerializeObject(token, Newtonsoft.Json.Formatting.None).Sifrele(Key);
@@ -474,5 +430,88 @@ namespace MakinaTurkiye.Api.Controllers
                 throw ex;
             }
         }
+
+        public HttpResponseMessage CheckEmailForNewMember(string email)
+        {
+            ProcessResult processStatus = new ProcessResult();
+
+            try
+            {
+                var member = _memberService.GetMemberByMemberEmail(email);
+
+                var anyUser = member != null;
+                processStatus.Message.Header = "CheckEmailForNewMember";
+                processStatus.Message.Text = "İşlem başarılı";
+                processStatus.Status = true;
+                processStatus.Result = anyUser;
+
+            }
+            catch (Exception ex)
+            {
+
+                processStatus.Message.Header = "CheckEmailForNewMember";
+                processStatus.Message.Text = "İşlem başarısız";
+                processStatus.Status = false;
+                processStatus.Result = "Şifre yenileme işlemi başarısız.";
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+
+        }
+
+        public HttpResponseMessage CheckMailForStore(string email)
+        {
+            ProcessResult processStatus = new ProcessResult();
+
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+
+                if (member != null)
+                {
+                    var itemMember = _memberService.GetMemberByMemberEmail(email);
+                    var itemStore = _storeService.GetStoreByStoreEmail(email);
+                    if (itemMember != null || itemStore != null)
+                    {
+                        processStatus.Message.Header = "CheckMailForStore";
+                        processStatus.Message.Text = "İşlem başarılı";
+                        processStatus.Status = true;
+                        processStatus.Result = false;
+
+                    }
+                    if (email == LoginUserEmail)
+                    {
+                        processStatus.Message.Header = "CheckMailForStore";
+                        processStatus.Message.Text = "İşlem başarılı";
+                        processStatus.Status = true;
+                        processStatus.Result = true;
+                    }
+
+                    processStatus.Message.Header = "CheckMailForStore";
+                    processStatus.Message.Text = "İşlem başarılı";
+                    processStatus.Status = true;
+                    processStatus.Result = true;
+                }
+                else
+                {
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
+                    processStatus.Message.Header = "CheckMailForStore";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "CheckMailForStore";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+
+        }
+
     }
 }

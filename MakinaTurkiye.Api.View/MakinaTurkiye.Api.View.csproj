@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\OrderListItem.cs" />
+    <Compile Include="Account\OrderPageModel.cs" />
     <Compile Include="Address.cs" />
     <Compile Include="ChangeEmailModel.cs" />
     <Compile Include="ChangePasswordModel.cs" />
@@ -58,6 +60,8 @@
     <Compile Include="MemberInfoForPrivateMessage.cs" />
     <Compile Include="MessageViewModel.cs" />
     <Compile Include="PhoneActivationModel.cs" />
+    <Compile Include="Products\MTProductComplainModel.cs" />
+    <Compile Include="Products\ProductComplainTypeView.cs" />
     <Compile Include="Result\ProductSearchResult.cs" />
     <Compile Include="SearchInput.cs" />
     <Compile Include="Town.cs" />

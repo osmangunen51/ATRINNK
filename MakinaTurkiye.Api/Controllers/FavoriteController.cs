@@ -21,13 +21,14 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IStoreService _storeService;
         private readonly IFavoriteProductService _favoriteProductService;
 
-        public FavoriteController()
+        public FavoriteController(IProductService productService, IMemberService memberService, 
+            IFavoriteStoreService favoriteStoreService, IStoreService storeService, IFavoriteProductService favoriteProductService)
         {
-            _productService = EngineContext.Current.Resolve<IProductService>();
-            _memberService = EngineContext.Current.Resolve<IMemberService>();
-            _favoriteStoreService = EngineContext.Current.Resolve<IFavoriteStoreService>();
-            _favoriteProductService = EngineContext.Current.Resolve<IFavoriteProductService>();
-            _storeService = EngineContext.Current.Resolve<IStoreService>();
+            _productService = productService;
+            _memberService = memberService;
+            _favoriteStoreService = favoriteStoreService;
+            _favoriteProductService = favoriteProductService;
+            _storeService = storeService;
         }
 
         public HttpResponseMessage GetFavoriteProductsByLoginUser()
@@ -80,7 +81,8 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (member != null)
                 {
-                    var favoriteProducts = _favoriteProductService.GetFavoriteProducts().Where(x => x.MainPartyId == member.MainPartyId && x.ProductId == productId).ToList();
+                    //var favoriteProducts = _favoriteProductService.GetFavoriteProducts().Where(x => x.MainPartyId == member.MainPartyId && x.ProductId == productId).ToList();
+                    var favoriteProducts = _favoriteProductService.GetFavoriteProductByMainPartyIdWithProductId(member.MainPartyId, productId);
 
                     if (favoriteProducts != null)
                     {

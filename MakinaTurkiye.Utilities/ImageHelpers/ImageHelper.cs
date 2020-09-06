@@ -92,28 +92,28 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
                 string[] name = productImageName.Split('.');
                 string picturePathIsExist = string.Empty;
 
-                #if !DEBUG
-                string imageSizeName = imageSize.ToString();
-                                if (imageSize == ProductImageSize.x160x120)
-                                    imageSizeName = "160x120";
-                                picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-" + imageSizeName.Replace("px", "") + ".{2}", productId, name[0],
-                                 name[1]);
-                                if (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
-                                {
+                //#if !DEBUG
+                //string imageSizeName = imageSize.ToString();
+                //                if (imageSize == ProductImageSize.x160x120)
+                //                    imageSizeName = "160x120";
+                //                picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-" + imageSizeName.Replace("px", "") + ".{2}", productId, name[0],
+                //                 name[1]);
+                //                if (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
+                //                {
 
-                                    picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-400x300.{2}", productId, name[0],
-                name[1]);
-                                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
-                                    {
-                                        imageSize = ProductImageSize.px400x300;
-                                    }
-                                    else
-                                    {
-                                        imageSize = ProductImageSize.NoImage;
-                                    }
-                                }
+                //                    picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-400x300.{2}", productId, name[0],
+                //name[1]);
+                //                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
+                //                    {
+                //                        imageSize = ProductImageSize.px400x300;
+                //                    }
+                //                    else
+                //                    {
+                //                        imageSize = ProductImageSize.NoImage;
+                //                    }
+                //                }
 
-                #endif
+                //#endif
 
 
 

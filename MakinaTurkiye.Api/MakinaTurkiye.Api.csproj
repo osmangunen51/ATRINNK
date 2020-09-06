@@ -291,6 +291,7 @@
     <Compile Include="Code\CompressAttribute.cs" />
     <Compile Include="Code\ZamanlanmisGorevler\Gorevler\TmpGorev.cs" />
     <Compile Include="Code\ZamanlanmisGorevler\Zamanlayicilar\ZamanlayiciTmpGorev.cs" />
+    <Compile Include="Controllers\AdvertController.cs" />
     <Compile Include="Controllers\AnasayfaController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\BrandController.cs" />
@@ -300,7 +301,9 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\MembershipController.cs" />
+    <Compile Include="Controllers\MemberTypeController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\StoreController.cs" />

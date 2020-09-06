@@ -25,14 +25,15 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IMobileMessageService _mobileMessageService;
         private readonly IMessagesMTService _messagesMTService;
 
-        public MessageController()
+        public MessageController(IMemberService memberService, IMessageService messageService, IPhoneService phoneService, IProductService productService,
+            IMobileMessageService mobileMessageService, IMessagesMTService messagesMTService)
         {
-            _memberService = EngineContext.Current.Resolve<IMemberService>();
-            _messageService = EngineContext.Current.Resolve<IMessageService>();
-            _phoneService = EngineContext.Current.Resolve<IPhoneService>();
-            _productService = EngineContext.Current.Resolve<IProductService>();
-            _mobileMessageService = EngineContext.Current.Resolve<IMobileMessageService>();
-            _messagesMTService = EngineContext.Current.Resolve<IMessagesMTService>();
+            _memberService = memberService;
+            _messageService = messageService;
+            _phoneService = phoneService;
+            _productService = productService;
+            _mobileMessageService = mobileMessageService;
+            _messagesMTService = messagesMTService;
         }
 
         public HttpResponseMessage SendPrivateMessage(MessageViewModel model)
@@ -42,7 +43,6 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
-
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
@@ -199,7 +199,6 @@ namespace MakinaTurkiye.Api.Controllers
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
-
                     foreach (var messageId in messageIdList)
                     {
                         var message = _messageService.GetMessageByMesssageId(messageId);
@@ -243,6 +242,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         //  public HttpResponseMessage DeletePrivateMessage(List<int> messageIdList, MessageType messageType)
         //{
         //    ProcessResult processStatus = new ProcessResult();
@@ -320,7 +320,6 @@ namespace MakinaTurkiye.Api.Controllers
 
                         var privateMessage = new
                         {
-
                             TargetMainPartyId = targetUser.MainPartyId,
                             TargetNameSurname = targetUser.MemberName + " " + targetUser.MemberSurname,
                             SenderMainPartyId = senderUser.MainPartyId,
@@ -336,7 +335,6 @@ namespace MakinaTurkiye.Api.Controllers
                         };
 
                         privateMessageViewList.Add(privateMessage);
-
                     }
 
                     processStatus.Result = privateMessageViewList;
@@ -401,7 +399,6 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductId = messageData.ProductId
                     };
 
-
                     processStatus.Result = privateMessageView;
                     processStatus.Message.Header = "Inbox Private Message";
                     processStatus.Message.Text = "Başarılı";
@@ -425,7 +422,6 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
 
         public HttpResponseMessage GetAllSendPrivateMessage()
         {
@@ -462,7 +458,7 @@ namespace MakinaTurkiye.Api.Controllers
                             MessageSubject = messageData.MessageSubject,
                             ProductId = messageData.ProductId
                         };
-                    privateMessageViewList.Add(privateMessageView);
+                        privateMessageViewList.Add(privateMessageView);
                     }
 
                     processStatus.Result = privateMessageViewList;
@@ -503,6 +499,7 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     var privateMessageViewList = new List<Object>();
                     var allMessageMainPartyForLogginMamber = _messageService.GetAllMessageMainParty(member.MainPartyId, (byte)MessageType.RecyleBin).ToList();
+
                     foreach (var messageMainPartyForLogginMamber in allMessageMainPartyForLogginMamber)
                     {
                         var messageData = _messageService.GetMessageByMesssageId(messageMainPartyForLogginMamber.MessageId);

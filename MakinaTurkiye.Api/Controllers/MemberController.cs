@@ -22,12 +22,12 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IPhoneService _phoneService;
         private readonly IMobileMessageService _mobileMessageService;
 
-        public MemberController()
+        public MemberController(IMemberService memberService, IAddressService addressService,IPhoneService phoneService, IMobileMessageService mobileMessageService)
         {
-            _memberService = EngineContext.Current.Resolve<IMemberService>();
-            _addressService = EngineContext.Current.Resolve<IAddressService>();
-            _phoneService = EngineContext.Current.Resolve<IPhoneService>();
-            _mobileMessageService = EngineContext.Current.Resolve<IMobileMessageService>();
+            _memberService = memberService;
+            _addressService = addressService;
+            _phoneService = phoneService;
+            _mobileMessageService = mobileMessageService;
         }
 
         public HttpResponseMessage GetLoginMemberInfo()
