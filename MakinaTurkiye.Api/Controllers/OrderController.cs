@@ -20,13 +20,24 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IOrderService _orderService;
         private readonly IPacketService _packetService;
 
-        public OrderController(IMemberService memberService, IMemberStoreService memberStoreService, IOrderService orderService, IPacketService packetService)
+        public OrderController()
         {
-            _memberService = memberService;
-            _memberStoreService = memberStoreService;
-            _orderService = orderService;
-            _packetService = packetService;
+            _memberService = EngineContext.Current.Resolve<IMemberService>();
+            _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
+            _orderService = EngineContext.Current.Resolve<IOrderService>();
+            _packetService = EngineContext.Current.Resolve<IPacketService>();
         }
+
+        //public OrderController(IMemberService memberService,
+        //                     IMemberStoreService memberStoreService,
+        //                     IOrderService orderService,
+        //                     IPacketService packetService)
+        //{
+        //    this._memberService = memberService;
+        //    this._memberStoreService = memberStoreService;
+        //    this._orderService = orderService;
+        //    this._packetService = packetService;
+        //}
 
         public HttpResponseMessage GetMyOrders()
         {
@@ -122,7 +133,5 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
-
     }
 }

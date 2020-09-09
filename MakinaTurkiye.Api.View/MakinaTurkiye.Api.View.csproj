@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\InstutionalStepObject.cs" />
     <Compile Include="Account\OrderListItem.cs" />
     <Compile Include="Account\OrderPageModel.cs" />
     <Compile Include="Address.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="MemberInfo.cs" />
     <Compile Include="MemberInfoForPrivateMessage.cs" />
     <Compile Include="MessageViewModel.cs" />
+    <Compile Include="MTStoreActivityModel.cs" />
     <Compile Include="PhoneActivationModel.cs" />
     <Compile Include="Products\MTProductComplainModel.cs" />
     <Compile Include="Products\ProductComplainTypeView.cs" />

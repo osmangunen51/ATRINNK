@@ -5,24 +5,28 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 
 namespace MakinaTurkiye.Api.Controllers
 {
     public class BrandController : BaseApiController
     {
         private readonly ICategoryService _categoryService;
-        public BrandController(ICategoryService categoryService)
+
+        public BrandController()
         {
-            _categoryService = categoryService;
+            _categoryService = EngineContext.Current.Resolve<ICategoryService>();
         }
 
+        //public BrandController(ICategoryService categoryService)
+        //{
+        //    this._categoryService = categoryService;
+        //}
         public HttpResponseMessage Get(int No)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = _categoryService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x=>x.CategoryId==No);
+                var Result = _categoryService.GetCategoriesByCategoryType(CategoryTypeEnum.Brand).Where(x => x.CategoryId == No);
                 if (Result != null)
                 {
                     ProcessStatus.Result = Result;
@@ -40,7 +44,6 @@ namespace MakinaTurkiye.Api.Controllers
                     ProcessStatus.Status = false;
                     ProcessStatus.Result = null;
                 }
-
             }
             catch (Exception Error)
             {
@@ -73,7 +76,6 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.Status = false;
                 ProcessStatus.Result = null;
                 ProcessStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
@@ -99,10 +101,8 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.Status = false;
                 ProcessStatus.Result = null;
                 ProcessStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
-
     }
 }

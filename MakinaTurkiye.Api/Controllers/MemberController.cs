@@ -22,13 +22,24 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IPhoneService _phoneService;
         private readonly IMobileMessageService _mobileMessageService;
 
-        public MemberController(IMemberService memberService, IAddressService addressService,IPhoneService phoneService, IMobileMessageService mobileMessageService)
+        public MemberController()
         {
-            _memberService = memberService;
-            _addressService = addressService;
-            _phoneService = phoneService;
-            _mobileMessageService = mobileMessageService;
+            _memberService = EngineContext.Current.Resolve<IMemberService>();
+            _addressService = EngineContext.Current.Resolve<IAddressService>();
+            _phoneService = EngineContext.Current.Resolve<IPhoneService>();
+            _mobileMessageService = EngineContext.Current.Resolve<IMobileMessageService>();
         }
+
+        //public MemberController(IMemberService memberService,
+        //                         IAddressService addressService,
+        //                         IPhoneService phoneService,
+        //                         IMobileMessageService mobileMessageService)
+        //{
+        //    this._memberService = memberService;
+        //    this._addressService = addressService;
+        //    this._phoneService = phoneService;
+        //    this._mobileMessageService = mobileMessageService;
+        //}
 
         public HttpResponseMessage GetLoginMemberInfo()
         {
@@ -443,7 +454,7 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
-                
+
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null && model.GenderWoman != model.GenderMan && member.MemberPassword == model.Password)
                 {
@@ -452,10 +463,10 @@ namespace MakinaTurkiye.Api.Controllers
                     member.BirthDate = model.BirthDate;
                     member.Gender = model.GenderWoman;
                     _memberService.UpdateMember(member);
-                    
+
                     var existMainParty = _memberService.GetMainPartyByMainPartyId(member.MainPartyId);
                     existMainParty.MainPartyFullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.Name.ToLower() + " " + model.Surname.ToLower());
-                   
+
                     _memberService.UpdateMainParty(existMainParty);
 
                     processStatus.Message.Header = "Kullanıcı Kişisel bilgi işlemleri";

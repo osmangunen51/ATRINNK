@@ -21,16 +21,27 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IStoreService _storeService;
         private readonly IFavoriteProductService _favoriteProductService;
 
-        public FavoriteController(IProductService productService, IMemberService memberService, 
-            IFavoriteStoreService favoriteStoreService, IStoreService storeService, IFavoriteProductService favoriteProductService)
+        public FavoriteController()
         {
-            _productService = productService;
-            _memberService = memberService;
-            _favoriteStoreService = favoriteStoreService;
-            _favoriteProductService = favoriteProductService;
-            _storeService = storeService;
+            _productService = EngineContext.Current.Resolve<IProductService>();
+            _memberService = EngineContext.Current.Resolve<IMemberService>();
+            _favoriteStoreService = EngineContext.Current.Resolve<IFavoriteStoreService>();
+            _storeService = EngineContext.Current.Resolve<IStoreService>();
+            _favoriteProductService = EngineContext.Current.Resolve<IFavoriteProductService>();
         }
 
+        //public FavoriteController(IProductService productService,
+        //                            IMemberService memberService,
+        //                            IFavoriteStoreService favoriteStoreService,
+        //                            IStoreService storeService,
+        //                            IFavoriteProductService favoriteProductService)
+        //{
+        //    this._productService = productService;
+        //    this._memberService = memberService;
+        //    this._favoriteStoreService = favoriteStoreService;
+        //    this._favoriteProductService = favoriteProductService;
+        //    this._storeService = storeService;
+        //}
         public HttpResponseMessage GetFavoriteProductsByLoginUser()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -158,8 +169,6 @@ namespace MakinaTurkiye.Api.Controllers
                         processStatus.Message.Text = "Başarısız";
                         processStatus.Status = false;
                     }
-
-
                 }
                 else
                 {
@@ -254,7 +263,6 @@ namespace MakinaTurkiye.Api.Controllers
                         processStatus.Message.Text = "Başarısız";
                         processStatus.Status = false;
                     }
-
                 }
                 else
                 {
@@ -304,7 +312,6 @@ namespace MakinaTurkiye.Api.Controllers
                         processStatus.Message.Text = "Başarısız";
                         processStatus.Status = false;
                     }
-
                 }
                 else
                 {

@@ -12,11 +12,15 @@ namespace MakinaTurkiye.Api.Controllers
     {
         private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController()
         {
-            _categoryService = categoryService;
+            _categoryService = EngineContext.Current.Resolve<ICategoryService>();
         }
 
+        //public CategoryController(ICategoryService categoryService)
+        //{
+        //    this._categoryService = categoryService;
+        //}
         public HttpResponseMessage Get(int categoryId)
         {
             ProcessResult ProcessStatus = new ProcessResult();

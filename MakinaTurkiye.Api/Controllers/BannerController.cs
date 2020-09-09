@@ -14,11 +14,15 @@ namespace MakinaTurkiye.Api.Controllers
     {
         private readonly IBannerService _productService;
 
-        public BannerController(IBannerService productService)
+        public BannerController()
         {
-            _productService = productService;
+            _productService = EngineContext.Current.Resolve<IBannerService>();
         }
 
+        //public BannerController(IBannerService productService)
+        //{
+        //    this._productService = productService;
+        //}
         public HttpResponseMessage GetAll()
         {
             ProcessResult ProcessStatus = new ProcessResult();

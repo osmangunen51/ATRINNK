@@ -12,10 +12,15 @@ namespace MakinaTurkiye.Api.Controllers
     {
         private readonly IStoreService _storeService;
 
-        public StoreController(IStoreService storeService)
+        public StoreController()
         {
-            _storeService = storeService;
+            _storeService = EngineContext.Current.Resolve<IStoreService>();
         }
+
+        //public StoreController(IStoreService storeService)
+        //{
+        //    this._storeService = storeService;
+        //}
 
         public HttpResponseMessage GetWithName(string Name)
         {

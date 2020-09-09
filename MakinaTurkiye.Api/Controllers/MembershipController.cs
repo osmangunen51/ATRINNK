@@ -30,19 +30,34 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IAuthenticationService _authenticationService;
         private readonly IStoreService _storeService;
 
-        public MembershipController(IMemberService memberService, IMessagesMTService messagesMTService, IMessageService messageService,
-                                ILoginLogService loginLogService, IMemberStoreService memberStoreService, IAuthenticationService authenticationService, 
-                                IStoreService storeService
-                                )
+        public MembershipController()
         {
-            _memberService = memberService;
-            _messagesMTService = messagesMTService;
-            _messageService = messageService;
-            _memberStoreService = memberStoreService;
-            _loginLogService = loginLogService;
-            _authenticationService = authenticationService;
-            _storeService = storeService;
+            _memberService = EngineContext.Current.Resolve<IMemberService>();
+            _messagesMTService = EngineContext.Current.Resolve<IMessagesMTService>();
+            _messageService = EngineContext.Current.Resolve<IMessageService>();
+            _loginLogService = EngineContext.Current.Resolve<ILoginLogService>();
+            _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
+            _authenticationService = EngineContext.Current.Resolve<IAuthenticationService>();
+            _storeService = EngineContext.Current.Resolve<IStoreService>();
         }
+
+        //public MembershipController(IMemberService memberService,
+        //                         IMessagesMTService messagesMTService,
+        //                         IMessageService messageService,
+        //                         ILoginLogService loginLogService,
+        //                         IMemberStoreService memberStoreService,
+        //                         IAuthenticationService authenticationService,
+        //                         IStoreService storeService
+        //                         )
+        //{
+        //    this._memberService = memberService;
+        //    this._messagesMTService = messagesMTService;
+        //    this._messageService = messageService;
+        //    this._memberStoreService = memberStoreService;
+        //    this._loginLogService = loginLogService;
+        //    this._authenticationService = authenticationService;
+        //    this._storeService = storeService;
+        //}
 
         public HttpResponseMessage FastMembership([FromBody]UserRegister Model)
         {
@@ -217,7 +232,6 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Status = false;
                     processStatus.Result = "Şifre yenileme işlemi başarısız.";
                 }
-
             }
             catch (Exception ex)
             {
@@ -417,7 +431,7 @@ namespace MakinaTurkiye.Api.Controllers
                             LoginMemberEmail = member.MemberEmail,
                             LoginMemberNameSurname = member.MemberName + " " + member.MemberSurname,
                             //EndDate =  DateTime.Now.AddDays(365),
-
+                            LoginMemberMainPartyId = member.MainPartyId
                         };
                         TxtToken = Newtonsoft.Json.JsonConvert.SerializeObject(token, Newtonsoft.Json.Formatting.None).Sifrele(Key);
                     };
@@ -444,18 +458,15 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Message.Text = "İşlem başarılı";
                 processStatus.Status = true;
                 processStatus.Result = anyUser;
-
             }
             catch (Exception ex)
             {
-
                 processStatus.Message.Header = "CheckEmailForNewMember";
                 processStatus.Message.Text = "İşlem başarısız";
                 processStatus.Status = false;
                 processStatus.Result = "Şifre yenileme işlemi başarısız.";
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-
         }
 
         public HttpResponseMessage CheckMailForStore(string email)
@@ -478,7 +489,6 @@ namespace MakinaTurkiye.Api.Controllers
                         processStatus.Message.Text = "İşlem başarılı";
                         processStatus.Status = true;
                         processStatus.Result = false;
-
                     }
                     if (email == LoginUserEmail)
                     {
@@ -510,8 +520,6 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Error = ex;
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-
         }
-
     }
 }

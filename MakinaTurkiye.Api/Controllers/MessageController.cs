@@ -25,16 +25,30 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IMobileMessageService _mobileMessageService;
         private readonly IMessagesMTService _messagesMTService;
 
-        public MessageController(IMemberService memberService, IMessageService messageService, IPhoneService phoneService, IProductService productService,
-            IMobileMessageService mobileMessageService, IMessagesMTService messagesMTService)
+        public MessageController()
         {
-            _memberService = memberService;
-            _messageService = messageService;
-            _phoneService = phoneService;
-            _productService = productService;
-            _mobileMessageService = mobileMessageService;
-            _messagesMTService = messagesMTService;
+            _memberService = EngineContext.Current.Resolve<IMemberService>();
+            _messageService = EngineContext.Current.Resolve<IMessageService>();
+            _phoneService = EngineContext.Current.Resolve<IPhoneService>();
+            _productService = EngineContext.Current.Resolve<IProductService>();
+            _mobileMessageService = EngineContext.Current.Resolve<IMobileMessageService>();
+            _messagesMTService = EngineContext.Current.Resolve<IMessagesMTService>();
         }
+
+        //public MessageController(IMemberService memberService,
+        //                          IMessageService messageService,
+        //                          IPhoneService phoneService,
+        //                          IProductService productService,
+        //                          IMobileMessageService mobileMessageService,
+        //                          IMessagesMTService messagesMTService)
+        //{
+        //    this._memberService = memberService;
+        //    this._messageService = messageService;
+        //    this._phoneService = phoneService;
+        //    this._productService = productService;
+        //    this._mobileMessageService = mobileMessageService;
+        //    this._messagesMTService = messagesMTService;
+        //}
 
         public HttpResponseMessage SendPrivateMessage(MessageViewModel model)
         {

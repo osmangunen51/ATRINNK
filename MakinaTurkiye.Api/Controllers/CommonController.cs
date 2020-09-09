@@ -14,12 +14,18 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IMemberService _memberService;
         private readonly IAddressService _addressService;
 
-        public CommonController(IMemberService memberService, IAddressService addressService)
+        public CommonController()
         {
-            _memberService = memberService;
-            _addressService = addressService;
+            _memberService = EngineContext.Current.Resolve<IMemberService>();
+            _addressService = EngineContext.Current.Resolve<IAddressService>();
         }
 
+        //public CommonController(IMemberService memberService,
+        //                            IAddressService addressService)
+        //{
+        //    this._memberService = memberService;
+        //    this._addressService = addressService;
+        //}
         public HttpResponseMessage GetAllLocalityByCityId(int CityId)
         {
             ProcessResult processStatus = new ProcessResult();

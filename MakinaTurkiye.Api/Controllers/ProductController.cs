@@ -35,18 +35,36 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IProductComplainService _productComplainService;
         private readonly IMessagesMTService _messagesMTService;
 
-        public ProductController(IProductService productService, IPictureService pictureService, IMemberStoreService memberStoreService, IStoreService storeService,
-            IMemberService memberService, IPhoneService phoneService, IProductComplainService productComplainService, IMessagesMTService messagesMTService)
+        public ProductController()
         {
-            _productService = productService;
-            _pictureService = pictureService;
-            _memberStoreService = memberStoreService;
-            _storeService = storeService;
-            _memberService = memberService;
-            _phoneService = phoneService;
-            _productComplainService = productComplainService;
-            _messagesMTService = messagesMTService;
+            _productService = EngineContext.Current.Resolve<IProductService>();
+            _pictureService = EngineContext.Current.Resolve<IPictureService>();
+            _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
+            _storeService = EngineContext.Current.Resolve<IStoreService>();
+            _memberService = EngineContext.Current.Resolve<IMemberService>();
+            _phoneService = EngineContext.Current.Resolve<IPhoneService>();
+            _productComplainService = EngineContext.Current.Resolve<IProductComplainService>();
+            _messagesMTService = EngineContext.Current.Resolve<IMessagesMTService>();
         }
+
+        //   public ProductController(IProductService productService,
+        //                            IPictureService pictureService,
+        //                            IMemberStoreService memberStoreService,
+        //                            IStoreService storeService,
+        //                            IMemberService memberService,
+        //                            IPhoneService phoneService,
+        //                            IProductComplainService productComplainService,
+        //                            IMessagesMTService messagesMTService)
+        //{
+        //    this._productService = productService;
+        //    this._pictureService = pictureService;
+        //    this._memberStoreService = memberStoreService;
+        //    this._storeService = storeService;
+        //    this._memberService = memberService;
+        //    this._phoneService = phoneService;
+        //    this._productComplainService = productComplainService;
+        //    this._messagesMTService = messagesMTService;
+        //}
 
         public HttpResponseMessage Get(int No)
         {
@@ -493,8 +511,8 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Error = ex;
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-
         }
+
         public HttpResponseMessage GetAllProductComplainTypeList()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -517,7 +535,6 @@ namespace MakinaTurkiye.Api.Controllers
                             ProductComplainTypeId = productComplaintType.ProductComplainTypeId,
                         };
                         productComplaintTypesView.Add(prodCompType);
-
                     }
 
                     processStatus.Result = productComplaintTypesView;
@@ -543,6 +560,5 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
     }
 }

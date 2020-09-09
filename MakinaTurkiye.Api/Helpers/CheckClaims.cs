@@ -23,9 +23,7 @@ namespace MakinaTurkiye.Api.Helpers
                     TxtToken = GetDefaultAccessToken();
                     TxtToken = TxtToken.Coz(Key);
                     token = JsonConvert.DeserializeObject<LoginInfoFromToken>(TxtToken);
-
                 }
-                               
             }
             catch (Exception ex)
             {

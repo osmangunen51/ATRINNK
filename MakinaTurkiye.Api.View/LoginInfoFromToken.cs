@@ -10,5 +10,6 @@ namespace MakinaTurkiye.Api.View
         public string PrivateAnahtar { get; set; } = "";
         public string LoginMemberEmail { get; set; } = "";
         public string LoginMemberNameSurname { get; set; } = "";
+        public int LoginMemberMainPartyId { get; set; } 
     }
 }
