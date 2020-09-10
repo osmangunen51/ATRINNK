@@ -57,7 +57,6 @@ namespace MakinaTurkiye.Api.Controllers
             _messagesMTService = EngineContext.Current.Resolve<IMessagesMTService>();
             _categoryService = EngineContext.Current.Resolve<ICategoryService>();
             _storeSectorService = EngineContext.Current.Resolve<IStoreSectorService>();
-
         }
 
         //public MemberTypeController(IMemberService memberService,
@@ -112,6 +111,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetMemberTitle()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -150,6 +150,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetActivityType()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -162,10 +163,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (member != null)
                 {
-
-
                     var activityTypeList = _activityTypeService.GetAllActivityTypes();
-
 
                     processStatus.Result = activityTypeList;
 
@@ -191,7 +189,6 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
 
         public HttpResponseMessage GetStoreActivityCategories()
         {
@@ -332,7 +329,6 @@ namespace MakinaTurkiye.Api.Controllers
                                         processStatus.Message.Text = "Başarısız";
                                         processStatus.Status = false;
                                     }
-
                                 }
                             }
                         }
@@ -371,7 +367,6 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     if (member.MemberType == (byte)MemberType.Enterprise)
                     {
-
                         processStatus.Result = "Zaten Kurumsal Üyesiniz";
                         processStatus.Message.Header = "InstitutionalStep1";
                         processStatus.Message.Text = "Başarısız";
@@ -416,13 +411,10 @@ namespace MakinaTurkiye.Api.Controllers
                                 //fileName = FileHelpers.ImageResize(AppSettings.StoreLogoFolder, file, thumns);
                                 var thumns = new Dictionary<string, string>();
 
-
                                 thumns.Add(StoreLogoThumb100x100Folder, "100x100");
                                 thumns.Add(StoreLogoThumb300x200Folder, "300x200");
                                 fileName = FileHelpers.ImageResize(StoreLogoFolder, uploadedLogo, thumns);
                             }
-
-
 
                             instutionalStepObject.StoreLogo = fileName;
                             instutionalStepObject.NextStep = "InstitutionalStep3";
@@ -435,7 +427,6 @@ namespace MakinaTurkiye.Api.Controllers
                         else
                         {
                             string fileName = String.Empty;
-
 
                             if (uploadedLogo.ContentLength > 0)
                             {
@@ -459,11 +450,8 @@ namespace MakinaTurkiye.Api.Controllers
                                 processStatus.Message.Text = "Başarılı";
                                 processStatus.Status = true;
                             }
-
                         }
-
                     }
-
                 }
                 else
                 {
@@ -482,9 +470,7 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Error = ex;
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-
         }
-
 
         public HttpResponseMessage InstitutionalStep3(InstutionalStepObject instutionalStepObject)
         {
@@ -498,7 +484,6 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (member != null)
                 {
-
                     if (member.MemberType == 0)
                     {
                         processStatus.Result = "İşlem zaman aşımına uğradı lütfen tekrar deneyin";
@@ -521,13 +506,10 @@ namespace MakinaTurkiye.Api.Controllers
                             processStatus.Message.Header = "InstitutionalStep3";
                             processStatus.Message.Text = "Başarısız";
                             processStatus.Status = false;
-
                         }
                         if (!sUserNameAllowedRegEx.IsMatch(instutionalStepObject.StoreUrlName))
                         {
                             instutionalStepObject.StoreUrlName = UrlBuilder.ToUrl(instutionalStepObject.StoreShortName);
-
-
                         }
                         var store = _storeService.GetStoreByStoreUrlName(instutionalStepObject.StoreUrlName);
                         if (store != null)
@@ -571,7 +553,6 @@ namespace MakinaTurkiye.Api.Controllers
                             processStatus.Status = true;
                         }
                     }
-
                 }
                 else
                 {
@@ -630,7 +611,6 @@ namespace MakinaTurkiye.Api.Controllers
                         };
                         _memberService.InsertMainParty(storeMainParty);
 
-
                         member.MemberTitleType = instutionalStepObject.MemberTitleType;
                         member.MemberType = (byte)MemberType.Enterprise;
                         member.FastMemberShipType = (byte)FastMembershipType.Normal;
@@ -645,7 +625,6 @@ namespace MakinaTurkiye.Api.Controllers
                         member.MemberNo = memberNo;
 
                         _memberService.UpdateMember(member);
-
 
                         var storeMainPartyId = storeMainParty.MainPartyId;
 
@@ -692,7 +671,6 @@ namespace MakinaTurkiye.Api.Controllers
                         storeNo = storeNo + storeMainPartyId;
                         store.StoreNo = storeNo;
 
-
                         _storeService.InsertStore(store);
 
                         storeMainPartyId = store.MainPartyId;
@@ -705,7 +683,6 @@ namespace MakinaTurkiye.Api.Controllers
                             _addressService.UpdateAddress(address);
                         }
 
-
                         //var phone = entities.Phones.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId && x.PhoneType == (byte)PhoneType.Phone);
                         //foreach (var phoneItem in phone.ToList())
                         //{
@@ -714,13 +691,13 @@ namespace MakinaTurkiye.Api.Controllers
                         //}
                         //var phoneGsm = entities.Phones.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId && x.PhoneType == (Byte)PhoneType.Gsm).FirstOrDefault();
                         //if(phoneGsm!=null)
-                        //{ 
+                        //{
                         // phoneGsm.MainPartyId = storeMainPartyId;
                         // entities.SaveChanges();
                         //}
                         //var phoneFax = entities.Phones.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId && x.PhoneType == null).FirstOrDefault();
                         //if(phoneFax!=null)
-                        //{ 
+                        //{
                         //  phoneFax.MainPartyId = storeMainPartyId;
                         //  entities.SaveChanges();
                         //}
@@ -764,10 +741,8 @@ namespace MakinaTurkiye.Api.Controllers
                             MemberMainPartyId = member.MainPartyId,
                             StoreMainPartyId = storeMainPartyId,
                             MemberStoreType = (byte)MemberStoreType.Owner
-
                         };
                         _memberStoreService.InsertMemberStore(memberStore);
-
 
                         //firma logo düzenle
                         if (!string.IsNullOrEmpty(insertedStore.StoreName))
@@ -819,14 +794,12 @@ namespace MakinaTurkiye.Api.Controllers
                         sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
                         sc.Send(mail);
 
-                        #endregion
-
+                        #endregion bireyseldenkurumsalagecis
 
                         #region bilgimakina
 
                         MailMessage mailb = new MailMessage();
                         MessagesMT mailTmpInf = _messagesMTService.GetMessagesMTByMessageMTName("bilgimakinasayfası");
-
 
                         mailb.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
                         mailb.To.Add("bilgi@makinaturkiye.com");
@@ -844,16 +817,16 @@ namespace MakinaTurkiye.Api.Controllers
                         scr1.EnableSsl = true;
                         scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
                         scr1.Send(mailb);
-                        #endregion
-                        //return RedirectToAction("Index", "Home", new { gelenSayfa = "KurumsalOnay" });
 
+                        #endregion bilgimakina
+
+                        //return RedirectToAction("Index", "Home", new { gelenSayfa = "KurumsalOnay" });
 
                         processStatus.Result = "Kurumsal Üyeliğiniz İncelenmektedir.İncelendikten Sonra Onaylanacaktır.";
                         processStatus.Message.Header = "InstitutionalStep4";
                         processStatus.Message.Text = "Başarılı";
                         processStatus.Status = true;
                     }
-
                 }
                 else
                 {
@@ -872,9 +845,6 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Error = ex;
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-
         }
-
-
     }
 }

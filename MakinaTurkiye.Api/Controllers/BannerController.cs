@@ -25,7 +25,7 @@ namespace MakinaTurkiye.Api.Controllers
         //}
         public HttpResponseMessage GetAll()
         {
-            ProcessResult ProcessStatus = new ProcessResult();
+            ProcessResult processStatus = new ProcessResult();
             try
             {
                 IBannerService _bannerService = EngineContext.Current.Resolve<IBannerService>();
@@ -57,31 +57,31 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (Result != null && Result.Count() > 0)
                 {
-                    ProcessStatus.Result = Result;
-                    ProcessStatus.ActiveResultRowCount = Result.Count();
-                    ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
+                    processStatus.Result = Result;
+                    processStatus.ActiveResultRowCount = Result.Count();
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
 
-                    ProcessStatus.Message.Header = "Banners Operations";
-                    ProcessStatus.Message.Text = "Success";
-                    ProcessStatus.Status = true;
+                    processStatus.Message.Header = "Banners Operations";
+                    processStatus.Message.Text = "Success";
+                    processStatus.Status = true;
                 }
                 else
                 {
-                    ProcessStatus.Message.Header = "Banners Operations";
-                    ProcessStatus.Message.Text = "Entity Not Found";
-                    ProcessStatus.Status = false;
-                    ProcessStatus.Result = null;
+                    processStatus.Message.Header = "Banners Operations";
+                    processStatus.Message.Text = "Entity Not Found";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
                 }
             }
             catch (Exception Error)
             {
-                ProcessStatus.Message.Header = "Banners Operations";
-                ProcessStatus.Message.Text = "Error";
-                ProcessStatus.Status = false;
-                ProcessStatus.Result = null;
-                ProcessStatus.Error = Error;
+                processStatus.Message.Header = "Banners Operations";
+                processStatus.Message.Text = "Error";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
             }
-            return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
     }
 }

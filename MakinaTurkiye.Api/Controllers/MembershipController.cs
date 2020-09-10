@@ -115,6 +115,7 @@ namespace MakinaTurkiye.Api.Controllers
             {
                 if (member.MemberPassword == model.MemberPassword)
                 {
+                    //throw new InvalidOperationException("exception");
                     var sendErrorMessage = _messageService.GetSendMessageErrorsBySenderId(member.MainPartyId);
                     if (member.FastMemberShipType == (byte)FastMembershipType.Phone && sendErrorMessage == null)
                     {

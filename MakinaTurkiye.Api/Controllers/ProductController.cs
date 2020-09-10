@@ -74,7 +74,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = _productService.GetProductByProductId(No);
                 if (Result != null)
                 {
-                    MakinaTurkiye.Api.View.Result.ProductSearchResult TmpResult = new MakinaTurkiye.Api.View.Result.ProductSearchResult
+                    View.Result.ProductSearchResult TmpResult = new View.Result.ProductSearchResult
                     {
                         ProductId = Result.ProductId,
                         CurrencyCodeName = "tr-TR",
@@ -125,45 +125,53 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetWithPageNo(int No)
+        public HttpResponseMessage GetWithPageNo(int pageNo, bool allDetails, int pageSize = 50)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = _productService.GetProductsWithPageNo(No);
+                var Result = _productService.GetProductsWithPageNo(PageNo: pageNo, PageSize: pageSize);
                 if (Result != null)
                 {
-                    List<MakinaTurkiye.Api.View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
-                        new MakinaTurkiye.Api.View.Result.ProductSearchResult
-                        {
-                            ProductId = Snc.ProductId,
-                            CurrencyCodeName = "tr-TR",
-                            ProductName = Snc.ProductName,
-                            BrandName = Snc.Brand.CategoryName,
-                            ModelName = Snc.Model.CategoryName,
-                            MainPicture = "",
-                            StoreName = "",
-                            MainPartyId = (int)Snc.MainPartyId,
-                            ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
-                            ProductPriceType = (byte)Snc.ProductPriceType,
-                            ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
-                            ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
-                        }
-                    ).ToList();
-
-                    foreach (var item in TmpResult)
+                    if (allDetails)
                     {
-                        string picturePath = "";
-                        var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
-                        if (picture != null)
-                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
-                        var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
-                        var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                        item.MainPicture = picturePath;
-                        item.StoreName = store.StoreName;
+                        ProcessStatus.Result = Result.ToList();
+                    }
+                    else
+                    {
+                        List<View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
+                                                new View.Result.ProductSearchResult
+                                                {
+                                                    ProductId = Snc.ProductId,
+                                                    CurrencyCodeName = "tr-TR",
+                                                    ProductName = Snc.ProductName,
+                                                    BrandName = Snc.Brand.CategoryName,
+                                                    ModelName = Snc.Model.CategoryName,
+                                                    MainPicture = "",
+                                                    StoreName = "",
+                                                    MainPartyId = (int)Snc.MainPartyId,
+                                                    ProductPrice = (Snc.ProductPrice ?? 0),
+                                                    ProductPriceType = (byte)Snc.ProductPriceType,
+                                                    ProductPriceLast = (Snc.ProductPriceLast ?? 0),
+                                                    ProductPriceBegin = (Snc.ProductPriceBegin ?? 0)
+                                                }
+                                            ).ToList();
+
+                        foreach (var item in TmpResult)
+                        {
+                            string picturePath = "";
+                            var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
+                            if (picture != null)
+                                picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
+                            var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                            item.MainPicture = picturePath;
+                            item.StoreName = store.StoreName;
+                        }
+
+                        ProcessStatus.Result = TmpResult;
                     }
 
-                    ProcessStatus.Result = TmpResult;
                     ProcessStatus.ActiveResultRowCount = Result.Count();
                     ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
                     ProcessStatus.Message.Header = "Product Operations";
@@ -189,44 +197,52 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetWithCategory(int No, int Page = 0, int PageSize = 50)
+        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = _productService.GetSPMostViewProductsByCategoryId(No);
+                var Result = _productService.GetSPMostViewProductsByCategoryId(categoryId);
+
+                if (allDetails)
+                {
+                    ProcessStatus.Result = Result;
+                }
+                else
+                {
+                    List<View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
+                                          new View.Result.ProductSearchResult
+                                          {
+                                              ProductId = Snc.ProductId,
+                                              CurrencyCodeName = "tr-TR",
+                                              ProductName = Snc.ProductName,
+                                              BrandName = Snc.BrandName,
+                                              ModelName = Snc.ModelName,
+                                              MainPicture = Snc.MainPicture,
+                                              StoreName = Snc.StoreName,
+                                              ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
+                                              ProductPriceType = (byte)Snc.ProductPriceType,
+                                              ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
+                                              ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
+                                          }
+                                      ).ToList();
+
+                    foreach (var item in TmpResult)
+                    {
+                        item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
+                    }
+
+                    ProcessStatus.Result = TmpResult;
+                }
+
                 ProcessStatus.TotolRowCount = Result.Count();
-                if (ProcessStatus.TotolRowCount < PageSize)
+                if (ProcessStatus.TotolRowCount < pageSize)
                 {
-                    Page = 0;
+                    pageNo = 0;
                 }
-                Result = Result.Skip(PageSize * Page).Take(PageSize).ToList();
+                Result = Result.Skip(pageSize * pageNo).Take(pageSize).ToList();
 
-                List<MakinaTurkiye.Api.View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
-                        new MakinaTurkiye.Api.View.Result.ProductSearchResult
-                        {
-                            ProductId = Snc.ProductId,
-                            CurrencyCodeName = "tr-TR",
-                            ProductName = Snc.ProductName,
-                            BrandName = Snc.BrandName,
-                            ModelName = Snc.ModelName,
-                            MainPicture = Snc.MainPicture,
-                            StoreName = Snc.StoreName,
-                            ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
-                            ProductPriceType = (byte)Snc.ProductPriceType,
-                            ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
-                            ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
-                        }
-                    ).ToList();
-
-                foreach (var item in TmpResult)
-                {
-                    item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
-                }
-
-                ProcessStatus.Result = TmpResult;
-                ProcessStatus.Result = TmpResult;
-                ProcessStatus.ActiveResultRowCount = TmpResult.Count();
+                ProcessStatus.ActiveResultRowCount = Result.Count();
                 ProcessStatus.Message.Header = "Product İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
                 ProcessStatus.Status = true;
@@ -242,45 +258,62 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetAll()
+        public HttpResponseMessage GetAll(bool allDetails, int pageNo, int pageSize = 50)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
                 var Result = _productService.GetProductsAll();
-                List<MakinaTurkiye.Api.View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
-                         new MakinaTurkiye.Api.View.Result.ProductSearchResult
-                         {
-                             ProductId = Snc.ProductId,
-                             CurrencyCodeName = "tr-TR",
-                             ProductName = Snc.ProductName,
-                             BrandName = Snc.Brand.CategoryName,
-                             ModelName = Snc.Model.CategoryName,
-                             MainPicture = "",
-                             StoreName = "",
-                             MainPartyId = (int)Snc.MainPartyId,
-                             ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
-                             ProductPriceType = (byte)Snc.ProductPriceType,
-                             ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
-                             ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
-                         }
-                     ).ToList();
-
-                foreach (var item in TmpResult)
+                if (allDetails)
                 {
-                    string picturePath = "";
-                    var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
-                    if (picture != null)
-                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
-                    var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
-                    var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                    item.MainPicture = picturePath;
-                    item.StoreName = store.StoreName;
+                    ProcessStatus.Result = Result;
+
+                }
+                else
+                {
+                    List<MakinaTurkiye.Api.View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
+                                            new MakinaTurkiye.Api.View.Result.ProductSearchResult
+                                            {
+                                                ProductId = Snc.ProductId,
+                                                CurrencyCodeName = "tr-TR",
+                                                ProductName = Snc.ProductName,
+                                                BrandName = Snc.Brand.CategoryName,
+                                                ModelName = Snc.Model.CategoryName,
+                                                MainPicture = "",
+                                                StoreName = "",
+                                                MainPartyId = (int)Snc.MainPartyId,
+                                                ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
+                                                ProductPriceType = (byte)Snc.ProductPriceType,
+                                                ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
+                                                ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
+                                            }
+                                        ).ToList();
+
+                    foreach (var item in TmpResult)
+                    {
+                        string picturePath = "";
+                        var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
+                        if (picture != null)
+                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                        var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
+                        var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                        item.MainPicture = picturePath;
+                        item.StoreName = store.StoreName;
+                    }
+
+                    ProcessStatus.Result = TmpResult;
                 }
 
-                ProcessStatus.Result = TmpResult;
+                ProcessStatus.TotolRowCount = Result.Count();
+                if (ProcessStatus.TotolRowCount < pageSize)
+                {
+                    pageNo = 0;
+                }
+                Result = Result.Skip(pageSize * pageNo).Take(pageSize).ToList();
+
                 ProcessStatus.ActiveResultRowCount = Result.Count();
-                ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
+
+
                 ProcessStatus.Message.Header = "Product İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
                 ProcessStatus.Status = true;
