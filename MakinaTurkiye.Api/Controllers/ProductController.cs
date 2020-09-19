@@ -229,7 +229,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                     foreach (var item in TmpResult)
                     {
-                        item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
+                        item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" +  ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
                     }
 
                     ProcessStatus.Result = TmpResult;
@@ -240,7 +240,7 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     pageNo = 0;
                 }
-                Result = Result.Skip(pageSize * pageNo).Take(pageSize).ToList();
+                ProcessStatus.Result = Result.Skip(pageSize * pageNo).Take(pageSize).ToList();
 
                 ProcessStatus.ActiveResultRowCount = Result.Count();
                 ProcessStatus.Message.Header = "Product İşlemleri";
@@ -309,7 +309,7 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     pageNo = 0;
                 }
-                Result = Result.Skip(pageSize * pageNo).Take(pageSize).ToList();
+                ProcessStatus.Result = Result.Skip(pageSize * pageNo).Take(pageSize).ToList();
 
                 ProcessStatus.ActiveResultRowCount = Result.Count();
 

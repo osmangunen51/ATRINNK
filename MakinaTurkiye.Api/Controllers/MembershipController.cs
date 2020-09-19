@@ -250,7 +250,7 @@ namespace MakinaTurkiye.Api.Controllers
 
             try
             {
-                var loginMemberEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+              var loginMemberEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
 
                 _authenticationService.SignOut();
                 ProcessStatus.Status = true;
@@ -285,6 +285,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
+    
         private void InsertMember(UserRegister model)
         {
             try

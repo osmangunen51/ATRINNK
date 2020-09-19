@@ -23,7 +23,6 @@ namespace MakinaTurkiye.Api.Controllers
                         Header = "Manager",
                         Text = "Başarıyla Girildi"
                     };
-
                     string TxtToken = CheckClaims.GetDefaultAccessToken();
                     var Snc = new
                     {
@@ -32,9 +31,7 @@ namespace MakinaTurkiye.Api.Controllers
                         AdSoyad = "makinaturkiye",
                         Token = TxtToken
                     };
-
                     ProcessStatus.Result = Snc;
-
                     return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
                 }
                 else

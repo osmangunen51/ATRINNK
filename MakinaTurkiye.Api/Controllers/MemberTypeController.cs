@@ -2,6 +2,7 @@
 using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Api.View.Account;
 using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Entities.Tables.Logs;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Entities.Tables.Stores;
@@ -59,16 +60,6 @@ namespace MakinaTurkiye.Api.Controllers
             _storeSectorService = EngineContext.Current.Resolve<IStoreSectorService>();
         }
 
-        //public MemberTypeController(IMemberService memberService,
-        //                            IStoreService storeService,
-        //                            IPhoneService phoneService,
-        //                            IAddressService addressService)
-        //{
-        //    this._memberService = memberService;
-        //    this._storeService = storeService;
-        //    this._phoneService = phoneService;
-        //    this._addressService = addressService;
-        //}
         private static Regex sUserNameAllowedRegEx = new Regex("^[a-zA-Z0-9]+$", RegexOptions.Compiled);
 
         public HttpResponseMessage CheckUserName(string username)
@@ -839,6 +830,317 @@ namespace MakinaTurkiye.Api.Controllers
             catch (Exception ex)
             {
                 processStatus.Message.Header = "InstitutionalStep4";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        public HttpResponseMessage InstitutionalStep5(InstutionalStepObject instutionalStepObject)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+
+                if (member != null)
+                {
+                    if (member.MemberType == (byte)MemberType.Enterprise)
+                    {
+                        processStatus.Result = "Zaten Kurumsal Üyesiniz";
+                        processStatus.Message.Header = "InstitutionalStep5";
+                        processStatus.Message.Text = "Başarısız";
+                        processStatus.Status = false;
+                    }
+                    else
+                    {
+                        bool hasRecord = false;
+                        Store insertedStore = null;
+                        try
+                        {
+                            member.MemberType = (byte)MemberType.Enterprise;
+
+                            string memberNo = "##";
+                            for (int i = 0; i < 7 - member.MainPartyId.ToString().Length; i++)
+                            {
+                                memberNo = memberNo + "0";
+                            }
+                            memberNo = memberNo + member.MainPartyId;
+                            member.MemberNo = memberNo;
+                            _memberService.UpdateMember(member);
+
+                            var curStoreMainParty = new MainParty
+                            {
+                                Active = false,
+                                MainPartyType = (byte)MainPartyType.Firm,
+                                MainPartyRecordDate = DateTime.Now,
+                                MainPartyFullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(instutionalStepObject.StoreName.ToLower()),
+                            };
+                            _memberService.InsertMainParty(curStoreMainParty);
+
+                            var storeMainPartyId = curStoreMainParty.MainPartyId;
+
+                            var packet = _packetService.GetPacketByIsStandart(true);
+
+                            var curStore = new Store
+                            {
+                                StoreAbout = instutionalStepObject.StoreAbout,
+                                MainPartyId = storeMainPartyId,
+                                PacketId = packet.PacketId,
+                                StoreActiveType = (byte)PacketStatu.Inceleniyor,
+                                StoreCapital = instutionalStepObject.StoreCapital,
+                                StoreEMail = member.MemberEmail,
+                                StoreEmployeesCount = instutionalStepObject.StoreEmployeesCount,
+                                StoreEndorsement = instutionalStepObject.StoreEndorsement,
+                                StoreEstablishmentDate = instutionalStepObject.StoreEstablishmentDate,
+                                StoreLogo = instutionalStepObject.StoreLogo,
+                                StorePacketBeginDate = DateTime.Now,
+                                StorePacketEndDate = DateTime.Now.AddDays(packet.PacketDay),
+                                StoreName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(instutionalStepObject.StoreName.ToLower()),
+                                StoreType = instutionalStepObject.StoreType,
+                                StoreWeb = instutionalStepObject.StoreWeb,
+                                StoreRecordDate = DateTime.Now,
+                                TaxNumber = instutionalStepObject.TaxNumber,
+                                TaxOffice = instutionalStepObject.TaxOffice,
+                                PurchasingDepartmentEmail = instutionalStepObject.PurchasingDepartmentEmail,
+                                PurchasingDepartmentName = instutionalStepObject.PurchasingDepartmentName,
+                            };
+
+                            string storeNo = "###";
+                            for (int i = 0; i < 6 - storeMainPartyId.ToString().Length; i++)
+                            {
+                                storeNo = storeNo + "0";
+                            }
+                            storeNo = storeNo + storeMainPartyId;
+                            curStore.StoreNo = storeNo;
+
+                            _storeService.InsertStore(curStore);
+
+                            insertedStore = curStore;
+
+                            var address = _addressService.GetFisrtAddressByMainPartyId(member.MainPartyId);
+                            if (address != null)
+                            {
+                                address.MainPartyId = storeMainPartyId;
+                                _addressService.UpdateAddress(address);
+                            }
+
+                            var phone = _phoneService.GetPhonesByMainPartyId(member.MainPartyId);
+                            foreach (var item in phone.ToList())
+                            {
+                                item.MainPartyId = storeMainPartyId;
+                                _phoneService.UpdatePhone(item);
+                            }
+
+                            if (instutionalStepObject.ActivityName != null)
+                            {
+                                for (int i = 0; i < instutionalStepObject.ActivityName.Length; i++)
+                                {
+                                    if (instutionalStepObject.ActivityName.GetValue(i).ToString() != "false")
+                                    {
+                                        var storeActivityType = new StoreActivityType
+                                        {
+                                            StoreId = storeMainPartyId,
+                                            ActivityTypeId = Convert.ToByte(instutionalStepObject.ActivityName.GetValue(i))
+                                        };
+                                        _storeActivityTypeService.InsertStoreActivityType(storeActivityType);
+                                    }
+                                }
+                            }
+
+                            if (instutionalStepObject.StoreActivityCategoryIdList != null)
+                            {
+                                var relCategory = instutionalStepObject.StoreActivityCategoryIdList.ToList();
+                                for (int i = 0; i < relCategory.Count(); i++)
+                                {
+                                    var storeActivityCategory = new StoreActivityCategory
+                                    {
+                                        MainPartyId = storeMainPartyId,
+                                        CategoryId = int.Parse(relCategory[i])
+                                    };
+                                    _storeActivityCategoryService.InsertStoreActivityCategory(storeActivityCategory);
+                                }
+                            }
+
+                            var curMemberStore = new MemberStore
+                            {
+                                MemberMainPartyId = member.MainPartyId,
+                                StoreMainPartyId = storeMainPartyId
+                            };
+                            _memberStoreService.InsertMemberStore(curMemberStore);
+
+                            UserLog lg = new UserLog
+                            {
+                                LogName = "B.K",
+                                LogDescription = member.MemberNo,
+                                LogStatus = 1,//success
+                                LogType = (byte)LogType.MemberShip,
+                                CreatedDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")
+                            };
+                            // _userLogService.InsertUserLog(lg);
+
+                            if (!string.IsNullOrEmpty(insertedStore.StoreName))
+                            {
+                                string StoreLogoFolder = ConfigurationManager.AppSettings["StoreLogoFolder"].ToString();
+                                string resizeStoreLogoFolder = ConfigurationManager.AppSettings["ResizeStoreLogoFolder"].ToString();
+                                string StoreLogoThumbSizes = ConfigurationManager.AppSettings["StoreLogoThumbSizes"].ToString();
+
+                                string storeLogoFolder = System.Web.HttpContext.Current.Server.MapPath(StoreLogoFolder);
+                                string resizeStoreFolder = System.Web.HttpContext.Current.Server.MapPath(resizeStoreLogoFolder);
+                                string storeLogoThumbSize = StoreLogoThumbSizes;
+
+                                List<string> thumbSizesForStoreLogo = new List<string>();
+                                thumbSizesForStoreLogo.AddRange(storeLogoThumbSize.Split(';'));
+                                var di = Directory.CreateDirectory(string.Format("{0}{1}", resizeStoreFolder, insertedStore.MainPartyId.ToString()));
+                                di.CreateSubdirectory("thumbs");
+                                string oldStoreLogoImageFilePath = string.Format("{0}{1}", storeLogoFolder, insertedStore.StoreLogo);
+                                if (System.IO.File.Exists(oldStoreLogoImageFilePath))
+                                {
+                                    // eski logoyu kopyala, varsa ustune yaz
+                                    string newStoreLogoImageFilePath = resizeStoreFolder + insertedStore.MainPartyId.ToString() + "\\";
+                                    string newStoreLogoImageFileName = insertedStore.StoreName.ToImageFileName() + "_logo.jpg";
+                                    System.IO.File.Copy(oldStoreLogoImageFilePath, newStoreLogoImageFilePath + newStoreLogoImageFileName, true);
+                                    bool thumbResult = ImageProcessHelper.ImageResize(newStoreLogoImageFilePath + newStoreLogoImageFileName,
+                                    newStoreLogoImageFilePath + "thumbs\\" + insertedStore.StoreName.ToImageFileName(), thumbSizesForStoreLogo);
+
+                                    insertedStore = _storeService.GetStoreByMainPartyId(insertedStore.MainPartyId);
+                                    insertedStore.StoreLogo = newStoreLogoImageFileName;
+
+                                    _storeService.UpdateStore(insertedStore);
+                                }
+                            }
+
+                            #region bireyseldenkurumsalagecis
+
+                            //var settings = ConfigurationManager.AppSettings;
+                            MailMessage mail = new MailMessage();
+                            MessagesMT mailT = _messagesMTService.GetMessagesMTByMessageMTName("storedesc");
+                            mail.From = new MailAddress(mailT.Mail, mailT.MailSendFromName); //Mailin kimden gittiğini belirtiyoruz
+                            mail.To.Add(member.MemberEmail);                                                              //Mailin kime gideceğini belirtiyoruz
+                            mail.Subject = mailT.MessagesMTTitle;                                              //Mail konusu
+                            string template = mailT.MessagesMTPropertie;
+                            template = template.Replace("#kullaniciadi#", member.MemberName + " " + member.MemberSurname).Replace("#uyeeposta#", member.MemberEmail).Replace("#kullanicisifre#", member.MemberPassword).Replace("#firmaadi#", instutionalStepObject.StoreName);
+                            mail.Body = template;                                                            //Mailin içeriği
+                            mail.IsBodyHtml = true;
+                            mail.Priority = MailPriority.Normal;
+                            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
+                            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
+                            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
+                            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
+                            sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
+                            sc.Send(mail);
+
+                            #endregion bireyseldenkurumsalagecis
+
+                            #region bilgimakina
+
+                            MailMessage mailb = new MailMessage();
+                            MessagesMT mailTmpInf = _messagesMTService.GetMessagesMTByMessageMTName("bilgimakinasayfası");
+
+                            mailb.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
+                            mailb.To.Add("bilgi@makinaturkiye.com");
+                            mailb.Subject = "Firma Üyeliği " + member.MemberName + " " + member.MemberSurname;
+                            //var messagesmttemplate = entities.MessagesMTs.Where(c => c.MessagesMTId == 2).SingleOrDefault();
+                            //templatet = messagesmttemplate.MessagesMTPropertie;
+                            string bilgimakinaicin = mailTmpInf.MessagesMTPropertie;
+                            bilgimakinaicin = bilgimakinaicin.Replace("#kullanicimiz#", member.MemberName).Replace("#kullanicisoyadi#", member.MemberSurname).Replace("#kullanicitipi#", "Hızlı Üyelik");
+                            mailb.Body = bilgimakinaicin;
+                            mailb.IsBodyHtml = true;
+                            mailb.Priority = MailPriority.Normal;
+                            SmtpClient scr1 = new SmtpClient();
+                            scr1.Port = 587;
+                            scr1.Host = "smtp.gmail.com";
+                            scr1.EnableSsl = true;
+                            scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
+                            scr1.Send(mailb);
+
+                            #endregion bilgimakina
+
+                            hasRecord = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            var lg = new UserLog
+                            {
+                                LogDescription = ex.ToString(),
+                                LogShortDescription = ex.Message,
+                                LogName = "B.K",
+                                LogType = (byte)LogType.MemberShip,
+                                LogStatus = 0,
+                                CreatedDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss")
+                            };
+
+                            // _userLogService.InsertUserLog(lg);
+                        }
+
+                        if (hasRecord)
+                        {
+                            processStatus.Result = "İşlem başarılı";
+                            processStatus.Message.Header = "InstitutionalStep5";
+                            processStatus.Message.Text = "Başarılı";
+                            processStatus.Status = true;
+                        }
+                        else
+                        {
+                            processStatus.Result = "İşlem sırasında bir hata oluştu!";
+                            processStatus.Message.Header = "InstitutionalStep5";
+                            processStatus.Message.Text = "Başarısız";
+                            processStatus.Status = false;
+                        }
+                    }
+                }
+                else
+                {
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
+                    processStatus.Message.Header = "InstitutionalStep5";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "InstitutionalStep5";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        //----------------------------------------------------------------------------BİREYSEL ÜYELİK----------------------------------------------------------------------------\\
+        public HttpResponseMessage Individual(InstutionalStepObject model, string type, string memberType, string TextInstitutionalPhoneAreaCode, string TextInstitutionalPhoneAreaCode2, string TextInstitutionalFaxAreaCode, Nullable<byte> GsmType, string DropDownInstitutionalPhoneAreaCode, string DropDownInstitutionalPhoneAreaCode2, string DropDownInstitutionalFaxAreaCode, string sonuc, string error, string urunNo, string uyeNo, string mtypePage)
+        {
+            ProcessResult processStatus = new ProcessResult();
+
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+
+                if (member != null)
+                {
+                    processStatus.Result = "Geliştirme devam ediyoruz.";
+                    processStatus.Message.Header = "Individual";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
+                    processStatus.Message.Header = "Individual";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "Individual";
                 processStatus.Message.Text = "İşlem başarısız.";
                 processStatus.Status = false;
                 processStatus.Result = "Hata ile karşılaşıldı!";

@@ -21,6 +21,8 @@ namespace MakinaTurkiye.Api.View
         public bool? AdressDefault { get; set; }
         public int? StoreDealerId { get; set; }
         public string PostCode { get; set; }
+        public bool? AddressDefault { get; set; }
+
 
     }
 }
