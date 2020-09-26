@@ -1,0 +1,86 @@
+﻿@model List<MTHomeStoreModel>
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+
+@{
+
+    //using NeoSistem.MakinaTurkiye.Web.Models
+    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+}
+
+<div class="row one-cikan-firma-urunleri">
+    <div class="col-xs-12">
+        <h2 class="section-title">
+            <span>Öne Çıkan Makina ve Ekipman Tedarikçileri</span>
+        </h2>
+    </div>
+
+    <div class="col-xs-12">
+        <div class="row">
+            @foreach (var store in Model)
+              {
+            <div class="col-md-4 col-sm-6">
+
+                <div class="firma-one-cikan-type-box">
+                    <a href="@store.StoreUrl">
+                        <!-- Heading -->
+                        <div class="firma-one-cikan-type-heading">
+                            <!-- Sol -->
+                            <div class="firma-one-cikan-type-heading-sol">
+                                <div class="firma-one-cikan-logo">
+                                    <img src="/UserFiles/image-loading.png" data-src="@store.StoreLogo" class="img-lazy" alt="@store.StoreName" width="80" height="80" style="width: 80px; height: 80px;">
+                                </div>
+                            </div>
+                            <!-- Sol -->
+                            <!-- Sağ -->
+                            <div class="firma-one-cikan-type-heading-sag">
+                                <div class="firma-one-cikan-type-firma-adi">
+                                    <h3 class="text-nowrap">@store.StoreName</h3>
+                                </div>
+                                <div class="firma-one-cikan-type-aciklama">
+                                    <p>@store.StoreAbout</p>
+                                </div>
+                            </div>
+                            <!-- Sağ -->
+                        </div>
+                        <!-- Heading -->
+                    </a>
+
+                    <!-- Body -->
+                    <div class="firma-one-cikan-type-body">
+                        <div class="firma-one-cikan-type-image-list">
+                            @foreach (var picture in store.TopProductPictures)
+                              {
+                            <div class="firma-one-type-image-box">
+                                <a href="@picture.ProductUrl">
+                                    <img   src="/UserFiles/image-loading.png"
+                            data-src="@picture.PicturePath" alt="@picture.PictureName" title="@picture.PictureName" class="img-responsive img-lazy" />
+                                </a>
+                            </div>
+                             } 
+                        </div>
+                    </div>
+                    <!-- Body -->
+
+                </div>
+            </div>
+
+              } 
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+﻿@Model IEnumerable<MakinaTurkiye.Entities.Tables.Catalog.Category>
+    @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.
+    @using NeoSistem.MakinaTurkiye.Web.Models
+    @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+    @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+    @using NeoSistem.MakinaTurkiye.Web.Helpers
+    @using System.Diagnostics
+    @using NeoSistem.MakinaTurkiye.Web.Models.Home
+    @using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+    @using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+    @using MakinaTurkiye.Entities.Tables.Members
+    @using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+    @using NeoSistem.MakinaTurkiye.Web.Models.Products
+    @using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+    @using NeoSistem.MakinaTurkiye.Web.Models.Entities
+    @using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+    @using NeoSistem.MakinaTurkiye.Web.Models.Stores
+    @using NeoSistem.MakinaTurkiye.Core.Web
+    @using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+    @using System.Globalization
+    @using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+    @using NeoSistem.MakinaTurkiye.Web.Models.Videos
+    @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+    @using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+    @using MakinaTurkiye.Entities.Tables.Catalog
+    @{
+        //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+        //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+        //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+    }
+
+
+ 
+<div class="col-sm-4" data-rel="categoryPanel">
+    <label data-rel="title">Ana Kategoriyi Seçiniz*</label>
+    <select class="form-control" style="height:auto;"  size="10" data-rel="iListCategory">
+    @foreach (var item in Model)
+        { 
+            <option value="@item.CategoryId" name="ParentCategory" parent="@item.CategoryParentId">@item.CategoryName</option>
+         } 
+    </select>
+</div>

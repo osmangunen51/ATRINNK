@@ -1,0 +1,94 @@
+﻿@model NeoSistem.MakinaTurkiye.Web.Models.Statistics.ProductStatisticModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+<script type="text/javascript">
+    function PageChangeStatic(p, d, a) {
+        $.ajax({
+            url: '/Account/ilan/AdvertPagingfor',
+            type: 'post',
+            data: { page: p, displayType: d, advertListType: 4, ProductActiveType: a },
+            success: function (data) {
+                $('#AdvertData').html(data);
+            }
+        });
+    }
+</script>
+@{ int pagetype = Convert.ToInt32(Request.QueryString["pagetype"]); }
+
+@switch (pagetype)
+{
+    case 0:
+        break;
+    case 1:
+@Model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.Statistics, (byte)LeftMenuConstants.Statistic.StoreStatistics);
+break;
+case 2:
+break;
+
+case 3:
+@Model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.Statistics, (byte)LeftMenuConstants.Statistic.AdStatistics);
+break;
+default:
+break;
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
+        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+    </div>
+</div>
+<div class="row">
+    <div id="Advert">
+
+        //int pagetype = Request.QueryString["pagetype"].ToInt32();
+        @switch (pagetype)
+        {
+            case 0:
+                break;
+            case 1:
+@Html.RenderHtmlPartial("StoreStatistic", Model.MTStatisticModel) break;
+                case 2:
+                    break;
+
+                case 3:
+@Html.RenderHtmlPartial("ProductOnebyOne", Model)break;
+                default:
+                    break;
+            }
+    </div>
+</div>

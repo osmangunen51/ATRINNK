@@ -1,0 +1,17 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+
+    
+    if ((!string.IsNullOrEmpty(Request.QueryString["ProductActiveType"])))
+    {
+    //    queryProductActiveType = Convert.ToByte(Request.QueryString["ProductActiveType"]);
+    }
+
+    var a  = Convert.ToByte(Request.QueryString["ProductActiveType"]);
+
+}
+
+<h2>Index</h2>
+

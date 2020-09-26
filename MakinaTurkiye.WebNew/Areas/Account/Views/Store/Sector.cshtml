@@ -1,0 +1,120 @@
+﻿@model NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores.MTStoreActivityModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+@section headercontent{
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
+        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+    </div>
+    <div class="col-md-12">
+        <h4 class="mt0 text-info">
+            İlgili Sektörler
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="well well-mt4 col-xs-12" style="background: #fff;">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert mt-alert-danger" style="background-color: #f1f1f1;" role="alert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>@TempData["ErrorMessage"].ToString()
+            </div>}
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccessMessage"].ToString()
+            </div>}
+
+        @using (Html.BeginForm("Sector", "Store", FormMethod.Post))
+        {
+
+
+            <div class="form-top">
+                <div class="pull-left">
+                    <div class="form-header-text">Firma Faaliyet Alanları</div>
+                </div>
+            </div>
+            <div class="form-horizontal" style="margin-top: 20px;">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="form-group">
+                            <label class="col-md-3">Sektör</label>
+                            <div class="col-md-9">
+
+                                @foreach (var item in Model.Categories)
+                                {
+                                    <div class="col-md-4 col-sm-12">
+                                        <input type="checkbox" name="subCategory" value="@item.Value" @(item.Selected == true ? "checked" : "" ) /><label style="font-weight: 500">@item.Text</label>
+                                    </div>}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-9">
+
+                <div class="pull-right">
+                    <input type="submit" value="Kaydet" class="btn btn-success" />
+                </div>
+            </div>}
+        <div class="col-md-9" style="margin-top: 20px">
+            @if (Model.StoreActivityCategories.Count > 0)
+            {
+                <table class="table">
+                    @foreach (var item in Model.StoreActivityCategories)
+                    {
+                        <tr id="storeSector@(item.Key )">
+                            <td style="font-size: 14px;">
+                                @item.Value
+                            </td>
+                            <td><a style="cursor: pointer" onclick="DeleteStoreSector(@item.Key)" title="Kaldır"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                    }
+                </table> }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    Tanımlanmış firma faaliyet alanınız bulunmamaktadır.
+                </div>}
+        </div>
+    </div>
+</div>
+

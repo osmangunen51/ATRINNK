@@ -1,0 +1,31 @@
+﻿@model NeoSistem.MakinaTurkiye.Web.Models.Catalog.AllSectorProductsModel
+
+@{
+    //  ViewBag.Title = "Index2";
+
+    Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+}
+
+@section headercontent{
+
+    <!-- #region HeaderContent -->
+
+    <!-- #endregion -->
+}
+
+
+    @foreach (var item in Model.Sectors)
+    {
+
+        @item.CategoryName 
+        @item.CategoryId 
+        foreach (var product in Model.Products.Where(x => x.SectorId == item.CategoryId))
+        {
+    @product.ProductName 
+    @product.PicturePaths[0]<!-- px100   -->
+    @product.PicturePaths[1]<!-- //px100x75   -->
+    @product.PicturePaths[2]<!--  //px180x135   -->
+    @product.PicturePaths[3]<!-- //x160x120   -->
+    @product.PicturePaths[4]<!-- //px400x300   test asda asd a-->
+        }
+    }

@@ -1,0 +1,119 @@
+﻿@model MTStoreProfileProductsModel
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+}
+
+@section headercontent{
+    @Html.RenderHtmlPartial("_HeaderContent")
+
+}
+
+@section storeprofileheadercontent{
+    @if (Model.StoreActiveType == 2)
+    {
+    }
+    @Html.RenderHtmlPartial("_HeaderTop", Model.MTStoreProfileHeaderModel)
+}
+
+@section stoprofilemenu{
+    @if (Model.StoreActiveType == 2)
+    {
+        @Html.RenderHtmlPartial("_LeftMenu", Model.MTStoreProfileHeaderModel)
+
+    }
+}
+
+
+@if (Model.StoreActiveType == 2)
+{
+
+    <div class="col-sm-7 col-md-8 col-lg-9">
+
+        @if (Model.MTProductsProductListModel.MTProductsPageProductLists.Source.Count() > 0)
+        {
+
+            <div class="store-product-container">
+
+                <div class="col-md-12" style="padding: 0px;">
+                    <div class="categort-filter">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-10">
+                                @foreach (var item in Model.CustomFilterModels.Where(x => x.ProductCount > 0))
+                                {
+                                    string active = "";
+                                    if (item.Selected)
+                                    {
+                                        active = "active";
+                                    }
+                                    <a href="@item.FilterUrl" class="categort-filter__link @active">@item.FilterName<span class="category-filter-count">&nbsp;(@item.ProductCount)</span></a>
+
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @Html.RenderHtmlPartial("_ProductsProductWindow", Model.MTProductsProductListModel)
+                </div>
+                <div class="StoreProfileContent hidden">
+                    <div class="row store-detail__product">
+                        <div class="col-sm-12 col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="tab-content">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-md-12 search-no-result-container">
+                    <div class="col-md-6 message">
+                        <img src="../../Content/V2/images/not-found.png" />
+                        <p class="message-text">
+                            Bu kategoride ürün  bulunamamıştır.
+                        </p>
+                        <div>
+                            Dilerseniz firmanın <a href="@Model.MTStoreProfileHeaderModel.StoreUrl">ansayfasına</a>  veya <a href="@AppSettings.SiteAllCategoryUrl">tüm ürünler</a> sayfamıza bakabilirsiniz.
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+else
+{
+    @Html.Action("NoAccessStore", new { id = Model.MTProductsProductListModel.StoreMainPartyId })
+}
+
+

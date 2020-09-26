@@ -1,0 +1,87 @@
+﻿@model NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Users.MTUserFormModelView
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+@section headercontent{
+    <style type="text/css">
+        table tr td, th {
+            font-size: 15px;
+        }
+    </style>
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
+        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+    </div>
+    <div class="col-md-12">
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="well well-mt">
+            <div class="form-top">
+                <div class="pull-left">
+                    <div class="form-header-text">Yetkili Kullanıcı Ekle</div>
+                </div>
+                <div class="pull-right">
+                    <a href="/account/Users" class="btn btn-info">Tümünü Gör <i class="fa  fa-list"></i></a>
+                </div>
+            </div>
+
+            <div style="clear: both"></div>
+            <div class="form-content">
+                @if (TempData["success"] != null)
+                {
+                    if (Convert.ToBoolean(TempData["success"]))
+                    {
+                        <div class="alert alert-success" role="alert">
+                            Kullanıcı başarılı bir şekilde eklenmiştir. Kullanıcı bilgileri eklediğiniz kullanıcının mail adresine gönderilmiştir.
+                        </div>
+                    }
+                }
+
+                @using (Html.BeginForm("Add", "Users", FormMethod.Post, new { @class = "form-horizontal", @id = "add-user" }))
+                {
+
+                    @Html.RenderHtmlPartial("_UserFormModel", Model.MTUserFormModel)
+
+                }
+            </div>
+        </div>
+    </div>
+</div>

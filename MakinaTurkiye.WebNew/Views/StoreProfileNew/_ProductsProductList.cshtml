@@ -1,0 +1,123 @@
+﻿@model MTProductsProductListModel
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+
+}
+
+
+
+<div class="tab-pane fade in" id="liste">
+    <div class="row clearfix">
+        @foreach (var model1 in Model.MTProductsPageProductLists.Source.OrderByDescending(x => x.productrate).ToList())
+        {
+
+
+            string modelYil = (model1.ModelYear != 0) ? (" " + model1.ModelYear.ToString() + " " + "model1" + " ") : "";
+
+            string fulla = model1.ProductTypeText + model1.ProductStatuText + modelYil + model1.BriefDetailText + model1.ProductSalesTypeText;
+            <div class=" hidden-item-container">
+                <div class="col-xs-3">
+                    <a href="@model1.ProductUrl">
+
+                        <img src="@model1.ProductImagePath" class="img-thumbnail"
+                             alt="@Html.Truncate(model1.ProductName, 80)" title="@Html.Truncate(model1.ProductName, 80)" />
+
+                    </a>
+                </div>
+                <div class="col-xs-6">
+                    <h4 class="media-heading">
+                        <a href="@model1.ProductUrl">
+                            @model1.ProductName
+                        </a>
+                    </h4>
+                    <p class="text-muted">
+                        @fulla
+                        <br />
+                        @if (model1.ProductDescription != "")
+                        {
+                            @model1.ProductDescription
+                        }
+                    </p>
+                    <p>
+                        <a href="@model1.ProductUrl">
+                            <span class="label label-info">
+                                No
+                                @model1.ProductNo
+                            </span>
+                        </a>
+                    </p>
+                    <ul class="list-inline mt20  text-muted">
+                        <li>
+                            <span class="glyphicon glyphicon-time"></span>
+                            @model1.CityName
+                        </li>
+                        <li>
+                            <span class="glyphicon glyphicon-cog"></span>
+                            @model1.LocalityName
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-3">
+                    <p class="text-lg">
+                        <b>
+                            @if (model1.ProductPrice != "")
+                            {
+
+                                <span class="@(!string.IsNullOrEmpty(model1.ProductPriceDiscount) ? "old-price":"")">
+                                    @if (model1.Currency != "")
+                                    {
+                                        <i itemprop="priceCurrency" class="@model1.Currency"></i>
+                                    }
+                                    @model1.ProductPrice
+                                </span>
+                                if (!string.IsNullOrEmpty(model1.ProductPriceDiscount))
+                                {
+                                    <span>
+                                        <i itemprop="priceCurrency" class="@model1.Currency"></i>
+                                        @model1.ProductPriceDiscount
+                                    </span>
+                                }
+                            }
+                            else
+                            {
+                                <span style="color: Green; font-size: 11px; font-weight: bold;">Fiyat Sorunuz</span>
+                            }
+                        </b>
+                    </p>
+                    <p class="text-muted">
+                        Marka : <strong>
+                            @model1.BrandName
+                        </strong>
+                        <br/>  @model1.Tipi <strong>
+                            @model1.ModelName
+                        </strong>
+                    </p>
+                </div>
+                <div class="col-xs-12">
+                    <hr>
+                </div>
+            </div>
+        }
+    </div>
+    @Html.RenderHtmlPartial("Paging", Model)
+</div>

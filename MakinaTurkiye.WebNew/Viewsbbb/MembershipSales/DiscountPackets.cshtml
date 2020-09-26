@@ -125,7 +125,7 @@
                          } 
                         @{ break;
                               case EPacketFeatureType.Content:}
-                      @{Response.Write("<li class='list-group-item' style='background-color:"+item.PacketColor+";'>"); }
+                      <li class='list-group-item' style='background-color:@item.PacketColor'>
                             @packetFeature.FeatureContent
                             @itemPFTItems.PacketFeatureTypeName
                         </li>

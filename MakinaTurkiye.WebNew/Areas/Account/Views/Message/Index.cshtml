@@ -1,0 +1,139 @@
+﻿@model MessageViewModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+@section headercontent{
+    <script type="text/javascript">
+        $(function () {
+
+            jQuery.curCSS = function (element, prop, val) {
+                return jQuery(element).css(prop, val);
+            };
+            $("#Message_MainPartyFullName").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Account/Message/FindMainPartyFullName",
+                        type: "POST",
+                        dataType: "json",
+                        data: { searchText: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.MainPartyFullName, value: item.MainPartyFullName, id: item.MainPartyId }
+                            }))
+                        },
+                        error: function (x, y, z) {
+                            alert(x.responseText);
+                        }
+                    })
+                },
+                select: function (event, ui) {
+                    $('#MainPartyId').val(ui.item.id);
+                    $('.MainPartyId').val(ui.item.id);
+                }
+            });
+
+        });
+
+        function DeletePicture(messageId) {
+            if (confirm('Kaydı Silmek istediğinizden eminmisiniz ?')) {
+                $.ajax({
+                    url: '/Message/DeletePicture',
+                    type: 'POST',
+                    data:
+                    {
+                        MessageId: messageId
+                    },
+                    success: function (data) {
+                        $('#inboxList').html(data);
+                    },
+                    error: function (x, l, e) {
+                        alert(e.responseText);
+                    }
+                });
+            }
+        }
+    </script>
+}
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
+        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-sm-12 col-md-12">
+
+        @{
+            //type dönüşümünde hata
+            var type = (MessagePageType)(Convert.ToByte(Request.QueryString["MessagePageType"]));
+            switch (type)
+            {
+                case MessagePageType.Send:
+
+
+                    @Html.RenderHtmlPartial("Send")
+
+
+                    break;
+                case MessagePageType.Inbox:
+
+
+                    @Html.RenderHtmlPartial("Inbox", Model)
+
+
+                    break;
+                case MessagePageType.Outbox:
+
+
+                    @Html.RenderHtmlPartial("Outbox")
+
+
+                    break;
+                case MessagePageType.RecyleBin:
+
+
+                    @Html.RenderHtmlPartial("RecyleBin")
+
+
+                    break;
+                default:
+                    break;
+            }
+        }
+    </div>
+</div>
+

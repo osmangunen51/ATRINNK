@@ -1,0 +1,136 @@
+﻿@model MessageViewModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+@section headercontent{
+    <script type="text/javascript" language="javascript">
+        function deleteMessage() {
+            if (confirm('Mesajı silmek istediğinizden eminmisiniz ?')) {
+                $.ajax({
+                    url: '/Account/Message/DeleteMessage',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        MessageId: $('#MessageId').val(),
+                        messagetype: $('#messagetype').val()
+                    },
+                    success: function (data) {
+                        alert('Mesajınız başarıyla silinmiştir.');
+                        window.location.href = '/Account/Message/Index?MessagePageType=0';
+                    },
+                    error: function (x, l, e) {
+                        alert("hata");
+                    }
+                });
+            }
+        }
+    </script>
+}
+
+
+@{
+    MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
+    var product = entities.Products.Where(x => x.ProductId == Model.EntitiesMessage.ProductId).FirstOrDefault();
+}
+<input type="hidden" id="messagetype" name="messagetype" value="@Convert.ToInt32(Request.QueryString["RedirectMessageType"])" />
+<input type="hidden" id="MessageId" name="MessageId" value="@Model.EntitiesMessage.MessageId" />
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
+        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+    </div>
+    <div class="col-md-12">
+        <h4 class="mt0 text-info">
+            Favori İlanlarım
+        </h4>
+    </div>
+</div>
+
+<div class="row">
+
+    <div class="col-sm-12 col-md-12">
+        <div class="row hidden-xs">
+            <div class="col-xs-12">
+                <ol class="breadcrumb breadcrumb-mt">
+                    <li><a href="#">Profilim </a></li>
+                    <li class="active">Mesajlarım </li>
+                </ol>
+            </div>
+        </div>
+        <div class="well store-panel-container">
+            <div class="page-header mt0">
+                <div class="btn-group pull-right">
+                    <a href="/Account/Message/Index?MessagePageType=1&Mainparty=@(Model.MemberMessageDetail.Member.MainPartyId)&messageid=@(Model.EntitiesMessage.MessageId )&UrunNo=@(product.ProductId )"
+                       class="btn btn-sm btn-default">
+                        <span class="glyphicon glyphicon-pencil"></span>&nbsp;Yanıtla
+                    </a><a onclick="deleteMessage();" class="btn btn-sm btn-default"><span class="glyphicon glyphicon-trash"></span>&nbsp;Sil </a>
+                </div>
+                <div class="visible-sm">
+                    <br />
+                    <br />
+                    <br />
+                </div>
+                <h5 class="mt0 di">
+
+
+                    <b style="font-size: 12px;">İlan No:</b><span class="text-muted"><a href="@Model.ProductUrl">@product.ProductNo</a></span><br />
+                    <b style="font-size: 12px;">Ürün Adı:</b><span class="text-muted"><a href="@Model.ProductUrl">@product.ProductName</a></span><br />
+                    <br />
+                    <b>Konu: </b><span class="text-muted">
+                        @Model.EntitiesMessage.MessageSubject
+
+                    </span>
+                </h5>
+                <br />
+            </div>
+            <p>
+                @Model.EntitiesMessage.MessageContent
+            </p>
+            <hr />
+            <div class="row">
+                @Html.RenderHtmlPartial("MemberInfo", Model.MemberMessageDetail)
+
+            </div>
+            <hr />
+            <div class="alert alert-info">
+                <span class="glyphicon glyphicon-info-sign"></span><strong>MakinaTürkiye </strong>
+                e-posta yoluyla hiç bir şekilde kullanıcılarından kullanıcı adı ve şifre bilgilerini
+                talep etmemektedir. Size bu yönde gelebilecek olan e-postaları kesinlikle dikkate
+                almayınız.
+            </div>
+
+
+        </div>
+    </div>
+</div>

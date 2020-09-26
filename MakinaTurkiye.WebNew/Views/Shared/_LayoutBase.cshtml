@@ -1,0 +1,147 @@
+﻿
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="tr">
+<head>
+
+    @Html.Action("MetaTag", "Common")
+
+    @Html.Partial("_Head")
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="MakinaTurkiye">
+    <meta name="msapplication-TileImage" content="https://makinaturkiye.com/makinaturkiye.png">
+    <meta name="msapplication-TileColor" content="#0c3871">
+    <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="apple-touch-icon" href="https://makinaturkiye.com/makinaturkiye.png">
+    <meta name="theme-color" content="#0c3871" />
+
+    <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="//www.google-analytics.com" />
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//ajax.googleapis.com" />
+    <link rel="dns-prefetch" href="//s.makinaturkiye.com" />
+    <link rel="dns-prefetch" href="//connect.facebook.net" />
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://ajax.googleapis.com" />
+    <link rel="dns-prefetch" href="https://connect.facebook.net" />
+    <link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
+
+
+
+
+    <%--
+    <script src="/Content/V2/assets/js/jquery.min.js?v=1"></script>
+    <script src="/Content/V2/assets/js/jquery.autocomplete.js"></script>
+    <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=6.9" defer></script>
+    <script src="/Content/V2/public/build/js/bundle-main-min.js?v=9.6" defer></script>
+    <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=10.2" />
+    <link rel="stylesheet" href="<%:Url.Content(" ~ /Content/V2/assets/css/autocomplete.css") %>" />
+    <link rel="stylesheet" href="<%:Url.Content(" ~ /Content/V2/assets/css/jquery.autocomplete.css?v =3") %>" />--%>
+
+    <script async>
+    (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TR7HZJT');
+    </script>
+
+
+
+    <!-- HeaderContent start-->
+    <!-- <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />-->
+    <!-- HeaderContent end-->
+    <link rel="alternate" hreflang="tr-TR" href="@Request.Url.ToString()" />
+
+</head>
+<body class="facelift-v2">
+    <!-- Json Ld Ayar-->
+    <script type="application/ld+json">
+        {
+        "@@context": "http://schema.org",
+        "@@type": "Organization",
+        @*"url": "https://www.makinaturkiye.com",*@
+        "url": "/",
+        "name": "makinaturkiye.com",
+        "logo" : "https://www.makinaturkiye.com/Content/V2/images/makinaturkiye.png",
+        "contactPoint": {
+        "@@type": "ContactPoint",
+        "telephone": "+90 212 255 7152",
+        "contactType": "Customer service"
+        }
+        }
+    </script>
+    <!-- Json Ld Ayar-->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7HZJT"
+                height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="fb-root"></div>
+    <div class="responsive-overlay"></div>
+    @Html.Partial("_Header")
+
+
+    <!-- Homa Page Slider Start-->
+    <!--<asp:ContentPlaceHolder ID="HomePageSlider" runat="server">-->
+    <!-- Homa Page Slider end-->
+
+    <div class="main-container container">
+        <!-- MainContent Start -->
+        <!--<asp:ContentPlaceHolder ID="MainContent" runat="server">-->
+        @RenderBody()
+        <!-- MainContent end -->
+    </div>
+
+    @Html.Action("Content", "Footer")
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '333739580327457',
+                cookie: true,
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v4.0'
+            });
+            FB.AppEvents.logPageView();
+        };
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+        //if ('serviceWorker' in navigator) {
+        //    window.addEventListener('load', function () {
+        //        navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+        //            console.log('Registered!');
+        //        }, function (err) {
+        //            console.log('ServiceWorker registration failed: ', err);
+        //        }).catch(function (err) {
+        //            console.log(err);
+        //        });
+        //    });
+        //} else {
+        //    console.log('service worker is not supported');
+        //}
+    </script>
+
+@Scripts.Render("~/js")
+</body>
+</html>

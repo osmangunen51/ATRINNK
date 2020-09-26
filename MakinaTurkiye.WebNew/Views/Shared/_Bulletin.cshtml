@@ -1,0 +1,39 @@
+﻿@model dynamic
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //using NeoSistem.MakinaTurkiye.Web.Models
+    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+
+}
+
+    <div class="subscribe">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5 col-sm-5 col-md-offset-1">
+                    <span>Yeniliklerimizden Haberdar Olun</span>
+                </div>
+                <div class="col-md-5 col-sm-8">
+                    <form action="/uyelik/bulten-uyeligi" method="get" class="clearfix inputItem">
+                        <input type="text" autocomplete="off" name="email" placeholder="E-Posta Adresinizi Giriniz">
+                        <button>ABONE OL</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
