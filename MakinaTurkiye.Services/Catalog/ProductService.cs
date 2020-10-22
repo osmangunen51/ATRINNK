@@ -5,6 +5,7 @@ using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.StoredProcedures.Catalog;
 using MakinaTurkiye.Entities.StoredProcedures.Stores;
 using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Services.Common;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -46,13 +47,15 @@ namespace MakinaTurkiye.Services.Catalog
         private readonly ICacheManager _cacheManager;
         private readonly IFavoriteProductService _favoriteProductService;
         private readonly ICategoryService _categoryService;
+        private readonly IConstantService _constantService;
+
 
         #endregion
 
         #region Ctor
 
         public ProductService(IDbContext dbContext, IDataProvider dataProvider, IRepository<Product> productRepository,
-            ICacheManager cacheManager, IFavoriteProductService favoriteProductService, ICategoryService categoryService) : base(cacheManager)
+            ICacheManager cacheManager, IFavoriteProductService favoriteProductService, ICategoryService categoryService, IConstantService constantService) : base(cacheManager)
         {
             this._dbContext = dbContext;
             this._dataProvider = dataProvider;
@@ -60,6 +63,7 @@ namespace MakinaTurkiye.Services.Catalog
             this._cacheManager = cacheManager;
             this._favoriteProductService = favoriteProductService;
             this._categoryService = categoryService;
+            this._constantService = constantService;
         }
 
         #endregion
@@ -1223,6 +1227,12 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
                 product.ProductPriceForOrder = product.ProductPrice;
             else
                 product.ProductPriceForOrder = 99999999999;
+
+            var constant = _constantService.GetConstantByConstantId(471);
+            if (constant != null)
+            {
+                product.productrate = Convert.ToDecimal(constant.ConstantTitle);
+            }
 
             _productRepository.Insert(product);
         }
