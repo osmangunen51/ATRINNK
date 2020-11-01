@@ -562,12 +562,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 }
 
-                if (model.MainPartyId != AuthenticationUser.Membership.MainPartyId)
-                {
-                    //ürün başka firmanın ürünü
-
-                    return RedirectToAction("Advert");
-                }
+        
                 var dataPicture = new Data.Picture();
                 model.ProductPictureItems = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
                 model.VideoItems = _videoService.GetVideosByProductId(id);

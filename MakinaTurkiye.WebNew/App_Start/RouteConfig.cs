@@ -1121,6 +1121,13 @@ defaults: new { controller = "StoreProfileNew", action = "News", username = UrlP
 constraints: new { username = new UserNameConstraint() }
 );
 
+
+            routes.MapRoute(
+name: "ResultPayTurkish",
+url: "membershipsales/odeme-sonuc",
+defaults: new { controller = "MembershipSales", action = "ResultPay", username = UrlParameter.Optional }
+);
+
             routes.MapRoute(
      "CatalogAjax",
      "ajax/{action}/{id}",

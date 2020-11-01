@@ -288,6 +288,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         }
         public ActionResult Index2(string gelenSayfa, string memberType)
         {
+
+           var refUrl = Request.UrlReferrer;
             MTAccountHomeModel model = new MTAccountHomeModel();
             int mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             var messageSended = MessageErrorSend();
