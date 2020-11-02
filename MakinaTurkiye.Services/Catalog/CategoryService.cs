@@ -636,6 +636,17 @@ namespace MakinaTurkiye.Services.Catalog
             _cacheManager.Clear();
         }
 
+        public IList<Category> GetSPCategoryGetCategoryByCategoryName(string categoryName)
+        {
+            var pCategoryName = _dataProvider.GetParameter();
+            pCategoryName.ParameterName = "CategoryName";
+            pCategoryName.Value = categoryName;
+            pCategoryName.DbType = DbType.String;
+
+            var categories = _dbContext.SqlQuery<Category>("SP_GetAllSubCategoriesByCategoryId @CategoryName", pCategoryName);
+            return categories.ToList();
+        }
+
 
 
 
