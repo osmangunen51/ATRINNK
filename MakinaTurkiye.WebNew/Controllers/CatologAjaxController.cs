@@ -51,6 +51,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         IAddressService _addressService;
         IMemberStoreService _memberStoreService;
         ICacheManager _cacheManager;
+        ICategoryService _categoryService;
+
 
 
         public CatologAjaxController(IProductComplainService productComplainService, IMemberService memberService,
@@ -61,7 +63,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IProductStatisticService productStatisticService,
             IAddressService addressService,
             IMemberStoreService memberStoreService, IStoreService storeService,
-            ICacheManager cacheManager)
+            ICacheManager cacheManager, ICategoryService categoryService)
         {
             _productComplainService = productComplainService;
             _memberService = memberService;
@@ -77,6 +79,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             _memberStoreService = memberStoreService;
             _storeService = storeService;
             _cacheManager = cacheManager;
+            _categoryService = categoryService;
         }
         // GET: CatologAjax
         public ActionResult Index()
@@ -631,6 +634,35 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             }
             return PartialView("_HomeShowCaseProducts", source);
+        }
+
+        [HttpPost]
+        public JsonResult SearchStoreCategory(string categoryName)
+        {
+            if (!string.IsNullOrWhiteSpace(categoryName) && categoryName.Length >= 3)
+            {
+                IList<Category> categoryItems = null;
+                List<SelectListItem> categoryList = new List<SelectListItem>();
+                categoryItems = _categoryService.GetSPCategoryGetCategoryByCategoryName(categoryName);
+                
+                foreach (var item in categoryItems)
+                {
+                    string title = "";
+                    if (!string.IsNullOrEmpty(item.StorePageTitle))
+                        title = item.StorePageTitle;
+                    else
+                    {
+                        title = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
+                    }
+                    categoryList.Add(new SelectListItem
+                    {
+                        Text = title,
+                        Value = item.CategoryId.ToString()
+                    });
+                }
+                return Json(categoryList, JsonRequestBehavior.AllowGet);
+            }
+            return Json("");
         }
     }
 }

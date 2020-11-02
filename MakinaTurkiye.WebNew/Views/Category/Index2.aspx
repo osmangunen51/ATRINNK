@@ -477,7 +477,7 @@
                                             </a>
 
 
-                                            <%var clearFilterUrl = Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName == "Marka" && x.FilterName != "Seri" && x.FilterName != "Model" && x.ClearFilterUrl != "").FirstOrDefault(); %> <%if (clearFilterUrl != null)
+                                            <%var clearFilterUrl = Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName == "Marka" && x.FilterName != "Seri" && x.FilterName != "Model" && x.ClearFilterUrl != "").FirstOrDefault(); %> <%if (clearFilterUrl != null && Model.BrandId!=0)
                                                                                                                                                                                                                                                                 { %> <a href="<%:clearFilterUrl.ClearFilterUrl %>" class="pull-right">Tümü</a> <%} %>
                                         </div>
 
@@ -524,12 +524,12 @@
                                                 <span class="more-less icon-down-arrow"></span>
                                             </a>
 
-                                            <%var clearFilterUrl1 = Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName != "Marka" && x.FilterName != "Seri" && x.FilterName != "Model" && x.ClearFilterUrl != "").FirstOrDefault(); %> <%if (clearFilterUrl1 != null)
+                                            <%var clearFilterUrl1 = Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName != "Marka" && x.FilterName != "Seri" && x.FilterName != "Model" && x.ClearFilterUrl != "").FirstOrDefault(); %> <%if (clearFilterUrl1 != null && (Model.CityId!=0 || Model.LocalityId!=0))
                                                                                                                                                                                                                                                                  { %> <a href="<%:clearFilterUrl1.ClearFilterUrl %>" class="pull-right">Tümü</a> <%} %>
                                         </div>
 
                                         <div class="panel-body collapse" id="adres-body">
-                                            <div class="list-group list-group-mt3" style="overflow: auto; max-height: 195px;">
+                                            <div class="list-group list-group-mt3" style="overflow: auto; max-height: 195px;"> 
 
                                                 <%foreach (var filterItem in Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName != "Marka" && x.FilterName != "Seri" && x.FilterName != "Model"))
                                                     {%>

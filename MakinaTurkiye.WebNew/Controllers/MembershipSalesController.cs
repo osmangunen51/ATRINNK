@@ -446,10 +446,33 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(SessionPacketModel.PacketModel);
         }
 
-        //[RequireHttps]
+        [RequireHttps]
         public ActionResult FourStep(string messagge, string orderId)
         {
 
+            
+            if (!string.IsNullOrEmpty(orderId))
+            {
+                var order = _orderService.GetOrderByOrderId(Convert.ToInt32(orderId));
+                if (order != null)
+                {
+                    SessionPacketModel.PacketModel.PacketId = order.PacketId;
+                    SessionPacketModel.PacketModel.CreditCardId = 8;
+                    SessionPacketModel.PacketModel.MainPartyId = order.MainPartyId;
+                    SessionPacketModel.PacketModel.OrderNo = "S" + SessionPacketModel.PacketModel.MainPartyId;
+                    SessionPacketModel.PacketModel.OrderCode = Guid.NewGuid().ToString("N").Substring(0, 5);
+
+                    SessionPacketModel.PacketModel.StoreName = _storeService.GetStoreByMainPartyId(order.MainPartyId).StoreName;
+
+
+                }
+
+                SessionPacketModel.PacketModel.OrderId = Convert.ToInt32(orderId);
+
+                SessionPacketModel.PacketModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
+
+
+            }
             if (SessionPacketModel.PacketModel.PacketId > 0)
             {
                 if (TempData["ordertype"] != null)
@@ -590,11 +613,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     SessionPacketModel.PacketModel.Gsm = phoneGsm.PhoneCulture + phoneGsm.PhoneAreaCode + phoneGsm.PhoneNumber;
 
                 }
-                if (!string.IsNullOrEmpty(orderId))
-                    SessionPacketModel.PacketModel.OrderId = Convert.ToInt32(orderId);
+
                 return View("FourStepNew", SessionPacketModel.PacketModel);
             }
-            return RedirectToAction("Index", "Home");
+
+            return View("FourStepNew", SessionPacketModel.PacketModel);
+            //return RedirectToAction("Index", "Home");
         }
 
 
@@ -604,7 +628,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         string tutar;
         string cv2;
         string khip;
-        [RequireHttps]
+         [RequireHttps]
         [HttpPost]
         public ActionResult FourStep(FormCollection[] fColl)
         {
@@ -1126,7 +1150,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
         }
-        //[RequireHttps]
+        [RequireHttps]
         [HttpPost]
         public ActionResult FourStepNew(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
@@ -1174,7 +1198,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(memberStore.StoreMainPartyId.Value, PhoneTypeEnum.Gsm);
 
             var iyzicoPayment = new IyzicoPayment(order, member, address, packet, tutar, pan, kartisim, cv2,
-                Ecom_Payment_Card_ExpDate_Month, Ecom_Payment_Card_ExpDate_Year, null, "/membershipsales/resultpay",phone, taksit);
+                Ecom_Payment_Card_ExpDate_Month, Ecom_Payment_Card_ExpDate_Year, null, "/membershipsales/resultpay", phone, taksit);
             var result = iyzicoPayment.CreatePaymentRequest();
 
             //------------------------------------------------------------
@@ -1212,14 +1236,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 _creditCardLogService.InsertCreditCardLog(ccl);
 
-                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", OrderId = order.OrderId });
+                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure",  order.OrderId });
             }
 
 
 
         }
         //[RequireHttps]
-        [HttpPost]
+        //[HttpPost]
         public ActionResult ResultPay(FormCollection frm)
         {
             Options options = new Options();
@@ -1379,6 +1403,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
                 return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
+
+              //  return View();
             }
 
         }
@@ -1636,7 +1662,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             else
                 packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
 
-            if (ProductId != "0") // insert product order 
+            if (ProductId != "0" && orderId=="0") // insert product order 
             {
                 order = new Order
                 {
@@ -1710,7 +1736,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             return RedirectToAction("PayWithCreditCard", "membershipsales", new { OrderId = order.OrderId });
         }
-        [HttpPost]
+
         public ActionResult resultpayForCreditCard()
         {
             Options options = new Options();

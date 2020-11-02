@@ -67,5 +67,8 @@ namespace MakinaTurkiye.Services.Catalog
 
         void ClearAllCache();
 
+        IList<Category> GetSPCategoryGetCategoryByCategoryName(string categoryName);
+
+
     }
 }

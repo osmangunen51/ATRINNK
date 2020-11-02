@@ -531,6 +531,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             string customFilter = GetCustomFilterQueryString();
 
             var searchText = model.SearchText;
+            model.CityId = selectedCityId;
+            model.LocalityId= selectedLocalityId;
 
             int selectedCategoryId = 0;
             int selectedBrandId = 0;
@@ -2773,8 +2775,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.CategoryId = selectCategoryId;
             model.BrandId = selectedBrandId;
             model.CountryId = selectedCountryId;
-            model.CityId = selectedCityId;
-            model.LocalityId = selectedLocalityId;
 
             return await Task.FromResult(View(model));
         }
