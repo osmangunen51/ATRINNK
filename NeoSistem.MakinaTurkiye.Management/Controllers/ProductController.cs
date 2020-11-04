@@ -1283,6 +1283,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     }
 
                     model.AllowProductSellUrl = CheckPermissionProductSellUrl(model);
+          
+
                     return View(model);
                 }
                 return RedirectToAction("Index");

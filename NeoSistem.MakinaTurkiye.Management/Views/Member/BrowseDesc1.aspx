@@ -132,7 +132,7 @@
                         <%:type %>
                     </td>
                     <td class="Cell">
-                        <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+" &&  itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
+                        <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+" && itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
                             {%>
                         <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
                             <img src="/Content/images/ac.png" alt="" />
@@ -142,7 +142,12 @@
                             <img src="/Content/images/delete.png" hspace="5" />
                         </a>
                         <% } %>
-
+                        <%if (Model.BaseMemberDescriptionModelItems.Where(x => x.LastDate.ToDateTime().Date >= DateTime.Now.Date).Count() == 0 && row == 1)
+                            {%>
+                        <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
+                            <img src="/Content/images/ac.png" alt="" />
+                        </a>
+                        <% } %>
 
                     </td>
                 </tr>

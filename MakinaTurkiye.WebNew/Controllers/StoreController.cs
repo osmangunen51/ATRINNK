@@ -520,7 +520,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 storeModel.StoreName = item.StoreName;
                 storeModel.TruncateStoreName = StringHelper.Truncate(item.StoreName, 100);
                 storeModel.StoreLogoPath = ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300);
-                storeModel.FullActivityTypeName = item.FullActivityTypeName;
+                storeModel.FullActivityTypeName = StringHelper.Truncate(item.FullActivityTypeName, 145);
                 storeModel.StoreShowName = item.StoreName;
                 storeModel.StoreAbout = item.StoreAbout;
 
