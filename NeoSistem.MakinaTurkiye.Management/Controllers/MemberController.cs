@@ -682,27 +682,41 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     if (alluserfriend.Eposta1check == true)
                     {
-                        MailMessage maila = new MailMessage();
-                        maila.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
-                        maila.To.Add(alluserfriend.Eposta1); //Mailin kime gideceğini belirtiyoruz
-                        allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad1 + " " + alluserfriend.SoyAd2);
-                        maila.Subject = allusersubtitle; //Mail konusu
-                        maila.Body = template; //Mailin içeriği
-                        maila.IsBodyHtml = true;
-                        maila.Priority = MailPriority.Normal;
-                        sc.Send(maila);
+
+                        if (alluserfriend.Eposta1 != null)
+                        {
+                            MailMessage maila = new MailMessage();
+                            maila.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                            maila.To.Add(alluserfriend.Eposta1); //Mailin kime gideceğini belirtiyoruz
+                            allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad1 + " " + alluserfriend.SoyAd2);
+                            maila.Subject = allusersubtitle; //Mail konusu
+                            maila.Body = template; //Mailin içeriği
+                            maila.IsBodyHtml = true;
+                            maila.Priority = MailPriority.Normal;
+                            sc.Send(maila);
+                        }
+                        else
+                        {
+                            alluserfriend.Eposta1check = false;
+                        }
+         
                     }
                     if (alluserfriend.Eposta2check == true)
                     {
-                        MailMessage mailb = new MailMessage();
-                        mailb.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
-                        mailb.To.Add(alluserfriend.EPosta2); //Mailin kime gideceğini belirtiyoruz
-                        allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad2 + " " + alluserfriend.SoyAd2);
-                        mailb.Subject = allusersubtitle; //Mail konusu
-                        mailb.Body = template; //Mailin içeriği
-                        mailb.IsBodyHtml = true;
-                        mailb.Priority = MailPriority.High;
-                        sc.Send(mailb);
+                        if (alluserfriend.EPosta2 != null)
+                        {
+                            MailMessage mailb = new MailMessage();
+                            mailb.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                            mailb.To.Add(alluserfriend.EPosta2); //Mailin kime gideceğini belirtiyoruz
+                            allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad2 + " " + alluserfriend.SoyAd2);
+                            mailb.Subject = allusersubtitle; //Mail konusu
+                            mailb.Body = template; //Mailin içeriği
+                            mailb.IsBodyHtml = true;
+                            mailb.Priority = MailPriority.High;
+                            sc.Send(mailb);
+
+                        }
+
                     }
                 }
                 BaseMemberDescription baseMember = new BaseMemberDescription();

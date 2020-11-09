@@ -26,6 +26,7 @@
 
                                     <img
                                         class="img-thumbnail"
+                                        style="width:190px;"
                                         src="<%=item.ProductImagePath.Replace("500x375","200x150")%>"
                                         alt="<%:item.ProductName %>" />
                                     <%if (item.FavoriteProductId > 0)
@@ -62,15 +63,16 @@
                                             {
                                         %>
 
-                                    
-                     
+
+
                                         <span class="<%:!string.IsNullOrEmpty(item.ProductPriceDiscount) ? "old-price" :"" %>">
-                                                <i itemprop="priceCurrency" class="<%:item.Currency %>"></i>
+                                            <i itemprop="priceCurrency" class="<%:item.Currency %>"></i>
                                             <%:item.ProductPrice %></span>
 
-                                                           <%if (!string.IsNullOrEmpty(item.ProductPriceDiscount)) {%>
-                                            <i itemprop="priceCurrency" class="<%:item.Currency %>"></i>
-                                            <span><%:item.ProductPriceDiscount %></span>
+                                        <%if (!string.IsNullOrEmpty(item.ProductPriceDiscount))
+                                            {%>
+                                        <i itemprop="priceCurrency" class="<%:item.Currency %>"></i>
+                                        <span><%:item.ProductPriceDiscount %></span>
                                         <% } %>
                                         <%}
                                             else

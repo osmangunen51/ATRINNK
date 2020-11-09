@@ -1371,7 +1371,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 };
                 entities.MainPartyIdEpostas.AddObject(mainepost);
             }
-            var memberId = entities.MemberStores.SingleOrDefault(c => c.StoreMainPartyId == id).MemberMainPartyId;
+            var memberId = entities.MemberStores.FirstOrDefault(c => c.StoreMainPartyId == id).MemberMainPartyId;
             var member = entities.Members.SingleOrDefault(c => c.MainPartyId == memberId);
 
             member.MemberEmail = model.MemberEmail;
