@@ -96,52 +96,52 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                             
                             /*Resimler boyutlandırıldıktan sonra webp formatları oluşturulmaktadır.*/
 
-                            var builder = new WebPEncoderBuilder();
-                            var encoder = builder
-                                .LowMemory()
-                                .MultiThread()
-                                .Build();
+                            //var builder = new WebPEncoderBuilder();
+                            //var encoder = builder
+                            //    .LowMemory()
+                            //    .MultiThread()
+                            //    .Build();
 
 
-                            System.IO.FileInfo Dosya = new FileInfo(filePath);
+                            //System.IO.FileInfo Dosya = new FileInfo(filePath);
 
-                            string simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension, ".webp");
-                            System.IO.FileInfo DosyaKontrol = new FileInfo(simpleLosslessFileName);
-                            if (!DosyaKontrol.Exists)
-                            {
-                                using (var outputFile = File.Open(simpleLosslessFileName, FileMode.Create))
-                                using (var inputFile = File.Open(Dosya.FullName, FileMode.Open))
-                                {
-                                    encoder.Encode(inputFile, outputFile);
-                                }
-                            }
+                            //string simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension, ".webp");
+                            //System.IO.FileInfo DosyaKontrol = new FileInfo(simpleLosslessFileName);
+                            //if (!DosyaKontrol.Exists)
+                            //{
+                            //    using (var outputFile = File.Open(simpleLosslessFileName, FileMode.Create))
+                            //    using (var inputFile = File.Open(Dosya.FullName, FileMode.Open))
+                            //    {
+                            //        encoder.Encode(inputFile, outputFile);
+                            //    }
+                            //}
 
-                            foreach (var thumbsize in this.ThumbSizes)
-                            {
-                                byte[] rawWebP;
-                                try
-                                {
+                            //foreach (var thumbsize in this.ThumbSizes)
+                            //{
+                            //    byte[] rawWebP;
+                            //    try
+                            //    {
 
-                                    string SourceFile = HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count);
-                                    SourceFile = SourceFile + "-" + thumbsize.Replace("x*", "X").Replace("*x", "X");
-                                    Dosya = new FileInfo(SourceFile);
+                            //        string SourceFile = HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count);
+                            //        SourceFile = SourceFile + "-" + thumbsize.Replace("x*", "X").Replace("*x", "X");
+                            //        Dosya = new FileInfo(SourceFile);
 
-                                    simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension, ".webp");
-                                    DosyaKontrol = new FileInfo(simpleLosslessFileName);
-                                    if (!DosyaKontrol.Exists)
-                                    {
-                                        using (var outputFile = File.Open(simpleLosslessFileName, FileMode.Create))
-                                        using (var inputFile = File.Open(Dosya.FullName, FileMode.Open))
-                                        {
-                                            encoder.Encode(inputFile, outputFile);
-                                        }
-                                    }
-                                }
-                                catch (Exception Hata)
-                                {
+                            //        simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension, ".webp");
+                            //        DosyaKontrol = new FileInfo(simpleLosslessFileName);
+                            //        if (!DosyaKontrol.Exists)
+                            //        {
+                            //            using (var outputFile = File.Open(simpleLosslessFileName, FileMode.Create))
+                            //            using (var inputFile = File.Open(Dosya.FullName, FileMode.Open))
+                            //            {
+                            //                encoder.Encode(inputFile, outputFile);
+                            //            }
+                            //        }
+                            //    }
+                            //    catch (Exception Hata)
+                            //    {
 
-                                }
-                            }
+                            //    }
+                            //}
                             #endregion
                         }
 
