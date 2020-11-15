@@ -79,7 +79,7 @@
     @if (Model.MTProductComment.MTProductCommentItems.Source.Count > 0)
     {
         <div id="productCommentContainer">
-            @Html.RenderHtmlPartial("_ProductCommentList", Model.MTProductComment.MTProductCommentItems)
+            @Html.Partial("_ProductCommentList", Model.MTProductComment.MTProductCommentItems)
         </div>
     }
 

@@ -6,51 +6,57 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.Home
 
 @{
-
+    Layout = null;
     //using NeoSistem.MakinaTurkiye.Web.Models
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 }
 
-<meta name="google-signin-client_id" content="638267544487-nqpu1s475ju88si2rpper76f0rs5e03o.apps.googleusercontent.com">
+@section headercontent{
+    <meta name="google-signin-client_id" content="638267544487-nqpu1s475ju88si2rpper76f0rs5e03o.apps.googleusercontent.com">
+
+}
 <form action="javascript:void(0)" id="login-form">
-    @Html.HiddenFor(x=>x.ReturnUrl)
+    @Html.HiddenFor(x => x.ReturnUrl)
     <div class="form-group">
         <label>Email*</label>
-            <input type="email" name="Email" id="Email" value="@ViewData["mail"]" class="mt-form-control"
-        placeholder="E-mail*" autofocus />
+        <input type="email" name="Email" id="Email" value="@ViewData["mail"]" class="mt-form-control"
+               placeholder="E-mail*" autofocus />
     </div>
     <div class="form-group">
-             <label>Şifre*</label>
-            <input type="password" name="Password" id="Password" value="@ViewData["password"]"
-        class="mt-form-control" placeholder="Şifre" />
+        <label>Şifre*</label>
+        <input type="password" name="Password" id="Password" value="@ViewData["password"]"
+               class="mt-form-control" placeholder="Şifre" />
     </div>
 
     <label class="checkbox">
-        @Html.HiddenFor(x=>x.ReturnUrl) 
-        @Html.CheckBoxFor(m=>Model.Remember)
-      
-                    Beni hatırla 
-        <a class="pull-right forget-password"  href="/Uyelik/SifremiUnuttum">Şifremi Unuttum
-                    </a>
+        @Html.HiddenFor(x => x.ReturnUrl)
+        @Html.CheckBoxFor(m => Model.Remember)
+
+        Beni hatırla
+        <a class="pull-right forget-password" href="/Uyelik/SifremiUnuttum">
+            Şifremi Unuttum
+        </a>
     </label>
     <button class="btn btn-sign-up" id="btnLogin" type="submit">
         Giriş Yap
     </button>
-    </form>
-    <hr>
-    <div class="form-group">
-            <a class="btn btn-info btn-facebook-login loginBtn--google googlegogin" href="javascript:;"
-            data-max-rows="1" data-scope="email,public_profile" data-size="medium" data-show-faces="false" data-auto-logout-link="true"
-            style="color: #fff; border-color: #DD4B39; background: #DD4B39; width: 100%;"><i class="fa fa-google-plus"></i> Google ile bağlan
-        </a>
-    </div>
-    <hr />
-    <div class="form-group">
-    <a class="btn  btn-info btn-facebook-login js-facebook-login" href="javascript:;"
-        data-max-rows="1" data-scope="email,public_profile" data-size="medium" data-show-faces="false" data-auto-logout-link="true"
-        style="color: #fff; border-color: #3B5998; background: #3B5998; width: 100%;"><i class="fa fa-facebook fa-fw"></i>Facebook ile bağlan
+</form>
+<hr>
+<div class="form-group">
+    <a class="btn btn-info btn-facebook-login loginBtn--google googlegogin" href="javascript:;"
+       data-max-rows="1" data-scope="email,public_profile" data-size="medium" data-show-faces="false" data-auto-logout-link="true"
+       style="color: #fff; border-color: #DD4B39; background: #DD4B39; width: 100%;">
+        <i class="fa fa-google-plus"></i> Google ile bağlan
     </a>
-    </div>
+</div>
+<hr />
+<div class="form-group">
+    <a class="btn  btn-info btn-facebook-login js-facebook-login" href="javascript:;"
+       data-max-rows="1" data-scope="email,public_profile" data-size="medium" data-show-faces="false" data-auto-logout-link="true"
+       style="color: #fff; border-color: #3B5998; background: #3B5998; width: 100%;">
+        <i class="fa fa-facebook fa-fw"></i>Facebook ile bağlan
+    </a>
+</div>
 <script type="text/javascript">
     (function ($) {
         $(document).ready(function () {
@@ -124,44 +130,44 @@
 
             }
             function getUserInfo() {
-                        $.ajax({
+                $.ajax({
 
-                            url: 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + acToken,
-                            data: null,
-                            success: function (resp) {
-                                user = resp;
-                                console.log(user);
-                                $.ajax({
-                                    async: true,
-                                    type: "post",
-                                    url: 'https://www.makinaturkiye.com/Membership/SocialMembership',
-                                    data: JSON.stringify({
-                                        "model": {
-                                            "MemberName": user.family_name,
-                                            "MemberSurname": user.given_name,
-                                            "MemberEmail": user.email,
-                                            "MemberEmailAgain": user.email,
-                                            "LocalityId": "0",
-                                            "TownId": "0",
-                                            "CityId": "0",
-                                            "CountryId": "0",
-                                            "AddressTypeId": "0"
-                                        },
-                                        "MembershipType": "5",
-                                        "profileId": user.id,
-                                        "fastmembershipType": "30",
-                                    }),
-                                    contentType: "application/json; charset=utf-8",
-                                    dataType: "json",
-                                    success: function (msg) {
-                                        if (msg) { window.location.href = window.location.origin; }
-                                    },
-                                    error: function (jqXHR, exception) {
-                                        console.error('error tanımlandı');
-                                    }
-                                });
+                    url: 'https://www.googleapis.com/oauth2/v1/userinfo?access_token=' + acToken,
+                    data: null,
+                    success: function (resp) {
+                        user = resp;
+                        console.log(user);
+                        $.ajax({
+                            async: true,
+                            type: "post",
+                            url: 'https://www.makinaturkiye.com/Membership/SocialMembership',
+                            data: JSON.stringify({
+                                "model": {
+                                    "MemberName": user.family_name,
+                                    "MemberSurname": user.given_name,
+                                    "MemberEmail": user.email,
+                                    "MemberEmailAgain": user.email,
+                                    "LocalityId": "0",
+                                    "TownId": "0",
+                                    "CityId": "0",
+                                    "CountryId": "0",
+                                    "AddressTypeId": "0"
+                                },
+                                "MembershipType": "5",
+                                "profileId": user.id,
+                                "fastmembershipType": "30",
+                            }),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: function (msg) {
+                                if (msg) { window.location.href = window.location.origin; }
+                            },
+                            error: function (jqXHR, exception) {
+                                console.error('error tanımlandı');
                             }
-                        })
+                        });
+                    }
+                })
 
 
             }

@@ -26,7 +26,7 @@
 
 }
 
-@section headercontetnt{
+@section headercontent{
     <link rel="canonical" href="@ViewBag.Canonical" />
 
     <link href="../../Content/video-js-7.4.1/video-js.min.css" rel="stylesheet" />
@@ -61,7 +61,7 @@
             <img class="img-thumbnail" src="https://dummyimage.com/800x400/efefef/000000.jpg&text=video" alt=".." />
         }
 
-        @Html.RenderHtmlPartial("StoreAndProductInf", Model.MTStoreAndProductDetailModel)
+        @Html.Partial("StoreAndProductInf", Model.MTStoreAndProductDetailModel)
     </div>
     <div class="visible-xs mb20">
         &nbsp;
@@ -69,7 +69,7 @@
     <div class="visible-sm mb20">
         &nbsp;
     </div>
-    @Html.RenderHtmlPartial("_OtherVideos", Model.MTOtherVideosModel)
+    @Html.Partial("_OtherVideos", Model.MTOtherVideosModel)
 </div>
 
 <input id="hdnCategoryId" type="hidden" name="categoryId" value="@Convert.ToInt32(ViewData["CategoryId"])" />

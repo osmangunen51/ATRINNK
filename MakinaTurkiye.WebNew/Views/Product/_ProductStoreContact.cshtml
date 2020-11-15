@@ -55,12 +55,12 @@
                     </ul>
                     <div class="tab-content">
                         <div id="contact" class="tab-pane fade in active">
-                            @Html.RenderHtmlPartial("_ProductStorePhones",Model) 
+                            @Html.Partial("_ProductStorePhones",Model) 
                         </div>
                         @if (AuthenticationUser.CurrentUser.Membership == null || AuthenticationUser.CurrentUser.Membership.MainPartyId == 0)
                         {
                         <div id="message" class="tab-pane fade in ">
-                            @Html.RenderHtmlPartial("_ProductStoreMessageNew", Model.StoreMessage) 
+                            @Html.Partial("_ProductStoreMessageNew", Model.StoreMessage) 
                         </div>
                         } 
 

@@ -10,11 +10,12 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutBase.cshtml";
     //using NeoSistem.MakinaTurkiye.Web.Models
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 }
 @section headercontent{
-    <link rel="canonical" href="https://www.makinaturkiye.com/uyelik/kullanicigirisi" />
+    <link rel="canonical" href="https://yeni.makinaturkiye.com/uyelik/kullanicigirisi" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script src="https://apis.google.com/js/api:client.js"></script>
     <style>
@@ -131,6 +132,7 @@
     </script>
 }
 <div class="row sign-in-container">
+    
     <div class="col-xs-12 col-sm-5 col-md-4">
         @if (TempData["MessageError"] != null)
         {
@@ -167,8 +169,8 @@
 
         <ul class="nav nav-tabs login-tabs">
 
-            <li class="@(Model.LoginTabType==(byte)LoginTabType.Login?" active":"" )"><a data-toggle="tab" href="#login">Giriş Yap</a></li>
-            <li class="@(Model.LoginTabType==(byte)LoginTabType.Register?" active":"" )" id="map"><a data-toggle="tab" href="#register">Üye Ol</a></li>
+            <li class="@(Model.LoginTabType==(byte)LoginTabType.Login?"active":"" )"><a data-toggle="tab" href="#login">Giriş Yap</a></li>
+            <li class="@(Model.LoginTabType==(byte)LoginTabType.Register?"active":"" )" id="map"><a data-toggle="tab" href="#register">Üye Ol</a></li>
 
         </ul>
 
@@ -176,14 +178,14 @@
 
             <div class="tab-pane fade @(Model.LoginTabType==(byte)LoginTabType.Login?" active in":"" )
                     " id="login" role="tabpanel" aria-labelledby="login">
-                @Html.RenderHtmlPartial("_LoginForm", Model.LoginModel)
+                @Html.Partial("_LoginForm", Model.LoginModel)
             </div>
             <div class="tab-pane fade @(Model.LoginTabType==(byte)LoginTabType.Register?" active in":"" )
                     " id="register" role="tabpanel" aria-labelledby="register">
                 @using (Html.BeginForm("RegisterOnLogin", "membership", FormMethod.Post, new { @id = "register-form" }))
                 {
                     <input type="hidden" name="PageType" value="LogOn" />
-                    @Html.RenderHtmlPartial("_RegisterForm", Model.MembershipViewModel)
+                    @Html.Partial("_RegisterForm", Model.MembershipViewModel)
                 }
             </div>
 

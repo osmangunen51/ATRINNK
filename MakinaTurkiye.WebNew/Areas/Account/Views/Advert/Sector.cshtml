@@ -1,5 +1,5 @@
-﻿@Model AdvertViewModel
-@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.
+﻿@model AdvertViewModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
@@ -39,13 +39,13 @@
         <div class="col-sm-12">
             @if (Model.PrivateSectorCategories.Count > 0)
             {
-<div style="display: none">
+                <div style="display: none">
 
-    @Html.DropDownList("AllSector", new SelectList(Model.SectorItems.Skip(1).Take(Model.SectorItems.ToList().Count), "CategoryId", "CategoryName"), new { @class = "form-control", @size = "10" })
-</div>
+                    @Html.DropDownList("AllSector", new SelectList(Model.SectorItems.Skip(1).Take(Model.SectorItems.ToList().Count), "CategoryId", "CategoryName"), new { @class = "form-control", @size = "10" })
+                </div>
                 @Html.DropDownList("DropDownSector", Model.PrivateSectorCategories, new { @class = "form-control", @size = "10" }) }
-                            else
-                            {
+            else
+            {
                 @Html.DropDownList("DropDownSector", new SelectList(Model.SectorItems, "CategoryId", "CategoryName"), new { @class = "form-control", @size = "10" })}
         </div>
     </div>

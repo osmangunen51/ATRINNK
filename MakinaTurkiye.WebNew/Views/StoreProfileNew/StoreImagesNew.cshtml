@@ -27,7 +27,7 @@
 }
 
 @section headercontent{
-    @Html.RenderHtmlPartial("_HeaderContent")
+    @Html.Partial("_HeaderContent")
 
 }
 
@@ -35,13 +35,13 @@
     @if (Model.StoreActiveType == 2)
     {
     }
-    @Html.RenderHtmlPartial("_HeaderTop", Model.MTStoreProfileHeaderModel)
+    @Html.Partial("_HeaderTop", Model.MTStoreProfileHeaderModel)
 }
 
 @section stoprofilemenu{
     @if (Model.StoreActiveType == 2)
     {
-        @Html.RenderHtmlPartial("_LeftMenu", Model.MTStoreProfileHeaderModel)
+        @Html.Partial("_LeftMenu", Model.MTStoreProfileHeaderModel)
     }
 }
 

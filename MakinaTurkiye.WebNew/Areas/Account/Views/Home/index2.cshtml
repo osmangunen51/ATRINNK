@@ -29,10 +29,7 @@
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-
-
 }
-
 @section headercontent{
     <script type="text/javascript">
         function CommentDelete(id) {
@@ -69,7 +66,7 @@
 
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
-        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenuModel)
+        @Html.Partial("LeftMenu", Model.LeftMenuModel)
     </div>
     <div class="col-md-12">
         <h4 class="mt0 text-info">
@@ -81,7 +78,7 @@
 
 <div class="row">
 
-    @Html.RenderHtmlPartial("_AccountHomeCenter", Model.AccountHomeCenterCenterModel)
+    @Html.Partial("_AccountHomeCenter", Model.AccountHomeCenterCenterModel)
 
     <div class="col-md-3 col-xs-12 col-sm-12">
         @if (Model.AccountHomeCenterCenterModel.MemberType != (byte)MemberType.FastIndividual && Model.AccountHomeCenterCenterModel.MemberType != (byte)MemberType.Individual)

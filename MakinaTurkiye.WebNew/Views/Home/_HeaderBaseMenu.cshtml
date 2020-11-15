@@ -32,13 +32,9 @@
     //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-
-
+    Layout = null;
 }
 
-@section headerconten{
-
-}
 
 
 @{bool isMobile = Request.Browser.IsMobileDevice; }
@@ -92,7 +88,7 @@
 
                                 <span class="hidden-sm hidden-xs">
 
-                                    @item.BaseMenuName
+                                    @Html.Raw(item.BaseMenuName)
 
                                 </span>
 

@@ -27,7 +27,7 @@
 }
 
 @section headercontent{
-    @Html.RenderHtmlPartial("_HeaderContent")
+    @Html.Partial("_HeaderContent")
 
 }
 
@@ -35,13 +35,13 @@
     @if (Model.StoreActiveType == 2)
     {
     }
-    @Html.RenderHtmlPartial("_HeaderTop", Model.MTStoreProfileHeaderModel)
+    @Html.Partial("_HeaderTop", Model.MTStoreProfileHeaderModel)
 }
 
 @section stoprofilemenu{
     @if (Model.StoreActiveType == 2)
     {
-        @Html.RenderHtmlPartial("_LeftMenu", Model.MTStoreProfileHeaderModel)
+        @Html.Partial("_LeftMenu", Model.MTStoreProfileHeaderModel)
     } 
 }
 
@@ -52,7 +52,7 @@
     <div class="col-sm-7 col-md-8 col-lg-9">
 
         <div class="StoreProfileMenu mb20">
-            @Html.RenderHtmlPartial("_VideoCategories", Model.VideoCategoryModel)
+            @Html.Partial("_VideoCategories", Model.VideoCategoryModel)
         </div>
 
         <div class="StoreProfileContent" id="StoreProfileVideosNew">
@@ -67,7 +67,7 @@
 
                     @(Model.StoreName+" ")@(string.IsNullOrEmpty(Model.VideoCategoryModel.SelectedCategoryName) ? "Tüm Ürün" : Model.VideoCategoryModel.SelectedCategoryName+" Ürün" ) Videoları
                 </div>
-                @Html.RenderHtmlPartial("_VideoViewWindow", Model.VideosPage)
+                @Html.Partial("_VideoViewWindow", Model.VideosPage)
             </div>
 
             <div class="clearfix"></div>

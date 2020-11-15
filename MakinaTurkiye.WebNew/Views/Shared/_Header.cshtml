@@ -19,6 +19,7 @@
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     //using NeoSistem.MakinaTurkiye.Web.Models
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+    Layout = null;
 
 }
 
@@ -63,6 +64,7 @@
         throw;
     }
 }
+
 <div class="overlay-body"></div>
 <div class="new-header">
     <div class="container">
@@ -452,8 +454,7 @@
         </div>
     </div>
 </div>
-
-@Html.Action("_HeaderBaseMenu", "Home")
+@Html.Action("_HeaderBaseMenu", "Home", new { area = "" })
 
 
 <script>
@@ -569,4 +570,6 @@
 
 
 </script>
+
+
 

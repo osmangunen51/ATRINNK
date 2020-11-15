@@ -32,16 +32,18 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
                 return "https://yeni.makinaturkiye.com";
             }
 
+            hostNameType = HostNameType.Default; // Kaldırılacak canlıay alındığında
+
             switch (hostNameType)
             {
                 case HostNameType.Product:
-                    return "https://urun1.makinaturkiye.com";
+                    return "https://urun.makinaturkiye.com";
                 case HostNameType.Video:
-                    return "https://video1.makinaturkiye.com";
+                    return "https://video.makinaturkiye.com";
                 case HostNameType.Store:
-                    return "https://magaza1.makinaturkiye.com";
+                    return "https://magaza.makinaturkiye.com";
                 case HostNameType.StoreNews:
-                    return "https://haber1.makinaturkiye.com";
+                    return "https://haber.makinaturkiye.com";
                 default:
                     // return "https://www.makinaturkiye.com";
                     return "https://yeni.makinaturkiye.com";

@@ -244,7 +244,7 @@
                         </div>
                         @if (AuthenticationUser.Membership.MainPartyId == 0)
                         {
-                            @Html.RenderHtmlPartial("_ProductStoreMessageNew", Model.StoreMessage)
+                            @Html.Partial("_ProductStoreMessageNew", Model.StoreMessage)
                         }
                         <!-- Footer -->
 

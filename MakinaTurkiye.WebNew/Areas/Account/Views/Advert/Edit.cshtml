@@ -1,5 +1,5 @@
-﻿@Model ProductModel
-@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.
+﻿@model ProductModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
@@ -30,7 +30,7 @@
 }
 
 
-@section headercontetn{
+@section headercontent{
     <script type="text/javascript" src="/Content/v2/assets/js/CKEditor/ckeditor.js"></script>
     <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
 
@@ -468,7 +468,7 @@
 @{var constantItems = Model.ConstantItems; }
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
-        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+        @Html.Partial("LeftMenu", Model.LeftMenu)
     </div>
     <div class="col-md-12">
         <h4 class="mt0 text-info">
@@ -641,17 +641,17 @@
                                 <label class="radio-inline">
                                     @{
                                         bool hasItem = false;}
-                                @if (!string.IsNullOrEmpty(Model.ProductType))
-                                {
-                                    if (Model.ProductType.ToInt16() == item.ConstantId)
+                                    @if (!string.IsNullOrEmpty(Model.ProductType))
                                     {
-                                        hasItem = true;
+                                        if (Model.ProductType.ToInt16() == item.ConstantId)
+                                        {
+                                            hasItem = true;
+                                        }
                                     }
-                                }
-                                @Html.RadioButton("fakeProductType", item.ConstantId, hasItem, new { @class = "ActiveName" })
-                                @item.ConstantName
-                            </label>
-                        }
+                                    @Html.RadioButton("fakeProductType", item.ConstantId, hasItem, new { @class = "ActiveName" })
+                                    @item.ConstantName
+                                </label>
+                            }
                             <script type="text/javascript">
                                 $('.ActiveName').click(function () {
                                     $('#ProductType').val($(this).val());
@@ -1170,7 +1170,7 @@
                             Ürün Resimleri:
                         </label>
                         <div id="divPictureList" class="col-xs-12  col-sm-9">
-                            @Html.RenderHtmlPartial("EditProductPicture", Model.ProductPictureItems)
+                            @Html.Partial("EditProductPicture", Model.ProductPictureItems)
                             <span class="clearfix"></span>
                         </div>
                     </div>
@@ -1190,7 +1190,7 @@
                             Ürün Katologları
                         </label>
                         <div class="col-xs-12  col-sm-9">
-                            @Html.RenderHtmlPartial("_ProductCatologList", Model.MTProductCatologItems)
+                            @Html.Partial("_ProductCatologList", Model.MTProductCatologItems)
                         </div>
                     </div>
                     <div class="form-group">

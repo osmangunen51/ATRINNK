@@ -136,7 +136,7 @@
         @{
             NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.LeftMenuModel lefMenu = (NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.LeftMenuModel)ViewData["leftMenu"];
         }
-        @Html.RenderHtmlPartial("LeftMenu", lefMenu)
+        @Html.Partial("LeftMenu", lefMenu)
     </div>
     <div class="col-md-12">
         <h3>Kurumsal Üyelik</h3>

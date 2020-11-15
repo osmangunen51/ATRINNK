@@ -28,7 +28,7 @@
 <div class="row">
     <div class="col-sm-5 col-md-4 col-lg-3">
         <div class="panel panel-mt2 left-menu">
-            @Html.RenderHtmlPartial("_VideoCategories", Model.VideoCategoryModel)
+            @Html.Partial("_VideoCategories", Model.VideoCategoryModel)
         </div>
     </div>
     <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
@@ -72,10 +72,10 @@
 
         }
 
-        @Html.RenderHtmlPartial("_VideoViewWindow", Model.VideoModels)
+        @Html.Partial("_VideoViewWindow", Model.VideoModels)
 
 
-        @Html.RenderHtmlPartial("_VideoPaging", Model.VideoPagingModel)
+        @Html.Partial("_VideoPaging", Model.VideoPagingModel)
     </div>
 </div>
 

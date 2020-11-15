@@ -69,7 +69,7 @@ break;
 
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
-        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+        @Html.Partial("LeftMenu", Model.LeftMenu)
     </div>
 </div>
 <div class="row">
@@ -81,12 +81,12 @@ break;
             case 0:
                 break;
             case 1:
-@Html.RenderHtmlPartial("StoreStatistic", Model.MTStatisticModel) break;
+@Html.Partial("StoreStatistic", Model.MTStatisticModel) break;
                 case 2:
                     break;
 
                 case 3:
-@Html.RenderHtmlPartial("ProductOnebyOne", Model)break;
+@Html.Partial("ProductOnebyOne", Model)break;
                 default:
                     break;
             }

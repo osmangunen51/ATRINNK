@@ -68,9 +68,9 @@
                     <div class="filters__inner">
                         <div class="pos-absolute">
                             <div class="pos-absolute__inner panel-group" id="filters" role="tablist">
-                                @Html.RenderHtmlPartial("_StoreCategories", Model.StoreCategoryModel)
-                                @Html.RenderHtmlPartial("_FilterActivityType", Model.FilteringContext.MtStoreActivityTypeFilterModel)
-                                @Html.RenderHtmlPartial("_FilterAddressBox", Model.FilteringContext.StoreAddressFilterModel)
+                                @Html.Partial("_StoreCategories", Model.StoreCategoryModel)
+                                @Html.Partial("_FilterActivityType", Model.FilteringContext.MtStoreActivityTypeFilterModel)
+                                @Html.Partial("_FilterAddressBox", Model.FilteringContext.StoreAddressFilterModel)
                             </div>
                         </div>
                     </div>
@@ -170,14 +170,14 @@
 
 
                 <div class="col-sm-12 col-md-4 pull-right">
-                    @Html.RenderHtmlPartial("_FAGFSearch", Model)
+                    @Html.Partial("_FAGFSearch", Model)
                 </div>
             </div>
         </div>
         @if (Model.StoreModels.Count > 0)
         {
-            @Html.RenderHtmlPartial("_StoreViewList", Model.StoreModels)
-            @Html.RenderHtmlPartial("_StorePaging", Model.StorePagingModel)
+            @Html.Partial("_StoreViewList", Model.StoreModels)
+            @Html.Partial("_StorePaging", Model.StorePagingModel)
         }
         else
         {

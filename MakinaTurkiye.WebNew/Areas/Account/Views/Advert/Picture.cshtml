@@ -1,5 +1,5 @@
-﻿@Model AdvertViewModel
-@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.
+﻿@model AdvertViewModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
@@ -30,7 +30,7 @@
 }
 
 
-@section headercontetn{
+@section headercontent{
     <script src="/Content/jquery.Filer/jquery.filer.min.js" type="text/javascript"></script>
     <!-- Styles -->
     <link href="/Content/jquery.Filer/jquery.filer.css" rel="stylesheet" />
@@ -47,7 +47,7 @@
 
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
-        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+        @Html.Partial("LeftMenu", Model.LeftMenu)
     </div>
     <div class="col-md-12">
         <h4 class="mt0 text-info">
@@ -76,7 +76,7 @@
                             </div>
                             <div id="divPictureList">
                                 <div class="row no-gutters clearfix">
-                                    @Html.RenderHtmlPartial("PictureList", Model.PictureList)
+                                    @Html.Partial("PictureList", Model.PictureList)
                                 </div>
                             </div>
 

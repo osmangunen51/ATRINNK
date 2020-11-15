@@ -16,12 +16,13 @@
 
 @{
     //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    Layout = null;
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     //using NeoSistem.MakinaTurkiye.Web.Models
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 
 }
-
+@section headercontent{
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="MakinaTurkiye">
@@ -58,3 +59,4 @@
                 'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
     })(window, document, 'script', 'dataLayer', 'GTM-TR7HZJT');
 </script>
+    }

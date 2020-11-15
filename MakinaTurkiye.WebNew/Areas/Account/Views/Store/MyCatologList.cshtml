@@ -93,7 +93,7 @@
 
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
-        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenuModel)
+        @Html.Partial("LeftMenu", Model.LeftMenuModel)
     </div>
     <div class="col-md-12">
         <h4 class="mt0 text-info">
@@ -124,7 +124,7 @@
                                 <th></th>
                             </tr>
                         </thead>
-                        @Html.RenderHtmlPartial("_CatologItemList", Model.MTCatologItems)
+                        @Html.Partial("_CatologItemList", Model.MTCatologItems)
                     </table>
 
                 }

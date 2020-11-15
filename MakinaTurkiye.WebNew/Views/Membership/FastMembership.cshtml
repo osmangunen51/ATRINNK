@@ -1,12 +1,9 @@
-﻿@model MTMembershipFormModel
+﻿@model NeoSistem.MakinaTurkiye.Web.Models.MemberShip.MTMembershipFormModel
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
-@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
-@using System.Diagnostics
 @using NeoSistem.MakinaTurkiye.Web.Models.Home
-@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
 @using NeoSistem.MakinaTurkiye.Web.Models.Authentication
-@using MakinaTurkiye.Entities.Tables.Members
+
 
 @{
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
@@ -16,7 +13,7 @@
 
 @section headercontent
 {
-    <link rel="canonical" href="https://www.makinaturkiye.com/uyelik/hizliuyelik/uyeliktipi-0" />
+    <link rel="canonical" href="https://yeni.makinaturkiye.com/uyelik/hizliuyelik/uyeliktipi-0" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
@@ -46,36 +43,36 @@
 
 
 
-    <div class="row sign-in-container">
-        <div class="col-md-5 col-sm-12 pr">
-            @if (!string.IsNullOrEmpty(Model.ErrorMessage))
-            {
+<div class="row sign-in-container">
+    <div class="col-md-5 col-sm-12 pr">
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
             <div class="alert alert-danger mt-alert-danger" role="alert" id="MembershipError">
                 @Model.ErrorMessage
             </div>
-            } 
+        }
 
-            <div class="panel panel-default membership-panel">
-                <div class="panel-heading">
-                    <div class="row">
-                        <span class="pull-left panel-heading-left">
-                            Üye Ol
-                        </span>
-                        <small class="pull-right panel-heading-right">
-                            Zaten Üye misin?<br />
-                            <a href="/uyelik/kullanicigirisi">Giriş Yap</a>
-                        </small>
-                    </div>
+        <div class="panel panel-default membership-panel">
+            <div class="panel-heading">
+                <div class="row">
+                    <span class="pull-left panel-heading-left">
+                        Üye Ol
+                    </span>
+                    <small class="pull-right panel-heading-right">
+                        Zaten Üye misin?<br />
+                        <a href="/uyelik/kullanicigirisi">Giriş Yap</a>
+                    </small>
                 </div>
-                <div class="panel-body">
-                    @using (Html.BeginForm("FastMemberShip", "membership", FormMethod.Post, new { @id = "register-form" }))
-                    {
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("FastMemberShip", "membership", FormMethod.Post, new { @id = "register-form" }))
+                {
 
 
-                    @Html.RenderHtmlPartial("_RegisterForm", Model) 
-                    } 
-                </div>
+                    @Html.Partial("_RegisterForm", Model)
+                }
             </div>
         </div>
     </div>
+</div>
 

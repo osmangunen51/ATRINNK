@@ -61,7 +61,7 @@ else
 {
 
     <div class="row">
-        @Html.RenderHtmlPartial("_ProductLeftCategories", Model.CategoryModel)
+        @Html.Partial("_ProductLeftCategories", Model.CategoryModel)
         <div class="col-sm-7 col-md-8 col-lg-9">
             <div class="row hidden-xs">
                 <div class="col-xs-12">
@@ -147,10 +147,10 @@ else
             <div class="row">
                 <div class="col-md-12">
                     <div class="tab-content">
-                        @Html.RenderHtmlPartial("_SearchProductWindow", Model.SearchProductModels)
-                        @Html.RenderHtmlPartial("_SearchProductList", Model.SearchProductModels)
+                        @Html.Partial("_SearchProductWindow", Model.SearchProductModels)
+                        @Html.Partial("_SearchProductList", Model.SearchProductModels)
                     </div>
-                    @Html.RenderHtmlPartial("_ProductPaging", Model.PagingModel)
+                    @Html.Partial("_ProductPaging", Model.PagingModel)
                 </div>
             </div>
         </div>

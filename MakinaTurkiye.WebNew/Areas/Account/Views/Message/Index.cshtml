@@ -89,7 +89,7 @@
 
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
-        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+        @Html.Partial("LeftMenu", Model.LeftMenu)
     </div>
 </div>
 
@@ -105,28 +105,28 @@
                 case MessagePageType.Send:
 
 
-                    @Html.RenderHtmlPartial("Send")
+                    @Html.Partial("Send")
 
 
                     break;
                 case MessagePageType.Inbox:
 
 
-                    @Html.RenderHtmlPartial("Inbox", Model)
+                    @Html.Partial("Inbox", Model)
 
 
                     break;
                 case MessagePageType.Outbox:
 
 
-                    @Html.RenderHtmlPartial("Outbox")
+                    @Html.Partial("Outbox")
 
 
                     break;
                 case MessagePageType.RecyleBin:
 
 
-                    @Html.RenderHtmlPartial("RecyleBin")
+                    @Html.Partial("RecyleBin")
 
 
                     break;

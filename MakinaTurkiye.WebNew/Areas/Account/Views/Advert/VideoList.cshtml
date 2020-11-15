@@ -1,57 +1,57 @@
-﻿@Model IList<VideoModel>
-    @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.
-    @using NeoSistem.MakinaTurkiye.Web.Models
-    @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
-    @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
-    @using NeoSistem.MakinaTurkiye.Web.Helpers
-    @using System.Diagnostics
-    @using NeoSistem.MakinaTurkiye.Web.Models.Home
-    @using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
-    @using NeoSistem.MakinaTurkiye.Web.Models.Authentication
-    @using MakinaTurkiye.Entities.Tables.Members
-    @using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
-    @using NeoSistem.MakinaTurkiye.Web.Models.Products
-    @using NeoSistem.MakinaTurkiye.Web.Models.Catalog
-    @using NeoSistem.MakinaTurkiye.Web.Models.Entities
-    @using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
-    @using NeoSistem.MakinaTurkiye.Web.Models.Stores
-    @using NeoSistem.MakinaTurkiye.Core.Web
-    @using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
-    @using System.Globalization
-    @using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
-    @using NeoSistem.MakinaTurkiye.Web.Models.Videos
-    @using NeoSistem.MakinaTurkiye.Web.Models.Adverts
-    @using MakinaTurkiye.Entities.Tables.Catalog
-    @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
-    @{
-        Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-        //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-        //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+﻿@model IList<VideoModel>
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
 
 
-    }
+}
 
 
-    @{
-        byte well = 0;
-    }
+@{
+    byte well = 0;
+}
 
-    @foreach (var item in Model)
+@foreach (var item in Model)
+{
+    well++;
+
+    <div class="pull-left m5">
+        <img class="img-thumbnail" width="110" src="@(AppSettings.VideoThumbnailFolder + item.VideoPicturePath )" alt="@item.VideoTitle" />
+        <br>
+        <a onclick="DeleteVideo(@well);" class="mt10">Sil </a>
+    </div>
+}
+@if (Model.Count < 5)
+{
+    for (int i = Model.Count + 1; i <= 5; i++)
     {
-        well++;
-
         <div class="pull-left m5">
-            <img class="img-thumbnail" width="110" src="@(AppSettings.VideoThumbnailFolder + item.VideoPicturePath )" alt="@item.VideoTitle" />
-            <br>
-            <a onclick="DeleteVideo(@well);" class="mt10">Sil </a>
+            <img class="img-thumbnail" src="https://dummyimage.com/100x66/efefef/000000.jpg&text=Video%20Eklenmedi." alt="Video Eklenmedi." />
         </div>
     }
-    @if (Model.Count < 5)
-    {
-        for (int i = Model.Count + 1; i <= 5; i++)
-        {
-            <div class="pull-left m5">
-                <img class="img-thumbnail" src="https://dummyimage.com/100x66/efefef/000000.jpg&text=Video%20Eklenmedi." alt="Video Eklenmedi." />
-            </div>
-        }
-    }
+}

@@ -239,7 +239,7 @@
 {
     <div>
         <div>
-            @Html.RenderHtmlPartial("_TaxAndAddressForm", Model.TaxAndAddressViewModel)
+            @Html.Partial("_TaxAndAddressForm", Model.TaxAndAddressViewModel)
             <hr />
             <div class="row">
                 <div class="col-sm-12">
@@ -289,7 +289,7 @@
                     <hr>
                     <div class="tab-content">
                         <div class="tab-pane active" id="divBankTransfer">
-                            @Html.RenderHtmlPartial("BankTransfer")
+                            @Html.Partial("BankTransfer")
                             <button type="submit" onclick="return ThreeStepCheck();" class="pull-right btn btn-primary">
                                 Tamamla >>
                             </button>

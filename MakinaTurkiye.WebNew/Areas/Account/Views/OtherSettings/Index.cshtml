@@ -62,7 +62,7 @@ break;
 } }
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
-        @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenuModel)
+        @Html.Partial("LeftMenu", Model.LeftMenuModel)
     </div>
 
 </div>
@@ -76,9 +76,9 @@ break;
                 case 0:
                     break;
                 case 4:
-                    @Html.RenderHtmlPartial("ProductSort", Model.MTProductItems) break;
+                    @Html.Partial("ProductSort", Model.MTProductItems) break;
                 case 5:
-                    @Html.RenderHtmlPartial("ProductPrice", Model.MTProductItems) break;
+                    @Html.Partial("ProductPrice", Model.MTProductItems) break;
                 default:
                     break;
             } }

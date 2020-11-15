@@ -43,9 +43,9 @@
 <div class="row">
     <div class="col-sm-5 col-md-4 col-lg-3">
         <div class="panel panel-mt2 left-menu">
-            @Html.RenderHtmlPartial("_VideoCategories", Model.VideoCategoryModel)
+            @Html.Partial("_VideoCategories", Model.VideoCategoryModel)
         </div>
-        @Html.RenderHtmlPartial("_PopularVideos", Model.PopularVideoModels)
+        @Html.Partial("_PopularVideos", Model.PopularVideoModels)
     </div>
     <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
         <!--test asdada!-->
@@ -65,10 +65,10 @@
 
             </h1>
         </div>
-        @Html.RenderHtmlPartial("_VideoViewWindow", Model.VideoModels)
-        @Html.RenderHtmlPartial("_SimilarVideos", Model.SimilarVideos)
+        @Html.Partial("_VideoViewWindow", Model.VideoModels)
+        @Html.Partial("_SimilarVideos", Model.SimilarVideos)
 
-        @Html.RenderHtmlPartial("_VideoPaging", Model.VideoPagingModel)
+        @Html.Partial("_VideoPaging", Model.VideoPagingModel)
     </div>
 </div>
 <style type="text/css">

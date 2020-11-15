@@ -1,5 +1,5 @@
-﻿@Model ProductModel
-@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.
+﻿@model ProductModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
@@ -432,7 +432,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="MainContent" runat="server">
     <div class="row">
         <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
-            @Html.RenderHtmlPartial("LeftMenu", Model.LeftMenu)
+            @Html.Partial("LeftMenu", Model.LeftMenu)
         </div>
         <div class="col-md-12">
             <h4 class="mt0 text-info">
@@ -458,7 +458,7 @@
                                         <b>
                                             @varCategoryTreeName[i].ToString()
                                         </b>>
-                                 }
+                             }
 
                                     <br>
                                     <br>
@@ -510,7 +510,7 @@
                                         var editor = CKEDITOR.replace('@item.InputName', { toolbar: 'webtool' });
                                         CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
                                                 </script>
- }
+                                            }
                                             else
                                             {
                                                 @Html.DropDownList(item.InputName, item.Attrs, new { @class = "form-control" })}
@@ -647,7 +647,7 @@
                                                         @i
                                                         Yıl
                                                     </option>
-}
+                                                }
                                             </select>
                                         </div>
                                         <div class="col-sm-5 bs-example bs-example-bg-classes">
@@ -910,7 +910,7 @@
                                                 <option value="@itemProductBriefDetail.ConstantId">
                                                     @itemProductBriefDetail.ConstantName
                                                 </option>
-}
+                                            }
                                         </select>
                                     </div>
                                     <div class="col-xs-3 col-md-2">

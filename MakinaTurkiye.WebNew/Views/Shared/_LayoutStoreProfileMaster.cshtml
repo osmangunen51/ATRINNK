@@ -30,7 +30,7 @@
 <html lang="tr">
 <head>
     @Html.Action("MetaTag", "Common")
-    @Html.RenderHtmlPartial("_Head")
+    @Html.Partial("_Head")
     @RenderSection("headercontent", required: false)
 </head>
 <body class="facelift-v2">
@@ -59,7 +59,7 @@
     <div id="fb-root"></div>
 
     <div class="responsive-overlay"></div>
-    @Html.RenderHtmlPartial("_Header")
+    @Html.Partial("_Header")
     @RenderSection("homepageslider", required: false)
     @RenderSection("storeprofileheadercontent", required: false)
 

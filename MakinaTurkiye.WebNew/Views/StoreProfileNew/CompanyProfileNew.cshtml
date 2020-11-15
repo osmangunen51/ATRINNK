@@ -1,4 +1,5 @@
-﻿@model MTCompanyProfileModel
+﻿@*@model MTCompanyProfileModel*@
+@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles.MTCompanyProfileModel>
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
@@ -27,14 +28,14 @@
 }
 
 @section headercontent{
-    @Html.RenderHtmlPartial("_HeaderContent")
+    @Html.Partial("_HeaderContent")
 
     <script type="text/javascript">
         function CertificatePopUpGallery() {
             $('.certificate-popup-gallery').magnificPopup({
                 delegate: 'div a',
                 type: 'image',
-                tLoading: 'Resim Yükeniyor #@(curr)...',
+                tLoading: 'Resim Yükeniyor #%curr%...',
                 mainClass: 'mfp-img-mobile',
                 gallery: {
                     enabled: true,
@@ -42,7 +43,7 @@
                     preload: [0, 1] // Will preload 0 - before current, and 1 after the current image
                 },
                 image: {
-                    tError: '<a href="@(url)"> #@(curr)</a> resim yüklenemedi',
+                    tError: '<a href="%url%"> #%curr%</a> resim yüklenemedi',
                     titleSrc: function (item) {
                         return item.el.attr('title') + '<small></small>';
                     }
@@ -63,13 +64,13 @@
     @if (Model.StoreActiveType == 2)
     {
     }
-    @Html.RenderHtmlPartial("_HeaderTop", Model.MTStoreProfileHeaderModel)
+    @Html.Partial("_HeaderTop", Model.MTStoreProfileHeaderModel)
 }
 
 @section stoprofilemenu{
     @if (Model.StoreActiveType == 2)
     {
-        @Html.RenderHtmlPartial("_LeftMenu", Model.MTStoreProfileHeaderModel)
+        @Html.Partial("_LeftMenu", Model.MTStoreProfileHeaderModel)
     }
 }
 
@@ -102,11 +103,11 @@
 
             <div class="clearfix"></div>
             @Html.Hidden("showTextDetailHidden", Model.MTStoreAboutModel.AboutText)
-            @Html.RenderHtmlPartial("_PopularProducts", Model.MTPopularProductsModels)
+            @Html.Partial("_PopularProducts", Model.MTPopularProductsModels)
             <div class="clearfix"></div>
-            @Html.RenderHtmlPartial("_StoreAbout", Model.MTStoreAboutModel)
+            @Html.Partial("_StoreAbout", Model.MTStoreAboutModel)
             <div class="clearfix"></div>
-            @Html.RenderHtmlPartial("_StoreCertificates", Model)
+            @Html.Partial("_StoreCertificates", Model)
         </div>
         <!-- /.col-md-8 main content -->
     </div>
