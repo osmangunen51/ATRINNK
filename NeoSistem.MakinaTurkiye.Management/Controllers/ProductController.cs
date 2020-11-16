@@ -1037,8 +1037,53 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     int categoryid = Int32.Parse(id);
                     var categoryforupdate = entities.Categories.Where(c => c.CategoryId == categoryid).SingleOrDefault();
                     categoryforupdate.CategoryName = productidforupdate;
+                    entities.SaveChanges();
 
+                    if (categoryforupdate.CategoryType == (byte)CategoryType.Brand)
+                    {
+                        var products = entities.Products.Where(x => x.BrandId == categoryid);
+                        foreach (var item2 in products)
+                        {
+                            try
+                            {
+                                entities.CheckProductSearch(item2.ProductId);
+                            }
+                            catch
+                            {
 
+                            }
+                        }
+                    }
+                    else if (categoryforupdate.CategoryType == (byte)CategoryType.Series)
+                    {
+                        var products = entities.Products.Where(x => x.SeriesId == categoryid);
+                        foreach (var item2 in products)
+                        {
+                            try
+                            {
+                                entities.CheckProductSearch(item2.ProductId);
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
+                    else if (categoryforupdate.CategoryType == (byte)CategoryType.Model)
+                    {
+                        var products = entities.Products.Where(x => x.ModelId == categoryid);
+                        foreach (var item2 in products)
+                        {
+                            try
+                            {
+                                entities.CheckProductSearch(item2.ProductId);
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                    }
 
                 }
 
@@ -1090,6 +1135,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     product.CategoryTreeName = product.CategoryTreeName + categoryModelId + ".";
                     product.ProductLastUpdate = DateTime.Now;
                     entities.SaveChanges();
+
+
                 }
             }
 
@@ -1152,7 +1199,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     entities.SaveChanges();
                     if (model != null)
                     {
-                        var products = entities.Products.Where(x => x.ModelId == model.CategoryId && x.ProductId != curProduct.ProductId);
+                        var products = entities.Products.Where(x => x.ModelId == model.CategoryId);
                         string updatableCategoryNew = "";
                         foreach (var item in products)
                         {
@@ -1184,221 +1231,221 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                     }
                 }
-     
+
             }
             entities.SaveChanges();
             return Json(true);
 
-            }
+        }
 
-            public ActionResult Edit(int id, string check)
+        public ActionResult Edit(int id, string check)
+        {
+            PAGEID = PermissionPage.IlanDuzenle;
+
+            var product = new Classes.Product();
+            if (check == "true")
             {
-                PAGEID = PermissionPage.IlanDuzenle;
-
-                var product = new Classes.Product();
-                if (check == "true")
-                {
-                    ViewBag.check = "true";
-                }
-                if (product.LoadEntity(id))
-                {
-                    var categories = _categoryPlaceChoiceService.GetCategoryPlaceChoiceByCategoryPlaceTypeByIsProduct((byte)CategoryPlaceType.HomeChoicesed, true);
-
-                    var productvalues = entities.Products.Where(c => c.ProductId == id).SingleOrDefault();
-                    var model = new ProductModel();
-                    UpdateClass(product, model);
-
-                    model.OtherBrand = product.OtherBrand;
-                    model.OtherModel = product.OtherModel;
-                    model.MenseiId = productvalues.MenseiId;
-                    model.OrderStatus = productvalues.OrderStatus;
-                    model.WarrantyPeriod = productvalues.WarrantyPeriod;
-                    model.UnitType = productvalues.UnitType;
-                    model.Doping = productvalues.Doping;
-                    model.Keywords = product.Keywords;
-                    model.ProductSellUrl = productvalues.ProductSellUrl;
-
-                    var dataPicture = new Data.Picture();
-                    model.ProductPictureItems = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
-                    model.VideoItems = entities.Videos.Where(c => c.ProductId == id).ToList();
-                    model.MoneyCondition = productvalues.MoneyCondition == null ? false : productvalues.MoneyCondition == true ? true : false;
-                    var curCountry = new Classes.Country();
-                    model.CountryItems = new SelectList(curCountry.GetDataTable().DefaultView, "CountryId", "CountryName", 0);
-                    model.HasVideo = product.HasVideo;
-                    model.Kdv = product.Kdv;
-                    model.Fob = product.Fob;
-
-                    var dataAddress = new Data.Address();
-
-                    if (product.CountryId == null)
-                    {
-                        product.CountryId = AppSettings.Turkiye;
-                    }
-
-                    var cityItems = dataAddress.CityGetItemByCountryId(product.CountryId.Value).AsCollection<CityModel>().ToList();
-                    cityItems.Insert(0, new CityModel { CityId = 0, CityName = "< Lütfen Seçiniz >" });
-
-                    var productHomePage = _productHomePageService.GetProductHomePageByProductId(product.ProductId);
-
-                    if (productHomePage != null)
-                    {
-                        model.IsProductHomePage = productHomePage.Active != null ? true : false;
-                        if (productHomePage.BeginDate.HasValue)
-                            model.ProductHomeBeginDate = productHomePage.BeginDate.Value;
-                        if (productHomePage.EndDate.HasValue)
-                            model.ProductHomeEndDate = productHomePage.EndDate.Value;
-                    }
-                    List<LocalityModel> localityItems = new List<LocalityModel>() { new LocalityModel { LocalityId = 0, LocalityName = "< Lütfen Seçiniz >" } };
-                    if (product.CityId != null)
-                    {
-                        localityItems = dataAddress.LocalityGetItemByCityId(product.CityId.Value).AsCollection<LocalityModel>().ToList();
-                    }
-
-                    List<Town> townItems = new List<Town>() { new Town { TownId = 0, TownName = "< Lütfen Seçiniz >" } };
-                    if (product.LocalityId.HasValue)
-                    {
-                        townItems = entities.Towns.Where(c => c.LocalityId == product.LocalityId).ToList();
-                        //townItems.Insert(0, new Town { TownId = 0, TownName = "< Lütfen Seçiniz >" });
-
-                        //townItems = dataAddress.TownGetItemByDistrictId(product.LocalityId.Value).AsCollection<TownModel>().ToList();
-                        //townItems = entities.Towns.Where(c => c.LocalityId == product.LocalityId.Value).ToList();
-                    }
-                    if (product.MainPartyId != null)
-                    {
-                        model.StoreMainPartyId = Convert.ToInt32(product.MainPartyId);
-                    }
-                    model.CityItems = new SelectList(cityItems, "CityId", "CityName", 0);
-                    model.LocalityItems = new SelectList(localityItems, "LocalityId", "LocalityName");
-                    model.TownItems = new SelectList(townItems, "TownId", "TownName");
-                    model.ProductPriceTypes = _constantService.GetConstantByConstantType(ConstantTypeEnum.ProductPriceType);
-                    model.ChoicedForCategoryIndex = product.ChoicedForCategoryIndex;
-                    Session["ProductStatu"] = product.ProductActiveType;
-
-                    model.IsAdvanceEdit = false;
-                    var categorySectors = _categoryService.GetMainCategories();
-                    model.CategorySectors.Add(new SelectListItem { Text = "Seçiniz", Selected = true, Value = "0" });
-                    foreach (var item in categorySectors)
-                    {
-                        model.CategorySectors.Add(new SelectListItem { Text = item.CategoryName, Value = item.CategoryId.ToString() });
-                    }
-
-                    model.AllowProductSellUrl = CheckPermissionProductSellUrl(model);
-          
-
-                    return View(model);
-                }
-                return RedirectToAction("Index");
+                ViewBag.check = "true";
             }
-            public bool CheckPermissionProductSellUrl(ProductModel product)
+            if (product.LoadEntity(id))
             {
-                var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.StoreMainPartyId);
-                if (memberStore != null)
-                {
-                    var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                    return store.IsAllowProductSellUrl.HasValue ? store.IsAllowProductSellUrl.Value : false;
-                }
-                return false;
-            }
+                var categories = _categoryPlaceChoiceService.GetCategoryPlaceChoiceByCategoryPlaceTypeByIsProduct((byte)CategoryPlaceType.HomeChoicesed, true);
 
-            public void CreateImageForStoreLogo(string format)
+                var productvalues = entities.Products.Where(c => c.ProductId == id).SingleOrDefault();
+                var model = new ProductModel();
+                UpdateClass(product, model);
+
+                model.OtherBrand = product.OtherBrand;
+                model.OtherModel = product.OtherModel;
+                model.MenseiId = productvalues.MenseiId;
+                model.OrderStatus = productvalues.OrderStatus;
+                model.WarrantyPeriod = productvalues.WarrantyPeriod;
+                model.UnitType = productvalues.UnitType;
+                model.Doping = productvalues.Doping;
+                model.Keywords = product.Keywords;
+                model.ProductSellUrl = productvalues.ProductSellUrl;
+
+                var dataPicture = new Data.Picture();
+                model.ProductPictureItems = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
+                model.VideoItems = entities.Videos.Where(c => c.ProductId == id).ToList();
+                model.MoneyCondition = productvalues.MoneyCondition == null ? false : productvalues.MoneyCondition == true ? true : false;
+                var curCountry = new Classes.Country();
+                model.CountryItems = new SelectList(curCountry.GetDataTable().DefaultView, "CountryId", "CountryName", 0);
+                model.HasVideo = product.HasVideo;
+                model.Kdv = product.Kdv;
+                model.Fob = product.Fob;
+
+                var dataAddress = new Data.Address();
+
+                if (product.CountryId == null)
+                {
+                    product.CountryId = AppSettings.Turkiye;
+                }
+
+                var cityItems = dataAddress.CityGetItemByCountryId(product.CountryId.Value).AsCollection<CityModel>().ToList();
+                cityItems.Insert(0, new CityModel { CityId = 0, CityName = "< Lütfen Seçiniz >" });
+
+                var productHomePage = _productHomePageService.GetProductHomePageByProductId(product.ProductId);
+
+                if (productHomePage != null)
+                {
+                    model.IsProductHomePage = productHomePage.Active != null ? true : false;
+                    if (productHomePage.BeginDate.HasValue)
+                        model.ProductHomeBeginDate = productHomePage.BeginDate.Value;
+                    if (productHomePage.EndDate.HasValue)
+                        model.ProductHomeEndDate = productHomePage.EndDate.Value;
+                }
+                List<LocalityModel> localityItems = new List<LocalityModel>() { new LocalityModel { LocalityId = 0, LocalityName = "< Lütfen Seçiniz >" } };
+                if (product.CityId != null)
+                {
+                    localityItems = dataAddress.LocalityGetItemByCityId(product.CityId.Value).AsCollection<LocalityModel>().ToList();
+                }
+
+                List<Town> townItems = new List<Town>() { new Town { TownId = 0, TownName = "< Lütfen Seçiniz >" } };
+                if (product.LocalityId.HasValue)
+                {
+                    townItems = entities.Towns.Where(c => c.LocalityId == product.LocalityId).ToList();
+                    //townItems.Insert(0, new Town { TownId = 0, TownName = "< Lütfen Seçiniz >" });
+
+                    //townItems = dataAddress.TownGetItemByDistrictId(product.LocalityId.Value).AsCollection<TownModel>().ToList();
+                    //townItems = entities.Towns.Where(c => c.LocalityId == product.LocalityId.Value).ToList();
+                }
+                if (product.MainPartyId != null)
+                {
+                    model.StoreMainPartyId = Convert.ToInt32(product.MainPartyId);
+                }
+                model.CityItems = new SelectList(cityItems, "CityId", "CityName", 0);
+                model.LocalityItems = new SelectList(localityItems, "LocalityId", "LocalityName");
+                model.TownItems = new SelectList(townItems, "TownId", "TownName");
+                model.ProductPriceTypes = _constantService.GetConstantByConstantType(ConstantTypeEnum.ProductPriceType);
+                model.ChoicedForCategoryIndex = product.ChoicedForCategoryIndex;
+                Session["ProductStatu"] = product.ProductActiveType;
+
+                model.IsAdvanceEdit = false;
+                var categorySectors = _categoryService.GetMainCategories();
+                model.CategorySectors.Add(new SelectListItem { Text = "Seçiniz", Selected = true, Value = "0" });
+                foreach (var item in categorySectors)
+                {
+                    model.CategorySectors.Add(new SelectListItem { Text = item.CategoryName, Value = item.CategoryId.ToString() });
+                }
+
+                model.AllowProductSellUrl = CheckPermissionProductSellUrl(model);
+
+
+                return View(model);
+            }
+            return RedirectToAction("Index");
+        }
+        public bool CheckPermissionProductSellUrl(ProductModel product)
+        {
+            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.StoreMainPartyId);
+            if (memberStore != null)
             {
-                var store = entities.Stores.ToList();
-                string resizeStoreFolder = this.Server.MapPath(AppSettings.ResizeStoreLogoFolder);
-                string storeLogoThumbSize = "120x80";
-
-                List<string> thumbSizesForStoreLogo = new List<string>();
-                thumbSizesForStoreLogo.AddRange(storeLogoThumbSize.Split(';'));
-
-
-                foreach (var storeitem in store)
-                {
-                    string resizeStoreLogoImageFilePath = resizeStoreFolder + storeitem.MainPartyId.ToString() + "\\";
-
-                    if (Directory.Exists(resizeStoreLogoImageFilePath + "thumbs"))
-                    {
-                        string storeLogoImageFileName = storeitem.StoreName.ToImageFileName() + "_logo.jpg";
-                        string storeLogoImageFileSavePath = resizeStoreLogoImageFilePath + storeLogoImageFileName;
-
-                        bool thumbResult = ImageProcessHelper.ImageResize(storeLogoImageFileSavePath,
-               resizeStoreLogoImageFilePath + "thumbs\\" + storeitem.StoreName.ToImageFileName(), thumbSizesForStoreLogo);
-
-
-                    }
-
-
-
-                }
-
-
-
-
-
+                var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                return store.IsAllowProductSellUrl.HasValue ? store.IsAllowProductSellUrl.Value : false;
             }
+            return false;
+        }
 
-            public void CreateImageForPopulerProduct(string format)
+        public void CreateImageForStoreLogo(string format)
+        {
+            var store = entities.Stores.ToList();
+            string resizeStoreFolder = this.Server.MapPath(AppSettings.ResizeStoreLogoFolder);
+            string storeLogoThumbSize = "120x80";
+
+            List<string> thumbSizesForStoreLogo = new List<string>();
+            thumbSizesForStoreLogo.AddRange(storeLogoThumbSize.Split(';'));
+
+
+            foreach (var storeitem in store)
             {
-                if (string.IsNullOrEmpty(format) && format.IndexOf('x') == -1)
+                string resizeStoreLogoImageFilePath = resizeStoreFolder + storeitem.MainPartyId.ToString() + "\\";
+
+                if (Directory.Exists(resizeStoreLogoImageFilePath + "thumbs"))
                 {
-                    format = "160x120";
+                    string storeLogoImageFileName = storeitem.StoreName.ToImageFileName() + "_logo.jpg";
+                    string storeLogoImageFileSavePath = resizeStoreLogoImageFilePath + storeLogoImageFileName;
+
+                    bool thumbResult = ImageProcessHelper.ImageResize(storeLogoImageFileSavePath,
+           resizeStoreLogoImageFilePath + "thumbs\\" + storeitem.StoreName.ToImageFileName(), thumbSizesForStoreLogo);
+
 
                 }
 
 
-                List<string> thumbSizes1 = new List<string>();
-                thumbSizes1.Add(format);
-
-                NeoSistem.MakinaTurkiye.Management.Helper.ProductImageHelpers productImageHelpersq = new NeoSistem.MakinaTurkiye.Management.Helper.ProductImageHelpers(AppSettings.ProductImageFolder, thumbSizes1);
-
-                MakinaTurkiyeEntities entitiesa = new MakinaTurkiyeEntities();
-
-                var productList = entitiesa.Products.Where(c => c.MoneyCondition == true).ToList();
-
-                foreach (var item in productList)
-                {
-
-                    List<PictureModel> pictureModela = productImageHelpersq.SaveProductImageEdit2(item);
-
-
-                }
 
             }
 
-            public void CreateImageForAllProduct(string format)
+
+
+
+
+        }
+
+        public void CreateImageForPopulerProduct(string format)
+        {
+            if (string.IsNullOrEmpty(format) && format.IndexOf('x') == -1)
             {
-                if (string.IsNullOrEmpty(format) && format.IndexOf('x') == -1)
-                {
-                    format = "160x120";
-
-                }
-
-
-                List<string> thumbSizes1 = new List<string>();
-                thumbSizes1.Add(format);
-
-                NeoSistem.MakinaTurkiye.Management.Helper.ProductImageHelpers productImageHelpersq = new NeoSistem.MakinaTurkiye.Management.Helper.ProductImageHelpers(AppSettings.ProductImageFolder, thumbSizes1);
-
-                MakinaTurkiyeEntities entitiesa = new MakinaTurkiyeEntities();
-
-                var productList = entitiesa.Products.ToList();
-
-                foreach (var item in productList)
-                {
-
-                    List<PictureModel> pictureModela = productImageHelpersq.SaveProductImageEdit2(item);
-
-
-                }
+                format = "160x120";
 
             }
 
-            public ActionResult CreateHomePageImage(string format)
+
+            List<string> thumbSizes1 = new List<string>();
+            thumbSizes1.Add(format);
+
+            NeoSistem.MakinaTurkiye.Management.Helper.ProductImageHelpers productImageHelpersq = new NeoSistem.MakinaTurkiye.Management.Helper.ProductImageHelpers(AppSettings.ProductImageFolder, thumbSizes1);
+
+            MakinaTurkiyeEntities entitiesa = new MakinaTurkiyeEntities();
+
+            var productList = entitiesa.Products.Where(c => c.MoneyCondition == true).ToList();
+
+            foreach (var item in productList)
             {
-                CreateImageForAllProduct(format);
+
+                List<PictureModel> pictureModela = productImageHelpersq.SaveProductImageEdit2(item);
 
 
-
-                return View();
             }
+
+        }
+
+        public void CreateImageForAllProduct(string format)
+        {
+            if (string.IsNullOrEmpty(format) && format.IndexOf('x') == -1)
+            {
+                format = "160x120";
+
+            }
+
+
+            List<string> thumbSizes1 = new List<string>();
+            thumbSizes1.Add(format);
+
+            NeoSistem.MakinaTurkiye.Management.Helper.ProductImageHelpers productImageHelpersq = new NeoSistem.MakinaTurkiye.Management.Helper.ProductImageHelpers(AppSettings.ProductImageFolder, thumbSizes1);
+
+            MakinaTurkiyeEntities entitiesa = new MakinaTurkiyeEntities();
+
+            var productList = entitiesa.Products.ToList();
+
+            foreach (var item in productList)
+            {
+
+                List<PictureModel> pictureModela = productImageHelpersq.SaveProductImageEdit2(item);
+
+
+            }
+
+        }
+
+        public ActionResult CreateHomePageImage(string format)
+        {
+            CreateImageForAllProduct(format);
+
+
+
+            return View();
+        }
 
         [HttpPost]
         public ActionResult CreateHomePageImage(int id)
