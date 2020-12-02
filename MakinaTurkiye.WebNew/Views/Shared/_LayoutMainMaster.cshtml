@@ -75,16 +75,8 @@
     <div id="fb-root"></div>
     <div class="responsive-overlay"></div>
     @Html.Partial("_Header")
-
-
     @RenderSection("HomePageSlider", false)
-    <div class="main-container container">
-        <!-- MainContent Start -->
-        <!--<asp:ContentPlaceHolder ID="MainContent" runat="server">-->
-        @RenderBody()
-        <!-- MainContent end -->
-    </div>
-
-
+    @RenderBody()
+    @{Html.RenderAction("Content", "Footer");}
 </body>
 </html>

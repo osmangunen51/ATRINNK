@@ -34,9 +34,14 @@
                 @{
                     string productActiveType = "";
                     string productActive = "";
-                    if (Request.QueryString["productActiveType"] != null) productActiveType = Request.QueryString["productActiveType"].ToString();
-                    if (Request.QueryString["ProductActive"] != null) productActive = Request.QueryString["ProductActive"].ToString();
-                                               }
+                    if (Request.QueryString["productActiveType"] != null) {
+                        productActiveType = Request.QueryString["productActiveType"].ToString();
+                    }
+                    if (Request.QueryString["ProductActive"] != null)
+                    {
+                        productActive = Request.QueryString["ProductActive"].ToString();
+                    }
+                }
                 function ProductSearchResult() {
                     var name = $("#productNameForSearch").val();
                     $(".loading").show();
@@ -224,8 +229,7 @@
 }
 @{
 
-    IList<Product>
-      productItems = makinaTurkiyeEntities.Products.Where(c => c.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
+    System.Collections.List<Product> productItems = makinaTurkiyeEntities.Products.Where(c => c.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
 
     byte? queryProductActiveType = null;
     if (!string.IsNullOrEmpty(Request.QueryString["ProductActiveType"]))
@@ -325,20 +329,22 @@
 
 
 
-    byte? activeType = null;
-    if (Request.QueryString["ProductActiveType"] != null)
-    {
-        activeType = Request.QueryString["ProductActiveType"].ToByte();
-    }
-    else if (Request.QueryString["ProductActive"] != null)
-    {
-        if (Request.QueryString["ProductActive"].ToByte() == 1)
-        {
-            activeType = 4;
-        }
-        else
-            activeType = 5;
-    }
+                                        Int32? activeType = null;
+                                        if (Request.QueryString["ProductActiveType"] != null)
+                                        {
+                                            activeType = Convert.ToInt32(Request.QueryString["ProductActiveType"]);
+                                        }
+                                        else if (Request.QueryString["ProductActive"] != null)
+                                        {
+                                            if (Convert.ToInt32(Request.QueryString["ProductActive"]) == 1)
+                                            {
+                                                activeType = 4;
+                                            }
+                                            else
+                                            {
+                                                activeType = 5;
+                                            }
+                                        }
 
     <input id="hdnActiveType" type="hidden" value="@activeType" />
     <script type="text/javascript">
