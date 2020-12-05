@@ -2,10 +2,7 @@
 
 <%
     bool isMobile = Request.Browser.IsMobileDevice;
-
-
 %>
-
 <nav class="navbar navbar-inverse main-navigation navbar-expand-md">
     <div class="collapse navbar-collapse js-navbar-collapse container-fluid">
         <div class="mobile-main-menu">

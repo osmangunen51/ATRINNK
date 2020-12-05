@@ -20,7 +20,7 @@
             <%if (!isMobile)
                 {%>
             <li class="dropdown-header col-md-12">
-                <a href="<%:category.CategoryUrl %>">
+                <a title="<%:category.CategoryUrlName %>" href="<%:category.CategoryUrl %>">
                     <%if (category.CategoryName.ToLower().Contains("makin"))
                         {
                             category.CategoryName = category.CategoryName.Split(' ')[0];
@@ -39,7 +39,7 @@
             <%if (isMobile)
                 {%>
                 <li style="padding-left: 5px;">
-                    <a href="<%:category.CategoryUrl %>">
+                    <a title="<%:category.CategoryUrlName %>" href="<%:category.CategoryUrl %>">
                         <%:Html.Raw(category.CategoryName) %>
                         <% counter++;
                         %>
@@ -52,7 +52,7 @@
                 {%>
 
             <li style="padding-left: 5px;display:inline-block">
- <a href="<%:subCategory.CategoryUrl %>" style="margin-left:10px;">
+ <a href="<%:subCategory.CategoryUrl %>" title="<%:subCategory.CategoryUrlName %>" style="margin-left:10px;">
                     <%string seperator = category.SubCategoryModels.Count != counter ? ",  " : "";  %>
                     <%:Html.Raw(subCategory.CategoryName)+seperator%>
                     <% counter++;

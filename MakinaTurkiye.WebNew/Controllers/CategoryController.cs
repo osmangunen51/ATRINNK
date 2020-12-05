@@ -1169,7 +1169,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                      {
                                          CategoryOrder = c.CategoryOrder != null ? c.CategoryOrder.Value : 0,
                                          CategoryId = c.CategoryId,
-                                         ProductCount = f.ProductCount
+                                         ProductCount = f.ProductCount,
+                                         CategoryContentTitle = c.CategoryContentTitle
                                      }).OrderBy(x => x.CategoryOrder).ToList();
 
             List<int> Liste = orderedCategories.Select(x => (int)x.CategoryId).ToList();
@@ -1196,6 +1197,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     CategoryName = category.CategoryName,
                     CategoryUrl = UrlBuilder.GetFilterUrl(categoryUrl, filterParams),
                     ProductCount = item.ProductCount,
+                    CategoryContentTitle = item.CategoryContentTitle,
                     TruncatedCategoryName = StringHelper.Truncate(category.CategoryName, 100)
 
                 };
@@ -2031,6 +2033,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     CategoryId = item.CategoryId,
                     CategoryName = item.CategoryName,
                     CategoryUrl = categoryUrl,
+                    CategoryContentTitle =item.CategoryContentTitle,
                     ProductCount = item.ProductCount
                 };
                 model.CategoryModel.CategoryItemModels.Add(categoryItemModel);

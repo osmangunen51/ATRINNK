@@ -15,9 +15,9 @@
             <% foreach (var item in Model.CategoryModel.TopCategoryItemModels.Where(c => c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Series))
                { %>
 
-            <li title="<%:item.CategoryName %>" class="list-group-item <%: Model.CategoryModel.SelectedCategoryId== item.CategoryId ? "active" : string.Empty %>">
+            <li title="<%:item.CategoryContentTitle %>" class="list-group-item <%: Model.CategoryModel.SelectedCategoryId== item.CategoryId ? "active" : string.Empty %>">
                 <%:MvcHtmlString.Create(leftPX) %>
-                <a href="<%:item.CategoryUrl %>">
+                <a title="<%:item.CategoryContentTitle %>" href="<%:item.CategoryUrl %>">
                     <%:item.TruncatedCategoryName%>
                    
                     <% if (item.CategoryType != (byte)CategoryType.Sector)
@@ -33,7 +33,7 @@
                { %>
             <li title="<%:item.CategoryName %>" class="list-group-item <%: Model.CategoryModel.SelectedCategoryId== item.CategoryId ? "active" : string.Empty %>">
                 <%:MvcHtmlString.Create(leftPX) %>
-                <a href="<%:item.CategoryUrl %>">
+                <a title="<%:item.CategoryContentTitle %>"  href="<%:item.CategoryUrl %>">
                     <%:item.TruncatedCategoryName%>
                     <span class="text-muted text-sm">(<%:item.ProductCount %>) </span>
                 </a>

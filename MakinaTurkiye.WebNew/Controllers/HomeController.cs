@@ -581,9 +581,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 PreparePopularStoreModel(model);
 
-                var constant = _constantService.GetConstantByConstantId(235);
-                model.ConstantTitle = constant.ConstantTitle;
-                model.ConstantProperty = constant.ContstantPropertie;
+     
 
                 //PrepareHomeCategoryProductModels(model.MTAllSelectedProduct,0, 1);
 
@@ -770,6 +768,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         CategoryName = category.Category.CategoryName,
                         CategoryId = category.Category.CategoryId,
+                        CategoryUrlName = category.Category.CategoryContentTitle,
                         CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty),
 
 
@@ -784,6 +783,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         {
                             CategoryName = subItem.CategoryName,
                             ProductCount = subItem.ProductCount.Value,
+                            CategoryUrlName = subItem.CategoryContentTitle,
                             CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)
                         };
                         var subSubCategories = _categoryService.GetCategoriesByCategoryParentId(subItem.CategoryId);
@@ -795,6 +795,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             var subSubCategory = new MTHomeCategoryModel
                             {
                                 CategoryName = subSubItem.CategoryName,
+                                CategoryUrlName = subItem.CategoryContentTitle,
                                 ProductCount = subSubItem.ProductCount.Value,
                                 CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)
                             };

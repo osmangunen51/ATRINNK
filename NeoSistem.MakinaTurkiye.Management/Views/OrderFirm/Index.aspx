@@ -254,6 +254,14 @@
         <input type="hidden" name="Order" id="Order" value="DESC" />
         <input type="hidden" name="Page" id="Page" value="1" />
         <div style="float: right">
+            <div style="float:left;">
+                Paket Bitiş Tarihi
+       
+          <input type="text" style="float: none;" autocomplete="off" name="orderEndDate1" placeholder="İlk Tarih.." class="date Search" id="orderEndDate1" />
+                /
+          <input type="text" style="float: none;" autocomplete="off" name="orderEndDate2" placeholder="Son Tarih.." class="date Search" id="orderEndDate2" />
+
+            </div>
             <div style="float: left;">
                 Kayıt Tarihi:
        
@@ -477,7 +485,9 @@
                     SalesUserId: $("#SalesUserId").val(),
                     OrderCancelled: $("#OrderCancelled").val(),
                     RegisterStartDate: $("#createStartDate").val(),
-                    RegisterEndDate: $("#createEndDate").val()
+                    RegisterEndDate: $("#createEndDate").val(),
+                    OrderEndDate1: $("#orderEndDate1").val(),
+                    OrderEndDate2: $("#orderEndDate2").val()
                 },
                 type: 'post',
                 success: function (data) {

@@ -22,7 +22,7 @@
                 <%if (i.CategoryParentId == item.CategoryId)
                   {%><li>
                     
-                      <a href="<%:i.HelpUrl %>"><%:i.CategoryName %></a>
+                      <a rel="nofollow" href="<%:i.HelpUrl %>"><%:i.CategoryName %></a>
                   
                   </li>
                 <% } %>

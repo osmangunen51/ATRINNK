@@ -46,5 +46,6 @@
         public bool? IsRenewPacket { get; set; }
         public int CurrentStorePacketId { get; set; }
         public bool? IsProductAdded { get; set; }
+
     }
 }

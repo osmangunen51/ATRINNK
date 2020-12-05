@@ -17,7 +17,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public int ProductCount { get; set; }
         public string TruncatedCategoryName { get;  set; }
         public string CategoryIcon { get; set; }
-
+        
         public string CategoryContentTitle { get; set; }
     }
 }

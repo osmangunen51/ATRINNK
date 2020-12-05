@@ -161,7 +161,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(OrderModel model, string OrderName, string OrderCancelled, string Order, string RegisterStartDate, string RegisterEndDate, int? Page, int PageDimension, string LastPayDate, string PaidBill, string SalesUserId)
+        public ActionResult Index(OrderModel model, string OrderName, string OrderCancelled, string Order, string RegisterStartDate, string RegisterEndDate, int? Page, int PageDimension, string LastPayDate, string PaidBill, string SalesUserId, DateTime? OrderEndDate1, string OrderEndDate2)
         {
 
             var orderNullInvoice = _orderService.GetOrdersWithNullInvoiceNumber();
@@ -293,6 +293,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 }
             }
 
+
+
+            if (OrderEndDate1.HasValue)
+            {
+                if (!string.IsNullOrEmpty(OrderEndDate2))
+                {
+                    if (op)
+                    {
+                        whereClause.Append("AND");
+                    }
+
+
+                    string dateEqual = " Cast(S.StorePacketEndDate as date) >= Cast('{0}' as date)  and Cast(S.StorePacketEndDate as date) <=Cast('{1}' as date) ";
+                    whereClause.AppendFormat(dateEqual, Convert.ToDateTime(OrderEndDate1).ToString("yyyyMMdd"), DateTime.ParseExact(OrderEndDate2, "dd.MM.yyyy", CultureInfo.InvariantCulture).ToString("yyyyMMdd"));
+                }
+            }
             if (whereClause.ToString() == "Where")
             {
                 whereClause.Clear();

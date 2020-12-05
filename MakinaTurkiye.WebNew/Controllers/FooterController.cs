@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using MakinaTurkiye.Services.Content;
 using System.Threading.Tasks;
 using MakinaTurkiye.Caching;
+using MakinaTurkiye.Services.Common;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -15,16 +16,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         private readonly IFooterService _footerService;
         private readonly ICacheManager _cacheManager;
+        private readonly IConstantService _constantService;
+
 
 
         #endregion
 
         #region Ctor
 
-        public FooterController(IFooterService footerService, ICacheManager cacheManager)
+        public FooterController(IFooterService footerService, ICacheManager cacheManager, IConstantService constantService)
         {
             this._footerService = footerService;
             this._cacheManager = cacheManager;
+            this._constantService = constantService;
 
         }
 
@@ -39,6 +43,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             string key = string.Format("makinaturkiye.footer-content-test");
             var testModel = _cacheManager.Get(key, () =>
             {
+                MTFooterModel model = new MTFooterModel();
+
                 var footerParent = _footerService.GetAllFooterParent();
                 List<MTFooterParentModel> footerParents = new List<MTFooterParentModel>();
 
@@ -58,9 +64,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     footerParents.Add(footerParentItem);
                 }
-                return footerParents;
-            });
 
+                var constant = _constantService.GetConstantByConstantId(235);
+                model.ConstantTitle = constant.ConstantTitle;
+                model.ConstantProperty = constant.ContstantPropertie;
+                model.FooterParentModels = footerParents;
+                return model;
+            });
+            
             return PartialView(testModel);
         }
 

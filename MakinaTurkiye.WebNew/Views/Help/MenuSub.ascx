@@ -30,7 +30,7 @@
                   {%>
                 <%if (item2.CategoryParentId == item.CategoryId)
                   {%><li>
-                         <a href="<%:item2.HelpUrl %>"><%:item2.CategoryName %></a>
+                         <a  rel="nofollow"  href="<%:item2.HelpUrl %>"><%:item2.CategoryName %></a>
                     </li>
                 <% } %>
                 <% } %>
