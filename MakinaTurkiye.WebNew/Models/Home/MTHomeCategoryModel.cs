@@ -17,6 +17,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
         public int ProductCount { get; set; }
         public string CategoryUrl { get; set; }
         public string CategoryIcon { get; set; }
+        public string CategoryUrlName { get; set; }
         public List<MTHomeCategoryModel> SubCategoryModels { get; set; }
     }
 }

@@ -268,6 +268,9 @@
             <a  style="cursor:pointer; color:Blue;" onclick="DeleteProductSure(<%:item.ProductId %>)">(Sil)</a>
             <%
                 } %>
+        <%if (item.PictureCount==0) {%>
+     <img src="/Content/images/no-photo.png" style="height:16px" title="Fotoğrafsız Ürün" />
+        <% } %>
     </td>
     <td class="CellEnd" align="center">
         <%:Html.CheckBox("CheckItems", new { value = item.ProductId, @class="CheckItems" })%>

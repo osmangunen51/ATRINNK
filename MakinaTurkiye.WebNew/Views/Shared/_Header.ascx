@@ -264,9 +264,9 @@
                             <li>
                                 <a target="_blank" href="<%:AppSettings.VideoUrlBase %>">Videolar</a>
                             </li>
-                            <li>
+                  <%--          <li>
                                 <a target="_blank" href="https://blog.makinaturkiye.com">Blog</a>
-                            </li>
+                            </li>--%>
                            <%-- <li>
                                 <a target="_blank" href="<%:AppSettings.SiteUrlWithoutLastSlash %>/yardim">Yardım</a>
                             </li>--%>

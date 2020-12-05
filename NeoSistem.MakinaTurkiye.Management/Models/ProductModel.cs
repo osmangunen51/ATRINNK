@@ -176,6 +176,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         [DisplayName("Doping")]
         public bool Doping { get; set; }
 
+        public int PictureCount { get; set; }
         public bool? Kdv { get; set; }
         public bool? Fob { get; set; }
         public byte ?ProductPriceType { get; set; }

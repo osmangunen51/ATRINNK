@@ -359,16 +359,7 @@
 
     </div>
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="home-seo-content">
-                <h2>
-                    <%= Model.ConstantTitle%>
-                </h2>
-                <%= Model.ConstantProperty%>
-            </div>
-        </div>
-    </div>
+
 
 
     <%--<div class="row">

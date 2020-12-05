@@ -215,7 +215,7 @@
                     {%>
                 <tr>
                     <td class="product-detail__tabletitle">Sertifikalar:</td>
-                    <td class="product-detail__tablevalue"><%:Model.Certificates %></td>
+                    <td class="product-detail__tablevalue"><%=Html.Raw(Model.Certificates) %></td>
                 </tr>
                 <% } %>
                 <%if (Model.IsAllowProductSellUrl && !string.IsNullOrEmpty(Model.ProductSellUrl))

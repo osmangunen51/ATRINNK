@@ -1,7 +1,18 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<List<NeoSistem.MakinaTurkiye.Web.Models.Footer.MTFooterParentModel>>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<NeoSistem.MakinaTurkiye.Web.Models.Footer.MTFooterModel>" %>
 
 <div onclick="topFunction()" id="myBtn" class="mobile-top" title="Go to top"><span class="more-less icon-up-arrow"></span></div>
-
+    <div class="row">
+        <div class="main-container container">
+        <div class="col-xs-12">
+            <div class="home-seo-content">
+                <h2>
+                    <%= Model.ConstantTitle%>
+                </h2>
+                <%= Model.ConstantProperty%>
+            </div>
+        </div>
+            </div>
+    </div>
 <div class="footer">
     <div class="container">
        <%-- <div class="row" style="margin-bottom: 30px">
@@ -26,7 +37,7 @@
         <div class="footer__bottom row">
             <div class="col-sm-12 col-md-12">
                 <div class="flex-row mb20 flex-md-nowrap flex-lg-nowrap">
-                    <%foreach (var item in Model)
+                    <%foreach (var item in Model.FooterParentModels)
                         {
                             string cssMd = "flex-md-3 flex-lg-3";
                             if (item.FooterParentName == "Kategori")
@@ -40,7 +51,7 @@
                         <ul class="list-unstyled">
                             <%foreach (var itemFooterContent in item.FooterContents)
                                 {%>
-                            <li><a href="<%:itemFooterContent.FooterContentUrl %>"><%:itemFooterContent.FooterContentName %></a></li>
+                            <li><a rel="nofollow" href="<%:itemFooterContent.FooterContentUrl %>"><%:itemFooterContent.FooterContentName %></a></li>
                             <%} %>
                         </ul>
                     </div>

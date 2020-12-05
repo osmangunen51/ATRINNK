@@ -12,7 +12,7 @@
                 <ul>
                     <% foreach (var subItem in item.SubCategoryModels)
                        {%>
-                    <li><a href="<%:subItem.CategoryUrl%>">
+                    <li><a title="<%:item.CategoryName %>" href="<%:subItem.CategoryUrl%>">
                         <%= subItem.CategoryName %> </a>
                     </li>
                     <% }%>

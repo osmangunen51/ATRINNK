@@ -1126,7 +1126,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (productCertificates.Count > 0)
             {
                 var certificateNames = _cerfificateService.GetCertificatesByIds(productCertificates.Select(x => x.CertificateTypeId).ToList()).Select(x => x.Name);
-                model.ProductDetailModel.Certificates = string.Join(",", certificateNames);
+                model.ProductDetailModel.Certificates = string.Join("</br>", certificateNames);
                 foreach (var productCertificate in productCertificates)
                 {
                     if (productCertificate.StoreCertificateId.HasValue)
