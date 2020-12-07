@@ -55,6 +55,7 @@ namespace MakinaTurkiye.Services.Common
         ProblemType = 28,
         StoreProfileHomeDecriptionTemplate = 29,
         PaymentBank  = 30,
-       SeoDecriptionTitle = 31
+       SeoDecriptionTitle = 31,
+       CategoryFooterTopDesc = 32
     }
 }

@@ -380,6 +380,7 @@
       <DependentUpon>MakinaTurkiyeEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Footer\MTFooterContentModel.cs" />
+    <Compile Include="Models\Footer\MTFooterModel.cs" />
     <Compile Include="Models\Footer\MTFooterParentModel.cs" />
     <Compile Include="Models\Helpers\PagingModel.cs" />
     <Compile Include="Models\Help\MTHelpDetailModel.cs" />

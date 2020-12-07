@@ -334,7 +334,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         ProblemType = 28,
         StoreProfileHomeDecriptionTemplate = 29,
         PaymentBank = 30,
-        SeoDescriptionTitle = 31
+        SeoDescriptionTitle = 31,
+        CategoryFooterTopDescription=32
     }
     public enum MobileMessageType : byte
     {

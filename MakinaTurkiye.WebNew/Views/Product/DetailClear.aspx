@@ -128,7 +128,7 @@
                                 $("#CommentedAlert").show();
                             }
                             else {
-                                window.location = "/uyelik/kullanicigirisi";
+                               // window.location = "/uyelik/kullanicigirisi";
                             }
 
                         }

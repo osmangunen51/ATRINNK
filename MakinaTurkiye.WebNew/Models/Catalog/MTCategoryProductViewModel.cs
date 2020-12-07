@@ -51,7 +51,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public int CountryId { get; set; }
         public int LocalityId { get; set; }
         public string AllCategoryUrl { get;  set; }
-
+        public string ConstantTitle { get; set; }
+        public string ConstantProperty { get; set; }
         public IList<MTRandomProductItemModel> RandomProducts { get; set; }
         public IList<MTCategoryProductModel> CategoryProductModels { get; set; }
         public IList<Category> ParentCategoryItems { get; set; }
