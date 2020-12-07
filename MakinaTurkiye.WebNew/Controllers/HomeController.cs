@@ -581,7 +581,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 PreparePopularStoreModel(model);
 
-     
+                var constant = _constantService.GetConstantByConstantId(235);
+                model.ConstantTitle = constant.ConstantTitle;
+                model.ConstantProperty = constant.ContstantPropertie;
 
                 //PrepareHomeCategoryProductModels(model.MTAllSelectedProduct,0, 1);
 

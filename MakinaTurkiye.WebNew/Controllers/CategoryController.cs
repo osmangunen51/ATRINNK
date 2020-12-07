@@ -64,6 +64,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         IPhoneService _phoneService;
         IMemberService _memberService;
         ISearchScoreService _searchScoreService;
+        IConstantService _constantService;
+
 
 
         #endregion
@@ -79,7 +81,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IMemberStoreService memberStoreService,
             IPhoneService phoneService,
             IMemberService memberService,
-            ISearchScoreService searchScoreService
+            ISearchScoreService searchScoreService,
+            IConstantService constantService
             )
         {
             _categoryService = categoryService;
@@ -94,6 +97,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             _phoneService = phoneService;
             _memberService = memberService;
             _searchScoreService = searchScoreService;
+            _constantService = constantService;
         }
 
         public void PrepareSeoLinks(MTCategoryProductViewModel model)
@@ -2564,6 +2568,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
 
+
             #region redirect
 
             if (Server.UrlDecode(request.Url.AbsolutePath).Any(char.IsUpper))
@@ -2734,6 +2739,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
             MTCategoryProductViewModel model = new MTCategoryProductViewModel { SearchText = SearchText };
+
+
+            var constant = _constantService.GetConstantByConstantType(ConstantTypeEnum.CategoryFooterTopDesc).FirstOrDefault();
+            model.ConstantTitle = constant.ConstantTitle;
+            model.ConstantProperty = constant.ContstantPropertie;
 
             IList<FilterableCategoriesResult> filterableCategoryIds;
             IList<int> filterableCountryIds;

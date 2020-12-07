@@ -229,7 +229,7 @@
                     <%= Model.CategoryModel.Navigation%>
                 </div>
             </div>
-           <%-- <h1 style="font-size: 22px; padding-bottom: 5px; margin-top: 0px;"><b>Tüm Kategoriler</b></h1>
+            <%-- <h1 style="font-size: 22px; padding-bottom: 5px; margin-top: 0px;"><b>Tüm Kategoriler</b></h1>
             <div class="row">
                 <%=Html.RenderHtmlPartial("_SectorCategoryListMenu")%>
             </div>--%>
@@ -372,7 +372,7 @@
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
-                                                                                      Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                                                                  Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                     {%>
                                                 <%brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                                 <%categoryTitle = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName;  %>
@@ -477,7 +477,7 @@
                                             </a>
 
 
-                                            <%var clearFilterUrl = Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName == "Marka" && x.FilterName != "Seri" && x.FilterName != "Model" && x.ClearFilterUrl != "").FirstOrDefault(); %> <%if (clearFilterUrl != null && Model.BrandId!=0)
+                                            <%var clearFilterUrl = Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName == "Marka" && x.FilterName != "Seri" && x.FilterName != "Model" && x.ClearFilterUrl != "").FirstOrDefault(); %> <%if (clearFilterUrl != null && Model.BrandId != 0)
                                                                                                                                                                                                                                                                 { %> <a href="<%:clearFilterUrl.ClearFilterUrl %>" class="pull-right">Tümü</a> <%} %>
                                         </div>
 
@@ -524,12 +524,12 @@
                                                 <span class="more-less icon-down-arrow"></span>
                                             </a>
 
-                                            <%var clearFilterUrl1 = Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName != "Marka" && x.FilterName != "Seri" && x.FilterName != "Model" && x.ClearFilterUrl != "").FirstOrDefault(); %> <%if (clearFilterUrl1 != null && (Model.CityId!=0 || Model.LocalityId!=0))
+                                            <%var clearFilterUrl1 = Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName != "Marka" && x.FilterName != "Seri" && x.FilterName != "Model" && x.ClearFilterUrl != "").FirstOrDefault(); %> <%if (clearFilterUrl1 != null && (Model.CityId != 0 || Model.LocalityId != 0))
                                                                                                                                                                                                                                                                  { %> <a href="<%:clearFilterUrl1.ClearFilterUrl %>" class="pull-right">Tümü</a> <%} %>
                                         </div>
 
                                         <div class="panel-body collapse" id="adres-body">
-                                            <div class="list-group list-group-mt3" style="overflow: auto; max-height: 195px;"> 
+                                            <div class="list-group list-group-mt3" style="overflow: auto; max-height: 195px;">
 
                                                 <%foreach (var filterItem in Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName != "Marka" && x.FilterName != "Seri" && x.FilterName != "Model"))
                                                     {%>
@@ -802,7 +802,7 @@
                                  <%}%>
                                                 <%if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") &&
 
-                                                                                      Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                                                                  Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                     {%>
                                                 <%brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
                                                 <%:Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName%>
@@ -993,28 +993,29 @@
             <h2 class="section-title-category section-title--left">
                 <span>
                     <%--Bu kısımda null gelen lamda sorguları var. kontrol etmek lazım --%>
-                   <%-- <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
+                    <%-- <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
 
                         <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>Firmaları
                     </a>--%>
-                     <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
+                    <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
                         <% string name = "";
-                            if(Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null)
+                            if (Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null)
                             {
                                 name = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
                             }
-                            %>
+                        %>
 
                         <%:categoryTitle + " "  +  name  +" " %>Firmaları 
                     </a>
                 </span>
 
             </h2>
-    </div>
+        </div>
 
         <% Model.StoreModel.SelectedCategoryName = categoryTitle; %>
-        <%if (Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null) { %>
-                    <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
+        <%if (Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null)
+            { %>
+        <% Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName; %>
 
         <%} %>
         <%=Html.RenderHtmlPartial("_CategoryStores", Model.StoreModel)%>
@@ -1038,8 +1039,22 @@
         <%=Model.SeoModel.Description %>
     </div>
     <%} %>
-
-
+    <%if (!string.IsNullOrEmpty(Model.ConstantTitle) || !string.IsNullOrEmpty(Model.ConstantProperty))
+        {%>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="home-seo-content">
+                <%if (!string.IsNullOrEmpty(Model.ConstantTitle))
+                    {%>
+                <h2>
+                    <%= Model.ConstantTitle%>
+                </h2>
+                <% } %>
+                <%= Model.ConstantProperty%>
+            </div>
+        </div>
+    </div>
+    <% } %>
     <script type="application/ld+json">
     <%=Model.CategoryModel.MtJsonLdModel.JsonLdString %>
     </script>

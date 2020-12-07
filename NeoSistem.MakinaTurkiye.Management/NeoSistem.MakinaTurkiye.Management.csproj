@@ -475,6 +475,7 @@
     <Content Include="Content\Images\mail-env.png" />
     <Content Include="Content\Images\money.png" />
     <Content Include="Content\Images\newtime.png" />
+    <Content Include="Content\Images\no-photo.png" />
     <Content Include="Content\Images\pDetailProPanelHeader2.gif" />
     <Content Include="Content\Images\uncheck.png" />
     <Content Include="Content\Images\upar.png" />

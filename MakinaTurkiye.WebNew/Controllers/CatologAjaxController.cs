@@ -437,7 +437,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpGet]
         public JsonResult AddProductComment(string CommentText, byte Rate, string ProductId)
         {
-            if (AuthenticationUser.Membership.MainPartyId != 0)
+            if (AuthenticationUser.CurrentUser.Membership.MainPartyId != 0)
             {
                 var productComment = new ProductComment();
                 productComment.CommentText = CommentText;

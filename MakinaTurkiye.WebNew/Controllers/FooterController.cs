@@ -65,9 +65,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     footerParents.Add(footerParentItem);
                 }
 
-                var constant = _constantService.GetConstantByConstantId(235);
-                model.ConstantTitle = constant.ConstantTitle;
-                model.ConstantProperty = constant.ContstantPropertie;
+
                 model.FooterParentModels = footerParents;
                 return model;
             });

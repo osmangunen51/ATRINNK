@@ -208,6 +208,7 @@
             <option value="<%=(byte)ConstantType.StoreProfileHomeDecriptionTemplate %>">Firma Profil Açklama Template</option>
             <option value="<%=(byte)ConstantType.PaymentBank %>">Havale Bankalar</option>
             <option value="<%=(byte)ConstantType.SeoDescriptionTitle %>" >Firma Seo Açıklama Başlık</option>
+                  <option value="<%=(byte)ConstantType.CategoryFooterTopDescription %>" >Kategori Footer Üstü Açıklama</option>
         </select>&nbsp;&nbsp;
     <button onclick="openDialog();">
         Sabit Başlık Ekle</button>
