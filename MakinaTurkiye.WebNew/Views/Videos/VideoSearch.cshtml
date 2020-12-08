@@ -1,0 +1,81 @@
+﻿@model MTVideoSearchViewModel
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+}
+<div class="row">
+    <div class="col-sm-5 col-md-4 col-lg-3">
+        <div class="panel panel-mt2 left-menu">
+            @Html.Partial("_VideoCategories", Model.VideoCategoryModel)
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+
+        <div class="row hidden-xs">
+            <div class="col-xs-12 sektorBack">
+            </div>
+        </div>
+
+        <div class="alert alert-info tumSektorBack">
+            @(string.IsNullOrEmpty(Model.VideoCategoryModel.SelectedCategoryName) ? "" : Model.VideoCategoryModel.SelectedCategoryName+" Kategorisinde" )
+            "<b>@Model.SearchText </b>" kelimesine ait @Model.VideoModels.ToList().Count adet video bulundu
+        </div>
+        @if (Model.Store.StoreName != null)
+        {
+            <div class="row" style="margin-top:10px;">
+                <div class="col-sm-3">
+                    <div class="pr text-center border1">
+                        <a href="@Model.Store.StoreVideosPageUrl">
+                            <img src="@Model.Store.StoreLogo" class="img-thumbnail border0" alt="@Model.Store.StoreName" />
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xs-3">
+                    <h4 class="media-heading">
+                        <a href="@Model.Store.StoreVideosPageUrl">@Model.Store.StoreName</a>
+
+                    </h4>
+                    @Model.Store.StoreAbout
+                    <p class="text-muted"></p>
+                    <div class="btn-group pull-right">
+
+
+
+
+                        <a href="@Model.Store.StoreVideosPageUrl" class="btn btn-sm btn-mt4">Tüm Videoları </a>
+                    </div>
+                </div>
+            </div>
+            <hr />
+
+        }
+
+        @Html.Partial("_VideoViewWindow", Model.VideoModels)
+
+
+        @Html.Partial("_VideoPaging", Model.VideoPagingModel)
+    </div>
+</div>
+

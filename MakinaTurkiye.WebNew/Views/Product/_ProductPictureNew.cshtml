@@ -1,0 +1,76 @@
+﻿@model List<MTProductPictureModel>
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+
+@{
+// Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+//using NeoSistem.MakinaTurkiye.Web.Models
+//using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+}
+
+@if (Model.Count > 0)
+{
+    bool first = true;
+    int imgindex = 0;
+    int miniCounter = 0;
+
+
+    <div class="resim-urun">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner product-popup-gallery">
+                @foreach (var item in Model)
+                {
+                    string active = "";
+                    if (first)
+                    {
+                        active = "active";
+                        first = false;
+                    }
+
+                    <div class="item @active">
+                        <img src="@item.LargePath" title="@item.ProductName" alt="@item.ProductName" />
+                        <a href="@item.MegaPicturePath" title="@item.ProductName" class="img-product-mega-link" data-title="@item.ProductName">
+
+                            <img alt="Büyük resimi göster" class="res-buyut" src="/Content/V2/images/resim-buyult.png">
+                        </a>
+                    </div>
+                }
+                @{first = true;
+                }
+            </div>
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">‹</a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">›</a>
+        </div>
+        <div id="kresim" class="carousel slide  " data-ride="carousel" data-interval="false" style="margin-bottom: 10px;">
+            <a class="left carousel-control" href="#kresim" data-slide="prev">‹</a>
+            <a class="right carousel-control" href="#kresim" data-slide="next">›</a>
+            <div class="carousel-inner" style="padding-right: 25px; margin-left: -3px;">
+                @{bool aktifmi = true;}
+                @foreach (var item in Model)
+                {
+                    <div class="item @(aktifmi ? "active":"")">
+                        <div class="flex-row flex-nowrap">
+                            <div class="flex-md-3 flex-lg-3 flex-xs-3 flex-sm-3" style="padding: 0px 2px;">
+                                <a data-target="#myCarousel" data-slide-to="@imgindex" href="#" title="@item.ProductName" style="width: 100%;">
+                                    <img title="@item.ProductName" src="@item.SmallPath" alt="@item.ProductName" alt="@item.ProductName - @imgindex" style="min-width: 70px;">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    aktifmi = false;
+                }
+            </div>
+        </div>
+    </div>
+
+                    }
+
+

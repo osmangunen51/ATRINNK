@@ -1,0 +1,32 @@
+﻿@model MTProductPageHeaderModel
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+
+@{
+    // Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //using NeoSistem.MakinaTurkiye.Web.Models
+    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+}
+
+    <input type="hidden" id="hdnProductId" value="@Model.ProductId" />
+    <input type="hidden" id="hdnMainPartyId" value="@Model.MainPartyId" />
+    <input type="hidden" id="hdnMemberEmail" value="@Model.MemberEmail" />
+
+    <div class="fast-access-bar">
+        <div class="fast-access-bar__inner">
+            <div class="row clearfix">
+                <div class="col-xs-12 col-md-12">
+                    @Html.Raw(Model.Navigation) 
+                </div>
+            </div>
+        </div>
+    </div>
+

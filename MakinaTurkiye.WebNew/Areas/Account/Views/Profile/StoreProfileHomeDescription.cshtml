@@ -1,0 +1,94 @@
+﻿@model NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Profile.StoreProfileHomeDescriptinModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+@section headercontent{
+    <script type="text/javascript" src="/Content/v2/assets/js/CKEditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var editorGeneralText = CKEDITOR.replace('StoreProfileDescription', { toolbar: 'webtool' });
+            CKFinder.SetupCKEditor(editorGeneralText, '/Scripts/CKFinder/');
+        });
+        function UpdateProductAbout() {
+            $.ajax({
+                url: '/Profile/StoreProfileHomeDescription',
+                data: { Text: CKEDITOR.instances['StoreProfileDescription'].getData() },
+                type: 'post',
+                success: function (data) {
+                    alert('Mağazanızın profil anasayfa bilgileri güncellenmiştir.');
+                },
+                error: function (x, a, r) {
+                    alert(x.responseText);
+                }
+            });
+        }
+    </script>
+}
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
+        @Html.Partial("LeftMenu", Model.LeftMenu)
+    </div>
+    <div class="col-md-12">
+        <h4 class="mt0 text-info">
+            Firma Anasayfa Bilgi
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div>
+            <div class="well well-mt2">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.StoreProfileDescription)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-xs-12">
+                            <button type="submit" class="btn btn-primary" onclick="UpdateProductAbout();">
+                                Değişiklikleri Kaydet
+
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

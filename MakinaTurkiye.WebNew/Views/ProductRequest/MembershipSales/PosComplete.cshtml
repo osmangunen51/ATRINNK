@@ -1,0 +1,32 @@
+﻿@model dynamic
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //using NeoSistem.MakinaTurkiye.Web.Models
+    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+
+}
+        <div class="row" style="background-color:#fff; border:1px solid #ccc;">
+            <div style="margin: 10px; margin-bottom: 0px; float: left;">
+                <h3>Ödeme Durumu</h3>
+                <div class="alert alert-success" role="alert">
+                    <strong>  @ViewData["text"] </strong>
+                </div>
+            </div>
+        </div>
+

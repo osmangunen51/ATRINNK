@@ -1,0 +1,159 @@
+﻿@model OtherSettingsProductModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+@{ int pagetype = Convert.ToInt32(Request.QueryString["pagetype"]);
+    switch (pagetype)
+    {
+        case 0:
+            break;
+        case 4:
+
+
+            @Model.LeftMenuModel = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.OtherSettings, (byte)LeftMenuConstants.OtherSettings.SortEdit);
+
+
+break;
+case 5:
+
+
+@Model.LeftMenuModel = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.OtherSettings, (byte)LeftMenuConstants.OtherSettings.PriceEdit);
+
+
+break;
+default:
+
+
+break;
+} }
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
+        @Html.Partial("LeftMenu", Model.LeftMenuModel)
+    </div>
+
+</div>
+<div class="row">
+    <div>
+        <div class="loading">Loading&#8230;</div>
+
+        @{
+            switch (pagetype)
+            {
+                case 0:
+                    break;
+                case 4:
+                    @Html.Partial("ProductSort", Model.MTProductItems) break;
+                case 5:
+                    @Html.Partial("ProductPrice", Model.MTProductItems) break;
+                default:
+                    break;
+            } }
+    </div>
+</div>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="HeaderContent" runat="server">
+    <script type="text/javascript">
+
+
+
+        function SortEdit() {
+            var Id = document.getElementById("hdnSortId").value;
+            var SortNumber = document.getElementById("SortValue").value;
+            $.ajax({
+                url: '/Account/ilan/ProductSortUpdate',
+                type: 'post',
+                data: { ProductId: Id, SortNumber: SortNumber },
+                success: function (data) {
+                    window.location = "/Account/OtherSettings/Index?pagetype=4";
+                }
+            });
+        }
+
+        function SortEditShow(Id) {
+            document.getElementById("hdnSortId").value = Id;
+
+            $.ajax({
+                url: '/Account/ilan/ProductSortGet',
+                type: 'post',
+                data: { ProductId: Id },
+                success: function (data) {
+                    document.getElementById("SortValue").value = data;
+                }
+            });
+        }
+        function PriceEditClick(Id)
+        {
+            var PriceNumber = document.getElementById("editPriceValue" + Id).value;
+
+            if (PriceNumber != "") {
+                $.ajax({
+                    url: '@Url.Action("PriceUpdate1","OtherSettings")',
+                    type: 'post',
+                    data: { ProductId: Id, PriceNumber: PriceNumber },
+                    success: function (data) {
+                        $("#priceDisplayValue" + Id).html(PriceNumber);
+                        $("#priceDisplay" + Id).show();
+                        $("#priceEditWrapper" + Id).hide();
+                    }
+                });
+            }
+            else
+            {
+                alert("Fiyat Giriniz");
+            }
+        }
+        function PriceEditCancel(Id)
+        {
+
+            $("#priceDisplay" + Id).show();
+            $("#priceEditWrapper" + Id).hide();
+        }
+
+        function PriceEditShow(Id) {
+
+            $("#priceDisplay" + Id).hide();
+            $("#priceEditWrapper" + Id).show();
+            document.getElementById("hdnPriceId").value = Id;
+            }
+            function ExportExcel() {
+                   var url = '/Account/OtherSettings/ExportProducts';
+
+        window.open(url);
+            }
+
+    </script>
+</asp:Content>

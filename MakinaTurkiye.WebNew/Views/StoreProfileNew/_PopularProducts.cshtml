@@ -1,0 +1,101 @@
+﻿@model IList<MTPopularProductsModel>
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+
+}
+
+
+@if (Model.ToList().Count > 0)
+{
+    <div id="StoreProfileNewPopularProducts" class="owl-carousel owl-theme">
+        @{
+            int index = 1;
+        }
+        @foreach (var item in Model.ToList())
+        {
+            if (index < 7)
+            {
+                index++;
+
+                <div class="PopularProductsItem">
+                    <div class="thumbnail thumbnail-mt">
+                        <a href="@item.ProductUrl>">
+                            <img src="@item.ProductImagePath" alt="@Html.Truncate(item.ProductName, 80)" title="@item.ProductName" />
+
+                            @if (item.HasVideo)
+                            {
+
+                                <div class="product-list-favorite-icon" style="left:0px;" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
+
+
+                            }
+                        </a>
+                        <!-- /.thumnail.thumbnail-mt -->
+                    </div>
+                    <div class="caption text-left">
+                        <a href="@item.ProductUrl">
+                            <span>
+                                @item.ProductName
+                            </span>
+                        </a>
+                        <span style="color: #396; font-size: 12px;">
+                            @if (!string.IsNullOrEmpty(item.BrandName))
+                            {
+                                @item.BrandName
+                            }
+                            if (!string.IsNullOrEmpty(item.ModelName))
+                            {
+                            @item.ModelName
+                            }
+                        </span>
+
+                        <div class="interview" style="color: #333">
+                            @if (!string.IsNullOrEmpty(item.CurrencyCodeName))
+                            {
+                                <span class="@(!string.IsNullOrEmpty(item.ProductPriceWithDiscount) ? "old-price" : "")">
+                                    <i class="@item.CurrencyCodeName"></i>
+                                    }
+                                    @item.PriceText
+                                </span>
+                                if (!string.IsNullOrEmpty(item.ProductPriceWithDiscount))
+                                {
+                                    <span>
+                                        <i class="@item.CurrencyCodeName"></i>
+                                        @item.ProductPriceWithDiscount
+                                    </span>
+                                }
+                            }
+                        </div>
+
+
+                        <!-- /.caption -->
+                    </div>
+                    <!-- /.PopularProductsItem -->
+                </div>
+
+            }
+            else { break; }
+        }
+        <!-- /#StoreProfileNewPopularProducts -->
+    </div>
+}

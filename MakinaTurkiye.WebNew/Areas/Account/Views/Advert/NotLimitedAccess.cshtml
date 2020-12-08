@@ -1,0 +1,80 @@
+﻿@model AdvertViewModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
+        @Html.Partial("LeftMenu",Model.LeftMenu)
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <!-- Başlangıç -->
+        <div class="widget">
+            <div class="widget-line">
+                <div class="padtb">
+                    <div class="widgetcontent ">
+                        <div class="singlerow">
+                            <img src="/Content/V2/images/market-icon.png" />
+                            <h3 class="header-red">
+                                @if (AuthenticationUser.Membership.MemberType == (byte)MemberType.FastIndividual)
+                                {@("Mevcut üyeliğiniz bu işlemi yapmaya izin vermiyor. ") }
+                                else
+                                { @("Üyelik Paketi Al !")}
+                            </h3>
+                        </div>
+                        <div class="pad-15">
+                            <p class="font-large">
+                                Makina Türkiye.com’dan üyelik satın alarak 17 sektörde 50 bin makina arasında yerinizi alın!
+                            </p>
+                            <p class="font-xtralarge">
+                                <strong>İşletmeniz aylık 300 bin kişeye ulaşsın!</strong>
+                            </p>
+                            <p class="font-large">
+
+                                <a href="/MemberShipSales/ThreeStepPre/29">Üyelik Paketi Satın Almak İstiyorum</a>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="widget-line">
+                <!-- Reklam Görseli -->
+                <!-- Hemen Tıkla Görseli -->
+                <a href="/reklam-y-141615">
+                    <img class="responsiveimg padtb" src="/Content/V2/images/hemen-tikla.png" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

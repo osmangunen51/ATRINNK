@@ -1,0 +1,83 @@
+﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewMasterPage
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+
+}
+
+<!doctype html>
+<html lang="tr">
+<head>
+    @Html.Action("MetaTag", "Common")
+    @Html.Partial("_Head")
+    @RenderSection("headercontent", required: false)
+</head>
+<body class="facelift-v2">
+    <!-- Json Ld Ayar-->
+    <script type="application/ld+json">
+        {
+        "@@context": "http://schema.org",
+        "@@type": "Organization",
+        "url": "https://www.makinaturkiye.com",
+        "name": "makinaturkiye.com",
+        "logo" : "https://www.makinaturkiye.com/Content/V2/images/makinaturkiye.png",
+        "contactPoint": {
+        "@@type": "ContactPoint",
+        "telephone": "+90 212 255 7152",
+        "contactType": "Customer service"
+        }
+        }
+    </script>
+    <!-- Json Ld Ayar-->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7HZJT"
+                height="0" width="0" style="display: none; visibility: hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <div id="fb-root"></div>
+
+    <div class="responsive-overlay"></div>
+    @Html.Partial("_Header")
+    @RenderSection("homepageslider", required: false)
+    @RenderSection("storeprofileheadercontent", required: false)
+
+    <div id="StoreProfileMain" class="mb40">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 col-md-4 col-lg-3 stickem">
+                    @RenderSection("stoprofilemenu", required: false)
+                </div>
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    @Html.Action("Content","Footer")
+    <script type="text/javascript">
+        window.fbAsyncInit = function () { window.FB.init({ appId: "333739580327457", xfbml: !0, cookie: !0, version: "v2.8" }) }, function (a, b, c) { var d, e = a.getElementsByTagName(b)[0]; a.getElementById(c) || (d = a.createElement(b), d.id = c, d.src = "//connect.facebook.net/en_US/sdk.js", e.parentNode.insertBefore(d, e)) }(document, "script", "facebook-jssdk");
+    </script>
+
+</body>
+</html>

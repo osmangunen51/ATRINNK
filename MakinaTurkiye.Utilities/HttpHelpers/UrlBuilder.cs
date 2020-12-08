@@ -25,11 +25,14 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         private static string GetHost(HostNameType hostNameType)
         {
-
             if (config.ApplicationTestModeEnabled)
             {
-                return IsRequestLocal ? string.Empty : "http://test.makinaturkiye.com";
+                //return IsRequestLocal ? string.Empty : "http://test.makinaturkiye.com";
+                //return IsRequestLocal ? string.Empty : "http://yeni.makinaturkiye.com";
+                return "https://yeni.makinaturkiye.com";
             }
+
+            hostNameType = HostNameType.Default; // Kaldırılacak canlıay alındığında
 
             switch (hostNameType)
             {
@@ -42,7 +45,8 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
                 case HostNameType.StoreNews:
                     return "https://haber.makinaturkiye.com";
                 default:
-                    return "https://www.makinaturkiye.com";
+                    // return "https://www.makinaturkiye.com";
+                    return "https://yeni.makinaturkiye.com";
             }
         }
 
@@ -101,7 +105,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             if(IsRequestLocal)
             {
                 var requestUrl = HttpContext.Current.Request.Url;
-                url = requestUrl.Scheme+ "://" + requestUrl.Authority + url; 
+                //url = requestUrl.Scheme+ "://" + requestUrl.Authority + url; 
             }
             var uriBuilder = new UriBuilder(url);
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);          

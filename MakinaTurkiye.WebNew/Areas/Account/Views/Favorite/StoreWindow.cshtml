@@ -1,0 +1,91 @@
+﻿@model SearchModel<StoreModel>
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+<div class="listHeader" style="width: 768px;">
+    <div class="listContent" style="width: 740px;">
+        <div style="float: left; width: 300px">
+
+        </div>
+        <div style="float: right;">
+
+        </div>
+    </div>
+    <div class="listContent" style="margin-top: 4px; width: 740px">
+        <div style="float: left; width: 300px">
+
+        </div>
+        <div style="float: right;" class="listPaging">
+            <ul>
+                <li>Sayfa :</li>
+                @foreach (var item in Model.TotalLinkPages)
+                {
+                    if (Model.CurrentPage == item)
+                    {
+                        <span class="activepage" style="cursor: pointer; color: red; font-weight: bold;">
+                            @item
+                        </span>
+                    }
+                    else
+                    {
+                        <span class="page" style="cursor: pointer; font-weight: bold;" onclick="PageChange(@item,@((byte)DisplayType.Window));">
+                            @item
+                        </span>
+                    }
+                }
+                <li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div style="width: 700px; height: auto; float: left; margin-top: 20px; margin-left: 50px;">
+    @{ int j = 0;
+    }
+
+    @foreach (var model1 in Model.Source)
+    {
+
+        j += 1;
+
+        <div class="productWindowContent">
+            <div class="productWindowImage" style="text-align: center; padding-top: 45px; height: 75px">
+            </div>
+            <div class="productWindowText">
+                <a style="color: #1672d0; margin-top: 5px; text-decoration: none;" href="#">
+                    @model1.StoreName
+                </a>
+            </div>
+        </div>
+
+    }
+</div>

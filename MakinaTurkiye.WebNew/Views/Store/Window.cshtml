@@ -1,0 +1,54 @@
+﻿@model StoreSearchModel
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //using NeoSistem.MakinaTurkiye.Web.Models
+    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+    //String veri = "/nscss.axd?name=" + HttpUtility.UrlEncode("/Content/category.css");
+}
+
+<div class="tab-pane fade in" id="pencere">
+    @foreach (var item in Model.Source)
+    {
+        string url = "/sirket/" + item.MainPartyId.ToString() + "/" + Helpers.ToUrl(item.StoreName) + "/sirketprofili";
+        <div class="col-sm-6 col-md-3">
+            <div class="thumbnail thumbnail-mt">
+
+                <div class="thumbnail thumbnail-mt">
+                    <a href="@url">
+                        <img src="@ImageHelpers.GetStoreImage(item.MainPartyId,item.StoreLogo,"300")" class="img-thumbnail border0" alt="@item.StoreName" />
+                    </a>
+
+                    <div class="caption text-center">
+                        <a href="@url">
+                            @Html.Truncate(item.StoreName, 45)
+                        </a>
+                        <p>
+                            @Html.Truncate(Html.FirstLetterLower(item.StoreAbout), 45)
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+    <span class="clearfix"></span>
+</div>
+

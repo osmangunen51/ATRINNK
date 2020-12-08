@@ -1,0 +1,62 @@
+﻿@model dynamic
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    Layout = null;
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //using NeoSistem.MakinaTurkiye.Web.Models
+    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+
+}
+@section headercontent{
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="MakinaTurkiye">
+<meta name="msapplication-TileImage" content="https://makinaturkiye.com/makinaturkiye.png">
+<meta name="msapplication-TileColor" content="#0c3871">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="apple-touch-icon" href="https://makinaturkiye.com/makinaturkiye.png">
+<meta name="theme-color" content="#0c3871" />
+
+<link rel="dns-prefetch" href="//www.googletagmanager.com" />
+<link rel="dns-prefetch" href="//www.google-analytics.com" />
+<link rel="dns-prefetch" href="//fonts.googleapis.com" />
+<link rel="dns-prefetch" href="//ajax.googleapis.com" />
+<link rel="dns-prefetch" href="//s.makinaturkiye.com" />
+<link rel="dns-prefetch" href="//connect.facebook.net" />
+<link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+<link rel="dns-prefetch" href="https://www.google-analytics.com" />
+<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://ajax.googleapis.com" />
+<link rel="dns-prefetch" href="https://connect.facebook.net" />
+<link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
+
+@Scripts.Render("~/js")
+<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
+@Styles.Render("~/css")
+
+
+<script async>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+            'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-TR7HZJT');
+</script>
+    }

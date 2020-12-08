@@ -1,0 +1,68 @@
+﻿@model MTStorePagingModel
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //using NeoSistem.MakinaTurkiye.Web.Models
+    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+
+}
+
+
+
+@if (Model.TotalPageCount > 0)
+{
+    <div class="row mt20">
+        <div class="col-md-12 text-center">
+            <ul class="pagination m0">
+                <li><a href="@Model.FirstPageUrl">&laquo; </a></li>
+
+                @foreach (var key in Model.PageUrls.Keys)
+                {
+                    if (Model.TotalPageCount >= key)
+                    {
+                        if (key == Model.CurrentPageIndex)
+                        {
+                            <li class="active">
+                                <a href="@Model.PageUrls[key]">
+                                    @key.ToString()
+                                </a>
+                            </li>
+
+                        }
+                        else
+                        {
+                            <li>
+                                <a href="@Model.PageUrls[key]">
+                                    @key.ToString()
+                                </a>
+                            </li>
+
+                        }
+                    }
+
+                }
+
+                <li><a href="@Model.LastPageUrl">&raquo; </a></li>
+            </ul>
+        </div>
+        <div class="col-md-12 text-center">
+            Toplam @Model.TotalPageCount sayfa içerisinde @Model.CurrentPageIndex. sayfayı görmektesiniz.
+        </div>
+    </div>
+}

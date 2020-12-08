@@ -1,0 +1,101 @@
+﻿@model NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Videos.MTVideoCreateModel
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
+@using NeoSistem.MakinaTurkiye.Web.Models
+@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.MakinaTurkiye.Web.Models.Home
+@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
+@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
+@using MakinaTurkiye.Entities.Tables.Members
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+@using NeoSistem.MakinaTurkiye.Web.Models.Products
+@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
+@using NeoSistem.MakinaTurkiye.Web.Models.Stores
+@using NeoSistem.MakinaTurkiye.Core.Web
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+@using NeoSistem.MakinaTurkiye.Web.Models.Videos
+@using NeoSistem.MakinaTurkiye.Web.Models.Adverts
+@using MakinaTurkiye.Entities.Tables.Catalog
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+@section headercontent{
+
+}
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
+        @Html.Partial("LeftMenu", Model.LeftMenu)
+    </div>
+    <div class="col-md-12">
+        <h4 class="mt0 text-info">
+            <span class="text-primary glyphicon glyphicon-cog"></span>Firma Tanıtım Videosu Ekle
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="well store-panel-container col-xs-12" style="background: #fff;">
+            <div class="col-md-10">
+            </div>
+            <div class="col-md-2" style="margin-bottom: 10px;">
+                <a href="/account/video" class="btn btn-info">Tümünü Gör <i class="fa  fa-list"></i></a>
+            </div>
+            <div class="col-md-12">
+                @if (TempData["success"] != null)
+                {
+
+                    <div class="alert alert-success" role="alert">
+                        Firma tanıtım videonuz eklenmiştir.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>}
+                @using (Html.BeginForm("Create", "Video", FormMethod.Post, new { @class = "form-horizontal", @enctype = "multipart/form-data", id = "add-video-form" }))
+                {
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Başlık</label>
+                            @Html.TextBoxFor(x => x.VideoTitle, new { @class = "form-control", @placeholder = "Başlık.." })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-12">
+                            <label>Video</label>
+                            <input type="file" id="video" name="video" />
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3">
+                            <button class="btn btn-success" type="submit" id="btnVideoAdd">Ekle</button>
+                            <div id="loaderDiv" style="width: auto; height: 20px; display: none; font-size: 12px; margin-top: 8px;">
+                                <img src="../../../../Content/V2/images/loading.gif" width="30" alt="" />&nbsp; İşleminiz gerçekleştiriliyor, lütfen bekleyiniz.
+                            </div>
+                        </div>
+                    </div>}
+            </div>
+        </div>
+    </div>
+</div>
+
