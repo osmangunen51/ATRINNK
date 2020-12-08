@@ -44,10 +44,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var testModel = _cacheManager.Get(key, () =>
             {
                 MTFooterModel model = new MTFooterModel();
-
                 var footerParent = _footerService.GetAllFooterParent();
                 List<MTFooterParentModel> footerParents = new List<MTFooterParentModel>();
-
                 foreach (var item in footerParent)
                 {
                     MTFooterParentModel footerParentItem = new MTFooterParentModel();
@@ -64,16 +62,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     footerParents.Add(footerParentItem);
                 }
-
-
                 model.FooterParentModels = footerParents;
                 return model;
-            });
-            
+            });            
             return PartialView(testModel);
         }
-
         #endregion
-
     }
 }

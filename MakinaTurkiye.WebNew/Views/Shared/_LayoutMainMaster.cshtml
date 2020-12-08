@@ -76,7 +76,9 @@
     <div class="responsive-overlay"></div>
     @Html.Partial("_Header")
     @RenderSection("HomePageSlider", false)
-    @RenderBody()
-    @{Html.RenderAction("Content", "Footer");}
+    <div class="main-container container">
+        @RenderBody()
+    </div>
+        @{Html.RenderAction("Content", "Footer");}
 </body>
 </html>
