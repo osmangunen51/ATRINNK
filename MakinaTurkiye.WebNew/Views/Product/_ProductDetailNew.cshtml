@@ -80,7 +80,7 @@
 
                                             @Model.UnitTypeText
                                         }
-                                        KDV Hariç
+                                        +KDV
                                     </small>
                                 </div>
                             }
@@ -296,11 +296,11 @@
                     <li class="yazdir"><a href="javascript:void(0)" onclick="window.print();"><i class="fa fa-print"></i>&nbsp;Yazdır</a> </li>
                     <li class="sikayet"><a data-toggle="modal" data-target="#ComplaintModal" id="ComplaintProduct" href="#"><i class="fa fa-flag"></i>&nbsp;Şikayet Et</a> </li>
                     @{Html.RenderPartial("_ProductComplain", Model.ProductComplainModel);}
-                    
+
                 </ul>
                 <div style="margin: auto; display: inline-block; position: relative" class="text-center">
                     @{Html.RenderPartial("_ProductSocial");}
-                    
+
                 </div>
             </div>
         </div>

@@ -232,16 +232,16 @@
 
 <!-- #region MainContext -->
 
-    
-@{ 
+
+@{
     string categoryTitle = "";
     //NeoSistem.MakinaTurkiye.Web.Models.CategoryType
-    
+
     // = new NeoSistem.MakinaTurkiye.Web.Models.EnumModel();
     //var sonucc = enumModel.GetType.CategoryType();
     //CategoryType
 }
-    
+
     @if (Model.CategoryModel.SelectedCategoryId == 0)
     {
     <div class="row clearfix">
@@ -650,24 +650,24 @@
                                             <a href="@banner1.BannerLink" target="_blank">
                                                 <img width="252" src="@(NeoSistem.MakinaTurkiye.Web.Models.UtilityModel.AppSettings.BannerImagesThumbFolder + banner1.BannerResource)" alt="" />
                                             </a>
-                                             } 
-                                            } 
+                                             }
+                                            }
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             }
-                    
+
                             </div>
                         </div>
 
 
 
                         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-10 category-list-wrapper">
-                 
+
                             <div class="row clearfix">
                                 <div class="col-xs-12">
-                                    @Html.Partial("_SliderBanner",Model.MTCategoSliderItems) 
+                                    @Html.Partial("_SliderBanner",Model.MTCategoSliderItems)
                                     <div class="categort-filter">
                                         <div class="categort-filter__bottom">
                                             <div class="row">
@@ -690,16 +690,16 @@
 
                                                                     Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                                     {
-                                                                    brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName; 
+                                                                    brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
                                                                     @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName
                                                                     }
                                                                     else
                                                                     {
                                                                     if (!string.IsNullOrEmpty(Model.SpesificBrandName))
-                                                                    { 
+                                                                    {
                                                                     @Model.SpesificBrandName
                                                                     }
-                                                                    } 
+                                                                    }
 
                                                                     @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Model") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.Any(k => k.Selected))
                                                                     {
@@ -707,15 +707,15 @@
                                                                     @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.FirstOrDefault(k=>k.Selected).FilterName
                                                                     }
                                                                     @if (!string.IsNullOrEmpty(Model.SpesificCategoryNameForModelH1) && brandName != Model.SpesificCategoryNameForModelH1)
-                                                                    { 
+                                                                    {
 
-                                                                    @Model.SpesificCategoryNameForModelH1 
+                                                                    @Model.SpesificCategoryNameForModelH1
 
-                                                                    } 
+                                                                    }
                                                                     @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Seri") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.Any(k => k.Selected))
                                                                     {
                                                                     @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.FirstOrDefault(k=>k.Selected).FilterName
-                                                                    } 
+                                                                    }
 
                                                                     @if (Model.CategoryModel.SelectedCategoryType != (byte)NeoSistem.MakinaTurkiye.Web.Models.CategoryType.Brand && Model.CategoryModel.SelectedCategoryType != (byte)NeoSistem.MakinaTurkiye.Web.Models.CategoryType.Series && Model.CategoryModel.SelectedCategoryType != (byte)NeoSistem.MakinaTurkiye.Web.Models.CategoryType.Model)
                                                                     {
@@ -729,16 +729,16 @@
                                                                     var topCategory = Model.CategoryModel.TopCategoryItemModels.LastOrDefault(c => c.CategoryType != (byte)NeoSistem.MakinaTurkiye.Web.Models.CategoryType.Brand && c.CategoryType != (byte)NeoSistem.MakinaTurkiye.Web.Models.CategoryType.Model && c.CategoryType != (byte)NeoSistem.MakinaTurkiye.Web.Models.CategoryType.Series);
                                                                     if (!string.IsNullOrWhiteSpace(topCategory.CategoryContentTitle))
                                                                     {
-                                                            
+
                                                                     @topCategory.CategoryContentTitle
-                                                            
+
                                                                     }
                                                                     else
                                                                     {
-                                                            
+
                                                                     @topCategory.CategoryName
                                                                     }
-                                                            
+
 
                                                                     }
                                                                     }
@@ -746,7 +746,7 @@
                                                                     @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "İlçe") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "İlçe").ItemModels.Any(k => k.Selected))
                                                                     {
                                                                     @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "İlçe").ItemModels.FirstOrDefault(k=>k.Selected).FilterName
-                                                                    } 
+                                                                    }
                                                                     @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Şehir") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.Any(k => k.Selected))
                                                                     {
                                                                     @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName
@@ -757,34 +757,34 @@
                                                                     {
                                                                             @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Ülke").ItemModels.FirstOrDefault(k => k.Selected).FilterName
                                                                     }
-                                                                    } 
+                                                                    }
                                                                     @if (!string.IsNullOrEmpty(Model.SameCategoryH1))
-                                                                    { 
+                                                                    {
                                                                     @Html.Raw("("+Model.SameCategoryH1+")")
                                                                     } kategorisi
                                                                 </strong>
                                                             </h2>
                                                             <span>
-                                                                &nbsp; aramanızda <font class="text-danger">@Model.TotalItemCount</font> adet ilan bulundu 
+                                                                &nbsp; aramanızda <font class="text-danger">@Model.TotalItemCount</font> adet ilan bulundu
                                                         @if (Request.QueryString["page"] != null)
-                                                                { 
+                                                                {
                                                                 <span class="small">&nbsp;@Model.PagingModel.CurrentPageIndex .Sayfa</span>
                                                                 }
                                                             </span>
 
                                                         }
                                                         @if (!string.IsNullOrEmpty(Model.SearchText))
-                                                        { 
+                                                        {
 
                                                         if (string.IsNullOrEmpty(Model.CategoryModel.SelectedCategoryName))
-                                                        { 
+                                                        {
                                                         <strong>@Model.SearchText</strong> @Html.Raw("kelimesinde")<span class="text-danger">@Model.FilteringContext.TotalItemCount</span>@Html.Raw("Adet ürün bulundu.")
                                                         }
                                                         else
                                                         {
-                                                
+
                                                         @Model.SearchText @Html.Raw("araması için ")<strong>@Model.CategoryModel.SelectedCategoryContentTitle</strong>@Html.Raw("kategorisinde ")<span class="text-danger">@Model.FilteringContext.TotalItemCount</span>@Html.Raw("Adet sonuç bulundu.")
-                                                        } 
+                                                        }
 
 
                                                          }
@@ -832,7 +832,7 @@
                     @Model.ContentBottomCenter
                 </div>
             </div>
-            } 
+            }
 
 
             <div class="clearfix" id="PopulerUrunlerTitle" style="margin-bottom: -30px">
@@ -845,13 +845,13 @@
                 </div>
             </div>
             <div class="clearfix">
-                @Html.Partial("_MostViewProduct",Model.MostViewedProductModel) 
+                @Html.Partial("_MostViewProduct",Model.MostViewedProductModel)
             </div>
 
-            @{ 
+            @{
                 var app = "1";
             }
-            
+
             @if (Request.Url.Segments.Length > 2)
             {
             app = Request.Url.Segments.Length == 2 ? "" : Request.Url.Segments[2];
@@ -859,16 +859,23 @@
 
             @if (app != "Sektor" || app != "Sektor/" || app == "1")
             {
-            if (Model.CategoryModel.SelectedCategoryId != 0)
-            {
-            
+                if (Model.CategoryModel.SelectedCategoryId != 0)
+                {
+
             <div class="row clearfix">
                   <div class="col-xs-12">
                         <h2 class="section-title-category section-title--left">
                             <span>
                                 <!--Bu kısımda null gelen lamda sorguları var. kontrol etmek lazım -->
+                                @{
+                                    string name = "";
+                                    if (Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null)
+                                    {
+                                        name = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
+                                    }
+                                }
                                 <a href="@Model.StoreModel.StoreCategoryUrl" title="@categoryTitle> Firmaları">
-                                    @categoryTitle Firmaları
+                                    @categoryTitle @name Firmaları
                                 </a>
                             </span>
 
@@ -877,21 +884,10 @@
 
                 @{
                     Model.StoreModel.SelectedCategoryName = categoryTitle;
-                    try
+                    if ((Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null))
                     {
-                        var City = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected);
-                        if (City!=null)
-                        {
-                            Model.StoreModel.SelectedCity = City.FilterName;
-                        }
-                        
+                        Model.StoreModel.SelectedCity = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
                     }
-                    catch (Exception ex)
-                    {
-
-
-                    }
-
                 }
 
                 @Html.Partial("_CategoryStores", Model.StoreModel)
@@ -901,7 +897,7 @@
 
 
             @if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent) || !string.IsNullOrEmpty(Model.SeoModel.Description))
-            { 
+            {
 <div class="alert alert-info alert-mt-category">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
         ×
@@ -917,7 +913,7 @@
 
 
             <script type="application/ld+json">
-                @Model.CategoryModel.MtJsonLdModel.JsonLdString 
+                @Model.CategoryModel.MtJsonLdModel.JsonLdString
             </script>
 
         <!-- #endregion -->

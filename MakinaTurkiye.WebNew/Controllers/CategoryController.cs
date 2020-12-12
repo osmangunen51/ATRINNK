@@ -204,7 +204,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             url = AppSettings.SiteUrlWithoutLastSlash + url;
                         }
 
-                        var topCategories = _categoryService.GetSPTopCategories(c.CategoryId);
+                        //var topCategories = _categoryService.GetSPTopCategories(c.CategoryId);
                         return string.Empty;
                     }
                     else if (c.CategoryType == (byte)CategoryType.Model)
@@ -213,7 +213,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         if (string.IsNullOrEmpty(selectedCategoryId))
                         {
                             string brandName = string.Empty;
-                            string catName = string.Empty;
+                            //string catName = string.Empty;
                             if (c.CategoryId == ustCat.CategoryId)
                             {
                                 var brand = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
@@ -1264,9 +1264,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         topCategory = topCategories.LastOrDefault(k => k.CategoryType == (byte)CategoryType.ProductGroup);
 
                     }
-                    categoryUrl = UrlBuilder.GetModelUrl(item.CategoryId, categoryNameUrl, brand.CategoryName,
-                            topCategory.CategoryName, selectedCategoryId);
+                    //categoryUrl = UrlBuilder.GetModelUrl(item.CategoryId, categoryNameUrl, brand.CategoryName,
+                    //        topCategory.CategoryName, selectedCategoryId);
+                    //categoryUrl = UrlBuilder.GetFilterUrl(categoryUrl, filterParams);
                     categoryUrl = UrlBuilder.GetFilterUrl(categoryUrl, filterParams);
+                    if (brand != null)
+                    {
+                        categoryUrl = UrlBuilder.GetModelUrl(item.CategoryId, categoryNameUrl, brand.CategoryName,topCategory.CategoryName, selectedCategoryId);
+                        categoryUrl = UrlBuilder.GetFilterUrl(categoryUrl, filterParams);
+                    }
 
                 }
                 else if (item.CategoryType == (byte)CategoryType.Series)
@@ -1282,20 +1288,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     categoryUrl = UrlBuilder.GetFilterUrl(categoryUrl, filterParams);
                 }
 
-                var categoryItemModel = new MTCategoryItemModel
+                if (!string.IsNullOrEmpty(categoryUrl))
                 {
-                    CategoryId = item.CategoryId,
-                    CategoryName = item.CategoryName,
-                    CategoryParentId = item.CategoryParentId,
-                    CategoryType = item.CategoryType,
-                    CategoryUrl = categoryUrl,
-                    DefaultCategoryName = item.CategoryName,
-                    ProductCount = item.ProductCount ?? 0,
-                    TruncatedCategoryName = StringHelper.Truncate(item.CategoryName, 100),
-                    CategoryContentTitle = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName
-                };
-
-                model.CategoryModel.TopCategoryItemModels.Add(categoryItemModel);
+                    var categoryItemModel = new MTCategoryItemModel
+                    {
+                        CategoryId = item.CategoryId,
+                        CategoryName = item.CategoryName,
+                        CategoryParentId = item.CategoryParentId,
+                        CategoryType = item.CategoryType,
+                        CategoryUrl = categoryUrl,
+                        DefaultCategoryName = item.CategoryName,
+                        ProductCount = item.ProductCount ?? 0,
+                        TruncatedCategoryName = StringHelper.Truncate(item.CategoryName, 100),
+                        CategoryContentTitle = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName
+                    };
+                    model.CategoryModel.TopCategoryItemModels.Add(categoryItemModel);
+                }
             }
 
         }
@@ -1461,10 +1469,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var topCategory = topCategories.LastOrDefault(k => k.CategoryType == (byte)CategoryType.Category);
                     if (topCategory == null)
                         topCategory = topCategories.LastOrDefault(k => k.CategoryType == (byte)CategoryType.ProductGroup);
-
-                    categoryUrl = UrlBuilder.GetModelUrl(item.CategoryId, categoryNameUrl, brand.CategoryName, topCategory.CategoryName, selectedCategoryId);
-
-
+                    if (brand != null)
+                    {
+                        categoryUrl = UrlBuilder.GetModelUrl(item.CategoryId, categoryNameUrl, brand.CategoryName, topCategory.CategoryName, selectedCategoryId);
+                    }
                 }
                 else if (item.CategoryType == (byte)CategoryType.Series)
                 {
@@ -1475,15 +1483,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                     categoryUrl = UrlBuilder.GetSerieUrl(item.CategoryId, categoryNameUrl, brand.CategoryName, topCategory.CategoryName);
                 }
-                navigationUrl = categoryUrl.Replace(":443", "");
-                var categoryName = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
-                alMenu.Add(new Navigation(categoryName, navigationUrl, Navigation.TargetType._self));
-                string navigationUrl1 = categoryUrl.Replace(":443", "").Replace(AppSettings.SiteUrlWithoutLastSlash, "");
-                alMenuSecond.Add(new Navigation(categoryNameUrl, navigationUrl1, Navigation.TargetType._self));
-
+                if (!string.IsNullOrEmpty(categoryUrl))
+                {
+                    navigationUrl = categoryUrl.Replace(":443", "");
+                    var categoryName = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
+                    alMenu.Add(new Navigation(categoryName, navigationUrl, Navigation.TargetType._self));
+                    string navigationUrl1 = categoryUrl.Replace(":443", "").Replace(AppSettings.SiteUrlWithoutLastSlash, "");
+                    alMenuSecond.Add(new Navigation(categoryNameUrl, navigationUrl1, Navigation.TargetType._self));
+                }
             }
-
-
             model.MtJsonLdModel.Navigations = alMenuSecond;
             model.Navigation = LoadNavigationV3(alMenu);
         }
