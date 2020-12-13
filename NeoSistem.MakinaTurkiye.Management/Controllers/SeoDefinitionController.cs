@@ -56,8 +56,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                         Url = "https://magaza.makinaturkiye.com/"+ UrlBuilder.ToUrl(storePageTitle+"-sc-"+ categoryKeyword.CategoryId);
                     }
-        
-
                     model.KeywordAnalysis = Analyzer.GetUrlAnalizWithUrl(Url);
                 }
             }
@@ -66,9 +64,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 model.EntityTypeId = entityTypeId;
                 model.SeoContent = string.Empty;
                 model.Enabled = true;
-
             }
-
             //category Name
             var category = entities.Categories.FirstOrDefault(c => c.CategoryId == entityId);
             if (category != null)

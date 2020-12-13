@@ -7,7 +7,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
     {
         public static string GetFullAddress(this Product product)
         {
-          
+
             StringBuilder sb = new StringBuilder();
             if (product.Town != null)
             {
@@ -198,7 +198,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
                 {
 
                     priceBegin = string.Format("{0:#,0.00}", Convert.ToDouble(priceBegin));
-                    priceLast = string.Format("{0:#,0.00}", Convert.ToDouble(priceLast)); 
+                    priceLast = string.Format("{0:#,0.00}", Convert.ToDouble(priceLast));
                 }
                 string currency = GetCurrency(product);
                 return string.Format("{0} - {1} {2}", priceBegin,priceLast, currency);

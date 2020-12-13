@@ -18,7 +18,7 @@
 <div class="panel panel-mt">
     <div class="panel-heading">
         <h5 class="panel-title">
-    
+
             <a data-toggle="collapse"  data-parent="#accordion" href="#collapseThree@(item.CategoryId)">
                 <span class="glyphicon glyphicon-chevron-right"></span>
                 @item.CategoryName
@@ -26,14 +26,14 @@
         </h5>
     </div>
 
-     
-       
+
+
              @if (item.CategoryId == Model.CurrentMenuModel.CategoryParentId)
              {
                  style = "collapse in";
 
              }
-         
+
 
     <div id="collapseThree@(item.CategoryId)" class="panel-collapse @style">
         <div class="panel-body pl0">
@@ -42,10 +42,10 @@
                 {
                     if (item2.CategoryParentId == item.CategoryId)
                     {<li>
-                         <a href="@item2.HelpUrl">@item2.CategoryName</a>
+                         <a  rel="nofollow" href="@item2.HelpUrl">@item2.CategoryName</a>
                     </li>
                     }
-                } 
+                }
             </ol>
         </div>
     </div>

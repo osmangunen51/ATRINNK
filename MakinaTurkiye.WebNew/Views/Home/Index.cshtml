@@ -9,23 +9,30 @@
 @Html.Hidden("RequestScrool", 1)
 @Html.Hidden("RequestScroolSector", 1)
 @Html.Hidden("Page", 2)
-@if (!Request.Browser.IsMobileDevice)
-{
-    <div class="home-banner-area hidden-xs">
-        <div class="row">
 
-            <div class="col-xs-12 col-lg-12">
-                @Html.Partial("_SliderBanner", Model.SliderBannerMoldes)
-            </div>
+
+<div>
+    @if (!Request.Browser.IsMobileDevice)
+    {
+<div class="home-banner-area hidden-xs">
+    <div class="row">
+        <div class="col-xs-12 col-lg-12">
+            @Html.Partial("_SliderBanner", Model.SliderBannerMoldes)
         </div>
     </div>
-}
-
+</div>}
+</div>
 <div class="main-container container">
     <div class="row">
         <div class="col-md-12" style="margin-top:10px;">
-            <div class="home-showcase__header">
-                <h1 style="color: #fff !important;margin: 0px;font-family: Arial; line-height: 24px !important;font-size:18px">Dünya'nın Makinası Bir Arada</h1>
+            <div>
+                <h1 style="color: #0350a5;
+              font-family: Arial;
+              font-size: 24px;
+              font-weight: 700;
+              line-height: 27px;">
+                    Dünya'nın Makinası Bir Arada
+                </h1>
             </div>
             <div class="home-showcase__body">
                 <div id="home-sector">
@@ -33,60 +40,12 @@
             </div>
         </div>
     </div>
-    <div class="home-showcase" id="home-showcase">
+    @if (!Request.Browser.IsMobileDevice)
+    {
+        @Html.Partial("_NewsAds", Model.NewsAdModels)
+    }
 
-        <div class="row" style="margin-top: 1.5rem;">
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="javascript:void(0)" class="category-item">
-                    <img class="img-thumbnail"
-                         src="/UserFiles/image-loading.png"
-                         alt="Yükleniyor 1" />
-                    <div class="category-item__body">
-                        <h3 class="category-item__title">Yükleniyor</h3>
-
-                    </div>
-                </a>
-
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="javascript:void(0)" class="category-item">
-                    <img class="img-thumbnail"
-                         src="/UserFiles/image-loading.png"
-                         alt="Yükleniyor 1" />
-                    <div class="category-item__body">
-                        <h3 class="category-item__title">Yükleniyor</h3>
-
-                    </div>
-                </a>
-
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="javascript:void(0)" class="category-item">
-                    <img class="img-thumbnail"
-                         src="/UserFiles/image-loading.png"
-                         alt="Yükleniyor 1" />
-                    <div class="category-item__body">
-                        <h3 class="category-item__title">Yükleniyor</h3>
-
-                    </div>
-                </a>
-
-            </div>
-            <div class="col-6 col-md-4 col-lg-3">
-                <a href="javascript:void(0)" class="category-item">
-                    <img class="img-thumbnail"
-                         src="/UserFiles/image-loading.png"
-                         alt="Yükleniyor 1" />
-                    <div class="category-item__body">
-                        <h3 class="category-item__title">Yükleniyor</h3>
-
-                    </div>
-                </a>
-
-            </div>
-        </div>
-
-
+    <div id="home-showcase">
     </div>
     <div class="advertiseHome" style="display: none;">
         <div class="container">
@@ -195,10 +154,8 @@
             }
         });
     }
-
     document.addEventListener("DOMContentLoaded", function () {
         var lazyloadImages;
-
         if ("IntersectionObserver" in window) {
             lazyloadImages = document.querySelectorAll(".img-lazy");
             var imageObserver = new IntersectionObserver(function (entries, observer) {
@@ -211,7 +168,6 @@
                     }
                 });
             });
-
             lazyloadImages.forEach(function (image) {
                 imageObserver.observe(image);
             });
@@ -229,7 +185,6 @@
                     lazyloadImages.forEach(function (img) {
                         if (img.offsetTop < (window.innerHeight + scrollTop)) {
                             img.src = img.dataset.src;
-                            //img.classList.remove('img-thumbnail');
                         }
                     });
                     if (lazyloadImages.length == 0) {
@@ -276,8 +231,6 @@
         var requestScroolSector = $("#RequestScroolSector").val();
         var sectorHeight = $(".new-header").height() + $(".main-navigation").height() - 200;
         var b = $(".new-header").height() + $(".main-navigation").height() + $(".home-banner-area ").height() + $("#home-sector").height() - 200;
-
-
         if ($(window).scrollTop() > sectorHeight) {
             if (requestScroolSector == 1) {
                 $.ajax({
@@ -303,10 +256,7 @@
             }
 
         }
-
-
     });
-
 </script>
 
 

@@ -52,7 +52,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         #endregion
 
-        #region Ctor 
+        #region Ctor
 
         public CategoryService(IDbContext dbContext, IDataProvider dataProvider,
             IRepository<Category> categoryRepository, ICacheManager cacheManager,
@@ -66,7 +66,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         }
 
-        #endregion 
+        #endregion
 
         #region Methods
 
@@ -206,9 +206,9 @@ namespace MakinaTurkiye.Services.Catalog
             int seriesId = 0, int searchType = 0, int countryId = 0, int cityId = 0, int localityId = 0,
             int customFilterId = 0)
         {
-            string key = string.Format(CATEGORIES_SP_PRODUCTCATEGORY_FOR_SEARCH_TEXT_KEY, searchText, categoryId, 
+            string key = string.Format(CATEGORIES_SP_PRODUCTCATEGORY_FOR_SEARCH_TEXT_KEY, searchText, categoryId,
                                 brandId, modelId, seriesId, searchType, countryId, cityId, localityId, customFilterId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var pSearchText = _dataProvider.GetParameter();
                 pSearchText.ParameterName = "SearchText";
@@ -272,7 +272,7 @@ namespace MakinaTurkiye.Services.Catalog
             string searchText)
         {
             //string key = string.Format(CATEGORIES_SP_PRODUCTCATEGORY_ONE_STEP_FOR_SEARCH_TEXT_KEY, searchText);
-            //return _cacheManager.Get(key, () => 
+            //return _cacheManager.Get(key, () =>
             //{
 
             //});
@@ -295,7 +295,7 @@ namespace MakinaTurkiye.Services.Catalog
                 throw new ArgumentNullException("mainPartyId");
 
             string key = string.Format(CATEGORIES_SP_STOREPROFILE_BY_MAINPARTY_ID_KEY, mainPartyId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var pMainPartyId = _dataProvider.GetParameter();
                 pMainPartyId.ParameterName = "MainPartyId";
@@ -332,7 +332,7 @@ namespace MakinaTurkiye.Services.Catalog
 
 
             string key = string.Format(CATEGORIES_SP_VIDEOCATEGORY_BY_MAINPARTY_ID_KEY, mainPartyId, categoryId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
 
 
@@ -360,7 +360,7 @@ namespace MakinaTurkiye.Services.Catalog
             //    throw new ArgumentNullException("categoryParentId");
 
             string key = string.Format(CATEGORIES_SP_STORECATEGORY_BY_CATEGORYPARENT_ID_KEY, categoryParentId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var pCategoryParentId = _dataProvider.GetParameter();
                 pCategoryParentId.ParameterName = "CategoryParentId";
@@ -379,7 +379,7 @@ namespace MakinaTurkiye.Services.Catalog
                 return new List<Category>();
 
             string key = string.Format(CATEGORIES_SP_BREADCRUMB_BY_CATEGORY_ID_KEY, categoryId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var pCategoryId = _dataProvider.GetParameter();
                 pCategoryId.ParameterName = "CategoryId";
@@ -481,7 +481,7 @@ namespace MakinaTurkiye.Services.Catalog
             categoryParentIdsText = categoryParentIdsText.Substring(0, categoryParentIdsText.Length - 1);
 
             string key = string.Format(CATEGORIES_BY_CATEGORY_IDS_KEY, categoryParentIdsText,showHidden);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _categoryRepository.Table;
 
@@ -516,7 +516,7 @@ namespace MakinaTurkiye.Services.Catalog
                 throw new ArgumentException("categoryParentId");
 
             string key = string.Format(CATEGORIES_BY_CATEGORYPARENT_ID_WITH_CATEGORY_TYPE_KEY, categoryParentId, (byte)categoryType,showHidden);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _categoryRepository.Table;
 
@@ -547,7 +547,7 @@ namespace MakinaTurkiye.Services.Catalog
         public IList<Category> GetCategoriesByCategoryType(CategoryTypeEnum categoryType, bool showHidden = false)
         {
             string key = string.Format(CATEGORIES_BY_CATEGORY_TYPE_KEY, categoryType, showHidden);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _categoryRepository.Table;
 
@@ -564,7 +564,7 @@ namespace MakinaTurkiye.Services.Catalog
         public IList<Category> GetCategoriesLessThanCategoryType(CategoryTypeEnum categoryType, bool showHidden = false, int categoryParentId = 0)
         {
             string key = string.Format(CATEGORIES_BY_LESS_THAN_CATEGORY_TYPE_KEY, categoryType, showHidden, categoryParentId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _categoryRepository.Table;
 

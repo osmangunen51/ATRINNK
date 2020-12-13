@@ -236,8 +236,8 @@ namespace NeoSistem.EnterpriseEntity.Business
         dataReader = this.DatabaseInstance.ExecuteReader(command);
         command.Dispose();
       }
-      catch (System.Exception Hata)
-      {
+      catch (System.Exception)
+            {
         command.Dispose();
       }
 
@@ -274,7 +274,7 @@ namespace NeoSistem.EnterpriseEntity.Business
     }
 
     /// <summary>
-    /// <para>Komutu yürütür ve sorgu tarafından döndürülen sonuç kümesinin ilk satırının ilk sütununu verir.</para> 
+    /// <para>Komutu yürütür ve sorgu tarafından döndürülen sonuç kümesinin ilk satırının ilk sütununu verir.</para>
     /// <para>Ek sütunlar veya satırlar yok sayılır.</para>
     /// </summary>
     /// <param name="procName">Sql prosedür adı</param>
@@ -287,7 +287,7 @@ namespace NeoSistem.EnterpriseEntity.Business
     }
 
     /// <summary>
-    /// <para>Verilen parametreler ile komutu yürütür ve sorgu tarafından döndürülen sonuç kümesinin ilk satırının ilk sütununu verir.</para> 
+    /// <para>Verilen parametreler ile komutu yürütür ve sorgu tarafından döndürülen sonuç kümesinin ilk satırının ilk sütununu verir.</para>
     /// <para>Ek sütunlar veya satırlar yok sayılır.</para>
     /// </summary>
     /// <param name="procName">Sql prosedür adı</param>
@@ -316,7 +316,7 @@ namespace NeoSistem.EnterpriseEntity.Business
     }
 
     /// <summary>
-    /// <para>Belirtilen işlem (Transaction) içinde verilen parametreler ile komutu yürütür ve sorgu tarafından döndürülen sonuç kümesinin ilk satırının ilk sütununu verir.</para> 
+    /// <para>Belirtilen işlem (Transaction) içinde verilen parametreler ile komutu yürütür ve sorgu tarafından döndürülen sonuç kümesinin ilk satırının ilk sütununu verir.</para>
     /// <para>Ek sütunlar veya satırlar yok sayılır.</para>
     /// </summary>
     /// <param name="procName">Sql prosedür adı</param>
