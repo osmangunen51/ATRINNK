@@ -43,7 +43,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         public MessageController(IMemberStoreService memberStoreService,
             IMemberService memberService,
-            IMessageService messageService, IAddressService addressService, 
+            IMessageService messageService, IAddressService addressService,
             IPhoneService phoneService, IProductService productService,
             IStoreService storeService, IMobileMessageService mobileMessageService, IMessagesMTService messagesMTService)
         {
@@ -89,7 +89,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     if(message!=null)
                       subject = message.MessageSubject;
                 }
-              
+
             }
 
             string ad = "";
@@ -97,7 +97,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 if (Request.QueryString["MessagePageType"].ToString() == "1")
                 {
-                    
+
 
                     int mainPartyId = (int)AuthenticationUser.Membership.MainPartyId;
 
@@ -114,7 +114,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     else
                     {
 
-                     
+
                         if (AuthenticationUser.Membership.MemberType != (byte)MemberType.Enterprise)//eğer firmaysa mesaj gönderebilir onaya gerek yoktur.
                         {
                             if (adressData != null)
@@ -160,7 +160,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     var product = _productService.GetProductByProductId(productNo);
                     productName = product.ProductName;
                     productUrl = NoeSistemHelpers.ProductUrl(product.ProductId, product.ProductName);
-                 
+
                     model.Product = product;
                 }
 
@@ -189,7 +189,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     mainPartyIdsPar  = String.Join(", ", mainPartyIds); ;
                 }
 
-    
+
 
                 switch (mPageType)
                 {
@@ -200,7 +200,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                         break;
                     case MessagePageType.Send:
-                       
+
                         #region
 
                         if (sendmainparty != 0)
