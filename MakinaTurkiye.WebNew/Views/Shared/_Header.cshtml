@@ -269,7 +269,7 @@
                                 searchText = Request.QueryString["SearchText"].ToString();
                             }
                             <button type="submit">
-                                <img src="/Content/v2/images/icon/search-icon.png" alt="Ara">
+                                <img width="16" src="/Content/v2/images/icon/search-icon.png" alt="Ara">
                             </button>
                             <input type="text" id="SearchText" value="@searchText" name="SearchText" autocomplete="off" class="search-text-autocomplate" placeholder="Ürün, Kategori, Firma veya Video Ara" required x-webkit-speech speech>
                             <div class="input-group-append">
@@ -287,8 +287,8 @@
                     <div class="site-search__bottom">
                         <ul class="site-search__store">
                             <li>
-                                <a href="@AppSettings.StoreAllUrl">Tüm Mağazalar</a>
-                                <a href="@AppSettings.SiteAllCategoryUrl ">Tüm Kategoriler</a>
+                                <a style="color:#828282" href="@AppSettings.StoreAllUrl">Mağazalar</a>
+                                <a style="color:#828282"  href="@AppSettings.SiteAllCategoryUrl ">Kategoriler</a>
                                 @*<div class="dropdown-menu ">
                                     <h4 class="search-store_title">Tüm Mağazalar</h4>
                                     <div class="scrollable" id="StoreCategories">
@@ -304,9 +304,9 @@
                             @*<li>
                                 <a target="_blank" href="https://blog.makinaturkiye.com">Blog</a>
                             </li>*@
-                            <li>
+                            @*<li>
                                 <a target="_blank" href="@AppSettings.SiteUrlWithoutLastSlash/yardim">Yardım</a>
-                            </li>
+                            </li>*@
                         </ul>
                     </div>
                 </div>
