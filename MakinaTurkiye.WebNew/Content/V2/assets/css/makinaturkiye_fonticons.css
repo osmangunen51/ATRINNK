@@ -1,11 +1,12 @@
 @font-face {
-    font-family: 'makinaturkiye_fonticons';
-    src: url('../../../../Content/V2/fonts/makinaturkiye_fonticons.eot');
-
-    src: url('../../../../Content/V2/fonts/makinaturkiye_fonticons.eot?q55a5y');
-    src: url('../../../../Content/V2/fonts/makinaturkiye_fonticons.eot?q55a5y#iefix') format('embedded-opentype'), url('../../../../Content/V2/fonts/makinaturkiye_fonticons.ttf?q55a5y') format('truetype'), url('../../../../Content/V2/fonts/makinaturkiye_fonticons.woff?q55a5y') format('woff'), url('../../../../Content/V2/fonts/makinaturkiye_fonticons.svg?q55a5y#makinaturkiye_fonticons') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family:'makinaturkiye_fonticons';
+  src:  url('../../../fonts/makinaturkiye_fonticons.eot?q55a5y');
+  src:  url('../../../fonts/makinaturkiye_fonticons.eot?q55a5y#iefix') format('embedded-opentype'),
+    url('../../../fonts/makinaturkiye_fonticons.ttf?q55a5y') format('truetype'),
+    url('../../../fonts/makinaturkiye_fonticons.woff?q55a5y') format('woff'),
+    url('../../../fonts/makinaturkiye_fonticons.svg?q55a5y#makinaturkiye_fonticons') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 [class^="icon-"], [class*=" icon-"] {
