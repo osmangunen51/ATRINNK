@@ -2459,9 +2459,7 @@
     <Content Include="Views\StoreProfileNew\BranchNew.cshtml" />
     <Content Include="Views\StoreProfileNew\BrandNew.cshtml" />
     <Content Include="Views\StoreProfileNew\CatologNew.cshtml" />
-    <Content Include="Views\StoreProfileNew\CompanyProfileNew.cshtml">
-      <SubType>ASPXCodeBehind</SubType>
-    </Content>
+    <Content Include="Views\StoreProfileNew\CompanyProfileNew.cshtml" />
     <Content Include="Views\StoreProfileNew\ConnectionNew.cshtml" />
     <Content Include="Views\StoreProfileNew\DealerNew.cshtml" />
     <Content Include="Views\StoreProfileNew\DealerShipNew.cshtml" />
@@ -2520,6 +2518,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\_NewsAds.cshtml" />
     <None Include="Views\Shared\_LayoutAccountMasterSil.cshtml" />
+    <Content Include="Views\Shared\_LayoutProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Account\Content\hesabim_ortak.css" />

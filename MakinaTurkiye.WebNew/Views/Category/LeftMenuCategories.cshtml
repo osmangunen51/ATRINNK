@@ -29,9 +29,9 @@
                     }
                 </a>
             </li>
-            @(leftPX += " &nbsp; ";)
+                leftPX += " &nbsp; ";
             }
-            @{ int itemIndex = 0;}
+            @{int itemIndex = 0;}
             @foreach (var item in Model.CategoryModel.CategoryItemModels.Where(c => c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Series))
             {
             <li title="@item.CategoryName " class="list-group-item @Model.CategoryModel.SelectedCategoryId== item.CategoryId ? " active" : string.Empty)">
@@ -41,7 +41,7 @@
                     <span class="text-muted text-sm">(@item.ProductCount ) </span>
                 </a>
             </li>
-                @(itemIndex++;)
+                itemIndex++;
             }
         </ul>
     </div>

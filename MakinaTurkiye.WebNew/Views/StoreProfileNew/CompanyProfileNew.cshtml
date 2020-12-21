@@ -1,5 +1,4 @@
-﻿@*@model MTCompanyProfileModel*@
-@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles.MTCompanyProfileModel>
+﻿@model NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles.MTCompanyProfileModel
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
@@ -21,8 +20,6 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 @using NeoSistem.MakinaTurkiye.Web.Models.Videos
 @{
-    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
 }
 
@@ -81,25 +78,18 @@
             @if (Model.SliderImages.Count > 0)
             {
                 <div id="StoreProfileImageSlider" class="owl-carousel owl-theme">
-
                     @{ int a = 1; }
                     @foreach (var item in Model.SliderImages)
                     {
-
                         <div class="StoreProfileImageSlider">
                             <div class="item">
                                 <img src="@item" alt="@Model.MTStoreAboutModel.StoreName resimleri @a " />
-                                <!-- /.item -->
                             </div>
                         </div>
                         a++;
                     }
-
-                    <!-- /.slider -->
-                    <!-- /#StoreProfileImageSlider -->
                 </div>
             }
-
             <div class="clearfix"></div>
             @Html.Hidden("showTextDetailHidden", Model.MTStoreAboutModel.AboutText)
             @Html.Partial("_PopularProducts", Model.MTPopularProductsModels)
@@ -108,14 +98,8 @@
             <div class="clearfix"></div>
             @Html.Partial("_StoreCertificates", Model)
         </div>
-        <!-- /.col-md-8 main content -->
     </div>
-
-    <!-- container -->
-
-
 }
-
 else
 {
     @Html.Action("NoAccessStore", new { id = Model.MainPartyId })

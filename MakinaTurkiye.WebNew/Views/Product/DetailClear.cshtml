@@ -1,15 +1,8 @@
 ﻿@model NeoSistem.MakinaTurkiye.Web.Models.Products.MTProductDetailViewModel
 @{
-    //  ViewBag.Title = "DetailClear";
-    Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    Layout = "~/Views/Shared/_LayoutProduct.cshtml";
 }
-
-
 @section headercontent{
-
-    <!-- #region HeaderContent -->
-
-
     <script type="text/javascript">
             function ProductPopupGallery() {
                 $('.product-popup-gallery').magnificPopup({
@@ -162,21 +155,16 @@
     </script>
     @if (Model.ProductPictureModels.Count > 0)
     {
-
         <meta name="og:image" content="@Model.ProductPictureModels.FirstOrDefault().LargePath" />
     }
     @Html.Partial("_ProductHeader")
     @if (!Model.ProductDetailModel.IsActive)
     {
-
     }
     else
     {
-
         <script type="text/javascript" src="/Content/v2/assets/js/phonemask.js"></script>
-
         <script type="text/javascript">
-
             function AddWhatsappLog(id) {
                 $.ajax({
                     url: '/ajax/AddWhatsappLog',
@@ -188,14 +176,9 @@
                 }
                 );
             }
-
             $(document).ready(function () {
-
-
                 $("#PhoneNumber").mask("(999) 999-9999");
                 $("#PhoneNumberAgain").mask("(999) 999-9999");
-
-
                 $("#phone").on("blur", function () {
                     var last = $(this).val().substr($(this).val().indexOf("-") + 1);
 
@@ -215,10 +198,7 @@
                 if ($(window).scrollTop() > 150) {
                     if (request == 0) {
                         SetProductStatistic();
-
-
                     }
-
                 }
             });
             function SetProductStatistic() {
@@ -310,84 +290,76 @@
                     }
                 });
             }
-
-
         </script>
-
         <meta name="robots" content="INDEX,FOLLOW" />
     }
     <meta name="google-site-verification" content="jpeiLIXc-vAKBB2vjRZg3PluGG3hsty0n6vSXUr_C-A" />
-
-
-    <!-- #endregion -->
 }
+@Html.Hidden("RequestStatistic","0") 
+@Html.Partial("_ProductPageHaderNew",Model.ProductPageHeaderModel) 
+<style>
+    .addthis_inline_share_toolbox {
+        padding-top: 10px;
+        padding-bottom: 0;
+        margin-bottom: 0px;
+    }
+</style>
+<div class="row urun-detay">
+    <div class="col-md-12">
+        <h1 class="product-detail__title">
+            @Model.ProductDetailModel.ProductName
+        </h1>
+    </div>
+    @if (Model.OnlyStoreSee)
+    { 
+    <div class="flex-row flex-lg-nowrap flex-md-nowrap" style="padding-left: 15px; padding-right: 15px; margin-bottom: 20px;">
 
-
-    @Html.Hidden("RequestStatistic","0") 
-    @Html.Partial("_ProductPageHaderNew",Model.ProductPageHeaderModel) 
-    <style>
-        .addthis_inline_share_toolbox {
-            padding-top: 10px;
-            padding-bottom: 0;
-            margin-bottom: 0px;
-        }
-    </style>
-    <div class="row urun-detay">
-        <div class="col-md-12">
-            <h1 class="product-detail__title">
-                @Model.ProductDetailModel.ProductName
-            </h1>
+        <div class="flex-md-12 flex-sm-12 flex-xs-12 text-center product-activetype-display p-r-lg-15 p-r-md-15  p-r-sm-15">
+            <b style="font-size: 16px;">İlanınız inceleniyor</b>
         </div>
-        @if (Model.OnlyStoreSee)
-        { 
-        <div class="flex-row flex-lg-nowrap flex-md-nowrap" style="padding-left: 15px; padding-right: 15px; margin-bottom: 20px;">
-
-            <div class="flex-md-12 flex-sm-12 flex-xs-12 text-center product-activetype-display p-r-lg-15 p-r-md-15  p-r-sm-15">
-                <b style="font-size: 16px;">İlanınız inceleniyor</b>
-            </div>
-        </div>
-        }
-        <div class="flex-row flex-lg-nowrap flex-md-nowrap" style="padding-left: 15px; padding-right: 15px;">
-            <div class="flex-xs-12 flex-sm-12 flex-md-9 flex-lg-6">
-                <div class="flex-row">
-                    <div class="flex-xs-12 flex-md-12 flex-sm-12 flex-lg-12 p-r-lg-15 p-r-md-15  p-r-sm-15">
-                        <div class="thumbnail">
-                            @Html.Partial("_ProductPictureNew",Model.ProductPictureModels)
-                        </div>
+    </div>
+    }
+    <div class="flex-row flex-lg-nowrap flex-md-nowrap" style="padding-left: 15px; padding-right: 15px;">
+        <div class="flex-xs-12 flex-sm-12 flex-md-9 flex-lg-6">
+            <div class="flex-row">
+                <div class="flex-xs-12 flex-md-12 flex-sm-12 flex-lg-12 p-r-lg-15 p-r-md-15  p-r-sm-15">
+                    <div class="thumbnail">
+                        @Html.Partial("_ProductPictureNew",Model.ProductPictureModels)
                     </div>
-
                 </div>
+
             </div>
-            <div class="flex-xs-12 flex-md-7 flex-sm-7 flex-lg-3 p-r-lg-15 p-r-md-15 ">
-                @Html.Partial("_ProductDetailNew", Model.ProductDetailModel)
-            </div>
-            <div class="flex-xs-12 flex-sm-12 flex-md-3 flex-lg-3 rightSidebar">
-                <div>
-                    <div class="affixRight" data-bottom-fix="#fixthis">
-                        <div style="display: block;">
-                            <div class="row">
-                                <div class="col-sm-6 col-xs-12 col-md-12 col-lg-12">
-                                    @Html.Partial("_ProductStoreNew", Model.ProductStoreModel)
-                                    @Html.Partial("_StoreOtherProductNew", Model.StoreOtherProductModel)
-                                </div>
+        </div>
+        <div class="flex-xs-12 flex-md-7 flex-sm-7 flex-lg-3 p-r-lg-15 p-r-md-15 ">
+            @Html.Partial("_ProductDetailNew", Model.ProductDetailModel)
+        </div>
+        <div class="flex-xs-12 flex-sm-12 flex-md-3 flex-lg-3 rightSidebar">
+            <div>
+                <div class="affixRight" data-bottom-fix="#fixthis">
+                    <div style="display: block;">
+                        <div class="row">
+                            <div class="col-sm-6 col-xs-12 col-md-12 col-lg-12">
+                                @Html.Partial("_ProductStoreNew", Model.ProductStoreModel)
+                                @Html.Partial("_StoreOtherProductNew", Model.StoreOtherProductModel)
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="flex-xs-12  p-r-lg-15 p-r-md-15">
-            @Html.Partial("_ProductTabNew",Model.ProductTabModel)
-        </div>
-        <div class="col-xs-12" id="fixthis">
-            @Html.Partial("_SimilarProductNew",Model.SimilarProductModel)
-        </div>
-     
     </div>
-    @Html.Partial("_ProductStoreContact",Model.ProductContanctModel)
-    @if (!string.IsNullOrEmpty(Model.MtJsonLdModel.JsonLdString))
-    {
+    <div class="flex-xs-12  p-r-lg-15 p-r-md-15">
+        @Html.Partial("_ProductTabNew",Model.ProductTabModel)
+    </div>
+    <div class="col-xs-12" id="fixthis">
+        @Html.Partial("_SimilarProductNew",Model.SimilarProductModel)
+    </div>
+ 
+</div>
+@Html.Partial("_ProductStoreContact",Model.ProductContanctModel)
+@if (!string.IsNullOrEmpty(Model.MtJsonLdModel.JsonLdString))
+{
     <script type="application/ld+json">
         @Model.MtJsonLdModel.JsonLdString 
     </script>
-     }
+ }

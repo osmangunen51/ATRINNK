@@ -1,7 +1,6 @@
 ﻿<!doctype html>
 <html lang="tr">
 <head>
-
     @Html.Action("MetaTag", "Common", new { area = "" })
     @Html.Partial("_Head")
     @Scripts.Render("~/js")
@@ -52,15 +51,15 @@
     <div class="main-container container">
         <div class="row">
             @RenderBody()
-</div>
-</div>
-            @{Html.RenderAction("Content", "Footer");}
-            <script>
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker
-                        .register('/serviceworker.js')
-                        .then(function () { console.log('Service Worker Registered'); });
-                }
-            </script>
+        </div>
+    </div>
+    @{Html.RenderAction("Content", "Footer");}
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('/serviceworker.js')
+                .then(function () { console.log('Service Worker Registered'); });
+        }
+    </script>
 </body>
 </html>

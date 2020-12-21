@@ -821,7 +821,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     int memberMainPartyId = Convert.ToInt32(memberStore.MemberMainPartyId);
 
-                    MTCompanyProfileModel model = new MTCompanyProfileModel();
+                    NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles.MTCompanyProfileModel model = new NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles.MTCompanyProfileModel();
 
                     MTStoreProfileHeaderModel companyProfileHeaderModel = PrepareStoreProfileHeader("CompanyProfile", store, memberMainPartyId);
                     PrepareCompanyProfilePopularProducts(model, store.MainPartyId);

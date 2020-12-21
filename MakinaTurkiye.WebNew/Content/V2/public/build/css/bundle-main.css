@@ -22601,7 +22601,7 @@ img.res-buyut {
 
 @media (min-width:768px) {
     .new-header {
-        padding: 10px 20px
+        padding: 8px 20px
     }
 
     .new-header__top .responsive-menu {
@@ -23900,7 +23900,7 @@ img.res-buyut {
         content: "";
         display: inline-block;
         line-height: 1;
-        border-left: 1px solid #828282;
+        /*border-left: 1px solid #828282;*/
         width: 1px;
         height: 12px;
         position: relative;
