@@ -121,6 +121,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
             return MvcHtmlString.Create(lnk.ToString().Replace(repID, linkText));
         }
 
+
+        public static bool isNumeric(this string value)
+        {
+            double oReturn = 0; return double.TryParse(value, out oReturn);
+
+        }
         public static string CheckNullString(this string value)
         {
             return string.IsNullOrEmpty(value) ? string.Empty : value;

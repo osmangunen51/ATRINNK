@@ -2448,7 +2448,6 @@
     <Content Include="Views\Shared\_LayoutAccountMaster1.cshtml" />
     <Content Include="Views\Shared\_LayoutAccountMaster.cshtml" />
     <Content Include="Views\Shared\_LayoutCategory.cshtml" />
-    <Content Include="Views\Shared\_LayoutMainMaster.cshtml" />
     <Content Include="Views\Shared\_LayoutStoreProfileMaster.cshtml" />
     <Content Include="Views\StoreNew\Detail.cshtml" />
     <Content Include="Views\StoreNew\Index.cshtml" />
@@ -2519,6 +2518,8 @@
     <Content Include="Views\Home\_NewsAds.cshtml" />
     <None Include="Views\Shared\_LayoutAccountMasterSil.cshtml" />
     <Content Include="Views\Shared\_LayoutProduct.cshtml" />
+    <Content Include="Views\Shared\_LayoutMainMaster.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Account\Content\hesabim_ortak.css" />

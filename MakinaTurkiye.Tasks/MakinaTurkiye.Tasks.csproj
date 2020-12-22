@@ -70,6 +70,8 @@
     <Compile Include="SearchEngine\ElasticSearch\Tasks\CategoryProductCountUpdate.cs" />
     <Compile Include="SearchEngine\ElasticSearch\Tasks\CommonIndexTask.cs" />
     <Compile Include="SearchEngine\ElasticSearch\Tasks\SuggestIndexTask.cs" />
+    <Compile Include="SearchEngine\SiteMap\Schedulers\SiteMapCreateScheduler.cs" />
+    <Compile Include="SearchEngine\SiteMap\Task\SiteMapCreate.cs" />
     <Compile Include="Settings\ProductSettings.cs" />
     <Compile Include="WebP\Schedulers\WebPScheduler.cs" />
     <Compile Include="WebP\Task\WebP.cs" />

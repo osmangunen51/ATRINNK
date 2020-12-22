@@ -38,6 +38,7 @@ namespace MakinaTurkiye.Web.Tasks
                 ProductHomePageReminderMailSendScheduler.Start();
                 MemberDescriptionRestScheduler.Start();
                 ProductRateCalculateScheduler.Start();
+                SiteMapCreateScheduler.Start();
                 WebPScheduler.Start();
             }
         }

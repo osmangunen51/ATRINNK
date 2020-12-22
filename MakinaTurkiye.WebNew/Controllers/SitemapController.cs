@@ -33,27 +33,27 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
 
             IList<string> sitemapFiles = new List<string>();
-           // //this.generateSitemap_categoryproductgroup();
+            // //this.generateSitemap_categoryproductgroup();
 
             //  sitemapFiles.Add(this.generateSitemap_categoryproductgroup());
 
 
             //  sitemapFiles.Add(            this.generateSitemapForStores());
-           
-            
+
+
             ////sitemapFiles.Add(this.generateSitemapForNews());
 
 
 
-           //// this.generateSitemap_categorysector();
+            //// this.generateSitemap_categorysector();
             // sitemapFiles.Add(this.generateSitemap_categorysector());
-           //// this.generateSitemap_categorybrand();
+            //// this.generateSitemap_categorybrand();
             //sitemapFiles.Add();
 
-           //// sitemapFiles.Add(this.generateSitemap_productGroupBrand());
-         ////   this.generateSitemap_categoryorta();
-          //  sitemapFiles.Add(this.generateSitemap_categoryorta());
-          ////  sitemapFiles.Add(this.generateSitemap_categoryserie());
+            //// sitemapFiles.Add(this.generateSitemap_productGroupBrand());
+            ////   this.generateSitemap_categoryorta();
+            //  sitemapFiles.Add(this.generateSitemap_categoryorta());
+            ////  sitemapFiles.Add(this.generateSitemap_categoryserie());
             sitemapFiles = sitemapFiles.Union(this.generateSitemap_categorymodels()).ToList();
             sitemapFiles.Add(this.generateSitemap_categoryCountry());
 
@@ -103,8 +103,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             return Content("OK!");
         }
-
-
         public ActionResult ProductSiteMapIndex()
         {
             IList<string> sitemapFiles = new List<string>();
@@ -123,12 +121,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
             string rootSitemapFileName = "rootSitemap.xml";
-         
+
             FileHelper.WriteToFile("/Sitemaps/Products/" + rootSitemapFileName, resultXml);
 
             // push sitemaps to search engines
             var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, "Products/" + rootSitemapFileName);
-            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Products/"+rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Products/" + rootSitemapFileName);
 
             return Content("OK!");
         }
@@ -181,12 +179,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
-            string rootSitemapFileName ="rootSitemap.xml";
+            string rootSitemapFileName = "rootSitemap.xml";
             FileHelper.WriteToFile("/Sitemaps/Stores/" + rootSitemapFileName, resultXml);
 
             // push sitemaps to search engines
             var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, "Stores/" + rootSitemapFileName);
-            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Stores/"+ rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Stores/" + rootSitemapFileName);
 
             this.generateSitemapForStores();
 
@@ -466,9 +464,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
             var urls = categories.ToDictionary(entry =>
-            entry.CategoryId!=0?
+            entry.CategoryId != 0 ?
             UrlBuilder.GetCategoryUrl(entry.CategoryId,
-                                                     !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, ""):
+                                                     !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "") :
                                                      "https://www.makinaturkiye.com",
                                                      entry => DateTime.Now);
             var sitemap = new XDocument(
@@ -652,10 +650,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         #endregion
 
-
-
         #region oldMethods
-
         //protected List<string> generateSitemap_StoreCategory2()
         //{
         //    List<string> sitemapFiles = new List<string>();
@@ -698,7 +693,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         //    return sitemapFiles;
 
         //}
-
 
         protected List<string> generateSitemap_categorymodels()
         {
@@ -813,8 +807,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             return fileName;
         }
-
-
 
         protected string generateSitemap_categoryLocality()
         {

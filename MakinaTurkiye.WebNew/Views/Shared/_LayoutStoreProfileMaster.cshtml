@@ -22,7 +22,6 @@
 @{
     //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-
 }
 
 <!doctype html>
@@ -31,6 +30,21 @@
     @Html.Action("MetaTag", "Common")
     @Html.Partial("_Head")
     @RenderSection("headercontent", required: false)
+    @Scripts.Render("~/js")
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=10.2" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/autocomplete.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v=3")" />
+    <script async>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-TR7HZJT');
+    </script>
 </head>
 <body class="facelift-v2">
     <!-- Json Ld Ayar-->

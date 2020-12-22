@@ -50,11 +50,7 @@
     <div class="responsive-overlay"></div>
     @Html.Partial("_Header")
     @RenderSection("HomePageSlider", false)
-    <div class="main-container container">
-        <div class="row">
-            @RenderBody()
-        </div>
-    </div>
+    @RenderBody()
     @{Html.RenderAction("Content", "Footer");}
     <script>
         if ('serviceWorker' in navigator) {

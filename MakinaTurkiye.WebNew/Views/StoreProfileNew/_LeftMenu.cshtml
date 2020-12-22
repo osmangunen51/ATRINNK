@@ -79,28 +79,32 @@
                 <li class="@Model.MTStoreProfileMenuActivePage.HomeActive "><span class="fa fa-home" aria-hidden="true"></span><a href="@Model.StoreUrl">Anasayfa</a></li>
                 @if (Model.MTStoreProfileMenuHasModel.HasProducts)
                 {
-                    <li class="@Model.MTStoreProfileMenuActivePage.ProductsActive">
-                        <span class="fa fa-shopping-cart" aria-hidden="true"></span><a href="@Model.StoreUrl/urunler">Ürünler</a><i class="icon-down-arrow menuarrow"></i>
-                        @{ var request = Request;
-                            string[] req = request.Url.AbsolutePath.Split('/');
-                        }
-                        @if (req.Length > 2)
-                        {
-                            string[] abs = req[2].ToString().Split('-');
-                            string ifade = abs[abs.Length - 1];
-                            int catId = Convert.ToInt32(ifade);
-                            @Html.Action("_CategoryProduct", "StoreProfileNew", new { storeId = Model.MainPartyId, categoryId = catId })
-                        }
-                        else
-                        {
+            <li class="@Model.MTStoreProfileMenuActivePage.ProductsActive">
+                <span class="fa fa-shopping-cart" aria-hidden="true"></span><a href="@Model.StoreUrl/urunler">Ürünler</a><i class="icon-down-arrow menuarrow"></i>
+                @{ var request = Request;
+                    string[] req = request.Url.AbsolutePath.Split('/');
+                }
+                @if (req.Length > 2)
+                {
+                    string[] abs = req[2].ToString().Split('-');
+                    string ifade = abs[abs.Length - 1];
+                    if (ifade.isNumeric())
+                    {
+                        int catId = Convert.ToInt32(ifade);
 
-                            @Html.Action("_CategoryProduct", "StoreProfileNew", new { storeId = Model.MainPartyId })
+                        @Html.Action("_CategoryProduct", "StoreProfileNew", new { storeId = Model.MainPartyId, categoryId = catId })
+                    }
+                }
+                else
+                {
 
-                        }
+                    @Html.Action("_CategoryProduct", "StoreProfileNew", new { storeId = Model.MainPartyId })
+
+                }
 
 
 
-                    </li>
+            </li>
                 }
                 @if (Model.MTStoreProfileMenuHasModel.HasAbout)
                 {
