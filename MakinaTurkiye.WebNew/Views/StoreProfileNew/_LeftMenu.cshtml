@@ -87,7 +87,8 @@
                         @if (req.Length > 2)
                         {
                             string[] abs = req[2].ToString().Split('-');
-                            int catId = Convert.ToInt32(abs[abs.Length - 1]);
+                            string ifade = abs[abs.Length - 1];
+                            int catId = Convert.ToInt32(ifade);
                             @Html.Action("_CategoryProduct", "StoreProfileNew", new { storeId = Model.MainPartyId, categoryId = catId })
                         }
                         else

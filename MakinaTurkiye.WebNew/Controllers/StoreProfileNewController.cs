@@ -1006,6 +1006,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     _storeService.UpdateStore(store);
 
                     return await Task.FromResult(View(model));
+
                 }
                 else
                 {
