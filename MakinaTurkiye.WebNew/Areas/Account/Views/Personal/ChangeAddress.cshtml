@@ -29,16 +29,12 @@
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
 
 @{
-    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-
-
+  Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
 }
 
-
-@section headercontent{
-    <script type="text/javascript">
+@section headercontent
+{
+  <script type="text/javascript">
         $(document).ready(function () {
             var cityId = $('[data-rel="cityId"] :selected').val();
             var areaCode = $('[data-rel="localityId"] :selected').val();
@@ -117,16 +113,17 @@
 
 
         });
-
-        function UpdatePhoneOpen() {
+        function UpdatePhoneOpen()
+        {
             $("#gsmUpdateWrapper").slideDown();
-
         }
-
     </script>
 }
 
-@{string baslik = "Adres"; }
+@{
+    string baslik = "Adres"; 
+}
+
 @if (ViewData["error"] != null)
 {
     if (ViewData["error"].ToString() == "PhoneUpdate")
@@ -137,30 +134,29 @@
     {
         baslik = "Telefon";
     }
-
 }
-
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
         @Html.Partial("LeftMenu", Model.LeftMenu)
     </div>
     <div class="col-md-12">
         <h4 class="mt0 text-info">
-            <span class="text-primary glyphicon glyphicon-cog"></span>&nbsp;@if (ViewData["gelenSayfa"] == "Teklif")
+            <span class="text-primary glyphicon glyphicon-cog"></span>
+            @if (ViewData["gelenSayfa"] == "Teklif")
             {
-                @(baslik+ "Bilgileri")
+                @(baslik + "Bilgileri")
             }
             else
             {
-                Response.Write(baslik + " Bilgilerimi Güncelle");
+                @(baslik + " Bilgilerimi Güncelle")
             }
         </h4>
     </div>
 </div>
 <div class="row">
+    
     <div class="col-sm-12 col-md-12">
         <div>
-
             @if (ViewData["gelenSayfa"] == "kurumsalaGec" && ViewData["error"].ToString() != "PhoneActive")
             {
                 <div class="alert alert-warning alert-dismissable" style="font-size: 15px;">
@@ -239,42 +235,42 @@
                                     </div>
                                     <div class="col-sm-2">
                                         <select class="form-control" id="InstitutionalGSMAreaCode" data-validation-engine="validate[funcCall[ifSelectNotEmpty]]" name="InstitutionalGSMAreaCode">
-                                            <option value="0"   @{gsmItem != null ? "selected=\"selected\"" : "" }>Seç</option>
-                                            <option value="530" @{gsmItem != null && gsmItem.PhoneAreaCode == "530" ? "selected=\"selected\"" : "" }>530</option>
-                                            <option value="531" @{gsmItem != null && gsmItem.PhoneAreaCode == "531" ? "selected=\"selected\"" : "" }>531</option>
-                                            <option value="532" @{gsmItem != null && gsmItem.PhoneAreaCode == "532" ? "selected=\"selected\"" : "" }>532</option>
-                                            <option value="533" @{gsmItem != null && gsmItem.PhoneAreaCode == "533" ? "selected=\"selected\"" : "" }>533</option>
-                                            <option value="534" @{gsmItem != null && gsmItem.PhoneAreaCode == "534" ? "selected=\"selected\"" : "" }>534</option>
-                                            <option value="535" @{gsmItem != null && gsmItem.PhoneAreaCode == "535" ? "selected=\"selected\"" : "" }>535</option>
-                                            <option value="536" @{gsmItem != null && gsmItem.PhoneAreaCode == "536" ? "selected=\"selected\"" : "" }>536</option>
-                                            <option value="537" @{gsmItem != null && gsmItem.PhoneAreaCode == "537" ? "selected=\"selected\"" : "" }>537</option>
-                                            <option value="538" @{gsmItem != null && gsmItem.PhoneAreaCode == "538" ? "selected=\"selected\"" : "" }>538</option>
-                                            <option value="539" @{gsmItem != null && gsmItem.PhoneAreaCode == "539" ? "selected=\"selected\"" : "" }>539</option>
-                                            <option value="541" @{gsmItem != null && gsmItem.PhoneAreaCode == "541" ? "selected=\"selected\"" : "" }>541</option>
-                                            <option value="542" @{gsmItem != null && gsmItem.PhoneAreaCode == "542" ? "selected=\"selected\"" : "" }>542</option>
-                                            <option value="543" @{gsmItem != null && gsmItem.PhoneAreaCode == "543" ? "selected=\"selected\"" : "" }>543</option>
-                                            <option value="544" @{gsmItem != null && gsmItem.PhoneAreaCode == "544" ? "selected=\"selected\"" : "" }>544</option>
-                                            <option value="545" @{gsmItem != null && gsmItem.PhoneAreaCode == "545" ? "selected=\"selected\"" : "" }>545</option>
-                                            <option value="546" @{gsmItem != null && gsmItem.PhoneAreaCode == "546" ? "selected=\"selected\"" : "" }>546</option>
-                                            <option value="547" @{gsmItem != null && gsmItem.PhoneAreaCode == "547" ? "selected=\"selected\"" : "" }>547</option>
-                                            <option value="548" @{gsmItem != null && gsmItem.PhoneAreaCode == "548" ? "selected=\"selected\"" : "" }>548</option>
-                                            <option value="549" @{gsmItem != null && gsmItem.PhoneAreaCode == "549" ? "selected=\"selected\"" : "" }>549</option>
-                                            <option value="501" @{gsmItem != null && gsmItem.PhoneAreaCode == "501" ? "selected=\"selected\"" : "" }>501</option>
-                                            <option value="505" @{gsmItem != null && gsmItem.PhoneAreaCode == "505" ? "selected=\"selected\"" : "" }>505</option>
-                                            <option value="506" @{gsmItem != null && gsmItem.PhoneAreaCode == "506" ? "selected=\"selected\"" : "" }>506</option>
-                                            <option value="507" @{gsmItem != null && gsmItem.PhoneAreaCode == "507" ? "selected=\"selected\"" : "" }>507</option>
-                                            <option value="551" @{gsmItem != null && gsmItem.PhoneAreaCode == "551" ? "selected=\"selected\"" : "" }>551</option>
-                                            <option value="552" @{gsmItem != null && gsmItem.PhoneAreaCode == "552" ? "selected=\"selected\"" : "" }>552</option>
-                                            <option value="553" @{gsmItem != null && gsmItem.PhoneAreaCode == "553" ? "selected=\"selected\"" : "" }>553</option>
-                                            <option value="554" @{gsmItem != null && gsmItem.PhoneAreaCode == "554" ? "selected=\"selected\"" : "" }>554</option>
-                                            <option value="555" @{gsmItem != null && gsmItem.PhoneAreaCode == "555" ? "selected=\"selected\"" : "" }>555</option>
+                                            <option value="0" @(gsmItem != null ? "selected=\"selected\"" : "" )>Seç</option>
+                                            <option value="530" @(gsmItem != null && gsmItem.PhoneAreaCode == "530" ? "selected=\"selected\"" : "" )>530</option>
+                                            <option value="531" @(gsmItem != null && gsmItem.PhoneAreaCode == "531" ? "selected=\"selected\"" : "" )>531</option>
+                                            <option value="532" @(gsmItem != null && gsmItem.PhoneAreaCode == "532" ? "selected=\"selected\"" : "" )>532</option>
+                                            <option value="533" @(gsmItem != null && gsmItem.PhoneAreaCode == "533" ? "selected=\"selected\"" : "" )>533</option>
+                                            <option value="534" @(gsmItem != null && gsmItem.PhoneAreaCode == "534" ? "selected=\"selected\"" : "" )>534</option>
+                                            <option value="535" @(gsmItem != null && gsmItem.PhoneAreaCode == "535" ? "selected=\"selected\"" : "" )>535</option>
+                                            <option value="536" @(gsmItem != null && gsmItem.PhoneAreaCode == "536" ? "selected=\"selected\"" : "" )>536</option>
+                                            <option value="537" @(gsmItem != null && gsmItem.PhoneAreaCode == "537" ? "selected=\"selected\"" : "" )>537</option>
+                                            <option value="538" @(gsmItem != null && gsmItem.PhoneAreaCode == "538" ? "selected=\"selected\"" : "" )>538</option>
+                                            <option value="539" @(gsmItem != null && gsmItem.PhoneAreaCode == "539" ? "selected=\"selected\"" : "" )>539</option>
+                                            <option value="541" @(gsmItem != null && gsmItem.PhoneAreaCode == "541" ? "selected=\"selected\"" : "" )>541</option>
+                                            <option value="542" @(gsmItem != null && gsmItem.PhoneAreaCode == "542" ? "selected=\"selected\"" : "" )>542</option>
+                                            <option value="543" @(gsmItem != null && gsmItem.PhoneAreaCode == "543" ? "selected=\"selected\"" : "" )>543</option>
+                                            <option value="544" @(gsmItem != null && gsmItem.PhoneAreaCode == "544" ? "selected=\"selected\"" : "" )>544</option>
+                                            <option value="545" @(gsmItem != null && gsmItem.PhoneAreaCode == "545" ? "selected=\"selected\"" : "" )>545</option>
+                                            <option value="546" @(gsmItem != null && gsmItem.PhoneAreaCode == "546" ? "selected=\"selected\"" : "" )>546</option>
+                                            <option value="547" @(gsmItem != null && gsmItem.PhoneAreaCode == "547" ? "selected=\"selected\"" : "" )>547</option>
+                                            <option value="548" @(gsmItem != null && gsmItem.PhoneAreaCode == "548" ? "selected=\"selected\"" : "" )>548</option>
+                                            <option value="549" @(gsmItem != null && gsmItem.PhoneAreaCode == "549" ? "selected=\"selected\"" : "" )>549</option>
+                                            <option value="501" @(gsmItem != null && gsmItem.PhoneAreaCode == "501" ? "selected=\"selected\"" : "" )>501</option>
+                                            <option value="505" @(gsmItem != null && gsmItem.PhoneAreaCode == "505" ? "selected=\"selected\"" : "" )>505</option>
+                                            <option value="506" @(gsmItem != null && gsmItem.PhoneAreaCode == "506" ? "selected=\"selected\"" : "" )>506</option>
+                                            <option value="507" @(gsmItem != null && gsmItem.PhoneAreaCode == "507" ? "selected=\"selected\"" : "" )>507</option>
+                                            <option value="551" @(gsmItem != null && gsmItem.PhoneAreaCode == "551" ? "selected=\"selected\"" : "" )>551</option>
+                                            <option value="552" @(gsmItem != null && gsmItem.PhoneAreaCode == "552" ? "selected=\"selected\"" : "" )>552</option>
+                                            <option value="553" @(gsmItem != null && gsmItem.PhoneAreaCode == "553" ? "selected=\"selected\"" : "" )>553</option>
+                                            <option value="554" @(gsmItem != null && gsmItem.PhoneAreaCode == "554" ? "selected=\"selected\"" : "" )>554</option>
+                                            <option value="555" @(gsmItem != null && gsmItem.PhoneAreaCode == "555" ? "selected=\"selected\"" : "" )>555</option>
                                             @if (gsmItem != null)
                                             {
                                                 if (gsmItem.PhoneAreaCode != null)
                                                 {
                                                     if (int.Parse(gsmItem.PhoneAreaCode) > 555)
                                                     {
-                                                        <option value="@gsmItem.PhoneAreaCode" @{gsmItem != null && int.Parse(gsmItem.PhoneAreaCode) >= 555 ? "selected=\"selected\"" : ""}>
+                                                        <option value="@gsmItem.PhoneAreaCode" @(gsmItem != null && int.Parse(gsmItem.PhoneAreaCode) >= 555 ? "selected=\"selected\"" : "")>
                                                             @gsmItem.PhoneAreaCode
                                                         </option>
                                                     }
@@ -307,10 +303,8 @@
             }
             else
             {
-
                 if (ViewData["gelenSayfa"] == "Teklif")
                 {
-
                     <div class="alert alert-warning alert-dismissable" data-rel="email-wrapper" style="font-size: 15px;">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
                             &times;
@@ -319,8 +313,6 @@
                         Teklif İstemek veya mesaj göndermek için adres bilgilerinizi girmelisiniz.
                     </div>
                 }
-
-
                 using (Html.BeginForm("ChangeAddress", "Personal", FormMethod.Post, new { id = "formFastMembership", role = "form", @class = "form-horizontal" }))
                 {
                     <input type="hidden" name="mtypePage" value="@ViewData["mtypePage"]" />
@@ -331,7 +323,6 @@
                         <div id="bireysel" class="tab-pane">
                             @if (AuthenticationUser.Membership.MemberType == (byte)MemberType.Enterprise)
                             {
-
                                 <div class="form-group">
                                     <label for="inputPassword3" class="col-sm-3 control-label">
                                         Adres Tipi
@@ -342,9 +333,6 @@
                                     </div>
                                 </div>
                             }
-
-
-
                             <div class="form-group">
                                 <label for="inputPassword3" class="col-sm-3 control-label">
                                     Ülke
@@ -441,19 +429,14 @@
                                     <button type="submit" name="save" value="AdresKayit" class="btn btn-primary">
                                         Değişiklikleri Kaydet
                                     </button>
-
-
                                 </div>
                             </div>
                         </div>
                         <hr />
                     </div>
-
                 }
-
-
             }
         </div>
     </div>
 </div>
-</asp:Content>
+

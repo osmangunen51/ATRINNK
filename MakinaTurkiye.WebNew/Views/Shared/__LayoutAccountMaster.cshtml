@@ -1,4 +1,8 @@
-﻿<!doctype html>
+﻿
+@{
+    Layout = null;
+}
+<!doctype html>
 <html lang="tr">
 <head>
 
@@ -28,13 +32,22 @@
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
     <link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
 
-    @Scripts.Render("~/js")
-    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
-    @Styles.Render("~/css")
 
-   
+
+
+    @*//alttaki kodlar devreye almadan css ler gelmiyor...*@
+    <script src="/Content/V2/assets/js/jquery.min.js?v=1"></script>
+    <script src="/Content/V2/assets/js/jquery.autocomplete.js"></script>
+    <script src="/Content/V2/public/build/js/bundle-plugins-min.js?v=6.9" defer></script>
+    <script src="/Content/V2/public/build/js/bundle-main-min.js?v=9.6" defer></script>
+    <script src="/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=10.2" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/autocomplete.css")" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v =3")" />
+
     <script async>
-        (function (w, d, s, l, i) {
+    (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
                 'gtm.start':
                     new Date().getTime(), event: 'gtm.js'
@@ -45,11 +58,13 @@
     </script>
 
 
+
     @RenderSection("headercontent", required: false)
     <link rel="alternate" hreflang="tr-TR" href="@Request.Url.ToString()" />
+
 </head>
 <body class="facelift-v2">
-
+    <!-- Json Ld Ayar-->
     <script type="application/ld+json">
         {
         "@@context": "http://schema.org",
@@ -74,13 +89,54 @@
     <!-- End Google Tag Manager (noscript) -->
     <div id="fb-root"></div>
     <div class="responsive-overlay"></div>
-    @Html.Partial("~/Area/Account/Views/Shared/_Header.cshtml")
-    @RenderSection("HomePageSlider", false)
-    <div class="main-container container">
+    @Html.Partial("_Header")
+    <!-- Homa Page Slider Start-->
+    <!--<asp:ContentPlaceHolder ID="HomePageSlider" runat="server">-->
+    <!-- Homa Page Slider end-->
+    <div class="main-container container" style="padding-top: 20px;">
         <!-- MainContent Start -->
         <!--<asp:ContentPlaceHolder ID="MainContent" runat="server">-->
         @RenderBody()
         <!-- MainContent end -->
     </div>
+
+    @Html.Action("Content", "Footer", new { area = "" })
+
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '333739580327457',
+                cookie: true,
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v4.0'
+            });
+            FB.AppEvents.logPageView();
+        };
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+    <script>
+            //if ('serviceWorker' in navigator) {
+            //    window.addEventListener('load', function () {
+            //        navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+            //            console.log('Registered!');
+            //        }, function (err) {
+            //            console.log('ServiceWorker registration failed: ', err);
+            //        }).catch(function (err) {
+            //            console.log(err);
+            //        });
+            //    });
+            //} else {
+            //    console.log('service worker is not supported');
+            //}
+    </script>
+
+    @Scripts.Render("~/js")
 </body>
 </html>

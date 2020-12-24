@@ -1272,6 +1272,7 @@
     <Content Include="Areas\Account\Views\Web.config" />
     <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Account\Views\Shared\_LayoutMainMaster.cshtml" />
+    <Content Include="Areas\Account\Views\Shared\_Header.cshtml" />
     <None Include="bundleconfig.json" />
     <None Include="Content\V2\fonts\fontawesome-webfont.eot" />
     <None Include="Content\V2\fonts\fontawesome-webfont.ttf" />
@@ -2445,8 +2446,8 @@
     <Content Include="Views\Shared\_Bulletin.cshtml" />
     <Content Include="Views\Shared\_Head.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
-    <Content Include="Views\Shared\_LayoutAccountMaster1.cshtml" />
     <Content Include="Views\Shared\_LayoutAccountMaster.cshtml" />
+    <Content Include="Views\Shared\__LayoutAccountMaster.cshtml" />
     <Content Include="Views\Shared\_LayoutCategory.cshtml" />
     <Content Include="Views\Shared\_LayoutStoreProfileMaster.cshtml" />
     <Content Include="Views\StoreNew\Detail.cshtml" />
@@ -2516,7 +2517,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\_NewsAds.cshtml" />
-    <None Include="Views\Shared\_LayoutAccountMasterSil.cshtml" />
     <Content Include="Views\Shared\_LayoutProduct.cshtml" />
     <Content Include="Views\Shared\_LayoutMainMaster.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
