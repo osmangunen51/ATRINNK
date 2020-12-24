@@ -23,8 +23,6 @@
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
 
 }
-
-
 @if (Model.ToList().Count > 0)
 {
     <div id="StoreProfileNewPopularProducts" class="owl-carousel owl-theme">
@@ -36,18 +34,13 @@
             if (index < 7)
             {
                 index++;
-
                 <div class="PopularProductsItem">
                     <div class="thumbnail thumbnail-mt">
                         <a href="@item.ProductUrl>">
                             <img src="@item.ProductImagePath" alt="@Html.Truncate(item.ProductName, 80)" title="@item.ProductName" />
-
                             @if (item.HasVideo)
                             {
-
                                 <div class="product-list-favorite-icon" style="left:0px;" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
-
-
                             }
                         </a>
                         <!-- /.thumnail.thumbnail-mt -->
