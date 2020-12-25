@@ -62,7 +62,6 @@
                             <ul>
                                 @foreach (NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.LeftMenuGroup groupItem in leftMenuItem.GroupItems)
                                 {
-
                                     if (!string.IsNullOrEmpty(groupItem.Name))
                                     {
                                         <li>
@@ -168,16 +167,14 @@
                 if (leftMenuItem.ControlNubmer == (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyAccount ||
                 leftMenuItem.ControlNubmer == (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyProfile)
                 {
+                    string Txt = leftMenuItem.ControlNubmer != (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyAccount ? "data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#Control" + leftMenuItem.ControlNubmer + "\"" : "href=\"/Account/Home\"";
                     <li class='@(leftMenuItem.IsActive ? "active" : "" )'>
-                        <a @(leftMenuItem.ControlNubmer != (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyAccount ? "data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#Control" + leftMenuItem.ControlNubmer + "\"" : "href=\"/Account/Home\"" )>
+                        <a @Txt>
                             <span class="glyphicon glyphicon-@leftMenuItem.IconName "></span>
                             @leftMenuItem.Name
                         </a>
                         @if (leftMenuItem.GroupItems.Count > 0)
                         {
-
-
-
                             <ul>
                                 @foreach (NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.LeftMenuGroup groupItem in leftMenuItem.GroupItems)
                                 {
@@ -204,7 +201,6 @@
                                         {
                                             if (item.ControlNubmer != (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.MyProfile.MyPersonalAdressUpdate)
                                             {
-
                                                 <li>
                                                     <a href="@item.Url" class="@(item.IsActive ? " text-bold" : string.Empty )">
                                                         @item.Name
@@ -212,14 +208,11 @@
                                                 </li>
                                             }
                                         }
-
                                     }
                                 }
                             </ul>
                         }
                     </li>
-
-
                 }
             }
         }
@@ -232,9 +225,9 @@
                 leftMenuItem.ControlNubmer == (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyMessage ||
                 leftMenuItem.ControlNubmer == (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyProfile)
                 {
-
+                    string Txt = leftMenuItem.ControlNubmer != (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyAccount ? "data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#Control" + leftMenuItem.ControlNubmer + "\"" : "href=\"/Account/Home\"";
                     <li class='@(leftMenuItem.IsActive ? "active" : "" )'>
-                        <a @leftMenuItem.ControlNubmer !=(byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyAccount ? "data-toggle=\" collapse\" data-parent=\"#accordion\" href=\"#Control" + leftMenuItem.ControlNubmer + "\" " : " href=\"/Account/Home\"")>
+                        <a @Html.Raw(Txt)>
                             <span class="glyphicon glyphicon-@leftMenuItem.IconName"></span>
                             @leftMenuItem.Name
                         </a>

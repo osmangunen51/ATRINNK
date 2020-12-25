@@ -66,7 +66,7 @@ partialViewName);
     }
 
     public static string RenderHtmlPartial(this HtmlHelper htmlHelper, string partialViewName, object model)
-    { 
+    {
       ViewEngineResult result = ViewEngines.Engines.FindPartialView(htmlHelper.ViewContext.Controller.ControllerContext, partialViewName);
       if(result.View != null) {
           MvcHtmlString mvcString = htmlHelper.Partial(partialViewName, model, htmlHelper.ViewData);
