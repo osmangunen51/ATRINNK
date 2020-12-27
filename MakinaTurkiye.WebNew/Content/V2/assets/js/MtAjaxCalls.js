@@ -54,7 +54,7 @@ function DeleteStoreActivityCategory(id) {
             }
         });
 
-    } 
+    }
 
 }
 
@@ -85,7 +85,7 @@ function AddFavoriteProductItem(id) {
 
     $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
     $.ajax({
-        url: 'https://www.makinaturkiye.com/ajax/AddFavoriteProduct',
+        url: 'https://makinaturkiye.com/ajax/AddFavoriteProduct',
         type: 'get',
         data:
             {
@@ -93,9 +93,9 @@ function AddFavoriteProductItem(id) {
             },
         success: function (data) {
             if (data == true) {
- 
+
                 var item = $("[data-productid=product-favorite-item-" + id + "]");
-               
+
                 $("[data-productid=product-favorite-item-" + id + "]").attr("onclick", "RemoveFavoriteProductItem("+id+")");
                 $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
 
@@ -149,5 +149,5 @@ $(document).ready(function () {
     $(".product-list-favorite-icon-c").click(function (event) {
         event.preventDefault();
     });
-      
+
 });

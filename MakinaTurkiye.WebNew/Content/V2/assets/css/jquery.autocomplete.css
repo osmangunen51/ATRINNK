@@ -7,6 +7,7 @@
     margin-left: 1px;
     clear: both;
     padding-bottom: 10px;
+    overflow: auto;
 }
 
 .autocomplete-suggestion {
@@ -26,7 +27,7 @@
 .suggestion-wrapper {
     display: block;
     height: 20px;
-    overflow: hidden;
+    overflow:hidden;
     position: relative;
     text-overflow: ellipsis;
     vertical-align: middle;
@@ -53,7 +54,7 @@
 }
 .suggestion-value {
     padding-bottom: 20px;
-    position: fixed;
+    /*position: fixed;*/
     display: block;
     line-height: normal;
     font-weight: 500;

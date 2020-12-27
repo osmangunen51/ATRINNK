@@ -55,14 +55,13 @@
                             {
                                 if (item.ProductCount.Value != 0)
                                 {
-                        <li class="s_category__sub-item">
-                            <a href="@(NeoSistem.MakinaTurkiye.Web.Models.UtilityModel.AppSettings.SiteUrl + urlHead)">@item.CategoryName</a>
-                            <span class="text-muted text-sm">(@item.ProductCount)</span>
-                        </li>
+                                    <li class="s_category__sub-item">
+                                        <a href="@(NeoSistem.MakinaTurkiye.Web.Models.UtilityModel.AppSettings.SiteUrl + urlHead)">@(HttpContext.Current.Request.Browser.IsMobileDevice?item.CategoryName:item.CategoryContentTitle)</a>
+                                        <span class="text-muted text-sm">(@item.ProductCount)</span>
+                                    </li>
                                 }
                             }
                         }
-                        
                     </ul>
                 </div>
 

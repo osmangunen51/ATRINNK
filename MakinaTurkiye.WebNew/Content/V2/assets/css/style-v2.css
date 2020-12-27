@@ -5540,7 +5540,7 @@ img.res-buyut {
 @media (min-width: 768px) {
   .user-topmenu li a {
     /*&[href="https://www.makinaturkiye.com/yardim"],
-                &[href="http://localhost:35882/yardim"]{
+                &[href="https://makinaturkiye.com/yardim"]{
                     font-size:0;
                     &:after{
                         font-family: makinaturkiye_fonticons!important;

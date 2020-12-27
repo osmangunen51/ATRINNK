@@ -15536,7 +15536,7 @@ body {
 
 @media (min-width:768px) {
     .sector-category-list__sub-items li {
-        width: 33%
+        width: 50%
     }
 }
 
@@ -15848,7 +15848,7 @@ body {
     font-size: 12px;
     font-weight: 700;
     line-height: 13px;
-    float: left;
+    /*float: left;*/
     margin: 0;
     padding-top: 1px
 }
@@ -22069,7 +22069,7 @@ img.res-buyut {
     }
 
 .home-showcase__body {
-    padding-top: 1rem
+   /* padding-top: 1rem*/
 }
 
 .home-showcase__item h5 {
@@ -22298,11 +22298,11 @@ img.res-buyut {
 }
 
 .product-list-mt__title {
-    font-size: 13px;
+    font-size: 12px;
     line-height: 16px;
     margin-bottom: 0;
     width: 100%;
-    color: #333
+    color: #4F4F4F
 }
 
 @media (max-width:480px) {
@@ -22352,7 +22352,7 @@ img.res-buyut {
 }
 
     .product-list-mt__advert-no:before {
-        content: 'Ä°lan No: '
+        content: 'İlan No: '
     }
 
 @media (min-width:480px) {
@@ -22527,7 +22527,7 @@ img.res-buyut {
 }
 
 .product-list-mtgrid__advert-no:before {
-    content: "Ä°lan No:"
+    content: "İlan No:"
 }
 
 .product-list-mtgrid__advert-no {
@@ -22601,7 +22601,7 @@ img.res-buyut {
 
 @media (min-width:768px) {
     .new-header {
-        padding: 8px 20px
+        padding: 10px 20px
     }
 
     .new-header__top .responsive-menu {
@@ -23430,8 +23430,8 @@ img.res-buyut {
     }
 
     .mega-dropdown-menu > li > section > ul > li:not(:first-child):hover a {
-        color: #f9401b !important;
-        text-decoration: underline;
+        color: #0c3871 !important;
+        text-decoration: underline
     }
 
 #CustomerCategories {
@@ -23900,7 +23900,7 @@ img.res-buyut {
         content: "";
         display: inline-block;
         line-height: 1;
-        /*border-left: 1px solid #828282;*/
+        border-left: 1px solid #828282;
         width: 1px;
         height: 12px;
         position: relative;

@@ -339,7 +339,7 @@ function AddFavoriteProduct(id) {
     //            var image = '<img src=\'/Content/Images/load.gif\' />'
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenize ekleniyor.. &nbsp;&nbsp;' + image);
     $.ajax({
-        url: 'https://www.makinaturkiye.com/ajax/AddFavoriteProduct',
+        url: 'https://makinaturkiye.com/ajax/AddFavoriteProduct',
         type: 'get',
         data:
             {
@@ -371,7 +371,7 @@ function RemoveFavoriteProduct(id) {
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenizden çıkarılıyor.. &nbsp;&nbsp;' + image);
 
     $.ajax({
-        url: 'https://www.makinaturkiye.com/Product/RemoveFavoriteProduct',
+        url: 'https://makinaturkiye.com/ajax/RemoveFavoriteProduct',
         type: 'get',
         data:
             {
@@ -1184,7 +1184,7 @@ function GetSubMenu(id, thisobj) {
 
     var data = $('.mega-dropdown-menu', thisobj).html();
 
-       
+
     if (data.indexOf("loading") > 0) {
         $('.mega-dropdown-menu', thisobj).find("#loading").html('<img src="../../Content/V2/images/loading.gif" />');
         $.ajax({
@@ -1196,9 +1196,9 @@ function GetSubMenu(id, thisobj) {
             },
             //contentType: "application/json; charset=utf-8",
             success: function (msg) {
- 
+
                 if (msg) {
-     
+
                     $('.mega-dropdown-menu', thisobj).html(msg);
                 }
             },
@@ -1245,7 +1245,7 @@ $(document).ready(function () {
     $('#btnGroupVerticalDrop1').unbind().on('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
-       
+
         $(this).parent().find(".dropdown-menu").slideToggle();
 
 
@@ -1282,29 +1282,29 @@ $(document).ready(function () {
             });
         }
         else {
-      
+
 
 
             $(".main-navigation .dropdown .dropdown-toggle").unbind().on('click', function (event) {
-  
+
                 var categoryId = $(this).attr("data-cat-id");
                 console.log("clicked", categoryId);
                 event.preventDefault();
                 event.stopPropagation();
                 $(this).parent().siblings().removeClass('open');
-          
+
                 var parentAttrClass = $(this).parent().parent().parent().attr("class");
                 console.log(parentAttrClass);
                 $(this).parent().parent().parent().addClass('open');
                 if (categoryId) {
-           
+
                     GetSubMenu(categoryId, $(this).parent().parent().parent());
-                }                
+                }
                 if (parentAttrClass.indexOf("open") > 0) {
                     $(this).parent().parent().parent().removeClass("open");
                 }
-  
-   
+
+
             });
         }
     }
@@ -2966,7 +2966,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         message: 'Bu Email adresi kullanılmaktadır',
                         url: '/Membership/CheckMemberEmail/'
                     }
-                    
+
                 }
             },
             password: {
@@ -3079,7 +3079,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
      });
-    
+
     $('#register-form').bootstrapValidator({
         message: 'This value is not valid',
         feedbackIcons: {
@@ -3245,7 +3245,7 @@ function DeleteStoreActivityCategory(id) {
             }
         });
 
-    } 
+    }
 
 }
 
@@ -3276,7 +3276,7 @@ function AddFavoriteProductItem(id) {
 
     $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
     $.ajax({
-        url: 'https://www.makinaturkiye.com/ajax/AddFavoriteProduct',
+        url: 'https://makinaturkiye.com/ajax/AddFavoriteProduct',
         type: 'get',
         data:
             {
@@ -3284,9 +3284,9 @@ function AddFavoriteProductItem(id) {
             },
         success: function (data) {
             if (data == true) {
- 
+
                 var item = $("[data-productid=product-favorite-item-" + id + "]");
-               
+
                 $("[data-productid=product-favorite-item-" + id + "]").attr("onclick", "RemoveFavoriteProductItem("+id+")");
                 $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
 
@@ -3340,7 +3340,7 @@ $(document).ready(function () {
     $(".product-list-favorite-icon-c").click(function (event) {
         event.preventDefault();
     });
-      
+
 });
 ﻿var isEmail = true;
 $(document).ready(function () {
@@ -3358,9 +3358,9 @@ $(document).ready(function () {
 
     $('[data-rel="countryId"]').change(function () {
         var countryId = $(this).val();
-   
+
         getCultureCode(countryId, function (cultureCode) {
-        
+
             $('#MembershipModel_InstitutionalPhoneCulture,#MembershipModel_InstitutionalGSMCulture,#MembershipModel_InstitutionalPhoneCulture2,#MembershipModel_InstitutionalFaxCulture').val(cultureCode);
         });
         phoneWrapper.slideDown();
@@ -3417,7 +3417,7 @@ $(document).ready(function () {
                         $('#DropDownInstitutionalPhoneAreaCode,#DropDownInstitutionalPhoneAreaCode2,#DropDownInstitutionalFaxAreaCode').show();
                         $('#TextInstitutionalPhoneAreaCode,#TextInstitutionalPhoneAreaCode2,#TextInstitutionalFaxAreaCode').val('').hide();
                     } else {
-                       
+
                         $('#TextInstitutionalPhoneAreaCode,#InstitutionalPhoneAreaCode,#TextInstitutionalPhoneAreaCode2,#TextInstitutionalFaxAreaCode').val(areaCode).show();
                         $('#MembershipModel_InstitutionalPhoneAreaCode,#MembershipModel_InstitutionalPhoneAreaCode2,#MembershipModel_InstitutionalFaxAreaCode').val(areaCode);
                         $('#DropDownInstitutionalPhoneAreaCode,#DropDownInstitutionalPhoneAreaCode2,#DropDownInstitutionalFaxAreaCode').hide();
@@ -3432,7 +3432,7 @@ $(document).ready(function () {
 
         $('#TextInstitutionalPhoneAreaCode').keyup(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode').val($(this).val());
-        
+
         });
         $('#TextInstitutionalPhoneAreaCode2').keyup(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode2').val($(this).val());
@@ -3442,7 +3442,7 @@ $(document).ready(function () {
         });
         $('#DropDownInstitutionalPhoneAreaCode').change(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode').val($(this).val());
-       
+
         });
         $('#DropDownInstitutionalPhoneAreaCode2').change(function () {
             $('#MembershipModel_InstitutionalPhoneAreaCode2').val($(this).val());
@@ -3514,7 +3514,7 @@ $(document).ready(function () {
 
     });
 
-    //bireysel, kurumsal 
+    //bireysel, kurumsal
     $('[data-toggle="tab"]').click(function () {
         var selectedType = ($(this).attr('href') == "#bireysel" ? 10 : 20);
         $('[data-rel="MembershipType"]').val(selectedType);
@@ -3538,7 +3538,7 @@ $(document).ready(function () {
     //                }, 1000);
     //                return false;
     //            }
-    //            
+    //
     //        }
     //    });
 
@@ -3592,7 +3592,7 @@ $(document).ready(function () {
         var telNo = $("#MembershipModel_InstitutionalPhoneNumber").val();
         var gsm = $("#MembershipModel_InstitutionalGSMAreaCode").val();
         var gsmAna = $("#MembershipModel_InstitutionalGSMNumber").val();
-        
+
         if (isEmail) {
           //  $('#formFastMembership').submit();
             $('[data-rel="email-wrapper').hide();

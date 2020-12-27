@@ -28,7 +28,7 @@
                             <div class="flex-col-12 product-detail__price">
 
                                 <span class="@(!string.IsNullOrEmpty(Model.ProductPriceWithDiscount) ? "old-price" : "" )">
-                                    <i class="@Model.ProductCurrencySymbol"></i>@Model.PriceWithoutCurrency
+                                    <i class="@Model.ProductCurrencySymbol"></i> @Model.PriceWithoutCurrency
                                 </span>
                                 @if (!string.IsNullOrEmpty(Model.ProductPriceWithDiscount))
                                 {
