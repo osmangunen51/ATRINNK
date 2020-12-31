@@ -30,12 +30,8 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-
 
 }
-
 @{ int pagetype = Convert.ToInt32(Request.QueryString["pagetype"]);
     switch (pagetype)
     {
@@ -43,23 +39,22 @@
             break;
         case 4:
 
-
-            @Model.LeftMenuModel = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.OtherSettings, (byte)LeftMenuConstants.OtherSettings.SortEdit);
-
-
-break;
-case 5:
+            Model.LeftMenuModel = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.OtherSettings, (byte)LeftMenuConstants.OtherSettings.SortEdit);
 
 
-@Model.LeftMenuModel = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.OtherSettings, (byte)LeftMenuConstants.OtherSettings.PriceEdit);
+            break;
+        case 5:
 
 
-break;
-default:
+            Model.LeftMenuModel = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.OtherSettings, (byte)LeftMenuConstants.OtherSettings.PriceEdit);
 
 
-break;
-} }
+            break;
+        default:
+
+
+            break;
+    } }
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
         @Html.Partial("LeftMenu", Model.LeftMenuModel)
@@ -70,22 +65,21 @@ break;
     <div>
         <div class="loading">Loading&#8230;</div>
 
-        @{
-            switch (pagetype)
-            {
-                case 0:
-                    break;
-                case 4:
-                    @Html.Partial("ProductSort", Model.MTProductItems) break;
-                case 5:
-                    @Html.Partial("ProductPrice", Model.MTProductItems) break;
-                default:
-                    break;
-            } }
+        @{ switch (pagetype)
+                        {
+                            case 0:
+                                break;
+                            case 4:
+            @Html.Partial("ProductSort", Model.MTProductItems) break;
+        case 5:
+@Html.Partial("ProductPrice", Model.MTProductItems) break;
+default:
+break;
+} }
     </div>
 </div>
-</asp:Content>
-<asp:Content ID="Content3" ContentPlaceHolderID="HeaderContent" runat="server">
+
+@section headercontent{
     <script type="text/javascript">
 
 
@@ -156,4 +150,5 @@ break;
             }
 
     </script>
-</asp:Content>
+}
+

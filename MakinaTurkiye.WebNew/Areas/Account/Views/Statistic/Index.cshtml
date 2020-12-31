@@ -31,7 +31,9 @@
 @{
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml"; }
+
+    int pagetype = Convert.ToInt32(Request.QueryString["pagetype"]);
 
 
 }
@@ -48,23 +50,23 @@
         });
     }
 </script>
-@{ int pagetype = Convert.ToInt32(Request.QueryString["pagetype"]); }
+
 
 @switch (pagetype)
 {
     case 0:
         break;
     case 1:
-@Model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.Statistics, (byte)LeftMenuConstants.Statistic.StoreStatistics);
-break;
-case 2:
-break;
+        Model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.Statistics, (byte)LeftMenuConstants.Statistic.StoreStatistics);
+        break;
+    case 2:
+        break;
 
-case 3:
-@Model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.Statistics, (byte)LeftMenuConstants.Statistic.AdStatistics);
-break;
-default:
-break;
+    case 3:
+        Model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.Statistics, (byte)LeftMenuConstants.Statistic.AdStatistics);
+        break;
+    default:
+        break;
 }
 
 <div class="row">
@@ -75,20 +77,19 @@ break;
 <div class="row">
     <div id="Advert">
 
-        //int pagetype = Request.QueryString["pagetype"].ToInt32();
         @switch (pagetype)
         {
             case 0:
                 break;
             case 1:
 @Html.Partial("StoreStatistic", Model.MTStatisticModel) break;
-                case 2:
-                    break;
+case 2:
+break;
 
-                case 3:
+case 3:
 @Html.Partial("ProductOnebyOne", Model)break;
-                default:
-                    break;
-            }
+default:
+break;
+}
     </div>
 </div>

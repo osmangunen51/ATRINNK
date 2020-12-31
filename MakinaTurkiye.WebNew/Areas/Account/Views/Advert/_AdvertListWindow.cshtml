@@ -1,4 +1,4 @@
-﻿@Model SearchModel<NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert.MTProductItem>
+﻿@model SearchModel<NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert.MTProductItem>
     @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
     @using NeoSistem.MakinaTurkiye.Web.Models
     @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
@@ -20,18 +20,13 @@
     @using System.Globalization
     @using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
     @using NeoSistem.MakinaTurkiye.Web.Models.Videos
-    @{
-//Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-//Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-//Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-    }
 
-@Html.Hidden("ProductNo") 
-@Html.Hidden("CategoryName") 
-@Html.Hidden("ProductName") 
+@Html.Hidden("ProductNo")
+@Html.Hidden("CategoryName")
+@Html.Hidden("ProductName")
 @Html.Hidden("BrandName")
-@Html.Hidden("CurrentPage", Model.CurrentPage) 
-@{ 
+@Html.Hidden("CurrentPage", Model.CurrentPage)
+@{
     string urlAdd = "";
     byte? queryProductActiveType = null;
     byte? productActiveA = null;
@@ -58,26 +53,28 @@
     @if (Model.Source.Count > 0)
         {
 
-            foreach (var model in Model.Source)
+            foreach (var md in Model.Source)
             {
-                string productUrl = Helpers.ProductUrl(model.ProductId, model.ProductName);
+                string productUrl = Helpers.ProductUrl(md.ProductId, md.ProductName);
                 IList<Constant> constantItems = null;
-    
+
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-2">
                 <a href="@productUrl+urlAdd">
-                    <img class="img-thumbnail" src="@model.ImagePath" alt="@model.ProductName" />
+                    <img src="@md." />
+
+                    <img class="img-thumbnail" src="@md.ImagePath" alt="@md.ProductName" />
                 </a>
 
                 @if (queryProductActiveType == (byte)ProductActiveType.Tumu)
                     {
-                        if (model.ProductActiveType == (byte)ProductActiveType.Inceleniyor)
-                        { 
+                        if (md.ProductActiveType == (byte)ProductActiveType.Inceleniyor)
+                        {
                 <p><b>*İlanınız İnceleniyor</b></p>
                 }
                     else if (queryProductActiveType == (byte)ProductActiveType.Onaylanmadi)
-                    { 
+                    {
                 <p><b>*İlanınız Onaylanmadı</b></p>
                 }
                     }
@@ -85,28 +82,28 @@
             <div class="col-xs-9 col-md-6">
                 <h4 class="media-heading">
                     <a href="@(productUrl+urlAdd)">
-                        @model.ProductName
-                    </a>&nbsp; <span class="text-sm">(@model.ProductNo) </span>
+                        @md.ProductName
+                    </a>&nbsp; <span class="text-sm">(@md.ProductNo) </span>
                 </h4>
                 <div class="row">
                     <div class="text-muted col-xs-6">
                         Kategori :
-                    <strong style="color: #666">@model.CategoryName</strong>
+                    <strong style="color: #666">@md.CategoryName</strong>
                         <br>
                         Marka :
-                    <strong style="color: #666">@model.BrandName</strong>
+                    <strong style="color: #666">@md.BrandName</strong>
                         <br>
                         Seri :
-                    @model.SeriesName
+                    @md.SeriesName
                         <br />
                         Model Tipi :
-                   <strong style="color: #666">@model.ModelName</strong>
+                   <strong style="color: #666">@md.ModelName</strong>
                         <br>
                         Model Yılı :
-                    @model.ModelYear
+                    @md.ModelYear
                         <br>
                         Görüntülenme Sayısı :
-                    @model.ViewCount
+                    @md.ViewCount
                         <br>
                         <br />
 
@@ -115,57 +112,57 @@
                     <strong style="color: #666">
 
 
-                       
-                        <span class="@(!string.IsNullOrEmpty(model.ProductPriceWithDiscount) ? "old-price":"" )">
-                            <i class="@model.CurrencyCssText"></i>
-                            @model.ProductPrice 
+
+                        <span class="@(!string.IsNullOrEmpty(md.ProductPriceWithDiscount) ? "old-price":"" )">
+                            <i class="@md.CurrencyCssText"></i>
+                            @md.ProductPrice
                         </span>
-                        @if (!string.IsNullOrEmpty(model.ProductPriceWithDiscount))
+                        @if (!string.IsNullOrEmpty(md.ProductPriceWithDiscount))
                             {
-                        @model.ProductPriceWithDiscount 
-                         } 
+                        @md.ProductPriceWithDiscount
+                         }
                     </strong>
 
                     </div>
                     <div class="text-muted col-xs-6">
                         Ürün Tipi :
-                    @model.ProductTypeText
+                    @md.ProductTypeText
                         <br>
                         Ürün Durumu :
-                    @model.ProductStatusText
+                    @md.ProductStatusText
                         <br>
                         Kısa Detay :
-                    @model.BriefDetail
+                    @md.BriefDetail
                         <br>
                         Satış Detayı :
-                    @model.SalesTypeText
+                    @md.SalesTypeText
                         <br>
-                        
+
                     İl/İlçe :
-                    @model.City  /  @model.Locality 
+                    @md.City  /  @md.Locality
                     </div>
                 </div>
             </div>
             <div class="col-xs-3 col-md-4">
                 <div class="col-md-6">
                     <div>
-                        @if (model.ProductActiveType == (byte)ProductActiveType.Onaylandi && model.Doping != true)
+                        @if (md.ProductActiveType == (byte)ProductActiveType.Onaylandi && md.Doping != true)
                             {
                         <div>
-                            <a class="btn btn-sm  background-mt-btn" data-toggle="modal" onclick="ShowProductDoping(@model.ProductId)" data-target="#GetDopingModal" style="margin-top: 20px; margin-top: 0px; padding: 5px;">
+                            <a class="btn btn-sm  background-mt-btn" data-toggle="modal" onclick="ShowProductDoping(@md.ProductId)" data-target="#GetDopingModal" style="margin-top: 20px; margin-top: 0px; padding: 5px;">
                                 <i class="fa fa-arrow-circle-up" style="margin-right: 3px"></i>Doping Satın Al
                             </a>
                         </div>
                          }
-                            else if (model.Doping == true)
-                            { 
+                            else if (md.Doping == true)
+                            {
                         <div>
                             <a class="btn btn-sm btn-info" style="margin-top: 20px; padding: 5px;">Dopingli Ürün
                             </a>
                         </div>
                         }
                         <div>
-                            <a class="btn btn-sm btn-info" href="/Account/ilan/ProductVideos/@model.ProductId" style="margin-top: 20px; padding: 5px;">
+                            <a class="btn btn-sm btn-info" href="/Account/ilan/ProductVideos/@md.ProductId" style="margin-top: 20px; padding: 5px;">
                                 <i class="fa fa-video-camera" style="margin-right: 3px"></i>Video Ekle/Düzenle
                             </a>
                         </div>
@@ -173,20 +170,20 @@
                 </div>
                 <div class="col-md-6">
                     <div class="btn-group-vertical">
-                        @if (model.ProductActiveType == (byte)ProductActiveType.CopKutusunda)
+                        @if (md.ProductActiveType == (byte)ProductActiveType.CopKutusunda)
                             {
-                        <a href="#" onclick="ProductUndoDelete(@model.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a>
+                        <a href="#" onclick="ProductUndoDelete(@md.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a>
                         }
-                            else if (model.ProductActiveType == (byte)ProductActiveType.Silindi)
-                            { 
+                            else if (md.ProductActiveType == (byte)ProductActiveType.Silindi)
+                            {
 
-                        <a href="#" onclick="ProductToReceyleBin(@model.ProductId);" class="btn btn-sm btn-default">Çöpe Gönder </a>
-                        <a href="#" onclick="ProductUndoDelete(@model.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a>
+                        <a href="#" onclick="ProductToReceyleBin(@md.ProductId);" class="btn btn-sm btn-default">Çöpe Gönder </a>
+                        <a href="#" onclick="ProductUndoDelete(@md.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a>
                         }
                             else
-                            { 
+                            {
                         <div class="btn-group">
-                            
+
                                 @if (queryProductActiveType == 0 && productActiveA == null)
                                 {
                             <a class="btn btn-sm btn-success dropdown-toggle"
@@ -195,28 +192,28 @@
                             }
                                 else
                                 {
-                                    if (model.ProductActive)
-                                    { 
+                                    if (md.ProductActive)
+                                    {
                             <a onclick="" class="btn btn-sm btn-success dropdown-toggle"
                                 data-toggle="dropdown">Aktif İlan <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-mt" role="menu">
-                                <li><a onclick="ProductActiveUpdate(@model.ProductId, 'false');">Pasif İlan </a>
+                                <li><a onclick="ProductActiveUpdate(@md.ProductId, 'false');">Pasif İlan </a>
                                 </li>
                             </ul>
                              }
                                 else
-                                { 
+                                {
                             <a onclick="" class="btn btn-sm btn-danger dropdown-toggle"
                                 data-toggle="dropdown">Pasif İlan <span class="caret"></span></a>
                             <ul class="dropdown-menu dropdown-menu-mt" role="menu">
-                                <li><a onclick="ProductActiveUpdate(@model.ProductId, 'true')">Aktif İlan </a>
+                                <li><a onclick="ProductActiveUpdate(@md.ProductId, 'true')">Aktif İlan </a>
                                 </li>
                             </ul>
                              }
-                                } 
+                                }
                         </div>
-                        <a href="/Account/ilan/Edit/@model.ProductId?currentPage=@Model.CurrentPage" class="btn btn-sm btn-default">Düzenle </a>
-                        <a data-val="@model.ProductId" class="btn btn-sm btn-default pDeleteItem">Sil</a>
+                        <a href="/Account/ilan/Edit/@md.ProductId?currentPage=@Model.CurrentPage" class="btn btn-sm btn-default">Düzenle </a>
+                        <a data-val="@md.ProductId" class="btn btn-sm btn-default pDeleteItem">Sil</a>
                         }
                     </div>
 
@@ -227,32 +224,32 @@
     </div>
     <div class="col-xs-12">
         <br />
-        @if (model.ProductActiveType == (byte)ProductActiveType.Silindi)
+        @if (md.ProductActiveType == (byte)ProductActiveType.Silindi)
             {
         <div class="alert alert-danger">
             <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp; <span>Ürün silme talebiniz
                     alınmıştır.</span>
         </div>
-        } 
-        
+        }
+
         <hr />
     </div>
 </div>
- } 
+ }
  }
     else
-    { 
+    {
 <p class="bg-info">
     Bu bölüma ait herhangi bir ürün bulunamamıştır.
 </p>
- } 
+ }
 </div>
 @if (Model.Source.Count > 0)
 {
 <div class="row">
     <div class="col-md-5 ">
         Toplam
-        @Model.TotalPages.Count() 
+        @Model.TotalPages.Count()
         sayfa içerisinde
         @Model.CurrentPage .sayfayı görmektesiniz.
     </div>
@@ -264,29 +261,29 @@
              @foreach (int item in Model.TotalLinkPages)
                 {
                     if (Model.CurrentPage == item)
-                    { 
+                    {
             <li class="active"><a onclick="advertPageChange(@item,@((byte)DisplayType.List),@queryProductActiveType);" href="javascript:void(0)">
                 @item</a></li>
              }
                 else
                 {
-            
+
             <li data-rel="liActive" data-id="@item"><a onclick="advertPageChange(@item,@((byte) DisplayType.List),@queryProductActiveType);" href="javascript:void(0)">
                @item</a></li>
-             } 
-             } 
+             }
+             }
             @if (Model.CurrentPage < Model.TotalPages.Count())
                 {
-            
+
             <li data-id="@(Model.CurrentPage+1)"><a onclick="advertPageChange(@(Model.CurrentPage+1  ),@((byte) DisplayType.List), @queryProductActiveType);" href="javascript:void(0)">>></a> </li>
 
-            } 
+            }
         </ul>
     </div>
 </div>
- } 
+ }
 
-@Html.Hidden(x=>x.CurrentPage,new { @@id="currentPage"}) 
+@Html.HiddenFor(x=>Model.CurrentPage,new {id="currentPage"})
 <script type="text/javascript">
     function getUrlVars() {
         var vars = [], hash;

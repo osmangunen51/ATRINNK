@@ -229,7 +229,7 @@
 }
 @{
 
-    System.Collections.List<Product> productItems = makinaTurkiyeEntities.Products.Where(c => c.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
+    List<NeoSistem.MakinaTurkiye.Web.Models.Entities.Product> productItems = makinaTurkiyeEntities.Products.Where(c => c.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
 
     byte? queryProductActiveType = null;
     if (!string.IsNullOrEmpty(Request.QueryString["ProductActiveType"]))

@@ -30,13 +30,9 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+ }
 
-
-}
-
-@section content{
+@section headercontent{
     <script type="text/javascript">
         function DeletePicture(ID) {
             if (confirm('Resimi Silmek istediğinizden eminmisiniz ?')) {
@@ -77,27 +73,24 @@
 
             @using (Html.BeginForm("UpdateBanner", "Store", FormMethod.Post, new { enctype = "multipart/form-data", role = "form", @class = "form-horizontal" }))
             {
-                <input id="hiddenDelete" name="Delete" value="false" type="hidden" />
+<input id="hiddenDelete" name="Delete" value="false" type="hidden" />
                 <div class="well  col-xs-12" style="background-color: #fff!important; border: 1px solid #ccc;">
                     @if (ViewData["message"] != null)
                     {
-                        <div class="alert alert-warning">
-                            <strong>Hata!</strong>@ViewData["message"]
-                        </div>
-                    }
+    <div class="alert alert-warning">
+        <strong>Hata!</strong>@ViewData["message"]
+    </div>}
                     <div class="row">
                         <div class="col-md-12">
                             <img alt="" data-rel="addlogo" style="display: none" src="http://www.placehold.it/1400x250&amp;text=banner"
                                  class="img-thumbnail" />
                             @if (!string.IsNullOrWhiteSpace(Model.StoreBanner))
                             {
-                                <img class="pull-left img-thumbnail" id="imgBanner" src="@Url.Content(ImageHelpers.GetStoreBanner(Model.Store.MainPartyId,Model.StoreBanner)+" ?v="+DateTime.Now.ToString(" yyyyMMddHHmmss"))" />
-                                <div onclick="DeletePicture(@Model.Store.MainPartyId)" style="cursor: pointer; text-decoration: underline; color: #333">Kaldır</div>
-                            }
-                            else
-                            {
-                                <img alt="" src="https://dummyimage.com/1400x250/efefef/000000.jpg&text=banner" class="img-thumbnail" />
-                            }
+            <img class="pull-left img-thumbnail" id="imgBanner" src="@Url.Content(ImageHelpers.GetStoreBanner(Model.Store.MainPartyId,Model.StoreBanner)+" ?v="+DateTime.Now.ToString(" yyyyMMddHHmmss"))" />
+                                <div onclick="DeletePicture(@Model.Store.MainPartyId)" style="cursor: pointer; text-decoration: underline; color: #333">Kaldır</div> }
+                                                else
+                                                {
+                                <img alt="" src="https://dummyimage.com/1400x250/efefef/000000.jpg&text=banner" class="img-thumbnail" />}
                         </div>
                         <div class="col-md-12">
                             <div class="hidden-sm hidden-xs alert alert-info">
@@ -128,22 +121,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="panel panel-mt col-xs-12 p0">
-                    <div class="panel-heading">
-                        <span class="glyphicon glyphicon-question-sign"></span>Sayfa Yardımı
+                                <div class="panel panel-mt col-xs-12 p0">
+                                    <div class="panel-heading">
+                                        <span class="glyphicon glyphicon-question-sign"></span>Sayfa Yardımı
 
-                    </div>
-                    <div class="panel-body">
-                        <b>Firma Profili </b>
-                        <br>
-                        @foreach (var item in Model.HelpList)
-                        {
-                            <i class="fa fa-angle-right"></i>&nbsp; &nbsp; <a href="@item.HelpCategoryName">@item.HelpCategoryName </a>
-                            <br>
-                        } >
-                    </div>
-                </div>
-            }
+                                    </div>
+                                    <div class="panel-body">
+                                        <b>Firma Profili </b>
+                                        <br>
+                                        @foreach (var item in Model.HelpList)
+                                        {
+                        <i class="fa fa-angle-right"></i><a href="@item.HelpCategoryName">@item.HelpCategoryName </a>
+                                            <br>}
+                                    </div>
+                                </div>            }
         </div>
     </div>
 </div>
