@@ -45,7 +45,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         private readonly IDealarBrandService _dealarBrandService;
 
         public ProfileController(IMemberStoreService memberStoreService, IStoreService storeService, IStoreDealerService storeDealerService,
-            IAddressService addressService, IStoreBrandService storeBrandService, 
+            IAddressService addressService, IStoreBrandService storeBrandService,
             IPictureService pictureService, IPhoneService phoneService, IDealarBrandService dealarBrandService)
         {
             this._memberStoreService = memberStoreService;
@@ -589,7 +589,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             _adressService.DeleteAddress(address);
 
-           
+
 
             var storeModel = new StoreModel();
             IList<Address> addressItems = null;
@@ -605,7 +605,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     addressItems = _adressService.GetAddressByStoreDealerIds(serviceIds).ToList();
                     break;
                 case DealerType.Sube:
-                   
+
                     var branchIds = _storeDealerService.GetStoreDealersByMainPartyId(storeId, DealerTypeEnum.Branch).Select(x => x.StoreDealerId).ToList();
                     addressItems = _adressService.GetAddressByStoreDealerIds(branchIds).ToList();
                     break;
@@ -613,7 +613,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     break;
             }
 
-            return View("/Areas/Account/Views/Profile/DealerAddressItems.ascx", addressItems);
+            return View("/Areas/Account/Views/Profile/DealerAddressItems.cshtml", addressItems);
         }
 
         [HttpPost]
@@ -633,7 +633,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 issuccess = true;
             }
-            catch 
+            catch
             {
                 issuccess = false;
             }
@@ -691,14 +691,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             return RedirectToAction("ProfilePicture");
         }
-        
+
         #endregion
 
         #region Json Result
         public JsonResult Cities(int id)
         {
             IList<City> cityItems;
-            
+
             cityItems = _adressService.GetCitiesByCountryId(id);
             cityItems.Insert(0, new City { CityId = 0, CityName = "< Lütfen Seçiniz >" });
 

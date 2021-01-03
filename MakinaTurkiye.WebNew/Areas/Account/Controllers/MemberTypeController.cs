@@ -60,11 +60,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         #region Ctor
 
-        public MemberTypeController(IPhoneService phoneService,IActivityTypeService activityTypeService, 
-            IStoreService storeService, IMemberService memberService, IAddressService addressService, 
-            IConstantService constantService, IPacketService packetService, 
-            IStoreActivityTypeService storeActivityTypeService, 
-            IStoreActivityCategoryService storeActivityCategoryService, 
+        public MemberTypeController(IPhoneService phoneService,IActivityTypeService activityTypeService,
+            IStoreService storeService, IMemberService memberService, IAddressService addressService,
+            IConstantService constantService, IPacketService packetService,
+            IStoreActivityTypeService storeActivityTypeService,
+            IStoreActivityCategoryService storeActivityCategoryService,
             IMemberStoreService memberStoreService,
             IMessagesMTService messagesMTService, IUserLogService userLogService,
             IMobileMessageService mobileMessageService)
@@ -126,10 +126,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
 
             var address = _addressService.GetFisrtAddressByMainPartyId(AuthenticationUser.Membership.MainPartyId);
-            
+
             if(address==null)
             {
-                
+
                 return RedirectToAction("ChangeAddress", "Personal", new { gelenSayfa = "kurumsalaGec" });
             }
             else {
@@ -152,7 +152,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 else
                 {
-            
+
                     ViewData["leftMenu"] = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.MyAccount);
 
                     return View(MembershipSessionModel);
@@ -163,8 +163,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         [HttpPost]
         public ActionResult InstitutionalStep(MembershipViewModel model, string Day, string Month, string Year, FormCollection coll)
         {
-          
-            
+
+
             if (AuthenticationUser.Membership.MemberType == (byte)MemberType.Enterprise)
             {
                 return RedirectToAction("Index", "Home");
@@ -245,7 +245,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             fileName = FileHelpers.ImageResize(AppSettings.StoreLogoFolder, file, thumns);
                         }
                     }
-               
+
                     SessionMembershipViewModel.MembershipViewModel.MembershipModel.StoreLogo = fileName;
                     ViewData["leftMenu"] = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.MyAccount);
                     var model = SessionMembershipViewModel.MembershipViewModel;
@@ -276,9 +276,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         }
                     }
                 }
-           
+
                     return RedirectToAction("InstitutionalStep3", "MemberType");
-            
+
             }
 
 
@@ -531,9 +531,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     model1.MembershipModel = model.MembershipModel;
                     return View(model1);
                 }
-                 
+
                 else
-                {   
+                {
                     SessionMembershipViewModel.MembershipViewModel.MembershipModel.StoreName = model.MembershipModel.StoreName;
                     SessionMembershipViewModel.MembershipViewModel.MembershipModel.StoreWeb = model.MembershipModel.StoreWeb;
                     SessionMembershipViewModel.MembershipViewModel.MembershipModel.ActivityName = model.MembershipModel.ActivityName;
@@ -573,7 +573,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             else
             {
                 IList<Constant> dataConstant = _constantService.GetAllConstants();
-              
+
                 if (SessionMembershipViewModel.MembershipViewModel.MembershipModel.StoreEndorsement > 0)
                 {
                     SessionMembershipViewModel.MembershipViewModel.MembershipModel.StoreEndorsementName = dataConstant.FirstOrDefault(c => c.ConstantId == SessionMembershipViewModel.MembershipViewModel.MembershipModel.StoreEndorsement).ConstantName;
@@ -644,7 +644,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 AuthenticationUser.Membership.MemberType = member.MemberType;
                 AuthenticationUser.Membership.MemberTitleType = member.MemberTitleType;
                 var storeMainPartyId = storeMainParty.MainPartyId;
-               
+
                 var packet = _packetService.GetPacketByIsStandart(true);
 
                 var store = new Store
@@ -700,7 +700,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     address.MainPartyId = storeMainPartyId;
                     _addressService.UpdateAddress(address);
                 }
-               
+
 
                 //var phone = entities.Phones.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId && x.PhoneType == (byte)PhoneType.Phone);
                 //foreach (var phoneItem in phone.ToList())
@@ -710,13 +710,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 //}
                 //var phoneGsm = entities.Phones.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId && x.PhoneType == (Byte)PhoneType.Gsm).FirstOrDefault();
                 //if(phoneGsm!=null)
-                //{ 
+                //{
                 // phoneGsm.MainPartyId = storeMainPartyId;
                 // entities.SaveChanges();
                 //}
                 //var phoneFax = entities.Phones.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId && x.PhoneType == null).FirstOrDefault();
                 //if(phoneFax!=null)
-                //{ 
+                //{
                 //  phoneFax.MainPartyId = storeMainPartyId;
                 //  entities.SaveChanges();
                 //}
@@ -755,18 +755,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         };
                         _storeActivityCategoryService.InsertStoreActivityCategory(storeActivityCategory);
                     }
-                } 
+                }
                 var memberStore = new MemberStore
                 {
                     MemberMainPartyId = AuthenticationUser.Membership.MainPartyId,
                     StoreMainPartyId = storeMainPartyId,
                     MemberStoreType = (byte)MemberStoreType.Owner
-                    
+
                 };
                 _memberStoreService.InsertMemberStore(memberStore);
 
-                
-     
+
+
                 SessionMembershipViewModel.Flush();
                 //firma logo düzenle
                 if (!string.IsNullOrEmpty(insertedStore.StoreName))
@@ -932,7 +932,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         address.MainPartyId = storeMainPartyId;
                         _addressService.UpdateAddress(address);
                     }
-                        
+
 
 
                     var phone = _phoneService.GetPhonesByMainPartyId(AuthenticationUser.Membership.MainPartyId);
@@ -1036,7 +1036,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
                     sc.Send(mail);
                     #endregion
-                  
+
 
                     #region bilgimakina
                     MailMessage mailb = new MailMessage();
@@ -1059,7 +1059,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     scr1.EnableSsl = true;
                     scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
                     scr1.Send(mailb);
-                    
+
                     #endregion
 
 
@@ -1095,7 +1095,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         public ActionResult Individual(string gelenSayfa, string sonuc,string memberType,string error, string type,string urunNo, string uyeNo, string mtypePage)
         {
-            if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual)
+            if (AuthenticationUser.Membership.MemberType!=(byte)MemberType.FastIndividual)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -1106,7 +1106,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 ViewData["urunNo"] = urunNo;
                 ViewData["type"] = type;
                 ViewData["memberType"] = memberType;
-               
+
                 var membershipViewModel = new MembershipViewModel();
 
                 //membershipViewModel.CountryItems = new SelectList(entities.Countries.AsEnumerable(), "CountryId", "CountryName", 0);
@@ -1116,26 +1116,26 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 //membershipViewModel.CityItems = new SelectList(cityItems, "CityId", "CityName", 0);
 
-                //MembershipModel membershipModel;
-                //if (Session["MembershipModel"] != null)
-                //{
-                //     membershipModel = (MembershipModel)Session["MembershipModel"];
-                //     Session["MembershipModel"] = null;
-                //}
-                //else
-                //{
-                //     membershipModel = new MembershipModel();
-                //}
+                MembershipModel membershipModel;
+                if (Session["MembershipModel"] != null)
+                {
+                    membershipModel = (MembershipModel)Session["MembershipModel"];
+                    Session["MembershipModel"] = null;
+                }
+                else
+                {
+                    membershipModel = new MembershipModel();
+                }
 
-                //membershipModel.CountryId = AppSettings.Turkiye;
-                //membershipModel.CityId = 0;Send
+                membershipModel.CountryId = AppSettings.Turkiye;
+                membershipModel.CityId = 0;
 
-                //membershipViewModel.MembershipModel = membershipModel;
+                membershipViewModel.MembershipModel = membershipModel;
                 ViewData["leftMenu"] = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.MyAccount);
 
                 var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(AuthenticationUser.Membership.MainPartyId, PhoneTypeEnum.Gsm);
                 if (phone!=null)
-                { 
+                {
                     membershipViewModel.MembershipModel.InstitutionalGSMCulture = phone.PhoneCulture;
                     membershipViewModel.MembershipModel.InstitutionalGSMAreaCode = phone.PhoneAreaCode;
                     membershipViewModel.MembershipModel.InstitutionalGSMNumber = phone.PhoneNumber;
@@ -1156,7 +1156,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 ViewData["mtypePage"] = mtypePage;
                 ViewData["uyeNo"] = uyeNo;
                 ViewData["urunNo"] = urunNo;
-                
+
             }
 
 
@@ -1164,7 +1164,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 DateTime birthDate = new DateTime(model.MembershipModel.Year, model.MembershipModel.Month, model.MembershipModel.Day);
                 model.MembershipModel.BirthDate = birthDate;
-          
+
             }
 
             bool hasRecord = false;
@@ -1199,7 +1199,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     string phoneGsmModel = model.MembershipModel.InstitutionalGSMCulture + model.MembershipModel.InstitutionalGSMAreaCode + model.MembershipModel.InstitutionalGSMNumber;
                     if (phoneGsmLast != phoneGsmModel || phoneactive==false)
                         changeGsm = true;
-                    else 
+                    else
                         phoneItems = phoneItems.Where(x => x.PhoneType != (byte)PhoneType.Gsm).ToList();
 
 
@@ -1526,7 +1526,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 //    CreatedDate = DateTime.Now.ToString()
                 //};
                 //_userLogService.InsertUserLog(lg);
-              
+
             }
             if (hasRecord)
             {
@@ -1541,7 +1541,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                               return RedirectToAction("index", "Home", new { gelenSayfa = "bireyselUyelikOnay",memberType="hizli"});//telefon onayı varsa mesajdan gelmiyorsa
                           else
                           return RedirectToAction("index", "Home", new { gelenSayfa = "bireyselUyelikOnay" });//telefon onayı varsa mesajdan gelmiyorsa
-                     
+
                       }
                       else
                           return RedirectToAction("index", "Message", new { MessagePageType = mtypePage, UyeNo = uyeNo, UrunNo = urunNo });//eğer mesajdan geliyor ve telefon onayı varsa
@@ -1557,11 +1557,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 ViewData["mtypePage"] = mtypePage;
                 ViewData["uyeNo"] = uyeNo;
                 ViewData["urunNo"] = urunNo;
-                
+
             }
             ViewData["PhoneNumber"] = phoneNumber;
             ViewData["type"] = type;
-            
+
             return View();
         }
         [HttpPost]
@@ -1582,7 +1582,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                    {
                        phone.active = 1;
                         _phoneService.UpdatePhone(phone);
-               
+
                        if(string.IsNullOrEmpty(uyeNo))
                        {
                            if (type == "fast")
@@ -1595,7 +1595,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                        }
                        else
                        {
-                          
+
                            string memberNo = uyeNo;
                            string productNo = urunNo;
                            return RedirectToAction("index", "Message", new { MessagePageType = mtypePage, UyeNo = memberNo, UrunNo = productNo });
@@ -1661,7 +1661,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             }
             lastCode = lastCode.Substring(0, 6);
-         
+
             var mCode = _phoneService.GetPhoneByActivationCode(lastCode);
             if (mCode!=null)
                 lastCode = CreateActiveCode();
@@ -1679,5 +1679,5 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             //else return "true";
         }
     }
-    
+
 }

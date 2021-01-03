@@ -29,17 +29,15 @@
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
 
 @{
-    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+    Layout = null;
 
 
 }
 
 @foreach (var item in Model)
    {
-     
-        
+
+
 <div>
     @MakinaTurkiye.Entities.Tables.Common.AddressExtensions.GetAddressEdit(item)
     <br />
@@ -47,4 +45,4 @@
     <a onclick="javascript:var id= $('#hdnDealerType').val(); DeleteAddress('@item.AddressId',id);"
         class="btn btn-xs btn-default">Adres ve Telefonu Sil </a>
 </div>
-} 
+}

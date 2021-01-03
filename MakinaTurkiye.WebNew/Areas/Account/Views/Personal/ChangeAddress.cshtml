@@ -121,7 +121,7 @@
 }
 
 @{
-    string baslik = "Adres"; 
+    string baslik = "Adres";
 }
 
 @if (ViewData["error"] != null)
@@ -154,7 +154,7 @@
     </div>
 </div>
 <div class="row">
-    
+
     <div class="col-sm-12 col-md-12">
         <div>
             @if (ViewData["gelenSayfa"] == "kurumsalaGec" && ViewData["error"].ToString() != "PhoneActive")
@@ -184,10 +184,10 @@
                     </button>
                     @{
                         var gsmItem = Model.GsmPhone;
-                        Phone wgsmItem = new Phone();
+                        MakinaTurkiye.Entities.Tables.Common.Phone wgsmItem = new MakinaTurkiye.Entities.Tables.Common.Phone();
                         if (ViewData["whatsappPhone"] != null)
                         {
-                            wgsmItem = (Phone)ViewData["whatsappPhone"];
+                            wgsmItem = (MakinaTurkiye.Entities.Tables.Common.Phone)ViewData["whatsappPhone"];
                         }
 
                     }
