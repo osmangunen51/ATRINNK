@@ -1,0 +1,161 @@
+﻿@using NeoSistem.MakinaTurkiye.Web.Models;
+@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
+
+@model PacketViewModel
+
+@section HeaderContent {
+
+    <script type="text/javascript">
+
+        function Check() {
+            if ($('#PacketId').val() == '') {
+                alert('Bir sonraki adıma geçmek için lütfen üyelik paket seçiniz.')
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+
+}
+
+<div>
+    <div class="row" style="margin-top:10px;">
+        <div class="col-xs-12">
+            <div class="page-header mt0">
+                <h4 class="mt0">
+                    <span class="glyphicon glyphicon-screenshot"></span>İndirimli Kurumsal Üyelik Paketleri
+                </h4>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="alert alert-info">
+                <div class="container">
+
+                    <div class="col-md-9">
+                        @{Response.Write(Model.Description); }@*<a class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-sm"  onclick="AddInfoForDemand()"> detaylı bilgi alınız</a> *@
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">Detaylı bilgi almak istiyorum>></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            @foreach (var item in Model.PacketItems.OrderBy(p => p.PacketOrder))
+            {
+                using (Html.BeginForm("OneStep", "MembershipSales", FormMethod.Post))
+                {
+<div class="col-md-4 col-sm-12">
+    <div class="panel panel-mt text-center">
+            <div class="panel-heading" style="background:@item.HeaderColor!important"
+        <h4 class="m0">
+            @item.PacketName
+            @if (item.StarNumber == null || item.StarNumber == 0)
+            {
+                <small class="text-warning"><span class="glyphicon glyphicon-star"></span></small> 
+            }
+            else
+            {
+                for (int i = 0; i < item.StarNumber; i++)
+                {
+                <small class="text-warning"><span class="glyphicon glyphicon-star"></span></small>                        
+                }
+            }
+        </h4>
+    </div>
+    <div class="panel-body" style="background-color:@item.PacketColor">
+        <b class="text-lg">
+            @{ decimal packetDayPrice;
+                packetDayPrice = (decimal)(item.PacketPrice / item.PacketDay); }
+            @packetDayPrice.ToString("N")  <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i> / Gün
+        </b><span class="text-md text-italic">den başlayan fiyatlarla</span>
+    </div>
+
+<ul class="list-group">
+    @foreach (var itemPFTItems in Model.PacketFeatureTypeItems.OrderBy(c => c.PacketFeatureTypeOrder))
+    {
+
+                        var packetFeature = Model.PacketFeatureItems.FirstOrDefault(c => c.PacketFeatureTypeId == itemPFTItems.PacketFeatureTypeId && c.PacketId == item.PacketId);
+                        if (packetFeature != null)
+                        {
+                            var packetType = (EPacketFeatureType)packetFeature.FeatureType;
+                            string Name = "";
+                            switch (packetType)
+                            {
+                                case EPacketFeatureType.ProcessCount:
+                                    {
+                                        Name = packetFeature.FeatureProcessCount.HasValue ? packetFeature.FeatureProcessCount.Value.ToString() : "":itemPFTItems.PacketFeatureTypeName;
+                                        break;
+                                    }
+
+                                case EPacketFeatureType.Active:
+                                    {
+                                        Name = itemPFTItems.PacketFeatureTypeName;
+                                        break;
+                                    }
+                                case EPacketFeatureType.Content:
+                                    {
+                                        Name = itemPFTItems.PacketFeatureTypeName;
+                                        break;
+                                    }
+                            }
+                            <li class="list-group-item" style="background-color:@item.PacketColor">
+                                @Name
+                            </li>
+                            <li class="list-group-item" style="background-color:@item.PacketColor">
+                                <h3>
+                                    @item.PacketPrice.ToString("0") <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i> /
+                                    @{ if (item.PacketDay == 365)
+                                        {
+            @:Yıl
+        }
+        else if (item.PacketDay % 30 == 0)
+        {
+            @(item.PacketDay / 30) <span> Ay</span>;
+        }
+        else
+        {
+            @(item.PacketDay) <span> Gün</span>
+        };
+                                    }
+                                </h3>
+                                @Html.Hidden("PacketId", item.PacketId)
+                            </li>
+                                                        <li class="list-group-item" style="background-color:@item.PacketColor">
+                                                            <button type="submit" class="btn btn-success btn-block">
+                                                                Satın Al
+                                                            </button>
+                                                        </li>
+                                                                                </ul>
+                        }
+                        <span class="clearfix"></span>
+                        <hr>
+                        <button type="button" class="btn btn-primary" id="SuccessDemand" style="display:none;"></button>
+                        <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                        <div class="modal-dialog modal-sm" role="document">
+                        <div class="modal-content">
+                                    <div class="modal-header" style="font-size:15px;">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Ürün Bilgileri</h4>
+                                    </div>
+                                    <div class="modal-body" style="color:#484747; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                                          <div class="form-group">
+                                              <label class="col-md-3">Ürün Sayınız</label>
+                                              <div class="col-md-9"><input type="text" id="productNumberForInf" name="productNumber" class="form-control" /></div>
+                                          </div>
+                                              <div id="InfSuccess" style="color:#484747; display:none;">
+                                                  Bilgi alma talebiniz incelendikten sonra en kısa zamanda tarafınıza  bildirilicektir.
+                                              </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary" onclick="AddInfoForDemand()">Gönder</button>
+                                    </div>
+                        </div>
+    </div>
+<span class="clearfix">
+<br>
+<br>
+</span>
+</div>

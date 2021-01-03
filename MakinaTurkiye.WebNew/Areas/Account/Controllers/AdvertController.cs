@@ -1,46 +1,41 @@
-﻿using MakinaTurkiye.Entities.Tables.Catalog;
+﻿using MakinaTurkiye.Entities.StoredProcedures.Catalog;
+using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Entities.Tables.Common;
+using MakinaTurkiye.Entities.Tables.Media;
+using MakinaTurkiye.Entities.Tables.Videos;
+using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Media;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Packets;
+using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Services.Videos;
+using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Utilities.FileHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
-using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Services.Videos;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Services.Packets;
-using MakinaTurkiye.Utilities.FileHelpers;
-using MakinaTurkiye.Services.Media;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Entities.Tables.Videos;
-using MakinaTurkiye.Entities.Tables.Media;
-using MakinaTurkiye.Entities.StoredProcedures.Catalog;
-
 using NeoSistem.EnterpriseEntity.Extensions.Data;
-using NeoSistem.MakinaTurkiye.Web.Helpers;
-using NeoSistem.MakinaTurkiye.Web.Models;
-using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
+using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
-using NeoSistem.MakinaTurkiye.Web.Models.Adverts;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Catologs;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
+using NeoSistem.MakinaTurkiye.Web.Models;
+using NeoSistem.MakinaTurkiye.Web.Models.Adverts;
+using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Products;
-
+using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
+using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using System.Text;
-using System.IO;
-using System.Globalization;
 using System.Web.UI;
-
-using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
-using MakinaTurkiye.Utilities.Controllers;
-using MakinaTurkiye.Services;
-using MakinaTurkiye.Utilities.MailHelpers;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -109,36 +104,36 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             IStoreSectorService storeSectorService, ICurrencyService currencyService, ICertificateTypeService certificateTypeService,
             IMemberService memberService)
         {
-            this._productService = productService;
-            this._videoService = videoService;
-            this._constantService = constantService;
-            this._memberStoreService = memberStoreService;
-            this._storeService = storeService;
-            this._packetService = packetService;
-            this._categoryService = categoryService;
-            this._addressService = addressService;
-            this._pictureService = pictureService;
-            this._categoryPropertieService = categoryPropertieService;
-            this._productCatologService = productCatologService;
-            this._productCommentService = productCommentService;
-            this._storeSectorService = storeSectorService;
-            this._currencyService = currencyService;
-            this._memberService = memberService;
-            this._certificateTypeService = certificateTypeService;
-            this._productService.CachingGetOrSetOperationEnabled = false;
-            this._videoService.CachingGetOrSetOperationEnabled = false;
-            this._constantService.CachingGetOrSetOperationEnabled = false;
-            this._memberStoreService.CachingGetOrSetOperationEnabled = false;
-            this._storeService.CachingGetOrSetOperationEnabled = false;
-            this._packetService.CachingGetOrSetOperationEnabled = false;
-            this._categoryService.CachingGetOrSetOperationEnabled = false;
-            this._addressService.CachingGetOrSetOperationEnabled = false;
-            this._pictureService.CachingGetOrSetOperationEnabled = false;
-            this._categoryPropertieService.CachingGetOrSetOperationEnabled = false;
-            this._productCatologService.CachingGetOrSetOperationEnabled = false;
-            this._productCommentService.CachingGetOrSetOperationEnabled = false;
-            this._currencyService.CachingGetOrSetOperationEnabled = false;
-            this._certificateTypeService.CachingGetOrSetOperationEnabled = false;
+            _productService = productService;
+            _videoService = videoService;
+            _constantService = constantService;
+            _memberStoreService = memberStoreService;
+            _storeService = storeService;
+            _packetService = packetService;
+            _categoryService = categoryService;
+            _addressService = addressService;
+            _pictureService = pictureService;
+            _categoryPropertieService = categoryPropertieService;
+            _productCatologService = productCatologService;
+            _productCommentService = productCommentService;
+            _storeSectorService = storeSectorService;
+            _currencyService = currencyService;
+            _memberService = memberService;
+            _certificateTypeService = certificateTypeService;
+            _productService.CachingGetOrSetOperationEnabled = false;
+            _videoService.CachingGetOrSetOperationEnabled = false;
+            _constantService.CachingGetOrSetOperationEnabled = false;
+            _memberStoreService.CachingGetOrSetOperationEnabled = false;
+            _storeService.CachingGetOrSetOperationEnabled = false;
+            _packetService.CachingGetOrSetOperationEnabled = false;
+            _categoryService.CachingGetOrSetOperationEnabled = false;
+            _addressService.CachingGetOrSetOperationEnabled = false;
+            _pictureService.CachingGetOrSetOperationEnabled = false;
+            _categoryPropertieService.CachingGetOrSetOperationEnabled = false;
+            _productCatologService.CachingGetOrSetOperationEnabled = false;
+            _productCommentService.CachingGetOrSetOperationEnabled = false;
+            _currencyService.CachingGetOrSetOperationEnabled = false;
+            _certificateTypeService.CachingGetOrSetOperationEnabled = false;
 
         }
 
@@ -222,7 +217,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 int totalCount = products.Count;
                 products = products.Skip(takeFrom).Take(pageDimension).ToList();
                 SearchModel<MTProductItem> searchModel = new SearchModel<MTProductItem>();
-                searchModel.Source = PrepapareProductsModel(products,  showDopingForm);
+                searchModel.Source = PrepapareProductsModel(products, showDopingForm);
                 searchModel.TotalRecord = totalCount;
                 searchModel.PageDimension = pageDimension;
                 searchModel.CurrentPage = page;
@@ -264,7 +259,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ModelName = model != null ? model.CategoryName : "",
                     ModelYear = item.ModelYear.HasValue == true ? item.ModelYear.Value.ToString() : DateTime.Now.Year.ToString(),
                     ProductActive = item.ProductActive.Value,
-                    ProductActiveType = item.ProductActiveType.HasValue == true ? item.ProductActiveType.Value : (byte)0,
+                    ProductActiveType = item.ProductActiveType.HasValue == true ? item.ProductActiveType.Value : 0,
                     ProductId = item.ProductId,
                     ProductName = item.ProductName,
                     ProductNo = item.ProductNo,
@@ -273,9 +268,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ProductTypeText = item.GetProductTypeText(),
                     SeriesName = serie != null ? serie.CategoryName : "",
                     SalesTypeText = item.GetProductSalesTypeText(),
-                    ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : (byte)0,
+                    ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : 0,
                     ViewCount = item.ViewCount.Value,
-                    CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : (byte)0,
+                    CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : 0,
                     CurrencyCssText = item.GetCurrencyCssName(),
                     Doping = item.Doping,
                     ShowDopingForm = showDopingForm,
@@ -562,7 +557,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 }
 
-        
+
                 var dataPicture = new Data.Picture();
                 model.ProductPictureItems = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
                 model.VideoItems = _videoService.GetVideosByProductId(id);
@@ -590,7 +585,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 model.TotalPrice = product.ProductPriceWithDiscount.HasValue ? product.ProductPriceWithDiscount.Value.ToString("0#.00") : "0";
                 model.DiscountAmount = product.DiscountAmount.HasValue ? product.DiscountAmount.Value : 0;
-                model.DiscountType = product.DiscountType.HasValue ? product.DiscountType.Value : (byte)0;
+                model.DiscountType = product.DiscountType.HasValue ? product.DiscountType.Value : 0;
 
                 List<LocalityModel> localityItems = new List<LocalityModel>() { new LocalityModel { LocalityId = 0, LocalityName = "< Lütfen Seçiniz >" } };
                 if (product.CityId != null)
@@ -932,8 +927,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         product.DiscountType = Convert.ToByte(model.DiscountType);
                         if (model.DiscountType != 0)
                         {
-             
-                 
+
+
                             if (!string.IsNullOrEmpty(coll["DiscountAmount"]))
                             {
                                 product.DiscountAmount = Convert.ToDecimal(model.DiscountAmount);
@@ -1176,7 +1171,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         {
 
                             var storeCertificate = _certificateTypeService.GetCertificateTypeProductsByCerticateTypeId(Convert.ToInt32(certificateTypes[i])).FirstOrDefault(x => x.StoreCertificateId != null);
-                            
+
 
                             var certificateTypeProduct = new CertificateTypeProduct
                             {
@@ -1189,7 +1184,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     }
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw new ArgumentException();
                 }
@@ -1344,7 +1339,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 TotalRecord = TotalRecord
             };
 
-            var data = dataProduct.GetSearchWebByProductActiveTypeNew(ref TotalRecord, getProduct.PageDimension, getProduct.CurrentPage, (byte)advertListType, AuthenticationUser.Membership.MainPartyId).AsCollection<ProductModel>();
+            var data = dataProduct.GetSearchWebByProductActiveTypeNew(ref TotalRecord, getProduct.PageDimension, getProduct.CurrentPage, advertListType, AuthenticationUser.Membership.MainPartyId).AsCollection<ProductModel>();
 
             getProduct.Source = data;
             getProduct.TotalRecord = TotalRecord;
@@ -1460,9 +1455,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ProductStatusText = item.GetProductStatuText(),
                     ProductTypeText = item.GetProductTypeText(),
                     SalesTypeText = item.GetProductSalesTypeText(),
-                    ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : (byte)0,
+                    ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : 0,
                     ViewCount = item.ViewCount.Value,
-                    CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : (byte)0,
+                    CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : 0,
                     CurrencyCssText = item.GetCurrencyCssName(),
                     Doping = item.Doping,
                     ShowDopingForm = showDopingForm
@@ -1922,7 +1917,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             ProductImageHelpers productImageHelpers = new ProductImageHelpers(AppSettings.ProductImageFolder, thumbSizes);
             List<PictureModel> pictureModel = productImageHelpers.SaveProductImage(Request, product.ProductId, product.ProductName);
-            this.PictureList.AddRange(pictureModel);
+            PictureList.AddRange(pictureModel);
 
             #region Old Code
             //for (int i = 0; i < request.files.count; i++)
@@ -2008,7 +2003,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 ProductImageHelpers productImageHelpers = new ProductImageHelpers(AppSettings.ProductImageFolder, thumbSizes);
                 List<PictureModel> pictureModel = productImageHelpers.SaveProductImage(files[i], product.ProductId, product.ProductName);
-                this.PictureList.AddRange(pictureModel);
+                PictureList.AddRange(pictureModel);
 
 
                 if (!PacketAuthenticationModel.IsAccess(PacketPage.UrunResimSayisi, PictureList.Count + 1))
@@ -2907,7 +2902,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             productNo = productNo + producId;
 
-           
+
             curProduct.ProductNo = productNo;
             _productService.UpdateProduct(curProduct);
 
@@ -2953,9 +2948,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             string keyword = "";
             if (productName.Contains("Makinası"))
             {
-                keyword = productName.Replace("Makinası","Makinesi").ToLower();
+                keyword = productName.Replace("Makinası", "Makinesi").ToLower();
             }
-            else if(productName.Contains("Makinesi"))
+            else if (productName.Contains("Makinesi"))
             {
                 keyword = productName.Replace("Makinesi", "Makinası").ToLower();
             }
@@ -3470,8 +3465,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             int memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             _productService.CachingGetOrSetOperationEnabled = false;
-            var products = _productService.GetProductsByMainPartyId(memberMainPartyId,true);
-    
+            var products = _productService.GetProductsByMainPartyId(memberMainPartyId, true);
+
             foreach (var item in products)
             {
                 item.ProductLastUpdate = DateTime.Now;
