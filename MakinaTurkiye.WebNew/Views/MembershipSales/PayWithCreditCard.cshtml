@@ -65,14 +65,12 @@
         } }
     @if (Model.PacketModel.OrderType == (byte)Ordertype.Havale)
     {
-        @{Html.BeginForm("FourStep", "MembershipSales");}
+        Html.BeginForm("FourStep", "MembershipSales")
     }
-    else
-
-        {
+    else{
             <form id="form" action="/MembershipSales/PayWithCreditCard" method="post">
-            @{ 
-                var rnd=DateTime.Now.ToString(); 
+            @{
+                var rnd=DateTime.Now.ToString();
                 string amount="";
                 string taksit="";
                 string anahtar="69c1365cd932bffaf715009b50ef2e1d";

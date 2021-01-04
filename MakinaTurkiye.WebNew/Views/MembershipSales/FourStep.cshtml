@@ -6,20 +6,20 @@
 
 }
 <div>
-    @{decimal price = Model.MaturityCalculation(Model.OrderPrice, 0);}
+    @{ decimal price = Model.MaturityCalculation(Model.OrderPrice, 0);}
     @if (Model.OrderType == (byte)Ordertype.Havale)
     {
-        Html.BeginForm("FourStep", "MembershipSales");
-    }
-    else
-    {
-        if (Model.CreditCardId != 14)
-        {
+@Html.BeginForm("FourStep", "MembershipSales");
+}
+else
+{
+if (Model.CreditCardId != 14)
+{
 <form action="/MembershipSales/FourStepNew" method="post">
     }
     @else
     {
-    <form action="@Model.VirtualPos.VirtualPosPostUrl" method="post">
+    <form action="@Model.VirtualPos.VirtualPosPostUrl " method="post">
         }
         @{ var rnd = DateTime.Now.ToString();
             string amount = "";
@@ -41,39 +41,31 @@
             taksit = "1";
             taksitpaymec = "0";
         }
-        <input type="hidden" name="clientid" value="@Model.VirtualPos.VirtualPosClientId" />
-        <input type="hidden" name="amount" value="@amount" />
 
+
+        <input type="hidden" name="clientid" value="<%=Model.VirtualPos.VirtualPosClientId" />
+        <input type="hidden" name="amount" value="@amount " />
         <input type="hidden" name="oid" value="" />
-
-        <input type="hidden" name="okUrl" value="@Model.VirtualPosReturnURL" />
-
-        <input type="hidden" name="failUrl" value="@Model.VirtualPosReturnURL" />
-
-        <input type="hidden" name="rnd" value="@rnd" />
-
-        <input type="hidden" name="hash" value="@Model.GetHashStr(amount,rnd)" />
-
-        <input type="hidden" name="storetype" value="@Model.VirtualPos.VirtualPosStoreType" />
-
+        <input type="hidden" name="okUrl" value="@Model.VirtualPosReturnURL " />
+        <input type="hidden" name="failUrl" value="@Model.VirtualPosReturnURL " />
+        <input type="hidden" name="rnd" value="@rnd " />
+        <input type="hidden" name="rnd" value="@rnd " />
+        <input type="hidden" name="hash" value="@Model.GetHashStr(amount,rnd) " />
+        <input type="hidden" name="storetype" value="@Model.VirtualPos.VirtualPosStoreType " />
         <input type="hidden" name="lang" value="tr" />
-
         <input type="hidden" name="tutar" id="tutar" value="" />
-
-        <input type="hidden" name="taksit" id="taksit" value="" />
-
-        } }
+        <input type="hidden" name="taksit" id="taksit" value="" />}
         <div>
             @if (ViewData["messageError"] != null)
             {
 <div class="alert alert-danger">
-    <strong>@ViewData["messageError"]</strong>
-</div>              }
+    <strong>@ViewData["messageError"] </strong>
+</div>}
             @if (TempData["errorPosMessage"] != null)
             {
 <div class="alert alert-danger">
-    <strong>@TempData["errorPosMessage"]</strong>
-</div>              }
+    <strong>@TempData["errorPosMessage"] </strong>
+</div>}
             <h5>
                 <span class="glyphicon glyphicon-tag"></span>&nbsp;Sipariş Detayları
             </h5>
@@ -99,7 +91,7 @@
                         </td>
                         <td>
                             @Model.PacketName
-                            @{Session["Paketadı"] = Model.PacketName; }
+                            <%Session["Paketadı"] = Model.PacketName;
                         </td>
                         <td>
                             @Model.OrderPrice.ToString("C2")
@@ -143,20 +135,20 @@
                                     </div>
                                 </div>
                             </div> if (Model.Gsm == null)
-                                                        {
-                            <div class="form-group">
-                                <label>
-                                    GSM No
-                                </label>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <input type="text" name="gsm" class="form-control" size="11" placeholder="XXXX-XXX-XX-XX" />
-                                    </div>
-                                </div>
-                            </div> }
-                        else
-                        {
-@Html.HiddenFor(x => x.Gsm)}
+                            {
+<div class="form-group">
+    <label>
+        GSM No
+    </label>
+    <div class="row">
+        <div class="col-xs-12">
+            <input type="text" name="gsm" class="form-control" size="11" placeholder="XXXX-XXX-XX-XX" />
+        </div>
+    </div>
+</div> }
+else
+{
+@Html.HiddenFor(x => x.Gsm) }
 
 <div class="form-group">
     <label>
@@ -330,11 +322,12 @@
         </div>
         @if (Model.OrderType == (byte)Ordertype.Havale)
         {
-            Html.EndForm();
-        }
+@Html.EndForm();
+}
     </form>
-</div> if (Model.OrderType == (byte)Ordertype.KrediKarti)
-                    {
+</div>
+if (Model.OrderType == (byte)Ordertype.KrediKarti)
+{
 <div class="col-sm-7 col-md-8">
     <div class="alert alert-info">
         <span class="glyphicon glyphicon-bullhorn"></span><b>
@@ -368,8 +361,8 @@
                 KDV Tutar
             </td>
             <td>
-                @* <%:((Model.OrderPrice * (18) / 100) / (118 / 100)).ToString("C2")%>*@
-                @{ var kdv = Convert.ToDecimal(1.18); }
+                @* @((Model.OrderPrice * (18) / 100) / (118 / 100)).ToString("C2")*@
+                <% var kdv = Convert.ToDecimal(1.18);
                 @(Model.OrderPrice - (Model.OrderPrice / kdv)).ToString("C2")
             </td>
         </tr>
@@ -419,8 +412,8 @@ else
                 KDV Tutar
             </td>
             <td>
-                @* <%:(Model.OrderPrice * (118) / 100).ToString("C2") %>*@
-                @{ var kdv = Convert.ToDecimal(1.18); }
+                @* @(Model.OrderPrice * (118) / 100).ToString("C2") *@
+                @{var kdv = Convert.ToDecimal(1.18);}
                 @(Model.OrderPrice - (Model.OrderPrice / kdv)).ToString("C2")
             </td>
         </tr>
@@ -447,7 +440,7 @@ else
                 Toplam Tutar
             </td>
             <td>
-                @* <%:Model.MaturityCalculation(Model.OrderPrice, 18).ToString("C2")%>*@
+                @* @Model.MaturityCalculation(Model.OrderPrice, 18).ToString("C2")*@
                 @Model.OrderPrice.ToString("C2")
             </td>
         </tr>

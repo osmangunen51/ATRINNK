@@ -70,16 +70,17 @@ else
             <div class="col-sm-6">
                 @if (Model.Address == null)
                 {
-    @Html.TextBoxFor(x => x.Address, new { @class = "form-control", @id = "AddressText" }) }
-else
-{
+                     @Html.TextBoxFor(x => x.Address, new { @class = "form-control", @id = "AddressText" }) }
+                else
+                {
 
-<div id="AddressTextWrapper" style="display:none;">
-    @Html.TextAreaFor(x => x.Address, new { @class = "form-control col-md-12", @id = "AddressText", @rows = "6" })<br />
-    <button type="button" class="btn btn-info" id="AddressSave">Kaydet</button>
-    <button type="button" class="btn btn-info" id="AddressCancel">İptal</button>
-</div>
-                <div id="AddressDisplayWrapper" class="col-md-12" style="border:1px solid #e1e1e1; font-size:12px; padding:5px; width:auto;"><span id="AddressDisplay">@Model.Address</span><a style="cursor:pointer;"><i style="margin-left:10px;color:#333" class="glyphicon glyphicon-pencil" id="AddressUpdateClick"></i></a></div>}
+                <div id="AddressTextWrapper" style="display:none;">
+                    @Html.TextAreaFor(x => x.Address, new { @class = "form-control col-md-12", @id = "AddressText", @rows = "6" })<br />
+                    <button type="button" class="btn btn-info" id="AddressSave">Kaydet</button>
+                    <button type="button" class="btn btn-info" id="AddressCancel">İptal</button>
+                </div>
+                <div id="AddressDisplayWrapper" class="col-md-12" style="border:1px solid #e1e1e1; font-size:12px; padding:5px; width:auto;"><span id="AddressDisplay">@Model.Address</span><a style="cursor:pointer;"><i style="margin-left:10px;color:#333" class="glyphicon glyphicon-pencil" id="AddressUpdateClick"></i></a></div>
+                }
             </div>
         </div>
     </div>
