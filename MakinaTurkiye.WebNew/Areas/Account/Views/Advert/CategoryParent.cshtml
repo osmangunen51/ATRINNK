@@ -24,19 +24,17 @@
     @using NeoSistem.MakinaTurkiye.Web.Models.Adverts
     @using MakinaTurkiye.Entities.Tables.Catalog
     @{
-        //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+        Layout = null;
         //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
         //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
     }
 
-
- 
 <div class="col-sm-4" data-rel="categoryPanel">
     <label data-rel="title">Ana Kategoriyi Seçiniz*</label>
     <select class="form-control" style="height:auto;"  size="10" data-rel="iListCategory">
     @foreach (var item in Model)
-        { 
+        {
             <option value="@item.CategoryId" name="ParentCategory" parent="@item.CategoryParentId">@item.CategoryName</option>
-         } 
+         }
     </select>
 </div>

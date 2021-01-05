@@ -247,8 +247,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 var model = item.ModelId.HasValue ? _categoryService.GetCategoryByCategoryId(item.ModelId.Value) : new Category();
                 var serie = item.SeriesId.HasValue ? _categoryService.GetCategoryByCategoryId(item.SeriesId.Value) : new Category();
                 var brand = item.BrandId.HasValue ? _categoryService.GetCategoryByCategoryId(item.BrandId.Value) : new Category();
-
-                productsModel.Add(new MTProductItem
+                var Itm = new MTProductItem
                 {
                     BrandName = brand != null ? brand.CategoryName : "",
                     BriefDetail = item.GetBriefDetailText(),
@@ -259,7 +258,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ModelName = model != null ? model.CategoryName : "",
                     ModelYear = item.ModelYear.HasValue == true ? item.ModelYear.Value.ToString() : DateTime.Now.Year.ToString(),
                     ProductActive = item.ProductActive.Value,
-                    ProductActiveType = item.ProductActiveType.HasValue == true ? item.ProductActiveType.Value : 0,
+                    ProductActiveType = item.ProductActiveType.Value,
                     ProductId = item.ProductId,
                     ProductName = item.ProductName,
                     ProductNo = item.ProductNo,
@@ -268,14 +267,27 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ProductTypeText = item.GetProductTypeText(),
                     SeriesName = serie != null ? serie.CategoryName : "",
                     SalesTypeText = item.GetProductSalesTypeText(),
-                    ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : 0,
+                    ProductPriceType = item.ProductPriceType.Value,
                     ViewCount = item.ViewCount.Value,
-                    CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : 0,
+                    CurrencyId = item.CurrencyId.Value,
                     CurrencyCssText = item.GetCurrencyCssName(),
                     Doping = item.Doping,
                     ShowDopingForm = showDopingForm,
                     ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
-                });
+                };
+                if (Itm.ProductActiveType==null)
+                {
+                    Itm.ProductActiveType = 0;
+                }
+                if (Itm.ProductPriceType == null)
+                {
+                    Itm.ProductPriceType = 0;
+                }
+                if (Itm.CurrencyId == null)
+                {
+                    Itm.CurrencyId = 0;
+                }
+                productsModel.Add(Itm);
             }
 
             return productsModel;
@@ -512,7 +524,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 return "false";
             else
             {
-                string ret = RenderPartialToString("~/Areas/Account/Views/Advert/AdvertSearchResult.ascx", getProduct);
+                string ret = RenderPartialToString("~/Areas/Account/Views/Advert/AdvertSearchResult.cshtml", getProduct);
 
                 return ret;
             }
@@ -585,7 +597,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 model.TotalPrice = product.ProductPriceWithDiscount.HasValue ? product.ProductPriceWithDiscount.Value.ToString("0#.00") : "0";
                 model.DiscountAmount = product.DiscountAmount.HasValue ? product.DiscountAmount.Value : 0;
-                model.DiscountType = product.DiscountType.HasValue ? product.DiscountType.Value : 0;
+                model.DiscountType = 0;
+
+                if (product.DiscountType.HasValue)
+                {
+                    model.DiscountType = product.DiscountType.Value;
+                }
 
                 List<LocalityModel> localityItems = new List<LocalityModel>() { new LocalityModel { LocalityId = 0, LocalityName = "< Lütfen Seçiniz >" } };
                 if (product.CityId != null)
@@ -1239,7 +1256,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var dataPicture = new Data.Picture();
             var pictureModel1 = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
 
-            return PartialView("/Areas/Account/Views/Advert/EditProductPicture.ascx", pictureModel1);
+            return PartialView("/Areas/Account/Views/Advert/EditProductPicture.cshtml", pictureModel1);
 
         }
 
@@ -1349,13 +1366,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             switch (pageType)
             {
                 case DisplayType.Window:
-                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.ascx";
+                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
                 case DisplayType.List:
-                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.ascx";
+                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
                 case DisplayType.Text:
-                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.ascx";
+                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
                 default:
                     break;
@@ -1435,8 +1452,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                 if (picture != null)
                     picturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150);
-
-                productModels.Add(new MTProductItem
+                var Itm = new MTProductItem
                 {
                     BrandName = item.Brand != null ? item.Brand.CategoryName : "",
                     BriefDetail = item.GetBriefDetailText(),
@@ -1455,13 +1471,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ProductStatusText = item.GetProductStatuText(),
                     ProductTypeText = item.GetProductTypeText(),
                     SalesTypeText = item.GetProductSalesTypeText(),
-                    ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : 0,
+                    ProductPriceType = item.ProductPriceType.Value,
                     ViewCount = item.ViewCount.Value,
-                    CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : 0,
+                    CurrencyId = item.CurrencyId.Value,
                     CurrencyCssText = item.GetCurrencyCssName(),
                     Doping = item.Doping,
                     ShowDopingForm = showDopingForm
-                });
+                };
+                if (Itm.ProductPriceType==null)
+                {
+                    Itm.ProductPriceType = 0;
+                }
+                if (Itm.CurrencyId == null)
+                {
+                    Itm.CurrencyId = 0;
+                }
+                productModels.Add(Itm);
             }
 
 
@@ -1474,16 +1499,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             switch (pageType)
             {
                 case DisplayType.Window:
-                    userControlName = "/Areas/Account/Views/Advert/AdvertWindow.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/AdvertWindow.cshtml";
                     break;
                 case DisplayType.List:
-                    userControlName = "/Areas/Account/Views/Advert/_AdvertListWindow.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/_AdvertListWindow.cshtml";
                     break;
                 case DisplayType.Text:
-                    userControlName = "/Areas/Account/Views/Advert/AdvertText.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/AdvertText.cshtml";
                     break;
                 case DisplayType.Table:
-                    userControlName = "/Areas/Account/Views/Advert/_AdvertListTable.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/_AdvertListTable.cshtml";
                     break;
                 default:
                     break;
@@ -1633,9 +1658,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             PictureList.RemoveAt(index);
             if (horizontal)
             {
-                return View("/Areas/Account/Views/Advert/PictureListHor.ascx", PictureList);
+                return View("/Areas/Account/Views/Advert/PictureListHor.cshtml", PictureList);
             }
-            return View("/Areas/Account/Views/Advert/PictureList.ascx", PictureList);
+            return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
         /*
         [HttpDelete]
@@ -1685,7 +1710,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             Session["PictureItems"] = newpictures;
 
-            return View("/Areas/Account/Views/Advert/PictureList.ascx", PictureList);
+            return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
 
         [HttpPost]
@@ -1724,7 +1749,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             _productService.CheckSPProductSearch(productID);
 
-            return View("/Areas/Account/Views/Advert/EditProductPicture.ascx", newpictures);
+            return View("/Areas/Account/Views/Advert/EditProductPicture.cshtml", newpictures);
         }
 
         [HttpPost]
@@ -1757,10 +1782,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             if (horizontal)
             {
-                return View("/Areas/Account/Views/Advert/PictureListHor.ascx", PictureList);
+                return View("/Areas/Account/Views/Advert/PictureListHor.cshtml", PictureList);
             }
 
-            return View("/Areas/Account/Views/Advert/PictureList.ascx", PictureList);
+            return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
 
         [HttpPost]
@@ -1786,7 +1811,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var pictureModel = dataPicture.GetItemsByProductId(ProductId).AsCollection<PictureModel>();
 
 
-            return View("/Areas/Account/Views/Advert/EditProductPicture.ascx", pictureModel);
+            return View("/Areas/Account/Views/Advert/EditProductPicture.cshtml", pictureModel);
         }
 
 
@@ -1815,7 +1840,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var pictureModel = dataPicture.GetItemsByProductId(ProductId).AsCollection<PictureModel>();
 
 
-            return View("/Areas/Account/Views/Advert/PictureListNew.ascx", pictureModel);
+            return View("/Areas/Account/Views/Advert/PictureListNew.cshtml", pictureModel);
         }
 
         [HttpPost]
@@ -1852,7 +1877,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
 
             var videoModel = _videoService.GetVideosByProductId(ProductId);
-            return View("/Areas/Account/Views/Advert/EditProductVideo.ascx", videoModel);
+            return View("/Areas/Account/Views/Advert/EditProductVideo.cshtml", videoModel);
         }
 
         [HttpDelete]
@@ -1862,7 +1887,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             FileHelpers.Delete(AppSettings.VideoThumbnailFolder + item.VideoPicturePath);
             FileHelpers.Delete(AppSettings.VideoFolder + item.VideoPath);
             VideoList.RemoveAt(index);
-            return View("/Areas/Account/Views/Advert/VideoList.ascx", VideoList);
+            return View("/Areas/Account/Views/Advert/VideoList.cshtml", VideoList);
         }
 
         [HttpPost]
@@ -1941,7 +1966,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             //        picturelist.add(picturemodel);
             //    }
-            //} 
+            //}
             #endregion
 
             if (!PacketAuthenticationModel.IsAccess(PacketPage.UrunResimSayisi, PictureList.Count + 1))
@@ -2763,7 +2788,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 curProduct.ProductPrice = Convert.ToDecimal(productPrice, culInfo.NumberFormat);
             }
-            else if (productPriceType == Convert.ToString((byte)ProductPriceType.PriceRange))//product price  
+            else if (productPriceType == Convert.ToString((byte)ProductPriceType.PriceRange))//product price
             {
                 curProduct.Kdv = false;
                 curProduct.Fob = false;

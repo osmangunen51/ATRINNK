@@ -374,14 +374,13 @@
         return vars;
     }
 
-
-    function RefreshProductList() {
+    function RefreshProductList()
+        {
         $(".loading").show();
-
         $.ajax({
             url: '/Account/ilan/AdvertPaging',
             type: 'post',
-            data: { page: $("#currentPage").val(), displayType:@((byte) DisplayType.List ), advertListType: $('#hdnActiveType').val(), ProductActiveType: @queryProductActiveType },
+            data: { page: $("#currentPage").val(), displayType:@((byte)DisplayType.List ), advertListType: $('#hdnActiveType').val(), ProductActiveType: @queryProductActiveType },
             success: function (data) {
 
                 $('[data-rel="tab-content"]').html(data);

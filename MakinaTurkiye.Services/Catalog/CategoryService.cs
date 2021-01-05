@@ -512,8 +512,8 @@ namespace MakinaTurkiye.Services.Catalog
 
         public IList<Category> GetCategoriesByCategoryParentIdWithCategoryType(int categoryParentId, CategoryTypeEnum categoryType, bool showHidden=false)
         {
-            if (categoryParentId == 0)
-                throw new ArgumentException("categoryParentId");
+            //if (categoryParentId == 0)
+            //    throw new ArgumentException("categoryParentId");
 
             string key = string.Format(CATEGORIES_BY_CATEGORYPARENT_ID_WITH_CATEGORY_TYPE_KEY, categoryParentId, (byte)categoryType,showHidden);
             return _cacheManager.Get(key, () =>

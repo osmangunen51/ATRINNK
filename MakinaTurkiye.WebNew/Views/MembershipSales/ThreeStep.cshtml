@@ -1,9 +1,7 @@
 ﻿@using NeoSistem.MakinaTurkiye.Web.Models;
 @using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 @model PacketModel
-
 @section HeaderContent {
-
     <style type="text/css">
         #AddressDisplayWrapper:hover {
             background-color: #e1e1e1;
@@ -17,9 +15,7 @@
             background-color: #e1e1e1;
         }
     </style>
-
     <script type="text/javascript">
-
         function ThreeStepCheck() {
 
             var AddressText = $.trim($("#AddressText").val());
@@ -71,7 +67,6 @@
                 }
             }
         }
-
         $(document).ready(function () {
 
             $("a[href='#divBankTransfer']").click(function () {
@@ -203,9 +198,7 @@
 
         });
     </script>
-
 }
-
 <input type="hidden" id="hdnKrediKarti" value="@Ordertype.KrediKarti" />
 <input type="hidden" id="hdnHavale" value="@Ordertype.Havale" />
 @using (Html.BeginForm("ThreeStep", "MembershipSales", FormMethod.Post))
@@ -278,11 +271,13 @@
         </div>
     </div>
 </div>
-                <input type="hidden" name="hasRecord" value="true" />
-                                <input type="hidden" id="OrderType" name="OrderType" value="@Ordertype.Havale" />
-                                                <input type="hidden" id="CreditCardInstallmentId" name="CreditCardInstallmentId" />
-                                                                <input type="hidden" id="CreditCardId" name="CreditCardId" value="" />
-                                                                                <input type="hidden" name="AccountId" id="AccountId" />
-                                                                                                <input type="hidden" name="rdPaymentOption" id="rdTekCekim" />
-                                                                                                                <input type="hidden" name="rdPaymentOption" id="rdTaksit" />
-                                                                                                                                <input type="hidden" checked="checked" name="rdOrderType" id="rdBankTransfer" />}
+<input type="hidden" name="hasRecord" value="true" />
+<input type="hidden" id="OrderType" name="OrderType" value="@Ordertype.Havale" />
+<input type="hidden" id="CreditCardInstallmentId" name="CreditCardInstallmentId" />
+<input type="hidden" id="CreditCardId" name="CreditCardId" value="" />
+<input type="hidden" name="AccountId" id="AccountId" />
+<input type="hidden" name="rdPaymentOption" id="rdTekCekim" />
+<input type="hidden" name="rdPaymentOption" id="rdTaksit" />
+<input type="hidden" checked="checked" name="rdOrderType" id="rdBankTransfer" />
+
+}

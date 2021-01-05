@@ -54,7 +54,7 @@
     <script type="text/javascript">
             $(document).ready(function () {
                 $.ajax({
-            url: '@AppSettings.SiteUrl/Home/GetStoreProductComment',
+                url:'@(AppSettings.SiteUrl+"Home/GetStoreProductComment")',
                     data: {},
                     type: 'post',
                     success: function (data) {

@@ -217,18 +217,12 @@
     </style>
 }
 
-
 @Html.HiddenFor(x => x.ProductActive)
 @Html.HiddenFor(x => x.ProductActiveType)
 @Html.HiddenFor(x => x.DisplayType)
 @Html.HiddenFor(x => x.OrderType)
-
 @{
     MakinaTurkiyeEntities makinaTurkiyeEntities = new MakinaTurkiyeEntities();
-
-}
-@{
-
     List<NeoSistem.MakinaTurkiye.Web.Models.Entities.Product> productItems = makinaTurkiyeEntities.Products.Where(c => c.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
 
     byte? queryProductActiveType = null;
@@ -473,6 +467,4 @@
 
     </script>
 
-
-}
 
