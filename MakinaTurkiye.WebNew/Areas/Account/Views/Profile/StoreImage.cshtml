@@ -28,9 +28,7 @@
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
 
-@{
-    Layout = null;
-}
+@{ Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml"; }
 
 @section headercontent{
     <script type="text/javascript" src="@Url.Content("~/Areas/Account/Content/FileUpload/filepreview.js")"></script>
@@ -141,21 +139,20 @@
     @foreach (var item in Model.StoreImageItems)
     {
 
-        <div id="imageParent@(i)" class="col-md-3 img-thumbnail">
+<div id="imageParent@(i)" class="col-md-3 img-thumbnail">
 
-            @Ajax.RawActionLink(string.Format("<i class='fa fa-times' aria-hidden='true'></i> "), "DeleteStoreImage", null, new { ImageId = item.ImageId }, new AjaxOptions
-            {
-            // <-- DOM element ID to update
-                   InsertionMode = InsertionMode.Replace,
-                   HttpMethod = "POST" // <-- HTTP method
-},
+    @Ajax.RawActionLink(string.Format("<i class='fa fa-times' aria-hidden='true'></i> "), "DeleteStoreImage", null, new { ImageId = item.ImageId }, new AjaxOptions
+    {
+        // <-- DOM element ID to update
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST" // <-- HTTP method
+    },
 new { @onclick = "ImageDelete(" + i + ")" })
 
-            <img class="img-thumbnail" src="@item.ImagePath" />
-        </div>
-        i++;
+    <img class="img-thumbnail" src="@item.ImagePath" />
+</div>i++;
 
-    }
+            }
 </div>
 
 

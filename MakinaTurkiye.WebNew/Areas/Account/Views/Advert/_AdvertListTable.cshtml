@@ -21,6 +21,7 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 @using NeoSistem.MakinaTurkiye.Web.Models.Videos
 @{
+    Layout = null;
     //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
@@ -150,14 +151,13 @@
     </thead>
     @if (Model.Source.Count > 0)
     {
-        foreach (var item in Model.Source)
+        foreach (NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert.MTProductItem item in Model.Source)
         {
             string productUrl = Helpers.ProductUrl(item.ProductId, item.ProductName);
-
             <tr>
                 <td>
-                    <a href="@productUrl ">
-                        <img style="height: 80px;" src="@item.ImagePath" class="img-responsive" /><br />
+                    <a href="@productUrl">
+                        <img style="height:80px;" src="@item.ImagePath" class="img-responsive" /><br />
                         <b>@item.ProductNo</b>
                     </a>
                 </td>
@@ -258,7 +258,7 @@
     </div>
 }
 
-@Html.Hidden(x => x.CurrentPage, new { @@id = "currentPage" })
+@Html.HiddenFor(x => x.CurrentPage, new { @id= "currentPage" })
 
 
 <script type="text/javascript">

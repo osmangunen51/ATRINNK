@@ -30,8 +30,6 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml"; }
 
     int pagetype = Convert.ToInt32(Request.QueryString["pagetype"]);
 
@@ -82,14 +80,14 @@
             case 0:
                 break;
             case 1:
-@Html.Partial("StoreStatistic", Model.MTStatisticModel) break;
-case 2:
-break;
+                @Html.Partial("StoreStatistic", Model.MTStatisticModel) break;
+                case 2:
+                break;
 
-case 3:
-@Html.Partial("ProductOnebyOne", Model)break;
-default:
-break;
-}
+                case 3:
+                @Html.Partial("ProductOnebyOne", Model)break;
+                default:
+                break;
+                }
     </div>
 </div>

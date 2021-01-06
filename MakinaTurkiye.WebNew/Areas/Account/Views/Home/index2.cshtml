@@ -74,9 +74,7 @@
 </div>
 
 <div class="row">
-
     @Html.Partial("_AccountHomeCenter", Model.AccountHomeCenterCenterModel)
-
     <div class="col-md-3 col-xs-12 col-sm-12">
         @if (Model.AccountHomeCenterCenterModel.MemberType != (byte)MemberType.FastIndividual && Model.AccountHomeCenterCenterModel.MemberType != (byte)MemberType.Individual)
         {
