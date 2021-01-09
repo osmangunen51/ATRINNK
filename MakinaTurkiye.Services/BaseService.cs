@@ -53,7 +53,6 @@ namespace MakinaTurkiye.Services
                     redisCacheManager.RemoveOperationEnabled = this.CachingRemoveOperationEnabled;
                 }
             }
-
             if (_cacheManager is MemoryCacheManager memoryCacheManager)
             {
                 if(memoryCacheManager.AllOperationEnabled)
