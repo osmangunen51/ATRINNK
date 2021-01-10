@@ -64,16 +64,13 @@
                     {
 
                     }
-
                     <div class="form-group">
                         <label class="col-sm-4 control-label">
                             Firma Ünvanı
-
                         </label>
                         <div class="col-sm-4">
-                            @Html.TextBoxFor(model => model.Store.StoreName,
-                            new Dictionary<string, object> { { "class", "mt-form-control" }, { "data-validation-engine", "validate[required]" }, { "placeholder", "Demo Makina Sanayi Ltd." } })
-                        </div>
+                            @Model.StoreName
+                       </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-4 control-label">

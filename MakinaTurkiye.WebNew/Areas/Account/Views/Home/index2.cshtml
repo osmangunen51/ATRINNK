@@ -144,30 +144,21 @@
                         switch (packetType)
                         {
                             case EPacketFeatureType.ProcessCount:
-
-                                @(item.FeatureProcessCount.HasValue ? item.FeatureProcessCount.Value.ToString() : "")
-                                @item.PacketFeatureTypeName<br />
+                                <span>@(item.FeatureProcessCount.HasValue ? item.FeatureProcessCount.Value.ToString() : "") @item.PacketFeatureTypeName</span>
                                 break;
                             case EPacketFeatureType.Active:
                                 if (item.FeatureActive.HasValue && item.FeatureActive.Value)
                                 {
-
-                                    @item.PacketFeatureTypeName<br />
+                                    @item.PacketFeatureTypeName
                                 }
                                 break;
                             case EPacketFeatureType.Content:
-
-                                @item.FeatureContent
-                                @item.PacketFeatureTypeName
-                                <br />
+                                <span> @item.FeatureContent @item.PacketFeatureTypeName</span>
                                 break;
                             default:
                                 break;
                         }
-
-
-
-
+                        <br />
                     }
                     <hr />
                     @if (Model.PacketFinishDay < 30 && Model.AccountHomeCenterCenterModel.HasPacket)

@@ -117,7 +117,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 return Session["MembershipSessionModel"] as MembershipViewModel;
             }
-            set { Session["MembershipSessionModel"] = value; }
+            set {
+                Session["MembershipSessionModel"] = value;
+            }
         }
 
         //----------------------------------------------------------------------------FİRMA ÜYELİĞİ----------------------------------------------------------------------------\\
