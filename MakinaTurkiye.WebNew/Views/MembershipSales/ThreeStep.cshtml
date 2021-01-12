@@ -1,6 +1,9 @@
 ﻿@using NeoSistem.MakinaTurkiye.Web.Models;
 @using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 @model PacketModel
+@{
+    int OrdertTypeInt = (int)Ordertype.Havale;
+}
 @section HeaderContent {
     <style type="text/css">
         #AddressDisplayWrapper:hover {
@@ -272,12 +275,13 @@
     </div>
 </div>
 <input type="hidden" name="hasRecord" value="true" />
-<input type="hidden" id="OrderType" name="OrderType" value="@Ordertype.Havale" />
+<input type="hidden" id="OrderType" name="OrderType" value="@OrdertTypeInt" />
 <input type="hidden" id="CreditCardInstallmentId" name="CreditCardInstallmentId" />
 <input type="hidden" id="CreditCardId" name="CreditCardId" value="" />
 <input type="hidden" name="AccountId" id="AccountId" />
 <input type="hidden" name="rdPaymentOption" id="rdTekCekim" />
 <input type="hidden" name="rdPaymentOption" id="rdTaksit" />
 <input type="hidden" checked="checked" name="rdOrderType" id="rdBankTransfer" />
+
 
 }
