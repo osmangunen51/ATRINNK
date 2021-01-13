@@ -171,8 +171,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     //    canonical += $"?page={request.QueryString["page"].ToString()}";
 
                     //}
-                    
-                    
+
+
 
                     filterContext.Controller.ViewBag.Canonical = url;
 
@@ -275,10 +275,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else
                 {
-                    navigation.AppendLine(" <li><a target='" + nn.Target + "' href='" + AppSettings.SiteUrl + "" + nn.Url + "'>" + nn.Title + "</a></li>");
+                    navigation.AppendLine(" <li><a target='" + nn.Target + "' href='"+"" + nn.Url + "'>" + nn.Title + "</a></li>");
                 }
             }
-
             navigation.AppendLine("</ol>");
             return navigation.ToString();
         }
@@ -341,7 +340,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
 
-        #region QueryString Values 
+        #region QueryString Values
 
         public int GetCategoryIdQueryString()
         {

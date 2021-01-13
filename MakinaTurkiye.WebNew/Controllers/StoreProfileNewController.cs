@@ -821,7 +821,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     int memberMainPartyId = Convert.ToInt32(memberStore.MemberMainPartyId);
 
-                    NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles.MTCompanyProfileModel model = new NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles.MTCompanyProfileModel();
+                    MTCompanyProfileModel model = new MTCompanyProfileModel();
 
                     MTStoreProfileHeaderModel companyProfileHeaderModel = PrepareStoreProfileHeader("CompanyProfile", store, memberMainPartyId);
                     PrepareCompanyProfilePopularProducts(model, store.MainPartyId);
@@ -1006,7 +1006,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     _storeService.UpdateStore(store);
 
                     return await Task.FromResult(View(model));
-
                 }
                 else
                 {

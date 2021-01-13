@@ -2,14 +2,12 @@
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
-
 @{
-
-//using NeoSistem.MakinaTurkiye.Web.Models
-//using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+    //using NeoSistem.MakinaTurkiye.Web.Models
+    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 }
-@{ 
-    byte gorunum = Convert.ToByte(Request.QueryString["Gorunum"]);
+@{
+    //byte gorunum = Convert.ToByte(Request.QueryString["Gorunum"]);
     string formatsize = "class=\"productHeaderContainer\"";
     string formatsize2 = "class=\"productHeaderContainer3\"";
     string page = ""; if (Request.QueryString["Sayfa"] != null) { page = "&Sayfa=" + Request.QueryString["Sayfa"]; }
@@ -33,7 +31,7 @@
         displayGrid = "&Gorunum=Galeri";
         displayList = "&Gorunum=Liste";
     }
-    @{ 
+    @{
         string orderTip = ""; if (Request.QueryString["Order"] != null) { orderTip = "&amp;Order=" + Request.QueryString["Order"]; }
         string searchText = ""; if (Request.QueryString["SearchText"] != null) { searchText = "&SearchText=" + Request.QueryString["SearchText"]; }
         string countryFilter = ""; if (Request.QueryString["ulke"] != null) { countryFilter = "?ulke=" + Request.QueryString["ulke"]; }
@@ -69,7 +67,7 @@
 
                 <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@page@orderTip@searchText@("&amp;SearchType=hizmet")" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Services ? activeCss : string.Empty)">Hizmet&nbsp<span class="category-filter-count">(@service.ProductCount)</span></a>
                     }
-                } 
+                }
             </div>
         <div class="col-xs-3 col-sm-6 col-md-4 ">
             <div class="col-md-7 hidden-xs col-xs-1">

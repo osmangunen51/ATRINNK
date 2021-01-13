@@ -17,7 +17,7 @@
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 }
 
-    <div class="modal fade" id="PostCommentsModal" tabindex="-1"
+    <div class="modal fade" id="PostCommentsModal" tabindex="-1" style="margin-top:100px;"
          role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -50,19 +50,19 @@
                         <li class="active"><a data-toggle="tab" href="#contact">İletişim Bilgileri</a></li>
                         @if ( AuthenticationUser.CurrentUser.Membership==null || AuthenticationUser.CurrentUser.Membership.MainPartyId == 0) {
                         <li><a data-toggle="tab" href="#message">Mesaj Gönder</a></li>
-                         } 
+                         }
 
                     </ul>
                     <div class="tab-content">
                         <div id="contact" class="tab-pane fade in active">
-                            @Html.Partial("_ProductStorePhones",Model) 
+                            @Html.Partial("_ProductStorePhones",Model)
                         </div>
                         @if (AuthenticationUser.CurrentUser.Membership == null || AuthenticationUser.CurrentUser.Membership.MainPartyId == 0)
                         {
                         <div id="message" class="tab-pane fade in ">
-                            @Html.Partial("_ProductStoreMessageNew", Model.StoreMessage) 
+                            @Html.Partial("_ProductStoreMessageNew", Model.StoreMessage)
                         </div>
-                        } 
+                        }
 
                     </div>
                 </div>

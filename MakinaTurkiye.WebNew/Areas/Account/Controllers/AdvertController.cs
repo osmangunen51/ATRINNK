@@ -222,7 +222,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 int totalCount = products.Count;
                 products = products.Skip(takeFrom).Take(pageDimension).ToList();
                 SearchModel<MTProductItem> searchModel = new SearchModel<MTProductItem>();
-                searchModel.Source = PrepapareProductsModel(products, showDopingForm);
+                searchModel.Source = PrepapareProductsModel(products,  showDopingForm);
                 searchModel.TotalRecord = totalCount;
                 searchModel.PageDimension = pageDimension;
                 searchModel.CurrentPage = page;
@@ -2955,9 +2955,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             string keyword = "";
             if (productName.Contains("Makinası"))
             {
-                keyword = productName.Replace("Makinası", "Makinesi").ToLower();
+                keyword = productName.Replace("Makinası","Makinesi").ToLower();
             }
-            else if (productName.Contains("Makinesi"))
+            else if(productName.Contains("Makinesi"))
             {
                 keyword = productName.Replace("Makinesi", "Makinası").ToLower();
             }
@@ -3472,7 +3472,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             int memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             _productService.CachingGetOrSetOperationEnabled = false;
-            var products = _productService.GetProductsByMainPartyId(memberMainPartyId, true);
+            var products = _productService.GetProductsByMainPartyId(memberMainPartyId,true);
 
             foreach (var item in products)
             {

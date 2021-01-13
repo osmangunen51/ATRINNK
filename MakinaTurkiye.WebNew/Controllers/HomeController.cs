@@ -160,6 +160,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     if (cat != null)
                     {
                         string catUrl = "";
+
                         string categoryNameUrl1 = !string.IsNullOrEmpty(cat.Category.CategoryContentTitle) ? cat.Category.CategoryContentTitle : cat.Category.CategoryName;
 
                         if (cat.Category.CategoryType == (byte)CategoryType.Category || cat.Category.CategoryType == (byte)CategoryType.Sector || cat.Category.CategoryType == (byte)CategoryType.ProductGroup)

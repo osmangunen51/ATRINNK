@@ -450,7 +450,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public ActionResult FourStep(string messagge, string orderId)
         {
 
-
+            
             if (!string.IsNullOrEmpty(orderId))
             {
                 var order = _orderService.GetOrderByOrderId(Convert.ToInt32(orderId));
@@ -598,7 +598,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var phones = _phoneService.GetPhonesByMainPartyId(memberStoreN.StoreMainPartyId.Value);
                 if (phones.Count == 0)
                 {
-
+                   
 
                     var phoneGsm = phones.Where(x => x.PhoneType == 3).FirstOrDefault();
                     if (phoneGsm != null)
@@ -628,7 +628,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         string tutar;
         string cv2;
         string khip;
-        [RequireHttps]
+         [RequireHttps]
         [HttpPost]
         public ActionResult FourStep(FormCollection[] fColl)
         {
@@ -1236,7 +1236,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 _creditCardLogService.InsertCreditCardLog(ccl);
 
-                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", order.OrderId });
+                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure",  order.OrderId });
             }
 
 
@@ -1404,7 +1404,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
                 return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
 
-                //  return View();
+              //  return View();
             }
 
         }
@@ -1544,7 +1544,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     int orderId = Convert.ToInt32(OrderId);
                     order = _orderService.GetOrderByOrderId(orderId);
-
+          
                 }
                 if (!string.IsNullOrEmpty(ProductId))
                 {
@@ -1573,7 +1573,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         packetModel.PacketName = packet.PacketName;
                         packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
                         if (!string.IsNullOrEmpty(priceAmount))
-                            packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".", ","));
+                            packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".",","));
                         else
                             if (paid != 0)
                             packetModel.PayPriceAmount = order.OrderPrice - paid;
@@ -1662,7 +1662,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             else
                 packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
 
-            if (ProductId != "0" && orderId == "0") // insert product order 
+            if (ProductId != "0" && orderId=="0") // insert product order 
             {
                 order = new Order
                 {
@@ -1690,7 +1690,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(memberStore.StoreMainPartyId.Value, PhoneTypeEnum.Gsm);
 
             IyzicoPayment iyzicoPayment = new IyzicoPayment(order, member, adressNew, packet, tutar, pan, kartisim, cv2, Ecom_Payment_Card_ExpDate_Month,
-                    Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone, taksit);
+                    Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone,taksit);
 
             var paymentResult = iyzicoPayment.CreatePaymentRequest();
             if (paymentResult.HtmlContent != null)
@@ -1726,7 +1726,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 if (decimal.Parse(tutar) != order.OrderPrice)
                 {
-                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
+                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount =tutar, OrderId = order.OrderId });
 
                 }
             }

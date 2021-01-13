@@ -21,13 +21,13 @@
     }
     </style>
     <div class="product-list-mt row clearfix">
-        @{ 
+        @{
             int i = 0;
             int otherIndexNumber = 0;
 
         }
         @foreach (var model1 in Model.CategoryProductModels)
-        { 
+        {
         ++i;
         string productUrl = MakinaTurkiye.Utilities.HttpHelpers.UrlBuilder.GetProductUrl(model1.ProductId, model1.ProductName);
         string s = model1.ModelYear.ToString();
@@ -60,7 +60,7 @@
                             }
                             i++;
 
-                            } 
+                            }
                             else
                             {
                             <img class="img-thumbnail broken-image"
@@ -68,7 +68,7 @@
                                  data-src="//s.makinaturkiye.com/no-image_200x150.png"
                                  title="@model1.ProductName"
                                  alt="@model1.ProductName" />
-                            } 
+                            }
 
                             @if (model1.HasVideo)
                             {
@@ -86,7 +86,7 @@
                                         if (!string.IsNullOrEmpty(model1.ModelName))
                                         {
                                             //  model1.ModelName = ", " + model1.ModelName;
-                                            <span style="color:#7b7b7b">
+                                            <span style="color: #1eb929">
                                                 @Html.Raw("(" + model1.BrandName + ", " + model1.ModelName + ")")
                                             </span>
                                         }
@@ -156,7 +156,7 @@
                                     }
                                     if (!string.IsNullOrEmpty(model1.Price))
                                     {
-                                        <small style=" font-weight: 500; padding-left: 4px; font-size: 10px;">@model1.KdvOrFobText</small>
+                                        <small style=" font-weight: 500; padding-left:0px; font-size: 11px;color:#8a8a8a">@model1.KdvOrFobText</small>
                                     }
                                 }
                             </p>
@@ -165,7 +165,7 @@
                         </div>
 
                     </a>
-              
+
                 </div>
             </div>
         </div>

@@ -111,7 +111,7 @@
 
                     </div>
                 }
-                                            
+
                 @if (!string.IsNullOrEmpty(Model.MapCode))
                 {
                     <div id="konum" class="clearfix tab-pane fade">
@@ -141,16 +141,16 @@
                         <div class="row">
                             @foreach (var item in Model.MTProductCatologs)
                             {
-                            <div class="col-xs-4 col-md-3">
-                                <div class="thumbnail thumbnail-mt">
-                                    <a target="_blank" href="@item.FilePath" class="pdf-icon-link">
-                                        <img class="pdf-icon" src="/Content/V2/images/pdf-icon.png" />
-                                    </a>
-                                    <div class="caption-pdf">
-                                        @Model.ProductName
+                                <div class="col-xs-4 col-md-3">
+                                    <div class="thumbnail thumbnail-mt">
+                                        <a target="_blank" href="@item.FilePath" class="pdf-icon-link">
+                                            <img class="pdf-icon" src="/Content/V2/images/pdf-icon.png" />
+                                        </a>
+                                        <div class="caption-pdf">
+                                            @Model.ProductName
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             }
                         </div>
                     </div>
@@ -160,28 +160,27 @@
                 <div id="comments" class="clearfix tab-pane fade" style="font-size: 15px;">
                     @{Html.RenderPartial("_ProductComment", Model);}
                 </div>
-                @if (Model.Certificates.Count > 0)
-                {
-                <div id="certificates" class="clearfix tab-pane fade" style="font-size: 15px;">
-                    <div class="row">
-                        <div class="col-md-12 certificate-popup-gallery">
+                    @if (Model.Certificates.Count > 0)
+                    {
+                        <div id="certificates" class="clearfix tab-pane fade" style="font-size: 15px;">
+                            <div class="row">
+                                <div class="col-md-12 certificate-popup-gallery">
 
-                            @foreach (KeyValuePair<string, string>
-                                entry in Model.Certificates)
-                                {
-                                <div class="col-md-3">
-                                    <div style="height: 280px;">
-                                        <a class="img-cerficate-link" href="@entry.Value.Replace(" -500x800","_certificate")" title="@entry.Key">
-                                            <img class="img-responsive" style="border: 1px solid #ccc; height: 100%; -webkit-box-shadow: -2px 4px 7px -3px #000000; box-shadow: -2px 4px 7px -3px #000000;" src="@entry.Value.Replace(" png","jpg")" alt="@entry.Key" />
-                                        </a>
-                                    </div>
-                                    <p style="font-size: 14px; margin-top: 5px;">@entry.Key</p>
+                                    @foreach (var entry in Model.Certificates)
+                                        {
+                                            <div class="col-md-3">
+                                                <div style="height: 280px;">
+                                                    <a class="img-cerficate-link" href="@entry.File.Replace(" -500x800","_certificate")" title="@entry.File">
+                                                        <img class="img-responsive" style="border: 1px solid #ccc; height: 100%; -webkit-box-shadow: -2px 4px 7px -3px #000000; box-shadow: -2px 4px 7px -3px #000000;" src="@entry.File.Replace(" png","jpg")" alt="@entry.Name" />
+                                                    </a>
+                                                </div>
+                                                <p style="font-size: 14px; margin-top: 5px;">@entry.Name</p>
+                                            </div>
+                                        }
                                 </div>
-                                }
+                            </div>
                         </div>
-                    </div>
-                </div>
-                }
+                    }
                 </div>
             </div>
         </div>

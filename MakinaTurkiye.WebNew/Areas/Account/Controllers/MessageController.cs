@@ -43,7 +43,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         public MessageController(IMemberStoreService memberStoreService,
             IMemberService memberService,
-            IMessageService messageService, IAddressService addressService,
+            IMessageService messageService, IAddressService addressService, 
             IPhoneService phoneService, IProductService productService,
             IStoreService storeService, IMobileMessageService mobileMessageService, IMessagesMTService messagesMTService)
         {
@@ -89,7 +89,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     if(message!=null)
                       subject = message.MessageSubject;
                 }
-
+              
             }
 
             string ad = "";
@@ -97,7 +97,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 if (Request.QueryString["MessagePageType"].ToString() == "1")
                 {
-
+                    
 
                     int mainPartyId = (int)AuthenticationUser.Membership.MainPartyId;
 
@@ -114,7 +114,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     else
                     {
 
-
+                     
                         if (AuthenticationUser.Membership.MemberType != (byte)MemberType.Enterprise)//eğer firmaysa mesaj gönderebilir onaya gerek yoktur.
                         {
                             if (adressData != null)
@@ -160,7 +160,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     var product = _productService.GetProductByProductId(productNo);
                     productName = product.ProductName;
                     productUrl = NoeSistemHelpers.ProductUrl(product.ProductId, product.ProductName);
-
+                 
                     model.Product = product;
                 }
 
@@ -189,7 +189,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     mainPartyIdsPar  = String.Join(", ", mainPartyIds); ;
                 }
 
-
+    
 
                 switch (mPageType)
                 {
@@ -200,7 +200,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                         break;
                     case MessagePageType.Send:
-
+                       
                         #region
 
                         if (sendmainparty != 0)
@@ -610,27 +610,44 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
 
             #region messageissendbilgilendirme
-            var productnosub = "";
-            var productUrl = "";
-            if (product == null)
-            {
-                productnosub = model.Message.Subject;
-                productUrl = "";
-            }
-            else
-            {
-                productnosub = product.ProductName + " " + brandname + " " + modelname + " İlan no:" + product.ProductNo;
-                productUrl = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
 
+            if (model.Message.ProductId != 0)
+            {
+                var kullaniciemail = _memberService.GetMemberByMainPartyId(model.Message.MainPartyId);
+                string mailadresifirma = kullaniciemail.MemberEmail.ToString();
+                string productName = product.ProductName.ToString();
+                //var productno = entities.Products.Where(c => c.ProductId == model.Message.ProductId).SingleOrDefault().ProductNo;
+                //var groupname = entities.Categories.Where(c => c.CategoryId == product.ProductGroupId).SingleOrDefault().CategoryName;
+                //var categoryname = entities.Categories.Where(c => c.CategoryId == product.CategoryId).SingleOrDefault().CategoryName;
+                string categoryModelName = "";
+                string brandName = "";
+                var categoryModel = product.Model;
+                if (categoryModel != null)
+                    categoryModelName = categoryModel.CategoryName;
+                var categorBrand = product.Brand;
+                if (categorBrand != null)
+                    brandName = categorBrand.CategoryName;
+
+                string productnosub = productName + " " + brandName + " " + categoryModelName + " İlan no:" + product.ProductNo;
+                string productUrl = UrlBuilder.GetProductUrl(product.ProductId, productName);
+
+                LinkHelper linkHelper = new LinkHelper();
+                string encValue = linkHelper.Encrypt(model.Message.MainPartyId.ToString());
+                string messageLink = "/Account/Message/Detail/" + messageId + "?RedirectMessageType=0";
+                string loginauto = "https://www.makinaturkiye.com/MemberShip/LogonAuto?validateId=" + encValue + "&returnUrl=" + messageLink;
 
                 MailMessage mail = new MailMessage();
+                string mailTemplateName = "mesajinizvarkullanici";
 
-                MessagesMT mailTemplate = _messagesMTService.GetMessagesMTByMessageMTName("mesajınızvar");
+                if (product.MainPartyId == mainPartyId)
+                    mailTemplateName = "mesajınızvar";
 
-                //var messagesmttemplate = entities.MessagesMTs.Where(c => c.MessagesMTId == 5).SingleOrDefault();
-                // templatet = messagesmttemplate.MessagesMTPropertie;
+                MessagesMT mailTemplate = _messagesMTService.GetMessagesMTByMessageMTName(mailTemplateName);
+                mail.From = new MailAddress(mailTemplate.Mail, mailTemplate.MailSendFromName); //Mailin kimden gittiğini belirtiyoruz
+                mail.To.Add(mailadresifirma);                                                              //Mailin kime gideceğini belirtiyoruz
+                mail.Subject = productnosub;                                              //Mail konusu
                 string templatet = mailTemplate.MessagesMTPropertie;
-                templatet = templatet.Replace("#kullaniciadi", AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname).Replace("#urunadi", product.ProductName).Replace("#email#", Eposta.MemberEmail).Replace("#link", productUrl).Replace("#ilanno", product.ProductNo);
+                templatet = templatet.Replace("#kullaniciadi", kullaniciemail.MemberName + " " + kullaniciemail.MemberSurname).Replace("#urunadi", productName).Replace("#email#", mailadresifirma).Replace("#link", productUrl).Replace("#ilanno", product.ProductNo).Replace("#producturl#", productUrl).Replace("#messagecontent#", model.Message.Content).Replace("#loginautolink#", loginauto);
                 mail.Body = templatet;                                                            //Mailin içeriği
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
@@ -640,11 +657,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
                 sc.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
                 sc.Send(mail);
-
-
             }
-
-
             #endregion
 
             //return Json(true);

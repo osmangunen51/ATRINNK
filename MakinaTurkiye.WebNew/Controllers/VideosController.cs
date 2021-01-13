@@ -87,7 +87,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         //                    parentText = parentText + ", " + item.CategoryName;
         //            }
         //            CreateSeoParameter(SeoModel.SeoProductParemeters.AltKategoriForAktifKategori, parentText);
-        //            CreateSeoParameter(SeoModel.SeoProductParemeters.KategoriBaslik, 
+        //            CreateSeoParameter(SeoModel.SeoProductParemeters.KategoriBaslik,
         //            !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName);
         //        }
         //    }
@@ -140,16 +140,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             foreach (var item in topCategories)
             {
-                if (item.CategoryParentId == null)
-                {
-                    alMenu.Add(new Navigation(item.CategoryName + " Videoları", "/" + UrlBuilder.ToUrl("videolar") + "/" +
-                        item.CategoryId.ToString() + "/" + UrlBuilder.ToUrl(item.CategoryName), Navigation.TargetType._self));
-                }
-                else //if (item.CategoryType != (byte)CategoryTypeEnum.ProductGroup)
-                {
-                    alMenu.Add(new Navigation(item.CategoryName + " Videoları", "/" + UrlBuilder.ToUrl("videolar") + "/" +
-                        item.CategoryId.ToString() + "/" + UrlBuilder.ToUrl(item.CategoryName), Navigation.TargetType._self));
-                }
+                string Title = item.CategoryName + " Videoları";
+                var Target = Navigation.TargetType._self;
+                string Url = UrlBuilder.GetVideoCategoryUrl(item.CategoryId, item.CategoryName);
+                var NavigationItm = new Navigation(Title, Url, Target);
+                alMenu.Add(NavigationItm);
             }
             model.Navigation = LoadNavigationV2(alMenu);
         }
@@ -431,6 +426,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 videoItemModel.MTStoreAndProductDetailModel.VideoTitle = product.ProductName;
             }
+            if (video.Order!=null)
+            {
+                videoItemModel.MTStoreAndProductDetailModel.VideoTitle = $"{videoItemModel.MTStoreAndProductDetailModel.VideoTitle} {video.Order.ToString()}";
+            }
+
 
             videoItemModel.MTStoreAndProductDetailModel.ProductStatus = video.Product.GetProductStatuText();
 
@@ -672,7 +672,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var testModel = _cacheManager.Get(key, () =>
             {
                 var model = new MTVideoViewModel();
-    
+
                 //popular videos
                 PreparePopularVideoModel(model);
                 //video category
@@ -708,8 +708,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             _videoService.CachingGetOrSetOperationEnabled = false;
             var video = _videoService.GetVideoByVideoId(VideoId);
-
-
+            var productvideos = _videoService.GetVideosByProductId((int)video.ProductId);
+            if (productvideos.Count>1)
+            {
+                video.Order = (byte)productvideos.ToList().FindIndex(x => x.VideoId == video.VideoId);
+                video.Order++;
+            }
 
             if (video == null)
                 return RedirectPermanent(AppSettings.VideoUrlBase);

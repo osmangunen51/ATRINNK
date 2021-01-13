@@ -486,7 +486,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 ModelState.AddModelError("CertificateImages", "Sertifika İçin Fotoğraf Seçmelisiniz");
                 return View(modelNew);
             }
-       
+
 
         }
         public ActionResult Certificate()
@@ -537,7 +537,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     certificateOptions = certificateOptions + string.Format("<option value='{0}' {1}>{2}</option>", item.CertificateTypeId, selected, item.Name);
                 }
             }
-            
+
             return Json(new { Order = certificate.Order, Name = certificate.CertificateName, CertificateOptions = certificateOptions }, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -557,7 +557,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     {
                         CertificateTypeId = Convert.ToInt32(certificateType),
                         StoreCertificateId = certificateId,
-                        
+
                     };
                     _certificateTypeService.InsertCertificateTypeProduct(certificateTypeStore);
                 }
@@ -570,7 +570,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         public JsonResult DeleteCertificate(int id)
         {
 
-      
+
             var certificate = _storeService.GetStoreCertificateByStoreCertificateId(id);
             List<int> ids = new List<int>();
             ids.Add(id);
@@ -584,7 +584,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             var certificateTypeProduct = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(id);
                 _certificateTypeService.DeleteCertificateTypeProduct(certificateTypeProduct);
-       
+
 
             var pictures = _pictureService.GetPictureByStoreCertificateId(id);
             foreach (var item in pictures)
@@ -954,8 +954,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             bool storeChange = false;
             var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-            if (store.StoreName != model.Store.StoreName)
-                storeChange = true;
+            //if (store.StoreName != model.Store.StoreName)
+            //    storeChange = true;
             if (store.StoreWeb != model.Store.StoreWeb)
                 storeChange = true;
             if (store.StoreCapital != model.Store.StoreCapital)
@@ -967,7 +967,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             storeChange = store.StoreProfileHomeDescription != model.Store.StoreProfileHomeDescription ? true : storeChange;
             if (storeChange)
                 _storeChangeHistoryService.AddStoreChangeHistoryForStore(store);
-            store.StoreName = model.Store.StoreName;
+            //store.StoreName = model.Store.StoreName;
             store.StoreWeb = model.Store.StoreWeb;
             store.StoreCapital = model.Store.StoreCapital;
             store.StoreEstablishmentDate = model.Store.StoreEstablishmentDate;
@@ -979,7 +979,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             store.StoreType = model.Store.StoreType;
             store.StoreShortName = model.Store.StoreShortName;
             _storeService.UpdateStore(store);
-
             if (ActivityName != null && ActivityName.Length > 0)
             {
                 var storeAcTypes = _storeActivityTypeService.GetStoreActivityTypesByStoreId(mainPartyId);
@@ -1002,7 +1001,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     }
                 }
             }
-
             return RedirectToAction("UpdateStore", "Store");
         }
 
@@ -1025,11 +1023,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             return View(model);
         }
-
         [HttpPost]
         public ActionResult UpdateActivity(string[] StoreActivityCategory)
         {
-
             if (StoreActivityCategory != null)
             {
                 int mainPartyId = AuthenticationUser.Membership.MainPartyId;
@@ -1057,17 +1053,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     }
                 }
             }
-
             return RedirectToAction("UpdateActivity", "Store");
         }
 
         public ActionResult UpdateAuthorized()
         {
             var member = _memberService.GetMemberByMainPartyId(AuthenticationUser.Membership.MainPartyId);
-
             var model = new MemberModel();
             model.Member = member;
-
             if (member.BirthDate.HasValue)
             {
                 model.Day = member.BirthDate.Value.Day;

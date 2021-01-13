@@ -370,7 +370,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     result = true;
                 }
             }
-            return Json(result);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -581,7 +581,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         CategoryContentTitle = item.CategoryContentTitle,
                         CategoryName = item.CategoryName,
-                        CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, item.CategoryName, null, string.Empty),
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, item.CategoryContentTitle, null, string.Empty),
                         ImagePath = ImageHelper.GetHomeSectorImagePath(item.HomeImagePath)
                     });
                 }
@@ -644,7 +644,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 IList<Category> categoryItems = null;
                 List<SelectListItem> categoryList = new List<SelectListItem>();
                 categoryItems = _categoryService.GetSPCategoryGetCategoryByCategoryName(categoryName);
-                
+
                 foreach (var item in categoryItems)
                 {
                     string title = "";

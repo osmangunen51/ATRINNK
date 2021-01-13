@@ -621,6 +621,32 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\favicon\android-icon-144x144.png" />
+    <Content Include="Content\favicon\android-icon-192x192.png" />
+    <Content Include="Content\favicon\android-icon-36x36.png" />
+    <Content Include="Content\favicon\android-icon-48x48.png" />
+    <Content Include="Content\favicon\android-icon-72x72.png" />
+    <Content Include="Content\favicon\android-icon-96x96.png" />
+    <Content Include="Content\favicon\apple-icon-114x114.png" />
+    <Content Include="Content\favicon\apple-icon-120x120.png" />
+    <Content Include="Content\favicon\apple-icon-144x144.png" />
+    <Content Include="Content\favicon\apple-icon-152x152.png" />
+    <Content Include="Content\favicon\apple-icon-180x180.png" />
+    <Content Include="Content\favicon\apple-icon-57x57.png" />
+    <Content Include="Content\favicon\apple-icon-60x60.png" />
+    <Content Include="Content\favicon\apple-icon-72x72.png" />
+    <Content Include="Content\favicon\apple-icon-76x76.png" />
+    <Content Include="Content\favicon\apple-icon-precomposed.png" />
+    <Content Include="Content\favicon\apple-icon.png" />
+    <Content Include="Content\favicon\browserconfig.xml" />
+    <Content Include="Content\favicon\favicon-16x16.png" />
+    <Content Include="Content\favicon\favicon-32x32.png" />
+    <Content Include="Content\favicon\favicon-96x96.png" />
+    <Content Include="Content\favicon\favicon.ico" />
+    <Content Include="Content\favicon\ms-icon-144x144.png" />
+    <Content Include="Content\favicon\ms-icon-150x150.png" />
+    <Content Include="Content\favicon\ms-icon-310x310.png" />
+    <Content Include="Content\favicon\ms-icon-70x70.png" />
     <Content Include="Content\V2\.eslintrc.js" />
     <Content Include="Content\V2\assets\css\bootstrap-datepicker.min.css" />
     <Content Include="Content\V2\assets\css\bootstrap-select.min.css" />
@@ -1291,6 +1317,7 @@
     <Content Include="Views\MembershipSales\VirtualPosComplete.cshtml" />
     <Content Include="Views\MembershipSales\_TaxAndAddressForm.cshtml" />
     <None Include="bundleconfig.json" />
+    <Content Include="Content\favicon\manifest.json" />
     <None Include="Content\V2\fonts\fontawesome-webfont.eot" />
     <None Include="Content\V2\fonts\fontawesome-webfont.ttf" />
     <None Include="Content\V2\fonts\fontawesome-webfont.woff" />
@@ -2901,7 +2928,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
-      <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <PropertyGroup>

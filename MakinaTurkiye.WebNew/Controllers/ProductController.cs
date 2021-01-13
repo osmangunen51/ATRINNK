@@ -43,6 +43,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using MakinaTurkiye.Services.Authentication;
+using static NeoSistem.MakinaTurkiye.Web.Models.Products.MTProductTabModel;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -1135,7 +1136,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         var picturesCertificate = _pictureService.GetPictureByStoreCertificateId(productCertificate.StoreCertificateId.Value);
                         foreach (var item in picturesCertificate)
                         {
-                            model.ProductTabModel.Certificates.Add(!string.IsNullOrWhiteSpace(ceritifcate.Name) ? ceritifcate.Name : "", AppSettings.StoreCertificateImageFolder + item.PicturePath.Replace("_certificate", "-500x800"));
+                            string key = (!string.IsNullOrWhiteSpace(ceritifcate.Name) ? ceritifcate.Name : "");
+                            model.ProductTabModel.Certificates.Add(
+                                new CertificatesItem() {
+                                    Name=key,
+                                    File=AppSettings.StoreCertificateImageFolder + item.PicturePath.Replace("_certificate", "-500x800")
+                                }
+                                
+                                );
                         }
                     }
 

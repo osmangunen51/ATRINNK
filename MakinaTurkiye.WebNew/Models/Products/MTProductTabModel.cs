@@ -8,14 +8,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
 {
     public class MTProductTabModel
     {
+
+        public class CertificatesItem
+        {
+            public string Name { get; set; } = "";
+            public string File { get; set; } = "";
+        }
+
         public MTProductTabModel()
         {
             this.VideoModels = new Dictionary<int, List<MTProductVideoModel>>();
             this.MTProductTechnicalInfoItems = new List<MTProductTechnicalInfoItem>();
             this.MTProductCatologs = new List<MTProductCatologItem>();
             this.MTProductComment = new MTProductCommentModel();
-           // this.ProductKeywords = new List<MTProductKeywordItem>();
-            this.Certificates = new Dictionary<string, string>();
+            // this.ProductKeywords = new List<MTProductKeywordItem>();
+            this.Certificates = new List<CertificatesItem>();
         }
 
         public string ProductDescription { get; set; }
@@ -29,6 +36,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public Dictionary<int, List<MTProductVideoModel>> VideoModels { get; set; }
         public List<MTProductCatologItem> MTProductCatologs { get; set; }
         public MTProductCommentModel MTProductComment { get; set; }
-        public Dictionary<string, string> Certificates { get; set; }
+        public IList<CertificatesItem> Certificates { get; set; }
     }
 }

@@ -186,13 +186,28 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                         if (ustCat != null)
                         {
-                            string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
 
-                            var link = UrlBuilder.GetCategoryUrl(ustCat.CategoryId, categoryNameUrl, c.CategoryId, c.CategoryName);
-                            if (url != link)
+                            if (ustCat.CategoryId != c.CategoryParentId)
                             {
-                                return link;
+                                var ustCatNew = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
+                                string categoryNameUrl = (!string.IsNullOrEmpty(ustCatNew.CategoryContentTitle)) ? ustCatNew.CategoryContentTitle : ustCatNew.CategoryName;
+                                var link = UrlBuilder.GetCategoryUrl(ustCatNew.CategoryId, categoryNameUrl, c.CategoryId, c.CategoryName);
+                                if (url != link)
+                                {
+                                    return link;
+                                }
                             }
+                            else
+                            {
+                                string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
+
+                                var link = UrlBuilder.GetCategoryUrl(ustCat.CategoryId, categoryNameUrl, c.CategoryId, c.CategoryName);
+                                if (url != link)
+                                {
+                                    return link;
+                                }
+                            }
+
                         }
                     }
                     else if (c.CategoryType == (byte)CategoryType.Series)
@@ -1725,6 +1740,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 for (int i = firstPage; i <= lastPage; i++)
                 {
+                   
                     model.PageUrls.Add(i, QueryStringBuilder.ModifyQueryString(this.Request.Url.ToString(), PAGE_INDEX_QUERY_STRING_KEY + "=" + i, null));
 
                 }
@@ -2549,12 +2565,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //string File = this.ControllerContext.HttpContext.Server.MapPath("~/Log.txt");
 
             var request = HttpContext.Request;
-            if (request.Url.ToString() == "https://www.makinaturkiye.com/urun-kategori-c-0")
+            if (request.Url.ToString().Contains("https://urun.ma"))
             {
-                return RedirectPermanent("https://urun.makinaturkiye.com");
+                return RedirectPermanent("https://www.makinaturkiye.com/urun-kategori-c-0");
             }
 
             var yenilink = PrepareForLink(selectedCategoryId);
+   
+                if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video."))
             if (!Request.IsLocal)
                 if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
                 {
@@ -2564,9 +2582,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         //System.IO.File.AppendAllText(File, $"1 - {DateTime.Now.ToString()} - {yenilink}");
                         return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
                     }
-                    //System.IO.File.AppendAllText(File, $"2 - {DateTime.Now.ToString()} - {yenilink}");
+
+
+
                     return RedirectPermanent(yenilink);
                 }
+
+
+ 
+
             #region redirect
 
             if (Server.UrlDecode(request.Url.AbsolutePath).Any(char.IsUpper))
@@ -2587,6 +2611,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             int index = request.Url.AbsolutePath.IndexOf("-c-");
             if (index > 0)
             {
+                string Url = request.Url.PathAndQuery.ToString().ToLower();
+                if (Url.EndsWith("?page=1"))
+                {
+                    string newurl = Url.Replace("?page=1","");
+                    return RedirectPermanent(newurl);
+                }
                 string idCategories = request.Url.AbsolutePath.Substring((index + 3), request.Url.AbsolutePath.Length - (index + 3));
                 string categoryUrlName = request.Url.AbsolutePath.Substring(0, index - 1);
                 if (idCategories.Contains("-"))
