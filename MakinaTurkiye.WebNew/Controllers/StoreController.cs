@@ -47,7 +47,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         #endregion
 
-        public StoreController(IStoreService storeService, ISeoDefinitionService seoDefinitionService, 
+        public StoreController(IStoreService storeService, ISeoDefinitionService seoDefinitionService,
             ICategoryService categoryService, IProductService productService,
             IAddressService addressService, IActivityTypeService activityTypeService)
         {
@@ -188,7 +188,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (filterableCityIds != null && filterableCityIds.Count > 0)
             {
                 int selectedCityId = GetCityIdByCityName();
-                var filterAbleCities = _addressService.GetCitiesByCityIds(filterableCityIds.Distinct().ToList()); 
+                var filterAbleCities = _addressService.GetCitiesByCityIds(filterableCityIds.Distinct().ToList());
                 string filterUrl = QueryStringBuilder.RemoveQueryString(this.Request.Url.ToString(), CITY_ID_QUERY_STRING_KEY);
                 filterUrl = QueryStringBuilder.RemoveQueryString(filterUrl, PAGE_INDEX_QUERY_STRING_KEY);
                 filterUrl = QueryStringBuilder.RemoveQueryString(filterUrl, LOCALITY_ID_QUERY_STRING_KEY);
@@ -368,7 +368,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     categoryItemModel.CategoryContentTitle = storePageTitle;
                     model.StoreCategoryModel.SelectedCategoryName = storePageTitle;
-                    
+
                     model.StoreCategoryModel.StoreTopCategoryItemModels.Add(categoryItemModel);
                 }
             }
@@ -480,7 +480,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var topCategories = model.StoreCategoryModel.StoreTopCategoryItemModels;
             foreach (var item in topCategories)
             {
-                
+
 
                 var url =item.CategoryUrl;
 
@@ -637,7 +637,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             int categoryId = GetCategoryIdRouteData();
             int orderby = GetOrderByQueryString();
-         
+
             //var cityID = Request.QueryString["cityID"] != null ? Request.QueryString["cityID"] : "0";
             //var pageId = Request.QueryString["page"] != null ? Request.QueryString["page"] : "0";
             //int pageID = 0;
@@ -665,12 +665,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //    ViewData["SEOPAGETYPE"] = 29;
 
             Category category = null;
-     
+
             if (!Request.IsLocal && categoryId==0)
             {
-                if (Request.Url.ToString().ToLower().Contains("sirketler")){
-                    return RedirectPermanent(AppSettings.StoreAllUrl);
-                }
+                //if (Request.Url.ToString().ToLower().Contains("sirketler")){
+                //    return RedirectPermanent(AppSettings.StoreAllUrl);
+                //}
             }
             if (categoryId > 0)
             {
@@ -681,7 +681,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else
                 {
-    
+
 
                     if (string.IsNullOrEmpty(searchText))
                     {
@@ -691,7 +691,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         {
                             urlWithPath = Request.Url.AbsoluteUri.Substring(0, Request.Url.AbsoluteUri.ToString().IndexOf("?"));
                         }
-   
+
                         string urlCheck = Request.IsLocal ? Request.Url.AbsolutePath : urlWithPath;
                         if (urlCheck != url)
                         {
@@ -827,7 +827,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (string.IsNullOrEmpty(searchText))
             {
-         
+
                     model.CanonicalUrl = "https://magaza.makinaturkiye.com" + request.Url.AbsolutePath;
             }
 
@@ -835,7 +835,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var seoDefinition = _seoDefinitionService.GetSeoDefinitionByEntityIdWithEntityType(categoryId, EntityTypeEnum.StoreCategory);
             if (seoDefinition != null)
-            { 
+            {
               model.SeoContent = seoDefinition.SeoContent;
             }
 

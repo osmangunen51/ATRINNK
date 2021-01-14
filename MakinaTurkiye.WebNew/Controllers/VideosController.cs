@@ -662,10 +662,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             else
             {
-                if (!request.IsLocal && Request.Url.ToString().Contains("videolar"))
-                {
-                    return RedirectPermanent(AppSettings.VideoUrlBase);
-                }
+                //if (!request.IsLocal && Request.Url.ToString().Contains("videolar"))
+                //{
+                //    return RedirectPermanent(AppSettings.VideoUrlBase);
+                //}
             }
 
             string key = string.Format("makinaturkiye.video-pages-test");
