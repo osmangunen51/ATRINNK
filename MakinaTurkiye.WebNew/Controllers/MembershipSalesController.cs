@@ -446,7 +446,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(SessionPacketModel.PacketModel);
         }
 
-        [RequireHttps]
+        //[RequireHttps]
         public ActionResult FourStep(string messagge, string orderId)
         {
 
@@ -628,7 +628,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         string tutar;
         string cv2;
         string khip;
-         [RequireHttps]
+         //[RequireHttps]
         [HttpPost]
         public ActionResult FourStep(FormCollection[] fColl)
         {
@@ -1150,7 +1150,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
         }
-        [RequireHttps]
+       // [RequireHttps]
         [HttpPost]
         public ActionResult FourStepNew(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
