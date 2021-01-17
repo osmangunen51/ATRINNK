@@ -44,11 +44,12 @@
         {
             memberMainPartyIds.Add(AuthenticationUser.Membership.MainPartyId);
         }
+
         var messageCount = makinaTurkiyeEntities.messagechecks.Where(c => memberMainPartyIds.Contains(c.MainPartyId)).ToList().Count;
 
         var inboxMessageCount = dataMessage.GetItemsByMainPartyIds(string.Join(", ", memberMainPartyIds), (byte)MessageType.Inbox).Rows.Count;
         notReadInboxMessageCount = inboxMessageCount - messageCount;
-        var favoriteProducts = makinaTurkiyeEntities.FavoriteProducts.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
+        var favoriteProducts = makinaTurkiyeEntities.FavoriteProducts.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId).Where(x=>x.Product!=null).ToList();
         favoriteProductCount = favoriteProducts.Count;
     }
     <script type="text/javascript">
@@ -179,31 +180,31 @@
                                         @if (membermainPartyId == 0)
                                         {
                                             <li>
-                                                <a class="bold" href="@baseUrl/uyelik/kullanicigirisi">Giriş Yap</a>
-                                                <a class="bold" href="@baseUrl/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
+                                                <a style="font-size:13px !important;margin-bottom:5px;" class="bold" href="@baseUrl/uyelik/kullanicigirisi">Giriş Yap</a>
+                                                <a style="font-size:13px !important;margin-bottom:5px;" class="bold" href="@baseUrl/uyelik/hizliuyelik/uyeliktipi-0">Üye Ol</a>
 
                                             </li>
                                             <li>
-                                                <a href="@baseUrl/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a>
-                                                <a href="@baseUrl/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a>
-                                                <a href="@baseUrl/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a>
-                                                <a href="@baseUrl/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a>
+                                                <a style="font-size:13px !important;margin-bottom:5px;" href="@baseUrl/uyelik/kullanicigirisi?ReturnUrl=/Account/Home">Hesabım</a>
+                                                <a style="font-size:13px !important;margin-bottom:5px;" href="@baseUrl/uyelik/kullanicigirisi?ReturnUrl=/Account/Personal">Profilim</a>
+                                                <a style="font-size:13px !important;margin-bottom:5px;" href="@baseUrl/uyelik/kullanicigirisi?ReturnUrl=/Account/Message/Index?MessagePageType=0">Mesajlarım</a>
+                                                <a style="font-size:13px !important;margin-bottom:5px;" href="@baseUrl/uyelik/kullanicigirisi?ReturnUrl=/Account/Favorite/Product">Favorilerim</a>
                                             </li>
                                         }
                                         else
                                         {
                                             <li>
-                                                <a href="@baseUrl/Account/Home">Hesabım</a>
-                                                <a href="@baseUrl/Account/Personal">Profilim</a>
-                                                <a href="@baseUrl/Account/Advert/Index?ProductActive=1&DisplayType=2">İlanlarım</a>
-                                                <a href="@baseUrl/Account/Message/Index?MessagePageType=0">
+                                                <a style="font-size:13px !important;margin-bottom:5px;" href="@baseUrl/Account/Home">Hesabım</a>
+                                                <a style="font-size:13px !important;margin-bottom:5px;" href="@baseUrl/Account/Personal">Profilim</a>
+                                                <a style="font-size:13px !important;margin-bottom:5px;" href="@baseUrl/Account/Advert/Index?ProductActive=1&DisplayType=2">İlanlarım</a>
+                                                <a style="font-size:13px !important;margin-bottom:5px;" href="@baseUrl/Account/Message/Index?MessagePageType=0">
                                                     Mesajlarım
                                                     @if (notReadInboxMessageCount != 0)
                                                     {
                                                         <span class="badge badge-primary" style="background-color: #ef0d0d">@notReadInboxMessageCount</span>
                                                     }
                                                 </a>
-                                                <a href="@(AppSettings.SiteUrl)Account/Favorite/Product">
+                                                <a style="font-size:13px !important;margin-bottom:5px;" href="@(AppSettings.SiteUrl)Account/Favorite/Product">
                                                     Favorilerim
                                                     @if (favoriteProductCount != 0)
                                                     {
@@ -213,14 +214,14 @@
                                             </li>
                                             if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
                                             {
-                                                <li><a tabindex="-1" href="@(AppSettings.SiteUrl)Account/Personal">Firma Ayarları </a></li>
+                                                <li><a style="font-size:13px !important;margin-bottom:5px;" tabindex="-1" href="@(AppSettings.SiteUrl)Account/Personal">Firma Ayarları </a></li>
                                             }
                                             else
                                             {
 
                                             }
                                             <li role="presentation">
-                                                <a role="menuitem" tabindex="-1" href="@(AppSettings.SiteUrl)Uyelik/OturumuKapat">
+                                                <a style="font-size:13px !important;margin-bottom:5px;" role="menuitem" tabindex="-1" href="@(AppSettings.SiteUrl)Uyelik/OturumuKapat">
                                                     Çıkış Yap
                                                 </a>
                                             </li>

@@ -87,7 +87,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View();
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult ProductComplainAdd(MTProductComplainModel model, string[] complainTypeItems)
         {
             var response = Request["g-recaptcha-response"];

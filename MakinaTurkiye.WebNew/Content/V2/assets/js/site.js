@@ -339,7 +339,7 @@ function AddFavoriteProduct(id) {
     //            var image = '<img src=\'/Content/Images/load.gif\' />'
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenize ekleniyor.. &nbsp;&nbsp;' + image);
     $.ajax({
-        url: 'https://makinaturkiye.com/ajax/AddFavoriteProduct',
+        url: '/ajax/AddFavoriteProduct',
         type: 'get',
         data:
             {
@@ -371,7 +371,7 @@ function RemoveFavoriteProduct(id) {
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenizden çıkarılıyor.. &nbsp;&nbsp;' + image);
 
     $.ajax({
-        url: 'https://makinaturkiye.com/ajax/RemoveFavoriteProduct',
+        url: '/ajax/RemoveFavoriteProduct',
         type: 'get',
         data:
             {

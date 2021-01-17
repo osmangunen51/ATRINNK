@@ -283,10 +283,10 @@
                     }
 
                     <li class="favori">
-                        <a href="#" id="aRemoveFavoriteProduct" rel="nofollow" onclick="RemoveFavoriteProduct('@Model.ProductId','@Model.ProductName');"
+                        <a href="javascript:void(0)" id="aRemoveFavoriteProduct" rel="nofollow" onclick="RemoveFavoriteProduct('@Model.ProductId','@Model.ProductName');"
                            style="@removeFavoriProductCss"><span class="glyphicon glyphicon-ok"></span>&nbsp;Favorilerimden Kaldır</a>
 
-                        <a href="#" id="aAddFavoriteProduct" rel="nofollow" style="@addFavoriProductCss" onclick="AddFavoriteProduct('@Model.ProductId','@Model.ProductName');">
+                        <a href="javascript:void(0)" id="aAddFavoriteProduct" rel="nofollow" style="@addFavoriProductCss" onclick="AddFavoriteProduct('@Model.ProductId','@Model.ProductName');">
                             <i class="fa fa-heart-o"></i>&nbsp;Favorilerime Ekle
                             <img src="../../Content/V2/images/loading.gif" alt="@Model.ProductName favoriye ekleme işlemi yapılıyor" style="width: 16px; float: right; display: none;" id="FavoriteProductLoading" />
                         </a>

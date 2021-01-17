@@ -7,7 +7,7 @@
 @section HeaderContent {
 
     <script type="text/javascript">
-              @{decimal price = Model.MaturityCalculation(Model.OrderPrice, 0);}
+              @{decimal price1 = Model.MaturityCalculation(Model.OrderPrice, 0);}
         function Setinstallment(val)
         {
              val = val.value;
@@ -22,7 +22,7 @@
                 $(".totalPrice").html(taksitT1);
                 $("#vadeFarkiDisplay").html("-");
                 $("#taksitDisplay").html("-");
-                var amount="@price.ToString("N2").Replace(".", "").Replace(",", ".")";
+                var amount="@price1.ToString("N2").Replace(".", "").Replace(",", ".")";
                 $("#amount").val(amount);
                  $("#form").prop({ action: "/MembershipSales/FourStepNew" });
             }
@@ -56,7 +56,7 @@
     @{decimal price = Model.MaturityCalculation(Model.OrderPrice, 0);}
         @if (Model.OrderType == (byte)Ordertype.Havale)
         {
-             Html.BeginForm("FourStep", "MembershipSales")
+            @Html.BeginForm("FourStep", "MembershipSales");
         }
 else
         {
@@ -70,17 +70,27 @@ else
         }
         @if (Model.CreditCardInstallmentId > 0)
         {
-            amount = (Model.GetCreditCardInstallment.CreditCardCount * ((price + (price * Model.GetCreditCardInstallment.CreditCardValue / 100)) / Model.GetCreditCardInstallment.CreditCardCount).ToString("N2").ToDecimal()).ToString("N2").Replace(".", "").Replace(",", ".");
+            amount = (Model.GetCreditCardInstallment.CreditCardCount *
+                Convert.ToDecimal((
+                (
+                    price +
+                    (
+                        price * Model.GetCreditCardInstallment.CreditCardValue / 100
+                    )
+                )
+                /
+                Model.GetCreditCardInstallment.CreditCardCount
+                ).ToString("N2"))).ToString("N2").Replace(".", "").Replace(",", ".");
             taksit = Model.GetCreditCardInstallment.CreditCardCount.ToString();
             tutar = amount.Replace(".", ",");
             taksitpaymec = taksit.PadLeft(2, '0');
         }
         else
         {
-        amount = price.ToString("N2").Replace(".", "").Replace(",", ".");
-        tutar = amount.Replace(".", ",");
-        taksit = "1";
-        taksitpaymec = "0";
+            amount = price.ToString("N2").Replace(".", "").Replace(",", ".");
+            tutar = amount.Replace(".", ",");
+            taksit = "1";
+            taksitpaymec = "0";
         }
 
         <input type= "hidden" name = "clientid" value = "@Model.VirtualPos.VirtualPosClientId" />
@@ -168,9 +178,8 @@ else
                         </button>}
             @if (Model.OrderType == (byte)Ordertype.KrediKarti)
             {
-    @Html.Hidden("OrderId", Model.OrderId)
-                        <div class="col-sm-5 col-md-4">
-
+                @Html.Hidden("OrderId", Model.OrderId)
+                    <div class="col-sm-5 col-md-4">
                             <div class="form-group">
                                 <label>
                                     Kart İsim
@@ -281,11 +290,12 @@ else
                             <button type="submit" class="btn btn-primary">
                                 Ödemeyi Tamamla
                             </button>
-                        </div>}
+                        </div>
+            }
         </div>
         @if (Model.OrderType == (byte)Ordertype.Havale)
         {
-             @Html.EndForm();
+             Html.EndForm();
         }
     }
     </form>
@@ -355,7 +365,7 @@ if (Model.OrderType == (byte)Ordertype.KrediKarti)
                 Toplam Tutar
             </td>
             <td>
-                @(Model.GetCreditCardInstallment.CreditCardCount * ((price + (price * Model.GetCreditCardInstallment.CreditCardValue / 100)) / Model.GetCreditCardInstallment.CreditCardCount).ToString("N2").ToDecimal()).ToString("C2")
+                @(Model.GetCreditCardInstallment.CreditCardCount * Convert.ToDecimal(((price + (price * Model.GetCreditCardInstallment.CreditCardValue / 100)) / Model.GetCreditCardInstallment.CreditCardCount).ToString("N2"))).ToString("C2")
             </td>
         </tr>
     </tfoot>

@@ -34,29 +34,29 @@
     try
     {
         MakinaTurkiyeEntities makinaTurkiyeEntities = new MakinaTurkiyeEntities();
-        //if (AuthenticationUser.Membership != null)
-        //{
-        //    membermainPartyId = AuthenticationUser.Membership.MainPartyId;
-        //}
-        //if (AuthenticationUser.Membership != null)
-        //{
-        //    var memberStore = makinaTurkiyeEntities.MemberStores.FirstOrDefault(x => x.MemberMainPartyId == AuthenticationUser.Membership.MainPartyId);
-        //    if (memberStore != null)
-        //    {
-        //        memberMainPartyIds = makinaTurkiyeEntities.MemberStores.Where(x => x.StoreMainPartyId == memberStore.StoreMainPartyId).Select(x => x.MemberMainPartyId).ToList();
-        //    }
-        //    else
-        //    {
-        //        memberMainPartyIds.Add(AuthenticationUser.Membership.MainPartyId);
-        //    }
-        //    var messageCount = makinaTurkiyeEntities.messagechecks.Where(c => memberMainPartyIds.Contains(c.MainPartyId)).ToList().Count;
-        //    var Nesne = dataMessage.GetItemsByMainPartyIds(string.Join(", ", memberMainPartyIds), (byte)MessageType.Inbox);
+        if (AuthenticationUser.Membership != null)
+        {
+            membermainPartyId = AuthenticationUser.Membership.MainPartyId;
+        }
+        if (AuthenticationUser.Membership != null)
+        {
+            var memberStore = makinaTurkiyeEntities.MemberStores.FirstOrDefault(x => x.MemberMainPartyId == AuthenticationUser.Membership.MainPartyId);
+            if (memberStore != null)
+            {
+                memberMainPartyIds = makinaTurkiyeEntities.MemberStores.Where(x => x.StoreMainPartyId == memberStore.StoreMainPartyId).Select(x => x.MemberMainPartyId).ToList();
+            }
+            else
+            {
+                memberMainPartyIds.Add(AuthenticationUser.Membership.MainPartyId);
+            }
+            var messageCount = makinaTurkiyeEntities.messagechecks.Where(c => memberMainPartyIds.Contains(c.MainPartyId)).ToList().Count;
+            var Nesne = dataMessage.GetItemsByMainPartyIds(string.Join(", ", memberMainPartyIds), (byte)MessageType.Inbox);
 
-        //    var inboxMessageCount =Nesne.Rows.Count;
-        //    notReadInboxMessageCount = inboxMessageCount - messageCount;
-        //    var favoriteProducts = makinaTurkiyeEntities.FavoriteProducts.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
-        //    favoriteProductCount = favoriteProducts.Count;
-        //}
+            var inboxMessageCount = Nesne.Rows.Count;
+            notReadInboxMessageCount = inboxMessageCount - messageCount;
+            var favoriteProducts = makinaTurkiyeEntities.FavoriteProducts.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId).Where(x => x.Product != null).ToList();
+            favoriteProductCount = favoriteProducts.Count;
+        }
     }
     catch (Exception Hata)
     {

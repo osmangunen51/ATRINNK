@@ -171,6 +171,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.PopularVideoModels = popularVideoModels;
         }
 
+
         private void PrepareVideoCategoryModel(int categoryParentId, MTVideoViewModel model)
         {
             var videoCategories = _videoService.GetSPVideoCategoryByCategoryParentIdNew(categoryParentId);
@@ -180,7 +181,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 videoCategoryItemModels.Add(new MTVideoCategoryItemModel
                 {
                     CategoryName = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName,
-                    CategoryUrl = UrlBuilder.GetVideoCategoryUrl(item.CategoryId, item.CategoryName)
+                    //CategoryName = item.CategoryName,
+                    CategoryUrl = UrlBuilder.GetVideoCategoryUrl(item.CategoryId, item.CategoryContentTitle)
                 });
             }
             model.VideoCategoryModel.VideoCategoryItemModels = videoCategoryItemModels.OrderBy(q => q.CategoryName).ToList();
@@ -199,7 +201,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         model.VideoCategoryModel.VideoTopCategoryItemModels.Add(new MTVideoCategoryItemModel
                         {
                             CategoryName = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName,
-                            CategoryUrl = UrlBuilder.GetVideoCategoryUrl(item.CategoryId, item.CategoryName),
+                            //CategoryName = item.CategoryName,
                             CategoryType = item.CategoryType,
                             CategoryId = item.CategoryId,
                             CategoryParentId = item.CategoryParentId
@@ -426,7 +428,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 videoItemModel.MTStoreAndProductDetailModel.VideoTitle = product.ProductName;
             }
-            if (video.Order!=null)
+            if (video.Order != null)
             {
                 videoItemModel.MTStoreAndProductDetailModel.VideoTitle = $"{videoItemModel.MTStoreAndProductDetailModel.VideoTitle} {video.Order.ToString()}";
             }
@@ -659,14 +661,26 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     return RedirectPermanent(AppSettings.VideoUrlBase);
                 }
+                else
+                {
+                    var EskiUrl = this.Request.Url.ToString();
+                    var YeniUrl = UrlBuilder.GetVideoCategoryUrl(category.CategoryId, category.CategoryContentTitle);
+                    if (EskiUrl != YeniUrl)
+                    {
+                        YeniUrl = $"{YeniUrl}";
+                        return RedirectPermanent(YeniUrl);
+                    }
+                }
             }
             else
             {
-                //if (!request.IsLocal && Request.Url.ToString().Contains("videolar"))
-                //{
-                //    return RedirectPermanent(AppSettings.VideoUrlBase);
-                //}
+                if (!request.IsLocal && Request.Url.ToString().Contains("videolar"))
+                {
+                    return RedirectPermanent(AppSettings.VideoUrlBase);
+                }
             }
+
+
 
             string key = string.Format("makinaturkiye.video-pages-test");
             var testModel = _cacheManager.Get(key, () =>
@@ -709,7 +723,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             _videoService.CachingGetOrSetOperationEnabled = false;
             var video = _videoService.GetVideoByVideoId(VideoId);
             var productvideos = _videoService.GetVideosByProductId((int)video.ProductId);
-            if (productvideos.Count>1)
+            if (productvideos.Count > 1)
             {
                 video.Order = (byte)productvideos.ToList().FindIndex(x => x.VideoId == video.VideoId);
                 video.Order++;

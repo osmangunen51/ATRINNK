@@ -1142,7 +1142,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                     Name=key,
                                     File=AppSettings.StoreCertificateImageFolder + item.PicturePath.Replace("_certificate", "-500x800")
                                 }
-                                
+
                                 );
                         }
                     }

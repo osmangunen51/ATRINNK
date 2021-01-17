@@ -446,11 +446,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(SessionPacketModel.PacketModel);
         }
 
-        [RequireHttps]
+        //[RequireHttps]
         public ActionResult FourStep(string messagge, string orderId)
         {
 
-            
+
             if (!string.IsNullOrEmpty(orderId))
             {
                 var order = _orderService.GetOrderByOrderId(Convert.ToInt32(orderId));
@@ -598,7 +598,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var phones = _phoneService.GetPhonesByMainPartyId(memberStoreN.StoreMainPartyId.Value);
                 if (phones.Count == 0)
                 {
-                   
+
 
                     var phoneGsm = phones.Where(x => x.PhoneType == 3).FirstOrDefault();
                     if (phoneGsm != null)
@@ -628,7 +628,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         string tutar;
         string cv2;
         string khip;
-         [RequireHttps]
+        //[RequireHttps]
         [HttpPost]
         public ActionResult FourStep(FormCollection[] fColl)
         {
@@ -751,7 +751,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 byte[] b = new byte[1500];
 
                 //GET mesaji oldugu icin bosluklar + ile doldurulmustur. provizyonMesaji vpos724v3.doc dokumaninda belirtilen formata uygun
-                //olarak olusturulmali ve donen mesaj ayni dokumana uygun olarak parcalanmalidir. 
+                //olarak olusturulmali ve donen mesaj ayni dokumana uygun olarak parcalanmalidir.
 
                 //string provizyonMesaji="UYGUN FORMATTA OTORIZASYON MESAJI";
 
@@ -1150,7 +1150,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
         }
-        [RequireHttps]
+        //[RequireHttps]
         [HttpPost]
         public ActionResult FourStepNew(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
@@ -1544,7 +1544,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     int orderId = Convert.ToInt32(OrderId);
                     order = _orderService.GetOrderByOrderId(orderId);
-          
+
                 }
                 if (!string.IsNullOrEmpty(ProductId))
                 {
@@ -1662,7 +1662,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             else
                 packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
 
-            if (ProductId != "0" && orderId=="0") // insert product order 
+            if (ProductId != "0" && orderId=="0") // insert product order
             {
                 order = new Order
                 {

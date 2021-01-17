@@ -85,7 +85,7 @@ function AddFavoriteProductItem(id) {
 
     $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
     $.ajax({
-        url: 'https://makinaturkiye.com/ajax/AddFavoriteProduct',
+        url: '/ajax/AddFavoriteProduct',
         type: 'get',
         data:
             {
@@ -100,6 +100,7 @@ function AddFavoriteProductItem(id) {
                 $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
 
                 item.html("<i class='fa fa-heart'></i>");
+                window.location.reload();
 
                 //                        $.facebox('Görüntülemiş olduğunuz ürün başarıyla favori ürünlerinize eklenmiştir.');
                 //                        $('#divFavroriteProductImage').css('background-image', 'url(/Content/Images/removeFavorite.png)');
@@ -119,7 +120,7 @@ function RemoveFavoriteProductItem(id) {
 
 
     $.ajax({
-        url: 'https://www.makinaturkiye.com/ajax/RemoveFavoriteProduct',
+        url: '/ajax/RemoveFavoriteProduct',
         type: 'get',
         data:
             {
@@ -133,6 +134,7 @@ function RemoveFavoriteProductItem(id) {
             $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerime Ekle");
 
             item.html("<i class='fa fa-heart-o' ></i>");
+            window.location.reload();
             //                    $('#divFavroriteProductImage').css('background-image', 'url(/Content/Images/addFavorite.png)');
         },
         error: function (x, l, e) {

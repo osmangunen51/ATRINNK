@@ -339,7 +339,7 @@ function AddFavoriteProduct(id) {
     //            var image = '<img src=\'/Content/Images/load.gif\' />'
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenize ekleniyor.. &nbsp;&nbsp;' + image);
     $.ajax({
-        url: 'https://makinaturkiye.com/ajax/AddFavoriteProduct',
+        url: '/ajax/AddFavoriteProduct',
         type: 'get',
         data:
             {
@@ -371,7 +371,7 @@ function RemoveFavoriteProduct(id) {
     //            $.facebox('Görüntülemiş olduğunuz ürün favori listenizden çıkarılıyor.. &nbsp;&nbsp;' + image);
 
     $.ajax({
-        url: 'https://makinaturkiye.com/ajax/RemoveFavoriteProduct',
+        url: '/ajax/RemoveFavoriteProduct',
         type: 'get',
         data:
             {
@@ -3276,7 +3276,7 @@ function AddFavoriteProductItem(id) {
 
     $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerimden Kaldır");
     $.ajax({
-        url: 'https://makinaturkiye.com/ajax/AddFavoriteProduct',
+        url: '/ajax/AddFavoriteProduct',
         type: 'get',
         data:
             {
@@ -3310,21 +3310,17 @@ function RemoveFavoriteProductItem(id) {
 
 
     $.ajax({
-        url: 'https://www.makinaturkiye.com/ajax/RemoveFavoriteProduct',
+        url: '/ajax/RemoveFavoriteProduct',
         type: 'get',
         data:
             {
                 ProductId: id
             },
         success: function (data) {
-            //                    $.facebox('Görüntülemiş olduğunuz ürün favori ürünlerinizden çıkarılmıştır.');
             var item = $("[data-productid=product-favorite-item-" + id + "]");
-
             $("[data-productid=product-favorite-item-" + id + "]").attr("onclick", "AddFavoriteProductItem(" + id + ")");
             $("[data-productid=product-favorite-item-" + id + "]").attr("title", "Favorilerime Ekle");
-
             item.html("<i class='fa fa-heart-o' ></i>");
-            //                    $('#divFavroriteProductImage').css('background-image', 'url(/Content/Images/addFavorite.png)');
         },
         error: function (x, l, e) {
             $.facebox('Görüntülemiş olduğunuz ürün favori ürünlerinizden çıkarılırken bir sorun oluştu.');
