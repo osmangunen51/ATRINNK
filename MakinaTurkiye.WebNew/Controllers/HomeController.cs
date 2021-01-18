@@ -1088,7 +1088,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         #endregion
 
 
-        public ActionResult TestCs()
+        public ActionResult Test()
         {
 
             return View();

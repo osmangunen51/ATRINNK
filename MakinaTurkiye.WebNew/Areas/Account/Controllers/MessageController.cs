@@ -43,7 +43,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         public MessageController(IMemberStoreService memberStoreService,
             IMemberService memberService,
-            IMessageService messageService, IAddressService addressService, 
+            IMessageService messageService, IAddressService addressService,
             IPhoneService phoneService, IProductService productService,
             IStoreService storeService, IMobileMessageService mobileMessageService, IMessagesMTService messagesMTService)
         {
@@ -77,19 +77,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             int productNo = 0;
             var subject = "";
             int messageid = 0;
-            if (Request.QueryString["Mainparty"]!=null)
+            if (Request.QueryString["Mainparty"] != null)
             {
-                 sendmainparty = int.Parse(Request.QueryString["Mainparty"]);
+                sendmainparty = int.Parse(Request.QueryString["Mainparty"]);
                 var memberReceiver = _memberService.GetMemberByMainPartyId(sendmainparty);
                 ViewData["receiverMember"] = memberReceiver;
                 if (Request.QueryString["messageid"] != null)
                 {
-                     messageid = int.Parse(Request.QueryString["messageid"]);
+                    messageid = int.Parse(Request.QueryString["messageid"]);
                     var message = _messageService.GetSendMessageErrorByMessageId(messageid);
-                    if(message!=null)
-                      subject = message.MessageSubject;
+                    if (message != null)
+                        subject = message.MessageSubject;
                 }
-              
+
             }
 
             string ad = "";
@@ -97,13 +97,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 if (Request.QueryString["MessagePageType"].ToString() == "1")
                 {
-                    
+
 
                     int mainPartyId = (int)AuthenticationUser.Membership.MainPartyId;
 
                     if (AuthenticationUser.Membership.MemberType == (byte)MemberType.Enterprise)
                     {
-                        mainPartyId =_memberStoreService.GetMemberStoreByMemberMainPartyId(mainPartyId).StoreMainPartyId.Value;
+                        mainPartyId = _memberStoreService.GetMemberStoreByMemberMainPartyId(mainPartyId).StoreMainPartyId.Value;
                     }
                     var adressData = _addressService.GetAddressesByMainPartyId(mainPartyId);
                     if (adressData.First().CountryId != 246 && adressData.First().CountryId != null)
@@ -114,7 +114,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     else
                     {
 
-                     
+
                         if (AuthenticationUser.Membership.MemberType != (byte)MemberType.Enterprise)//eğer firmaysa mesaj gönderebilir onaya gerek yoktur.
                         {
                             if (adressData != null)
@@ -134,9 +134,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                 if (phone.active == null || phone.active == 0)
                                 {
                                     return RedirectToAction("ChangeAddress", "Personal", new
-                                    { urunNo = Request.QueryString["UrunNo"],
+                                    {
+                                        urunNo = Request.QueryString["UrunNo"],
                                         uyeNo = Request.QueryString["UyeNo"],
-                                        mtypePage = Request.QueryString["MessagePageType"], gelenSayfa = "Teklif", error = "PhoneActive" });
+                                        mtypePage = Request.QueryString["MessagePageType"],
+                                        gelenSayfa = "Teklif",
+                                        error = "PhoneActive"
+                                    });
 
                                 }
                             }
@@ -154,19 +158,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 var model = new MessageViewModel();
 
-                if (Request.QueryString["UrunNo"]!=null)
+                if (Request.QueryString["UrunNo"] != null)
                 {
-                     productNo = int.Parse(Request.QueryString["UrunNo"]);
+                    productNo = int.Parse(Request.QueryString["UrunNo"]);
                     var product = _productService.GetProductByProductId(productNo);
                     productName = product.ProductName;
                     productUrl = NoeSistemHelpers.ProductUrl(product.ProductId, product.ProductName);
-                 
+
                     model.Product = product;
                 }
 
-                if (Request.QueryString["UyeNo"]!=null)
+                if (Request.QueryString["UyeNo"] != null)
                 {
-                     memberNo = int.Parse(Request.QueryString["UyeNo"]);
+                    memberNo = int.Parse(Request.QueryString["UyeNo"]);
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(memberNo);
                     if (memberStore != null)
                     {
@@ -186,10 +190,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 if (memberStore1 != null)
                 {
                     var mainPartyIds = _memberStoreService.GetMemberStoresByStoreMainPartyId(memberStore1.StoreMainPartyId.Value).Select(x => x.MemberMainPartyId).ToList();
-                    mainPartyIdsPar  = String.Join(", ", mainPartyIds); ;
+                    mainPartyIdsPar = String.Join(", ", mainPartyIds); ;
                 }
 
-    
+
 
                 switch (mPageType)
                 {
@@ -200,7 +204,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                         break;
                     case MessagePageType.Send:
-                       
+
                         #region
 
                         if (sendmainparty != 0)
@@ -215,7 +219,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             model.Message.Subject = "RE: " + mesagge.MessageSubject;
                             model.Message.Content = mesagge.MessageDate + " " + ad + " yazdı." + Environment.NewLine + mesagge.MessageContent;
                             int proid = 0;
-                            if (mesagge.ProductId >0)
+                            if (mesagge.ProductId > 0)
                             {
                                 proid = mesagge.ProductId;
                                 model.Message.ProductId = proid;
@@ -266,14 +270,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             try
             {
                 var usermessage = _messageService.GetMessageMainPartyByMessageIdWithMessageType(MessageId, (MessageTypeEnum)messagetype);
-                if(usermessage!=null)
+                if (usermessage != null)
                 {
                     usermessage.MessageType = (byte)MessageType.RecyleBin;
                     _messageService.UpdateMessageMainParty(usermessage);
                 }
 
                 var deletecheck = _messageService.GetMessageCheckByMessageId(MessageId);
-                if(deletecheck!=null)
+                if (deletecheck != null)
                 {
                     _messageService.DeleteMessageCheck(deletecheck);
                 }
@@ -445,7 +449,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 #endregion
             }
-                //mail gönderilmesi yapılabilir.
+            //mail gönderilmesi yapılabilir.
             return RedirectToAction("Index", "Message", new { MessagePageType = (byte)MessagePageType.Outbox });
         }
 
@@ -468,7 +472,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             //gelen kutusundan gidiyorsa
             int memberMainPartyId = 0;
-            var messageMainParty = _messageService.GetMessageMainPartyByMessageIdWithMessageType(id,redirectMessageType);
+            var messageMainParty = _messageService.GetMessageMainPartyByMessageIdWithMessageType(id, redirectMessageType);
             if (Request.QueryString["RedirectMessageType"].ToString() == "0")
             {
                 memberMainPartyId = messageMainParty.InOutMainPartyId;
@@ -557,7 +561,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 {
                     brandname = "";
                 }
-                if (product.Model!=null)
+                if (product.Model != null)
                 {
                     modelname = product.Model.CategoryName;
                 }

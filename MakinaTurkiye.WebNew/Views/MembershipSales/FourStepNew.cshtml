@@ -116,7 +116,6 @@
 
 
     <input type="hidden" name="taksit" id="taksit" value="" />
-    } }
     @if (TempData["errorPosMessage"] != null)
     {
 <div class="alert alert-danger">
@@ -163,14 +162,15 @@
         </table>
         @if (Model.OrderType == (byte)Ordertype.Havale)
         {
-@Html.Hidden("OrderId", Model.OrderId)
+                    @Html.Hidden("OrderId", Model.OrderId)
                     <button type="submit" class="btn btn-primary pull-right">
                         Ödemeyi Tamamla
-                    </button>}
+                    </button>
+        }
         @if (Model.OrderType == (byte)Ordertype.KrediKarti)
         {
-@Html.Hidden("OrderId", Model.OrderId)
-                    <div class="col-sm-5 col-md-4">
+            @Html.Hidden("OrderId", Model.OrderId)
+            <div class="col-sm-5 col-md-4">
                         <div class="form-group">
                             <label>
                                 Kart İsim
@@ -282,12 +282,12 @@
                         <button type="submit" class="btn btn-primary">
                             Ödemeyi Tamamla
                         </button>
-                    </div>}
+                    </div>
+        }
     </div>
     @if (Model.OrderType == (byte)Ordertype.Havale)
     {
         Html.EndForm();
-    }
     }
 </form>
     }
