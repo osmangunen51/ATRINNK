@@ -457,7 +457,7 @@
                                     {
                                         <b>
                                             @varCategoryTreeName[i].ToString()
-                                        </b>>
+                                        </b>
                              }
 
                                     <br>
@@ -917,7 +917,7 @@
                                         @Html.DropDownListFor(m => m.CurrencyId, Model.CurrencyItems, new { @class = "form-control" })
                                     </div>
                                 </div>
-                                @if (ViewData["ProductSales"].ToBoolean() == true)
+                                if (Convert.ToBoolean(ViewData["ProductSales"])==true)
                                 {
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">

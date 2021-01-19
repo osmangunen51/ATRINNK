@@ -615,7 +615,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     if (anyMember.ActivationCode == profileId)
                     {
                         //  _authenticationService.SignIn(anyMember, true);
-
                         ////AuthenticationUser.Membership = memberUser;
                         var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, anyMember.MainPartyId.ToString()) }, "LoginCookie");
 
@@ -625,11 +624,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     LogOn = true;
                 }
-
             }
             return Json(LogOn);
         }
-
 
         public ActionResult CompanyMemberShipDemand()
         {
@@ -2657,7 +2654,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (member != null && member.Active.Value)
             {
                 // _authenticationService.SignIn(member, model.Remember);
-
                 if (member.MemberPassword == model.Password)
                 {
                     var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");

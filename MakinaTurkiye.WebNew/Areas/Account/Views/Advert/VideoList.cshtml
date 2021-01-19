@@ -24,22 +24,12 @@
 @using MakinaTurkiye.Entities.Tables.Catalog
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
 @{
-    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-
-
-}
-
-
-@{
+    Layout = null;
     byte well = 0;
 }
-
 @foreach (var item in Model)
 {
     well++;
-
     <div class="pull-left m5">
         <img class="img-thumbnail" width="110" src="@(AppSettings.VideoThumbnailFolder + item.VideoPicturePath )" alt="@item.VideoTitle" />
         <br>
