@@ -29,18 +29,10 @@
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
 
 @{
-    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
     Layout = null;
 }
 
-
-
 @{bool isMobile = Request.Browser.IsMobileDevice; }
-
-
-
 
 <nav class="navbar navbar-inverse main-navigation navbar-expand-md">
     <div class="collapse navbar-collapse js-navbar-collapse container-fluid">
@@ -99,21 +91,19 @@
 
 
                                     <i class="icon-down-arrow" style="float: right;"></i>
-
                                 </span>
 
                             </a>
 
                             <ul class="dropdown-menu mega-dropdown-menu container-fluid">
 
-                                <div style="text-align: center;" id="loading"></div>
+                                <li>
+                                    <div style="text-align: center;" id="loading"></div>
+                                </li>
 
                             </ul>
-
                         </li>
-
                     }
-
                 </ul>
 
             }

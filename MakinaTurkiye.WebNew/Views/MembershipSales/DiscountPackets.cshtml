@@ -1,9 +1,7 @@
 ﻿@using NeoSistem.MakinaTurkiye.Web.Models;
 @using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
-@using NeoSistem.MakinaTurkiye.Web.App;
-
 @model PacketViewModel
-
+@{ Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml"; }
 @section HeaderContent {
     <script type="text/javascript">
 
@@ -48,106 +46,103 @@
         </div>
         <div class="col-md-12">
             @foreach (var item in Model.PacketItems.OrderBy(p => p.PacketOrder))
+            {<%using (Html.BeginForm("OneStep", "MembershipSales", FormMethod.Post))
             {
-            <%using (Html.BeginForm("OneStep", "MembershipSales", FormMethod.Post))
+<div class="col-md-4 col-sm-12">
+    <div class="panel panel-mt text-center">
+        <div class='panel-heading' style='background:"@item.HeaderColor+"!important'>
+
+            <h4 class='m0'>
+                @item.PacketName
+                @if (item.StarNumber == null || item.StarNumber == 0)
+                {
+<small class="text-warning"><span class="glyphicon glyphicon-star"></span></small> }
+                else
+                {
+                    for (int i = 0; i < item.StarNumber; i++)
+                    {
+
+<small class="text-warning"><span class="glyphicon glyphicon-star"></span></small>}
+                }
+            </h4>
+        </div>
+        <div class='panel-body' style="background-color:@item.PacketColor">
+
+
+            <b class="text-lg">
+                @{ decimal packetDayPrice;
+                                    packetDayPrice = (decimal)(item.PacketPrice / item.PacketDay); }
+                @packetDayPrice.ToString("N")   <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i> / Gün
+            </b><span class="text-md text-italic">den başlayan fiyatlarla</span>
+
+        </div>
+
+        <ul class="list-group">
+            @foreach (var itemPFTItems in Model.PacketFeatureTypeItems.OrderBy(c => c.PacketFeatureTypeOrder))
             {
-            <div class="col-md-4 col-sm-12">
-                <div class="panel panel-mt text-center">
-                    <div class='panel-heading' style='background:"@item.HeaderColor+"!important'>
-
-                        <h4 class='m0'>
-                            @item.PacketName
-                            @if (item.StarNumber == null || item.StarNumber == 0) {
-                            <small class="text-warning"><span class="glyphicon glyphicon-star"></span></small>
-                            } else {
-                                for (int i = 0; i < item.StarNumber; i++)
-                                {
-
-                                    <small class="text-warning"><span class="glyphicon glyphicon-star"></span></small>
-
-                                }
-                            }
-                        </h4>
-                    </div>
-                    <div class='panel-body' style="background-color:@item.PacketColor">
-
-
-                        <b class="text-lg">
-                            @{
-                                decimal packetDayPrice;
-                                packetDayPrice = (decimal)(item.PacketPrice / item.PacketDay);
-                            }
-                            @packetDayPrice.ToString("N")   <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i> / Gün
-                        </b><span class="text-md text-italic">den başlayan fiyatlarla</span>
-
-                    </div>
-
-                    <ul class="list-group">
-                        @foreach (var itemPFTItems in Model.PacketFeatureTypeItems.OrderBy(c => c.PacketFeatureTypeOrder))
-                        {
-                        var packetFeature = Model.PacketFeatureItems.FirstOrDefault(c => c.PacketFeatureTypeId == itemPFTItems.PacketFeatureTypeId && c.PacketId == item.PacketId);
-                        if (packetFeature != null)
-                        {
-
-                        @var packetType = (EPacketFeatureType)packetFeature.FeatureType;
-                        switch (packetType)
-                        {
+                var packetFeature = Model.PacketFeatureItems.FirstOrDefault(c => c.PacketFeatureTypeId == itemPFTItems.PacketFeatureTypeId && c.PacketId == item.PacketId);
+                if (packetFeature != null)
+                {
+                    var packetType = (EPacketFeatureType)packetFeature.FeatureType;
+                    switch (packetType)
+                    {
                         case EPacketFeatureType.ProcessCount:
-
-                        <li class='list-group-item' style="background-color:@item.PacketColor">
-                            @packetFeature.FeatureProcessCount.HasValue ? packetFeature.FeatureProcessCount.Value.ToString() : ""
-                            @itemPFTItems.PacketFeatureTypeName
-                        </li>
-                        break;}
-                        case EPacketFeatureType.Active:
-                        if (packetFeature.FeatureActive.HasValue && packetFeature.FeatureActive.Value)
-                        {
-
-                        <li class='list-group-item' style="background-color:@item.PacketColor">
-                            @itemPFTItems.PacketFeatureTypeName
-                        </li>
+                            {
+                                <li class='list-group-item' style="background-color:@item.PacketColor">
+                                    @packetFeature.FeatureProcessCount.HasValue ? packetFeature.FeatureProcessCount.Value.ToString() : ""
+                                    @itemPFTItems.PacketFeatureTypeName
+                                </li> break;
                             }
-                        break;}
-                        case EPacketFeatureType.Content:
-
-                        <li class='list-group-item' style="background-color:@item.PacketColor">
-
-                            @packetFeature.FeatureContent
-                            <%=itemPFTItems.PacketFeatureTypeName
-                        </li>
-                        break;}
-                        default:
-                        break;
-                        }
-                        }
-             }
-
-                        <li class='list-group-item' style="background-color:@item.PacketColor">
-
-
-                            <h3>
-                                @item.PacketPrice.ToString("0") <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i> /
-                                @if(item.PacketDay==365){
-                                Yıl
-                                }else if(item.PacketDay%30==0){
-                                @item.PacketDay/30  Ay
-                                }else{
-                                @item.PacketDay  Gün
+                        case EPacketFeatureType.Active:
+                            {
+                            if (packetFeature.FeatureActive.HasValue && packetFeature.FeatureActive.Value)
+                            {
+                                <li class='list-group-item' style="background-color:@item.PacketColor">
+                                @itemPFTItems.PacketFeatureTypeName
+                                </li>
                                 }
-                            </h3>
-                            @Html.Hidden("PacketId",item.PacketId)
-                        </li>
-                        <li class='list-group-item' style="background-color:@item.PacketColor">
+                                break;
+                            }
+                        case EPacketFeatureType.Content:
+                            {
+                                <li class='list-group-item' style="background-color:@item.PacketColor">
+                                    @packetFeature.FeatureContent @itemPFTItems.PacketFeatureTypeName
+                                </li>
+                        break;
+                            }
+                    default:
+                    break;
+                }
+            }
+            }
+            <li class='list-group-item' style="background-color:@item.PacketColor">
+                <h3>
+                    @item.PacketPrice.ToString("0") <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i> /
+                    @if (item.PacketDay == 365)
+                    {
+                        <span>Yıl</span>
+                    }
+                    else if (item.PacketDay % 30 == 0)
+                    {
+                        @(item.PacketDay / 30) <span>Ay</span>
+                    }
+                    else
+                    {
+                        @(item.PacketDay) <span>Gün</span>
+                    }
+                </h3>
+                @Html.Hidden("PacketId", item.PacketId)
+            </li>
+            <li class='list-group-item' style="background-color:@item.PacketColor">
 
-                            <button type="submit" class="btn btn-success btn-block">
-                                Satın Al
-                            </button>
-                        </li>
-                    </ul>
-                </div>
-            </div>
- }
- }
+                <button type="submit" class="btn btn-success btn-block">
+                    Satın Al
+                </button>
+            </li>
+        </ul>
+    </div>
+</div>}
+            }
 
 
 

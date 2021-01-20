@@ -2,6 +2,7 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 @using NeoSistem.EnterpriseEntity.Extensions;
 @model PacketModel
+@{ Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml"; }
 @section HeaderContent {
 
 }
@@ -12,8 +13,7 @@
     string anahtar = "69c1365cd932bffaf715009b50ef2e1d";
     string tutar = "";
     string taksitpaymec = string.Empty;
-    var kdv = Convert.ToDecimal(1.18);
-}
+    var kdv = Convert.ToDecimal(1.18); }
 <div>
     @{ decimal price = Model.MaturityCalculation(Model.OrderPrice, 0);}
     @if (Model.OrderType == (byte)Ordertype.Havale)
@@ -110,10 +110,9 @@ else
         </table>
         @if (Model.OrderType == (byte)Ordertype.Havale)
         {
-        <button type="submit" class="btn btn-primary pull-right">
-            Ödemeyi Tamamla
-        </button>
-        }
+<button type="submit" class="btn btn-primary pull-right">
+    Ödemeyi Tamamla
+</button>}
         @if (Model.OrderType == (byte)Ordertype.KrediKarti)
         {
 <div class="col-sm-5 col-md-4">
@@ -327,8 +326,8 @@ else
     </div>
     @if (Model.OrderType == (byte)Ordertype.Havale)
     {
-Html.EndForm();
-}
+        Html.EndForm();
+    }
 </form>
 </div>
 if (Model.OrderType == (byte)Ordertype.KrediKarti)
@@ -445,8 +444,7 @@ else
             </td>
         </tr>
     </tfoot>
-</table>
-        }
+</table>}
     </div>
 </div>
 }

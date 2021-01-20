@@ -26,7 +26,7 @@
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts
 
-@{  string member = "Sayın "+ Model.MemberName+" " + Model.MemberSurname + " hoş geldiniz.";
+@{  string member = "Sayın \""+ Model.MemberName+" " + Model.MemberSurname + "\" hoş geldiniz.";
     if (Model.MemberType == (byte)MemberType.FastIndividual)
     {
         member += "<b> (Hızlı Üyesiniz.) </b>";
@@ -234,7 +234,7 @@
                             </div>
                         </div>
                     }
-                
+
         </div>
     </div>
     </div>

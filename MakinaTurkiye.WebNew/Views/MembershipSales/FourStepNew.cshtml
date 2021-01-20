@@ -2,6 +2,7 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 @model PacketModel
 @{decimal price = Model.MaturityCalculation(Model.OrderPrice, 0);}
+@{ Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml"; }
 @section HeaderContent{
     <script type="text/javascript">
         function Setinstallment(val)
@@ -49,41 +50,41 @@
 <div>
     @if (Model.OrderType == (byte)Ordertype.Havale)
     {
-        @Html.BeginForm("FourStep", "MembershipSales");
-    }
-    else
-    {
-    <form id="form" action="/MembershipSales/FourStepNew" method="post">
-        @{ var rnd = DateTime.Now.ToString();
+@Html.BeginForm("FourStep", "MembershipSales");
+}
+else
+{
+<form id="form" action="/MembershipSales/FourStepNew" method="post">
+    @{ var rnd = DateTime.Now.ToString();
         string amount = "";
         string taksit = "";
         string anahtar = "69c1365cd932bffaf715009b50ef2e1d";
         string tutar = "";
         string taksitpaymec = string.Empty; }
-        @if (Model.CreditCardInstallmentId > 0)
-        {
-            amount = (Model.GetCreditCardInstallment.CreditCardCount *
-                Convert.ToDecimal((
+    @if (Model.CreditCardInstallmentId > 0)
+    {
+        amount = (Model.GetCreditCardInstallment.CreditCardCount *
+            Convert.ToDecimal((
+            (
+                price +
                 (
-                    price +
-                    (
-                        price * Model.GetCreditCardInstallment.CreditCardValue / 100
-                    )
+                    price * Model.GetCreditCardInstallment.CreditCardValue / 100
                 )
-                /
-                Model.GetCreditCardInstallment.CreditCardCount
-                ).ToString("N2"))).ToString("N2").Replace(".", "").Replace(",", ".");
-            taksit = Model.GetCreditCardInstallment.CreditCardCount.ToString();
-            tutar = amount.Replace(".", ",");
-            taksitpaymec = taksit.PadLeft(2, '0');
-        }
-        else
-        {
-            amount = price.ToString("N2").Replace(".", "").Replace(",", ".");
-            tutar = amount.Replace(".", ",");
-            taksit = "1";
-            taksitpaymec = "0";
-        }
+            )
+            /
+            Model.GetCreditCardInstallment.CreditCardCount
+            ).ToString("N2"))).ToString("N2").Replace(".", "").Replace(",", ".");
+        taksit = Model.GetCreditCardInstallment.CreditCardCount.ToString();
+        tutar = amount.Replace(".", ",");
+        taksitpaymec = taksit.PadLeft(2, '0');
+    }
+    else
+    {
+        amount = price.ToString("N2").Replace(".", "").Replace(",", ".");
+        tutar = amount.Replace(".", ",");
+        taksit = "1";
+        taksitpaymec = "0";
+    }
 
     <input type="hidden" name="clientid" value="@Model.VirtualPos.VirtualPosClientId" />
 
@@ -162,15 +163,14 @@
         </table>
         @if (Model.OrderType == (byte)Ordertype.Havale)
         {
-                    @Html.Hidden("OrderId", Model.OrderId)
+@Html.Hidden("OrderId", Model.OrderId)
                     <button type="submit" class="btn btn-primary pull-right">
                         Ödemeyi Tamamla
-                    </button>
-        }
+                    </button>}
         @if (Model.OrderType == (byte)Ordertype.KrediKarti)
         {
-            @Html.Hidden("OrderId", Model.OrderId)
-            <div class="col-sm-5 col-md-4">
+@Html.Hidden("OrderId", Model.OrderId)
+                    <div class="col-sm-5 col-md-4">
                         <div class="form-group">
                             <label>
                                 Kart İsim
@@ -272,8 +272,7 @@
                                         <option selected value="1">Tek Çekim</option>
                                         @foreach (var item in Model.CreditCardInstallmentItems)
                                         {
-                    <option value="@item.CreditCardCount">@item.CreditCardCount Taksit</option>
-                                        }
+                    <option value="@item.CreditCardCount">@item.CreditCardCount Taksit</option>}
                                     </select>
                                 </div>
                             </div>
@@ -282,37 +281,35 @@
                         <button type="submit" class="btn btn-primary">
                             Ödemeyi Tamamla
                         </button>
-                    </div>
-        }
+                    </div>}
     </div>
     @if (Model.OrderType == (byte)Ordertype.Havale)
     {
         Html.EndForm();
     }
-</form>
-    }
-            </div>
+</form>}
+</div>
 @if (Model.OrderType == (byte)Ordertype.KrediKarti)
 {
-    <div class="col-sm-7 col-md-8">
-                <div class="alert alert-info">
-                    <span class="glyphicon glyphicon-bullhorn"></span><b>
-                        &nbsp;3D güvenli ödeme (3D Secure)
-                        sistemi nedir?
-                    </b>
-                    <br>
-                    3D yani şifreli ödeme, elektronik ortamda yapılan kart işlemlerinin güvenliğinin
-                    artırılması için Visa ve Mastercard tarafından geliştirilmiş bir ödeme sistemidir.
-                    3D ile ödeme sırasında banka, kart sahibinden şifresini isteyerek kimlik bilgileri
-                    doğrulaması yapar. Böylece sistem, şifreyi bilmeyen kişilerin yani yetkisiz kişilerin
-                    işlem yapmasını engellenmiş olur.
-                </div>
-                <div class="col-xs-6">
-                    <img class="img-thumbnail" alt=".." src="../../Content/V2/images/kredi-karti.png" />
-                </div>
-                <div class="col-xs-6">
-                    @if (Model.CreditCardInstallmentId > 0)
-                    {
+<div class="col-sm-7 col-md-8">
+    <div class="alert alert-info">
+        <span class="glyphicon glyphicon-bullhorn"></span><b>
+            &nbsp;3D güvenli ödeme (3D Secure)
+            sistemi nedir?
+        </b>
+        <br>
+        3D yani şifreli ödeme, elektronik ortamda yapılan kart işlemlerinin güvenliğinin
+        artırılması için Visa ve Mastercard tarafından geliştirilmiş bir ödeme sistemidir.
+        3D ile ödeme sırasında banka, kart sahibinden şifresini isteyerek kimlik bilgileri
+        doğrulaması yapar. Böylece sistem, şifreyi bilmeyen kişilerin yani yetkisiz kişilerin
+        işlem yapmasını engellenmiş olur.
+    </div>
+    <div class="col-xs-6">
+        <img class="img-thumbnail" alt=".." src="../../Content/V2/images/kredi-karti.png" />
+    </div>
+    <div class="col-xs-6">
+        @if (Model.CreditCardInstallmentId > 0)
+        {
 <table class="table">
     <thead>
         <tr>
@@ -412,6 +409,5 @@ else
         </tr>
     </tfoot>
 </table>}
-                </div>
-            </div>
-}
+    </div>
+</div>}

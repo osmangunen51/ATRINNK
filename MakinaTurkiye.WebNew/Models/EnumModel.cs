@@ -19,17 +19,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
             var monthItems = new Dictionary<string, int>();
 
             monthItems.Add("Ocak", 1);
-            monthItems.Add("Subat", 2);
+            monthItems.Add("Şubat", 2);
             monthItems.Add("Mart", 3);
             monthItems.Add("Nisan", 4);
-            monthItems.Add("Mayis", 5);
+            monthItems.Add("Mayıs", 5);
             monthItems.Add("Haziran", 6);
             monthItems.Add("Temmuz", 7);
-            monthItems.Add("Agustos", 8);
-            monthItems.Add("Eylul", 9);
+            monthItems.Add("Ağustos", 8);
+            monthItems.Add("Eylül", 9);
             monthItems.Add("Ekim", 10);
-            monthItems.Add("Kasim", 11);
-            monthItems.Add("Aralik", 12);
+            monthItems.Add("Kasım", 11);
+            monthItems.Add("Aralık", 12);
 
             return monthItems;
         }

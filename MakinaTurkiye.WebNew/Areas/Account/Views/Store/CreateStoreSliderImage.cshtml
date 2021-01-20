@@ -30,9 +30,6 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-
 
 }
 
@@ -43,9 +40,6 @@
             margin-left: 10px;
         }
     </style>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
     <script type="text/javascript">
         function readURL(input) {
             for (var i = 0; i < input.files.length; i++) {
@@ -97,19 +91,17 @@
                 list-style-type: none;
             }
     </style>
-
 }
-
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
-        @Html.Partial("LeftMenu", Model.LeftMenu)
+            @Html.Partial("LeftMenu", Model.LeftMenu)
+        </div>
+        <div class="col-md-12">
+            <h4 class="mt0 text-info">
+                Firma Anasayfa Slider Resimleri Ekle/Güncelle
+            </h4>
+        </div>
     </div>
-    <div class="col-md-12">
-        <h4 class="mt0 text-info">
-            Firma Anasayfa Slider Resimleri Ekle/Güncelle
-        </h4>
-    </div>
-</div>
 <div class="row">
     <div class="col-sm-12 col-md-12">
         <div>
