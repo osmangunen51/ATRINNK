@@ -3,6 +3,7 @@ using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace MakinaTurkiye.Services.Catalog
@@ -59,6 +60,8 @@ namespace MakinaTurkiye.Services.Catalog
                 return null;
 
             var query = _productComplainRepository.Table;
+            query.Include(x => x.ProductComplainDetails);
+
             return query.FirstOrDefault(pc => pc.ProductComplainId == productComplainId);
         }
 
@@ -75,6 +78,14 @@ namespace MakinaTurkiye.Services.Catalog
             if (productComplain == null)
                 throw new ArgumentNullException();
             _productComplainRepository.Delete(productComplain);
+        }
+
+        public ProductComplainType GetProductComplainType(int complainTypeId)
+        {
+            if (complainTypeId == 0)
+                throw new ArgumentNullException("complainTypeId");
+
+            return _productComplainTypeRepository.Table.FirstOrDefault(x => x.ProductComplainTypeId == complainTypeId);
         }
 
         #endregion

@@ -15,7 +15,7 @@
     //using NeoSistem.MakinaTurkiye.Web.Models
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 }
-
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 <div class="modal fade" id="ComplaintModal" tabindex="-1"
      role="dialog" aria-labelledby="helpModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -24,6 +24,7 @@
             @using (Ajax.BeginForm("ProductComplainAdd", "CatologAjax", FormMethod.Post, new AjaxOptions { UpdateTargetId = "satutusTalep", LoadingElementId = "loading", OnSuccess = "onSuccess", OnFailure = "ajaxError", OnBegin = "onBeginSend" }))
             {
                 @Html.ValidationSummary(true)
+                @Html.HiddenFor(x => x.IsMember)
                 <div class="modal-header">
                     <button type="button" class="close"
                             data-dismiss="modal">
@@ -74,6 +75,8 @@
                     </div>
                     @if (Model.IsMember == 0)
                     {
+
+
                         <div class="row" style="margin-top:10px;">
                             <div class="col-md-4">
                                 <label class="control-label">
@@ -118,6 +121,7 @@
                             </div>
                         </div>
                     }
+
                     <div class="row" style="margin-top:10px;">
                         <div class="col-md-4">
                             <label class="control-label">

@@ -11,6 +11,8 @@ namespace MakinaTurkiye.Services.Catalog
         void InsertProductComplain(ProductComplain productComplain);
         ProductComplain GetProductComplainByProductComplainId(int productComplainId);
         void DeleteProductComplain(ProductComplain productComplain);
+
+        ProductComplainType GetProductComplainType(int complainTypeId);
        
     }
 }

@@ -10,6 +10,8 @@
 @{
     Layout = null;
 }
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 <div class="col-xs-12 col-sm-5 col-md-4">
     <div class="panel panel-mt">
         <div class="panel-heading">
@@ -58,7 +60,7 @@
                 <h4 class="modal-title">Firma Üyeliği İçin Aranmak İstiyorum</h4>
             </div>
             <div class="modal-body">
-                @using (Ajax.BeginForm("CompanyMemberShipDemand", "MemberShip", new AjaxOptions { UpdateTargetId = "satutusTalep", LoadingElementId = "loading", OnSuccess = "onSuccess", OnFailure = "ajaxError", OnBegin = "onBeginSend" }))
+                @using (Ajax.BeginForm("CompanyMemberShipDemand", "MemberShip", new AjaxOptions { UpdateTargetId = "satutusTalep", LoadingElementId = "loading", OnSuccess = "onSuccess", OnFailure = "ajaxError", OnBegin = "onBeginSend" }, new {@id="DemandForm" }))
                 {
                     @Html.ValidationSummary(true)
                     <div class="container-fluid">
@@ -161,15 +163,15 @@
                 <h4 class="modal-title">Destek</h4>
             </div>
             <div class="modal-body">
-                @using (Ajax.BeginForm("Support", "MemberShip", 
+                @using (Ajax.BeginForm("Support", "MemberShip",
                 new AjaxOptions {
                     HttpMethod="Post",
-                    UpdateTargetId = "statusSupport", 
-                    LoadingElementId = "loading1", 
+                    UpdateTargetId = "statusSupport",
+                    LoadingElementId = "loading1",
                     OnSuccess = "onSuccessS",
                     OnFailure = "ajaxErrorS",
-                    OnBegin = "onBeginSendS" 
-                }))
+                    OnBegin = "onBeginSendS"
+                }, new { @id="SupportForm"}))
                 {
                     @Html.ValidationSummary(true)
                     <div class="container-fluid">
@@ -264,6 +266,7 @@
         $("#loading").show();
     }
     function onSuccess() {
+        $('#DemandForm').trigger("reset");
         $("#loading").hide();
         $("#ajaxSuccess").show();
         $("#ajaxError").hide();
@@ -288,6 +291,7 @@
 
         }
         else {
+
             $("#loading1").hide();
             $("#ajaxSuccess1").show();
             $("#ajaxError1").hide();
