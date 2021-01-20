@@ -31,7 +31,7 @@
 
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
-        @Html.Partial("LeftMenu", Model.LeftMenu)
+        @{Html.RenderPartial("LeftMenu", Model.LeftMenu);}
     </div>
 </div>
 <div class="row">

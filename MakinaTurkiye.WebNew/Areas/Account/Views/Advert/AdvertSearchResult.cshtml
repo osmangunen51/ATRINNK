@@ -179,7 +179,6 @@
                                                         {
                                                             <i class="fa fa-turkish-lira"></i>
                                                         }
-
                                                         if (modelItem.ProductPriceType == (byte)ProductPriceType.Price)
                                                         {
                                                             <span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;" id="PriceValue@(modelItem.ProductId)">
@@ -190,11 +189,11 @@
                                                         }
                                                         else
                                                         {
-<span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;">
-                                                                @modelItem.ProductPriceBegin.GetValueOrDefault(0).ToString("N2") - @modelItem.ProductPriceLast.GetValueOrDefault(0).ToString("N2") < a href = "/Account/Advert/Edit/@(modelItem.ProductId)?currentPage=@(Model.CurrentPage)">
-                                                                <i style = "color: #333" class="glyphicon glyphicon-pencil"></i>
-                                                                </a>
-</span>
+                                                            <span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;">
+                                                                    @modelItem.ProductPriceBegin.GetValueOrDefault(0).ToString("N2") - @modelItem.ProductPriceLast.GetValueOrDefault(0).ToString("N2") <a href = "/Account/Advert/Edit/@(modelItem.ProductId)?currentPage=@(Model.CurrentPage)">
+                                                                    <i style = "color: #333" class="glyphicon glyphicon-pencil"></i>
+                                                                    </a>
+                                                            </span>
                                                         }
                                                     }
                                                     else

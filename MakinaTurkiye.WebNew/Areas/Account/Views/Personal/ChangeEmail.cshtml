@@ -30,10 +30,6 @@
 
 @{
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-
-
 }
 
 @section headercontent{
@@ -97,6 +93,8 @@
                 }
                 @using (Html.BeginForm("ChangeEmail", "Personal", FormMethod.Post, new { id = "formChangeEMail", @class = "form-horizontal", role = "form" }))
                 {
+                    Model.Member.MemberPassword = "";
+                    Model.Member.NewEmail = "";
                     <div class="form-group ">
                         <label class="col-sm-3 control-label">
                             E-Posta Adresiniz

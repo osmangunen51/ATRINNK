@@ -27,6 +27,7 @@
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+    string style = (Model.DiscountType == 0 ? "display:none;" : ""); 
 }
 
 
@@ -297,7 +298,7 @@
                     type: 'Post',
                     data:
                     {
-                        ProductId: @(HttpContext.Current.Request..RouteData.Values["id"]),
+                        ProductId: @(ViewContext.RouteData.Values["id"]),
                         PictureId: pictureId,
                         PictureName: pictureName
                     },
@@ -732,7 +733,7 @@
                                     {
                                         for (int i = 0; i < Model.ProductSalesType.Split(',').Length; i++)
                                         {
-                                            if (item.ConstantId == Model.ProductSalesType.Split(',').GetValue(i).ToInt16())
+                                            if (item.ConstantId ==Convert.ToInt16(Model.ProductSalesType.Split(',').GetValue(i)))
                                             {
                                                 hasItem = true;
                                             }
@@ -753,7 +754,7 @@
                                 bool hasItem = false;
                                 if (!string.IsNullOrEmpty(Model.BriefDetail))
                                 {
-                                    if (Model.BriefDetail.ToInt16() == item.ConstantId)
+                                    if (Convert.ToInt16(Model.BriefDetail) == item.ConstantId)
                                     {
                                         hasItem = true;
                                     }
@@ -863,7 +864,7 @@
                                 var city = Model.CityItems.FirstOrDefault(p => p.Value == Model.CityId.ToString());
                                 var country = Model.CountryItems.FirstOrDefault(p => p.Value == Model.CountryId.ToString());
 
-                                if (town != null) townText = town.Text;
+                                if (town != null) { townText = town.Text; }
                                 localityText = locality != null ? locality.Text : "";
                                 cityText = city != null ? city.Text : "";
                                 countryText = country != null ? country.Text : "";
@@ -968,8 +969,8 @@
                                 Fiyat Aralığı
                             </label>
                             <div class="col-xs-2 col-lg-2 pr0">
-                                @{string priceBegin = (Model.ProductPriceBegin == 0) ? "" : Model.ProductPriceBegin.ToDecimal().ToString("0#.00");
-                                    string priceLast = (Model.ProductPriceLast == 0) ? "" : Model.ProductPriceLast.ToDecimal().ToString("0#.00");
+                                @{string priceBegin = (Model.ProductPriceBegin == 0) ? "" : Convert.ToDecimal(Model.ProductPriceBegin).ToString("0#.00");
+                                    string priceLast = (Model.ProductPriceLast == 0) ? "" : Convert.ToDecimal(Model.ProductPriceLast).ToString("0#.00");
                                 }
                                 <input type="text" name="ProductPriceBegin" id="ProductPriceBegin" value="@priceBegin" size="3" class="form-control" data-thousands="." data-decimal="," />
 
@@ -990,7 +991,7 @@
                             </label>
                             <div class="col-xs-3 col-lg-3">
 
-                                @{string price = (Model.ProductPrice == 0) ? "" : Model.ProductPrice.ToDecimal().ToString("0#.00");
+                                @{string price = (Model.ProductPrice == 0) ? "" : Convert.ToDecimal(Model.ProductPrice).ToString("0#.00");
                                 }
                                 <input type="text" class="form-control" value="@price" name="ProductPrice1" id="ProductPrice1" data-thousands="." data-decimal="," />
                                 <div class="bs-example bs-example-bg-classes">
@@ -1018,7 +1019,6 @@
                             </div>
                         </div>
                     </div>
-                    @{ string style = Model.DiscountType == 0 ? "display:none;" : ""; }
                     <div id="DiscountAmountContainer" style="@style">
                         <div class="form-group">
                             <label class="col-sm-3 control-label" id="DiscountTypeLabel">
@@ -1251,7 +1251,7 @@
                         }
 
                         // Adding one more key to FormData object
-                        fileData.append('ProductId', "@this.RouteData.Values["id"]");
+                        fileData.append('ProductId', "@ViewContext.RouteData.Values["id"]");
                         fileData.append('ProductName', $("#ProductName").val());
 
                         $.ajax({
