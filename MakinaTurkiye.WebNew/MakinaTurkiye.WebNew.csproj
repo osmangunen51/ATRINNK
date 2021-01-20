@@ -1298,6 +1298,8 @@
     <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
     <Content Include="Areas\Account\Views\Shared\_LayoutMainMaster.cshtml" />
     <Content Include="Areas\Account\Views\Shared\_Header.cshtml" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Views\MembershipSales\BankTransfer.cshtml" />
     <Content Include="Views\MembershipSales\BeforePayCreditCard.cshtml" />
     <Content Include="Views\MembershipSales\CreditCard.cshtml" />

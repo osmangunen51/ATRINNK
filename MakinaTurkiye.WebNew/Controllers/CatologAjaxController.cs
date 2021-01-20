@@ -132,7 +132,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var member = new Member();
                     int mainPartyId = 0;
                     //üye ekleme
-                    if (_memberService.GetMemberByMemberEmail(model.UserEmail) == null)
+                    if (model.IsMember == 0 && string.IsNullOrEmpty(model.UserEmail))
                     {
 
                         var mainParty = new MainParty
@@ -188,7 +188,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     else
                     {
-                        member = _memberService.GetMemberByMemberEmail(model.UserEmail);
+                        if (!string.IsNullOrEmpty(model.UserEmail))
+                        {
+                            member = _memberService.GetMemberByMemberEmail(model.UserEmail);
+                        }
+                        else
+                        {
+                            member = _memberService.GetMemberByMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
+
+                        }
                         mainPartyId = member.MainPartyId;
 
                     }
@@ -234,7 +242,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var insertedProductComplain = _productComplainService.GetProductComplainByProductComplainId(productComplain.ProductComplainId);
                     foreach (var item in insertedProductComplain.ProductComplainDetails)
                     {
-                        complainNames += string.Format("{0} ,", item.ProductComplainType.Name);
+                        var productComplainType = _productComplainService.GetProductComplainType(item.ProductComplainTypeId);
+                        complainNames += string.Format("{0} ,", productComplainType.Name);
                     }
                     complainNames = complainNames.Substring(0, complainNames.Length - 2);
 
