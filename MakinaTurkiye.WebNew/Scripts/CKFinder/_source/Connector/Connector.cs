@@ -26,7 +26,7 @@ namespace CKFinder.Connector
 	public class Connector : Page
 	{
 		/// <summary>
-		/// The "ConfigFile" object, is the instance of config.ascx, present in
+		/// The "ConfigFile" object, is the instance of config.cshtml, present in
 		/// the connector.aspx file. It makes it possible to configure CKFinder
 		/// whithout having to compile it.
 		/// </summary>

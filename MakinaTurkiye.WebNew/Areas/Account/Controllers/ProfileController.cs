@@ -573,7 +573,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var dealerIds = model.StoreDealerItems.Select(x => x.StoreDealerId).ToList();
             model.PictureItems = _pictureService.GetPictureByStoreDealerIds(dealerIds);
 
-            return View("/Areas/Account/Views/Profile/PictureList.ascx", model);
+            return View("/Areas/Account/Views/Profile/PictureList.cshtml", model);
         }
 
         [HttpPost]
@@ -613,7 +613,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     break;
             }
 
-            return View("/Areas/Account/Views/Profile/DealerAddressItems.ascx", addressItems);
+            return View("/Areas/Account/Views/Profile/DealerAddressItems.cshtml", addressItems);
         }
 
         [HttpPost]

@@ -241,13 +241,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             //switch (pageType)
             //{
             //    case DisplayType.Window:
-            //        userControlName = "/Areas/Account/Views/Statistic/ProductOnebyOne.ascx";
+            //        userControlName = "/Areas/Account/Views/Statistic/ProductOnebyOne.cshtml";
             //        break;
             //    case DisplayType.List:
-            //        userControlName = "/Areas/Account/Views/Statistic/.ascx";
+            //        userControlName = "/Areas/Account/Views/Statistic/.cshtml";
             //        break;
             //    case DisplayType.Text:
-            //        userControlName = "/Areas/Account/Views/Statistic/ProductOnebyOne.ascx";
+            //        userControlName = "/Areas/Account/Views/Statistic/ProductOnebyOne.cshtml";
             //        break;
             //    default:
             //        break;

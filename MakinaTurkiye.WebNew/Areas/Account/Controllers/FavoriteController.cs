@@ -89,7 +89,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 foreach (var item in favoriteProducts)
                 {
                     var modelItem = _productModelFactory.PrepareProductAreaItemModel(item);
-                    content = content + "<div class='col-md-6 col-lg-4'>" + RenderPartialToString("~/Areas/Account/Views/Shared/_ProductItemBox.ascx", modelItem) + "</div>";
+                    content = content + "<div class='col-md-6 col-lg-4'>" + RenderPartialToString("~/Areas/Account/Views/Shared/_ProductItemBox.cshtml", modelItem) + "</div>";
 
                 }
                 res.Result = content;
@@ -125,13 +125,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             switch (pageType)
             {
                 case DisplayType.Window:
-                    userControlName = "/Areas/Account/Views/Favorite/ProductWindow.ascx";
+                    userControlName = "/Areas/Account/Views/Favorite/ProductWindow.cshtml";
                     break;
                 case DisplayType.List:
-                    userControlName = "/Areas/Account/Views/Favorite/ProductList.ascx";
+                    userControlName = "/Areas/Account/Views/Favorite/ProductList.cshtml";
                     break;
                 case DisplayType.Text:
-                    userControlName = "/Areas/Account/Views/Favorite/ProductText.ascx";
+                    userControlName = "/Areas/Account/Views/Favorite/ProductText.cshtml";
                     break;
                 default:
                     break;
@@ -183,13 +183,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             switch (pageType)
             {
                 case DisplayType.Window:
-                    userControlName = "/Areas/Account/Views/Favorite/StoreWindow.ascx";
+                    userControlName = "/Areas/Account/Views/Favorite/StoreWindow.cshtml";
                     break;
                 case DisplayType.List:
-                    userControlName = "/Areas/Account/Views/Favorite/StoreList.ascx";
+                    userControlName = "/Areas/Account/Views/Favorite/StoreList.cshtml";
                     break;
                 case DisplayType.Text:
-                    userControlName = "/Areas/Account/Views/Favorite/StoreText.ascx";
+                    userControlName = "/Areas/Account/Views/Favorite/StoreText.cshtml";
                     break;
                 default:
                     break;

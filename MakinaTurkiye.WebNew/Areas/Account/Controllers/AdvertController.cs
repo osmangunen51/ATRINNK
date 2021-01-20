@@ -1224,7 +1224,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var dataPicture = new Data.Picture();
             var pictureModel1 = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
 
-            return PartialView("/Areas/Account/Views/Advert/EditProductPicture.ascx", pictureModel1);
+            return PartialView("/Areas/Account/Views/Advert/EditProductPicture.cshtml", pictureModel1);
 
         }
 
@@ -1334,13 +1334,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             switch (pageType)
             {
                 case DisplayType.Window:
-                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.ascx";
+                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
                 case DisplayType.List:
-                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.ascx";
+                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
                 case DisplayType.Text:
-                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.ascx";
+                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
                 default:
                     break;
@@ -1457,16 +1457,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             switch (pageType)
             {
                 case DisplayType.Window:
-                    userControlName = "/Areas/Account/Views/Advert/AdvertWindow.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/AdvertWindow.cshtml";
                     break;
                 case DisplayType.List:
-                    userControlName = "/Areas/Account/Views/Advert/_AdvertListWindow.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/_AdvertListWindow.cshtml";
                     break;
                 case DisplayType.Text:
-                    userControlName = "/Areas/Account/Views/Advert/AdvertText.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/AdvertText.cshtml";
                     break;
                 case DisplayType.Table:
-                    userControlName = "/Areas/Account/Views/Advert/_AdvertListTable.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/_AdvertListTable.cshtml";
                     break;
                 default:
                     break;
@@ -1620,9 +1620,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             PictureList.RemoveAt(index);
             if (horizontal)
             {
-                return View("/Areas/Account/Views/Advert/PictureListHor.ascx", PictureList);
+                return View("/Areas/Account/Views/Advert/PictureListHor.cshtml", PictureList);
             }
-            return View("/Areas/Account/Views/Advert/PictureList.ascx", PictureList);
+            return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
         /*
         [HttpDelete]
@@ -1672,7 +1672,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             Session["PictureItems"] = newpictures;
 
-            return View("/Areas/Account/Views/Advert/PictureList.ascx", PictureList);
+            return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
 
         [HttpPost]
@@ -1711,7 +1711,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             _productService.CheckSPProductSearch(productID);
 
-            return View("/Areas/Account/Views/Advert/EditProductPicture.ascx", newpictures);
+            return View("/Areas/Account/Views/Advert/EditProductPicture.cshtml", newpictures);
         }
 
         [HttpPost]
@@ -1744,10 +1744,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             if (horizontal)
             {
-                return View("/Areas/Account/Views/Advert/PictureListHor.ascx", PictureList);
+                return View("/Areas/Account/Views/Advert/PictureListHor.cshtml", PictureList);
             }
 
-            return View("/Areas/Account/Views/Advert/PictureList.ascx", PictureList);
+            return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
 
         [HttpPost]
@@ -1773,7 +1773,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var pictureModel = dataPicture.GetItemsByProductId(ProductId).AsCollection<PictureModel>();
 
 
-            return View("/Areas/Account/Views/Advert/EditProductPicture.ascx", pictureModel);
+            return View("/Areas/Account/Views/Advert/EditProductPicture.cshtml", pictureModel);
         }
 
 
@@ -1802,7 +1802,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var pictureModel = dataPicture.GetItemsByProductId(ProductId).AsCollection<PictureModel>();
 
 
-            return View("/Areas/Account/Views/Advert/PictureListNew.ascx", pictureModel);
+            return View("/Areas/Account/Views/Advert/PictureListNew.cshtml", pictureModel);
         }
 
         [HttpPost]
@@ -1839,7 +1839,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
 
             var videoModel = _videoService.GetVideosByProductId(ProductId);
-            return View("/Areas/Account/Views/Advert/EditProductVideo.ascx", videoModel);
+            return View("/Areas/Account/Views/Advert/EditProductVideo.cshtml", videoModel);
         }
 
         [HttpDelete]
@@ -1849,7 +1849,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             FileHelpers.Delete(AppSettings.VideoThumbnailFolder + item.VideoPicturePath);
             FileHelpers.Delete(AppSettings.VideoFolder + item.VideoPath);
             VideoList.RemoveAt(index);
-            return View("/Areas/Account/Views/Advert/VideoList.ascx", VideoList);
+            return View("/Areas/Account/Views/Advert/VideoList.cshtml", VideoList);
         }
 
         [HttpPost]

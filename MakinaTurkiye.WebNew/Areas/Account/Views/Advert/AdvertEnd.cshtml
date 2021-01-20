@@ -66,7 +66,7 @@
                                                 }
 
                                             }
-                                        } 
+                                        }
                                         <br>
                                         <br>
 
@@ -74,7 +74,7 @@
                                             Ürün Açıklaması :
                                         </b>
                                         <br>
-                                        @Model.ProductDescription
+                                        @Html.Raw(Model.ProductDescription)
                                     </div>
                                     <div class="col-xs-12 col-sm-7">
                                         <h4>@Model.ProductName</h4>
@@ -82,7 +82,7 @@
                                         <b>
                                             Kategori :
                                         </b>
-                                        @Model.GetCategoryName(Model.CategoryId) 
+                                        @Model.GetCategoryName(Model.CategoryId)
 
                                         <br>
                                         <br>
@@ -118,7 +118,7 @@
                                         <b>
                                             İlan Geçerlilik Süresi :
                                         </b>
-                                        @{ 
+                                        @{
                                                         TimeSpan time;
                                                         time = Model.ProductAdvertEndDate.Subtract(Model.ProductAdvertBeginDate);
                                                         int toplamdakika = Convert.ToInt32(time.TotalDays);
@@ -126,19 +126,19 @@
                                                         string zaman = Convert.ToInt32(toplamdakika / 30).ToString();
                                                     }
                                          @if (Convert.ToInt32(zaman) == 12)
-                                        { 
+                                        {
                                         @("1 Yıl")
 
-                                        } 
+                                        }
                                         else
                                         {
                                         @zaman @(" Ay")
 
-                                        } 
+                                        }
                                         <br>
                                         <br>
 
-                                        
+
                                         <b>
                                             İlan No :
                                         </b>
@@ -156,18 +156,18 @@
                                 </div>
                                 <div class="row mt20">
                                     <div class="col-sm-offset-3 col-sm-9 btn-group">
-                                        
+
                                         @using (Html.BeginForm("AdverEnd", "Advert", FormMethod.Post))
-                                            { 
-    
+                                            {
+
                                             <button type="submit" onclick="nextStatu();" class="btn btn-primary">Kaydet</button>
-    
+
                                             <div id="loaderDiv" style="float: right; width: auto; height: 20px; display: none; font-size: 12px; margin-top: 8px;">
-    
+
                                                 <img src="../../../../Content/V2/images/loading.gif" width="30" alt="" />&nbsp; İşleminiz gerçekleştiriliyor, lütfen bekleyiniz.
 
                                         </div>
-                                         } 
+                                         }
                                     </div>
                                 </div>
                             </div>
