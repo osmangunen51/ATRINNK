@@ -297,7 +297,7 @@
                     type: 'Post',
                     data:
                     {
-                        ProductId: @(this.RouteData.Values["id"]),
+                        ProductId: @(HttpContext.Current.Request..RouteData.Values["id"]),
                         PictureId: pictureId,
                         PictureName: pictureName
                     },
@@ -643,7 +643,7 @@
                                         bool hasItem = false;}
                                     @if (!string.IsNullOrEmpty(Model.ProductType))
                                     {
-                                        if (Model.ProductType.ToInt16() == item.ConstantId)
+                                        if (Convert.ToInt16(Model.ProductType) == item.ConstantId)
                                         {
                                             hasItem = true;
                                         }
@@ -686,7 +686,7 @@
                                     }
                                     @if (!string.IsNullOrEmpty(Model.ProductStatu))
                                     {
-                                        if (Model.ProductStatu.ToInt16() == item.ConstantId)
+                                        if (Convert.ToInt16(Model.ProductStatu) == item.ConstantId)
                                         {
                                             hasItem = true;
                                         }

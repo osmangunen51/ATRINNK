@@ -1,19 +1,11 @@
 ﻿@model List<NeoSistem.MakinaTurkiye.Web.Models.Home.MTHomeCategoryModel>
-@using NeoSistem.MakinaTurkiye.Web.Models
-@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
-@using NeoSistem.MakinaTurkiye.Core.Web.Helpers
-
 @{
     Layout = null;
-    //using NeoSistem.MakinaTurkiye.Web.Models
-    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 }
-
-
 <ul role="menubar">
     @foreach (var item in Model)
     {
-        <li role="menuitem" class="@{(item.SubCategoryModels.Count() > 0 ? "has-sub-item" : "");}">
+        <li role="menuitem" class="@(item.SubCategoryModels.Count() > 0 ? "has-sub-item" : "")">
             <a href="@item.CategoryUrl">
 
                 @item.CategoryName
