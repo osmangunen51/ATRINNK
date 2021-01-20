@@ -499,7 +499,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     default:
                         break;
                 }
-
                 if (productActive == (ProductActive.Aktif))
                 {
                     data = dataProduct.GetSearchWebByProductActiveTypeByProductNameNew(ref TotalRecord, getProduct.PageDimension, getProduct.CurrentPage, 4, AuthenticationUser.Membership.MainPartyId, productName).AsCollection<ProductModel>();
@@ -517,8 +516,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 return "false";
             else
             {
-                string ret = RenderPartialToString("~/Areas/Account/Views/Advert/AdvertSearchResult.ascx", getProduct);
-
+                string ret = RenderPartialToString("~/Areas/Account/Views/Advert/AdvertSearchResult.cshtml", getProduct);
                 return ret;
             }
         }
@@ -550,19 +548,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 {
                     if (Request.QueryString["currentPage"] != null)
                     {
-
                         model.CurrentListedPage = Request.QueryString["currentPage"];
                     }
-
                 }
                 catch (Exception)
                 {
-
                     model.CurrentListedPage = "1";
-
                 }
-
-
                 var dataPicture = new Data.Picture();
                 model.ProductPictureItems = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
                 model.VideoItems = _videoService.GetVideosByProductId(id);
@@ -734,7 +726,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 currencies.Insert(0, new Currency { CurrencyId = 0, CurrencyName = "< Seçiniz >" });
                 model.CurrencyItems = new SelectList(currencies, "CurrencyId", "CurrencyName");
 
-
                 var certificateTypes = _certificateTypeService.GetCertificateTypes();
                 var storeCertificates = _storeService.GetStoreCertificatesByMainPartyId(mainPartyId);
                 var certificateTypeProducts = _certificateTypeService.GetCertificateTypeProductsByProductId(id);
@@ -767,8 +758,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             #region ImageUpload
             bool hasFile = false;
-
-
             bool pictureIsOK = false;
             foreach (string inputTagName in Request.Files)
             {
@@ -864,11 +853,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             break;
                     }
 
-                    //if (model.ProductPublicationDateType != 0 && model.ProductPublicationDateType != null)
-                    //{
-                    //  product.ProductAdvertEndDate = dateProductEndDate;
-                    //}
-
                     if (model.ProductPublicationDateType != 0)
                     {
                         product.ProductAdvertEndDate = dateProductEndDate;
@@ -947,16 +931,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                     totalPrice = totalPrice.Replace(".", ",");
                                 }
                                 product.ProductPriceWithDiscount = Convert.ToDecimal(totalPrice, cultInfo.NumberFormat);
-
                             }
-
                         }
                         else
                         {
                             product.DiscountAmount = 0;
                             product.ProductPriceWithDiscount = 0;
                         }
-
                     }
                     else if (product.ProductPriceType == (byte)ProductPriceType.PriceRange)
                     {
@@ -1037,7 +1018,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             }
                         }
                     }
-
 
                     product.ProductSalesType = ProductSalesType;
                     product.MoneyCondition = null;

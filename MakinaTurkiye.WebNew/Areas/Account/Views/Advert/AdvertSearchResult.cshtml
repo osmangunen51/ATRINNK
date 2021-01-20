@@ -20,21 +20,16 @@
 @using System.Globalization
 @using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 @using NeoSistem.MakinaTurkiye.Web.Models.Videos
-@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
-@using System.Linq;
 @{
-    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+    Layout = null;
 }
-
 <div class="tab-pane fade in active" id="liste">
     @{
-        if (Model.Source.Count>0)
+        if (Model.Source.Count > 0)
         {
-            foreach (var model in Model.Source)
+            foreach (NeoSistem.MakinaTurkiye.Web.Models.ProductModel modelItem in Model.Source)
             {
-                string productUrl = Helpers.ProductUrl(model.ProductId, model.ProductName);
+                string productUrl = Helpers.ProductUrl(modelItem.ProductId, modelItem.ProductName);
                 List<Constant> constantItems = null;
                 using (var entities = new MakinaTurkiyeEntities())
                 {
@@ -44,11 +39,11 @@
                 string productType = "";
                 foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductType))
                 {
-                    if (model.ProductType != null)
+                    if (modelItem.ProductType != null)
                     {
-                        for (int i = 0; i < model.ProductType.Split(',').Length; i++)
+                        for (int i = 0; i < modelItem.ProductType.Split(',').Length; i++)
                         {
-                            if (item.ConstantId == Convert.ToInt32(model.ProductType.Split(',').GetValue(i)))
+                            if (item.ConstantId == Convert.ToInt32(modelItem.ProductType.Split(',').GetValue(i)))
                             {
                                 productType = productType + " " + item.ConstantName;
                             }
@@ -59,11 +54,11 @@
                 string productStatu = "";
                 foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductStatu))
                 {
-                    if (model.ProductStatu != null)
+                    if (modelItem.ProductStatu != null)
                     {
-                        for (int i = 0; i < model.ProductStatu.Split(',').Length; i++)
+                        for (int i = 0; i < modelItem.ProductStatu.Split(',').Length; i++)
                         {
-                            if (item.ConstantId == Convert.ToInt32(model.ProductStatu.Split(',').GetValue(i)))
+                            if (item.ConstantId == Convert.ToInt32(modelItem.ProductStatu.Split(',').GetValue(i)))
                             {
                                 productStatu = productStatu + " " + item.ConstantName;
                             }
@@ -75,11 +70,11 @@
                 string briefDetail = "";
                 foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductBriefDetail))
                 {
-                    if (!string.IsNullOrEmpty(model.BriefDetail))
+                    if (!string.IsNullOrEmpty(modelItem.BriefDetail))
                     {
-                        for (int i = 0; i < model.BriefDetail.Split(',').Length; i++)
+                        for (int i = 0; i < modelItem.BriefDetail.Split(',').Length; i++)
                         {
-                            if (item.ConstantId == Convert.ToInt32(model.BriefDetail.Split(',').GetValue(i)))
+                            if (item.ConstantId == Convert.ToInt32(modelItem.BriefDetail.Split(',').GetValue(i)))
                             {
                                 if (string.IsNullOrWhiteSpace(briefDetail))
                                 {
@@ -97,9 +92,9 @@
                 string salesTypeName = "";
                 foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductSalesType))
                 {
-                    for (int i = 0; i < model.ProductSalesType.Split(',').Length; i++)
+                    for (int i = 0; i < modelItem.ProductSalesType.Split(',').Length; i++)
                     {
-                        if (item.ConstantId == Convert.ToInt32(model.ProductSalesType.Split(',').GetValue(i)))
+                        if (item.ConstantId == Convert.ToInt32(modelItem.ProductSalesType.Split(',').GetValue(i)))
                         {
                             if (string.IsNullOrWhiteSpace(salesTypeName))
                             {
@@ -113,329 +108,329 @@
                     }
                 }
                 <div class="row">
-                        <div class="hidden-xs hidden-sm col-md-3">
-                                            @{
-                                                System.Collections.Generic.Dictionary<string, object> imageHtmlAtturbite = new System.Collections.Generic.Dictionary<string, object>();
-                                                imageHtmlAtturbite.Add("alt", @Html.Truncate(model.ProductName, 80));
-                                                imageHtmlAtturbite.Add("class", "img-thumbnail");
-                                                imageHtmlAtturbite.Add("title", @Html.Truncate(model.ProductName, 80));
+                                    <div class="hidden-xs hidden-sm col-md-3">
+                                        @{
+                                            System.Collections.Generic.Dictionary<string, object> imageHtmlAtturbite = new System.Collections.Generic.Dictionary<string, object>();
+                                            imageHtmlAtturbite.Add("alt", @Html.Truncate(modelItem.ProductName, 80));
+                                            imageHtmlAtturbite.Add("class", "img-thumbnail");
+                                            imageHtmlAtturbite.Add("title", @Html.Truncate(modelItem.ProductName, 80));
+                                        }
+                                        @if (!string.IsNullOrEmpty(Html.GetProductImage(modelItem.ProductId, modelItem.MainPicture, NeoSistem.MakinaTurkiye.Web.Helpers.ImageHelpers.ImageSize.px400x300, imageHtmlAtturbite).ToString()))
+                                        {
+                                            <a href="@productUrl">
+
+                                                @Html.GetProductImage(modelItem.ProductId, modelItem.MainPicture, NeoSistem.MakinaTurkiye.Web.Helpers.ImageHelpers.ImageSize.px400x300, imageHtmlAtturbite)
+
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@productUrl">
+
+                                                <img class="img-thumbnail" src="https://dummyimage.com/400x300/efefef/000000.jpg&text=%C3%9Cr%C3%BCn%20Resmi%20Haz%C4%B1rlan%C4%B1yor"
+                                                     alt="@modelItem.ProductName" title="@modelItem.ProductName" />
+                                            </a>
                                             }
-                                            @if (!string.IsNullOrEmpty(Html.GetProductImage(model.ProductId, model.MainPicture, NeoSistem.MakinaTurkiye.Web.Helpers.ImageHelpers.ImageSize.px400x300, imageHtmlAtturbite).ToString()))
-                                            {
+                                        </div>
+                                        <div class="col-xs-9 col-md-7">
+                                            <h4 class="media-heading">
                                                 <a href="@productUrl">
+                                                    @modelItem.ProductName
+                                                </a>&nbsp; <span class="text-sm">(@modelItem.ProductNo) </span>
+                                            </h4>
+                                            <div class="row">
+                                                <div class="text-muted col-xs-6">
+                                                    Kategori :
+                                                    @modelItem.CategoryName
+                                                    <br>
+                                                    Marka :
+                                                    @modelItem.BrandName
+                                                    <br>
+                                                    Seri :
+                                                    @modelItem.SeriesName
+                                                    <br />
+                                                    Model Tipi :
+                                                    @modelItem.ModelName
+                                                    <br>
+                                                    Model Yılı :
+                                                    @modelItem.ModelYear
+                                                    <br>
+                                                    Görüntülenme Sayısı :
+                                                    @modelItem.ViewCount
+                                                    <br>
+                                                    <br />
+                                                    Fiyatı :
+                                                    @if (modelItem.ProductPriceType == (byte)ProductPriceType.PriceRange || modelItem.ProductPriceType == (byte)ProductPriceType.Price)
+                                                    {
 
-                                                    @Html.GetProductImage(model.ProductId, model.MainPicture, NeoSistem.MakinaTurkiye.Web.Helpers.ImageHelpers.ImageSize.px400x300, imageHtmlAtturbite)
-
-                                                </a>
-                                            }
-                                            else
-                                            {
-                                                <a href="@productUrl">
-
-                                                    <img class="img-thumbnail" src="https://dummyimage.com/400x300/efefef/000000.jpg&text=%C3%9Cr%C3%BCn%20Resmi%20Haz%C4%B1rlan%C4%B1yor"
-                                                         alt="@Model.ProductName" title="@Model.ProductName" />
-                                                </a>
-                                            }
-                                            </div>
-                        <div class="col-xs-9 col-md-7">
-                                                <h4 class="media-heading">
-                                                    <a href="@productUrl">
-                                                        @Model.ProductName
-                                                    </a>&nbsp; <span class="text-sm">(@Model.ProductNo) </ span >
-                                                </h4>
-                                                <div class="row">
-                                                    <div class="text-muted col-xs-6">
-                                                        Kategori :
-                                                        @Model.CategoryName
-                                                        <br>
-                                                        Marka :
-                                                        @Model.BrandName
-                                                        <br>
-                                                        Seri :
-                                                        @Model.SeriesName
-                                                        <br />
-                                                        Model Tipi :
-                                                        @Model.ModelName
-                                                        <br>
-                                                        Model Yılı :
-                                                        @Model.ModelYear
-                                                        <br>
-                                                        Görüntülenme Sayısı :
-                                                        @Model.ViewCount
-                                                        <br>
-                                                        <br />
-
-                                                        Fiyatı :
-                                                        @if (model.ProductPriceType == (byte)ProductPriceType.PriceRange || model.ProductPriceType == (byte)ProductPriceType.Price)
+                                                        if (modelItem.CurrencyId == 2)
                                                         {
-
-                                                            if (model.CurrencyId == 2)
-                                                            {
-                                                                <i id="currency@(model.ProductId)" class="fa fa-usd"></i>
-                                                            }
-                                                            else if (model.CurrencyId == 3)
-                                                            {
-                                                                <i class="fa fa-eur"></i>
-                                                            }
-                                                            else if (model.CurrencyId == 4)
-                                                            {
-                                                                <i class="fa fa-jpy"></i>
-                                                            }
-                                                            else
-                                                            {
-                                                                <i class="fa fa-turkish-lira"></i>
-                                                            }
-
-                                                            if (model.ProductPriceType == (byte)ProductPriceType.Price)
-                                                            {
-                                                                <span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;" id="PriceValue@(model.ProductId)">
-                                                                    <span id="priceDisplay@(model.ProductId )">
-                                                                        @Model.ProductPrice.GetValueOrDefault(0).ToString("N2")
-                                                                    </span>
-                                                                </span>
-
-                                                            }
-                                                            else
-                                                            {
-                                                                <span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;">
-                                                                    @Model.ProductPriceBegin.GetValueOrDefault(0).ToString("N2") - @Model.ProductPriceLast.GetValueOrDefault(0).ToString("N2") < a href = "/Account/Advert/Edit/@(model.ProductId)?currentPage=@(Model.CurrentPage)" >< i style = "color: #333" class="glyphicon glyphicon-pencil"></i></a>
-                                                                </span>
-                                                            }
+                                                            <i id="currency@(modelItem.ProductId)" class="fa fa-usd"></i>
+                                                        }
+                                                        else if (modelItem.CurrencyId == 3)
+                                                        {
+                                                            <i class="fa fa-eur"></i>
+                                                        }
+                                                        else if (modelItem.CurrencyId == 4)
+                                                        {
+                                                            <i class="fa fa-jpy"></i>
                                                         }
                                                         else
                                                         {
-                                                            if (Model.ProductPriceType == (byte)ProductPriceType.PriceAsk)
-                                                            {
-                                                                <span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;">Sorunuz  <a href="/Account/Advert/Edit/@(model.ProductId)?currentPage=@(Model.CurrentPage)"><i style="margin-left: 10px; color: #333" class="glyphicon glyphicon-pencil"></i></a></span>
-                                                            }
-                                                            else
-                                                            {
-                                                                <span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;">
-                                                                    Görüşülür   <a href="/Account/Advert/Edit/@(Model.ProductId)?currentPage=@(Model.CurrentPage)"><i style="margin-left: 10px; color: #333" class="glyphicon glyphicon-pencil"></i></a>
-                                                                </span>
-                                                            }
+                                                            <i class="fa fa-turkish-lira"></i>
                                                         }
-                                                    </div>
-                                                    <div class="text-muted col-xs-6">
-                                                        Ürün Tipi :
-                                                        @productType
-                                                        <br>
-                                                        Ürün Durumu :
-                                                        @productStatu
-                                                        <br>
-                                                        Kısa Detay :
-                                                        @briefDetail
-                                                        <br>
-                                                        Satış Detayı :
-                                                        @salesTypeName
-                                                        <br>
-                                                        İlan Bitiş Tarihi :
-                                                        @Model.ProductAdvertEndDate.ToString("dd.MM.yyyy")
-                                                        <br>
-                                                        İl/İlçe :
-                                                        @Model.CityName  / @Model.LocalityName
-                                                    </div>
-                                                </div>
-                                            </div>
-                        <div class="col-xs-3 col-md-2">
-                                                <div class="btn-group-vertical">
-                                                    @if (model.ProductActiveType == (byte)ProductActiveType.CopKutusunda)
-                                                    {
-                                                    }
-                                                    else if (model.ProductActiveType == (byte)ProductActiveType.Silindi)
-                                                    {
 
-                                                        <a href="#" onclick="ProductToReceyleBin(@Model.ProductId);" class="btn btn-sm btn-default">Çöpe Gönder </a>
-                                                        <a href="#" onclick="ProductUndoDelete(@Model.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a>
+                                                        if (modelItem.ProductPriceType == (byte)ProductPriceType.Price)
+                                                        {
+                                                            <span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;" id="PriceValue@(modelItem.ProductId)">
+                                                                <span id="priceDisplay@(modelItem.ProductId )">
+                                                                    @modelItem.ProductPrice.GetValueOrDefault(0).ToString("N2")
+                                                                </span>
+                                                            </span>
+                                                        }
+                                                        else
+                                                        {
+<span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;">
+                                                                @modelItem.ProductPriceBegin.GetValueOrDefault(0).ToString("N2") - @modelItem.ProductPriceLast.GetValueOrDefault(0).ToString("N2") < a href = "/Account/Advert/Edit/@(modelItem.ProductId)?currentPage=@(Model.CurrentPage)">
+                                                                <i style = "color: #333" class="glyphicon glyphicon-pencil"></i>
+                                                                </a>
+</span>
+                                                        }
                                                     }
                                                     else
                                                     {
-                                                        <div class="btn-group">
-
-                                                            @if (model.ProductActive)
-                                                            {
-                                                                <a onclick="" class="btn btn-sm btn-success dropdown-toggle"
-                                                                   data-toggle="dropdown">Aktif İlan <span class="caret"></span></a>
-                                                                <ul class="dropdown-menu dropdown-menu-mt" role="menu">
-                                                                    <li>
-                                                                        <a onclick="ProductActiveUpdate(@Model.ProductId, 'false');">Pasif İlan </a>
-                                                                    </li>
-                                                                </ul>
-                                                            }
-                                                            else
-                                                            {
-                                                                <a onclick="" class="btn btn-sm btn-danger dropdown-toggle"
-                                                                   data-toggle="dropdown">Pasif İlan <span class="caret"></span></a>
-                                                                <ul class="dropdown-menu dropdown-menu-mt" role="menu">
-                                                                    <li>
-                                                                        <a onclick="ProductActiveUpdate(@Model.ProductId, 'true');">Aktif İlan </a>
-                                                                    </li>
-                                                                </ul>
-                                                            }
-                                                        </div>
-                                                        <a href="/Account/Advert/Edit/@Model.ProductId?currentPage=@Model.CurrentPage" class="btn btn-sm btn-default">Düzenle </a>
-                                                        <a data-val="@Model.ProductId" class="btn btn-sm btn-default pDeleteItem">Sil</a>
-                                                    }
-                                                    </div>
-                                                    <div>
-                                                        @if (model.ProductActiveType == (byte)ProductActiveType.Onaylandi && model.Doping != true)
+                                                        if (modelItem.ProductPriceType == (byte)ProductPriceType.PriceAsk)
                                                         {
-                                                            <a class="btn btn-sm  background-mt-btn" data-toggle="modal" onclick="ShowProductDoping(@Model.ProductId)" data-target="#GetDopingModal" style="margin-top:20px; padding:5px;">
-                                                            <i class="fa fa-arrow-circle-up"></i>  Dopingle
-                        </ a >
+                                                            <span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;">Sorunuz  <a href="/Account/Advert/Edit/@(modelItem.ProductId)?currentPage=@(Model.CurrentPage)"><i style="margin-left: 10px; color: #333" class="glyphicon glyphicon-pencil"></i></a></span>
                                                         }
-                                                        else if (model.Doping == true)
+                                                        else
                                                         {
+                                                            <span style="background-color: #ffffff; border: 1px solid #e1e1e1; padding: 10px;">
+                                                                Görüşülür   <a href="/Account/Advert/Edit/@(modelItem.ProductId)?currentPage=@(Model.CurrentPage)"><i style="margin-left: 10px; color: #333" class="glyphicon glyphicon-pencil"></i></a>
+                                                            </span>
+                                                        }
+                                                    }
+                                                </div>
+                                                <div class="text-muted col-xs-6">
+                                                    Ürün Tipi :
+                                                    @productType
+                                                    <br>
+                                                    Ürün Durumu :
+                                                    @productStatu
+                                                    <br>
+                                                    Kısa Detay :
+                                                    @briefDetail
+                                                    <br>
+                                                    Satış Detayı :
+                                                    @salesTypeName
+                                                    <br>
+                                                    İlan Bitiş Tarihi :
+                                                    @modelItem.ProductAdvertEndDate.ToString("dd.MM.yyyy")
+                                                    <br>
+                                                    İl/İlçe :
+                                                    @modelItem.CityName  / @modelItem.LocalityName
+                                                </div>
+                                            </div>
+                </div>
+                                        <div class="col-xs-3 col-md-2">
+                                            <div class="btn-group-vertical">
+                                                @if (modelItem.ProductActiveType == (byte)ProductActiveType.CopKutusunda)
+                                                {
+                                                }
+                                                else if (modelItem.ProductActiveType == (byte)ProductActiveType.Silindi)
+                                                {
+
+                                                    <a href="#" onclick="ProductToReceyleBin(@modelItem.ProductId);" class="btn btn-sm btn-default">Çöpe Gönder </a>
+                                                    <a href="#" onclick="ProductUndoDelete(@modelItem.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a>
+                                                }
+                                                else
+                                                {
+                                                    <div class="btn-group">
+
+                                                        @if (modelItem.ProductActive)
+                                                        {
+                                                            <a onclick="" class="btn btn-sm btn-success dropdown-toggle"
+                                                               data-toggle="dropdown">Aktif İlan <span class="caret"></span></a>
+                                                            <ul class="dropdown-menu dropdown-menu-mt" role="menu">
+                                                                <li>
+                                                                    <a onclick="ProductActiveUpdate(@modelItem.ProductId, 'false');">Pasif İlan </a>
+                                                                </li>
+                                                            </ul>
+                                                        }
+                                                        else
+                                                        {
+                                                            <a onclick="" class="btn btn-sm btn-danger dropdown-toggle"
+                                                               data-toggle="dropdown">Pasif İlan <span class="caret"></span></a>
+                                                            <ul class="dropdown-menu dropdown-menu-mt" role="menu">
+                                                                <li>
+                                                                    <a onclick="ProductActiveUpdate(@modelItem.ProductId, 'true');">Aktif İlan </a>
+                                                                </li>
+                                                            </ul>
+                                                        }
+                                                    </div>
+                                                    <a href="/Account/Advert/Edit/@modelItem.ProductId?currentPage=@Model.CurrentPage" class="btn btn-sm btn-default">Düzenle </a>
+                                                    <a data-val="@modelItem.ProductId" class="btn btn-sm btn-default pDeleteItem">Sil</a>
+                                                }
+                                            </div>
+                                            <div>
+                                                @if (modelItem.ProductActiveType == (byte)ProductActiveType.Onaylandi && modelItem.Doping != true)
+                                                {
+                                                        <a class="btn btn-sm  background-mt-btn" data-toggle="modal" onclick="ShowProductDoping(@modelItem.ProductId)" data-target="#GetDopingModal" style="margin-top:20px; padding:5px;">
+                                                        <i class="fa fa-arrow-circle-up"></i>  Dopingle
+                                                        </a>
+                                                    }
+                                                    else if (modelItem.Doping == true)
+                                                    {
                                                         <a class="btn btn-sm btn-info" style="margin-top: 20px; padding:5px;">
                                                             Dopingli Ürün
                                                         </a>
-                                                        }
-                                                        </div>
-                                                    </div>
-                            <div class="col-xs-12">
-                                <br />
-                                @if (model.ProductActiveType == (byte)ProductActiveType.Silindi)
-                                {
-                                    <div class="alert alert-danger">
-                                        <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp; <span>
-                                            Ürün silme talebiniz
-                                            alınmıştır.
-                                        </span>
+                                                    }
+                                        </div>
                                     </div>
-                                }
+                                        <div class="col-xs-12">
+                                            <br />
+                                            @if (modelItem.ProductActiveType == (byte)ProductActiveType.Silindi)
+                                            {
+                                                <div class="alert alert-danger">
+                                                    <i class="glyphicon glyphicon-exclamation-sign"></i>&nbsp; <span>
+                                                        Ürün silme talebiniz
+                                                        alınmıştır.
+                                                    </span>
+                                                </div>
+                                            }
 
-                                <hr />
-                            </div>
+                                            <hr />
+                                        </div>
                 </div>
-          }
+            }
         }
         else
         {
-            <p class="bg-info">
-                Bu bölüma ait herhangi bir ürün bulunamamıştır.
-            </p>
+        <p class="bg-info">
+            Bu bölüma ait herhangi bir ürün bulunamamıştır.
+        </p>
         }
-                                                }
+    }
 </div>
 <script type="text/javascript">
-                            function getUrlVars() {
-                                var vars = [], hash;
-                                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-                                for (var i = 0; i < hashes.length; i++) {
-                                    hash = hashes[i].split('=');
-                                    vars.push(hash[0]);
-                                    vars[hash[0]] = hash[1];
+                        function getUrlVars() {
+                            var vars = [], hash;
+                            var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                            for (var i = 0; i < hashes.length; i++) {
+                                hash = hashes[i].split('=');
+                                vars.push(hash[0]);
+                                vars[hash[0]] = hash[1];
+                            }
+                            return vars;
+                        }
+
+
+                        function ProductActiveUpdate(productId, active) {
+                            $.ajax({
+                                url: '/Account/ilan/ProductActiveUpdate',
+                                type: 'POST',
+                                data:
+                                {
+                                    ProductId: productId,
+                                    Active: active
+                                },
+                                success: function (data) {
+                                    var statusText = "Aktif";
+                                    if (active == false)
+                                        statusText = "Pasif";
+
+                                    alert("Ürün durumu " + statusText + " başarıyla güncelleştirilmiştir.");
+                                    currentelement.parent().parent().parent().find('.delProdConMes').show();
+                                    currentelement.parent().hide();
+
+
+                                },
+                                error: function (x, l, e) {
+                                    alert(e.responseText);
+
                                 }
-                                return vars;
-                            }
+                            });
+                        }
 
+                        function ProductToReceyleBin(productId) {
+                            $.ajax({
+                                url: '/Account/ilan/ProductToReceyleBin',
+                                type: 'POST',
+                                data:
+                                {
+                                    ProductId: productId
+                                },
+                                success: function (data) {
+                                    alert("Ürün başarıyla çöpe atılmıştır.");
 
-                            function ProductActiveUpdate(productId, active) {
-                                $.ajax({
-                                    url: '/Account/ilan/ProductActiveUpdate',
-                                    type: 'POST',
-                                    data:
-                                    {
-                                        ProductId: productId,
-                                        Active: active
-                                    },
-                                    success: function (data) {
-                                        var statusText = "Aktif";
-                                        if (active == false)
-                                            statusText = "Pasif";
+                                },
+                                error: function (x, l, e) {
+                                    alert(e.responseText);
+                                }
+                            });
+                        }
 
-                                        alert("Ürün durumu " + statusText + " başarıyla güncelleştirilmiştir.");
-                                        currentelement.parent().parent().parent().find('.delProdConMes').show();
-                                        currentelement.parent().hide();
+                        function ProductUndoDelete(productId, active) {
+                            $.ajax({
+                                url: '/Account/ilan/ProductUndoDelete',
+                                type: 'POST',
+                                data:
+                                {
+                                    ProductId: productId,
+                                    Active: active
+                                },
+                                success: function (data) {
+                                    alert("Ürün başarıyla geri alınmıştır.");
 
+                                },
+                                error: function (x, l, e) {
+                                    alert(e.responseText);
+                                }
+                            });
+                        }
+                        function ProductDelete(productId) {
+                            $.ajax({
+                                url: '/Account/ilan/ProductDelete',
+                                type: 'POST',
+                                data:
+                                {
+                                    ProductId: productId
+                                },
+                                success: function (data) {
+                                    //alert("Ürün silme talebiniz alınmıştır.Onaylandığı taktirde ürününüz silinecetir.");
+                                    return true;
+                                },
+                                error: function (x, l, e) {
+                                    alert(e.responseText);
+                                    return false;
+                                }
+                            });
+                        }
 
-                                    },
-                                    error: function (x, l, e) {
-                                        alert(e.responseText);
+                        $(document).ready(function () {
+                            $('.pDeleteItem').click(function () {
+                                if (confirm('İlanı silmek istediğinize emin misiniz?')) {
 
-                                    }
-                                });
-                            }
-
-                            function ProductToReceyleBin(productId) {
-                                $.ajax({
-                                    url: '/Account/ilan/ProductToReceyleBin',
-                                    type: 'POST',
-                                    data:
-                                    {
-                                        ProductId: productId
-                                    },
-                                    success: function (data) {
-                                        alert("Ürün başarıyla çöpe atılmıştır.");
-
-                                    },
-                                    error: function (x, l, e) {
-                                        alert(e.responseText);
-                                    }
-                                });
-                            }
-
-                            function ProductUndoDelete(productId, active) {
-                                $.ajax({
-                                    url: '/Account/ilan/ProductUndoDelete',
-                                    type: 'POST',
-                                    data:
-                                    {
-                                        ProductId: productId,
-                                        Active: active
-                                    },
-                                    success: function (data) {
-                                        alert("Ürün başarıyla geri alınmıştır.");
-
-                                    },
-                                    error: function (x, l, e) {
-                                        alert(e.responseText);
-                                    }
-                                });
-                            }
-                            function ProductDelete(productId) {
-                                $.ajax({
-                                    url: '/Account/ilan/ProductDelete',
-                                    type: 'POST',
-                                    data:
-                                    {
-                                        ProductId: productId
-                                    },
-                                    success: function (data) {
-                                        //alert("Ürün silme talebiniz alınmıştır.Onaylandığı taktirde ürününüz silinecetir.");
-                                        return true;
-                                    },
-                                    error: function (x, l, e) {
-                                        alert(e.responseText);
-                                        return false;
-                                    }
-                                });
-                            }
-
-                            $(document).ready(function () {
-                                $('.pDeleteItem').click(function () {
-                                    if (confirm('İlanı silmek istediğinize emin misiniz?')) {
-
-                                        var currentelement = $(this);
-                                        var obj = new Object();
-                                        obj.ProductId = $(this).attr('data-val');
-                                        $.ajax({
-                                            url: '/Account/ilan/ProductDelete',
-                                            type: 'POST',
-                                            data: obj,
-                                            success: function (data) {
-                                                currentelement.parent().parent().parent().find('.delProdConMes').show();
-                                                currentelement.parent().hide();
+                                    var currentelement = $(this);
+                                    var obj = new Object();
+                                    obj.ProductId = $(this).attr('data-val');
+                                    $.ajax({
+                                        url: '/Account/ilan/ProductDelete',
+                                        type: 'POST',
+                                        data: obj,
+                                        success: function (data) {
+                                            currentelement.parent().parent().parent().find('.delProdConMes').show();
+                                            currentelement.parent().hide();
 
 
 
-                                            },
-                                            error: function (x, l, e) {
-                                                alert(e.responseText);
-                                            }
-                                        });
-                                    }
-                                });
-                            })
-                        </script>
+                                        },
+                                        error: function (x, l, e) {
+                                            alert(e.responseText);
+                                        }
+                                    });
+                                }
+                            });
+                        })
+                    </script>
 
