@@ -21,6 +21,7 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 @using NeoSistem.MakinaTurkiye.Web.Models.Videos
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
+@using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Catologs
 @{
     //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
@@ -44,7 +45,7 @@
         </div>
         <form action="/MemberShipSales/PayWithCreditCard" method="get">
 
-            @Html.Hidden(x => x.ProductId)
+            @Html.HiddenFor(x=>Model.ProductId)
             @Html.Hidden("DayPrice", dayPrice.ToString())
             <div class="form-horizontal">
                 <div class="form-group">
