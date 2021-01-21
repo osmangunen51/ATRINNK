@@ -499,7 +499,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     default:
                         break;
                 }
-
                 if (productActive == (ProductActive.Aktif))
                 {
                     data = dataProduct.GetSearchWebByProductActiveTypeByProductNameNew(ref TotalRecord, getProduct.PageDimension, getProduct.CurrentPage, 4, AuthenticationUser.Membership.MainPartyId, productName).AsCollection<ProductModel>();
@@ -517,8 +516,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 return "false";
             else
             {
-                string ret = RenderPartialToString("~/Areas/Account/Views/Advert/AdvertSearchResult.ascx", getProduct);
-
+                string ret = RenderPartialToString("~/Areas/Account/Views/Advert/AdvertSearchResult.cshtml", getProduct);
                 return ret;
             }
         }
@@ -550,19 +548,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 {
                     if (Request.QueryString["currentPage"] != null)
                     {
-
                         model.CurrentListedPage = Request.QueryString["currentPage"];
                     }
-
                 }
                 catch (Exception)
                 {
-
                     model.CurrentListedPage = "1";
-
                 }
-
-
                 var dataPicture = new Data.Picture();
                 model.ProductPictureItems = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
                 model.VideoItems = _videoService.GetVideosByProductId(id);
@@ -734,7 +726,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 currencies.Insert(0, new Currency { CurrencyId = 0, CurrencyName = "< Seçiniz >" });
                 model.CurrencyItems = new SelectList(currencies, "CurrencyId", "CurrencyName");
 
-
                 var certificateTypes = _certificateTypeService.GetCertificateTypes();
                 var storeCertificates = _storeService.GetStoreCertificatesByMainPartyId(mainPartyId);
                 var certificateTypeProducts = _certificateTypeService.GetCertificateTypeProductsByProductId(id);
@@ -767,8 +758,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             #region ImageUpload
             bool hasFile = false;
-
-
             bool pictureIsOK = false;
             foreach (string inputTagName in Request.Files)
             {
@@ -864,11 +853,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             break;
                     }
 
-                    //if (model.ProductPublicationDateType != 0 && model.ProductPublicationDateType != null)
-                    //{
-                    //  product.ProductAdvertEndDate = dateProductEndDate;
-                    //}
-
                     if (model.ProductPublicationDateType != 0)
                     {
                         product.ProductAdvertEndDate = dateProductEndDate;
@@ -947,16 +931,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                     totalPrice = totalPrice.Replace(".", ",");
                                 }
                                 product.ProductPriceWithDiscount = Convert.ToDecimal(totalPrice, cultInfo.NumberFormat);
-
                             }
-
                         }
                         else
                         {
                             product.DiscountAmount = 0;
                             product.ProductPriceWithDiscount = 0;
                         }
-
                     }
                     else if (product.ProductPriceType == (byte)ProductPriceType.PriceRange)
                     {
@@ -1037,7 +1018,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             }
                         }
                     }
-
 
                     product.ProductSalesType = ProductSalesType;
                     product.MoneyCondition = null;
@@ -1244,7 +1224,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var dataPicture = new Data.Picture();
             var pictureModel1 = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
 
-            return PartialView("/Areas/Account/Views/Advert/EditProductPicture.ascx", pictureModel1);
+            return PartialView("/Areas/Account/Views/Advert/EditProductPicture.cshtml", pictureModel1);
 
         }
 
@@ -1354,13 +1334,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             switch (pageType)
             {
                 case DisplayType.Window:
-                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.ascx";
+                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
                 case DisplayType.List:
-                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.ascx";
+                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
                 case DisplayType.Text:
-                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.ascx";
+                    userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
                 default:
                     break;
@@ -1640,9 +1620,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             PictureList.RemoveAt(index);
             if (horizontal)
             {
-                return View("/Areas/Account/Views/Advert/PictureListHor.ascx", PictureList);
+                return View("/Areas/Account/Views/Advert/PictureListHor.cshtml", PictureList);
             }
-            return View("/Areas/Account/Views/Advert/PictureList.ascx", PictureList);
+            return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
         /*
         [HttpDelete]
@@ -1692,7 +1672,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             Session["PictureItems"] = newpictures;
 
-            return View("/Areas/Account/Views/Advert/PictureList.ascx", PictureList);
+            return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
 
         [HttpPost]
@@ -1731,7 +1711,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             _productService.CheckSPProductSearch(productID);
 
-            return View("/Areas/Account/Views/Advert/EditProductPicture.ascx", newpictures);
+            return View("/Areas/Account/Views/Advert/EditProductPicture.cshtml", newpictures);
         }
 
         [HttpPost]
@@ -1764,10 +1744,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             if (horizontal)
             {
-                return View("/Areas/Account/Views/Advert/PictureListHor.ascx", PictureList);
+                return View("/Areas/Account/Views/Advert/PictureListHor.cshtml", PictureList);
             }
 
-            return View("/Areas/Account/Views/Advert/PictureList.ascx", PictureList);
+            return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
 
         [HttpPost]
@@ -1793,7 +1773,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var pictureModel = dataPicture.GetItemsByProductId(ProductId).AsCollection<PictureModel>();
 
 
-            return View("/Areas/Account/Views/Advert/EditProductPicture.ascx", pictureModel);
+            return View("/Areas/Account/Views/Advert/EditProductPicture.cshtml", pictureModel);
         }
 
 
@@ -1822,7 +1802,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var pictureModel = dataPicture.GetItemsByProductId(ProductId).AsCollection<PictureModel>();
 
 
-            return View("/Areas/Account/Views/Advert/PictureListNew.ascx", pictureModel);
+            return View("/Areas/Account/Views/Advert/PictureListNew.cshtml", pictureModel);
         }
 
         [HttpPost]
@@ -1859,7 +1839,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
 
             var videoModel = _videoService.GetVideosByProductId(ProductId);
-            return View("/Areas/Account/Views/Advert/EditProductVideo.ascx", videoModel);
+            return View("/Areas/Account/Views/Advert/EditProductVideo.cshtml", videoModel);
         }
 
         [HttpDelete]
@@ -1869,7 +1849,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             FileHelpers.Delete(AppSettings.VideoThumbnailFolder + item.VideoPicturePath);
             FileHelpers.Delete(AppSettings.VideoFolder + item.VideoPath);
             VideoList.RemoveAt(index);
-            return View("/Areas/Account/Views/Advert/VideoList.ascx", VideoList);
+            return View("/Areas/Account/Views/Advert/VideoList.cshtml", VideoList);
         }
 
         [HttpPost]

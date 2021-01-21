@@ -49,25 +49,28 @@
 
         var inboxMessageCount = dataMessage.GetItemsByMainPartyIds(string.Join(", ", memberMainPartyIds), (byte)MessageType.Inbox).Rows.Count;
         notReadInboxMessageCount = inboxMessageCount - messageCount;
-        var favoriteProducts = makinaTurkiyeEntities.FavoriteProducts.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId).Where(x=>x.Product!=null).ToList();
+        var favoriteProducts = makinaTurkiyeEntities.FavoriteProducts.Where(x => x.MainPartyId == AuthenticationUser.Membership.MainPartyId).Where(x => x.Product != null).ToList();
         favoriteProductCount = favoriteProducts.Count;
     }
     <script type="text/javascript">
-            $(document).ready(function () {
-                $.ajax({
-                url:'@(AppSettings.SiteUrl+"Home/GetStoreProductComment")',
-                    data: {},
-                    type: 'post',
-                    success: function (data) {
+
+        $(document).ready(function () {
+            $.ajax({
+                url: '@AppSettings.SiteUrl+"/ajax/GetStoreProductComment',
+                data: {},
+                type: 'get',
+                success: function (data) {
                     if (data != 0) {
-                            $(".commentLi").show();
-                            $(".commentCountvalue").html(data);
+                        $(".commentLi").show();
+                        $(".commentCountvalue").html(data);
 
                     }
                 }
             }
-                );
-        });</script>
+            );
+        });
+
+    </script>
     <!-- Json Ld Ayar-->
     <script type="application/ld+json">
         {
@@ -88,8 +91,6 @@
     @RenderSection("headercontent", required: false)
 </head>
 <body class="facelift-v2">
-
-
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7HZJT"
@@ -116,7 +117,7 @@
                                 }
                                 else
                                 {
-                             @(AppSettings.SiteUrl + "uyelik/kullanicigirisi")
+                                    @(AppSettings.SiteUrl + "uyelik/kullanicigirisi")
                                 }
                                 "
                                class="user-topmenu">

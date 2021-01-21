@@ -44,11 +44,9 @@
     <div class="col-md-9 col-sm-12">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
-
                 @Html.Raw(member)
                 @if (Model.MessageSended)
                 {
-
                     <div class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         Mesajınız gönderilmiştir. Alıcılar içi  üyelik avantajlarından yararlanmak için üyeliğinizi tamamlamanız gerekmektedir.
@@ -59,8 +57,9 @@
 
                 @if (Model.MemberType != (byte)MemberType.FastIndividual && Model.MemberType != (byte)MemberType.Individual)
                 {
-                    <a href="#">Firma Ayarları </a>
+                    <a href="/Account/Store/UpdateStore">Firma Ayarları </a>
                 }
+
                 @if (Model.LastPage == "bireyselUyelikOnay")
                 {
                 <div class="alert alert-success alert-dismissable">

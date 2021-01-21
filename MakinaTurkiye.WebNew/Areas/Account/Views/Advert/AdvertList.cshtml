@@ -13,7 +13,6 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.Products
 @using NeoSistem.MakinaTurkiye.Web.Models.Catalog
 @using NeoSistem.MakinaTurkiye.Web.Models.Entities
-@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
 @using NeoSistem.MakinaTurkiye.Web.Models.Stores
 @using NeoSistem.MakinaTurkiye.Core.Web
 @using NeoSistem.MakinaTurkiye.Web.Models.StoreNews
@@ -33,18 +32,18 @@
 @{ string urlAdd = "";
     byte? queryProductActiveType = null;
     
-    if ((!string.IsNullOrEmpty(Request.QueryString["ProductActiveType"])))
+    if ((!string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.QueryString["ProductActiveType"])))
     {
-        queryProductActiveType = Convert.ToByte(Request.QueryString["ProductActiveType"]);
+        queryProductActiveType =System.Convert.ToByte(System.Web.HttpContext.Current.Request.QueryString["ProductActiveType"]);
     }
-    else if (!string.IsNullOrEmpty(Request.QueryString["ProductActive"]))
+    else if (!string.IsNullOrEmpty(System.Web.HttpContext.Current.Request.QueryString["ProductActive"]))
     {
-        queryProductActiveType = Convert.ToByte(Request.QueryString["ProductActive"]);
+        queryProductActiveType = System.Convert.ToByte(System.Web.HttpContext.Current.Request.QueryString["ProductActive"]);
     }
 
     if (queryProductActiveType == null)
     {
-        queryProductActiveType = Convert.ToByte(Request.Form["ProductActiveType"]);
+        queryProductActiveType = System.Convert.ToByte(System.Web.HttpContext.Current.Request.Form["ProductActiveType"]);
     }
     if (queryProductActiveType == 0)
     {

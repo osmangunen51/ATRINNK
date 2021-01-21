@@ -638,7 +638,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 PrepareHomeCategoryProductModels(model, skip, 1);
                 if (model.Count > 0)
                 {
-                    resModel.Result = RenderPartialToString("~/Views/Home/_SelectedProductCategoryAjax.ascx", model);
+                    resModel.Result = RenderPartialToString("~/Views/Home/_SelectedProductCategoryAjax.cshtml", model);
                     resModel.IsSuccess = true;
                 }
                 else

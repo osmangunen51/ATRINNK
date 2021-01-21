@@ -39,10 +39,11 @@
 
         public static string ProductUrl(int id, string productName)
         {
+
             string url = "/" + ToUrl(productName + "-p-" + id);
-#if !DEBUG
-            url = "https://urun.makinaturkiye.com" + url;
-#endif
+            #if !DEBUG
+                        url = "/" + url;
+            #endif
             return url;
         }
 

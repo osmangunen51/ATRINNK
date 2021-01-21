@@ -1,4 +1,4 @@
-﻿@Model AdvertViewModel
+﻿@model AdvertViewModel
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
@@ -25,13 +25,11 @@
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
 @{
     Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
 }
 
 <div class="row">
     <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
-        @Html.Partial("LeftMenu", Model.LeftMenu)
+        @{Html.Partial("LeftMenu", Model.LeftMenu);}
     </div>
 </div>
 <div class="row">

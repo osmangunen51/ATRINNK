@@ -1256,7 +1256,6 @@
     <Content Include="Content\V2\fonts\Flaticon.eot" />
     <Content Include="Areas\Account\Views\Advert\Advert.cshtml" />
     <Content Include="Areas\Account\Views\Advert\AdvertEnd.cshtml" />
-    <Content Include="Areas\Account\Views\Advert\AdvertList.cshtml" />
     <Content Include="Areas\Account\Views\Advert\AdvertSearchResult.cshtml" />
     <Content Include="Areas\Account\Views\Advert\AdvertSuccessfull.cshtml" />
     <Content Include="Areas\Account\Views\Advert\Brand.cshtml" />
