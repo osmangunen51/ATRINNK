@@ -410,7 +410,7 @@
             var ProductName = $("#ProductName").val();
             var BrandName = $("#BrandName").val();
             $.ajax({
-                url: '/Account/ilan/AdvertPaging',
+                url: "@Url.Action("AdvertPaging")",
                 type: 'post',
                 data: {
                     page: p, displayType: d,

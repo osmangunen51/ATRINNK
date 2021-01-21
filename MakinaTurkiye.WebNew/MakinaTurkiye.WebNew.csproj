@@ -1296,8 +1296,6 @@
     <Content Include="Areas\Account\Views\Shared\LeftMenu.cshtml" />
     <Content Include="Areas\Account\Views\Shared\_ProductItemBox.cshtml" />
     <Content Include="Areas\Account\Views\Web.config" />
-    <Content Include="Areas\Account\Views\_ViewStart.cshtml" />
-    <Content Include="Areas\Account\Views\Shared\_LayoutMainMaster.cshtml" />
     <Content Include="Areas\Account\Views\Shared\_Header.cshtml" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />

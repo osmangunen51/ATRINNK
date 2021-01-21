@@ -1477,16 +1477,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             switch (pageType)
             {
                 case DisplayType.Window:
-                    userControlName = "/Areas/Account/Views/Advert/AdvertWindow.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/AdvertWindow.cshtml";
                     break;
                 case DisplayType.List:
-                    userControlName = "/Areas/Account/Views/Advert/_AdvertListWindow.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/_AdvertListWindow.cshtml";
                     break;
                 case DisplayType.Text:
-                    userControlName = "/Areas/Account/Views/Advert/AdvertText.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/AdvertText.cshtml";
                     break;
                 case DisplayType.Table:
-                    userControlName = "/Areas/Account/Views/Advert/_AdvertListTable.ascx";
+                    userControlName = "/Areas/Account/Views/Advert/_AdvertListTable.cshtml";
                     break;
                 default:
                     break;
