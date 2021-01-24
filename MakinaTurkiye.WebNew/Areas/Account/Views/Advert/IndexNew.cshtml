@@ -315,23 +315,22 @@
         <div class="modal-dialog modal-dialog-centered" role="document" id="modelContent">
         </div>
     </div>
-                                        Int32? activeType = null;
-                                        if (Request.QueryString["ProductActiveType"] != null)
-                                        {
-                                            activeType = Convert.ToInt32(Request.QueryString["ProductActiveType"]);
-                                        }
-                                        else if (Request.QueryString["ProductActive"] != null)
-                                        {
-                                            if (Convert.ToInt32(Request.QueryString["ProductActive"]) == 1)
-                                            {
-                                                activeType = 4;
-                                            }
-                                            else
-                                            {
-                                                activeType = 5;
-                                            }
-                                        }
-
+    Int32? activeType = null;
+    if (Request.QueryString["ProductActiveType"] != null)
+    {
+        activeType = Convert.ToInt32(Request.QueryString["ProductActiveType"]);
+    }
+    else if (Request.QueryString["ProductActive"] != null)
+    {
+        if (Convert.ToInt32(Request.QueryString["ProductActive"]) == 1)
+        {
+            activeType = 4;
+        }
+        else
+        {
+            activeType = 5;
+        }
+    }
     <input id="hdnActiveType" type="hidden" value="@activeType" />
     <script type="text/javascript">
         $(document).ready(function () {
@@ -410,7 +409,7 @@
             var ProductName = $("#ProductName").val();
             var BrandName = $("#BrandName").val();
             $.ajax({
-                url:'@(AppSettings.SiteUrl+"Account/ilan/AdvertPaging")',
+                url:'@(AppSettings.SiteUrl+ "Account/Advert/AdvertPaging")',
                 type: 'post',
                 data: {
                     page: p, displayType: d,

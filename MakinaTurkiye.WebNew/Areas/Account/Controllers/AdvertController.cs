@@ -222,6 +222,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 int totalCount = products.Count;
                 products = products.Skip(takeFrom).Take(pageDimension).ToList();
                 SearchModel<MTProductItem> searchModel = new SearchModel<MTProductItem>();
+
                 searchModel.Source = PrepapareProductsModel(products,  showDopingForm);
                 searchModel.TotalRecord = totalCount;
                 searchModel.PageDimension = pageDimension;

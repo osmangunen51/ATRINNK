@@ -241,7 +241,7 @@
 
                                         if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
                                         {
-                                            <li><a style="font-size:13px !important;margin-bottom:5px;" tabindex="-1" href="@(AppSettings.SiteUrl)Account/Personal">Firma Ayarları </a></li>
+                                            <li><a style="font-size:13px !important;margin-bottom:5px;" tabindex="-1" href="@(AppSettings.SiteUrl)Store/UpdateStore">Firma Ayarları </a></li>
                                         }
                                         else
                                         {
@@ -392,7 +392,7 @@
                                 @if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
                                 {
 
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@(AppSettings.SiteUrl)Account/Personal"><i class="fa fa-angle-right"></i>&nbsp; Firma Ayarları </a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@(AppSettings.SiteUrl)Store/UpdateStore"><i class="fa fa-angle-right"></i>&nbsp; Firma Ayarları </a></li>
                                 }
                                 else
                                 {

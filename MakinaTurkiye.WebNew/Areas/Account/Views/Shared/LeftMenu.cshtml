@@ -167,7 +167,7 @@
                 if (leftMenuItem.ControlNubmer == (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyAccount ||
                 leftMenuItem.ControlNubmer == (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyProfile)
                 {
-                    string Txt = leftMenuItem.ControlNubmer != (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyAccount ? "data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#Control" + leftMenuItem.ControlNubmer + "\"" : "href=\"/Account/Home\"";
+                    string Txt = leftMenuItem.ControlNubmer != (byte)NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants.LeftMenuConstants.GroupName.MyAccount ? "data-toggle='collapse' data-parent='#accordion' href=#Control"+ leftMenuItem.ControlNubmer: "href=\"/Account/Home\"";
                     <li class='@(leftMenuItem.IsActive ? "active" : "" )'>
                         <a @Txt>
                             <span class="glyphicon glyphicon-@leftMenuItem.IconName "></span>

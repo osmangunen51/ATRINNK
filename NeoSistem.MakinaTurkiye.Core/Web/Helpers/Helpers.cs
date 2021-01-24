@@ -39,12 +39,18 @@
 
         public static string ProductUrl(int id, string productName)
         {
-
             string url = "/" + ToUrl(productName + "-p-" + id);
             #if !DEBUG
-                        url = "/" + url;
+                        url = "https://yeni.makinaturkiye.com" + url;
             #endif
             return url;
+
+
+            //string url = "/" + ToUrl(productName + "-p-" + id);
+            //#if !DEBUG
+            //            url = "/" + url;
+            //#endif
+            //return url;
         }
 
         public static string CountryUrl(int countryId, string countryName,int categoryId,string categoryName)
@@ -110,7 +116,7 @@
                 text = text.Replace("---", "-");
                 text = text.Replace("---", "-");
                 text = RemoveSpecialCharacters(text);
-                
+
                 return text;
             }
             return "";

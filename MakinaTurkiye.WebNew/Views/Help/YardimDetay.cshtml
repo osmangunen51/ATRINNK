@@ -4,7 +4,7 @@
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
 @{
-
+    Layout = "~/Views/Shared/_Layout.cshtml";
     //using NeoSistem.MakinaTurkiye.Web.Models
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 }
@@ -51,7 +51,7 @@
                     </ul>
                 </div>
                 }
-                @Model.Content
+                @Html.Raw(Model.Content)
             </div>
         </div>
     </div>

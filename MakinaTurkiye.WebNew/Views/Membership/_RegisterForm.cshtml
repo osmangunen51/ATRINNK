@@ -14,17 +14,17 @@
 
     <div class="form-group">
         <label>Email*</label>
-        @Html.TextBoxFor(x=>x.MemberEmail, new {@class="mt-form-control", placeholder="Email*", @type="email" }) 
+        @Html.TextBoxFor(x=>x.MemberEmail, new {@class="mt-form-control", placeholder="Email*", @type="email" })
         <small>@Html.ValidationMessageFor(x=>x.MemberEmail) </small>
     </div>
     <div class="form-group">
         <label>Şifre*</label>
-        @Html.PasswordFor(x=>x.MemberPassword,new {@placeholder="Şifre*", @class="mt-form-control" }) 
+        @Html.PasswordFor(x=>x.MemberPassword,new {@placeholder="Şifre*", @class="mt-form-control" })
         <small>@Html.ValidationMessageFor(x=>x.MemberPassword) </small>
     </div>
     <div class="form-group">
         <label>İsim*</label>
-        @Html.TextBoxFor(x=>x.Name, new {@placeholder="İsim*", @class="mt-form-control" }) 
+        @Html.TextBoxFor(x=>x.Name, new {@placeholder="İsim*", @class="mt-form-control" })
         <small>@Html.ValidationMessageFor(x=>x.Name)</small>
     </div>
     <div class="form-group">
@@ -47,7 +47,7 @@
             Gizlilik Politikası
         </a>'nı kabul ediyorum.
     </div>
-    <hr>
+    @*<hr>
 
     <div class="form-group">
         <a class="btn  btn-info btn-facebook-login js-facebook-login" href="javascript:;"
@@ -55,4 +55,4 @@
            style="color: #fff; border-color: #3B5998; background: #3B5998; width: 100%;">
             <i class="fa fa-facebook fa-fw"></i>Facebook ile bağlan
         </a>
-    </div>
+    </div>*@

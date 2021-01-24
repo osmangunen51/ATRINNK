@@ -2,13 +2,13 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Web.Models
 @{
-//Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<Banner>>"     
+//Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<IList<Banner>>"
 
   string gorunum = Request.QueryString["Gorunum"];
  }
 
 
-  
+
     @if (gorunum != "3")
     {
         int i = 0;
@@ -24,7 +24,7 @@
                 if (banner1.BannerResource.Contains(".gif"))
                 {
 
-               <a href="@banner1.BannerLink"><img class="img-thumbnail mb10" src="@(NeoSistem.MakinaTurkiye.Web.Models.UtilityModel.AppSettings.BannerGifFolder + banner1.BannerResource)" alt="@{!string.IsNullOrEmpty(banner1.BannerDescription) ? banner1.BannerDescription : "Banner Reklam"}"></a>
+               <a href="@banner1.BannerLink"><img class="img-thumbnail mb10" src="@(NeoSistem.MakinaTurkiye.Web.Models.UtilityModel.AppSettings.BannerGifFolder + banner1.BannerResource)" alt="@(!string.IsNullOrEmpty(banner1.BannerDescription) ? banner1.BannerDescription : "Banner Reklam")"></a>
                    }
 
                    else if (banner1.BannerResource.Contains("swf"))
@@ -39,27 +39,27 @@
                   </object>
                }
                else
-               { 
-                <a href="@banner1.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerImagesThumbFolder + banner1.BannerResource)" alt="@{!string.IsNullOrEmpty(banner1.BannerDescription) ? banner1.BannerDescription : "Banner Reklam"}"/></a>
+               {
+                <a href="@banner1.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerImagesThumbFolder + banner1.BannerResource)" alt="@(!string.IsNullOrEmpty(banner1.BannerDescription)?banner1.BannerDescription:"Banner Reklam")"/></a>
                }
-           
+
     }
     }
     else
     {
        i = i + 1;
        if (i == 1)
-       {  
-       
-          
+       {
+
+
         <a href="/Help/YardimDetay?CategoryId=143130">
             <img class="img-thumbnail mb10" src="../../Content/reklammk.jpg" alt="Buraya Reklam Verebilirsiniz"/>
         </a>
-            
+
       }
-    } 
- 
- 
+    }
+
+
   <!-- Banner 2 -->
 
 
@@ -74,7 +74,7 @@
                             if (banner2.BannerResource.Contains(".gif"))
                             {
 
-        <a href="@banner2.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerGifFolder + banner2.BannerResource)" alt="@{!string.IsNullOrEmpty(banner2.BannerDescription) ? banner2.BannerDescription : "Banner Reklam"}"/></a>
+        <a href="@banner2.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerGifFolder + banner2.BannerResource)" alt="@(!string.IsNullOrEmpty(banner2.BannerDescription) ? banner2.BannerDescription : "Banner Reklam";}"/></a>
             }
 
             else if (banner2.BannerResource.Contains("swf"))
@@ -90,24 +90,24 @@
             }
             else
             {
-        <a href="@banner2.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerImagesThumbFolder + banner2.BannerResource)" alt="@{!string.IsNullOrEmpty(banner2.BannerDescription) ? banner2.BannerDescription : "Banner Reklam"}"/></a>
-         } 
-            
+        <a href="@banner2.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerImagesThumbFolder + banner2.BannerResource)" alt="@(!string.IsNullOrEmpty(banner2.BannerDescription) ? banner2.BannerDescription : "Banner Reklam";}"/></a>
+         }
+
      }
     }
     else
     {
        i = i + 1;
        if (i == 1)
-       {  
+       {
         <a href="/Help/YardimDetay?CategoryId=143130">
             <img class="img-thumbnail mb10" src="../../Content/reklammk.jpg" alt="Buraya Reklam Verebilirsiniz"/>
         </a>
-           
+
      }
     }
-   
-     
+
+
   <!-- Banner 3 -->
             if (Model != null && Model.Any(c => c.BannerType == (byte)BannerType.CategoryBanner3))
             {
@@ -119,7 +119,7 @@
                     if (banner3.BannerResource.Contains(".gif"))
                     {
 
-               <a href="@banner3.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner3.BannerResource)" alt="@{!string.IsNullOrEmpty(banner3.BannerDescription) ? banner3.BannerDescription : "Banner Reklam"}"/></a>
+               <a href="@banner3.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner3.BannerResource)" alt="@(!string.IsNullOrEmpty(banner3.BannerDescription) ? banner3.BannerDescription : "Banner Reklam";}"/></a>
                    }
 
                    else if (banner3.BannerResource.Contains("swf"))
@@ -135,26 +135,26 @@
                    }
                    else
                    {
-                <a href="@banner3.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner3.BannerResource)" alt="@{!string.IsNullOrEmpty(banner3.BannerDescription) ? banner3.BannerDescription : "Banner Reklam"}"/></a>
+                <a href="@banner3.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner3.BannerResource)" alt="@(!string.IsNullOrEmpty(banner3.BannerDescription) ? banner3.BannerDescription : "Banner Reklam";}"/></a>
                }
-            
+
      }
     }
     else
     {
        i = i + 1;
        if (i == 1)
-       {  
-       
-          
+       {
+
+
         <a href="/Help/YardimDetay?CategoryId=143130">
             <img class="img-thumbnail mb10" src="../../Content/reklammk.jpg" alt="Buraya Reklam Verebilirsiniz"/>
         </a>
-               
+
      }
-    } 
-        
-    
+    }
+
+
  <!-- Banner 4 -->
 
 
@@ -169,7 +169,7 @@
                             if (banner4.BannerResource.Contains(".gif"))
                             {
 
-               <a href="@banner4.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerGifFolder + banner4.BannerResource)" alt="@{!string.IsNullOrEmpty(banner4.BannerDescription) ? banner4.BannerDescription : "Banner Reklam"}"/></a>
+               <a href="@banner4.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerGifFolder + banner4.BannerResource)" alt="@(!string.IsNullOrEmpty(banner4.BannerDescription) ? banner4.BannerDescription : "Banner Reklam";}"/></a>
 
                    }
 
@@ -186,16 +186,16 @@
                    }
                    else
                    {
-                <a href="@banner4.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerImagesThumbFolder + banner4.BannerResource)" alt="@{!string.IsNullOrEmpty(banner4.BannerDescription) ? banner4.BannerDescription : "Banner Reklam"}"/></a>
-                
-              } 
+                <a href="@banner4.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerImagesThumbFolder + banner4.BannerResource)" alt="@(!string.IsNullOrEmpty(banner4.BannerDescription) ? banner4.BannerDescription : "Banner Reklam";}"/></a>
+
+              }
      }
     }
     else
     {
        i = i + 1;
        if (i == 1)
-       {  
+       {
         <a href="/Help/YardimDetay?CategoryId=143130">
             <img class="img-thumbnail mb10" src="../../Content/reklammk.jpg" alt="Buraya Reklam Verebilirsiniz"/>
         </a>
@@ -212,7 +212,7 @@
                             if (banner5.BannerResource.Contains(".gif"))
                             {
                <a href="@banner5.BannerLink">
-               <img class="img-thumbnail mb10" src="@(AppSettings.BannerGifFolder + banner5.BannerResource )" alt="@{!string.IsNullOrEmpty(banner5.BannerDescription) ? banner5.BannerDescription : "Banner Reklam"} "/>
+               <img class="img-thumbnail mb10" src="@(AppSettings.BannerGifFolder + banner5.BannerResource )" alt="@(!string.IsNullOrEmpty(banner5.BannerDescription) ? banner5.BannerDescription : "Banner Reklam";} "/>
                </a>
                 <div class="caption">
                     <a href="@banner5.BannerLink">@banner5.BannerDescription</a>
@@ -232,26 +232,26 @@
                    }
                    else
                    {
-                <a href="@banner5.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerImagesThumbFolder + banner5.BannerResource)" alt="@{!string.IsNullOrEmpty(banner5.BannerDescription) ? banner5.BannerDescription : "Banner Reklam" }"/></a>
+                <a href="@banner5.BannerLink"><img class="img-thumbnail mb10" src="@(AppSettings.BannerImagesThumbFolder + banner5.BannerResource)" alt="@(!string.IsNullOrEmpty(banner5.BannerDescription) ? banner5.BannerDescription : "Banner Reklam";}"/></a>
                 <div class="caption">
                     <a href="@banner5.BannerLink">@banner5.BannerDescription</a>
                 </div>
-               } 
-            
+               }
+
      }
     }
     else
     {
        i = i + 1;
        if (i == 1)
-       {  
-          
+       {
+
         <a href="/Help/YardimDetay?CategoryId=143130">
         <img class="img-thumbnail mb10" src="../../Content/reklammk.jpg" alt="Buraya Reklam Verebilirsiniz"/></a>
             <div class="caption">
                     <a href="/Help/YardimDetay?CategoryId=143130">Buraya Reklam Verebilirsiniz</a>
         </div>
-           
+
       }
     }
 }

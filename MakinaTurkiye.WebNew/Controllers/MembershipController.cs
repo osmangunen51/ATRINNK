@@ -1874,7 +1874,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         public ActionResult Activation(string uyelikSifre)
         {
-
+            if (uyelikSifre==null)
+            {
+                uyelikSifre = "";
+            }
             RelCategoryModel model = new RelCategoryModel();
 
             if (uyelikSifre == "0")
@@ -1885,58 +1888,65 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
             model.ActivationCode = actCode;
-
-            var member = _memberService.GetMemberByActivationCode(actCode);
-            if (member != null)
+            if (actCode != "")
             {
-                member.Active = true;
-                _memberService.UpdateMember(member);
+                var member = _memberService.GetMemberByActivationCode(actCode);
+                if (member != null)
+                {
+                    member.Active = true;
+                    _memberService.UpdateMember(member);
 
-                #region kullanıcı
+                    #region kullanıcı
 
-                MailMessage mailh = new MailMessage();
-                MessagesMT mailTemplate = _messagesMTService.GetMessagesMTByMessageMTName("Hizliuyelik");
-                mailh.From = new MailAddress(mailTemplate.Mail, mailTemplate.MailSendFromName);
-                mailh.To.Add(member.MemberEmail);
-                mailh.Subject = mailTemplate.MessagesMTTitle;
-                //var messagesmttemplate = entities.MessagesMTs.Where(c => c.MessagesMTId == 4).SingleOrDefault();
-                //templatet = messagesmttemplate.MessagesMTPropertie;
-                string template = mailTemplate.MessagesMTPropertie;
-                template = template.Replace("#kullaniciadi#", member.MemberName + " " + member.MemberSurname).Replace("#kullanicieposta#", member.MemberEmail).Replace("#kullanicisifre#", member.MemberPassword);
-                mailh.Body = template;
-                mailh.IsBodyHtml = true;
-                mailh.Priority = MailPriority.Normal;
-                SmtpClient scr = new SmtpClient();
-                scr.Port = 587;
-                scr.Host = "smtp.gmail.com";
-                scr.EnableSsl = true;
-                scr.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword);
-                scr.Send(mailh);
+                    MailMessage mailh = new MailMessage();
+                    MessagesMT mailTemplate = _messagesMTService.GetMessagesMTByMessageMTName("Hizliuyelik");
+                    mailh.From = new MailAddress(mailTemplate.Mail, mailTemplate.MailSendFromName);
+                    mailh.To.Add(member.MemberEmail);
+                    mailh.Subject = mailTemplate.MessagesMTTitle;
+                    //var messagesmttemplate = entities.MessagesMTs.Where(c => c.MessagesMTId == 4).SingleOrDefault();
+                    //templatet = messagesmttemplate.MessagesMTPropertie;
+                    string template = mailTemplate.MessagesMTPropertie;
+                    template = template.Replace("#kullaniciadi#", member.MemberName + " " + member.MemberSurname).Replace("#kullanicieposta#", member.MemberEmail).Replace("#kullanicisifre#", member.MemberPassword);
+                    mailh.Body = template;
+                    mailh.IsBodyHtml = true;
+                    mailh.Priority = MailPriority.Normal;
+                    SmtpClient scr = new SmtpClient();
+                    scr.Port = 587;
+                    scr.Host = "smtp.gmail.com";
+                    scr.EnableSsl = true;
+                    scr.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword);
+                    scr.Send(mailh);
 
-                #endregion
+                    #endregion
 
-                //_authenticationService.SignIn(member, true);
+                    //_authenticationService.SignIn(member, true);
 
-                //EnterpriseFormsAuthentication.CreateFormsAuthenticationTicket(member.MemberEmail, member.MemberType.Value.ToString("G"));
-                var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
+                    //EnterpriseFormsAuthentication.CreateFormsAuthenticationTicket(member.MemberEmail, member.MemberType.Value.ToString("G"));
+                    var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");
 
 
-                var ctx = Request.GetOwinContext();
-                var authManager = ctx.Authentication;
-                authManager.SignIn(identity);
+                    var ctx = Request.GetOwinContext();
+                    var authManager = ctx.Authentication;
+                    authManager.SignIn(identity);
 
-                //if (Session["ProductDetailModel"] != null)
-                //{
-                //    var model = Session["ProductDetailModel"] as ProductDetailViewModel;
-                //    return RedirectToAction("ProductSales", "Product", model);
-                //}
+                    //if (Session["ProductDetailModel"] != null)
+                    //{
+                    //    var model = Session["ProductDetailModel"] as ProductDetailViewModel;
+                    //    return RedirectToAction("ProductSales", "Product", model);
+                    //}
 
-                return Redirect("/Account/Home");
+                    return Redirect("/Account/Home");
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
                 return View();
             }
+
         }
 
         public ActionResult CreatePassword(string id)

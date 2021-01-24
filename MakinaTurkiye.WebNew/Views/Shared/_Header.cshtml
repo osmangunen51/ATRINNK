@@ -71,7 +71,7 @@
             <div class="new-header__top-left">
                 <a class="site-logo" href="@AppSettings.SiteUrlWithoutLastSlash">
                     <img src="/Content/V2/images/makinaturkiye-dark.png" srcset="/Content/V2/images/makinaturkiye-dark.png 1x, /Content/V2/images/makinaturkiye-dark.png 2x" alt="makinaturkiye.com" width="226" height="30">
-                    <span class="site-slogan">Dünyanın Makina'sı Bir Arada</span>
+                    @*<span class="site-slogan">Dünyanın Makina'sı Bir Arada</span>*@
                 </a>
 
             </div>
@@ -240,7 +240,7 @@
 
                                         if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
                                         {
-                                            <li><a style="font-size:13px !important;margin-bottom:5px;" tabindex="-1" href="@(AppSettings.SiteUrl)Account/Personal">Firma Ayarları </a></li>
+                                            <li><a style="font-size:13px !important;margin-bottom:5px;" tabindex="-1" href="@(AppSettings.SiteUrl)Store/updatestore">Firma Ayarları </a></li>
                                         }
                                         else
                                         {
@@ -391,7 +391,7 @@
                                 @if (AuthenticationUser.Membership.MemberType != (byte)MemberType.FastIndividual && AuthenticationUser.Membership.MemberType != (byte)MemberType.Individual)
                                 {
 
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@(AppSettings.SiteUrl)Account/Personal"><i class="fa fa-angle-right"></i>&nbsp; Firma Ayarları </a></li>
+                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="@(AppSettings.SiteUrl)store/updatestore"><i class="fa fa-angle-right"></i>&nbsp; Firma Ayarları </a></li>
                                 }
                                 else
                                 {
