@@ -127,14 +127,16 @@ else
                     <td>
                         @if (Model.IsDoping)
                         {
-        @Model.ProductName }
+                            @Model.ProductName
+                        }
                         else
                         {
-        @Model.PacketModel.OrderNo}
+                            @Model.PacketModel.OrderNo
+                        }
                     </td>
                     <td>
                         @Model.PacketModel.PacketName
-                        @Session["Paketadı"] = Model.PacketModel.PacketName;
+                        @(Session["Paketadı"] = Model.PacketModel.PacketName)
                     </td>
                     <td>
                         @Model.PacketModel.OrderPrice.ToString("C2")
@@ -144,7 +146,8 @@ else
                         <b>
                             @if (Model.PacketModel.PayPriceAmount == 0)
                             {
-            @Model.PacketModel.OrderPrice.ToString("C2") }
+                                @Model.PacketModel.OrderPrice.ToString("C2") 
+                            }
                             else
                             {
                                 @Convert.ToDecimal(Model.PacketModel.PayPriceAmount).ToString("C2")

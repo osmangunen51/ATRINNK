@@ -56,7 +56,7 @@
 
         $(document).ready(function () {
             $.ajax({
-                url: '@AppSettings.SiteUrl+"/ajax/GetStoreProductComment',
+                url: '@(AppSettings.SiteUrl+"/ajax/GetStoreProductComment")',
                 data: {},
                 type: 'get',
                 success: function (data) {

@@ -9,14 +9,11 @@
 @using MakinaTurkiye.Entities.Tables.Members
 @using NeoSistem.MakinaTurkiye.Web.Models.Bulletins
 @{
-    Layout = "~/Views/Shared/_LayoutMainMaster";
-
-    //using NeoSistem.MakinaTurkiye.Web.Models
-    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+    Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
 }
 
 @section headercontent{
-    <link rel="canonical" href="<%:AppSettings.SiteUrl %>" uyelik /bulten" />
+    <link rel="canonical" href="@(AppSettings.SiteUrl+"uyelik/bulten")" />
     <meta name="description" content="makinaturkiye.com e bülten üyelik sayfasında istediğiniz makina sektörü hakkında paylaşacağımız mailleri alabilirsiniz" />
 
 }
@@ -120,7 +117,7 @@
     @if (Model.HaveMemberShip != true)
     {
         CompanyDemandMembership model1 = new CompanyDemandMembership();
-        
+
         @Html.Partial("LeftPanel", model1)
     }
 

@@ -44,7 +44,7 @@
                     var name = $("#productNameForSearch").val();
                     $(".loading").show();
                     $.ajax({
-                        url: '/Account/ilan/c',
+                        url: '/Account/ilan/ProductSearchGet',
                         type: 'GET',
                         data: { productName: name, productActiveType: "@productActiveType", productActivee: "@productActive" },
                         success: function (data) {
@@ -104,7 +104,6 @@
                     return jQuery(element).css(prop, val);
                 };
                 $("#productNameForSearch").autocomplete({
-
                     source: function (request, response) {
                         $.ajax({
                             url: "/Account/ilan//AdvertSearch",
@@ -116,12 +115,13 @@
 
                                 }
                                 else {
-                                    $("#dataNo").html("");
-
                                     response($.map(data, function (item) {
-
-                                        return { label: item, value: item };
-                                    }))
+                                        return {
+                                            label: item,
+                                            value: item
+                                        };
+                                    }));
+                                    $("#dataNo").html("");
                                 }
 
                             }
@@ -410,7 +410,7 @@
             var ProductName = $("#ProductName").val();
             var BrandName = $("#BrandName").val();
             $.ajax({
-                url:@AppSettings.SiteUrl+'/Account/ilan/AdvertPaging',
+                url:'@(AppSettings.SiteUrl+"Account/ilan/AdvertPaging")',
                 type: 'post',
                 data: {
                     page: p, displayType: d,
@@ -424,21 +424,14 @@
                     orderType: $("#OrderType").val()
                 },
                 success: function (data) {
-
-
                     $('[data-rel="tab-content"]').html(data);
                     $(".loading").hide();
                     $("#ProductNo").val(ProductNo);
                     $("#CategoryName").val(CategoryName);
                     $("#ProductName").val(ProductName);
-                    $("#BrandName").val(BrandName);
-
-                }
-            });
-
-
+                    $("#BrandName").val(BrandName);}
+                });
         }
-
         function ShowProductDoping(productId) {
             $("#modelContent").html("");
             $.ajax({

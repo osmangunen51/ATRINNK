@@ -86,7 +86,7 @@
                                  class="img-thumbnail" />
                             @if (!string.IsNullOrWhiteSpace(Model.StoreBanner))
                             {
-            <img class="pull-left img-thumbnail" id="imgBanner" src="@Url.Content(ImageHelpers.GetStoreBanner(Model.Store.MainPartyId,Model.StoreBanner)+" ?v="+DateTime.Now.ToString(" yyyyMMddHHmmss"))" />
+            <img class="pull-left img-thumbnail" id="imgBanner" src="@Url.Content(ImageHelpers.GetStoreBanner(Model.Store.MainPartyId,Model.StoreBanner)+"?v="+DateTime.Now.ToString(" yyyyMMddHHmmss"))" />
                                 <div onclick="DeletePicture(@Model.Store.MainPartyId)" style="cursor: pointer; text-decoration: underline; color: #333">Kaldır</div> }
                                                 else
                                                 {

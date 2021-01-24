@@ -2653,7 +2653,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (member != null && member.Active.Value)
             {
-                // _authenticationService.SignIn(member, model.Remember);
+                _authenticationService.SignIn(member, model.Remember);
                 if (member.MemberPassword == model.Password)
                 {
                     var identity = new ClaimsIdentity(new[] { new Claim(ClaimTypes.NameIdentifier, member.MainPartyId.ToString()) }, "LoginCookie");

@@ -124,9 +124,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return Json("");
         }
 
-        //public ActionResult CategoryGetUrlName(string categoryName)
-        //{
-        //    return Json(Helpers.StringHelpers.ToUrl(categoryName), JsonRequestBehavior.AllowGet);
-        //}
+        public ActionResult CategoryGetUrlName(string categoryName)
+        {
+            return Json(Helpers.StringHelpers.ToUrl(categoryName), JsonRequestBehavior.AllowGet);
+        }
     }
 }

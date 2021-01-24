@@ -2441,22 +2441,6 @@
     <Content Include="Views\Membership\_LoginForm.cshtml" />
     <Content Include="Views\Membership\_RegisterForm.cshtml" />
     <Content Include="Views\NHome\Index.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\BankTransfer.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\BeforePayCreditCard.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\CreditCard.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\FinishSales.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\FourStep.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\FourStepNew.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\NotificationForm.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\OneStep.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\PayWithCreditCard - hata.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\PayWithCreditCard.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\PosComplete.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\Secure.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\ThreeStep.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\TwoStep.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\VirtualPosComplete.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\_TaxAndAddressForm.cshtml" />
     <Content Include="Views\ProductRequest\step1.cshtml" />
     <Content Include="Views\Product\CheckGoogle.cshtml" />
     <Content Include="Views\Product\DetailClear.cshtml" />
@@ -2823,8 +2807,6 @@
     <None Include="Views\Message\Send.cshtml" />
     <Content Include="Views\Performance\Index.aspx" />
     <Content Include="Views\Performance\Index2.aspx" />
-    <Content Include="Views\ProductRequest\MembershipSales\DiscountPackets.cshtml" />
-    <Content Include="Views\ProductRequest\MembershipSales\sonuc.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
