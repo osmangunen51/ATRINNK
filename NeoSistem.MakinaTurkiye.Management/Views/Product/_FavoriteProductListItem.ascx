@@ -17,8 +17,11 @@
                        <%:item.ReceiverStoreName %>
                            </a>
                    </td>
+                                     <td class="Cell">
+                        <%:item.CreatedDate.Value.ToString("D")%>
+                   </td>
                   <td class="Cell CellEnd"><%:item.AdedMemberName %></td>
-       
+
              </tr>
 
  <%} %>
@@ -30,7 +33,7 @@
       <b> <%:Model.CurrentPage %> . sayfadasınız
              </div>
 		<ul style="float:right;">
-         
+
 		  <% foreach (int i in Model.TotalLinkPages )
        { %>
 		  <li>
@@ -46,8 +49,6 @@
 			 <% } %>
 		  </li>
 		  <% } %>
-
-      
 		</ul>
 	 </div>
   </td>

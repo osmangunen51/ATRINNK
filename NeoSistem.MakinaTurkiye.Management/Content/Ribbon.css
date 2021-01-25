@@ -35,7 +35,7 @@ a:hover
   height: 11px;
   width: 800px;
   margin: 0px;
-  padding: 0; 
+  padding: 0;
   margin-top: 15px;
 }
 
@@ -83,7 +83,7 @@ a:hover
     /* background-image: url(/content/ribbonimages/ribbon_background.png); */
     padding: 0px;
     padding-top: 3px;
-    height: 85px;
+    height: 100px;
     background-position: top;
     background-repeat: repeat-x;
     background-color: #EBF1F6;
@@ -197,7 +197,7 @@ img
   border-left: 1px solid #183d98;
   border-right: 1px solid #183d98;
   background: url(/Content/RibbonImages/FileMenu_Background_blue.PNG) repeat-x;
-} 
+}
 
 .Ribbon_FileMenu_purple
 {
@@ -264,7 +264,7 @@ img
 .RibbonBigItem_Out, .RibbonBigItem_Over
 {
   float: left; /*border: 1px solid transparent;*/
-  height: 66px;
+  height: 80px
   position: relative;
   -moz-border-radius: 3px;
 }
@@ -288,7 +288,7 @@ img
   width: 9px;
   position: absolute;
   background-repeat: no-repeat;
-  height: 66px;
+  height: 80px
   z-index: 5;
 }
 
@@ -306,7 +306,7 @@ img
 {
   width: auto;
   background-repeat: repeat-x;
-  height: 66px;
+  height: 80px
   z-index: 1;
   padding: 5px;
 }

@@ -251,9 +251,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             hasChildren = item.IsParent > 0,
                             expanded = false
                         };
-
                         node.tool = string.Format(@"<div class=""column sort"">{3}</div><div class=column>{0}</div><a parentid=""{1}""  treeid=""#{1}"" class=""column {4}"">{5}</a><a class=""column edit"" categoryid=""{1}"" href=""#{1}"">Düzenle  </a> <a class="" column content"" href=""EditContent/{1}"">İçerik</a><a class=column onclick=""return Delete('#{1}',{1});"" href=""#"">{2}</a>", ((CategoryType_tr)item.CategoryType).ToString("G").Replace("_", " "), item.CategoryId, "Sil", item.CategoryOrder, item.CategoryType < 3 || item.CategoryType == 6 ? "categoryButton" : "categoryButton2", item.CategoryType == 5 ? "&nbsp;" : "Alt Kategori Ekle");
-
                     }
                     else
                     {
@@ -305,7 +303,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         node = new TreeViewNode
                         {
                             id = item.CategoryId.ToString(),
-                            text = item.CategoryName,
+                            text = $"{item.CategoryName}",
                             classes = item.IsParent > 0 ? "folder" : "file",
                             rowclasses = GetTypeClass(item.CategoryType),
                             hasChildren = item.IsParent > 0,
@@ -318,24 +316,20 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                         string seoContentLink = @"<a class=""column"" target=""_blank"" href=""/SeoDefinition/Edit?entityId=" + item.CategoryId + "&entityTypeId=1" + "\"" + ">İçerik Ekle</a> ";
                         string seoStoreContentLink = @"<a class=""column"" target=""_blank"" href=""/SeoDefinition/Edit?entityId=" + item.CategoryId + "&entityTypeId=3" + "\"" + ">F. İçerik Ekle</a> ";
-                        string excelLink = @"<a  target=""_blank"" href=""/Category/ExportSubCategories/{1}"">E</a>";
-
+                        string excelLink = $@"<a  target=""_blank"" href=""/Category/ExportSubCategories/{item.CategoryId}"">E</a>";
                         string iconLink = @"<a class=""column"" href=""/Category/addImages?categoryId=" + item.CategoryId + "" + "\"" + ">Görsel Ekle</a>";
-                        node.tool = string.Format(@"<div class=""column sort"">{3}</div><div class=column>{0}</div>
-                                    <a parentid=""{1}"" style='width:100px!important;'  treeid=""#{1}""class=""column {4}"">{5}</a>
-                                    <a class=""column edit"" categoryid=""{1}"" href=""#{1}"">Düzenle {6}</a>
-                                    <a class=column onclick=""return Delete('#{1}',{1});"" href=""#"">{2}</a>
-
-                                <a class=column href=""/Banner/Edit/" + item.CategoryId.ToString() + "\"" + ">Banner Ekle</a>" + excelLink + seoContentLink + iconLink + seoStoreContentLink,
-                                                 ((CategoryType_tr)item.CategoryType).ToString("G").Replace("_", " "), item.CategoryId, "Sil", item.CategoryOrder, item.CategoryType < 3 || item.CategoryType == 6 ? "categoryButton" : "categoryButton2", item.CategoryType == 5 ? "&nbsp;" : "Alt Kategori Ekle", seoVar);
-
+                        node.tool = string.Format($@"<div class=""column sort"">{item.CategoryOrder}</div><div class=""column"">{(((CategoryType_tr)item.CategoryType).ToString("G").Replace("_", " "))}</div>
+                                    <a parentid=""{item.CategoryId}"" style='width:100px!important;'  treeid=""#{item.CategoryId}""class=""column {(item.CategoryType < 3 || item.CategoryType == 6 ? "categoryButton" : "categoryButton2")}"">{(item.CategoryType == 5 ? "&nbsp;" : "Alt Kategori Ekle")}</a>
+                                    <a class=""column edit"" categoryid=""{item.CategoryId}"" href=""#{item.CategoryId}"">Düzenle {seoVar}</a>
+                                    <a class=column onclick=""return Delete('#{item.CategoryId}',{item.CategoryId});"" href=""#"">{"Sil"}</a>
+                                    <a class=column href=""/Banner/Edit/" + item.CategoryId.ToString() + "\"" + ">Banner Ekle</a>" + excelLink + seoContentLink + iconLink + seoStoreContentLink);
                     }
                     else
                     {
                         node = new TreeViewNode
                         {
                             id = item.CategoryId.ToString(),
-                            text = item.CategoryName,
+                            text = $"{item.CategoryName}",
                             classes = item.IsParent > 0 ? "folder" : "file",
                             hasChildren = item.IsParent > 0,
                             rowclasses = GetTypeClass(item.CategoryType),
@@ -350,11 +344,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         string seoContentLink = @"<a class=""column"" target=""_blank"" href=""/SeoDefinition/Edit?entityId=" + item.CategoryId + "&entityTypeId=1" + "\"" + ">İçerik Ekle</a> ";
                         string seoStoreContentLink = @"<a class=""column"" target=""_blank"" href=""/SeoDefinition/Edit?entityId=" + item.CategoryId + "&entityTypeId=3" + "\"" + ">F.İçerik Ekle</a> ";
 
-                        node.tool = string.Format(@"<div class=""column sort"">{4}</div><div class=column>{0}</div>
-                                        <a parentid=""{1}"" style='width:100px!important;' treeid=""#{1}"" class=""column sector""  href='#'>Alt Kategori Ekle</a>
-                                        <a class=""column edit"" categoryid=""{1}"" href=""#{1}"">Düzenle {5}</a>
-                                        <a class=column style='width:50px!important!' onclick=""return Delete('#{1}',{1});"" href=""#"">{3}</a>
-                                        <a class=column href=""/Banner/Edit/" + item.CategoryId.ToString() + "\"" + ">Banner Ekle</a>" + seoContentLink + IconLink + seoStoreContentLink, "Sektör", item.CategoryId, item.CategoryParentId, "Sil", item.CategoryOrder, seoVar);
+                        node.tool = string.Format($@"<div class=""column sort"">{item.CategoryOrder}</div><div class=""column"">{"Sektör"}</div>
+                                        <a parentid=""{1}"" style='width:100px!important;' treeid=""#{item.CategoryId}"" class=""column sector""  href='#'>Alt Kategori Ekle</a>
+                                        <a class=""column edit"" categoryid=""{item.CategoryId}"" href=""#{item.CategoryId}"">Düzenle {seoVar}</a>
+                                        <a class=column style='width:50px!important!' onclick=""return Delete('#{item.CategoryId}',{item.CategoryId});"" href=""#"">{"Sil"}</a>
+                                        <a class=column href=""/Banner/Edit/" + item.CategoryId.ToString() + "\"" + ">Banner Ekle</a>" + seoContentLink + IconLink + seoStoreContentLink);
 
                     }
                     nodes.Add(node);
@@ -1027,7 +1021,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 if (Request.Files[inputTagName.ToString()].ContentLength > 0)
                 {
-                    if (inputTagName.ToString() == "IconUrl")
+                    if (inputTagName.ToString() == "IconModel.IconUrl")
                     {
                         var oldIcon = entities.Categories.SingleOrDefault(c => c.CategoryId == model.CategoryId);
                         if (oldIcon != null)

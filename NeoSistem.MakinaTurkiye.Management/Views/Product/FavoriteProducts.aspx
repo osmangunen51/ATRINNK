@@ -8,7 +8,7 @@
                          $.ajax({
           url: '/Help/ErrorDelete',
           data: {
-         ID: id 
+         ID: id
           },
           type: 'post',
          success: function (data) {
@@ -17,17 +17,17 @@
           },
                error: function (x, a, r) {
                    alert("Error");
-         
+
           }
         });
           }
           function PagingStore(curentpage) {
-              
+
       $('#preLoading').show();
                $.ajax({
           url: '/Product/GetFavoriteProducts',
           data: {
-         page: curentpage 
+         page: curentpage
           },
           type: 'get',
          success: function (data) {
@@ -37,12 +37,12 @@
           },
                error: function (x, a, r) {
                    alert("Error");
-         
+
           }
         });
           }
-     
-    
+
+
   </script>
 
 </asp:Content>
@@ -63,19 +63,20 @@
                 <td class="Header">
                Firma Adı
             </td>
+                <td class="Header">
+               Tarih
+            </td>
             <td  class="Header HeaderEnd">
               Ekleyen Adı
-            </td>       
-        
-            
+            </td>
         </tr>
       </thead>
       <tbody id="table">
-          
+
           <%=Html.RenderHtmlPartial("_FavoriteProductListItem",Model) %>
-      
+
           </tbody>
-             
+
         </table>
       </div>
 

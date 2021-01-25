@@ -140,7 +140,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         KrediKarti = 2,
         KrediKartiVade = 3,
         HavaleTaksit = 4,
-        KrediTaksit=5
+        KrediKartiTaksit = 5
     }
     public enum SeoDefinitionType : byte
     {

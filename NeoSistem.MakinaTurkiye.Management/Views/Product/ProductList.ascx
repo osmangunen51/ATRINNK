@@ -25,6 +25,10 @@
     </td>
     <td class="Cell">
         <%= item.MainCategoryName %>
+        <br />
+        <span style="color:#07a71e">
+            <%= item.CategoryContentTitle %>
+        </span>
     </td>
     <td class="Cell">
         <%if (!string.IsNullOrEmpty(item.NameBrand))
@@ -74,9 +78,9 @@
             <%}
     else {%>
             <label for=""></label>
-            
+
                       <textarea type="text" id="<%:item.ProductId %>"  column="modelNon" class="edit-input" style="display: none; width:150px;" ></textarea>
-            
+
                     <% }%>
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
@@ -141,7 +145,7 @@
         </div>
     </td>
     <td class="Cell">
-        <% 
+        <%
             if (item.ProductActive)
             {
                 text = "Aktif";
@@ -221,8 +225,8 @@
                 { %>
         <%:item.ProductPrice.Value.ToString("N2") %>  <%: item.CurrencyName%>
         <%}%>
-      
-  
+
+
     </td>
     <td class="Cell" title="<%: (item.ProductRecordDate == new DateTime() ? "" : item.ProductRecordDate.ToString("dd MMMM yyyy dddd")) %>">
         <%: (item.ProductRecordDate == new DateTime() ? "" : item.ProductRecordDate.ToString("dd.MM.yyyy HH:mm:ss"))%>

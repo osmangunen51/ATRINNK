@@ -304,6 +304,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         }
 
         public string CategoryName { get; set; }
+        public string CategoryContentTitle { get; set; }
         public string ProductSellUrl { get; set; }
         public bool AllowProductSellUrl { get; set; }
         public string Keywords { get; set; }

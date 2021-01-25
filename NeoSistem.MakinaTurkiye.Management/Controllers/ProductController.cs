@@ -102,7 +102,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         static ICollection<ProductModel> collection = null;
 
-        #region Methods 
+        #region Methods
 
         public ActionResult ActiveType(int id)
         {
@@ -449,7 +449,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     {
                         whereClause.Append("AND");
                     }
-                    var member = entities.MemberStores.SingleOrDefault(c => c.StoreMainPartyId == model.StoreMainPartyId);
+                    var member = entities.MemberStores.FirstOrDefault(c => c.StoreMainPartyId == model.StoreMainPartyId);
 
                     whereClause.AppendFormat(equalClause, "P.MainPartyId", member.MemberMainPartyId);
                     op = true;
@@ -510,7 +510,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                 return View("ProductList", filterItems);
             }
-            catch (Exception)
+            catch (Exception error)
             {
                 throw;
             }
@@ -772,7 +772,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 cell.SetCellValue(headers[i]);
             }
 
-            // fill content 
+            // fill content
             for (int i = 0; i < items.Count; i++)
             {
                 var rowIndex = i + 1;
@@ -907,23 +907,23 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             bool updated = false;
             if (file != null && file.ContentLength > 0)
             {
-                HttpPostedFileBase files = Request.Files[0]; //Read the Posted Excel File  
-                ISheet sheet; //Create the ISheet object to read the sheet cell values  
-                string filename = Path.GetFileName(Server.MapPath(files.FileName)); //get the uploaded file name  
-                var fileExt = Path.GetExtension(filename); //get the extension of uploaded excel file  
+                HttpPostedFileBase files = Request.Files[0]; //Read the Posted Excel File
+                ISheet sheet; //Create the ISheet object to read the sheet cell values
+                string filename = Path.GetFileName(Server.MapPath(files.FileName)); //get the uploaded file name
+                var fileExt = Path.GetExtension(filename); //get the extension of uploaded excel file
                 string[] arr = new string[] { ".xls", ".xlsx" };
                 if (arr.Contains(fileExt))
                 {
 
-                    HSSFWorkbook hssfwb = new HSSFWorkbook(files.InputStream); //HSSWorkBook object will read the Excel 97-2000 formats  
-                    sheet = hssfwb.GetSheetAt(0); //get first Excel sheet from workbook  
+                    HSSFWorkbook hssfwb = new HSSFWorkbook(files.InputStream); //HSSWorkBook object will read the Excel 97-2000 formats
+                    sheet = hssfwb.GetSheetAt(0); //get first Excel sheet from workbook
 
 
-                    for (int row = 1; row <= sheet.LastRowNum; row++) //Loop the records upto filled row  
+                    for (int row = 1; row <= sheet.LastRowNum; row++) //Loop the records upto filled row
                     {
-                        if (sheet.GetRow(row) != null) //null is when the row only contains empty cells   
+                        if (sheet.GetRow(row) != null) //null is when the row only contains empty cells
                         {
-                            string value = sheet.GetRow(row).GetCell(0).StringCellValue; //Here for sample , I just save the value in "value" field, Here you can write your custom logics...  
+                            string value = sheet.GetRow(row).GetCell(0).StringCellValue; //Here for sample , I just save the value in "value" field, Here you can write your custom logics...
                             int productId = Convert.ToInt32(sheet.GetRow(row).GetCell(0).StringCellValue);
                             string productName = sheet.GetRow(row).GetCell(2).StringCellValue;
                             string productDescription = sheet.GetRow(row).GetCell(3).StringCellValue;
@@ -3186,23 +3186,29 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 int mainPartyId = Convert.ToInt32(item.MainPartyId);
                 int productId = Convert.ToInt32(item.ProductId);
                 var product = _productService.GetProductByProductId(productId);
-                var member = _memberService.GetMemberByMainPartyId(mainPartyId);
+                if (product != null)
+                {
+                    var member = _memberService.GetMemberByMainPartyId(mainPartyId);
 
-                var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.MainPartyId.Value);
+                    var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.MainPartyId.Value);
 
-                var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                    var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
 
-                var itemModel = new FavoriteListItemModel();
-                itemModel.AddedMemberMainPartyId = mainPartyId;
-                //itemModel.AddedStoreName = store.StoreName;
-                itemModel.AdedMemberName = member.MemberName + " " + member.MemberSurname;
-                itemModel.ProductId = item.ProductId.Value;
-                itemModel.ProductName = product.ProductName;
-                itemModel.ProductNo = product.ProductNo;
-                itemModel.ReceiverStoreMainPartyId = store.MainPartyId;
-                itemModel.ReceiverStoreName = store.StoreName;
-                collection.Add(itemModel);
+                    var itemModel = new FavoriteListItemModel();
+                    itemModel.AddedMemberMainPartyId = mainPartyId;
+                    //itemModel.AddedStoreName = store.StoreName;
+                    itemModel.AdedMemberName = member.MemberName + " " + member.MemberSurname;
+                    itemModel.ProductId = item.ProductId.Value;
+                    itemModel.ProductName = product.ProductName;
+                    itemModel.ProductNo = product.ProductNo;
+                    itemModel.ReceiverStoreMainPartyId = store.MainPartyId;
+                    itemModel.ReceiverStoreName = store.StoreName;
+                    itemModel.CreatedDate = item.CreatedDate;
+                    collection.Add(itemModel);
+                }
+
             }
+            collection = collection.OrderByDescending(x => x.CreatedDate).ToList();
             var model = new FilterModel<FavoriteListItemModel>
             {
                 CurrentPage = favoritList.PageIndex,

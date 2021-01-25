@@ -1,4 +1,6 @@
-﻿namespace NeoSistem.MakinaTurkiye.Management.Models
+﻿using System;
+
+namespace NeoSistem.MakinaTurkiye.Management.Models
 {
     public class FavoriteListItemModel
     {
@@ -12,5 +14,6 @@
         public string AddedStoreName { get; set; }
         public int ReceiverStoreMainPartyId { get; set; }
         public string ReceiverStoreName { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }

@@ -256,7 +256,7 @@
         <div style="float: right">
             <div style="float:left;">
                 Paket Bitiş Tarihi
-
+       
           <input type="text" style="float: none;" autocomplete="off" name="orderEndDate1" placeholder="İlk Tarih.." class="date Search" id="orderEndDate1" />
                 /
           <input type="text" style="float: none;" autocomplete="off" name="orderEndDate2" placeholder="Son Tarih.." class="date Search" id="orderEndDate2" />
@@ -264,7 +264,7 @@
             </div>
             <div style="float: left;">
                 Kayıt Tarihi:
-
+       
           <input type="text" style="float: none;" autocomplete="off" name="createStartDate" placeholder="İlk Tarih.." class="date Search" id="createStartDate" />/<input autocomplete="off" placeholder="Son Tarih.." style="float: none;" class="date Search" type="text" name="createEndDate" id="createEndDate" />
             </div>
             <div style="float: left">
@@ -416,7 +416,7 @@
                                     <td style="border: solid 1px #CCC; background-color: #FFF;">
                                         <%var userList = (List<SelectListItem>)ViewData["SalesUsers"]; %>
                                         <%:Html.DropDownList("SalesUserId",userList,new {@onchange="SearchPost();" }) %>
-
+                        
                                     </td>
                                 </tr>
                             </tbody>

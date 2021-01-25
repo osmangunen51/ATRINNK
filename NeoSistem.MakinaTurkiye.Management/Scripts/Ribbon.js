@@ -1,20 +1,20 @@
-﻿/// <reference path="MicrosoftAjax.js" /> 
-/// <reference path="NeoSistem.js" /> 
+﻿/// <reference path="MicrosoftAjax.js" />
+/// <reference path="NeoSistem.js" />
 /// <reference path="jquery.js" />
 /// <reference path="JQuery.cookie.js" />
 
 $(document).ready(function () {
   var $x = $.cookie('ribbonActive');
 
-  var group = $("." + $x).attr("group"); 
-  $(".tab" + group).hide(); 
-  $("#" + $x).show(); 
-  $('.cs' + group + ' li a').attr("id", ""); 
-  var e = '.cs' + group + ' .' + $x; 
+  var group = $("." + $x).attr("group");
+  $(".tab" + group).hide();
+  $("#" + $x).show();
+  $('.cs' + group + ' li a').attr("id", "");
+  var e = '.cs' + group + ' .' + $x;
   $(e).attr("id", "selected");
 });
 
-function ribbonTabSlide($x) { 
+function ribbonTabSlide($x) {
   $.cookie('ribbonActive', $x, { expires: 7, path: '/' });
 
   var group = $("." + $x).attr("group");
@@ -92,7 +92,7 @@ function EditView(controllerName, editId, successFunc) {
 
 function DeleteView(controllerName, deleteId, successFunc) {
   /// <param name="successFunc" type="Function">
-  /// </param>  
+  /// </param>
 
   var request = new Sys.Net.WebRequest();
   request.set_url(String.format("/{0}/{1}", controllerName, 'Delete'));
@@ -148,7 +148,7 @@ Ribbon.GroupType = function () {
   /// <field name="DualGroup" type="Number" integer="true" static="true">
   /// </field>
   /// <field name="MultiLineGroup" type="Number" integer="true" static="true">
-  /// </field> 
+  /// </field>
 };
 
 Ribbon.GroupType.prototype = {
@@ -254,7 +254,7 @@ Ribbon.RibbonZone.Render = function Ribbon$RibbonZone$Render(options) {
           break;
         default:
       }  // switch
-    } // for groupButtons 
+    } // for groupButtons
     var groupHtml = GetGroupHTML(Ribbon.GroupType.Group);
     if (groupArray[i].seperator == null || groupArray[i].seperator) {
       groupHtml += getSeperator();
@@ -422,14 +422,14 @@ var SBRibbon = {
 
 Ribbon.Res = {
   'GroupHTML': '<li unselectable="on" class="RibbonGroup"> <table cellpadding="0" cellspacing="0"> \
-      <tr><td valign="top"> <div style="height: 66px; overflow: hidden; width:{2}">{0}</div></td></tr> \
+      <tr><td valign="top"> <div style="height: 80px; overflow: hidden; width:{2}">{0}</div></td></tr> \
       <tr><td class="RibbonGroupText" valign="bottom"><span unselectable="on" >{1}</span> </td></tr> \
       </table></li>',
 
   'DualGroupHTML': '<li unselectable="on" class="RibbonGroup"><table cellpadding="0" cellspacing="0"> \
       <tr> \
-        <td valign="top"><div style="height: 66px; overflow: hidden;">{0}</div></td> \
-        <td valign="top"><div style="height: 66px; overflow: hidden; float: left">{1}</div></td> \
+        <td valign="top"><div style="height: 80px; overflow: hidden;">{0}</div></td> \
+        <td valign="top"><div style="height: 80px; overflow: hidden; float: left">{1}</div></td> \
       </tr> \
       <tr><td colspan="2" class="RibbonGroupText" valign="bottom"><span unselectable="on" >{2}</span></td></tr> \
     </table></li>',
@@ -437,9 +437,9 @@ Ribbon.Res = {
   'MultiLineGroupHTML': '<li unselectable="on" class="RibbonGroup"><table cellpadding="0" cellspacing="0"> \
       <tr> \
         <td valign="top"> \
-          <div style="height: 66px; overflow: hidden; clear: both">{0}</div> \
-          <div style="height: 66px; overflow: hidden; clear: both">{1}</div> \
-          <div style="height: 66px; overflow: hidden; clear: both">{2}</div> \
+          <div style="height: 80px; overflow: hidden; clear: both">{0}</div> \
+          <div style="height: 80px; overflow: hidden; clear: both">{1}</div> \
+          <div style="height: 80px; overflow: hidden; clear: both">{2}</div> \
         </td> \
       </tr> \
       <tr><td class="RibbonGroupText" valign="bottom"><span unselectable="on" >{3}</span></td></tr> \
@@ -504,4 +504,4 @@ Ribbon.Res = {
           </div> \
         </div></div> \
         <div id="{0}Menu" style="display: none" class="RibbonMenu menus" onmouseover="SBRibbon.KeepMenu(\'{0}Menu\');" onmouseout="SBRibbon.HideMenu(\'{0}Menu\');" menuopener="{0}" type="small">{4}</div>'
-}; 
+};

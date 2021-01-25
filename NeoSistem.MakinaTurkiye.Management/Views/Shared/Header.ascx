@@ -107,7 +107,7 @@
                 IdPrefix: 'btn',
                 ImageLoc: '/Content/RibbonImages/',
                 Groups: [
-       
+
               {
                   text: 'Banner',
                   type: Ribbon.GroupType.Group,
@@ -127,7 +127,7 @@
                                      align: 'left', image: 'e-mail_icon.png', action: "window.location = '/MailMessageSender/index';"
                                  }]
                             }, homePage('Category')
-           
+
               ,
                 {
                     text: 'Doping',
@@ -227,7 +227,7 @@
                                             Id: 'MemberBulletin', text: 'Bülten Üyeleri', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'newspaper.png', action: "window.location = '/Member/BulletinMember';"
                                         },
-                                  
+
                                         {
                                               Id: 'MemberSearchByPhone', text: 'Numaraya Göre Bul', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'phone-search.png', action: "window.location = '/Member/SearchPhone';"
@@ -727,7 +727,7 @@
 
                },
                {
-                   Id: 'StoreSuccessStories', text: 'Başarı<br> Hikayeeleri', type: Ribbon.ButtonType.BigItem,
+                   Id: 'StoreSuccessStories', text: 'Başarı<br> Hikayeleri', type: Ribbon.ButtonType.BigItem,
                    align: 'left', image: 'newsstore.png', action: "window.location ='/Store/New?newType=2';"
 
                },

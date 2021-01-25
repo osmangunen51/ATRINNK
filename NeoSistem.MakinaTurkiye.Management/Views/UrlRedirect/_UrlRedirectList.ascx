@@ -6,7 +6,11 @@
 %>
 <tr id="row<%:urlRedirect.UrlRedirectId %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
     <td class="Cell"><%:urlRedirect.UrlRedirectId %></td>
-    <td class="Cell"><%:urlRedirect.OldUrl %></td>
+    <td class="Cell">
+        <a target="_blank" href="<%:ConfigurationManager.AppSettings["MakinaTurkiyeWebUrl"]+urlRedirect.OldUrl%>">
+            <%:urlRedirect.OldUrl%>
+        </a>
+        </td>
     <td class="Cell" style="font-size: 15px;">
         <%:urlRedirect.NewUrl %>
     </td>

@@ -93,7 +93,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                         if (thumbResult)
                         {
                             #region Webp Dönüşümü
-
+                            
                             /*Resimler boyutlandırıldıktan sonra webp formatları oluşturulmaktadır.*/
 
                             //var builder = new WebPEncoderBuilder();

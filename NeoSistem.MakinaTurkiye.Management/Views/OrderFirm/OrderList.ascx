@@ -88,23 +88,16 @@
     </td>
     <td class="Cell" align="center">
         <% if (item.OrderType == (byte)Ordertype.Havale)
-        {%>
-            Havale
-        <%
-        }
-        if (item.OrderType == (byte)Ordertype.KrediTaksit)
-        {
-            %>
-            Kredi Kartı Taksit
-            <%
-        }
+            {%>
+    Havale
+    <% }
         else if (item.OrderType == (byte)Ordertype.HavaleTaksit)
         {%>
           Havale Taksit
         <%}
-            else if (item.OrderType == (byte)Ordertype.KrediKartiVade)
+            else if (item.OrderType == (byte)Ordertype.KrediKartiTaksit)
             {%>
-                Kredi Kartı
+                Kredi Kartı Taksit
             <%}
                 else if (item.OrderType == (byte)Ordertype.KrediKarti)
                 { %>
@@ -394,12 +387,12 @@
                     <% if (page == Model.CurrentPage)
                         { %>
                     <span class="currentpage">
-                        <%:page %></span>&nbsp;
+                        <%: page %></span>&nbsp;
           <% } %>
                     <% else
                         { %>
-                    <a onclick="PagePost(<%:page %>)">
-                        <%:page %></a>&nbsp;
+                    <a onclick="PagePost(<%: page %>)">
+                        <%: page %></a>&nbsp;
           <% } %>
                     <% } %>
                 </li>

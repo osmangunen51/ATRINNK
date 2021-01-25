@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-// Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+// Note: For instructions on enabling IIS6 or IIS7 classic mode,
 // visit http://go.microsoft.com/?LinkId=9394801
 
 namespace NeoSistem.MakinaTurkiye.Management
@@ -22,7 +22,7 @@ namespace NeoSistem.MakinaTurkiye.Management
         "{controller}/{action}/{id}", // URL with parameters
         new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
       );
-      routes.MapRoute("WithTarget", "{controller}/{action}/{id}#{target}"); 
+      routes.MapRoute("WithTarget", "{controller}/{action}/{id}#{target}");
 
       routes.MapRoute("Login", "{controller}/{action}", new { controller = "Account", action = "Login" });
 
@@ -47,7 +47,7 @@ namespace NeoSistem.MakinaTurkiye.Management
     {
 
             //JobScheduler.Start();
-  
+
       //initialize engine context
       EngineContext.Initialize(false);
 
@@ -59,7 +59,7 @@ namespace NeoSistem.MakinaTurkiye.Management
       DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(StringLengthValidationAttribute), typeof(StringLengthAttributeAdapter));
       DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(EmailValidationAttribute), typeof(RegularExpressionAttributeAdapter));
       DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RangeValidationAttribute), typeof(RangeAttributeAdapter));
-     
+
     }
 
     protected void Application_Error(object sender, EventArgs e)

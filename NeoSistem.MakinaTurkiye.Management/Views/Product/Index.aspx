@@ -7,7 +7,7 @@
   <%--  <script src="/Scripts/MakinaTurkiye.js" type="text/javascript"></script>--%>
   <script src="/Scripts/JQuery-qtip.js" type="text/javascript"></script>
   <link href="/Content/qtip.css" rel="Stylesheet" type="text/css" />
-   
+
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -295,7 +295,7 @@
             </div>
             <div style="width:140px; height:auto;margin-right:180px;float:right;">
            <div style="width:60px; height:auto;float:left;"> firma id:</div><div style="width:60px; height:auto;float:left;"><input id="StoreId" class="Search" style="width: 30px; border: none"></div>
-            
+
             </div>
             <div style="width: 100%; height: auto; float: left; text-align: right; margin-top: 10px;">
               Toplam Kayıt : &nbsp;&nbsp;<strong>
@@ -343,7 +343,7 @@
           type: 'post',
           dataType: 'json',
           success: function (data) {
-      
+
             if (data) {
               $('#row' + productId).hide();
             }
@@ -461,7 +461,7 @@
       }
       SearchPost();
     }
-    
+
     function AddCategory(productId, brandName) {
       $.ajax({
         url: '/Product/InsertRow',
@@ -625,7 +625,7 @@
 
     }
 
-  
+
 
   </script>
 </asp:Content>
