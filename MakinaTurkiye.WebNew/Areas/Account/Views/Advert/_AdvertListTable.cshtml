@@ -296,8 +296,8 @@
         var BrandName = $("#BrandName").val();
 
         $.ajax({
-            url:'@(AppSettings.SiteUrl+"Account/ilan/AdvertPaging")',
-            type: 'post',
+            url:'@(AppSettings.SiteUrl+"Account/Advert/AdvertPaging")',
+            type: 'POST',
             data: {
                 page: p, displayType: d, advertListType: $('#hdnActiveType').val(),
                 productActive: $("#ProductActive").val(), productActiveType: a,

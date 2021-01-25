@@ -28,8 +28,8 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             if (config.ApplicationTestModeEnabled)
             {
                 //return IsRequestLocal ? string.Empty : "http://test.makinaturkiye.com";
-                return IsRequestLocal ? string.Empty : "http://yeni.makinaturkiye.com";
-                //return "https://yeni.makinaturkiye.com";
+                return IsRequestLocal ? string.Empty : "http://www.makinaturkiye.com";
+                //return "https://makinaturkiye.com";
             }
 
             hostNameType = HostNameType.Default; // Kaldırılacak canlıay alındığında
@@ -46,7 +46,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
                     return "https://haber.makinaturkiye.com";
                 default:
                     // return "https://www.makinaturkiye.com";
-                    return "https://yeni.makinaturkiye.com";
+                    return "https://www.makinaturkiye.com";
             }
         }
 
@@ -93,7 +93,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
         {
             searchText = HttpUtility.UrlEncode(searchText);
             string url = GetHost(HostNameType.Default) + "/" + ToUrl(categoryname + "-c-" + categoryId) + "?SearchText=" + searchText;
-           
+
             if (brandId != null)
                 url = GetHost(HostNameType.Default) + "/" + ToUrl(brandName + "-" + categoryname + "-c-" + categoryId + "-" + brandId + "?SearchText=" + searchText );
 
@@ -105,16 +105,16 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             if(IsRequestLocal)
             {
                 var requestUrl = HttpContext.Current.Request.Url;
-                url = requestUrl.Scheme+ "://" + requestUrl.Authority + url; 
+                url = requestUrl.Scheme+ "://" + requestUrl.Authority + url;
             }
             var uriBuilder = new UriBuilder(url);
-            var query = HttpUtility.ParseQueryString(uriBuilder.Query);          
-             
+            var query = HttpUtility.ParseQueryString(uriBuilder.Query);
+
             if (filterHelper.CountryId > 0 && filterHelper.CityId > 0 && filterHelper.LocalityId > 0)
             {
                 query.Add("ulke", filterHelper.CountryId.ToString());
                 query.Add("sehir", filterHelper.CityId.ToString());
-                query.Add("ilce", ToUrl(filterHelper.LocalityName) + "-" + filterHelper.LocalityId);               
+                query.Add("ilce", ToUrl(filterHelper.LocalityName) + "-" + filterHelper.LocalityId);
             }
             else if (filterHelper.CountryId > 0 && filterHelper.CityId > 0)
             {
@@ -125,7 +125,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             {
                 query.Add("ulke", ToUrl(filterHelper.CountryName) + "-" + filterHelper.CountryId);
             }
-            
+
             if (!string.IsNullOrEmpty(filterHelper.SearchText))
             {
                 query.Add("SearchText", filterHelper.SearchText);
@@ -142,7 +142,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
 
             uriBuilder.Query = query.ToString();
-    
+
             var result = uriBuilder.ToString().Replace(":443", "");
             return result;
         }
@@ -152,7 +152,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             string url = GetHost(HostNameType.Default) + "/" + ToUrl(categoryName) + "-y-" + categoryId;
             return url;
         }
-        
+
         public static string GetStoreProfileProductCategoryUrl(int categoryId, string categoryname,string StoreUrlName)
         {
             return GetHost(HostNameType.Default) + "/" + StoreUrlName + "/" + ToUrl(categoryname) + "-c-" + categoryId;
@@ -166,7 +166,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         public static string GetSerieUrl(int seriId, string seriname, string brandname, string categoryName, string searchText)
         {
-            string url = GetHost(HostNameType.Default) + "/" + ToUrl(seriname + "-" + brandname + "-" + categoryName + 
+            string url = GetHost(HostNameType.Default) + "/" + ToUrl(seriname + "-" + brandname + "-" + categoryName +
                         "-s-" + seriId) + "?SearchText=" + searchText;
 
             return url;
@@ -174,7 +174,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         public static string GetModelUrl(int modelId,string modelName ,string brandname, string categoryname,int selectedCategoryId)
         {
-            string url = GetHost(HostNameType.Default) + "/" + ToUrl(modelName + "-" + brandname + "-" + categoryname + 
+            string url = GetHost(HostNameType.Default) + "/" + ToUrl(modelName + "-" + brandname + "-" + categoryname +
                 "-m-" + modelId + "-" + selectedCategoryId);
             return url;
         }
@@ -188,7 +188,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         public static string GetProductUrl(int id, string productName)
         {
-            
+
             string url = GetHost(HostNameType.Product) + "/" + ToUrl(productName + "-p-" + id);
             return url;
         }
@@ -212,7 +212,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
         public static string GetProductContactUrl(int productId,string storeName)
         {
             string url=  GetHost(HostNameType.Default) + "/Product/ProductContact?productId=" + productId + "&storeName=" + ToUrl(storeName);
-            return url; 
+            return url;
         }
 
         private static string RemoveSpecialCharacters(string str)
@@ -343,7 +343,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             {
                 return GetHost(HostNameType.Default) + "/" + ToUrl(brandName + "-" + categoryName + "-c-" + categoryId + "-" + brandId) + "?ulke=" + ToUrl(countryName) + "-" + countryId;
             }
-            return GetHost(HostNameType.Default) + "/" + ToUrl(categoryName + "-c-" + categoryId) + "?ulke=" + ToUrl(countryName) + "-" + countryId;      
+            return GetHost(HostNameType.Default) + "/" + ToUrl(categoryName + "-c-" + categoryId) + "?ulke=" + ToUrl(countryName) + "-" + countryId;
         }
 
     }

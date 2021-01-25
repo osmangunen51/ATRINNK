@@ -1,9 +1,8 @@
 ﻿<!doctype html>
 <html lang="tr">
 <head>
-
     @Html.Action("MetaTag", "Common", new { area = "" })
-    @Html.Partial("_Head")
+    @{Html.RenderPartial("_Head");}
     @Scripts.Render("~/js")
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=10.2" />
@@ -52,12 +51,57 @@
     @RenderSection("HomePageSlider", false)
     @RenderBody()
     @{Html.RenderAction("Content", "Footer");}
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker
-                .register('/serviceworker.js')
-                .then(function () { console.log('Service Worker Registered'); });
-        }
-    </script>
+<script>
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function () {
+            navigator.serviceWorker.register('service-worker.js').then(function (registration) {
+                    /*console.log('Registered!')*/;
+            }, function (err) {
+                //console.log('ServiceWorker registration failed: ', err);
+            }).catch(function (err) {
+                //console.log(err);
+            });
+        });
+    } else {
+        ///console.log('service worker is not supported');
+    }
+
+    let deferredPrompt; // Allows to show the install prompt
+    const installButton = document.getElementById("install_button");
+
+    window.addEventListener("beforeinstallprompt", e => {
+        console.log("beforeinstallprompt fired");
+        // Prevent Chrome 76 and earlier from automatically showing a prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Show the install button
+        installButton.hidden = false;
+        installButton.addEventListener("click", installApp);
+    });
+
+
+    function installApp() {
+        // Show the prompt
+        deferredPrompt.prompt();
+        installButton.disabled = true;
+
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice.then(choiceResult => {
+            if (choiceResult.outcome === "accepted") {
+                console.log("PWA setup accepted");
+                installButton.hidden = true;
+            } else {
+                console.log("PWA setup rejected");
+            }
+            installButton.disabled = false;
+            deferredPrompt = null;
+        });
+    }
+
+    window.addEventListener("appinstalled", evt => {
+        console.log("appinstalled fired", evt);
+    });
+</script>
 </body>
 </html>

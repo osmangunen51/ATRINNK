@@ -41,7 +41,7 @@
         {
             string url = "/" + ToUrl(productName + "-p-" + id);
             #if !DEBUG
-                        url = "https://yeni.makinaturkiye.com" + url;
+                        url = "https://makinaturkiye.com" + url;
             #endif
             return url;
 

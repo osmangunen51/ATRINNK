@@ -294,6 +294,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
         {
             get { return ConfigurationManager.AppSettings["IyzicoSecureKey"].ToString(); }
         }
+        public static string IyzicoApiUrl
+        {
+            get { return ConfigurationManager.AppSettings["IyzicoApiUrl"].ToString(); }
+        }
 
         public static string PaytrApiMerchantSalt
         {

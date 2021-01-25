@@ -326,7 +326,7 @@ else
             <td>
                 @* <%:((Model.OrderPrice * (18) / 100) / (118 / 100)).ToString("C2")%>*@
                 @{ var kdv = Convert.ToDecimal(1.18); }
-                @(Model.OrderPrice - (Model.OrderPrice / kdv)).ToString("C2")
+                @((Model.OrderPrice - (Model.OrderPrice / kdv)).ToString("C2"))
             </td>
         </tr>
         <tr>
@@ -334,7 +334,7 @@ else
                 Vade Farkı
             </td>
             <td>
-                @(Model.OrderPrice * (Model.GetCreditCardInstallment.CreditCardValue) / 100).ToString("C2")
+                @((Model.OrderPrice * (Model.GetCreditCardInstallment.CreditCardValue) / 100).ToString("C2"))
             </td>
         </tr>
         <tr>
@@ -344,7 +344,7 @@ else
             <td>
                 @Model.GetCreditCardInstallment.CreditCardCount
                 X
-                @((price + (price * Model.GetCreditCardInstallment.CreditCardValue / 100)) / Model.GetCreditCardInstallment.CreditCardCount).ToString("C2")
+                @(((price + (price * Model.GetCreditCardInstallment.CreditCardValue / 100)) / Model.GetCreditCardInstallment.CreditCardCount).ToString("C2"))
             </td>
         </tr>
     </tbody>
@@ -354,7 +354,7 @@ else
                 Toplam Tutar
             </td>
             <td>
-                @(Model.GetCreditCardInstallment.CreditCardCount * Convert.ToDecimal(((price + (price * Model.GetCreditCardInstallment.CreditCardValue / 100)) / Model.GetCreditCardInstallment.CreditCardCount).ToString("N2"))).ToString("C2")
+                @((Model.GetCreditCardInstallment.CreditCardCount * Convert.ToDecimal(((price + (price * Model.GetCreditCardInstallment.CreditCardValue / 100)) / Model.GetCreditCardInstallment.CreditCardCount).ToString("N2"))).ToString("C2"))
             </td>
         </tr>
     </tfoot>
@@ -377,7 +377,7 @@ else
             <td>
                 @* <%:(Model.OrderPrice * (118) / 100).ToString("C2") %>*@
                 @{ var kdv = Convert.ToDecimal(1.18); }
-                @(Model.OrderPrice - (Model.OrderPrice / kdv)).ToString("C2")
+                @((Model.OrderPrice - (Model.OrderPrice / kdv)).ToString("C2"))
             </td>
         </tr>
         <tr>

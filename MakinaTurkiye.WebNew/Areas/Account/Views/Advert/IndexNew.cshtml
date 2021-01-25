@@ -244,7 +244,7 @@
         </div>
         <div class="col-md-12">
             <h4 class="mt0 text-info">
-                @Model.MTAdvertsTopViewModel.MTAdvertFilterItemModel.FirstOrDefault(x => x.CssClass == "active").FilterName
+                @Model.MTAdvertsTopViewModel.MTAdvertFilterItemModel.FirstOrDefault(x => x.CssClass == "active")?.FilterName
             </h4>
         </div>
     </div>
@@ -410,7 +410,7 @@
             var BrandName = $("#BrandName").val();
             $.ajax({
                 url:'@(AppSettings.SiteUrl+ "Account/Advert/AdvertPaging")',
-                type: 'post',
+                type: 'POST',
                 data: {
                     page: p, displayType: d,
                     advertListType: $('#hdnActiveType').val(),

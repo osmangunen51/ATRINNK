@@ -14,6 +14,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
 {
     public class IyzicoPayment
     {
+
+
         public Order Order { get; set; }
         public global::MakinaTurkiye.Entities.Tables.Common.Address Address { get; set; }
         public Packet Packet { get; set; }
@@ -28,7 +30,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
         public int? DopingDay { get; set; }
         public string CallBakUrl { get; set; }
 
-        public Phone Phone { get; set; } 
+        public Phone Phone { get; set; }
 
         public IyzicoPayment(Order order, Member member, global::MakinaTurkiye.Entities.Tables.Common.Address address, Packet packet,
             string amount, string creditCardNumber, string cardNameSurname, string cvv2, string expireMont, string expireYear, int? dopingDay, string callBackUrl, Phone phone, string installment)
@@ -54,7 +56,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
             Options options = new Options();
             options.ApiKey = AppSettings.IyzicoApiKey;
             options.SecretKey = AppSettings.IyzicoSecureKey;
-            options.BaseUrl = "https://api.iyzipay.com";
+            options.BaseUrl = AppSettings.IyzicoApiUrl;
             CreatePaymentRequest request = new CreatePaymentRequest();
             request.Locale = Locale.TR.ToString();
             request.ConversationId = Order.OrderId.ToString();
@@ -155,7 +157,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
                 buyer.GsmNumber = "+9005326508841";
             else
                 buyer.GsmNumber = Phone.PhoneCulture + Phone.PhoneAreaCode + Phone.PhoneNumber;
-            
+
             buyer.Email = Member.MemberEmail;
             buyer.IdentityNumber = "46887452314";
             buyer.LastLoginDate = "";

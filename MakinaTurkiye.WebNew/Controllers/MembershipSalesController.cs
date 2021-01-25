@@ -628,7 +628,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         string tutar;
         string cv2;
         string khip;
-        //[RequireHttps]
+
+        [RequireHttps]
         [HttpPost]
         public ActionResult FourStep(FormCollection[] fColl)
         {
@@ -1150,11 +1151,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
         }
-        //[RequireHttps]
+        [RequireHttps]
         [HttpPost]
         public ActionResult FourStepNew(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
-
 
             MembershipIyzicoModel model = new MembershipIyzicoModel();
             tutar = tutar.Replace(',', '.');
@@ -1243,13 +1243,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         }
         //[RequireHttps]
-        //[HttpPost]
+        [HttpPost]
+        [AllowAnonymous]
         public ActionResult ResultPay(FormCollection frm)
         {
             Options options = new Options();
             options.ApiKey = AppSettings.IyzicoApiKey;
             options.SecretKey = AppSettings.IyzicoSecureKey;
-            options.BaseUrl = "https://api.iyzipay.com";
+            options.BaseUrl = AppSettings.IyzicoApiUrl;
             string paymentId = Request.Form.Get("paymentId");
             string status = Request.Form.Get("status");
             string conversationData = Request.Form.Get("conversationData");
