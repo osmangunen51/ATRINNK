@@ -22,37 +22,36 @@
     <link rel="alternate" hreflang="tr-TR" href="@Request.Url.ToString()" />
 </head>
 <body class="facelift-v2">
-
-    <script type="application/ld+json">
-        {
-        "@@context": "http://schema.org",
-        "@@type": "Organization",
-        @*"url": "https://www.makinaturkiye.com",*@
-        "url": "/",
-        "name": "makinaturkiye.com",
-        "logo" : "https://www.makinaturkiye.com/Content/V2/images/makinaturkiye.png",
-        "contactPoint": {
-        "@@type": "ContactPoint",
-        "telephone": "+90 212 255 7152",
-        "contactType": "Customer service"
-        }
-        }
-    </script>
-    <!-- Json Ld Ayar-->
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7HZJT"
-                height="0" width="0" style="display: none; visibility: hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <div id="fb-root"></div>
-    <div class="responsive-overlay"></div>
-    @Html.Partial("_Header")
-    @RenderSection("HomePageSlider", false)
-    @RenderBody()
-    @{Html.RenderAction("Content", "Footer");}
+ <script type="application/ld+json">
+     {
+     "@@context": "http://schema.org",
+     "@@type": "Organization",
+     @*"url": "https://www.makinaturkiye.com",*@
+     "url": "/",
+     "name": "makinaturkiye.com",
+     "logo" : "https://www.makinaturkiye.com/Content/V2/images/makinaturkiye.png",
+     "contactPoint": {
+     "@@type": "ContactPoint",
+     "telephone": "+90 212 255 7152",
+     "contactType": "Customer service"
+     }
+     }
+ </script>
+ <!-- Json Ld Ayar-->
+ <!-- Google Tag Manager (noscript) -->
+ <noscript>
+     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TR7HZJT" height="0" width="0" style="display: none; visibility: hidden"></iframe>
+ </noscript>
+ <!-- End Google Tag Manager (noscript) -->
+ <div id="fb-root"></div>
+ <div class="responsive-overlay"></div>
+ @Html.Partial("_Header")
+ @RenderSection("HomePageSlider", false)
+ @RenderBody()
+ @{Html.RenderAction("Content", "Footer");}
 <script>
-    if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator)
+    {
         window.addEventListener('load', function () {
             navigator.serviceWorker.register('service-worker.js').then(function (registration) {
                     /*console.log('Registered!')*/;
@@ -62,13 +61,11 @@
                 //console.log(err);
             });
         });
-    } else {
-        ///console.log('service worker is not supported');
+    } else
+    {
     }
-
-    let deferredPrompt; // Allows to show the install prompt
+    let deferredPrompt;
     const installButton = document.getElementById("install_button");
-
     window.addEventListener("beforeinstallprompt", e => {
         console.log("beforeinstallprompt fired");
         // Prevent Chrome 76 and earlier from automatically showing a prompt
@@ -79,14 +76,9 @@
         installButton.hidden = false;
         installButton.addEventListener("click", installApp);
     });
-
-
     function installApp() {
-        // Show the prompt
         deferredPrompt.prompt();
         installButton.disabled = true;
-
-        // Wait for the user to respond to the prompt
         deferredPrompt.userChoice.then(choiceResult => {
             if (choiceResult.outcome === "accepted") {
                 console.log("PWA setup accepted");
@@ -98,7 +90,6 @@
             deferredPrompt = null;
         });
     }
-
     window.addEventListener("appinstalled", evt => {
         console.log("appinstalled fired", evt);
     });

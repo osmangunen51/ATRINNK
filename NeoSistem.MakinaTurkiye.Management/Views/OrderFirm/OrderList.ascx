@@ -36,7 +36,7 @@
         </div>
         <% } %>
 
-        
+
     </td>
     <td class="Cell">
         <%if (item.StoreNameForInvoice != "" && item.StoreNameForInvoice != null)
@@ -88,12 +88,19 @@
     </td>
     <td class="Cell" align="center">
         <% if (item.OrderType == (byte)Ordertype.Havale)
-            {%>
-    Havale
-    <% }
+        {%>
+            Havale
+        <%
+        }
+        if (item.OrderType == (byte)Ordertype.KrediTaksit)
+        {
+            %>
+            Kredi Kartı Taksit
+            <%
+        }
         else if (item.OrderType == (byte)Ordertype.HavaleTaksit)
         {%>
-          Havale Taksit 
+          Havale Taksit
         <%}
             else if (item.OrderType == (byte)Ordertype.KrediKartiVade)
             {%>
@@ -171,7 +178,7 @@
                                  order.OrderPacketEndDate = (DateTime)descs;
                     olustur.SaveChanges();
                     }
-           
+
 
                 }
             }
@@ -271,7 +278,7 @@
                <a href="/OrderFirm/UpdatePayDate?orderId=<%=item.OrderId  %>" style="float: right;" id="lightbox_click" rel="superbox[iframe]"
             title="Yeni Tarih Ekle">
             <img src="/Content/images/edit.png" /></a>
-        </div>   
+        </div>
     </td>
     <td class="Cell">
         <% if (item.PacketStatu == (byte)PacketStatu.Inceleniyor)
@@ -387,12 +394,12 @@
                     <% if (page == Model.CurrentPage)
                         { %>
                     <span class="currentpage">
-                        <%: page %></span>&nbsp;
+                        <%:page %></span>&nbsp;
           <% } %>
                     <% else
                         { %>
-                    <a onclick="PagePost(<%: page %>)">
-                        <%: page %></a>&nbsp;
+                    <a onclick="PagePost(<%:page %>)">
+                        <%:page %></a>&nbsp;
           <% } %>
                     <% } %>
                 </li>

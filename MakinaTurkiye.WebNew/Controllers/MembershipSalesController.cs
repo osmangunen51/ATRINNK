@@ -446,7 +446,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(SessionPacketModel.PacketModel);
         }
 
-        //[RequireHttps]
+        #if !DEBUG
+            [RequireHttps]
+        #endif
         public ActionResult FourStep(string messagge, string orderId)
         {
 
@@ -609,8 +611,20 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 else
                 {
 
-                    var phoneGsm = phones.FirstOrDefault(x => x.PhoneType == 3);
-                    SessionPacketModel.PacketModel.Gsm = phoneGsm.PhoneCulture + phoneGsm.PhoneAreaCode + phoneGsm.PhoneNumber;
+                    /*Eski Hali*/
+
+                    //var phoneGsm = phones.FirstOrDefault(x => x.PhoneType == 3);
+                    //SessionPacketModel.PacketModel.Gsm = phoneGsm.PhoneCulture + phoneGsm.PhoneAreaCode + phoneGsm.PhoneNumber;
+
+                    /**/
+
+
+                    /*Osman : Bu kısımda neden whatsapp numrasına bakılıyor baklıyorsa bile bu kısımda mantık hatası var.*/
+                    var phoneGsm = phones.Where(x => x.PhoneType == 3).FirstOrDefault();
+                    if (phoneGsm != null)
+                    {
+                        SessionPacketModel.PacketModel.Gsm = phoneGsm.PhoneCulture + phoneGsm.PhoneAreaCode + phoneGsm.PhoneNumber;
+                    }
 
                 }
 
@@ -629,7 +643,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         string cv2;
         string khip;
 
-        [RequireHttps]
+        #if !DEBUG
+                    [RequireHttps]
+        #endif
         [HttpPost]
         public ActionResult FourStep(FormCollection[] fColl)
         {
@@ -1151,7 +1167,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
         }
-        [RequireHttps]
+
+        #if !DEBUG
+                    [RequireHttps]
+        #endif
         [HttpPost]
         public ActionResult FourStepNew(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
@@ -1242,9 +1261,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
         }
-        //[RequireHttps]
+
         [HttpPost]
         [AllowAnonymous]
+        #if !DEBUG
+        [RequireHttps]
+        #endif
         public ActionResult ResultPay(FormCollection frm)
         {
             Options options = new Options();
@@ -1275,7 +1297,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (threedsPayment.Installment.ToString() == "1" | threedsPayment.Installment.ToString() == "0" | threedsPayment.Installment.ToString() == "")
                 ccl.OrderType = "Tek Çekim";
             else
+            {
                 ccl.OrderType = "Taksitli";
+                order.OrderType = 5; // Kredi Kartı Taksitli Fiyat
+            }
 
             if (threedsPayment.Status == "success")
                 ccl.Status = "Başarılı";
@@ -1302,12 +1327,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 #region payment
                 var paymentM = new global::MakinaTurkiye.Entities.Tables.Checkouts.Payment();
                 paymentM.OrderId = order.OrderId;
-                paymentM.PaidAmount = order.OrderPrice;
+                paymentM.PaidAmount = Convert.ToDecimal(threedsPayment.PaidPrice);
                 paymentM.PaymentType = order.OrderType;
                 paymentM.RecordDate = DateTime.Now;
-                paymentM.RestAmount = 0;
+                paymentM.RestAmount = (order.OrderPrice- Math.Round(Convert.ToDecimal(threedsPayment.PaidPrice.Replace(".", ",")), 2));
                 _orderService.InsertPayment(paymentM);
                 #endregion
+
                 var settings = ConfigurationManager.AppSettings;
                 var mailsend = _storeService.GetStoreByMainPartyId(order.MainPartyId);
                 string Email = mailsend.StoreEMail;
@@ -1404,11 +1430,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
                 return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
-
               //  return View();
             }
-
         }
+
         public ActionResult sonuc(string sonuc)
         {
 
