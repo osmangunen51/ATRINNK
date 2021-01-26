@@ -478,13 +478,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IList<Navigation> alMenu = new List<Navigation>();
             alMenu.Add(new Navigation("Firmalar", AppSettings.StoreAllUrl, Navigation.TargetType._self));
             var topCategories = model.StoreCategoryModel.StoreTopCategoryItemModels;
-            foreach (var item in topCategories)
+            foreach (var item in topCategories.Where(x=>x.CategoryType==0 | x.CategoryType==1 | x.CategoryType == 2))
             {
-
-
                 var url =item.CategoryUrl;
-
-
                 alMenu.Add(new Navigation(item.CategoryContentTitle, url, Navigation.TargetType._self));
             }
             model.Navigation = LoadNavigationV3(alMenu);
@@ -839,6 +835,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
               model.SeoContent = seoDefinition.SeoContent;
             }
 
+            if (model.StoreModels.Count==0 | (category!=null &&category.CategoryType==3))
+            {
+                string RedirectUrl = model.StoreCategoryModel.StoreTopCategoryItemModels.Where(x => x.CategoryType == 0 | x.CategoryType == 1 | x.CategoryType == 2).LastOrDefault()?.CategoryUrl;
+                return RedirectPermanent(RedirectUrl);
+            }
             return View(model);
         }
 
