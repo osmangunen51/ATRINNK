@@ -19,15 +19,10 @@
 @using System.Globalization
 @using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 @using NeoSistem.MakinaTurkiye.Web.Models.Videos
-@{
-    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-
-}
-
+@{ Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml"; }
 @section headercontent{
     @Html.Partial("_HeaderContent")
+
 }
 
 @section storeprofileheadercontent{
@@ -35,34 +30,23 @@
     {
     }
     @Html.Partial("_HeaderTop", Model.MTStoreProfileHeaderModel)
-
 }
-@section storeprofileheadercontent{
 
-}
-@section storeprofileheadercontent{
+@section stoprofilemenu{
     @if (Model.StoreActiveType == 2)
     {
-        @Html.Partial("_LeftMenu", Model.MTStoreProfileHeaderModel)
-
-    }
+@Html.Partial("_LeftMenu", Model.MTStoreProfileHeaderModel)}
 }
-
 @if (Model.StoreActiveType == 2)
 {
-    <div class="col-sm-7 col-md-8 col-lg-9">
-        <div class="StoreProfileContent aboutusText">
-            @Model.GeneralText
-        </div>
-
-        <div class="clearfix"></div>
+<div class="col-sm-7 col-md-8 col-lg-9">
+    <div class="StoreProfileContent aboutusText">
+        @Html.Raw(Model.GeneralText)
     </div>
 
-
-
-}
+    <div class="clearfix"></div>
+</div> }
 else
 {
-    @Html.Action("NoAccessStore", new { id = Model.MainPartyId })
-}
+@Html.Action("NoAccessStore", new { id = Model.MainPartyId })}
 
