@@ -244,7 +244,10 @@
         </div>
         <div class="col-md-12">
             <h4 class="mt0 text-info">
-                @Model.MTAdvertsTopViewModel.MTAdvertFilterItemModel.FirstOrDefault(x => x.CssClass == "active")?.FilterName
+                @if (Model.MTAdvertsTopViewModel.MTAdvertFilterItemModel.FirstOrDefault(x => x.CssClass == "active")!=null)
+                {
+                <span>@Model.MTAdvertsTopViewModel.MTAdvertFilterItemModel.FirstOrDefault(x => x.CssClass == "active").FilterName</span>
+                }
             </h4>
         </div>
     </div>

@@ -453,13 +453,12 @@
                                     <div class="col-md-2"></div>
                                     @{List<string> varCategoryTreeName = (List<string>)Session["TreeListForCategoryName"]; }
 
-                                    @for (int i = varCategoryTreeName.Count - 1; i >= 0; i--)
-                                    {
-                                        <b>
-                                            @varCategoryTreeName[i].ToString()
-                                        </b>
-                             }
-
+                                        @for (int i = varCategoryTreeName.Count - 1; i >= 0; i--)
+                                        {
+                                            <b>
+                                                @(varCategoryTreeName[i].ToString()+" >")
+                                            </b>
+                                         }
                                     <br>
                                     <br>
                                     <span class="clearfix"></span>

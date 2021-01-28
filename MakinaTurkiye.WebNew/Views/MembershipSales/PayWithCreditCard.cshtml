@@ -146,7 +146,7 @@ else
                         <b>
                             @if (Model.PacketModel.PayPriceAmount == 0)
                             {
-                                @Model.PacketModel.OrderPrice.ToString("C2") 
+                                @Model.PacketModel.OrderPrice.ToString("C2")
                             }
                             else
                             {
@@ -305,59 +305,62 @@ else
     <div class="col-xs-6">
         @if (Model.PacketModel.CreditCardInstallmentId > 0)
         {
-<table class="table">
-    <thead>
-        <tr>
-            <th colspan="2">
-                Detaylar
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                KDV Tutar
-            </td>
-            <td>
-                @(Model.PacketModel.OrderPrice - (Model.PacketModel.OrderPrice / kdv)).ToString("C2")
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Vade Farkı
-            </td>
-            <td>
-                @(Model.PacketModel.OrderPrice * (Model.PacketModel.GetCreditCardInstallment.CreditCardValue) / 100).ToString("C2")
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Taksit
-            </td>
-            <td>
-                @Model.PacketModel.GetCreditCardInstallment.CreditCardCount
-                X
-                @((price + (price * Model.PacketModel.GetCreditCardInstallment.CreditCardValue / 100)) / Model.PacketModel.GetCreditCardInstallment.CreditCardCount).ToString("C2")
-            </td>
-        </tr>
-    </tbody>
-    <tfoot>
-        <tr class="success">
-            <td>
-                Toplam Tutar
-            </td>
-            <td>
-                @if (Model.PacketModel.PayPriceAmount == 0)
-                {
-                <span>
-                    @(Model.PacketModel.GetCreditCardInstallment.CreditCardCount *  Convert.ToDecimal(((price + (price * Model.PacketModel.GetCreditCardInstallment.CreditCardValue / 100)) / Model.PacketModel.GetCreditCardInstallment.CreditCardCount).ToString("N2"))).ToString("C2")
-                </span>
-                }
-
-            </td>
-        </tr>
-    </tfoot>
-</table> }
+        <table class="table">
+            <thead>
+                <tr>
+                    <th colspan="2">
+                        Detaylar
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        KDV Tutar
+                    </td>
+                    <td>
+                        @{(Model.PacketModel.OrderPrice - (Model.PacketModel.OrderPrice / kdv)).ToString("C2");}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Vade Farkı
+                    </td>
+                    <td>
+                        @{(Model.PacketModel.OrderPrice * (Model.PacketModel.GetCreditCardInstallment.CreditCardValue) / 100).ToString("C2");}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Taksit
+                    </td>
+                    <td>
+                        @Model.PacketModel.GetCreditCardInstallment.CreditCardCount
+                        X
+                        @{((price + (price * Model.PacketModel.GetCreditCardInstallment.CreditCardValue / 100)) / Model.PacketModel.GetCreditCardInstallment.CreditCardCount).ToString("C2");}
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr class="success">
+                    <td>
+                        Toplam Tutar
+                    </td>
+                    <td>
+                        @if(Model.PacketModel.PayPriceAmount == 0)
+                        {
+                            decimal Deger = price + (price * Model.PacketModel.GetCreditCardInstallment.CreditCardValue / 100);
+                            Deger = Deger / Model.PacketModel.GetCreditCardInstallment.CreditCardCount;
+                            Deger = Model.PacketModel.GetCreditCardInstallment.CreditCardCount / Deger;
+                        <span>
+                            @Deger.ToString("C2")
+                        </span>
+                        }
+                    </td>
+                </tr>
+            </tfoot>
+        </table> 
+        }
                 else
                 {
 <table class="table">
@@ -374,7 +377,7 @@ else
                 KDV Tutar
             </td>
             <td>
-                @(price - (price / kdv)).ToString("C2")
+                @((price - (price / kdv)).ToString("C2"))
             </td>
         </tr>
         <tr>

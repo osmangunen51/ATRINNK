@@ -35,6 +35,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
         public IyzicoPayment(Order order, Member member, global::MakinaTurkiye.Entities.Tables.Common.Address address, Packet packet,
             string amount, string creditCardNumber, string cardNameSurname, string cvv2, string expireMont, string expireYear, int? dopingDay, string callBackUrl, Phone phone, string installment)
         {
+            amount = amount.Trim();
             this.Order = order;
             this.Member = member;
             this.Address = address;
@@ -53,6 +54,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
         }
         public IyzicoResultModel CreatePaymentRequest()
         {
+            this.Amount = this.Amount.Trim();
             Options options = new Options();
             options.ApiKey = AppSettings.IyzicoApiKey;
             options.SecretKey = AppSettings.IyzicoSecureKey;

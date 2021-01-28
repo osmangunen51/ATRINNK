@@ -1714,7 +1714,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 _orderService.InsertOrder(order);
             }
             var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(memberStore.StoreMainPartyId.Value, PhoneTypeEnum.Gsm);
-
             IyzicoPayment iyzicoPayment = new IyzicoPayment(order, member, adressNew, packet, tutar, pan, kartisim, cv2, Ecom_Payment_Card_ExpDate_Month,
                     Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone,taksit);
 
@@ -1768,7 +1767,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             Options options = new Options();
             options.ApiKey = AppSettings.IyzicoApiKey;
             options.SecretKey = AppSettings.IyzicoSecureKey;
-            options.BaseUrl = "https://api.iyzipay.com";
+            options.BaseUrl = AppSettings.IyzicoApiUrl;
             string paymentId = Request.Form.Get("paymentId");
             string status = Request.Form.Get("status");
             string conversationData = Request.Form.Get("conversationData");
