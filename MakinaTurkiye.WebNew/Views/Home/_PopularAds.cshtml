@@ -27,9 +27,8 @@
                     StepCounter += 1;
                     if (StepCounter == 1)
                     {
-
-                        <div class="item double-item">
-                            }
+                        @:<div class="item double-item"
+                    }
 
                             <div class="product-card">
                                 <a href="@populerAd.ProductUrl" class="product-image">
@@ -39,17 +38,16 @@
                                     </span>
                                 </a>
                             </div>
-                            @if (StepCounter == 2)
+                            if (StepCounter == 2)
                             {
-
-                            </div>
+                    @:</div>
 
                             StepCounter = 0;
                         }
                             }
                             @if (StepCounter == 1)
                             {
-                            </div>
+                            @:</div>
                         }
                         </div>
                         <a class="left overflow-prev" data-slide="prev" href="#popularitemscarousel">

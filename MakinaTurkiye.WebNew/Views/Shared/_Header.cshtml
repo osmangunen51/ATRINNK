@@ -82,9 +82,6 @@
                 <a href="https://blog.makinaturkiye.com" class="hidden-md hidden-lg">
                     <i class="mt-icon icon-blog-mt"></i>
                 </a>
-                <a href="@AppSettings.SiteUrl yardim" class="hidden-md hidden-lg">
-                    <i class="mt-icon icon-answer-mt"></i>
-                </a>
                 <div class="hidden-xs hidden-sm">
 
                     @if (membermainPartyId != 0)
@@ -93,7 +90,7 @@
                         memberType = (byte)AuthenticationUser.Membership.MemberType;
                         <div class="user-member-name clearfix">
                             <span>@memberName</span>
-                            <a href="@AppSettings.SiteUrl Account/Home">Hesabım</a>
+                            <a href="@AppSettings.SiteUrlWithoutLastSlash/Account/Home">Hesabım</a>
                         </div>
                     }
 
@@ -104,7 +101,7 @@
                         {
 
                         <li class="user-topmenu__item hidden-sm hidden-md hidden-lg">
-                            <a style="font-size:13px !important;margin-bottom:5px;" href="@AppSettings.SiteUrl/Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
+                            <a style="font-size:13px !important;margin-bottom:5px;" href="@AppSettings.SiteUrlWithoutLastSlash/Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
                                 <span class="icon-paper-plane"></span>Mesajlar <span class="label label-primary pull-right">@notReadInboxMessageCount</span>
                             </a>
                         </li>
@@ -112,7 +109,7 @@
                         }
 
                         <li class="user-topmenu__item hidden-sm hidden-md hidden-lg commentLi" style="display: none;">
-                            <a style="font-size:13px !important;margin-bottom:5px;" href="@AppSettings.SiteUrl/Account/ilan/Comments" class="user-topmenu__link">
+                            <a style="font-size:13px !important;margin-bottom:5px;" href="@AppSettings.SiteUrlWithoutLastSlash/Account/ilan/Comments" class="user-topmenu__link">
                                 <span class="glyphicon glyphicon-comment"></span>Yorumlar <span class="label label-primary pull-right commentCountvalue"></span>
                             </a>
                         </li>
@@ -123,7 +120,7 @@
                             </a>
                         </li>
                         <li class="user-topmenu__item hidden-sm hidden-md hidden-lg" id="MobileCustomersContainer">
-                            <a style="font-size:13px !important;margin-bottom:5px;" href="@(AppSettings.SiteUrl)sirketler" class="user-topmenu__link">
+                            <a style="font-size:13px !important;margin-bottom:5px;" href="@AppSettings.SiteUrlWithoutLastSlash/sirketler" class="user-topmenu__link">
                                 <span class="icon-briefcase"></span>Firma
                             </a>
                         </li>
@@ -190,8 +187,6 @@
                                         }
                                         <i class="fa fa-caret-down" style="position: absolute"></i>
                                     </span>
-
-
                                 </a>
                                 @{string baseUrl = AppSettings.SiteUrlWithoutLastSlash; }
                                 <ul class="dropdown-menu account-dropdown" aria-labelledby="dropdownMenu1">
@@ -288,7 +283,7 @@
                                 <a style="color:#828282" href="@AppSettings.StoreAllUrl">Mağazalar</a>
                             </li>
                             <li style="border-left:none !important">
-                                <a style="color:#828282" href="@AppSettings.SiteAllCategoryUrl ">Kategoriler</a>
+                                <a style="color:#828282" href="@AppSettings.SiteAllCategoryUrl">Kategoriler</a>
                             </li>
                         </ul>
                         <ul class="site-search__links">

@@ -16,7 +16,7 @@ namespace MakinaTurkiye.Services.Common
         IList<UrlRedirect> GetUrlRedirects(int skip, int take, out int totalCount);
         UrlRedirect GetUrlRedirectByOldUrl(string oldUrl);
         UrlRedirect GetUrlRedirectByUrlRedirectId(int urlRedirectId);
-
-
+        IList<UrlRedirect> GetUrlRedirectAll();
+        
     }
 }

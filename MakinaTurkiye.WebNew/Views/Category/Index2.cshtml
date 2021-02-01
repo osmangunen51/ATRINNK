@@ -6,21 +6,21 @@
     @if (!string.IsNullOrEmpty(ViewBag.Canonical))
     {
         if (Model.CategoryModel.SelectedCategoryId == 0) { ViewBag.Canonical = "https://urun.makinaturkiye.com"; }
-<link rel="canonical" href="@ViewBag.Canonical" />
-}
+        <link rel="canonical" href="@ViewBag.Canonical" />
+    }
     @if (!string.IsNullOrEmpty(Model.PrevPageUrl))
     {
 <link rel="prev" href="@Model.PrevPageUrl" />
 }
     @if (!string.IsNullOrEmpty(Model.NextPageUrl))
     {
-<link rel="next" href="@Model.NextPageUrl" />
-}
+    <link rel="next" href="@Model.NextPageUrl" />
+    }
 
     @if (!this.Context.IsDebuggingEnabled)
     {
-<meta name="robots" content="INDEX,FOLLOW" />
-}
+    <meta name="robots" content="INDEX,FOLLOW" />
+    }
     <script type="text/javascript">
         $(document).ready(function () {
             //GetMostViewedProductAjax();
@@ -662,7 +662,7 @@
                                                                 kategorisi
                                                             </strong>
                                                             <span>
-                                                            &nbsp; aramanızda <font class="text-danger">@Model.TotalItemCount </font>adet ilan bulundu
+                                                             aramanızda <font class="text-danger">@Model.TotalItemCount </font>adet ilan bulundu
                                                             @if (Request.QueryString["page"] != null)
                                                                 {
                                                                 <span class="small">&nbsp;@Model.PagingModel.CurrentPageIndex. Sayfa</span>

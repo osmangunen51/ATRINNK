@@ -22,10 +22,10 @@
         {
 <li class="dropdown-header col-md-12">
     <a href="@category.CategoryUrl">
-        @if (category.CategoryName.ToLower().Contains("makin"))
+        @*@if (category.CategoryName.ToLower().Contains("makin"))
         {
             category.CategoryName = category.CategoryName.Split(' ')[0];
-        }
+        }*@
         @category.CategoryName
     </a>
 </li>

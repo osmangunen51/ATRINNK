@@ -6,9 +6,7 @@
 @{
     Layout = null;
 }
-
 <div onclick="topFunction()" id="myBtn" class="mobile-top" title="Go to top"><span class="more-less icon-up-arrow"></span></div>
-
 <div class="footer">
     <div class="container">
         <div class="footer__bottom row">
@@ -19,22 +17,18 @@
                     string cssMd = "flex-md-3 flex-lg-3";
                     if (item.FooterParentName == "Kategori")
                     {
-                    cssMd = "flex-md-2 flex-lg-2";
+                        cssMd = "flex-md-2 flex-lg-2";
                     }
-
-
-                    <div class="menu col-6 col-md-4 col-xl-2" data-parent="@item.FooterParentName">
-                        <h4>@item.FooterParentName </h4>
-                        <ul class="list-unstyled">
-                            @foreach (var itemFooterContent in item.FooterContents)
-                            {
-                            <li><a rel="nofollow" href="@itemFooterContent.FooterContentUrl">@itemFooterContent.FooterContentName </a></li>
-                            }
-                        </ul>
-                    </div>
-
+                        <div class="menu col-6 col-md-4 col-xl-2" data-parent="@item.FooterParentName">
+                            <h4>@item.FooterParentName </h4>
+                            <ul class="list-unstyled">
+                                @foreach (var itemFooterContent in item.FooterContents)
+                                {
+                                <li><a rel="nofollow" href="@itemFooterContent.FooterContentUrl">@itemFooterContent.FooterContentName </a></li>
+                                }
+                            </ul>
+                        </div>
                     }
-
                     <div class="menu socialM flex-xs-6 flex-sm-4 flex-md-2 flex-lg-3">
                         <h4>Sosyal Medya</h4>
                         <ul class="list-unstyled">
@@ -76,9 +70,7 @@
                                 </a>
                             </li>
                         </ul>
-
                     </div>
-
                 </div>
                 <div class="row copyright-v2">
                     <div class="copyright-v2__inner">

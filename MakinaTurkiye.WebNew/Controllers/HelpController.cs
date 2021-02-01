@@ -66,7 +66,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 return RedirectToAction("Index");
             }
-          
+
             List<MTHelpMenuModel> menuModels = new List<MTHelpMenuModel>();
             foreach (var item in helpCategories)
             {
@@ -98,7 +98,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var request = HttpContext.Request;
             string helpUrl = UrlBuilder.GetHelpCategoryUrl(category.CategoryId, category.CategoryName);
             string absUrl=request.Url.AbsolutePath;
-          
+
             //#if !DEBUG
             //      absUrl=request.Url.AbsoluteUri;
             //#endif

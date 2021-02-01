@@ -59,9 +59,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         private void PrepareMetaTagProperty(MetaTagModel model)
         {
-
+        
         }
-
         private void PrepareMetaTagModel(MetaTagModel model)
         {
             var seos = _seoDefinitionService.GetAllSeos();
@@ -76,7 +75,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             controlleName = controlleName.ToLower();
-
             switch (controlleName)
             {
                 case "category": PrepareMetaTagModelForCategory(model, seos); break;
@@ -105,7 +103,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 case "account/storenew": PrepareMetaTagModelForAccountStoreNew(model, seos); break;
                 case "account/users": PrepareMetaTagModelForAccountUsers(model, seos); break;
                 case "account/video": PrepareMetaTagModelForAccountStoreVideos(model, seos); break;
-
                 default:
                     break;
             }

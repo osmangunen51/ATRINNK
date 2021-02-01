@@ -45,8 +45,8 @@
             <a href="@Request.FilePath@(countryFilter)@(cityFilter)@(localityFilter)@(display)@page@orderTip@searchText" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.All ? activeCss : string.Empty)">Tümü</a>
             <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@page@orderTip@(searchText)@("&SearchType=sifir")" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New ? activeCss : string.Empty)">Sıfır<span class="category-filter-count">&nbsp(@(Model.CustomFilterModels.FirstOrDefault(x => x.FilterId == (byte)ProductSearchTypeV2.New).ProductCount))</span></a>
             @{
+                
                 var usedProduct = Model.CustomFilterModels.FirstOrDefault(x => x.FilterId == (byte)ProductSearchTypeV2.Used);
-
             }
             @if (usedProduct != null)
             {

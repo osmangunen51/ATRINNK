@@ -278,15 +278,16 @@
         $('[data-rel="liActive"]').removeClass("active");
         $('[data-rel="liActive"][data-id="' + p + '"]').addClass("active");
         try {
-            //                          var curpage = "&currentPage=1";
-            //                        if(getUrlVars()["currentPage"]!=null){
-            var curpage = "&currentPage=" + p;
+            //var curpage = "&currentPage=1";
+            //if(getUrlVars()["currentPage"]!=null){
+                var curpage = "&currentPage=" + p;
             //}
-
             //history.pushState(window.location.search, "page new", "?ProductActive=" + getUrlVars()["ProductActive"] + "&DisplayType=" + getUrlVars()["DisplayType"] + curpage);
             history.pushState(window.location.search, "page new", "?ProductActiveType=" + $('#hdnActiveType').val() + "&DisplayType=" + getUrlVars()["DisplayType"] + curpage);
 
-        } catch (e) {
+        }
+        catch (e)
+        {
 
         }
 
@@ -294,17 +295,20 @@
         var CategoryName = $("#CategoryName").val();
         var ProductName = $("#ProductName").val();
         var BrandName = $("#BrandName").val();
+        var OrderType = $("#OrderType").val();
 
         $.ajax({
             url:'@(AppSettings.SiteUrl+"Account/Advert/AdvertPaging")',
             type: 'POST',
             data: {
                 page: p, displayType: d, advertListType: $('#hdnActiveType').val(),
-                productActive: $("#ProductActive").val(), productActiveType: a,
-                productNo: ProductNo,
-                categoryName: CategoryName,
-                productName: ProductName,
-                brandName: BrandName
+                productActive: $("#ProductActive").val(),
+                productActiveType:a,
+                productNo:ProductNo,
+                categoryName:CategoryName,
+                productName:ProductName,
+                brandName:BrandName,
+                orderType:OrderType
             },
             success: function (data) {
 

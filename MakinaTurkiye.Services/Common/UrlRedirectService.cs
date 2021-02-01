@@ -11,7 +11,7 @@ namespace MakinaTurkiye.Services.Common
     public class UrlRedirectService : IUrlRedirectService
     {
         IRepository<UrlRedirect> _urlRedirectRepository;
-        
+
         public UrlRedirectService(IRepository<UrlRedirect> urlRedirectRepository)
         {
             this._urlRedirectRepository = urlRedirectRepository;
@@ -22,7 +22,7 @@ namespace MakinaTurkiye.Services.Common
             if (urlRedirect == null)
                 throw new ArgumentNullException("urlRedirect");
 
-            _urlRedirectRepository.Delete(urlRedirect); 
+            _urlRedirectRepository.Delete(urlRedirect);
         }
 
         public UrlRedirect GetUrlRedirectByOldUrl(string oldUrl)
@@ -61,6 +61,12 @@ namespace MakinaTurkiye.Services.Common
                 throw new ArgumentNullException("urlRedirect");
 
             _urlRedirectRepository.Update(urlRedirect);
+        }
+
+        public IList<UrlRedirect> GetUrlRedirectAll()
+        {
+            var query = _urlRedirectRepository.Table;
+            return query.ToList();
         }
     }
 }

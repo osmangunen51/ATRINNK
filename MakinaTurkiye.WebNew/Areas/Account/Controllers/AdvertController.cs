@@ -1350,7 +1350,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return View(userControlName, getProduct);
         }
         [HttpPost]
-        public ActionResult AdvertPaging(int page, byte displayType, byte advertListType, byte productActiveType, int productActive, string productNo, string categoryName, string productName, string brandName, byte orderType)
+        public ActionResult AdvertPaging(int page, byte displayType, byte advertListType, byte productActiveType, int productActive, string productNo, string categoryName, string productName, string brandName, byte orderType=1)
         {
             var dataProduct = new Data.Product();
             int pageDimension = 20;

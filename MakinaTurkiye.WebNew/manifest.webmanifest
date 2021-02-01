@@ -317,6 +317,6 @@
   "name": "makinaturkiye",
   "orientation": "any",
   "short_name": "makinaturkiye",
-  "start_url": "https://www.makinaturkiye.com",
+  "start_url": "http://localhost:35882/",
   "theme_color": "#00aae7"
 }

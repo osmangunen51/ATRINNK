@@ -723,7 +723,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ViewBag.Canonical = "https://video.makinaturkiye.com" + request.Url.AbsolutePath;
 
             _videoService.CachingGetOrSetOperationEnabled = false;
-            var video = _videoService.GetVideoByVideoId(VideoId);
+            var video=_videoService.GetVideoByVideoId(VideoId);
+            if (video == null)
+                return RedirectPermanent(AppSettings.VideoUrlBase);
             var productvideos = _videoService.GetVideosByProductId((int)video.ProductId);
             if (productvideos.Count > 1)
             {
@@ -731,8 +733,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 video.Order++;
             }
 
-            if (video == null)
-                return RedirectPermanent(AppSettings.VideoUrlBase);
+
 
             var product = _videoService.GetSPStoreAndProductDetailByProductId(video.ProductId.Value);
             if (product == null)

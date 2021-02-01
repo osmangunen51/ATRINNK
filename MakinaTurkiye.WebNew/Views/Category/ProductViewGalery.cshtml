@@ -79,26 +79,26 @@
 
                             <div class="product-list-mt__title-info">
                                 <h3 class="product-list-mt__title">
-                                    @model1.ProductName &nbsp;
+                                    @model1.ProductName
+                                </h3>
+                                <div class="row col-md-12 pad-15">
                                     @if (!string.IsNullOrEmpty(model1.BrandName))
                                     {
 
                                         if (!string.IsNullOrEmpty(model1.ModelName))
                                         {
                                             //  model1.ModelName = ", " + model1.ModelName;
-                                            <span style="color: #1eb929">
-                                                @Html.Raw("(" + model1.BrandName + ", " + model1.ModelName + ")")
-                                            </span>
-                                        }
-                                        else
-                                        {
-                                            <span style="color:#7b7b7b">
-                                                @Html.Raw("(" + model1.BrandName+ ")")
-                                            </span>
-                                        }
+                                <span style="color:#428bca;">
+                                    @Html.Raw(model1.BrandName + " | " + model1.ModelName)
+                                </span> }
+                                                    else
+                                                    {
+                                <span style="color:#7b7b7b;">
+                                    @Html.Raw(model1.BrandName)
+                                </span>}
 
-                                    }
-                                </h3>
+                                                }
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">

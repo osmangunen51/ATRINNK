@@ -2547,7 +2547,6 @@
     <Content Include="Views\Videos\_SimilarVideos.cshtml" />
     <Content Include="Views\Videos\_VideoCategories.cshtml" />
     <Content Include="Views\Videos\_VideoItemVideo.cshtml" />
-    <Content Include="Views\Videos\_VideoList- hata.cshtml" />
     <Content Include="Views\Videos\_VideoPaging.cshtml" />
     <Content Include="Views\Videos\_VideoViewWindow.cshtml" />
     <Content Include="Views\Web.config" />

@@ -18231,6 +18231,8 @@ img.res-buyut {
     margin-top: -2px
 }
 
+    
+
     .overflow-next div:hover, .overflow-prev div:hover {
         background-color: #64738e;
         color: #fff
@@ -18238,6 +18240,7 @@ img.res-buyut {
 
 .firma-one-cikan-type-box {
     margin: 0 auto;
+    margin-top:10px !important;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     -webkit-border-radius: 4px;

@@ -270,20 +270,16 @@
                             <div class="row" style="margin-bottom: 15px;">
                                 <div class="col-md-12">
                                     <form action="javascript:void(0)">
-
-                                        <div class="input-group">
-
+                                        <div class="input-group col-md-12 col-sm-12 pull-right">
                                             <input type="text" class="form-control" name="productNameForSearch" id="productNameForSearch" placeholder="Anahtar Kelime..(ürün arama)" aria-describedby="basic-addon2">
                                             <span class="input-group-btn">
                                                 <button onclick="ProductSearchResult();" id="searchButtonAdvert" class="btn  btn-default" type="submit">
                                                     <span class="glyphicon glyphicon-search"></span>
                                                 </button>
                                             </span>
-
                                         </div>
-                                        <div style="float: right;"><a href="/Account/Advert/UpdateProductsUpdateDate" style="color: #333;">Tüm İlanları Güncelle</a></div>
+                                        @*<div style="float: right;"><a href="/Account/Advert/UpdateProductsUpdateDate" style="color: #333;">Tüm İlanları Güncelle</a></div>*@
                                     </form>
-
                                 </div>
                                 <div class="col-md-12">
                                 </div>
@@ -411,8 +407,9 @@
             var CategoryName = $("#CategoryName").val();
             var ProductName = $("#ProductName").val();
             var BrandName = $("#BrandName").val();
+            var OrderType = $("#OrderType").val();
             $.ajax({
-                url:'@(AppSettings.SiteUrl+ "Account/Advert/AdvertPaging")',
+                url:'@(AppSettings.SiteUrl+"Account/Advert/AdvertPaging")',
                 type: 'POST',
                 data: {
                     page: p, displayType: d,
@@ -423,7 +420,7 @@
                     categoryName: CategoryName,
                     productName: ProductName,
                     brandName: BrandName,
-                    orderType: $("#OrderType").val()
+                    orderType: OrderType
                 },
                 success: function (data) {
                     $('[data-rel="tab-content"]').html(data);
