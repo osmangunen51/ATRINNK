@@ -49,12 +49,16 @@ namespace NeoSistem.MakinaTurkiye.Web
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            Exception exception = Server.GetLastError();
-            string requestUrl = Request.ServerVariables["REQUEST_URI"];
-            if (requestUrl.EndsWith(">"))
+            MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
+            if (!config.ApplicationTestModeEnabled)
             {
-                requestUrl = requestUrl.Substring(0, requestUrl.Length - 1);
-                Response.RedirectPermanent(requestUrl);
+                Exception exception = Server.GetLastError();
+                string requestUrl = Request.ServerVariables["REQUEST_URI"];
+                if (requestUrl.EndsWith(">"))
+                {
+                    requestUrl = requestUrl.Substring(0, requestUrl.Length - 1);
+                    Response.RedirectPermanent(requestUrl);
+                }
             }
 
             //MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();

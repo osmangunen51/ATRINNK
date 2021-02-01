@@ -34,6 +34,7 @@
             </div>
             <div class="home-showcase__body">
                 <div id="home-sector">
+                    @{Html.RenderAction("GetHomeSector", "CatologAjax");}
                 </div>
             </div>
         </div>
@@ -44,6 +45,7 @@
     }
 
     <div id="home-showcase">
+
     </div>
     <div class="advertiseHome" style="display: none;">
         <div class="container">
@@ -198,63 +200,65 @@
             window.addEventListener("orientationChange", lazyload);
         }
     })
-    var c = 1;
-    var sectorLoaded = 0;
-    function GetProductsShowCase() {
-        $.ajax({
+    //var c = 1;
+    //var sectorLoaded = 0;
+    //function GetProductsShowCase() {
+    //    $.ajax({
 
-            url: '/ajax/GetProductShowCase',
-            type: 'GET',
-            data: {
-            },
+    //        url: '/ajax/GetProductShowCase',
+    //        type: 'GET',
+    //        data: {
+    //        },
 
-            success: function (data) {
-                // alert("Veri Geldi:" + data);
-                $("#home-showcase").html(data);
+    //        success: function (data) {
+    //            // alert("Veri Geldi:" + data);
+    //            $("#home-showcase").html(data);
 
-                //$("#category-selected-home").append($("#advertiseHomeContent").html());
-                //GetProductRecomandation();
-
-
-            },
-            error: function (request, error) {
-
-                console.log("Request: " + JSON.stringify(request));
-            }
-        });
-
-    }
-    $(window).scroll(function () {
-        var requestScroll = $("#RequestScrool").val();
-        var requestScroolSector = $("#RequestScroolSector").val();
-        var sectorHeight = $(".new-header").height() + $(".main-navigation").height() - 200;
-        var b = $(".new-header").height() + $(".main-navigation").height() + $(".home-banner-area ").height() + $("#home-sector").height() - 200;
-        if ($(window).scrollTop() > sectorHeight) {
-            if (requestScroolSector == 1) {
-                $.ajax({
-
-                    url: '/ajax/GetHomeSector',
-                    type: 'GET',
-                    data: {
-                    },
-
-                    success: function (data) {
-                        $("#home-sector").html(data);
-                        $("#RequestScroolSector").val("0");
-                        GetProductsShowCase();
-
-                    },
-                    error: function (request, error) {
-                        console.log("Request: " + JSON.stringify(request));
-                    }
-                });
+    //            //$("#category-selected-home").append($("#advertiseHomeContent").html());
+    //            //GetProductRecomandation();
 
 
+    //        },
+    //        error: function (request, error) {
 
-            }
+    //            console.log("Request: " + JSON.stringify(request));
+    //        }
+    //    });
 
-        }
-    });
+    //}
+    //$(window).scroll(function () {
+    //    var requestScroll = $("#RequestScrool").val();
+    //    var requestScroolSector = $("#RequestScroolSector").val();
+    //    var sectorHeight = $(".new-header").height() + $(".main-navigation").height() - 200;
+    //    var b = $(".new-header").height() + $(".main-navigation").height() + $(".home-banner-area ").height() + $("#home-sector").height() - 200;
+    //    if ($(window).scrollTop() > sectorHeight) {
+    //        if (requestScroolSector == 1) {
+    //            $("#RequestScroolSector").val("0");
+    //            GetProductsShowCase();
+    //            //$.ajax({
+
+    //            //    url: '/ajax/GetHomeSector',
+    //            //    type: 'GET',
+    //            //    data: {
+    //            //    },
+
+    //            //    success: function (data) {
+    //            //        $("#home-sector").html(data);
+    //            //        $("#RequestScroolSector").val("0");
+    //            //        GetProductsShowCase();
+
+    //            //    },
+    //            //    error: function (request, error) {
+    //            //        console.log("Request: " + JSON.stringify(request));
+    //            //    }
+    //            //});
+
+
+
+    //        }
+
+    //    }
+    //});
 </script>
 
 

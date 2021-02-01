@@ -14981,7 +14981,9 @@ body {
 }
 
 .main-container {
-    margin-bottom: 20px
+    margin-bottom: 20px;
+    padding-left:25px;
+    padding-right:40px;
 }
 
 .footer {
@@ -18231,7 +18233,7 @@ img.res-buyut {
     margin-top: -2px
 }
 
-    
+
 
     .overflow-next div:hover, .overflow-prev div:hover {
         background-color: #64738e;
