@@ -160,7 +160,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         public static string GetSerieUrl(int seriId, string seriname, string brandname,string categoryName)
         {
-            string url = GetHost(HostNameType.Default) + "/" + ToUrl(seriname + "-" + brandname + "-" + categoryName + "-s-" + seriId);
+            string url = GetHost(HostNameType.Default) + "/" + ToUrl(brandname + "-" +  seriname + "-" + categoryName + "-s-" + seriId);
             return url;
         }
 
