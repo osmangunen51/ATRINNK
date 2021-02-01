@@ -220,6 +220,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         }
 
                         var topCategories = _categoryService.GetSPTopCategories(c.CategoryId);
+                        var brand = topCategories.Where(x => x.CategoryType == (byte)CategoryType.Brand).FirstOrDefault();
+                        var category = topCategories.Where(x => x.CategoryType == (byte)CategoryType.Category).LastOrDefault();
+                        
+                        if (brand != null && category != null)
+                        {
+                            string newUrl = UrlBuilder.GetSerieUrl(c.CategoryId, c.CategoryName, brand.CategoryName, !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName);
+
+                            if (!newUrl.Equals(url))
+                            {
+                                return newUrl;
+                            }
+                        }
+
                         return string.Empty;
                     }
                     else if (c.CategoryType == (byte)CategoryType.Model)
@@ -1740,7 +1753,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 for (int i = firstPage; i <= lastPage; i++)
                 {
-                   
+
                     model.PageUrls.Add(i, QueryStringBuilder.ModifyQueryString(this.Request.Url.ToString(), PAGE_INDEX_QUERY_STRING_KEY + "=" + i, null));
 
                 }
@@ -2571,25 +2584,25 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             var yenilink = PrepareForLink(selectedCategoryId);
-   
-                if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video."))
-            if (!Request.IsLocal)
-                if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
-                {
-                    //ExceptionHandler.HandleException(Server.GetLastError());
-                    if (request.Url.AbsoluteUri.StartsWith("https://video."))
+
+            if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video."))
+                if (!Request.IsLocal)
+                    if (!string.IsNullOrEmpty(yenilink) || request.Url.AbsoluteUri.StartsWith("https://video.") == true)
                     {
-                        //System.IO.File.AppendAllText(File, $"1 - {DateTime.Now.ToString()} - {yenilink}");
-                        return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
+                        //ExceptionHandler.HandleException(Server.GetLastError());
+                        if (request.Url.AbsoluteUri.StartsWith("https://video."))
+                        {
+                            //System.IO.File.AppendAllText(File, $"1 - {DateTime.Now.ToString()} - {yenilink}");
+                            return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
+                        }
+
+
+
+                        return RedirectPermanent(yenilink);
                     }
 
 
 
-                    return RedirectPermanent(yenilink);
-                }
-
-
- 
 
             #region redirect
 
@@ -2614,7 +2627,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 string Url = request.Url.PathAndQuery.ToString().ToLower();
                 if (Url.EndsWith("?page=1"))
                 {
-                    string newurl = Url.Replace("?page=1","");
+                    string newurl = Url.Replace("?page=1", "");
                     return RedirectPermanent(newurl);
                 }
                 string idCategories = request.Url.AbsolutePath.Substring((index + 3), request.Url.AbsolutePath.Length - (index + 3));
