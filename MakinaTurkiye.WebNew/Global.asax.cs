@@ -250,6 +250,8 @@ namespace NeoSistem.MakinaTurkiye.Web
             }
 
             string requestUrl = Request.ServerVariables["REQUEST_URI"];
+            
+            
             string rewriteUrl = Request.ServerVariables["UNENCODED_URL"];
             if (rewriteUrl.Contains("//") && !requestUrl.Contains("//")) Response.RedirectPermanent(requestUrl);
             string key = "makinaturkiye.urlredirect.{0}";

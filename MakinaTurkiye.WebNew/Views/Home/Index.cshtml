@@ -1,17 +1,14 @@
 ﻿@model NeoSistem.MakinaTurkiye.Web.Models.Home.MTHomeModel
-
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    //Layout = null;
 }
 
 @Html.Hidden("RequestScrool", 1)
 @Html.Hidden("RequestScroolSector", 1)
 @Html.Hidden("Page", 2)
-<div>
-    @if (!Request.Browser.IsMobileDevice)
-    {
+@if (!Request.Browser.IsMobileDevice)
+{
 <div class="home-banner-area hidden-xs">
     <div class="row">
         <div class="col-xs-12 col-lg-12">
@@ -19,35 +16,17 @@
         </div>
     </div>
 </div>}
-</div>
 <div class="main-container container">
-    <div class="row">
-        <div class="col-md-12">
-            <div>
-                <h1 style="color: #0350a5;
-              font-family: Arial;
-              font-size: 24px;
-              font-weight: 700;
-              line-height: 27px;">
-                    Dünya'nın Makinası Bir Arada
-                </h1>
-            </div>
-            <div class="home-showcase__body">
-                <div id="home-sector">
-                    @{Html.RenderAction("GetHomeSector", "CatologAjax");}
-                </div>
-            </div>
+    <div class="row" style="padding: 0px; margin: 0px; margin-right: -14px;">
+        <div id="home-sector">
+            @{Html.RenderAction("GetHomeSector", "CatologAjax");}
         </div>
     </div>
     @if (!Request.Browser.IsMobileDevice)
     {
-        @Html.Partial("_NewsAds", Model.NewsAdModels)
-    }
-
-    <div id="home-showcase">
-
-    </div>
-    <div class="advertiseHome" style="display: none;">
+@Html.Partial("_NewsAds", Model.NewsAdModels)}
+    <div id="home-showcase"></div>
+    <div class="advertiseHome">
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-md-offset-1 aos-init aos-animate" data-aos="fade-right" data-aos-offset="200" data-aos-delay="100" data-aos-duration="1000">
@@ -64,96 +43,79 @@
         </div>
     </div>
     <div class="productMayLike">
-
+        @{Html.RenderAction("GetProductShowCase", "CatologAjax");}
     </div>
     @Html.Partial("_ShowCaseStores", Model.StoreModels)
-    <div class="row">
+    <div class="row" style="padding-left: 3px; padding-right: 3px;">
         <div class="col-xs-12">
             <div class="home-seo-content">
-                <h2>
+                <h2 style=" font-size: 20px;">
                     @Model.ConstantTitle
                 </h2>
-                @Html.Raw(Model.ConstantProperty)
+                <div style="text-align:justify">
+                    @Html.Raw(Model.ConstantProperty)
+                </div>
             </div>
         </div>
     </div>
-
-    @*@Html.Partial("_Bulletin")*@
-
 </div>
 <script type="text/javascript">
-    function GetProductRecomandation() {
-        $.ajax({
-            type: 'get',
-            url: '/Home/GetProductRecomandation',
-            data: {},
-            success: function (data) {
-                $('.productMayLike').html(data);
-                $(".advertiseHome").show();
-                var owlTemplate = $('.owlTemplate');
-                $.each(owlTemplate, function () {
-                    var item = $(this).find(".bottom-slider");
-                    if (item != undefined) {
-                        item.owlCarousel({
-                            margin: 0,
-                            loop: true,
-                            nav: false,
-                            autoplay: true,
-                            autoplayTimeout: 5000,
-                            autoplayHoverPause: true,
-                            autoWidth: true,
-                            responsive: {
-                                0: {
-                                    items: 1,
-                                    slideBy: 1
-                                },
-                                768: {
-                                    items: 2,
-                                    slideBy: 2
-                                },
-                                992: {
-                                    items: 3,
-                                    slideBy: 3
+    function ActiveGetProductRecomandation() {
+        var owlTemplate = $('.owlTemplate');
+        $.each(owlTemplate, function () {
+            var item = $(this).find(".bottom-slider");
+            if (item != undefined) {
+                item.owlCarousel({
+                    margin: 0,
+                    loop: true,
+                    nav: false,
+                    autoplay: true,
+                    autoplayTimeout: 5000,
+                    autoplayHoverPause: true,
+                    autoWidth: true,
+                    responsive: {
+                        0: {
+                            items: 1,
+                            slideBy: 1
+                        },
+                        768: {
+                            items: 2,
+                            slideBy: 2
+                        },
+                        992: {
+                            items: 3,
+                            slideBy: 3
 
-                                },
-                                1200: {
-                                    items: 5,
-                                    slideBy: 5
-                                }
-                            }
-                        })
-                        var nextItem = $(this).find(".overflow-next");
-                        var prevItem = $(this).find(".overflow-prev");
-                        $(nextItem).click(function () {
-                            item.trigger('next.owl.carousel');
-
-                        });
-                        $(prevItem).click(function () {
-                            item.trigger('prev.owl.carousel', [300]);
-
-                        });
-
-
+                        },
+                        1200: {
+                            items: 5,
+                            slideBy: 5
+                        }
                     }
+                })
+                var nextItem = $(this).find(".overflow-next");
+                var prevItem = $(this).find(".overflow-prev");
+                $(nextItem).click(function () {
+                    item.trigger('next.owl.carousel');
+
                 });
-                function setOwlStageHeight(event) {
-                    var maxHeight = 0;
-                    $('.owl-item.active').each(function () { // LOOP THROUGH ACTIVE ITEMS
-                        var thisHeight = parseInt($(this).height());
-                        maxHeight = (maxHeight >= thisHeight ? maxHeight : thisHeight);
-                    });
-                    $('.owl-carousel').css('height', maxHeight);
-                    $('.owl-stage-outer').css('height', maxHeight); // CORRECT DRAG-AREA SO BUTTONS ARE CLICKABLE
-                }
+                $(prevItem).click(function () {
+                    item.trigger('prev.owl.carousel', [300]);
 
-
-            },
-            error: function (x, y, z) {
-                //alert('Bir Hata Oluştu. Lütfen Destek Ekibimiz ile İletişime Geçiniz');
-                console.log("hata");
+                });
             }
         });
+        function setOwlStageHeight(event) {
+            var maxHeight = 0;
+            $('.owl-item.active').each(function () { // LOOP THROUGH ACTIVE ITEMS
+                var thisHeight = parseInt($(this).height());
+                maxHeight = (maxHeight >= thisHeight ? maxHeight : thisHeight);
+            });
+            $('.owl-carousel').css('height', maxHeight);
+            $('.owl-stage-outer').css('height', maxHeight); // CORRECT DRAG-AREA SO BUTTONS ARE CLICKABLE
+        }
     }
+    ActiveGetProductRecomandation();
     document.addEventListener("DOMContentLoaded", function () {
         var lazyloadImages;
         if ("IntersectionObserver" in window) {
@@ -200,65 +162,6 @@
             window.addEventListener("orientationChange", lazyload);
         }
     })
-    //var c = 1;
-    //var sectorLoaded = 0;
-    //function GetProductsShowCase() {
-    //    $.ajax({
-
-    //        url: '/ajax/GetProductShowCase',
-    //        type: 'GET',
-    //        data: {
-    //        },
-
-    //        success: function (data) {
-    //            // alert("Veri Geldi:" + data);
-    //            $("#home-showcase").html(data);
-
-    //            //$("#category-selected-home").append($("#advertiseHomeContent").html());
-    //            //GetProductRecomandation();
-
-
-    //        },
-    //        error: function (request, error) {
-
-    //            console.log("Request: " + JSON.stringify(request));
-    //        }
-    //    });
-
-    //}
-    //$(window).scroll(function () {
-    //    var requestScroll = $("#RequestScrool").val();
-    //    var requestScroolSector = $("#RequestScroolSector").val();
-    //    var sectorHeight = $(".new-header").height() + $(".main-navigation").height() - 200;
-    //    var b = $(".new-header").height() + $(".main-navigation").height() + $(".home-banner-area ").height() + $("#home-sector").height() - 200;
-    //    if ($(window).scrollTop() > sectorHeight) {
-    //        if (requestScroolSector == 1) {
-    //            $("#RequestScroolSector").val("0");
-    //            GetProductsShowCase();
-    //            //$.ajax({
-
-    //            //    url: '/ajax/GetHomeSector',
-    //            //    type: 'GET',
-    //            //    data: {
-    //            //    },
-
-    //            //    success: function (data) {
-    //            //        $("#home-sector").html(data);
-    //            //        $("#RequestScroolSector").val("0");
-    //            //        GetProductsShowCase();
-
-    //            //    },
-    //            //    error: function (request, error) {
-    //            //        console.log("Request: " + JSON.stringify(request));
-    //            //    }
-    //            //});
-
-
-
-    //        }
-
-    //    }
-    //});
 </script>
 
 

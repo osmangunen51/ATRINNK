@@ -15,14 +15,8 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
 
 @{
-    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //using NeoSistem.MakinaTurkiye.Web.Models
-    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
     Layout = null;
-
 }
-
 @{
     string memberName = string.Empty;
     int memberType = 0;
@@ -79,8 +73,8 @@
                 <a href="@AppSettings.VideoUrlBase" class="hidden-md hidden-lg">
                     <i class="mt-icon icon-play-mt"></i>
                 </a>
-                <a href="https://blog.makinaturkiye.com" class="hidden-md hidden-lg">
-                    <i class="mt-icon icon-blog-mt"></i>
+                <a href="https://blog.makinaturkiye.com" class="hidden-md hidden-lg" style="margin-left:10px;">
+                    <i style="font-size:50px" class="mt-icon icon-blog-mt"></i>
                 </a>
                 <div class="hidden-xs hidden-sm">
 
@@ -290,12 +284,6 @@
                             <li>
                                 <a target="_blank" href="@AppSettings.VideoUrlBase">Videolar</a>
                             </li>
-                            @*<li>
-                                <a target="_blank" href="https://blog.makinaturkiye.com">Blog</a>
-                            </li>*@
-                            @*<li>
-                                <a target="_blank" href="@AppSettings.SiteUrlWithoutLastSlash/yardim">Yardım</a>
-                            </li>*@
                         </ul>
                     </div>
                 </div>

@@ -27,17 +27,13 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
         {
             if (config.ApplicationTestModeEnabled)
             {
-                //return IsRequestLocal ? string.Empty : "http://test.makinaturkiye.com";
                 return IsRequestLocal ? string.Empty : "http://www.makinaturkiye.com";
-                //return "https://makinaturkiye.com";
             }
-
-            hostNameType = HostNameType.Default; // Kaldırılacak canlıay alındığında
 
             switch (hostNameType)
             {
                 case HostNameType.Product:
-                    return "https://urun.makinaturkiye.com";
+                    return "https://www.makinaturkiye.com";
                 case HostNameType.Video:
                     return "https://video.makinaturkiye.com";
                 case HostNameType.Store:
@@ -45,7 +41,6 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
                 case HostNameType.StoreNews:
                     return "https://haber.makinaturkiye.com";
                 default:
-                    // return "https://www.makinaturkiye.com";
                     return "https://www.makinaturkiye.com";
             }
         }

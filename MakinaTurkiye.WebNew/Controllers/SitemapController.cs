@@ -33,38 +33,32 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
 
             IList<string> sitemapFiles = new List<string>();
-           // //this.generateSitemap_categoryproductgroup();
+            this.generateSitemap_categoryproductgroup();
 
             //  sitemapFiles.Add(this.generateSitemap_categoryproductgroup());
 
 
             //  sitemapFiles.Add(            this.generateSitemapForStores());
-           
-            
-            ////sitemapFiles.Add(this.generateSitemapForNews());
+            sitemapFiles.Add(this.generateSitemapForNews());
 
 
 
-           //// this.generateSitemap_categorysector();
+            this.generateSitemap_categorysector();
             // sitemapFiles.Add(this.generateSitemap_categorysector());
-           //// this.generateSitemap_categorybrand();
+            this.generateSitemap_categorybrand();
             //sitemapFiles.Add();
 
-           //// sitemapFiles.Add(this.generateSitemap_productGroupBrand());
-         ////   this.generateSitemap_categoryorta();
-          //  sitemapFiles.Add(this.generateSitemap_categoryorta());
-          ////  sitemapFiles.Add(this.generateSitemap_categoryserie());
+            sitemapFiles.Add(this.generateSitemap_productGroupBrand());
+            this.generateSitemap_categoryorta();
+            //  sitemapFiles.Add(this.generateSitemap_categoryorta());
+            sitemapFiles.Add(this.generateSitemap_categoryserie());
             sitemapFiles = sitemapFiles.Union(this.generateSitemap_categorymodels()).ToList();
-            sitemapFiles.Add(this.generateSitemap_categoryCountry());
+            //sitemapFiles.Add(this.generateSitemap_categoryCountry());
 
 
-            sitemapFiles.Add(this.generateSitemap_categoryCity());
-            sitemapFiles.Add(this.generateSitemap_categoryLocality());
-
-
+            //sitemapFiles.Add(this.generateSitemap_categoryCity());
+            //sitemapFiles.Add(this.generateSitemap_categoryLocality());
             //unedited
-
-
             //sitemapFiles.Add(this.generateSitemap_StoreCategorysecond());
             //var sitemapCategoryStores2 = this.generateSitemap_StoreCategory2();
             //foreach (var item in sitemapCategoryStores2)
@@ -123,7 +117,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
             string rootSitemapFileName = "rootSitemap.xml";
-         
+
             FileHelper.WriteToFile("/Sitemaps/Products/" + rootSitemapFileName, resultXml);
 
             // push sitemaps to search engines
@@ -200,7 +194,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IProductService productService = EngineContext.Current.Resolve<IProductService>();
 
             List<string> sitemapFiles = new List<string>();
-            int slice = 5000;
+            int slice = 30000;
             var products = productService.GetSiteMapProducts();
 
             int productTotalCount = products.Count();
@@ -345,7 +339,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 writer.WriteElementString("priority", "0.7");
                 writer.WriteEndElement(); //url
             }
-            writer.WriteEndElement(); //urlset 
+            writer.WriteEndElement(); //urlset
             writer.WriteEndDocument();
             writer.Close();
             return fileName;
@@ -392,7 +386,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 writer.WriteEndElement(); // video:video
                 writer.WriteEndElement(); //url
             }
-            writer.WriteEndElement(); //urlset 
+            writer.WriteEndElement(); //urlset
             writer.WriteEndDocument();
             //XDocument sitemap = new XDocument();
             //sitemap.Save(writer);
@@ -436,7 +430,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 writer.WriteElementString("priority", "0.8");
                 writer.WriteEndElement(); //url
             }
-            writer.WriteEndElement(); //urlset 
+            writer.WriteEndElement(); //urlset
             writer.WriteEndDocument();
             //XDocument sitemap = new XDocument();
             //sitemap.Save(writer);
@@ -706,7 +700,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var categories = siteMapCategoryService.GetSiteMapCategories(SiteMapCategoryTypeEnum.Model);
             List<string> sitemapFiles = new List<string>();
             int categoryTotalCount = categories.Count();
-            int slice = 4000;
+            int slice = 30000;
             for (int i = 0; i < (categoryTotalCount / slice) + 1; i++)
             {
                 var sm = new SitemapXml();
@@ -954,7 +948,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         //        writer.WriteElementString("priority", "0.5");
         //        writer.WriteEndElement(); //url
         //    }
-        //    writer.WriteEndElement(); //urlset 
+        //    writer.WriteEndElement(); //urlset
         //    writer.WriteEndDocument();
         //    writer.Close();
         //    string xmlpatch = System.IO.File.ReadAllText(path);
@@ -990,7 +984,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         //        writer.WriteElementString("priority", "0.5");
         //        writer.WriteEndElement(); //url
         //    }
-        //    writer.WriteEndElement(); //urlset 
+        //    writer.WriteEndElement(); //urlset
         //    writer.WriteEndDocument();
         //    writer.Close();
         //    string xmlpatch = System.IO.File.ReadAllText(path);
@@ -1340,7 +1334,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         //        writer.WriteEndElement(); // video:video
         //        writer.WriteEndElement(); //url
         //    }
-        //    writer.WriteEndElement(); //urlset 
+        //    writer.WriteEndElement(); //urlset
         //    writer.WriteEndDocument();
         //    writer.Close();
         //    string xmlpatch = System.IO.File.ReadAllText(path);
@@ -1368,7 +1362,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         //        writer.WriteElementString("priority", "0.5");
         //        writer.WriteEndElement(); //url
         //    }
-        //    writer.WriteEndElement(); //urlset 
+        //    writer.WriteEndElement(); //urlset
         //    writer.WriteEndDocument();
         //    writer.Close();
         //    string xmlpatch = System.IO.File.ReadAllText(path);
@@ -1393,7 +1387,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         //        new XElement(ns + "urlset",
         //            from u in urls
         //            select
-        //            //ikinci kısım olan Urunleryazılacak 
+        //            //ikinci kısım olan Urunleryazılacak
         //            new XElement(ns + "url",
         //            new XElement(ns + "loc", u.Key),
         //           new XElement(ns + "priority", "0.5")

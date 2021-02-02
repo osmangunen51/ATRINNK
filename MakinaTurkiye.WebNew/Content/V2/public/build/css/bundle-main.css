@@ -14982,8 +14982,7 @@ body {
 
 .main-container {
     margin-bottom: 20px;
-    padding-left:25px;
-    padding-right:40px;
+/*    padding: 0px;*/
 }
 
 .footer {
@@ -15005,7 +15004,7 @@ body {
 }
 
 .footer-social-media, .footer__bottom .menu {
-    text-align: left
+    text-align: left;
 }
 
 .footer__top-inner h1 {
@@ -15138,7 +15137,11 @@ body {
 
 .home-seo-content {
     text-align: center;
-    padding: 20px 0 0
+    /* padding: 20px 0 0; */
+    padding: 18px;
+    /* text-align: justify; */
+    border: 1px solid #e0e0e0;
+    margin: 14px;
 }
 
     .home-seo-content h1 {
@@ -17171,8 +17174,8 @@ img {
 }
 
 .one-cikan-firma-urunleri {
-    margin-left: -15px;
-    margin-right: -15px
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 @media (min-width:767px) {
@@ -18242,7 +18245,7 @@ img.res-buyut {
 
 .firma-one-cikan-type-box {
     margin: 0 auto;
-    margin-top:10px !important;
+    margin-top: 10px !important;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
     -webkit-border-radius: 4px;
@@ -22004,7 +22007,10 @@ img.res-buyut {
     }
 
     .home-showcase__item {
-        min-height: 200px
+        min-height: 200px;
+        /* padding: 9px; */
+        max-width: 199px;
+        padding-right: 0px;
     }
 }
 
@@ -22074,7 +22080,7 @@ img.res-buyut {
     }
 
 .home-showcase__body {
-   /* padding-top: 1rem*/
+    /* padding-top: 1rem*/
 }
 
 .home-showcase__item h5 {
@@ -22764,7 +22770,8 @@ img.res-buyut {
 }
 
 .new-header__bottom-left .header__mobile-menu {
-    margin: 0
+    margin: 0;
+    margin-left: -7px;
 }
 
 .new-header__bottom-left .header__mobile-menu-icon {
@@ -23227,7 +23234,11 @@ img.res-buyut {
 }
 
 .new-header__bottom-right .nav > li .btn-login, .new-header__bottom-right .nav > li .btn-register {
-    margin-top: -10px
+    margin-top: -6px;
+    padding: 35px;
+    height: 31px;
+    right: -12px;
+    line-height: 68px;
 }
 
 .new-header--account .new-header__top .header__mobile-menu {
@@ -23626,10 +23637,10 @@ img.res-buyut {
         border: 1px solid #ccc;
         z-index: 80;
         width: 100%;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 0px;
+        padding-right: 0px;
         height: auto !important;
-        min-height: 0 !important
+        min-height: 0 !important;
     }
 
     .mobile-main-menu {
@@ -24023,11 +24034,11 @@ img.res-buyut {
 
     .mobile-hm .hm-icon {
         position: absolute;
-        right: 5px;
+        right: 15px;
         color: rgba(0,0,0,.87);
         font-family: makinaturkiye_fonticons;
         font-style: normal;
-        font-weight: 900
+        font-weight: 900;
     }
 
         .mobile-hm .hm-icon::before {

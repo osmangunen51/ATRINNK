@@ -9,14 +9,11 @@ using MakinaTurkiye.Utilities.ImageHelpers;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Services.Media;
 using MakinaTurkiye.Services.Content;
-
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
 using NeoSistem.MakinaTurkiye.Web.Models.Home;
 using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-
-
 using System;
 using System.Collections.Generic;
 using System.Globalization;

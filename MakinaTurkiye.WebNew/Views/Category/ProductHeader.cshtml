@@ -45,7 +45,7 @@
             <a href="@Request.FilePath@(countryFilter)@(cityFilter)@(localityFilter)@(display)@page@orderTip@searchText" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.All ? activeCss : string.Empty)">Tümü</a>
             <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@page@orderTip@(searchText)@("&SearchType=sifir")" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New ? activeCss : string.Empty)">Sıfır<span class="category-filter-count">&nbsp(@(Model.CustomFilterModels.FirstOrDefault(x => x.FilterId == (byte)ProductSearchTypeV2.New).ProductCount))</span></a>
             @{
-                
+
                 var usedProduct = Model.CustomFilterModels.FirstOrDefault(x => x.FilterId == (byte)ProductSearchTypeV2.Used);
             }
             @if (usedProduct != null)
@@ -100,8 +100,8 @@
             </div>
             <div class="col-md-5 col-xs-11">
                 <div class="categort-filter__view__buttons">
-                    <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@displayGrid@searchText@page@querySearchType" class="@(Request.QueryString[" Gorunum"] == null || (Request.QueryString["Gorunum"] != null && Request.QueryString["Gorunum"].ToString() == "Galeri") ? "active" : "")"><i class="fa fa-th"></i></a>
-                    <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@displayList@searchText@page@querySearchType" class="@((Request.QueryString[" Gorunum"] != null && Request.QueryString["Gorunum"].ToString() == "Liste") ? "active" : "")"><i class="fa fa-list"></i></a>
+                    <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@displayGrid@searchText@page@querySearchType" class="@(Request.QueryString["Gorunum"] == null || (Request.QueryString["Gorunum"] != null && Request.QueryString["Gorunum"].ToString() == "Galeri") ? "active" : "")"><i class="fa fa-th"></i></a>
+                    <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@displayList@searchText@page@querySearchType" class="@((Request.QueryString["Gorunum"] != null && Request.QueryString["Gorunum"].ToString() == "Liste") ? "active" : "")"><i class="fa fa-list"></i></a>
                 </div>
             </div>
         </div>

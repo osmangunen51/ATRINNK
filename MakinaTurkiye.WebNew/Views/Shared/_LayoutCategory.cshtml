@@ -49,10 +49,10 @@
     <div id="fb-root"></div>
     <div class="responsive-overlay"></div>
     @Html.Partial("_Header")
-    <div class="main-container container">
-        <div class="row">
-            @RenderBody()
-</div>
+<div class="main-container container">
+    <div class="row" style="margin-left:10px;margin-right:20px;">
+        @RenderBody()
+    </div>
 </div>
             @{Html.RenderAction("Content", "Footer");}
             <script>
