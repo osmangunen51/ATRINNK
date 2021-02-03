@@ -595,25 +595,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
 
             MTCategoryModel categoryModel = new MTCategoryModel();
-            var categories = _categoryService.GetCategoriesByStoreMainPartyId(store.MainPartyId);
+            var categories = _categoryService.GetCategoriesByStoreMainPartyId(store.MainPartyId).Where(x => x.CategoryType == (byte)CategoryType.Sector || x.CategoryType == (byte)CategoryType.ProductGroup || x.CategoryType == (byte)CategoryType.Category).ToList();
+
             foreach (var item in categories)
             {
-                if (model.MTProductsProductListModel.MTProductsPageProductLists.Source.Where(p => p.CategoryName == item.CategoryName).ToList().Count > 0)
+                string categoryUrl = UrlBuilder.GetStoreProfileProductCategoryUrl(item.CategoryId, !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName, store.StoreUrlName);
+                categoryModel.MTCategoryItems.Add(new MTCategoryItem
                 {
-                    string categoryUrl = UrlBuilder.GetStoreProfileProductCategoryUrl(item.CategoryId, item.CategoryName, store.StoreUrlName);
-                    categoryModel.MTCategoryItems.Add(new MTCategoryItem
-                    {
-                        CategoryId = item.CategoryId,
-                        CategoryName = item.CategoryName,
-                        CategoryType = item.CategoryType,
-                        CategoryParentId = Convert.ToInt32(item.CategoryParentId),
-                        CategoryUrl = categoryUrl
-
-                    });
-                    //
-
-
-                }
+                    CategoryId = item.CategoryId,
+                    CategoryName = item.CategoryName,
+                    CategoryType = item.CategoryType,
+                    CategoryParentId = Convert.ToInt32(item.CategoryParentId),
+                    CategoryUrl = categoryUrl
+                });
             }
 
             if (model.CategoryId != 0)
@@ -934,13 +928,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 if ((category.CategoryType == (byte)CategoryType.Category ||
                                     category.CategoryType == (byte)CategoryType.ProductGroup ||
                                     category.CategoryType == (byte)CategoryType.Sector))
-                                    urlNew = UrlBuilder.GetCategoryUrl(categoryId, category.CategoryName, null, string.Empty);
+                                    urlNew = UrlBuilder.GetCategoryUrl(categoryId, category.CategoryContentTitle, null, string.Empty);
                             }
 
                             return RedirectPermanent(urlNew);
                         }
 
-                        url = UrlBuilder.GetStoreProfileProductCategoryUrl(category.CategoryId, category.CategoryName, store.StoreUrlName);
+                        url = UrlBuilder.GetStoreProfileProductCategoryUrl(category.CategoryId, !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName, store.StoreUrlName);
                     }
 
                     if (!Request.IsLocal)
@@ -993,7 +987,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                     int currentPage = 1;
                     PrepareProductsList(model, store, pageDimension, currentPage);
-                    PrepareCategories(model, store);
+                    //PrepareCategories(model, store);
                     PrepareFilterModel(model);
                     store.ViewCount += 1;
 
@@ -2215,7 +2209,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             foreach (var item in categories)
             {
-                string categoryUrl = UrlBuilder.GetStoreProfileProductCategoryUrl(item.CategoryId, item.CategoryName, store.StoreUrlName);
+                string categoryUrl = UrlBuilder.GetStoreProfileProductCategoryUrl(item.CategoryId, !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName, store.StoreUrlName);
                 categoryModel.MTCategoryItems.Add(new MTCategoryItem
                 {
                     CategoryId = item.CategoryId,
@@ -2230,7 +2224,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var topCategories = _categoryService.GetSPTopCategories(CategoryId).Where(x => x.CategoryType != (byte)CategoryType.Model);
                 foreach (var item in topCategories)
                 {
-                    string categoryUrl = UrlBuilder.GetStoreProfileProductCategoryUrl(item.CategoryId, item.CategoryName, store.StoreUrlName);
+                    string categoryUrl = UrlBuilder.GetStoreProfileProductCategoryUrl(item.CategoryId, item.CategoryContentTitle, store.StoreUrlName);
                     categoryModel.MTTopCategoryItems.Add(new MTCategoryItem
                     {
                         CategoryId = item.CategoryId,
