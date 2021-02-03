@@ -12,6 +12,9 @@ using MakinaTurkiye.Services.Common;
 using System.Web.Optimization;
 using MakinaTurkiye.Caching;
 using System.Linq;
+using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Utilities.HttpHelpers;
+
 namespace NeoSistem.MakinaTurkiye.Web
 {
     public class MvcApplication : HttpApplication
@@ -207,6 +210,7 @@ namespace NeoSistem.MakinaTurkiye.Web
         public void Application_BeginRequest(object sender, EventArgs e)
         {
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
+            config.ApplicationTestModeEnabled = false;
             if (!config.ApplicationTestModeEnabled)
             {
                 if (!Request.IsLocal)
@@ -242,31 +246,42 @@ namespace NeoSistem.MakinaTurkiye.Web
                             Response.AddHeader("Location", path2);
                             break;
                     }
-                    if (true)
-                    {
+                    string requestUrl = Request.ServerVariables["REQUEST_URI"];
+                    string rewriteUrl = Request.ServerVariables["UNENCODED_URL"];
+                    if (rewriteUrl.Contains("//") && !requestUrl.Contains("//")) Response.RedirectPermanent(requestUrl);
 
+                    if (requestUrl.Contains("Product/ProductContact?"))
+                    {
+                        var Url = this.Request.Url;
+                        string Prm = HttpUtility.ParseQueryString(Url.Query).Get("productId");
+                        if (!string.IsNullOrEmpty(Prm))
+                        {
+                            int ProductId = Convert.ToInt32(Prm);
+                            IProductService _productService = EngineContext.Current.Resolve<IProductService>();
+                            var product = _productService.GetProductByProductId(ProductId);
+                            if (product != null)
+                            {
+                                var link = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
+                                Response.RedirectPermanent(link);
+                            }
+                        }
+                    }
+
+                    string key = "makinaturkiye.urlredirect.{0}";
+                    ICacheManager _cacheManager = EngineContext.Current.Resolve<ICacheManager>();
+                    var urlRedirectlist = _cacheManager.Get(key, () =>
+                    {
+                        IUrlRedirectService _urlRedirectService = EngineContext.Current.Resolve<IUrlRedirectService>();
+                        var model = _urlRedirectService.GetUrlRedirectAll();
+                        return model;
+                    });
+                    string PrmQuery = Context.Request.Url.PathAndQuery.ToString();
+                    var urlRedirect = urlRedirectlist.FirstOrDefault(x => x.OldUrl == PrmQuery);
+                    if (urlRedirect != null)
+                    {
+                        Context.Response.RedirectPermanent(urlRedirect.NewUrl);
                     }
                 }
-            }
-
-            string requestUrl = Request.ServerVariables["REQUEST_URI"];
-            
-            
-            string rewriteUrl = Request.ServerVariables["UNENCODED_URL"];
-            if (rewriteUrl.Contains("//") && !requestUrl.Contains("//")) Response.RedirectPermanent(requestUrl);
-            string key = "makinaturkiye.urlredirect.{0}";
-            ICacheManager _cacheManager = EngineContext.Current.Resolve<ICacheManager>();
-            var urlRedirectlist = _cacheManager.Get(key, () =>
-            {
-                IUrlRedirectService _urlRedirectService = EngineContext.Current.Resolve<IUrlRedirectService>();
-                var model=_urlRedirectService.GetUrlRedirectAll();
-                return model;
-            });
-            string PrmQuery = Context.Request.Url.PathAndQuery.ToString();
-            var urlRedirect = urlRedirectlist.FirstOrDefault(x => x.OldUrl == PrmQuery);
-            if (urlRedirect != null)
-            {
-                Context.Response.RedirectPermanent(urlRedirect.NewUrl);
             }
         }
 
