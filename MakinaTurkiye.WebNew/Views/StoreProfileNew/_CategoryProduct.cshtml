@@ -41,14 +41,14 @@
             <li class="sub-menu-item">
                 <a style="color:@Html.Raw(item.CategoryId==Model.ActiveCategory.CategoryId ? "#EB3B25":"")" href="@item.CategoryUrl">@item.CategoryName</a>
             </li>
-              
+
             if (Model.MTTopCategoryItems.Where(x => x.CategoryParentId == item.CategoryId).ToList().Count > 0)
             {
-
+                LeftMargin += 5;
 
                 foreach (var itemParent in Model.MTTopCategoryItems.Where(c => c.CategoryParentId == item.CategoryId))
                 {
-                    LeftMargin += 5;
+
                     leftMargin2 = LeftMargin;
                     <li style="margin-left:@Html.Raw(LeftMargin+"px")" class="sub-menu-item">
                         <a style="color:@Html.Raw(itemParent.CategoryId==Model.ActiveCategory.CategoryId ? "#EB3B25":"")" href="@itemParent.CategoryUrl">@itemParent.CategoryName</a>
