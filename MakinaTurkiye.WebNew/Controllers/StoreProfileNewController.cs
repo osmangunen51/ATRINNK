@@ -736,6 +736,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
         #endregion
 
+
         #region Methods
 
         public ActionResult StoreFailNew()
@@ -2271,7 +2272,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var subCategoriesNew = _categoryService.GetCategoriesByCategoryIds(subCategories.Select(x => x.CategoryId).ToList());
                     foreach (var item in subCategoriesNew)
                     {
-                       
+
                         string categoryUrl = UrlBuilder.GetStoreProfileProductCategoryUrl(item.CategoryId, !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName, store.StoreUrlName);
                         categoryModel.MTTopCategoryItems.Add(new MTCategoryItem
                         {
@@ -2293,7 +2294,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return PartialView(categoryModel);
         }
 
- 
+
         #endregion
     }
 }
