@@ -1028,6 +1028,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpPost]
         public ActionResult ProductPaging(int page, byte displayType, int storeId, byte pageDimension, int CategoryId)
         {
+
             IList<StoreProfileProductsResult> products = new List<StoreProfileProductsResult>();
 
             List<MTProductsPageProductList> productList = new List<MTProductsPageProductList>();

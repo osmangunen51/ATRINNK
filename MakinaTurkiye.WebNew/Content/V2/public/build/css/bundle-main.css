@@ -14982,7 +14982,7 @@ body {
 
 .main-container {
     margin-bottom: 20px;
-/*    padding: 0px;*/
+    /*    padding: 0px;*/
 }
 
 .footer {
@@ -22328,9 +22328,9 @@ img.res-buyut {
 
 .product-list-mt__brand-model {
     margin-bottom: 10px;
-    color: #396;
+    color: #428bca;
     font-weight: 700;
-    font-size: 12px
+    font-size: 12px;
 }
 
 .product-list-mt__has-doping, .product-list-mt__has-video {
@@ -22363,7 +22363,7 @@ img.res-buyut {
 }
 
     .product-list-mt__advert-no:before {
-        content: 'İlan No: '
+        content: 'Ä°lan No: '
     }
 
 @media (min-width:480px) {
@@ -22538,7 +22538,7 @@ img.res-buyut {
 }
 
 .product-list-mtgrid__advert-no:before {
-    content: "İlan No:"
+    content: "Ä°lan No:"
 }
 
 .product-list-mtgrid__advert-no {

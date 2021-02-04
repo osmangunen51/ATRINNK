@@ -40,7 +40,6 @@ namespace NeoSistem.MakinaTurkiye.Web
 
             ILogger logger = EngineContext.Current.Resolve<ILogger>();
             logger.Fatal("Application start");
-
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 

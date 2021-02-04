@@ -222,7 +222,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         var topCategories = _categoryService.GetSPTopCategories(c.CategoryId);
                         var brand = topCategories.Where(x => x.CategoryType == (byte)CategoryType.Brand).FirstOrDefault();
                         var category = topCategories.Where(x => x.CategoryType == (byte)CategoryType.Category).LastOrDefault();
-                        
+
                         if (brand != null && category != null)
                         {
                             string newUrl = UrlBuilder.GetSerieUrl(c.CategoryId, c.CategoryName, brand.CategoryName, !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName);
