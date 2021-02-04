@@ -31,5 +31,7 @@
         public byte? DiscountType { get; set; }
         public decimal? ProductPriceWithDiscount { get; set; }
 
+        public string CategoryContentTitle { get; set; }
+
     }
 }

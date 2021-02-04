@@ -25,7 +25,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         private static string GetHost(HostNameType hostNameType)
         {
-            if (config.ApplicationTestModeEnabled)
+            if (config.ApplicationTestModeEnabled || IsRequestLocal)
             {
                 return IsRequestLocal ? string.Empty : "http://www.makinaturkiye.com";
             }

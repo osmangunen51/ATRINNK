@@ -94,6 +94,11 @@
 
                         @Html.Action("_CategoryProduct", "StoreProfileNew", new { storeId = Model.MainPartyId, categoryId = catId })
                     }
+                    else
+                    {
+                        @Html.Action("_CategoryProduct", "StoreProfileNew", new { storeId = Model.MainPartyId })
+                    }
+
                 }
                 else
                 {
