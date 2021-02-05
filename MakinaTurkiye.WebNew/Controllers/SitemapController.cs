@@ -99,6 +99,43 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
 
+        public ActionResult CreateAndView()
+        {
+
+            List<string> sitemapFiles = new List<string>();
+            sitemapFiles.Add(this.generateSitemap_categoryproductgroup());
+            sitemapFiles.Add(this.generateSitemapForNews());
+            sitemapFiles.Add(this.generateSitemap_categorysector());
+            sitemapFiles.Add(this.generateSitemap_categorybrand());
+            sitemapFiles.Add(this.generateSitemap_productGroupBrand());
+            sitemapFiles.Add(this.generateSitemap_categoryorta());
+            sitemapFiles.Add(this.generateSitemap_categoryserie());
+            sitemapFiles.AddRange(this.generateSitemap_categorymodels());
+            sitemapFiles.AddRange(this.generateSitemapForProducts());
+            sitemapFiles.Add(this.generateSitemap_video());
+            sitemapFiles.Add(this.generateSitemap_videocategory());
+            sitemapFiles.Add(this.generateSitemap_StoreCategory());
+            sitemapFiles.Add(this.generateSitemap_StoreCategory());
+
+            var smIndex = new SitemapIndexXml();
+            foreach (string sitemapFile in sitemapFiles)
+            {
+                var smnIndex = new SitemapIndexNode
+                {
+                    lastmodified = DateTime.Now,
+                    location = URL + "Sitemaps/"+sitemapFile
+                };
+                smIndex.items.Add(smnIndex);
+            }
+            string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
+            string rootSitemapFileName = "rsm.xml";
+            FileHelper.WriteToFile("/Sitemaps/" + rootSitemapFileName, resultXml);
+            Response.Redirect($"/Sitemaps/{rootSitemapFileName}", true);
+            return Content("OK!");
+        }
+
+
+
         public ActionResult ProductSiteMapIndex()
         {
             IList<string> sitemapFiles = new List<string>();

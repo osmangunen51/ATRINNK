@@ -33,6 +33,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/pulluk-videolari-vc-89136</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/kultivator-videolari-vc-89308</loc>
     <priority>0.8</priority>
   </url>
@@ -54,10 +58,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/toprak-burgusu-videolari-vc-89973</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/kanal-acma-videolari-vc-90014</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -97,10 +97,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/testere-videolari-vc-91137</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/dal-parcalama-videolari-vc-91189</loc>
     <priority>0.8</priority>
   </url>
@@ -125,15 +121,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/cim-bicme-videolari-vc-92331</loc>
+    <loc>https://video.makinaturkiye.com/sari-ot-toplama-videolari-vc-92277</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/benzinli-videolari-vc-92332</loc>
+    <loc>https://video.makinaturkiye.com/cim-bicme-makinasi-videolari-vc-92331</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/cim-tohum-ekim-videolari-vc-92453</loc>
+    <loc>https://video.makinaturkiye.com/benzinli-cim-bicme-videolari-vc-92332</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -217,11 +213,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/boyama-kabini-videolari-vc-94083</loc>
+    <loc>https://video.makinaturkiye.com/yatar-daire-testere-videolari-vc-93636</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/planya-videolari-vc-94101</loc>
+    <loc>https://video.makinaturkiye.com/osilasyonlu-zimpara-videolari-vc-93987</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/yuzey-zimpara-videolari-vc-94014</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/boyama-kabini-videolari-vc-94083</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -277,7 +281,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/arabali-videolari-vc-94576</loc>
+    <loc>https://video.makinaturkiye.com/arabali-freze-videolari-vc-94576</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -305,19 +309,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/elektrikli-el-aletleri-videolari-vc-94946</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/sandalye-toplama-videolari-vc-94993</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/sandalye-zivanasi-videolari-vc-95012</loc>
+    <loc>https://video.makinaturkiye.com/zivana-makinesi-videolari-vc-95012</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/cnc-sandalye-videolari-vc-95034</loc>
+    <loc>https://video.makinaturkiye.com/cnc-isleme-makinesi-videolari-vc-95034</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -369,11 +369,15 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/lokum-pisirme-videolari-vc-95508</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/cogen-mikseri-videolari-vc-95515</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/cips-videolari-vc-95543</loc>
+    <loc>https://video.makinaturkiye.com/cips-makinasi-videolari-vc-95543</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -390,10 +394,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/tereyag-videolari-vc-95595</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/diger-videolari-vc-95626</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -429,10 +429,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/hamur-yogurma-videolari-vc-95971</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/fritoz-videolari-vc-97078</loc>
     <priority>0.8</priority>
   </url>
@@ -445,11 +441,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kiyma-videolari-vc-98116</loc>
+    <loc>https://video.makinaturkiye.com/et-kiyma-makinasi-videolari-vc-98116</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/dilimleme-videolari-vc-98254</loc>
+    <loc>https://video.makinaturkiye.com/dograma-dilimleme-videolari-vc-98254</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -477,7 +473,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/yufka-videolari-vc-98359</loc>
+    <loc>https://video.makinaturkiye.com/yufka-makinasi-videolari-vc-98359</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/ekmek-dilimleme-videolari-vc-98365</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -489,7 +489,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/hamur-isleme-videolari-vc-98766</loc>
+    <loc>https://video.makinaturkiye.com/katli-ekmek-firini-videolari-vc-98517</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/diger-hamur-isleme-videolari-vc-98766</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/hamur-dinlendirme-videolari-vc-98818</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -497,15 +505,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/konik-yuvarlama-videolari-vc-98905</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/hamur-sekil-verme-videolari-vc-98957</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/makarna-videolari-vc-99094</loc>
+    <loc>https://video.makinaturkiye.com/makarna-makinasi-videolari-vc-99094</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/gofret-pisirme-firini-videolari-vc-99101</loc>
+    <loc>https://video.makinaturkiye.com/pisirme-firini-videolari-vc-99101</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -541,19 +553,19 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/galeta-videolari-vc-99542</loc>
+    <loc>https://video.makinaturkiye.com/galeta-makinasi-videolari-vc-99542</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/simit-uretim-videolari-vc-99558</loc>
+    <loc>https://video.makinaturkiye.com/simit-pogaca-uretim-videolari-vc-99558</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/manti-videolari-vc-99561</loc>
+    <loc>https://video.makinaturkiye.com/manti-makinasi-videolari-vc-99561</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kek-videolari-vc-99574</loc>
+    <loc>https://video.makinaturkiye.com/kek-makinasi-videolari-vc-99574</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -561,7 +573,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/is-makinlari-videolari-vc-99587</loc>
+    <loc>https://video.makinaturkiye.com/is-makinalari-videolari-vc-99587</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -569,7 +581,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/ultrasonik-yikama-makinasi-videolari-vc-99636</loc>
+    <loc>https://video.makinaturkiye.com/ultrasonik-yikama-videolari-vc-99636</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -594,6 +606,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/plazma-kesim-videolari-vc-100692</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/cnc-boru-kesim-videolari-vc-100767</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -626,6 +642,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/manyetik-matkap-videolari-vc-102130</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/cnc-torna-videolari-vc-102156</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -669,7 +689,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/tekstil-videolari-vc-105281</loc>
+    <loc>https://video.makinaturkiye.com/roll-form-videolari-vc-104981</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/tekstil-deri-videolari-vc-105281</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/triko-makinesi-videolari-vc-105283</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -678,10 +706,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/iplik-bukum-videolari-vc-105459</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/iplik-aktarma-videolari-vc-105460</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -717,6 +741,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/sunger-kesim-videolari-vc-105568</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/fermuar-isaret-ve-kesme-videolari-vc-105571</loc>
     <priority>0.8</priority>
   </url>
@@ -726,6 +754,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/yatak-ambalaj-videolari-vc-105607</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/dar-dokuma-videolari-vc-105658</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -761,7 +793,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/ceket-videolari-vc-105916</loc>
+    <loc>https://video.makinaturkiye.com/ceket-makinalari-videolari-vc-105916</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -798,6 +830,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/ilik-otomati-videolari-vc-106315</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/on-pat-videolari-vc-106327</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -877,11 +913,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/j-dikis-otomati-videolari-vc-108072</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/bicakli-videolari-vc-108099</loc>
+    <loc>https://video.makinaturkiye.com/bicakli-dikis-makinasi-videolari-vc-108099</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -945,7 +977,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/uste-atma-videolari-vc-109375</loc>
+    <loc>https://video.makinaturkiye.com/uste-atma-makinasi-videolari-vc-109375</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -953,7 +985,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/alt-tirpan-videolari-vc-109386</loc>
+    <loc>https://video.makinaturkiye.com/alt-tirpan-makinasi-videolari-vc-109386</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -961,7 +993,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/aktivite-videolari-vc-109469</loc>
+    <loc>https://video.makinaturkiye.com/aktivite-makinasi-videolari-vc-109469</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/ayakkabi-zimpara-videolari-vc-109476</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -969,7 +1005,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/ayakkabi-dikis-videolari-vc-109542</loc>
+    <loc>https://video.makinaturkiye.com/dikis-makinasi-videolari-vc-109542</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/tek-igne-saya-dikis-videolari-vc-109613</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -997,7 +1037,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/deri-kesim-videolari-vc-109707</loc>
+    <loc>https://video.makinaturkiye.com/saya-kesim-videolari-vc-109707</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1025,7 +1065,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/ev-dikis-makinasi-videolari-vc-109840</loc>
+    <loc>https://video.makinaturkiye.com/ev-dikis-makinalari-videolari-vc-109840</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1041,7 +1081,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/tabaklama-videolari-vc-110161</loc>
+    <loc>https://video.makinaturkiye.com/deri-kemer-videolari-vc-110101</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/kurutma-firini-videolari-vc-110106</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/tabaklama-makinasi-videolari-vc-110161</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1061,23 +1109,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/deri-kesim-videolari-vc-110446</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/deri-baski-videolari-vc-110462</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/triko-videolari-vc-110615</loc>
+    <loc>https://video.makinaturkiye.com/triko-utusu-videolari-vc-110615</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/teyel-videolari-vc-110629</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/sapka-videolari-vc-110652</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/nakis-videolari-vc-110842</loc>
+    <loc>https://video.makinaturkiye.com/teyel-utu-videolari-vc-110629</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1097,7 +1141,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/yuvarlak-videolari-vc-111034</loc>
+    <loc>https://video.makinaturkiye.com/yuvarlak-kesim-motoru-videolari-vc-111034</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1117,6 +1161,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/100-cm-tela-presi-videolari-vc-111386</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/20-cm-tela-presi-videolari-vc-111402</loc>
     <priority>0.8</priority>
   </url>
@@ -1133,15 +1181,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/sapka-presi-videolari-vc-111572</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/tas-ve-pul-yapistirma-videolari-vc-111601</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/cit-cit-videolari-vc-111641</loc>
+    <loc>https://video.makinaturkiye.com/cit-cit-makinasi-videolari-vc-111641</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1185,7 +1229,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/diger-videolari-vc-111856</loc>
+    <loc>https://video.makinaturkiye.com/diger-temizleme-videolari-vc-111856</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1209,7 +1253,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/hav-alma-paketleme--videolari-vc-112297</loc>
+    <loc>https://video.makinaturkiye.com/hali-paketleme--videolari-vc-112297</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/baca-temizleme-videolari-vc-112392</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1230,10 +1278,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/manuel-shrink-videolari-vc-112475</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/masaustu-torba-agzi-kapatma-videolari-vc-112818</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1281,6 +1325,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/koli-kapama-videolari-vc-113375</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/kutu-yapistirma-videolari-vc-113388</loc>
     <priority>0.8</priority>
   </url>
@@ -1289,7 +1337,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/vidali-kapak-videolari-vc-113397</loc>
+    <loc>https://video.makinaturkiye.com/vidali-kapak-kapama-videolari-vc-113397</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1302,6 +1350,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/tane-paketleme-videolari-vc-113456</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/masura-kesme-videolari-vc-113503</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1321,15 +1373,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/manuel-cember-videolari-vc-113735</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/akulu-cember-videolari-vc-113805</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/havali-cember--videolari-vc-113817</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1362,6 +1406,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/etiket-sarim-videolari-vc-114142</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/etiket-siyirma-videolari-vc-114145</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1413,7 +1461,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/hazir-kap-dolum-videolari-vc-114468</loc>
+    <loc>https://video.makinaturkiye.com/kutuya-dolum-videolari-vc-114455</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1461,6 +1509,14 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/poliuretan-enjeksiyon-videolari-vc-115280</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/kagit-floklama-videolari-vc-115302</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/kutu-tipi-firin-videolari-vc-115309</loc>
     <priority>0.8</priority>
   </url>
@@ -1493,7 +1549,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/baski-videolari-vc-115466</loc>
+    <loc>https://video.makinaturkiye.com/baski-matbaa-videolari-vc-115466</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1525,7 +1581,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/lak--videolari-vc-116140</loc>
+    <loc>https://video.makinaturkiye.com/lak-makinasi-videolari-vc-116140</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1577,19 +1633,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/pecete-videolari-vc-116518</loc>
+    <loc>https://video.makinaturkiye.com/pecete-makinasi-videolari-vc-116518</loc>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/kagit-havlu-videolari-vc-116562</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/kutu-mendil-videolari-vc-116596</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/cep-mendil-videolari-vc-116616</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1625,10 +1673,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/2-renk-ofset-baski-videolari-vc-116917</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/stack-tip-flexo-baski-videolari-vc-117109</loc>
     <priority>0.8</priority>
   </url>
@@ -1645,7 +1689,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/dijital-tekstil-baski-videolari-vc-117400</loc>
+    <loc>https://video.makinaturkiye.com/dijital-baski-videolari-vc-117400</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1677,7 +1721,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/rodaj-videolari-vc-118029</loc>
+    <loc>https://video.makinaturkiye.com/cam-delme-videolari-vc-118017</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/rodaj-makinasi-videolari-vc-118029</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1694,10 +1742,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/presli-cam-yikama-hatti-videolari-vc-118131</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/thiokol-temizleme-videolari-vc-118144</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1725,7 +1769,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/elektrik-elektronik-videolari-vc-118418</loc>
+    <loc>https://video.makinaturkiye.com/otomasyon-videolari-vc-118418</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1873,7 +1917,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/ekskavator-atasmanlari-videolari-vc-121534</loc>
+    <loc>https://video.makinaturkiye.com/mini-yukleyici-videolari-vc-121196</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/ekskavator-atasmani-videolari-vc-121534</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1885,7 +1933,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/sove-videolari-vc-121809</loc>
+    <loc>https://video.makinaturkiye.com/sove-makinesi-videolari-vc-121809</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1894,10 +1942,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/asfalt-derz-kesme-videolari-vc-121869</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/betoniyer-harc-karma-videolari-vc-122080</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1917,6 +1961,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/demir-makasi-videolari-vc-122869</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/briket-parke-tasi-videolari-vc-122893</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/boru-videolari-vc-122935</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/beton-santrali-videolari-vc-123077</loc>
     <priority>0.8</priority>
   </url>
@@ -1925,11 +1981,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kompakt-videolari-vc-123165</loc>
+    <loc>https://video.makinaturkiye.com/kompakt-beton-santrali-videolari-vc-123165</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/sabit-videolari-vc-123168</loc>
+    <loc>https://video.makinaturkiye.com/sabit-beton-santrali-videolari-vc-123168</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1937,7 +1993,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/cekilir-tip-videolari-vc-123225</loc>
+    <loc>https://video.makinaturkiye.com/cekilir-tip-beton-pompasi-videolari-vc-123225</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -1966,6 +2022,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/eklemli-platform-videolari-vc-124908</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/arac-ustu-platform-videolari-vc-125106</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2041,10 +2101,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/tas-kirma-videolari-vc-125743</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/ceneli-kirici-videolari-vc-125744</loc>
     <priority>0.8</priority>
   </url>
@@ -2053,7 +2109,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/imalat-videolari-vc-125960</loc>
+    <loc>https://video.makinaturkiye.com/imalat-sanayi-videolari-vc-125960</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2097,7 +2153,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/civi-parlatma-dolabi-videolari-vc-126142</loc>
+    <loc>https://video.makinaturkiye.com/civi-parlatma-videolari-vc-126142</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2137,10 +2193,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/laminasyon-videolari-vc-126735</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/geri-donusum-videolari-vc-126750</loc>
     <priority>0.8</priority>
   </url>
@@ -2153,7 +2205,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/helezon-ve-elevatorler-videolari-vc-127137</loc>
+    <loc>https://video.makinaturkiye.com/helezon-elevator-videolari-vc-127137</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/civata-kaynak-videolari-vc-127296</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2169,6 +2225,14 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/toz-boya-tabancasi-videolari-vc-127430</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/yas-boya-tabancasi-videolari-vc-127431</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/kumlama-kazani-videolari-vc-127671</loc>
     <priority>0.8</priority>
   </url>
@@ -2177,11 +2241,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/cim-makinalari-videolari-vc-127919</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/traktor-ekipmanlari-videolari-vc-128751</loc>
+    <loc>https://video.makinaturkiye.com/havalandirma-temizleme-videolari-vc-127995</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2213,7 +2273,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/teshis-ve-tani-videolari-vc-129290</loc>
+    <loc>https://video.makinaturkiye.com/su-bazli-dijital-baski-videolari-vc-129119</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2277,10 +2337,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/cocuk-eglence-videolari-vc-130892</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/ekskavator-hidrolik-kirici-videolari-vc-131075</loc>
     <priority>0.8</priority>
   </url>
@@ -2321,6 +2377,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/bobinvar-videolari-vc-133994</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/fantazi-iplik-videolari-vc-134173</loc>
     <priority>0.8</priority>
   </url>
@@ -2358,6 +2418,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/top-kumas-kesim-videolari-vc-135599</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/sunger-kirpik-videolari-vc-135601</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2441,10 +2505,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/dondurma-videolari-vc-141588</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/yatay-cam-yikama-videolari-vc-141769</loc>
     <priority>0.8</priority>
   </url>
@@ -2457,19 +2517,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/bahcecilik-ekipmanlari-videolari-vc-142018</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/gofret-uretim-hatti-videolari-vc-142235</loc>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/strec-film-sarma-videolari-vc-142327</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/strec-hooder-videolari-vc-142328</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2485,6 +2537,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/soguk-kamara-metal-enjeksiyon-videolari-vc-142814</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/dikimhane-ekipmanlari-videolari-vc-142898</loc>
     <priority>0.8</priority>
   </url>
@@ -2497,6 +2553,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/cekme-karavan-videolari-vc-142994</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/traktor-arkasi-forklift-videolari-vc-143171</loc>
     <priority>0.8</priority>
   </url>
@@ -2505,7 +2565,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/duz-dikis-videolari-vc-143313</loc>
+    <loc>https://video.makinaturkiye.com/duz-dikis-makina-videolari-vc-143313</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2526,6 +2586,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/alci-siva-makinasi-videolari-vc-144083</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/serit-testere-videolari-vc-144332</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2565,10 +2629,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/diger-videolari-vc-145032</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/cnc-delik-delme-videolari-vc-145223</loc>
     <priority>0.8</priority>
   </url>
@@ -2581,7 +2641,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kofte-sekillendirme-videolari-vc-145553</loc>
+    <loc>https://video.makinaturkiye.com/et-kofte-sekillendirme-videolari-vc-145553</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2757,11 +2817,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/recme-bant-kesme-baltalalari-videolari-vc-152125</loc>
+    <loc>https://video.makinaturkiye.com/bant-kesme-baltasi-videolari-vc-152125</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/pelet-videolari-vc-152541</loc>
+    <loc>https://video.makinaturkiye.com/atik-peletleme-videolari-vc-152541</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2773,19 +2833,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/elektronik-atik--videolari-vc-152731</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/seyyar-eleme-videolari-vc-152850</loc>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/robot-sistemler-videolari-vc-152876</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/kutu-yapma-videolari-vc-152916</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2805,7 +2857,15 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/deri-kesim-presi-videolari-vc-153794</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/kuyumcu-firini-videolari-vc-154181</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/poset-torba-dolum-videolari-vc-154494</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2817,7 +2877,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kup-seker-videolari-vc-154829</loc>
+    <loc>https://video.makinaturkiye.com/kup-seker-makinasi-videolari-vc-154829</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/yag-cikarma-videolari-vc-154892</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2825,15 +2889,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/sove-baski-videolari-vc-154997</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/sove-kaplama-videolari-vc-154998</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/sove-harci-karistirma-makinasi-videolari-vc-154999</loc>
+    <loc>https://video.makinaturkiye.com/sove-harci-karistirma-videolari-vc-154999</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2854,6 +2910,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/atik-kurutma-videolari-vc-155605</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/pvc-bantli-konveyor-videolari-vc-155885</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2878,10 +2938,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/ekipman-videolari-vc-156248</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/besleme-sistemleri-videolari-vc-156383</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2925,11 +2981,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/cnc-kesim-videolari-vc-157697</loc>
+    <loc>https://video.makinaturkiye.com/ayak-duzetlme-videolari-vc-157665</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kombine-planya-videolari-vc-157732</loc>
+    <loc>https://video.makinaturkiye.com/cnc-kesim-videolari-vc-157697</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2961,15 +3017,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/dizel-videolari-vc-159351</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/cim-silindiri-videolari-vc-159424</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/kompakt-videolari-vc-159590</loc>
+    <loc>https://video.makinaturkiye.com/dizel-cim-bicme-videolari-vc-159351</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2981,11 +3029,19 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/tiktak-orgu-videolari-vc-159795</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/el-makasi-videolari-vc-160278</loc>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/benzinli-supurge-videolari-vc-160922</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/murekkepli-kodlama-videolari-vc-161142</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -2997,7 +3053,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kablo-ucu-siyirma-makinesi-videolari-vc-161401</loc>
+    <loc>https://video.makinaturkiye.com/kablo-ucu-siyirma-videolari-vc-161401</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3069,7 +3125,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/boxer-videolari-vc-164342</loc>
+    <loc>https://video.makinaturkiye.com/boxer-dikis-makinasi-videolari-vc-164342</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3078,10 +3134,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/el-tipi-kesim-motoru-videolari-vc-164415</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/palet-cember-videolari-vc-164437</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3161,11 +3213,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/pizza-videolari-vc-169757</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/odun-kesme-videolari-vc-169798</loc>
+    <loc>https://video.makinaturkiye.com/pizza-makinesi-videolari-vc-169757</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3185,6 +3233,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/park-bahce-oyun-gruplari-videolari-vc-171509</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/jetonlu-sarj-videolari-vc-171539</loc>
     <priority>0.8</priority>
   </url>
@@ -3193,15 +3245,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kagit-bardak-videolari-vc-171744</loc>
+    <loc>https://video.makinaturkiye.com/silaj-paketleme-videolari-vc-171736</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kagit-kase-videolari-vc-171766</loc>
+    <loc>https://video.makinaturkiye.com/kagit-bardak-makinasi-videolari-vc-171744</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kagit-tabak-videolari-vc-171779</loc>
+    <loc>https://video.makinaturkiye.com/kap-kase-makinasi-videolari-vc-171766</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3218,10 +3270,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/plastik-kapak-videolari-vc-172462</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/kavanoz-kapatma-videolari-vc-172466</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3273,11 +3321,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/para-bantlama-videolari-vc-176386</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/topping-videolari-vc-176532</loc>
+    <loc>https://video.makinaturkiye.com/topping-makinasi-videolari-vc-176532</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3321,10 +3365,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/taban-makinalari-videolari-vc-178651</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/tantuni-videolari-vc-178666</loc>
     <priority>0.8</priority>
   </url>
@@ -3338,10 +3378,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/yatay-paketleme-videolari-vc-179014</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/utu-paket-videolari-vc-179214</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3393,7 +3429,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/insaat-videolari-vc-181020</loc>
+    <loc>https://video.makinaturkiye.com/insaat-yapi-videolari-vc-181020</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3409,19 +3445,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/tartolet-videolari-vc-181286</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/kulah-videolari-vc-181288</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/tane-paketleme-videolari-vc-181904</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kuru-videolari-vc-182074</loc>
+    <loc>https://video.makinaturkiye.com/kuru-beton-santrali-videolari-vc-182074</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3445,11 +3473,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/diger-rollform-videolari-vc-182566</loc>
+    <loc>https://video.makinaturkiye.com/duble-roll-form-videolari-vc-182565</loc>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/guvenlikli-iskele-videolari-vc-182581</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/yatak-bordur-videolari-vc-182661</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3473,7 +3505,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/hali-oyma-videolari-vc-182886</loc>
+    <loc>https://video.makinaturkiye.com/hali-tras-oyma-videolari-vc-182886</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3481,11 +3513,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/civi-iz-videolari-vc-182890</loc>
+    <loc>https://video.makinaturkiye.com/civi-iz-makinasi-videolari-vc-182890</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/yol-cizgi-videolari-vc-183028</loc>
+    <loc>https://video.makinaturkiye.com/yol-cizgi-makinasi-videolari-vc-183028</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3505,10 +3537,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/lazer-kase-videolari-vc-184625</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/pet-balya-presi-videolari-vc-184783</loc>
     <priority>0.8</priority>
   </url>
@@ -3521,7 +3549,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/pelet-videolari-vc-185073</loc>
+    <loc>https://video.makinaturkiye.com/maden-pelet-videolari-vc-185073</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3529,11 +3557,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/elavator-videolari-vc-185234</loc>
+    <loc>https://video.makinaturkiye.com/dikey-ambalaj--videolari-vc-185239</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/tasima-ve-konveyor-sistemleri-videolari-vc-185326</loc>
+    <loc>https://video.makinaturkiye.com/konveyor-sistemleri-videolari-vc-185326</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3565,19 +3593,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/marin-videolari-vc-187276</loc>
+    <loc>https://video.makinaturkiye.com/pano-klimasi-videolari-vc-187293</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/pano-videolari-vc-187293</loc>
+    <loc>https://video.makinaturkiye.com/marin-klimasi-videolari-vc-187474</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/baz-istasyon-videolari-vc-187483</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/rack-kabin-videolari-vc-187486</loc>
+    <loc>https://video.makinaturkiye.com/rack-kabin-klima-videolari-vc-187486</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3677,11 +3701,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/imalat-hatti-videolari-vc-194665</loc>
+    <loc>https://video.makinaturkiye.com/taban-imalat-hatti-videolari-vc-194665</loc>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/boya-kabini-videolari-vc-194691</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/ayakkabi-firini-videolari-vc-194703</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3690,10 +3718,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/gezer-cene-paketleme-videolari-vc-195646</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/diger-ahsap-makinalari-videolari-vc-195999</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3757,7 +3781,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/lazer-kesim-videolari-vc-202796</loc>
+    <loc>https://video.makinaturkiye.com/lazer-saya-kesim-videolari-vc-202796</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3797,7 +3821,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/mekanik-el-aletleri-videolari-vc-205603</loc>
+    <loc>https://video.makinaturkiye.com/numarator-videolari-vc-205777</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3805,7 +3829,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/lavas-videolari-vc-206402</loc>
+    <loc>https://video.makinaturkiye.com/lavas-makinasi-videolari-vc-206402</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3813,7 +3837,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/konteyner-videolari-vc-206783</loc>
+    <loc>https://video.makinaturkiye.com/konteyner-tipi-beton-santrali-videolari-vc-206783</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3889,6 +3913,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/kristal-boru-buz-videolari-vc-209020</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/ultrasonik-kaynak-videolari-vc-209453</loc>
     <priority>0.8</priority>
   </url>
@@ -3925,7 +3953,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/yari-otomatik-serigraf-baski-videolari-vc-211449</loc>
+    <loc>https://video.makinaturkiye.com/yari-otomatik-serigraf-videolari-vc-211449</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3933,7 +3961,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/yuvarlak-serigraf-baski-videolari-vc-211505</loc>
+    <loc>https://video.makinaturkiye.com/yuvarlak-serigraf--videolari-vc-211505</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3953,7 +3981,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/olcu-tarti-videolari-vc-212231</loc>
+    <loc>https://video.makinaturkiye.com/test-laboratuvar-videolari-vc-212231</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3962,6 +3990,10 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/trapez-sac-videolari-vc-212535</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/sandvic-panel-videolari-vc-212546</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -3974,10 +4006,6 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/bodinoz-videolari-vc-213423</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/ekipman-videolari-vc-213503</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -4021,6 +4049,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/rulo-kesim-videolari-vc-216930</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/yag-olcum-cihazi-videolari-vc-337625</loc>
     <priority>0.8</priority>
   </url>
@@ -4053,15 +4085,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/katli-otomatik-videolari-vc-338300</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/hamur-acma-videolari-vc-338501</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/parca-ve-aksesuar-videolari-vc-338586</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -4077,7 +4101,27 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/maden-kirma-videolari-vc-339486</loc>
+    <loc>https://video.makinaturkiye.com/motor-yagi-videolari-vc-339392</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/madeni-yag-videolari-vc-339393</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/atik-yag-tesisi-videolari-vc-339395</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/kalip-acma-videolari-vc-339800</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/mobil-atik-yag-videolari-vc-339859</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/mobil-rafineri-videolari-vc-339866</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -4125,15 +4169,15 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/parali-sarj-istasyonu-videolari-vc-340879</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://video.makinaturkiye.com/sarjmatik-videolari-vc-340880</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/kese-kagidi-videolari-vc-341140</loc>
+    <loc>https://video.makinaturkiye.com/bardak-silme-videolari-vc-340934</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/kese-kagidi-makinesi-videolari-vc-341140</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -4157,11 +4201,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/endustriyel-mutfak-videolari-vc-341834</loc>
+    <loc>https://video.makinaturkiye.com/mutfak-videolari-vc-341834</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/ceviz-makineleri-videolari-vc-342344</loc>
+    <loc>https://video.makinaturkiye.com/ceviz-makinesi-videolari-vc-342344</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -4177,15 +4221,11 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/metal-isleme-videolari-vc-342837</loc>
+    <loc>https://video.makinaturkiye.com/fason-isleri-videolari-vc-342837</loc>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/talasli-imalat-videolari-vc-342838</loc>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://video.makinaturkiye.com/otomatik-tel-orme--videolari-vc-342862</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -4217,6 +4257,10 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/konveyorlu-poset-yapistirma-videolari-vc-344713</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/nar-taneleme-videolari-vc-344798</loc>
     <priority>0.8</priority>
   </url>
@@ -4225,7 +4269,7 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/dijital-baski-videolari-vc-344979</loc>
+    <loc>https://video.makinaturkiye.com/kablo-ufleme-videolari-vc-345382</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -4233,11 +4277,15 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://video.makinaturkiye.com/cam-delme-matkabi-videolari-vc-345636</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://video.makinaturkiye.com/radyan-kaynak-makinesi-videolari-vc-346057</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://video.makinaturkiye.com/sleeve-makineleri-videolari-vc-346647</loc>
+    <loc>https://video.makinaturkiye.com/sleeve-makinesi-videolari-vc-346647</loc>
     <priority>0.8</priority>
   </url>
   <url>
@@ -4306,6 +4354,54 @@
   </url>
   <url>
     <loc>https://video.makinaturkiye.com/gofret-uretim-tesisi-videolari-vc-348613</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/bandrol-yapistirma-videolari-vc-348752</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/kitap-kapak-delme-videolari-vc-348818</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/kalemlik-lastigi-takma-videolari-vc-348896</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/kitap-kose-ezme-videolari-vc-348898</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/kitap-kose-kesme-videolari-vc-348900</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/bahce-videolari-vc-348932</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/ekmek-paketleme-videolari-vc-348996</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/moduler-bantli-konveyor-videolari-vc-349499</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/cit-cit-makina-parcalari-videolari-vc-349988</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/el-koruma-videolari-vc-350023</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/tam-tur-sensoru-videolari-vc-350036</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://video.makinaturkiye.com/yumurtalama-makinasi-videolari-vc-351205</loc>
     <priority>0.8</priority>
   </url>
 </urlset>

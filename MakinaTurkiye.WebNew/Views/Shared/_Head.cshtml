@@ -1,4 +1,5 @@
 ﻿@model dynamic
+@{ Layout = null; }
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
@@ -13,7 +14,6 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.Catalog
 @using NeoSistem.MakinaTurkiye.Web.Models.Entities
 @using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
-@{ Layout = null; }
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <meta name="apple-mobile-web-app-title" content="MakinaTurkiye">
@@ -50,7 +50,7 @@
 <link rel="shortcut icon" href="/Content/V2/images/favicon.png?v=5" />
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
 @section headercontent{
-    @Styles.Render("~/css")
+@Styles.Render("~/css")
     <script async>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({

@@ -12927,7 +12927,7 @@ body {
 }
 
 .interview {
-    font-size: 13px
+    font-size: 13px;
 }
 
 #liste img.broken-image:after, #pencere img.broken-image:after {
@@ -18004,8 +18004,8 @@ img.res-buyut {
 
     .product-card-02 .product-details {
         margin: 10px 10px 4px;
-        min-height: 65px;
-        max-height: unset
+        /* min-height: 65px; */
+        max-height: unset;
     }
 
         .product-card-02 .product-details:hover {
@@ -19541,12 +19541,12 @@ img.res-buyut {
     }
 
         .category-popular-product .product-card-02 .btn-more {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 700;
             line-height: 18px;
-            color: #F9401B;
+            color: #8a8a8a;
             background-color: #FFD69F;
-            width: 100%
+            width: 100%;
         }
 
         .category-popular-product .product-card-02 .product-content {
@@ -19577,19 +19577,19 @@ img.res-buyut {
         }
 
         .category-popular-product .product-card-02 .product-price {
-            color: #F9401B;
+            /* color: #F9401B; */
             font-size: 20px;
             font-weight: 700;
-            line-height: 22px
+            line-height: 22px;
         }
 
             .category-popular-product .product-card-02 .product-price .interview:before {
-                color: #F9401B;
-                font-size: 20px;
+                color: #8a8a8a;
+                font-size: 14px;
                 font-weight: 700;
                 line-height: 22px;
                 text-align: center;
-                content: "Fiyat Sorunuz"
+                content: "Fiyat Sorunuz";
             }
 
         .category-popular-product .product-card-02 .product-details, .category-popular-product .product-card-02 .product-price {
@@ -22363,7 +22363,7 @@ img.res-buyut {
 }
 
     .product-list-mt__advert-no:before {
-        content: 'Ä°lan No: '
+        content: 'İlan No: '
     }
 
 @media (min-width:480px) {
@@ -22538,7 +22538,7 @@ img.res-buyut {
 }
 
 .product-list-mtgrid__advert-no:before {
-    content: "Ä°lan No:"
+    content: "İlan No:"
 }
 
 .product-list-mtgrid__advert-no {
@@ -25857,3 +25857,23 @@ img.mfp-img {
     width: 100%;
     float: none
 }
+
+.productDescription {
+    font-size: 12px !important;
+    font-family: 'Arial,Helvetica,sans-serif;' !important;
+}
+
+    .productDescription h1 {
+        font-size: 18px !important;
+        font-family: none !important;
+    }
+
+    .productDescription h2 {
+        font-size: 16px !important;
+        font-family: none !important;
+    }
+
+    .productDescription h3 {
+        font-size: 12px !important;
+        font-family: none !important;
+    }

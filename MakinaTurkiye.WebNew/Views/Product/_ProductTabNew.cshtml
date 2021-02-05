@@ -10,6 +10,7 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
 @using NeoSistem.MakinaTurkiye.Web.Models.Products
 @using NeoSistem.MakinaTurkiye.Web.Models.Catalog
+@using System.Text.RegularExpressions;
 
 @{
 // Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
@@ -56,12 +57,24 @@
                     <p>
                         @if (!string.IsNullOrWhiteSpace(Model.ProductDescription))
                         {
-                            @Html.Raw(Model.ProductDescription)
-                        }
-                        else
-                        {
-                            @("Bu ilana açıklama eklenmemiştir.")
-                        }
+                                MakinaTurkiye.Core.Configuration.MakinaTurkiyeConfig config = MakinaTurkiye.Core.Infrastructure.EngineContext.Current.Resolve<MakinaTurkiye.Core.Configuration.MakinaTurkiyeConfig>();
+                                string ProductDescriptionProcessResult = Model.ProductDescription;
+                                if (config.ProductDescriptionHtmlClear)
+                                {
+                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(<style.+?</style>)|(<script.+?</script>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(<img.+?>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(<o:.+?</o:.+?>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "<!--.+?-->", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "class=.+?>", ">", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                    ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "href=.+?>", ">", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(line-height|font-family|font-size)\\s:.*?;?", String.Empty);
+                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult.Replace(System.Environment.NewLine, "<br/>"), "<[^(a|img|b|i|u|ul|ol|li)][^>]*>", " ");
+                                }
+
+
+                    @Html.Raw(ProductDescriptionProcessResult) }
+                                    else
+                                    { @("Bu ilana açıklama eklenmemiştir.")}
                     </p>
                     @Model.ProductSeoDescription
 

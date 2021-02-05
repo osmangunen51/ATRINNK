@@ -249,6 +249,13 @@ namespace NeoSistem.MakinaTurkiye.Web
                     string rewriteUrl = Request.ServerVariables["UNENCODED_URL"];
                     if (rewriteUrl.Contains("//") && !requestUrl.Contains("//")) Response.RedirectPermanent(requestUrl);
 
+                    if(requestUrl.EndsWith(".htm") | requestUrl.EndsWith(".html"))
+                    {
+                        string link = "";
+                        link = "/urun-kategori-c-0";
+                        Response.RedirectPermanent(link);
+                    }
+
                     if (requestUrl.Contains("Product/ProductContact?"))
                     {
                         var Url = this.Request.Url;
@@ -258,11 +265,16 @@ namespace NeoSistem.MakinaTurkiye.Web
                             int ProductId = Convert.ToInt32(Prm);
                             IProductService _productService = EngineContext.Current.Resolve<IProductService>();
                             var product = _productService.GetProductByProductId(ProductId);
+                            string link = "";
                             if (product != null)
                             {
-                                var link = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
-                                Response.RedirectPermanent(link);
+                                 link = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
                             }
+                            else
+                            {
+                                link = "/urun-kategori-c-0";
+                            }
+                            Response.RedirectPermanent(link);
                         }
                     }
 

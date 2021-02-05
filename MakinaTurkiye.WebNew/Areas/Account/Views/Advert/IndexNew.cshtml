@@ -270,7 +270,7 @@
                             <div class="row" style="margin-bottom: 15px;">
                                 <div class="col-md-12">
                                     <form action="javascript:void(0)">
-                                        <div class="input-group col-md-12 col-sm-12 pull-right">
+                                        <div class="input-group col-md-6 col-sm-12 pull-left" style="margin-left: 14px;">
                                             <input type="text" class="form-control" name="productNameForSearch" id="productNameForSearch" placeholder="Anahtar Kelime..(ürün arama)" aria-describedby="basic-addon2">
                                             <span class="input-group-btn">
                                                 <button onclick="ProductSearchResult();" id="searchButtonAdvert" class="btn  btn-default" type="submit">
@@ -299,9 +299,6 @@
                                     {
                                         @Html.Partial("_AdvertListTable", Model.MTProducts)
                                     }
-
-
-
                                 </div>
                             </div>
                         </div>

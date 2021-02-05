@@ -47,6 +47,10 @@ namespace MakinaTurkiye.Core.Configuration
             var compressNode = section.SelectSingleNode("Compress");
             config.CompressEnabled = GetBool(compressNode, "Enabled");
 
+
+            var productNode = section.SelectSingleNode("Product");
+            config.ProductDescriptionHtmlClear = GetBool(productNode, "DescriptionHtmlClear");
+
             return config;
         }
 
@@ -73,7 +77,7 @@ namespace MakinaTurkiye.Core.Configuration
         /// Indicates whether we should use Redis server for caching (instead of default in-memory caching)
         /// </summary>
         public bool RedisCachingEnabled { get; private set; }
-        
+
         /// <summary>
         /// Redis connection string. Used when Redis caching is enabled
         /// </summary>
@@ -107,6 +111,7 @@ namespace MakinaTurkiye.Core.Configuration
         public bool EntityFrameworkValidateOnSaveEnabled { get; set; }
 
         public bool CompressEnabled { get; set; }
+        public bool ProductDescriptionHtmlClear { get; set; }
 
     }
 

@@ -167,44 +167,47 @@
                 <div class="btn-group-vertical">
                     @if (md.ProductActiveType == (byte)ProductActiveType.CopKutusunda)
                     {
-<a href="#" onclick="ProductUndoDelete(@md.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a> }
-                    else if (md.ProductActiveType == (byte)ProductActiveType.Silindi)
-                    {
+                <a href="#" onclick="ProductUndoDelete(@md.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a> }
+            else if (md.ProductActiveType == (byte)ProductActiveType.Silindi)
+            {
 
-<a href="#" onclick="ProductToReceyleBin(@md.ProductId);" class="btn btn-sm btn-default">Çöpe Gönder </a>
-                        <a href="#" onclick="ProductUndoDelete(@md.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a> }
-                                            else
-                                            {
-                        <div class="btn-group">
-
-                            @if (queryProductActiveType == 0 && productActiveA == null)
-                            {
-    <a class="btn btn-sm btn-success dropdown-toggle"
-       data-toggle="dropdown">İnceleniyor </a> }
-                            else
-                            {
-                                if (md.ProductActive)
+                <a href="#" onclick="ProductToReceyleBin(@md.ProductId);" class="btn btn-sm btn-default">Çöpe Gönder </a>
+                    <a href="#" onclick="ProductUndoDelete(@md.ProductId, 'true');" class="btn btn-sm btn-default">Geri Al </a>
+            }
+            else
+            {
+               <div class="btn-group">
+                        @if (queryProductActiveType == 0 && productActiveA == null)
+                        {
+                        <a class="btn btn-sm btn-success dropdown-toggle"
+                        data-toggle="dropdown">İnceleniyor </a>
+                        }
+                        else
+                        {
+                            if (md.ProductActive)
                                 {
-    <a onclick="" class="btn btn-sm btn-success dropdown-toggle"
-       data-toggle="dropdown">Aktif İlan <span class="caret"></span></a>
+                                    <a onclick="" class="btn btn-sm btn-success dropdown-toggle"  data-toggle="dropdown">Aktif İlan <span class="caret"></span></a>
                                     <ul class="dropdown-menu dropdown-menu-mt" role="menu">
                                         <li>
                                             <a onclick="ProductActiveUpdate(@md.ProductId, 'false');">Pasif İlan </a>
                                         </li>
-                                    </ul> }
-                                                                else
-                                                                {
-                                    <a onclick="" class="btn btn-sm btn-danger dropdown-toggle"
-                                       data-toggle="dropdown">Pasif İlan <span class="caret"></span></a>
+                                    </ul>
+                                }
+                                else
+                                {
+                                        <a onclick="" class="btn btn-sm btn-danger dropdown-toggle"
+                                           data-toggle="dropdown">Pasif İlan <span class="caret"></span></a>
                                                                     <ul class="dropdown-menu dropdown-menu-mt" role="menu">
                                                                         <li>
                                                                             <a onclick="ProductActiveUpdate(@md.ProductId, 'true')">Aktif İlan </a>
                                                                         </li>
-                                                                    </ul>}
-                                                                                            }
-                        </div>
-                                                <a href="/Account/ilan/Edit/@md.ProductId?currentPage=@Model.CurrentPage" class="btn btn-sm btn-default">Düzenle </a>
-                                                                        <a data-val="@md.ProductId" class="btn btn-sm btn-default pDeleteItem">Sil</a>}
+                                                                    </ul>
+                                }
+                        }
+                    </div>
+                    <a href="/Account/ilan/Edit/@md.ProductId?currentPage=@Model.CurrentPage" class="btn btn-sm btn-default">Düzenle </a>
+                    <a data-val="@md.ProductId" class="btn btn-sm btn-default pDeleteItem">Sil</a>
+                    }
                 </div>
 
             </div>

@@ -711,7 +711,6 @@
                 }
             </div>
         </div>
-
     </div>
     </div>
 }
@@ -794,13 +793,16 @@
 </div> }
                 <div class="row">
                     <div class="col-xs-12">
-        <div class="home-seo-content">
-            <h2>
-                @Model.ConstantTitle
-            </h2>
-            @Html.Raw(Model.ConstantProperty);
-        </div>
-    </div>
+                        @if (!string.IsNullOrEmpty(Model.ConstantTitle) | !string.IsNullOrEmpty(Model.ConstantProperty))
+	                        {
+                                <div class="home-seo-content">
+                                    <h2>
+                                        @Model.ConstantTitle
+                                    </h2>
+                                    @Html.Raw(Model.ConstantProperty)
+                                </div>
+	                        }
+                    </div>
                 </div>
     <script type="application/ld+json">
         @Html.Raw(Model.CategoryModel.MtJsonLdModel.JsonLdString)

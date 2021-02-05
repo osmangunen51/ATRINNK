@@ -13,7 +13,6 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.Catalog
 @using NeoSistem.MakinaTurkiye.Web.Models.Entities
 @using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
-
 @{
     Layout = null;
 }
@@ -274,15 +273,15 @@
                     <div class="site-search__bottom">
                         <ul class="site-search__store">
                             <li>
-                                <a style="color:#828282" href="@AppSettings.StoreAllUrl">Mağazalar</a>
+                                <a style="color:#828282" href="@AppSettings.SiteAllCategoryUrl">Kategoriler</a>
                             </li>
                             <li style="border-left:none !important">
-                                <a style="color:#828282" href="@AppSettings.SiteAllCategoryUrl">Kategoriler</a>
+                                <a style="color:#828282" target="_blank" href="@AppSettings.VideoUrlBase">Videolar</a>
                             </li>
                         </ul>
                         <ul class="site-search__links">
                             <li>
-                                <a target="_blank" href="@AppSettings.VideoUrlBase">Videolar</a>
+                                <a style="color:#828282" href="@AppSettings.StoreAllUrl">Mağazalar</a>
                             </li>
                         </ul>
                     </div>

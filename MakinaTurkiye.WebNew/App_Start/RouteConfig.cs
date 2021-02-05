@@ -19,56 +19,56 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
             routes.LowercaseUrls = true;
 
             routes.Add("DomainRouteForWrongProductContact", new DomainRoute(
-            "urun.makinaturkiye.com", // Domain with parameters 
-            "Product/ProductContact",    // URL with parameters 
+            "urun.makinaturkiye.com", // Domain with parameters
+            "Product/ProductContact",    // URL with parameters
 
-            new { controller = "Product", action = "WrongUrlRedirect" }  // Parameter defaults 
+            new { controller = "Product", action = "WrongUrlRedirect" }  // Parameter defaults
             ));
 
             routes.Add("DomainRouteForWrongHelp", new DomainRoute(
-            "urun.makinaturkiye.com", // Domain with parameters 
-            "{categoryname}-y-{CategoryId}",    // URL with parameters 
-            new { controller = "Product", action = "WrongUrlHelp" }  // Parameter defaults 
+            "urun.makinaturkiye.com", // Domain with parameters
+            "{categoryname}-y-{CategoryId}",    // URL with parameters
+            new { controller = "Product", action = "WrongUrlHelp" }  // Parameter defaults
             ));
 
             //routes.Add(new ProductCustomRoute());
             routes.Add("DomainRouteForCategoryHome", new DomainRoute(
-            "urun.makinaturkiye.com", // Domain with parameters 
-            "",    // URL with parameters 
-            new { controller = "Category", action = "Index2" }  // Parameter defaults 
+            "urun.makinaturkiye.com", // Domain with parameters
+            "",    // URL with parameters
+            new { controller = "Category", action = "Index2" }  // Parameter defaults
             ));
 
 
 
             routes.Add("DomainRouteForNew", new DomainRoute(
-                "haber.makinaturkiye.com", // Domain with parameters 
-                "",    // URL with parameters 
+                "haber.makinaturkiye.com", // Domain with parameters
+                "",    // URL with parameters
                 new { controller = "StoreNew", action = "Index" },
                    new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
 
             routes.Add("DomainRouteForNewDetail", new DomainRoute(
-                "urun.makinaturkiye.com", // Domain with parameters 
-                "{newname}-h-{newId}",    // URL with parameters 
+                "urun.makinaturkiye.com", // Domain with parameters
+                "{newname}-h-{newId}",    // URL with parameters
 
                 new { controller = "StoreNew", action = "Detail" },
                        new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
 
             routes.Add("DomainRouteForProduct", new DomainRoute(
-                "urun.makinaturkiye.com", // Domain with parameters 
-                "{productName}-p-{productId}",    // URL with parameters 
+                "urun.makinaturkiye.com", // Domain with parameters
+                "{productName}-p-{productId}",    // URL with parameters
 
-                new { controller = "Product", action = "DetailClear" }  // Parameter defaults 
+                new { controller = "Product", action = "DetailClear" }  // Parameter defaults
                 ));
 
             //      routes.Add("DomainRouteForWrongCategoryVideo", new DomainRoute(
-            //"video.makinaturkiye.com", // Domain with parameters 
-            //"{categoryname}-c-{CategoryId}",    // URL with parameters 
-            //new { controller = "Videos", action = "WrongUrlCategory" }  // Parameter defaults 
+            //"video.makinaturkiye.com", // Domain with parameters
+            //"{categoryname}-c-{CategoryId}",    // URL with parameters
+            //new { controller = "Videos", action = "WrongUrlCategory" }  // Parameter defaults
             //));
 
             routes.Add("DomainRouteForVideo", new DomainRoute(
-                "video.makinaturkiye.com", // Domain with parameters 
-                "",    // URL with parameters 
+                "video.makinaturkiye.com", // Domain with parameters
+                "",    // URL with parameters
 
                 new { controller = "Videos", action = "Index" }));
 
@@ -128,8 +128,8 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
 
 
             routes.Add("DomainStoreCategoryNew", new DomainRoute(
-                "magaza.makinaturkiye.com", // Domain with parameters 
-                "{categoryName}-sc-{categoryId}",    // URL with parameters 
+                "magaza.makinaturkiye.com", // Domain with parameters
+                "{categoryName}-sc-{categoryId}",    // URL with parameters
                 new
                 {
                     controller = "Store",
@@ -149,15 +149,15 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" });
 
             routes.Add("DomainVideoSectorNew", new DomainRoute(
-            "video.makinaturkiye.com", // Domain with parameters 
-            "{categoryName}-vc-{categoryId}/",    // URL with parameters 
+            "video.makinaturkiye.com", // Domain with parameters
+            "{categoryName}-vc-{categoryId}/",    // URL with parameters
             new
             {
                 controller = "Videos",
                 action = "Index",
                 categoryId = UrlParameter.Optional,
                 categoryName = UrlParameter.Optional
-            }  // Parameter defaults 
+            }  // Parameter defaults
             ));
 
 
@@ -396,7 +396,12 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 );
 
 
-
+            routes.MapRoute(
+            "DynamicSiteMapRoute",
+            "sitemap",
+            new { controller = "SiteMap", action = "CreateAndView" },
+            new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+            );
 
             routes.MapRoute(
                 "TermsOfUse",
@@ -585,10 +590,10 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
 
 
             routes.Add("DomainRouteForNewVideo", new DomainRoute(
-    "video.makinaturkiye.com", // Domain with parameters 
-    "{productName}-v-{VideoId}",    // URL with parameters 
+    "video.makinaturkiye.com", // Domain with parameters
+    "{productName}-v-{VideoId}",    // URL with parameters
 
-    new { controller = "Videos", action = "VideoItems2" }  // Parameter defaults 
+    new { controller = "Videos", action = "VideoItems2" }  // Parameter defaults
     ));
 
 
