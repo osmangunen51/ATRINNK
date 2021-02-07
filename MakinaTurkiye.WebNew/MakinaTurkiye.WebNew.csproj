@@ -2556,6 +2556,7 @@
     <Content Include="Views\Shared\_LayoutProduct.cshtml" />
     <Content Include="Views\Shared\_LayoutMainMaster.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Product\_ProductCommentList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Account\Content\hesabim_ortak.css" />
