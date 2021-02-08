@@ -30,7 +30,7 @@
 			if (isMobile) {
 				var i = 0;
 				var count = $(".breadcrumb-mt li").length;
-				$(".fast-access-bar").css("margin-top", "-20px");
+				$(".fast-access-bar").css("margin-top", "-10px");
 				$(".fast-access-bar").removeAttr("class");
 				var i = 0;
 				var count = $(".breadcrumb-mt li").length;
@@ -713,9 +713,8 @@
 		</div>
 	</div>
 	</div>
-}
-
-	   if (!string.IsNullOrEmpty(Model.ContentBottomCenter))
+	}
+   if (!string.IsNullOrEmpty(Model.ContentBottomCenter))
 								{
 					<div class="row clearfix">
 						<div class="alert alert-info alert-mt">
@@ -787,10 +786,11 @@
 	@if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent))
 	{
 
-@Html.Raw(Model.SeoModel.SeoContent)
-					@Html.Raw(Model.ContentSide)}
-	@Html.Raw(Model.SeoModel.Description)
-</div> }
+		@Html.Raw(Model.SeoModel.SeoContent)
+		@Html.Raw(Model.ContentSide)}
+		@Html.Raw(Model.SeoModel.Description)
+		</div>
+	}
 				<div class="row">
 					<div class="col-xs-12">
 						@if (!string.IsNullOrEmpty(Model.ConstantTitle) | !string.IsNullOrEmpty(Model.ConstantProperty))
