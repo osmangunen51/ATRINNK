@@ -2680,13 +2680,10 @@ $(document).ready(function () {
     $('#StoreProfileImageSlider').owlCarousel({
 
         lazyLoad: true,
-
         loop: true,
-
         margin: 10,
-
         nav: true,
-
+        autoHeight :false,
         responsive: {
             0: {
                 items: 1,

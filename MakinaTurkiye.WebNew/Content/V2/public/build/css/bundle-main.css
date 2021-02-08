@@ -23349,7 +23349,7 @@ img.res-buyut {
 }
 
 .main-navigation {
-    background-color: #ecf0f1;
+    background-color: #0C3871;
     border-radius: 0 !important;
     margin-top: -1px;
     border-top: 1px solid #E0E0E0;
@@ -23360,7 +23360,7 @@ img.res-buyut {
     border-left: none;
     /* color: #0C3871; */
     border-right: none;
-    border-bottom: 1px solid #E0E0E0;
+    /* border-bottom: 1px solid #E0E0E0; */
 }
 
 .mega-dropdown {
@@ -23371,7 +23371,7 @@ img.res-buyut {
     width: 10%;
     text-align: center;
     border-right: 1px solid;
-    border-color: #e0dede;
+    border-color: #4772a9;
 }
 
     .main-navigation div > ul > li > a {
@@ -23380,9 +23380,9 @@ img.res-buyut {
         line-height: 17px;
         text-align: center;
         padding: .75rem 1rem;
-        color: #7e7f80 !important;
+        color: #fff !important;
         transition: background-color .2s ease;
-        font-weight: 600;
+        /* font-weight: 600; */
     }
 
 .CustomerCategories:hover {
@@ -23582,9 +23582,9 @@ img.res-buyut {
 }
 
 .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
-    background-color: #ffffff !important;
-    color: #504f4e !important;
-    font-weight: 800;
+    background-color: #f9401b !important;
+    color: #ffffff !important;
+    /* font-weight: 800; */
     /* padding: 0px; */
 }
 
@@ -25947,12 +25947,10 @@ input[name="SearchText"]::-webkit-input-placeholder {
 }
 
 
-.category-list-wrapper
-{
-    width:80%
+.category-list-wrapper {
+    width: 80%
 }
 
-.leftSideBar
-{
-    width:20%
+.leftSideBar {
+    width: 20%
 }

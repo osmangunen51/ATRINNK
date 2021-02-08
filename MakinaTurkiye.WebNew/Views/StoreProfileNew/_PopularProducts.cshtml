@@ -51,7 +51,7 @@
                                 @item.ProductName
                             </span>
                         </a>
-                        <span style="color: #396; font-size: 12px;">
+                        <span style="color: #428bca; font-size: 12px;">
                             @if (!string.IsNullOrEmpty(item.BrandName))
                             {
                                 @item.BrandName
@@ -67,7 +67,6 @@
                             {
                                 <span class="@(!string.IsNullOrEmpty(item.ProductPriceWithDiscount) ? "old-price" : "")">
                                     <i class="@item.CurrencyCodeName"></i>
-                                    }
                                     @item.PriceText
                                 </span>
                                 if (!string.IsNullOrEmpty(item.ProductPriceWithDiscount))
@@ -83,7 +82,6 @@
 
                         <!-- /.caption -->
                     </div>
-                    <!-- /.PopularProductsItem -->
                 </div>
 
             }
