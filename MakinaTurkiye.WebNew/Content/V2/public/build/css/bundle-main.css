@@ -26038,4 +26038,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
 .store-profile-header__brand-name {
     padding-top:20px;
 }
+    .homeCont {
+        padding-right:15px;
+    }
 }
