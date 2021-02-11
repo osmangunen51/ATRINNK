@@ -11,9 +11,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
 {
   public static class JsonLdHelper
   {
-
-
-
         public static BreadcrumbList SetBreadcrumbList(IList<BaseController.Navigation> navigations)
         {     
             List<ListItem> breadCrumbListItem = navigations.Select((t, i) => new ListItem
