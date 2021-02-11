@@ -360,6 +360,6 @@
 @if (!string.IsNullOrEmpty(Model.MtJsonLdModel.JsonLdString))
 {
     <script type="application/ld+json">
-        @Model.MtJsonLdModel.JsonLdString
+        @Html.Raw(Model.MtJsonLdModel.JsonLdString);
     </script>
  }

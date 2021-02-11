@@ -26041,4 +26041,11 @@ input[name="SearchText"]::-webkit-input-placeholder {
     .homeCont {
         padding-right:15px;
     }
+	#myTabContent
+    {
+        margin-left:10px;
+        margin-right:0px;
+        padding-right:0px;
+        
+    }
 }
