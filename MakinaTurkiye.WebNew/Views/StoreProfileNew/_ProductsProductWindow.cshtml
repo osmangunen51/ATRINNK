@@ -22,11 +22,52 @@
     //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     Layout = null;
+    string queryOrder = string.IsNullOrEmpty(Request.QueryString["Order"]) ? "" : Request.QueryString["Order"].ToString();
+    string activeCss = "active";
 }
 @Html.Hidden("hiddenStoreId", Model.StoreMainPartyId)
 @Html.Hidden("hdnCategoryId", Model.CategoryId)
 
 <input type="hidden" id="hdnDisplayType" value="@(Model.ViewType == 0 ? 1 : Model.ViewType)" />
+<div class="row">
+    <div class="col-xs-9 col-sm-6 col-md-8">
+
+    </div>
+    <div class="col-xs-3 col-sm-6 col-md-4 ">
+        <div class="col-md-7 hidden-xs col-xs-1">
+            <div class="row">
+                <div class="dropdown">
+                    <button class="btn btn-default btn-block dropdown-toggle" type="button" id="btnGroupVerticalDrop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Sıralama Türü Seçiniz
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupVerticalDrop1">
+                        <li>
+                            <a class="@(queryOrder == " a-z" ? activeCss : string.Empty)" href="@Request.FilePath@("&Order=a-z")">a-Z</a>
+                        </li>
+                        <li>
+                            <a class="@(queryOrder == " z-a" ? activeCss : string.Empty)" href="@Request.FilePath@("&Order=z-a")">Z-a</a>
+                        </li>
+                        <li>
+                            <a class="@(queryOrder == " sone" +
+                "klenen" ? activeCss : string.Empty)" href="@Request.FilePath@("&Order=soneklenen")">Son Eklenen</a>
+                        </li>
+                        <li>
+                            <a class="@(queryOrder == " encokgoruntulenen" ? activeCss : string.Empty)" href="@Request.FilePath">En Çok Görüntülenen</a>
+                        </li>
+                        <li>
+                            <a class="@(queryOrder == " fiyat-artan" ? activeCss : string.Empty)" href="@Request.FilePath@("&Order=fiyat-artan")">Fiyata Göre Artan</a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 col-xs-11">
+
+        </div>
+    </div>
+</div>
 
 <div class="tab-pane fade in active" id="pencere">
     <div class="product-list-mt row clearfix">
