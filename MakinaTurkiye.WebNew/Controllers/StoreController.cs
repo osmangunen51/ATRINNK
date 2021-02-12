@@ -545,7 +545,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 }
 
-                if (productsForStore!=null)
+                if (productsForStore != null)
                 {
                     foreach (var productItem in productsForStore)
                     {
@@ -564,6 +564,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             storeModel.ProductModels.Add(productModel);
                         }
                     }
+                }
+                else
+                {
+
                 }
 
                 storeModels.Add(storeModel);

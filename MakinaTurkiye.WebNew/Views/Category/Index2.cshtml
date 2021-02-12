@@ -5,7 +5,7 @@
 
 	@if (!string.IsNullOrEmpty(ViewBag.Canonical))
 	{
-		if (Model.CategoryModel.SelectedCategoryId == 0) { ViewBag.Canonical = "https://urun.makinaturkiye.com"; }
+		if (Model.CategoryModel.SelectedCategoryId == 0) { ViewBag.Canonical = "https://makinaturkiye.com"; }
 		<link rel="canonical" href="@ViewBag.Canonical" />
 	}
 	@if (!string.IsNullOrEmpty(Model.PrevPageUrl))
@@ -761,7 +761,7 @@
 								name = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
 							} }
 
-						@categoryTitle @name Firmaları
+						@categoryTitle @name Firmaları ( Tümü )
 					</a>
 				</span>
 
