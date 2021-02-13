@@ -47,9 +47,16 @@
         <%:itemMemberDesc.Date.ToString().Split(' ')[1]%>
     </td>
     <td class="Cell">
-        <font style="font-weight: 600; font-size: 13px;"><%Response.Write(itemMemberDesc.UpdateDate.ToString().Split(' ')[0]); %></font>
+                <%if (itemMemberDesc.UpdateDate != null) {
+                    %>
+                <font style="font-weight: 600; font-size: 13px;"><%Response.Write(itemMemberDesc.UpdateDate.ToString().Split(' ')[0]); %></font>
         <br />
+
         <font style="color: #a02323; font-size: 13px; font-weight: 600;"><%:itemMemberDesc.UpdateDate.ToString().Split(' ')[1]%></font>
+        
+        <%
+                    } %>
+
     </td>
     <td class="Cell" style="background-color: #2776e5; color: #fff"><%:itemMemberDesc.FromUserName %></td>
     <td class="Cell" style="background-color: #31c854; color: #fff"><%:itemMemberDesc.UserName %></td>

@@ -57,6 +57,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         [DisplayName("Marka Adı")]
         public int? BrandId { get; set; }
 
+        public string BrandNameTitle { get; set; }
+        
+
         [DisplayName("Seri Adı")]
         public int? SeriesId { get; set; }
 
@@ -140,6 +143,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
 
         public string NameBrand { get; set; }
         public string NameModel { get; set; }
+        public string BrandContentTitle { get; set; }
+        public string ModelContentTitle { get; set; }
         public string NameSeries { get; set; }
 
         public byte MemberType { get; set; }
