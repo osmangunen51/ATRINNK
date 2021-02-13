@@ -1595,7 +1595,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             var member = _memberService.GetMemberByMainPartyId(memberStore.MemberMainPartyId.Value);
 
-            model.Email =member.MemberEmail;
+            model.Email = member.MemberEmail;
             model.Phones = phones;
             model.IsProductAdded = store.IsProductAdded;
             model.StoreMainPartyId = store.MainPartyId;
@@ -1605,7 +1605,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.Address = entities.Addresses.FirstOrDefault(x => x.MainPartyId == id);
             model.MemberMainPartyId = memberStore.MemberMainPartyId.Value;
             var memberDescriptions = entities.MemberDescriptions.Where(x => x.MainPartyId == memberStore.MemberMainPartyId && x.ConstantId != null).OrderByDescending(x => x.descId);
-            var memberPayment = memberDescriptions.FirstOrDefault(x => x.Title== "Ödeme");
+            var memberPayment = memberDescriptions.FirstOrDefault(x => x.Title == "Ödeme");
             var modelMemberdescPayment = new StoreMemberDescriptionItem { DescId = memberPayment.descId, Description = memberPayment.Description, Title = memberPayment.Title };
             var userFromPayment = entities.Users.FirstOrDefault(x => x.UserId == memberPayment.FromUserId);
             if (userFromPayment != null)
@@ -2922,7 +2922,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             model.MemberMainPartyId = member.MainPartyId.ToString();
 
-            var storeSeoNotifications = _storeSeoNotificationService.GetStoreSeoNotificationsByStoreMainPartyId(store.MainPartyId).OrderByDescending(x=>x.StoreSeoNotificationId).Skip(0).Take(8);
+            var storeSeoNotifications = _storeSeoNotificationService.GetStoreSeoNotificationsByStoreMainPartyId(store.MainPartyId).OrderByDescending(x => x.StoreSeoNotificationId).Skip(0).Take(8);
             foreach (var storeSeoNotification in storeSeoNotifications)
             {
                 var fromUser = entities.Users.FirstOrDefault(x => x.UserId == storeSeoNotification.FromUserId);
@@ -2947,13 +2947,18 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int pageSize = 60;
             int Page = 1;
             if (!string.IsNullOrEmpty(page)) Page = Convert.ToInt32(page);
-            //!context.employeeshift.Any(es => (es.shiftid == s.shiftid) && (es.empid == 57))
+
             var storesWithout = from s in entities.Stores
                                 join ms in entities.MemberStores on s.MainPartyId
       equals ms.StoreMainPartyId
-                                where s.StoreActiveType == 2 && !entities.MemberDescriptions.Any(mb => (mb.Date > datetime) && mb.MainPartyId == ms.MemberMainPartyId)
-                                orderby s.MainPartyId
-descending
+                                where s.StoreActiveType == 2 && !(
+                                from mb in
+                                entities.MemberDescriptions
+                                join ms1 in entities.MemberStores on mb.MainPartyId equals ms1.MemberMainPartyId
+                                where ms1.StoreMainPartyId == s.MainPartyId
+                                select new { s.MainPartyId }
+                                ).Any()
+                                orderby s.MainPartyId descending
                                 select new { s.StoreName, s.MainPartyId, s.StoreRecordDate };
 
             var stores1 = storesWithout.Select(x => x.MainPartyId).Distinct();

@@ -13,7 +13,7 @@
 
         <div>
 
-            <textarea  id="<%:item.ProductId %>" rows="4" cols="5" column="product" class="edit-input" style="display: none; width:200px;"></textarea>
+            <textarea id="<%:item.ProductId %>" rows="4" cols="5" column="product" class="edit-input" style="display: none; width: 200px;"></textarea>
             <%= Html.Label("",item.ProductName)%>
 
             <%--  <%: item.ProductName%>--%>
@@ -26,7 +26,7 @@
     <td class="Cell">
         <%= item.MainCategoryName %>
         <br />
-        <span style="color:#07a71e">
+        <span style="color: #07a71e">
             <%= item.CategoryContentTitle %>
         </span>
     </td>
@@ -38,12 +38,19 @@
 
 
 
-            <textarea  column="brand"  id=" <%:item.BrandId %>" class="edit-input" style="display: none;  width:150px;" ></textarea>
+            <textarea column="brand" id=" <%:item.BrandId %>" class="edit-input" style="display: none; width: 150px;"></textarea>
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
             </div>
         </div>
         <%} %>
+        <%if (!string.IsNullOrEmpty(item.BrandContentTitle))
+            {%>
+        <span style="color: #07a71e">
+            <%= item.BrandContentTitle %>
+        </span>
+        <% } %>
+
 
 
         <%--   <%: item.NameBrand%>--%>
@@ -55,7 +62,7 @@
         <div>
             <%=Html.Label(item.NameSeries)%>
 
-                        <textarea  column="serie"   id="<%:item.SeriesId %>"   class="edit-input" style="display: none;  width:150px;" ></textarea>
+            <textarea column="serie" id="<%:item.SeriesId %>" class="edit-input" style="display: none; width: 150px;"></textarea>
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
             </div>
@@ -70,22 +77,26 @@
                 {  %>
 
             <%=Html.Label("", item.NameModel)%>
-                                    <textarea  column="model"   id="<%:item.ModelId %>"   class="edit-input" style="display: none;  width:150px;" ></textarea>
-
-
-
-
+            <textarea column="model" id="<%:item.ModelId %>" class="edit-input" style="display: none; width: 150px;"></textarea>
             <%}
-    else {%>
+            else
+            {%>
             <label for=""></label>
 
-                      <textarea type="text" id="<%:item.ProductId %>"  column="modelNon" class="edit-input" style="display: none; width:150px;" ></textarea>
+            <textarea type="text" id="<%:item.ProductId %>" column="modelNon" class="edit-input" style="display: none; width: 150px;"></textarea>
 
-                    <% }%>
+            <% }%>
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
             </div>
         </div>
+
+        <%if (!string.IsNullOrEmpty(item.ModelContentTitle))
+            {%>
+        <span style="color: #07a71e">
+            <%= item.ModelContentTitle %>
+        </span>
+        <% } %>
         <%-- <%: item.NameModel%>--%>
     </td>
     <td class="Cell" style="text-align: center; padding-top: 5px">
@@ -267,13 +278,15 @@
             <img src="/Content/images/hemen_satma.png" />
         </a>
         <%} %>
-                    <%if (NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId == 1) {
-                    %>
-            <a  style="cursor:pointer; color:Blue;" onclick="DeleteProductSure(<%:item.ProductId %>)">(Sil)</a>
-            <%
-                } %>
-        <%if (item.PictureCount==0) {%>
-     <img src="/Content/images/no-photo.png" style="height:16px" title="Fotoğrafsız Ürün" />
+        <%if (NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId == 1)
+            {
+        %>
+        <a style="cursor: pointer; color: Blue;" onclick="DeleteProductSure(<%:item.ProductId %>)">(Sil)</a>
+        <%
+            } %>
+        <%if (item.PictureCount == 0)
+            {%>
+        <img src="/Content/images/no-photo.png" style="height: 16px" title="Fotoğrafsız Ürün" />
         <% } %>
     </td>
     <td class="CellEnd" align="center">
