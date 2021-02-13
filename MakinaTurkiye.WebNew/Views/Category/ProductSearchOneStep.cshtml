@@ -71,29 +71,22 @@
                 <div class="row">
                     @foreach (var item in Model.CategoryModel.TopCategoryItemModels.ToList().OrderBy(s => s.CategoryName))
                     {
-
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <div class="result-category__item searchResultCategory">
-                                <img class="result-category__img" src="@item.CategoryIcon" />
+                                @*<img class="result-category__img" src="@item.CategoryIcon" />*@
                                 <p class="result-category__category-name"><a href="@item.CategoryUrl">@item.CategoryName &nbsp<b style="color: #808080">(@item.ProductCount)</b></a></p>
-
                                 <ul class="subCategory" id="subCategory@(item.CategoryId )">
                                     @foreach (var subCategory in Model.CategoryModel.SubCategories.Where(c => c.CategoryParentId == item.CategoryId).OrderBy(x => x.CategoryName))
                                     {
-
-
                                         <li><a href="@subCategory.CategoryUrl">@subCategory.CategoryName &nbsp<small style="color: #808080">(@subCategory.ProductCount)</small></a></li>
                                     }
-
                                     @if (Model.CategoryModel.SubCategories.Where(x => x.CategoryParentId == item.CategoryId).ToList().Count > 5)
                                     {
                                         <li class="showAllSub" id="showAllSub@(item.CategoryId )"><b>Tümünü Gör</b><span class="icon-fill-down-arrow" aria-hidden="true"></span></li>
                                     }
                                 </ul>
-
                             </div>
                         </div>
-
                     }
                 </div>
             </div>

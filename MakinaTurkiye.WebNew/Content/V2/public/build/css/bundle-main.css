@@ -22274,7 +22274,7 @@ img.res-buyut {
 
 @media (min-width:992px) {
     .product-list-mt__item {
-        min-height: 325px !important
+        min-height: 340px !important
     }
 }
 
@@ -26046,6 +26046,6 @@ input[name="SearchText"]::-webkit-input-placeholder {
         margin-left:10px;
         margin-right:0px;
         padding-right:0px;
-        
+
     }
 }
