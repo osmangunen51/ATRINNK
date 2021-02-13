@@ -77,7 +77,10 @@
                                 Tutar
                             </td>
                             <td>
-                                <b>KDV Dahil Toplam Tutar </b>
+                                Kdv
+                            </td>
+                            <td>
+                                <b>Toplam Tutar </b>
                             </td>
                         </tr>
                         <tr>
@@ -88,7 +91,12 @@
                                 @Model.PacketName
                             </td>
                             <td>
-                                @Model.OrderPrice.ToString("C2")
+                                @{ decimal priceWithoutKdv = Model.OrderPrice / (decimal) 1.18;
+                                    }
+                                @priceWithoutKdv.ToString("C2")
+                            </td>
+                            <td>
+                                @Html.Raw((Model.OrderPrice - priceWithoutKdv).ToString("C2"))
                             </td>
                             <td>
                                 <b>
