@@ -124,6 +124,7 @@ namespace MakinaTurkiye.Services.Seos
 
         Register = 103,
         AdvancedSearch = 104,
-        ForgettedPassowrd = 106
+        ForgettedPassowrd = 106,
+        MemberShipSales = 107
     }
 }

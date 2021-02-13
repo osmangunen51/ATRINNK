@@ -82,7 +82,7 @@ namespace MakinaTurkiye.Services.Packets
         public IList<Packet> GetPacketIsOnsetFalseByDiscountType(bool isDiscounted)
         {
             var query = _packetRepository.Table;
-            return query.Where(p => p.IsDiscounted == isDiscounted && p.IsOnset == false).ToList();
+            return query.Where(p => p.IsDiscounted == isDiscounted && p.IsOnset == false).OrderBy(x=>x.PacketOrder).ToList();
         }
 
         public IList<Packet> GetAllPacket()
