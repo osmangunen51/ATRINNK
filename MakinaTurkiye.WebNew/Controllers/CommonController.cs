@@ -103,11 +103,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 case "account/storenew": PrepareMetaTagModelForAccountStoreNew(model, seos); break;
                 case "account/users": PrepareMetaTagModelForAccountUsers(model, seos); break;
                 case "account/video": PrepareMetaTagModelForAccountStoreVideos(model, seos); break;
+                case "membershipsales": PrepareMetaTagMemberShipSales(model, seos); break;
+
                 default:
                     break;
             }
         }
-
+        private void PrepareMetaTagMemberShipSales(MetaTagModel model, IList<Seo> seos)
+        {
+            SeoIdNameEnum seoIdNameEnum = SeoIdNameEnum.MemberShipSales;
+            var seo = seos.First(s => s.SeoId == (int)seoIdNameEnum);
+            model.Description = seo.Description;
+            model.Keywords = seo.Keywords;
+            model.Robots = seo.Robots;
+            model.Title = seo.Title;
+        }
         private void PrepareMetaTagModelForCategory(MetaTagModel model, IList<Seo> seos)
         {
             string actionName = this.ControllerContext.ParentActionViewContext.RouteData.GetRequiredString("action");
