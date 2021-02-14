@@ -104,7 +104,7 @@ namespace MakinaTurkiye.Services.Catalog
                 const string sql = "SP_GetProductForStoreByCategoryId @CategoryId, @MemberMainPartyId, @TopCount";
                 var productsForStore = _dbContext.SqlQuery<ProductForStoreResult>(sql, pCategoryId, pMemberMainPartyId,
                     pTopCount);
-                return productsForStore.ToList();
+                return productsForStore.DefaultIfEmpty().ToList();
             });
         }
 

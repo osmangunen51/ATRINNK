@@ -93,7 +93,7 @@
                                 </span> }
                                                     else
                                                     {
-                                <span style="color:#ff0000;">
+                                <span style="color:#428bca;">
                                     @Html.Raw(model1.BrandName)
                                 </span>}
 
@@ -119,46 +119,43 @@
 
                                 @if (string.IsNullOrEmpty(model1.Price) || (model1.ProductPriceType != (byte)NeoSistem.MakinaTurkiye.Web.Models.ProductPriceType.Price && model1.ProductPriceType != (byte)NeoSistem.MakinaTurkiye.Web.Models.ProductPriceType.PriceRange))
                                 {
-                                    <span class="interview"></span>
-                                }
-                                else
-                                {
-                                    string priceCss = "";
-                                    if (model1.CurrencyCss == "")
-                                    {
-                                        priceCss = "interview";
-                                    }
+                            <span class="interview"></span> }
+                                            else
+                                            {
+                                                string priceCss = "";
+                                                if (model1.CurrencyCss == "")
+                                                {
+                                                    priceCss = "interview";
+                                                }
 
 
-                                    if (model1.Price != "Fiyat Sorunuz")
-                                    {
+                                                if (model1.Price != "Fiyat Sorunuz")
+                                                {
 
-                                        if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
-                                        {
-                                            <i itemprop="priceCurrency" class="@model1.CurrencyCss old-price"></i>
-                                            <span class="old-price">@model1.Price</span>
-                                        }
-                                        else
-                                        {
-                                            <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i>
-                                            <span class="">@model1.Price</span>
-                                        }
+                                                    if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
+                                                    {
 
-                                        if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
-                                        {
-                                            <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i>
-                                            <span>@model1.ProductPriceWithDiscount</span>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <span class="interview"></span>
-                                    }
-                                    if (!string.IsNullOrEmpty(model1.Price))
-                                    {
-                                        <small style=" font-weight: 500; padding-left:0px; font-size: 11px;color:#8a8a8a">@model1.KdvOrFobText</small>
-                                    }
-                                }
+                            <span class="old-price">@model1.Price</span>
+                                                        <i itemprop="priceCurrency" class="@model1.CurrencyCss old-price"></i> }
+                                                                                else
+                                                                                {
+
+                                                        <span class="">@model1.Price</span>
+                                                                                    <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i> }
+
+                                                                                                            if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
+                                                                                                            {
+
+                                                                                    <span>@model1.ProductPriceWithDiscount</span>
+                                                                                    <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i> }
+                                                                                                        }
+                                                                                                        else
+                                                                                                        {
+                                                                                    <span class="interview"></span> }
+                                                                                                        if (!string.IsNullOrEmpty(model1.Price))
+                                                                                                        {
+                                                                                    <small style=" font-weight: 500; padding-left:0px; font-size: 11px;color:#8a8a8a">@model1.KdvOrFobText</small>}
+                                                                                                    }
                             </p>
 
 

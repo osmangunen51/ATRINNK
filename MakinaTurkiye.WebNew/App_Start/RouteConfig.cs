@@ -969,8 +969,6 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 );
 
-
-
             routes.MapRoute(
                 "SearchMainPage",
                 "Videolar/{query}/",

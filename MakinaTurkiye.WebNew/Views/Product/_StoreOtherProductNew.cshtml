@@ -25,26 +25,23 @@
     <header style="margin-top:0px;" class="hidden-xs">
         <div class="menu">
             <div class="urun-bilgisi">
-                <div class="">
+                <div class="panel-body" style="margin-top:0px;padding-top:0px;padding-bottom:0px;">
                     @foreach (var item in Model.ProductItemModels.Take(5))
                     {
 
-                        <a href="@item.ProductUrl" class="saller-prd">
-                            @if (!string.IsNullOrEmpty(item.SmallPicturePah))
-                            {
-                                <div class="saller-prd__image">
-                                    <img alt="@item.ProductName" src="@item.SmallPicturePah.Replace("100x75","200x150")">
-                                </div>
-                            }
-                            else
-                            {
-                                <div class="saller-prd__image" style="width:100%">
-                                    <img src="//s.makinaturkiye.com/no-image_200x150.png" alt="Resim bulunamadı" title="Resim bulunamadı" />
-                                </div>
-                            }
-                            <h5 class="saller-prd__title">@item.ProductName</h5>
-                        </a>
-                    }
+                <a href="@item.ProductUrl" class="saller-prd">
+                    @if (!string.IsNullOrEmpty(item.SmallPicturePah))
+                    {
+                <div class="saller-prd__image">
+                    <img alt="@item.ProductName" src="@item.SmallPicturePah.Replace("100x75","200x150")">
+                </div> }
+                    else
+                    {
+                <div class="saller-prd__image" style="width:100%">
+                    <img src="//s.makinaturkiye.com/no-image_200x150.png" alt="Resim bulunamadı" title="Resim bulunamadı" />
+                </div>}
+                    <h5 class="saller-prd__title">@item.ProductName</h5>
+                </a>}
 
                 </div>
             </div>

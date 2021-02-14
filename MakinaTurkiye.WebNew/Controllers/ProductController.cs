@@ -473,9 +473,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 //}
                 //else
                 //{
-
                 //}
-
                 var webPage = new Schema.NET.WebPage
                 {
                     Name = model.ProductDetailModel.ProductName.CheckNullString(),

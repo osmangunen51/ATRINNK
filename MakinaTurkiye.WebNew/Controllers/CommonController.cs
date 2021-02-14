@@ -276,7 +276,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                         if (categoryIdRelated != 0 && category.CategoryType == (byte)CategoryTypeEnum.Brand)
                             cat = topCategories.FirstOrDefault(x => x.CategoryId == categoryIdRelated);
-
                         if (cat != null)
                         {
                             categoryName = cat.CategoryName;

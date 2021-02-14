@@ -549,20 +549,24 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     foreach (var productItem in productsForStore)
                     {
-                        if (!string.IsNullOrEmpty(productItem.MainPicturePath))
+                        if (productItem!=null)
                         {
-                            var categoryContentTitle = _categoryService.GetCategoryByCategoryId(productItem.CategoryId).CategoryContentTitle;
-                            string categoryUrlName = !string.IsNullOrEmpty(categoryContentTitle) ? categoryContentTitle : productItem.CategoryName;
-                            var productModel = new MTStoreModel.ProductModel();
-                            productModel.BrandName = productItem.BrandName;
-                            productModel.ModelName = productItem.ModelName;
-                            productModel.ProductName = productItem.ProductName.Replace("\"", "");
-                            productModel.ProductUrl = UrlBuilder.GetProductUrl(productItem.ProductId, productItem.ProductName);
-                            productModel.LargePicturePath = ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicturePath, ProductImageSize.px400x300);
-                            productModel.SmallPicturePath = ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicturePath, ProductImageSize.px100x75);
-                            productModel.SimilarUrl = UrlBuilder.GetCategoryUrl(productItem.CategoryId, categoryUrlName, null, string.Empty);
-                            storeModel.ProductModels.Add(productModel);
+                            if (!string.IsNullOrEmpty(productItem.MainPicturePath))
+                            {
+                                var categoryContentTitle = _categoryService.GetCategoryByCategoryId(productItem.CategoryId).CategoryContentTitle;
+                                string categoryUrlName = !string.IsNullOrEmpty(categoryContentTitle) ? categoryContentTitle : productItem.CategoryName;
+                                var productModel = new MTStoreModel.ProductModel();
+                                productModel.BrandName = productItem.BrandName;
+                                productModel.ModelName = productItem.ModelName;
+                                productModel.ProductName = productItem.ProductName.Replace("\"", "");
+                                productModel.ProductUrl = UrlBuilder.GetProductUrl(productItem.ProductId, productItem.ProductName);
+                                productModel.LargePicturePath = ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicturePath, ProductImageSize.px400x300);
+                                productModel.SmallPicturePath = ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicturePath, ProductImageSize.px100x75);
+                                productModel.SimilarUrl = UrlBuilder.GetCategoryUrl(productItem.CategoryId, categoryUrlName, null, string.Empty);
+                                storeModel.ProductModels.Add(productModel);
+                            }
                         }
+
                     }
                 }
                 else

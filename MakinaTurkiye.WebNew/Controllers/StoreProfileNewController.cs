@@ -709,10 +709,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         }
 
-        public void PrepareJsonLd(MTConnectionModel model)
+        public void PrepareJsonLd(MTConnectionModel model,Store store)
         {
             try
             {
+                
                 var phone = model.Phones.FirstOrDefault(p => p.PhoneType == (byte)PhoneType.Phone);
                 var localBusiness = new Schema.NET.LocalBusiness
                 {
@@ -724,7 +725,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     },
                     Description = model.MTStoreProfileHeaderModel.StoreAbout.CheckNullString(),
                     Name = model.StoreName.CheckNullString(),
-                    Telephone = phone == null ? string.Empty : (phone.PhoneCulture + " " + phone.PhoneAreaCode + " " + phone.PhoneNumber)
+                    Telephone = phone == null ? string.Empty : (phone.PhoneCulture + " " + phone.PhoneAreaCode + " " + phone.PhoneNumber),
+                    Image = new Uri(ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 300))
                 };
                 model.MtJsonLdModel.JsonLdString = localBusiness.ToString();
             }
@@ -1901,7 +1903,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     _storeService.UpdateStore(store);
 
-                    PrepareJsonLd(model);
+                    PrepareJsonLd(model, store);
 
                     return await Task.FromResult(View(model));
                 }
