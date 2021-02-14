@@ -204,7 +204,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             packetViewModel.PacketFeatureItems = _packetService.GetAllPacketFeatures();
 
-            packetViewModel.PacketFeatureTypeItems = _packetService.GetAllPacketFeatureTypes().Where(p => showPacketFeatureTypeItems.Contains(p.PacketFeatureTypeId)).ToList();
+            packetViewModel.PacketFeatureTypeItems = _packetService.GetAllPacketFeatureTypes().ToList();
 
             packetViewModel.PacketItems = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x=>x.DopingPacketDay.HasValue==false).ToList();
 

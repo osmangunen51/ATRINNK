@@ -39,10 +39,12 @@
         <div class="col-md-12">
             <div class="row">
                 @foreach (var item in Model.PacketItems.OrderBy(p => p.PacketOrder))
-                { 
-                using (Html.BeginForm("OneStep", "MembershipSales", FormMethod.Post))
                 {
-                        <div class="col-md-3 col-sm-12" style="height:435px">
+                    item.PacketPrice = item.PacketPrice / (decimal)1.18;
+
+                    using (Html.BeginForm("OneStep", "MembershipSales", FormMethod.Post))
+                    {
+                        <div class="col-md-3 col-sm-12">
                             <div class="panel panel-mt text-center">
                                 <div class='panel-heading' style='background:@Html.Raw(item.HeaderColor + "!important")'>
                                     <h4 class="m0">
@@ -62,9 +64,11 @@
                                     <b class="text-lg">
                                         @{ decimal packetDayPrice;
                                             packetDayPrice = (decimal)(item.PacketPrice / item.PacketDay); }
-                                        @packetDayPrice.ToString("N")  <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i> / Gün
-                                    </b><span class="text-md text-italic">den başlayan fiyatlarla</span>
+                                        @packetDayPrice.ToString("N") <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i>  + KDV / Günlük
+                                    </b>
+
                                 </div>
+
                                 <ul class="list-group">
                                     @foreach (var itemPFTItems in Model.PacketFeatureTypeItems.OrderBy(c => c.PacketFeatureTypeOrder))
                                     {
@@ -72,16 +76,15 @@
                                         var packetFeature = Model.PacketFeatureItems.FirstOrDefault(c => c.PacketFeatureTypeId == itemPFTItems.PacketFeatureTypeId && c.PacketId == item.PacketId);
                                         if (packetFeature != null)
                                         {
-
                                             var packetType = (EPacketFeatureType)packetFeature.FeatureType;
                                             switch (packetType)
                                             {
                                                 case EPacketFeatureType.ProcessCount:
                                                     {
-                                                        <li class='list-group-item' style="background-color:@item.PacketColor">
-                                                            
-                                                            @Html.Raw(packetFeature.FeatureProcessCount.HasValue? packetFeature.FeatureProcessCount.Value.ToString() : "")
-                                                           
+                                                        <li class='list-group-item' style="background-color:@item.PacketColor;  padding: 10px 10px; ">
+                                                            <i class="fa fa-check" style="color:#057904; font-size:16px"></i>
+                                                            @Html.Raw(packetFeature.FeatureProcessCount.HasValue ? packetFeature.FeatureProcessCount.Value.ToString() : "")
+
                                                             @itemPFTItems.PacketFeatureTypeName
                                                         </li>
                                                         break;
@@ -89,34 +92,56 @@
                                                 case EPacketFeatureType.Active:
                                                     {
 
-                                                        if (packetFeature.FeatureActive.HasValue && packetFeature.FeatureActive.Value)
-                                                        {
-                                                            <li class='list-group-item' style="background-color:@item.PacketColor">
-                                                                @itemPFTItems.PacketFeatureTypeName
-                                                            </li>
-                                                        }
+
+                                                        <li class='list-group-item' style="background-color:@item.PacketColor; padding: 10px 10px; ">
+                                                            @if (packetFeature.FeatureActive.HasValue && packetFeature.FeatureActive.Value)
+                                                            {
+                                                                <i class="fa fa-check" style="color:#057904; font-size:14px"></i>
+                                                            }
+                                                            @itemPFTItems.PacketFeatureTypeName
+                                                        </li>
+
                                                         break;
                                                     }
-
                                                 case EPacketFeatureType.Content:
                                                     {
 
-                                                        <li class='list-group-item' style="background-color:@item.PacketColor">
+                                                        <li class='list-group-item' style="background-color:@item.PacketColor; padding: 10px 10px; ">
+                                                            <i class="fa fa-check" style="color:#057904; font-size:14px"></i>
+                                                            @packetFeature.FeatureContent
+                                                            @itemPFTItems.PacketFeatureTypeName
+                                                        </li>
+
+                                                        break;
+                                                    }
+
+                                                default:
+                                                    {
+                                                        <li class='list-group-item' style="background-color:@item.PacketColor;padding: 10px 10px; ">
+                                                            <i class="fa fa-check" style="color:#057904; font-size:14px"></i>
                                                             @packetFeature.FeatureContent
                                                             @itemPFTItems.PacketFeatureTypeName
                                                         </li>
                                                         break;
                                                     }
-                                                default:
-                                                    break;
+
                                             }
                                         }
                                     }
                                     <li class='list-group-item' style="background-color:@item.PacketColor">
-
                                         <h3>
-                                            @item.PacketPrice.ToString("0") <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i> /
+                                            @{ int lastNumber = Convert.ToInt32(item.PacketPrice) % 10;}
+                                            @if (lastNumber == 9)
+                                            {
+                                                item.PacketPrice += 1;
+                                            }
+                                            else if (lastNumber % 10 == 1)
+                                            {
+                                                item.PacketPrice -= 1;
+                                            }
+                                            @item.PacketPrice.ToString("0") <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i>  + KDV /
                                             @if (item.PacketDay == 365)
+
                                             {
                                                 <span>Yıl</span>
                                             }
@@ -128,6 +153,7 @@
                                             {
                                                 @(item.PacketDay) <span>Gün</span>
                                             }
+
                                         </h3>
                                         @Html.Hidden("PacketId", item.PacketId)
                                         @*              <%=Html.DropDownList("PacketId", ComboHelper.GetLimitliPacketPrice(item.PacketName), new { @class = "form-control" })%>*@
@@ -157,5 +183,5 @@
             <br>
         </span>
     </div>
-    </div>
+</div>
 

@@ -69,14 +69,11 @@ namespace MakinaTurkiye.Services.Packets
         public IList<PacketFeature> GetAllPacketFeatures()
         {
             var showPacketFeatureTypeItems = new List<int>();
-            showPacketFeatureTypeItems.Add(3);
-            showPacketFeatureTypeItems.Add(4);
-            showPacketFeatureTypeItems.Add(5);
-            showPacketFeatureTypeItems.Add(6);
-            showPacketFeatureTypeItems.Add(7);
+
 
             var query = _packetFeatureRepository.Table;
-            return query.Where(p => showPacketFeatureTypeItems.Contains(p.PacketFeatureTypeId)).ToList();
+            query.Include(x => x.PacketFeatureType);
+            return query.ToList();
         }
 
         public IList<Packet> GetPacketIsOnsetFalseByDiscountType(bool isDiscounted)
