@@ -51,6 +51,12 @@
             try
             {
                 var curPacketFeatureType = entities.PacketFeatureTypes.SingleOrDefault(c => c.PacketFeatureTypeId == id);
+                var packetFeatures = entities.PacketFeatures.Where(x => x.PacketFeatureTypeId == id);
+                foreach (var packetFeature in packetFeatures)
+                {
+                    entities.PacketFeatures.DeleteObject(packetFeature);
+                }
+                entities.SaveChanges();
                 entities.PacketFeatureTypes.DeleteObject(curPacketFeatureType);
                 entities.SaveChanges();
             }

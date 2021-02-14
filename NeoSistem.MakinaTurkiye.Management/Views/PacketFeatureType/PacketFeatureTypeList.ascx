@@ -19,7 +19,7 @@
         <img src="/Content/images/edit.png" />
       </div>
       <%--DeletePost(<%: item.PacketFeatureTypeId %>);--%>
-    </a><a style="cursor: pointer;" onclick="alert('Paket özellikleri sabit olduğundan silme işlemi başarısız !');">
+    </a><a style="cursor: pointer;" onclick="DeletePost(<%: item.PacketFeatureTypeId %>);">
       <div style="float: left;">
         <img src="/Content/images/delete.png" />
       </div>
