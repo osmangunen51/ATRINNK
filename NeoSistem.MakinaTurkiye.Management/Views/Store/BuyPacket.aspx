@@ -39,6 +39,26 @@
                     alert("Ödeme türü seçiniz");
                 }
             });
+            $("#PacketId").change(function () {
+         
+                var element = $(this).find('option:selected');
+                var myTag = element.attr("price");
+
+                var packetday = element.attr("day");
+                $("#PacketDay").val(packetday);
+
+                var packetPrice = Number(myTag.replace(",", "."));
+
+                $("#PriceValueWithTax").val(Number(packetPrice));
+
+                var packetPriceNew = packetPrice / 1.18;
+                console.log(myTag, packetPriceNew);
+                $("#PriceValue").val(packetPriceNew);
+                $("#PacketPrice").val(packetPriceNew);
+            
+
+            });
+
             $("#Installment").change(function () {
                 installment = this.value;
                 console.log(installment);
@@ -49,12 +69,16 @@
                     $('.date').datepicker();
                 }
             });
+            $("#PriceValue").change(function () {
+          
+                $("#PriceValueWithTax").val($(this).val() * 1.18);
 
+            });
             $('#DiscountAmount').change(function (e) {
                 var discountType = $("#DiscounType").val();
                 var packetPrice = Number($("#PacketPrice").val());
                 var val = $('#DiscountAmount').val();
-                console.log("değer", val, "pakcetprice", packetPrice);
+
                 var newPrice = 0;
                 if (discountType == "1") {
                     newPrice = packetPrice - (packetPrice * val / 100);
@@ -62,8 +86,8 @@
                 else if (discountType == "2") {
                     newPrice = packetPrice - val;
                 }
-                $("#PriceValue").html(newPrice);
-                $("#PriceValueWithTax").html(newPrice * 1.18);
+                $("#PriceValue").val(newPrice);
+                $("#PriceValueWithTax").val(newPrice * 1.18);
 
             });
         });
@@ -77,6 +101,10 @@
             var dates = "";
             if (orderType == "0") {
                 alert("Ödeme türü seçiniz");
+                return false;
+            }
+            if ($("#PacketId").val() == "0") {
+                alert("Lütfen Paket Seçiniz");
                 return false;
             }
 
@@ -129,6 +157,7 @@
                 alert("Lütfen Paket Süresini 0 dan büyük giriniz");
                 return false;
             }
+
             $.ajax({
 
                 url: '/Store/BuyPacket',
@@ -144,8 +173,10 @@
                     "TaxNo": $("#TaxNo").val(),
                     "DiscountType": $("#DiscounType").val(),
                     "DiscountAmount": $("#DiscountAmount").val(),
-                    "PacketDay": $("#PacketDay").val()
-                },
+                    "PacketDay": $("#PacketDay").val(),
+                    "PacketId": $("#PacketId").val(),
+                    "PriceValueWithTax": $("#PriceValueWithTax").val()
+                }, 
                 dataType: 'json',
                 success: function (data) {
                     $("#OrderType").val("0");
@@ -169,8 +200,8 @@
             if (val == "0") {
                 $("#DisctounTypeValueContainer").hide();
                 var packetPrice = Number($("#PacketPrice").val());
-                $("#PriceValue").html(packetPrice);
-                $("#PriceValueWithTax").html(packetPrice * 1.18);
+                $("#PriceValue").val(packetPrice);
+                $("#PriceValueWithTax").val(packetPrice * 1.18);
 
             }
             else if (val == "1") {
@@ -210,7 +241,21 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <td>Paket</td>
+                <td>:</td>
+                <td>
+                    <select name="PacketId" id="PacketId">
+                        <option value="0" price="0">Seçiniz</option>
+                        <%foreach (var item in Model.Packets)
+                            {%>
+                        <option price="<%:item.PacketPrice %>"  day="<%:item.PacketDay %>" value="<%:item.PacketId %>"><%:item.PacketName %></option>
+                        <%
 
+                            } %>
+                    </select>
+                </td>
+            </tr>
             <tr>
                 <td>Açıklama</td>
                 <td>:</td>
@@ -278,13 +323,16 @@
             <tr>
                 <td>Fiyat</td>
                 <td>:</td>
-                <td id="PriceValue"><%:Model.PacketPrice %> </td>
+                <td id="">
+                    <input type="text" id="PriceValue" value="<%:Model.PacketPrice %>" />
+                   </td>
             </tr>
             <tr>
                 <td>Kdv Dahil Fiyat</td>
                 <td>:</td>
-                <td id="PriceValueWithTax">
-                    <%:(Model.PacketPrice*1.18) %>
+                <td >
+                    <input type="text" disabled="disabled" id="PriceValueWithTax" />
+                    
                 </td>
             </tr>
             <tr>
