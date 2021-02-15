@@ -22132,7 +22132,8 @@ img.res-buyut {
 }
 
 .product-list-mt__detail, .product-list-mt__inner, .product-list-mt__item, .product-list-mt__link {
-    position: relative
+    position: relative;
+    line-height:30px;
 }
 
 .company-list-mt [class*=col-] {
@@ -22274,7 +22275,7 @@ img.res-buyut {
 
 @media (min-width:992px) {
     .product-list-mt__item {
-        min-height: 340px !important
+        min-height: 325px !important
     }
 }
 
@@ -22371,7 +22372,7 @@ img.res-buyut {
 }
 
     .product-list-mt__advert-no:before {
-        content: 'Ä°lan No: '
+        content: 'İlan No: '
     }
 
 @media (min-width:480px) {
@@ -22546,7 +22547,7 @@ img.res-buyut {
 }
 
 .product-list-mtgrid__advert-no:before {
-    content: "Ä°lan No:"
+    content: "İlan No:"
 }
 
 .product-list-mtgrid__advert-no {
@@ -22649,7 +22650,8 @@ img.res-buyut {
 
 @media (min-width:992px) {
     .store-product-container .product-list-mt__item {
-        min-height: 362px !important
+        min-height: 325px !important;
+        line-height:30px;
     }
 
     .new-header.is-fixed {
@@ -23449,14 +23451,15 @@ img.res-buyut {
 
 .mega-dropdown-menu > li > section > ul > li {
     list-style: none;
-    padding: 8px 0;
+    padding: 3px 0
 }
 
     .mega-dropdown-menu > li > section > ul > li > a {
         color: #4F4F4F;
         font-family: Arial;
-        font-size: 13px;
+        font-size: 14px;
         text-align: left;
+        line-height:10px;
     }
 
     .mega-dropdown-menu > li > section > ul > li:not(:first-child):hover a {
@@ -23552,8 +23555,7 @@ img.res-buyut {
     font-size: 15px;
     font-weight: 700;
     line-height: 17px;
-    margin-bottom: .25rem;
-    margin-top: 20px;
+    margin-bottom: .25rem
 }
 
     .mega-dropdown-menu > li > section > ul > .dropdown-header > a:hover {
@@ -23575,7 +23577,8 @@ img.res-buyut {
 
 .mega-dropdown-menu li ul li:not(.dropdown-header) {
     float: left;
-    line-height: 1
+    line-height: 1;
+    margin-top:5px;
 }
 
 .main-navigation div .navbar-nav > li {
@@ -23744,12 +23747,11 @@ img.res-buyut {
     .new-header__top-right {
         width: auto
     }
-
-        .new-header__top-right a:nth-child(2) svg {
-            width: 32px;
-            height: 32px;
-            padding-top: 2px;
-        }
+    .new-header__top-right a:nth-child(2) svg {
+    width:32px;
+    height:32px;
+    padding-top:2px;
+}
 }
 
 .account-dropdown {
@@ -26013,7 +26015,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
         width: 30px !important;
         margin-left: 5px;
         margin-right: 5px;
-        fill: #F44336;
+        fill:#F44336;
     }
 
     .btn-login {
@@ -26021,37 +26023,33 @@ input[name="SearchText"]::-webkit-input-placeholder {
         margin-bottom: 5px;
     }
 
-    .main-container {
-        transform: none;
-        overflow: hidden;
-        padding-right: 37px;
-    }
-
-    .product-detail__title {
-        padding-left: 15px;
-    }
-
-    .ilanSlider {
-        padding-left: 25px;
-        /* padding-right: 15px; */
-        transform: none;
-    }
-
-    .socialM {
-        padding-left: 20px;
-    }
-
-    .store-profile-header__brand-name {
-        padding-top: 20px;
-    }
-
+.main-container{
+    transform: none;
+    overflow: hidden;
+    padding-right: 37px;
+}
+.product-detail__title {
+    padding-left: 15px;
+}
+.ilanSlider {
+    padding-left: 25px;
+    /* padding-right: 15px; */
+    transform: none;
+}
+.socialM {
+    padding-left:20px;
+}
+.store-profile-header__brand-name {
+    padding-top:20px;
+}
     .homeCont {
-        padding-right: 15px;
+        padding-right:15px;
     }
+	#myTabContent
+    {
+        margin-left:10px;
+        margin-right:0px;
+        padding-right:0px;
 
-    #myTabContent {
-        margin-left: 10px;
-        margin-right: 0px;
-        padding-right: 0px;
     }
 }

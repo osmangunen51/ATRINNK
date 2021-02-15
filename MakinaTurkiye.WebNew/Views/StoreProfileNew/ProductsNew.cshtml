@@ -73,9 +73,9 @@
                         <a href="@item.FilterUrl" class="categort-filter__link @active">@item.FilterName<span class="category-filter-count">&nbsp;(@item.ProductCount)</span></a>}
                             </div>
                             <div class="col-xs-3 col-sm-6 col-md-4 ">
-                                <div class="col-md-12 hidden-xs">
+                                <div class="col-md-12">
                                     <div class="row">
-                                        <div class="dropdown">
+                                        <div class="dropdown pull-right" style="max-width: 160px;">
                                             <button class="btn btn-default btn-block dropdown-toggle" type="button" id="btnGroupVerticalDrop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                                 Sıralama Türü Seçiniz
                                                 <span class="caret"></span>
@@ -95,7 +95,6 @@
                                                 </li>
                                                 <li>
                                                     <a class="@(queryOrder == " fiyat-artan" ? activeCss : string.Empty)" href="@Request.FilePath@("?Order=fiyat-artan")">Fiyata Göre Artan</a>
-
                                                 </li>
                                             </ul>
                                         </div>
