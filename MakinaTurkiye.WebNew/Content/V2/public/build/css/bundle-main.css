@@ -22275,7 +22275,7 @@ img.res-buyut {
 
 @media (min-width:992px) {
 	.product-list-mt__item {
-		min-height: 340px !important
+		height: 340px !important
 	}
 }
 

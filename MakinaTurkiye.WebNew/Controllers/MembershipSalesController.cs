@@ -1718,6 +1718,24 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone,taksit);
 
             var paymentResult = iyzicoPayment.CreatePaymentRequest();
+
+            //var cclRequest = new CreditCardLog();
+            //cclRequest.MainPartyId = store.MainPartyId;
+
+            //if (taksit == "00" | taksit == "0" | taksit == "")
+            //    cclRequest.OrderType = "Tek Çekim";
+            //else
+            //    cclRequest.OrderType = "Taksitli";
+            //if (paymentResult.Status == "success")
+            //    cclRequest.Status = "Başarılı";
+            //else
+            //    cclRequest.Status = "Başarısız";
+            //cclRequest.CreatedDate = DateTime.Now;
+            //cclRequest.IPAddress = Request.UserHostAddress.ToString();
+            //cclRequest.Code = paymentResult.ErrorCode;
+            //cclRequest.Detail = Newtonsoft.Json.JsonConvert.SerializeObject(paymentResult,Newtonsoft.Json.Formatting.None);
+            //_creditCardLogService.InsertCreditCardLog(cclRequest);
+
             if (paymentResult.HtmlContent != null)
             {
                 model.HtmlContent = paymentResult.HtmlContent;
@@ -1788,7 +1806,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             order = _orderService.GetOrderByOrderId(orderId);
             if (threedsPayment != null)
             {
-
                 paidPrice = order.OrderPrice;
 
                 status1 = threedsPayment.Status;
@@ -1890,7 +1907,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 if (order.PriceCheck == true)
                 {
-
                     #region packetconfirm
                     //hesap numnarası fiyatı
 
@@ -1930,8 +1946,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
                     #endregion
-
-
                 }
                 try
                 {
@@ -1961,11 +1975,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-
                     //log.Error(" kredi kartı ödeme ödeme bilgimakina maili hatası: " + ex.Message);
                 }
-
-
                 if (paidPrice == order.OrderPrice)
                 {
                     ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı.Paketiniz yükseltilmiştir.<br>Makinaturkiye.com'un sağlamış olduğu avantajlardan yararlanabilirsiniz.";
@@ -2029,12 +2040,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-
                     //log.Error(" kredi kartı ödeme ödeme bilgimakina maili hatası: " + ex.Message);
                 }
                 ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı." + product.Category.CategoryContentTitle + " kategorisinde bulunan " + product.ProductName + " isimli ürününüze " + SessionPayWithCreditCardModel.MTPayWithCreditCardModel.DopingDay + " gün süreli doping uygulanmıştır.";
                 return View("PosComplete");
             }
+
             TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
             if (threedsPayment.ErrorMessage == "paymentId gönderilmesi zorunludur")
                 TempData["errorPosMessage"] = "Bir hata oluştu lütfen bankanız ile iletişime geçiniz.";
