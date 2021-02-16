@@ -27,7 +27,7 @@ namespace MakinaTurkiye.Entities.Tables.Packets
         public double ?ProductFactor { get; set;}
         public bool ? IsDopingPacket { get; set; }
         public Int16 ? DopingPacketDay { get; set; }
-
+        public bool? ShowAdmin { get; set; }
         public virtual ICollection<PacketFeature> PacketFeatures
         {
             get { return _packetFeatures ?? (_packetFeatures = new List<PacketFeature>()); }
