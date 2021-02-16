@@ -75,6 +75,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly IStoreSeoNotificationService _storeSeoNotificationService;
 
 
+
+
         #endregion
 
         #region Ctor
@@ -3300,21 +3302,20 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             ViewData["BuyPacket"] = true;
             BuyPacketModel model = new BuyPacketModel();
-            int packetId = 29;
+
             var store = _storeService.GetStoreByMainPartyId(id);
             model.TaxNo = store.TaxNumber;
             model.TaxOffice = store.TaxOffice;
-            var packet = _packetService.GetAllPacket().FirstOrDefault(x => x.PacketId == packetId);
-            float taxDiscount = ((float)packet.PacketPrice - ((float)packet.PacketPrice / (1.18f)));
-            decimal packetPrice = packet.PacketPrice - Convert.ToDecimal(taxDiscount);
-            model.PacketPrice = Convert.ToInt32(packetPrice);
-            model.PacketDay = packet.PacketDay;
+            
+            model.PacketDay = 0;
+            model.Packets = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x => x.DopingPacketDay.HasValue == false).ToList(); 
+
             return View(model);
         }
         [HttpPost]
         public JsonResult BuyPacket(BuyPacketModel model)
         {
-            int packetId = 29;
+            int packetId = model.PacketId;
             string installmentTextMail = "";
             string mailTemplateName = "havalbildirimmail";
             if (model.OrderType == (byte)Ordertype.HavaleTaksit)
@@ -3324,28 +3325,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             else if (model.OrderType == (byte)Ordertype.KrediKartiVade)
                 mailTemplateName = "kredikartivadebildirim";
 
-            var packet = _packetService.GetPacketByPacketId(packetId);
-            decimal packetPriceWithoutTax = packet.PacketPrice - (decimal)((float)packet.PacketPrice - ((float)packet.PacketPrice / (1.18f)));
+            var packet = _packetService.GetPacketByPacketId(model.PacketId);
+            decimal packetPriceWithoutTax =  Convert.ToDecimal(model.PriceValueWithTax) / (decimal)1.18;
             decimal amount = 0;
-            decimal packetPrice = 0;
+            decimal packetPrice =Convert.ToDecimal(model.PriceValueWithTax);
             if (model.DiscountType != "0")
             {
                 amount = Convert.ToDecimal(model.DiscountAmount);
-                if (model.DiscountType == "1")
-                {
-                    packetPrice = packetPriceWithoutTax - (packetPriceWithoutTax * (amount / 100));
-                    packetPrice = Convert.ToDecimal((float)packetPrice * 1.18f);
-                }
-                else
-                {
-                    packetPrice = packetPriceWithoutTax - amount;
-                    packetPrice = Convert.ToDecimal((float)packetPrice * 1.18f);
-                }
+            
             }
-            else
-            {
-                packetPrice = packet.PacketPrice;
-            }
+
+
             var store = _storeService.GetStoreByMainPartyId(model.MainPartyId);
             var adress = _adressService.GetFisrtAddressByMainPartyId(model.MainPartyId);
             string orderNo = "S" + model.MainPartyId;
@@ -3386,6 +3376,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     storeDiscount.DiscountAmount = amount;
                 else
                     storeDiscount.DiscountPercentage = Convert.ToDecimal(model.DiscountAmount);
+
                 storeDiscount.OrderId = order.OrderId;
                 storeDiscount.StoreMainPartyId = model.MainPartyId;
                 storeDiscount.UserId = CurrentUserModel.CurrentManagement.UserId;
