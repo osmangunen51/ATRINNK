@@ -54,13 +54,6 @@
         @RenderBody()
     </div>
 </div>
-            @{Html.RenderAction("Content", "Footer");}
-            <script>
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker
-                        .register('/serviceworker.js')
-                        .then(function () { console.log('Service Worker Registered'); });
-                }
-            </script>
+@{Html.RenderAction("Content", "Footer");}
 </body>
 </html>

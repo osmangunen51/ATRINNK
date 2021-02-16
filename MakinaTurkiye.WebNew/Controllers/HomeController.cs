@@ -752,6 +752,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     model.CategoryModels.Add(new MTHomeCategoryModel
                     {
                         CategoryName = item.CategoryName,
+                        CategoryContentTitle=item.CategoryContentTitle,
                         CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName, null, null)
                     });
                 }
@@ -767,6 +768,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var categoryModel = new MTHomeCategoryModel
                     {
                         CategoryName = category.Category.CategoryName,
+                        CategoryContentTitle=category.Category.CategoryContentTitle,
                         CategoryId = category.Category.CategoryId,
                         CategoryUrlName = category.Category.CategoryContentTitle,
                         CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty),
@@ -782,6 +784,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         var subCategory = new MTHomeCategoryModel
                         {
                             CategoryName = subItem.CategoryName,
+                            CategoryContentTitle = subItem.CategoryContentTitle,
                             ProductCount = subItem.ProductCount.Value,
                             CategoryUrlName = subItem.CategoryContentTitle,
                             CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)
@@ -795,6 +798,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             var subSubCategory = new MTHomeCategoryModel
                             {
                                 CategoryName = subSubItem.CategoryName,
+                                CategoryContentTitle = subItem.CategoryContentTitle,
                                 CategoryUrlName = subItem.CategoryContentTitle,
                                 ProductCount = subSubItem.ProductCount.Value,
                                 CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)

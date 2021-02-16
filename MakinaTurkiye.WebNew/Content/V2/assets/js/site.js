@@ -1404,7 +1404,7 @@ $(document).ready(function () {
     // Ürün detay firma bilgileri alanı
     if ($('.rightSidebar').length > 0) {
         $('.rightSidebar').theiaStickySidebar({
-            additionalMarginTop: 50,
+            //additionalMarginTop: 70,
         });
     }
 

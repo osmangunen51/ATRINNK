@@ -52,6 +52,7 @@
                         <a data-rel="deleteImage" onclick="DeleteImage('@Model[i].ProductId', '@Model[i].ProductId', '@Model[i].PicturePath')" data-index="@i" class="picture-list-item__delete">
                             <i class="glyphicon glyphicon-remove-circle"></i>
                         </a>
+                        <a onclick="mainImage('@Model[i].ProductId','@Model[i].PicturePath')" data-index="@i" style="cursor: pointer" class="picture-list-item__main-image">Ana Resim Seç</a>
                     </div>
                 </div>
             </div>
@@ -81,3 +82,108 @@ else
         }
     </div>
 }
+
+<script>
+
+    $(document).ready(function () {
+        $('[data-rel="deleteImage"]').click(function () {
+            var productId = $(this).attr('data-productid');
+            var picturePath = $(this).attr('data-picturepath');
+            //DeleteImage(productId, productId, picturePath);
+        });
+
+        $('[data-rel="mainImage"]').click(function () {
+            var productId = $(this).attr('data-productid');
+            var picturePath = $(this).attr('data-picturepath');
+            //mainImage(productId, picturePath);
+        });
+
+        $('[data-rel="form-submit"]').removeClass('disabled');
+    });
+
+    function mainImage(productID, picturePath) {
+        $.ajax({
+            url: '/Account/ilan/mainImage',
+            type: 'post',
+            data: { productID: productID, picturePath: picturePath },
+            success: function (data) {
+                $('#divPictureList .row').html(data);
+            },
+            error: function (x, l, e) {
+                alert(x.responseText);
+            }
+        });
+    }
+
+    function DeleteImage(index, productID, picturePath) {
+        $.ajax({
+            url: '/Account/ilan/DeleteImage',
+            type: 'post',
+            data: { index: index, productID: productID, picturePath: picturePath, horizontal: false },
+            success: function (data) {
+                $('#divPictureList .row').html(data);
+            },
+            error: function (x, l, e) {
+                // alert(x.responseText);
+            }
+        });
+    }
+
+    function DeletePicture(id) {
+        $.ajax({
+            url: '/Account/Advert/DeletePicture',
+            type: 'post',
+            data: { index: id, horizontal: false },
+            success: function (data) {
+                $('#divPictureList .row').html(data);
+            },
+            error: function (x, l, e) {
+                // alert(x.responseText);
+            }
+        });
+    }
+
+    function nextStatu(e) {
+        $('#loaderDiv').show();
+    }
+
+    $(document).on('invalid-form.validate', 'form', function () {
+        $('[data-rel="form-submit"]').removeClass('disabled');
+    });
+
+    $(document).on('submit', 'form', function () {
+        $('[data-rel="form-submit"]').addClass('disabled');
+    });
+
+    $('.file-input-advanced').fileinput({
+        browseLabel: 'Dosyadan Seç',
+        browseClass: 'btn btn-primary',
+        removeLabel: '',
+        uploadLabel: '',
+        language: "tr",
+        dropZoneEnabled: true,
+        maxFileCount: 20,
+        allowedFileExtensions: ["jpg", "gif", "png", "jpeg"],
+        showDrag: true,
+        browseIcon: '<i class="glyphicon glyphicon-plus position-left"></i> ',
+        uploadClass: 'btn btn-primary btn-icon',
+        uploadIcon: '<i class="icon-file-upload"></i> ',
+        removeClass: 'btn btn-danger btn-icon',
+        removeIcon: '<i class="glyphicon glyphicon-trash"></i>',
+        initialCaption: "Dosya Seçilmedi",
+        layoutTemplates: {
+            caption: '<div tabindex="-1" class="form-control file-caption {class}">\n' + '<span class="icon-file-plus kv-caption-icon"></span><div class="file-caption-name"></div>\n' + '</div>',
+            main1: "{preview}" +
+                "<div class='input-group {class}'>\n" +
+                "   <div class='input-group-btn'>\n" +
+                "       {browse}\n" +
+                "   </div>\n" +
+                "   {caption}\n" +
+                "   <div class='input-group-btn'>\n" +
+                "       {remove}\n" +
+                "   </div>\n" +
+                "</div>"
+        }
+    });
+
+</script>

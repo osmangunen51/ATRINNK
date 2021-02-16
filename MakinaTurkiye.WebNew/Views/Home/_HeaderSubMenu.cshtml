@@ -7,13 +7,13 @@
     bool isMobile = Request.Browser.IsMobileDevice;
     string menuCss = "col-md-12";
 
-    string subMenuCss = "col-md-3";
+    string subMenuCss = "col-md-4";
 
     if (Model.ImageModels.Count > 0)
     {
         menuCss = "col-md-9";
     } }
-<li class="col-sm-12 @menuCss " style="padding-top:10px;">
+<li class="col-sm-12 @menuCss " style="padding-top:20px;">
     @foreach (var category in Model.CategoryModels.ToList())
     {
 <section class="col-sm-12  @subMenuCss" style="padding: 0px;">
@@ -21,7 +21,7 @@
         @if (!isMobile)
         {
 <li class="dropdown-header col-md-12">
-    <a href="@category.CategoryUrl">
+    <a href="@category.CategoryUrl" title="@category.CategoryContentTitle.Replace("<br>","")">
         @*@if (category.CategoryName.ToLower().Contains("makin"))
             {
                 category.CategoryName = category.CategoryName.Split(' ')[0];
@@ -39,7 +39,7 @@
         @if (isMobile)
         {
 <li style="padding-left: 5px;">
-    <a href="@category.CategoryUrl">
+    <a href="@category.CategoryUrl" title="@category.CategoryContentTitle.Replace("<br>","")">
         @Html.Raw(category.CategoryName)
         @{ counter++; }
     </a>
@@ -51,7 +51,7 @@ foreach (var subCategory in category.SubCategoryModels)
 {
 
 <li style="padding-left:5px;display:inline-block">
-    <a href="@subCategory.CategoryUrl" style="margin-left:5px;">
+    <a href="@subCategory.CategoryUrl" style="margin-left:5px;" title="@subCategory.CategoryContentTitle">
         @{string seperator = category.SubCategoryModels.Count != counter ? ",  " : ""; }
         @Html.Raw((subCategory.CategoryName + seperator))
         @{ counter++; }
