@@ -5,16 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="MakinaTurkiyeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="_ImageProcessLogs">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ProductId" Type="int" />
-          <Property Name="PictureId" Type="int" />
-          <Property Name="Message" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" />
-        </EntityType>
         <EntityType Name="Account">
           <Key>
             <PropertyRef Name="AccountId" />
@@ -676,6 +666,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="PacketType" Type="tinyint" />
           <Property Name="IsDopingPacket" Type="bit" />
           <Property Name="DopingPacketDay" Type="smallint" />
+          <Property Name="ShowAdmin" Type="bit" />
         </EntityType>
         <EntityType Name="PacketFeature">
           <Key>
@@ -1135,6 +1126,15 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="DealerName" Type="varchar" MaxLength="100" />
           <Property Name="DealerType" Type="tinyint" />
         </EntityType>
+        <EntityType Name="Storeindirim">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainPartyId" Type="int" Nullable="false" />
+          <Property Name="BeginDate" Type="date" />
+          <Property Name="Enddate" Type="date" />
+        </EntityType>
         <EntityType Name="StoreInfoNumberShow">
           <Key>
             <PropertyRef Name="StoreInfoNumberShowID" />
@@ -1145,15 +1145,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="TaxOfficeShow" Type="bit" />
           <Property Name="TradeRegistryNoShow" Type="bit" />
           <Property Name="MersisNoShow" Type="bit" />
-        </EntityType>
-        <EntityType Name="Storeindirim">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MainPartyId" Type="int" Nullable="false" />
-          <Property Name="BeginDate" Type="date" />
-          <Property Name="Enddate" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2267,7 +2258,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primar
           <Parameter Name="Order" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="MakinaTurkiyeModelStoreContainer">
-          <EntitySet Name="_ImageProcessLogs" EntityType="Self._ImageProcessLogs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ActivityType" EntityType="Self.ActivityType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
@@ -2345,8 +2335,8 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primar
           <EntitySet Name="StoreCertificate" EntityType="Self.StoreCertificate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreChangeHistory" EntityType="Self.StoreChangeHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreDealer" EntityType="Self.StoreDealer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StoreInfoNumberShow" EntityType="Self.StoreInfoNumberShow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Storeindirim" EntityType="Self.Storeindirim" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StoreInfoNumberShow" EntityType="Self.StoreInfoNumberShow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreSector" EntityType="Self.StoreSector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreStatistic" EntityType="Self.StoreStatistic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -2988,7 +2978,6 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           </FunctionImport>
           <EntitySet Name="MailLogs" EntityType="MakinaTurkiyeModel.MailLog" />
           <EntitySet Name="MessagesMTs" EntityType="MakinaTurkiyeModel.MessagesMT" />
-          <EntitySet Name="C_ImageProcessLogs" EntityType="MakinaTurkiyeModel.C_ImageProcessLogs" />
           <EntitySet Name="AlertMessages" EntityType="MakinaTurkiyeModel.AlertMessage" />
           <EntitySet Name="Boards" EntityType="MakinaTurkiyeModel.Board" />
           <EntitySet Name="BoardDevelopers" EntityType="MakinaTurkiyeModel.BoardDeveloper" />
@@ -4625,6 +4614,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <Property Name="PacketType" Type="Byte" />
           <Property Name="IsDopingPacket" Type="Boolean" />
           <Property Name="DopingPacketDay" Type="Int16" />
+          <Property Name="ShowAdmin" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Order_Packet">
           <End Type="MakinaTurkiyeModel.Packet" Role="Packet" Multiplicity="0..1" />
@@ -4843,16 +4833,6 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <Property Name="MailPassword" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="MailSendFromName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="MailContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="C_ImageProcessLogs">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Type="Int32" Name="ProductId" />
-          <Property Type="Int32" Name="PictureId" />
-          <Property Type="String" Name="Message" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Type="DateTime" Name="CreatedOn" Precision="3" />
         </EntityType>
         <EntityType Name="AlertMessage">
           <Key>
@@ -6311,6 +6291,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <EntitySetMapping Name="Packets">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.Packet">
               <MappingFragment StoreEntitySet="Packet">
+                <ScalarProperty Name="ShowAdmin" ColumnName="ShowAdmin" />
                 <ScalarProperty Name="DopingPacketDay" ColumnName="DopingPacketDay" />
                 <ScalarProperty Name="IsDopingPacket" ColumnName="IsDopingPacket" />
                 <ScalarProperty Name="PacketType" ColumnName="PacketType" />
@@ -6513,17 +6494,6 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
                 <ScalarProperty Name="MessagesMTTitle" ColumnName="MessagesMTTitle" />
                 <ScalarProperty Name="MessagesMTName" ColumnName="MessagesMTName" />
                 <ScalarProperty Name="MessagesMTId" ColumnName="MessagesMTId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="C_ImageProcessLogs">
-            <EntityTypeMapping TypeName="MakinaTurkiyeModel.C_ImageProcessLogs">
-              <MappingFragment StoreEntitySet="_ImageProcessLogs">
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="Message" ColumnName="Message" />
-                <ScalarProperty Name="PictureId" ColumnName="PictureId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7106,7 +7076,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="MakinaTurkiyeEntities" ZoomLevel="63">
+      <Diagram Name="MakinaTurkiyeEntities" ZoomLevel="57">
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Account" Width="1.5" PointX="3.75" PointY="10.25" Height="2.5571907552083317" IsExpanded="true" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.ActivityType" Width="1.5" PointX="5.75" PointY="2" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Address" Width="1.5" PointX="5.25" PointY="18.75" Height="5.057109374999996" IsExpanded="true" />
@@ -7725,7 +7695,6 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
         </AssociationConnector>
         <EntityTypeShape EntityType="MakinaTurkiyeModel.MailLog" Width="1.5" PointX="20.375" PointY="7.75" Height="2.5571907552083246" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.MessagesMT" Width="1.5" PointX="20.375" PointY="11.75" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="MakinaTurkiyeModel.C_ImageProcessLogs" Width="1.5" PointX="21.375" PointY="0.75" Height="2.0044696124394648" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.AlertMessage" Width="1.5" PointX="21.375" PointY="3.75" Height="2.3951182655493426" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Board" Width="1.5" PointX="21.375" PointY="18.875" Height="1.80914528588454" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.BoardDeveloper" Width="1.5" PointX="23.625" PointY="19" Height="1.6138209593295869" />
