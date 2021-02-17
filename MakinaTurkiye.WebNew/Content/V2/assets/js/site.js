@@ -843,7 +843,6 @@ function showSubCategory() {
             that.closest('.result-category__item').addClass('expanded');
             text.html("Tümünü Gizle");
             icon.attr("class", "icon-fill-up-arrow");
-
         }
         else {
             that.closest('.result-category__item').removeClass('expanded');
@@ -1404,7 +1403,7 @@ $(document).ready(function () {
     // Ürün detay firma bilgileri alanı
     if ($('.rightSidebar').length > 0) {
         $('.rightSidebar').theiaStickySidebar({
-            //additionalMarginTop: 70,
+            additionalMarginTop:100,
         });
     }
 

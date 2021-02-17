@@ -169,7 +169,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 			filterService.FilterName = "Hizmetler";
 			int productCountService = 0;
 
-			_productService.GetSPProductsCountByStoreMainPartyIdAndSearchType(out productCountService, model.MTProductsProductListModel.StoreMainPartyId, 201, model.CategoryId);
+			_productService.GetSPProductsCountByStoreMainPartyIdAndSearchType(out productCountService, model.MTProductsProductListModel.StoreMainPartyId,201, model.CategoryId);
 			filterService.ProductCount = productCountService;
 			filterService.FilterUrl = Request.Url.AbsolutePath + "?SearchType=hizmet";
 			if (GetSearchTypeQueryString() == "hizmet")
@@ -654,46 +654,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 			int totalRecord;
 			int mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
 			products = _productService.GetSPProductsByStoreMainPartyIdAndCategoryId(out totalRecord, PageDimension, page, store.MainPartyId, model.CategoryId, mainPartyId);
-
-			string order = GetOrderQueryString();
-			int orderById = 0;
-			switch (order)
-			{
-				case "a-z": orderById = 2; break;
-				case "z-a": orderById = 3; break;
-				case "fiyat-azalan": orderById = 4; break;
-				case "fiyat-artan": orderById = 6; break;
-				default: orderById = 0; break;
-			}
-			switch (orderById)
-			{
-				case 0:{
-						products = products.OrderByDescending(x => x.productrate).ToList();
-						break;
-					}
-				case 2:
-					{
-						products = products.OrderBy(x => x.ProductName).ToList();
-						break;
-					}
-				case 3:
-					{
-						products = products.OrderByDescending(x => x.ProductName).ToList();
-						break;
-					}
-				case 4:
-					{
-						products = products.OrderByDescending(x => x.ProductPrice).ToList();
-						break;
-					}
-				case 6:
-					{
-						products = products.OrderBy(x => x.ProductPrice).ToList();
-						break;
-					}
-				default:
-					break;
-			}
 			foreach (var item in products)
 			{
 				int modelYear = 0;
@@ -736,13 +696,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 				productList.Add(mtProductList);
 			}
-
 			PagingModel<MTProductsPageProductList> productsModel = new PagingModel<MTProductsPageProductList>();
 			productsModel.CurrentPage = page;
 			productsModel.TotalRecord = totalRecord;
 			productsModel.PageDimension = PageDimension;
 			productsModel.Source = productList;
 			model.MTProductsProductListModel.MTProductsPageProductLists = productsModel;
+
+
 
 		}
 
@@ -1039,6 +1000,48 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 					}
 					_storeService.UpdateStore(store);
 
+					string order = GetOrderQueryString();
+					int orderById = 0;
+					switch (order)
+					{
+						case "a-z": orderById = 2; break;
+						case "z-a": orderById = 3; break;
+						case "fiyat-azalan": orderById = 4; break;
+						case "fiyat-artan": orderById = 6; break;
+						default: orderById = 0; break;
+					}
+					var products = model.MTProductsProductListModel.MTProductsPageProductLists.Source.ToList();
+					switch (orderById)
+					{
+						case 0:
+							{
+								products = products.OrderByDescending(x => x.productrate).ToList();
+								break;
+							}
+						case 2:
+							{
+								products = products.OrderBy(x => x.ProductName).ToList();
+								break;
+							}
+						case 3:
+							{
+								products = products.OrderByDescending(x => x.ProductName).ToList();
+								break;
+							}
+						case 4:
+							{
+								products = products.OrderByDescending(x => x.ProductPrice).ToList();
+								break;
+							}
+						case 6:
+							{
+								products = products.OrderBy(x => x.ProductPrice).ToList();
+								break;
+							}
+						default:
+							break;
+					}
+					model.MTProductsProductListModel.MTProductsPageProductLists.Source = products;
 					return await Task.FromResult(View(model));
 				}
 				else
