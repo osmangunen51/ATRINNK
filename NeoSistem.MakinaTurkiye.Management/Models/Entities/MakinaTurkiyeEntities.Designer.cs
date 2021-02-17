@@ -1087,22 +1087,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<C_ImageProcessLogs> C_ImageProcessLogs
-        {
-            get
-            {
-                if ((_C_ImageProcessLogs == null))
-                {
-                    _C_ImageProcessLogs = base.CreateObjectSet<C_ImageProcessLogs>("C_ImageProcessLogs");
-                }
-                return _C_ImageProcessLogs;
-            }
-        }
-        private ObjectSet<C_ImageProcessLogs> _C_ImageProcessLogs;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<AlertMessage> AlertMessages
         {
             get
@@ -2078,14 +2062,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         public void AddToMessagesMTs(MessagesMT messagesMT)
         {
             base.AddObject("MessagesMTs", messagesMT);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the C_ImageProcessLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToC_ImageProcessLogs(C_ImageProcessLogs c_ImageProcessLogs)
-        {
-            base.AddObject("C_ImageProcessLogs", c_ImageProcessLogs);
         }
     
         /// <summary>
@@ -5256,160 +5232,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
                 }
             }
         }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MakinaTurkiyeModel", Name="C_ImageProcessLogs")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class C_ImageProcessLogs : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new C_ImageProcessLogs object.
-        /// </summary>
-        /// <param name="id">Initial value of the id property.</param>
-        /// <param name="message">Initial value of the Message property.</param>
-        public static C_ImageProcessLogs CreateC_ImageProcessLogs(global::System.Int32 id, global::System.String message)
-        {
-            C_ImageProcessLogs c_ImageProcessLogs = new C_ImageProcessLogs();
-            c_ImageProcessLogs.id = id;
-            c_ImageProcessLogs.Message = message;
-            return c_ImageProcessLogs;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                if (_id != value)
-                {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value, "id");
-                    ReportPropertyChanged("id");
-                    OnidChanged();
-                }
-            }
-        }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ProductId
-        {
-            get
-            {
-                return _ProductId;
-            }
-            set
-            {
-                OnProductIdChanging(value);
-                ReportPropertyChanging("ProductId");
-                _ProductId = StructuralObject.SetValidValue(value, "ProductId");
-                ReportPropertyChanged("ProductId");
-                OnProductIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _ProductId;
-        partial void OnProductIdChanging(Nullable<global::System.Int32> value);
-        partial void OnProductIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> PictureId
-        {
-            get
-            {
-                return _PictureId;
-            }
-            set
-            {
-                OnPictureIdChanging(value);
-                ReportPropertyChanging("PictureId");
-                _PictureId = StructuralObject.SetValidValue(value, "PictureId");
-                ReportPropertyChanged("PictureId");
-                OnPictureIdChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _PictureId;
-        partial void OnPictureIdChanging(Nullable<global::System.Int32> value);
-        partial void OnPictureIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.String Message
-        {
-            get
-            {
-                return _Message;
-            }
-            set
-            {
-                OnMessageChanging(value);
-                ReportPropertyChanging("Message");
-                _Message = StructuralObject.SetValidValue(value, false, "Message");
-                ReportPropertyChanged("Message");
-                OnMessageChanged();
-            }
-        }
-        private global::System.String _Message;
-        partial void OnMessageChanging(global::System.String value);
-        partial void OnMessageChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> CreatedOn
-        {
-            get
-            {
-                return _CreatedOn;
-            }
-            set
-            {
-                OnCreatedOnChanging(value);
-                ReportPropertyChanging("CreatedOn");
-                _CreatedOn = StructuralObject.SetValidValue(value, "CreatedOn");
-                ReportPropertyChanged("CreatedOn");
-                OnCreatedOnChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _CreatedOn;
-        partial void OnCreatedOnChanging(Nullable<global::System.DateTime> value);
-        partial void OnCreatedOnChanged();
 
         #endregion
 
@@ -17133,6 +16955,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Int16> _DopingPacketDay;
         partial void OnDopingPacketDayChanging(Nullable<global::System.Int16> value);
         partial void OnDopingPacketDayChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> ShowAdmin
+        {
+            get
+            {
+                return _ShowAdmin;
+            }
+            set
+            {
+                OnShowAdminChanging(value);
+                ReportPropertyChanging("ShowAdmin");
+                _ShowAdmin = StructuralObject.SetValidValue(value, "ShowAdmin");
+                ReportPropertyChanged("ShowAdmin");
+                OnShowAdminChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _ShowAdmin;
+        partial void OnShowAdminChanging(Nullable<global::System.Boolean> value);
+        partial void OnShowAdminChanged();
 
         #endregion
 
@@ -27831,6 +27677,136 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="MakinaTurkiyeModel", Name="Storeindirim")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Storeindirim : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Storeindirim object.
+        /// </summary>
+        /// <param name="id">Initial value of the id property.</param>
+        /// <param name="mainPartyId">Initial value of the MainPartyId property.</param>
+        public static Storeindirim CreateStoreindirim(global::System.Int32 id, global::System.Int32 mainPartyId)
+        {
+            Storeindirim storeindirim = new Storeindirim();
+            storeindirim.id = id;
+            storeindirim.MainPartyId = mainPartyId;
+            return storeindirim;
+        }
+
+        #endregion
+
+        #region Simple Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 id
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (_id != value)
+                {
+                    OnidChanging(value);
+                    ReportPropertyChanging("id");
+                    _id = StructuralObject.SetValidValue(value, "id");
+                    ReportPropertyChanged("id");
+                    OnidChanged();
+                }
+            }
+        }
+        private global::System.Int32 _id;
+        partial void OnidChanging(global::System.Int32 value);
+        partial void OnidChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 MainPartyId
+        {
+            get
+            {
+                return _MainPartyId;
+            }
+            set
+            {
+                OnMainPartyIdChanging(value);
+                ReportPropertyChanging("MainPartyId");
+                _MainPartyId = StructuralObject.SetValidValue(value, "MainPartyId");
+                ReportPropertyChanged("MainPartyId");
+                OnMainPartyIdChanged();
+            }
+        }
+        private global::System.Int32 _MainPartyId;
+        partial void OnMainPartyIdChanging(global::System.Int32 value);
+        partial void OnMainPartyIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> BeginDate
+        {
+            get
+            {
+                return _BeginDate;
+            }
+            set
+            {
+                OnBeginDateChanging(value);
+                ReportPropertyChanging("BeginDate");
+                _BeginDate = StructuralObject.SetValidValue(value, "BeginDate");
+                ReportPropertyChanged("BeginDate");
+                OnBeginDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _BeginDate;
+        partial void OnBeginDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnBeginDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Enddate
+        {
+            get
+            {
+                return _Enddate;
+            }
+            set
+            {
+                OnEnddateChanging(value);
+                ReportPropertyChanging("Enddate");
+                _Enddate = StructuralObject.SetValidValue(value, "Enddate");
+                ReportPropertyChanged("Enddate");
+                OnEnddateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Enddate;
+        partial void OnEnddateChanging(Nullable<global::System.DateTime> value);
+        partial void OnEnddateChanged();
+
+        #endregion
+
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="MakinaTurkiyeModel", Name="StoreInfoNumberShow")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -27999,136 +27975,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Boolean> _MersisNoShow;
         partial void OnMersisNoShowChanging(Nullable<global::System.Boolean> value);
         partial void OnMersisNoShowChanged();
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="MakinaTurkiyeModel", Name="Storeindirim")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Storeindirim : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Storeindirim object.
-        /// </summary>
-        /// <param name="id">Initial value of the id property.</param>
-        /// <param name="mainPartyId">Initial value of the MainPartyId property.</param>
-        public static Storeindirim CreateStoreindirim(global::System.Int32 id, global::System.Int32 mainPartyId)
-        {
-            Storeindirim storeindirim = new Storeindirim();
-            storeindirim.id = id;
-            storeindirim.MainPartyId = mainPartyId;
-            return storeindirim;
-        }
-
-        #endregion
-
-        #region Simple Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 id
-        {
-            get
-            {
-                return _id;
-            }
-            set
-            {
-                if (_id != value)
-                {
-                    OnidChanging(value);
-                    ReportPropertyChanging("id");
-                    _id = StructuralObject.SetValidValue(value, "id");
-                    ReportPropertyChanged("id");
-                    OnidChanged();
-                }
-            }
-        }
-        private global::System.Int32 _id;
-        partial void OnidChanging(global::System.Int32 value);
-        partial void OnidChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 MainPartyId
-        {
-            get
-            {
-                return _MainPartyId;
-            }
-            set
-            {
-                OnMainPartyIdChanging(value);
-                ReportPropertyChanging("MainPartyId");
-                _MainPartyId = StructuralObject.SetValidValue(value, "MainPartyId");
-                ReportPropertyChanged("MainPartyId");
-                OnMainPartyIdChanged();
-            }
-        }
-        private global::System.Int32 _MainPartyId;
-        partial void OnMainPartyIdChanging(global::System.Int32 value);
-        partial void OnMainPartyIdChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> BeginDate
-        {
-            get
-            {
-                return _BeginDate;
-            }
-            set
-            {
-                OnBeginDateChanging(value);
-                ReportPropertyChanging("BeginDate");
-                _BeginDate = StructuralObject.SetValidValue(value, "BeginDate");
-                ReportPropertyChanged("BeginDate");
-                OnBeginDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _BeginDate;
-        partial void OnBeginDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnBeginDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Enddate
-        {
-            get
-            {
-                return _Enddate;
-            }
-            set
-            {
-                OnEnddateChanging(value);
-                ReportPropertyChanging("Enddate");
-                _Enddate = StructuralObject.SetValidValue(value, "Enddate");
-                ReportPropertyChanged("Enddate");
-                OnEnddateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _Enddate;
-        partial void OnEnddateChanging(Nullable<global::System.DateTime> value);
-        partial void OnEnddateChanged();
 
         #endregion
 

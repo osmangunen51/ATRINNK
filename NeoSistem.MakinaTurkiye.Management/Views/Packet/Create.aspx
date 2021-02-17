@@ -247,6 +247,7 @@
                             <%:Html.CheckBoxFor(c => c.IsDopingPacket, new { id = "isDiscounted" })%>
                         </div>
                     </div>
+
                     <div style="float: left; width: 100%; margin-top: 5px;">
                         <div style="float: left; width: 140px; padding-left: 10px;">
                             Doping Paket Gün :
@@ -254,6 +255,15 @@
                         </div>
                         <div style="float: left; width: 280px;">
                             <%:Html.TextBoxFor(c => c.DopingPacketDay, new { id = "isDiscounted" })%>
+                        </div>
+                    </div>
+                                          <div style="float: left; width: 100%; margin-top: 5px;">
+                        <div style="float: left; width: 140px; padding-left: 10px;">
+                          Admin Paket Satın Al
+           
+                        </div>
+                        <div style="float: left; width: 280px;">
+                            <%:Html.CheckBoxFor(c => c.ShowAdmin, new { id = "showAdmin" })%>
                         </div>
                     </div>
                 </div>

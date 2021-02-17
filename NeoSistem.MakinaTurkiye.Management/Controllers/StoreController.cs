@@ -2,9 +2,10 @@
 using global::MakinaTurkiye.Services.Checkouts;
 using global::MakinaTurkiye.Services.Common;
 using global::MakinaTurkiye.Services.Members;
-using global::MakinaTurkiye.Services.Packets;
+
 using global::MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Services.Logs;
+using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Utilities.FileHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
@@ -3308,7 +3309,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.TaxOffice = store.TaxOffice;
             
             model.PacketDay = 0;
-            model.Packets = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x => x.DopingPacketDay.HasValue == false).ToList(); 
+            model.Packets = _packetService.GetAllPacket().Where(x=>x.ShowAdmin==true).ToList(); 
 
             return View(model);
         }

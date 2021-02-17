@@ -39,6 +39,7 @@ using System.Xml;
 using static NeoSistem.MakinaTurkiye.Web.Models.EnumModel;
 using NeoSistem.MakinaTurkiye.Web.Helpers;
 using MakinaTurkiye.Utilities.MailHelpers;
+using Newtonsoft.Json;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -1550,6 +1551,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             return Json(new { Tutar = tutar, Amount = amount, VadeFarki = vadeFarki, Taksit = taksit }, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult PayWithCreditCard(string priceAmount, string ProductId, string PacketId, string OrderId)
         {
             MTPayWithCreditCardModel model = new MTPayWithCreditCardModel();
@@ -1564,7 +1566,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             else
             {
-
                 var order = _orderService.GetOrdersByMainPartyId(memberStore.StoreMainPartyId.Value).LastOrDefault();
                 if (!string.IsNullOrEmpty(OrderId))
                 {
@@ -1601,22 +1602,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         if (!string.IsNullOrEmpty(priceAmount))
                             packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".",","));
                         else
-                            if (paid != 0)
-                            packetModel.PayPriceAmount = order.OrderPrice - paid;
-                        else
-                            packetModel.PayPriceAmount = 0;
-
-
+                            if (paid != 0) packetModel.PayPriceAmount = order.OrderPrice - paid;
+                        else packetModel.PayPriceAmount = 0;
                         model.ProductId = 0;
                         model.IsDoping = false;
                     }
-
                 }
                 else
                 {
+                    // Burada Bir Sorun var...
                     var packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
                     int day = 0;
-
                     if (packet.DopingPacketDay.HasValue)
                     {
                         day = Convert.ToInt32(packet.DopingPacketDay.Value);
@@ -1626,6 +1622,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         //log.Error("Ürün doping için doping gün sayısı bulunamadı. " + packet.PacketName);
                         throw new ArgumentNullException("packetDay");
                     }
+
                     model.DopingDay = day;
                     packetModel.OrderCode = "";
                     packetModel.OrderNo = "";
@@ -1651,9 +1648,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.PacketModel = packetModel;
                 return View(model);
             }
-            return RedirectToAction("index", "Home");
 
+            #region Yedek Alınması
+            addLog(
+                0,
+                "0",
+                "",
+                "006",
+                "Home/index/");
+            #endregion
+            return RedirectToAction("index", "Home");
         }
+
         public ActionResult BeforePayCreditCard()
         {
             var storeMainPartyId = Convert.ToInt32(_memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.Membership.MainPartyId).StoreMainPartyId);
@@ -1688,7 +1694,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             else
                 packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
 
-            if (ProductId != "0" && orderId=="0") // insert product order
+            if (ProductId != "0" && orderId == "0") // insert product order
             {
                 order = new Order
                 {
@@ -1715,29 +1721,30 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(memberStore.StoreMainPartyId.Value, PhoneTypeEnum.Gsm);
             IyzicoPayment iyzicoPayment = new IyzicoPayment(order, member, adressNew, packet, tutar, pan, kartisim, cv2, Ecom_Payment_Card_ExpDate_Month,
-                    Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone,taksit);
+                    Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone, taksit);
 
             var paymentResult = iyzicoPayment.CreatePaymentRequest();
 
-            //var cclRequest = new CreditCardLog();
-            //cclRequest.MainPartyId = store.MainPartyId;
-
-            //if (taksit == "00" | taksit == "0" | taksit == "")
-            //    cclRequest.OrderType = "Tek Çekim";
-            //else
-            //    cclRequest.OrderType = "Taksitli";
-            //if (paymentResult.Status == "success")
-            //    cclRequest.Status = "Başarılı";
-            //else
-            //    cclRequest.Status = "Başarısız";
-            //cclRequest.CreatedDate = DateTime.Now;
-            //cclRequest.IPAddress = Request.UserHostAddress.ToString();
-            //cclRequest.Code = paymentResult.ErrorCode;
-            //cclRequest.Detail = Newtonsoft.Json.JsonConvert.SerializeObject(paymentResult,Newtonsoft.Json.Formatting.None);
-            //_creditCardLogService.InsertCreditCardLog(cclRequest);
+            #region Yedek Alınması
+            addLog(
+                mainPartyId,
+                taksit,
+                paymentResult.Status,
+                paymentResult.ErrorCode,
+                Newtonsoft.Json.JsonConvert.SerializeObject(paymentResult));
+            #endregion
 
             if (paymentResult.HtmlContent != null)
             {
+                #region Yedek Alınması
+                addLog(
+                    mainPartyId,
+                    taksit,
+                    "",
+                    "000",
+                    "/Secure");
+                #endregion
+
                 model.HtmlContent = paymentResult.HtmlContent;
                 return View("Secure", model);
             }
@@ -1764,20 +1771,74 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 ccl.Detail = paymentResult.ErrorMessage;
                 _creditCardLogService.InsertCreditCardLog(ccl);
             }
+
             if (ProductId == "0")
             {
-
                 if (decimal.Parse(tutar) != order.OrderPrice)
                 {
-                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount =tutar, OrderId = order.OrderId });
-
+                    #region Yedek Alınması
+                    addLog(
+                        mainPartyId,
+                        taksit,
+                        "",
+                        "001",
+                        "membershipsales/PayWithCreditCard");
+                    #endregion
+                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
                 }
             }
             else
             {
+                #region Yedek Alınması
+                addLog
+                    (
+                        mainPartyId,
+                        taksit,
+                        "",
+                        "002",
+                        "membershipsales/PayWithCreditCard"
+                    );
+                #endregion
                 return RedirectToAction("PayWithCreditCard", "membershipsales", new { PacketId = PacketId, DopingDay = DopingDay, OrderId = order.OrderId, ProductId = ProductId });
             }
+
+            #region Yedek Alınması
+            addLog(
+                mainPartyId,
+                taksit,
+                "",
+                "003",
+                "membershipsales/PayWithCreditCard/"+ order.OrderId);
+            #endregion
+
             return RedirectToAction("PayWithCreditCard", "membershipsales", new { OrderId = order.OrderId });
+        }
+
+        private void addLog(int mainPartyId,string taksit,string Status,string errorCode,string detail)
+        {
+            var cclRequest = new CreditCardLog();
+            cclRequest.MainPartyId = mainPartyId;
+            if (taksit == "00" | taksit == "0" | taksit == "")
+            {
+                cclRequest.OrderType = "Tek Çekim";
+            }
+            else
+            {
+                cclRequest.OrderType = "Taksitli";
+            }
+            if (Status == "success")
+            {
+                cclRequest.Status = "Başarılı";
+            }
+            else
+            {
+                cclRequest.Status = "Başarısız";
+            }
+            cclRequest.CreatedDate = DateTime.Now;
+            cclRequest.IPAddress = Request.UserHostAddress.ToString();
+            cclRequest.Code = errorCode;
+            cclRequest.Detail = detail;
+            _creditCardLogService.InsertCreditCardLog(cclRequest);
         }
 
         public ActionResult resultpayForCreditCard()
@@ -1814,6 +1875,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     paidPrice = Convert.ToDecimal(threedsPayment.PaidPrice, CultureInfo.InvariantCulture);
                 }
             }
+
             #region mtlog
             var ccl = new CreditCardLog();
             ccl.MainPartyId = order.MainPartyId;
@@ -1844,7 +1906,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (status1 == "success")
             {
-
                 var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(order.MainPartyId);
                 order.IyzicoPaymentId = paymentId;
                 var payments = _orderService.GetPaymentsByOrderId(order.OrderId);
@@ -2046,11 +2107,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 return View("PosComplete");
             }
 
+
+
+
             TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
             if (threedsPayment.ErrorMessage == "paymentId gönderilmesi zorunludur")
                 TempData["errorPosMessage"] = "Bir hata oluştu lütfen bankanız ile iletişime geçiniz.";
             if (!order.ProductId.HasValue) // packet order
             {
+                #region Yedek Alınması
+                addLog(
+                    0,
+                    "0",
+                    "",
+                    "005",
+                    "membershipsales/PayWithCreditCard/" + order.OrderId);
+                #endregion
                 if (paidPrice == order.OrderPrice) // pay money which we determined
                     return RedirectToAction("PayWithCreditCard", "membershipsales");
                 else // pay all money screen
@@ -2062,9 +2134,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 return RedirectToAction("PayWithCreditCard", "membershipsales", new { ProductId = order.ProductId, PacketId = order.PacketId, DopingDay = packet.DopingPacketDay, OrderId = order.OrderId });
             }
         }
+
         public void SendMailForProductDoping(Product curProduct)
         {
-
 
             string productUrl = UrlBuilder.GetProductUrl(curProduct.ProductId, curProduct.ProductName);
             string dopingBeginDate = curProduct.ProductAdvertBeginDate.Value.ToString("dd.MM.yyyy");
