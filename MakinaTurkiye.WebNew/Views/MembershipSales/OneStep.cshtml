@@ -177,11 +177,21 @@
                 </div>
             }
         </div>
-
-        <span class="clearfix">
-            <br>
-            <br>
-        </span>
     </div>
 </div>
+@if (!string.IsNullOrEmpty(Model.BottomDescription))
+{
+    <div class="row" style="padding-left: 3px; padding-right: 3px;">
+        <div class="col-xs-12">
+            <div class="home-seo-content">
+                <div style="text-align:justify">
+                    @Html.Raw(Model.BottomDescription)
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+
 

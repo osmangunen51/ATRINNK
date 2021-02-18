@@ -207,6 +207,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             packetViewModel.PacketFeatureTypeItems = _packetService.GetAllPacketFeatureTypes().ToList();
 
             packetViewModel.PacketItems = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x => x.DopingPacketDay.HasValue == false).ToList();
+            var constant = _constantService.GetConstantByConstantType(ConstantTypeEnum.PacketSalesFooter).FirstOrDefault();
+            if (constant != null)
+                packetViewModel.BottomDescription = constant.ContstantPropertie;
 
             return View(packetViewModel);
         }
@@ -1557,101 +1560,124 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var packetModel = new PacketModel();
             int pID = Convert.ToInt32(PacketId);
             var memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
+
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(memberMainPartyId);
-            if (memberStore == null)
+            var order = new Order();
+
+            if (string.IsNullOrEmpty(OrderId) && memberStore == null)
             {
+                #region mtlog
+                var ccl = new CreditCardLog();
+                ccl.MainPartyId = memberMainPartyId;
+                ccl.Detail = "Paywith creditcard memberstore null geldi ";
+                var cc = _creditCardService.GetCreditCardByCreditCardId(8);
+                ccl.PosName = cc.CreditCardName;
+
+
+                ccl.CreatedDate = DateTime.Now;
+                ccl.IPAddress = Request.UserHostAddress.ToString();
+
+                _creditCardLogService.InsertCreditCardLog(ccl);
+
+                #endregion
+
+                if (TempData["OrderId"] != null)
+                {
+                    order = _orderService.GetOrderByOrderId(Convert.ToInt32(TempData["OrderId"]));
+                    memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(order.MainPartyId);
+
+                }
+            }
+            if (memberStore != null)
+            {
+                order = _orderService.GetOrdersByMainPartyId(memberStore.StoreMainPartyId.Value).LastOrDefault();
+
+            }
+            if (!string.IsNullOrEmpty(OrderId))
+            {
+                int orderId = Convert.ToInt32(OrderId);
+                order = _orderService.GetOrderByOrderId(orderId);
+
+            }
+            if (!string.IsNullOrEmpty(ProductId))
+            {
+                if (order.ProductId != Convert.ToInt32(ProductId))
+                    order = null;
+            }
+            if (order != null && !order.ProductId.HasValue)
+            {
+                var orderPriceCheck = Convert.ToBoolean(order.PriceCheck);
+                var payments = _orderService.GetPaymentsByOrderId(order.OrderId);
+                decimal paid = 0;
+                if (payments != null)
+                    paid = payments.Select(x => x.PaidAmount).Sum();
+                if (paid < 0)
+                    paid = 0;
+
+                if (!orderPriceCheck)
+                {
+
+                    packetModel.OrderCode = order.OrderCode;
+                    packetModel.OrderId = order.OrderId;
+                    packetModel.OrderNo = order.OrderNo;
+                    packetModel.OrderPrice = order.OrderPrice;
+                    packetModel.PacketId = order.PacketId;
+                    var packet = _packetService.GetPacketByPacketId(order.PacketId);
+                    packetModel.PacketName = packet.PacketName;
+                    packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
+                    if (!string.IsNullOrEmpty(priceAmount))
+                        packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".", ","));
+                    else
+                        if (paid != 0)
+                        packetModel.PayPriceAmount = order.OrderPrice - paid;
+                    else
+                        packetModel.PayPriceAmount = 0;
+
+
+                    model.ProductId = 0;
+                    model.IsDoping = false;
+                }
 
             }
             else
             {
+                var packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
+                int day = 0;
 
-                var order = _orderService.GetOrdersByMainPartyId(memberStore.StoreMainPartyId.Value).LastOrDefault();
-                if (!string.IsNullOrEmpty(OrderId))
+                if (packet.DopingPacketDay.HasValue)
                 {
-                    int orderId = Convert.ToInt32(OrderId);
-                    order = _orderService.GetOrderByOrderId(orderId);
-
-                }
-                if (!string.IsNullOrEmpty(ProductId))
-                {
-                    if (order.ProductId != Convert.ToInt32(ProductId))
-                        order = null;
-                }
-                if (order != null && !order.ProductId.HasValue)
-                {
-                    var orderPriceCheck = Convert.ToBoolean(order.PriceCheck);
-                    var payments = _orderService.GetPaymentsByOrderId(order.OrderId);
-                    decimal paid = 0;
-                    if (payments != null)
-                        paid = payments.Select(x => x.PaidAmount).Sum();
-                    if (paid < 0)
-                        paid = 0;
-
-                    if (!orderPriceCheck)
-                    {
-
-                        packetModel.OrderCode = order.OrderCode;
-                        packetModel.OrderId = order.OrderId;
-                        packetModel.OrderNo = order.OrderNo;
-                        packetModel.OrderPrice = order.OrderPrice;
-                        packetModel.PacketId = order.PacketId;
-                        var packet = _packetService.GetPacketByPacketId(order.PacketId);
-                        packetModel.PacketName = packet.PacketName;
-                        packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
-                        if (!string.IsNullOrEmpty(priceAmount))
-                            packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".", ","));
-                        else
-                            if (paid != 0)
-                            packetModel.PayPriceAmount = order.OrderPrice - paid;
-                        else
-                            packetModel.PayPriceAmount = 0;
-
-
-                        model.ProductId = 0;
-                        model.IsDoping = false;
-                    }
-
+                    day = Convert.ToInt32(packet.DopingPacketDay.Value);
                 }
                 else
                 {
-                    var packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
-                    int day = 0;
-
-                    if (packet.DopingPacketDay.HasValue)
-                    {
-                        day = Convert.ToInt32(packet.DopingPacketDay.Value);
-                    }
-                    else
-                    {
-                        //log.Error("Ürün doping için doping gün sayısı bulunamadı. " + packet.PacketName);
-                        throw new ArgumentNullException("packetDay");
-                    }
-                    model.DopingDay = day;
-                    packetModel.OrderCode = "";
-                    packetModel.OrderNo = "";
-                    packetModel.OrderPrice = packet.PacketPrice;
-                    packetModel.PacketId = packet.PacketId;
-                    packetModel.PacketName = packet.PacketName;
-                    packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
-                    packetModel.PayPriceAmount = 0;
-
-                    int productId = Convert.ToInt32(ProductId);
-                    var product = _productService.GetProductByProductId(productId);
-                    var productName = product.ProductName;
-                    model.ProductId = productId;
-                    model.IsDoping = true;
-                    model.ProductName = productName;
-                    if (order != null)
-                    {
-                        packetModel.OrderId = order.OrderId;
-                        packetModel.OrderNo = order.OrderNo;
-                        packetModel.OrderCode = order.OrderCode;
-                    }
+                    //log.Error("Ürün doping için doping gün sayısı bulunamadı. " + packet.PacketName);
+                    throw new ArgumentNullException("packetDay");
                 }
-                model.PacketModel = packetModel;
-                return View(model);
+                model.DopingDay = day;
+                packetModel.OrderCode = "";
+                packetModel.OrderNo = "";
+                packetModel.OrderPrice = packet.PacketPrice;
+                packetModel.PacketId = packet.PacketId;
+                packetModel.PacketName = packet.PacketName;
+                packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
+                packetModel.PayPriceAmount = 0;
+
+                int productId = Convert.ToInt32(ProductId);
+                var product = _productService.GetProductByProductId(productId);
+                var productName = product.ProductName;
+                model.ProductId = productId;
+                model.IsDoping = true;
+                model.ProductName = productName;
+                if (order != null)
+                {
+                    packetModel.OrderId = order.OrderId;
+                    packetModel.OrderNo = order.OrderNo;
+                    packetModel.OrderCode = order.OrderCode;
+                }
             }
-            return RedirectToAction("index", "Home");
+            model.PacketModel = packetModel;
+            return View(model);
+
 
         }
         public ActionResult BeforePayCreditCard()
@@ -1779,7 +1805,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             return RedirectToAction("PayWithCreditCard", "membershipsales", new { OrderId = order.OrderId });
         }
-
+#if !DEBUG
+        [RequireHttps]
+#endif
         public ActionResult resultpayForCreditCard()
         {
             Options options = new Options();
@@ -2047,6 +2075,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
+            TempData["OrderId"] = order.OrderId;
             if (threedsPayment.ErrorMessage == "paymentId gönderilmesi zorunludur")
                 TempData["errorPosMessage"] = "Bir hata oluştu lütfen bankanız ile iletişime geçiniz.";
             if (!order.ProductId.HasValue) // packet order
