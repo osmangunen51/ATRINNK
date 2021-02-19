@@ -1401,15 +1401,17 @@ $(document).ready(function () {
     }
 
     // Ürün detay firma bilgileri alanı
-    if ($('.rightSidebar').length > 0) {
+    if ($('.rightSidebar').length > 0)
+    {
         $('.rightSidebar').theiaStickySidebar({
-            additionalMarginTop:100,
+            additionalMarginTop:106,
         });
     }
 
 
     //Sektör sayfası
-    if ($('.sidebarBanner').length > 0) {
+    if ($('.sidebarBanner').length > 0)
+    {
         $('.sidebarBanner').theiaStickySidebar({
             additionalMarginTop: 50,
         });
@@ -1420,7 +1422,6 @@ $(document).ready(function () {
         $('.urun-aciklama [href="#video"]').trigger('click');
         var body = $("html, body");
         body.stop().animate({ scrollTop: $('.urun-aciklama [href="#video"]').offset().top - 100 }, 500, 'swing');
-
     }
 
 

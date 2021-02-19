@@ -4,7 +4,7 @@
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     //using NeoSistem.MakinaTurkiye.Web.Models
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 }
@@ -40,18 +40,18 @@
         </div>
         <div class="well well-mt">
             <div class="row">
-                @if (Model.SubMenuItemModels.Any())
-                {
+                <div class="col-md-12 yardimIcerik">
+                    @if (Model.SubMenuItemModels.Any())
+                    {
                 <div class="alert ">
                     <ul class="list-group">
                         @foreach (var item in Model.SubMenuItemModels)
                         {
-                        <li class="list-group-item"><a id="@item.CategoryId" href="@item.HelpUrl"> @item.CategoryName</a> </li>
-                        }
+                <li class="list-group-item"><a id="@item.CategoryId" href="@item.HelpUrl"> @item.CategoryName</a> </li>}
                     </ul>
+                </div>}
+                    @Html.Raw(Model.Content)
                 </div>
-                }
-                @Html.Raw(Model.Content)
             </div>
         </div>
     </div>
