@@ -843,7 +843,6 @@ function showSubCategory() {
             that.closest('.result-category__item').addClass('expanded');
             text.html("Tümünü Gizle");
             icon.attr("class", "icon-fill-up-arrow");
-
         }
         else {
             that.closest('.result-category__item').removeClass('expanded');
@@ -1402,15 +1401,17 @@ $(document).ready(function () {
     }
 
     // Ürün detay firma bilgileri alanı
-    if ($('.rightSidebar').length > 0) {
+    if ($('.rightSidebar').length > 0)
+    {
         $('.rightSidebar').theiaStickySidebar({
-            additionalMarginTop: 50,
+            additionalMarginTop:106,
         });
     }
 
 
     //Sektör sayfası
-    if ($('.sidebarBanner').length > 0) {
+    if ($('.sidebarBanner').length > 0)
+    {
         $('.sidebarBanner').theiaStickySidebar({
             additionalMarginTop: 50,
         });
@@ -1421,7 +1422,6 @@ $(document).ready(function () {
         $('.urun-aciklama [href="#video"]').trigger('click');
         var body = $("html, body");
         body.stop().animate({ scrollTop: $('.urun-aciklama [href="#video"]').offset().top - 100 }, 500, 'swing');
-
     }
 
 

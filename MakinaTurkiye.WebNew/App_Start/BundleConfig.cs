@@ -6,11 +6,11 @@ using System.Web.Optimization;
 
 namespace NeoSistem.MakinaTurkiye.Web.App_Start
 {
-    public class BundleConfig
-    {
+	public class BundleConfig
+	{
 
 		public static void RegisterBundles(BundleCollection bundles)
-        {
+		{
 
 			var bundle = new ScriptBundle("~/js").Include(
 					"~/Content/V2/assets/js/jquery.min.js",
@@ -48,8 +48,8 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
 					"~/Content/v2/assets/js/MtFormsValidate.js",
 					"~/Content/v2/assets/js/newmembership.js",
 					"~/Content/v2/assets/js/MtAjaxCalls.js",
-					"~/Content/v2/assets/js/membership.js",
-					"~/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"
+					"~/Content/v2/assets/js/membership.js"
+					//,"~/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"
 				);
 			bundle.Orderer = new NonOrderingBundleOrderer();
 			bundles.Add(bundle);

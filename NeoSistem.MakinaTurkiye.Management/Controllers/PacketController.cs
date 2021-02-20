@@ -53,6 +53,8 @@
             model.HeaderColor = packet.HeaderColor;
             model.IsDopingPacket = packet.IsDopingPacket.HasValue == true ? packet.IsDopingPacket.Value : false;
             model.DopingPacketDay = packet.DopingPacketDay;
+            model.ShowAdmin = packet.ShowAdmin.HasValue? packet.ShowAdmin.Value : false;
+
 
             if (packet.ProductFactor != null)
                 model.ProductFactor = (float)packet.ProductFactor;
@@ -112,6 +114,7 @@
             packet.ProductFactor = model.ProductFactor;
             packet.IsDopingPacket = model.IsDopingPacket;
             packet.DopingPacketDay = model.DopingPacketDay;
+            packet.ShowAdmin = model.ShowAdmin;
             entities.SaveChanges();
 
             int packetId = id;
@@ -188,7 +191,8 @@
                 HeaderColor = model.HeaderColor,
                 ProductFactor = model.ProductFactor,
                 DopingPacketDay = model.DopingPacketDay,
-                IsDopingPacket = model.IsDopingPacket
+                IsDopingPacket = model.IsDopingPacket,
+                ShowAdmin  = model.ShowAdmin
             };
             entities.Packets.AddObject(packet);
             entities.SaveChanges();

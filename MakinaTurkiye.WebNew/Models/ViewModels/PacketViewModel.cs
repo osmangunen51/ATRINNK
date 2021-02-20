@@ -11,6 +11,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
     public bool AnyOrder { get; set; }
     public bool LastPageAdvertAdd { get; set; }
     public string Description { get; set; }
+    public string BottomDescription { get; set; }
 
   }
 }

@@ -176,7 +176,7 @@
     <div id="NewConstantForm" title="">
         <%= Html.RenderHtmlPartial("ConstantForm", new ConstantModel())%>
     </div>
-    <div style=" float: left; width:15%; padding-top:10px; ">
+    <div style="float: left; width: 15%; padding-top: 10px;">
         <select size="25" onchange="GetConstant($(this).val())">
             <option value="0">< Sabit Tipi Seçiniz ></option>
             <option value="<%=(byte)ConstantType.ProductPayType%>">Ürün Ödeme Durumu</option>
@@ -207,13 +207,15 @@
             <option value="<%=(byte)ConstantType.ProblemType %>">Sorun Tipleri</option>
             <option value="<%=(byte)ConstantType.StoreProfileHomeDecriptionTemplate %>">Firma Profil Açklama Template</option>
             <option value="<%=(byte)ConstantType.PaymentBank %>">Havale Bankalar</option>
-            <option value="<%=(byte)ConstantType.SeoDescriptionTitle %>" >Firma Seo Açıklama Başlık</option>
-                  <option value="<%=(byte)ConstantType.CategoryFooterTopDescription %>" >Kategori Footer Üstü Açıklama</option>
+            <option value="<%=(byte)ConstantType.SeoDescriptionTitle %>">Firma Seo Açıklama Başlık</option>
+            <option value="<%=(byte)ConstantType.CategoryFooterTopDescription %>">Kategori Footer Üstü Açıklama</option>
+            <option value="<%=(byte)ConstantType.PacketSalesFooter %>">Paket Satın Al Sayfası Alt</option>
+
         </select>&nbsp;&nbsp;
     <button onclick="openDialog();">
         Sabit Başlık Ekle</button>
     </div>
-    <div style="width:85%; margin: 0 auto; float:left;">
+    <div style="width: 85%; margin: 0 auto; float: left;">
         <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
             <thead>
                 <tr>

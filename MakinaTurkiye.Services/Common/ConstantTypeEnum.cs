@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Services.Common
 {
-    public enum ConstantTypeEnum:byte
+    public enum ConstantTypeEnum : byte
     {
         //ProductPayType = 1,
         //ProductSalesType = 2,
@@ -54,8 +54,9 @@ namespace MakinaTurkiye.Services.Common
         UserSpecialMailType = 27,
         ProblemType = 28,
         StoreProfileHomeDecriptionTemplate = 29,
-        PaymentBank  = 30,
-       SeoDecriptionTitle = 31,
-       CategoryFooterTopDesc = 32
+        PaymentBank = 30,
+        SeoDecriptionTitle = 31,
+        CategoryFooterTopDesc = 32,
+        PacketSalesFooter = 33 
     }
 }

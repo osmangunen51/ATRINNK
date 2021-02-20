@@ -43,21 +43,24 @@
                                    title="@item.ProductName"
                                    class="product-list-mt__link">
                                     <div class="product-list-mt__image-area">
-                                        <img class="img-thumbnail"
-                                             src="@item.ProductImagePath.Replace(" 500x375","200x150")"
-                                             alt="@item.ProductName" />
-                                        @if (item.FavoriteProductId > 0)
+                                        <img class="img-thumbnail" 
+                                         src="@item.ProductImagePath.Replace("500x375","200x150")"
+                                         alt="@item.ProductName"/>
+
+                                        @*@if (item.FavoriteProductId > 0)
                                         {
                                             <div class="product-list-favorite-icon product-list-favorite-icon-c" onclick="RemoveFavoriteProductItem(@item.ProductId)" data-pid="@item.ProductId" data-productid="product-favorite-item-@item.ProductId" title="Favorilerden Kaldır"><i class="fa fa-heart"></i></div>
                                         }
                                         else
                                         {
                                             <div data-pid="@item.ProductId" onclick="AddFavoriteProductItem(@item.ProductId)" class="product-list-favorite-icon product-list-favorite-icon-c" data-productid="product-favorite-item-@item.ProductId" title="Favorilere Ekle"><i class="fa fa-heart-o"></i></div>
-                                        }
+                                        }*@
+
                                         @if (item.HasVideo)
                                         {
                                             <div class="product-list-video-icon" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
                                         }
+
                                     </div>
                                     <div class="product-list-mt__detail">
                                         <div class="product-list-mt__title-info">

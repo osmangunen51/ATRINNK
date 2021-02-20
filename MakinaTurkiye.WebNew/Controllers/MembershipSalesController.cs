@@ -176,7 +176,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         public ActionResult OneStep(string sayfa)
         {
-            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.Membership.MainPartyId);
+            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
 
             SessionPacketModel.PacketModel.MainPartyId = memberStore.StoreMainPartyId.Value;
             SessionPacketModel.PacketModel.OrderNo = "S" + SessionPacketModel.PacketModel.MainPartyId;
@@ -207,13 +207,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             packetViewModel.PacketFeatureTypeItems = _packetService.GetAllPacketFeatureTypes().ToList();
 
             packetViewModel.PacketItems = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x => x.DopingPacketDay.HasValue == false).ToList();
+            var constant = _constantService.GetConstantByConstantType(ConstantTypeEnum.PacketSalesFooter).FirstOrDefault();
+            if (constant != null)
+                packetViewModel.BottomDescription = constant.ContstantPropertie;
 
             return View(packetViewModel);
         }
 
         public ActionResult DiscountPackets()
         {
-            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.Membership.MainPartyId);
+            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
             var anyOrder = _orderService.GetOrdersByMainPartyId(memberStore.StoreMainPartyId.Value);
             if (anyOrder.Count > 0)
             {
@@ -266,7 +269,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpGet]
         public ActionResult ThreeStepPre(int id)
         {
-            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.Membership.MainPartyId);
+            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
 
             SessionPacketModel.PacketModel.MainPartyId = memberStore.StoreMainPartyId.Value;
             SessionPacketModel.PacketModel.OrderNo = "S" + SessionPacketModel.PacketModel.MainPartyId;
@@ -286,7 +289,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var packet = _packetService.GetPacketByPacketId(SessionPacketModel.PacketModel.PacketId);
                 SessionPacketModel.PacketModel.OrderPrice = packet.PacketPrice;
 
-                var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.Membership.MainPartyId);
+                var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
                 var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
 
                 SessionPacketModel.PacketModel.AccountList = _bankAccountService.GetAllAccounts();
@@ -525,7 +528,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                             #endregion
 
-                            var mailAdress = _memberService.GetMemberByMainPartyId(AuthenticationUser.Membership.MainPartyId).MemberEmail;
+                            var mailAdress = _memberService.GetMemberByMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId).MemberEmail;
                             var mailsend = _storeService.GetStoreByMainPartyId(SessionPacketModel.PacketModel.MainPartyId);
                             string Email = mailAdress;
 
@@ -594,7 +597,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     ViewData["messageError"] = TempData["errorPosMessage"];
                 }
-                var member = _memberService.GetMemberByMainPartyId(Convert.ToInt32(AuthenticationUser.Membership.MainPartyId));
+                var member = _memberService.GetMemberByMainPartyId(Convert.ToInt32(AuthenticationUser.CurrentUser.Membership.MainPartyId));
 
                 var memberStoreN = _memberStoreService.GetMemberStoreByMemberMainPartyId(member.MainPartyId);
                 var phones = _phoneService.GetPhonesByMainPartyId(memberStoreN.StoreMainPartyId.Value);
@@ -671,7 +674,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mail.To.Add(Email);                                                              //Mailin kime gideceğini belirtiyoruz
                     mail.Subject = mtMessage.MessagesMTTitle;                                              //Mail konusu
                     string body = mtMessage.MailContent;
-                    body = body.Replace("#kullanciadi#", AuthenticationUser.Membership.MemberName).Replace("#pakettipi#", SessionPacketModel.PacketModel.PacketName).Replace("#tutar#", SessionPacketModel.PacketModel.OrderPrice.ToString("N"));
+                    body = body.Replace("#kullanciadi#", AuthenticationUser.CurrentUser.Membership.MemberName).Replace("#pakettipi#", SessionPacketModel.PacketModel.PacketName).Replace("#tutar#", SessionPacketModel.PacketModel.OrderPrice.ToString("N"));
                     mail.Body = body;                                                            //Mailin içeriği
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
@@ -865,7 +868,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 mail.Subject = mailMessage.MessagesMTTitle;                                              //Mail konusu
 
                                 string template = mailMessage.MessagesMTPropertie;
-                                template = template.Replace("#uyeadisoyadi#", AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname);
+                                template = template.Replace("#uyeadisoyadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname);
                                 mail.Body = template;                                                            //Mailin içeriği
                                 mail.IsBodyHtml = true;
                                 mail.Priority = MailPriority.Normal;
@@ -890,7 +893,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 mail.Subject = mailT.MessagesMTTitle;                                              //Mail konusu
                                 template = mailT.MessagesMTPropertie;
                                 string dateimiz = DateTime.Now.AddDays(packet1.PacketDay).ToString();
-                                template = template.Replace("#uyeliktipi#", packet1.PacketName).Replace("#uyelikbaslangıctarihi#", DateTime.Now.ToShortDateString()).Replace("#uyelikbitistarihi#", dateimiz).Replace("#kullaniciadi#", AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname).Replace("#pakettipi#", packet1.PacketName);
+                                template = template.Replace("#uyeliktipi#", packet1.PacketName).Replace("#uyelikbaslangıctarihi#", DateTime.Now.ToShortDateString()).Replace("#uyelikbitistarihi#", dateimiz).Replace("#kullaniciadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname).Replace("#pakettipi#", packet1.PacketName);
                                 mail.Body = template;                                                            //Mailin içeriği
                                 mail.IsBodyHtml = true;
                                 mail.Priority = MailPriority.Normal;
@@ -1342,7 +1345,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
                 string template = mailMessage.MessagesMTPropertie;
-                template = template.Replace("#uyeadisoyadi#", AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname);
+                template = template.Replace("#uyeadisoyadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname);
                 MailHelper mailHelper = new MailHelper(mailMessage.MessagesMTTitle, template, mailMessage.Mail, Email, mailMessage.MailPassword, mailMessage.MailSendFromName);
                 mailHelper.Send();
 
@@ -1351,7 +1354,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var mailT = _messageMTService.GetMessagesMTByMessageMTName("goldenpro");
                 template = mailT.MessagesMTPropertie;
                 string dateimiz = DateTime.Now.AddDays(packet.PacketDay).ToString();
-                template = template.Replace("#uyeliktipi#", packet.PacketName).Replace("#uyelikbaslangıctarihi#", DateTime.Now.ToShortDateString()).Replace("#uyelikbitistarihi#", dateimiz).Replace("#kullaniciadi#", AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname).Replace("#pakettipi#", packet.PacketName);
+                template = template.Replace("#uyeliktipi#", packet.PacketName).Replace("#uyelikbaslangıctarihi#", DateTime.Now.ToShortDateString()).Replace("#uyelikbitistarihi#", dateimiz).Replace("#kullaniciadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname).Replace("#pakettipi#", packet.PacketName);
                 var mailAnother = new MailHelper(mailT.MessagesMTTitle, template, mailT.Mail, Email, mailT.MailPassword, mailT.MailSendFromName);
                 mailAnother.Send();
                 #endregion
@@ -1450,20 +1453,20 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpPost]
         public JsonResult AddInfoForDemand(string productNumber)
         {
-            int memberMainPartyId = AuthenticationUser.Membership.MainPartyId;
+            int memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             var companyDemandMemberShip = new CompanyDemandMembership();
             var storeMainParty = _memberStoreService.GetMemberStoreByMemberMainPartyId(memberMainPartyId);
             var store = _storeService.GetStoreByMainPartyId(storeMainParty.StoreMainPartyId.Value);
             companyDemandMemberShip.CompanyName = store.StoreName;
-            var phone = _phoneService.GetPhonesByMainPartyId(AuthenticationUser.Membership.MainPartyId).FirstOrDefault();
+            var phone = _phoneService.GetPhonesByMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId).FirstOrDefault();
             if (phone != null)
             {
                 companyDemandMemberShip.Phone = phone.PhoneCulture + " " + phone.PhoneAreaCode + " " + phone.PhoneNumber;
             }
-            companyDemandMemberShip.NameSurname = AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname;
+            companyDemandMemberShip.NameSurname = AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname;
             companyDemandMemberShip.DemandDate = DateTime.Now.ToString("dd-MM-yyyy HH:mm:ss");
-            companyDemandMemberShip.Statement = AuthenticationUser.Membership.MemberNo + " İndirimli paket için aranma talebi ürün Sayısı:" + productNumber;
-            companyDemandMemberShip.Email = AuthenticationUser.Membership.MemberEmail;
+            companyDemandMemberShip.Statement = AuthenticationUser.CurrentUser.Membership.MemberNo + " İndirimli paket için aranma talebi ürün Sayısı:" + productNumber;
+            companyDemandMemberShip.Email = AuthenticationUser.CurrentUser.Membership.MemberEmail;
             companyDemandMemberShip.Status = 0;
             companyDemandMemberShip.isDemandForPacket = true;
             _companyDemandMembership.AddCompanyDemandMembership(companyDemandMemberShip);
@@ -1472,11 +1475,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             MailMessage mail = new MailMessage();
             mail.From = new MailAddress(mailMessage.Mail, mailMessage.MailSendFromName); //Mailin kimden gittiğini belirtiyoruz
-            mail.To.Add(AuthenticationUser.Membership.MemberEmail);                                                              //Mailin kime gideceğini belirtiyoruz
+            mail.To.Add(AuthenticationUser.CurrentUser.Membership.MemberEmail);                                                              //Mailin kime gideceğini belirtiyoruz
             mail.Subject = mailMessage.MessagesMTTitle;                                              //Mail konusu
 
             string template = mailMessage.MessagesMTPropertie;
-            template = template.Replace("#adisoyadi#", AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname.ToUpper());
+            template = template.Replace("#adisoyadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname.ToUpper());
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
@@ -1494,10 +1497,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             mailb.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
             mailb.To.Add("bilgi@makinaturkiye.com");
-            mailb.Subject = "Paketler için bilgi alma talebi " + AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname;
+            mailb.Subject = "Paketler için bilgi alma talebi " + AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname;
             //var messagesmttemplate = entities.MessagesMTs.Where(c => c.MessagesMTId == 2).SingleOrDefault();
             //templatet = messagesmttemplate.MessagesMTPropertie;
-            string bilgimakinaicin = AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname + " isimli üye üyelik paketleri için aranma talebinde bulundu.Telefon Numarası:" + phone.PhoneCulture + " " + phone.PhoneAreaCode + " " + phone.PhoneNumber;
+            string bilgimakinaicin = AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname + " isimli üye üyelik paketleri için aranma talebinde bulundu.Telefon Numarası:" + phone.PhoneCulture + " " + phone.PhoneAreaCode + " " + phone.PhoneNumber;
 
             mailb.Body = bilgimakinaicin;
             mailb.IsBodyHtml = true;
@@ -1556,39 +1559,63 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var packetModel = new PacketModel();
             int pID = Convert.ToInt32(PacketId);
-            var memberMainPartyId = AuthenticationUser.Membership.MainPartyId;
+            var memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
+
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(memberMainPartyId);
-            if (memberStore == null)
+            var order = new Order();
+
+            if (string.IsNullOrEmpty(OrderId) && memberStore == null)
             {
+                #region mtlog
+                var ccl = new CreditCardLog();
+                ccl.MainPartyId = memberMainPartyId;
+                ccl.Detail = "Paywith creditcard memberstore null geldi ";
+                var cc = _creditCardService.GetCreditCardByCreditCardId(8);
+                ccl.PosName = cc.CreditCardName;
+
+
+                ccl.CreatedDate = DateTime.Now;
+                ccl.IPAddress = Request.UserHostAddress.ToString();
+
+                _creditCardLogService.InsertCreditCardLog(ccl);
+
+                #endregion
+
+                if (TempData["OrderId"] != null)
+                {
+                    order = _orderService.GetOrderByOrderId(Convert.ToInt32(TempData["OrderId"]));
+                    memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(order.MainPartyId);
+
+                }
+            }
+            if (memberStore != null)
+            {
+                order = _orderService.GetOrdersByMainPartyId(memberStore.StoreMainPartyId.Value).LastOrDefault();
 
             }
-            else
+            if (!string.IsNullOrEmpty(OrderId))
             {
+                int orderId = Convert.ToInt32(OrderId);
+                order = _orderService.GetOrderByOrderId(orderId);
 
-                var order = _orderService.GetOrdersByMainPartyId(memberStore.StoreMainPartyId.Value).LastOrDefault();
-                if (!string.IsNullOrEmpty(OrderId))
-                {
-                    int orderId = Convert.ToInt32(OrderId);
-                    order = _orderService.GetOrderByOrderId(orderId);
+            }
+            if (!string.IsNullOrEmpty(ProductId))
+            {
+                if (order.ProductId != Convert.ToInt32(ProductId))
+                    order = null;
+            }
+            if (order != null && !order.ProductId.HasValue)
+            {
+                var orderPriceCheck = Convert.ToBoolean(order.PriceCheck);
+                var payments = _orderService.GetPaymentsByOrderId(order.OrderId);
+                decimal paid = 0;
+                if (payments != null)
+                    paid = payments.Select(x => x.PaidAmount).Sum();
+                if (paid < 0)
+                    paid = 0;
 
-                }
-                if (!string.IsNullOrEmpty(ProductId))
+                if (!orderPriceCheck)
                 {
-                    if (order.ProductId != Convert.ToInt32(ProductId))
-                        order = null;
-                }
-                if (order != null && !order.ProductId.HasValue)
-                {
-                    var orderPriceCheck = Convert.ToBoolean(order.PriceCheck);
-                    var payments = _orderService.GetPaymentsByOrderId(order.OrderId);
-                    decimal paid = 0;
-                    if (payments != null)
-                        paid = payments.Select(x => x.PaidAmount).Sum();
-                    if (paid < 0)
-                        paid = 0;
-
-                    if (!orderPriceCheck)
-                    {
 
                         packetModel.OrderCode = order.OrderCode;
                         packetModel.OrderId = order.OrderId;
@@ -1599,7 +1626,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         packetModel.PacketName = packet.PacketName;
                         packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
                         if (!string.IsNullOrEmpty(priceAmount))
-                            packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".", ","));
+                            packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".",","));
                         else
                             if (paid != 0)
                             packetModel.PayPriceAmount = order.OrderPrice - paid;
@@ -1607,56 +1634,55 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             packetModel.PayPriceAmount = 0;
 
 
-                        model.ProductId = 0;
-                        model.IsDoping = false;
-                    }
+                    model.ProductId = 0;
+                    model.IsDoping = false;
+                }
 
+            }
+            else
+            {
+                var packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
+                int day = 0;
+
+                if (packet.DopingPacketDay.HasValue)
+                {
+                    day = Convert.ToInt32(packet.DopingPacketDay.Value);
                 }
                 else
                 {
-                    var packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
-                    int day = 0;
-
-                    if (packet.DopingPacketDay.HasValue)
-                    {
-                        day = Convert.ToInt32(packet.DopingPacketDay.Value);
-                    }
-                    else
-                    {
-                        //log.Error("Ürün doping için doping gün sayısı bulunamadı. " + packet.PacketName);
-                        throw new ArgumentNullException("packetDay");
-                    }
-                    model.DopingDay = day;
-                    packetModel.OrderCode = "";
-                    packetModel.OrderNo = "";
-                    packetModel.OrderPrice = packet.PacketPrice;
-                    packetModel.PacketId = packet.PacketId;
-                    packetModel.PacketName = packet.PacketName;
-                    packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
-                    packetModel.PayPriceAmount = 0;
-
-                    int productId = Convert.ToInt32(ProductId);
-                    var product = _productService.GetProductByProductId(productId);
-                    var productName = product.ProductName;
-                    model.ProductId = productId;
-                    model.IsDoping = true;
-                    model.ProductName = productName;
-                    if (order != null)
-                    {
-                        packetModel.OrderId = order.OrderId;
-                        packetModel.OrderNo = order.OrderNo;
-                        packetModel.OrderCode = order.OrderCode;
-                    }
+                    //log.Error("Ürün doping için doping gün sayısı bulunamadı. " + packet.PacketName);
+                    throw new ArgumentNullException("packetDay");
                 }
-                model.PacketModel = packetModel;
-                return View(model);
+                model.DopingDay = day;
+                packetModel.OrderCode = "";
+                packetModel.OrderNo = "";
+                packetModel.OrderPrice = packet.PacketPrice;
+                packetModel.PacketId = packet.PacketId;
+                packetModel.PacketName = packet.PacketName;
+                packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
+                packetModel.PayPriceAmount = 0;
+
+                int productId = Convert.ToInt32(ProductId);
+                var product = _productService.GetProductByProductId(productId);
+                var productName = product.ProductName;
+                model.ProductId = productId;
+                model.IsDoping = true;
+                model.ProductName = productName;
+                if (order != null)
+                {
+                    packetModel.OrderId = order.OrderId;
+                    packetModel.OrderNo = order.OrderNo;
+                    packetModel.OrderCode = order.OrderCode;
+                }
             }
-            return RedirectToAction("index", "Home");
+            model.PacketModel = packetModel;
+            return View(model);
+
 
         }
         public ActionResult BeforePayCreditCard()
         {
-            var storeMainPartyId = Convert.ToInt32(_memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.Membership.MainPartyId).StoreMainPartyId);
+            var storeMainPartyId = Convert.ToInt32(_memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId).StoreMainPartyId);
             var order = _orderService.GetOrdersByMainPartyId(storeMainPartyId).LastOrDefault();
             var payment = _orderService.GetPaymentsByOrderId(order.OrderId).LastOrDefault();
             if (payment != null)
@@ -1670,7 +1696,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public ActionResult PayWithCreditCard(string pan, string OrderId, string Ecom_Payment_Card_ExpDate_Month, string orderId, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string IsDoping, string ProductId, string PacketId, string DopingDay)
         {
             MembershipIyzicoModel model = new MembershipIyzicoModel();
-            int mainPartyId = AuthenticationUser.Membership.MainPartyId;
+            int mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             var member = _memberService.GetMemberByMainPartyId(mainPartyId);
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(mainPartyId);
             var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
@@ -1718,6 +1744,24 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone, taksit);
 
             var paymentResult = iyzicoPayment.CreatePaymentRequest();
+
+            //var cclRequest = new CreditCardLog();
+            //cclRequest.MainPartyId = store.MainPartyId;
+
+            //if (taksit == "00" | taksit == "0" | taksit == "")
+            //    cclRequest.OrderType = "Tek Çekim";
+            //else
+            //    cclRequest.OrderType = "Taksitli";
+            //if (paymentResult.Status == "success")
+            //    cclRequest.Status = "Başarılı";
+            //else
+            //    cclRequest.Status = "Başarısız";
+            //cclRequest.CreatedDate = DateTime.Now;
+            //cclRequest.IPAddress = Request.UserHostAddress.ToString();
+            //cclRequest.Code = paymentResult.ErrorCode;
+            //cclRequest.Detail = Newtonsoft.Json.JsonConvert.SerializeObject(paymentResult,Newtonsoft.Json.Formatting.None);
+            //_creditCardLogService.InsertCreditCardLog(cclRequest);
+
             if (paymentResult.HtmlContent != null)
             {
                 model.HtmlContent = paymentResult.HtmlContent;
@@ -1793,7 +1837,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             order = _orderService.GetOrderByOrderId(orderId);
             if (threedsPayment != null)
             {
-
                 paidPrice = order.OrderPrice;
 
                 status1 = threedsPayment.Status;
@@ -1881,7 +1924,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 mail.Subject = mailMessage.MessagesMTTitle;                                              //Mail konusu
 
                 string template = mailMessage.MessagesMTPropertie;
-                template = template.Replace("#uyeadisoyadi#", AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname).Replace("#paidprice#", paidPrice.ToString("C2"));
+                template = template.Replace("#uyeadisoyadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname).Replace("#paidprice#", paidPrice.ToString("C2"));
                 mail.Body = template;                                                            //Mailin içeriği
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
@@ -1895,7 +1938,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 if (order.PriceCheck == true)
                 {
-
                     #region packetconfirm
                     //hesap numnarası fiyatı
 
@@ -1913,7 +1955,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     if (order.PacketStartDate.HasValue)
                         packetStartDate = order.PacketStartDate.Value;
                     string dateimiz = packetStartDate.AddDays(packet.PacketDay).ToString();
-                    template = template.Replace("#uyeliktipi#", packet.PacketName).Replace("#uyelikbaslangıctarihi#", packetStartDate.ToShortDateString()).Replace("#uyelikbitistarihi#", dateimiz).Replace("#kullaniciadi#", AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname).Replace("#pakettipi#", packet.PacketName);
+                    template = template.Replace("#uyeliktipi#", packet.PacketName).Replace("#uyelikbaslangıctarihi#", packetStartDate.ToShortDateString()).Replace("#uyelikbitistarihi#", dateimiz).Replace("#kullaniciadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname).Replace("#pakettipi#", packet.PacketName);
                     mail.Body = template;                                                            //Mailin içeriği
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
@@ -1935,8 +1977,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
                     #endregion
-
-
                 }
                 try
                 {
@@ -1966,11 +2006,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-
                     //log.Error(" kredi kartı ödeme ödeme bilgimakina maili hatası: " + ex.Message);
                 }
-
-
                 if (paidPrice == order.OrderPrice)
                 {
                     ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı.Paketiniz yükseltilmiştir.<br>Makinaturkiye.com'un sağlamış olduğu avantajlardan yararlanabilirsiniz.";
@@ -2034,13 +2071,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 catch (Exception ex)
                 {
-
                     //log.Error(" kredi kartı ödeme ödeme bilgimakina maili hatası: " + ex.Message);
                 }
                 ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı." + product.Category.CategoryContentTitle + " kategorisinde bulunan " + product.ProductName + " isimli ürününüze " + SessionPayWithCreditCardModel.MTPayWithCreditCardModel.DopingDay + " gün süreli doping uygulanmıştır.";
                 return View("PosComplete");
             }
+
             TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
+            TempData["OrderId"] = order.OrderId;
             if (threedsPayment.ErrorMessage == "paymentId gönderilmesi zorunludur")
                 TempData["errorPosMessage"] = "Bir hata oluştu lütfen bankanız ile iletişime geçiniz.";
             if (!order.ProductId.HasValue) // packet order
