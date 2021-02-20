@@ -93,6 +93,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         public ActionResult Index(string gelenSayfa, string memberType)
         {
+ 
             var model = new MyAccountHomeModel();
             var dataMessage = new Data.Message();
             var messageErrors = _messageService.GetSendMessageErrorsBySenderId(AuthenticationUser.Membership.MainPartyId);

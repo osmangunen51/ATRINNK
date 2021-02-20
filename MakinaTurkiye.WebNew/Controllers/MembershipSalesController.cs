@@ -206,7 +206,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             packetViewModel.PacketFeatureTypeItems = _packetService.GetAllPacketFeatureTypes().ToList();
 
-            packetViewModel.PacketItems = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x=>x.DopingPacketDay.HasValue==false).ToList();
+            packetViewModel.PacketItems = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x => x.DopingPacketDay.HasValue == false).ToList();
 
             return View(packetViewModel);
         }
@@ -446,9 +446,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(SessionPacketModel.PacketModel);
         }
 
-        #if !DEBUG
+#if !DEBUG
             [RequireHttps]
-        #endif
+#endif
         public ActionResult FourStep(string messagge, string orderId)
         {
 
@@ -643,9 +643,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         string cv2;
         string khip;
 
-        #if !DEBUG
+#if !DEBUG
                     [RequireHttps]
-        #endif
+#endif
         [HttpPost]
         public ActionResult FourStep(FormCollection[] fColl)
         {
@@ -1168,9 +1168,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         }
 
-        #if !DEBUG
+#if !DEBUG
                     [RequireHttps]
-        #endif
+#endif
         [HttpPost]
         public ActionResult FourStepNew(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
@@ -1255,7 +1255,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 _creditCardLogService.InsertCreditCardLog(ccl);
 
-                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure",  order.OrderId });
+                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", order.OrderId });
             }
 
 
@@ -1264,9 +1264,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        #if !DEBUG
+#if !DEBUG
         [RequireHttps]
-        #endif
+#endif
         public ActionResult ResultPay(FormCollection frm)
         {
             Options options = new Options();
@@ -1330,7 +1330,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 paymentM.PaidAmount = Convert.ToDecimal(threedsPayment.PaidPrice);
                 paymentM.PaymentType = order.OrderType;
                 paymentM.RecordDate = DateTime.Now;
-                paymentM.RestAmount = (order.OrderPrice- Math.Round(Convert.ToDecimal(threedsPayment.PaidPrice.Replace(".", ",")), 2));
+                paymentM.RestAmount = (order.OrderPrice - Math.Round(Convert.ToDecimal(threedsPayment.PaidPrice.Replace(".", ",")), 2));
                 _orderService.InsertPayment(paymentM);
                 #endregion
 
@@ -1430,7 +1430,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
                 return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
-              //  return View();
+                //  return View();
             }
         }
 
@@ -1599,7 +1599,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         packetModel.PacketName = packet.PacketName;
                         packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
                         if (!string.IsNullOrEmpty(priceAmount))
-                            packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".",","));
+                            packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".", ","));
                         else
                             if (paid != 0)
                             packetModel.PayPriceAmount = order.OrderPrice - paid;
@@ -1688,7 +1688,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             else
                 packet = _packetService.GetPacketByPacketId(Convert.ToInt32(PacketId));
 
-            if (ProductId != "0" && orderId=="0") // insert product order
+            if (ProductId != "0" && orderId == "0") // insert product order
             {
                 order = new Order
                 {
@@ -1715,7 +1715,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(memberStore.StoreMainPartyId.Value, PhoneTypeEnum.Gsm);
             IyzicoPayment iyzicoPayment = new IyzicoPayment(order, member, adressNew, packet, tutar, pan, kartisim, cv2, Ecom_Payment_Card_ExpDate_Month,
-                    Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone,taksit);
+                    Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone, taksit);
 
             var paymentResult = iyzicoPayment.CreatePaymentRequest();
             if (paymentResult.HtmlContent != null)
@@ -1751,7 +1751,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 if (decimal.Parse(tutar) != order.OrderPrice)
                 {
-                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount =tutar, OrderId = order.OrderId });
+                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
 
                 }
             }
@@ -1762,7 +1762,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return RedirectToAction("PayWithCreditCard", "membershipsales", new { OrderId = order.OrderId });
         }
 
-        public ActionResult resultpayForCreditCard()
+        [HttpPost]
+        [AllowAnonymous]
+#if !DEBUG
+        [RequireHttps]
+#endif
+        public ActionResult resultpayForCreditCard(FormCollection frm)
         {
             Options options = new Options();
             options.ApiKey = AppSettings.IyzicoApiKey;
