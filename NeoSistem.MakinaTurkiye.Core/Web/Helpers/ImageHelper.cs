@@ -174,5 +174,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
             return !anyError;
         }
+
+
     }
 }

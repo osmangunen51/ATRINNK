@@ -17267,6 +17267,9 @@ img {
 		margin-left: 0
 	}
 
+	.user-topmenu__item:last-child {
+		margin-right: 0 !important;
+	}
 	.user-topmenu__link {
 		font-size: 14px
 	}
@@ -18433,7 +18436,8 @@ img.res-buyut {
 }
 
 .result-category__item.expanded {
-	overflow: visible;
+	/*overflow: visible;*/
+	overflow: scroll;
 	z-index: 1;
 	position: relative
 }
@@ -18451,18 +18455,18 @@ img.res-buyut {
 		box-shadow: 0 0 20px 0 rgba(0,0,0,.1)
 	}
 
-		.result-category__item.expanded .subCategory:after {
-			content: "";
-			height: 100px;
-			width: 100%;
-			position: absolute;
-			left: 0;
-			bottom: -101px;
-			background: -moz-linear-gradient(top,#fff 0,rgba(255,255,255,0) 100%);
-			background: -webkit-linear-gradient(top,#fff 0,rgba(255,255,255,0) 100%);
-			background: linear-gradient(to bottom,#fff 0,rgba(255,255,255,0) 100%);
-			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#00ffffff', GradientType=0)
-		}
+	/*.result-category__item.expanded .subCategory:after {
+		content: "";
+		height: 100px;
+		width: 100%;
+		position: absolute;
+		left: 0;
+		bottom: -101px;
+		background: -moz-linear-gradient(top,#fff 0,rgba(255,255,255,0) 100%);
+		background: -webkit-linear-gradient(top,#fff 0,rgba(255,255,255,0) 100%);
+		background: linear-gradient(to bottom,#fff 0,rgba(255,255,255,0) 100%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#00ffffff', GradientType=0)
+	}*/
 
 #breadcrumbStoreProfile, .bottom-slider__item {
 	background-color: #fff
@@ -22133,7 +22137,7 @@ img.res-buyut {
 
 .product-list-mt__detail, .product-list-mt__inner, .product-list-mt__item, .product-list-mt__link {
 	position: relative;
-	line-height:30px;
+	line-height: 30px;
 }
 
 .company-list-mt [class*=col-] {
@@ -22353,7 +22357,7 @@ img.res-buyut {
 
 .product-list-mt__features {
 	margin: 0 20px 10px;
-	line-height:16px;
+	line-height: 16px;
 }
 
 .product-list-mt__has-video {
@@ -22374,7 +22378,7 @@ img.res-buyut {
 }
 
 	.product-list-mt__advert-no:before {
-		content: 'İlan No: '
+		content: 'Ä°lan No: '
 	}
 
 @media (min-width:480px) {
@@ -22549,7 +22553,7 @@ img.res-buyut {
 }
 
 .product-list-mtgrid__advert-no:before {
-	content: "İlan No:"
+	content: "Ä°lan No:"
 }
 
 .product-list-mtgrid__advert-no {
@@ -22653,7 +22657,7 @@ img.res-buyut {
 @media (min-width:992px) {
 	.store-product-container .product-list-mt__item {
 		min-height: 325px !important;
-		line-height:30px;
+		line-height: 30px;
 	}
 
 	.new-header.is-fixed {
@@ -23461,7 +23465,7 @@ img.res-buyut {
 		font-family: Arial;
 		font-size: 13px;
 		text-align: left;
-		line-height:15px;
+		line-height: 15px;
 	}
 
 	.mega-dropdown-menu > li > section > ul > li:not(:first-child):hover a {
@@ -23580,7 +23584,7 @@ img.res-buyut {
 .mega-dropdown-menu li ul li:not(.dropdown-header) {
 	float: left;
 	line-height: 1;
-	margin-top:5px;
+	margin-top: 5px;
 }
 
 .main-navigation div .navbar-nav > li {
@@ -23749,11 +23753,12 @@ img.res-buyut {
 	.new-header__top-right {
 		width: auto
 	}
-	.new-header__top-right a:nth-child(2) svg {
-	width:32px;
-	height:32px;
-	padding-top:2px;
-}
+
+		.new-header__top-right a:nth-child(2) svg {
+			width: 32px;
+			height: 32px;
+			padding-top: 2px;
+		}
 }
 
 .account-dropdown {
@@ -24467,7 +24472,8 @@ html.lb-disable-scrolling {
 		margin-right: 5px;
 		font-size: 12px;
 		color: #50545d;
-		font-weight: 700
+		font-weight: 700;
+		padding: 10px;
 	}
 
 		.cdbar .cdbar-text a {
@@ -24531,7 +24537,8 @@ html.lb-disable-scrolling {
 
 .cdbar.dark {
 	color: #fff;
-	background-color: #050505
+	background-color: #050505;
+	width:340px;
 }
 
 .cdbar.light {
@@ -24600,7 +24607,10 @@ html.lb-disable-scrolling {
 	.cdbtn.cookie {
 		color: #fff;
 		border-radius: 0;
-		margin-top: 6px
+		margin-top: 6px;
+		position: absolute;
+		top: 5px;
+		right: 5px;
 	}
 
 	.cdbtn.privacy {
@@ -26018,7 +26028,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
 		width: 30px !important;
 		margin-left: 5px;
 		margin-right: 5px;
-		fill:#F44336;
+		fill: #F44336;
 	}
 
 	.btn-login {
@@ -26026,39 +26036,42 @@ input[name="SearchText"]::-webkit-input-placeholder {
 		margin-bottom: 5px;
 	}
 
-.main-container{
-	transform: none;
-	overflow: hidden;
-	padding-right: 37px;
-}
-.product-detail__title {
-	padding-left: 15px;
-}
-.ilanSlider {
-	padding-left: 25px;
-	/* padding-right: 15px; */
-	transform: none;
-}
-.socialM {
-	padding-left:20px;
-}
-.store-profile-header__brand-name {
-	padding-top:20px;
-}
+	.main-container {
+		transform: none;
+		overflow: hidden;
+		padding-right: 37px;
+	}
+
+	.product-detail__title {
+		padding-left: 15px;
+	}
+
+	.ilanSlider {
+		padding-left: 25px;
+		/* padding-right: 15px; */
+		transform: none;
+	}
+
+	.socialM {
+		padding-left: 20px;
+	}
+
+	.store-profile-header__brand-name {
+		padding-top: 20px;
+	}
+
 	.homeCont {
-		padding-right:15px;
+		padding-right: 15px;
 	}
-	#myTabContent
-	{
-		margin-left:10px;
-		margin-right:0px;
-		padding-right:0px;
 
+	#myTabContent {
+		margin-left: 10px;
+		margin-right: 0px;
+		padding-right: 0px;
 	}
 }
 
 
-.yardimIcerik
-{
-	text-align:justify;
+.yardimIcerik {
+	text-align: justify;
 }
