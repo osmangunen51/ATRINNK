@@ -17298,7 +17298,7 @@ img {
 }
 
 .sector-category-list__sub-items li a {
-    font-size: 13px
+	font-size: 13px
 }
 
 @media (min-width:1200px) {
@@ -22417,9 +22417,9 @@ img.res-buyut {
     margin-bottom: .5rem
 }
 
-    .product-list-mt__advert-no:before {
-        content: 'Ä°lan No: '
-    }
+	.product-list-mt__advert-no:before {
+		content: 'Ä°lan No: '
+	}
 
 @media (min-width:480px) {
     .product-list-mt__advert-no {
@@ -22593,7 +22593,7 @@ img.res-buyut {
 }
 
 .product-list-mtgrid__advert-no:before {
-    content: "Ä°lan No:"
+	content: "Ä°lan No:"
 }
 
 .product-list-mtgrid__advert-no {
@@ -24627,9 +24627,9 @@ html.lb-disable-scrolling {
     }
 
 .cdbar.dark {
-    color: #fff;
-    background-color: #050505;
-    width: 340px;
+	color: #fff;
+	background-color: #050505;
+	width:340px;
 }
 
 .cdbar.light {
