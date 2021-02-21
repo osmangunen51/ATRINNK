@@ -17267,9 +17267,10 @@ img {
 		margin-left: 0
 	}
 
-	.user-topmenu__item:last-child {
-		margin-right: 0 !important;
-	}
+		.user-topmenu__item:last-child {
+			margin-right: 0 !important;
+		}
+
 	.user-topmenu__link {
 		font-size: 14px
 	}
@@ -18455,7 +18456,7 @@ img.res-buyut {
 		box-shadow: 0 0 20px 0 rgba(0,0,0,.1)
 	}
 
-	/*.result-category__item.expanded .subCategory:after {
+/*.result-category__item.expanded .subCategory:after {
 		content: "";
 		height: 100px;
 		width: 100%;
@@ -22378,7 +22379,7 @@ img.res-buyut {
 }
 
 	.product-list-mt__advert-no:before {
-		content: 'Ä°lan No: '
+		content: 'İlan No: '
 	}
 
 @media (min-width:480px) {
@@ -22553,7 +22554,7 @@ img.res-buyut {
 }
 
 .product-list-mtgrid__advert-no:before {
-	content: "Ä°lan No:"
+	content: "İlan No:"
 }
 
 .product-list-mtgrid__advert-no {
@@ -24538,7 +24539,7 @@ html.lb-disable-scrolling {
 .cdbar.dark {
 	color: #fff;
 	background-color: #050505;
-	width:340px;
+	width: 340px;
 }
 
 .cdbar.light {
@@ -26063,7 +26064,6 @@ input[name="SearchText"]::-webkit-input-placeholder {
 	.homeCont {
 		padding-right: 15px;
 	}
-
 	#myTabContent {
 		margin-left: 10px;
 		margin-right: 0px;
