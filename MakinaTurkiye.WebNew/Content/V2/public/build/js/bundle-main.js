@@ -1282,9 +1282,6 @@ $(document).ready(function () {
             });
         }
         else {
-
-
-
             $(".main-navigation .dropdown .dropdown-toggle").unbind().on('click', function (event) {
 
                 var categoryId = $(this).attr("data-cat-id");

@@ -35,16 +35,17 @@
 @{
     bool isMobile = Request.Browser.IsMobileDevice;
     List<NeoSistem.MakinaTurkiye.Web.Models.Home.MTHomeCategoryModel> MobilMenuList = new List<MTHomeCategoryModel>();
-
 }
-
+@*<div class="visible-xs hidden-sm">XS</div>
+<div class="hidden-xs visible-sm hidden-md">SM</div>
+<div class="hidden-xs visible-md hidden-lg">MD</div>
+<div class="hidden-xs visible-lg hidden-xl">LG</div>*@
 <nav class="navbar navbar-inverse main-navigation navbar-expand-md">
     <div class="collapse navbar-collapse js-navbar-collapse container-fluid">
         <div class="mobile-main-menu">
-            @if (isMobile)
-            {
+            <div class="xssm-visible mdlg-hidden">
 
-                foreach (var item in Model.ToList())
+                @foreach (var item in Model.ToList())
                 {
                     foreach (var category in item.CategoryModels.OrderBy(x => x.CategoryName))
                     {
@@ -52,66 +53,66 @@
                     }
                 }
                 <div class="mobile-hm-title">Tüm Kategoriler</div>
-                                <ul class="nav navbar-nav mobile-hm">
-                                    @foreach (var item in MobilMenuList.OrderBy(x =>x.CategoryName).ToList())
-                                    {
-                                        <li class="dropdown mega-dropdown" data-menu-id="@(0)">
-                                            <div class="hm-item hm-text">
-                                                <span class="hm-image-container">
-                                                    <img class="hm-image" src="@item.CategoryIcon " alt="" style="width:24px;">
-                                                </span>
-                                                <span>
-                                                    <a href="@item.CategoryUrl">
-                                                        @item.CategoryName
-                                                    </a>
-                                                    <i class="hm-icon dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;" data-cat-id="@item.CategoryId"></i>
-                                                </span>
-                                            </div>
-                                            <ul class="dropdown-menu mega-dropdown-menu container-fluid" style="margin-top: 5px;">
-                                                <div class="loading" style="text-align: center;"></div>
-                                            </ul>
-                                        </li>
-                                    }
+                <ul class="nav navbar-nav mobile-hm">
+                    @foreach (var item in MobilMenuList.OrderBy(x => x.CategoryName).ToList())
+                    {
+                        <li class="dropdown mega-dropdown flex-xs-12" data-menu-id="@(0)">
+                            <div class="hm-item hm-text">
+                                <span class="hm-image-container">
+                                    <img class="hm-image" src="@item.CategoryIcon " alt="" style="width:24px;">
+                                </span>
+                                <span>
+                                    <a href="@item.CategoryUrl">
+                                        @item.CategoryName
+                                    </a>
+                                    <i class="hm-icon dropdown-toggle" data-toggle="dropdown" style="cursor:pointer;" data-cat-id="@item.CategoryId"></i>
+                                </span>
+                            </div>
+                            <ul class="dropdown-menu mega-dropdown-menu container-fluid" style="margin-top: 5px;">
+                                <div class="loading" style="text-align: center;"></div>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="mdlg-visible xssm-hidden">
+                <div class="container" style="width:1300px!important;">
+                    <ul class="nav navbar-nav">
+
+                        @foreach (var item in Model.ToList())
+                        {
+
+                            <li class="dropdown mega-dropdown mdlg-header-li" data-menu-id="@item.BaseMenuId">
+
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+
+                                    <span class="hidden-sm hidden-xs">
+
+                                        @Html.Raw(item.BaseMenuName)
+
+                                    </span>
+
+
+                                    <span class="hidden-md hidden-lg">
+
+                                        @item.BaseMenuName.Replace("<br>", "")
+
+
+                                        <i class="icon-down-arrow" style="float: right;"></i>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu mega-dropdown-menu container-fluid">
+
+                                    <li>
+                                        <div style="text-align: center;" id="loading"></div>
+                                    </li>
                                 </ul>
-                            }
-                            else
-                            {
-                <ul class="nav navbar-nav">
-
-                                    @foreach (var item in Model.ToList())
-                                    {
-
-                                        <li class="dropdown mega-dropdown" data-menu-id="@item.BaseMenuId">
-
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-
-
-                                                <span class="hidden-sm hidden-xs">
-
-                                                    @Html.Raw(item.BaseMenuName)
-
-                                                </span>
-
-
-                                                <span class="hidden-md hidden-lg">
-
-                                                    @item.BaseMenuName.Replace("<br>", "")
-
-
-                                                    <i class="icon-down-arrow" style="float: right;"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="dropdown-menu mega-dropdown-menu container-fluid">
-
-                                                <li>
-                                                    <div style="text-align: center;" id="loading"></div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    }
-                                </ul>
-
-                            }
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </nav>

@@ -295,8 +295,8 @@
     }
     <meta name="google-site-verification" content="jpeiLIXc-vAKBB2vjRZg3PluGG3hsty0n6vSXUr_C-A" />
 }
-@Html.Hidden("RequestStatistic","0")
-@Html.Partial("_ProductPageHaderNew",Model.ProductPageHeaderModel)
+@Html.Hidden("RequestStatistic", "0")
+@Html.Partial("_ProductPageHaderNew", Model.ProductPageHeaderModel)
 <style>
     .addthis_inline_share_toolbox {
         padding-top: 10px;
@@ -312,54 +312,57 @@
     </div>
     @if (Model.OnlyStoreSee)
     {
-    <div class="flex-row flex-lg-nowrap flex-md-nowrap ilanSlider" style="padding-left: 15px; padding-right: 15px; margin-bottom: 20px;">
+        <div class="flex-row flex-lg-nowrap flex-md-nowrap ilanSlider" style="padding-left: 15px; padding-right: 15px; margin-bottom: 20px;">
 
-        <div class="flex-md-12 flex-sm-12 flex-xs-12 text-center product-activetype-display p-r-lg-15 p-r-md-15  p-r-sm-15">
-            <b style="font-size: 16px;">İlanınız inceleniyor</b>
+            <div class="flex-md-12 flex-sm-12 flex-xs-12 text-center product-activetype-display p-r-lg-15 p-r-md-15  p-r-sm-15">
+                <b style="font-size: 16px;">İlanınız inceleniyor</b>
+            </div>
         </div>
-    </div>
     }
     <div class="flex-row flex-lg-nowrap flex-md-nowrap ilanSlider" style="padding-left: 15px; padding-right: 15px;">
         <div class="flex-xs-12 flex-sm-12 flex-md-9 flex-lg-6">
             <div class="flex-row">
-                <div class="flex-xs-12 flex-md-12 flex-sm-12 flex-lg-12 p-r-lg-15 p-r-md-15  p-r-sm-15">
+                <div class="flex-xs-12 flex-sm-12 flex-md-12 flex-lg-12 p-r-lg-15 p-r-md-15">
                     <div class="thumbnail">
-                        @Html.Partial("_ProductPictureNew",Model.ProductPictureModels)
+                        @Html.Partial("_ProductPictureNew", Model.ProductPictureModels)
                     </div>
                 </div>
 
             </div>
         </div>
-        <div class="flex-xs-12 flex-md-7 flex-sm-7 flex-lg-3 p-r-lg-15 p-r-md-15 ">
+        <div class="flex-xs-12 flex-sm-7 flex-md-7 flex-lg-3 p-r-lg-15 p-r-md-15 p-r-sm-15 ">
             @Html.Partial("_ProductDetailNew", Model.ProductDetailModel)
         </div>
-        <div class="flex-xs-12 flex-sm-12 flex-md-3 flex-lg-3 rightSidebar">
-            <div>
-                <div class="affixRight" data-bottom-fix="#fixthis">
-                    <div style="display: block;">
-                        <div class="row">
-                            <div class="col-sm-6 col-xs-12 col-md-12 col-lg-12">
-                                @Html.Partial("_ProductStoreNew", Model.ProductStoreModel)
-                                @Html.Partial("_StoreOtherProductNew", Model.StoreOtherProductModel)
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
+        <div class="flex-xs-12 flex-sm-5 flex-md-3 flex-lg-3">
+            @*//rightSidebar*@
+        <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="padding:0px;" id="otherProductsSticky">
+            @*//theiaStickySidebar*@
+            @Html.Partial("_ProductStoreNew", Model.ProductStoreModel)
+            @Html.Partial("_StoreOtherProductNew", Model.StoreOtherProductModel)
         </div>
     </div>
-    <div class="flex-xs-12  p-r-lg-15 p-r-md-15">
-        @Html.Partial("_ProductTabNew",Model.ProductTabModel)
-    </div>
-    <div class="col-xs-12" id="fixthis">
-        @Html.Partial("_SimilarProductNew",Model.SimilarProductModel)
-    </div>
-
+    @*<script>
+            $(document).ready(function () {
+                $('.rightSidebar')
+                    .theiaStickySidebar({
+                        additionalMarginTop: 50
+                    });
+            });
+        </script>*@
 </div>
-@Html.Partial("_ProductStoreContact",Model.ProductContanctModel)
+</div>
+<div class="flex-xs-12  p-r-lg-15 p-r-md-15">
+    @Html.Partial("_ProductTabNew", Model.ProductTabModel)
+</div>
+<div class="col-xs-12" id="fixthis">
+    @Html.Partial("_SimilarProductNew", Model.SimilarProductModel)
+</div>
+
+@Html.Partial("_ProductStoreContact", Model.ProductContanctModel)
 @if (!string.IsNullOrEmpty(Model.MtJsonLdModel.JsonLdString))
 {
     <script type="application/ld+json">
         @Html.Raw(Model.MtJsonLdModel.JsonLdString);
     </script>
- }
+}

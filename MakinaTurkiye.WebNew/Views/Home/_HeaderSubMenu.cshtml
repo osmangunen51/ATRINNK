@@ -4,7 +4,7 @@
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
 @{ Layout = null;
-    bool isMobile = Request.Browser.IsMobileDevice;
+    bool isMobile = Request.Browser.ScreenPixelsWidth < 992;
     string menuCss = "col-md-12";
 
     string subMenuCss = "col-md-4";
@@ -13,70 +13,66 @@
     {
         menuCss = "col-md-9";
     } }
-<li class="col-sm-12 @menuCss " style="padding-top:20px;">
+<li class="col-sm-12 @menuCss " style="padding-top:20px;padding-bottom:20px;">
     @foreach (var category in Model.CategoryModels.ToList())
     {
-<section class="col-sm-12  @subMenuCss" style="padding: 0px;">
-    <ul>
-        @if (!isMobile)
-        {
-<li class="dropdown-header col-md-12">
-    <a href="@category.CategoryUrl" title="@category.CategoryContentTitle.Replace("<br>","")">
-        @*@if (category.CategoryName.ToLower().Contains("makin"))
-            {
-                category.CategoryName = category.CategoryName.Split(' ')[0];
-            }*@
-        @category.CategoryName
-    </a>
-</li>
-}
-        @{int counter = 1;
-            string subLiClass = "col-md-6 col-sm-6";
-            if (category.SubCategoryModels.Count > 20)
-            {
-                subLiClass = "col-md-4 col-sm-4";
-            } }
-        @if (isMobile)
-        {
-<li style="padding-left: 5px;">
-    <a href="@category.CategoryUrl" title="@category.CategoryContentTitle.Replace("<br>","")">
-        @Html.Raw(category.CategoryName)
-        @{ counter++; }
-    </a>
-</li>
- }
-else
-{
-foreach (var subCategory in category.SubCategoryModels)
-{
+        <section class="col-sm-12  @subMenuCss" style="padding: 0px;">
+            <ul>
+                <li class="mdlg-visible xssm-hidden dropdown-header col-md-12">
+                    <a href="@category.CategoryUrl" title="@category.CategoryContentTitle.Replace("<br>","")">
+                        @*@if (category.CategoryName.ToLower().Contains("makin"))
+                            {
+                                category.CategoryName = category.CategoryName.Split(' ')[0];
+                            }*@
+                        @category.CategoryName
+                    </a>
+                </li>
+                @{int counter = 1;
+                    string subLiClass = "col-md-6 col-sm-6";
+                    if (category.SubCategoryModels.Count > 20)
+                    {
+                        subLiClass = "col-md-4 col-sm-4";
+                    } 
+                }
 
-<li style="padding-left:5px;display:inline-block">
-    <a href="@subCategory.CategoryUrl" style="margin-left:5px;" title="@subCategory.CategoryContentTitle">
-        @{string seperator = category.SubCategoryModels.Count != counter ? ",  " : ""; }
-        @Html.Raw((subCategory.CategoryName + seperator))
-        @{ counter++; }
-    </a>
-</li>
-}
-}
-    </ul>
-</section>}
+                    <li class="xssm-visible mdlg-hidden" style="padding-left: 5px;">
+                        <a href="@category.CategoryUrl" title="@category.CategoryContentTitle.Replace("<br>","")">
+                            @Html.Raw(category.CategoryName)
+                            @{ counter++; }
+                        </a>
+                    </li>
+                    
+                @foreach (var subCategory in category.SubCategoryModels)
+                    {
+
+                        <li class="xssm-hidden mdlg-visible" style="padding-left:5px;display:inline-block">
+                            <a href="@subCategory.CategoryUrl" style="margin-left:5px;" title="@subCategory.CategoryContentTitle">
+                                @{string seperator = category.SubCategoryModels.Count != counter ? ",  " : ""; }
+                                @Html.Raw((subCategory.CategoryName + seperator))
+                                @{ counter++; }
+                            </a>
+                        </li>
+                    }
+            </ul>
+        </section>
+        }
 </li>
 
-@if (Model.ImageModels.Count > 0 && !isMobile)
+@if (Model.ImageModels.Count > 0)
 {
-    <li class="col-sm-3 hidden-xs hidden-sm menu-image-container">
+    <li class="col-sm-3 xssm-hidden mdlg-visible menu-image-container">
         @foreach (var item in Model.ImageModels)
         {
             if (!string.IsNullOrEmpty(item.Key))
             {
-    <a href="@item.Key">
-        <img src="@item.Value" />
-    </a> }
-    else
-    {
-    <img src="@item.Value" />}
-    }
+                <a href="@item.Key">
+                    <img src="@item.Value" />
+                </a> }
+            else
+            {
+                <img src="@item.Value" />
+                }
+        }
         <a href="/"></a>
     </li>
 }
