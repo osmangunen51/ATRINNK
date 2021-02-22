@@ -78,7 +78,7 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
 				"~/Content/v2/assets/css/magnific-popup.css",
 				"~/Content/v2/assets/css/bootstrap-select.min.css",
 				"~/Content/V2/assets/css/autocomplete.css",
-				"~/Content/V2/assets/css/jquery.autocomplete.css?v=3"
+				"~/Content/V2/assets/css/jquery.autocomplete.css?v=5"
 				);
 			bundle.Orderer = new NonOrderingBundleOrderer();
 			bundles.Add(StyleBundle);
