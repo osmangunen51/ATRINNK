@@ -1200,6 +1200,7 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
 
         public void CalculateSPProductRate()
         {
+            
             _dbContext.ExecuteSqlCommand("exec ProductRateCalculate");
         }
 
