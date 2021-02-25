@@ -406,7 +406,7 @@
             var BrandName = $("#BrandName").val();
             var OrderType = $("#OrderType").val();
             $.ajax({
-                url:'@(AppSettings.SiteUrl+"Account/Advert/AdvertPaging")',
+                url:'@Url.Action("AdvertPaging","Advert")',
                 type: 'POST',
                 data: {
                     page: p, displayType: d,
