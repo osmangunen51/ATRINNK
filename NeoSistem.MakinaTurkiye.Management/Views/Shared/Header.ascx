@@ -84,17 +84,17 @@
 
 
 
-            <div style="position: absolute; right: 350px; top: 10px;">
-        <a  style="padding:2px;"  href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
+    <div style="position: absolute; right: 350px; top: 10px;">
+        <a style="padding: 2px;" href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
     </div>
-        <div style="position: absolute; right: 180px; top: 10px;">
-        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style="padding:2px;" href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
+    <div style="position: absolute; right: 180px; top: 10px;">
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;" href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
     </div>
-        <div style="position: absolute; right: 80px; top: 10px;">
-        <a  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"  style="padding:2px;"  href="/MemberDescription/Notification" title="Bildirimler" id="notification"></a>
+    <div style="position: absolute; right: 80px; top: 10px;">
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;" href="/MemberDescription/Notification" title="Bildirimler" id="notification"></a>
     </div>
     <div style="float: right; position: absolute; right: 10px; top: 10px;">
-        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding:2px;" href="/Account/Logout">Çıkış Yap</a>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;" href="/Account/Logout">Çıkış Yap</a>
     </div>
 
 
@@ -194,7 +194,7 @@
                                         Id: 'HomeProductChoosed', text: 'Seçilen<br> Sektör Ürünleri', type: Ribbon.ButtonType.BigItem,
                                         align: 'left', image: 'AdvertCheck.png', action: "window.location = '/Product/HomeSectorProduct';"
                                     },
-                                           {
+                                    {
                                         Id: 'UrlRedirect', text: 'Url<br> Yönlendirme', type: Ribbon.ButtonType.BigItem,
                                         align: 'left', image: 'AdvertList.png', action: "window.location = '/UrlRedirect';"
                                     }
@@ -229,7 +229,7 @@
                                         },
 
                                         {
-                                              Id: 'MemberSearchByPhone', text: 'Numaraya Göre Bul', type: Ribbon.ButtonType.BigItem,
+                                            Id: 'MemberSearchByPhone', text: 'Numaraya Göre Bul', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'phone-search.png', action: "window.location = '/Member/SearchPhone';"
                                         }
                                     ]
@@ -492,12 +492,12 @@
                                         }, {
                                             Id: 'ConfFirmApproved', text: 'Onaylanan Sipariş Listesi', type: Ribbon.ButtonType.SmallItem,
                                             align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Onaylandi %>';"
-                          }, {
-                              Id: 'ConfFirmNotApproved', text: 'Onaylanmayan Sipariş Listesi', type: Ribbon.ButtonType.SmallItem,
-                              align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Onaylanmadi %>';"
-                          }, {
-                              Id: 'ConfFirmExamined', text: 'Onayda Sipariş Listesi', type: Ribbon.ButtonType.SmallItem,
-                              align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Inceleniyor %>';"
+                                        }, {
+                                            Id: 'ConfFirmNotApproved', text: 'Onaylanmayan Sipariş Listesi', type: Ribbon.ButtonType.SmallItem,
+                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Onaylanmadi %>';"
+                                        }, {
+                                            Id: 'ConfFirmExamined', text: 'Onayda Sipariş Listesi', type: Ribbon.ButtonType.SmallItem,
+                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Inceleniyor %>';"
                                         }]
                                 }, {
                                     text: 'Bildirimler',
@@ -674,6 +674,23 @@
                             ImageLoc: '/Content/RibbonImages/',
                             Groups: [
                                 {
+                                    text: 'Ön Kayıt Firma',
+                                    type: Ribbon.GroupType.Group,
+                                    width: 'auto',
+                                    buttons: [
+                                        {
+                                            Id: 'PreRegisterStore', text: 'Ön Kayıt<br> Firmalar', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'preregister.png', action: "window.location ='/PreRegistrationStore/';"
+
+                                        },
+                                        {
+                                            Id: 'PreRegisterStoreCreate', text: 'Ön Kayıt<br> Ekle', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'ChartResetToMatchStyle.png', action: "window.location ='/PreRegistrationStore/Create';"
+
+                                        },
+                                    ]
+                                },
+                                {
                                     text: 'Firma Yönetimi',
                                     type: Ribbon.GroupType.Group,
                                     width: 'auto',
@@ -685,79 +702,78 @@
                                         }, {
                                             Id: 'StoreShowcase', text: 'Vitrindeki<br> Firmalar', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'ActiveSurvey.png', action: "<%: "window.location='/Store/EditShowcase';" %>"
-               }, {
-                   Id: 'StoreCheck', text: 'Onaylanmış<br>Firmalar', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'StoreCheck.png', action: "<%: "window.location='/Store/PacketStatuSearch/2';" %>"
-               }, {
-                   Id: 'StoreUnCheck', text: 'Onaylanmamış<br>Firmalar', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'StoreUnCheck.png', action: "<%: "window.location='/Store/PacketStatuSearch/3';" %>"
-               },
-
-
-               {
-                   Id: 'OnayBekleyenFirmalar', text: 'Onay Bekleyen<br>Firmalar', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'ActiveSurvey.png', action: "<%: "window.location='/Store/PacketStatuSearch/1';" %>"
-               },
-               {
-                   Id: 'StoreCheck2', text: 'Silinen<br> Firmalar', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'StoreCheck.png', action: "<%: "window.location='/Store/PacketStatuSearch/4';" %>"
+                                        }, {
+                                            Id: 'StoreCheck', text: 'Onaylanmış<br>Firmalar', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'StoreCheck.png', action: "<%: "window.location='/Store/PacketStatuSearch/2';" %>"
+                                        }, {
+                                            Id: 'StoreUnCheck', text: 'Onaylanmamış<br>Firmalar', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'StoreUnCheck.png', action: "<%: "window.location='/Store/PacketStatuSearch/3';" %>"
                                         },
-                      {
-                   Id: 'StoreChangeInfo', text: 'Değişiklik<br> Yapılanlar', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'store-list.png', action: "<%: "window.location='/ChangeLogs/';" %>"
-               },
-               {
-                   Id: 'PreRegisterStore', text: 'Ön Kayıt<br> Firmalar', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'preregister.png', action: "window.location ='/PreRegistrationStore/';"
 
-               },
-               {
-                   Id: 'LoginLog', text: 'Firma<br> Hareketleri', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'login-32.png', action: "window.location ='/Store/LoginLogs';"
 
-               },
-               {
-                   Id: 'WhatsappStore', text: 'Firma<br> Tıklanmalar', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'whatsapp.png', action: "window.location ='/Store/WhatsappStore';"
+                                        {
+                                            Id: 'OnayBekleyenFirmalar', text: 'Onay Bekleyen<br>Firmalar', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'ActiveSurvey.png', action: "<%: "window.location='/Store/PacketStatuSearch/1';" %>"
+                                        },
+                                        {
+                                            Id: 'StoreCheck2', text: 'Silinen<br> Firmalar', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'StoreCheck.png', action: "<%: "window.location='/Store/PacketStatuSearch/4';" %>"
+                                        },
+                                        {
+                                            Id: 'StoreChangeInfo', text: 'Değişiklik<br> Yapılanlar', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'store-list.png', action: "<%: "window.location='/ChangeLogs/';" %>"
+                                        },
 
-               },
-               {
-                   Id: 'StoreNew', text: 'Firma<br> Haberler', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'newsstore.png', action: "window.location ='/Store/New?newType=1';"
+                                        {
+                                            Id: 'LoginLog', text: 'Firma<br> Hareketleri', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'login-32.png', action: "window.location ='/Store/LoginLogs';"
 
-               },
-               {
-                   Id: 'StoreSuccessStories', text: 'Başarı<br> Hikayeleri', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'newsstore.png', action: "window.location ='/Store/New?newType=2';"
+                                        },
+                                        {
+                                            Id: 'WhatsappStore', text: 'Firma<br> Tıklanmalar', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'whatsapp.png', action: "window.location ='/Store/WhatsappStore';"
 
-               },
+                                        },
+                                        {
+                                            Id: 'StoreNew', text: 'Firma<br> Haberler', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'newsstore.png', action: "window.location ='/Store/New?newType=1';"
 
-               {
-                   Id: 'ImportExcelStore', text: 'Excel İle Firma<br />Güncelle', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'excel.png', action: "<%: "window.location='/Store/UpdateStoreByExel';" %>"
-               },
-               {
-                   Id: 'CertificateTypes', text: 'Sertifika Tipleri', type: Ribbon.ButtonType.BigItem,
-                   align: 'left', image: 'medal.png', action: "<%: "window.location='/Product/CertificateTypes';" %>"
-                    },
+                                        },
+                                        {
+                                            Id: 'StoreSuccessStories', text: 'Başarı<br> Hikayeleri', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'newsstore.png', action: "window.location ='/Store/New?newType=2';"
 
-                ]
-            },
-            {
-                text: 'Bilgi Değişiklikleri',
-                type: Ribbon.GroupType.Group,
-                width: 'auto',
-                buttons: [
-                    {
-                        Id: 'UpdaStore', text: 'Firma Bilgileri', type: Ribbon.ButtonType.BigItem,
-                        align: 'left', image: 'store-list.png', action: "<%: "window.location='/ChangeLogs/Store';" %>"
-                },
-                {
-                    Id: 'UpdateAddress', text: 'Adres Bilgileri', type: Ribbon.ButtonType.BigItem,
-                    align: 'left', image: 'address-list.png', action: "<%: "window.location='/ChangeLogs/address';" %>"
-                }, {
-                    Id: 'UpdatePhone', text: 'Telefon Bilgileri', type: Ribbon.ButtonType.BigItem,
-                    align: 'left', image: 'phone-list.png', action: "<%: "window.location='/ChangeLogs/Phone';" %>"
+                                        },
+
+                                        {
+                                            Id: 'ImportExcelStore', text: 'Excel İle Firma<br />Güncelle', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'excel.png', action: "<%: "window.location='/Store/UpdateStoreByExel';" %>"
+                                        },
+                                        {
+                                            Id: 'CertificateTypes', text: 'Sertifika Tipleri', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'medal.png', action: "<%: "window.location='/Product/CertificateTypes';" %>"
+                                        },
+
+                                    ]
+                                },
+                  
+
+
+                                {
+                                    text: 'Bilgi Değişiklikleri',
+                                    type: Ribbon.GroupType.Group,
+                                    width: 'auto',
+                                    buttons: [
+                                        {
+                                            Id: 'UpdaStore', text: 'Firma Bilgileri', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'store-list.png', action: "<%: "window.location='/ChangeLogs/Store';" %>"
+                                        },
+                                        {
+                                            Id: 'UpdateAddress', text: 'Adres Bilgileri', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'address-list.png', action: "<%: "window.location='/ChangeLogs/address';" %>"
+                                        }, {
+                                            Id: 'UpdatePhone', text: 'Telefon Bilgileri', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'phone-list.png', action: "<%: "window.location='/ChangeLogs/Phone';" %>"
                                         }
 
                                     ]
@@ -809,32 +825,32 @@
                                         {
                                             Id: 'AdvertShowcase', text: 'Vitrindeki<br />İlanlar', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'ActiveSurvey.png', action: "<%: "window.location='/Product/EditShowcase';" %>"
-                },
-                {
-                    Id: 'VideoShowcase', text: 'Vitrindeki<br />Videolar', type: Ribbon.ButtonType.BigItem,
-                    align: 'left', image: 'ActiveSurvey.png', action: "<%: "window.location='/Video/EditShowcase';" %>"
-                },
-                {
-                    Id: 'ImportExcel', text: 'Excel İle Ürün<br />Güncelle', type: Ribbon.ButtonType.BigItem,
-                    align: 'left', image: 'excel.png', action: "<%: "window.location='/Product/UpdateProductByExcelFile';" %>"
-                    },
+                                        },
+                                        {
+                                            Id: 'VideoShowcase', text: 'Vitrindeki<br />Videolar', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'ActiveSurvey.png', action: "<%: "window.location='/Video/EditShowcase';" %>"
+                                        },
+                                        {
+                                            Id: 'ImportExcel', text: 'Excel İle Ürün<br />Güncelle', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'excel.png', action: "<%: "window.location='/Product/UpdateProductByExcelFile';" %>"
+                                        },
 
 
-                ]
-            },
-            {
-                text: 'Yorumlar',
-                type: Ribbon.GroupType.Group,
-                width: '150px',
-                buttons: [{
-                    Id: 'ProductComment', text: 'Ürün Yorumları', type: Ribbon.ButtonType.SmallItem,
+                                    ]
+                                },
+                                {
+                                    text: 'Yorumlar',
+                                    type: Ribbon.GroupType.Group,
+                                    width: '150px',
+                                    buttons: [{
+                                        Id: 'ProductComment', text: 'Ürün Yorumları', type: Ribbon.ButtonType.SmallItem,
 
-                    align: 'left', image: 'comment.png', action: "<%: "window.location='/Product/Comment';" %>"
-                },
-                    {
-                        Id: 'ReportCOmment', text: 'Şikayetli Yorumlar', type: Ribbon.ButtonType.SmallItem,
+                                        align: 'left', image: 'comment.png', action: "<%: "window.location='/Product/Comment';" %>"
+                                    },
+                                        {
+                                            Id: 'ReportCOmment', text: 'Şikayetli Yorumlar', type: Ribbon.ButtonType.SmallItem,
 
-                        align: 'left', image: 'comment.png', action: "<%: "window.location='/Product/Comment?Reported=1';" %>"
+                                            align: 'left', image: 'comment.png', action: "<%: "window.location='/Product/Comment?Reported=1';" %>"
                                         },
                                     ]
                                 }
@@ -960,7 +976,7 @@
                                             Id: 'MemberNotes', text: 'Üye</br>Açıklamaları', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'FilePrepareMenu.png', action: "window.location ='/MemberDescription';"
                                         },
-                                                  {
+                                        {
                                             Id: 'StoreSeo', text: 'Seo</br>Açıklamaları', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'store-list.png', action: "window.location ='/StoreSeoNotification/AllSeoNotification';"
                                         },

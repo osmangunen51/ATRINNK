@@ -22436,9 +22436,9 @@ img.res-buyut {
     margin-bottom: .5rem
 }
 
-    .product-list-mt__advert-no:before {
-        content: 'Ä°lan No: '
-    }
+	.product-list-mt__advert-no:before {
+		content: 'İlan No: '
+	}
 
 @media (min-width:480px) {
     .product-list-mt__advert-no {
@@ -22612,7 +22612,7 @@ img.res-buyut {
 }
 
 .product-list-mtgrid__advert-no:before {
-    content: "Ä°lan No:"
+	content: "İlan No:"
 }
 
 .product-list-mtgrid__advert-no {
@@ -23315,7 +23315,7 @@ img.res-buyut {
 }
 
 .new-header__bottom-right .nav > li .btn-login, .new-header__bottom-right .nav > li .btn-register {
-   /* margin-top: -6px;*/
+    margin-top: 10px !important;
     padding: 35px;
     height: 31px;
     right: -7px;

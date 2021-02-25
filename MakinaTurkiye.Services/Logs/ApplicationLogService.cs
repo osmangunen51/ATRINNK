@@ -18,5 +18,10 @@ namespace MakinaTurkiye.Services.Logs
             var source = query.OrderByDescending(x => x.Id).ToList();
             return new PagedList<ApplicationLog>(source, page, pageDimension);
         }
+
+        public void InsertApplicationLog(ApplicationLog applicationLog)
+        {
+            _applicationLogRepository.Insert(applicationLog);
+        }
     }
 }

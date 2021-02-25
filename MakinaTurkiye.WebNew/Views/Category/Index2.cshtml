@@ -21,13 +21,15 @@
     {
         <meta name="robots" content="INDEX,FOLLOW" />
     }
-    <script type="text/javascript">
+<script type="text/javascript">
 		$(document).ready(function () {
 			//GetMostViewedProductAjax();
 			//GetStoreWithAjax();
 			$('#carouselExampleControls').carousel();
-			let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-			if (isMobile) {
+			//let isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+            let isMobile='@Request.Browser.IsMobileDevice';
+            if (isMobile)
+            {
 				var i = 0;
 				var count = $(".breadcrumb-mt li").length;
 				$(".fast-access-bar").css("margin-top", "-10px");
@@ -823,6 +825,6 @@ if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent) || !string.IsNullOrEmpty(Mo
     </div>
 </div>
 <script type="application/ld+json">
-    @Html.Raw(Model.CategoryModel.MtJsonLdModel.JsonLdString)
+		@Html.Raw(Model.CategoryModel.MtJsonLdModel.JsonLdString)
 </script>
 }

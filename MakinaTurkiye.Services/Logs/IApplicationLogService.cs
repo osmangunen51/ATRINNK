@@ -7,5 +7,7 @@ namespace MakinaTurkiye.Services.Logs
     {
         IPagedList<ApplicationLog> GetApplicationLogs(int page, int pageDimension);
 
+        void InsertApplicationLog(ApplicationLog applicationLog);
+
     }
 }
