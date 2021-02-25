@@ -41,7 +41,7 @@
     }
 
     <div class="row">
-        <div class="col-xs-9 col-sm-6 col-md-8">
+        <div class="col-xs-9 col-sm-6 col-md-6">
             <a href="@Request.FilePath@(countryFilter)@(cityFilter)@(localityFilter)@(display)@page@orderTip@searchText" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.All ? activeCss : string.Empty)">Tümü</a>
             <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@page@orderTip@(searchText)@("&SearchType=sifir")" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New ? activeCss : string.Empty)">Sıfır<span class="category-filter-count">&nbsp(@(Model.CustomFilterModels.FirstOrDefault(x => x.FilterId == (byte)ProductSearchTypeV2.New).ProductCount))</span></a>
             @{
@@ -69,8 +69,8 @@
                     }
                 }
             </div>
-        <div class="col-xs-3 col-sm-6 col-md-4 ">
-            <div class="col-md-7 hidden-xs col-xs-1">
+        <div class="col-xs-3 col-sm-6 col-md-6 ">
+            <div class="col-md-7 hidden-xs hidden-sm col-xs-12">
                 <div class="row">
                     <div class="dropdown">
                         <button class="btn btn-default btn-block dropdown-toggle" type="button" id="btnGroupVerticalDrop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -98,10 +98,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-5 col-xs-11">
-                <div class="categort-filter__view__buttons">
-                    <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@displayGrid@searchText@page@querySearchType" class="@(Request.QueryString["Gorunum"] == null || (Request.QueryString["Gorunum"] != null && Request.QueryString["Gorunum"].ToString() == "Galeri") ? "active" : "")"><i class="fa fa-th"></i></a>
-                    <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@displayList@searchText@page@querySearchType" class="@((Request.QueryString["Gorunum"] != null && Request.QueryString["Gorunum"].ToString() == "Liste") ? "active" : "")"><i class="fa fa-list"></i></a>
+            <div class="col-md-5 col-xs-12">
+                <div class="categort-filter__view__buttons pull-right" style="width:auto;">
+                    <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@displayGrid@searchText@page@querySearchType" class="@(Request.QueryString["Gorunum"] == null || (Request.QueryString["Gorunum"] != null && Request.QueryString["Gorunum"].ToString() == "Galeri") ? "active" : "")  pull-right"><i class="fa fa-th"></i></a>
+                    <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@displayList@searchText@page@querySearchType" class="@((Request.QueryString["Gorunum"] != null && Request.QueryString["Gorunum"].ToString() == "Liste") ? "active" : "") pull-right"><i class="fa fa-list"></i></a>
                 </div>
             </div>
         </div>

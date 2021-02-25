@@ -747,6 +747,7 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 new { categoryId = @"\d+" },
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 ).DataTokens.Add("RouteName", "CategoryRouteNew");
+
             routes.MapRoute(
           "CategoryRouteNewForRedirect",
           "-c-{categoryId}",
@@ -1041,16 +1042,16 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                constraints: new { username = new UserNameConstraint() });
 
             routes.MapRoute(
-  name: "StoreProfileProductsStoreVideos",
-  url: "{username}/tanitim-videolar",
-  defaults: new { controller = "StoreProfileNew", action = "StorePromotionVideo", username = UrlParameter.Optional },
-   constraints: new { username = new UserNameConstraint() });
+                name: "StoreProfileProductsStoreVideos",
+                url: "{username}/tanitim-videolar",
+                defaults: new { controller = "StoreProfileNew", action = "StorePromotionVideo", username = UrlParameter.Optional },
+                constraints: new { username = new UserNameConstraint() });
 
             routes.MapRoute(
               name: "StoreProfileProductsNewCategory",
               url: "{username}/{categoryname}-c-{CategoryId}",
               defaults: new { controller = "StoreProfileNew", action = "ProductsNew", username = UrlParameter.Optional, CategoryId = UrlParameter.Optional },
-               constraints: new { username = new UserNameConstraint() });
+              constraints: new { username = new UserNameConstraint() });
 
             routes.MapRoute(
                 name: "StoreProfileDealerNewRoute",
@@ -1065,78 +1066,82 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 constraints: new { username = new UserNameConstraint() });
 
             routes.MapRoute(
-        name: "StoreProfileBranchNewRoute",
-        url: "{username}/Subelerimiz",
-        defaults: new { controller = "StoreProfileNew", action = "BranchNew", username = UrlParameter.Optional },
-        constraints: new { username = new UserNameConstraint() }
-        );
+                name: "StoreProfileBranchNewRoute",
+                url: "{username}/Subelerimiz",
+                defaults: new { controller = "StoreProfileNew", action = "BranchNew", username = UrlParameter.Optional },
+                constraints: new { username = new UserNameConstraint() }
+                );
 
             routes.MapRoute(
-        name: "StoreProfileBrandNewRoute",
-        url: "{username}/Markalarimiz",
-        defaults: new { controller = "StoreProfileNew", action = "BrandNew", username = UrlParameter.Optional },
-        constraints: new { username = new UserNameConstraint() }
-        );
+                name: "StoreProfileBrandNewRoute",
+                url: "{username}/Markalarimiz",
+                defaults: new { controller = "StoreProfileNew", action = "BrandNew", username = UrlParameter.Optional },
+                constraints: new { username = new UserNameConstraint() }
+                );
+
             routes.MapRoute(
-            name: "StoreProfileVideosNewRoute",
-            url: "{username}/Videolarimiz",
-            defaults: new { controller = "StoreProfileNew", action = "VideosNew", username = UrlParameter.Optional },
+                name: "StoreProfileVideosNewRoute",
+                url: "{username}/Videolarimiz",
+                defaults: new { controller = "StoreProfileNew", action = "VideosNew", username = UrlParameter.Optional },
+                constraints: new { username = new UserNameConstraint() }
+                );
+
+            routes.MapRoute(
+            name: "StoreProfileImagesNewRoute",
+            url: "{username}/gorseller",
+            defaults: new { controller = "StoreProfileNew", action = "StoreImagesNew", username = UrlParameter.Optional },
+            constraints: new { username = new UserNameConstraint() }
+            );
+
+            routes.MapRoute(
+            name: "StoreProfileAuthorizedServicesNewRoute",
+            url: "{username}/ServisAgimiz",
+            defaults: new { controller = "StoreProfileNew", action = "AuthorizedServicesNew", username = UrlParameter.Optional },
+            constraints: new { username = new UserNameConstraint() }
+            );
+
+
+
+            routes.MapRoute(
+            name: "StoreProfileDealerShipNewRoute",
+            url: "{username}/Bayiliklerimiz",
+            defaults: new { controller = "StoreProfileNew", action = "DealerShipNew", username = UrlParameter.Optional },
             constraints: new { username = new UserNameConstraint() }
             );
             routes.MapRoute(
-      name: "StoreProfileImagesNewRoute",
-      url: "{username}/gorseller",
-      defaults: new { controller = "StoreProfileNew", action = "StoreImagesNew", username = UrlParameter.Optional },
-      constraints: new { username = new UserNameConstraint() }
-      );
+            name: "StoreProfileConnectionNewRoute",
+            url: "{username}/Iletisim",
+            defaults: new { controller = "StoreProfileNew", action = "ConnectionNew", username = UrlParameter.Optional },
+            constraints: new { username = new UserNameConstraint() }
+            );
 
             routes.MapRoute(
-    name: "StoreProfileAuthorizedServicesNewRoute",
-    url: "{username}/ServisAgimiz",
-    defaults: new { controller = "StoreProfileNew", action = "AuthorizedServicesNew", username = UrlParameter.Optional },
-    constraints: new { username = new UserNameConstraint() }
-    );
-
-
+            name: "StoreProfileCotologNewRoute",
+            url: "{username}/Kataloglar",
+            defaults: new { controller = "StoreProfileNew", action = "CatologNew", username = UrlParameter.Optional },
+            constraints: new { username = new UserNameConstraint() }
+            );
 
             routes.MapRoute(
-name: "StoreProfileDealerShipNewRoute",
-url: "{username}/Bayiliklerimiz",
-defaults: new { controller = "StoreProfileNew", action = "DealerShipNew", username = UrlParameter.Optional },
-constraints: new { username = new UserNameConstraint() }
-);
-            routes.MapRoute(
-name: "StoreProfileConnectionNewRoute",
-url: "{username}/Iletisim",
-defaults: new { controller = "StoreProfileNew", action = "ConnectionNew", username = UrlParameter.Optional },
-constraints: new { username = new UserNameConstraint() }
-);
-            routes.MapRoute(
-name: "StoreProfileCotologNewRoute",
-url: "{username}/Kataloglar",
-defaults: new { controller = "StoreProfileNew", action = "CatologNew", username = UrlParameter.Optional },
-constraints: new { username = new UserNameConstraint() }
-);
-            routes.MapRoute(
-name: "StoreProfileNewNewRoute",
-url: "{username}/haberler",
-defaults: new { controller = "StoreProfileNew", action = "News", username = UrlParameter.Optional },
-constraints: new { username = new UserNameConstraint() }
-);
+            name: "StoreProfileNewNewRoute",
+            url: "{username}/haberler",
+            defaults: new { controller = "StoreProfileNew", action = "News", username = UrlParameter.Optional },
+            constraints: new { username = new UserNameConstraint() }
+            );
 
 
             routes.MapRoute(
-name: "ResultPayTurkish",
-url: "membershipsales/odeme-sonuc",
-defaults: new { controller = "MembershipSales", action = "ResultPay", username = UrlParameter.Optional }
-);
+            name: "ResultPayTurkish",
+            url: "membershipsales/odeme-sonuc",
+            defaults: new { controller = "MembershipSales", action = "ResultPay", username = UrlParameter.Optional }
+            );
 
             routes.MapRoute(
-     "CatalogAjax",
-     "ajax/{action}/{id}",
-     new { controller = "CatologAjax", action = UrlParameter.Optional, id = UrlParameter.Optional },
-     new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
-     );
+            "CatalogAjax",
+            "ajax/{action}/{id}",
+            new { controller = "CatologAjax", action = UrlParameter.Optional, id = UrlParameter.Optional },
+            new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+            );
 
 
 

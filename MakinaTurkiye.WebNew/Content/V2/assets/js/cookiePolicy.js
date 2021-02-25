@@ -4,7 +4,7 @@ var COOKIE_CSS_PATH ="/Content/V2/assets/css/cookiePolicy.css";
 var createCookiePolicy = {
     
 
-    text: "<span class='text-wrapper'><i class='fa fa-info-circle'></i>Hizmetlerimizden en iyi şekilde faydalanabilmeniz için çerezler kullanıyoruz.<br> makinaturkiye.com'u kullanarak çerezlere izin vermiş olursunuz.<a href='"+POLICY_LINK+"'>Çerez politikamız için tıklayın.</a></span>",
+    text: "<span class='text-wrapper'><i class='fa fa-info-circle'></i> Hizmetlerimizden en iyi şekilde faydalanabilmeniz için çerezler kullanıyoruz.<br> makinaturkiye.com'u kullanarak çerezlere izin vermiş olursunuz. <a href='"+POLICY_LINK+"'>Çerez politikamız için tıklayın.</a></span>",
     createDiv : function() {
         return '<div id="cookiePolicy" class="cookiePolicy"><div class="container"><div class="row"><div class="col-xs-12 col-sm-6 col-sm-offset-3">'+this.text+'<p><button class="btn btn-primary closeCookie">KAPAT</button></p></div></div></div></div>' 
     }
