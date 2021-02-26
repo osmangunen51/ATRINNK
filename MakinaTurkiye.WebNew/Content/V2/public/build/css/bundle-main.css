@@ -21957,9 +21957,12 @@ img.res-buyut {
     font-size: 18px;
     line-height: 20px;
     position: absolute;
-    bottom: 10px;
+    bottom: 5px;
     text-transform: uppercase;
-    text-align: center
+    text-align: center;
+    padding: 5px 15px;
+    background-color: rgba(0,0,0,0.65);
+    border-radius: 30px;
 }
 
 .category-item img {
