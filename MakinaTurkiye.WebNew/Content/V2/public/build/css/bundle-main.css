@@ -18369,11 +18369,11 @@ img.res-buyut {
 }
 @media (max-width:991px) {
     .filters {
-        display: none;
+        display: block;
     }
 
         .filters .panel-mtv2 .panel-heading [role=button] {
-            display: none
+            display: block;
         }
 }
 
@@ -20765,7 +20765,7 @@ img.res-buyut {
 
 .login-container {
     background-color: #fff;
-    padding: 20px 30px
+    padding: 20px 25px
 }
 
 .login-tabs {
@@ -26188,11 +26188,11 @@ input[name="SearchText"]::-webkit-input-placeholder {
         padding-right: 15px;
     }
 
-    #myTabContent {
+    /*#myTabContent {
         margin-left: 10px;
         margin-right: 0px;
         padding-right: 0px;
-    }
+    }*/
 }
 
 
