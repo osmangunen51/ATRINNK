@@ -185,8 +185,12 @@
             var productPriceRange = true;
             var productPrice = true;
             var anyProductName = true;
+            var checkPeriod = true;
             var pdetail = $('#warrianty').val();
-            if (pdetail == "{ value = 86 }") {
+
+
+            if (pdetail == "86") {
+
                 if ($('#WarrantyPeriod').val() == "0") {
                     checkWarrianty = false;
                     $('#warrantyValMes').show();
@@ -223,6 +227,8 @@
             var hasRecord = false;
             $('.ActiveName').each(function myfunction(index, value) {
                 if ($(this)[0].checked) {
+                    alert($(this)[0].val());
+
                     hasRecord = true;
                 }
             });
@@ -239,6 +245,7 @@
             });
 
             var ptype = $('#ProductType').val();
+     
             if (ptype != 104) {
 
                 if ($('#MenseiId').val() == "0") {
@@ -265,6 +272,8 @@
                     checkOrderStat = true;
                     $('#ordStatValMes').hide();
                 }
+
+     
             }
             else {
                 checkMenseiId = true;
@@ -371,6 +380,7 @@
                 return true;
                 alert("GÖnderildi");
             }
+
 
             return false;
 
@@ -528,6 +538,7 @@
                                             </label>}
                                         <script type="text/javascript">
                                             $('.ActiveName').click(function () {
+                                                console.log($(this).val());
                                                 $('#ProductType').val($(this).val());
                                                 var ptype = $('#ProductType').val();
                                                 if (ptype == 104) {

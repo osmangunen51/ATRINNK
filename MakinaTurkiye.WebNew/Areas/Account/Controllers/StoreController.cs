@@ -382,7 +382,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(memberMainPartyId);
             var storeModel = _storeService.GetStoreByMainPartyId(Convert.ToInt32(memberStore.StoreMainPartyId));
 
-            if (Request.Files.Count > 0 && Request.Files[0].ContentLength>0)
+            if (Request.Files.Count > 0 && Request.Files[0].ContentLength > 0)
             {
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
@@ -528,10 +528,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 certificateOptions = "<option value = '0' selected>Seçiniz</option>";
             foreach (var item in certificateTypes)
             {
-                if(memberStore.StoreMainPartyId == item.InsertedStoreMainPartyId || item.Active == true )
+                if (memberStore.StoreMainPartyId == item.InsertedStoreMainPartyId || item.Active == true)
                 {
                     string selected = "";
-                    if (certificateTypeStore != null && certificateTypeStore.CertificateTypeId == item.CertificateTypeId)
+                    if (certificateTypeStore != null && certificateTypeStore.Where(x => x.CertificateTypeId == item.CertificateTypeId).Count() > 0)
                         selected = "selected";
 
                     certificateOptions = certificateOptions + string.Format("<option value='{0}' {1}>{2}</option>", item.CertificateTypeId, selected, item.Name);
@@ -550,7 +550,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             _storeService.UpdateStoreCertificate(certificate);
             if (certificateType != "0")
             {
-                var certificateTypeStore = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(certificateId);
+                var certificateTypeStore = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(certificateId).FirstOrDefault();
                 if (certificateTypeStore == null)
                 {
                     certificateTypeStore = new CertificateTypeProduct
@@ -561,7 +561,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     };
                     _certificateTypeService.InsertCertificateTypeProduct(certificateTypeStore);
                 }
-                certificateTypeStore.CertificateTypeId =Convert.ToInt32(certificateType);
+                certificateTypeStore.CertificateTypeId = Convert.ToInt32(certificateType);
                 _certificateTypeService.UpdateCertificateTypeProduct(certificateTypeStore);
             }
             return Json(true, JsonRequestBehavior.AllowGet);
@@ -575,15 +575,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             List<int> ids = new List<int>();
             ids.Add(id);
 
-            var certificateTypes=_certificateTypeService.GetCertificatesByIds(ids);
+            var certificateTypes = _certificateTypeService.GetCertificatesByIds(ids);
             foreach (var item in certificateTypes)
             {
                 _certificateTypeService.DeleteCertificateType(item);
 
             }
 
-            var certificateTypeProduct = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(id);
+            var certificateTypeProducts = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(id);
+            foreach (var certificateTypeProduct in certificateTypeProducts)
+            {
                 _certificateTypeService.DeleteCertificateTypeProduct(certificateTypeProduct);
+
+            }
 
 
             var pictures = _pictureService.GetPictureByStoreCertificateId(id);

@@ -169,14 +169,14 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         public static string GetModelUrl(int modelId,string modelName ,string brandname, string categoryname,int selectedCategoryId)
         {
-            string url = GetHost(HostNameType.Default) + "/" + ToUrl(modelName + "-" + brandname + "-" + categoryname +
+            string url = GetHost(HostNameType.Default) + "/" + ToUrl(brandname  + "-" + modelName + "-" + categoryname +
                 "-m-" + modelId + "-" + selectedCategoryId);
             return url;
         }
 
         public static string GetModelUrl(int modelId, string modelName, string brandname, string categoryname, int selectedCategoryId, string searchText)
         {
-            string url= GetHost(HostNameType.Default) + "/" + ToUrl(modelName + "-" + brandname + "-" + categoryname +
+            string url= GetHost(HostNameType.Default) + "/" + ToUrl(brandname + "-" + modelName + "-" + categoryname +
                         "-m-" + modelId + "-" + selectedCategoryId) + "?SearchText=" + searchText;
             return url;
         }
