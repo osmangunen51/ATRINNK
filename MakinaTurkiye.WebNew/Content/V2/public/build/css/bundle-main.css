@@ -15821,7 +15821,8 @@ body {
     margin-bottom: 1rem;
     border-radius: 4px;
     background-color: #FFF;
-    border: 1px solid #E0E0E0
+    border: 1px solid #E0E0E0;
+    z-index: 999;
 }
 
 @media (max-width:768px) {

@@ -53,13 +53,13 @@
     </div>
 </div>
 <div class="row clearfix">
-    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 leftSideBar">
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-2 leftSideBar" style="z-index: 1000;">
         <div class="theiaStickySidebar">
             <div class="filters" style="display:none;">
                 <div class="pos-relative">
                     <div class="filters__header row  xssm-visible">
                         <div class="col-xs-12">
-                            <a href="javascript:;" class="js-close-filters"><span class="icon-close"></span></a>Detaylandır
+                            <a href="javascript:;" class="js-close-filters"><span class="icon-close"></span></a>Filtrele
                         </div>
                     </div>
 
@@ -86,7 +86,7 @@
                 string querySearchType = string.IsNullOrEmpty(Request.QueryString["SearchType"]) ? "" : "&SearchType=" + Request.QueryString["SearchType"].ToString();
             }
             <div class="mobile-filter-buttons mobile-filter-top-alignment mdlg-hidden">
-                <a href="javascript:;" class="js-toggle-filter"><span class="icon-filter"></span>Detaylandır</a>
+                <a href="javascript:;" class="js-toggle-filter"><span class="icon-filter"></span>Filtrele</a>
                 <a href="javascript:;" class="js-toggle-sort"><span class="icon-sort"></span>Sırala</a>
                 <select class="mobile-sort" style="position: absolute; right: 0; width: 50%; height: 100%; opacity: 0">
 
