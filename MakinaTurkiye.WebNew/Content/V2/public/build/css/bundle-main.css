@@ -3,6 +3,16 @@
  * Copyright 2011-2014 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */ /*! normalize.css v3.0.0 | MIT License | git.io/normalize */
+textarea,
+input[type="text"],
+input[type="button"],
+input[type="submit"],
+input[type="email"],
+input[type="tel"],
+input[type="password"] {
+    -webkit-appearance: none;
+    border-radius: 0;
+}
 
 .text-italic, dfn {
     font-style: italic
@@ -23063,7 +23073,7 @@ img.res-buyut {
         }
 
 .new-header__search button {
-    width: 27px;
+    width: 32px;
     border-radius: 100%;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
