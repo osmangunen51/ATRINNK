@@ -566,10 +566,10 @@ dd {
     }
 }
 
-@media (min-width:992px) {
+@media (min-width:992px) and (max-width:1199px){
 
-    .container {
-        width: calc(100% - 30px);
+    .menu-container {
+        padding: 0px !important;
     }
 }
 
@@ -19158,9 +19158,8 @@ img.res-buyut {
 }
 
 @media (min-width:1200px) {
-    .container {
+    .menu-container {
         width: 1200px;
-        max-width: 1650px;
         padding: 0
     }
 
@@ -22101,7 +22100,7 @@ img.res-buyut {
     .home-showcase__item {
         min-height: 200px;
         /* padding: 9px; */
-        max-width: 199px;
+        /*max-width: 199px;*/
         padding-right: 0px;
     }
 }
