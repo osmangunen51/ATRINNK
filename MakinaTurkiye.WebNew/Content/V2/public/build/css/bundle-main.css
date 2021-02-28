@@ -564,8 +564,6 @@ dd {
     .dl-horizontal dd {
         margin-left: 180px;
     }
-
-   
 }
 
 @media (min-width:992px) {
@@ -13711,11 +13709,11 @@ body {
         margin-right: -15px;
     }*/
 
-        /*.category-list-wrapper [class*=col-] {
+/*.category-list-wrapper [class*=col-] {
             padding-left: 15px;
             padding-right: 15px;
         }*/
-       /* .category-list-wrapper .row {
+/* .category-list-wrapper .row {
             margin-left: 0;
             margin-right: 0
         }*/
@@ -15694,7 +15692,7 @@ body {
 
 .category-firms .owl-carousel .owl-nav .owl-next, .category-firms .owl-carousel .owl-nav .owl-prev {
     font-family: makinaturkiye_fonticons;
-    width: 40px;
+    width: 0px;
     height: 40px;
     margin-top: -20px;
     position: absolute;
@@ -15707,7 +15705,7 @@ body {
 }
 
     .category-firms .owl-carousel .owl-nav .owl-prev {
-        left: -26px;
+        left: -7px;
         top: 50%
     }
 
@@ -15725,7 +15723,7 @@ body {
         }
 
     .category-firms .owl-carousel .owl-nav .owl-next {
-        right: -26px;
+        right: 27px;
         top: 50%
     }
 
@@ -16281,12 +16279,12 @@ body {
 }
 
 .overflow-prev {
-    left: -14px;
+    left: 14px;
     text-align: left
 }
 
 .overflow-next {
-    right: -14px;
+    right: -7px;
     text-align: right
 }
 
@@ -18367,6 +18365,7 @@ img.res-buyut {
             display: none
         }
 }
+
 @media (max-width:991px) {
     .filters {
         display: block;
@@ -18420,11 +18419,30 @@ img.res-buyut {
             margin-right: 15px
         }
 
+   /* .mobile-filter-buttons.mobile-filter-top-alignment {
+        position: unset;
+        bottom: unset;
+        width: 50%;
+        float: right;
+    }*/
+
+@media (min-width:768px) {
     .mobile-filter-buttons.mobile-filter-top-alignment {
         position: unset;
         bottom: unset;
-        width: unset;
+        width: 50%;
+        float: right;
     }
+}
+
+@media (max-width:767px) {
+    .mobile-filter-buttons.mobile-filter-top-alignment {
+        position: unset;
+        bottom: unset;
+        width: 100%;
+        float: right;
+    }
+}
 
 .result-category {
     margin: 20px 0
@@ -21612,7 +21630,7 @@ img.res-buyut {
     display: flex;
     justify-content: center;
     width: 300px !important;
-    padding:0px!important;
+    padding: 0px !important;
 }
 
 .cdbtn.cookie {
@@ -22107,7 +22125,7 @@ img.res-buyut {
     border: none;
     color: #333;
     margin: 0;
-    padding: 0
+    /*padding: 0*/
 }
 
     .alert-mt-category p {
@@ -22184,7 +22202,7 @@ img.res-buyut {
     display: none;
     position: fixed;
     bottom: 60px;
-    right: 20px;
+    right: 10px;
     z-index: 99;
     font-size: 18px;
     border: none;
@@ -22439,9 +22457,9 @@ img.res-buyut {
     margin-bottom: .5rem
 }
 
-	.product-list-mt__advert-no:before {
-		content: 'İlan No: '
-	}
+    .product-list-mt__advert-no:before {
+        content: 'İlan No: '
+    }
 
 @media (min-width:480px) {
     .product-list-mt__advert-no {
@@ -22615,7 +22633,7 @@ img.res-buyut {
 }
 
 .product-list-mtgrid__advert-no:before {
-	content: "İlan No:"
+    content: "İlan No:"
 }
 
 .product-list-mtgrid__advert-no {
@@ -26096,22 +26114,23 @@ input[name="SearchText"]::-webkit-input-placeholder {
 @media (min-width:768px) and (max-width:991px) {
 
     .leftSideBar {
-        width: 50% !important;
+        width: 100% !important;
         position: relative !important;
         overflow: visible;
         box-sizing: border-box;
         min-height: 1px;
-        float:right;
+        float: right;
     }
 
     .category-list-wrapper {
         width: 100% !important;
     }
 }
+
 @media (min-width:991px) {
 
     .category-list-wrapper {
-        padding-right:0px;
+        padding-right: 0px;
     }
 }
 
@@ -26230,12 +26249,14 @@ input[name="SearchText"]::-webkit-input-placeholder {
 .nopadding {
     padding: 0px !important;
 }
+
 .nomargin {
     margin: 0px !important;
 }
-.nogutters{
-    padding:0px!important;
-    margin:0px!important;
+
+.nogutters {
+    padding: 0px !important;
+    margin: 0px !important;
 }
 
 /*@media (max-width: 767px) {
