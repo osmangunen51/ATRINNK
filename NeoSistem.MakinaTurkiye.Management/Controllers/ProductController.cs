@@ -1640,6 +1640,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             curProduct.Kdv = false;
             curProduct.Fob = false;
             curProduct.Keywords = model.Keywords;
+            curProduct.HasVideo = _videoService.GetVideosByProductId(id).Any();
+
+            
             if (curProduct.ProductPriceType == (byte)ProductPriceType.Price)
             {
 

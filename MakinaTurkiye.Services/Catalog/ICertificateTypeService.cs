@@ -20,7 +20,7 @@ namespace MakinaTurkiye.Services.Catalog
         void DeleteCertificateTypeProduct(CertificateTypeProduct certificateTypeProduct);
         void UpdateCertificateTypeProduct(CertificateTypeProduct certificateTypeProduct);
         IList<CertificateTypeProduct> GetCertificateTypeProductsByProductId(int productId, bool setCache = true);
-        CertificateTypeProduct GetCertificateTypeProductsByStoreCertificateId(int storeCertficiateId);
+        IList<CertificateTypeProduct> GetCertificateTypeProductsByStoreCertificateId(int storeCertficiateId);
 
         IList<CertificateTypeProduct> GetCertificateTypeProductsByCerticateTypeId(int certificateTypeId);
 

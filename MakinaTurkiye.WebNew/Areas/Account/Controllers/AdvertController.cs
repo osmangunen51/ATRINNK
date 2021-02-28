@@ -733,7 +733,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 foreach (var item in storeCertificates)
                 {
-                    var certificateType = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(item.StoreCertificateId);
+                    var certificateType = _certificateTypeService.GetCertificateTypeProductsByProductId(product.ProductId).FirstOrDefault(x=>x.StoreCertificateId == item.StoreCertificateId);
 
                     if (certificateType != null)
                     {
@@ -2627,7 +2627,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var storeCertificates = _storeService.GetStoreCertificatesByMainPartyId(mainPartyId);
             foreach (var item in storeCertificates)
             {
-                var certificateType = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(item.StoreCertificateId);
+                var certificateType = _certificateTypeService.GetCertificateTypeProductsByProductId(productModel.ProductId).FirstOrDefault(x=>x.StoreCertificateId==item.StoreCertificateId);
                 if (certificateType != null)
                 {
                     productModel.CertificateTypes.Add(new SelectListItem
@@ -3041,7 +3041,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var product = _productService.GetProductByProductId(curProduct.ProductId);
             if (product != null)
             {
-                if (VideoList.Count > 0)
+                if (videoCounter > 0)
                 {
                     if (!product.HasVideo)
                     {
