@@ -23505,8 +23505,8 @@ img.res-buyut {
     justify-content: space-between;
     box-sizing: border-box;
     min-height: 280px;
-    width: 94.5%;
-    background-color: rgb(255 255 255);
+    /*width: 94.5%;*/
+    background-color: rgb(255,255,255);
     border: none;
     box-shadow: 0 5px 15px rgba(0,0,0,.15);
     margin-left: 2.7%;
