@@ -477,11 +477,8 @@
                         <li class="dropdown">
                             <a href="#" id="A2" class="plr5" data-toggle="dropdown">
                                 <span class="caret"></span>
-                                <div class="visible-xs">
-                                    <span class="caret"></span>&nbsp;Ayarlar
-                                </div>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-mt" role="menu" aria-labelledby="dropdownMenu1" style="background-color: lightgray;">
+                            <ul class="dropdown-menu account-dropdown_mobile" role="menu" aria-labelledby="dropdownMenu1">
                                 <li role="presentation">
                                     <a role="menuitem" tabindex="-1" href="@(AppSettings.SiteUrl)Account/Home">
                                         <i class="fa fa-angle-right"></i>&nbsp; Hesabım
@@ -517,7 +514,7 @@
 
                                 }
 
-                                <li role="presentation" class="divider"></li>
+                                @*<li role="presentation" class="divider"></li>*@
                                 <li role="presentation">
                                     <a role="menuitem" tabindex="-1" href="@(AppSettings.SiteUrl)Uyelik/OturumuKapat">
                                         <span class="glyphicon glyphicon-log-out" style="padding-right: 5px;"></span>Çıkış
@@ -546,9 +543,9 @@
                                 </a>
                             </li>
                         }
-                        <li>
+                        @*<li>
                             <a title="Çıkış Yap" href="@(AppSettings.SiteUrl)Uyelik/OturumuKapat"><span style="font-size: 20px;" class="glyphicon glyphicon-log-out" style="padding-right: 5px;"></span></a>
-                        </li>
+                        </li>*@
 
                     }
                     else
