@@ -71,7 +71,7 @@
                 <div class="row">
                     @foreach (var item in Model.CategoryModel.TopCategoryItemModels.ToList().OrderBy(s => s.CategoryName))
                     {
-                        <div class="col-md-2">
+                        <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
                             <div class="result-category__item searchResultCategory">
                                 @*<img class="result-category__img" src="@item.CategoryIcon" />*@
                                 <p class="result-category__category-name"><a href="@item.CategoryUrl">@item.CategoryName &nbsp<b style="color: #808080">(@item.ProductCount)</b></a></p>
