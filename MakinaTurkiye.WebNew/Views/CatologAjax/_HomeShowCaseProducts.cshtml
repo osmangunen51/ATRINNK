@@ -5,12 +5,12 @@
         @{ int i = 1;}
         @foreach (var item in Model)
         {
-            <div class="col-md-3 col-xs-6 col-sm-4 home-showcase__item">
+            <div class="col-lg-2 col-md-2 col-xs-4 col-sm-3 home-showcase__item">
                 <a href="@item.ProductUrl" title="@item.ProductName">
                     <div class="home-showcase__img">
                         <img src="@item.PicturePath" alt="@item.ProductName" />
                     </div>
-                    <h5 style="min-height:32px;">@item.TruncatedProductName</h5>
+                    <h5 style="min-height:48px;">@item.TruncatedProductName</h5>
                 </a>
             </div>
 
