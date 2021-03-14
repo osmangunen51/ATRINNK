@@ -18,32 +18,38 @@
             @foreach (var item in Model.CategoryModel.TopCategoryItemModels.Where(c => c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Series))
             {
 
-            <li title="@item.CategoryContentTitle " class="list-group-item @(Model.CategoryModel.SelectedCategoryId == item.CategoryId ? " active" : string.Empty)">
-                @MvcHtmlString.Create(leftPX)
-                <a title="@item.CategoryContentTitle " href="@item.CategoryUrl ">
-                    @item.TruncatedCategoryName
+                @*<li title="@item.CategoryContentTitle " class="list-group-item @(Model.CategoryModel.SelectedCategoryId == item.CategoryId ? " active" : string.Empty)">*@
+                <li title="@item.CategoryContentTitle " @if (Model.CategoryModel.SelectedCategoryId == item.CategoryId) { @: class="list-group-item active"
+                    } else { @: class="list-group-item"
+                    }>
+                    @MvcHtmlString.Create(leftPX)
+                    <a title="@item.CategoryContentTitle " href="@item.CategoryUrl ">
+                        @item.TruncatedCategoryName
 
-                    @if (item.CategoryType != (byte)CategoryType.Sector)
-                    {
-                    <span class="text-muted text-sm">(@item.ProductCount) </span>
-                    }
-                </a>
-            </li>
+                        @if (item.CategoryType != (byte)CategoryType.Sector)
+                        {
+                            <span class="text-muted text-sm">(@item.ProductCount) </span>
+                        }
+                    </a>
+                </li>
                 leftPX += " &nbsp; ";
             }
             @{int itemIndex = 0;}
             @foreach (var item in Model.CategoryModel.CategoryItemModels.Where(c => c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Series))
             {
-            <li title="@item.CategoryName " class="list-group-item @Model.CategoryModel.SelectedCategoryId== item.CategoryId ? " active" : string.Empty)">
-                @MvcHtmlString.Create(leftPX)
-                <a title="@item.CategoryContentTitle " href="@item.CategoryUrl ">
-                    @item.TruncatedCategoryName
-                    <span class="text-muted text-sm">(@item.ProductCount) </span>
-                </a>
-            </li>
+                @*<li title="@item.CategoryName " class="list-group-item @Model.CategoryModel.SelectedCategoryId== item.CategoryId ? " active" : string.Empty)">*@
+                <li title="@item.CategoryName " @if (Model.CategoryModel.SelectedCategoryId == item.CategoryId) { @: class="list-group-item active"
+                    } else { @: class="list-group-item"
+                    }>
+                    @MvcHtmlString.Create(leftPX)
+                    <a title="@item.CategoryContentTitle " href="@item.CategoryUrl ">
+                        @item.TruncatedCategoryName
+                        <span class="text-muted text-sm">(@item.ProductCount) </span>
+                    </a>
+                </li>
                 itemIndex++;
-            }
-        </ul>
+                }
+            </ul>
     </div>
 </div>
 

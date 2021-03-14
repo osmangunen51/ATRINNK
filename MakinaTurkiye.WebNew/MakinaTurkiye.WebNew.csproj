@@ -672,6 +672,7 @@
     <Content Include="Content\V2\assets\js\bootstrapValidator.js" />
     <Content Include="Content\V2\assets\js\chart-util.js" />
     <Content Include="Content\V2\assets\js\Chart.min.js" />
+    <Content Include="Content\V2\assets\js\imagesloaded.js" />
     <Content Include="Content\V2\assets\js\jquery-ui-1.9.2.custom.min.js">
       <DependentUpon>jquery-ui-1.9.2.custom.js</DependentUpon>
     </Content>
