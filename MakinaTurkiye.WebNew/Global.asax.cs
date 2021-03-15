@@ -63,110 +63,108 @@ namespace NeoSistem.MakinaTurkiye.Web
                 }
             }
 
-            //MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
 
+            if (config.ApplicationLogEnabled)
+            {
+                Exception exception = Server.GetLastError();
 
-            //if (config.ApplicationLogEnabled)
-            //{
-            //    Exception exception = Server.GetLastError();
+            /*  ILogger logger = EngineContext.Current.Resolve<ILogger>();
+                exception.Data.Add("Url", Context.Request.Url.ToString());
+                exception.HelpLink = Context.Request.Url.ToString();
+                logger.Error("Global.asax error", exception);*/
+                HttpException httpException = exception as HttpException;
+                RouteData routeData = new RouteData();
+                routeData.Values.Add("controller", "Home");
+                string PrmQuery = Context.Request.Url.PathAndQuery.ToString();
+                IUrlRedirectService _urlRedirectService = EngineContext.Current.Resolve<IUrlRedirectService>();
+                var urlRedirect = _urlRedirectService.GetUrlRedirectByOldUrl(PrmQuery);
+                if (urlRedirect != null)
+                {
+                    Context.Response.RedirectPermanent(urlRedirect.NewUrl);
+                }
+                if (httpException != null || exception != null)
+                {
+                    if (httpException != null)
+                    {
+                        if (httpException.ErrorCode == 404)
+                        {
+                            //ILog log = log4net.LogManager.GetLogger("global.asax");
+                            //log.Error($"404 error kod: {httpException.Message.ToString()}");
+                            GetGeneralErrorPage(exception, routeData);
+                        }
+                        // 404 Hatalarının Dz
+                        if (httpException.Message.Contains("was not found or does not implement IController."))
+                        {
+                            string RedirectUrl = "";
+                            int NSayisi = 0;
+                            string DomainUrl = Context.Request.Url.ToString().Replace(Context.Request.Url.PathAndQuery, "");
 
-            //    ILogger logger = EngineContext.Current.Resolve<ILogger>();
-            //    exception.Data.Add("Url", Context.Request.Url.ToString());
-            //    exception.HelpLink = Context.Request.Url.ToString();
-            //    logger.Error("Global.asax error", exception);
-            //    HttpException httpException = exception as HttpException;
-            //    RouteData routeData = new RouteData();
-            //    routeData.Values.Add("controller", "Home");
-            //    string PrmQuery = Context.Request.Url.PathAndQuery.ToString();
-            //    IUrlRedirectService _urlRedirectService = EngineContext.Current.Resolve<IUrlRedirectService>();
-            //    var urlRedirect = _urlRedirectService.GetUrlRedirectByOldUrl(PrmQuery);
-            //    if (urlRedirect != null)
-            //    {
-            //        Context.Response.RedirectPermanent(urlRedirect.NewUrl);
-            //    }
-            //    if (httpException != null || exception != null)
-            //    {
-            //        if (httpException != null)
-            //        {
-            //            if (httpException.ErrorCode == 404)
-            //            {
-            //                //ILog log = log4net.LogManager.GetLogger("global.asax");
-            //                //log.Error($"404 error kod: {httpException.Message.ToString()}");
-            //                GetGeneralErrorPage(exception, routeData);
-            //            }
-            //            // 404 Hatalarının Dz
-            //            if (httpException.Message.Contains("was not found or does not implement IController."))
-            //            {
-            //                string RedirectUrl = "";
-            //                int NSayisi = 0;
-            //                string DomainUrl = Context.Request.Url.ToString().Replace(Context.Request.Url.PathAndQuery, "");
-
-            //                for (int Don = PrmQuery.Length - 1; Don > -1; Don--)
-            //                {
-            //                    int n;
-            //                    string Txt = "";
-            //                    Txt = PrmQuery.Substring(Don, 1);
-            //                    var isNumeric = int.TryParse(Txt, out n);
-            //                    if (isNumeric)
-            //                    {
-            //                        NSayisi++;
-            //                    }
-            //                    else
-            //                    {
-            //                        if (Txt.ToLower() == "m")
-            //                        {
-            //                            if (NSayisi > 4)
-            //                            {
-            //                                string Prm1 = PrmQuery.Substring(0, Don);
-            //                                string Prm2 = PrmQuery.Substring(Don + 1, NSayisi);
-            //                                RedirectUrl = string.Format("{0}{1}{2}{3}", DomainUrl, Prm1, "-m-", Prm2);
-            //                                break;
-            //                            }
-            //                            else
-            //                            {
-            //                                break;
-            //                            }
-            //                        }
-            //                        else if (Txt.ToLower() == "s")
-            //                        {
-            //                            if (NSayisi > 4)
-            //                            {
-            //                                string Prm1 = PrmQuery.Substring(0, Don);
-            //                                string Prm2 = PrmQuery.Substring(Don + 1, NSayisi);
-            //                                RedirectUrl = string.Format("{0}{1}{2}{3}", DomainUrl, Prm1, "-s-", Prm2);
-            //                                break;
-            //                            }
-            //                            else
-            //                            {
-            //                                break;
-            //                            }
-            //                        }
-            //                        else
-            //                        {
-            //                            break;
-            //                        }
-            //                    }
-            //                }
-            //                if (RedirectUrl != "")
-            //                {
-            //                    Context.Response.RedirectPermanent(RedirectUrl);
-            //                }
-            //                else
-            //                {
-            //                    GetGeneralErrorPage(exception, routeData);
-            //                }
-            //            }
-            //            else
-            //            {
-            //                GetGeneralErrorPage(exception, routeData);
-            //            }
-            //        }
-            //        else
-            //        {
-            //            GetGeneralErrorPage(exception, routeData);
-            //        }
-            //    }
-            //}
+                            for (int Don = PrmQuery.Length - 1; Don > -1; Don--)
+                            {
+                                int n;
+                                string Txt = "";
+                                Txt = PrmQuery.Substring(Don, 1);
+                                var isNumeric = int.TryParse(Txt, out n);
+                                if (isNumeric)
+                                {
+                                    NSayisi++;
+                                }
+                                else
+                                {
+                                    if (Txt.ToLower() == "m")
+                                    {
+                                        if (NSayisi > 4)
+                                        {
+                                            string Prm1 = PrmQuery.Substring(0, Don);
+                                            string Prm2 = PrmQuery.Substring(Don + 1, NSayisi);
+                                            RedirectUrl = string.Format("{0}{1}{2}{3}", DomainUrl, Prm1, "-m-", Prm2);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    else if (Txt.ToLower() == "s")
+                                    {
+                                        if (NSayisi > 4)
+                                        {
+                                            string Prm1 = PrmQuery.Substring(0, Don);
+                                            string Prm2 = PrmQuery.Substring(Don + 1, NSayisi);
+                                            RedirectUrl = string.Format("{0}{1}{2}{3}", DomainUrl, Prm1, "-s-", Prm2);
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            break;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        break;
+                                    }
+                                }
+                            }
+                            if (RedirectUrl != "")
+                            {
+                                Context.Response.RedirectPermanent(RedirectUrl);
+                            }
+                            else
+                            {
+                                GetGeneralErrorPage(exception, routeData);
+                            }
+                        }
+                        else
+                        {
+                            GetGeneralErrorPage(exception, routeData);
+                        }
+                    }
+                    else
+                    {
+                        GetGeneralErrorPage(exception, routeData);
+                    }
+                }
+            }
         }
 
         private void GetGeneralErrorPage(Exception exception, RouteData routeData)
