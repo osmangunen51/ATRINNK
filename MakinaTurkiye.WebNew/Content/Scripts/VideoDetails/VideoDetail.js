@@ -33,8 +33,9 @@ $(function () {
    
 });
 function VideoFinished() {
+    debugger;
      //What you want to do after the eventa<
-    alert($('ul.media-list li:eq(0) a:eq(0)').attr('href'));
+    //alert($('ul.media-list li:eq(0) a:eq(0)').attr('href'));
     location.href =""+$('ul.media-list li:eq(0) a:eq(0)').attr('href');
 }
 function PopulerVideosRemoveItemVideo(videoId) {

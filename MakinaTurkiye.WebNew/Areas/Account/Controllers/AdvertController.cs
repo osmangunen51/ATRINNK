@@ -272,7 +272,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ProductPrice = item.GetFormattedPrice(),
                     ProductStatusText = item.GetProductStatuText(),
                     ProductTypeText = item.GetProductTypeText(),
-                    SeriesName = serie != null ? serie.CategoryName : "",
+                    SeriesName = serie.CategoryName != null ? serie.CategoryName : "",
                     SalesTypeText = item.GetProductSalesTypeText(),
                     ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : (byte)0,
                     ViewCount = item.ViewCount.Value,
@@ -280,7 +280,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     CurrencyCssText = item.GetCurrencyCssName(),
                     Doping = item.Doping,
                     ShowDopingForm = showDopingForm,
-                    ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
+                    ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 && item.ProductPriceWithDiscount != null ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
                 });
             }
 
