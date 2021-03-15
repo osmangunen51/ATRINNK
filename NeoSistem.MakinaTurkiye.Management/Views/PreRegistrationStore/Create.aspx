@@ -19,6 +19,12 @@
 });
        });      
         });   
+
+        function SearchClick() {
+            SearchByName($('#StoreName').val(), $('#Email').val());
+
+        }
+
         function SearchByName(name,email) {
                         $.ajax({
                 url: '/PreRegistrationStore/SerachByName',
