@@ -46,7 +46,11 @@
             <td class="Cell"><%:item.WebUrl %></td>
 
             <td class="Cell"><%:item.MemberNo %></td>
-            <td class="CellEnd Cell"><%:item.Type %></td>
+            <td class="CellEnd Cell"><%:item.Type %>
+                <a title="Açıklamalar" href="/Member/BrowseDesc1/<%: item.MemberMainPartyId %>" target="_blank">
+            <img src="/Content/images/productonay.png">
+        </a>
+            </td>
         </tr>
         <%} %>
     </tbody>

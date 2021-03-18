@@ -34,9 +34,8 @@
 
                 },
                 type: 'post',
-                success: function (data) {
+                            success: function (data) {
                     $("#findedStore").html(data);
-                 
                 },
                 error: function (x, a, r) {
                     alert("Error");
@@ -58,7 +57,7 @@
         <%Html.RenderPartial("_FormModel", Model); %>
         <%} %>
     </div>
-    <div style="float: left; width: 68%;" id="findedStore">
+    <div style="float: right; width: 68%;" id="findedStore">
     </div>
     <div style="clear: both"></div>
 </asp:Content>

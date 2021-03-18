@@ -986,7 +986,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
             //satıcının diğer ilanları
-            var otherProducts = _productService.GetProductsByMainPartIdAndNonProductId(product.MainPartyId.Value, product.ProductId, 4);
+            var otherProducts = _productService.GetProductsByMainPartIdAndNonProductId(product.MainPartyId.Value, product.ProductId, 6);
             int storeOtherProductIndex = 1;
             for (int Step = 0; Step < otherProducts.Count(); Step++)
             {

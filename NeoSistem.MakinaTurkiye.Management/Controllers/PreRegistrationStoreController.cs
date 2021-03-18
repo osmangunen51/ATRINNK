@@ -189,6 +189,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     string memberNo = "";
                     string memberEmail = "";
                     string phoneNumber = "";
+                    int MemberMainPartyId = 0;
 
                     if (memberStore != null)
                     {
@@ -196,6 +197,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         memberName = member.MemberName + " " + member.MemberSurname;
                         memberNo = member.MemberSurname;
                         memberEmail = member.MemberEmail;
+                        MemberMainPartyId = member.MainPartyId;
 
                     }
                     var phones = _phoneService.GetPhonesByMainPartyId(item.MainPartyId);
@@ -213,7 +215,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         Type = "Normal Kayıt",
                         WebUrl = item.StoreWeb,
                         MemberEmail = memberEmail,
-                        PhoneNumbers = phoneNumber
+                        PhoneNumbers = phoneNumber,
+                        MemberMainPartyId = MemberMainPartyId
                     });
                 }
 
@@ -228,7 +231,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         Type = "Ön  Kayıt",
                         MemberEmail = item.Email,
                         PhoneNumbers = item.PhoneNumber + "," + item.PhoneNumber2 + "," + item.PhoneNumber3,
-                        WebUrl = item.WebUrl
+                        WebUrl = item.WebUrl,
                     });
                 }
 
@@ -258,12 +261,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             StoreNo = storeNo,
                             MemberNameSurname = member.MemberName + " " + member.MemberSurname,
                             StoreName = storeName,
-                            MemberNo = member.MemberNo
+                            MemberNo = member.MemberNo,
                         });
                     }
                 }
             }
             return PartialView("_StoreItem", model);
+
         }
 
         public ActionResult Delete(int Id)
