@@ -3316,6 +3316,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpPost]
         public JsonResult BuyPacket(BuyPacketModel model)
         {
+            model.PriceValueWithTax = model.PriceValueWithTax.Replace(".", ",");
+
             int packetId = model.PacketId;
             string installmentTextMail = "";
             string mailTemplateName = "havalbildirimmail";
@@ -3333,7 +3335,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             if (model.DiscountType != "0")
             {
                 amount = Convert.ToDecimal(model.DiscountAmount);
-            
+                
             }
 
 

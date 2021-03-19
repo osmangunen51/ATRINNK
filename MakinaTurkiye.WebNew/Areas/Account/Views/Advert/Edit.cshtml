@@ -294,8 +294,8 @@
         function DeletePicture(pictureId, pictureName) {
             if (confirm('Resmi Silmek istediğinizden eminmisiniz ?')) {
                 $.ajax({
-                    url: '/Account/ilan/DeletePictureEdit',
-                    type: 'Post',
+                    url: '@Url.Action("DeletePictureEditPage", "Advert")',
+                    type: 'GET',
                     data:
                     {
                         ProductId: @(ViewContext.RouteData.Values["id"]),
@@ -318,7 +318,7 @@
             $("#divPictureList div").each(function () { h.push($(this).attr('id').substr(9)); });
             console.log(h);
             $.ajax({
-                url: '/Account/ilan/mainImageEdit',
+                url: '@Url.Action("mainImageEdit", "Advert")',
                 type: 'post',
                 data: { idArray: " " + h + "", productID: productID, picturePath: picturePath },
                 success: function (data) {

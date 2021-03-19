@@ -68,10 +68,10 @@ namespace NeoSistem.MakinaTurkiye.Web
             {
                 Exception exception = Server.GetLastError();
 
-            /*  ILogger logger = EngineContext.Current.Resolve<ILogger>();
-                exception.Data.Add("Url", Context.Request.Url.ToString());
-                exception.HelpLink = Context.Request.Url.ToString();
-                logger.Error("Global.asax error", exception);*/
+                /*  ILogger logger = EngineContext.Current.Resolve<ILogger>();
+              exception.Data.Add("Url", Context.Request.Url.ToString());
+              exception.HelpLink = Context.Request.Url.ToString();
+              logger.Error("Global.asax error", exception);     */
                 HttpException httpException = exception as HttpException;
                 RouteData routeData = new RouteData();
                 routeData.Values.Add("controller", "Home");
@@ -165,6 +165,8 @@ namespace NeoSistem.MakinaTurkiye.Web
                     }
                 }
             }
+
+
         }
 
         private void GetGeneralErrorPage(Exception exception, RouteData routeData)
@@ -174,9 +176,10 @@ namespace NeoSistem.MakinaTurkiye.Web
             IController errorController = EngineContext.Current.Resolve<CommonController>();
             if (routeData.Values.ContainsKey("controller"))
             {
-                routeData.Values["controller"]="Common";
+                routeData.Values["controller"] = "Common";
             }
-            else {
+            else
+            {
                 routeData.Values.Add("controller", "Common");
             }
 
@@ -247,7 +250,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                     string rewriteUrl = Request.ServerVariables["UNENCODED_URL"];
                     if (rewriteUrl.Contains("//") && !requestUrl.Contains("//")) Response.RedirectPermanent(requestUrl);
 
-                    if(requestUrl.EndsWith(".htm") | requestUrl.EndsWith(".html"))
+                    if (requestUrl.EndsWith(".htm") | requestUrl.EndsWith(".html"))
                     {
                         string link = "";
                         link = "/urun-kategori-c-0";
@@ -266,7 +269,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                             string link = "";
                             if (product != null)
                             {
-                                 link = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
+                                link = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
                             }
                             else
                             {

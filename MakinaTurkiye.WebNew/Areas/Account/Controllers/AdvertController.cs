@@ -1751,12 +1751,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
 
-        [HttpPost]
-        public ActionResult DeletePictureEdit(int ProductId, int PictureId, string PictureName)
+        [HttpGet]
+        public ActionResult DeletePictureEditPage(string ProductId, string PictureId, string PictureName)
         {
             var curPicture = new Classes.Picture();
-            curPicture.Delete(PictureId);
 
+
+            curPicture.Delete(PictureId);
 
             List<string> thumbSizes = new List<string>();
             thumbSizes.AddRange(AppSettings.ProductThumbSizes.Replace("*", "").Split(';'));
@@ -1771,7 +1772,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
 
             var dataPicture = new Data.Picture();
-            var pictureModel = dataPicture.GetItemsByProductId(ProductId).AsCollection<PictureModel>();
+            var pictureModel = dataPicture.GetItemsByProductId(Convert.ToInt32(ProductId)).AsCollection<PictureModel>();
 
 
             return View("/Areas/Account/Views/Advert/EditProductPicture.cshtml", pictureModel);
