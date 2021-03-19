@@ -142,12 +142,12 @@ namespace MakinaTurkiye.Services.Catalog
             return query.Where(x => ids.Contains(x.CertificateTypeId)).OrderBy(x => x.Order).ToList();
         }
 
-        public CertificateTypeProduct GetCertificateTypeProductsByStoreCertificateId(int storeCertificateId)
+        public IList<CertificateTypeProduct> GetCertificateTypeProductsByStoreCertificateId(int storeCertificateId)
         {
             if(storeCertificateId==0)
             throw new ArgumentNullException("storeMainPartyId");
             var query = _certificateTypeProductRepository.Table;
-            return query.FirstOrDefault(x => x.StoreCertificateId == storeCertificateId);
+            return query.Where(x => x.StoreCertificateId == storeCertificateId).ToList();
         }
 
         public IList<CertificateTypeProduct> GetCertificateTypeProductsByCerticateTypeId(int certificateTypeId)

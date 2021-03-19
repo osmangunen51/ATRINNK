@@ -27,6 +27,11 @@
             <td valign="top">
                 <%= Html.TextBoxFor(model => model.StoreName, new { style = "height: 20px; width:250px;" })%>
                 <%:Html.ValidationMessageFor(x=>x.StoreName) %>
+
+                        <button type="button" style="width: 70px; height: 35px;" onclick="SearchClick();" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                    <span class="ui-button-text">Ara
+                    </span>
+                </button>
             </td>
         </tr>
 

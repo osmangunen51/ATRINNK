@@ -104,7 +104,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     PhoneNumber2 = item.PhoneNumber2,
                     PhoneNumber3 = item.PhoneNumber3,
                     HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
-                    IsInserted =isInserted
+                    IsInserted = isInserted
                 });
             }
             preRegistrations.Source = source;
@@ -187,19 +187,52 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(item.MainPartyId);
                     string memberName = "";
                     string memberNo = "";
+                    string memberEmail = "";
+                    string phoneNumber = "";
+                    int MemberMainPartyId = 0;
+
                     if (memberStore != null)
                     {
                         var member = _memberService.GetMemberByMainPartyId(memberStore.MemberMainPartyId.Value);
                         memberName = member.MemberName + " " + member.MemberSurname;
                         memberNo = member.MemberSurname;
+                        memberEmail = member.MemberEmail;
+                        MemberMainPartyId = member.MainPartyId;
+
                     }
-                    model.Add(new StoreItem { StoreMainPartId = item.MainPartyId, StoreName = item.StoreName, StoreNo = item.StoreNo, MemberNo = memberNo, MemberNameSurname = memberName, Type = "Normal Kayıt" });
+                    var phones = _phoneService.GetPhonesByMainPartyId(item.MainPartyId);
+                    foreach (var phone in phones)
+                    {
+                        phoneNumber += ", " + phone.PhoneCulture + " " + phone.PhoneAreaCode + " " + phone.PhoneNumber;
+                    }
+                    model.Add(new StoreItem
+                    {
+                        StoreMainPartId = item.MainPartyId,
+                        StoreName = item.StoreName,
+                        StoreNo = item.StoreNo,
+                        MemberNo = memberNo,
+                        MemberNameSurname = memberName,
+                        Type = "Normal Kayıt",
+                        WebUrl = item.StoreWeb,
+                        MemberEmail = memberEmail,
+                        PhoneNumbers = phoneNumber,
+                        MemberMainPartyId = MemberMainPartyId
+                    });
                 }
 
                 var preStores = _preRegistrationService.GetPreRegistrationStoreSearchByName(storename);
                 foreach (var item in preStores)
                 {
-                    model.Add(new StoreItem { StoreMainPartId = 0, StoreName = item.StoreName, MemberNameSurname = item.MemberName, Type = "Ön  Kayıt" });
+                    model.Add(new StoreItem
+                    {
+                        StoreMainPartId = 0,
+                        StoreName = item.StoreName,
+                        MemberNameSurname = item.MemberName,
+                        Type = "Ön  Kayıt",
+                        MemberEmail = item.Email,
+                        PhoneNumbers = item.PhoneNumber + "," + item.PhoneNumber2 + "," + item.PhoneNumber3,
+                        WebUrl = item.WebUrl,
+                    });
                 }
 
 
@@ -223,11 +256,18 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 storeNo = store.StoreNo;
                             }
                         }
-                        model.Add(new StoreItem { StoreNo = storeNo, MemberNameSurname = member.MemberName + " " + member.MemberSurname, StoreName = storeName, MemberNo = member.MemberNo });
+                        model.Add(new StoreItem
+                        {
+                            StoreNo = storeNo,
+                            MemberNameSurname = member.MemberName + " " + member.MemberSurname,
+                            StoreName = storeName,
+                            MemberNo = member.MemberNo,
+                        });
                     }
                 }
             }
             return PartialView("_StoreItem", model);
+
         }
 
         public ActionResult Delete(int Id)
@@ -413,35 +453,35 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             catch (Exception ex)
             {
 
-                TempData["ErrorMessage"] = "Hızlı firma üyeliği için şartlar sağlanmadı. Lütfen kendiniz üye yapınız.Hata Mesajı:"+ex.Message;
+                TempData["ErrorMessage"] = "Hızlı firma üyeliği için şartlar sağlanmadı. Lütfen kendiniz üye yapınız.Hata Mesajı:" + ex.Message;
                 return RedirectToAction("Index");
             }
- 
-           
+
+
 
         }
         private string[] clearPhoneNumber(string phoneNumber)
         {
             string[] phoneNumbers = new string[3];
-    
-            phoneNumber = phoneNumber.Replace("(", "").Replace(")", "").Replace(" ","");
+
+            phoneNumber = phoneNumber.Replace("(", "").Replace(")", "").Replace(" ", "");
             if (phoneNumber.StartsWith("+"))
             {
                 phoneNumbers[0] = phoneNumber.Substring(0, 3);
                 phoneNumbers[1] = phoneNumber.Substring(3, 3);
-                phoneNumbers[2] = phoneNumber.Substring(6, phoneNumber.Length-6);
+                phoneNumbers[2] = phoneNumber.Substring(6, phoneNumber.Length - 6);
             }
             else if (phoneNumber.StartsWith("90"))
             {
                 phoneNumbers[0] = phoneNumber.Substring(0, 2);
                 phoneNumbers[1] = phoneNumber.Substring(2, 3);
-                phoneNumbers[2] = phoneNumber.Substring(5, phoneNumber.Length-5);
+                phoneNumbers[2] = phoneNumber.Substring(5, phoneNumber.Length - 5);
             }
             else
             {
                 phoneNumbers[0] = phoneNumber.Substring(0, 1);
                 phoneNumbers[1] = phoneNumber.Substring(1, 3);
-                phoneNumbers[2] = phoneNumber.Substring(4, phoneNumber.Length-4);
+                phoneNumbers[2] = phoneNumber.Substring(4, phoneNumber.Length - 4);
             }
             return phoneNumbers;
         }

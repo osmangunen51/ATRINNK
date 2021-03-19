@@ -1,39 +1,53 @@
-﻿    @model NeoSistem.MakinaTurkiye.Web.Models.Catalog.MTCategoryProductViewModel
+﻿@model NeoSistem.MakinaTurkiye.Web.Models.Catalog.MTCategoryProductViewModel
 
-    @using System.Web.Helpers
+@using System.Web.Helpers
 
-    <style type="text/css">
-    .satici-iletisim { font-size: 15px; display: inline-block; }
+<style type="text/css">
+    .satici-iletisim {
+        font-size: 15px;
+        display: inline-block;
+    }
 
     @@media(min-width: 768px) {
-        .satici-iletisim { font-size: 13px; margin-top: 5px; }
+        .satici-iletisim {
+            font-size: 13px;
+            margin-top: 5px;
+        }
     }
 
 
     @@media(max-width:767px) {
-        .product-list-v2__name { height: auto !important; font-size: 18px; }
+        .product-list-v2__name {
+            height: auto !important;
+            font-size: 18px;
+        }
 
-        .product-list-v2__item .item-price { text-align: left !important; }
+        .product-list-v2__item .item-price {
+            text-align: left !important;
+        }
     }
 
     @@media( min-width: 991px) {
-        .product-list-v2__item .item-price { margin-top: 18px; margin-bottom: 20px; }
-    }
-    </style>
-    <div class="product-list-mt row clearfix">
-        @{
-            int i = 0;
-            int otherIndexNumber = 0;
-
+        .product-list-v2__item .item-price {
+            margin-top: 18px;
+            margin-bottom: 20px;
         }
-        @foreach (var model1 in Model.CategoryProductModels)
-        {
+    }
+</style>
+<div class="product-list-mt row clearfix">
+    @{
+        int i = 0;
+        int otherIndexNumber = 0;
+
+    }
+    @foreach (var model1 in Model.CategoryProductModels)
+    {
         ++i;
         string productUrl = MakinaTurkiye.Utilities.HttpHelpers.UrlBuilder.GetProductUrl(model1.ProductId, model1.ProductName);
         string s = model1.ModelYear.ToString();
         string Marka = (model1.BrandName != null || model1.BrandName != "") ? model1.BrandName : "";
         string Modeli = (model1.ModelName != null) ? ("" + model1.ModelName) : "";
-        <div class="col-md-4 col-lg-3 col-xs-6">
+        <div class=" col-xs-6 col-sm-4 col-md-4 col-lg-3">
             <div class="product-list-mt__item js-hover-product-item">
                 <div class="product-list-mt__inner">
                     <a href="@productUrl"
@@ -42,37 +56,37 @@
                         <div class="product-list-mt__image-area">
                             @if (!string.IsNullOrEmpty(model1.PicturePath))
                             {
-                            if (i < 5)
-                            {
-                            <img class="img-thumbnail"
-                                 src="@model1.PicturePath.Replace(" 160x120","200x150")"
-                            alt="@model1.ProductName"
-                            title="@model1.ProductName" />
+                                if (i < 5)
+                                {
+                                    <img class="img-thumbnail"
+                                         src="@model1.PicturePath.Replace(" 160x120","200x150")"
+                                         alt="@model1.ProductName"
+                                         title="@model1.ProductName" />
+                                }
+                                else
+                                {
+                                    <img class="img-thumbnail img-lazy"
+                                         src="/UserFiles/image-loading.png"
+                                         data-src="@model1.PicturePath.Replace(" 160x120","200x150")"
+                                         alt="@model1.ProductName"
+                                         title="@model1.ProductName" />
+
+                                }
+                                i++;
+
                             }
                             else
                             {
-                            <img class="img-thumbnail img-lazy"
-                                 src="/UserFiles/image-loading.png"
-                                 data-src="@model1.PicturePath.Replace(" 160x120","200x150")"
-                            alt="@model1.ProductName"
-                            title="@model1.ProductName" />
-
-                            }
-                            i++;
-
-                            }
-                            else
-                            {
-                            <img class="img-thumbnail broken-image"
-                                 src="/UserFiles/image-loading.png"
-                                 data-src="//s.makinaturkiye.com/no-image_200x150.png"
-                                 title="@model1.ProductName"
-                                 alt="@model1.ProductName" />
+                                <img class="img-thumbnail broken-image"
+                                     src="/UserFiles/image-loading.png"
+                                     data-src="//s.makinaturkiye.com/no-image_200x150.png"
+                                     title="@model1.ProductName"
+                                     alt="@model1.ProductName" />
                             }
 
                             @if (model1.HasVideo)
                             {
-                            <div class="product-list-video-icon" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
+                                <div class="product-list-video-icon" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
                             }
                         </div>
                         <div class="product-list-mt__detail">
@@ -88,16 +102,16 @@
                                         if (!string.IsNullOrEmpty(model1.ModelName))
                                         {
                                             //  model1.ModelName = ", " + model1.ModelName;
-                                <span style="color:#428bca;">
-                                    @Html.Raw(model1.BrandName + " | " + model1.ModelName)
-                                </span> }
-                                                    else
-                                                    {
-                                <span style="color:#428bca;">
-                                    @Html.Raw(model1.BrandName)
-                                </span>}
+                                            <span style="color:#428bca;">
+                                                @Html.Raw(model1.BrandName + " | " + model1.ModelName)
+                                            </span> }
+                                        else
+                                        {
+                                            <span style="color:#428bca;">
+                                                @Html.Raw(model1.BrandName)
+                                            </span>}
 
-                                                }
+                                    }
                                 </div>
                             </div>
                             <div class="row">
@@ -107,7 +121,7 @@
 
                                         @if (model1.Doping)
                                         {
-                                        <span class="product-list-mt__has-doping">D</span>
+                                            <span class="product-list-mt__has-doping">D</span>
                                         }
                                     </div>
                                     <div style="clear"></div>
@@ -119,43 +133,43 @@
 
                                 @if (string.IsNullOrEmpty(model1.Price) || (model1.ProductPriceType != (byte)NeoSistem.MakinaTurkiye.Web.Models.ProductPriceType.Price && model1.ProductPriceType != (byte)NeoSistem.MakinaTurkiye.Web.Models.ProductPriceType.PriceRange))
                                 {
-                            <span class="interview"></span> }
-                                            else
-                                            {
-                                                string priceCss = "";
-                                                if (model1.CurrencyCss == "")
-                                                {
-                                                    priceCss = "interview";
-                                                }
+                                    <span class="interview"></span> }
+                                else
+                                {
+                                    string priceCss = "";
+                                    if (model1.CurrencyCss == "")
+                                    {
+                                        priceCss = "interview";
+                                    }
 
 
-                                                if (model1.Price != "Fiyat Sorunuz")
-                                                {
+                                    if (model1.Price != "Fiyat Sorunuz")
+                                    {
 
-                                                    if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
-                                                    {
+                                        if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
+                                        {
 
-                            <span class="old-price">@model1.Price</span>
-                                                        <i itemprop="priceCurrency" class="@model1.CurrencyCss old-price"></i> }
-                                                                                else
-                                                                                {
+                                            <span class="old-price">@model1.Price</span>
+                                            <i itemprop="priceCurrency" class="@model1.CurrencyCss old-price"></i> }
+                                        else
+                                        {
 
-                                                        <span class="">@model1.Price</span>
-                                                                                    <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i> }
+                                            <span class="">@model1.Price</span>
+                                            <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i> }
 
-                                                                                                            if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
-                                                                                                            {
+                                        if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
+                                        {
 
-                                                                                    <span>@model1.ProductPriceWithDiscount</span>
-                                                                                    <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i> }
-                                                                                                        }
-                                                                                                        else
-                                                                                                        {
-                                                                                    <span class="interview"></span> }
-                                                                                                        if (!string.IsNullOrEmpty(model1.Price))
-                                                                                                        {
-                                                                                    <small style=" font-weight: 500; padding-left:0px; font-size: 11px;color:#8a8a8a">@model1.KdvOrFobText</small>}
-                                                                                                    }
+                                            <span>@model1.ProductPriceWithDiscount</span>
+                                            <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i> }
+                                    }
+                                    else
+                                    {
+                                        <span class="interview"></span> }
+                                    if (!string.IsNullOrEmpty(model1.Price))
+                                    {
+                                        <small style=" font-weight: 500; padding-left:0px; font-size: 11px;color:#8a8a8a">@model1.KdvOrFobText</small>}
+                                }
                             </p>
 
 
@@ -168,9 +182,9 @@
         </div>
 
         otherIndexNumber++;
-        }
-    </div>
-    @Html.Partial("_ProductPaging", Model.PagingModel)
+    }
+</div>
+@Html.Partial("_ProductPaging", Model.PagingModel)
 
 
 

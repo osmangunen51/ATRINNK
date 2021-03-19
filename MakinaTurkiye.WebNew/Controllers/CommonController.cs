@@ -284,8 +284,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         }
                         else
                         {
-                            categoryName = "";
-                            categoryContentTile = "";
+                            cat = topCategories.LastOrDefault(x => x.CategoryType == (byte)CategoryTypeEnum.ProductGroup);
+                            if (cat != null)
+                            {
+                                categoryName = cat.CategoryName;
+                                categoryContentTile = cat.CategoryContentTitle;
+
+                            }
+                            else{
+                                categoryName = "";
+                                categoryContentTile = "";
+                            }
+                      
                         }
                     }
 
@@ -379,6 +389,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         #region Replace
 
+
+
                         var brand = topCategories.FirstOrDefault(c => c.CategoryType == (byte)CategoryTypeEnum.Brand);
 
                         var series = topCategories.FirstOrDefault(c => c.CategoryType == (byte)CategoryTypeEnum.Series);
@@ -386,6 +398,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         description = description.Replace("{Seri}", series != null ? series.CategoryName : "");
                         keywords = keywords.Replace("{Seri}", series != null ? series.CategoryName : "");
                         title = title.Replace("{Seri}", series != null ? series.CategoryName : "");
+   
 
                         if (brand != null)
                         {

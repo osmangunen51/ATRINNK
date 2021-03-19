@@ -26,7 +26,7 @@ namespace MakinaTurkiye.Tasks.Catolog.Schedulers
                (s =>
                   s.WithIntervalInHours(24)
                  .OnEveryDay()
-                 .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(04, 25))
+                 .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(22, 34))
                )
              .Build();
 

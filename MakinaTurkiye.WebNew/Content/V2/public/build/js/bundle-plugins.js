@@ -16244,8 +16244,8 @@ if (typeof jQuery === 'undefined') {
                         case "bar":  
                             
                             var barMarkup = '<div id="jQueryCookieDisclaimer" class="cdbar'+this.settings.style+' '+this.settings.position+' '+this.settings.cssPosition+'">';
-                            barMarkup += '<div class="container">';
-                            barMarkup += '<div class="row clearfix">';
+                            //barMarkup += '<div class="container">';
+                            //barMarkup += '<div class="row clearfix">';
                             barMarkup += '  <div class="col-xs-12 col-sm-12 term-text-container">';
                             barMarkup += '      <div class="cdbar-text">' + this.settings.text + '</div>';
                             barMarkup += '          <div class="cdbar-buttons">';
@@ -16253,8 +16253,8 @@ if (typeof jQuery === 'undefined') {
                             barMarkup += '          <a id="'+this.settings.acceptBtn.cssId+'" class="'+this.settings.acceptBtn.cssClass+' cdbar-cookie-accept">'+this.settings.acceptBtn.text+'</a>';
                             barMarkup += '          </div>';
                             barMarkup += '      </div>';
-                            barMarkup += '  </div>';
-                            barMarkup += '</div>';
+                            //barMarkup += '  </div>';
+                            //barMarkup += '</div>';
                             barMarkup += '</div>';
                             
                             break;

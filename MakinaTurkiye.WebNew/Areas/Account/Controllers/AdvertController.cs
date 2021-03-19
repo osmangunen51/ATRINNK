@@ -272,7 +272,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ProductPrice = item.GetFormattedPrice(),
                     ProductStatusText = item.GetProductStatuText(),
                     ProductTypeText = item.GetProductTypeText(),
-                    SeriesName = serie != null ? serie.CategoryName : "",
+                    SeriesName = serie.CategoryName != null ? serie.CategoryName : "",
                     SalesTypeText = item.GetProductSalesTypeText(),
                     ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : (byte)0,
                     ViewCount = item.ViewCount.Value,
@@ -280,7 +280,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     CurrencyCssText = item.GetCurrencyCssName(),
                     Doping = item.Doping,
                     ShowDopingForm = showDopingForm,
-                    ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
+                    ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 && item.ProductPriceWithDiscount != null ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
                 });
             }
 
@@ -733,7 +733,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 foreach (var item in storeCertificates)
                 {
-                    var certificateType = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(item.StoreCertificateId);
+                    var certificateType = _certificateTypeService.GetCertificateTypeProductsByProductId(product.ProductId).FirstOrDefault(x=>x.StoreCertificateId == item.StoreCertificateId);
 
                     if (certificateType != null)
                     {
@@ -2627,7 +2627,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var storeCertificates = _storeService.GetStoreCertificatesByMainPartyId(mainPartyId);
             foreach (var item in storeCertificates)
             {
-                var certificateType = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(item.StoreCertificateId);
+                var certificateType = _certificateTypeService.GetCertificateTypeProductsByProductId(productModel.ProductId).FirstOrDefault(x=>x.StoreCertificateId==item.StoreCertificateId);
                 if (certificateType != null)
                 {
                     productModel.CertificateTypes.Add(new SelectListItem
@@ -3041,7 +3041,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var product = _productService.GetProductByProductId(curProduct.ProductId);
             if (product != null)
             {
-                if (VideoList.Count > 0)
+                if (videoCounter > 0)
                 {
                     if (!product.HasVideo)
                     {

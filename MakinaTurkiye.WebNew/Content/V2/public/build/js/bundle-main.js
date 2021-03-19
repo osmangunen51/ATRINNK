@@ -1113,7 +1113,7 @@ function cookiePolicyInit() {
         settings: {
             style: ' col-md-4'
         },
-        text: "<i class='fa fa-info-circle'></i>Hizmetlerimizden en iyi şekilde faydalanabilmeniz için çerezler kullanıyoruz. makinaturkiye.com'u kullanarak çerezlere izin vermiş olursunuz.<a href='/cerez-politikasi-y-183318'>Çerez politikamız için tıklayın.</a>",
+        text: "<i class='fa fa-info-circle'></i> Hizmetlerimizden en iyi şekilde faydalanabilmeniz için çerezler kullanıyoruz. makinaturkiye.com'u kullanarak çerezlere izin vermiş olursunuz. <a href='/cerez-politikasi-y-183318'>Çerez politikamız için tıklayın.</a>",
         acceptBtn: {
             text: "<i class='fa fa-close' style='font-size: 20px; color:#636363; margin-left:20px; cursor:pointer;'></i>", // accept btn text
             cssClass: "cdbtn cookie", // accept btn class
@@ -1282,9 +1282,6 @@ $(document).ready(function () {
             });
         }
         else {
-
-
-
             $(".main-navigation .dropdown .dropdown-toggle").unbind().on('click', function (event) {
 
                 var categoryId = $(this).attr("data-cat-id");

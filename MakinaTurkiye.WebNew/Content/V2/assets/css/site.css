@@ -2520,6 +2520,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', end
     line-height: 30px;
     color: green;
     font-size: 12px;
+    display: none !important;
 }
 
 .companyNameLineHeight {

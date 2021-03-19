@@ -27,10 +27,10 @@
         <div class="urun-aciklama">
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" href="#aciklama">Açıklama</a></li>
-                @if (Model.VideoModels.Count > 0)
+                @*@if (Model.VideoModels.Count > 0)
                 {
                     <li><a data-toggle="tab" href="#video">Video</a></li>
-                }
+                }*@
                 @if (!string.IsNullOrEmpty(Model.MapCode))
                 {
                 <li id="map"><a data-toggle="tab" href="#konum">Konum</a></li>
@@ -57,73 +57,75 @@
                     <p>
                         @if (!string.IsNullOrWhiteSpace(Model.ProductDescription))
                         {
-                                MakinaTurkiye.Core.Configuration.MakinaTurkiyeConfig config = MakinaTurkiye.Core.Infrastructure.EngineContext.Current.Resolve<MakinaTurkiye.Core.Configuration.MakinaTurkiyeConfig>();
-                                string ProductDescriptionProcessResult = Model.ProductDescription;
-                                if (config.ProductDescriptionHtmlClear)
-                                {
-                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(<style.+?</style>)|(<script.+?</script>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(<img.+?>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(<o:.+?</o:.+?>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "<!--.+?-->", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "class=.+?>", ">", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                                    ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "href=.+?>", ">", RegexOptions.IgnoreCase | RegexOptions.Singleline);
-                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(line-height|font-family|font-size)\\s:.*?;?", String.Empty);
-                                    //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult.Replace(System.Environment.NewLine, "<br/>"), "<[^(a|img|b|i|u|ul|ol|li)][^>]*>", " ");
-                                }
+                            MakinaTurkiye.Core.Configuration.MakinaTurkiyeConfig config = MakinaTurkiye.Core.Infrastructure.EngineContext.Current.Resolve<MakinaTurkiye.Core.Configuration.MakinaTurkiyeConfig>();
+                            string ProductDescriptionProcessResult = Model.ProductDescription;
+                            if (config.ProductDescriptionHtmlClear)
+                            {
+                                //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(<style.+?</style>)|(<script.+?</script>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(<img.+?>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(<o:.+?</o:.+?>)", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "<!--.+?-->", "", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "class=.+?>", ">", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "href=.+?>", ">", RegexOptions.IgnoreCase | RegexOptions.Singleline);
+                                //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult, "(line-height|font-family|font-size)\\s:.*?;?", String.Empty);
+                                //ProductDescriptionProcessResult = Regex.Replace(ProductDescriptionProcessResult.Replace(System.Environment.NewLine, "<br/>"), "<[^(a|img|b|i|u|ul|ol|li)][^>]*>", " ");
+                            }
 
 
-                    @Html.Raw(ProductDescriptionProcessResult) }
-                                    else
-                                    { @("Bu ilana açıklama eklenmemiştir.")}
+                            @Html.Raw(ProductDescriptionProcessResult) }
+                        else
+                        { @("Bu ilana açıklama eklenmemiştir.")}
                     </p>
                     @Model.ProductSeoDescription
 
                     <div style="font-size: 12px; margin-top: 20px;">Bu ilan <b style="font-size: 14px;">@Model.ProductViewCount</b> kez incelenmiştir.</div>
 
-                </div>
-                @if (Model.VideoModels.Count > 0)
-                {
-                    <div id="video" style="min-height: 500px;" class="tab-pane fade">
+                    @if (Model.VideoModels.Count > 0)
+                    {
+                        <div id="video" style="min-height: 500px;">
 
 
-                        <div class="col-sm-8 m0 p0 text-center">
-                            <div id="video-slider" data-interval="false" class="carousel slide" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    @for (int i = 0; i < Model.VideoModels.Keys.Count; i++)
-                                    {
-                                        <div class="item @(i == 0 ? " active" : "")">
-                                            @foreach (var item in Model.VideoModels[i])
-                                            {
+                            <div class="col-sm-8 m0 p0 text-center">
+                                <div id="video-slider" data-interval="false" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        @for (int i = 0; i < Model.VideoModels.Keys.Count; i++)
+                                        {
+                                            <div class="item @(i == 0 ? " active" : "")">
+                                                @foreach (var item in Model.VideoModels[i])
+                                                {
 
-                                                <div class="col-xs-3 m0">
-                                                    <div class="thumbnail thumbnail-mt">
-                                                        <a class="js-video-slide-item" data-videoid="@item.VideoId" data-videopath="@item.VideoPath">
-                                                            <img src="@item.VideoPicturePath" alt="@item.VideoTitle" class="img-thumbnail" />
-                                                        </a>
+                                                    <div class="col-xs-3 m0">
+                                                        <div class="thumbnail thumbnail-mt">
+                                                            <a class="js-video-slide-item" data-videoid="@item.VideoId" data-videopath="@item.VideoPath">
+                                                                <img src="@item.VideoPicturePath" alt="@item.VideoTitle" class="img-thumbnail" />
+                                                            </a>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            }
-                                        </div>
+                                                }
+                                            </div>
+                                        }
+                                    </div>
+                                    <span class="clearfix"></span>
+                                    @if (Model.VideoModels.Keys.Count > 1)
+                                    {
+                                        <a class="carousel-left" href="#video-slider" data-slide="prev"><span class="btn btn-sm glyphicon glyphicon-chevron-left"></span></a>
+                                        <a class="carousel-right" href="#video-slider" data-slide="next"><span class="btn btn-sm glyphicon glyphicon-chevron-right"></span></a>
                                     }
                                 </div>
-                                <span class="clearfix"></span>
-                                @if (Model.VideoModels.Keys.Count > 1)
-                                {
-                                    <a class="carousel-left" href="#video-slider" data-slide="prev"><span class="btn btn-sm glyphicon glyphicon-chevron-left"></span></a>
-                                    <a class="carousel-right" href="#video-slider" data-slide="next"><span class="btn btn-sm glyphicon glyphicon-chevron-right"></span></a>
-                                }
                             </div>
+
+
+                            <div class="videocontent col-md-8">
+                                <video id="vd" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="100%" style="padding: 4px; border: 1px solid #ddd; border-radius: 4px; transition: all .2s ease-in-out; display: inline-block;" poster="" data-setup='{"techOrder": ["html5", "flash"]}'>
+                                    <source src="@Model.VideoModels[0][0].VideoPath" type='video/mp4' />
+                                </video>
+                            </div>
+
                         </div>
+                    }
 
-
-                        <div class="videocontent col-md-8">
-                            <video id="vd" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="100%" style="padding: 4px; border: 1px solid #ddd; border-radius: 4px; transition: all .2s ease-in-out; display: inline-block;" poster="" data-setup='{"techOrder": ["html5", "flash"]}'>
-                                <source src="@Model.VideoModels[0][0].VideoPath" type='video/mp4' />
-                            </video>
-                        </div>
-
-                    </div>
-                }
+                </div>
+               
 
                 @if (!string.IsNullOrEmpty(Model.MapCode))
                 {

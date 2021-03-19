@@ -6,9 +6,9 @@
 @{Html.RenderPartial("_Head");}
 @Scripts.Render("~/js")
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=10.4" />
-<link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/autocomplete.css?v=3")" />
-<link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v=3")" />
+<link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=10.8" />
+<link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/autocomplete.css?v=5")" />
+<link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v=5")" />
 <script async>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -50,54 +50,5 @@
  @RenderSection("HomePageSlider", false)
  @RenderBody()
  @{Html.RenderAction("Content", "Footer");}
-
-     @*PWA sayfada javascript hatasına neden olduğu için şimdilik kaldırıldı*@
-@*@{
-    MakinaTurkiye.Core.Configuration.MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiye.Core.Configuration.MakinaTurkiyeConfig>();
-    if (!config.ApplicationTestModeEnabled)
-    {
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('service-worker.js').then(function (registration) {
-
-                }, function (err) {
-
-                }).catch(function (err) {
-
-                });
-            });
-        }
-        let deferredPrompt;
-        const installButton = document.getElementById("install_button");
-        window.addEventListener("beforeinstallprompt", e => {
-            e.preventDefault();
-            deferredPrompt = e;
-            installButton.hidden = false;
-            installButton.addEventListener("click", installApp);
-        });
-        function installApp() {
-            deferredPrompt.prompt();
-            installButton.disabled = true;
-            deferredPrompt.userChoice.then(choiceResult => {
-                if (choiceResult.outcome === "accepted")
-                {
-                    installButton.hidden = true;
-                }
-                else
-                {
-
-                }
-                installButton.disabled = false;
-                deferredPrompt = null;
-            });
-        }
-        window.addEventListener("appinstalled", evt =>
-        {
-
-        });
-    </script>
-    }
-}*@
 </body>
 </html>

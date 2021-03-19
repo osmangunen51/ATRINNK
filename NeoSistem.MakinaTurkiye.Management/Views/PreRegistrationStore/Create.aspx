@@ -19,6 +19,12 @@
 });
        });      
         });   
+
+        function SearchClick() {
+            SearchByName($('#StoreName').val(), $('#Email').val());
+
+        }
+
         function SearchByName(name,email) {
                         $.ajax({
                 url: '/PreRegistrationStore/SerachByName',
@@ -28,9 +34,8 @@
 
                 },
                 type: 'post',
-                success: function (data) {
+                            success: function (data) {
                     $("#findedStore").html(data);
-                 
                 },
                 error: function (x, a, r) {
                     alert("Error");
@@ -42,7 +47,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="width: 40%; float: left; margin-left: 20px;">
+    <div style="width: 30%; float: left; margin-left: 10px;">
         <%if (TempData["success"] != null)
             {%>
         <p style="font-size: 15px;">Firma Eklenmiştir</p>
@@ -52,7 +57,7 @@
         <%Html.RenderPartial("_FormModel", Model); %>
         <%} %>
     </div>
-    <div style="float: left; width: 48%;" id="findedStore">
+    <div style="float: right; width: 68%;" id="findedStore">
     </div>
     <div style="clear: both"></div>
 </asp:Content>

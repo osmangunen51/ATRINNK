@@ -780,7 +780,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             videoItemModel.MTVideoCategoryItemModel.CategoryId = categoryId;
 
             var category = _categoryService.GetCategoryByCategoryId(categoryId);
-            var dataVideos = _videoService.GetSPVideoCategoryByCategoryParentIdNew(category.CategoryParentId.Value);
+            if (category != null)
+            {
+                var dataVideos = _videoService.GetSPVideoCategoryByCategoryParentIdNew(category.CategoryParentId.Value);
+
+            }
+            else
+            {
+                return RedirectPermanent(AppSettings.VideoUrlBase);
+            }
 
             ViewData["topMenuVideo"] = "active";
 

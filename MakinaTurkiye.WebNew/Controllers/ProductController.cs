@@ -44,6 +44,7 @@ using System.Web;
 using System.Web.Mvc;
 using MakinaTurkiye.Services.Authentication;
 using static NeoSistem.MakinaTurkiye.Web.Models.Products.MTProductTabModel;
+using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -985,7 +986,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endregion
 
             //satıcının diğer ilanları
-            var otherProducts = _productService.GetProductsByMainPartIdAndNonProductId(product.MainPartyId.Value, product.ProductId, 4);
+            var otherProducts = _productService.GetProductsByMainPartIdAndNonProductId(product.MainPartyId.Value, product.ProductId, 6);
             int storeOtherProductIndex = 1;
             for (int Step = 0; Step < otherProducts.Count(); Step++)
             {
@@ -1118,8 +1119,26 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 });
             }
 
-            #endregion
+            List<string> thumbSizes = new List<string>();
+            thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
 
+            foreach (var item in model.ProductPictureModels)
+            {
+                string largePath = Server.MapPath(item.LargePath.Replace("//s.makinaturkiye.com", "~/UserFiles"));
+                System.IO.FileInfo largeFile = new System.IO.FileInfo(largePath);
+                if (!largeFile.Exists)
+                {
+                    string mainPicture = Server.MapPath($"~/UserFiles/Product/{product.ProductId}/{largeFile.Name.Replace("-500x375","")}");
+                    string destinationfile = largeFile.Directory.FullName + "\\" + largeFile.Name.Replace("500x375", "");
+                    if (!largeFile.Directory.Exists)
+                    {
+                        largeFile.Directory.Create();
+                    }
+                    bool thumbResult = NeoSistem.MakinaTurkiye.Core.Web.Helpers.ImageProcessHelper.ImageResize(mainPicture, destinationfile,thumbSizes);
+                }
+            }
+
+            #endregion
             #region certificates
             var productCertificates = _cerfificateService.GetCertificateTypeProductsByProductId(product.ProductId);
             if (productCertificates.Count > 0)

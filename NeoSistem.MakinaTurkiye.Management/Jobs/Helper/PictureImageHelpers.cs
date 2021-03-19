@@ -52,9 +52,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
             int count = 0;
             var countmodel = entities.Pictures.Where(c => c.ProductId == productID).ToList();
 
-
-
-
             string productPicturePath = string.Empty;
             if (countmodel != null)
             {
@@ -87,13 +84,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                         fileName = productName.ToImageFileName(count) + ".jpg";
                         filePath = HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName;
                         file.SaveAs(filePath);
-
-
                         bool thumbResult = ImageProcessHelper.ImageResize(HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName,HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count), this.ThumbSizes);
                         if (thumbResult)
                         {
                             #region Webp Dönüşümü
-                            
+
                             /*Resimler boyutlandırıldıktan sonra webp formatları oluşturulmaktadır.*/
 
                             //var builder = new WebPEncoderBuilder();
@@ -144,15 +139,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                             //}
                             #endregion
                         }
-
                         pictureList.Add(new PictureModel { PictureId = count, ProductId = productID, PicturePath = fileName });
                         count++;
-
-
-
-
                     }
-
                 }
             }
 

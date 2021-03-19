@@ -1805,7 +1805,7 @@
       <Name>MakinaTurkiye.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\MakinaTurkiye.Services\MakinaTurkiye.Services.csproj">
-      <Project>{703A6535-115C-4056-97ED-48FD93D05C4C}</Project>
+      <Project>{703a6535-115c-4056-97ed-48fd93d05c4c}</Project>
       <Name>MakinaTurkiye.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\MakinaTurkiye.Utilities\MakinaTurkiye.Utilities.csproj">

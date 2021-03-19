@@ -1112,7 +1112,7 @@ function cookiePolicyInit() {
         settings: {
             style: ' col-md-4'
         },
-        text: "<i class='fa fa-info-circle'></i>Hizmetlerimizden en iyi şekilde faydalanabilmeniz için çerezler kullanıyoruz. makinaturkiye.com'u kullanarak çerezlere izin vermiş olursunuz.<a href='/cerez-politikasi-y-183318'>Çerez politikamız için tıklayın.</a>",
+        text: "<i class='fa fa-info-circle'></i> Hizmetlerimizden en iyi şekilde faydalanabilmeniz için çerezler kullanıyoruz. makinaturkiye.com'u kullanarak çerezlere izin vermiş olursunuz. <a href='/cerez-politikasi-y-183318'>Çerez politikamız için tıklayın.</a>",
         acceptBtn: {
             text: "<i class='fa fa-close' style='font-size: 20px; color:#636363; margin-left:20px; cursor:pointer;'></i>", // accept btn text
             cssClass: "cdbtn cookie", // accept btn class
@@ -1264,28 +1264,19 @@ $(document).ready(function () {
 
 
     function toggleNavbarMethod() {
-        if ($(window).width() > 991) {
-            $('.main-navigation .dropdown').hover(function () {
+        //if ($(window).width() > 991) {
+            $('.main-navigation .mdlg-header-li').hover(function () {
                 var dataId = $(this).attr("data-menu-id");
                 if (dataId) {
                     GetSubMenu(dataId, this);
                 }
-
                 $(this).find('.dropdown-menu').stop(true, true).delay(350).fadeIn(0);
-
-
-
             }, function () {
-
                 $(this).find('.dropdown-menu').stop(true, true).delay(350).fadeOut(0);
             });
-        }
-        else {
-
-
-
+        //}
+        //else {
             $(".main-navigation .dropdown .dropdown-toggle").unbind().on('click', function (event) {
-
                 var categoryId = $(this).attr("data-cat-id");
                 console.log("clicked", categoryId);
                 event.preventDefault();
@@ -1296,23 +1287,21 @@ $(document).ready(function () {
                 console.log(parentAttrClass);
                 $(this).parent().parent().parent().addClass('open');
                 if (categoryId) {
-
                     GetSubMenu(categoryId, $(this).parent().parent().parent());
                 }
                 if (parentAttrClass.indexOf("open") > 0) {
                     $(this).parent().parent().parent().removeClass("open");
                 }
-
-
             });
-        }
+        //}
     }
     toggleNavbarMethod();
-    $(window).resize(toggleNavbarMethod);
+    //$(window).resize(toggleNavbarMethod);
 
     $(".ac-dropdown").hover(
-        function () {
+        
 
+        function () {
             $('.dropdown-menu', this).not('.in .dropdown-menu').show();
             $(this).toggleClass('open');
         },
@@ -1637,6 +1626,17 @@ $(document).ready(function () {
         } else {
             $(".fast-access-bar").removeClass('is-fixed');
         }
+
+    /*Breadcrumb Fixed*/
+        //var browserZoomLevel = window.devicePixelRatio;
+        //console.log(_top + "_" + _top * browserZoomLevel);
+        //if (_top < 160 * browserZoomLevel && $("#otherProductsSticky").length > 0) {
+        //    $("#otherProductsSticky").removeClass('is-fixed').removeClass('otherProductsToBottom');
+        //}else if (_top >= 160 * browserZoomLevel && _top <= 325 * browserZoomLevel  && $("#otherProductsSticky").length > 0) {
+        //    $("#otherProductsSticky").addClass('is-fixed').removeClass('otherProductsToBottom');
+        //} else if (_top > 325 * browserZoomLevel && $("#otherProductsSticky").length > 0){
+        //    $("#otherProductsSticky").removeClass('is-fixed').addClass('otherProductsToBottom');
+        //}
 
 
     });
@@ -2917,17 +2917,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (settings.format === 'multitoggle') multiTg();
                 else cssmenu.addClass('dropdown');
                 if (settings.sticky === true) cssmenu.css('position', 'fixed');
-                resizeFix = function () {
-                    var mediasize = 1200;
-                    if ($(window).width() > mediasize) {
-                        cssmenu.find('ul').show();
-                    }
-                    if ($(window).width() <= mediasize) {
-                        cssmenu.find('ul').hide().removeClass('open');
-                    }
-                };
-                resizeFix();
-                return $(window).on('resize', resizeFix);
+                //resizeFix = function () {
+                //    var mediasize = 1200;
+                //    if ($(window).width() > mediasize) {
+                //        cssmenu.find('ul').show();
+                //    }
+                //    if ($(window).width() <= mediasize) {
+                //        cssmenu.find('ul').hide().removeClass('open');
+                //    }
+                //};
+                //resizeFix();
+                //return $(window).on('resize', resizeFix);
             });
         };
     })(jQuery);
