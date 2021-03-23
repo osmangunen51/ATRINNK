@@ -38,7 +38,7 @@
                     </a><a href="@item.VideoUrl">
                         <img src="@item.PicturePath" alt="@item.StoreName" />
                         <div class="videos-minute">
-                            <span class="text-mutedx">@(item.VideoMinute)@(item.VideoSecond)</span>
+                            <span class="text-mutedx">@(item.VideoMinute) : @(item.VideoSecondStr)</span>
                         </div>
                     </a>
                     <!-- /.videoBG -->
@@ -47,6 +47,7 @@
                     @if (item.TruncateProductName.Length > 45)
                     {
                         <p class="margin0 productName productNameLineHeight">
+                            <a href="@item.ProductUrl">@String.Concat(item.TruncateProductName.Substring(0, 45),"...")</a>
                         </p>
                     }
                     else
@@ -65,7 +66,7 @@
                         </span>
                     </p>
                 </div>
-                <a href="@item.StoreUrl" class="btn btn-sm btn-mt2 btn-block companyName">
+                <a href="@item.StoreUrl" style="display:none" class="btn btn-sm btn-mt2 btn-block companyName">
                     @item.TruncateStoreName
                 </a>
             </div>

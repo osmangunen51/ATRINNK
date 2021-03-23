@@ -84,10 +84,7 @@
                                      alt="@model1.ProductName" />
                             }
 
-                            @if (model1.HasVideo)
-                            {
-                                <div class="product-list-video-icon" title="Videolu Ürün"><i class="fa fa-video-camera"></i></div>
-                            }
+
                         </div>
                         <div class="product-list-mt__detail">
 
@@ -176,8 +173,12 @@
                         </div>
 
                     </a>
-
                 </div>
+
+                @if (model1.HasVideo)
+                {
+                    <div class="product-list-video-icon" title="Videolu Ürün"><i class="fa fa-video-camera video-icon"></i></div>
+                }
             </div>
         </div>
 

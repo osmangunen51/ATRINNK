@@ -289,7 +289,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             for (int i = 0; i < navMenu.Count; i++)
             {
                 Navigation nn = (Navigation)navMenu[i];
-                if (String.IsNullOrEmpty(nn.Url))
+                if (String.IsNullOrEmpty(nn.Url) || (i + 1 == navMenu.Count))
                 {
                     navigation.AppendLine("<li class='active'>" + nn.Title + "</li>");
                 }

@@ -21076,6 +21076,14 @@ img.res-buyut {
     /*padding: 3px*/
 }
 
+.video-icon {
+    display: block;
+    margin-left: 3px;
+    margin-right: auto;
+    width: 50%;
+    margin-top:3px;
+}
+
 .product-list-favorite-icon {
     left: 5px;
     border: 1px solid #ccc;
@@ -21090,8 +21098,8 @@ img.res-buyut {
 }
 
 .product-list-video-icon {
-    bottom: 15px;
-    left: 15px;
+    top: 0px;
+    right: 0px;
     border: 1px solid #ccc;
     border-radius: 25%
 }
@@ -22249,7 +22257,7 @@ img.res-buyut {
     min-height: 390px;
     background-color: #fff;
     border: 1px solid #ebebeb;
-    padding: 10px;
+/*    padding: 10px;*/
     margin-bottom: 20px
 }
 

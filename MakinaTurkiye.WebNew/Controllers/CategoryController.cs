@@ -1495,6 +1495,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var topCategories = _categoryService.GetSPTopCategories(selectedCategoryId);
             foreach (var item in topCategories)
             {
+                TopCategoryResult last = topCategories.Last();
+
+                if(last == item)
+                {
+
+                }
+
                 string categoryUrl = "";
                 string categoryNameUrl = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
                 if (item.CategoryType == (byte)CategoryType.Sector || item.CategoryType == (byte)CategoryType.ProductGroup || item.CategoryType == (byte)CategoryType.Category)
@@ -1536,6 +1543,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     navigationUrl = categoryUrl.Replace(":443", "");
                     var categoryName = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
+                    var controlIsLastCategoryItem = last == item ? true : false;
                     alMenu.Add(new Navigation(categoryName, navigationUrl, Navigation.TargetType._self));
                     string navigationUrl1 = categoryUrl.Replace(":443", "").Replace(AppSettings.SiteUrlWithoutLastSlash, "");
                     alMenuSecond.Add(new Navigation(categoryNameUrl, navigationUrl1, Navigation.TargetType._self));

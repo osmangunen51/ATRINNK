@@ -40,6 +40,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.AccountModels
 
         public SearchModel<MTProductCommentStoreItem> ProductComments { get; set; }
         public virtual List<MTHelpModeltem> HelpList { get; set; }
+        public long ViewVideoTotalCount { get; set; }
+
 
     }
 }

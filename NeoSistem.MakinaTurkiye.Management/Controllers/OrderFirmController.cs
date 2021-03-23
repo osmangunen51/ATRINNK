@@ -120,12 +120,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             bool op = false;
             if (Request.QueryString["PacketStatu"] != null)
             {
-                if (op)
-                {
+                // Sipariş Listesini Getirirken hataya düşürüldüğü için bu kod kapatıldı.!!
+                //if (op)
+                //{
                     whereClause.Append("AND");
-                }
+                //}
                 whereClause.AppendFormat(equalClause, "O.PacketStatu", Request.QueryString["PacketStatu"].ToString());
-                op = true;
+                //op = true;
             }
             if (Session[SessionPage] == null)
             {
@@ -1430,7 +1431,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     PaymentType = item.PaymentType,
                     RecordDate = item.RecordDate,
                     RestAmount = item.RestAmount,
-                    PaymentDate = item.PaymentDate.HasValue ? item.PaymentDate.Value.ToString("dd.MM.yyyy") : "",
+                    PaymentDate = item.PaymentDate.HasValue ? item.PaymentDate.Value.ToString("dd.MM.yyyy") : (item.RecordDate != null) ? item.RecordDate.ToString("dd.MM.yyyy") : "",
                     Description = item.Description,
                     SenderNameSurname = item.SenderNameSurname,
                     BankName = bankName
