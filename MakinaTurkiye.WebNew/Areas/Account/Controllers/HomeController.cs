@@ -31,6 +31,7 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Services.Videos;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -53,6 +54,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         private readonly IProductCommentService _productCommentService;
         private readonly IMessagesMTService _messagesMTService;
         private readonly ICategoryPlaceChoiceService _categoryPlaceChoiceService;
+        private readonly IVideoService _videoService;
 
         #endregion
 
@@ -62,7 +64,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             IStoreService storeService, IMemberStoreService memberStoreService,
             IAddressService addressService, IPhoneService phoneService, ICategoryService categoryService,
             IMessageService messageService, IProductService productService,
-            IMessagesMTService messagesMTService, ICategoryPlaceChoiceService categoryPlaceChoiceService)
+            IMessagesMTService messagesMTService, ICategoryPlaceChoiceService categoryPlaceChoiceService, IVideoService videoService)
         {
             this._orderService = orderService;
             this._packetService = packetService;
@@ -77,6 +79,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._productCommentService = productCommentService;
             this._messagesMTService = messagesMTService;
             this._categoryPlaceChoiceService = categoryPlaceChoiceService;
+            this._videoService = videoService;
 
             this._packetService.CachingGetOrSetOperationEnabled = false;
             this._memberService.CachingGetOrSetOperationEnabled = false;
@@ -88,6 +91,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._productService.CachingGetOrSetOperationEnabled = false;
             this._productCommentService.CachingGetOrSetOperationEnabled = false;
             this._categoryPlaceChoiceService.CachingGetOrSetOperationEnabled = false;
+            this._videoService.CachingGetOrSetOperationEnabled = false;
         }
         #endregion
 
@@ -290,7 +294,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         public ActionResult Index2(string gelenSayfa, string memberType)
         {
 
-           var refUrl = Request.UrlReferrer;
+            var refUrl = Request.UrlReferrer;
             MTAccountHomeModel model = new MTAccountHomeModel();
             int mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             var messageSended = MessageErrorSend();
@@ -329,6 +333,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             model.AccountHomeCenterCenterModel.DeletedProductCount = products.Where(c => c.ProductActiveType == (byte)ProductActiveType.Silindi).ToList().Count;
             model.AccountHomeCenterCenterModel.ActiveProductCount = products.Where(x => x.ProductActive == true).ToList().Count;
             model.AccountHomeCenterCenterModel.PasiveProductCount = products.Where(x => x.ProductActive == false).ToList().Count;
+            model.AccountHomeCenterCenterModel.PasiveProductCount = products.Where(x => x.ProductActive == false).ToList().Count;
+
+
+            var videos = _videoService.GetSPVideoByMainPartyIdAndCategoryId(mainPartyId, 0);
+            model.AccountHomeCenterCenterModel.ViewVideoTotalCount = (videos != null && videos.Count > 0) ? videos.Sum(v => v.SingularViewCount) : 0;
 
             var viewCount = products.Sum(p => p.ViewCount);
             var singularViewCountProduct = products.Sum(p => p.SingularViewCount);
