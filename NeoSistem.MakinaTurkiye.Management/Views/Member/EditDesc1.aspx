@@ -7,7 +7,51 @@
     <script type="text/javascript" src="/Scripts/CKEditor/ckeditor.js"></script>
     <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
     <script type="text/javascript">
+        function subContentCheck(cb) {
+            console.log(cb.checked);
+
+
+            if (cb.checked == true) {
+                var text = cb.value + " ";
+
+                CKEDITOR.instances["DescriptionNew"].insertHtml(text);
+            }
+            else {
+                var value = CKEDITOR.instances['DescriptionNew'].getData()
+                console.log(value);
+                console.log(cb.value, 'val');
+                var newValue = value.replace(cb.value, " ");
+                console.log(newValue);
+                CKEDITOR.instances["DescriptionNew"].setData(newValue);
+
+            }
+        }
+        var data = [];
         $(document).ready(function () {
+
+
+            $("#constantId").change(function () {
+                $("#subContent").html("");
+
+                var val = $("#constantId").val();
+                $.ajax({
+
+                    url: '/Constant/GetSubConstant/' + val,
+                    type: 'GET',
+
+                    success: function (data) {
+                        $.each(data.data, function (key, value) {
+                            $("#subContent").append("<input type='checkbox' onClick='subContentCheck(this)'  value='" + value + "'/>" + value + "<br>");
+                        });
+
+                    },
+                    error: function (request, error) {
+
+                    }
+                });
+
+
+            });
 
             $('#LastDateNew').datepicker().val();
 
@@ -80,6 +124,8 @@
                 return null;  // error
         }
     </script>
+
+
     <style type="text/css">
         .editor-label {
             padding-bottom: 5px;
@@ -150,6 +196,7 @@
                 </div>
                 <div class="editor-field">
                     <%:Html.DropDownList("constantId",Model.ConstantModel,new {@onchange="UpdateDescriptionText()" }) %>
+      
                 </div>
                         </td>
                         <td>
@@ -169,7 +216,7 @@
 
                         <select name="timeNew" style="width: 150px;" id="timeNew">
                             <option value="">Seçiniz</option>
-                            <%for (int i = 9; i <= 19; i++)
+                            <%for (int i = 6; i <= 23; i++)
                                 {
                                     for (int a = 0; a <= 3; a++)
                                     {
@@ -207,7 +254,16 @@
    
                     </tr>
                     <tr>
-                        <td colspan="3"></td>
+                        <td colspan="3">
+                                         <div id="subContent" style="width:500px;">
+                                             <%foreach (var item in Model.SubConstants)
+                                                 {
+                                                      %>
+                                                  <input type='checkbox' onclick='subContentCheck(this)' value='<%:item %>' /><%:item %> <br>
+                                                 <%} %>
+                   </div>
+
+                        </td>
                         <td>
                             
      
@@ -225,6 +281,7 @@
                         <b style="font-size: 14px;"><%:Model.PortfoyName %></b>
 
                     </div>
+
                                             
             <% using (Html.BeginForm())
                 { %>
@@ -364,17 +421,17 @@
                //{ name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
                //['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],			// Defines toolbar group without name.
                '/',																					// Line break - next group will be placed in new line.
-               { name: 'basicstyles', items: ['Bold','NumberedList'] },
+               { name: 'basicstyles', items: ['Bold', 'NumberedList'] },
            ],
-         
+
        });
 
        CKEDITOR.replace('DescriptionLast', {
            toolbar: [
                //{ name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
-             //  ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],			// Defines toolbar group without name.
+               //  ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],			// Defines toolbar group without name.
                '/',																					// Line break - next group will be placed in new line.
-               { name: 'basicstyles', items: ['Bold','NumberedList'] }
+               { name: 'basicstyles', items: ['Bold', 'NumberedList'] }
            ]
        });
        //<![CDATA[

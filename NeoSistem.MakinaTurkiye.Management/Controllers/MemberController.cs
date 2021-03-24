@@ -2504,6 +2504,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 }
 
             }
+            string constantId = MemberDesc.ConstantId.ToString();
+            var subConstants = entities.Constants.Where(x => x.ConstantTitle == constantId);
+            foreach (var item in subConstants)
+            {
+                bModelDesc.SubConstants.Add(item.ContstantPropertie);
+            }
+
             return View(bModelDesc);
         }
 

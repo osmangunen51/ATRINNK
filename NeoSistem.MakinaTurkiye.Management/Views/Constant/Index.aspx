@@ -166,6 +166,30 @@
                 }
             });
         }
+        function SubConstantInsert(constantId) {
+            $('#SubConstantForm').attr('Title', 'Alt Başlık Ekle');
+            $('#SubConstantForm').dialog('open');
+            $('#ContantId').val(constantId);
+
+            var constantName = '';
+            var constantPropertie = '';
+            $.ajax({
+                url: '/Constant/GetSubConsant',
+                data: { ConstantId: constantId },
+                type: 'post',
+                success: function (data) {
+                    constantName = data.constantName;
+                    order = data.order;
+                    constantPropertie = data.constantPropertie;
+                    alert(constantPropertie);
+                    $('#ConstantName').val(constantName);
+                    $('#ConstantPropertie').val(constantPropertie);
+                    $('#Order').val(order);
+                }, error: function (x, l, e) {
+                    alert(e.responseText);
+                }
+            });
+        }
 
     </script>
 
@@ -175,6 +199,9 @@
     <input id="ConstantType" type="hidden" value="0" />
     <div id="NewConstantForm" title="">
         <%= Html.RenderHtmlPartial("ConstantForm", new ConstantModel())%>
+    </div>
+    <div id="SubConstantForm">
+            
     </div>
     <div style="float: left; width: 15%; padding-top: 10px;">
         <select size="25" onchange="GetConstant($(this).val())">

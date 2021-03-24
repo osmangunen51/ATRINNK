@@ -472,38 +472,38 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         #endregion
-     
-        public ActionResult Propertie(string id,string opr)
+
+        public ActionResult Propertie(string id, string opr)
         {
 
 
             PropertieViewModel model = new PropertieViewModel();
             var propertie = new global::MakinaTurkiye.Entities.Tables.Catalog.Propertie();
             int ID = 0;
-            if (!string.IsNullOrEmpty(id) && id!="0")
+            if (!string.IsNullOrEmpty(id) && id != "0")
             {
-                
+
                 ID = Convert.ToInt32(id);
-          propertie = _categoryPropertieService.GetPropertieById(ID);
+                propertie = _categoryPropertieService.GetPropertieById(ID);
                 model.PropertieId = ID;
 
                 model.PropertieName = propertie.PropertieName;
 
             }
-            if(opr== "errorName")
+            if (opr == "errorName")
             {
                 ModelState.AddModelError("PropertieName", "Lütfen görünen ad ekleyiniz");
             }
 
-            model.PropertieTypes.Add(new SelectListItem { Text = "Text", Value = "2", Selected=((byte)PropertieType.Text==propertie.PropertieType)});
+            model.PropertieTypes.Add(new SelectListItem { Text = "Text", Value = "2", Selected = ((byte)PropertieType.Text == propertie.PropertieType) });
             model.PropertieTypes.Add(new SelectListItem { Text = "Çok Seçenekli", Value = "3", Selected = ((byte)PropertieType.MutipleOption == propertie.PropertieType) });
 
-            model.PropertieTypes.Add(new SelectListItem {Text="Editör", Value="1", Selected = ((byte)PropertieType.Editor == propertie.PropertieType) });
+            model.PropertieTypes.Add(new SelectListItem { Text = "Editör", Value = "1", Selected = ((byte)PropertieType.Editor == propertie.PropertieType) });
             FilterModel<PropertieModel> properties = new FilterModel<PropertieModel>();
 
             var propertiesData = _categoryPropertieService.GetAllProperties();
             List<PropertieModel> propertieModelList = new List<PropertieModel>();
-            foreach (var item in propertiesData.OrderByDescending(x=>x.PropertieId).Skip(0).Take(25).ToList())
+            foreach (var item in propertiesData.OrderByDescending(x => x.PropertieId).Skip(0).Take(25).ToList())
             {
                 propertieModelList.Add(new PropertieModel { PropertieId = item.PropertieId, PropertieName = item.PropertieName, PropertieType = item.PropertieType });
             }
@@ -520,21 +520,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         public ActionResult Propertie(PropertieViewModel model)
         {
             var propertie = new global::MakinaTurkiye.Entities.Tables.Catalog.Propertie();
-            if (!string.IsNullOrEmpty(model.PropertieName)) {
+            if (!string.IsNullOrEmpty(model.PropertieName))
+            {
                 if (model.PropertieId != 0)
                     propertie = _categoryPropertieService.GetPropertieById(model.PropertieId);
                 propertie.PropertieName = model.PropertieName;
-            propertie.PropertieType = model.PropertieType;
+                propertie.PropertieType = model.PropertieType;
                 if (model.PropertieId == 0)
                     _categoryPropertieService.InsertPropertie(propertie);
                 else
                     _categoryPropertieService.UpdatePropertie(propertie);
 
-            return RedirectToAction("Propertie", new { opr = "success" });
+                return RedirectToAction("Propertie", new { opr = "success" });
             }
             else
             {
-                return RedirectToAction("Propertie", new { opr = "errorName",id=model.PropertieId });
+                return RedirectToAction("Propertie", new { opr = "errorName", id = model.PropertieId });
             }
         }
         [HttpPost]
@@ -544,17 +545,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             if (propertie != null)
                 _categoryPropertieService.DeletePropertie(propertie);
 
-            return Json(true,JsonRequestBehavior.AllowGet);
+            return Json(true, JsonRequestBehavior.AllowGet);
 
         }
         [HttpPost]
         public PartialViewResult GetProperties(int currentPage)
         {
             FilterModel<PropertieModel> properties = new FilterModel<PropertieModel>();
-          
+
             var propertiesData = _categoryPropertieService.GetAllProperties();
             List<PropertieModel> propertieModelList = new List<PropertieModel>();
-            foreach (var item in propertiesData.OrderByDescending(x => x.PropertieId).Skip(currentPage*25-25).Take(25).ToList())
+            foreach (var item in propertiesData.OrderByDescending(x => x.PropertieId).Skip(currentPage * 25 - 25).Take(25).ToList())
             {
                 propertieModelList.Add(new PropertieModel { PropertieId = item.PropertieId, PropertieName = item.PropertieName, PropertieType = item.PropertieType });
             }
@@ -564,22 +565,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             properties.TotalRecord = propertiesData.Count;
             return PartialView("_PropertieItem", properties);
         }
-      
-        public ActionResult PropertieAttr(int id,string op)
+
+        public ActionResult PropertieAttr(int id, string op)
         {
             PropertieAttrViewModel model = new PropertieAttrViewModel();
             var propertie = _categoryPropertieService.GetPropertieById(id);
             model.PropertieName = propertie.PropertieName;
             model.PropertieId = id;
 
-            if(op== "errorName")
+            if (op == "errorName")
             {
                 ModelState.AddModelError("PropertieAttrValue", "Lütfen seçenek içeriğini giriniz");
             }
             var propertiAttrs = _categoryPropertieService.GetPropertiesAttrByPropertieId(id);
             foreach (var item in propertiAttrs)
             {
-                model.PropertieAttrs.Add(new PropertieAttrModel { PropertieAttrId = item.PropertieAttrId, Order=item.DisplayOrder!=null?item.DisplayOrder.Value:0, PropertieAttrName = item.AttrValue ,PropertieId=item.PropertieId});
+                model.PropertieAttrs.Add(new PropertieAttrModel { PropertieAttrId = item.PropertieAttrId, Order = item.DisplayOrder != null ? item.DisplayOrder.Value : 0, PropertieAttrName = item.AttrValue, PropertieId = item.PropertieId });
             }
 
             return View(model);
@@ -587,18 +588,19 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpPost]
         public ActionResult PropertieAttr(PropertieAttrViewModel model)
         {
-            if (!string.IsNullOrEmpty(model.PropertieAttrValue)) {
+            if (!string.IsNullOrEmpty(model.PropertieAttrValue))
+            {
                 var propertieAttr = new global::MakinaTurkiye.Entities.Tables.Catalog.PropertieAttr();
                 propertieAttr.AttrValue = model.PropertieAttrValue;
                 propertieAttr.PropertieId = model.PropertieId;
                 if (model.Order != null && model.Order != 0)
-                    propertieAttr.DisplayOrder =Convert.ToByte(model.Order);
+                    propertieAttr.DisplayOrder = Convert.ToByte(model.Order);
                 _categoryPropertieService.InsertPropertieAttr(propertieAttr);
-                return RedirectToAction("PropertieAttr",new { id = model.PropertieId });
+                return RedirectToAction("PropertieAttr", new { id = model.PropertieId });
             }
             else
             {
-                return RedirectToAction("PropertieAttr", new { op = "errorName", id=model.PropertieId});
+                return RedirectToAction("PropertieAttr", new { op = "errorName", id = model.PropertieId });
 
             }
         }
@@ -608,9 +610,60 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var propertieAttr = _categoryPropertieService.GetPropertieAttrByPropertieAttrId(id);
             if (propertieAttr != null)
                 _categoryPropertieService.DeletePropertieAttr(propertieAttr);
-            return RedirectToAction("PropertieAttr",new {id=propertieId });
+            return RedirectToAction("PropertieAttr", new { id = propertieId });
         }
 
+        [HttpGet]
+        public ActionResult SubContents(string id, string islem)
+        {
+            SubConstantModel model = new SubConstantModel();
+            model.ConstantId = id;
+            var constants = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.SubConstant && x.ConstantTitle == id).ToList();
+            foreach (var item in constants)
+            {
+                model.Contents.Add(item.ConstantId, item.ContstantPropertie);
+            }
+            if(!string.IsNullOrEmpty(islem) && islem.Equals("success"))
+            {
+                model.Message = "İşlem Başarılı"; 
+            }
 
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult SubContents(SubConstantModel model)
+        {
+            var constant = new Constant { ConstantTitle = model.ConstantId, ContstantPropertie = model.Content, ConstantType = (byte)ConstantType.SubConstant };
+            entities.Constants.AddObject(constant);
+            entities.SaveChanges();
+            return RedirectToAction("SubContents", new { islem = "success", id = model.ConstantId });
+
+
+        }
+        [HttpGet]
+        public JsonResult GetSubConstant(string id)
+        {
+            List<string> contents = new List<string>();
+            
+            var constants = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.SubConstant && x.ConstantTitle == id).ToList();
+            foreach (var item in constants)
+            {
+                contents.Add(item.ContstantPropertie);
+            }
+            
+
+            return Json(new { data = contents }, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult DeleteSubConstant(int id, string constantParentId)
+        {
+            var constant = entities.Constants.FirstOrDefault(x => x.ConstantId == id);
+            entities.Constants.DeleteObject(constant);
+            entities.SaveChanges();
+            return RedirectToAction("SubContents", new { islem = "success", id = constantParentId });
+        }
     }
+
+
+
 }

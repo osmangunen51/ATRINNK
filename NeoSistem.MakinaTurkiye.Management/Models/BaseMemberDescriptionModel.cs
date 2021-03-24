@@ -13,6 +13,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
             this.Users = new List<SelectListItem>();
             this.ConstantModel = new List<SelectListItem>();
             this.Member = new Member();
+            this.SubConstants = new List<string>();
         }
         public int ID { get; set; }
         public int MainPartyId { get; set; }
@@ -37,6 +38,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public bool IsImmediate { get; set; }
         public string PortfoyName { get; set; }
         public string Color { get; set; }
+        public List<string> SubConstants { get; set; }
         public List<SelectListItem> Users { get; set; }
         public List<BaseMemberDescriptionModel> BaseMemberDescriptionByUser;
         public List<SelectListItem> ConstantModel { get; set; }

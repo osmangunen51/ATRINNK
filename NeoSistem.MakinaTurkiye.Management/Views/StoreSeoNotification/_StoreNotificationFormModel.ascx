@@ -37,7 +37,7 @@
             <div class="editor-field">
                 <select name="time" style="width: 150px;">
                     <option value="">Seçiniz</option>
-                    <%for (int i = 9; i <= 19; i++)
+                    <%for (int i = 6; i <= 23; i++)
                         {
                             for (int a = 0; a <= 3; a++)
                             {

@@ -16,8 +16,17 @@
   <a style="padding-bottom: 5px; cursor: pointer; float:left; margin-right:7px;" href="/Constant/EditConstants/<%=item.ConstantId %>" id="lightbox_click" rel="superbox[iframe]">içerik</a>
   </td>
    <%} %>
+    
   <td class="CellEnd" style="width:100px;">
+                  <a href="/Constant/SubContents/<%=item.ConstantId  %>" title="Alt Açıklamalar" style="float: left;" id="lightbox_click" rel="superbox[iframe]" title="İletişim Bilgileri">
+         <img src="/Content/RibbonImages/BulletListDefault.png" alt="Alt Açıklamalar" style="height:16px;">
+                  </a>
+      
+          <a style="padding-bottom: 5px; cursor: pointer" title="Alt Başlık Ekle" onclick="SubConstantInsert(<%: item.ConstantId %>);">
+      <div style="float: left; margin-right: 10px">
 
+      </div>
+    </a>
     <a style="padding-bottom: 5px; cursor: pointer" onclick="EditConstant(<%: item.ConstantId %>);">
       <div style="float: left; margin-right: 10px">
         <img src="/Content/images/edit.png" />
@@ -39,3 +48,59 @@
     </div>
   </td>
 </tr>
+
+
+<link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
+<script type="text/javascript" src="/Scripts/SuperBox/jquery.superbox-1.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.superbox.settings = {
+            closeTxt: "Kapat",
+            loadTxt: "Yükleniyor...",
+            nextTxt: "Sonraki",
+            prevTxt: "Önceki"
+        };
+        $.superbox();
+    });
+</script>
+<style type="text/css">
+    /* Custom Theme */
+    #superbox-overlay {
+        background: #e0e4cc;
+    }
+
+    #superbox-container .loading {
+        width: 32px;
+        height: 32px;
+        margin: 0 auto;
+        text-indent: -9999px;
+        background: url(styles/loader.gif) no-repeat 0 0;
+    }
+
+    #superbox .close a {
+        float: right;
+        padding: 0 5px;
+        line-height: 20px;
+        background: #333;
+        cursor: pointer;
+    }
+
+        #superbox .close a span {
+            color: #fff;
+        }
+
+    #superbox .nextprev a {
+        float: left;
+        margin-right: 5px;
+        padding: 0 5px;
+        line-height: 20px;
+        background: #333;
+        cursor: pointer;
+        color: #fff;
+    }
+
+    #superbox .nextprev .disabled {
+        background: #ccc;
+        cursor: default;
+    }
+</style>

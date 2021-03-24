@@ -367,6 +367,7 @@
     <Compile Include="Models\Stores\StoreSeoNotificationModel.cs" />
     <Compile Include="Models\Stores\StoreUserItem.cs" />
     <Compile Include="Models\StoreWhatsappListItemModel.cs" />
+    <Compile Include="Models\SubConstantModel.cs" />
     <Compile Include="Models\SurveyModel.cs" />
     <Compile Include="Models\SurveyOptionModel.cs" />
     <Compile Include="Models\TownModel.cs" />
@@ -1492,6 +1493,7 @@
     <Content Include="Views\ChangeLogs\_StoreChangeList.ascx" />
     <Content Include="Views\ChangeLogs\StoreList.ascx" />
     <Content Include="Views\CompanyDemand\DemandForPacket.aspx" />
+    <Content Include="Views\Constant\SubContents.aspx" />
     <Content Include="Views\Constant\PropertieAttr.aspx" />
     <Content Include="Views\Constant\Propertie.aspx" />
     <Content Include="Views\Constant\_PropertieItem.ascx" />
