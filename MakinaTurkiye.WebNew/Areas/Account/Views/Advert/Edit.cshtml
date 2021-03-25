@@ -294,7 +294,7 @@
         function DeletePicture(pictureId, pictureName) {
             if (confirm('Resmi Silmek istediğinizden eminmisiniz ?')) {
                 $.ajax({
-                    url: '@Url.Action("DeletePictureEditPage", "Advert")',
+                    url: '/Account/ilan/DeletePictureEditPage',
                     type: 'GET',
                     data:
                     {
