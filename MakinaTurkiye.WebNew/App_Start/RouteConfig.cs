@@ -1080,6 +1080,13 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 );
 
             routes.MapRoute(
+"AdvertİlanDeleteEdit",
+"Account/ilan/DeletePictureEditPage",
+new { controller = "Advert", action = "DeletePictureEditPage" },
+namespaces: new[] { "Web.Areas.Account.Controllers" }
+
+);
+            routes.MapRoute(
                 name: "StoreProfileVideosNewRoute",
                 url: "{username}/Videolarimiz",
                 defaults: new { controller = "StoreProfileNew", action = "VideosNew", username = UrlParameter.Optional },

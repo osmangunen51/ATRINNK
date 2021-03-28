@@ -70,13 +70,7 @@ new { controller = "Advert", action = "mainImageEdit" }
 new { controller = "Advert", action = "ProductPriceUpdate" }
 );
 
-            context.MapRoute(
-"AdvertİlanDeleteEdit",
-"account/ilan/deletepictureedit",
-new { controller = "Advert", action = "deletepictureedit" },
-        namespaces: new[] { "Web.Areas.Account.Controllers" }
 
-);
 
             context.MapRoute(
   "Advert_default",
