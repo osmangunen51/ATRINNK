@@ -64,15 +64,15 @@ namespace NeoSistem.MakinaTurkiye.Web
             }
 
 
-            if (config.ApplicationLogEnabled)
-            {
-                Exception exception = Server.GetLastError();
+              if (config.ApplicationLogEnabled)
+          {
+              Exception exception = Server.GetLastError();
 
-                /*  ILogger logger = EngineContext.Current.Resolve<ILogger>();
-              exception.Data.Add("Url", Context.Request.Url.ToString());
-              exception.HelpLink = Context.Request.Url.ToString();
-              logger.Error("Global.asax error", exception);     */
-                HttpException httpException = exception as HttpException;
+         ILogger logger = EngineContext.Current.Resolve<ILogger>();
+            exception.Data.Add("Url", Context.Request.Url.ToString());
+            exception.HelpLink = Context.Request.Url.ToString();
+            logger.Error("Global.asax error", exception);  
+            HttpException httpException = exception as HttpException;
                 RouteData routeData = new RouteData();
                 routeData.Values.Add("controller", "Home");
                 string PrmQuery = Context.Request.Url.PathAndQuery.ToString();
@@ -165,7 +165,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                     }
                 }
             }
-
+               
 
         }
 

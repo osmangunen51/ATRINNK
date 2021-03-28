@@ -72,8 +72,8 @@ new { controller = "Advert", action = "ProductPriceUpdate" }
 
             context.MapRoute(
 "AdvertİlanDeleteEdit",
-"Account/ilan/DeletePictureEditPage",
-new { controller = "Advert", action = "DeletePictureEditPage" },
+"account/ilan/deletepictureedit",
+new { controller = "Advert", action = "deletepictureedit" },
         namespaces: new[] { "Web.Areas.Account.Controllers" }
 
 );

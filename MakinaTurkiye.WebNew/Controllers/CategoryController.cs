@@ -480,8 +480,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                                                                         selectedCityId, selectedLocalityId, orderById, pageIndex, pageSize, SearchText);
 
             //newProductCount = _productService.GetProductCountBySearchType(selectedCategoryId, selectedBrandId, selectedModelId, selectedSeriesId, 72, model.SearchText, selectedCountryId, selectedCityId, selectedLocalityId);
-            //usedProductCount = _productService.GetProductCountBySearchType(selectedCategoryId, selectedBrandId, selectedModelId, selectedSeriesId, 73, model.SearchText, selectedCountryId, selectedCityId, selectedLocalityId);
-            //servicesProductCount = _productService.GetProductCountBySearchType(selectedCategoryId, selectedBrandId, selectedModelId, selectedSeriesId, 201, model.SearchText, selectedCountryId, selectedCityId, selectedLocalityId);
+            //usedProductCount = _productService.GetProductCountBySearchType(selectedCateCategoryId, selecgoryId, selectedBrandId, selectedModelId, selectedSeriesId, 73, model.SearchText, selectedCountryId, selectedCityId, selectedLocalityId);
+            //servicesProductCount = _productService.GetProductCountBySearchType(selectedtedBrandId, selectedModelId, selectedSeriesId, 201, model.SearchText, selectedCountryId, selectedCityId, selectedLocalityId);
 
             newProductCount = productResult.NewProductCount;
             usedProductCount = productResult.UsedProductCount;

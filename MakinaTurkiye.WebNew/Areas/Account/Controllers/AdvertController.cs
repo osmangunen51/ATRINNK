@@ -1752,7 +1752,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         }
 
         [HttpGet]
-        public ActionResult DeletePictureEditPage(string ProductId, string PictureId, string PictureName)
+        public ActionResult deletepictureedit(string ProductId, string PictureId, string PictureName)
         {
             var curPicture = new Classes.Picture();
 
