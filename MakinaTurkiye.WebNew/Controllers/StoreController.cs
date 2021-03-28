@@ -845,7 +845,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (model.StoreModels.Count==0 | (category!=null &&category.CategoryType==3))
             {
-                string RedirectUrl = model.StoreCategoryModel.StoreTopCategoryItemModels.Where(x => x.CategoryType == 0 | x.CategoryType == 1 | x.CategoryType == 2).LastOrDefault()?.CategoryUrl;
+                string RedirectUrl = model.StoreCategoryModel.StoreTopCategoryItemModels.Where(x => x.CategoryId==category.CategoryParentId).LastOrDefault()?.CategoryUrl;
                 return RedirectPermanent(RedirectUrl);
             }
             return View(model);
