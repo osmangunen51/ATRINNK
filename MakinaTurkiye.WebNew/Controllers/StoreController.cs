@@ -57,6 +57,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             _addressService = addressService;
             _seoDefinitionService = seoDefinitionService;
             _activityTypeService = activityTypeService;
+
         }
 
 
