@@ -168,12 +168,12 @@
                            <p class="product-list-mtgrid__advert-no">@model1.ProductNo</p>
                            <p class="product-list-mtgrid__store"><a href="@model1.StoreUrl">@model1.StoreName</a></p>
                            <div class="product-list-mtgrid__extra-buttons hidden-xs">
-                               @if (model1.HasVideo) {
+                               @if (model1.HasVideo.Value && model1.HasVideo.Value) {
                                <a title="Bu Ürün İçin Video Eklenmiştir" href="javascript:;" rel="nofollow" class="btn btn-sm btn-primary">
                                    <i class="fa fa-video-camera"></i>
                                </a>
                                 } 
-                               @if (model1.Doping)
+                               @if (model1.Doping.HasValue && model1.Doping.Value)
                                {
                                <a href="javascript:;" rel="nofollow" class="btn btn-sm btn-success">
                                    D

@@ -116,7 +116,7 @@
                                     <p class="product-list-mt__advert-no" style="float: left;">@model1.ProductNo</p>
                                     <div class="product-list-mt__features" style="float: right">
 
-                                        @if (model1.Doping)
+                                        @if (model1.Doping.HasValue && model1.Doping==true)
                                         {
                                             <span class="product-list-mt__has-doping">D</span>
                                         }
@@ -175,7 +175,7 @@
                     </a>
                 </div>
 
-                @if (model1.HasVideo)
+                @if (model1.HasVideo.HasValue && model1.HasVideo.Value)
                 {
                     <div class="product-list-video-icon" title="Videolu Ürün"><i class="fa fa-video-camera video-icon"></i></div>
                 }

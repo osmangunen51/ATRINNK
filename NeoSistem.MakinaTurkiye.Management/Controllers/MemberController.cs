@@ -2442,7 +2442,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 if (item.UpdateDate != null) otherItem.LastDate = Convert.ToDateTime(item.UpdateDate);
                 otherItem.MainPartyId = item.MainPartyId.ToInt32();
                 var memberSub = entities.Members.FirstOrDefault(m => m.MainPartyId == item.MainPartyId);
-                if (memberSub != null)
+                if (memberSub.MainPartyId!=0)
                 {
                     var memberStore = entities.MemberStores.FirstOrDefault(x => x.MemberMainPartyId == item.MainPartyId);
                     otherItem.Title = item.Title;
@@ -2455,7 +2455,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 }
                 else
                 {
-                    var preRegistration = _preRegistrationStoreService.GetPreRegistirationStoreByPreRegistrationStoreId(item.PreRegistrationStoreId.Value);
+                    var preRegistration = _preRegistrationStoreService.GetPreRegistirationStoreByPreRegistrationStoreId(MemberDesc.PreRegistrationStoreId.Value);
                     otherItem.StoreName = preRegistration.StoreName;
                     otherItem.Member.MemberName = preRegistration.MemberName;
                     otherItem.Member.MemberSurname = preRegistration.MemberSurname;
