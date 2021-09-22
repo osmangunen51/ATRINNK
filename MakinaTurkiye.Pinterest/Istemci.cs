@@ -95,7 +95,7 @@ namespace MakinaTurkiye.Pinterest
             catch (Exception Hata)
             {
                 Result.Error = Hata;
-                Result.Message = "";
+                Result.Message = Hata.Message;
                 Result.Status = false;
                 Result.Tip = ProcessStatus.ProcessType.Error;
                 Result.Value = Hata.Message;

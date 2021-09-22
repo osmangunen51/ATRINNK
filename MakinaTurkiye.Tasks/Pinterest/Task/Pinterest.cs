@@ -205,7 +205,7 @@ namespace MakinaTurkiye.Tasks.Pinterest.Tasks
                     }
                     else
                     {
-                        LogEkle("Login Olunmadı. "+ IslemDurum.Value.ToString());
+                        LogEkle("Login Olunmadı. "+ IslemDurum.Message.ToString());
                     }
                 }
             }
