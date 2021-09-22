@@ -51,6 +51,17 @@ namespace MakinaTurkiye.Core.Configuration
             var productNode = section.SelectSingleNode("Product");
             config.ProductDescriptionHtmlClear = GetBool(productNode, "DescriptionHtmlClear");
 
+
+            var PinterestNode = section.SelectSingleNode("Pinterest");
+            config.PinDurum = GetBool(PinterestNode, "Durum");
+            config.PinBaseUrl = GetString(PinterestNode, "BaseUrl");
+            config.PinBasePano = GetString(PinterestNode, "BasePano");
+            config.PinUsername = GetString(PinterestNode, "Username");
+            config.PinPassword = GetString(PinterestNode, "Password");
+            config.PinZaman = GetString(PinterestNode, "Zaman");
+            config.PinZamanlamaPinAdet = GetString(PinterestNode, "ZamanlamaPinAdet");
+
+
             return config;
         }
 
@@ -58,6 +69,7 @@ namespace MakinaTurkiye.Core.Configuration
         {
             return SetByXElement<string>(node, attrName, Convert.ToString);
         }
+
 
         private bool GetBool(XmlNode node, string attrName)
         {
@@ -112,6 +124,14 @@ namespace MakinaTurkiye.Core.Configuration
 
         public bool CompressEnabled { get; set; }
         public bool ProductDescriptionHtmlClear { get; set; }
+
+        public bool PinDurum { get; set; } = true;
+        public string PinBaseUrl { get; set; } = "https://pinterest.com";
+        public string PinBasePano { get; set; } = "";
+        public string PinUsername { get; set; } = "";
+        public string PinPassword { get; set; } = "";
+        public string PinZamanlamaPinAdet { get; set; } = "5";
+        public string PinZaman { get; set; } = "10";
 
     }
 

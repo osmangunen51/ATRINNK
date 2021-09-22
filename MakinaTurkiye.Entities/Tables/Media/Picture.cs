@@ -12,5 +12,6 @@
         public int? StoreDealerId { get; set; }
         public int? PictureOrder { get; set; }
         public byte? StoreImageType { get; set; }
+        public string PinId { get; set; }
     }
 }

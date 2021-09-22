@@ -101,6 +101,7 @@ namespace MakinaTurkiye.Services.Catalog
         IList<Product> GetProductByProductActiveType(ProductActiveTypeEnum productActiveTypeEnum);
 
         IList<SiteMapProductResult> GetSiteMapProducts();
+        IList<int> GetProductsOnlyIdList();
 
 
     }

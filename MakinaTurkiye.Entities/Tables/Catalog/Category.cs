@@ -45,6 +45,10 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         public Int16 ? BaseMenuOrder { get; set; }
         public string HomeImagePath { get; set; }
 
+        public string PinId { get; set; }
+
+
+
         //public virtual ICollection<BaseMenuCategory> BaseMenuCategories
         //{
         //    get { return _baseMenuCategories ?? (_baseMenuCategories = new List<BaseMenuCategory>()); }

@@ -5,6 +5,7 @@ using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.StoredProcedures.Catalog;
 using MakinaTurkiye.Entities.StoredProcedures.Stores;
 using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Services.Common;
 using System;
 using System.Collections.Generic;
@@ -1147,12 +1148,19 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
 
         }
 
-
         public IList<SiteMapProductResult> GetSiteMapProducts()
         {
             const string sql = "SP_GetSiteMapProduct";
             var products = _dbContext.SqlQuery<SiteMapProductResult>(sql).ToList();
             return products;
+        }
+
+
+        public IList<int> GetProductsOnlyIdList()
+        {
+            var query = _productRepository.Table;
+            var result = query.Select(x => x.ProductId).ToList();
+            return result;
         }
 
         public int GetNumberOfProductsByMainPartyId(int mainPartyId)
