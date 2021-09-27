@@ -5,22 +5,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Pinterest
 {
     public class Istemci : IDisposable
     {
+        Random Rnd = new Random();
         public HttpClient.Istemci HttpIstemci { get; set; }
         public string UserName { get; set; } = "";
         public string Password { get; set; } = "";
 
-       
-        public Istemci(string UserName, string Password)
+        public string ProxyServer { get; set; } = "";
+        public Istemci(string UserName, string Password,string ProxyServer="")
         {
             this.UserName = UserName;
-            this.Password = Password;   
+            this.Password = Password;
             HttpIstemci = new HttpClient.Istemci();
+            this.ProxyServer = ProxyServer;
+            if (this.ProxyServer != "")
+            {
+                string Adres = "";
+                int Port = 80;
+                string[] Liste = this.ProxyServer.Split(':');
+                if (Liste.Length > 0)
+                {
+                    Adres = Liste[0].Trim();
+                }
+                if (Liste.Length > 1)
+                {
+                    Port = Convert.ToInt32(Liste[1].Trim());
+                }
+                this.HttpIstemci.WebClient.Proxy = new WebProxy(Adres, Port);
+            }
             this.AddDefaultHeader();
             HttpIstemci.WebClient.CookieContainer.Add(new System.Uri(BaseUrl), new Cookie("csrftoken", "1234"));
         }
@@ -106,9 +124,10 @@ namespace MakinaTurkiye.Pinterest
 
         public ProcessStatus CreatePin(string ImageUrl, string BoardID, string Description, string Link, string Title, string SectionID = "")
         {
-            ProcessStatus Result = new ProcessStatus();
+            ProcessStatus Result = new ProcessStatus() { Status = false};
             try
             {
+                int Adet = 0;
                 string IstekKontrolIfadesi = "";
                 if (SectionID != "/pin-builder/") { SectionID = ""; };
                 string IstekSonuc = "";
@@ -130,7 +149,14 @@ namespace MakinaTurkiye.Pinterest
                 IstekListesi.Clear();
                 IstekListesi.Add("source_url", "/pin-builder/");
                 IstekListesi.Add("data", JsUserSessionResourceCreate);
-                IstekSonuc = HttpIstemci.HttpPost(RequestUrl, IstekListesi);                
+                IstekSonuc = HttpIstemci.HttpPost(RequestUrl, IstekListesi);
+                while ((IstekSonuc.Contains("(404)") | IstekSonuc.Contains("(429)")) && Adet < 5)
+                {
+                    Adet++;
+                    IstekSonuc = HttpIstemci.HttpPost(RequestUrl, IstekListesi);
+                    int IstekTimeOut = Rnd.Next(100, 1000);
+                    Thread.Sleep(IstekTimeOut);
+                }
                 IstekKontrolIfadesi = "resource_response\":{\"code\":0,";
                  if (!string.IsNullOrEmpty(IstekSonuc))
                 {
@@ -147,7 +173,7 @@ namespace MakinaTurkiye.Pinterest
             catch (Exception Hata)
             {
                 Result.Error = Hata;
-                Result.Message = "";
+                Result.Message = Hata.Message;
                 Result.Status = false;
                 Result.Tip = ProcessStatus.ProcessType.Error;
                 Result.Value = "";
@@ -201,7 +227,7 @@ namespace MakinaTurkiye.Pinterest
             catch (Exception Hata)
             {
                 Result.Error = Hata;
-                Result.Message = "";
+                Result.Message = Hata.Message;
                 Result.Status = false;
                 Result.Tip = ProcessStatus.ProcessType.Error;
                 Result.Value = "";
@@ -254,7 +280,7 @@ namespace MakinaTurkiye.Pinterest
             catch (Exception Hata)
             {
                 Result.Error = Hata;
-                Result.Message = "";
+                Result.Message = Hata.Message;
                 Result.Status = false;
                 Result.Tip = ProcessStatus.ProcessType.Error;
                 Result.Value = "";
@@ -296,7 +322,7 @@ namespace MakinaTurkiye.Pinterest
             catch (Exception Hata)
             {
                 Result.Error = Hata;
-                Result.Message = "";
+                Result.Message = Hata.Message;
                 Result.Status = false;
                 Result.Tip = ProcessStatus.ProcessType.Error;
                 Result.Value = "";
@@ -341,7 +367,7 @@ namespace MakinaTurkiye.Pinterest
             catch (Exception Hata)
             {
                 Result.Error = Hata;
-                Result.Message = "";
+                Result.Message = Hata.Message;
                 Result.Status = false;
                 Result.Tip = ProcessStatus.ProcessType.Error;
                 Result.Value = "";

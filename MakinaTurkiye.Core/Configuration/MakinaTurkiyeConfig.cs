@@ -60,8 +60,7 @@ namespace MakinaTurkiye.Core.Configuration
             config.PinPassword = GetString(PinterestNode, "Password");
             config.PinZaman = GetString(PinterestNode, "Zaman");
             config.PinZamanlamaPinAdet = GetString(PinterestNode, "ZamanlamaPinAdet");
-
-
+            config.ProxyServerListesi = GetString(PinterestNode, "ProxyServerListesi");
             return config;
         }
 
@@ -132,7 +131,7 @@ namespace MakinaTurkiye.Core.Configuration
         public string PinPassword { get; set; } = "";
         public string PinZamanlamaPinAdet { get; set; } = "5";
         public string PinZaman { get; set; } = "10";
-
+        public string ProxyServerListesi { get; set; } = "";
     }
 
 }
