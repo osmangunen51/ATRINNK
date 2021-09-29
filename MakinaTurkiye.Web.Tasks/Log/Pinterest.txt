@@ -1667,3 +1667,20 @@
 27.09.2021 15:13:39 ==> Sinerjik Mıg / Mag Kaynak Makinesi / Mahe Sy-Mıg 240 A Ürünü için Pin Resim Path Boş  ==> 210821 Resim İdsi.
 27.09.2021 15:13:39 ==> Sinerjik Mıg / Mag Kaynak Makinesi / Mahe Sy-Mıg 300 A Ürünü için Pin Resim Path Boş  ==> 210822 Resim İdsi.
 27.09.2021 15:13:40 ==> İnverter Elektrod Kaynak Makinesi / Işık Kaynak Inv Dc 400 A Ürünü için Pin Resim Path Boş  ==> 210832 Resim İdsi.
+29.09.2021 14:21:05 ==> Login Olundu...
+29.09.2021 14:21:43 ==> 2000 X 1650 Mm Ağır Tip Torna Tezgahı Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/181519/2000_x_1650_mm_agir_tip_torna_tezgahi-354.jpg | http://www.makinaturkiye.com/2000-x-1650-mm-agir-tip-torna-tezgahi-p-181519
+29.09.2021 14:21:59 ==> 400 X 240 Mm Universal Torna Tezgahı Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/181520/400_x_240_mm_universal_torna_tezgahi-183.jpg | http://www.makinaturkiye.com/400-x-240-mm-universal-torna-tezgahi-p-181520
+29.09.2021 14:23:33 ==> 500 X 300 Mm Universal Torna Tezgahı Ürünü için Pin Eklenemedi  2 ==>  https://s.makinaturkiye.com/Product/181521/500_x_300_mm_universal_torna_tezgahi-509.jpg | http://www.makinaturkiye.com/500-x-300-mm-universal-torna-tezgahi-p-181521 'System.Exception' türünde özel durum oluşturuldu. 
+29.09.2021 14:51:04 ==> Login Olundu...
+29.09.2021 14:51:43 ==> A4 Elektronik Düz Dikiş Makinesi Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/145586/_plik_kesicili_tam_yagli_duz_dikis_makinesi_yuki_a4-471.jpg | http://www.makinaturkiye.com/a4-elektronik-duz-dikis-makinesi-p-145586
+29.09.2021 14:51:47 ==> A4 Elektronik Düz Dikiş Makinesi Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/145586/a4_elektronik_duz_dikis_makinesi-1.jpg | http://www.makinaturkiye.com/a4-elektronik-duz-dikis-makinesi-p-145586
+29.09.2021 14:51:53 ==> A4 Elektronik Düz Dikiş Makinesi Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/145586/a4_elektronik_duz_dikis_makinesi-2.jpg | http://www.makinaturkiye.com/a4-elektronik-duz-dikis-makinesi-p-145586
+29.09.2021 14:51:57 ==> A4 Elektronik Düz Dikiş Makinesi Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/145586/a4_elektronik_duz_dikis_makinesi-3.jpg | http://www.makinaturkiye.com/a4-elektronik-duz-dikis-makinesi-p-145586
+29.09.2021 14:56:19 ==> Login Olundu...
+29.09.2021 14:56:26 ==> 4 İplik Akıllı Overlok Makinesi C3-4-M03/333  Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/145599/_plik_kesicili_elektrikli_full_otomatik_4_plik_akilli_overlok_makinesi_yuki_c3_4_m03_333-595.jpg | http://www.makinaturkiye.com/4-iplik-akilli-overlok-makinesi-c3-4-m03333-p-145599
+29.09.2021 15:01:02 ==> Login Olundu...
+29.09.2021 15:01:28 ==> 4 İplik Akıllı Overlok Makinesi C3-4-M03/333  Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/145599/_plik_kesicili_elektrikli_full_otomatik_4_plik_akilli_overlok_makinesi_yuki_c3_4_m03_333-595.jpg | http://www.makinaturkiye.com/4-iplik-akilli-overlok-makinesi-c3-4-m03333-p-145599
+29.09.2021 15:11:06 ==> Login Olundu...
+29.09.2021 15:11:30 ==> 350 Litre Kapasiteli Yağmurlama Gübre Tankı Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/179477/350_litre_kapasiteli_yagmurlama_gubre_tanki-931.jpg | http://www.makinaturkiye.com/350-litre-kapasiteli-yagmurlama-gubre-tanki-p-179477
+29.09.2021 15:11:38 ==> Çapa Makinası Ek Kovanı Ürünü için Pin Eklendi ==>  https://s.makinaturkiye.com/Product/179492/capa_makinasi_ek_kovani-378.jpg | http://www.makinaturkiye.com/capa-makinasi-ek-kovani-p-179492
+29.09.2021 15:16:02 ==> Login Olundu...

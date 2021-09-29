@@ -152,10 +152,18 @@ namespace MakinaTurkiye.Pinterest
                 IstekSonuc = HttpIstemci.HttpPost(RequestUrl, IstekListesi);
                 while ((IstekSonuc.Contains("(404)") | IstekSonuc.Contains("(429)")) && Adet < 5)
                 {
-                    Adet++;
-                    IstekSonuc = HttpIstemci.HttpPost(RequestUrl, IstekListesi);
-                    int IstekTimeOut = Rnd.Next(100, 1000);
+                    int IstekTimeOut = 1000;
+                    if (IstekSonuc.Contains("(429)"))
+                    {
+                        IstekTimeOut = Rnd.Next(300000,600000);
+                    }
+                    else
+                    {
+                        IstekTimeOut = Rnd.Next(500, 1000);
+                    }
                     Thread.Sleep(IstekTimeOut);
+                    IstekSonuc = HttpIstemci.HttpPost(RequestUrl, IstekListesi);
+                    Adet++;
                 }
                 IstekKontrolIfadesi = "resource_response\":{\"code\":0,";
                  if (!string.IsNullOrEmpty(IstekSonuc))
