@@ -223,7 +223,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 products = products.Skip(takeFrom).Take(pageDimension).ToList();
                 SearchModel<MTProductItem> searchModel = new SearchModel<MTProductItem>();
 
-                searchModel.Source = PrepapareProductsModel(products,  showDopingForm);
+                searchModel.Source = PrepapareProductsModel(products, showDopingForm);
                 searchModel.TotalRecord = totalCount;
                 searchModel.PageDimension = pageDimension;
                 searchModel.CurrentPage = page;
@@ -517,7 +517,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 return "false";
             else
             {
-                string ret = RenderViewToStringCsHtml(ControllerContext,"~/Areas/Account/Views/Advert/AdvertSearchResult.cshtml", getProduct);
+                string ret = RenderViewToStringCsHtml(ControllerContext, "~/Areas/Account/Views/Advert/AdvertSearchResult.cshtml", getProduct);
                 return ret;
             }
         }
@@ -733,7 +733,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 foreach (var item in storeCertificates)
                 {
-                    var certificateType = _certificateTypeService.GetCertificateTypeProductsByProductId(product.ProductId).FirstOrDefault(x=>x.StoreCertificateId == item.StoreCertificateId);
+                    var certificateType = _certificateTypeService.GetCertificateTypeProductsByProductId(product.ProductId).FirstOrDefault(x => x.StoreCertificateId == item.StoreCertificateId);
 
                     if (certificateType != null)
                     {
@@ -1350,7 +1350,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return View(userControlName, getProduct);
         }
         [HttpPost]
-        public ActionResult AdvertPaging(int page, byte displayType, byte advertListType, byte productActiveType, int productActive, string productNo, string categoryName, string productName, string brandName, byte orderType=1)
+        public ActionResult AdvertPaging(int page, byte displayType, byte advertListType, byte productActiveType, int productActive, string productNo, string categoryName, string productName, string brandName, byte orderType = 1)
         {
             var dataProduct = new Data.Product();
             int pageDimension = 20;
@@ -2625,20 +2625,24 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             productModel.CurrencyItems = new SelectList(currencies, "CurrencyId", "CurrencyName");
 
             var certificateTypes = _certificateTypeService.GetCertificateTypes();
-            var storeCertificates = _storeService.GetStoreCertificatesByMainPartyId(mainPartyId);
-            foreach (var item in storeCertificates)
+            //  var storeCertificates = _storeService.GetStoreCertificatesByMainPartyId(mainPartyId);
+
+
+            var storeCertificateType = certificateTypes.Where(x => x.InsertedStoreMainPartyId == mainPartyId);
+            foreach (var certificateType in storeCertificateType)
             {
-                var certificateType = _certificateTypeService.GetCertificateTypeProductsByProductId(productModel.ProductId).FirstOrDefault(x=>x.StoreCertificateId==item.StoreCertificateId);
                 if (certificateType != null)
                 {
                     productModel.CertificateTypes.Add(new SelectListItem
                     {
-                        Text = item.CertificateName,
+                        Text = certificateType.Name,
                         Value = certificateType.CertificateTypeId.ToString(),
-                        Selected = true
+                        Selected = false
                     });
                 }
             }
+
+
             SessionProductPropertieModel.MTProductPropertieModel = propertieModel;
             return View(productModel);
         }
@@ -2937,9 +2941,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             string keyword = "";
             if (productName.Contains("Makinası"))
             {
-                keyword = productName.Replace("Makinası","Makinesi").ToLower();
+                keyword = productName.Replace("Makinası", "Makinesi").ToLower();
             }
-            else if(productName.Contains("Makinesi"))
+            else if (productName.Contains("Makinesi"))
             {
                 keyword = productName.Replace("Makinesi", "Makinası").ToLower();
             }
@@ -3484,7 +3488,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             int memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             _productService.CachingGetOrSetOperationEnabled = false;
-            var products = _productService.GetProductsByMainPartyId(memberMainPartyId,true);
+            var products = _productService.GetProductsByMainPartyId(memberMainPartyId, true);
 
             foreach (var item in products)
             {

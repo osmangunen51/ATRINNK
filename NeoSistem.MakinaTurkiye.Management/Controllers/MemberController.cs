@@ -2442,7 +2442,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 if (item.UpdateDate != null) otherItem.LastDate = Convert.ToDateTime(item.UpdateDate);
                 otherItem.MainPartyId = item.MainPartyId.ToInt32();
                 var memberSub = entities.Members.FirstOrDefault(m => m.MainPartyId == item.MainPartyId);
-                if (memberSub.MainPartyId!=0)
+               
+                if (memberSub!=null && memberSub.MainPartyId!=0)
                 {
                     var memberStore = entities.MemberStores.FirstOrDefault(x => x.MemberMainPartyId == item.MainPartyId);
                     otherItem.Title = item.Title;

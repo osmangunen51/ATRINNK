@@ -28,7 +28,7 @@
 
         public bool Doping { get; set; }
 
-        public bool HasVideo { get; set; }
+        public bool? HasVideo { get; set; }
         public int? StoreMainPartyId { get; set; }
         public byte? ProductPriceType { get; set; }
 
