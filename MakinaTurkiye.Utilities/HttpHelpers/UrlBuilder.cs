@@ -12,7 +12,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
     public static class UrlBuilder
     {
         private static readonly MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
-       private static readonly  bool IsRequestLocal = HttpContext.Current.Request.IsLocal;
+       private static readonly  bool IsRequestLocal = (HttpContext.Current!=null ? HttpContext.Current.Request.IsLocal : false);
 
         private enum HostNameType
         {

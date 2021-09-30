@@ -164,7 +164,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             var f = new System.Drawing.Font("Verdana ", fontSize);
             // Calculate the size of the text
 
-            Color newColor = Color.FromArgb(30, 255, 255, 255);
+            Color newColor = Color.FromArgb(100, 255, 255, 255);
             Brush myBrush = new SolidBrush(newColor);
 
             g.RotateTransform(-45);

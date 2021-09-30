@@ -3,6 +3,7 @@ using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Tasks.Catolog.Schedulers;
 using MakinaTurkiye.Tasks.Members.Schedulers;
 using MakinaTurkiye.Tasks.Messages.Schedulers;
+using MakinaTurkiye.Tasks.Pinterest.Schedulers;
 using MakinaTurkiye.Tasks.SearchEngine.ElasticSearch.Schedulers;
 using MakinaTurkiye.Tasks.WebP.Schedulers;
 using System.Web.Mvc;
@@ -24,7 +25,7 @@ namespace MakinaTurkiye.Web.Tasks
 
 
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
-            if(config.ApplicationStartingTasksEnabled)
+            if (config.ApplicationStartingTasksEnabled)
             {
                 //Messages tasks
                 PacketReminderMailSendScheduler.Start();
@@ -40,6 +41,7 @@ namespace MakinaTurkiye.Web.Tasks
                 ProductRateCalculateScheduler.Start();
                 SiteMapCreateScheduler.Start();
                 WebPScheduler.Start();
+                PinterestScheduler.Start();
             }
         }
     }

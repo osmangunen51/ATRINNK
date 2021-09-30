@@ -73,6 +73,8 @@
     <Compile Include="SearchEngine\SiteMap\Schedulers\SiteMapCreateScheduler.cs" />
     <Compile Include="SearchEngine\SiteMap\Task\SiteMapCreate.cs" />
     <Compile Include="Settings\ProductSettings.cs" />
+    <Compile Include="Pinterest\Schedulers\Pinterest.cs" />
+    <Compile Include="Pinterest\Task\Pinterest.cs" />
     <Compile Include="WebP\Schedulers\WebPScheduler.cs" />
     <Compile Include="WebP\Task\WebP.cs" />
   </ItemGroup>
@@ -88,6 +90,10 @@
     <ProjectReference Include="..\MakinaTurkiye.Logging\MakinaTurkiye.Logging.csproj">
       <Project>{1129b94f-3bad-47b3-bc87-7f176686c57f}</Project>
       <Name>MakinaTurkiye.Logging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MakinaTurkiye.Pinterest\MakinaTurkiye.Pinterest.csproj">
+      <Project>{b9b9af7e-3d59-4c9a-9716-246b86945509}</Project>
+      <Name>MakinaTurkiye.Pinterest</Name>
     </ProjectReference>
     <ProjectReference Include="..\MakinaTurkiye.Services\MakinaTurkiye.Services.csproj">
       <Project>{703a6535-115c-4056-97ed-48fd93d05c4c}</Project>
