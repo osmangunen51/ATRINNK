@@ -90,7 +90,7 @@
                 type: 'post',
                 success: function (data) {
                     $('#ConstantType').val(constantType);
-                    if ($('#ConstantType').val() == 13 || $('#ConstantType').val() == 14 || $('#ConstantType').val() == 15 || $('#ConstantType').val() == 18 || $('#ConstantType').val() == 19 || $('#ConstantType').val() == 20 || $("#ConstantType").val() == 23) {
+                    if ($('#ConstantType').val() == 13 || $('#ConstantType').val() == 14 || $('#ConstantType').val() == 15 || $('#ConstantType').val() == 18 || $('#ConstantType').val() == 19 || $('#ConstantType').val() == 35 || $('#ConstantType').val() == 20 || $("#ConstantType").val() == 23) {
                         $('#tabloadd').show();
                     }
                     else {
@@ -224,7 +224,8 @@
             <option value="<%=(byte)ConstantType.Mensei%>">Menşei</option>
             <option value="<%=(byte)ConstantType.SiparisDurumu%>">Teslim Durumu</option>
             <option value="<%=(byte)ConstantType.MemberMail%>">Toplu Mail</option>
-            <option value="<%=(byte)ConstantType.Katsayilar%>">Katsayılar</option>
+            <option value="<%=(byte)ConstantType.Katsayilar%>">Ürün Katsayılar</option>
+             <option value="<%=(byte)ConstantType.FirmaKatsayilar%>">Firma Katsayılar</option>
             <option value="<%=(byte)ConstantType.Messages%>">Mesajlar</option>
             <option value="<%=(byte)ConstantType.Birim%>">Birim</option>
             <option value="<%=(byte)ConstantType.FootorDegerleri%>">Footor Değerleri</option>
@@ -250,6 +251,8 @@
                     </td>
                     <td class="Header" style="width: 70px; height: 19px">Order
                     </td>
+                              <td class="Header" style="width: 70px; height: 19px">
+                    </td>
                     <td id="tabloadd" class="Header" style="width: 70px; height: 19px; display: none;"></td>
                     <td class="Header" style="width: 70px; height: 19px"></td>
                 </tr>
@@ -260,8 +263,12 @@
             <tfoot>
                 <tr>
                     <td class="ui-state ui-state-hover" style="border-color: #DDD; border-top: none; padding-right: 10px"
-                        colspan="1" valign="top" style="width: 150px;">
+                        colspan="1" valign="top" style="width: 100px;">
                         <%:Ajax.ActionLink("Hesapla", "ProductRateCalculate", new AjaxOptions() { UpdateTargetId = "statisticproduct", HttpMethod = "Post" })%>
+                    </td>
+                               <td class="ui-state ui-state-hover" style="border-color: #DDD; border-top: none; padding-right: 10px">
+                    </td>
+                                   <td class="ui-state ui-state-hover" style="border-color: #DDD; border-top: none; padding-right: 10px">
                     </td>
                     <td class="ui-state ui-state-hover" style="border-color: #DDD; border-top: none; padding-right: 10px"
                         colspan="1">:

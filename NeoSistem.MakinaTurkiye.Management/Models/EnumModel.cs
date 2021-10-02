@@ -338,7 +338,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         SeoDescriptionTitle = 31,
         CategoryFooterTopDescription=32,
         PacketSalesFooter = 33,
-        SubConstant = 34
+        SubConstant = 34,
+        FirmaKatsayilar=35
     }
     public enum MobileMessageType : byte
     {

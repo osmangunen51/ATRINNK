@@ -60,5 +60,7 @@ namespace MakinaTurkiye.Services.Stores
         void InsertStoreUpdated(StoreUpdated storeUpdated);
         StoreUpdated GetStoreUpdatedByMainPartyId(int mainPartyId);
 
+        void CalculateSPStoreRate();
+
     }
 }
