@@ -292,6 +292,7 @@
     <Compile Include="Controllers\CatologAjaxController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Factories\IProductModelFactory.cs" />
+    <Compile Include="Factories\IPaymentService.cs" />
     <Compile Include="Factories\ProductModelFactory.cs" />
     <Compile Include="Areas\Account\Helper\ContentPanel.cs">
       <SubType>Code</SubType>

@@ -555,6 +555,11 @@ namespace MakinaTurkiye.Services.Stores
             return query.FirstOrDefault(x => x.MainPartyId == mainPartyId);
         }
 
+        public void CalculateSPStoreRate()
+        {
+            _dbContext.ExecuteSqlCommand("exec SP_CalculateStoreRate");
+        }
+
         #endregion
 
 

@@ -51,7 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catolog\Schedulers\StoreRateCalculateScheduler.cs" />
     <Compile Include="Catolog\Schedulers\ProductRateCalculateScheduler.cs" />
+    <Compile Include="Catolog\Tasks\StoreRateCalculate.cs" />
     <Compile Include="Catolog\Tasks\ProductRateCalculate.cs" />
     <Compile Include="Members\Schedulers\MemberDescriptionRestScheduler.cs" />
     <Compile Include="Members\Tasks\MemberDescriptionRestUpdateDate.cs" />

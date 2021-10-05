@@ -30,17 +30,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public string ProductStatuText { get; set; }
         public string ProductTypeText { get; set; }
         public string ProductSalesTypeText { get; set; }
-        public bool Doping { get; set; }
+        public bool? Doping { get; set; }
         public string ProductDescription { get; set; }
         
-        public decimal ProductPiceDesc { get; set; }
+        public decimal? ProductPiceDesc { get; set; }
         public string CurrencySymbol { get; set; }
         public string CurrencyCss { get; set; }
         public byte? ProductPriceType { get;set;}
         public string KdvOrFobText { get; set; }
         // public int? StoreId { get; set; }
         public string StoreConnectUrl { get; set; }
-        public bool HasVideo { get; set; }
+        public bool? HasVideo { get; set; }
         public string StoreUrl { get; set; }
         public int? StoreMainPartyId { get; set;}
         public string ProductContactUrl { get; set; }

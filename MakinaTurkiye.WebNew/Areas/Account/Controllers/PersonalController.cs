@@ -605,12 +605,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     phone.active = 1;
                     _phoneService.UpdatePhone(phone);
 
+                    int memberNoNumber = 0;
+                    int.TryParse(memberNo, out memberNoNumber);
                     if (gelenSayfa == "kurumsalaGec")
                     {
                         return RedirectToAction("InstitutionalStep", "MemberType");
                     }
-                    if (memberNo != "")
+                    if (memberNoNumber > 0)
+                    {
                         return RedirectToAction("index", "Message", new { MessagePageType = mtypePage, UyeNo = memberNo, UrunNo = productNo });
+                    }
                     else
                     {
                         return RedirectToAction("ChangeAddress", "Personal", new { sonuc = "basarili" });

@@ -588,6 +588,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             MailMessage mail = new MailMessage();
             MessagesMT mailT = entities.MessagesMTs.First(x => x.MessagesMTName == "goldenpro");
             mail.From = new MailAddress(mailT.Mail, mailT.MailSendFromName); //Mailin kimden gittiğini belirtiyoruz
+          
             mail.To.Add(member.MemberEmail);                                                              //Mailin kime gideceğini belirtiyoruz
             mail.Subject = mailT.MessagesMTTitle;                                              //Mail konusu
             string template = mailT.MessagesMTPropertie;

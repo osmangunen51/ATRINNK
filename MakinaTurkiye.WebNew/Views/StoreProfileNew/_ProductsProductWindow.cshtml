@@ -42,9 +42,9 @@
                                 <a href="@item.ProductUrl"
                                    title="@item.ProductName"
                                    class="product-list-mt__link">
-                                    <div class="product-list-mt__image-area">
+                                    <div class="product-list-mt__image-area" style="padding-right: 15px;">
                                         <img class="img-thumbnail" 
-                                         src="@item.ProductImagePath.Replace("500x375","200x150")"
+                                         src="@item.ProductImagePath.Replace("500x375","200x150")" 
                                          alt="@item.ProductName"/>
 
                                         @*@if (item.FavoriteProductId > 0)

@@ -10,8 +10,11 @@
      <td class="Cell">
     <%: item.Order %>
   </td>
-  <%if (item.ConstantType == 13 || item.ConstantType == 14 || item.ConstantType == 15 || item.ConstantType == 18 || item.ConstantType == 19 || item.ConstantType == 20 || item.ConstantType == 22 || item.ConstantType == 23  || item.ConstantType==29   || item.ConstantType==32  || item.ConstantType==33) 
+  <%if (item.ConstantType == 13 || item.ConstantType == 14 || item.ConstantType == 15 || item.ConstantType == 18 || item.ConstantType == 19 || item.ConstantType == 35 || item.ConstantType == 20 || item.ConstantType == 22 || item.ConstantType == 23  || item.ConstantType==29   || item.ConstantType==32  || item.ConstantType==33) 
     { %>
+        <td class="Cell">
+        <%:Html.Raw(item.ConstantTitle) %>
+  </td>
     <td class="Cell">
   <a style="padding-bottom: 5px; cursor: pointer; float:left; margin-right:7px;" href="/Constant/EditConstants/<%=item.ConstantId %>" id="lightbox_click" rel="superbox[iframe]">içerik</a>
   </td>

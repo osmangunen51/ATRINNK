@@ -20,23 +20,15 @@
 @using System.Globalization
 @using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 @using NeoSistem.MakinaTurkiye.Web.Models.Videos
-@{
-    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
-
-}
 
 @{
     string productUrl = MakinaTurkiye.Utilities.HttpHelpers.UrlBuilder.GetProductUrl(Model.ProductId, Model.ProductName);
 
     string s = Model.ModelYear.ToString();
-    string Marka = (Model.BrandName != null || Model.BrandName != "") ? Model.BrandName : "";
+    string Marka = (!string.IsNullOrEmpty(Model.BrandName) || !string.IsNullOrEmpty(Model.BrandName)) ? Model.BrandName : "";
     string Modeli = (Model.ModelName != null) ? ("" + Model.ModelName) : "";
 
 }
-
-
 <div class="product-list-mt__item js-hover-product-item">
     <div class="product-list-mt__inner">
         <a href="@productUrl "
@@ -49,7 +41,6 @@
                          src="@Model.PicturePath.Replace(" 160x120","200x150")"
                          alt="@Model.ProductName "
                          title="@Model.ProductName " />
-
                 }
                 else
                 {
@@ -67,9 +58,14 @@
                     <div class="product-list-mt__title">
                         @Model.ProductName
                     </div>
-                    <p class="product-list-mt__brand-Model">
-                        @Marka | @Modeli
-                    </p>
+                    @if (!string.IsNullOrEmpty(Modeli) || !string.IsNullOrEmpty(Marka))
+                    { 
+                        <p class="product-list-mt__brand-Model">
+
+                            @Marka | @Modeli
+                        </p>
+                    }
+
                 </div>
                 <p class="product-list-mt__price">
 
@@ -82,8 +78,6 @@
                         string priceCss = "";
                         if (Model.CurrencyCss == "")
                         { priceCss = "interview"; }
-
-
                         <i itemprop="priceCurrency" class="@Model.CurrencyCss"></i>
 
                         if (Model.Price != "Fiyat Sorunuz")
@@ -101,12 +95,9 @@
                         }
                     }
                 </p>
-
-
                 <p class="product-list-mt__advert-no">@Model.ProductNo</p>
-
                 <div class="product-list-mt__features">
-                    @if (Model.HasVideo)
+                    @if (Model.HasVideo.HasValue && Model.HasVideo.Value)
                     {
                         <span class="product-list-mt__has-video js-has-video-link" data-url="@(productUrl + " ?tab=video")">
                             <span class="glyphicon glyphicon-facetime-video"></span>
@@ -114,16 +105,12 @@
                         </span>
                     }
 
-                    @if (Model.Doping)
+                    @if (Model.Doping.HasValue && Model.Doping.Value)
                     {
                         <span class="product-list-mt__has-doping">D</span>
                     }
                 </div>
-
-
-
             </div>
-
         </a>
         <div class="product-list-mt__footer">
             <a href="@Model.StoreUrl"

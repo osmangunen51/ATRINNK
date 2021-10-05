@@ -57,7 +57,7 @@
                 <%: Html.TextBoxFor(model => model.Order, new { style = "width: 300px;border: solid 1px #bababa;" })%>
                 <%: Html.ValidationMessageFor(model => model.Order) %>
             </div>
-            <%if (Model.ConstantType != 19)
+            <%if (Model.ConstantType != 19 && Model.ConstantType!=35)
               {  %>
             <div class="editor-label" style="margin-left:20px; margin-top:15px;color:#868686; font-family:Arial; font-size:14px;">
                 Mail Konusu
@@ -72,7 +72,7 @@
             <div class="editor-field" style="margin-left:20px;">
                  <%: Html.TextBoxFor(model => model.ConstantTitle, new { style = "width: 300px;border: solid 1px #bababa;" })%>
             </div>
-            <%if (Model.ConstantType != 19)
+            <%if (Model.ConstantType != 19  && Model.ConstantType!=35)
               {  %>
             <div class="editor-label" style="margin-left:20px; margin-top:15px;color:#868686; font-family:Arial; font-size:14px;">
                 Açıklama

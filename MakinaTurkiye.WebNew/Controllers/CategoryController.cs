@@ -479,10 +479,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             CategoryProductsResult productResult = _productService.GetCategoryProducts(selectedCategoryId, selectedBrandId, selectedModelId, selectedSeriesId, searchTypeId, mainPartyId, selectedCountryId,
                                                                                         selectedCityId, selectedLocalityId, orderById, pageIndex, pageSize, SearchText);
 
-            //newProductCount = _productService.GetProductCountBySearchType(selectedCategoryId, selectedBrandId, selectedModelId, selectedSeriesId, 72, model.SearchText, selectedCountryId, selectedCityId, selectedLocalityId);
-            //usedProductCount = _productService.GetProductCountBySearchType(selectedCateCategoryId, selecgoryId, selectedBrandId, selectedModelId, selectedSeriesId, 73, model.SearchText, selectedCountryId, selectedCityId, selectedLocalityId);
-            //servicesProductCount = _productService.GetProductCountBySearchType(selectedtedBrandId, selectedModelId, selectedSeriesId, 201, model.SearchText, selectedCountryId, selectedCityId, selectedLocalityId);
-
+ 
             newProductCount = productResult.NewProductCount;
             usedProductCount = productResult.UsedProductCount;
             serviceProductCount = productResult.ServicesProductCount;
@@ -506,47 +503,50 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             foreach (WebCategoryProductResult product in producResultNew)
             {
                 var store = StoreListesi.FirstOrDefault(x => x.MainPartyId == product.StoreMainPartyId);
-                if (store != null)
-                {
-                    var categoryProductModel = new MTCategoryProductModel
+
+                    if (store != null)
                     {
-                        BrandId = product.BrandId,
-                        BrandName = product.BrandName,
-                        //BriefDetailText = product.BriefDetailText,
-                        CategoryId = product.CategoryId,
+                        var categoryProductModel = new MTCategoryProductModel
+                        {
+                            BrandId = product.BrandId,
+                            BrandName = product.BrandName,
+                            //BriefDetailText = product.BriefDetailText,
+                            CategoryId = product.CategoryId,
 
-                        MainPartyId = product.MainPartyId,
-                        ModelId = product.ModelId,
-                        ModelName = product.ModelName,
-                        ModelYear = product.ModelYear,
-                        PicturePath = ImageHelper.GetProductImagePath(product.ProductId, product.MainPicture, ProductImageSize.px200x150),
-                        ProductId = product.ProductId,
-                        ProductName = product.ProductName,
-                        ProductNo = product.ProductNo,
-                        ProductPiceDesc = product.ProductPrice.HasValue ? product.ProductPrice.Value : 0,
-                        CurrencySymbol = product.GetCurrencySymbol(),
-                        ProductSalesTypeText = product.ProductSalesTypeText,
-                        ProductStatuText = product.ProductStatuText,
-                        ProductTypeText = product.ProductTypeText,
-                        SeriesId = product.SeriesId,
-                        StoreName = store.StoreShortName,
-                        //ProductDescription = product.ProductDescription,
-                        CurrencyCss = product.GetCurrencyCssName(),
-                        Price = product.GetFormattedPrice(),
-                        ProductPriceType = product.ProductPriceType,
-                        HasVideo = product.HasVideo,
-                        StoreMainPartyId = product.StoreMainPartyId,
-                        StoreUrl = UrlBuilder.GetStoreProfileUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, store.StoreUrlName),
-                        StoreConnectUrl = UrlBuilder.GetStoreConnectUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, store.StoreUrlName),
-                        ProductContactUrl = UrlBuilder.GetProductContactUrl(product.ProductId, product.StoreName),
-                        KdvOrFobText = product.GetKdvOrFobText(),
-                        ProductPriceWithDiscount = product.DiscountType.HasValue && product.DiscountType.Value != 0 ? product.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
-                    };
+                            MainPartyId = product.MainPartyId,
+                            ModelId = product.ModelId,
+                            ModelName = product.ModelName,
+                            ModelYear = product.ModelYear,
+                            PicturePath = ImageHelper.GetProductImagePath(product.ProductId, product.MainPicture, ProductImageSize.px200x150),
+                            ProductId = product.ProductId,
+                            ProductName = product.ProductName,
+                            ProductNo = product.ProductNo,
+                            ProductPiceDesc = product.ProductPrice.HasValue ? product.ProductPrice.Value : 0,
+                            CurrencySymbol = product.GetCurrencySymbol(),
+                            ProductSalesTypeText = product.ProductSalesTypeText,
+                            ProductStatuText = product.ProductStatuText,
+                            ProductTypeText = product.ProductTypeText,
+                            SeriesId = product.SeriesId,
+                            StoreName = store.StoreShortName,
+                            //ProductDescription = product.ProductDescription,
+                            CurrencyCss = product.GetCurrencyCssName(),
+                            Price = product.GetFormattedPrice(),
+                            ProductPriceType = product.ProductPriceType,
+                            HasVideo = product.HasVideo != null ? product.HasVideo : false,
+                            StoreMainPartyId = product.StoreMainPartyId,
+                            StoreUrl = UrlBuilder.GetStoreProfileUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, store.StoreUrlName),
+                            StoreConnectUrl = UrlBuilder.GetStoreConnectUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, store.StoreUrlName),
+                            ProductContactUrl = UrlBuilder.GetProductContactUrl(product.ProductId, product.StoreName),
+                            KdvOrFobText = product.GetKdvOrFobText(),
+                            ProductPriceWithDiscount = (product.DiscountType.HasValue && product.DiscountType.Value != 0 && product.ProductPriceWithDiscount.HasValue) ? product.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
+                        };
 
-                    if (orderById == 5)
-                        categoryProductModel.Doping = product.Doping;
-                    model.CategoryProductModels.Add(categoryProductModel);
-                }
+                        if (orderById == 5)
+                            categoryProductModel.Doping = product.Doping;
+                        model.CategoryProductModels.Add(categoryProductModel);
+                    }
+      
+   
 
             }
         }
