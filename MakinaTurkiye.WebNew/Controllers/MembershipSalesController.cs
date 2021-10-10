@@ -467,17 +467,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     SessionPacketModel.PacketModel.MainPartyId = order.MainPartyId;
                     SessionPacketModel.PacketModel.OrderNo = "S" + SessionPacketModel.PacketModel.MainPartyId;
                     SessionPacketModel.PacketModel.OrderCode = Guid.NewGuid().ToString("N").Substring(0, 5);
-
                     SessionPacketModel.PacketModel.StoreName = _storeService.GetStoreByMainPartyId(order.MainPartyId).StoreName;
-
-
                 }
-
                 SessionPacketModel.PacketModel.OrderId = Convert.ToInt32(orderId);
-
                 SessionPacketModel.PacketModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
-
-
             }
             if (SessionPacketModel.PacketModel.PacketId > 0)
             {
