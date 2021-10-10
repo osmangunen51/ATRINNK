@@ -47,6 +47,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
 
 
         public string ProductPriceWithDiscount { get; set; }
+
+        public string UnitType { get; set; }
+        public byte? MinumumAmount { get; set; }
         
     }
 }

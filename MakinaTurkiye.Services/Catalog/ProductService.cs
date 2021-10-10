@@ -375,7 +375,7 @@ namespace MakinaTurkiye.Services.Catalog
             pTotalRecords.Direction = ParameterDirection.Output;
 
 
-            var datatable = _dbContext.ExecuteDataTable("SP_ProductWebSearchLast", CommandType.StoredProcedure,
+            var datatable = _dbContext.ExecuteDataTable("SP_ProductWebSearchLast_4", CommandType.StoredProcedure,
             pCategoryId, pBrandId, pModelId, pSeriesId, pSearchType, pOrderBy,
             pCountryId, pCityId, pLocalityId, pPageSize, pPageIndex, pSearchText, pMainPartyId,
             pFilterableCategoryIds, pFilterableBrandIds, pFilterableModelIds,

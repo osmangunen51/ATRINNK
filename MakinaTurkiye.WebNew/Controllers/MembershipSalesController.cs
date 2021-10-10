@@ -2055,7 +2055,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 _orderService.UpdateOrder(order);
             }
 
-            if (status1 == "success" && !order.ProductId.HasValue)
+            if (status1 == "success" && (!order.ProductId.HasValue || (order.ProductId.HasValue && order.ProductId.Value==0)))
             {
                 var mailsend = _storeService.GetStoreByMainPartyId(order.MainPartyId);
                 var packet = _packetService.GetPacketByPacketId(order.PacketId);
@@ -2180,7 +2180,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 var orderDopings = _orderService.GetAllOrders().Where(x => x.OrderPacketType == (byte)OrderPacketType.Doping);
                 OrderNo = orderDopings.Count() + OrderNo;
-                var packetStore = _packetService.GetPacketByPacketId(store.PacketId);
 
                 if (store.AuthorizedId.HasValue)
                     order.AuthorizedId = store.AuthorizedId.Value;
@@ -2225,7 +2224,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     //log.Error(" kredi kartı ödeme ödeme bilgimakina maili hatası: " + ex.Message);
                 }
-                ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı." + product.Category.CategoryContentTitle + " kategorisinde bulunan " + product.ProductName + " isimli ürününüze " + SessionPayWithCreditCardModel.MTPayWithCreditCardModel.DopingDay + " gün süreli doping uygulanmıştır.";
+                ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı." + product.Category.CategoryContentTitle + " kategorisinde bulunan " + product.ProductName + " isimli ürününüze " + order.PacketDay + " gün süreli doping uygulanmıştır.";
                 return View("PosComplete");
             }
             #region mtlog

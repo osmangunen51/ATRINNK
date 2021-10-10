@@ -198,6 +198,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public DateTime? ProductDopingBeginDate { get; set; }
 
         public DateTime? ProductHomeBeginDate { get; set; }
+
+        public byte? MinumumOrderAmount { get; set; }
         public DateTime? ProductHomeEndDate { get; set; }
 
         public IList<global::MakinaTurkiye.Entities.Tables.Common.Constant> ProductPriceTypes { get; set; }

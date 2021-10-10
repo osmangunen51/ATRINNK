@@ -115,5 +115,8 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
             }
         }
 
+    
+
+
     }
 }

@@ -54,6 +54,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public string Certificates { get; set; }
 
         public bool IsFavoriteProduct { get; set; }
+
+        public byte? MinumumAmount { get; set; }
         public MTProductComplainModel ProductComplainModel { get; set; }
     }
 }

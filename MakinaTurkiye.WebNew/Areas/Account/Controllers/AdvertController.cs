@@ -749,6 +749,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         model.CertificateTypes.Add(listItem);
                     }
                 }
+
+                model.MinumumAmount = product.MinumumAmount.HasValue?product.MinumumAmount.Value:(byte)1;
                 return View(model);
             }
             return RedirectToAction("Index");
@@ -1025,6 +1027,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     product.ProductDescription = !string.IsNullOrEmpty(model.ProductDescription) ? model.ProductDescription.CleanProductDescriptionText() : "";
                     product.ProductStatu = model.ProductStatu;
                     product.ReadyforSale = model.ReadyforSale;
+                    product.MinumumAmount = model.MinumumAmount.HasValue ? model.MinumumAmount.Value : (byte)1;
                     //product.Keywords = model.Keywords;
                     if (!string.IsNullOrWhiteSpace(model.OtherBrand))
                     {
@@ -2709,7 +2712,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 UnitType = coll["UnitType"].ToString(),
                 ProductPriceType = Convert.ToByte(productPriceType),
                 ProductSellUrl = modelProduct.ProductSellUrl,
-                Keywords = PrepareKeyword(productName)
+                Keywords = PrepareKeyword(productName),
+                MinumumAmount=modelProduct.MinumumAmount.HasValue ? modelProduct.MinumumAmount.Value:(byte)1
 
             };
             string productPrice = ProductPrice1;

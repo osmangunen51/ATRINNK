@@ -117,7 +117,7 @@
             </button>
             <table border="0" cellpadding="5" cellspacing="0" style="margin-left: 20px;">
                 <tr>
-                    <td>Tele Satış Sorumlusu</td>
+                    <td>Satış Sorumlusu</td>
                     <td>:</td>
                     <td>
                         <%if (Model.GroupName == "Administrator" || Model.Users.Count > 0 || string.IsNullOrEmpty(Model.AuthName))

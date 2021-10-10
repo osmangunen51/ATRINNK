@@ -39,6 +39,8 @@
         public int? FavoriteProductId { get; set; }
         public byte ? DiscountType { get; set; }
         public decimal? ProductPriceWithDiscount { get; set; }
+        public string UnitType { get; set; }
+        public byte? MinumumAmount { get; set; }
         //public string ProductType { get; set; }
         //public string ProductStatu { get; set; }
         //public string BriefDetail { get; set; }

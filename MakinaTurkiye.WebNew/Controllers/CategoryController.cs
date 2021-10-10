@@ -500,10 +500,20 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             List<int?> mainPartyIds = producResultNew.Select(x => x.StoreMainPartyId).ToList();
             var StoreListesi = _storeService.GetStoresByMainPartyIds(mainPartyIds).ToList();
+
+            var unitTypeConsts = _constantService.GetConstantByConstantType(ConstantTypeEnum.Birim);
+      
+
             foreach (WebCategoryProductResult product in producResultNew)
             {
                 var store = StoreListesi.FirstOrDefault(x => x.MainPartyId == product.StoreMainPartyId);
-
+                string unitTypeText = "Adet";
+                if (!string.IsNullOrEmpty(product.UnitType))
+                {
+                    short.TryParse(product.UnitType, out short unitTypeId);
+                    var unitType = unitTypeConsts.FirstOrDefault(x => x.ConstantId == unitTypeId);
+                    unitTypeText = unitType != null ? unitType.ConstantName : unitTypeText;
+                }
                     if (store != null)
                     {
                         var categoryProductModel = new MTCategoryProductModel
@@ -538,6 +548,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             StoreConnectUrl = UrlBuilder.GetStoreConnectUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, store.StoreUrlName),
                             ProductContactUrl = UrlBuilder.GetProductContactUrl(product.ProductId, product.StoreName),
                             KdvOrFobText = product.GetKdvOrFobText(),
+                            UnitType=unitTypeText,
+                            MinumumAmount=product.MinumumAmount,
                             ProductPriceWithDiscount = (product.DiscountType.HasValue && product.DiscountType.Value != 0 && product.ProductPriceWithDiscount.HasValue) ? product.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
                         };
 

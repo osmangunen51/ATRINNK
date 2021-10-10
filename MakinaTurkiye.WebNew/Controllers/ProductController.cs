@@ -650,7 +650,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductDetailModel.ProductId = product.ProductId;
             model.ProductDetailModel.CategoryId = product.CategoryId.Value;
             model.ProductDetailModel.ProductPriceWithDiscount = product.DiscountType.HasValue && product.DiscountType.Value != 0 ? product.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : "";
-
+            model.ProductDetailModel.MinumumAmount = product.MinumumAmount;
             model.ProductDetailModel.ProductActive = product.GetActiveStatus();
 
             #region productcookie

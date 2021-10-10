@@ -45,14 +45,19 @@
                             if (Model.Kdv == true)
                             {
                                 <div class="product-detail__kdv" style="@(!string.IsNullOrEmpty(Model.ProductPriceWithDiscount) ? "padding-top:20px;" : "" )">
+    <small>
+                                        KDV
+                                        DAHİL
+                                        @if (Model.MinumumAmount.HasValue)
+                                        {
+                                            @(" Min. Sipariş "+Model.MinumumAmount.Value+" ")
+                                        }
 
-                                    <small>
                                         @if (!string.IsNullOrEmpty(Model.UnitTypeText))
                                         {
                                             @Model.UnitTypeText @(",")
                                         }
-                                        KDV
-                                        DAHİL
+
                                     </small>
                                 </div>
                             }
@@ -61,12 +66,18 @@
 
                                 <div class="product-detail__kdv" style="@(!string.IsNullOrEmpty(Model.ProductPriceWithDiscount) ? "padding-top:20px;" : "" )">
                                     <small>
+
+                                        FOB Fiyatı
+                                        @if (Model.MinumumAmount.HasValue)
+                                        {
+                                            @(" Min. Sipariş "+Model.MinumumAmount.Value+" ")
+                                        }
                                         @if (!string.IsNullOrEmpty(Model.UnitTypeText))
                                         {
 
                                             @Model.UnitTypeText
                                         }
-                                        FOB Fiyatı
+
                                     </small>
                                 </div>
                             }
@@ -74,19 +85,41 @@
                             {
                                 <div class="product-detail__kdv" style="@(!string.IsNullOrEmpty(Model.ProductPriceWithDiscount) ? "padding-top:20px;" : "" )">
                                     <small>
+                                        +KDV
+                                        @if (Model.MinumumAmount.HasValue)
+                                        {
+                                            @(" Min. Sipariş "+Model.MinumumAmount.Value+" ")
+                                        }
+
                                         @if (!string.IsNullOrEmpty(Model.UnitTypeText))
                                         {
 
                                             @Model.UnitTypeText
                                         }
-                                        +KDV
+
                                     </small>
                                 </div>
                             }
                         }
                         else
                         {
-                            <span class="product-detail__price">Fiyat Sorunuz</span>
+                            <div class="product-detail__price">
+                                Fiyat Sorunuz
+
+                            </div>
+                            <small>
+                                @if (Model.MinumumAmount.HasValue)
+                                {
+                                    @(" Min. Sipariş "+Model.MinumumAmount.Value)
+                                }
+
+                                @if (!string.IsNullOrEmpty(Model.UnitTypeText))
+                                {
+
+                                    @(Model.UnitTypeText)
+                                }
+                       
+                            </small>
                         }
                     </div>
                 </div>
@@ -191,6 +224,7 @@
                             @Model.ProductStatus
                         </td>
                     </tr>
+
                     @if (!string.IsNullOrEmpty(Model.MenseiName))
                     {
                         <tr>
@@ -202,6 +236,7 @@
                             </td>
                         </tr>
                     }
+  
                     @if (!string.IsNullOrEmpty(Model.DeliveryStatus))
                     {
                         <tr>
@@ -265,6 +300,7 @@
                             </tr>
 
                         }
+
                     }
                 </table>
 
@@ -286,7 +322,7 @@
                         <a href="javascript:void(0)" id="aRemoveFavoriteProduct" rel="nofollow" onclick="RemoveFavoriteProduct('@Model.ProductId','@Model.ProductName');"
                            style="@removeFavoriProductCss"><span class="glyphicon glyphicon-ok"></span>&nbsp;Favorilerimden Kaldır</a>
 
-                        <a href="javascript:void(0)" id="aAddFavoriteProduct" rel="nofollow" style="@addFavoriProductCss" onclick="AddFavoriteProduct('@Model.ProductId','@Model.ProductName');">
+                        <a href="javascript:void(0)" id="aAddFavoriteProduct" rel="nofollow" style="@addFavoriProductCss" onclick="AddFavoriteProduct('@Model.ProductId',  '@Model.ProductName');">
                             <i class="fa fa-heart-o"></i>&nbsp;Favorilerime Ekle
                             <img src="../../Content/V2/images/loading.gif" alt="@Model.ProductName favoriye ekleme işlemi yapılıyor" style="width: 16px; float: right; display: none;" id="FavoriteProductLoading" />
                         </a>

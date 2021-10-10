@@ -137,7 +137,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 whereClause.Clear();
             }
             collection = dataOrder.Search(ref total, (int)Session[SessionPage], 1, whereClause.ToString(), STARTCOLUMN, ORDER).AsCollection<OrderModel>();
-            var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 select u;
+            var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 22 || g.UserGroupId == 18  select u;
             List<SelectListItem> salesUserManagers = new List<SelectListItem>();
             salesUserManagers.Add(new SelectListItem { Text = "Tümü", Value = "0" });
             foreach (var item in salesUsers)
@@ -604,6 +604,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
             sc.Send(mail);
             #endregion
+
             store.PacketId = packet.PacketId;
 
             store.StorePacketBeginDate = orderBeginDate;
@@ -640,7 +641,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             else
                 store.StorePacketEndDate = orderBeginDate.AddDays(packet.PacketDay);
 
-            entities.SaveChanges();
+            if (!order.ProductId.HasValue || (order.ProductId.HasValue && order.ProductId.Value == 0))
+            {
+                entities.SaveChanges();
+            }
+
             order.PacketStatu = (byte)PacketStatu.Onaylandi;
             if (order.PacketDay.HasValue)
                 order.OrderPacketEndDate = orderBeginDate.AddDays(order.PacketDay.Value);
@@ -1716,7 +1721,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             SalesResponsibleUpdateModel model = new SalesResponsibleUpdateModel();
             model.OrderId = orderId;
             var order = _orderService.GetOrderByOrderId(orderId);
-            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 select new { u.UserName, u.UserId };
+            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where  g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 22 || g.UserGroupId == 18  select new { u.UserName, u.UserId };
             foreach (var item in users1)
             {
                 model.SalesResponsibleUser.Add(new SelectListItem { Text = item.UserName, Value = item.UserId.ToString(), Selected = item.UserId == order.AuthorizedId });

@@ -76,6 +76,13 @@
             }
         }
         $(document).ready(function () {
+            $("#unitType").change(function () {
+                console.log("asdad");
+                var value = $(this).find("option:selected").text();
+                $("#minumumWrapper").show();
+                $("#minumum-amount-c").html("Minumum" + value);
+
+            });
             $('#DiscountType').on('change', function () {
 
                 if (this.value == '@Convert.ToByte((byte)ProductDiscountType.Amount)') {
@@ -436,6 +443,7 @@
             }
 
         }
+
     </script>
 }
 
@@ -908,12 +916,12 @@
                                         <label>@Html.RadioButton("pricePropertie", "fob") Fob</label>
                                     </div>
                                 </div>
-                                <div class="form-group" id="currencyWrapper">
+                                <div class="form-group" >
                                     <label class="col-sm-2 control-label">
                                         Birim
                                     </label>
                                     <div class="col-xs-2 col-lg-2 pr0">
-                                        <select class="form-control" name="UnitType">
+                                        <select class="form-control" name="UnitType" id="unitType">
                                             <option value="0">< Seçiniz ></option>
                                             @foreach (var itemProductBriefDetail in constantItems.Where(c => c.ConstantType == (byte)ConstantType.Birim).OrderBy(k => k.Order))
                                             {
@@ -923,9 +931,18 @@
                                             }
                                         </select>
                                     </div>
-                                    <div class="col-xs-3 col-md-2">
+                                    <div class="col-xs-3 col-md-2" id="currencyWrapper">
                                         @Html.DropDownListFor(m => m.CurrencyId, Model.CurrencyItems, new { @class = "form-control" })
                                     </div>
+                                </div>
+                                <div class="form-group" id="minumumWrapper" style="display:none;">
+                                    <label class="col-sm-2 control-label" id="minumum-amount-c">
+                                        Minumum 
+                                    </label>
+                                    <div class="col-xs-2 col-lg-2 pr0">
+                                        <input type="number" value="1" name="MinumumAmount" id="MinumumAmount" class="form-control" />
+                                    </div>
+             
                                 </div>
                                 if (Convert.ToBoolean(ViewData["ProductSales"])==true)
                                 {

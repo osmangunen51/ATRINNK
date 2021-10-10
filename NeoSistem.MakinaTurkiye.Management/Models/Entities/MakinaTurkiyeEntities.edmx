@@ -161,6 +161,7 @@
           <Property Name="CategoryPathUrl" Type="nvarchar" MaxLength="250" />
           <Property Name="BaseMenuOrder" Type="smallint" />
           <Property Name="HomeImagePath" Type="nvarchar" MaxLength="150" />
+          <Property Name="PinId" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="CertificateTypeProduct">
           <Key>
@@ -272,7 +273,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="Date" Type="datetime" />
           <Property Name="IP" Type="nvarchar" MaxLength="50" />
           <Property Name="Code" Type="nchar" MaxLength="10" />
-          <Property Name="Detail" Type="nvarchar" MaxLength="500" />
+          <Property Name="Detail" Type="nvarchar" MaxLength="2000" />
           <Property Name="Ordertype" Type="nvarchar" MaxLength="50" />
           <Property Name="Price" Type="nvarchar" MaxLength="50" />
         </EntityType>
@@ -760,6 +761,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="OldPath" Type="nvarchar" MaxLength="50" />
           <Property Name="PictureOrder" Type="int" />
           <Property Name="StoreImageType" Type="tinyint" />
+          <Property Name="PinId" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -827,6 +829,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="DiscountAmount" Type="decimal" Precision="18" Scale="0" />
           <Property Name="DiscountType" Type="tinyint" />
           <Property Name="ProductPriceForOrder" Type="money" />
+          <Property Name="MinumumAmount" Type="tinyint" />
         </EntityType>
         <EntityType Name="ProductCatolog">
           <Key>
@@ -1126,15 +1129,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="DealerName" Type="varchar" MaxLength="100" />
           <Property Name="DealerType" Type="tinyint" />
         </EntityType>
-        <EntityType Name="Storeindirim">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="MainPartyId" Type="int" Nullable="false" />
-          <Property Name="BeginDate" Type="date" />
-          <Property Name="Enddate" Type="date" />
-        </EntityType>
         <EntityType Name="StoreInfoNumberShow">
           <Key>
             <PropertyRef Name="StoreInfoNumberShowID" />
@@ -1145,6 +1139,15 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="TaxOfficeShow" Type="bit" />
           <Property Name="TradeRegistryNoShow" Type="bit" />
           <Property Name="MersisNoShow" Type="bit" />
+        </EntityType>
+        <EntityType Name="Storeindirim">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MainPartyId" Type="int" Nullable="false" />
+          <Property Name="BeginDate" Type="date" />
+          <Property Name="Enddate" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -2335,8 +2338,8 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primar
           <EntitySet Name="StoreCertificate" EntityType="Self.StoreCertificate" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreChangeHistory" EntityType="Self.StoreChangeHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreDealer" EntityType="Self.StoreDealer" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Storeindirim" EntityType="Self.Storeindirim" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreInfoNumberShow" EntityType="Self.StoreInfoNumberShow" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Storeindirim" EntityType="Self.Storeindirim" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreSector" EntityType="Self.StoreSector" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreStatistic" EntityType="Self.StoreStatistic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -3273,6 +3276,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <Property Name="BaseMenuOrder" Type="Int16" />
           <NavigationProperty Name="StoreSectors" Relationship="MakinaTurkiyeModel.FK__StoreSect__Categ__7DA67417" FromRole="Category" ToRole="StoreSector" />
           <Property Name="HomeImagePath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="PinId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="City">
           <Key>
@@ -3591,6 +3595,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <Property Name="PictureOrder" Type="Int32" />
           <Property Name="StoreImageType" Type="Byte" />
           <Property Name="StoreCertificateId" Type="Int32" />
+          <Property Name="PinId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -3679,6 +3684,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <NavigationProperty Name="ProductComments" Relationship="MakinaTurkiyeModel.FK__ProductCo__Produ__564557FB" FromRole="Product" ToRole="ProductComment" />
           <NavigationProperty Name="ProductStatistics" Relationship="MakinaTurkiyeModel.FK_Product_ProductStatistics" FromRole="Product" ToRole="ProductStatistic" />
           <Property Name="ProductPriceForOrder" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="MinumumAmount" Type="Byte" />
         </EntityType>
         <EntityType Name="PurchaseRequest">
           <Key>
@@ -4669,7 +4675,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <Property Type="DateTime" Name="Date" Precision="3" />
           <Property Type="String" Name="IP" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Code" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Type="String" Name="Detail" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Detail" MaxLength="2000" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Ordertype" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Price" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Store" Relationship="MakinaTurkiyeModel.FK_CreditCardLog_Store" FromRole="CreditCardLog" ToRole="Store" />
@@ -5847,6 +5853,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
             <ScalarProperty Name="BannerDescription" ColumnName="BannerDescription" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Categories"><EntityTypeMapping TypeName="MakinaTurkiyeModel.Category"><MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="PinId" ColumnName="PinId" />
                 <ScalarProperty Name="HomeImagePath" ColumnName="HomeImagePath" />
                 <ScalarProperty Name="BaseMenuOrder" ColumnName="BaseMenuOrder" />
                 <ScalarProperty Name="CategoryPathUrl" ColumnName="CategoryPathUrl" />
@@ -6053,7 +6060,8 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
             <ScalarProperty Name="GsmType" ColumnName="GsmType" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Pictures"><EntityTypeMapping TypeName="MakinaTurkiyeModel.Picture"><MappingFragment StoreEntitySet="Picture">
-            <ScalarProperty Name="StoreCertificateId" ColumnName="StoreCertificateId" />
+            <ScalarProperty Name="PinId" ColumnName="PinId" />
+                <ScalarProperty Name="StoreCertificateId" ColumnName="StoreCertificateId" />
                 <ScalarProperty Name="StoreImageType" ColumnName="StoreImageType" />
                 <ScalarProperty Name="PictureOrder" ColumnName="PictureOrder" />
                 <ScalarProperty Name="OldPath" ColumnName="OldPath" />
@@ -6065,6 +6073,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
             <ScalarProperty Name="StoreDealerId" ColumnName="StoreDealerId" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="MakinaTurkiyeModel.Product"><MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="MinumumAmount" ColumnName="MinumumAmount" />
                 <ScalarProperty Name="ProductPriceForOrder" ColumnName="ProductPriceForOrder" />
                 <ScalarProperty Name="DiscountType" ColumnName="DiscountType" />
                 <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />

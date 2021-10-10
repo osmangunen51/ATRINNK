@@ -87,6 +87,8 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
       
         public decimal? ProductPriceForOrder { get; set; }
 
+        public byte? MinumumAmount { get; set; }
+
         public virtual Country Country { get; set; }
         public virtual City City { get; set; }
         public virtual Locality Locality { get; set; }

@@ -1264,6 +1264,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 model.Doping = productvalues.Doping;
                 model.Keywords = product.Keywords;
                 model.ProductSellUrl = productvalues.ProductSellUrl;
+                model.MinumumOrderAmount = productvalues.MinumumAmount;
 
                 var dataPicture = new Data.Picture();
                 model.ProductPictureItems = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
@@ -1319,6 +1320,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 model.TownItems = new SelectList(townItems, "TownId", "TownName");
                 model.ProductPriceTypes = _constantService.GetConstantByConstantType(ConstantTypeEnum.ProductPriceType);
                 model.ChoicedForCategoryIndex = product.ChoicedForCategoryIndex;
+
                 Session["ProductStatu"] = product.ProductActiveType;
 
                 model.IsAdvanceEdit = false;
@@ -1641,7 +1643,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             curProduct.Fob = false;
             curProduct.Keywords = model.Keywords;
             curProduct.HasVideo = _videoService.GetVideosByProductId(id).Any();
-
+            curProduct.MinumumAmount = model.MinumumOrderAmount;
             
             if (curProduct.ProductPriceType == (byte)ProductPriceType.Price)
             {

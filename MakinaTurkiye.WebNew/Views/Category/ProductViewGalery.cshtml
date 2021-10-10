@@ -116,7 +116,7 @@
                                     <p class="product-list-mt__advert-no" style="float: left;">@model1.ProductNo</p>
                                     <div class="product-list-mt__features" style="float: right">
 
-                                        @if (model1.Doping.HasValue && model1.Doping==true)
+                                        @if (model1.Doping.HasValue && model1.Doping == true)
                                         {
                                             <span class="product-list-mt__has-doping">D</span>
                                         }
@@ -126,7 +126,7 @@
                             </div>
 
 
-                            <p class="product-list-mt__price">
+                            <p class="product-list-mt__price" style="float:left;">
 
                                 @if (string.IsNullOrEmpty(model1.Price) || (model1.ProductPriceType != (byte)NeoSistem.MakinaTurkiye.Web.Models.ProductPriceType.Price && model1.ProductPriceType != (byte)NeoSistem.MakinaTurkiye.Web.Models.ProductPriceType.PriceRange))
                                 {
@@ -167,7 +167,16 @@
                                     {
                                         <small style=" font-weight: 500; padding-left:0px; font-size: 11px;color:#8a8a8a">@model1.KdvOrFobText</small>}
                                 }
+                      
                             </p>
+                            <div style="float:right;">
+                                @if (model1.MinumumAmount.HasValue && model1.MinumumAmount.Value>1)
+                                {
+                                    <small style="color:#8a8a8a;font-size:12px; font-weight:500">
+                                      Min Sip @(model1.MinumumAmount.Value + " " + model1.UnitType)
+                                    </small>
+                                }
+                            </div>
 
 
                         </div>

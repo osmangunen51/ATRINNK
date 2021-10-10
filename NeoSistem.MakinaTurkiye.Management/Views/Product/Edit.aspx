@@ -1169,7 +1169,7 @@
                 <td>:</td>
                 <td><%: Html.DropDownListFor(m => m.CurrencyId, Model.CurrencyItems)%></td>
             </tr>
-            <tr id="currencyWrapper">
+            <tr id="">
                 <td>Birim
                 </td>
                 <td>:
@@ -1184,6 +1184,11 @@
                         <% } %>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <td>Min. Sipariş Adet</td>
+                <td>:</td>
+                <td><%:Html.TextBoxFor(x=>x.MinumumOrderAmount) %></td>
             </tr>
 
             <tr>

@@ -490,719 +490,730 @@
                     <strong>İlanınız güncelenmiştir görmek için <a href="@url">tıklayınız</a></strong>
                 </div>
             }
-            <div>
-                @using (Html.BeginForm("Edit", "Advert", FormMethod.Post, new { id = "formContent", enctype = "multipart/form-data", @class = "form-horizontal" }))
-                {
+        <div>
+            @using (Html.BeginForm("Edit", "Advert", FormMethod.Post, new { id = "formContent", enctype = "multipart/form-data", @class = "form-horizontal" }))
+            {
 
-                    <div style="position: absolute; right: 35px; top: 5px;" class="small row">
-                        @if (Model.ProductRecordDate != Model.ProductLastUpdate)
+                <div style="position: absolute; right: 35px; top: 5px;" class="small row">
+                    @if (Model.ProductRecordDate != Model.ProductLastUpdate)
+                    {
+                        <b>Son Güncellenme Tarihi:</b> @Model.ProductLastUpdate.ToString("dd.MM.yyyy HH:mm:ss")
+                    }
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        Kategori Adı
+                    </label>
+                    <div class="col-sm-9">
+                        <p class="form-control-static">
+                            @Model.CategoryName
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        Marka Adı
+                    </label>
+                    <div class="col-sm-9">
+                        <div class="form-control-static">
+                            <span id="BrandNameDisplay" style="border: 1px solid #e1e1e1; background-color: #fff; font-size: 12px; padding: 5px; width: auto;"><span id="BrandNameDisplayName">@Model.BrandName</span> <i style="margin-left: 10px; padding-left: 40px; color: #333; cursor: pointer;" class="glyphicon glyphicon-pencil" id="OtherBrandClick"></i></span>
+
+                            <div id="OtherBrandWrapper" style="display: none;" class="col-md-6">
+                                @Html.TextBoxFor(x => x.OtherBrand
+, new { @class = "form-control col-md-12", @id = "OtherBrandText" })<br />
+                                <button style="margin-top: 5px;" type="button" class="btn btn-info" id="OtherBrandSave">Kaydet</button>
+                                <button style="margin-top: 5px;" type="button" class="btn btn-info" id="OtherBrandCancel">İptal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        Seri
+                    </label>
+                    <div class="col-sm-9">
+                        <p class="form-control-static">
+                            @Model.SeriesName
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        Model
+                    </label>
+                    <div class="col-sm-9">
+                        <div class="form-control-static">
+                            <span id="ModelNameDisplay" style="border: 1px solid #e1e1e1; background-color: #fff; font-size: 12px; padding: 5px; width: auto;"><span id="ModelNameDisplayName">@Model.ModelName </span><i style="margin-left: 10px; color: #333; padding-left: 40px; cursor: pointer;" class="glyphicon glyphicon-pencil" id="OtherModelClick"></i></span>
+
+                            <div id="OtherModelWrapper" style="display: none;" class="col-md-6">
+                                @Html.TextBoxFor(x => x.OtherModel, new { @class = "form-control col-md-12", @id = "OtherModelText" })<br />
+                                <button style="margin-top: 5px;" type="button" class="btn btn-info" id="OtherModelSave">Kaydet</button>
+                                <button style="margin-top: 5px;" type="button" class="btn btn-info" id="OtherModelCancel">İptal</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        @Html.LabelFor(m => m.ProductNo)
+                    </label>
+                    <div class="col-sm-9">
+                        <p class="form-control-static">
+                            @Model.ProductNo
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        @Html.LabelFor(m => m.ProductName)
+                    </label>
+                    <div class="col-sm-9">
+                        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @rel = "ProductName", @size = "97", @maxlength = "97" })
+                        <label id="pNameValMes" class="label label-danger" style="display: none;">
+                            Lütfen Ürün Adı alanını giriniz.
+                        </label>
+                        <label id="checkProduct" class="label label-warning" style="display: none;">
+                            Bu şekilde tanımlanan ürün adı mevcuttur.Yinede devam edebilirsiniz.
+                        </label>
+                    </div>
+
+                    <!--Test!-->
+
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        @Html.LabelFor(m => m.ProductDescription)
+                    </label>
+                    <div class="col-sm-9">
+
+                        @Html.TextAreaFor(m => m.ProductDescription)
+                        @Html.ValidationMessageFor(m => m.ProductDescription)
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Sertifikalar</label>
+                    <div class="col-sm-9">
+                        @foreach (var item in Model.CertificateTypes)
                         {
-                            <b>Son Güncellenme Tarihi:</b> @Model.ProductLastUpdate.ToString("dd.MM.yyyy HH:mm:ss")
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="certificateTypes" @(item.Selected == true ? "checked" : "" ) value="@item.Value " />
+                                @item.Text
+                            </label>
                         }
                     </div>
+                </div>
+                foreach (var item in Model.MTProductPropertieModel.MTProductProperties)
+                {
                     <div class="form-group">
                         <label class="col-sm-3 control-label">
-                            Kategori Adı
+                            @item.DisplayName :
                         </label>
-                        <div class="col-sm-9">
-                            <p class="form-control-static">
-                                @Model.CategoryName
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            Marka Adı
-                        </label>
-                        <div class="col-sm-9">
-                            <div class="form-control-static">
-                                <span id="BrandNameDisplay" style="border: 1px solid #e1e1e1; background-color: #fff; font-size: 12px; padding: 5px; width: auto;"><span id="BrandNameDisplayName">@Model.BrandName</span> <i style="margin-left: 10px; padding-left: 40px; color: #333; cursor: pointer;" class="glyphicon glyphicon-pencil" id="OtherBrandClick"></i></span>
-
-                                <div id="OtherBrandWrapper" style="display: none;" class="col-md-6">
-                                    @Html.TextBoxFor(x => x.OtherBrand
-, new { @class = "form-control col-md-12", @id = "OtherBrandText" })<br />
-                                    <button style="margin-top: 5px;" type="button" class="btn btn-info" id="OtherBrandSave">Kaydet</button>
-                                    <button style="margin-top: 5px;" type="button" class="btn btn-info" id="OtherBrandCancel">İptal</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            Seri
-                        </label>
-                        <div class="col-sm-9">
-                            <p class="form-control-static">
-                                @Model.SeriesName
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            Model
-                        </label>
-                        <div class="col-sm-9">
-                            <div class="form-control-static">
-                                <span id="ModelNameDisplay" style="border: 1px solid #e1e1e1; background-color: #fff; font-size: 12px; padding: 5px; width: auto;"><span id="ModelNameDisplayName">@Model.ModelName </span><i style="margin-left: 10px; color: #333; padding-left: 40px; cursor: pointer;" class="glyphicon glyphicon-pencil" id="OtherModelClick"></i></span>
-
-                                <div id="OtherModelWrapper" style="display: none;" class="col-md-6">
-                                    @Html.TextBoxFor(x => x.OtherModel, new { @class = "form-control col-md-12", @id = "OtherModelText" })<br />
-                                    <button style="margin-top: 5px;" type="button" class="btn btn-info" id="OtherModelSave">Kaydet</button>
-                                    <button style="margin-top: 5px;" type="button" class="btn btn-info" id="OtherModelCancel">İptal</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            @Html.LabelFor(m => m.ProductNo)
-                        </label>
-                        <div class="col-sm-9">
-                            <p class="form-control-static">
-                                @Model.ProductNo
-                            </p>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            @Html.LabelFor(m => m.ProductName)
-                        </label>
-                        <div class="col-sm-9">
-                            @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control", @rel = "ProductName", @size = "97", @maxlength = "97" })
-                            <label id="pNameValMes" class="label label-danger" style="display: none;">
-                                Lütfen Ürün Adı alanını giriniz.
-                            </label>
-                            <label id="checkProduct" class="label label-warning" style="display: none;">
-                                Bu şekilde tanımlanan ürün adı mevcuttur.Yinede devam edebilirsiniz.
-                            </label>
-                        </div>
-
-                        <!--Test!-->
-
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            @Html.LabelFor(m => m.ProductDescription)
-                        </label>
-                        <div class="col-sm-9">
-
-                            @Html.TextAreaFor(m => m.ProductDescription)
-                            @Html.ValidationMessageFor(m => m.ProductDescription)
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Sertifikalar</label>
-                        <div class="col-sm-9">
-                            @foreach (var item in Model.CertificateTypes)
+                        <div class="col-sm-5 col-md-3 ">
+                            @if (item.Type == (byte)PropertieType.Text)
                             {
-                                <label class="checkbox-inline">
-                                    <input type="checkbox" name="certificateTypes" @(item.Selected == true ? "checked" : "" ) value="@item.Value " />
-                                    @item.Text
-                                </label>
+                                <input type="text" name="@item.InputName" value="@item.Value" class="form-control" />
                             }
-                        </div>
-                    </div>
-                    foreach (var item in Model.MTProductPropertieModel.MTProductProperties)
-                    {
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                @item.DisplayName :
-                            </label>
-                            <div class="col-sm-5 col-md-3 ">
-                                @if (item.Type == (byte)PropertieType.Text)
-                                {
-                                    <input type="text" name="@item.InputName" value="@item.Value" class="form-control" />
-                                }
-                                else if (item.Type == (byte)PropertieType.Editor)
-                                {
-                                    <textarea id="@item.InputName" name="@item.InputName">@item.Value</textarea>
-                                    <script type="text/javascript" defer="defer">
+                            else if (item.Type == (byte)PropertieType.Editor)
+                            {
+                                <textarea id="@item.InputName" name="@item.InputName">@item.Value</textarea>
+                                <script type="text/javascript" defer="defer">
                                 var editor = CKEDITOR.replace('@item.InputName', { toolbar: 'webtool' });
                                 CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
-                                    </script>
-                                }
-                                else
+                                </script>
+                            }
+                            else
+                            {
+                                @Html.DropDownList(item.InputName, item.Attrs, new { @class = "form-control" })
+                            }
+                        </div>
+                    </div>
+
+                }
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        @Html.LabelFor(m => m.ProductType)
+                    </label>
+                    <div class="col-sm-9">
+                        @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductType))
+                        {
+                            <label class="radio-inline">
+                                @{
+                                    bool hasItem = false;}
+                                @if (!string.IsNullOrEmpty(Model.ProductType))
                                 {
-                                    @Html.DropDownList(item.InputName, item.Attrs, new { @class = "form-control" })
-                                }
-                            </div>
-                        </div>
-
-                    }
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            @Html.LabelFor(m => m.ProductType)
-                        </label>
-                        <div class="col-sm-9">
-                            @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductType))
-                            {
-                                <label class="radio-inline">
-                                    @{
-                                        bool hasItem = false;}
-                                    @if (!string.IsNullOrEmpty(Model.ProductType))
-                                    {
-                                        if (Convert.ToInt16(Model.ProductType) == item.ConstantId)
-                                        {
-                                            hasItem = true;
-                                        }
-                                    }
-                                    @Html.RadioButton("fakeProductType", item.ConstantId, hasItem, new { @class = "ActiveName" })
-                                    @item.ConstantName
-                                </label>
-                            }
-                            <script type="text/javascript">
-                                $('.ActiveName').click(function () {
-                                    $('#ProductType').val($(this).val());
-                                    var ptype = $('#ProductType').val();
-                                    if (ptype == 104) {
-                                        $('#pselect').hide();
-                                        $('#MenseiId').val(0);
-                                        $('#OrderStatus').val(0);
-                                    }
-                                    else {
-                                        $('#pselect').show();
-                                    }
-                                });
-                            </script>
-                            <input id="ProductType" name="ProductType" type="hidden" value="@Model.ProductType" />
-                            <div class="bs-example bs-example-bg-classes">
-                                <label id="divProductType" class="label label-danger" style="display: none;">
-                                    Lütfen ürün tipini seçiniz.
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            @Html.LabelFor(m => m.ProductStatu)
-                        </label>
-                        <div class="col-sm-9">
-                            @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductStatu))
-                            {
-                                <label class="radio-inline">
-                                    @{bool hasItem = false;
-                                    }
-                                    @if (!string.IsNullOrEmpty(Model.ProductStatu))
-                                    {
-                                        if (Convert.ToInt16(Model.ProductStatu) == item.ConstantId)
-                                        {
-                                            hasItem = true;
-                                        }
-                                    }
-                                    @Html.RadioButton("fakeProductStatu", item.ConstantId, hasItem, new { @class = "ActiveName2" })@item.ConstantName
-                                </label>
-                            }
-                            <script type="text/javascript">
-                                $('.ActiveName2').click(function () {
-                                    $('#ProductStatu').val($(this).val());
-
-                                    var ptype = $('#ProductStatu').val();
-                                    if (ptype == 73) {
-                                        $('#pstatu').show();
-                                    }
-                                    else {
-                                        $('#pstatu').hide();
-                                        $('#ModelYear').val(0);
-                                    }
-                                });
-
-                            </script>
-                            <input id="ProductStatu" name="ProductStatu" type="hidden" value="@Model.ProductStatu" />
-                            <input id="CurrentListedPage" name="CurrentListedPage" type="hidden" value="@Model.CurrentListedPage" />
-                            <div class="bs-example bs-example-bg-classes">
-                                <label id="divProductStatu" class="label label-danger" style="display: none;">
-                                    Lütfen ürün durumunu seçiniz.
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            @Html.LabelFor(m => m.ProductSalesType)
-                        </label>
-                        <div class="col-sm-9">
-                            @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductSalesType))
-                            {
-                                <label class="checkbox-inline">
-                                    @{bool hasItem = false;
-                                    }
-                                    @if (!string.IsNullOrEmpty(Model.ProductSalesType))
-                                    {
-                                        for (int i = 0; i < Model.ProductSalesType.Split(',').Length; i++)
-                                        {
-                                            if (item.ConstantId ==Convert.ToInt16(Model.ProductSalesType.Split(',').GetValue(i)))
-                                            {
-                                                hasItem = true;
-                                            }
-                                        }
-                                    }
-                                    @Html.CheckBox("ProductSalesType", hasItem, new { value = item.ConstantId.ToString() })@item.ConstantName
-                                </label>
-                            }
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            Kısa Detay:
-                        </label>
-                        <div class="col-sm-9">
-                            @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductBriefDetail))
-                            {
-                                bool hasItem = false;
-                                if (!string.IsNullOrEmpty(Model.BriefDetail))
-                                {
-                                    if (Convert.ToInt16(Model.BriefDetail) == item.ConstantId)
+                                    if (Convert.ToInt16(Model.ProductType) == item.ConstantId)
                                     {
                                         hasItem = true;
                                     }
                                 }
-                                <label class="radio-inline">
-                                    @Html.RadioButton("BriefDetail", item.ConstantId, hasItem, new { @class = "pdetail" })
-                                    @item.ConstantName
-                                    <input type="text" id="warrianty" style="display: none" />
-                                </label>
-                            }
-                            <script type="text/javascript">
-                                $('.pdetail').click(function () {
-                                    var pdetail = $(this).val();
-                                    $('#warrianty').val(pdetail);
-                                    if (pdetail == '86') {
-                                        $('#pdetail').show();
-                                    }
-                                    else {
-                                        $('#pdetail').hide();
-                                    }
-                                });
-
-                            </script>
-                        </div>
-                    </div>
-
-                    <div id="pstatu" style="display: none;">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Model Yılı
+                                @Html.RadioButton("fakeProductType", item.ConstantId, hasItem, new { @class = "ActiveName" })
+                                @item.ConstantName
                             </label>
-                            <div class="col-sm-2">
-                                @Html.TextBox("ModelYear", Model.ModelYear, new { @class = "form-control", size = "10" })
-                            </div>
-                        </div>
-                    </div>
-                    <div id="pdetail" style="display: none;">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Garanti Süresi
-                            </label>
-                            <div class="col-sm-3">
-                                <select class="form-control" name="WarrantyPeriod" id="WarrantyPeriod">
-                                    <option value="0">< Seçiniz ></option>
-                                    @for (int i = 1; i < 11; i++)
-                                    {
-                                        if (Model.WarrantyPeriod == i.ToString())
-                                        {
-                                            <option selected="selected" value="@i">
-                                                @i
-                                                Yıl
-                                            </option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@i">
-                                                @i
-                                                Yıl
-                                            </option>
-                                        }
-                                    }
-                                </select>
-                            </div>
-                            <div class="bs-example bs-example-bg-classes">
-                                <label id="warrantyValMes" class="label label-danger" style="display: none;">
-                                    Lütfen garanti süresi seçiniz.
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="pselect">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Mensei
-                            </label>
-                            <div class="col-sm-5 col-md-3">
-                                @Html.DropDownListFor(model => model.MenseiId, new SelectList(Model.TheOriginItems, "ConstantId", "ConstantName"), new { @class = "form-control" })
-                            </div>
-                            <div class="bs-example bs-example-bg-classes">
-                                <label id="divMenseiIdValMes" class="label label-danger" style="display: none;">
-                                    Lütfen menşei seçiniz.
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Teslim Durumu
-                            </label>
-                            <div class="col-sm-5 col-md-3">
-                                @Html.DropDownListFor(model => model.OrderStatus, new SelectList(Model.SiparisList, "ConstantId", "ConstantName"), new { @class = "form-control" })
-                            </div>
-                            <div class="bs-example bs-example-bg-classes">
-                                <label id="ordStatValMes" class="label label-danger" style="display: none;">
-                                    Lütfen teslim durumunu seçiniz.
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            Konum
-                        </label>
-                        <div class="col-sm-5 col-md-3">
-                            @{string townText = "", localityText = "", cityText = "", countryText = "";
-                                var town = Model.TownItems.FirstOrDefault(p => p.Value == Model.TownId.ToString());
-                                var locality = Model.LocalityItems.FirstOrDefault(p => p.Value == Model.LocalityId.ToString());
-                                var city = Model.CityItems.FirstOrDefault(p => p.Value == Model.CityId.ToString());
-                                var country = Model.CountryItems.FirstOrDefault(p => p.Value == Model.CountryId.ToString());
-
-                                if (town != null) { townText = town.Text; }
-                                localityText = locality != null ? locality.Text : "";
-                                cityText = city != null ? city.Text : "";
-                                countryText = country != null ? country.Text : "";
-                                var adress = string.Format("{0} {1} / {2} {3}", townText, localityText, cityText, countryText);
-                            }
-                            <textarea class="form-control" disabled="disabled">@adress</textarea>
-                            <label class="checkbox-inline">
-                                @Html.CheckBox("chkAdress", false, new { @id = "chkAdress" })
-                                İlan adresiniz değilse değiştirebilirsiniz..
-                            </label>
-                            <script type="text/javascript">
-                                $("#chkAdress").change(function () {
-                                    if (this.checked) {
-                                        $('#adverAdress').show();
-                                    }
-                                    else {
-                                        $('#adverAdress').hide();
-                                    }
-                                });
-
-
-                            </script>
-                        </div>
-                    </div>
-                    <div id="adverAdress" style="display: none">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Ülke
-                            </label>
-                            <div id="divCountryId" class="col-sm-5 col-md-3 dropdownAddress">
-                                @Html.DropDownListFor(model => model.CountryId, Model.CountryItems, new { @class = "form-control" })
-                            </div>
-                            <div class="bs-example bs-example-bg-classes">
-                                <label id="countryValMes" class="label label-danger" style="display: none;">
-                                    Lütfen ülke seçiniz.
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Şehir
-                            </label>
-                            <div id="divCityId" class="col-sm-5 col-md-3 dropdownAddress">
-                                @Html.DropDownListFor(model => model.CityId, Model.CityItems, new { @class = "form-control" })
-                            </div>
-                            <div class="bs-example bs-example-bg-classes">
-                                <label id="cityValMes" class="label label-danger" style="display: none;">
-                                    Lütfen şehir seçiniz.
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Semt
-                            </label>
-                            <div id="divLocalityId" class="col-sm-5 col-md-3 dropdownAddress">
-                                @Html.DropDownListFor(model => model.LocalityId, Model.LocalityItems, new { @class = "form-control" })
-                                <div class="bs-example bs-example-bg-classes">
-                                    <label id="localValMes" class="label label-danger" style="display: none;">
-                                        Lütfen semt seçiniz.
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Mahalle / Köy
-                            </label>
-                            <div id="divTownId" class="col-sm-5 col-md-3 dropdownAddress">
-                                @Html.DropDownListFor(model => model.TownId, Model.TownItems, new { @class = "form-control" })
-                            </div>
-                            <div class="bs-example bs-example-bg-classes">
-                                <label id="townValMes" class="label label-danger" style="display: none;">
-                                    Lütfen mahalle/köy seçiniz.
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group" @(Model.AllowSellUrl == false ? "style=display:none" : "" )>
-                        <label class="col-sm-3  control-label">
-                            Harici Ürün Satış Linkiniz
-                        </label>
-                        <div class="col-md-5">
-                            @Html.TextBoxFor(x => x.ProductSellUrl, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">Fiyat Tipi</label>
-                        <div class="col-md-8">
-                            @foreach (var productPriceTypeItem in Model.ProductPriceTypes)
-                            {
-                                bool productChoose = false;
-
-                                if (productPriceTypeItem.ContstantPropertie == Model.ProductPriceType.ToString() || Model.ProductPriceType.ToString() == "") { productChoose = true; }
-                                <div class="radio-inlin=e">@Html.RadioButton("productPriceType", productPriceTypeItem.ContstantPropertie, productChoose, new { @onclick = "ProductPriceType(" + productPriceTypeItem.ContstantPropertie + ")" })@productPriceTypeItem.ConstantName</div>
-                            }
-                        </div>
-                    </div>
-                    <div id="price-range">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Fiyat Aralığı
-                            </label>
-                            <div class="col-xs-2 col-lg-2 pr0">
-                                @{string priceBegin = (Model.ProductPriceBegin == 0) ? "" : Convert.ToDecimal(Model.ProductPriceBegin).ToString("0#.00");
-                                    string priceLast = (Model.ProductPriceLast == 0) ? "" : Convert.ToDecimal(Model.ProductPriceLast).ToString("0#.00");
+                        }
+                        <script type="text/javascript">
+                            $('.ActiveName').click(function () {
+                                $('#ProductType').val($(this).val());
+                                var ptype = $('#ProductType').val();
+                                if (ptype == 104) {
+                                    $('#pselect').hide();
+                                    $('#MenseiId').val(0);
+                                    $('#OrderStatus').val(0);
                                 }
-                                <input type="text" name="ProductPriceBegin" id="ProductPriceBegin" value="@priceBegin" size="3" class="form-control" data-thousands="." data-decimal="," />
-
-
-                            </div>
-
-                            <div class="col-xs-2 col-lg-2  pl2">
-                                <input type="text" name="ProductPriceLast" value="@priceLast" id="ProductPriceLast" size="3" class="form-control" data-thousands="." data-decimal="," />
-
-                            </div>
-                        </div>
-
-                    </div>
-                    <div id="price-wrapper">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Fiyat
-                            </label>
-                            <div class="col-xs-3 col-lg-3">
-
-                                @{string price = (Model.ProductPrice == 0) ? "" : Convert.ToDecimal(Model.ProductPrice).ToString("0#.00");
+                                else {
+                                    $('#pselect').show();
                                 }
-                                <input type="text" class="form-control" value="@price" name="ProductPrice1" id="ProductPrice1" data-thousands="." data-decimal="," />
-                                <div class="bs-example bs-example-bg-classes">
-                                    <label id="ProductPriceError" class="label label-danger" style="display: none;">
-                                        Lütfen Fiyat Giriniz.
-                                    </label>
-                                </div>
-                            </div>
-
-
-                        </div>
-
-
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                İndirim Tipi
+                            });
+                        </script>
+                        <input id="ProductType" name="ProductType" type="hidden" value="@Model.ProductType" />
+                        <div class="bs-example bs-example-bg-classes">
+                            <label id="divProductType" class="label label-danger" style="display: none;">
+                                Lütfen ürün tipini seçiniz.
                             </label>
-                            <div class="col-xs-2 col-lg-2">
-                                <select id="DiscountType" class="form-control" name="DiscountType">
-                                    <option value="0" @(Model.DiscountType == 0 ? "selected" : "")>İndirim Yok</option>
-                                    <option value="1" @(Model.DiscountType == (byte)ProductDiscountType.Percentage ? "selected" : "" )>Yüzdelik İndirim </option>
-                                    <option value="2" @(Model.DiscountType == (byte)ProductDiscountType.Amount ? "selected" : "" )>Miktar İndirimi </option>
-
-                                </select>
-                            </div>
                         </div>
                     </div>
-                    <div id="DiscountAmountContainer" style="@style">
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" id="DiscountTypeLabel">
-                                @{string text = Model.DiscountType == 1 ? "Yüzdesi" : "Miktarı"; }
-                                İndirim @text
-                            </label>
-                            <div class="col-sm-3 col-lg-3">
-                                @Html.TextBoxFor(x => x.DiscountAmount, new { @class = "form-control" })
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">
-                                Yeni Fiyat
-                            </label>
-                            <div class="col-sm-3">
-
-                                <input type="text" id="TotalPrice" name="TotalPrice" value="@Model.TotalPrice" class="form-control" data-thousands="." data-decimal="," />
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3">
-                        </label>
-
-                        <div class="col-xs-4 col-md-4">
-                            @{bool kdv = true, kdvh = false, fob = false;
-                            }
-                            @if (Model.Kdv == true)
-                            {
-                                kdv = true;
-                                kdvh = false;
-                            }
-                            else if (Model.Fob == true)
-                            {
-                                fob = true;
-                                kdv = false;
-                                kdvh = false;
-                            }
-                            else if (Model.Kdv == false)
-                            {
-                                kdvh = true;
-                                kdv = false;
-                            }
-
-                            <label>@Html.RadioButton("pricePropertie", "kdvdahil", kdv) Kdv Dahil</label>
-
-                            <label>@Html.RadioButton("pricePropertie", "kdvharic", kdvh) Kdv Hariç</label>
-
-                            <label>@Html.RadioButton("pricePropertie", "fob", fob) Fob</label>
-
-                        </div>
-
-                    </div>
-
-                    <div class="form-group" id="currencyWrapper">
-                        <label class="col-sm-3 control-label">
-                            Birim
-                        </label>
-                        <div class="col-xs-2 col-lg-2 pr0">
-                            <select class="form-control" name="UnitType" id="UnitType">
-                                <option value="0">< Seçiniz ></option>
-                                @foreach (var itemProductBriefDetail in constantItems.Where(c => c.ConstantType == ((byte)ConstantType.Birim)))
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        @Html.LabelFor(m => m.ProductStatu)
+                    </label>
+                    <div class="col-sm-9">
+                        @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductStatu))
+                        {
+                            <label class="radio-inline">
+                                @{bool hasItem = false;
+                                }
+                                @if (!string.IsNullOrEmpty(Model.ProductStatu))
                                 {
-                                    <option value="@itemProductBriefDetail.ConstantId">
-                                        @itemProductBriefDetail.ConstantName
-                                    </option>
+                                    if (Convert.ToInt16(Model.ProductStatu) == item.ConstantId)
+                                    {
+                                        hasItem = true;
+                                    }
+                                }
+                                @Html.RadioButton("fakeProductStatu", item.ConstantId, hasItem, new { @class = "ActiveName2" })@item.ConstantName
+                            </label>
+                        }
+                        <script type="text/javascript">
+                            $('.ActiveName2').click(function () {
+                                $('#ProductStatu').val($(this).val());
+
+                                var ptype = $('#ProductStatu').val();
+                                if (ptype == 73) {
+                                    $('#pstatu').show();
+                                }
+                                else {
+                                    $('#pstatu').hide();
+                                    $('#ModelYear').val(0);
+                                }
+                            });
+
+                        </script>
+                        <input id="ProductStatu" name="ProductStatu" type="hidden" value="@Model.ProductStatu" />
+                        <input id="CurrentListedPage" name="CurrentListedPage" type="hidden" value="@Model.CurrentListedPage" />
+                        <div class="bs-example bs-example-bg-classes">
+                            <label id="divProductStatu" class="label label-danger" style="display: none;">
+                                Lütfen ürün durumunu seçiniz.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        @Html.LabelFor(m => m.ProductSalesType)
+                    </label>
+                    <div class="col-sm-9">
+                        @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductSalesType))
+                        {
+                            <label class="checkbox-inline">
+                                @{bool hasItem = false;
+                                }
+                                @if (!string.IsNullOrEmpty(Model.ProductSalesType))
+                                {
+                                    for (int i = 0; i < Model.ProductSalesType.Split(',').Length; i++)
+                                    {
+                                        if (item.ConstantId == Convert.ToInt16(Model.ProductSalesType.Split(',').GetValue(i)))
+                                        {
+                                            hasItem = true;
+                                        }
+                                    }
+                                }
+                                @Html.CheckBox("ProductSalesType", hasItem, new { value = item.ConstantId.ToString() })@item.ConstantName
+                            </label>
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        Kısa Detay:
+                    </label>
+                    <div class="col-sm-9">
+                        @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductBriefDetail))
+                        {
+                            bool hasItem = false;
+                            if (!string.IsNullOrEmpty(Model.BriefDetail))
+                            {
+                                if (Convert.ToInt16(Model.BriefDetail) == item.ConstantId)
+                                {
+                                    hasItem = true;
+                                }
+                            }
+                            <label class="radio-inline">
+                                @Html.RadioButton("BriefDetail", item.ConstantId, hasItem, new { @class = "pdetail" })
+                                @item.ConstantName
+                                <input type="text" id="warrianty" style="display: none" />
+                            </label>
+                        }
+                        <script type="text/javascript">
+                            $('.pdetail').click(function () {
+                                var pdetail = $(this).val();
+                                $('#warrianty').val(pdetail);
+                                if (pdetail == '86') {
+                                    $('#pdetail').show();
+                                }
+                                else {
+                                    $('#pdetail').hide();
+                                }
+                            });
+
+                        </script>
+                    </div>
+                </div>
+
+                <div id="pstatu" style="display: none;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Model Yılı
+                        </label>
+                        <div class="col-sm-2">
+                            @Html.TextBox("ModelYear", Model.ModelYear, new { @class = "form-control", size = "10" })
+                        </div>
+                    </div>
+                </div>
+                <div id="pdetail" style="display: none;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Garanti Süresi
+                        </label>
+                        <div class="col-sm-3">
+                            <select class="form-control" name="WarrantyPeriod" id="WarrantyPeriod">
+                                <option value="0">< Seçiniz ></option>
+                                @for (int i = 1; i < 11; i++)
+                                {
+                                    if (Model.WarrantyPeriod == i.ToString())
+                                    {
+                                        <option selected="selected" value="@i">
+                                            @i
+                                            Yıl
+                                        </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@i">
+                                            @i
+                                            Yıl
+                                        </option>
+                                    }
                                 }
                             </select>
                         </div>
-                        <div class="col-xs-3 col-md-2">
-                            @Html.DropDownListFor(m => m.CurrencyId, Model.CurrencyItems, new { @class = "form-control" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            @Html.LabelFor(m => m.ProductAdvertBeginDate)
-                        </label>
-                        <div class="col-xs-3 col-lg-2">
-                            @Html.TextBox("ProductAdvertBeginDate", Model.ProductAdvertBeginDate != null ? Model.ProductAdvertBeginDate.ToString("dd.MM.yyyy") : "", new { @class = "form-control", disabled = "disabled" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            @Html.LabelFor(m => m.ProductAdvertEndDate)
-                        </label>
-                        <div class="col-xs-3 col-lg-2">
-                            @Html.TextBox("ProductAdvertBeginDate", Model.ProductAdvertEndDate != null ? Model.ProductAdvertEndDate.ToString("dd.MM.yyyy") : "", new { @class = "form-control", disabled = "disabled" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            Paket Bitiş Tarihi
-                        </label>
-                        <div class="col-xs-2 col-lg-1">
-                            @Html.TextBox("ProductPublicationDate", "", new { @class = "form-control", validate = "required:true" })
-                        </div>
-                        <div class="col-sm-5">
-                            <div class="radio-inline">
-                                @Html.RadioButton("ProductPublicationDateType", "1", false)
-                                Gün
-                            </div>
-                            <div class="radio-inline">
-                                @Html.RadioButton("ProductPublicationDateType", "2", false)
-                                Ay
-                            </div>
-                            <div class="radio-inline">
-                                @Html.RadioButton("ProductPublicationDateType", "3", false)
-                                Yıl
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-3 control-label">
-                            @Html.LabelFor(m => m.ProductActive)
-                        </label>
-                        <div class="col-sm-9">
-                            <label class="radio-inline">
-                                @Html.RadioButton("ProductActive", true)
-                                Aktif
-                            </label>
-                            <label class="radio-inline">
-                                @Html.RadioButton("ProductActive", false)
-                                Pasif
+                        <div class="bs-example bs-example-bg-classes">
+                            <label id="warrantyValMes" class="label label-danger" style="display: none;">
+                                Lütfen garanti süresi seçiniz.
                             </label>
                         </div>
                     </div>
-
-
-
+                </div>
+                <div id="pselect">
                     <div class="form-group">
-                        <label class="col-xs-12 col-sm-3 control-label">
-                            @Html.LabelFor(m => m.NewProductPicture)
+                        <label class="col-sm-3 control-label">
+                            Mensei
                         </label>
-                        <div class="col-xs-3 col-md-2 col-lg-1">
-                            <a id="btnUploadImages" class="btn-block btn btn-default btn-xs">
-                                Yükle
-                            </a>
+                        <div class="col-sm-5 col-md-3">
+                            @Html.DropDownListFor(model => model.MenseiId, new SelectList(Model.TheOriginItems, "ConstantId", "ConstantName"), new { @class = "form-control" })
                         </div>
-                        <div class="col-xs-5">
-                            @Html.FileUploadFor(m => m.NewProductPicture, new { multiple = "multiple" })
+                        <div class="bs-example bs-example-bg-classes">
+                            <label id="divMenseiIdValMes" class="label label-danger" style="display: none;">
+                                Lütfen menşei seçiniz.
+                            </label>
                         </div>
                     </div>
-
                     <div class="form-group">
-                        <label class="col-xs-12 col-sm-3 control-label">
-                            Ürün Resimleri:
+                        <label class="col-sm-3 control-label">
+                            Teslim Durumu
                         </label>
-                        <div id="divPictureList" class="col-xs-12  col-sm-9">
-                            @Html.Partial("EditProductPicture", Model.ProductPictureItems)
-                            <span class="clearfix"></span>
+                        <div class="col-sm-5 col-md-3">
+                            @Html.DropDownListFor(model => model.OrderStatus, new SelectList(Model.SiparisList, "ConstantId", "ConstantName"), new { @class = "form-control" })
+                        </div>
+                        <div class="bs-example bs-example-bg-classes">
+                            <label id="ordStatValMes" class="label label-danger" style="display: none;">
+                                Lütfen teslim durumunu seçiniz.
+                            </label>
                         </div>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        Konum
+                    </label>
+                    <div class="col-sm-5 col-md-3">
+                        @{string townText = "", localityText = "", cityText = "", countryText = "";
+                            var town = Model.TownItems.FirstOrDefault(p => p.Value == Model.TownId.ToString());
+                            var locality = Model.LocalityItems.FirstOrDefault(p => p.Value == Model.LocalityId.ToString());
+                            var city = Model.CityItems.FirstOrDefault(p => p.Value == Model.CityId.ToString());
+                            var country = Model.CountryItems.FirstOrDefault(p => p.Value == Model.CountryId.ToString());
 
-                    <div class="form-group">
-                        <label class="col-xs-12 col-sm-3 control-label">
-                            Ürün Katoloğu
+                            if (town != null) { townText = town.Text; }
+                            localityText = locality != null ? locality.Text : "";
+                            cityText = city != null ? city.Text : "";
+                            countryText = country != null ? country.Text : "";
+                            var adress = string.Format("{0} {1} / {2} {3}", townText, localityText, cityText, countryText);
+                        }
+                        <textarea class="form-control" disabled="disabled">@adress</textarea>
+                        <label class="checkbox-inline">
+                            @Html.CheckBox("chkAdress", false, new { @id = "chkAdress" })
+                            İlan adresiniz değilse değiştirebilirsiniz..
                         </label>
+                        <script type="text/javascript">
+                            $("#chkAdress").change(function () {
+                                if (this.checked) {
+                                    $('#adverAdress').show();
+                                }
+                                else {
+                                    $('#adverAdress').hide();
+                                }
+                            });
 
-                        <div class="col-xs-5">
-                            <input type="file" id="NewProductCatolog" name="NewProductCatolog" multiple />
 
-                        </div>
+                        </script>
                     </div>
+                </div>
+                <div id="adverAdress" style="display: none">
                     <div class="form-group">
-                        <label class="col-xs-12 col-sm-3 control-label">
-                            Ürün Katologları
+                        <label class="col-sm-3 control-label">
+                            Ülke
                         </label>
-                        <div class="col-xs-12  col-sm-9">
-                            @Html.Partial("_ProductCatologList", Model.MTProductCatologItems)
+                        <div id="divCountryId" class="col-sm-5 col-md-3 dropdownAddress">
+                            @Html.DropDownListFor(model => model.CountryId, Model.CountryItems, new { @class = "form-control" })
+                        </div>
+                        <div class="bs-example bs-example-bg-classes">
+                            <label id="countryValMes" class="label label-danger" style="display: none;">
+                                Lütfen ülke seçiniz.
+                            </label>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-sm-offset-3 col-sm-9 btn-group">
-                            <a href="/Account/Advert/Index?ProductActive=1&DisplayType=2&currentPage=@Model.CurrentListedPage" type="submit" class="btn btn-default">İptal </a>
-                            <button type="submit" id="saveProductButton" onclick="return advertCheck();" class="btn btn-primary">
-                                Kaydet
-                            </button>
+                        <label class="col-sm-3 control-label">
+                            Şehir
+                        </label>
+                        <div id="divCityId" class="col-sm-5 col-md-3 dropdownAddress">
+                            @Html.DropDownListFor(model => model.CityId, Model.CityItems, new { @class = "form-control" })
+                        </div>
+                        <div class="bs-example bs-example-bg-classes">
+                            <label id="cityValMes" class="label label-danger" style="display: none;">
+                                Lütfen şehir seçiniz.
+                            </label>
                         </div>
                     </div>
-                }
-            </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Semt
+                        </label>
+                        <div id="divLocalityId" class="col-sm-5 col-md-3 dropdownAddress">
+                            @Html.DropDownListFor(model => model.LocalityId, Model.LocalityItems, new { @class = "form-control" })
+                            <div class="bs-example bs-example-bg-classes">
+                                <label id="localValMes" class="label label-danger" style="display: none;">
+                                    Lütfen semt seçiniz.
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Mahalle / Köy
+                        </label>
+                        <div id="divTownId" class="col-sm-5 col-md-3 dropdownAddress">
+                            @Html.DropDownListFor(model => model.TownId, Model.TownItems, new { @class = "form-control" })
+                        </div>
+                        <div class="bs-example bs-example-bg-classes">
+                            <label id="townValMes" class="label label-danger" style="display: none;">
+                                Lütfen mahalle/köy seçiniz.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" @(Model.AllowSellUrl == false ? "style=display:none" : "" )>
+                    <label class="col-sm-3  control-label">
+                        Harici Ürün Satış Linkiniz
+                    </label>
+                    <div class="col-md-5">
+                        @Html.TextBoxFor(x => x.ProductSellUrl, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Fiyat Tipi</label>
+                    <div class="col-md-8">
+                        @foreach (var productPriceTypeItem in Model.ProductPriceTypes)
+                        {
+                            bool productChoose = false;
+
+                            if (productPriceTypeItem.ContstantPropertie == Model.ProductPriceType.ToString() || Model.ProductPriceType.ToString() == "") { productChoose = true; }
+                            <div class="radio-inlin=e">@Html.RadioButton("productPriceType", productPriceTypeItem.ContstantPropertie, productChoose, new { @onclick = "ProductPriceType(" + productPriceTypeItem.ContstantPropertie + ")" })@productPriceTypeItem.ConstantName</div>
+                        }
+                    </div>
+                </div>
+                <div id="price-range">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Fiyat Aralığı
+                        </label>
+                        <div class="col-xs-2 col-lg-2 pr0">
+                            @{string priceBegin = (Model.ProductPriceBegin == 0) ? "" : Convert.ToDecimal(Model.ProductPriceBegin).ToString("0#.00");
+                                string priceLast = (Model.ProductPriceLast == 0) ? "" : Convert.ToDecimal(Model.ProductPriceLast).ToString("0#.00");
+                            }
+                            <input type="text" name="ProductPriceBegin" id="ProductPriceBegin" value="@priceBegin" size="3" class="form-control" data-thousands="." data-decimal="," />
+
+
+                        </div>
+
+                        <div class="col-xs-2 col-lg-2  pl2">
+                            <input type="text" name="ProductPriceLast" value="@priceLast" id="ProductPriceLast" size="3" class="form-control" data-thousands="." data-decimal="," />
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="price-wrapper">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Fiyat
+                        </label>
+                        <div class="col-xs-3 col-lg-3">
+
+                            @{string price = (Model.ProductPrice == 0) ? "" : Convert.ToDecimal(Model.ProductPrice).ToString("0#.00");
+                            }
+                            <input type="text" class="form-control" value="@price" name="ProductPrice1" id="ProductPrice1" data-thousands="." data-decimal="," />
+                            <div class="bs-example bs-example-bg-classes">
+                                <label id="ProductPriceError" class="label label-danger" style="display: none;">
+                                    Lütfen Fiyat Giriniz.
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            İndirim Tipi
+                        </label>
+                        <div class="col-xs-2 col-lg-2">
+                            <select id="DiscountType" class="form-control" name="DiscountType">
+                                <option value="0" @(Model.DiscountType == 0 ? "selected" : "")>İndirim Yok</option>
+                                <option value="1" @(Model.DiscountType == (byte)ProductDiscountType.Percentage ? "selected" : "" )>Yüzdelik İndirim </option>
+                                <option value="2" @(Model.DiscountType == (byte)ProductDiscountType.Amount ? "selected" : "" )>Miktar İndirimi </option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="DiscountAmountContainer" style="@style">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" id="DiscountTypeLabel">
+                            @{string text = Model.DiscountType == 1 ? "Yüzdesi" : "Miktarı"; }
+                            İndirim @text
+                        </label>
+                        <div class="col-sm-3 col-lg-3">
+                            @Html.TextBoxFor(x => x.DiscountAmount, new { @class = "form-control" })
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Yeni Fiyat
+                        </label>
+                        <div class="col-sm-3">
+
+                            <input type="text" id="TotalPrice" name="TotalPrice" value="@Model.TotalPrice" class="form-control" data-thousands="." data-decimal="," />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3">
+                    </label>
+
+                    <div class="col-xs-4 col-md-4">
+                        @{bool kdv = true, kdvh = false, fob = false;
+                        }
+                        @if (Model.Kdv == true)
+                        {
+                            kdv = true;
+                            kdvh = false;
+                        }
+                        else if (Model.Fob == true)
+                        {
+                            fob = true;
+                            kdv = false;
+                            kdvh = false;
+                        }
+                        else if (Model.Kdv == false)
+                        {
+                            kdvh = true;
+                            kdv = false;
+                        }
+
+                        <label>@Html.RadioButton("pricePropertie", "kdvdahil", kdv) Kdv Dahil</label>
+
+                        <label>@Html.RadioButton("pricePropertie", "kdvharic", kdvh) Kdv Hariç</label>
+
+                        <label>@Html.RadioButton("pricePropertie", "fob", fob) Fob</label>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group" id="currencyWrapper">
+                    <label class="col-sm-3 control-label">
+                        Birim
+                    </label>
+                    <div class="col-xs-2 col-lg-2 pr0">
+                        <select class="form-control" name="UnitType" id="UnitType">
+                            <option value="0">< Seçiniz ></option>
+                            @foreach (var itemProductBriefDetail in constantItems.Where(c => c.ConstantType == ((byte)ConstantType.Birim)))
+                            {
+                                <option value="@itemProductBriefDetail.ConstantId">
+                                    @itemProductBriefDetail.ConstantName
+                                </option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-xs-3 col-md-2">
+                        @Html.DropDownListFor(m => m.CurrencyId, Model.CurrencyItems, new { @class = "form-control" })
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        Minumum
+                    </label>
+                    <div class="col-xs-2 col-lg-2 pr0">
+                        <input type="number" value="@Model.MinumumAmount" class="form-" name="MinumumAmount" />
+                    </div>
+        
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        @Html.LabelFor(m => m.ProductAdvertBeginDate)
+                    </label>
+                    <div class="col-xs-3 col-lg-2">
+                        @Html.TextBox("ProductAdvertBeginDate", Model.ProductAdvertBeginDate != null ? Model.ProductAdvertBeginDate.ToString("dd.MM.yyyy") : "", new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        @Html.LabelFor(m => m.ProductAdvertEndDate)
+                    </label>
+                    <div class="col-xs-3 col-lg-2">
+                        @Html.TextBox("ProductAdvertBeginDate", Model.ProductAdvertEndDate != null ? Model.ProductAdvertEndDate.ToString("dd.MM.yyyy") : "", new { @class = "form-control", disabled = "disabled" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        Paket Bitiş Tarihi
+                    </label>
+                    <div class="col-xs-2 col-lg-1">
+                        @Html.TextBox("ProductPublicationDate", "", new { @class = "form-control", validate = "required:true" })
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="radio-inline">
+                            @Html.RadioButton("ProductPublicationDateType", "1", false)
+                            Gün
+                        </div>
+                        <div class="radio-inline">
+                            @Html.RadioButton("ProductPublicationDateType", "2", false)
+                            Ay
+                        </div>
+                        <div class="radio-inline">
+                            @Html.RadioButton("ProductPublicationDateType", "3", false)
+                            Yıl
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        @Html.LabelFor(m => m.ProductActive)
+                    </label>
+                    <div class="col-sm-9">
+                        <label class="radio-inline">
+                            @Html.RadioButton("ProductActive", true)
+                            Aktif
+                        </label>
+                        <label class="radio-inline">
+                            @Html.RadioButton("ProductActive", false)
+                            Pasif
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 control-label">
+                        @Html.LabelFor(m => m.NewProductPicture)
+                    </label>
+                    <div class="col-xs-3 col-md-2 col-lg-1">
+                        <a id="btnUploadImages" class="btn-block btn btn-default btn-xs">
+                            Yükle
+                        </a>
+                    </div>
+                    <div class="col-xs-5">
+                        @Html.FileUploadFor(m => m.NewProductPicture, new { multiple = "multiple" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 control-label">
+                        Ürün Resimleri:
+                    </label>
+                    <div id="divPictureList" class="col-xs-12  col-sm-9">
+                        @Html.Partial("EditProductPicture", Model.ProductPictureItems)
+                        <span class="clearfix"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 control-label">
+                        Ürün Katoloğu
+                    </label>
+
+                    <div class="col-xs-5">
+                        <input type="file" id="NewProductCatolog" name="NewProductCatolog" multiple />
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12 col-sm-3 control-label">
+                        Ürün Katologları
+                    </label>
+                    <div class="col-xs-12  col-sm-9">
+                        @Html.Partial("_ProductCatologList", Model.MTProductCatologItems)
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9 btn-group">
+                        <a href="/Account/Advert/Index?ProductActive=1&DisplayType=2&currentPage=@Model.CurrentListedPage" type="submit" class="btn btn-default">İptal </a>
+                        <button type="submit" id="saveProductButton" onclick="return advertCheck();" class="btn btn-primary">
+                            Kaydet
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
         </div>
 
     </div>

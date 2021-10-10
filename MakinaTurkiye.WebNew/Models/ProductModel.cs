@@ -387,5 +387,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         public string ProductSellUrl { get; set; }
 
         public List<SelectListItem> CertificateTypes { get; set; }
+
+        public byte? MinumumAmount { get; set; }
     }
 }
