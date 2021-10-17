@@ -455,7 +455,7 @@
         [DisplayName("İlçe")]
         public int LocalityId { get; set; }
 
-        [DisplayName("Mahalla / Köy")]
+        [DisplayName("Mahalle / Köy")]
         public int TownId { get; set; }
 
         [DisplayName("Cadde")]
