@@ -26368,3 +26368,9 @@ input[name="SearchText"]::-webkit-input-placeholder {
     .product-list-mt__item_card {
     }
 }*/
+
+
+.help-block a{
+    color:#444;
+    font-weight:600;
+}
