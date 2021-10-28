@@ -903,7 +903,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             else
             {
-                var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 18 select new { u.UserName, u.UserId };
+                var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 18  select new { u.UserName, u.UserId };
                 //var users = entities.Users.OrderBy(x => x.UserName).ToList();
                 var users = users1.ToList();
                 if (curStore.PortfoyUserId == null || curStore.PortfoyUserId == 0)
@@ -920,7 +920,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 if (model.Users.Count <= 0)
                 {
-                    var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 select new { u.UserName, u.UserId };
+                    var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 18 || g.UserGroupId==22 select new { u.UserName, u.UserId };
                     //var users = entities.Users.OrderBy(x => x.UserName).ToList();
                     var users = users1.ToList();
                     if (curStore.AuthorizedId == null || curStore.AuthorizedId == 0)

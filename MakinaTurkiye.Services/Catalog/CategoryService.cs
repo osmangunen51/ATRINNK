@@ -524,7 +524,7 @@ namespace MakinaTurkiye.Services.Catalog
                     query = query.Where(c => c.Active == true);
 
                 query = query.Where(c => c.CategoryParentId == categoryParentId && c.CategoryType == (byte)categoryType);
-                query = query.OrderBy(c => c.CategoryName);
+                query = query.OrderBy(c => c.CategoryOrder).ThenBy(c=>c.CategoryName);
 
                 var categories = query.ToList();
                 return categories;

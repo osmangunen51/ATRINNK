@@ -166,12 +166,12 @@
                     deger = (DateTime)descs;
                     string degerimiz = deger.ToString();
                     var order = (from o in olustur.Orders where o.OrderId == item.OrderId select o).FirstOrDefault();
-                    if (order != null)
+                   /* if (order != null)
                     {
                                  order.OrderPacketEndDate = (DateTime)descs;
                     olustur.SaveChanges();
                     }
-
+                   */
 
                 }
             }
@@ -182,7 +182,8 @@
         }
     %>
     <td class="Cell">
-        <span id="orderEndDateDisplay<%:item.OrderId %>">
+        <%if (deger != null) { %>
+                    <span id="orderEndDateDisplay<%:item.OrderId %>">
             <%:deger.ToShortDateString() %>
         </span>
         <div style="float: right; cursor: pointer;" id="OrderEndDateChangePencil<%:item.OrderId%>" onclick="OrderEndDateChangeClick(<%:item.OrderId %>)">
@@ -193,7 +194,7 @@
             <%:Html.TextBox("orderEndDate", deger.ToShortDateString(), new { @id = "orderEndDateDataChange" + item.OrderId, @class="date", @style = "display:none;" })%>
             <button type="button" onclick="OrderEndDateUpdate(<%:item.OrderId %>)">Düzenle</button>
         </span>
-
+           <% } %>
 
     </td>
 

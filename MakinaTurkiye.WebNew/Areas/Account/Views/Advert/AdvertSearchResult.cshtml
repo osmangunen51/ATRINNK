@@ -89,23 +89,28 @@
                 }
 
                 string salesTypeName = "";
-                foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductSalesType))
+                if (modelItem.ProductSalesType.Contains(","))
                 {
-                    for (int i = 0; i < modelItem.ProductSalesType.Split(',').Length; i++)
+                    foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductSalesType))
                     {
-                        if (item.ConstantId == Convert.ToInt32(modelItem.ProductSalesType.Split(',').GetValue(i)))
+                        for (int i = 0; i < modelItem.ProductSalesType.Split(',').Length; i++)
                         {
-                            if (string.IsNullOrWhiteSpace(salesTypeName))
+                            if (item.ConstantId == Convert.ToInt32(modelItem.ProductSalesType.Split(',').GetValue(i)))
                             {
-                                salesTypeName = item.ConstantName;
-                            }
-                            else
-                            {
-                                salesTypeName = salesTypeName + " - " + item.ConstantName;
+                                if (string.IsNullOrWhiteSpace(salesTypeName))
+                                {
+                                    salesTypeName = item.ConstantName;
+                                }
+                                else
+                                {
+                                    salesTypeName = salesTypeName + " - " + item.ConstantName;
+                                }
                             }
                         }
                     }
+
                 }
+
                 <div class="row">
                                     <div class="hidden-xs hidden-sm col-md-3">
                                         @{

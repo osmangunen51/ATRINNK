@@ -219,6 +219,8 @@ function siteChangeVideo() {
 
     $(document).on('click', '.js-video-slide-item', function () {
         var videoPath = $(this).attr('data-videopath');
+        var videoTitle = $(this).attr('video-title');
+        $("#c-video-title").html(videoTitle);
         videoViewOnModalShow(videoPath);
     });
 }

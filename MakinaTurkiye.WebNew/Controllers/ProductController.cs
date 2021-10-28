@@ -936,7 +936,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     videoModels.Add(new MTProductVideoModel
                     {
                         VideoId = item.VideoId,
-                        VideoTitle = item.Product.ProductName,
+                        VideoTitle = item.VideoTitle,
                         VideoPicturePath = ImageHelper.GetVideoImagePath(item.VideoPicturePath),
                         VideoPath = VideoHelper.GetVideoPath(item.VideoPath)
                     });
