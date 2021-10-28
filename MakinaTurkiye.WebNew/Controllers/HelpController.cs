@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
-using NeoSistem.MakinaTurkiye.Web.Models;
+﻿using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Utilities.HttpHelpers;
-using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Utilities.Mvc;
 using NeoSistem.MakinaTurkiye.Web.Models.Help;
 using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-using MakinaTurkiye.Utilities.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -46,9 +45,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             foreach (var item in helpCategories)
             {
                 string url = UrlBuilder.GetHelpCategoryUrl(item.CategoryId, item.CategoryName);
-                model.Add(new MTHelpMenuModel { CategoryId = item.CategoryId, CategoryName = item.CategoryName,
+                model.Add(new MTHelpMenuModel
+                {
+                    CategoryId = item.CategoryId,
+                    CategoryName = item.CategoryName,
                     CategoryParentId = item.CategoryParentId.GetValueOrDefault(),
-                    HelpUrl = url });
+                    HelpUrl = url
+                });
             }
             return View(model);
 
@@ -71,8 +74,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             foreach (var item in helpCategories)
             {
                 string url = UrlBuilder.GetHelpCategoryUrl(item.CategoryId, item.CategoryName);
-                menuModels.Add(new MTHelpMenuModel { CategoryId = item.CategoryId, CategoryName = item.CategoryName,
-                                                    CategoryParentId = item.CategoryParentId.GetValueOrDefault(), HelpUrl = url });
+                menuModels.Add(new MTHelpMenuModel
+                {
+                    CategoryId = item.CategoryId,
+                    CategoryName = item.CategoryName,
+                    CategoryParentId = item.CategoryParentId.GetValueOrDefault(),
+                    HelpUrl = url
+                });
             }
 
             MTHelpTopModel model = new MTHelpTopModel();
@@ -97,7 +105,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             var request = HttpContext.Request;
             string helpUrl = UrlBuilder.GetHelpCategoryUrl(category.CategoryId, category.CategoryName);
-            string absUrl=request.Url.AbsolutePath;
+            string absUrl = request.Url.AbsolutePath;
 
             //#if !DEBUG
             //      absUrl=request.Url.AbsoluteUri;
@@ -117,8 +125,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 foreach (var item in subHelpCategories)
                 {
                     string url = UrlBuilder.GetHelpCategoryUrl(item.CategoryId, item.CategoryName);
-                    model.SubMenuItemModels.Add(new MTHelpMenuModel { CategoryId = item.CategoryId, CategoryName = item.CategoryName,
-                                                        CategoryParentId = item.CategoryParentId.GetValueOrDefault(), HelpUrl = url });
+                    model.SubMenuItemModels.Add(new MTHelpMenuModel
+                    {
+                        CategoryId = item.CategoryId,
+                        CategoryName = item.CategoryName,
+                        CategoryParentId = item.CategoryParentId.GetValueOrDefault(),
+                        HelpUrl = url
+                    });
                 }
 
                 model.CategoryId = category.CategoryId;

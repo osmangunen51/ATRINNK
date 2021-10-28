@@ -1,8 +1,4 @@
-﻿using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreImage
 {

@@ -1,46 +1,41 @@
-﻿using MakinaTurkiye.Entities.Tables.Catalog;
+﻿using MakinaTurkiye.Entities.StoredProcedures.Catalog;
+using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Entities.Tables.Common;
+using MakinaTurkiye.Entities.Tables.Media;
+using MakinaTurkiye.Entities.Tables.Videos;
+using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Media;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Packets;
+using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Services.Videos;
+using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Utilities.FileHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
-using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Services.Videos;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Services.Packets;
-using MakinaTurkiye.Utilities.FileHelpers;
-using MakinaTurkiye.Services.Media;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Entities.Tables.Videos;
-using MakinaTurkiye.Entities.Tables.Media;
-using MakinaTurkiye.Entities.StoredProcedures.Catalog;
-
 using NeoSistem.EnterpriseEntity.Extensions.Data;
-using NeoSistem.MakinaTurkiye.Web.Helpers;
-using NeoSistem.MakinaTurkiye.Web.Models;
-using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
+using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
-using NeoSistem.MakinaTurkiye.Web.Models.Adverts;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Catologs;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
+using NeoSistem.MakinaTurkiye.Web.Models;
+using NeoSistem.MakinaTurkiye.Web.Models.Adverts;
+using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Products;
-
+using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
+using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
-using System.Text;
-using System.IO;
-using System.Globalization;
 using System.Web.UI;
-
-using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
-using MakinaTurkiye.Utilities.Controllers;
-using MakinaTurkiye.Services;
-using MakinaTurkiye.Utilities.MailHelpers;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -750,7 +745,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     }
                 }
 
-                model.MinumumAmount = product.MinumumAmount.HasValue?product.MinumumAmount.Value:(byte)1;
+                model.MinumumAmount = product.MinumumAmount.HasValue ? product.MinumumAmount.Value : (byte)1;
                 return View(model);
             }
             return RedirectToAction("Index");
@@ -2713,7 +2708,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 ProductPriceType = Convert.ToByte(productPriceType),
                 ProductSellUrl = modelProduct.ProductSellUrl,
                 Keywords = PrepareKeyword(productName),
-                MinumumAmount=modelProduct.MinumumAmount.HasValue ? modelProduct.MinumumAmount.Value:(byte)1
+                MinumumAmount = modelProduct.MinumumAmount.HasValue ? modelProduct.MinumumAmount.Value : (byte)1
 
             };
             string productPrice = ProductPrice1;

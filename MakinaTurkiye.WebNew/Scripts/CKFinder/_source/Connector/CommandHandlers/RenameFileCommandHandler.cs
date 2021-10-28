@@ -15,103 +15,103 @@ using System.Xml;
 
 namespace CKFinder.Connector.CommandHandlers
 {
-	internal class RenameFileCommandHandler : XmlCommandHandlerBase
-	{
-		public RenameFileCommandHandler()
-			: base()
-		{
-		}
+    internal class RenameFileCommandHandler : XmlCommandHandlerBase
+    {
+        public RenameFileCommandHandler()
+            : base()
+        {
+        }
 
-		protected override void BuildXml()
-		{
-			if ( !this.CurrentFolder.CheckAcl( AccessControlRules.FileRename ) )
-			{
-				ConnectorException.Throw( Errors.Unauthorized );
-			}
+        protected override void BuildXml()
+        {
+            if (!this.CurrentFolder.CheckAcl(AccessControlRules.FileRename))
+            {
+                ConnectorException.Throw(Errors.Unauthorized);
+            }
 
-			string fileName = Request["fileName"];
-			string newFileName = Request["newFileName"];
+            string fileName = Request["fileName"];
+            string newFileName = Request["newFileName"];
 
-			XmlNode oRenamedFileNode = XmlUtil.AppendElement( this.ConnectorNode, "RenamedFile" );
-			XmlUtil.SetAttribute( oRenamedFileNode, "name", fileName );
+            XmlNode oRenamedFileNode = XmlUtil.AppendElement(this.ConnectorNode, "RenamedFile");
+            XmlUtil.SetAttribute(oRenamedFileNode, "name", fileName);
 
-			if ( !Connector.CheckFileName( fileName ) || Config.Current.CheckIsHiddenFile( fileName ) )
-			{
-				ConnectorException.Throw( Errors.InvalidRequest );
-				return;
-			}
+            if (!Connector.CheckFileName(fileName) || Config.Current.CheckIsHiddenFile(fileName))
+            {
+                ConnectorException.Throw(Errors.InvalidRequest);
+                return;
+            }
 
-			if ( !this.CurrentFolder.ResourceTypeInfo.CheckExtension( System.IO.Path.GetExtension( fileName ) ) )
-			{
-				ConnectorException.Throw( Errors.InvalidRequest );
-				return;
-			}
+            if (!this.CurrentFolder.ResourceTypeInfo.CheckExtension(System.IO.Path.GetExtension(fileName)))
+            {
+                ConnectorException.Throw(Errors.InvalidRequest);
+                return;
+            }
 
-			if ( !Connector.CheckFileName( newFileName ) || Config.Current.CheckIsHiddenFile( newFileName ) )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-				return;
-			}
+            if (!Connector.CheckFileName(newFileName) || Config.Current.CheckIsHiddenFile(newFileName))
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+                return;
+            }
 
-			if ( !this.CurrentFolder.ResourceTypeInfo.CheckExtension( System.IO.Path.GetExtension( newFileName ) ) )
-				ConnectorException.Throw( Errors.InvalidExtension );
+            if (!this.CurrentFolder.ResourceTypeInfo.CheckExtension(System.IO.Path.GetExtension(newFileName)))
+                ConnectorException.Throw(Errors.InvalidExtension);
 
-			string filePath = System.IO.Path.Combine( this.CurrentFolder.ServerPath, fileName );
-			string newFilePath = System.IO.Path.Combine( this.CurrentFolder.ServerPath, newFileName );
+            string filePath = System.IO.Path.Combine(this.CurrentFolder.ServerPath, fileName);
+            string newFilePath = System.IO.Path.Combine(this.CurrentFolder.ServerPath, newFileName);
 
-			bool bMoved = false;
+            bool bMoved = false;
 
-			if ( !System.IO.File.Exists( filePath ) )
-				ConnectorException.Throw( Errors.FileNotFound );
+            if (!System.IO.File.Exists(filePath))
+                ConnectorException.Throw(Errors.FileNotFound);
 
-			if ( System.IO.File.Exists( newFilePath ) || System.IO.Directory.Exists( newFilePath ) )
-				ConnectorException.Throw( Errors.AlreadyExist );
+            if (System.IO.File.Exists(newFilePath) || System.IO.Directory.Exists(newFilePath))
+                ConnectorException.Throw(Errors.AlreadyExist);
 
-			try
-			{
-				System.IO.File.Move( filePath, newFilePath );
-				bMoved = true;
+            try
+            {
+                System.IO.File.Move(filePath, newFilePath);
+                bMoved = true;
 
-				XmlUtil.SetAttribute( oRenamedFileNode, "newName", newFileName );
-			}
-			catch ( System.UnauthorizedAccessException )
-			{
-				ConnectorException.Throw( Errors.AccessDenied );
-			}
-			catch ( System.Security.SecurityException )
-			{
-				ConnectorException.Throw( Errors.AccessDenied );
-			}
-			catch ( System.ArgumentException )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-			}
-			catch ( System.NotSupportedException )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-			}
-			catch ( System.IO.PathTooLongException )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-			}
-			catch ( System.IO.IOException )
-			{
-				ConnectorException.Throw( Errors.Unknown );
-			}
-			catch ( Exception )
-			{
-				ConnectorException.Throw( Errors.Unknown );
-			}
+                XmlUtil.SetAttribute(oRenamedFileNode, "newName", newFileName);
+            }
+            catch (System.UnauthorizedAccessException)
+            {
+                ConnectorException.Throw(Errors.AccessDenied);
+            }
+            catch (System.Security.SecurityException)
+            {
+                ConnectorException.Throw(Errors.AccessDenied);
+            }
+            catch (System.ArgumentException)
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+            }
+            catch (System.NotSupportedException)
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+            }
+            catch (System.IO.PathTooLongException)
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+            }
+            catch (System.IO.IOException)
+            {
+                ConnectorException.Throw(Errors.Unknown);
+            }
+            catch (Exception)
+            {
+                ConnectorException.Throw(Errors.Unknown);
+            }
 
-			if ( bMoved )
-			{
-				try
-				{
-					string thumbPath = System.IO.Path.Combine( this.CurrentFolder.ThumbsServerPath, fileName );
-					System.IO.File.Delete( thumbPath );
-				}
-				catch { /* No errors if we are not able to delete the thumb. */ }
-			}
-		}
-	}
+            if (bMoved)
+            {
+                try
+                {
+                    string thumbPath = System.IO.Path.Combine(this.CurrentFolder.ThumbsServerPath, fileName);
+                    System.IO.File.Delete(thumbPath);
+                }
+                catch { /* No errors if we are not able to delete the thumb. */ }
+            }
+        }
+    }
 }

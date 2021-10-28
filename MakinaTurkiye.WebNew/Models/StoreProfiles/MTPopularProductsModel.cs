@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 {
     public class MTPopularProductsModel
     {
@@ -19,6 +14,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
         public int? FavoriteProductId { get; set; }
         public bool HasVideo { get; set; }
         public string ProductPriceWithDiscount { get; set; }
-        
+
     }
 }

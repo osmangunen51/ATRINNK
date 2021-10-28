@@ -1,8 +1,5 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
 {

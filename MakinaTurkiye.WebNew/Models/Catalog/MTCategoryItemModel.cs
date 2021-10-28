@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
 {
     public class MTCategoryItemModel
     {
@@ -15,9 +10,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public string DefaultCategoryName { get; set; }
         public byte OrderNo { get; set; }
         public int ProductCount { get; set; }
-        public string TruncatedCategoryName { get;  set; }
+        public string TruncatedCategoryName { get; set; }
         public string CategoryIcon { get; set; }
-        
+
         public string CategoryContentTitle { get; set; }
     }
 }

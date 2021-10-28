@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
 {
@@ -27,8 +24,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
         public string InvoiceNumber { get; set; }
         public bool? PriceCheck { get; set; }
         public string OrderDescription { get; set; }
-        public string PacketName { get; set; } 
+        public string PacketName { get; set; }
         public decimal RestAmount { get; set; }
-        
+
     }
 }

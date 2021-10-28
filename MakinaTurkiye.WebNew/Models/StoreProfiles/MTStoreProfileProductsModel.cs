@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 {
@@ -18,7 +15,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
         public byte GroupType { get; set; }
         public int CategoryId { get; set; }
         public byte StoreActiveType { get; set; }
-     
+
 
         public MTProductsProductListModel MTProductsProductListModel { get; set; }
         public MTStoreProfileHeaderModel MTStoreProfileHeaderModel { get; set; }

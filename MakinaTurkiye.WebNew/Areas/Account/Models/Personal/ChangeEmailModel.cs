@@ -1,8 +1,4 @@
 ﻿#region Using Directives
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using NeoSistem.MakinaTurkiye.Web.Models;
 #endregion
 
@@ -12,7 +8,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Personal
     {
         #region Public Properties
         public MemberModel Member { get; set; }
-        public LeftMenuModel LeftMenu { get; set; } 
+        public LeftMenuModel LeftMenu { get; set; }
         #endregion
     }
 }

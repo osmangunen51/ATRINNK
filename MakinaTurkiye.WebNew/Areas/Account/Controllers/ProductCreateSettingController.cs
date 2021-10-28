@@ -1,24 +1,13 @@
-﻿using MakinaTurkiye.Services.Members;
+﻿using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Utilities.Controllers;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Users;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using MakinaTurkiye.Entities.Tables.Members;
-using NeoSistem.MakinaTurkiye.Web.Models;
-using System.Transactions;
-using System.Globalization;
-using MakinaTurkiye.Services.Messages;
-using MakinaTurkiye.Utilities.MailHelpers;
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Utilities.Controllers;
-using MakinaTurkiye.Services.Catalog;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Entities.Tables.Catalog;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -30,7 +19,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
 
 
-        public ProductCreateSettingController(IStoreProductCreateSettingService storeCreateProductSettingService, 
+        public ProductCreateSettingController(IStoreProductCreateSettingService storeCreateProductSettingService,
             IMemberStoreService memberStoreService,
             IConstantService constantService)
         {
@@ -45,7 +34,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             ProductCreateSettingModel model = new ProductCreateSettingModel();
             int mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(mainPartyId);
-        
+
             model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.MyAds, (byte)LeftMenuConstants.MyAd.Settings);
 
             var productSettingProperties = _storeCreateProductSettingService.GetStoreProductCreateProperties();
@@ -73,7 +62,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 itemModel.Value = constant != null ? constant.ConstantName : productSetting.Value;
                 model.ProductCreateSettingItems.Add(itemModel);
             }
-            
+
             return View(model);
         }
 
@@ -87,7 +76,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 text += String.Format("<option value='{0}'>{1}</option>", item.ConstantId, item.ConstantName);
             }
-            return Json(new {content=text }, JsonRequestBehavior.AllowGet);
+            return Json(new { content = text }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -101,6 +90,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             _storeCreateProductSettingService.InsertStoreProductCreateSetting(productCreateSetting);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-   
+
     }
 }

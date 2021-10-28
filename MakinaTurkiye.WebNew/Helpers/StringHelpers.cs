@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Text.RegularExpressions;
+using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
-using System.Text;
-using System.Web.UI;
-using System.Globalization;
 
 namespace NeoSistem.MakinaTurkiye.Web.Helpers
 {
@@ -133,10 +128,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
         }
         public static string PriceForJson(this decimal value)
         {
-       
+
             string price = "";
             var culturInfo = new CultureInfo("tr-TR");
-            if(value>0)
+            if (value > 0)
             {
                 price = value.ToString("0.00");
 
@@ -173,7 +168,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
         }
         public static string CheckNullCurrencySymbolString(this string value)
         {
-            return string.IsNullOrEmpty(value) == false ? value : "₺"; 
+            return string.IsNullOrEmpty(value) == false ? value : "₺";
         }
 
         public static string CleanProductDescriptionText(this string value)
@@ -185,7 +180,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
                 return cleanedText;
             }
             return value;
-       
+
         }
 
     }

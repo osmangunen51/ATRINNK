@@ -12,7 +12,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
@@ -24,7 +23,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private readonly IStoreNewService _storeNewService;
         private readonly IPhoneService _phoneService;
         private readonly IStoreService _storeService;
-        
+
         public StoreNewController(IStoreNewService storeNewService, IPhoneService phoneService, IStoreService storeService)
         {
             this._storeNewService = storeNewService;
@@ -35,16 +34,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             _storeService.CachingGetOrSetOperationEnabled = true;
         }
         // GET: StoreNew
-        public ActionResult Index(string page,byte? newType)
+        public ActionResult Index(string page, byte? newType)
         {
             int p = 1;
             int pageDimension = 18;
             if (!string.IsNullOrEmpty(page)) p = Convert.ToInt32(page);
-  
-            if (newType == null)
-                newType =1;
 
-            var storeNews = _storeNewService.GetAllStoreNews(pageDimension,p, newType.Value);
+            if (newType == null)
+                newType = 1;
+
+            var storeNews = _storeNewService.GetAllStoreNews(pageDimension, p, newType.Value);
             //if (newType == (byte)StoreNewType.Normal)
             //    SeoPageType = (byte)PageType.StoreNewHome;
             //else
@@ -63,11 +62,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 string imagePath = ImageHelper.GetStoreNewImagePath(item.ImageName, StoreNewImageSize.px300x300.ToString());
                 var store = _storeService.GetStoreByMainPartyId(item.StoreMainPartyId);
 
-                list.Add(new MTStoreNewItemModel { DateString = item.RecordDate.ToString("dd MMM,yyyy", CultureInfo.InvariantCulture),
+                list.Add(new MTStoreNewItemModel
+                {
+                    DateString = item.RecordDate.ToString("dd MMM,yyyy", CultureInfo.InvariantCulture),
                     NewUrl = UrlBuilder.GetStoreNewUrl(item.StoreNewId, item.Title),
-                    StoreName = store.StoreName, Title = item.Title,
+                    StoreName = store.StoreName,
+                    Title = item.Title,
                     StoreUrl = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName),
-                    ImagePath=imagePath
+                    ImagePath = imagePath
                 });
 
             }
@@ -76,7 +78,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ViewBag.Canonical = "https://haber.makinaturkiye.com";
             return View(model);
         }
-      
+
         public ActionResult Detail(int? newId)
         {
             if (!newId.HasValue)
@@ -102,7 +104,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.Title = storeNew.Title;
             model.UpdateDate = storeNew.UpdateDate;
 
-           
+
             MTNewStoreModel newStoreModel = new MTNewStoreModel();
             newStoreModel.StoreName = store.StoreShortName;
             newStoreModel.StoreUrl = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
@@ -115,7 +117,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             model.NewStoreModel = newStoreModel;
 
-            var storeNews = _storeNewService.GetStoreNewsTop(6,storeNew.NewType).Where(x => x.StoreNewId != newId);
+            var storeNews = _storeNewService.GetStoreNewsTop(6, storeNew.NewType).Where(x => x.StoreNewId != newId);
             foreach (var item in storeNews)
             {
                 var st = _storeService.GetStoreByMainPartyId(item.StoreMainPartyId);
@@ -132,7 +134,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 });
             }
 
-            ViewBag.Canonical =Request.Url.AbsolutePath.ToString();
+            ViewBag.Canonical = Request.Url.AbsolutePath.ToString();
             storeNew.ViewCount += 1;
             _storeNewService.UpdateStoreNew(storeNew);
 

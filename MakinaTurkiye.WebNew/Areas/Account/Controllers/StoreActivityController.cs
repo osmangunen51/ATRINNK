@@ -5,11 +5,7 @@ using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.Controllers;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores;
-using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.Home;
-
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -32,9 +28,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._memberStoreService = memberStoreService;
             this._storeActivityCategoryService = storeActivityCategoryService;
 
-            this._categoryService.CachingGetOrSetOperationEnabled=false;
-            this._storeService.CachingGetOrSetOperationEnabled=false;
-            this._memberStoreService.CachingGetOrSetOperationEnabled=false;
+            this._categoryService.CachingGetOrSetOperationEnabled = false;
+            this._storeService.CachingGetOrSetOperationEnabled = false;
+            this._memberStoreService.CachingGetOrSetOperationEnabled = false;
         }
         // GET: Account/StoreActivity
         public ActionResult Index()
@@ -52,7 +48,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     Value = item.CategoryId.ToString(),
                     Text = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName
                 };
-                if (storeActivities.FirstOrDefault(x => x.CategoryId == item.CategoryId)!=null)
+                if (storeActivities.FirstOrDefault(x => x.CategoryId == item.CategoryId) != null)
                 {
                     itemCategory.Selected = true;
                 }
@@ -71,7 +67,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             int storeMainPartyId = _memberStoreService.GetMemberStoreByMemberMainPartyId(memberMainPartyId).StoreMainPartyId.Value;
             var store = _storeService.GetStoreByMainPartyId(storeMainPartyId);
-            if (subcategory!=null && subcategory.Length > 0)
+            if (subcategory != null && subcategory.Length > 0)
             {
                 foreach (var item in subcategory)
                 {
@@ -91,7 +87,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             else
             {
                 TempData["ErrorMessage"] = "Lütfen kategori seçiniz";
-            }       
+            }
             return RedirectToAction("Index");
         }
 

@@ -3,15 +3,15 @@ using MakinaTurkiye.Entities.Tables.Stores;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.ViewModels
 {
-  public class ProductSalesViewModel
-  {
-    //public ProductDetailInfo ProductDetailInfo { get; set; }
+    public class ProductSalesViewModel
+    {
+        //public ProductDetailInfo ProductDetailInfo { get; set; }
 
-    public Product Product { get; set; }
+        public Product Product { get; set; }
 
-    public Store Store { get; set; }
+        public Store Store { get; set; }
 
-    public PacketModel PacketModel { get; set; }
+        public PacketModel PacketModel { get; set; }
 
-  }
+    }
 }

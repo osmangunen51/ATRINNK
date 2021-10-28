@@ -1,13 +1,13 @@
 namespace NeoSistem.MakinaTurkiye.Web.Models.Validation
 {
-  using Properties;
-  public class StringLengthValidationAttribute : System.ComponentModel.DataAnnotations.StringLengthAttribute
-  {
-    public StringLengthValidationAttribute(int maximumLength)
-      : base(maximumLength)
+    using Properties;
+    public class StringLengthValidationAttribute : System.ComponentModel.DataAnnotations.StringLengthAttribute
     {
-      ErrorMessageResourceName = "StringLengthValidation";
-      ErrorMessageResourceType = typeof(Resources);
+        public StringLengthValidationAttribute(int maximumLength)
+          : base(maximumLength)
+        {
+            ErrorMessageResourceName = "StringLengthValidation";
+            ErrorMessageResourceType = typeof(Resources);
+        }
     }
-  }
 }

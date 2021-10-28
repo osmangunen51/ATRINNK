@@ -1,15 +1,4 @@
-﻿using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Services.Seos;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MakinaTurkiye.Entities.Tables.Seos;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Catalog;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models
 {
 
     //public class SeoModel
@@ -164,7 +153,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
     //                    }
     //                    else
     //                        tempSeo.Keywords = tempSeo.Keywords.Replace(item.Value, GetSessionName(item.Value));
-                   
+
     //                }
 
     //                if (tempSeo.RevisitAfter != null && tempSeo.RevisitAfter.Contains(item.Value))

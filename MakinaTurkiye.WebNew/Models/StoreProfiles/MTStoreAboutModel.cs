@@ -1,8 +1,4 @@
 ﻿using MakinaTurkiye.Entities.Tables.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 {
@@ -30,8 +26,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
         public string TradeRegistrNo { get; set; }
         public string MersisNo { get; set; }
         public string StoreShortName { get; set; }
-       
 
-        public  StoreInfoNumberShow StoreInfoNumberShow { get; set; }
-    } 
+
+        public StoreInfoNumberShow StoreInfoNumberShow { get; set; }
+    }
 }

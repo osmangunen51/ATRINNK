@@ -1,11 +1,11 @@
 ﻿using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Services.Media;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
 using System;
-using MakinaTurkiye.Services.Media;
 
 namespace NeoSistem.MakinaTurkiye.Web.Factories
 {
@@ -38,13 +38,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Factories
             var productModel = new MTCategoryProductModel
             {
                 BrandId = product.BrandId,
-                BrandName = product.Brand!=null ?  product.Brand.CategoryName:"",
+                BrandName = product.Brand != null ? product.Brand.CategoryName : "",
                 //BriefDetailText = product.BriefDetailText,
                 CategoryId = product.CategoryId,
 
                 MainPartyId = product.MainPartyId,
                 ModelId = product.ModelId,
-                ModelName = product.Model!=null ? product.Model.CategoryName:"",
+                ModelName = product.Model != null ? product.Model.CategoryName : "",
                 ModelYear = product.ModelYear,
                 PicturePath = picturePath,
                 ProductId = product.ProductId,

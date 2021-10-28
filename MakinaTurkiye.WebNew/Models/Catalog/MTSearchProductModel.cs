@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
 {
     public class MTSearchProductModel
     {
@@ -36,7 +31,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public int? SeriesId { get; set; }
         public int? ModelId { get; set; }
 
-        public byte ?ProductPriceType { get; set; }
+        public byte? ProductPriceType { get; set; }
         public decimal? ProductPriceBegin { get; set; }
         public decimal? ProductPriceLast { get; set; }
         public string WarrantyPeriod { get; set; }

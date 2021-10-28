@@ -1,9 +1,6 @@
 ﻿using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Members;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Messages
 {

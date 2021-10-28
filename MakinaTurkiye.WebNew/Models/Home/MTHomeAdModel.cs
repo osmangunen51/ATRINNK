@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.Home
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.Home
 {
     public class MTHomeAdModel
     {
@@ -20,7 +15,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
         public bool IsFavoriteProduct { get; set; }
         public string ProductPrice { get; set; }
         public string CurrencyCssName { get; set; }
-        
+
         public string CurrencyCss { get; set; }
         public string CurrencyName { get; set; }
         public byte? ProductPriceType { get; set; }

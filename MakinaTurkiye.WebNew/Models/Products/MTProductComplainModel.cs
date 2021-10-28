@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Products
 {
@@ -21,7 +18,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public string UserPhone { get; set; }
         public string UserComment { get; set; }
         public Int16 IsMember { get; set; }
-        
+
         public List<MTProductComplainTypeItemModel> ComplainTypeItemModels { get; set; }
     }
 }

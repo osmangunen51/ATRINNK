@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Home
 {
@@ -17,6 +14,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
         public int Index { get; set; }
         public string BackgrounCss { get; set; }
         public string TabBackgroundCss { get; set; }
-        
+
     }
 }

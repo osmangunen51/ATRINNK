@@ -123,7 +123,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var smnIndex = new SitemapIndexNode
                 {
                     lastmodified = DateTime.Now,
-                    location = URL + "Sitemaps/"+sitemapFile
+                    location = URL + "Sitemaps/" + sitemapFile
                 };
                 smIndex.items.Add(smnIndex);
             }
@@ -159,7 +159,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             // push sitemaps to search engines
             var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, "Products/" + rootSitemapFileName);
-            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Products/"+rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Products/" + rootSitemapFileName);
 
             return Content("OK!");
         }
@@ -212,12 +212,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             string resultXml = XmlHelper.SerializeToString(smIndex, Encoding.UTF8);
-            string rootSitemapFileName ="rootSitemap.xml";
+            string rootSitemapFileName = "rootSitemap.xml";
             FileHelper.WriteToFile("/Sitemaps/Stores/" + rootSitemapFileName, resultXml);
 
             // push sitemaps to search engines
             var resultGoogle = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.google, "Stores/" + rootSitemapFileName);
-            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Stores/"+ rootSitemapFileName);
+            var resultBing = new NotifySearchEngines().push(NotifySearchEngines.SearchEngine.bing, "Stores/" + rootSitemapFileName);
 
             this.generateSitemapForStores();
 
@@ -497,9 +497,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
             var urls = categories.ToDictionary(entry =>
-            entry.CategoryId!=0?
+            entry.CategoryId != 0 ?
             UrlBuilder.GetCategoryUrl(entry.CategoryId,
-                                                     !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, ""):
+                                                     !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "") :
                                                      "https://www.makinaturkiye.com",
                                                      entry => DateTime.Now);
             var sitemap = new XDocument(

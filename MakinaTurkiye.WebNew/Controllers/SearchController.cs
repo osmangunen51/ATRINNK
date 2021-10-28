@@ -1,13 +1,9 @@
 ﻿using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Search;
 using MakinaTurkiye.Utilities.Mvc;
-using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
@@ -55,7 +51,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
             if (Request.Url.AbsoluteUri.ToString().Contains("urun"))
             {
-                return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash+"/search/index");
+                return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + "/search/index");
             }
             bool DeveloperGosterim = false;
             List<string> IpAdresListesi = new List<string>();
@@ -99,8 +95,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         EklenenSayisi++;
                         Sonuc.suggestions.Add(ItemOneri);
                         EklenenListesi.Add(ItemOneri.Name.Trim());
-                        if (EklenenSayisi>7)
-                        EklenenListesi.Add(ItemOneri.Name);
+                        if (EklenenSayisi > 7)
+                            EklenenListesi.Add(ItemOneri.Name);
                         if (EklenenSayisi > 7)
                         {
                             break;
@@ -152,7 +148,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             EklenenSayisi++;
                             Sonuc.suggestions.Add(ItemOneri);
                             EklenenListesi.Add(ItemOneri.Name);
-                            if (EklenenSayisi >3)
+                            if (EklenenSayisi > 3)
                             {
                                 break;
                             }
@@ -160,7 +156,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                 }
                 #endregion Kategori
-                
+
                 #region Firma
                 var DtFirma = DbSonucListesi.Where(x => x.Category == "Firmalar").ToList();
                 DtFirma = DtFirma.Distinct().OrderByDescending(x => x.Score).ToList();
@@ -180,7 +176,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     foreach (var item in DtFirma)
                     {
                         SearchAutoCompleteItem ItemOneri;
-                       
+
                         if (DeveloperGosterim)
                         {
 

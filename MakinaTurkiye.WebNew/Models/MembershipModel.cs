@@ -1,15 +1,15 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Web.Models
 {
+    using EnterpriseEntity.Extensions;
+    using EnterpriseEntity.Extensions.Data;
+    using NeoSistem.EnterpriseEntity.Business;
+    using NeoSistem.MakinaTurkiye.Web.Models.Validation;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using System.Linq;
     using System.Web.Mvc;
-    using EnterpriseEntity.Extensions;
-    using EnterpriseEntity.Extensions.Data;
-    using NeoSistem.EnterpriseEntity.Business;
-    using NeoSistem.MakinaTurkiye.Web.Models.Validation;
 
     //[PropertiesMustMatch("MemberPassword", "MemberPasswordAgain", ErrorMessage = "Yeni şifre ve onay şifre eşleşmiyor.")]
     //[PropertiesMustMatch("MemberEmail", "MemberEmailAgain", ErrorMessage = "E-Posta adresleri eşleşmiyor")]

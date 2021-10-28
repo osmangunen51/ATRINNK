@@ -1,26 +1,23 @@
-﻿using System;
-using System.Linq;
-using System.Web.Mvc;
-using System.Collections.Generic;
-
-
+﻿using MakinaTurkiye.Entities.Tables.Common;
+using MakinaTurkiye.Entities.Tables.Messages;
+using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Messages;
+using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Utilities.HttpHelpers;
 using NeoSistem.EnterpriseEntity.Extensions.Data;
-using NeoSistem.MakinaTurkiye.Web.Models;
-using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Personal;
 using NeoSistem.MakinaTurkiye.Web.Helpers;
-
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Utilities.HttpHelpers;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Entities.Tables.Messages;
-using MakinaTurkiye.Services.Messages;
-using MakinaTurkiye.Utilities.Controllers;
+using NeoSistem.MakinaTurkiye.Web.Models;
+using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {

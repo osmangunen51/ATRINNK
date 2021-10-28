@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.Videos
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.Videos
 {
     public class MTPopularVideoModel
     {
@@ -13,6 +8,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Videos
         public string TruncatetStoreName { get; set; }
         public string ProductName { get; set; }
         public string CategoryName { get; set; }
-        
+
     }
 }

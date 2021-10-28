@@ -1,25 +1,21 @@
-using MakinaTurkiye.Core;
 using MakinaTurkiye.Entities.StoredProcedures.Stores;
+using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Seos;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.FormatHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
-
+using MakinaTurkiye.Utilities.Mvc;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Stores;
 using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-using MakinaTurkiye.Utilities.Mvc;
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using MakinaTurkiye.Services.Seos;
-using MakinaTurkiye.Entities.Tables.Catalog;
-using System.Threading.Tasks;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -479,9 +475,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IList<Navigation> alMenu = new List<Navigation>();
             alMenu.Add(new Navigation("Firmalar", AppSettings.StoreAllUrl, Navigation.TargetType._self));
             var topCategories = model.StoreCategoryModel.StoreTopCategoryItemModels;
-            foreach (var item in topCategories.Where(x=>x.CategoryType==0 | x.CategoryType==1 | x.CategoryType == 2))
+            foreach (var item in topCategories.Where(x => x.CategoryType == 0 | x.CategoryType == 1 | x.CategoryType == 2))
             {
-                var url =item.CategoryUrl;
+                var url = item.CategoryUrl;
                 alMenu.Add(new Navigation(item.CategoryContentTitle, url, Navigation.TargetType._self));
             }
             model.Navigation = LoadNavigationV3(alMenu);
@@ -509,8 +505,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     storeModel.SelectedCategoryContentTitle = lastCategory.CategoryContentTitle;
                     storeModel.SelectedCategoryName = lastCategory.DefaultCategoryName;
-                    if(lastCategory.CategoryType!=(byte)CategoryType.Sector)
-                    storeModel.SelectedCategoryProductUrlForStoreProfile = UrlBuilder.GetStoreProfileProductCategoryUrl(lastCategory.CategoryId, lastCategory.CategoryName.Replace(" Firmaları", ""), item.StoreUrlName);
+                    if (lastCategory.CategoryType != (byte)CategoryType.Sector)
+                        storeModel.SelectedCategoryProductUrlForStoreProfile = UrlBuilder.GetStoreProfileProductCategoryUrl(lastCategory.CategoryId, lastCategory.CategoryName.Replace(" Firmaları", ""), item.StoreUrlName);
                 }
 
                 storeModel.StoreShortName = item.StoreShortName;
@@ -550,7 +546,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     foreach (var productItem in productsForStore)
                     {
-                        if (productItem!=null)
+                        if (productItem != null)
                         {
                             if (!string.IsNullOrEmpty(productItem.MainPicturePath))
                             {
@@ -671,7 +667,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             Category category = null;
 
-            if (!Request.IsLocal && categoryId==0)
+            if (!Request.IsLocal && categoryId == 0)
             {
                 //if (Request.Url.ToString().ToLower().Contains("sirketler")){
                 //    return RedirectPermanent(AppSettings.StoreAllUrl);
@@ -778,9 +774,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //filer adddress
             PrepareAdressFilterModel(model, searchBasedOnFilterableCityIds, searchBasedOnFilterableLocalityIds);
 
-            PrepareActivityTypeFilterModelNew(filterableActivityIds,model);
+            PrepareActivityTypeFilterModelNew(filterableActivityIds, model);
             //PrepareActivityTypeFilterModel(model);
-            if (model.StoreModels.Count == 0 && category!=null)
+            if (model.StoreModels.Count == 0 && category != null)
             {
                 string redirectUrl = "https:://magaza.makinaturkiye.com";
                 if (category.CategoryParentId.HasValue)
@@ -833,7 +829,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (string.IsNullOrEmpty(searchText))
             {
 
-                    model.CanonicalUrl = "https://magaza.makinaturkiye.com" + request.Url.AbsolutePath;
+                model.CanonicalUrl = "https://magaza.makinaturkiye.com" + request.Url.AbsolutePath;
             }
 
             #endregion
@@ -841,12 +837,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var seoDefinition = _seoDefinitionService.GetSeoDefinitionByEntityIdWithEntityType(categoryId, EntityTypeEnum.StoreCategory);
             if (seoDefinition != null)
             {
-              model.SeoContent = seoDefinition.SeoContent;
+                model.SeoContent = seoDefinition.SeoContent;
             }
 
-            if (model.StoreModels.Count==0 | (category!=null &&category.CategoryType==3))
+            if (model.StoreModels.Count == 0 | (category != null && category.CategoryType == 3))
             {
-                string RedirectUrl = model.StoreCategoryModel.StoreTopCategoryItemModels.Where(x => x.CategoryId==category.CategoryParentId).LastOrDefault()?.CategoryUrl;
+                string RedirectUrl = model.StoreCategoryModel.StoreTopCategoryItemModels.Where(x => x.CategoryId == category.CategoryParentId).LastOrDefault()?.CategoryUrl;
                 return RedirectPermanent(RedirectUrl);
             }
             return View(model);
@@ -920,7 +916,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
         [HttpGet]
-        public  ActionResult _HeaderStoreCategoryGeneral()
+        public ActionResult _HeaderStoreCategoryGeneral()
         {
 
             MTStoreCategoryModel model = new MTStoreCategoryModel();

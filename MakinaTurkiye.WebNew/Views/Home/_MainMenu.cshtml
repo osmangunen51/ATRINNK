@@ -12,7 +12,7 @@
 <ul role="menubar">
     @foreach (var item in Model)
     {
-        <li role="menuitem" class="@{item.SubCategoryModels.Count() > 0 ? "has-sub-item" : ""} ">
+        <li role="menuitem" class="@(item.SubCategoryModels.Count() > 0 ? "has-sub-item" : ""))">
             <a href="@item.CategoryUrl">
 
                 @item.CategoryName

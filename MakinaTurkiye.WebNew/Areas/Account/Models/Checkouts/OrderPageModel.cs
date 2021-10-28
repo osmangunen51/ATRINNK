@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
 {
@@ -12,7 +9,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
             this.OrderListItems = new List<OrderListItem>();
             this.LeftMenu = new LeftMenuModel();
         }
-                
+
         public List<OrderListItem> OrderListItems { get; set; }
         public LeftMenuModel LeftMenu { get; set; }
 

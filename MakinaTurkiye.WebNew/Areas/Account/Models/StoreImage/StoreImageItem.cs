@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreImage
+﻿namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreImage
 {
     public class StoreImageItem
     {

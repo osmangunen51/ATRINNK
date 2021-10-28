@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Products
@@ -12,7 +9,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         {
             this.MTProductProperties = new List<MTProductPropertieItem>();
         }
-       public List<MTProductPropertieItem> MTProductProperties { get; set; }
+        public List<MTProductPropertieItem> MTProductProperties { get; set; }
     }
     public class MTProductPropertieItem
     {

@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using MakinaTurkiye.Core.Infrastructure.DependencyManagement;
-using MakinaTurkiye.Core.Infrastructure;
-using Autofac;
-using MakinaTurkiye.Caching;
+﻿using Autofac;
 using Autofac.Core;
+using MakinaTurkiye.Caching;
+using MakinaTurkiye.Core.Configuration;
+using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Core.Infrastructure.DependencyManagement;
 using NeoSistem.MakinaTurkiye.Web.Controllers;
 using NeoSistem.MakinaTurkiye.Web.Factories;
-using MakinaTurkiye.Core.Configuration;
 
 namespace MakinaTurkiye.Web.Infrastructure
 {
     public class DependencyRegistrar : IDependencyRegistrar
     {
-        public void Register(ContainerBuilder builder, ITypeFinder typeFinder, MakinaTurkiyeConfig config) 
+        public void Register(ContainerBuilder builder, ITypeFinder typeFinder, MakinaTurkiyeConfig config)
         {
 
             //we cache presentation models between requests
@@ -23,7 +19,6 @@ namespace MakinaTurkiye.Web.Infrastructure
                  .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("cache_static"));
 
             builder.RegisterType<ProductModelFactory>().As<IProductModelFactory>().InstancePerLifetimeScope();
-
             //builder.RegisterType<CatalogController>()
             //    .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"));
             //builder.RegisterType<CountryController>()

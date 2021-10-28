@@ -1,11 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
-using NeoSistem.MakinaTurkiye.Web.Models.Videos;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Entities.Tables.Catalog;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models
 {
 
     //public class CategoryViewModel
@@ -44,7 +37,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
     //    public CategoryContentModel CategoryContentModel { get; set; }
 
     //    public IList<MTPopularVideoModel> PopularVideoModels { get; set; }
-   
+
     //}
 
 

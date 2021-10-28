@@ -14,18 +14,18 @@ using System.Text.RegularExpressions;
 
 namespace CKFinder.Connector
 {
-	internal static class RegexLib
-	{
-		private static Regex _ConfigServerPlaceholders;
+    internal static class RegexLib
+    {
+        private static Regex _ConfigServerPlaceholders;
 
-		public static Regex ConfigServerPlaceholders
-		{
-			get
-			{
-				if ( _ConfigServerPlaceholders == null )
-					_ConfigServerPlaceholders = new Regex( @"%SERVER\(\s*([^)]+?)\s*\)%", RegexOptions.Singleline | RegexOptions.Compiled );
-				return _ConfigServerPlaceholders;
-			}
-		}
-	}
+        public static Regex ConfigServerPlaceholders
+        {
+            get
+            {
+                if (_ConfigServerPlaceholders == null)
+                    _ConfigServerPlaceholders = new Regex(@"%SERVER\(\s*([^)]+?)\s*\)%", RegexOptions.Singleline | RegexOptions.Compiled);
+                return _ConfigServerPlaceholders;
+            }
+        }
+    }
 }

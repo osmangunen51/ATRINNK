@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.StoreNews
 {
@@ -18,10 +16,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreNews
         public string ImagePath { get; set; }
         public DateTime RecordDate { get; set; }
         public DateTime UpdateDate { get; set; }
-       
+
 
         public MTNewStoreModel NewStoreModel { get; set; }
         public List<MTNewOtherItem> NewOthers { get; set; }
-        
+
     }
 }

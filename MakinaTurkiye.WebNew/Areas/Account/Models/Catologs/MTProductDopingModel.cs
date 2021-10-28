@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Catologs
@@ -19,7 +16,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Catologs
         public string ProductImage { get; set; }
         public string CategoryName { get; set; }
         public List<SelectListItem> Packets { get; set; }
-    
+
 
     }
 }

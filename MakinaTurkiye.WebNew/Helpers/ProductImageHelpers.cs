@@ -1,16 +1,15 @@
 ﻿#region Using Directives
+using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Services.Media;
+using NeoSistem.MakinaTurkiye.Web.Models;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web;
-using System.IO;
-using NeoSistem.MakinaTurkiye.Web.Models;
-using MakinaTurkiye.Services.Media;
-using MakinaTurkiye.Core.Infrastructure;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
+using System.Web;
 #endregion
 
 namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
@@ -20,11 +19,11 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
         #region Private Property
         private string ImageFolder { get; set; }
         private List<string> ThumbSizes { get; set; }
-        private string[] ImageContentType = { "image/bmp", "image/cis-cod", "image/gif", "image/ief", "image/jpeg", "image/jpg", 
-                                                "image/jpeg", "image/pipeg", "image/svg+xml", "image/tiff", "image/tiff", 
-                                                "image/x-cmu-raster", "image/x-cmx", "image/x-icon", "image/x-portable-anymap", 
-                                                "image/x-portable-bitmap", "image/x-portable-graymap", "image/x-portable-pixmap", 
-                                                "image/x-rgb", "image/x-xbitmap", "image/x-xpixmap", "image/x-xwindowdump", 
+        private string[] ImageContentType = { "image/bmp", "image/cis-cod", "image/gif", "image/ief", "image/jpeg", "image/jpg",
+                                                "image/jpeg", "image/pipeg", "image/svg+xml", "image/tiff", "image/tiff",
+                                                "image/x-cmu-raster", "image/x-cmx", "image/x-icon", "image/x-portable-anymap",
+                                                "image/x-portable-bitmap", "image/x-portable-graymap", "image/x-portable-pixmap",
+                                                "image/x-rgb", "image/x-xbitmap", "image/x-xpixmap", "image/x-xwindowdump",
                                                 "image/pjpeg", "image/png", "image/x-png" };
         #endregion
 
@@ -68,7 +67,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                 // TODO  : resim gerekenden küçükse arkaplanı şeffaf olarak kaydetmesini sağla.
                 //transparent background için png kayıt şart white backgroundu jpg ile oluır.
                 //fill image 
-          
+
                 if (file.ContentLength > 0)
                 {
                     if (this.ImageContentType.Any(fc => fc == file.ContentType))
@@ -88,15 +87,15 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
                         foreach (var thumbSize in ThumbSizes)
                         {
-                            if (thumbSize == "980x*" || thumbSize=="500x375" || thumbSize=="*x980")
+                            if (thumbSize == "980x*" || thumbSize == "500x375" || thumbSize == "*x980")
                             {
                                 var yol = HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" +
-                                          productName.ToImageFileName(sayi)+"-"+thumbSize.Replace("*","")+".jpg";
-                                AddWaterMarkNew(yol,thumbSize);
+                                          productName.ToImageFileName(sayi) + "-" + thumbSize.Replace("*", "") + ".jpg";
+                                AddWaterMarkNew(yol, thumbSize);
                             }
                         }
 
-                        pictureList.Add(new PictureModel { PictureId = sayi, ProductId = productID, PicturePath = fileName,PictureOrder=counter });
+                        pictureList.Add(new PictureModel { PictureId = sayi, ProductId = productID, PicturePath = fileName, PictureOrder = counter });
                         counter++;
                     }
                 }

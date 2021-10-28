@@ -1,8 +1,4 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Models.Videos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 {
@@ -25,12 +21,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
         public string PromotionVideoPath { get; set; }
         public string StoreUrl { get; set; }
         public string StoreBanner { get; set; }
- 
+
 
         public MTCategoryModel Categories { get; set; }
-        public  MTStoreProfileMenuActivePage MTStoreProfileMenuActivePage { get; set; }
-        public  MTStoreProfileMenuHasModel MTStoreProfileMenuHasModel { get; set; }
-        public MTVideoModel StoreVideo { get; set; } 
+        public MTStoreProfileMenuActivePage MTStoreProfileMenuActivePage { get; set; }
+        public MTStoreProfileMenuHasModel MTStoreProfileMenuHasModel { get; set; }
+        public MTVideoModel StoreVideo { get; set; }
 
     }
 }

@@ -28,9 +28,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._memberStoreService = memberStoreService;
             this._storeService = storeService;
 
-            this._videoService.CachingGetOrSetOperationEnabled=false;
-            this._memberStoreService.CachingGetOrSetOperationEnabled=false;
-            this._storeService.CachingGetOrSetOperationEnabled=false;
+            this._videoService.CachingGetOrSetOperationEnabled = false;
+            this._memberStoreService.CachingGetOrSetOperationEnabled = false;
+            this._storeService.CachingGetOrSetOperationEnabled = false;
         }
         // GET: Account/Video
         public ActionResult Index()
@@ -151,7 +151,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return Json(responseModel, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
-        public JsonResult UpdateOrder(int id, byte order,string title)
+        public JsonResult UpdateOrder(int id, byte order, string title)
         {
             try
             {

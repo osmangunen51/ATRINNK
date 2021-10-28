@@ -1,10 +1,7 @@
 ﻿
 using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Stores;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 {
@@ -20,9 +17,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
         }
         public int MainPartyId { get; set; }
         public byte StoreActiveType { get; set; }
-        public List<Phone> Phones{get;set;}
+        public List<Phone> Phones { get; set; }
         public List<Address> DealerAddresses { get; set; }
-        public List<AddressShow> AdressEdits {get;set; }
+        public List<AddressShow> AdressEdits { get; set; }
 
         public MTStoreProfileHeaderModel MTStoreProfileHeaderModel { get; set; }
         public List<StoreDealer> StoreDealers { get; set; }

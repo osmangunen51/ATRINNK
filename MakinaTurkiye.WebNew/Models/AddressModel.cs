@@ -1,11 +1,11 @@
 ﻿
 
-using System.Collections.Generic;
-using System.Web.Mvc;
-using System.Linq;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
 using MakinaTurkiye.Entities.Tables.Common;
 using NeoSistem.EnterpriseEntity.Extensions.Data;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models
 {

@@ -1,8 +1,4 @@
-﻿using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Catologs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert

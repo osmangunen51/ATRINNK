@@ -1,22 +1,19 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Models;
-using System;
+using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Data.Entity;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 
 namespace NeoSistem.MakinaTurkiye.Web.Helpers
 {
     public class ProfileFillRateCalculaterBase
     {
         #region urldefination
-        private string AddressPhoneUpdateLink = AppSettings.SiteUrlWithoutLastSlash+"/Account/Personal/ChangeAddress";
-        private string PersonalUpdateLink = AppSettings.SiteUrlWithoutLastSlash+"/Account/Personal/Update";
-        private string MemberTitleTypeUpdateLink = AppSettings.SiteUrlWithoutLastSlash+"/Account/MemberType/InstitutionalStep";
-        private string UpdateLogoLink = AppSettings.SiteUrlWithoutLastSlash+"/Account/Store/UpdateLogo";
+        private string AddressPhoneUpdateLink = AppSettings.SiteUrlWithoutLastSlash + "/Account/Personal/ChangeAddress";
+        private string PersonalUpdateLink = AppSettings.SiteUrlWithoutLastSlash + "/Account/Personal/Update";
+        private string MemberTitleTypeUpdateLink = AppSettings.SiteUrlWithoutLastSlash + "/Account/MemberType/InstitutionalStep";
+        private string UpdateLogoLink = AppSettings.SiteUrlWithoutLastSlash + "/Account/Store/UpdateLogo";
         private string UpdateStoreInfoLink = AppSettings.SiteUrlWithoutLastSlash + "/Account/Store/UpdateStore";
-        private string UpdateTaxsLink = AppSettings.SiteUrlWithoutLastSlash+"/Account/Store/UpdateStore";
+        private string UpdateTaxsLink = AppSettings.SiteUrlWithoutLastSlash + "/Account/Store/UpdateStore";
         #endregion
 
         public int NamePer { get; set; }
@@ -42,14 +39,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
         public int MersisNoPer { get; set; }
         public int StoreDescriptionPer { get; set; }
         public global::MakinaTurkiye.Entities.Tables.Members.Member Member;
-        public global::MakinaTurkiye.Entities.Tables.Stores.Store  Store;
+        public global::MakinaTurkiye.Entities.Tables.Stores.Store Store;
 
-        public ProfileFillRateCalculaterBase(global::MakinaTurkiye.Entities.Tables.Members.Member member, global::MakinaTurkiye.Entities.Tables.Stores.Store  store)
+        public ProfileFillRateCalculaterBase(global::MakinaTurkiye.Entities.Tables.Members.Member member, global::MakinaTurkiye.Entities.Tables.Stores.Store store)
         {
             this.Member = member;
             this.Store = store;
-           
-            if (this.Store!=null)
+
+            if (this.Store != null)
             {
                 NamePer = 1;
                 SurnamePer = 1;
@@ -65,7 +62,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
                 StoreWebUrlPer = 3;
                 CompanyCreatedDatePer = 3;
                 ActivityTypePer = 3;
-                FundPer=3;
+                FundPer = 3;
                 EmplooyerNumberPer = 3;
                 StoreEndorsementPer = 3;
                 StoreTypePer = 5;
@@ -135,7 +132,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
             }
             else result.ProfilUpdateLink.Add(AddressPhoneUpdateLink);
 
-            if(Store!=null)
+            if (Store != null)
             {
 
                 if (!string.IsNullOrEmpty(Store.StoreName)) profileFillRate = profileFillRate + StoreCaptionPer;
@@ -179,7 +176,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
     public class ProfilRateResult
     {
         public int ProfileRate { get; set; }
-        public List<string> ProfilUpdateLink { get;set;}
+        public List<string> ProfilUpdateLink { get; set; }
         public ProfilRateResult()
         {
             this.ProfilUpdateLink = new List<string>();

@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using MakinaTurkiye.Entities.Tables.Catalog;
+﻿using MakinaTurkiye.Entities.Tables.Catalog;
+using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.ViewModels
 {

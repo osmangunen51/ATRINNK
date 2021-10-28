@@ -15,79 +15,79 @@ using System.Xml;
 
 namespace CKFinder.Connector.CommandHandlers
 {
-	internal class DeleteFileCommandHandler : XmlCommandHandlerBase
-	{
-		public DeleteFileCommandHandler()
-			: base()
-		{
-		}
+    internal class DeleteFileCommandHandler : XmlCommandHandlerBase
+    {
+        public DeleteFileCommandHandler()
+            : base()
+        {
+        }
 
-		protected override void BuildXml()
-		{
-			if ( !this.CurrentFolder.CheckAcl( AccessControlRules.FileDelete ) )
-			{
-				ConnectorException.Throw( Errors.Unauthorized );
-			}
+        protected override void BuildXml()
+        {
+            if (!this.CurrentFolder.CheckAcl(AccessControlRules.FileDelete))
+            {
+                ConnectorException.Throw(Errors.Unauthorized);
+            }
 
-			string fileName = Request["FileName"];
+            string fileName = Request["FileName"];
 
-			if ( !Connector.CheckFileName( fileName ) || Config.Current.CheckIsHiddenFile( fileName ) )
-			{
-				ConnectorException.Throw( Errors.InvalidRequest );
-				return;
-			}
+            if (!Connector.CheckFileName(fileName) || Config.Current.CheckIsHiddenFile(fileName))
+            {
+                ConnectorException.Throw(Errors.InvalidRequest);
+                return;
+            }
 
-			if ( !this.CurrentFolder.ResourceTypeInfo.CheckExtension( System.IO.Path.GetExtension( fileName ) ) )
-			{
-				ConnectorException.Throw( Errors.InvalidRequest );
-				return;
-			}
+            if (!this.CurrentFolder.ResourceTypeInfo.CheckExtension(System.IO.Path.GetExtension(fileName)))
+            {
+                ConnectorException.Throw(Errors.InvalidRequest);
+                return;
+            }
 
-			string filePath = System.IO.Path.Combine( this.CurrentFolder.ServerPath, fileName );
+            string filePath = System.IO.Path.Combine(this.CurrentFolder.ServerPath, fileName);
 
-			bool bDeleted = false;
+            bool bDeleted = false;
 
-			if ( !System.IO.File.Exists( filePath ) )
-				ConnectorException.Throw( Errors.FileNotFound );
+            if (!System.IO.File.Exists(filePath))
+                ConnectorException.Throw(Errors.FileNotFound);
 
-			try
-			{
-				System.IO.File.Delete( filePath );
-				bDeleted = true;
-			}
-			catch ( System.UnauthorizedAccessException )
-			{
-				ConnectorException.Throw( Errors.AccessDenied );
-			}
-			catch ( System.Security.SecurityException )
-			{
-				ConnectorException.Throw( Errors.AccessDenied );
-			}
-			catch (System.ArgumentException)
-			{
-				ConnectorException.Throw( Errors.FileNotFound );
-			}
-			catch ( System.IO.PathTooLongException )
-			{
-				ConnectorException.Throw( Errors.FileNotFound );
-			}
-			catch ( Exception )
-			{
-				ConnectorException.Throw( Errors.Unknown );
-			}
+            try
+            {
+                System.IO.File.Delete(filePath);
+                bDeleted = true;
+            }
+            catch (System.UnauthorizedAccessException)
+            {
+                ConnectorException.Throw(Errors.AccessDenied);
+            }
+            catch (System.Security.SecurityException)
+            {
+                ConnectorException.Throw(Errors.AccessDenied);
+            }
+            catch (System.ArgumentException)
+            {
+                ConnectorException.Throw(Errors.FileNotFound);
+            }
+            catch (System.IO.PathTooLongException)
+            {
+                ConnectorException.Throw(Errors.FileNotFound);
+            }
+            catch (Exception)
+            {
+                ConnectorException.Throw(Errors.Unknown);
+            }
 
-			try
-			{
-				string thumbPath = System.IO.Path.Combine( this.CurrentFolder.ThumbsServerPath, fileName );
-				System.IO.File.Delete( thumbPath );
-			}
-			catch { /* No errors if we are not able to delete the thumb. */ }
+            try
+            {
+                string thumbPath = System.IO.Path.Combine(this.CurrentFolder.ThumbsServerPath, fileName);
+                System.IO.File.Delete(thumbPath);
+            }
+            catch { /* No errors if we are not able to delete the thumb. */ }
 
-			if ( bDeleted )
-			{
-				XmlNode oDeletedFileNode = XmlUtil.AppendElement( this.ConnectorNode, "DeletedFile" );
-				XmlUtil.SetAttribute( oDeletedFileNode, "name", fileName );
-			}
-		}
-	}
+            if (bDeleted)
+            {
+                XmlNode oDeletedFileNode = XmlUtil.AppendElement(this.ConnectorNode, "DeletedFile");
+                XmlUtil.SetAttribute(oDeletedFileNode, "name", fileName);
+            }
+        }
+    }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.Products
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.Products
 {
     public class MTProductPageHeaderModel
     {
@@ -18,5 +13,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public string nextProductUrl { get; set; }
         public string preProductUrl { get; set; }
 
+        public MTProductDetailModel ProductDetailModel { get; set; } = new MTProductDetailModel();
     }
 }

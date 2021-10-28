@@ -1,15 +1,14 @@
-﻿using System;
+﻿using MakinaTurkiye.Entities.Tables.Common;
+using MakinaTurkiye.Entities.Tables.Videos;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
+using NeoSistem.MakinaTurkiye.Web.Models.Products;
+using NeoSistem.MakinaTurkiye.Web.Models.Validation;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Web.Mvc;                                   
-using System.Linq;
-using NeoSistem.MakinaTurkiye.Web.Models.Validation;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
 using System.ComponentModel.DataAnnotations;
-using NeoSistem.MakinaTurkiye.Web.Models.Products;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Entities.Tables.Videos;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models
 {
@@ -175,7 +174,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
             //    //return theoriginitems.OrderBy(c => c.ConstantName).OrderBy(c => c.ConstantId);
 
             //}
-            get;set;
+            get; set;
         }
         public IEnumerable<Constant> SiparisList
         {
@@ -190,7 +189,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
 
             //    //return itemsiparis.OrderBy(c => c.ConstantName).OrderBy(c => c.ConstantId);
             //}
-            get;set;
+            get; set;
         }
 
         public SelectList ModelDate
@@ -331,7 +330,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
             //    //return curConstant.GetDataTable().AsCollection<ConstantModel>();
 
             //}
-            get;set;
+            get; set;
         }
 
         public string CategoryProductGroupName { get; set; }
@@ -345,7 +344,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
             //    currencyItems.Insert(0, new CurrencyModel { CurrencyId = 0, CurrencyName = "< Seçiniz >" });
             //    return new SelectList(currencyItems, "CurrencyId ", "CurrencyName");
             //}
-            get;set;
+            get; set;
         }
 
         public Address StoreAddress { get; set; }

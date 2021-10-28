@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.Statistics
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.Statistics
 {
     public class MTProductItem
     {

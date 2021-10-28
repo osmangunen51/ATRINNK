@@ -29,22 +29,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._memberStoreService.CachingGetOrSetOperationEnabled = false;
             this._packetService.CachingGetOrSetOperationEnabled = false;
         }
-            
+
         public ActionResult Index()
         {
             int memberMainPartyId = AuthenticationUser.Membership.MainPartyId;
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(memberMainPartyId);
-            if(memberStore==null)
+            if (memberStore == null)
             {
                 return RedirectToAction("Home");
             }
             else
             {
                 OrderPageModel orderPageModel = new OrderPageModel();
-                var orders = _orderService.GetOrdersByMainPartyId(Convert.ToInt32(memberStore.StoreMainPartyId)).Where(x=>x.RecordDate.Date.Year>2017);
+                var orders = _orderService.GetOrdersByMainPartyId(Convert.ToInt32(memberStore.StoreMainPartyId)).Where(x => x.RecordDate.Date.Year > 2017);
                 foreach (var item in orders)
                 {
-               
+
                     var orderListItem = new OrderListItem
                     {
                         AccountId = item.AccountId,
@@ -68,7 +68,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     var packet = _packetService.GetPacketByPacketId(item.PacketId);
                     orderListItem.PacketName = packet.PacketName;
                     var orderPayments = _orderService.GetPaymentsByOrderId(item.OrderId);
-                    if(item.PriceCheck==true)
+                    if (item.PriceCheck == true)
                     {
                         var payment = new Payment();
                         payment.OrderId = item.OrderId;
@@ -80,7 +80,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         orderPayments.Add(payment);
                     }
                     decimal restAmount = item.OrderPrice;
-                    if (orderPayments.Count>0)
+                    if (orderPayments.Count > 0)
                     {
                         var orderPayment = orderPayments.OrderByDescending(x => x.RecordDate).LastOrDefault();
                         restAmount = orderPayment.RestAmount;
@@ -94,7 +94,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 return View(orderPageModel);
             }
-           
+
         }
     }
 }

@@ -204,9 +204,8 @@
             <div class="request-container">
                 @using (Html.BeginForm("Step1", "ProductRequest", FormMethod.Post, new { @id = "regForm" }))
                 {
-                
                 <h3>Alım Talebi Oluştur</h3>
-                @if (TempData["success"] != null)
+                if (TempData["success"] != null)
                 {
                 <div id="CommentedAlert" class="alert alert-success">
                     Talebiniz makina üreticilerine ulaştırılacakatır.

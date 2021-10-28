@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using MakinaTurkiye.Core.Configuration;
+﻿using MakinaTurkiye.Core.Configuration;
 using MakinaTurkiye.Core.Infrastructure;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;

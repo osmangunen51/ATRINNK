@@ -1,29 +1,7 @@
-﻿@*@model StoreSearchModel*@
-@using NeoSistem.MakinaTurkiye.Web.Models
-@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+﻿@using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
 @using NeoSistem.MakinaTurkiye.Web.Helpers
-@using System.Diagnostics
-@using NeoSistem.MakinaTurkiye.Web.Models.Home
-@using NeoSistem.MakinaTurkiye.Web.Models.MemberShip
-@using NeoSistem.MakinaTurkiye.Web.Models.Authentication
-@using MakinaTurkiye.Entities.Tables.Members
-@using NeoSistem.MakinaTurkiye.Web.Models.ViewModels
-@using NeoSistem.MakinaTurkiye.Web.Models.Products
-@using NeoSistem.MakinaTurkiye.Web.Models.Catalog
 @using NeoSistem.MakinaTurkiye.Web.Models.Entities
-@using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
-@using NeoSistem.MakinaTurkiye.Web.Models.Stores
-
-@{
-    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
-    //using NeoSistem.MakinaTurkiye.Web.Models
-    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
-
-}
-
-
 <div class="tab-pane fade in active" id="liste">
     @{
         MakinaTurkiyeEntities makinaTurkiyeEntities = new MakinaTurkiyeEntities();
@@ -46,15 +24,19 @@
         string brandUrl = "/sirket/" + item.MainPartyId.ToString() + "/" + Helpers.ToUrl(item.StoreName) + "/markalarimiz";
         string storeWeb = "";
 
+        int MainPartyId = Convert.ToInt32(item.MainPartyId);
         var memberType = (from c in makinaTurkiyeEntities.Stores
-                          where c.MainPartyId == item.MainPartyId
+                          where c.MainPartyId == MainPartyId
                           select c.Packet.PacketName).FirstOrDefault();
 
         if (ViewContext.RouteData.Values["categoryId"] != null)
+        {
             productList = dataProduct.GetProductSearchByCategoryIdAndMainPartyId(ref totalCount, 10, 1, (Convert.ToInt32(ViewContext.RouteData.Values["categoryId"])), item.MainPartyId).AsCollection<ProductModel>();
+        }
         else
-            productList = dataProduct.GetProductSearchByMainPartyId(ref totalCount, 10, 1, item.MainPartyId).AsCollection<ProductModel>
-                ();
+        {
+            productList = dataProduct.GetProductSearchByMainPartyId(ref totalCount, 10, 1, item.MainPartyId).AsCollection<ProductModel>();
+        }
 
         if (productList != null && productList.Count() > 0)
         {
@@ -82,15 +64,22 @@
             <div class="col-sm-3">
                 <div class="pr text-center border1">
                     <a href="@url">
-                        <img src="@ImageHelpers.GetStoreImage(item.MainPartyId,item.StoreLogo," 300")" class="img-thumbnail border0" alt="@item.StoreName" />
+                        <img src="@ImageHelpers.GetStoreImage(item.MainPartyId, item.StoreLogo, " 300")" class="img-thumbnail border0" alt="@item.StoreName" />
 
                     </a>
 
                 </div>
             </div>
             <div class="col-xs-9">
+                @{ 
+                    string StoreName = item.StoreName;
+                    if (StoreName.Length>180)
+                    {
+                        StoreName = StoreName.Substring(0, 180);
+                    }
+                }
                 <h4 class="media-heading">
-                    <a href="@url">@Html.Truncate(item.StoreName, 100)</a>
+                    <a href="@url">@StoreName</a>
 
                     @if (memberType.ToString() == "Gold Plus Paket")
                     {
@@ -178,6 +167,5 @@
         </div>
         <hr>
     }
-
 </div>
 @Html.Partial("Window")

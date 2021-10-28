@@ -1,11 +1,8 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
 using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.AccountModels
 {
@@ -15,8 +12,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.AccountModels
         {
             this.PacketFeatures = new List<PacketFeaturesViewModel>();
             this.AccountHomeCenterCenterModel = new MTAccountHomeCenterModel();
-        
-         
+
+
         }
         public bool hasStandartPacket { get; set; }
         public virtual List<PacketFeaturesViewModel> PacketFeatures { get; set; }

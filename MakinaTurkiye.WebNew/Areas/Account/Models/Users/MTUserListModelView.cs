@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Users
 {

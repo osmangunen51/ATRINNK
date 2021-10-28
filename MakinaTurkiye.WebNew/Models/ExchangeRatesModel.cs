@@ -1,6 +1,6 @@
-﻿using System.Linq;
+﻿using NeoSistem.EnterpriseEntity.Extensions;
+using System.Linq;
 using System.Xml.Linq;
-using NeoSistem.EnterpriseEntity.Extensions;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models
 {

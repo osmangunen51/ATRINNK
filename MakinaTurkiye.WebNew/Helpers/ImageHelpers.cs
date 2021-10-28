@@ -1,12 +1,9 @@
-﻿using System;
+﻿using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.IO;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using System.Web.Routing;
-using System.Text.RegularExpressions;
-using System.IO;
-using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 
 namespace NeoSistem.MakinaTurkiye.Web.Helpers
 {

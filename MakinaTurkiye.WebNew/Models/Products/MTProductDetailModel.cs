@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.Products
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.Products
 {
     public class MTProductDetailModel
     {
-      
+
 
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
@@ -22,7 +17,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public string ModelYear { get; set; }
         public string ProductType { get; set; }
         public string ProductStatus { get; set; }
-      public string ProductCurrencySymbol { get; set; }
+        public string ProductCurrencySymbol { get; set; }
         //public byte? ProductActiveType { get; set; }
         //public bool? ProductActive { get; set; }
         public string MenseiName { get; set; }
@@ -36,7 +31,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
         public string Price { get; set; }
         public string ProductPriceWithDiscount { get; set; }
         public byte? ProductPriceType { get; set; }
-        public decimal ? PriceDec { get; set; }
+        public decimal? PriceDec { get; set; }
         public string PriceWithoutCurrency { get; set; }
         public string Currency { get; set; }
         public string ButtonDeliveryStatusText { get; set; }

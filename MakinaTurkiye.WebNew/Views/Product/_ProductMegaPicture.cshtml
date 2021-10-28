@@ -97,7 +97,7 @@
                     {
                         <div id="megaresim-@i" class="tab-pane ">
 
-                            <img src="@Model[i].MegaPicturePath" alt="@Model[i].ProductName @(i+1) title="@Model[i].ProductName @(i+1)" class="lazy w100" />
+                            <img src="@Model[i].MegaPicturePath" alt="@(Model[i].ProductName+" "+(i+1))" title="@(Model[i].ProductName+" "+(i+1))" class="lazy w100" />
 
                         </div>
                         }
@@ -112,4 +112,4 @@
             </div>
         </div>
 
-        }
+}

@@ -1,11 +1,7 @@
 ﻿
 using MakinaTurkiye.Entities.Tables.Catalog;
-using NeoSistem.MakinaTurkiye.Web.Models.Home;
 using NeoSistem.MakinaTurkiye.Web.Models.Videos;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
 {
@@ -50,7 +46,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public int CityId { get; set; }
         public int CountryId { get; set; }
         public int LocalityId { get; set; }
-        public string AllCategoryUrl { get;  set; }
+        public string AllCategoryUrl { get; set; }
         public string ConstantTitle { get; set; }
         public string ConstantProperty { get; set; }
         public IList<MTRandomProductItemModel> RandomProducts { get; set; }

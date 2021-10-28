@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Profile
+﻿namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Profile
 {
     public class StoreProfileHomeDescriptinModel
     {

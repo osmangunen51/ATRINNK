@@ -13,85 +13,85 @@
 
 namespace CKFinder.Settings
 {
-	public class AccessControl
-	{
-		public string Role;
-		public string ResourceType;
-		private string _Folder;
+    public class AccessControl
+    {
+        public string Role;
+        public string ResourceType;
+        private string _Folder;
 
-		public TriStateBool FolderView;
-		public TriStateBool FolderCreate;
-		public TriStateBool FolderRename;
-		public TriStateBool FolderDelete;
+        public TriStateBool FolderView;
+        public TriStateBool FolderCreate;
+        public TriStateBool FolderRename;
+        public TriStateBool FolderDelete;
 
-		public TriStateBool FileView;
-		public TriStateBool FileUpload;
-		public TriStateBool FileRename;
-		public TriStateBool FileDelete;
+        public TriStateBool FileView;
+        public TriStateBool FileUpload;
+        public TriStateBool FileRename;
+        public TriStateBool FileDelete;
 
-		internal AccessControl()
-		{
-			Role = "*";
-			ResourceType = "*";
-			Folder = "/";
+        internal AccessControl()
+        {
+            Role = "*";
+            ResourceType = "*";
+            Folder = "/";
 
-			FolderView = TriStateBool.Undefined;
-			FolderCreate = TriStateBool.Undefined;
-			FolderRename = TriStateBool.Undefined;
-			FolderDelete = TriStateBool.Undefined;
+            FolderView = TriStateBool.Undefined;
+            FolderCreate = TriStateBool.Undefined;
+            FolderRename = TriStateBool.Undefined;
+            FolderDelete = TriStateBool.Undefined;
 
-			FileView = TriStateBool.Undefined;
-			FileUpload = TriStateBool.Undefined;
-			FileRename = TriStateBool.Undefined;
-			FileDelete = TriStateBool.Undefined;
-		}
+            FileView = TriStateBool.Undefined;
+            FileUpload = TriStateBool.Undefined;
+            FileRename = TriStateBool.Undefined;
+            FileDelete = TriStateBool.Undefined;
+        }
 
-		public string Folder
-		{
-			get
-			{
-				return _Folder;
-			}
+        public string Folder
+        {
+            get
+            {
+                return _Folder;
+            }
 
-			set
-			{
-				_Folder = value;
+            set
+            {
+                _Folder = value;
 
-				if ( !_Folder.StartsWith( "/" ) )
-					_Folder = "/" + _Folder;
+                if (!_Folder.StartsWith("/"))
+                    _Folder = "/" + _Folder;
 
-				if ( !_Folder.EndsWith( "/" ) )
-					_Folder += "/";
-			}
-		}
+                if (!_Folder.EndsWith("/"))
+                    _Folder += "/";
+            }
+        }
 
-		public string GetInternalKey()
-		{
-			return Role + "#@#" + ResourceType;
-		}
+        public string GetInternalKey()
+        {
+            return Role + "#@#" + ResourceType;
+        }
 
-		public int GetAllowedMask()
-		{
-			return ( FolderView == TriStateBool.True ? (int)AccessControlRules.FolderView : 0 )
-					| ( FolderCreate == TriStateBool.True ? (int)AccessControlRules.FolderCreate : 0 )
-					| ( FolderRename == TriStateBool.True ? (int)AccessControlRules.FolderRename : 0 )
-					| ( FolderDelete == TriStateBool.True ? (int)AccessControlRules.FolderDelete : 0 )
-					| ( FileView == TriStateBool.True ? (int)AccessControlRules.FileView : 0 )
-					| ( FileUpload == TriStateBool.True ? (int)AccessControlRules.FileUpload : 0 )
-					| ( FileRename == TriStateBool.True ? (int)AccessControlRules.FileRename : 0 )
-					| ( FileDelete == TriStateBool.True ? (int)AccessControlRules.FileDelete : 0 );
-		}
+        public int GetAllowedMask()
+        {
+            return (FolderView == TriStateBool.True ? (int)AccessControlRules.FolderView : 0)
+                    | (FolderCreate == TriStateBool.True ? (int)AccessControlRules.FolderCreate : 0)
+                    | (FolderRename == TriStateBool.True ? (int)AccessControlRules.FolderRename : 0)
+                    | (FolderDelete == TriStateBool.True ? (int)AccessControlRules.FolderDelete : 0)
+                    | (FileView == TriStateBool.True ? (int)AccessControlRules.FileView : 0)
+                    | (FileUpload == TriStateBool.True ? (int)AccessControlRules.FileUpload : 0)
+                    | (FileRename == TriStateBool.True ? (int)AccessControlRules.FileRename : 0)
+                    | (FileDelete == TriStateBool.True ? (int)AccessControlRules.FileDelete : 0);
+        }
 
-		public int GetDeniedMask()
-		{
-			return ( FolderView == TriStateBool.False ? (int)AccessControlRules.FolderView : 0 )
-					| ( FolderCreate == TriStateBool.False ? (int)AccessControlRules.FolderCreate : 0 )
-					| ( FolderRename == TriStateBool.False ? (int)AccessControlRules.FolderRename : 0 )
-					| ( FolderDelete == TriStateBool.False ? (int)AccessControlRules.FolderDelete : 0 )
-					| ( FileView == TriStateBool.False ? (int)AccessControlRules.FileView : 0 )
-					| ( FileUpload == TriStateBool.False ? (int)AccessControlRules.FileUpload : 0 )
-					| ( FileRename == TriStateBool.False ? (int)AccessControlRules.FileRename : 0 )
-					| ( FileDelete == TriStateBool.False ? (int)AccessControlRules.FileDelete : 0 );
-		}
-	}
+        public int GetDeniedMask()
+        {
+            return (FolderView == TriStateBool.False ? (int)AccessControlRules.FolderView : 0)
+                    | (FolderCreate == TriStateBool.False ? (int)AccessControlRules.FolderCreate : 0)
+                    | (FolderRename == TriStateBool.False ? (int)AccessControlRules.FolderRename : 0)
+                    | (FolderDelete == TriStateBool.False ? (int)AccessControlRules.FolderDelete : 0)
+                    | (FileView == TriStateBool.False ? (int)AccessControlRules.FileView : 0)
+                    | (FileUpload == TriStateBool.False ? (int)AccessControlRules.FileUpload : 0)
+                    | (FileRename == TriStateBool.False ? (int)AccessControlRules.FileRename : 0)
+                    | (FileDelete == TriStateBool.False ? (int)AccessControlRules.FileDelete : 0);
+        }
+    }
 }

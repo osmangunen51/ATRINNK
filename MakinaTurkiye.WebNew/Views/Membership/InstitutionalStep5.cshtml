@@ -81,7 +81,6 @@
                         }
                     </div>
                 </div>
-
                 <div class="form-group">
                     <label class="col-sm-4 control-label">
                         @Html.LabelFor(model => model.MembershipModel.StoreCapital)
@@ -121,7 +120,7 @@
                         @Model.MembershipModel.StoreEndorsementName
                     </div>
                 </div>
-                @if (!string.IsNullOrEmpty(Model.MembershipModel.InstitutionalPhoneNumber))
+                if (!string.IsNullOrEmpty(Model.MembershipModel.InstitutionalPhoneNumber))
                 {
                     <div class="form-group">
                         <label class="col-sm-4 control-label">
@@ -132,7 +131,7 @@
                         </div>
                     </div>
                 }
-                @if (!string.IsNullOrEmpty(Model.MembershipModel.InstitutionalGSMNumber))
+                if (!string.IsNullOrEmpty(Model.MembershipModel.InstitutionalGSMNumber))
                 {
                     <div class="form-group">
                         <label class="col-sm-4 control-label">
@@ -154,7 +153,7 @@
                         </div>
                     </div>
                 }
-                @if (!string.IsNullOrEmpty(Model.MembershipModel.InstitutionalGSMNumber2))
+                if (!string.IsNullOrEmpty(Model.MembershipModel.InstitutionalGSMNumber2))
                 {
                     <div class="form-group">
                         <label class="col-sm-4 control-label mTop5">

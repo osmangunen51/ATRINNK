@@ -13,35 +13,35 @@
 
 namespace CKFinder.Connector.CommandHandlers
 {
-	internal class ErrorCommandHandler : XmlCommandHandlerBase
-	{
-		private int _ErrorNumber;
+    internal class ErrorCommandHandler : XmlCommandHandlerBase
+    {
+        private int _ErrorNumber;
 
-		public ErrorCommandHandler()
-			: base()
-		{
-			_ErrorNumber = Errors.Unknown;
-		}
+        public ErrorCommandHandler()
+            : base()
+        {
+            _ErrorNumber = Errors.Unknown;
+        }
 
-		public ErrorCommandHandler( ConnectorException connectorException )
-			: base()
-		{
-			_ErrorNumber = connectorException.Number;
-		}
+        public ErrorCommandHandler(ConnectorException connectorException)
+            : base()
+        {
+            _ErrorNumber = connectorException.Number;
+        }
 
-		protected override bool MustCheckRequest()
-		{
-			return false;
-		}
+        protected override bool MustCheckRequest()
+        {
+            return false;
+        }
 
-		protected override bool MustIncludeCurrentFolder()
-		{
-			return false;
-		}
+        protected override bool MustIncludeCurrentFolder()
+        {
+            return false;
+        }
 
-		protected override void BuildXml()
-		{
-			ConnectorException.Throw( _ErrorNumber );
-		}
-	}
+        protected override void BuildXml()
+        {
+            ConnectorException.Throw(_ErrorNumber);
+        }
+    }
 }

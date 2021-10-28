@@ -1,31 +1,28 @@
 ﻿
 #region Using Directives
 
+using MakinaTurkiye.Entities.Tables.Common;
+using MakinaTurkiye.Entities.Tables.Media;
+using MakinaTurkiye.Entities.Tables.Stores;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Media;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Utilities.FileHelpers;
+using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Profile;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreImage;
+using NeoSistem.MakinaTurkiye.Web.Models;
+using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
+using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Transactions;
-
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreImage;
-using NeoSistem.MakinaTurkiye.Web.Models;
-using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Profile;
-
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Entities.Tables.Stores;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Services.Media;
-using MakinaTurkiye.Entities.Tables.Media;
-using MakinaTurkiye.Utilities.FileHelpers;
-using MakinaTurkiye.Utilities.Controllers;
 
 #endregion
 
@@ -45,7 +42,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         private readonly IDealarBrandService _dealarBrandService;
 
         public ProfileController(IMemberStoreService memberStoreService, IStoreService storeService, IStoreDealerService storeDealerService,
-            IAddressService addressService, IStoreBrandService storeBrandService, 
+            IAddressService addressService, IStoreBrandService storeBrandService,
             IPictureService pictureService, IPhoneService phoneService, IDealarBrandService dealarBrandService)
         {
             this._memberStoreService = memberStoreService;
@@ -57,7 +54,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._phoneService = phoneService;
             this._dealarBrandService = dealarBrandService;
 
-            this._memberStoreService.CachingGetOrSetOperationEnabled=false;
+            this._memberStoreService.CachingGetOrSetOperationEnabled = false;
             this._storeService.CachingGetOrSetOperationEnabled = false;
             this._storeDealerService.CachingGetOrSetOperationEnabled = false;
             this._adressService.CachingGetOrSetOperationEnabled = false;
@@ -507,7 +504,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             };
             _storeDealerService.InsertStoreDealer(curStoreDealer);
 
-            var dealerItems = _storeDealerService.GetStoreDealersByMainPartyId(storeId, DealerTypeEnum.Branch).Select(x=> new { x.StoreDealerId, x.DealerName });
+            var dealerItems = _storeDealerService.GetStoreDealersByMainPartyId(storeId, DealerTypeEnum.Branch).Select(x => new { x.StoreDealerId, x.DealerName });
 
             return Json(dealerItems);
         }
@@ -526,7 +523,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             _storeDealerService.InsertStoreDealer(curStoreDealer);
 
 
-            var dealerItems = _storeDealerService.GetStoreDealersByMainPartyId(storeId, DealerTypeEnum.Dealer).Select(x => new {  x.StoreDealerId,  x.DealerName });
+            var dealerItems = _storeDealerService.GetStoreDealersByMainPartyId(storeId, DealerTypeEnum.Dealer).Select(x => new { x.StoreDealerId, x.DealerName });
 
             return Json(dealerItems);
         }
@@ -544,7 +541,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             };
             _storeDealerService.InsertStoreDealer(curStoreDealer);
 
-            var dealerItems = _storeDealerService.GetStoreDealersByMainPartyId(storeId, DealerTypeEnum.AuthorizedService).Select(x => new { x.StoreDealerId,  x.DealerName });
+            var dealerItems = _storeDealerService.GetStoreDealersByMainPartyId(storeId, DealerTypeEnum.AuthorizedService).Select(x => new { x.StoreDealerId, x.DealerName });
 
             return Json(dealerItems);
         }
@@ -567,7 +564,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             // model.StoreDealerItems = entities.StoreDealers.Where(c => c.MainPartyId == storeId);
 
-            model.StoreDealerItems = _storeDealerService.GetStoreDealersByMainPartyId(storeId,  DealerTypeEnum.All);
+            model.StoreDealerItems = _storeDealerService.GetStoreDealersByMainPartyId(storeId, DealerTypeEnum.All);
 
 
             var dealerIds = model.StoreDealerItems.Select(x => x.StoreDealerId).ToList();
@@ -589,7 +586,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             _adressService.DeleteAddress(address);
 
-           
+
 
             var storeModel = new StoreModel();
             IList<Address> addressItems = null;
@@ -605,7 +602,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     addressItems = _adressService.GetAddressByStoreDealerIds(serviceIds).ToList();
                     break;
                 case DealerType.Sube:
-                   
+
                     var branchIds = _storeDealerService.GetStoreDealersByMainPartyId(storeId, DealerTypeEnum.Branch).Select(x => x.StoreDealerId).ToList();
                     addressItems = _adressService.GetAddressByStoreDealerIds(branchIds).ToList();
                     break;
@@ -633,7 +630,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 issuccess = true;
             }
-            catch 
+            catch
             {
                 issuccess = false;
             }
@@ -691,14 +688,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             return RedirectToAction("ProfilePicture");
         }
-        
+
         #endregion
 
         #region Json Result
         public JsonResult Cities(int id)
         {
             IList<City> cityItems;
-            
+
             cityItems = _adressService.GetCitiesByCountryId(id);
             cityItems.Insert(0, new City { CityId = 0, CityName = "< Lütfen Seçiniz >" });
 

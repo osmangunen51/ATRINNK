@@ -21,7 +21,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         #region Ctor
 
-        public MemberController(IMemberService memberService ,IStoreService storeService)
+        public MemberController(IMemberService memberService, IStoreService storeService)
         {
             this._memberService = memberService;
             this._storeService = storeService;
@@ -50,6 +50,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return View(storeModel);
         }
 
-    
+
     }
 }

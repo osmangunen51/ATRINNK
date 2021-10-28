@@ -1,9 +1,4 @@
-﻿using NeoSistem.MakinaTurkiye.Web.Models.Products;
-using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert
 {

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models
 {
-    public class MembershipIyzicoModel
+    public class MembershipHtmlRequestModel
     {
         public string HtmlContent { get; set; }
     }

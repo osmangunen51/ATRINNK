@@ -1,10 +1,7 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
 using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.AccountModels
 {
@@ -17,7 +14,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.AccountModels
             this.ProductComments = new SearchModel<MTProductCommentStoreItem>();
         }
         public string MemberName { get; set; }
-        public string MemberSurname { get;set; }
+        public string MemberSurname { get; set; }
         public byte MemberType { get; set; }
         public int MessageCount { get; set; }
         public long TotalProductCount { get; set; }

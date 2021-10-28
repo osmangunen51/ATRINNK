@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using MakinaTurkiye.Entities.Tables.Catalog;
-using MakinaTurkiye.Entities.Tables.Members;
-using MakinaTurkiye.Entities.Tables.Stores;
+﻿using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Entities.Tables.Messages;
+using MakinaTurkiye.Entities.Tables.Stores;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Messages;
+using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models
 {
@@ -37,13 +36,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
 
         public MessageModel Message { get; set; }
 
-  
-        public MemberMessageDetailModel MemberMessageDetail {get; set;}
 
-    public Message EntitiesMessage { get; set; }
-    public string ProductName { get; set; }
-    public string ProductUrl { get; set; }
+        public MemberMessageDetailModel MemberMessageDetail { get; set; }
 
-    public Store Store { get; set; }
-  }
+        public Message EntitiesMessage { get; set; }
+        public string ProductName { get; set; }
+        public string ProductUrl { get; set; }
+
+        public Store Store { get; set; }
+    }
 }

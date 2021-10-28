@@ -1,30 +1,28 @@
 ﻿
-using System;
-using System.Web.Mvc;
-using System.Linq;
-using System.Net.Mail;
-using System.Net;
-
-using NoeSistemHelpers = NeoSistem.MakinaTurkiye.Core.Web.Helpers.Helpers;
-using NeoSistem.MakinaTurkiye.Web.Controllers;
-using NeoSistem.EnterpriseEntity.Extensions.Data;
-using NeoSistem.MakinaTurkiye.Web.Models;
-using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
-using NeoSistem.MakinaTurkiye.Web.Helpers;
-
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Messages;
 using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Entities.Tables.Members;
+using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Messages;
 using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Entities.Tables.Messages;
-using MakinaTurkiye.Utilities.HttpHelpers;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Messages;
 using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Utilities.HttpHelpers;
+using NeoSistem.EnterpriseEntity.Extensions.Data;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Messages;
+using NeoSistem.MakinaTurkiye.Web.Controllers;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
+using NeoSistem.MakinaTurkiye.Web.Models;
+using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
+using System;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Web.Mvc;
+using NoeSistemHelpers = NeoSistem.MakinaTurkiye.Core.Web.Helpers.Helpers;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {

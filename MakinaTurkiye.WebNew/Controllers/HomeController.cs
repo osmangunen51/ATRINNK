@@ -1,14 +1,17 @@
-﻿using MakinaTurkiye.Core.Infrastructure;
+﻿using MakinaTurkiye.Caching;
+using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Content;
+using MakinaTurkiye.Services.Media;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Services.Videos;
 using MakinaTurkiye.Utilities.FormatHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
-using MakinaTurkiye.Entities.Tables.Catalog;
-using MakinaTurkiye.Services.Media;
-using MakinaTurkiye.Services.Content;
+using MakinaTurkiye.Utilities.Mvc;
+using NeoSistem.EnterpriseEntity.Extensions.Data;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
@@ -17,16 +20,13 @@ using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using NeoSistem.EnterpriseEntity.Extensions.Data;
-using MakinaTurkiye.Utilities.Mvc;
-using MakinaTurkiye.Caching;
-using System.Text;
 using System.Web.UI;
-using System.IO;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -350,8 +350,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
                     SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty),
                     PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.x160x120),
-                    CurrencyName=item.CurrencyName,
-                    ProductPriceType=item.ProductPriceType,
+                    CurrencyName = item.CurrencyName,
+                    ProductPriceType = item.ProductPriceType,
                     ProductPrice = item.ProductPriceType == (byte)ProductPriceType.Price ? item.ProductPrice.GetFormattedPrice((byte)item.ProductPriceType) : "",
                     CurrencyCssName = item.CurrencyName.GetCurrencyCssName(),
                 });
@@ -608,8 +608,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         public void PrepareHomeSectorItems(MTHomeModel model)
         {
-            var categoryService =EngineContext.Current.Resolve<ICategoryService>();
-            var sectorCategories = categoryService.GetMainCategories().Where(x=>x.HomeImagePath!=null);
+            var categoryService = EngineContext.Current.Resolve<ICategoryService>();
+            var sectorCategories = categoryService.GetMainCategories().Where(x => x.HomeImagePath != null);
             foreach (var item in sectorCategories)
             {
 
@@ -626,7 +626,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpGet]
         public JsonResult ProductSeletected(int skip)
         {
-            string key = string.Format("makinaturkiye.home-pages-selected-product-{0}",skip);
+            string key = string.Format("makinaturkiye.home-pages-selected-product-{0}", skip);
             ICacheManager _cacheManager = EngineContext.Current.Resolve<ICacheManager>();
             var testModel = _cacheManager.Get(key, () =>
             {
@@ -722,7 +722,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         CategoryName = category.Category.CategoryName,
                         CategoryId = category.Category.CategoryId,
-                        CategoryIcon =ImageHelper.GetCategoryIconPath(category.Category.CategoryIcon),
+                        CategoryIcon = ImageHelper.GetCategoryIconPath(category.Category.CategoryIcon),
                         CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty)
                     };
 
@@ -752,7 +752,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     model.CategoryModels.Add(new MTHomeCategoryModel
                     {
                         CategoryName = item.CategoryName,
-                        CategoryContentTitle=item.CategoryContentTitle,
+                        CategoryContentTitle = item.CategoryContentTitle,
                         CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName, null, null)
                     });
                 }
@@ -768,7 +768,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var categoryModel = new MTHomeCategoryModel
                     {
                         CategoryName = category.Category.CategoryName,
-                        CategoryContentTitle=category.Category.CategoryContentTitle,
+                        CategoryContentTitle = category.Category.CategoryContentTitle,
                         CategoryId = category.Category.CategoryId,
                         CategoryUrlName = category.Category.CategoryContentTitle,
                         CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty),

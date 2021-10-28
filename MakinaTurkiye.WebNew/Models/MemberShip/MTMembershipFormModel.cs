@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.MemberShip
 {
     public class MTMembershipFormModel
     {
-        [Required(ErrorMessage="Email zorunludur")]
+        [Required(ErrorMessage = "Email zorunludur")]
         public string MemberEmail { get; set; }
         [Required(ErrorMessage = "Şifre zorunludur")]
         public string MemberPassword { get; set; }

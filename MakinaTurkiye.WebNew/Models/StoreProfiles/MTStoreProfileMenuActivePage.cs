@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 {
     public class MTStoreProfileMenuActivePage
     {
@@ -22,5 +17,5 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
         public string NewActive { get; set; }
         public string StoreVideosActive { get; set; }
     }
-    
+
 }

@@ -1,52 +1,52 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Helper
 {
-  using System;
-  using System.IO;
-  using System.Web;
-  using System.Web.Mvc;
+    using System;
+    using System.IO;
+    using System.Web;
+    using System.Web.Mvc;
 
-  public class ContentPanel : IDisposable
-  {
-    private bool _disposed;
-    private readonly TextWriter _writer;
-
-    public ContentPanel(HttpResponseBase httpResponse)
+    public class ContentPanel : IDisposable
     {
-      if(httpResponse == null)
-      {
-        throw new ArgumentNullException("httpResponse");
-      }
-      this._writer = httpResponse.Output;
-    }
+        private bool _disposed;
+        private readonly TextWriter _writer;
 
-    public ContentPanel(ViewContext viewContext)
-    {
-      if(viewContext == null)
-      {
-        throw new ArgumentNullException("viewContext");
-      }
-      this._writer = viewContext.Writer;
-    }
+        public ContentPanel(HttpResponseBase httpResponse)
+        {
+            if (httpResponse == null)
+            {
+                throw new ArgumentNullException("httpResponse");
+            }
+            this._writer = httpResponse.Output;
+        }
 
-    public void Dispose()
-    {
-      this.Dispose(true);
-      GC.SuppressFinalize(this);
-    }
+        public ContentPanel(ViewContext viewContext)
+        {
+            if (viewContext == null)
+            {
+                throw new ArgumentNullException("viewContext");
+            }
+            this._writer = viewContext.Writer;
+        }
 
-    protected virtual void Dispose(bool disposing)
-    {
-      if(!this._disposed)
-      {
-        this._disposed = true;
-        this._writer.Write("</div>");
-      }
-    }
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
 
-    public void EndPanel()
-    {
-      this.Dispose(true);
-    }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!this._disposed)
+            {
+                this._disposed = true;
+                this._writer.Write("</div>");
+            }
+        }
 
-  }
+        public void EndPanel()
+        {
+            this.Dispose(true);
+        }
+
+    }
 }

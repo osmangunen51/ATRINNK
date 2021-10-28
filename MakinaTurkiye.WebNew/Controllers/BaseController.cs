@@ -1,13 +1,11 @@
+using NeoSistem.MakinaTurkiye.Web.Models;
+using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
-using NeoSistem.MakinaTurkiye.Web.Models;
 using System.Web.Routing;
-using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using System.Security.Claims;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -158,7 +156,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     string url = request.Url.ToString();
                     if (url.Contains("SearchType"))
                     {
-                        url = RemoveQueryStringByKey(url,"SearchType");
+                        url = RemoveQueryStringByKey(url, "SearchType");
                     }
                     if (url.Contains("Gorunum"))
                         url = RemoveQueryStringByKey(url, "Gorunum");
@@ -275,7 +273,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else
                 {
-                    navigation.AppendLine(" <li><a target='" + nn.Target + "' href='"+"" + nn.Url + "'>" + nn.Title + "</a></li>");
+                    navigation.AppendLine(" <li><a target='" + nn.Target + "' href='" + "" + nn.Url + "'>" + nn.Title + "</a></li>");
                 }
             }
             navigation.AppendLine("</ol>");

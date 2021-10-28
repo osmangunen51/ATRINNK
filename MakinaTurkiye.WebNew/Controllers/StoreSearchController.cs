@@ -1,10 +1,7 @@
-﻿using System;
+﻿using MakinaTurkiye.Services.Catalog;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using MakinaTurkiye.Entities.Tables.Catalog;
-using MakinaTurkiye.Services.Catalog;
 
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers

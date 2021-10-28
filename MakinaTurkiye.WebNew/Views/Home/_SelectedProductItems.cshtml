@@ -9,19 +9,16 @@
     Layout = null;
     //using NeoSistem.MakinaTurkiye.Web.Models
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+    int StepCounter = 0;
 }
-
-
 <div class="owl-carousel overflowdouble2">
-    @{ int StepCounter = 0;}
-
     @foreach (var populerAd in Model)
     {
         StepCounter += 1;
-        if (StepCounter == 1)
-        {
+                if (StepCounter == 1)
+                {
 
-            <div class="item double-item">
+                @:<div class="item double-item">
 
                 }
 
@@ -49,25 +46,11 @@
                         </span>
                     </div>
                 </div>
-
-
-                @if (StepCounter == 2)
-                {
-
-                </div>
-
+                if (StepCounter == 2)
+                {@:</div>
                 StepCounter = 0;
-            }
-
-                }
-
+                }}
                 @if (StepCounter == 1)
                 {
-
-
-
                 }
-
-
-
             </div>

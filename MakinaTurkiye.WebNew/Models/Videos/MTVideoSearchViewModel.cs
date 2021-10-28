@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Videos
 {
@@ -23,8 +20,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Videos
         public IList<MTPopularVideoModel> PopularVideoModels { get; set; }
         public MTVideoCategoryModel VideoCategoryModel { get; set; }
         public MTVideoPagingModel VideoPagingModel { get; set; }
-        public MTStoreAndProductDetailModel Store{get;set;}
+        public MTStoreAndProductDetailModel Store { get; set; }
 
-        public string SearchText{get;set;}
+        public string SearchText { get; set; }
     }
 }

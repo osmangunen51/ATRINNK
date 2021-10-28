@@ -1,25 +1,26 @@
 ﻿using MakinaTurkiye.Entities.StoredProcedures.Catalog;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Services.Videos;
-using MakinaTurkiye.Utilities.FormatHelpers;
-using MakinaTurkiye.Utilities.HttpHelpers;
-using MakinaTurkiye.Utilities.ImageHelpers;
-using MakinaTurkiye.Utilities.VideoHelpers;
-using MakinaTurkiye.Utilities.FileHelpers;
-using MakinaTurkiye.Utilities.MailHelpers;
-using MakinaTurkiye.Services.Messages;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Entities.Tables.Stores;
+using MakinaTurkiye.Services.Authentication;
+using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Media;
-using MakinaTurkiye.Utilities.Mvc;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Messages;
 using MakinaTurkiye.Services.Settings;
-
+using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Services.Videos;
+using MakinaTurkiye.Utilities.FileHelpers;
+using MakinaTurkiye.Utilities.FormatHelpers;
+using MakinaTurkiye.Utilities.HttpHelpers;
+using MakinaTurkiye.Utilities.ImageHelpers;
+using MakinaTurkiye.Utilities.MailHelpers;
+using MakinaTurkiye.Utilities.Mvc;
+using MakinaTurkiye.Utilities.VideoHelpers;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
 using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
@@ -27,9 +28,6 @@ using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
 using NeoSistem.MakinaTurkiye.Web.Models.Products;
 using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
-
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -37,14 +35,10 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using MakinaTurkiye.Services.Authentication;
 using static NeoSistem.MakinaTurkiye.Web.Models.Products.MTProductTabModel;
-using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -1128,13 +1122,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 System.IO.FileInfo largeFile = new System.IO.FileInfo(largePath);
                 if (!largeFile.Exists)
                 {
-                    string mainPicture = Server.MapPath($"~/UserFiles/Product/{product.ProductId}/{largeFile.Name.Replace("-500x375","")}");
+                    string mainPicture = Server.MapPath($"~/UserFiles/Product/{product.ProductId}/{largeFile.Name.Replace("-500x375", "")}");
                     string destinationfile = largeFile.Directory.FullName + "\\" + largeFile.Name.Replace("500x375", "");
                     if (!largeFile.Directory.Exists)
                     {
                         largeFile.Directory.Create();
                     }
-                    bool thumbResult = NeoSistem.MakinaTurkiye.Core.Web.Helpers.ImageProcessHelper.ImageResize(mainPicture, destinationfile,thumbSizes);
+                    bool thumbResult = NeoSistem.MakinaTurkiye.Core.Web.Helpers.ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
                 }
             }
 
@@ -1155,9 +1149,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         {
                             string key = (!string.IsNullOrWhiteSpace(ceritifcate.Name) ? ceritifcate.Name : "");
                             model.ProductTabModel.Certificates.Add(
-                                new CertificatesItem() {
-                                    Name=key,
-                                    File=AppSettings.StoreCertificateImageFolder + item.PicturePath.Replace("_certificate", "-500x800")
+                                new CertificatesItem()
+                                {
+                                    Name = key,
+                                    File = AppSettings.StoreCertificateImageFolder + item.PicturePath.Replace("_certificate", "-500x800")
                                 }
 
                                 );

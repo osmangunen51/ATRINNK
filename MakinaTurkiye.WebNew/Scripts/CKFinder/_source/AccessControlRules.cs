@@ -13,16 +13,16 @@
 
 namespace CKFinder
 {
-	internal enum AccessControlRules
-	{
-		FolderView = 1,
-		FolderCreate = 2,
-		FolderRename = 4,
-		FolderDelete = 8,
+    internal enum AccessControlRules
+    {
+        FolderView = 1,
+        FolderCreate = 2,
+        FolderRename = 4,
+        FolderDelete = 8,
 
-		FileView = 16,
-		FileUpload = 32,
-		FileRename = 64,
-		FileDelete = 128
-	}
+        FileView = 16,
+        FileUpload = 32,
+        FileRename = 64,
+        FileDelete = 128
+    }
 }

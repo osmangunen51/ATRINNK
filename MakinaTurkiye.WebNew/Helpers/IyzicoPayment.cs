@@ -8,7 +8,6 @@ using MakinaTurkiye.Entities.Tables.Packets;
 using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 namespace NeoSistem.MakinaTurkiye.Web.Helpers
 {
@@ -73,7 +72,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
             request.BasketId = Order.OrderId.ToString();
             request.PaymentChannel = PaymentChannel.WEB.ToString();
             request.PaymentGroup = PaymentGroup.PRODUCT.ToString();
-            request.CallbackUrl = AppSettings.SiteUrlWithoutLastSlash +this.CallBakUrl;
+            request.CallbackUrl = AppSettings.SiteUrlWithoutLastSlash + this.CallBakUrl;
             PaymentCard paymentCard = new PaymentCard();
             paymentCard.CardHolderName = CardNameSurname;
             paymentCard.CardNumber = this.CreditCardNumber;
@@ -155,7 +154,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
             buyer.Id = Member.MainPartyId.ToString();
             buyer.Name = Member.MemberName;
             buyer.Surname = Member.MemberSurname;
-            if(Phone==null)
+            if (Phone == null)
                 buyer.GsmNumber = "+9005326508841";
             else
                 buyer.GsmNumber = Phone.PhoneCulture + Phone.PhoneAreaCode + Phone.PhoneNumber;

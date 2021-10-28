@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
 {
     public class MTBannerModel
     {
@@ -13,6 +8,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public string BannerDescription { get; set; }
         public byte? BannerType { get; set; }
         public string BannerLink { get; set; }
-       public string BannerAltTag { get; set; }
+        public string BannerAltTag { get; set; }
     }
 }

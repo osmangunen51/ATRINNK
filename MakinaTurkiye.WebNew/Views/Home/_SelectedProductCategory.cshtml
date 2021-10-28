@@ -1,19 +1,10 @@
-﻿
-@model List<MTAllSelectedProductModel>
+﻿@model List<MTAllSelectedProductModel>
 @using NeoSistem.MakinaTurkiye.Web.Models
 @using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
 @using System.Diagnostics
 @using NeoSistem.MakinaTurkiye.Web.Models.Home
-
-@{
-    Layout = null;
-    //using NeoSistem.MakinaTurkiye.Web.Models
-    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
-}
-
-
-
+@{Layout = null;}
 @foreach (var m in Model.ToList())
 {
     if (m.Products.Count > 0)
@@ -36,9 +27,7 @@
                     </ul>
                 </div>
                 <div class="">
-
                     <div class="tab-content" id="nav-tabContent@(m.Index)">
-
                         <div class="tab-pane fade active in" id="@m.Index">
                             <div class="overflow-carousel-selected">
                                 <div class="owl-carousel overflowdouble-p-@(m.Index)">
@@ -60,8 +49,6 @@
 
                                                 }
                                             </a>
-
-
                                             <div class="">
                                                 <div class="product-card-home-selected-title">
                                                     @product.TruncatedProductName
@@ -76,14 +63,9 @@
                                                             <i class="@product.CurrencyCssName"></i>
                                                         }
                                                     </div>
-                                                    <}
-
-
-                                                </div>
-
+                                                }
                                             </div>
-
-
+                                        </div>
                                         }
                                             </div>
                                             <a class="left overflow-prev overflow-prev1-@(m.Index)" data-slide="prev">
@@ -131,13 +113,10 @@
 
 
                                     </script>
-
                                     @foreach (var item in m.CategoryModel)
                                     {
                                         counterContainer++;
-
                                         <div class="tab-pane fade" id="@item.CategoryId" role="tabpanel@(m.Index)" aria-labelledby="@(item.CategoryId)-tab">
-
                                             <div class="overflow-carousel-selected">
                                                 <div class="owl-carousel asd overflowdouble-p-@(item.CategoryId)">
 
@@ -192,8 +171,6 @@
                                                 <a class="left overflow-next overflow-next1-@(item.CategoryId)" data-slide="next">
                                                 </a>
                                             </div>
-
-
                                         </div>
                                         <script type="text/javascript">
                     $(document).ready(function () {
@@ -247,11 +224,9 @@
                                         </script>
                                     }
                                 </div>
-
                             </div>
-                        </div>
-                    </div>
-
-                }
-                                    }
+             </div>
+        </div>
+    }
+}
 

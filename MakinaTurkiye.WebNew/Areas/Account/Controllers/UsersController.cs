@@ -1,20 +1,18 @@
-﻿using MakinaTurkiye.Services.Members;
+﻿using MakinaTurkiye.Entities.Tables.Members;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Messages;
+using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Utilities.MailHelpers;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Users;
+using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using MakinaTurkiye.Entities.Tables.Members;
-using NeoSistem.MakinaTurkiye.Web.Models;
-using System.Transactions;
 using System.Globalization;
-using MakinaTurkiye.Services.Messages;
-using MakinaTurkiye.Utilities.MailHelpers;
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Utilities.Controllers;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -35,9 +33,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._messageMTService = messageMTService;
             this._storeService = storeService;
 
-            this._memberStoreService.CachingGetOrSetOperationEnabled=false;
-            this._memberService.CachingGetOrSetOperationEnabled=false;
-            this._storeService.CachingGetOrSetOperationEnabled=false;
+            this._memberStoreService.CachingGetOrSetOperationEnabled = false;
+            this._memberService.CachingGetOrSetOperationEnabled = false;
+            this._storeService.CachingGetOrSetOperationEnabled = false;
         }
 
         public ActionResult Index()
@@ -72,7 +70,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             MTUserFormModelView model = new MTUserFormModelView();
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
-            if(memberStore.MemberStoreType == (byte)MemberStoreType.Helper)
+            if (memberStore.MemberStoreType == (byte)MemberStoreType.Helper)
             {
                 return RedirectToAction("Index");
             }

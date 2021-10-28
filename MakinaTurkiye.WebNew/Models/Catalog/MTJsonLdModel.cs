@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
-using NeoSistem.MakinaTurkiye.Web.Controllers;
+﻿using NeoSistem.MakinaTurkiye.Web.Controllers;
+using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
 {
-  public class MTJsonLdModel
-  {
-    public MTJsonLdModel()
+    public class MTJsonLdModel
     {
-      Navigations = new List<BaseController.Navigation>();
-    }
-    public IList<BaseController.Navigation> Navigations { get; set; }
-    public string JsonLdString { get; set; }
+        public MTJsonLdModel()
+        {
+            Navigations = new List<BaseController.Navigation>();
+        }
+        public IList<BaseController.Navigation> Navigations { get; set; }
+        public string JsonLdString { get; set; }
 
-  }
+    }
 }

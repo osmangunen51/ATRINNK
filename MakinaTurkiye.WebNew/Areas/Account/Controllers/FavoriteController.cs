@@ -1,19 +1,16 @@
 ﻿using MakinaTurkiye.Services.Catalog;
-
-using NeoSistem.MakinaTurkiye.Web.Models;
-using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
+using MakinaTurkiye.Utilities.Controllers;
+using NeoSistem.EnterpriseEntity.Extensions.Data;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.FavoriteProducts;
 using NeoSistem.MakinaTurkiye.Web.Factories;
+using NeoSistem.MakinaTurkiye.Web.Models;
+using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
-
-using NeoSistem.EnterpriseEntity.Extensions.Data;
-
+using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using System;
-using MakinaTurkiye.Utilities.Controllers;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -100,7 +97,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 res.IsSuccess = false;
                 res.Result = "";
             }
-  
+
 
             return Json(res, JsonRequestBehavior.AllowGet);
         }

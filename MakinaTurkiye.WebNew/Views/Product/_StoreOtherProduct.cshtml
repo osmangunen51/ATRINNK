@@ -55,8 +55,8 @@
                                     <p class="top-seller-list__item-product-price">
                                         @if (!string.IsNullOrEmpty(item.Price))
                                         {
+                                            string idCss = "";
                                             <i itemprop="priceCurrency" class="@item.CurrencyCss"></i>
-                                            @{ string idCss = ""; }
                                             if (item.CurrencyCss == "")
                                             {
                                                 idCss = "interview";

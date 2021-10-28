@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using NeoSistem.MakinaTurkiye.Web.Models.Home;
+﻿using System.Collections.Generic;
 namespace NeoSistem.MakinaTurkiye.Web.Models
 {
     public class MTHeaderTopMenuModel
@@ -10,7 +6,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         public MTHeaderTopMenuModel()
         {
             this.HeaderTopMenuForHelp = new List<MTHeaderTopMenuItem>();
-         
+
         }
         public List<MTHeaderTopMenuItem> HeaderTopMenuForHelp { get; set; }
 

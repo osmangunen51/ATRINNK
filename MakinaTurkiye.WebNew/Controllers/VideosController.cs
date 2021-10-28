@@ -723,7 +723,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ViewBag.Canonical = "https://video.makinaturkiye.com" + request.Url.AbsolutePath;
 
             _videoService.CachingGetOrSetOperationEnabled = false;
-            var video=_videoService.GetVideoByVideoId(VideoId);
+            var video = _videoService.GetVideoByVideoId(VideoId);
             if (video == null)
                 return RedirectPermanent(AppSettings.VideoUrlBase);
             var productvideos = _videoService.GetVideosByProductId((int)video.ProductId);

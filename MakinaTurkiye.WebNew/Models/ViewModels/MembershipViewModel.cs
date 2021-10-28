@@ -1,16 +1,16 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Web.Models
 {
 
-    using System.Web.Mvc;
+    using EnterpriseEntity.Extensions.Data;
+    using global::MakinaTurkiye.Core.Infrastructure;
+    using global::MakinaTurkiye.Entities.Tables.Catalog;
+    using global::MakinaTurkiye.Entities.Tables.Common;
+    using global::MakinaTurkiye.Entities.Tables.Members;
+    using global::MakinaTurkiye.Entities.Tables.Stores;
+    using global::MakinaTurkiye.Services.Common;
     using System.Collections.Generic;
     using System.Linq;
-    using EnterpriseEntity.Extensions.Data;
-    using global::MakinaTurkiye.Entities.Tables.Common;
-    using global::MakinaTurkiye.Entities.Tables.Catalog;
-    using global::MakinaTurkiye.Entities.Tables.Stores;
-    using global::MakinaTurkiye.Entities.Tables.Members;
-    using global::MakinaTurkiye.Services.Common;
-    using global::MakinaTurkiye.Core.Infrastructure;
+    using System.Web.Mvc;
 
 
     //[AttemptMustMatchEncryptedSolution("Attempt", "EncrypedSolution", Constants.SecretKey, ErrorMessage = "Güvenlik Kodu Yanlış")]

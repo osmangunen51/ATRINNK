@@ -1,9 +1,9 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Web.Models
 {
+    using global::MakinaTurkiye.Entities.Tables.Catalog;
+    using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
     using System;
     using System.Collections.Generic;
-    using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
-    using global::MakinaTurkiye.Entities.Tables.Catalog;
 
     //  public class VideoDuration
     //{

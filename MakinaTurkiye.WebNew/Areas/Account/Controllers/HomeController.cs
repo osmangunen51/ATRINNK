@@ -1,37 +1,34 @@
-﻿using MakinaTurkiye.Services.Checkouts;
-using NeoSistem.MakinaTurkiye.Web.Models;
-using MakinaTurkiye.Services.Packets;
-using MakinaTurkiye.Utilities.HttpHelpers;
-using NeoSistem.MakinaTurkiye.Web.Helpers;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Utilities.FormatHelpers;
-using MakinaTurkiye.Utilities.MailHelpers;
-using MakinaTurkiye.Services.Messages;
+﻿using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Messages;
-
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
-using NeoSistem.MakinaTurkiye.Web.Models.AccountModels;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
-using NeoSistem.MakinaTurkiye.Web.Models.Home;
-using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
-using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-
+using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Checkouts;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Messages;
+using MakinaTurkiye.Services.Packets;
+using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Services.Videos;
+using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Utilities.FormatHelpers;
+using MakinaTurkiye.Utilities.HttpHelpers;
+using MakinaTurkiye.Utilities.MailHelpers;
 using NeoSistem.EnterpriseEntity.Business;
 using NeoSistem.EnterpriseEntity.Extensions.Data;
-
-using System.Net.Mail;
-using System.Net;
-using System.Web.Mvc;
-using System.Linq;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
+using NeoSistem.MakinaTurkiye.Web.Models;
+using NeoSistem.MakinaTurkiye.Web.Models.AccountModels;
+using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
+using NeoSistem.MakinaTurkiye.Web.Models.Home;
+using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
-using MakinaTurkiye.Utilities.Controllers;
-using MakinaTurkiye.Services.Videos;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -97,7 +94,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         public ActionResult Index(string gelenSayfa, string memberType)
         {
- 
+
             var model = new MyAccountHomeModel();
             var dataMessage = new Data.Message();
             var messageErrors = _messageService.GetSendMessageErrorsBySenderId(AuthenticationUser.Membership.MainPartyId);

@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
-using System.Linq;
-
-using MakinaTurkiye.Utilities.FileHelpers;
-using MakinaTurkiye.Services.Common;
+﻿using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Utilities.Controllers;
+using MakinaTurkiye.Utilities.FileHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
-
+using NeoSistem.EnterpriseEntity.Extensions.Data;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Catologs;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
-
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Catologs;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.OtherSettings;
-
-using NeoSistem.EnterpriseEntity.Extensions.Data;
-using MakinaTurkiye.Utilities.Controllers;
-using MakinaTurkiye.Entities.Tables.Catalog;
-using NeoSistem.MakinaTurkiye.Web.Helpers;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -45,7 +41,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._storeService = storeService;
             this._categoryService = categoryService;
 
-            this._constantService.CachingGetOrSetOperationEnabled=false;
+            this._constantService.CachingGetOrSetOperationEnabled = false;
             this._productService.CachingGetOrSetOperationEnabled = false;
             this._memberStoreService.CachingGetOrSetOperationEnabled = false;
             this._storeService.CachingGetOrSetOperationEnabled = false;
@@ -53,13 +49,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         }
         public ActionResult Index()
         {
-            var model =new OtherSettingsProductModel();
+            var model = new OtherSettingsProductModel();
             model.MTProductItems = PrepareProductModel(1, Request.QueryString["pagetype"].ToString());
             ViewData["ProductPriceTypes"] = _constantService.GetConstantByConstantType(ConstantTypeEnum.ProductPriceType);
 
             return View(model);
         }
-        public SearchModel<MTProductItem> PrepareProductModel(int pageIndex, string pageType , string productName="", string productNo="", string categoryName="",string brandName="",string modelName ="", bool search=false)
+        public SearchModel<MTProductItem> PrepareProductModel(int pageIndex, string pageType, string productName = "", string productNo = "", string categoryName = "", string brandName = "", string modelName = "", bool search = false)
         {
             var getProduct = new SearchModel<MTProductItem>
             {
@@ -73,9 +69,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(mainPartyId);
             var mainPartyIds = _memberStoreService.GetMemberStoresByStoreMainPartyId(memberStore.StoreMainPartyId.Value).Select(x => x.MemberMainPartyId).ToList();
             var products = new List<global::MakinaTurkiye.Entities.Tables.Catalog.Product>();
-            if(search==true)
+            if (search == true)
             {
-                products =_productService.GetAllProductsByMainPartyIds(mainPartyIds,true).ToList();
+                products = _productService.GetAllProductsByMainPartyIds(mainPartyIds, true).ToList();
             }
             else
             {
@@ -91,7 +87,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             //                descending
             //                select a).ToList();
             //}
-            
+
             if (!string.IsNullOrEmpty(productName))
             {
                 products = products.Where(x => x.ProductName.ToLower().Contains(productName.ToLower())).ToList();
@@ -115,8 +111,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             foreach (var item in products.OrderByDescending(x => x.Sort).ThenBy(x => x.ProductName).Skip(skip).Take(pageDimension))
             {
-                if(item.ModelId.HasValue)
-                    item.Model =  _categoryService.GetCategoryByCategoryId(item.ModelId.Value);
+                if (item.ModelId.HasValue)
+                    item.Model = _categoryService.GetCategoryByCategoryId(item.ModelId.Value);
                 if (item.BrandId.HasValue)
                     item.Brand = _categoryService.GetCategoryByCategoryId(item.BrandId.Value);
 
@@ -137,14 +133,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     ProductStatusText = item.GetProductStatuText(),
                     ProductTypeText = item.GetProductTypeText(),
                     SalesTypeText = item.GetProductSalesTypeText(),
-                    ProductPrice=item.GetFormattedPrice(),
+                    ProductPrice = item.GetFormattedPrice(),
                     ProductPriceDecimal = item.ProductPrice,
                     ProductPriceType = item.ProductPriceType != null ? item.ProductPriceType.Value : (byte)0,
                     ViewCount = item.ViewCount.Value,
                     CurrencyId = item.CurrencyId.HasValue == true ? item.CurrencyId.Value : (byte)0,
                     CurrencyCssText = item.GetCurrencyCssName(),
                     Doping = item.Doping,
-                    ProductPriceWithDiscount=  item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : "",
+                    ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : "",
                     ProductPriceWithDiscountDecimal = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value : 0,
                     Sort = item.Sort.HasValue ? item.Sort.Value : 0
                 });
@@ -191,7 +187,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             int ProductID = Convert.ToInt32(ProductId);
             decimal Price = Convert.ToDecimal(PriceNumber);
             var product = _productService.GetProductByProductId(ProductID);
-            if(product.DiscountType.HasValue && product.DiscountType.Value != 0)
+            if (product.DiscountType.HasValue && product.DiscountType.Value != 0)
             {
                 product.ProductPriceWithDiscount = Price;
                 product.DiscountType = 2;
@@ -217,11 +213,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         }
 
         [HttpPost]
-        public ActionResult AdvertPagingfor(int page, byte displayType, byte advertListType, byte ProductActiveType,string productNo, string productName, string categoryName, string brandName,string modelName)
+        public ActionResult AdvertPagingfor(int page, byte displayType, byte advertListType, byte ProductActiveType, string productNo, string productName, string categoryName, string brandName, string modelName)
         {
 
             var model = new OtherSettingsProductModel();
-            model.MTProductItems = PrepareProductModel(page,"5",productName, productNo,categoryName, brandName, modelName,true);
+            model.MTProductItems = PrepareProductModel(page, "5", productName, productNo, categoryName, brandName, modelName, true);
 
             //var dataProduct = new Data.Product();
             //var getProduct = new SearchModel<ProductModel>
@@ -253,7 +249,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             //        break;
             //}
 
-           return View(model.MTProductItems);
+            return View(model.MTProductItems);
         }
         [HttpPost]
         public ActionResult AdvertSortList(string page, string categoryName, string productNo, string brandName, string productName)

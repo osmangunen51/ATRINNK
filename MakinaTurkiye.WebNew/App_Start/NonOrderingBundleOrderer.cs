@@ -3,7 +3,7 @@ using System.Web.Optimization;
 
 namespace NeoSistem.MakinaTurkiye.Web.App_Start
 {
-    public class NonOrderingBundleOrderer: IBundleOrderer
+    public class NonOrderingBundleOrderer : IBundleOrderer
     {
         public IEnumerable<BundleFile> OrderFiles(BundleContext context, IEnumerable<BundleFile> files)
         {

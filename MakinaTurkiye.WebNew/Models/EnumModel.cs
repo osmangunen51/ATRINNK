@@ -1,13 +1,11 @@
 ﻿
 namespace NeoSistem.MakinaTurkiye.Web.Models
 {
+    using EnterpriseEntity.Extensions.Data;
     using System;
     using System.Collections.Generic;
-    using EnterpriseEntity.Extensions.Data;
-    using System.Text;
-    using System.Linq;
-    using System.Transactions;
     using System.ComponentModel;
+    using System.Linq;
 
     public static class EnumModel
     {
@@ -493,8 +491,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
 
     public enum ProductStatus : byte
     {
-        NewProduct=72,
-        SecondHand=73
+        NewProduct = 72,
+        SecondHand = 73
     }
 
 

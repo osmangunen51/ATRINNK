@@ -1,11 +1,10 @@
-﻿using System.Web.Mvc;
-using System.Linq;
+﻿using MakinaTurkiye.Caching;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Content;
 using NeoSistem.MakinaTurkiye.Web.Models.Footer;
 using System.Collections.Generic;
-using MakinaTurkiye.Services.Content;
-using System.Threading.Tasks;
-using MakinaTurkiye.Caching;
-using MakinaTurkiye.Services.Common;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -33,7 +32,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         #endregion
-     
+
         #region Methods
 
         [ChildActionOnly]
@@ -69,7 +68,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.FooterParentModels = footerParents;
                 return model;
             });
-            
+
             return PartialView(testModel);
         }
 

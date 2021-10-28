@@ -1,9 +1,6 @@
 ﻿#region Using Directives
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
+using System.Collections.Generic;
 #endregion
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants

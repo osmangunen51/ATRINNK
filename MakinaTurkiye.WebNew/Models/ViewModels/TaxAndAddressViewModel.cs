@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.ViewModels
 {
     public class TaxAndAddressViewModel
     {
@@ -11,6 +6,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.ViewModels
         public string TaxOffice { get; set; }
         public string TaxNumber { get; set; }
         public string StoreName { get; set; }
-       
+
     }
 }

@@ -40,7 +40,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                                 "image/pjpeg", "image/png", "image/x-png" };
 
 
-        public StoreNewController(IStoreNewService storeNewService, IStoreService storeService, 
+        public StoreNewController(IStoreNewService storeNewService, IStoreService storeService,
             IPacketService packetService, IMemberStoreService memberStoreService)
         {
             this._storeNewService = storeNewService;
@@ -48,10 +48,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._packetService = packetService;
             this._memberStoreService = memberStoreService;
 
-            this._storeNewService.CachingGetOrSetOperationEnabled=false;
-            this._storeService.CachingGetOrSetOperationEnabled=false;
-            this._packetService.CachingGetOrSetOperationEnabled=false;
-            this._memberStoreService.CachingGetOrSetOperationEnabled=false;
+            this._storeNewService.CachingGetOrSetOperationEnabled = false;
+            this._storeService.CachingGetOrSetOperationEnabled = false;
+            this._packetService.CachingGetOrSetOperationEnabled = false;
+            this._memberStoreService.CachingGetOrSetOperationEnabled = false;
 
         }
         // GET: Account/StoreNew
@@ -75,13 +75,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             model.PageTitle = "Başarı Hikayeleri";
                         }
 
-                        var news = _storeNewService.GetStoreNewsByStoreMainPartyId(store.MainPartyId,(StoreNewTypeEnum)newType).OrderByDescending(x => x.StoreNewId);
-                         
+                        var news = _storeNewService.GetStoreNewsByStoreMainPartyId(store.MainPartyId, (StoreNewTypeEnum)newType).OrderByDescending(x => x.StoreNewId);
+
                         foreach (var item in news)
                         {
-                            model.MTStoreNews.Add(new MTStoreNewItem { Active = item.Active, RecordDate = item.RecordDate,
+                            model.MTStoreNews.Add(new MTStoreNewItem
+                            {
+                                Active = item.Active,
+                                RecordDate = item.RecordDate,
                                 ImagePath = ImageHelper.GetStoreNewImagePath(item.ImageName, StoreNewImageSize.px100x100.ToString()),
-                                StoreNewId = item.StoreNewId, Title = item.Title, UpdateDate = item.UpdateDate,
+                                StoreNewId = item.StoreNewId,
+                                Title = item.Title,
+                                UpdateDate = item.UpdateDate,
                                 NewUrl = UrlBuilder.GetStoreNewUrl(item.StoreNewId, item.Title),
                                 ViewCount = item.ViewCount
                             });
@@ -133,7 +138,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             else
             {
-               
+
                 var storeNew = new StoreNew();
                 storeNew.Title = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(LimitText(StringHelpers.ProductNameRegulator(model.Title).Trim(), 250).ToLower());
                 storeNew.Content = model.Content;
@@ -144,36 +149,37 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 storeNew.ViewCount = 0;
                 storeNew.NewType = model.NewType;
                 _storeNewService.InsertStoreNew(storeNew);
-                if (Request.Files.Count > 0) { 
-                HttpPostedFileBase file = Request.Files[0];
-                    string filename = "";
-                if (ImageContentType.Any(x => x == file.ContentType) && file.ContentLength > 0)
+                if (Request.Files.Count > 0)
                 {
+                    HttpPostedFileBase file = Request.Files[0];
+                    string filename = "";
+                    if (ImageContentType.Any(x => x == file.ContentType) && file.ContentLength > 0)
+                    {
 
-                    string oldfile = file.FileName;
-                    string mapPath = this.Server.MapPath(AppSettings.StoreNewImageFolder);
-                    string uzanti = oldfile.Substring(oldfile.LastIndexOf("."), oldfile.Length - oldfile.LastIndexOf("."));
-                     filename = storeNew.Title.ToImageFileName() + storeNew.StoreNewId + "_haber" + uzanti;
-                    var targetFile = new FileInfo(mapPath + filename);
-                    string storeNewImage = mapPath + filename;
-                    file.SaveAs(storeNewImage);
+                        string oldfile = file.FileName;
+                        string mapPath = this.Server.MapPath(AppSettings.StoreNewImageFolder);
+                        string uzanti = oldfile.Substring(oldfile.LastIndexOf("."), oldfile.Length - oldfile.LastIndexOf("."));
+                        filename = storeNew.Title.ToImageFileName() + storeNew.StoreNewId + "_haber" + uzanti;
+                        var targetFile = new FileInfo(mapPath + filename);
+                        string storeNewImage = mapPath + filename;
+                        file.SaveAs(storeNewImage);
 
                         var imageizes = AppSettings.StoreNewImageSize.Split(';');
                         foreach (var item in imageizes)
                         {
-                            int width =Convert.ToInt32(item.Split('x')[0]);
-                            int height =Convert.ToInt32(item.Split('x')[1]);
+                            int width = Convert.ToInt32(item.Split('x')[0]);
+                            int height = Convert.ToInt32(item.Split('x')[1]);
 
                             Image img = ImageProcessHelper.resizeImageBanner(width, height, storeNewImage);
                             ImageProcessHelper.SaveJpeg(storeNewImage, img, 100, "_haber", "_" + item);
                         }
-                 
-                }
+
+                    }
                     storeNew.ImageName = filename;
                     _storeNewService.UpdateStoreNew(storeNew);
                 }
                 TempData["success"] = "basarili";
-                return RedirectToAction("Create",new { @newType = model.NewType });
+                return RedirectToAction("Create", new { @newType = model.NewType });
             }
 
             return View(model);
@@ -236,7 +242,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                 System.IO.File.Delete(fileOldAnother);
                             }
                         }
-                      
+
                         string oldfile = file.FileName;
                         string mapPath = this.Server.MapPath(AppSettings.StoreNewImageFolder);
                         string uzanti = oldfile.Substring(oldfile.LastIndexOf("."), oldfile.Length - oldfile.LastIndexOf("."));
@@ -252,15 +258,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             Image img = ImageProcessHelper.resizeImageBanner(width, height, storeNewImage);
                             ImageProcessHelper.SaveJpeg(storeNewImage, img, 100, "_haber", "_" + item);
                         }
-      
+
                         storeNew.ImageName = filename;
                     }
                 }
-         
+
                 _storeNewService.UpdateStoreNew(storeNew);
 
                 TempData["success"] = "basarili";
-                return RedirectToAction("Update", "StoreNew",new { @newType=model.NewType});
+                return RedirectToAction("Update", "StoreNew", new { @newType = model.NewType });
             }
 
             return View(model);

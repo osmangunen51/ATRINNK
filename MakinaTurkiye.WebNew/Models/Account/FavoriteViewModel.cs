@@ -1,8 +1,8 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Web.Models
 {
 
-  public class FavoriteViewModel
-  {
+    public class FavoriteViewModel
+    {
 
-  }
+    }
 }

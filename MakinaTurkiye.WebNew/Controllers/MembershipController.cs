@@ -1,9 +1,9 @@
-﻿using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Entities.Tables.Common;
+﻿using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Logs;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Entities.Tables.Stores;
+using MakinaTurkiye.Services.Authentication;
 using MakinaTurkiye.Services.Bulletins;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
@@ -11,11 +11,10 @@ using MakinaTurkiye.Services.Logs;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
 using MakinaTurkiye.Services.Packets;
+using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.Mvc;
-
 using NeoSistem.EnterpriseEntity.Extensions.Data;
-
 using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
@@ -23,7 +22,6 @@ using NeoSistem.MakinaTurkiye.Web.Models.Bulletins;
 using NeoSistem.MakinaTurkiye.Web.Models.MemberShip;
 using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
-
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -35,10 +33,8 @@ using System.Net.Mail;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using System.Transactions;
 using System.Web;
 using System.Web.Mvc;
-using MakinaTurkiye.Services.Authentication;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -1874,7 +1870,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         public ActionResult Activation(string uyelikSifre)
         {
-            if (uyelikSifre==null)
+            if (uyelikSifre == null)
             {
                 uyelikSifre = "";
             }

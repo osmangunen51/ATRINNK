@@ -17,7 +17,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
     }
     //sub class
     public class StoreProductPictureModel
-    {   
+    {
         public string PictureName { get; set; }
         public string PicturePath { get; set; }
         public string ProductUrl { get; set; }

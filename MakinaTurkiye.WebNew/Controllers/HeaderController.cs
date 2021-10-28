@@ -20,7 +20,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         #region Ctor
 
-        public HeaderController(ICategoryService categoryService,ICategoryPlaceChoiceService categoryPlaceChoiceService)
+        public HeaderController(ICategoryService categoryService, ICategoryPlaceChoiceService categoryPlaceChoiceService)
         {
             this._categoryService = categoryService;
             this._categoryPlaceChoiceService = categoryPlaceChoiceService;

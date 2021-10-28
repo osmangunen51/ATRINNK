@@ -22,14 +22,14 @@ else
             @if (Model.BannerResource.Contains(".gif"))
             {
                 <a href="@Model.BannerLink" target="_blank">
-                    <img src="@(AppSettings.BannerImagesThumbFolder + Model.BannerResource)" class="img-thumbnail" alt="@{!string.IsNullOrEmpty(Model.BannerDescription) ? Model.BannerDescription : " " }" />
+                    <img src="@(AppSettings.BannerImagesThumbFolder + Model.BannerResource)" class="img-thumbnail" alt="@(!string.IsNullOrEmpty(Model.BannerDescription) ? Model.BannerDescription : " ")" />
 </a>
 
                         }
                         else
                         {
                 <a href="@Model.BannerLink" target="_blank">
-                    <img src="@(AppSettings.BannerImagesThumbFolder + Model.BannerResource)" class="img-thumbnail" alt="@{!string.IsNullOrEmpty(Model.BannerDescription) ? Model.BannerDescription : " "}" />
+                    <img src="@(AppSettings.BannerImagesThumbFolder + Model.BannerResource)" class="img-thumbnail" alt="@(!string.IsNullOrEmpty(Model.BannerDescription) ? Model.BannerDescription : " ")" />
                 </a>
                         } 
             </div>

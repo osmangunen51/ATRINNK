@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
 {
@@ -11,7 +8,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         {
             this.SortOptionModels = new List<SortOptionModel>();
             this.CustomFilterModels = new List<CustomFilterModel>();
-            this.DataFilterMoldes = new List<DataFilterModel>();            
+            this.DataFilterMoldes = new List<DataFilterModel>();
         }
 
         public List<SortOptionModel> SortOptionModels { get; set; }

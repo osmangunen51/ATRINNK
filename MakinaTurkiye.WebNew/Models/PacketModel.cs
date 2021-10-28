@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System;
-using System.Web.Mvc;
-using System.Linq;
-using System.Xml.Linq;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
+﻿using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Payments;
 using MakinaTurkiye.Services.Payments;
-using MakinaTurkiye.Core.Infrastructure;
+using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
+using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
+using System;
+using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models
 {
@@ -19,7 +16,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         {
             this.OrderType = (byte)Ordertype.KrediKarti;
             this.TaxAndAddressViewModel = new TaxAndAddressViewModel();
-       
+
         }
         public string paymecpost
         {
@@ -94,7 +91,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         public string Gsm { get; set; }
         public decimal? PayPriceAmount { get; set; }
         public int PacketDay { get; set; }
-       
+
 
 
 
@@ -130,7 +127,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
                 return creditCard;
             }
         }
-        public  TaxAndAddressViewModel TaxAndAddressViewModel { get; set; }
+        public TaxAndAddressViewModel TaxAndAddressViewModel { get; set; }
 
         public VirtualPos VirtualPos
         {
@@ -166,7 +163,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
 
         public string GetHashStrASPaymec(string tutar, string taksit)
         {
-          
+
             string anahtar = "69c1365cd932bffaf715009b50ef2e1d";
             string siteno = "76144";
             String hashstr = anahtar + siteno + this.banka + tutar + taksit;

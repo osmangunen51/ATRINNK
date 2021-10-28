@@ -11,12 +11,10 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.Products
 @using NeoSistem.MakinaTurkiye.Web.Models.Catalog
 @using NeoSistem.MakinaTurkiye.Web.Models.Entities
+@using NeoSistem.MakinaTurkiye.Web.Helpers
+@using NeoSistem.EnterpriseEntity.Extensions
+@using NeoSistem.MakinaTurkiye.Web.Helpers
 
-@{
-    // Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
-    //using NeoSistem.MakinaTurkiye.Web.Models
-    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
-}
 
 <div class="col-xs-12">
     <div class="panel panel-mt2">
@@ -33,7 +31,7 @@
 
                 <ul class="top-seller-list__items">
                     @{
-                        int categoryid = Model.ProductDetailInfo.CategoryId.ToInt32();
+                        int categoryid = Convert.ToInt32(Model.ProductDetailInfo.CategoryId);
                         MakinaTurkiyeEntities entiti = new MakinaTurkiyeEntities();
                         var parameter = new System.Data.Objects.ObjectParameter("TotalRecord", typeof(int));
                         int PageDimension = 12;

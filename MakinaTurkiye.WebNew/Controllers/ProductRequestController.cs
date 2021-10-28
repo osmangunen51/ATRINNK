@@ -1,14 +1,12 @@
-﻿using MakinaTurkiye.Services.Catalog;
+﻿using MakinaTurkiye.Entities.Tables.ProductRequests;
+using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.ProductRequests;
-using MakinaTurkiye.Entities.Tables.ProductRequests;
-
+using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
 using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests;
-using NeoSistem.MakinaTurkiye.Web.Models;
-
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -24,7 +22,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private readonly IPhoneService _phoneService;
         private readonly IProductRequestService _productRequestService;
 
-        public ProductRequestController(ICategoryService categoryService,IMemberService memberService,IPhoneService phoneService,
+        public ProductRequestController(ICategoryService categoryService, IMemberService memberService, IPhoneService phoneService,
             IProductRequestService productRequestService)
         {
             this._categoryService = categoryService;
@@ -49,21 +47,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var phone = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
                 if (phone != null)
                     model.MTProductRequestForm.PhoneNumber = phone.PhoneCulture + phone.PhoneAreaCode + " " + phone.PhoneNumber;
-     
+
                 var sectors = _categoryService.GetMainCategories();
                 foreach (var item in sectors)
                 {
                     model.SectorList.Add(new MTCategoryItemModel { CategoryContentTitle = item.CategoryContentTitle, CategoryId = item.CategoryId });
                 }
 
-                return View(model);            
+                return View(model);
             }
             else
             {
-                TempData["MessageError"] ="Ürün talebinde bulunmak için üye girişi yapmanız gerekmektedir.";
-                return Redirect("/uyelik/kullanicigirisi?ReturnUrl="+ Request.Url.AbsolutePath+Request.Url.Query);
+                TempData["MessageError"] = "Ürün talebinde bulunmak için üye girişi yapmanız gerekmektedir.";
+                return Redirect("/uyelik/kullanicigirisi?ReturnUrl=" + Request.Url.AbsolutePath + Request.Url.Query);
             }
-  
+
         }
         [HttpPost]
         public ActionResult step1(MTProductRequestModel model)
@@ -71,7 +69,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var productRequest = new ProductRequest();
             var member = _memberService.GetMemberByMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
             string nameSurname = member.MemberName + " " + member.MemberSurname;
-           string email = member.MemberEmail;
+            string email = member.MemberEmail;
             var fModel = model.MTProductRequestForm;
             productRequest.BrandId = fModel.BrandId;
             int categoyId = fModel.SectorId;
@@ -87,7 +85,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             productRequest.MemberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
             productRequest.Message = fModel.Message;
             productRequest.NameSurname = nameSurname;
-            productRequest.PhoneNumber = fModel.PhoneNumber.Replace("(","").Replace(")","");
+            productRequest.PhoneNumber = fModel.PhoneNumber.Replace("(", "").Replace(")", "");
             productRequest.RecordDate = DateTime.Now;
             _productRequestService.InsertProductRequest(productRequest);
             TempData["success"] = true;

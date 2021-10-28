@@ -13,30 +13,30 @@
 
 namespace CKFinder.Connector
 {
-	internal static class Errors
-	{
-		public const int None = 0;
-		public const int CustomError = 1;
-		public const int InvalidCommand = 10;
-		public const int TypeNotSpecified = 11;
-		public const int InvalidType = 12;
-		public const int InvalidName = 102;
-		public const int Unauthorized = 103;
-		public const int AccessDenied = 104;
-		public const int InvalidExtension = 105;
-		public const int InvalidRequest = 109;
-		public const int Unknown = 110;
-		public const int AlreadyExist = 115;
-		public const int FolderNotFound = 116;
-		public const int FileNotFound = 117;
-		public const int UploadedFileRenamed = 201;
-		public const int UploadedInvalid = 202;
-		public const int UploadedTooBig = 203;
-		public const int UploadedCorrupt = 204;
-		public const int UploadedNoTmpDir = 205;
-		public const int UploadedWrongHtmlFile = 206;
-		public const int UploadedInvalidNameRenamed = 207;
-		public const int ConnectorDisabled = 500;
-		public const int ThumbnailsDisabled = 501;
-	}
+    internal static class Errors
+    {
+        public const int None = 0;
+        public const int CustomError = 1;
+        public const int InvalidCommand = 10;
+        public const int TypeNotSpecified = 11;
+        public const int InvalidType = 12;
+        public const int InvalidName = 102;
+        public const int Unauthorized = 103;
+        public const int AccessDenied = 104;
+        public const int InvalidExtension = 105;
+        public const int InvalidRequest = 109;
+        public const int Unknown = 110;
+        public const int AlreadyExist = 115;
+        public const int FolderNotFound = 116;
+        public const int FileNotFound = 117;
+        public const int UploadedFileRenamed = 201;
+        public const int UploadedInvalid = 202;
+        public const int UploadedTooBig = 203;
+        public const int UploadedCorrupt = 204;
+        public const int UploadedNoTmpDir = 205;
+        public const int UploadedWrongHtmlFile = 206;
+        public const int UploadedInvalidNameRenamed = 207;
+        public const int ConnectorDisabled = 500;
+        public const int ThumbnailsDisabled = 501;
+    }
 }

@@ -1,6 +1,4 @@
-﻿
-using MakinaTurkiye.Entities.Tables.Catalog;
-using MakinaTurkiye.Entities.Tables.Common;
+﻿using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Media;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Stores;
@@ -328,7 +326,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
             }
         }
 
-            public string StoreBannerThumb
+        public string StoreBannerThumb
         {
             get
             {

@@ -1,15 +1,15 @@
 namespace NeoSistem.MakinaTurkiye.Web.Models.Validation
 {
-  using System.ComponentModel.DataAnnotations;
-  using Properties;
+    using Properties;
+    using System.ComponentModel.DataAnnotations;
 
-  public class EmailValidationAttribute : RegularExpressionAttribute
-  {
-    public EmailValidationAttribute()
-      : base("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.([a-z]{2,4})$")
+    public class EmailValidationAttribute : RegularExpressionAttribute
     {
-      ErrorMessageResourceName = "EmailValidation";
-      ErrorMessageResourceType = typeof(Resources);
+        public EmailValidationAttribute()
+          : base("^[a-z0-9_\\+-]+(\\.[a-z0-9_\\+-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)*\\.([a-z]{2,4})$")
+        {
+            ErrorMessageResourceName = "EmailValidation";
+            ErrorMessageResourceType = typeof(Resources);
+        }
     }
-  }
 }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores
 {
@@ -14,6 +11,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores
         public string CertificateName { get; set; }
         public int StoreCertificateId { get; set; }
         public List<string> PhotoPaths { get; set; }
-   
+
     }
 }

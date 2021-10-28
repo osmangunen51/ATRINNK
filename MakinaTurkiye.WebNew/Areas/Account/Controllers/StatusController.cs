@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
+﻿using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
@@ -32,7 +26,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         // model.ProductSalesBuyer = list;
         //  }
-          
+
         //  if (productsaleaboutdealer.Count != 0)
         //  {
         //    IList<Product> listdeal = new List<Product>();

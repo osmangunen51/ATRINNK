@@ -1,14 +1,12 @@
 ﻿
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Mvc;
-using System.Linq;
-using System.Xml.Linq;
-using NeoSistem.EnterpriseEntity.Extensions.Data;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
+using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Core.Infrastructure;
+using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models
 {

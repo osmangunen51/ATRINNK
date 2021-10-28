@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.Videos
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.Videos
 {
     public class MTVideoModel
     {
@@ -14,7 +9,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Videos
         public string ProductUrl { get; set; }
         public byte VideoMinute { get; set; }
         public byte VideoSecond { get; set; }
-        public string VideoSecondStr  { get { return VideoSecond > 10 ? VideoSecond.ToString() : string.Concat("0", VideoSecond.ToString()); }set {} }
+        public string VideoSecondStr { get { return VideoSecond > 10 ? VideoSecond.ToString() : string.Concat("0", VideoSecond.ToString()); } set { } }
         public string TruncateProductName { get; set; }
         public string TruncateStoreName { get; set; }
         public string StoreName { get; set; }

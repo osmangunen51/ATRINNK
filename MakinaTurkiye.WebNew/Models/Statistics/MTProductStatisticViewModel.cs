@@ -1,8 +1,5 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Statistics
@@ -23,7 +20,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Statistics
         public int TotalUserCount { get; set; }
         public long LastTotalViewCount { get; set; }
         public long LastSingularViewCount { get; set; }
-     
+
         public bool TodayData { get; set; }
         public string StartDate { get; set; }
         public string EndDate { get; set; }

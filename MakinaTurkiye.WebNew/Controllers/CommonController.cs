@@ -1,21 +1,20 @@
-﻿using MakinaTurkiye.Entities.Tables.Seos;
+﻿using MakinaTurkiye.Entities.StoredProcedures.Catalog;
+using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Entities.Tables.Seos;
+using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Media;
+using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Seos;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Services.Videos;
-using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Utilities.FormatHelpers;
+using MakinaTurkiye.Utilities.ImageHelpers;
 using NeoSistem.MakinaTurkiye.Web.Models.Common;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using MakinaTurkiye.Entities.Tables.Stores;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Entities.StoredProcedures.Catalog;
-using MakinaTurkiye.Utilities.FormatHelpers;
-using MakinaTurkiye.Services.Common;
-using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
-using MakinaTurkiye.Utilities.ImageHelpers;
-using MakinaTurkiye.Services.Media;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -59,7 +58,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         private void PrepareMetaTagProperty(MetaTagModel model)
         {
-        
+
         }
         private void PrepareMetaTagModel(MetaTagModel model)
         {
@@ -133,7 +132,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 case "SearchResults": seoIdNameEnum = SeoIdNameEnum.ProductSearchPage; break;
                 case "ProductSearchOneStep": seoIdNameEnum = SeoIdNameEnum.ProductSearchPage; break;
-                case "AdvancedSearch":seoIdNameEnum = SeoIdNameEnum.AdvancedSearch;break;
+                case "AdvancedSearch": seoIdNameEnum = SeoIdNameEnum.AdvancedSearch; break;
                 case "Index2":
 
                     if (categoryId == 0)
@@ -244,7 +243,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var seo = seos.FirstOrDefault(s => s.SeoId == (int)seoIdNameEnum);
             string description = seo.Description;
-            string keywords =!string.IsNullOrEmpty(seo.Keywords) ? seo.Keywords : "";
+            string keywords = !string.IsNullOrEmpty(seo.Keywords) ? seo.Keywords : "";
             string title = seo.Title;
             string url = this.Request.Url.ToString();
             string img = "";
@@ -291,11 +290,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 categoryContentTile = cat.CategoryContentTitle;
 
                             }
-                            else{
+                            else
+                            {
                                 categoryName = "";
                                 categoryContentTile = "";
                             }
-                      
+
                         }
                     }
 
@@ -398,7 +398,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         description = description.Replace("{Seri}", series != null ? series.CategoryName : "");
                         keywords = keywords.Replace("{Seri}", series != null ? series.CategoryName : "");
                         title = title.Replace("{Seri}", series != null ? series.CategoryName : "");
-   
+
 
                         if (brand != null)
                         {
@@ -522,8 +522,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 if (GetPageQueryString() > 1)
                 {
-                    description+= " - "+ GetPageQueryString();
-                    keywords +=  " - " + GetPageQueryString();
+                    description += " - " + GetPageQueryString();
+                    keywords += " - " + GetPageQueryString();
                     title += " - " + GetPageQueryString();
                 }
             }
@@ -594,7 +594,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 seoIdNameEnum = SeoIdNameEnum.Uyelik;
             }
-            else if(actionName=="FastMembership")
+            else if (actionName == "FastMembership")
             {
                 seoIdNameEnum = SeoIdNameEnum.Register;
             }
@@ -701,7 +701,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 seo.Title = seo.Title.Replace("{Ilce}", product.Locality.LocalityName);
             }
 
-            var keyWordsWithComma = string.Join(",", product.ProductName.Replace("-","").Replace("/","").Replace("_","").Split(' ').ToList());
+            var keyWordsWithComma = string.Join(",", product.ProductName.Replace("-", "").Replace("/", "").Replace("_", "").Split(' ').ToList());
             seo.Keywords = seo.Keywords + "," + keyWordsWithComma;
             model.Description = seo.Description;
             model.Keywords = seo.Keywords;
@@ -716,7 +716,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             else
             {
-                model.Image = ImageHelper.GetProductImagePath(product.ProductId,"",ProductImageSize.px200x150);
+                model.Image = ImageHelper.GetProductImagePath(product.ProductId, "", ProductImageSize.px200x150);
             }
 
         }

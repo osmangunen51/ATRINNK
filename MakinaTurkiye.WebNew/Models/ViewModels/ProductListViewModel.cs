@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using MakinaTurkiye.Entities.Tables.Common;
-
-namespace NeoSistem.MakinaTurkiye.Web.Models.ViewModels
+﻿namespace NeoSistem.MakinaTurkiye.Web.Models.ViewModels
 {
     //public class ProductListViewModel
     //{

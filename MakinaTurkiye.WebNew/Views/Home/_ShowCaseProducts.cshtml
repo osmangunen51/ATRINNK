@@ -23,8 +23,7 @@
             {
                 var pageItems = Model.Skip((p - 1) * 10).Take(10);
 
-        <div class="item@{p.Equals(1) ? " active" : ""}">
-              
+        <div class="item@(p.Equals(1) ? " active" : "")">              
             @for (int i = 0; i < 2; i++)
                         { 
             
@@ -50,7 +49,7 @@
                             </a>
                             @if (item.ProductPrice.HasValue && item.ProductPrice > 0)
                             {
-                                MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
+                                NeoSistem.MakinaTurkiye.BaseModule.Entities.MakinaTurkiyeEntities entities = new NeoSistem.MakinaTurkiye.BaseModule.Entities.MakinaTurkiyeEntities();
                                 var model2 = (from c in entities.Products
                                               where c.ProductId == item.ProductId
                                               select c.Currency.CurrencyName).FirstOrDefault();

@@ -1,11 +1,4 @@
 ﻿#region Using Directives
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models;
-using NeoSistem.EnterpriseEntity.Extensions.Data;
-using MakinaTurkiye.Entities.Tables.Catalog;
 #endregion
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Account

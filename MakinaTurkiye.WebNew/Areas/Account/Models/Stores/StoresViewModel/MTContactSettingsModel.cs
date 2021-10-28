@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores.StoresViewModel
 {
@@ -13,6 +10,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores.StoresViewMode
             this.LeftMenu = new LeftMenuModel();
         }
         public List<MTSettingItemModel> MTSettingItems { get; set; }
-        public  LeftMenuModel LeftMenu { get; set; }
+        public LeftMenuModel LeftMenu { get; set; }
     }
 }

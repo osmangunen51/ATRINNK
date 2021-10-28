@@ -10,7 +10,6 @@
     //using NeoSistem.MakinaTurkiye.Web.Models
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
 }
-
 <div class="row popular-ilanlar">
     <div class="col-xs-12">
         <h2 class="section-title">
@@ -83,15 +82,13 @@
                             else
                             {
                                 activeClass = "";
-                            }
-                            @{
                                 ViewData["PVCategoryName"] = item.CategoryName;
                             }
 
                             <div class="tab-content-container    tab-pane @(activeClass)" id="rpc_@(item.CategoryId)" role="tabpanel">
                                 <div class="tab-content-slider">
                                     <div class="overflow-carousel-selected-categories">
-                                        @Html.Partial("_SelectedProductItems", Model.Products.Where(m => m.CategoryId == item.CategoryId).ToList())
+                                        @(Html.Partial("_SelectedProductItems", Model.Products.Where(m => m.CategoryId == item.CategoryId).ToList()))
                                         <span class="overflow-prev">
                                             <div><i class="fa fa-angle-left fa-3x"></i></div>
                                         </span>

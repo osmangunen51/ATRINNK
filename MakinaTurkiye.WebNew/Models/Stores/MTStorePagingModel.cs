@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Stores
 {
@@ -20,7 +17,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Stores
         public string FirstPageUrl { get; set; }
         public string LastPageUrl { get; set; }
 
-        public IDictionary<int,string> PageUrls { get; set; }
+        public IDictionary<int, string> PageUrls { get; set; }
     }
 
 }

@@ -1,9 +1,4 @@
-﻿using NeoSistem.MakinaTurkiye.Web.Models.Home;
-using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores
@@ -19,6 +14,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Stores
         public LeftMenuModel LeftMenu { get; set; }
         public List<SelectListItem> Categories { get; set; }
 
-        public Dictionary<int,string> StoreActivityCategories { get; set; }
+        public Dictionary<int, string> StoreActivityCategories { get; set; }
     }
 }

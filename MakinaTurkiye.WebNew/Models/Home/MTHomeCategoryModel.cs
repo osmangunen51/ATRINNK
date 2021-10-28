@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Home
 {
@@ -12,7 +9,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Home
             this.SubCategoryModels = new List<MTHomeCategoryModel>();
         }
         public int? CategoryId { get; set; }
-        
+
         public string CategoryName { get; set; }
         public string CategoryContentTitle { get; set; }
         public int ProductCount { get; set; }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
 {
@@ -21,6 +18,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public string Name { get; set; }
         public int Type { get; set; }
     }
-        
-        
+
+
 }

@@ -25,7 +25,7 @@
                         @if (banner1.BannerResource.Contains(".gif"))
                         {
 
-                        <a href="@banner1.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner1.BannerResource)" alt="@{!string.IsNullOrEmpty(banner1.BannerDescription) ? banner1.BannerDescription : " Banner Reklam"}"/></a>
+                        <a href="@banner1.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner1.BannerResource)" alt="@(!string.IsNullOrEmpty(banner1.BannerDescription) ? banner1.BannerDescription : " Banner Reklam")"/></a>
                         <div class="caption">
                             <a href="@banner1.BannerLink">@banner1.BannerDescription</a>
                         </div>
@@ -44,7 +44,7 @@
                             }
                             else
                             {
-                        <a href="@banner1.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner1.BannerResource)" alt="@{!string.IsNullOrEmpty(banner1.BannerDescription) ? banner1.BannerDescription : " Banner Reklam" }"/></a>
+                        <a href="@banner1.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner1.BannerResource)" alt="@(!string.IsNullOrEmpty(banner1.BannerDescription) ? banner1.BannerDescription : " Banner Reklam")"/></a>
                         <div class="caption">
                             <a href="@banner1.BannerLink">@banner1.BannerDescription</a>
                         </div>
@@ -84,7 +84,7 @@
 
                         @if (banner2.BannerResource.Contains(".gif"))
                         {
-                        <a href="@banner2.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner2.BannerResource)" alt="@{!string.IsNullOrEmpty(banner2.BannerDescription) ? banner2.BannerDescription : " Banner Reklam"}"/></a>
+                        <a href="@banner2.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner2.BannerResource)" alt="@(!string.IsNullOrEmpty(banner2.BannerDescription) ? banner2.BannerDescription : " Banner Reklam")"/></a>
                         <div class="caption">
                             <a href="@banner2.BannerLink">@banner2.BannerDescription</a>
                         </div>
@@ -103,7 +103,7 @@
                             }
                             else
                             {
-                        <a href="@banner2.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner2.BannerResource)" alt="@{!string.IsNullOrEmpty(banner2.BannerDescription) ? banner2.BannerDescription : " Banner Reklam" }"/></a>
+                        <a href="@banner2.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner2.BannerResource)" alt="@(!string.IsNullOrEmpty(banner2.BannerDescription) ? banner2.BannerDescription : " Banner Reklam" )"/></a>
                         <div class="caption">
                             <a href="@banner2.BannerLink">@banner2.BannerDescription</a>
                         </div>
@@ -144,7 +144,7 @@
 
                         @if (banner3.BannerResource.Contains(".gif"))
                         {
-                        <a href="@banner3.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner3.BannerResource)" alt="@{!string.IsNullOrEmpty(banner3.BannerDescription) ? banner3.BannerDescription : " Banner Reklam" }"/></a>
+                        <a href="@banner3.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner3.BannerResource)" alt="@(!string.IsNullOrEmpty(banner3.BannerDescription) ? banner3.BannerDescription : " Banner Reklam" )"/></a>
                         <div class="caption">
                             <a href="@banner3.BannerLink">@banner3.BannerDescription</a>
                         </div>
@@ -162,7 +162,7 @@
                             }
                             else
                             {
-                        <a href="@banner3.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner3.BannerResource )" alt="@{!string.IsNullOrEmpty(banner3.BannerDescription) ? banner3.BannerDescription : " Banner Reklam" }"/></a>
+                        <a href="@banner3.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner3.BannerResource )" alt="@(!string.IsNullOrEmpty(banner3.BannerDescription) ? banner3.BannerDescription : " Banner Reklam" )"/></a>
                         <div class="caption">
                             <a href="@banner3.BannerLink">@banner3.BannerDescription</a>
                         </div>
@@ -204,7 +204,7 @@
 
                         @if (banner4.BannerResource.Contains(".gif"))
                         {
-                        <a href="@banner4.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner4.BannerResource )" alt="@{!string.IsNullOrEmpty(banner4.BannerDescription) ? banner4.BannerDescription : " Banner Reklam" } "/></a>
+                        <a href="@banner4.BannerLink"><img src="@(AppSettings.BannerGifFolder + banner4.BannerResource )" alt="@(!string.IsNullOrEmpty(banner4.BannerDescription) ? banner4.BannerDescription : " Banner Reklam")"/></a>
 <div class="caption">
                             <a href="@banner4.BannerLink">@banner4.BannerDescription</a>
                         </div>
@@ -222,7 +222,7 @@
                             }
                             else
                             {
-                        <a href="@banner4.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner4.BannerResource)" alt="@{!string.IsNullOrEmpty(banner4.BannerDescription) ? banner4.BannerDescription : " Banner Reklam" }"/></a>
+                        <a href="@banner4.BannerLink"><img src="@(AppSettings.BannerImagesThumbFolder + banner4.BannerResource)" alt="@(!string.IsNullOrEmpty(banner4.BannerDescription) ? banner4.BannerDescription : " Banner Reklam")"/></a>
 <div class="caption">
                             <a href="@banner4.BannerLink">@banner4.BannerDescription</a>
                         </div>

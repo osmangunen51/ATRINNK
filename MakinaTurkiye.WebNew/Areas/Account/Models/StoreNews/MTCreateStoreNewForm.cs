@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreNews
+﻿namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreNews
 {
     public class MTCreateStoreNewForm
     {
@@ -19,6 +14,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreNews
         public byte NewType { get; set; }
         public string PageTitle { get; set; }
         public LeftMenuModel LeftMenu { get; set; }
-       
+
     }
 }

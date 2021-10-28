@@ -1,60 +1,58 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Web.Models.ViewModels
 {
-  using System;
-  using System.Collections.Generic;
-  using System.ComponentModel;
-  using MakinaTurkiye.Web.Models.Validation;
+    using System;
+    using System.Collections.Generic;
 
-  public class EntitySearchModel<TCollection>
-  {
-    public int CurrentPage { get; set; }
-
-    public int PageDimension { get; set; }
-
-    public int TotalRecord { get; internal set; }
-
-    public IEnumerable<int> TotalPages
+    public class EntitySearchModel<TCollection>
     {
-      get
-      {
-        int totalPage = TotalPage();
+        public int CurrentPage { get; set; }
 
-        for (int i = 1; i <= totalPage; i++)
+        public int PageDimension { get; set; }
+
+        public int TotalRecord { get; internal set; }
+
+        public IEnumerable<int> TotalPages
         {
-          yield return i;
-        }
-      }
-    }
+            get
+            {
+                int totalPage = TotalPage();
 
-    public IEnumerable<int> TotalLinkPages
-    {
-      get
-      {
-        int totalPage = TotalPage();
-
-        int firstPage = CurrentPage >= 5 ? CurrentPage - 4 : 1;
-        int lastPage = firstPage + 8;
-
-        if (lastPage >= totalPage)
-        {
-          lastPage = totalPage;
+                for (int i = 1; i <= totalPage; i++)
+                {
+                    yield return i;
+                }
+            }
         }
 
-        for (int i = firstPage; i <= lastPage; i++)
+        public IEnumerable<int> TotalLinkPages
         {
-          yield return i;
+            get
+            {
+                int totalPage = TotalPage();
+
+                int firstPage = CurrentPage >= 5 ? CurrentPage - 4 : 1;
+                int lastPage = firstPage + 8;
+
+                if (lastPage >= totalPage)
+                {
+                    lastPage = totalPage;
+                }
+
+                for (int i = firstPage; i <= lastPage; i++)
+                {
+                    yield return i;
+                }
+            }
         }
-      }
+
+        private int TotalPage()
+        {
+            return this.TotalRecord % this.PageDimension == 0 ?
+                   this.TotalRecord / this.PageDimension :
+                   Convert.ToInt32(this.TotalRecord / this.PageDimension) + 1;
+        }
+
+        public IList<TCollection> Source { get; set; }
+
     }
-
-    private int TotalPage()
-    {
-      return this.TotalRecord % this.PageDimension == 0 ?
-             this.TotalRecord / this.PageDimension :
-             Convert.ToInt32(this.TotalRecord / this.PageDimension) + 1;
-    }
-
-    public IList<TCollection> Source { get; set; }
-
-  }
 }

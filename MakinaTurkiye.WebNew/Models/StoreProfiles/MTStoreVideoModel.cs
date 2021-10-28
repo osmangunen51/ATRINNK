@@ -1,8 +1,5 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Models.Videos;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 {
@@ -11,7 +8,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles
 
         public MTStoreVideoModel()
         {
-    
+
             MTStoreProfileHeaderModel = new MTStoreProfileHeaderModel();
             this.MTVideoModels = new List<MTVideoModel>();
         }

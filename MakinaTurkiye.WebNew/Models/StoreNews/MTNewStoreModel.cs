@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.StoreNews
 {
@@ -15,6 +12,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.StoreNews
         public string StoreLogoPath { get; set; }
         public string StoreUrl { get; set; }
         public List<string> Phones { get; set; }
-     
+
     }
 }

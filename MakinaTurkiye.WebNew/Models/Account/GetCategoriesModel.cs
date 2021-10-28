@@ -1,8 +1,8 @@
 ﻿#region Using Directives
 
-using System.Collections.Generic;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using NeoSistem.EnterpriseEntity.Extensions.Data;
+using System.Collections.Generic;
 
 #endregion
 
@@ -17,11 +17,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Account
         //public IEnumerable<RelMainPartyCategory> MemberRelatedCategory { get; set; }
 
         public ICollection<CategoryModel> CategoryList(int categoryID)
-        { 
+        {
             var dataCategory = new Data.Category();
             return dataCategory.CategoryItemsByCategoryIdAndCategoryGroupType(categoryID, (byte)MainCategoryType.Ana_Kategori).AsCollection<CategoryModel>();
         }
         #endregion
-        
+
     }
 }

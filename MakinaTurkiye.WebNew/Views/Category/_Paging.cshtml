@@ -1,10 +1,5 @@
 ﻿@model NeoSistem.MakinaTurkiye.Web.Models.Catalog.MTCategoryProductViewModel
-@{
-
-//using NeoSistem.MakinaTurkiye.Web.Models
-//using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
-}
-    <div class="row marginTop clearfix">
+<div class="row marginTop clearfix">
         <div class="col-md-12 text-right">
             <ul class="pagination m0">
                 <li><span id="divLoading" style="display: none">Yükleniyor.. Lütfen Bekleyiniz&nbsp;&nbsp;</span></li>
@@ -36,7 +31,8 @@
         </div>
         <div class="col-xs-5 col-sm-4 col-md-4 col-lg-3 text-right">
             <div class="input-group input-group-sm col-md-6">
-                <input id="paget" type="text" class="form-control" placeholder="Sayfa No" value="@{Convert.ToInt32(Request.QueryString["page"]) == 0 ? 1 : Convert.ToInt32(Request.QueryString["page"])}" />
+                <input id="paget" type="text" class="form-control" placeholder="Sayfa No" 
+                       value="@(Convert.ToInt32(Request.QueryString["page"]) == 0 ? 1 : Convert.ToInt32(Request.QueryString["page"]))" />
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button" onclick="ProductPaging($('#paget').val(),@Model.PagingModel.PageSize);">Git!</button>
                 </span>

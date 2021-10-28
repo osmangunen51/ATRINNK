@@ -1,8 +1,5 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models.Products
 {
@@ -27,7 +24,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Products
 
         public string ProductDescription { get; set; }
 
-       // public List<MTProductKeywordItem> ProductKeywords { get; set; }
+        // public List<MTProductKeywordItem> ProductKeywords { get; set; }
         public string MapCode { get; set; }
         public long ProductViewCount { get; set; }
         public string ProductName { get; set; }
