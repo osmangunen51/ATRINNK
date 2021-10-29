@@ -83,7 +83,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
                 if (!imageName.Contains(".jpg"))
                     imageName = imageName + ".jpg";
 
-               // imageName = imageName.Replace(".jpg", ".webp");
+                // imageName = imageName.Replace(".jpg", ".webp");
 
                 string[] name = imageName.Split('.');
 

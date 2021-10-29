@@ -1,6 +1,7 @@
 ﻿using MakinaTurkiye.Core.Configuration;
 using MakinaTurkiye.Core.Infrastructure;
 using Microsoft.Owin;
+using Microsoft.Owin.Host.SystemWeb;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
@@ -18,16 +19,28 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                 app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
                     AuthenticationType = "LoginCookie",
-                    LoginPath = new PathString("/uyelik/kullanicigirisi")
+                    LoginPath = new PathString("/uyelik/kullanicigirisi"),
+                    CookieSameSite = SameSiteMode.None,
+                    CookieHttpOnly = true,
+                    CookieSecure = CookieSecureOption.Always
                 });
             }
             else
             {
+                //app.UseCookieAuthentication(new CookieAuthenticationOptions
+                //{
+                //    AuthenticationType = "LoginCookie",
+                //    LoginPath = new PathString("/uyelik/kullanicigirisi"),
+                //    CookieDomain = ".makinaturkiye.com"
+                //});
+
                 app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
                     AuthenticationType = "LoginCookie",
                     LoginPath = new PathString("/uyelik/kullanicigirisi"),
-                    CookieDomain = ".makinaturkiye.com"
+                    CookieSameSite = SameSiteMode.None,
+                    CookieHttpOnly = true,
+                    CookieSecure = CookieSecureOption.Always
                 });
             }
 

@@ -1,7 +1,6 @@
 ﻿using Iyzipay;
 using Iyzipay.Model;
 using Iyzipay.Request;
-using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Entities.Tables.Checkouts;
 using MakinaTurkiye.Entities.Tables.Common;
@@ -10,6 +9,7 @@ using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Packets;
 using MakinaTurkiye.Payment;
 using MakinaTurkiye.Payment.Requests;
+using MakinaTurkiye.Payment.Results;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Checkouts;
 using MakinaTurkiye.Services.Common;
@@ -40,8 +40,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using static NeoSistem.MakinaTurkiye.Web.Models.EnumModel;
-using Microsoft.Extensions.DependencyInjection;
-using MakinaTurkiye.Payment.Results;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -1267,7 +1265,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> paydirectAsync(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
-            
+
             var order = new Order();
             if (OrderId != "0")
             {
@@ -1379,6 +1377,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public async Task<ActionResult> ResultPay(FormCollection form)
         {
             string orderid = Request.Form["orderid"];
+
             string odemeturu = "";
             if (!string.IsNullOrEmpty(Session[orderid].ToString()))
             {
@@ -1426,7 +1425,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         PaymentGatewayRequest bankRequest = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentGatewayRequest>(PaymentGatewayResult);
                         if (bankRequest == null)
                         {
-                            string Mesaj= "Ödeme bilgisi geçersiz.";
+                            string Mesaj = "Ödeme bilgisi geçersiz.";
                             TempData["errorPosMessage"] = Mesaj;
                             var ccl = new CreditCardLog();
                             ccl.Status = "Başarısız";
@@ -1477,7 +1476,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             var packet = _packetService.GetPacketByPacketId(order.PacketId);
                             var mailMessage = _messageMTService.GetMessagesMTByMessageMTName("kredikartıodememail");
 
-                          
+
 
                             #region packetconfirm
                             var store = _storeService.GetStoreByMainPartyId(order.MainPartyId);
@@ -1766,7 +1765,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             TempData["errorPosMessage"] = "Genel Hata Oluştu.";
-            return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId =orderid});
+            return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = orderid });
         }
         public ActionResult sonuc(string sonuc)
         {
@@ -2208,7 +2207,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 _orderService.UpdateOrder(order);
             }
 
-            if (status1 == "success" && (!order.ProductId.HasValue || (order.ProductId.HasValue && order.ProductId.Value==0)))
+            if (status1 == "success" && (!order.ProductId.HasValue || (order.ProductId.HasValue && order.ProductId.Value == 0)))
             {
                 var mailsend = _storeService.GetStoreByMainPartyId(order.MainPartyId);
                 var packet = _packetService.GetPacketByPacketId(order.PacketId);
