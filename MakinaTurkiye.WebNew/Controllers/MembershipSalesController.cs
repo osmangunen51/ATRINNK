@@ -1265,7 +1265,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> paydirectAsync(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
-
+            tutar = tutar.Replace(",", ".");
             var order = new Order();
             if (OrderId != "0")
             {
@@ -1305,8 +1305,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 //{ "storeKey", "123qweASDHaciosman777.??"},
                 { "storeKey", "313233717765415344486163696f736d616e3737372e3f3f" },
                 { "mode", "PROD" },
-                { "gatewayUrl", "https://sanalposprovtest.garanti.com.tr/servlet/gt3dengine" },
-                { "verifyUrl", "https://sanalposprovtest.garanti.com.tr/servlet/gt3dengine" }
+                { "gatewayUrl", "https://sanalposprov.garanti.com.tr/servlet/gt3dengine" },
+                { "verifyUrl", "https://sanalposprov.garanti.com.tr/servlet/gt3dengine" }
              };
 
 
@@ -1314,8 +1314,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //#if DEBUG
             //            BankParameters = provider.TestParameters;
             //#endif
-
-            var gatewayResult = await provider.ThreeDGatewayRequest(new PaymentGatewayRequest
+            // string OrderNumber = Guid.NewGuid().ToString();
+            var PaymentGatewayRequest = new PaymentGatewayRequest
             {
                 CardHolderName = kartisim,
                 CardNumber = pan,
@@ -1328,11 +1328,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 CustomerIpAddress = Request.UserHostAddress.ToString(),
                 CurrencyIsoCode = "949",
                 LanguageIsoCode = "tr",
-                OrderNumber = Guid.NewGuid().ToString(),
+                OrderNumber = order.OrderId.ToString(),
                 BankName = BankNames.IsBankasi,
                 BankParameters = BankParameters,
                 CallbackUrl = new Uri(NeoSistem.MakinaTurkiye.Core.Web.Helpers.Helpers.ResolveServerUrl("~/membershipsales/resultpay", false))
-            });
+            };
+            string txtPaymentGatewayRequest = Newtonsoft.Json.JsonConvert.SerializeObject(PaymentGatewayRequest);
+            Session["PaymentGatewayRequest"] = PaymentGatewayRequest;
+
+            var gatewayResult = await provider.ThreeDGatewayRequest(PaymentGatewayRequest);
 
 
             var ccl = new CreditCardLog
@@ -1357,16 +1361,31 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ccl.Code = gatewayResult.ErrorCode;
             ccl.Detail = gatewayResult.ErrorMessage;
             _creditCardLogService.InsertCreditCardLog(ccl);
+            
+            string TxtPaymentGatewayRequest = Newtonsoft.Json.JsonConvert.SerializeObject(gatewayResult);
+            Session["PaymentGatewayRequest"] = TxtPaymentGatewayRequest;
+            
             //check result status
             if (!gatewayResult.Success)
             {
                 TempData["errorPosMessage"] = gatewayResult.ErrorMessage;
-                string PaymentGatewayRequest = Newtonsoft.Json.JsonConvert.SerializeObject(gatewayResult);
-                Session["PaymentGatewayRequest"] = PaymentGatewayRequest;
                 return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", order.OrderId });
             }
             model.HtmlContent = paymentProviderFactory.CreatePaymentFormHtml(gatewayResult.Parameters, gatewayResult.GatewayUrl);
-            Session[order.Id] = "garanti";
+            Session[order.OrderId.ToString()] = "garanti";
+
+            Dictionary<string, object> SessionNesne = new Dictionary<string, object>();
+            foreach (string item in Session.Keys)
+            {
+                SessionNesne.Add(item, Session[item]);
+            }
+            string ModelTxt = Newtonsoft.Json.JsonConvert.SerializeObject(SessionNesne);
+            string ServerPath = $"~/file/{order.OrderId}.sip";
+            string ServerFizikselPath = Server.MapPath(ServerPath);
+            FileInfo DosyaBilgisi = new FileInfo(ServerFizikselPath);
+            if (DosyaBilgisi.Exists) DosyaBilgisi.Delete();
+            ModelTxt = ModelTxt.Sifrele();
+            System.IO.File.WriteAllText(ServerFizikselPath, ModelTxt);
             return View("Secure", model);
         }
         [HttpPost]
@@ -1377,11 +1396,28 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public async Task<ActionResult> ResultPay(FormCollection form)
         {
             string orderid = Request.Form["orderid"];
-
-            string odemeturu = "";
-            if (!string.IsNullOrEmpty(Session[orderid].ToString()))
+            string ServerPath = $"~/file/{orderid}.sip";
+            string ServerFizikselPath = Server.MapPath(ServerPath);
+            FileInfo DosyaBilgisi = new FileInfo(ServerFizikselPath);
+            Dictionary<string, object> SavedSession = new Dictionary<string, object>();
+            if (DosyaBilgisi.Exists)
             {
-                odemeturu = Session[orderid].ToString();
+                string ModelTxt = System.IO.File.ReadAllText(ServerFizikselPath);
+                ModelTxt = ModelTxt.Coz();
+                SavedSession=Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,object>>(ModelTxt);
+                try
+                {
+                    DosyaBilgisi.Delete();
+                }
+                catch (Exception Hata)
+                {
+
+                }
+            }
+            string odemeturu = "";
+            if (!string.IsNullOrEmpty(SavedSession[orderid].ToString()))
+            {
+                odemeturu = (string)SavedSession[orderid];
             }
             switch (odemeturu)
             {
@@ -1420,9 +1456,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             _creditCardLogService.InsertCreditCardLog(ccl);
                             return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
                         }
-
-                        string PaymentGatewayResult = Session["PaymentGatewayResult"].ToString();
-                        PaymentGatewayRequest bankRequest = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentGatewayRequest>(PaymentGatewayResult);
+                        string TxtPaymentGatewayRequest = SavedSession["PaymentGatewayRequest"].ToString();
+                        PaymentGatewayRequest bankRequest = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentGatewayRequest>(TxtPaymentGatewayRequest);
                         if (bankRequest == null)
                         {
                             string Mesaj = "Ödeme bilgisi geçersiz.";

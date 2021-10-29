@@ -26,7 +26,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <IISExpressSSLPort>2526</IISExpressSSLPort>
+    <IISExpressSSLPort>44312</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -2842,6 +2842,7 @@
   <ItemGroup>
     <Folder Include="Content\ffmpeg\" />
     <Folder Include="elmah\" />
+    <Folder Include="file\" />
     <Folder Include="Scripts\CKFinder\core\images\icons\" />
     <Folder Include="Scripts\Rotativa\" />
     <Folder Include="UserFiles\Images\StoreBanner\" />

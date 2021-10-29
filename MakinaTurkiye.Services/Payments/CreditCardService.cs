@@ -62,10 +62,9 @@ namespace MakinaTurkiye.Services.Payments
 
         public CreditCardInstallment GetCreditCardInstallmentByCreditCardInstallmentId(int creditCardInstallmentId)
         {
-            if (creditCardInstallmentId == 0)
-                throw new ArgumentNullException("creditCardInstallmentId");
+            if (creditCardInstallmentId == 0) creditCardInstallmentId = 1;
 
-            var query = _creditCardInstallmentRepository.Table;
+             var query = _creditCardInstallmentRepository.Table;
             var creditCardInstallment = query.FirstOrDefault(cc => cc.CreditCardInstallmentId == creditCardInstallmentId);
             return creditCardInstallment;
         }
