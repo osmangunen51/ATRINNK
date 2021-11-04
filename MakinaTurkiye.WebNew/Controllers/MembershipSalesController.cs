@@ -1341,7 +1341,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var ccl = new CreditCardLog
             {
-                MainPartyId = SessionPacketModel.PacketModel.MainPartyId
+                MainPartyId = order.MainPartyId
             };
 
             if (taksit == "00" | taksit == "0" | taksit == "")
@@ -1354,6 +1354,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             else
                 ccl.Status = "Başarısız";
 
+            SessionPacketModel.PacketModel.CreditCardId = 18;
             var cc = _creditCardService.GetCreditCardByCreditCardId(SessionPacketModel.PacketModel.CreditCardId);
             ccl.PosName = cc.CreditCardName;
             ccl.CreatedDate = DateTime.Now;
@@ -2057,7 +2058,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(order);
         }
         [HttpPost]
-        public ActionResult PayWithCreditCard(string pan, string OrderId, string Ecom_Payment_Card_ExpDate_Month, string orderId, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string IsDoping, string ProductId, string PacketId, string DopingDay)
+        public async Task<ActionResult> PayWithCreditCard(string pan, string OrderId, string Ecom_Payment_Card_ExpDate_Month, string orderId, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string IsDoping, string ProductId, string PacketId, string DopingDay)
         {
             MembershipHtmlRequestModel model = new MembershipHtmlRequestModel();
             int mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
@@ -2104,60 +2105,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     };
                 _orderService.InsertOrder(order);
             }
-            var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(memberStore.StoreMainPartyId.Value, PhoneTypeEnum.Gsm);
-            IyzicoPayment iyzicoPayment = new IyzicoPayment(order, member, adressNew, packet, tutar, pan, kartisim, cv2, Ecom_Payment_Card_ExpDate_Month,
-                    Ecom_Payment_Card_ExpDate_Year, packet.DopingPacketDay, "/membershipsales/resultpayForCreditCard", phone, taksit);
 
-            var paymentResult = iyzicoPayment.CreatePaymentRequest();
-
-            //var cclRequest = new CreditCardLog();
-            //cclRequest.MainPartyId = store.MainPartyId;
-
-            //if (taksit == "00" | taksit == "0" | taksit == "")
-            //    cclRequest.OrderType = "Tek Çekim";
-            //else
-            //    cclRequest.OrderType = "Taksitli";
-            //if (paymentResult.Status == "success")
-            //    cclRequest.Status = "Başarılı";
-            //else
-            //    cclRequest.Status = "Başarısız";
-            //cclRequest.CreatedDate = DateTime.Now;
-            //cclRequest.IPAddress = Request.UserHostAddress.ToString();
-            //cclRequest.Code = paymentResult.ErrorCode;
-            //cclRequest.Detail = Newtonsoft.Json.JsonConvert.SerializeObject(paymentResult,Newtonsoft.Json.Formatting.None);
-            //_creditCardLogService.InsertCreditCardLog(cclRequest);
-
-            if (paymentResult.HtmlContent != null)
+            if (taksit == "" || taksit=="1")
             {
-                model.HtmlContent = paymentResult.HtmlContent;
-                return View("Secure", model);
+                var snc = await paydirectAsync(pan, Ecom_Payment_Card_ExpDate_Month, Ecom_Payment_Card_ExpDate_Year, cv2, cardType, kartisim, taksit, tutar, gsm, order.OrderId.ToString());
+                return snc;
             }
             else
             {
-                TempData["errorPosMessage"] = paymentResult.ErrorMessage;
-
-                var ccl = new CreditCardLog();
-                ccl.MainPartyId = store.MainPartyId;
-
-                if (taksit == "00" | taksit == "0" | taksit == "")
-                    ccl.OrderType = "Tek Çekim";
-                else
-                    ccl.OrderType = "Taksitli";
-                if (paymentResult.Status == "success")
-                    ccl.Status = "Başarılı";
-                else
-                    ccl.Status = "Başarısız";
-                var cc = _creditCardService.GetCreditCardByCreditCardId(8);
-                ccl.PosName = cc.CreditCardName;
-                ccl.CreatedDate = DateTime.Now;
-                ccl.IPAddress = Request.UserHostAddress.ToString();
-                ccl.Code = paymentResult.ErrorCode;
-                ccl.Detail = paymentResult.ErrorMessage;
-                _creditCardLogService.InsertCreditCardLog(ccl);
+                tutar = tutar.Replace(',', '.');
+                return IyzicoOdemeAl(pan, Ecom_Payment_Card_ExpDate_Month, Ecom_Payment_Card_ExpDate_Year, cv2, kartisim, taksit, ref tutar, order);
             }
             if (ProductId == "0")
             {
-
                 if (decimal.Parse(tutar) != order.OrderPrice)
                 {
                     return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
