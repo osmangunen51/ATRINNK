@@ -444,6 +444,25 @@
                             ImageLoc: '/Content/RibbonImages/',
                             Groups: [
                                 {
+                                    text: 'Sipariş',
+                                    type: Ribbon.GroupType.Group,
+                                    width: '270px',
+                                    buttons: [
+                                        {
+                                            Id: 'ConfFirmAll', text: 'Tüm Sipariş<br />Listesi', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index';"
+                                        }, {
+                                            Id: 'ConfFirmApproved', text: 'Onaylanan Sipariş', type: Ribbon.ButtonType.SmallItem,
+                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Onaylandi %>';"
+                                        }, {
+                                            Id: 'ConfFirmNotApproved', text: 'Onaylanmayan Sipariş', type: Ribbon.ButtonType.SmallItem,
+                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Onaylanmadi %>';"
+                                        }, {
+                                            Id: 'ConfFirmExamined', text: 'Onayda Sipariş', type: Ribbon.ButtonType.SmallItem,
+                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Inceleniyor %>';"
+                                        }]
+                                },
+                                {
                                     text: 'Paket',
                                     type: Ribbon.GroupType.Group,
                                     width: 'auto',
@@ -481,25 +500,8 @@
                                             Id: 'AccountList', text: 'Hesap<br />Listesi', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'bankAccountList.png', action: "window.location ='/BankAccount/Index';"
                                         }]
-                                }, {
-                                    text: 'Sipariş',
-                                    type: Ribbon.GroupType.Group,
-                                    width: '250px',
-                                    buttons: [
-                                        {
-                                            Id: 'ConfFirmAll', text: 'Tüm Sipariş<br />Listesi', type: Ribbon.ButtonType.BigItem,
-                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index';"
-                                        }, {
-                                            Id: 'ConfFirmApproved', text: 'Onaylanan Sipariş Listesi', type: Ribbon.ButtonType.SmallItem,
-                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Onaylandi %>';"
-                                        }, {
-                                            Id: 'ConfFirmNotApproved', text: 'Onaylanmayan Sipariş Listesi', type: Ribbon.ButtonType.SmallItem,
-                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Onaylanmadi %>';"
-                                        }, {
-                                            Id: 'ConfFirmExamined', text: 'Onayda Sipariş Listesi', type: Ribbon.ButtonType.SmallItem,
-                                            align: 'left', image: 'orderList.png', action: "window.location ='/OrderFirm/Index?PacketStatu=<%:(byte)PacketStatu.Inceleniyor %>';"
-                                        }]
-                                }, {
+                                },
+                                {
                                     text: 'Bildirimler',
                                     type: Ribbon.GroupType.Group,
                                     width: 'auto',
