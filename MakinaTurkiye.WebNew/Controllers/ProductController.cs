@@ -415,67 +415,42 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
             try
             {
-                //var imageList = model.ProductPictureModels.Select(pictureModel => new ImageObject
-                //{
-                //    ContentUrl = string.IsNullOrEmpty(pictureModel.LargePath) ? null : new Uri(pictureModel.LargePath),
-                //    Caption = pictureModel.ProductName
-                //}).FirstOrDefault();
-                //var webPageElement = new WebPageElement();
-                //var productElement = new Schema.NET.Product();
-                //if (model.ProductDetailModel.PriceDec > 0 && model.ProductDetailModel.ProductPriceType == (byte)ProductPriceType.Price)
-                //{
-                //    webPageElement.Offers = new Offer
-                //    {
-                //        Availability = ItemAvailability.InStock,
-                //        Name = model.ProductDetailModel.ProductName.CheckNullString(),
-                //        Description = model.ProductDetailModel.DeliveryStatus.CheckNullString(),
-                //        Url = Request.Url,
-                //        ItemOffered = new Schema.NET.Product
-                //        {
-                //            Category = model.ProductDetailModel.CategoryName.CheckNullString(),
-                //            Brand = new Organization
-                //            {
-                //                Name = model.ProductStoreModel.StoreName.CheckNullString()
-                //            },
-                //            Name = model.ProductDetailModel.ProductName,
-                //            Image = imageList,
-                //            Offers = new Offer
-                //            {
-                //                Availability = ItemAvailability.InStock,
-                //                Price = model.ProductDetailModel.PriceDec,
-                //                PriceCurrency = model.ProductDetailModel.PriceDec.HasValue ? model.ProductDetailModel.ProductCurrencySymbol : "",
-                //                AreaServed = "TR",
-                //                ItemCondition = OfferItemCondition.NewCondition,
-                //                Name = model.ProductDetailModel.ProductName,
-
-                //            }
-                //var webPage = new WebPage();
-
-
-                //}
-                //var webPage = new Schema.NET.WebPage();
-                //if (webPageElement.Offers.Any())
-                //{
-                //    webPage = new Schema.NET.WebPage
-                //    {
-                //        Name = model.ProductDetailModel.ProductName.CheckNullString(),
-                //        InLanguage = "tr-TR",
-                //        Url = Request.Url,
-                //        Description = model.ProductTabModel.ProductSeoDescription.CheckNullString(),
-                //        Breadcrumb = JsonLdHelper.SetBreadcrumbList(model.MtJsonLdModel.Navigations),
-                //        MainEntity = webPageElement
-                //    };
-                //}
-                //else
-                //{
-                //}
-                var webPage = new Schema.NET.WebPage
+                var imageList = model.ProductPictureModels.Select(pictureModel => new Schema.NET.ImageObject
                 {
-                    Name = model.ProductDetailModel.ProductName.CheckNullString(),
-                    InLanguage = "tr-TR",
-                    Url = Request.Url,
-                    Description = model.ProductTabModel.ProductSeoDescription.CheckNullString(),
-                    Breadcrumb = JsonLdHelper.SetBreadcrumbList(model.MtJsonLdModel.Navigations)
+                    ContentUrl = string.IsNullOrEmpty(pictureModel.LargePath) ? null : new Uri(pictureModel.LargePath),
+                    Caption = pictureModel.ProductName
+                }).FirstOrDefault();
+
+                var webPage = new Schema.NET.Product
+                {
+                    Category = model.ProductDetailModel.CategoryName.CheckNullString(),
+                    Brand = new Schema.NET.Organization
+                    {
+                        Name = model.ProductStoreModel.StoreName.CheckNullString()
+                    },
+                    Name = model.ProductDetailModel.ProductName,
+                    Image = imageList,
+                    Offers = new Schema.NET.Offer
+                    {
+                        Availability = (model.ProductDetailModel.IsActive? Schema.NET.ItemAvailability.InStock: Schema.NET.ItemAvailability.OutOfStock),
+                        Price = (model.ProductDetailModel.PriceDec.HasValue? model.ProductDetailModel.PriceDec:0),
+                        PriceCurrency = model.ProductDetailModel.PriceDec.HasValue ? model.ProductDetailModel.ProductCurrencySymbol : "TRY",
+                        AreaServed = "TR",
+                        ItemCondition = Schema.NET.OfferItemCondition.NewCondition,
+                        Name = model.ProductDetailModel.ProductName,
+                    },
+                    Description= model.ProductDetailModel.ProductName,
+                    Logo= imageList,
+                    ProductID= model.ProductDetailModel.ProductId.ToString(),
+                    Sku="",
+                    Mpn="",
+                    Model=model.ProductDetailModel.ModelName,
+                    Audience=new Schema.NET.Audience() { 
+                        Name= model.ProductDetailModel.CategoryName.CheckNullString(),
+                        Url=new Uri(model.ProductDetailModel.CategoryUrl)
+                    },
+                    Slogan= model.ProductDetailModel.ProductName.CheckNullString(),
+                    Url= this.Request.Url,
                 };
                 model.MtJsonLdModel.JsonLdString = webPage.ToString();
             }
