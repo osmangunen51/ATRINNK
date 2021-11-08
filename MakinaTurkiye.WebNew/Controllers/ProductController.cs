@@ -438,12 +438,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         AreaServed = "TR",
                         ItemCondition = Schema.NET.OfferItemCondition.NewCondition,
                         Name = model.ProductDetailModel.ProductName,
+                        PriceValidUntil=DateTime.Now.AddDays(365),
+                        Url = this.Request.Url
                     },
                     Description= model.ProductDetailModel.ProductName,
                     Logo= imageList,
                     ProductID= model.ProductDetailModel.ProductId.ToString(),
-                    Sku="",
-                    Mpn="",
                     Model=model.ProductDetailModel.ModelName,
                     Audience=new Schema.NET.Audience() { 
                         Name= model.ProductDetailModel.CategoryName.CheckNullString(),

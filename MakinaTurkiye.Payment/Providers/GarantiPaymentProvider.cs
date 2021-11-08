@@ -129,27 +129,36 @@ namespace MakinaTurkiye.Payment.Providers
                 return Task.FromResult(VerifyGatewayResult.Failed($"{response} - {form["errmsg"]}", form["procreturncode"]));
             }
 
-            var hashBuilder = new StringBuilder();
-            hashBuilder.Append(form["clientid"].FirstOrDefault());
-            hashBuilder.Append(form["oid"].FirstOrDefault());
-            hashBuilder.Append(form["authcode"].FirstOrDefault());
-            hashBuilder.Append(form["procreturncode"].FirstOrDefault());
-            hashBuilder.Append(form["response"].FirstOrDefault());
-            hashBuilder.Append(form["mdstatus"].FirstOrDefault());
-            hashBuilder.Append(form["cavv"].FirstOrDefault());
-            hashBuilder.Append(form["eci"].FirstOrDefault());
-            hashBuilder.Append(form["md"].FirstOrDefault());
-            hashBuilder.Append(form["rnd"].FirstOrDefault());
-            hashBuilder.Append(request.BankParameters["storeKey"]);
-
-            var cryptoServiceProvider = new SHA1CryptoServiceProvider();
-            var inputbytes = cryptoServiceProvider.ComputeHash(Encoding.GetEncoding("ISO-8859-9").GetBytes(hashBuilder.ToString()));
-            var hashData = Convert.ToBase64String(inputbytes);
-
-            if (!form["HASH"].Equals(hashData))
+            string hashBuilder = "";
+            try
             {
-                return Task.FromResult(VerifyGatewayResult.Failed("Güvenlik imza doğrulaması geçersiz."));
+                hashBuilder += form["clientid"].FirstOrDefault();
+                hashBuilder += form["oid"].FirstOrDefault();
+                hashBuilder += form["authcode"].FirstOrDefault();
+                hashBuilder += form["procreturncode"].FirstOrDefault();
+                hashBuilder += form["response"].FirstOrDefault();
+                hashBuilder += form["mdstatus"].FirstOrDefault();
+                hashBuilder += form["cavv"].FirstOrDefault();
+                hashBuilder += form["eci"].FirstOrDefault();
+                hashBuilder += form["md"].FirstOrDefault();
+                hashBuilder += form["rnd"].FirstOrDefault();
+                hashBuilder += request.BankParameters["storeKey"];
+
+                var cryptoServiceProvider = new SHA1CryptoServiceProvider();
+                var inputbytes = cryptoServiceProvider.ComputeHash(Encoding.GetEncoding("ISO-8859-9").GetBytes(hashBuilder.ToString()));
+                var hashData = Convert.ToBase64String(inputbytes);
+                if (!form["HASH"].Equals(hashData))
+                {
+                    return Task.FromResult(VerifyGatewayResult.Failed("Güvenlik imza doğrulaması geçersiz."));
+                }
+
             }
+            catch (Exception Hata)
+            {
+
+
+            }
+            
 
             int.TryParse(form["txninstallmentcount"], out int installment);
 

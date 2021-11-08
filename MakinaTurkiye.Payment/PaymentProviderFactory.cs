@@ -65,12 +65,11 @@ namespace MakinaTurkiye.Payment
             {
                 throw new ArgumentNullException(nameof(parameters));
             }
-
+            // oldumu  ?
             if (actionUrl == null)
             {
                 throw new ArgumentNullException(nameof(actionUrl));
             }
-
             string formId = "PaymentForm";
             StringBuilder formBuilder = new StringBuilder();
             formBuilder.Append($"<form id=\"{formId}\" name=\"{formId}\" action=\"{actionUrl}\" role=\"form\" method=\"POST\">");
@@ -79,9 +78,7 @@ namespace MakinaTurkiye.Payment
             {
                 formBuilder.Append($"<input type=\"hidden\" name=\"{parameter.Key}\" value=\"{parameter.Value}\">");
             }
-
             formBuilder.Append("</form>");
-
             if (appendSubmitScript)
             {
                 StringBuilder scriptBuilder = new StringBuilder();
@@ -90,7 +87,6 @@ namespace MakinaTurkiye.Payment
                 scriptBuilder.Append("</script>");
                 formBuilder.Append(scriptBuilder.ToString());
             }
-
             return formBuilder.ToString();
         }
     }

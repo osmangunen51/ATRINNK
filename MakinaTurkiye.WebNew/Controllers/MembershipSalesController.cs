@@ -1337,7 +1337,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 CardType = "1",
                 Installment = 1,
                 TotalAmount = Convert.ToDecimal(tutar)/100,
-                CustomerIpAddress = Request.UserHostAddress.ToString(),
+                //CustomerIpAddress = Request.UserHostAddress.ToString(),
+                CustomerIpAddress = "194.27.70.200",
                 CurrencyIsoCode = "949",
                 LanguageIsoCode = "tr",
                 OrderNumber = order.OrderId.ToString(),
@@ -1408,39 +1409,41 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 #endif
         public async Task<ActionResult> ResultPay(FormCollection form)
         {
-            string orderid = Request.Form["orderid"];
-            string ServerPath = $"~/file/{orderid}.sip";
-            string ServerFizikselPath = Server.MapPath(ServerPath);
-            FileInfo DosyaBilgisi = new FileInfo(ServerFizikselPath);
-            Dictionary<string, object> SavedSession = new Dictionary<string, object>();
-            if (DosyaBilgisi.Exists)
+            try
             {
-                string ModelTxt = System.IO.File.ReadAllText(ServerFizikselPath);
-                ModelTxt = ModelTxt.Coz();
-                SavedSession=Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string,object>>(ModelTxt);
-                try
+                string orderid = Request.Form["orderid"];
+                string ServerPath = $"~/file/{orderid}.sip";
+                string ServerFizikselPath = Server.MapPath(ServerPath);
+                FileInfo DosyaBilgisi = new FileInfo(ServerFizikselPath);
+                Dictionary<string, object> SavedSession = new Dictionary<string, object>();
+                if (DosyaBilgisi.Exists)
                 {
-                    DosyaBilgisi.Delete();
-                }
-                catch (Exception Hata)
-                {
-
-                }
-            }
-            string odemeturu = "";
-            if (!string.IsNullOrEmpty(SavedSession[orderid].ToString()))
-            {
-                odemeturu = (string)SavedSession[orderid];
-            }
-            switch (odemeturu)
-            {
-                case "garanti":
+                    string ModelTxt = System.IO.File.ReadAllText(ServerFizikselPath);
+                    ModelTxt = ModelTxt.Coz();
+                    SavedSession = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, object>>(ModelTxt);
+                    try
                     {
-                        ServiceCollection serviceCollection = new ServiceCollection();
-                        ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
-                        PaymentProviderFactory paymentProviderFactory = new PaymentProviderFactory(serviceProvider);
-                        IPaymentProvider provider = paymentProviderFactory.Create(BankNames.Garanti);
-                        Dictionary<string, string> BankParameters = new Dictionary<string, string>(){
+                        DosyaBilgisi.Delete();
+                    }
+                    catch (Exception Hata)
+                    {
+
+                    }
+                }
+                string odemeturu = "";
+                if (!string.IsNullOrEmpty(SavedSession[orderid].ToString()))
+                {
+                    odemeturu = (string)SavedSession[orderid];
+                }
+                switch (odemeturu)
+                {
+                    case "garanti":
+                        {
+                            ServiceCollection serviceCollection = new ServiceCollection();
+                            ServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+                            PaymentProviderFactory paymentProviderFactory = new PaymentProviderFactory(serviceProvider);
+                            IPaymentProvider provider = paymentProviderFactory.Create(BankNames.Garanti);
+                            Dictionary<string, string> BankParameters = new Dictionary<string, string>(){
                             { "terminalUserId", "PROVAUT" },
                             { "terminalId", "10230532" },
                             { "terminalMerchantId", "1589746" },
@@ -1453,141 +1456,292 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             { "verifyUrl", "https://sanalposprov.garanti.com.tr/servlet/gt3dengine" }
                          };
 
-                        var order = _orderService.GetOrderByOrderId(Convert.ToInt32(orderid));
-                        if (order == null)
-                        {
-                            string Mesaj = $"Ödeme bilgisi geçersiz. {orderid} sipariş bulunamadı";
-                            TempData["errorPosMessage"] = Mesaj;
-                            var ccl = new CreditCardLog();
-                            ccl.Status = "Başarısız";
-                            ccl.CreatedDate = DateTime.Now;
-                            ccl.MainPartyId = order.MainPartyId;
-                            ccl.PosName = "Garanti";
-                            ccl.Code = "0007";
-                            ccl.IPAddress = Request.UserHostAddress.ToString();
-                            ccl.Detail = Mesaj;
-                            _creditCardLogService.InsertCreditCardLog(ccl);
-
-                            if (SavedSession["PayWithCreditCard"] != null)
+                            var order = _orderService.GetOrderByOrderId(Convert.ToInt32(orderid));
+                            if (order == null)
                             {
-                                if (SavedSession["PayWithCreditCard"].ToString() == "1")
+                                string Mesaj = $"Ödeme bilgisi geçersiz. {orderid} sipariş bulunamadı";
+                                TempData["errorPosMessage"] = Mesaj;
+                                var ccl = new CreditCardLog();
+                                ccl.Status = "Başarısız";
+                                ccl.CreatedDate = DateTime.Now;
+                                ccl.MainPartyId = order.MainPartyId;
+                                ccl.PosName = "Garanti";
+                                ccl.Code = "0007";
+                                ccl.IPAddress = Request.UserHostAddress.ToString();
+                                ccl.Detail = Mesaj;
+                                _creditCardLogService.InsertCreditCardLog(ccl);
+
+                                if (SavedSession["PayWithCreditCard"] != null)
                                 {
-                                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
+                                    if (SavedSession["PayWithCreditCard"].ToString() == "1")
+                                    {
+                                        return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
+                                    }
                                 }
+
+                                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
+                            }
+                            string TxtPaymentGatewayRequest = SavedSession["PaymentGatewayRequest"].ToString();
+                            PaymentGatewayRequest bankRequest = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentGatewayRequest>(TxtPaymentGatewayRequest);
+                            if (bankRequest == null)
+                            {
+                                string Mesaj = "Ödeme bilgisi geçersiz.";
+                                TempData["errorPosMessage"] = Mesaj;
+                                var ccl = new CreditCardLog();
+                                ccl.Status = "Başarısız";
+                                ccl.CreatedDate = DateTime.Now;
+                                ccl.MainPartyId = order.MainPartyId;
+                                ccl.PosName = "Garanti";
+                                ccl.Code = "0008";
+                                ccl.IPAddress = Request.UserHostAddress.ToString();
+                                ccl.Detail = Mesaj;
+                                _creditCardLogService.InsertCreditCardLog(ccl);
+
+                                if (Session["PayWithCreditCard"] != null)
+                                {
+                                    if (Session["PayWithCreditCard"].ToString() == "1")
+                                    {
+                                        return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
+                                    }
+                                }
+                                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
                             }
 
-                            return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
-                        }
-                        string TxtPaymentGatewayRequest = SavedSession["PaymentGatewayRequest"].ToString();
-                        PaymentGatewayRequest bankRequest = Newtonsoft.Json.JsonConvert.DeserializeObject<PaymentGatewayRequest>(TxtPaymentGatewayRequest);
-                        if (bankRequest == null)
-                        {
-                            string Mesaj = "Ödeme bilgisi geçersiz.";
-                            TempData["errorPosMessage"] = Mesaj;
-                            var ccl = new CreditCardLog();
-                            ccl.Status = "Başarısız";
-                            ccl.CreatedDate = DateTime.Now;
-                            ccl.MainPartyId = order.MainPartyId;
-                            ccl.PosName = "Garanti";
-                            ccl.Code = "0008";
-                            ccl.IPAddress = Request.UserHostAddress.ToString();
-                            ccl.Detail = Mesaj;
-                            _creditCardLogService.InsertCreditCardLog(ccl);
-
-                            if (Session["PayWithCreditCard"] != null)
+                            //create provider
+                            VerifyGatewayRequest verifyRequest = new VerifyGatewayRequest
                             {
-                                if (Session["PayWithCreditCard"].ToString() == "1")
-                                {
-                                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
-                                }
-                            }
-                            return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
-                        }
-
-                        //create provider
-                        VerifyGatewayRequest verifyRequest = new VerifyGatewayRequest
-                        {
-                            BankName = bankRequest.BankName,
-                            BankParameters = bankRequest.BankParameters
-                        };
-                        VerifyGatewayResult verifyResult = await provider.VerifyGateway(verifyRequest, bankRequest, form);
-                        verifyResult.OrderNumber = bankRequest.OrderNumber;
-                        if (verifyResult.Success)
-                        {
-
-                            var ccl = new CreditCardLog();
-                            ccl.Status = "Başarılı";
-                            ccl.CreatedDate = DateTime.Now;
-                            ccl.MainPartyId = order.MainPartyId;
-                            ccl.PosName = "Garanti";
-                            ccl.Code = "0000";
-                            ccl.IPAddress = Request.UserHostAddress.ToString();
-                            ccl.Detail = "Ödeme Başarıyla Alındı";
-                            _creditCardLogService.InsertCreditCardLog(ccl);
-
-                            #region payment
-                            var paymentM = new global::MakinaTurkiye.Entities.Tables.Checkouts.Payment();
-                            paymentM.OrderId = order.OrderId;
-                            paymentM.PaidAmount = Convert.ToDecimal(order.OrderPrice);
-                            paymentM.PaymentType = order.OrderType;
-                            paymentM.RecordDate = DateTime.Now;
-                            paymentM.RestAmount = (order.OrderPrice - Math.Round(Convert.ToDecimal(order.OrderPrice.ToString().Replace(".", ",")), 2));
-                            _orderService.InsertPayment(paymentM);
-                            #endregion
-
-                            var settings = ConfigurationManager.AppSettings;
-                            var mailsend = _storeService.GetStoreByMainPartyId(order.MainPartyId);
-                            string Email = mailsend.StoreEMail;
-                            var packet = _packetService.GetPacketByPacketId(order.PacketId);
-                            var mailMessage = _messageMTService.GetMessagesMTByMessageMTName("kredikartıodememail");
-
-
-
-                            #region packetconfirm
-                            var store = _storeService.GetStoreByMainPartyId(order.MainPartyId);
-                            store.PacketId = packet.PacketId;
-                            store.StorePacketBeginDate = DateTime.Now;
-                            var packetfeauture = _packetService.GetPacketFeatureByPacketIdAndPacketFeatureTypeId(packet.PacketId, 3);
-                            if (packetfeauture.FeatureContent != null)
+                                BankName = bankRequest.BankName,
+                                BankParameters = bankRequest.BankParameters
+                            };
+                            VerifyGatewayResult verifyResult = await provider.VerifyGateway(verifyRequest, bankRequest, form);
+                            verifyResult.OrderNumber = bankRequest.OrderNumber;
+                            if (verifyResult.Success)
                             {
-                                store.ProductCount = 9999;
-                            }
-                            else if (packetfeauture.FeatureActive != null)
-                            {
-                                if (packetfeauture.FeatureActive == true)
+
+                                var ccl = new CreditCardLog();
+                                ccl.Status = "Başarılı";
+                                ccl.CreatedDate = DateTime.Now;
+                                ccl.MainPartyId = order.MainPartyId;
+                                ccl.PosName = "Garanti";
+                                ccl.Code = "0000";
+                                ccl.IPAddress = Request.UserHostAddress.ToString();
+                                ccl.Detail = "Ödeme Başarıyla Alındı";
+                                _creditCardLogService.InsertCreditCardLog(ccl);
+
+                                #region payment
+                                var paymentM = new global::MakinaTurkiye.Entities.Tables.Checkouts.Payment();
+                                paymentM.OrderId = order.OrderId;
+                                paymentM.PaidAmount = Convert.ToDecimal(order.OrderPrice);
+                                paymentM.PaymentType = order.OrderType;
+                                paymentM.RecordDate = DateTime.Now;
+                                paymentM.RestAmount = (order.OrderPrice - Math.Round(Convert.ToDecimal(order.OrderPrice.ToString().Replace(".", ",")), 2));
+                                _orderService.InsertPayment(paymentM);
+                                #endregion
+
+                                var settings = ConfigurationManager.AppSettings;
+                                var mailsend = _storeService.GetStoreByMainPartyId(order.MainPartyId);
+                                string Email = mailsend.StoreEMail;
+                                var packet = _packetService.GetPacketByPacketId(order.PacketId);
+                                var mailMessage = _messageMTService.GetMessagesMTByMessageMTName("kredikartıodememail");
+
+
+
+                                #region packetconfirm
+                                var store = _storeService.GetStoreByMainPartyId(order.MainPartyId);
+                                store.PacketId = packet.PacketId;
+                                store.StorePacketBeginDate = DateTime.Now;
+                                var packetfeauture = _packetService.GetPacketFeatureByPacketIdAndPacketFeatureTypeId(packet.PacketId, 3);
+                                if (packetfeauture.FeatureContent != null)
                                 {
-                                    store.ProductCount = 3;
+                                    store.ProductCount = 9999;
                                 }
-                                else if (packetfeauture.FeatureActive == false)
+                                else if (packetfeauture.FeatureActive != null)
                                 {
-                                    store.ProductCount = 0;
+                                    if (packetfeauture.FeatureActive == true)
+                                    {
+                                        store.ProductCount = 3;
+                                    }
+                                    else if (packetfeauture.FeatureActive == false)
+                                    {
+                                        store.ProductCount = 0;
+                                    }
                                 }
+                                else
+                                {
+                                    store.ProductCount = packetfeauture.FeatureProcessCount;
+                                }
+                                var orderLastList = _orderService.GetOrdersByMainPartyId(store.MainPartyId);
+                                if (!order.ProductId.HasValue)
+                                {
+                                    foreach (var item in orderLastList.ToList())
+                                    {
+                                        item.OrderPacketEndDate = store.StorePacketEndDate;
+                                        _orderService.UpdateOrder(item);
+                                    }
+
+                                    store.StorePacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
+                                    _storeService.UpdateStore(store);
+                                }
+
+                                order.PacketStatu = (byte)PacketStatu.Onaylandi;
+                                order.OrderPacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
+                                order.PriceCheck = true;
+                                _orderService.UpdateOrder(order);
+
+                                #endregion
+                                try
+                                {
+                                    string template = mailMessage.MessagesMTPropertie;
+                                    template = template.Replace("#uyeadisoyadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname);
+                                    MailHelper mailHelper = new MailHelper(mailMessage.MessagesMTTitle, template, mailMessage.Mail, Email, mailMessage.MailPassword, mailMessage.MailSendFromName);
+                                    mailHelper.Send();
+
+                                    #region goldpacketmail
+                                    settings = ConfigurationManager.AppSettings;
+                                    var mailT = _messageMTService.GetMessagesMTByMessageMTName("goldenpro");
+                                    template = mailT.MessagesMTPropertie;
+                                    string dateimiz = DateTime.Now.AddDays(packet.PacketDay).ToString();
+                                    template = template.Replace("#uyeliktipi#", packet.PacketName).Replace("#uyelikbaslangıctarihi#", DateTime.Now.ToShortDateString()).Replace("#uyelikbitistarihi#", dateimiz).Replace("#kullaniciadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname).Replace("#pakettipi#", packet.PacketName);
+                                    var mailAnother = new MailHelper(mailT.MessagesMTTitle, template, mailT.Mail, Email, mailT.MailPassword, mailT.MailSendFromName);
+                                    mailAnother.Send();
+                                    #endregion
+                                    #region bilgimakina
+
+                                    MailMessage mailb = new MailMessage();
+                                    var mailTmpInf = _messageMTService.GetMessagesMTByMessageMTName("bilgimakinasayfası");
+
+                                    mailb.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
+                                    mailb.To.Add("bilgi@makinaturkiye.com");
+                                    mailb.Subject = "Paket Alımı " + mailsend.StoreName;
+
+                                    string bilgimakinaicin = mailsend.StoreName + " isimli firma " + packet.PacketName + " paketini kredi kartı ile satın alma işlemini gerçekleştirmiştir.";
+                                    mailb.Body = bilgimakinaicin;
+                                    mailb.IsBodyHtml = true;
+                                    mailb.Priority = MailPriority.Normal;
+                                    SmtpClient scr1 = new SmtpClient();
+                                    scr1.Port = 587;
+                                    scr1.Host = "smtp.gmail.com";
+                                    scr1.EnableSsl = true;
+                                    scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
+                                    scr1.Send(mailb);
+
+                                    #endregion
+                                }
+                                catch (Exception)
+                                {
+                                    var cclmail = new CreditCardLog();
+                                    cclmail.Status = "Ödeme Bilgilendirilme Maili Gönderilemedi";
+                                    cclmail.CreatedDate = DateTime.Now;
+                                    cclmail.MainPartyId = order.MainPartyId;
+                                    cclmail.PosName = "Garanti";
+                                    cclmail.Code = "0006";
+                                    cclmail.IPAddress = Request.UserHostAddress.ToString();
+                                    cclmail.Detail = "Ödeme Başarıyla Alındı";
+                                    _creditCardLogService.InsertCreditCardLog(ccl);
+
+                                }
+                                ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı.Paketiniz yükseltilmiştir.<br>Makinaturkiye.com'un sağlamış olduğu avantajlardan yararlanabilirsiniz.";
+                                return View("PosComplete");
                             }
                             else
                             {
-                                store.ProductCount = packetfeauture.FeatureProcessCount;
-                            }
-                            var orderLastList = _orderService.GetOrdersByMainPartyId(store.MainPartyId);
-                            if (!order.ProductId.HasValue)
-                            {
-                                foreach (var item in orderLastList.ToList())
+                                string Mesaj = verifyResult.ErrorMessage;
+                                var ccl = new CreditCardLog();
+                                ccl.Status = "Başarısız";
+                                ccl.CreatedDate = DateTime.Now;
+                                ccl.MainPartyId = order.MainPartyId;
+                                ccl.PosName = "Garanti";
+                                ccl.Code = "0009";
+                                ccl.IPAddress = Request.UserHostAddress.ToString();
+                                ccl.Detail = Mesaj;
+                                _creditCardLogService.InsertCreditCardLog(ccl);
+                                TempData["errorPosMessage"] = Mesaj;
+                                if (SavedSession["PayWithCreditCard"] != null)
                                 {
-                                    item.OrderPacketEndDate = store.StorePacketEndDate;
-                                    _orderService.UpdateOrder(item);
+                                    if (SavedSession["PayWithCreditCard"].ToString() == "1")
+                                    {
+                                        return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
+                                    }
                                 }
+                                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
+                                //  return View();
+                            }
+                            break;
+                        }
+                    case "iyzico":
+                        {
+                            Options options = new Options();
+                            options.ApiKey = AppSettings.IyzicoApiKey;
+                            options.SecretKey = AppSettings.IyzicoSecureKey;
+                            options.BaseUrl = AppSettings.IyzicoApiUrl;
+                            string paymentId = Request.Form.Get("paymentId");
+                            string status = Request.Form.Get("status");
+                            string conversationData = Request.Form.Get("conversationData");
+                            string conversationId = Request.Form.Get("conversationId");
+                            string mdStatus = Request.Form.Get("mdStatus");
+                            CreateThreedsPaymentRequest request = new CreateThreedsPaymentRequest();
+                            request.Locale = Locale.TR.ToString();
+                            request.ConversationId = conversationId.ToString();
+                            request.PaymentId = paymentId;
+                            if (!string.IsNullOrEmpty(conversationData))
+                                request.ConversationData = conversationData;
 
-                                store.StorePacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
-                                _storeService.UpdateStore(store);
+
+                            ThreedsPayment threedsPayment = ThreedsPayment.Create(request, options);
+                            var status1 = threedsPayment.Status;
+                            var order = _orderService.GetOrderByOrderId(Convert.ToInt32(conversationId));
+
+                            #region mtlog
+                            var ccl = new CreditCardLog();
+                            ccl.MainPartyId = order.MainPartyId;
+
+                            if (threedsPayment.Installment.ToString() == "1" | threedsPayment.Installment.ToString() == "0" | threedsPayment.Installment.ToString() == "")
+                                ccl.OrderType = "Tek Çekim";
+                            else
+                            {
+                                ccl.OrderType = "Taksitli";
+                                order.OrderType = 5; // Kredi Kartı Taksitli Fiyat
                             }
 
-                            order.PacketStatu = (byte)PacketStatu.Onaylandi;
-                            order.OrderPacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
-                            order.PriceCheck = true;
-                            _orderService.UpdateOrder(order);
+                            if (threedsPayment.Status == "success")
+                                ccl.Status = "Başarılı";
+                            else
+                                ccl.Status = "Başarısız";
+
+                            var cc = _creditCardService.GetCreditCardByCreditCardId(8);
+                            ccl.PosName = cc.CreditCardName;
+
+
+                            ccl.CreatedDate = DateTime.Now;
+                            ccl.IPAddress = Request.UserHostAddress.ToString();
+                            if (threedsPayment.ErrorCode == null)
+                                ccl.Code = "0";
+                            else ccl.Code = threedsPayment.ErrorCode;
+                            ccl.Detail = threedsPayment.ErrorMessage;
+
+                            _creditCardLogService.InsertCreditCardLog(ccl);
 
                             #endregion
-                            try
+
+                            if (status1 == "success")
                             {
+                                #region payment
+                                var paymentM = new global::MakinaTurkiye.Entities.Tables.Checkouts.Payment();
+                                paymentM.OrderId = order.OrderId;
+                                paymentM.PaidAmount = Convert.ToDecimal(threedsPayment.PaidPrice);
+                                paymentM.PaymentType = order.OrderType;
+                                paymentM.RecordDate = DateTime.Now;
+                                paymentM.RestAmount = (order.OrderPrice - Math.Round(Convert.ToDecimal(threedsPayment.PaidPrice.Replace(".", ",")), 2));
+                                _orderService.InsertPayment(paymentM);
+                                #endregion
+
+                                var settings = ConfigurationManager.AppSettings;
+                                var mailsend = _storeService.GetStoreByMainPartyId(order.MainPartyId);
+                                string Email = mailsend.StoreEMail;
+                                var packet = _packetService.GetPacketByPacketId(order.PacketId);
+                                var mailMessage = _messageMTService.GetMessagesMTByMessageMTName("kredikartıodememail");
+
+
                                 string template = mailMessage.MessagesMTPropertie;
                                 template = template.Replace("#uyeadisoyadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname);
                                 MailHelper mailHelper = new MailHelper(mailMessage.MessagesMTTitle, template, mailMessage.Mail, Email, mailMessage.MailPassword, mailMessage.MailSendFromName);
@@ -1602,6 +1756,52 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 var mailAnother = new MailHelper(mailT.MessagesMTTitle, template, mailT.Mail, Email, mailT.MailPassword, mailT.MailSendFromName);
                                 mailAnother.Send();
                                 #endregion
+
+                                #region packetconfirm
+                                var store = _storeService.GetStoreByMainPartyId(order.MainPartyId);
+                                store.PacketId = packet.PacketId;
+                                store.StorePacketBeginDate = DateTime.Now;
+                                var packetfeauture = _packetService.GetPacketFeatureByPacketIdAndPacketFeatureTypeId(packet.PacketId, 3);
+                                if (packetfeauture.FeatureContent != null)
+                                {
+                                    store.ProductCount = 9999;
+                                }
+                                else if (packetfeauture.FeatureActive != null)
+                                {
+                                    if (packetfeauture.FeatureActive == true)
+                                    {
+                                        store.ProductCount = 3;
+                                    }
+                                    else if (packetfeauture.FeatureActive == false)
+                                    {
+                                        store.ProductCount = 0;
+                                    }
+                                }
+                                else
+                                {
+                                    store.ProductCount = packetfeauture.FeatureProcessCount;
+                                }
+                                var orderLastList = _orderService.GetOrdersByMainPartyId(store.MainPartyId);
+                                if (!order.ProductId.HasValue)
+                                {
+                                    foreach (var item in orderLastList.ToList())
+                                    {
+                                        item.OrderPacketEndDate = store.StorePacketEndDate;
+                                        _orderService.UpdateOrder(item);
+                                    }
+
+                                    store.StorePacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
+                                    _storeService.UpdateStore(store);
+
+                                }
+
+                                order.PacketStatu = (byte)PacketStatu.Onaylandi;
+                                order.OrderPacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
+                                order.PriceCheck = true;
+                                _orderService.UpdateOrder(order);
+
+                                #endregion
+
                                 #region bilgimakina
 
                                 MailMessage mailb = new MailMessage();
@@ -1623,228 +1823,36 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 scr1.Send(mailb);
 
                                 #endregion
-                            }
-                            catch (Exception)
-                            {
-                                var cclmail = new CreditCardLog();
-                                cclmail.Status = "Ödeme Bilgilendirilme Maili Gönderilemedi";
-                                cclmail.CreatedDate = DateTime.Now;
-                                cclmail.MainPartyId = order.MainPartyId;
-                                cclmail.PosName = "Garanti";
-                                cclmail.Code = "0006";
-                                cclmail.IPAddress = Request.UserHostAddress.ToString();
-                                cclmail.Detail = "Ödeme Başarıyla Alındı";
-                                _creditCardLogService.InsertCreditCardLog(ccl);
 
-                            }
-                            ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı.Paketiniz yükseltilmiştir.<br>Makinaturkiye.com'un sağlamış olduğu avantajlardan yararlanabilirsiniz.";
-                            return View("PosComplete");
-                        }
-                        else
-                        {
-                            string Mesaj = verifyResult.ErrorMessage;
-                            var ccl = new CreditCardLog();
-                            ccl.Status = "Başarısız";
-                            ccl.CreatedDate = DateTime.Now;
-                            ccl.MainPartyId = order.MainPartyId;
-                            ccl.PosName = "Garanti";
-                            ccl.Code = "0009";
-                            ccl.IPAddress = Request.UserHostAddress.ToString();
-                            ccl.Detail = Mesaj;
-                            _creditCardLogService.InsertCreditCardLog(ccl);
-                            TempData["errorPosMessage"] = Mesaj;
-                            if (SavedSession["PayWithCreditCard"] != null)
-                            {
-                                if (SavedSession["PayWithCreditCard"].ToString() == "1")
-                                {
-                                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
-                                }
-                            }
-                            return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
-                            //  return View();
-                        }
-                        break;
-                    }
-                case "iyzico":
-                    {
-                        Options options = new Options();
-                        options.ApiKey = AppSettings.IyzicoApiKey;
-                        options.SecretKey = AppSettings.IyzicoSecureKey;
-                        options.BaseUrl = AppSettings.IyzicoApiUrl;
-                        string paymentId = Request.Form.Get("paymentId");
-                        string status = Request.Form.Get("status");
-                        string conversationData = Request.Form.Get("conversationData");
-                        string conversationId = Request.Form.Get("conversationId");
-                        string mdStatus = Request.Form.Get("mdStatus");
-                        CreateThreedsPaymentRequest request = new CreateThreedsPaymentRequest();
-                        request.Locale = Locale.TR.ToString();
-                        request.ConversationId = conversationId.ToString();
-                        request.PaymentId = paymentId;
-                        if (!string.IsNullOrEmpty(conversationData))
-                            request.ConversationData = conversationData;
-
-
-                        ThreedsPayment threedsPayment = ThreedsPayment.Create(request, options);
-                        var status1 = threedsPayment.Status;
-                        var order = _orderService.GetOrderByOrderId(Convert.ToInt32(conversationId));
-
-                        #region mtlog
-                        var ccl = new CreditCardLog();
-                        ccl.MainPartyId = order.MainPartyId;
-
-                        if (threedsPayment.Installment.ToString() == "1" | threedsPayment.Installment.ToString() == "0" | threedsPayment.Installment.ToString() == "")
-                            ccl.OrderType = "Tek Çekim";
-                        else
-                        {
-                            ccl.OrderType = "Taksitli";
-                            order.OrderType = 5; // Kredi Kartı Taksitli Fiyat
-                        }
-
-                        if (threedsPayment.Status == "success")
-                            ccl.Status = "Başarılı";
-                        else
-                            ccl.Status = "Başarısız";
-
-                        var cc = _creditCardService.GetCreditCardByCreditCardId(8);
-                        ccl.PosName = cc.CreditCardName;
-
-
-                        ccl.CreatedDate = DateTime.Now;
-                        ccl.IPAddress = Request.UserHostAddress.ToString();
-                        if (threedsPayment.ErrorCode == null)
-                            ccl.Code = "0";
-                        else ccl.Code = threedsPayment.ErrorCode;
-                        ccl.Detail = threedsPayment.ErrorMessage;
-
-                        _creditCardLogService.InsertCreditCardLog(ccl);
-
-                        #endregion
-
-                        if (status1 == "success")
-                        {
-                            #region payment
-                            var paymentM = new global::MakinaTurkiye.Entities.Tables.Checkouts.Payment();
-                            paymentM.OrderId = order.OrderId;
-                            paymentM.PaidAmount = Convert.ToDecimal(threedsPayment.PaidPrice);
-                            paymentM.PaymentType = order.OrderType;
-                            paymentM.RecordDate = DateTime.Now;
-                            paymentM.RestAmount = (order.OrderPrice - Math.Round(Convert.ToDecimal(threedsPayment.PaidPrice.Replace(".", ",")), 2));
-                            _orderService.InsertPayment(paymentM);
-                            #endregion
-
-                            var settings = ConfigurationManager.AppSettings;
-                            var mailsend = _storeService.GetStoreByMainPartyId(order.MainPartyId);
-                            string Email = mailsend.StoreEMail;
-                            var packet = _packetService.GetPacketByPacketId(order.PacketId);
-                            var mailMessage = _messageMTService.GetMessagesMTByMessageMTName("kredikartıodememail");
-
-
-                            string template = mailMessage.MessagesMTPropertie;
-                            template = template.Replace("#uyeadisoyadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname);
-                            MailHelper mailHelper = new MailHelper(mailMessage.MessagesMTTitle, template, mailMessage.Mail, Email, mailMessage.MailPassword, mailMessage.MailSendFromName);
-                            mailHelper.Send();
-
-                            #region goldpacketmail
-                            settings = ConfigurationManager.AppSettings;
-                            var mailT = _messageMTService.GetMessagesMTByMessageMTName("goldenpro");
-                            template = mailT.MessagesMTPropertie;
-                            string dateimiz = DateTime.Now.AddDays(packet.PacketDay).ToString();
-                            template = template.Replace("#uyeliktipi#", packet.PacketName).Replace("#uyelikbaslangıctarihi#", DateTime.Now.ToShortDateString()).Replace("#uyelikbitistarihi#", dateimiz).Replace("#kullaniciadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname).Replace("#pakettipi#", packet.PacketName);
-                            var mailAnother = new MailHelper(mailT.MessagesMTTitle, template, mailT.Mail, Email, mailT.MailPassword, mailT.MailSendFromName);
-                            mailAnother.Send();
-                            #endregion
-
-                            #region packetconfirm
-                            var store = _storeService.GetStoreByMainPartyId(order.MainPartyId);
-                            store.PacketId = packet.PacketId;
-                            store.StorePacketBeginDate = DateTime.Now;
-                            var packetfeauture = _packetService.GetPacketFeatureByPacketIdAndPacketFeatureTypeId(packet.PacketId, 3);
-                            if (packetfeauture.FeatureContent != null)
-                            {
-                                store.ProductCount = 9999;
-                            }
-                            else if (packetfeauture.FeatureActive != null)
-                            {
-                                if (packetfeauture.FeatureActive == true)
-                                {
-                                    store.ProductCount = 3;
-                                }
-                                else if (packetfeauture.FeatureActive == false)
-                                {
-                                    store.ProductCount = 0;
-                                }
+                                ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı.Paketiniz yükseltilmiştir.<br>Makinaturkiye.com'un sağlamış olduğu avantajlardan yararlanabilirsiniz.";
+                                return View("PosComplete");
                             }
                             else
                             {
-                                store.ProductCount = packetfeauture.FeatureProcessCount;
-                            }
-                            var orderLastList = _orderService.GetOrdersByMainPartyId(store.MainPartyId);
-                            if (!order.ProductId.HasValue)
-                            {
-                                foreach (var item in orderLastList.ToList())
+                                TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
+                                if (Session["PayWithCreditCard"] != null)
                                 {
-                                    item.OrderPacketEndDate = store.StorePacketEndDate;
-                                    _orderService.UpdateOrder(item);
+                                    if (Session["PayWithCreditCard"].ToString() == "1")
+                                    {
+                                        return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
+                                    }
                                 }
-
-                                store.StorePacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
-                                _storeService.UpdateStore(store);
-
+                                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
+                                //  return View();
                             }
-
-                            order.PacketStatu = (byte)PacketStatu.Onaylandi;
-                            order.OrderPacketEndDate = DateTime.Now.AddDays(order.PacketDay.Value);
-                            order.PriceCheck = true;
-                            _orderService.UpdateOrder(order);
-
-                            #endregion
-
-                            #region bilgimakina
-
-                            MailMessage mailb = new MailMessage();
-                            var mailTmpInf = _messageMTService.GetMessagesMTByMessageMTName("bilgimakinasayfası");
-
-                            mailb.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
-                            mailb.To.Add("bilgi@makinaturkiye.com");
-                            mailb.Subject = "Paket Alımı " + mailsend.StoreName;
-
-                            string bilgimakinaicin = mailsend.StoreName + " isimli firma " + packet.PacketName + " paketini kredi kartı ile satın alma işlemini gerçekleştirmiştir.";
-                            mailb.Body = bilgimakinaicin;
-                            mailb.IsBodyHtml = true;
-                            mailb.Priority = MailPriority.Normal;
-                            SmtpClient scr1 = new SmtpClient();
-                            scr1.Port = 587;
-                            scr1.Host = "smtp.gmail.com";
-                            scr1.EnableSsl = true;
-                            scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                            scr1.Send(mailb);
-
-                            #endregion
-
-                            ViewData["text"] = "TEBRİKLER!<br> Ödeme işleminiz tamamlandı.Paketiniz yükseltilmiştir.<br>Makinaturkiye.com'un sağlamış olduğu avantajlardan yararlanabilirsiniz.";
-                            return View("PosComplete");
+                            break;
                         }
-                        else
-                        {
-                            TempData["errorPosMessage"] = threedsPayment.ErrorMessage;
-                            if (Session["PayWithCreditCard"] != null)
-                            {
-                                if (Session["PayWithCreditCard"].ToString() == "1")
-                                {
-                                    return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
-                                }
-                            }
-                            return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = order.OrderId });
-                            //  return View();
-                        }
+                    default:
                         break;
-                    }
-                default:
-                    break;
-            }
+                }
 
-            TempData["errorPosMessage"] = "Genel Hata Oluştu.";
-            return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = orderid });
+                TempData["errorPosMessage"] = "Genel Hata Oluştu.";
+                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = orderid });
+            }
+            catch (Exception Hata)
+            {
+                return RedirectToAction("FourStep", "membershipsales", new { messagge = "failure", orderId = 1 });
+            }
         }
         public ActionResult sonuc(string sonuc)
         {
