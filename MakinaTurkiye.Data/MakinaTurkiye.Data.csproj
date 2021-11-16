@@ -89,6 +89,7 @@
     <Compile Include="Mapping\Tables\Catalog\DeletedProductRedirectMap.cs" />
     <Compile Include="Mapping\Tables\Catalog\StoreProductCreatePropertieMap.cs" />
     <Compile Include="Mapping\Tables\Catalog\StoreProductCreateSettingMap.cs" />
+    <Compile Include="Mapping\Tables\Checkouts\OrderConfirmationMap.cs" />
     <Compile Include="Mapping\Tables\Common\UrlRedirectMap.cs" />
     <Compile Include="Mapping\Tables\Content\BaseMenuCategoryMap.cs" />
     <Compile Include="Mapping\Tables\Content\BaseMenuImageMap.cs" />

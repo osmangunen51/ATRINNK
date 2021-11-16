@@ -19,6 +19,7 @@ namespace MakinaTurkiye.Services.Checkouts
         private readonly IRepository<Payment> _paymentRepository;
         private readonly IRepository<OrderDescription> _orderDescriptionRepository;
         private readonly IRepository<ReturnInvoice> _returnInvoiceRepository;
+        private readonly IRepository<OrderConfirmation> _orderConfirmationRepository;
        
         #endregion
 
@@ -27,7 +28,8 @@ namespace MakinaTurkiye.Services.Checkouts
         public OrderService(IRepository<Order> orderRepository, IDbContext dbContext,
             IRepository<Payment> paymentRepository,
             IRepository<OrderDescription> orderDescriptionRepository,
-            IDataProvider dataProvider, IRepository<ReturnInvoice> returnInvoiceRepository)
+            IDataProvider dataProvider, IRepository<ReturnInvoice> returnInvoiceRepository,
+            IRepository<OrderConfirmation> orderConfirmationRepository)
         {
             this._orderRepository = orderRepository;
             this._dbContext = dbContext;
@@ -35,6 +37,7 @@ namespace MakinaTurkiye.Services.Checkouts
             this._orderDescriptionRepository = orderDescriptionRepository;
             this._dataProvider = dataProvider;
             this._returnInvoiceRepository = returnInvoiceRepository;
+            this._orderConfirmationRepository = orderConfirmationRepository;
         }
 
         #endregion
@@ -276,6 +279,17 @@ namespace MakinaTurkiye.Services.Checkouts
 
             var query = _returnInvoiceRepository.Table;
             return query.FirstOrDefault(x => x.ReturnInvoiceId == invoiceId);
+        }
+
+        public void InsertOrderConfirmation(OrderConfirmation orderConfirmation)
+        {
+            _orderConfirmationRepository.Insert(orderConfirmation);
+        }
+
+        public OrderConfirmation GetOrderConfirmationByOrderId(int orderId)
+        {
+            var query= _orderConfirmationRepository.Table;
+            return query.FirstOrDefault(x => x.OrderId == orderId);
         }
 
         #endregion

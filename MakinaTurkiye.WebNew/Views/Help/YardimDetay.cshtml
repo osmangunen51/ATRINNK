@@ -10,22 +10,28 @@
 }
 
 <div class="row">
-    <div class="col-sm-5 col-md-4 col-lg-3">
-        <div class="well well-mt2 form-horizontal">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Aranacak kelimeyi giriniz">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                        Ara
-                    </button>
-                </span>
+    @if (Request.QueryString["orderId"] == null)
+    {
+        <div class="col-sm-5 col-md-4 col-lg-3">
+            <div class="well well-mt2 form-horizontal">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Aranacak kelimeyi giriniz">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                            Ara
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <div class="panel-group" id="accordion">
+                @Html.Action("MenuSub", "Help", new { categoryId = Model.CategoryId })
             </div>
         </div>
-        <div class="panel-group" id="accordion">
-            @Html.Action("MenuSub","Help",new {categoryId=Model.CategoryId})
-        </div>
-    </div>
-    <div class="col-sm-8 col-sm-7 col-md-8 col-lg-9">
+    }
+
+<div class="col-sm-8 col-sm-7 col-md-8 col-lg-9">
+    @if (Request.QueryString["orderId"] == null)
+    {
         <div class="row hidden-xs">
             <div class="col-xs-12">
                 <ol class="breadcrumb breadcrumb-mt">
@@ -34,27 +40,63 @@
                 </ol>
             </div>
         </div>
-        <div class="alert alert-info">
-            <i class="fa fa-3x fa-bullhorn pull-left"></i>
-            <h1 style="font-size:13px;">@Model.CategoryName</h1>
+    }
+    <div class="alert alert-info">
+        <i class="fa fa-3x fa-bullhorn pull-left"></i>
+        <h1 style="font-size:13px;">@Model.CategoryName</h1>
+    </div>
+    @if (TempData["confirmed"]!=null && (bool)TempData["confirmed"] == true)
+    {
+        <div class="alert alert-success">
+            <h1 style="font-size:13px;">Onayınız başarılı şekilde alınmış olup paketiniz aktif edilmiştir.
+            </h1>
         </div>
-        <div class="well well-mt">
-            <div class="row">
-                <div class="col-md-12 yardimIcerik">
-                    @if (Model.SubMenuItemModels.Any())
-                    {
-                <div class="alert ">
-                    <ul class="list-group">
-                        @foreach (var item in Model.SubMenuItemModels)
-                        {
-                <li class="list-group-item"><a id="@item.CategoryId" href="@item.HelpUrl"> @item.CategoryName</a> </li>}
-                    </ul>
-                </div>}
-                    @Html.Raw(Model.Content)
-                </div>
+    }
+    <div class="well well-mt">
+        <div class="row">
+            <div class="col-md-12 yardimIcerik">
+                @if (Model.SubMenuItemModels.Any())
+                {
+                    <div class="alert ">
+                        <ul class="list-group">
+                            @foreach (var item in Model.SubMenuItemModels)
+                            {
+                                <li class="list-group-item"><a id="@item.CategoryId" href="@item.HelpUrl"> @item.CategoryName</a> </li>
+                            }
+                        </ul>
+                    </div>}
+                @Html.Raw(Model.Content)
+
+                @if (Model.OrderConfirmationForm.OrderId != 0)
+                {
+                    var orderConfirmationModal = Model.OrderConfirmationForm;
+
+                    <div class="form-group">
+                        <form method="post" action="/help/yardımdetay">
+                            @Html.Hidden("OrderId", orderConfirmationModal.OrderId)
+                            @Html.Hidden("StoreMainPartyId", orderConfirmationModal.StoreMainPartyId)
+                            @Html.Hidden("ReturnUrl", orderConfirmationModal.ReturnUrl)
+
+                            <div class="">
+                                <label class="checkbox" style="font-size:14px; font-weight:500; color:#333;">
+                                    @Html.CheckBox("IsConfirmed")
+                                    Satış Sözleşmesi 'ni okudum, müzakere ettim ve sözleşme şartlarını kabul ediyorum
+                                </label>
+                            </div>
+                            <div class="col-md-3">
+                                <button class="btn btn-sign-up" type="submit">
+                                    Onayla
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                }
+
             </div>
+
         </div>
     </div>
+</div>
 </div>
 
 @section headercontent{

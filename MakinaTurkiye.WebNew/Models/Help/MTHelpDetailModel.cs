@@ -7,6 +7,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Help
         public MTHelpDetailModel()
         {
             SubMenuItemModels = new List<MTHelpMenuModel>();
+            OrderConfirmationForm = new OrderConfirmationFormModel();
         }
 
         public int CategoryId { get; set; }
@@ -16,6 +17,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Help
         public string Content { get; set; }
 
         public string Canonical { get; set; }
+
+        public OrderConfirmationFormModel OrderConfirmationForm;
 
 
         public IList<MTHelpMenuModel> SubMenuItemModels { get; set; }
