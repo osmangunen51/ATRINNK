@@ -13,5 +13,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Help
 
         public bool IsConfirmed { get; set; }
 
+        public DateTime? RecordDate { get; set; }
+
     }
 }

@@ -79,16 +79,29 @@
 
                             <div class="">
                                 <label class="checkbox" style="font-size:14px; font-weight:500; color:#333;">
-                                    @Html.CheckBox("IsConfirmed")
+                                    @Html.CheckBox("IsConfirmed", orderConfirmationModal.IsConfirmed)
                                     Satış Sözleşmesi 'ni okudum, müzakere ettim ve sözleşme şartlarını kabul ediyorum
                                 </label>
                             </div>
-                            <div class="col-md-3">
-                                <button class="btn btn-sign-up" type="submit">
-                                    Onayla
-                                </button>
-                            </div>
-                        </form>
+
+                            @if (orderConfirmationModal.IsConfirmed)
+                            {
+                                <div class="alert alert-success">
+                                    <h1 style="font-size:13px;">
+                                        <b>@orderConfirmationModal.RecordDate.Value.ToString("dd/MM/yyyy")</b> tarihinde onayınız başarılı şekilde alınmıştır
+                                    </h1>
+                                </div>
+                            }
+                            else
+                            {
+                        <div class="col-md-3">
+                            <button class="btn btn-sign-up" type="submit">
+                                Onayla
+                            </button>
+                        </div>
+                                    }
+                        
+                            </form>
                     </div>
                 }
 

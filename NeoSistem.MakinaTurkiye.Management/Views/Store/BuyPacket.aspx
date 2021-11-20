@@ -183,8 +183,11 @@
                     $("#Description").val("");
                     $("#Installment").val("0");
                     $("#creditDatesContainer").html("");
-                    alert("Paket satın alma işlemi tamamlanmıştır");
+                    $("#sozlesmeLink").html("Sözleşme Linki:" + data);
+                    alert("Paket satın alma işlemi tamamlanmıştır. Sözleşme linkine aşağıdan ulaşabilirsiniz.");
                     $("#preLoading").hide();
+
+     
                 },
                 error: function (request, error) {
                     $("#preLoading").hide();
@@ -225,6 +228,7 @@
         { %>
     <%=Html.RenderHtmlPartial("TabMenu") %>
     <div style="width: 100%">
+        <div id="sozlesmeLink" style="font-size:16px"></div>
         <table>
             <%:Html.Hidden("StoreMainPartyId",this.Page.RouteData.Values["id"]) %>
             <%:Html.HiddenFor(x=>x.PacketPrice) %>

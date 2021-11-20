@@ -48,7 +48,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IMemberStoreService memberStoreService,
             IStoreService storeService,
             IMemberService memberService,
-            IPacketService packetService)
+            IPacketService packetService,
+            IMessagesMTService messagesMTService)
         {
             this._categoryService = categoryService;
             this._salesDocumentInputFactory = salesDocumentInputFactory;
@@ -57,6 +58,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             this._storeService = storeService;
             this._packetService = packetService;
             this._memberStoreService = memberStoreService;
+            this._messageMtService = messagesMTService;
         }
 
         #endregion
@@ -178,7 +180,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 if (!string.IsNullOrEmpty(storeId) && !string.IsNullOrEmpty(orderId) && categoryId == 146659)
                 {
-                    model.OrderConfirmationForm = new OrderConfirmationFormModel { OrderId = Convert.ToInt32(orderId), StoreMainPartyId = Convert.ToInt32(storeId), ReturnUrl = Request.Url.ToString() };
+                    var orderConfirmation = _orderService.GetOrderConfirmationByOrderId(Convert.ToInt32(orderId));
+
+                    model.OrderConfirmationForm = new OrderConfirmationFormModel { OrderId = Convert.ToInt32(orderId), StoreMainPartyId = Convert.ToInt32(storeId), ReturnUrl = Request.Url.ToString(),
+                    IsConfirmed=orderConfirmation!=null, RecordDate=orderConfirmation!=null ? orderConfirmation.RecordDate : DateTime.Now};
+
                     var def = _salesDocumentInputFactory.getPayload(Convert.ToInt32(storeId), Convert.ToInt32(orderId));
                     foreach (var item in def)
                     {

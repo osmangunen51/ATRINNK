@@ -77,7 +77,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Factories
             if (getOrderType(order.OrderType).Contains("Taksit"))
                 datas.Add("{peşin}", "Taksit");
             else
-                datas.Add("{peşin}", "{Peşin}");
+                datas.Add("{peşin}", "Peşin");
             string orderInstallmentText = "";
             int counter = 0;
             foreach (var orderInstallment in orderInstallments)
