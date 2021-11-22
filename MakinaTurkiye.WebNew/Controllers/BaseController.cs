@@ -1,8 +1,12 @@
+using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Services.Cultures;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -117,7 +121,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return null;
         }
 
-
+        
         public static string RemoveQueryStringByKey(string url, string key)
         {
             var uri = new Uri(url);
@@ -685,5 +689,52 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
 
         #endregion
+
+        public int DilID = 1;
+        protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
+        {
+            string cultureName = null;
+            string culturName1 = "tr";
+            // Attempt to read the culture cookie from Request
+            if (RouteData.Values["lang"] != null && (RouteData.Values["lang"].ToString() == "en" || RouteData.Values["lang"].ToString() == "tr"))
+            {
+
+                if (RouteData.Values["lang"] != null)
+                {
+                    culturName1 = RouteData.Values["lang"].ToString();
+                }
+                else
+                {
+                    culturName1 = "tr";
+                }
+
+
+                cultureName = culturName1;
+
+                cultureName = CultureHelper.GetImplementedCulture(cultureName); // This is safe
+
+                // Modify current thread's cultures            
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo(cultureName);
+                Thread.CurrentThread.CurrentUICulture = Thread.CurrentThread.CurrentCulture;
+                ILanguageService _langService = EngineContext.Current.Resolve<ILanguageService>();
+
+                var lang = _langService.GetLanguageByCode(cultureName);
+
+                this.DilID = lang.LanguageId;
+                Session["langUrl"] = lang.LanguageCode;
+                Session["LangCode"] = lang.LanguageCode;
+
+
+            }
+
+            return base.BeginExecuteCore(callback, state);
+
+        }
+
+        public string GetLanguageCode()
+        {
+            return HtmlLangHelper.GetLanguageCode();
+        }
+
     }
 }

@@ -5,6 +5,7 @@ using MakinaTurkiye.Core.Configuration;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Core.Infrastructure.DependencyManagement;
 using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Cultures;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,7 @@ namespace MakinaTurkiye.Utilities.Infrastructure
             builder.RegisterType<AddressChangeHistoryService>().As<IAddressChangeHistoryService>().InstancePerLifetimeScope();
             builder.RegisterType<CurrencyService>().As<ICurrencyService>().InstancePerLifetimeScope();
             builder.RegisterType<UrlRedirectService>().As<IUrlRedirectService>().InstancePerLifetimeScope();
+            builder.RegisterType<LanguageService>().As<ILanguageService>().InstancePerLifetimeScope();
         }
 
         public int Order => 2;

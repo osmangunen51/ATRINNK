@@ -610,7 +610,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 MTHomeCategoryModel mainCategoryModel = new MTHomeCategoryModel();
                 mainCategoryModel.CategoryName = item.CategoryName;
-                mainCategoryModel.CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, item.CategoryName, null, string.Empty);
+                mainCategoryModel.CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, item.CategoryName, null, string.Empty,"");
                 mainCategoryModel.ProductCount = item.ProductCount.Value;
                 var subCategories = _categoryService.GetCategoriesByCategoryParentId(item.CategoryId);
                 foreach (var subItem in subCategories)
@@ -619,7 +619,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     {
                         CategoryName = subItem.CategoryName,
                         ProductCount = subItem.ProductCount.Value,
-                        CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, subItem.CategoryName, null, string.Empty)
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, subItem.CategoryName, null, string.Empty,"")
                     });
                 }
 

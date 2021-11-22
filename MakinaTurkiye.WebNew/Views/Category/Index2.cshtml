@@ -258,7 +258,7 @@ else
                     <div class="pos-relative">
                         <div class="filters__header row hidden-md hidden-lg">
                             <div class="col-xs-12">
-                                <a href="javascript:;" class="js-close-filters"><span class="icon-close"></span></a>Filtrele
+                                <a href="javascript:;" class="js-close-filters"><span class="icon-close"></span></a>@HtmlLangHelper.GetLangugeVal("category-filter")
                             </div>
                         </div>
                         <div class="filters__inner">
@@ -273,11 +273,11 @@ else
                                                 @{string brandName = "";}
                                                 @if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
                                                 {
-                                                    <span>Sıfır</span>
+                                                    <span>@HtmlLangHelper.GetLangugeVal("category-filter-new")</span>
                                                 }
                                                 else if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Used)
                                                 {
-                                                    <span>İkinci El</span>
+                                                    <span>@HtmlLangHelper.GetLangugeVal("category-filter-used")</span>
                                                 }
                                                 @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
                                                 {
@@ -354,7 +354,7 @@ else
                                     {
                                         <div class="panel panel-mt panel-mtv2">
                                             <div class="panel-heading">
-                                                <span class="icon-buffer"></span>&nbsp;<span class="title">Marka</span>
+                                                <span class="icon-buffer"></span>&nbsp;<span class="title">@HtmlLangHelper.GetLangugeVal("category-filter-brand")</span>
 
                                                 <a href="javascript:;" role="button" data-toggle="collapse" data-parent="#filters" data-target="#marka-body">
                                                     <span class="more-less icon-down-arrow"></span>
@@ -363,7 +363,7 @@ else
 
                                                 @{var clearFilterUrl = Model.FilteringContext.DataFilterMoldes.ToList().Where(x => x.FilterName == "Marka" && x.FilterName != "Seri" && x.FilterName != "Model" && x.ClearFilterUrl != "").FirstOrDefault(); }
                                                 @if (clearFilterUrl != null)
-                                                {<a href="@clearFilterUrl.ClearFilterUrl" class="pull-right">Tümü</a>}
+                                                {<a href="@clearFilterUrl.ClearFilterUrl" class="pull-right">@HtmlLangHelper.GetLangugeVal("category-all")</a>}
                                             </div>
 
                                             <div class="panel-body collapse" id="marka-body">
@@ -403,7 +403,7 @@ else
                                     <div class="panel panel-mt panel-mtv2">
                                         <div class="panel-heading">
                                             <span class="icon-map-pin"></span>
-                                            <span class="title">Adres</span>
+                                            <span class="title">@HtmlLangHelper.GetLangugeVal("address")</span>
                                             <a href="javascript:;" role="button" data-toggle="collapse" data-parent="#filters" data-target="#adres-body">
                                                 <span class="more-less icon-down-arrow"></span>
                                             </a>
@@ -446,7 +446,7 @@ else
                                     <div class="panel panel-mt panel-mtv2">
                                         <div class="panel-heading">
                                             <span class="icon-search"></span>
-                                            <span class="title">Kelime ile filtrele</span>
+                                            <span class="title">@HtmlLangHelper.GetLangugeVal("filter-by-word")</span>
                                             <a href="javascript:;" role="button" data-toggle="collapse" data-parent="#filters" data-target="#kelime-body">
                                                 <span class="more-less icon-down-arrow"></span>
                                             </a>
@@ -456,7 +456,7 @@ else
                                                 <input type="text" class="form-control" name="filterByText" id="filterText" aria-describedby="basic-addon2" value="@Model.SearchText">
                                                 <span class="input-group-btn">
                                                     <button class="btn  btn-default" type="submit" id="filterByText">
-                                                        <span class="glyphicon glyphicon-search"></span>&nbsp; Filtrele
+                                                        <span class="glyphicon glyphicon-search"></span>&nbsp; @HtmlLangHelper.GetLangugeVal("category-filter")
                                                     </button>
                                                 </span>
                                             </div>
@@ -472,14 +472,14 @@ else
                 @{ string querySearchType = string.IsNullOrEmpty(Request.QueryString["SearchType"]) ? "" : "&SearchType=" + Request.QueryString["SearchType"].ToString(); }
 
                 <div class="mobile-filter-buttons mobile-filter-top-alignment  mdlg-hidden">
-                    <a href="javascript:;" class="js-toggle-filter"><span class="icon-filter"></span>Filtrele</a>
-                    <a href="javascript:;" class="js-toggle-sort"><span class="icon-sort"></span>Sırala</a>
+                    <a href="javascript:;" class="js-toggle-filter"><span class="icon-filter"></span>@HtmlLangHelper.GetLangugeVal("category-filter")</a>
+                    <a href="javascript:;" class="js-toggle-sort"><span class="icon-sort"></span>@HtmlLangHelper.GetLangugeVal("category-order")</a>
                     <select class="mobile-sort" style="position: absolute; right: 0; width: 50%; height: 100%; opacity: 0">
                         <option value="@Request.FilePath@display@page@querySearchType&Order=a-z">a-Z</option>
                         <option value="@Request.FilePath@display@page@querySearchType&Order=z-a">Z-a</option>
-                        <option value="@Request.FilePath@display@page@querySearchType&Order=soneklenen">Son Eklenen</option>
-                        <option value="@Request.FilePath@display@page@querySearchType">En Çok Görüntülenen</option>
-                        <option value="@Request.FilePath@display@page@querySearchType&Order=fiyat-artan">Fiyat Artan</option>
+                        <option value="@Request.FilePath@display@page@querySearchType&Order=soneklenen">@HtmlLangHelper.GetLangugeVal("category-order-last")</option>
+                        <option value="@Request.FilePath@display@page@querySearchType">@HtmlLangHelper.GetLangugeVal("category-order-mostviewed")</option>
+                        <option value="@Request.FilePath@display@page@querySearchType&Order=fiyat-artan">@HtmlLangHelper.GetLangugeVal("category-order-price-inc")</option>
                     </select>
                 </div>
                 <script type="text/javascript">
@@ -589,85 +589,85 @@ else
                                         <h2>
                                             @if (string.IsNullOrEmpty(Model.SearchText))
                                             {
-                                                <strong>
-                                                    @if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
+                                            <strong>
+                                                @if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New)
+                                                {
+                                                    @HtmlLangHelper.GetLangugeVal("category-filter-new")
+                                                }
+                                                else if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Used)
+                                                {
+                                                    @HtmlLangHelper.GetLangugeVal("category-filter-used")
+                                                }
+                                                @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
+                                                {
+                                                    brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
+                                                    @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName
+                                                }
+                                                else
+                                                {
+                                                    if (!string.IsNullOrEmpty(Model.SpesificBrandName))
                                                     {
-                                                        @:Sıfır
+                                                        @Model.SpesificBrandName
                                                     }
-                                                    else if (Model.FilteringContext.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Used)
-                                                    {
-                                                        @:İkinci El
-                                                    }
-                                                    @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Marka") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.Any(k => k.Selected))
-                                                    {
-                                                        brandName = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
-                                                        @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Marka").ItemModels.FirstOrDefault(k => k.Selected).FilterName
-                                                    }
-                                                    else
-                                                    {
-                                                        if (!string.IsNullOrEmpty(Model.SpesificBrandName))
-                                                        {
-                                                            @Model.SpesificBrandName
-                                                        }
-                                                    }
+                                                }
 
-                                                    @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Model") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.Any(k => k.Selected))
-                                                    {
-                                                        @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.FirstOrDefault(k => k.Selected).FilterName
-                                                    }
-                                                    @if (!string.IsNullOrEmpty(Model.SpesificCategoryNameForModelH1) && brandName != Model.SpesificCategoryNameForModelH1)
-                                                    {
-                                                        @Model.SpesificCategoryNameForModelH1
-                                                    }
-                                                    @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Seri") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.Any(k => k.Selected))
-                                                    {
-                                                        @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.FirstOrDefault(k => k.Selected).FilterName
-                                                    }
-                                                    @if (Model.CategoryModel.SelectedCategoryType != (byte)CategoryType.Brand && Model.CategoryModel.SelectedCategoryType != (byte)CategoryType.Series && Model.CategoryModel.SelectedCategoryType != (byte)CategoryType.Model)
-                                                    {
+                                                @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Model") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.Any(k => k.Selected))
+                                                {
+                                                    @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Model").ItemModels.FirstOrDefault(k => k.Selected).FilterName
+                                                }
+                                                @if (!string.IsNullOrEmpty(Model.SpesificCategoryNameForModelH1) && brandName != Model.SpesificCategoryNameForModelH1)
+                                                {
+                                                    @Model.SpesificCategoryNameForModelH1
+                                                }
+                                                @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Seri") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.Any(k => k.Selected))
+                                                {
+                                                    @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Seri").ItemModels.FirstOrDefault(k => k.Selected).FilterName
+                                                }
+                                                @if (Model.CategoryModel.SelectedCategoryType != (byte)CategoryType.Brand && Model.CategoryModel.SelectedCategoryType != (byte)CategoryType.Series && Model.CategoryModel.SelectedCategoryType != (byte)CategoryType.Model)
+                                                {
 
-                                                        @Model.CategoryModel.SelectedCategoryContentTitle
-                                                    }
-                                                    else
+                                                    @Model.CategoryModel.SelectedCategoryContentTitle
+                                                }
+                                                else
+                                                {
+                                                    if (string.IsNullOrEmpty(Model.SpesificCategoryNameForModelH1))
                                                     {
-                                                        if (string.IsNullOrEmpty(Model.SpesificCategoryNameForModelH1))
+                                                        var topCategory = Model.CategoryModel.TopCategoryItemModels.LastOrDefault(c => c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Series);
+                                                        if (!string.IsNullOrWhiteSpace(topCategory.CategoryContentTitle))
                                                         {
-                                                            var topCategory = Model.CategoryModel.TopCategoryItemModels.LastOrDefault(c => c.CategoryType != (byte)CategoryType.Brand && c.CategoryType != (byte)CategoryType.Model && c.CategoryType != (byte)CategoryType.Series);
-                                                            if (!string.IsNullOrWhiteSpace(topCategory.CategoryContentTitle))
-                                                            {
-                                                                @topCategory.CategoryContentTitle
-                                                            }
-                                                            else
-                                                            {
-                                                                @topCategory.CategoryName
-                                                            }
+                                                            @topCategory.CategoryContentTitle
+                                                        }
+                                                        else
+                                                        {
+                                                            @topCategory.CategoryName
                                                         }
                                                     }
-                                                    @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "İlçe") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "İlçe").ItemModels.Any(k => k.Selected))
+                                                }
+                                                @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "İlçe") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "İlçe").ItemModels.Any(k => k.Selected))
+                                                {
+                                                    @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "İlçe").ItemModels.FirstOrDefault(k => k.Selected).FilterName}
+                                                @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Şehir") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.Any(k => k.Selected))
+                                                {
+                                                    @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName
+                                                }
+                                                else
+                                                {
+                                                    if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Ülke") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Ülke").ItemModels.Any(k => k.Selected))
                                                     {
-                                                        @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "İlçe").ItemModels.FirstOrDefault(k => k.Selected).FilterName}
-                                                    @if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Şehir") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.Any(k => k.Selected))
-                                                    {
-                                                        @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName
+                                                        @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Ülke").ItemModels.FirstOrDefault(k => k.Selected).FilterName
                                                     }
-                                                    else
-                                                    {
-                                                        if (Model.FilteringContext.DataFilterMoldes.Any(k => k.FilterName == "Ülke") && Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Ülke").ItemModels.Any(k => k.Selected))
-                                                        {
-                                                            @Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Ülke").ItemModels.FirstOrDefault(k => k.Selected).FilterName
-                                                        }
-                                                    }
-                                                    @if (!string.IsNullOrEmpty(Model.SameCategoryH1))
-                                                    {
-                                                        @Model.SameCategoryH1
-                                                    }
-                                                    kategorisi
-                                                </strong>
+                                                }
+                                                @if (!string.IsNullOrEmpty(Model.SameCategoryH1))
+                                                {
+                                                    @Model.SameCategoryH1
+                                                }
+                                                kategorisi 
+                                            </strong>
                                                 <span>
                                                     aramanızda <font class="text-danger">@Model.TotalItemCount </font>adet ilan bulundu
                                                     @if (Request.QueryString["page"] != null)
                                                     {
-                                                        <span class="small">&nbsp;@Model.PagingModel.CurrentPageIndex. Sayfa</span>
+                                                        <span class="small">&nbsp;@Model.PagingModel.CurrentPageIndex. @HtmlLangHelper.GetLangugeVal("page")</span>
                                                     }
                                                 </span>
 
@@ -749,7 +749,7 @@ if (!string.IsNullOrEmpty(Model.ContentBottomCenter))
     <div class="col-xs-12">
         <h2 class="section-title-category section-title--left">
             <span>
-                @categoryTitle Popüler Ürünler
+                @categoryTitle @HtmlLangHelper.GetLangugeVal("popular-products")
             </span>
         </h2>
     </div>
@@ -781,7 +781,7 @@ if (app != "Sektor" || app != "Sektor/" || app == "1")
                                     name = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
                                 } }
 
-                            @categoryTitle @name Firmaları ( Tümü )
+                            @categoryTitle @name @HtmlLangHelper.GetLangugeVal("category-bottom-store") ( @HtmlLangHelper.GetLangugeVal("category-all") )
                         </a>
                     </span>
 
