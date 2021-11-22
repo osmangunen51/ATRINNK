@@ -499,8 +499,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var urls = categories.ToDictionary(entry =>
             entry.CategoryId != 0 ?
             UrlBuilder.GetCategoryUrl(entry.CategoryId,
-                                                     !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "") :
-                                                     "https://www.makinaturkiye.com",
+                                                     !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "","") :
+                                                     "https://www.makinaturkiye.com", 
                                                      entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
@@ -564,7 +564,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
 
             //var entries = _context.CategorySiteMapping((byte)CategoryType.ProductGroup).ToList();
-            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.TopCategoryParentId.Value, !string.IsNullOrEmpty(entry.TopCategoryContentTitle) ? entry.TopCategoryContentTitle : entry.TopCategoryName, entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName), entry => DateTime.Now);
+            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.TopCategoryParentId.Value, !string.IsNullOrEmpty(entry.TopCategoryContentTitle) ? entry.TopCategoryContentTitle : entry.TopCategoryName, entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName,""), entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XElement(ns + "urlset",
@@ -595,7 +595,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             //var entries = _context.CategorySiteMapping((byte)CategoryType.ProductGroup).ToList();
             var urls = categories.ToDictionary(entry =>
-            UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, ""),
+            UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "",""),
             entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
@@ -631,7 +631,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //var entries = _context.CategorySiteMapping(1).ToList();
 
             var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ?
-                entry.CategoryContentTitle : entry.CategoryName, null, ""), entry => DateTime.Now);
+                entry.CategoryContentTitle : entry.CategoryName, null, "",""), entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XElement(ns + "urlset",
@@ -798,7 +798,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
             var categories = siteMapCategoryService.GetSiteMapCategoriesPlace(CategoryPlaceTypeEnum.Country);
 
-            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "") + "?ulke=" + Helpers.ToUrl(entry.PlaceName + "-" + entry.PlaceId), entry => DateTime.Now);
+            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "","") + "?ulke=" + Helpers.ToUrl(entry.PlaceName + "-" + entry.PlaceId), entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XElement(ns + "urlset",
@@ -826,7 +826,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             XNamespace ns = "http://www.sitemaps.org/schemas/sitemap/0.9";
             ISiteMapCategoryService siteMapCategoryService = EngineContext.Current.Resolve<ISiteMapCategoryService>();
             var categories = siteMapCategoryService.GetSiteMapCategoriesPlace(CategoryPlaceTypeEnum.City);
-            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "") + HttpUtility.HtmlDecode("?ulke=" + entry.UpPlaceId + "&sehir=") + Helpers.ToUrl(entry.PlaceName + "-" + entry.PlaceId), entry => DateTime.Now);
+            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "","") + HttpUtility.HtmlDecode("?ulke=" + entry.UpPlaceId + "&sehir=") + Helpers.ToUrl(entry.PlaceName + "-" + entry.PlaceId), entry => DateTime.Now);
 
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
@@ -859,7 +859,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
             var categories = siteMapCategoryService.GetSiteMapCategoriesPlace(CategoryPlaceTypeEnum.Locality);
-            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "") + "?ulke=" + entry.CountryId + "&sehir=" + entry.UpPlaceId + "&ilce=" + Helpers.ToUrl(entry.PlaceName + "-" + entry.PlaceId), entry => DateTime.Now);
+            var urls = categories.ToDictionary(entry => UrlBuilder.GetCategoryUrl(entry.CategoryId, !string.IsNullOrEmpty(entry.CategoryContentTitle) ? entry.CategoryContentTitle : entry.CategoryName, null, "","") + "?ulke=" + entry.CountryId + "&sehir=" + entry.UpPlaceId + "&ilce=" + Helpers.ToUrl(entry.PlaceName + "-" + entry.PlaceId), entry => DateTime.Now);
             var sitemap = new XDocument(
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XElement(ns + "urlset",

@@ -53,6 +53,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var footerParent = new global::MakinaTurkiye.Entities.Tables.Content.FooterParent();
             footerParent.FooterParentName = model.FooterParentName;
             footerParent.DisplayOrder = model.DisplayOrder;
+            footerParent.LanguageId = model.LanguageId;
             _footerService.InsertFooterParent(footerParent);
             return RedirectToAction("FooterParents");
         }

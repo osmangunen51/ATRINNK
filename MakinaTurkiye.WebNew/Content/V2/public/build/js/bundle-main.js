@@ -1190,10 +1190,7 @@ function GetSubMenu(id, thisobj) {
         $.ajax({
             type: "get", //rest Type
             dataType: 'json', //mispelled
-            url: "/Home/GetSubMenu",
-            data: {
-                "id": id,
-            },
+            url: "/ajax/GetSubMenu/"+id,
             //contentType: "application/json; charset=utf-8",
             success: function (msg) {
 

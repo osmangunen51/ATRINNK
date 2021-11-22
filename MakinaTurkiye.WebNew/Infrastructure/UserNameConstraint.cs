@@ -13,7 +13,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Infrastructure
         {
             if (values["username"] != null && !string.IsNullOrEmpty(values["username"].ToString()))
             {
-                List<string> usedLink = new List<string>() { "Videos", "Videolar", "Sirketler", "Store", "Yardim", "Help", "KullanimKosullari", "SiteHaritasi", "SiteMap", "Error404", "HataSayfasi", "Urunler", "Blog", "testfile", "mblog", "detayli-arama", "alim-talebi", "Category", "Index", "Home" };
+                List<string> usedLink = new List<string>() { "Videos", "Videolar", "Sirketler", "Store", "Yardim", "Help","en", "KullanimKosullari", "SiteHaritasi", "SiteMap", "Error404", "HataSayfasi", "Urunler", "Blog", "testfile", "mblog", "detayli-arama", "alim-talebi", "Category", "Index", "Home" };
 
                 string userName = values["username"].ToString().ToLower();
 

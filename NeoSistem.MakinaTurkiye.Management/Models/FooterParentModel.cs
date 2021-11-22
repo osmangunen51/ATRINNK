@@ -5,5 +5,7 @@
         public int FooterParentId { get; set; }
         public string FooterParentName { get; set; }
         public int DisplayOrder { get; set; }
+
+        public int LanguageId { get; set; }
     }
 }
