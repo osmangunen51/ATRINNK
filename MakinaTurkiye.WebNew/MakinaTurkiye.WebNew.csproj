@@ -316,6 +316,7 @@
     <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Factories\IProductModelFactory.cs" />
     <Compile Include="Factories\IPaymentService.cs" />
+    <Compile Include="Factories\ISalesDocumentInputFactory.cs" />
     <Compile Include="Factories\ProductModelFactory.cs" />
     <Compile Include="Areas\Account\Helper\ContentPanel.cs">
       <SubType>Code</SubType>
@@ -351,6 +352,9 @@
     <Compile Include="Areas\Account\Models\Stores\StoresViewModel\MTCreateCatologViewModel.cs" />
     <Compile Include="Areas\Account\Models\Stores\StoresViewModel\MTStoreCatologViewModel.cs" />
     <Compile Include="Areas\Account\Models\StoreNews\MTCreateStoreNewForm.cs" />
+    <Compile Include="Factories\SalesDocumentInputFactory.cs" />
+    <Compile Include="Helpers\CultureHelper.cs" />
+    <Compile Include="Helpers\HtmlLangHelper.cs" />
     <Compile Include="Infrastructure\UserNameConstraint.cs" />
     <Compile Include="Controllers\HeaderController.cs" />
     <Compile Include="Controllers\ProductRequestController.cs" />
@@ -416,6 +420,7 @@
     <Compile Include="Models\Help\MTHelpDetailModel.cs" />
     <Compile Include="Models\Help\MTHelpMenuModel.cs" />
     <Compile Include="Models\Help\MTHelpTopModel.cs" />
+    <Compile Include="Models\Help\OrderConfirmationFormModel.cs" />
     <Compile Include="Models\Home\MTAllSelectedProductModel.cs" />
     <Compile Include="Models\Home\MTHomeAdModel.cs" />
     <Compile Include="Models\Home\MTHomeBannerModel.cs" />
@@ -2437,7 +2442,7 @@
     <Content Include="Views\Home\Index2222.cshtml" />
     <Content Include="Views\Home\TestCs.cshtml" />
     <Content Include="Views\Home\_HeaderMainMenu.cshtml" />
-    <Content Include="Views\Home\_HeaderSubMenu.cshtml" />
+    <Content Include="Views\CatologAjax\_HeaderSubMenu.cshtml" />
     <Content Include="Views\Home\_HomeLeftCategories.cshtml" />
     <Content Include="Views\Home\_HomeNews.cshtml" />
     <Content Include="Views\Home\_HomeSuccessStories.cshtml" />
@@ -2975,8 +2980,7 @@
           <IISUrl>http://localhost:35882/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
+          <CustomServerUrl>http://en.machinet.com</CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
           <servers defaultServer="">
             <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:9565/" workingDir="" />

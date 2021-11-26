@@ -42,8 +42,8 @@
 
     <div class="row">
         <div class="col-xs-9 col-sm-6 col-md-6">
-            <a href="@Request.FilePath@(countryFilter)@(cityFilter)@(localityFilter)@(display)@page@orderTip@searchText" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.All ? activeCss : string.Empty)">Tümü</a>
-            <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@page@orderTip@(searchText)@("&SearchType=sifir")" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New ? activeCss : string.Empty)">Sıfır<span class="category-filter-count">&nbsp(@(Model.CustomFilterModels.FirstOrDefault(x => x.FilterId == (byte)ProductSearchTypeV2.New).ProductCount))</span></a>
+            <a href="@Request.FilePath@(countryFilter)@(cityFilter)@(localityFilter)@(display)@page@orderTip@searchText" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.All ? activeCss : string.Empty)">@HtmlLangHelper.GetLangugeVal("category-all")</a>
+            <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@page@orderTip@(searchText)@("&SearchType=sifir")" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.New ? activeCss : string.Empty)">@HtmlLangHelper.GetLangugeVal("category-filter-new")<span class="category-filter-count">&nbsp(@(Model.CustomFilterModels.FirstOrDefault(x => x.FilterId == (byte)ProductSearchTypeV2.New).ProductCount))</span></a>
             @{
 
                 var usedProduct = Model.CustomFilterModels.FirstOrDefault(x => x.FilterId == (byte)ProductSearchTypeV2.Used);
@@ -53,7 +53,7 @@
                 if (usedProduct.ProductCount > 0)
                 {
 
-                    <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@page@orderTip@searchText@("&SearchType=ikinciel")" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Used ? activeCss : string.Empty)">İkinci El<span class="category-filter-count">&nbsp(@usedProduct.ProductCount)</span></a>
+        <a href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@page@orderTip@searchText@("&SearchType=ikinciel")" class="categort-filter__link @(Model.CustomFilterModels.FirstOrDefault(k => k.Selected).FilterId == (byte)ProductSearchTypeV2.Used ? activeCss : string.Empty)">@HtmlLangHelper.GetLangugeVal("category-filter-used")<span class="category-filter-count">&nbsp(@usedProduct.ProductCount)</span></a>
                 }
             }
             @{
@@ -74,7 +74,7 @@
                 <div class="row">
                     <div class="dropdown">
                         <button class="btn btn-default btn-block dropdown-toggle" type="button" id="btnGroupVerticalDrop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            Sıralama Türü Seçiniz
+                            @HtmlLangHelper.GetLangugeVal("category-filter-choose")
                             <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupVerticalDrop1">
@@ -85,13 +85,13 @@
                                 <a class="@(queryOrder == " z-a" ? activeCss : string.Empty)" href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@searchText@page@querySearchType@("&Order=z-a")">Z-a</a>
                             </li>
                             <li>
-                                <a class="@(queryOrder == " soneklenen" ? activeCss : string.Empty)" href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@searchText@page@querySearchType@("&Order=soneklenen")">Son Eklenen</a>
+                                <a class="@(queryOrder == " soneklenen" ? activeCss : string.Empty)" href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@searchText@page@querySearchType@("&Order=soneklenen")">@HtmlLangHelper.GetLangugeVal("category-order-last")</a>
                             </li>
                             <li>
-                                <a class="@(queryOrder == " encokgoruntulenen" ? activeCss : string.Empty)" href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@searchText@page@querySearchType">En Çok Görüntülenen</a>
+                                <a class="@(queryOrder == " encokgoruntulenen" ? activeCss : string.Empty)" href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@searchText@page@querySearchType">@HtmlLangHelper.GetLangugeVal("category-order-mostviewed")</a>
                             </li>
                             <li>
-                                <a class="@(queryOrder == " fiyat-artan" ? activeCss : string.Empty)" href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@searchText@page@querySearchType@("&Order=fiyat-artan")">Fiyata Göre Artan</a>
+                                <a class="@(queryOrder == " fiyat-artan" ? activeCss : string.Empty)" href="@Request.FilePath@countryFilter@cityFilter@localityFilter@display@searchText@page@querySearchType@("&Order=fiyat-artan")">@HtmlLangHelper.GetLangugeVal("category-order-price-inc")</a>
 
                             </li>
                         </ul>

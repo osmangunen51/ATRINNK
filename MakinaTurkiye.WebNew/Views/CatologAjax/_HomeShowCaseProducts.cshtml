@@ -1,7 +1,7 @@
 ﻿@model List<NeoSistem.MakinaTurkiye.Web.Models.Home.MTHomeAdModel>
 <div class="row">
     <div class="col-md-12">
-        <h2 style="color: #4F4F4F; font-family: Arial; font-size: 20px; font-weight: 700; line-height: 27px; margin-left: 15px;">Vitrindeki Makina ve Ekipmanlar</h2>
+        <h2 style="color: #4F4F4F; font-family: Arial; font-size: 20px; font-weight: 700; line-height: 27px; margin-left: 15px;">@HtmlLangHelper.GetLangugeVal("home-product-showcase")</h2>
         @{ int i = 1;}
         @foreach (var item in Model)
         {

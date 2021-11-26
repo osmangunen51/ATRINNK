@@ -26,6 +26,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Checkouts
         public string OrderDescription { get; set; }
         public string PacketName { get; set; }
         public decimal RestAmount { get; set; }
+        public int StoreId { get; set; }
 
     }
 }

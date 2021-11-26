@@ -12,6 +12,7 @@ using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using MakinaTurkiye.Utilities.Mvc;
 using NeoSistem.EnterpriseEntity.Extensions.Data;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
@@ -25,6 +26,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 
@@ -133,7 +135,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         product.ProductPrice = productPrice;
                     }
                     product.ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName);
-                    product.SameCategoryUrl = UrlBuilder.GetCategoryUrl(Convert.ToInt32(item.CategoryId), categoryNameUrl1, null, string.Empty);
+                    product.SameCategoryUrl = UrlBuilder.GetCategoryUrl(Convert.ToInt32(item.CategoryId), categoryNameUrl1, null, string.Empty, GetLanguageCode());
                     product.CurrencyCss = item.GetCurrencyCssName();
                     product.CategoryName = categoryName;
                     if (item.BrandId.HasValue)
@@ -162,12 +164,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                         if (cat.Category.CategoryType == (byte)CategoryType.Category || cat.Category.CategoryType == (byte)CategoryType.Sector || cat.Category.CategoryType == (byte)CategoryType.ProductGroup)
                         {
-                            catUrl = UrlBuilder.GetCategoryUrl(cat.CategoryId, categoryNameUrl1, null, string.Empty);
+                            catUrl = UrlBuilder.GetCategoryUrl(cat.CategoryId, categoryNameUrl1, null, string.Empty, GetLanguageCode());
                         }
                         model.HomeProductsRelatedCategoryModel.Categories.First(x => x.CategoryId == id.CategoryId).SubCategoryModels.Add(new MTHomeCategoryModel
                         {
                             CategoryName = item.Category.CategoryName,
-                            CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, string.Empty)
+                            CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, string.Empty,GetLanguageCode())
                         });
                     }
                 }
@@ -193,7 +195,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else
                 {
-                    url = UrlBuilder.GetCategoryUrl(categoryItem.CategoryId, categoryItem.Category.CategoryName, null, string.Empty);
+                    url = UrlBuilder.GetCategoryUrl(categoryItem.CategoryId, categoryItem.Category.CategoryName, null, string.Empty,GetLanguageCode());
                 }
                 model.HomeLeftCategoriesModel.HomeLeftChoicedCategories.Add(new MTHomeCategoryModel { CategoryName = categoryItem.Category.CategoryName, CategoryUrl = url });
 
@@ -201,7 +203,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var mainSectors = categoryService.GetMainCategories();
             foreach (var sectorItem in mainSectors)
             {
-                string url = UrlBuilder.GetCategoryUrl(sectorItem.CategoryId, sectorItem.CategoryName, null, string.Empty);
+                string url = UrlBuilder.GetCategoryUrl(sectorItem.CategoryId, sectorItem.CategoryName, null, string.Empty, GetLanguageCode());
                 model.HomeLeftCategoriesModel.HomeLeftAllSectors.Add(new MTHomeCategoryModel { CategoryName = sectorItem.CategoryName, CategoryUrl = url });
             }
 
@@ -324,7 +326,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     ProductName = item.ProductName,
                     TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
                     ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
-                    SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty),
+                    SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty,GetLanguageCode()),
                     PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.x160x120)
                 });
             }
@@ -348,7 +350,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     ProductName = item.ProductName,
                     TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
                     ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
-                    SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty),
+                    SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty, GetLanguageCode()),
                     PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.x160x120),
                     CurrencyName = item.CurrencyName,
                     ProductPriceType = item.ProductPriceType,
@@ -369,7 +371,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 MTHomeCategoryModel mainCategoryModel = new MTHomeCategoryModel();
                 mainCategoryModel.CategoryName = item.CategoryName;
                 string categoryNameUrl = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
-                mainCategoryModel.CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, string.Empty);
+                mainCategoryModel.CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, string.Empty,GetLanguageCode());
                 mainCategoryModel.ProductCount = item.ProductCount.Value;
 
                 var subCategories = _categoryService.GetCategoriesByCategoryParentId(item.CategoryId);
@@ -381,7 +383,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         CategoryName = subItem.CategoryName,
                         ProductCount = subItem.ProductCount.Value,
-                        CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryNameUrl1, null, string.Empty)
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryNameUrl1, null, string.Empty,GetLanguageCode())
                     });
                 }
                 model.CategoryModels.Add(mainCategoryModel);
@@ -566,7 +568,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [Compress]
         public async Task<ActionResult> Index()
         {
+            int dilId = this.DilID;
+
             //SeoPageType = (byte)PageType.General;
+            
             string key = string.Format("makinaturkiye.home-pages-test");
             var testModel = _cacheManager.Get(key, () =>
             {
@@ -617,7 +622,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     CategoryContentTitle = item.CategoryContentTitle,
                     CategoryName = item.CategoryName,
-                    CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, item.CategoryName, null, string.Empty),
+                    CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, item.CategoryName, null, string.Empty, GetLanguageCode()),
                     ImagePath = ImageHelper.GetHomeSectorImagePath(item.HomeImagePath)
                 });
             }
@@ -676,7 +681,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 MTHomeCategoryModel mainCategoryModel = new MTHomeCategoryModel();
                 mainCategoryModel.CategoryName = item.CategoryName;
                 string categoryNameUrl = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
-                mainCategoryModel.CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, string.Empty);
+                mainCategoryModel.CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, string.Empty, GetLanguageCode());
                 mainCategoryModel.ProductCount = item.ProductCount.Value;
 
                 var subCategories = _categoryService.GetCategoriesByCategoryParentIdAsync(item.CategoryId);
@@ -688,7 +693,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         CategoryName = subItem.CategoryName,
                         ProductCount = subItem.ProductCount.Value,
-                        CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryNameUrl1, null, string.Empty)
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryNameUrl1, null, string.Empty, GetLanguageCode())
                     });
                 }
 
@@ -723,7 +728,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         CategoryName = category.Category.CategoryName,
                         CategoryId = category.Category.CategoryId,
                         CategoryIcon = ImageHelper.GetCategoryIconPath(category.Category.CategoryIcon),
-                        CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty)
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty, GetLanguageCode())
                     };
 
                     menuModel.CategoryModels.Add(categoryModel);
@@ -737,93 +742,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             return View(model);
         }
-        [AllowSameSite]
-        public PartialViewResult GetSubMenu(int id)
-        {
-            IBaseMenuService _baseMenuService = EngineContext.Current.Resolve<IBaseMenuService>();
-            ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
-            MTBaseSubMenuModel model = new MTBaseSubMenuModel();
-            var baseMenu = _baseMenuService.GetBaseMenuByBaseMenuId(id);
-            if (baseMenu == null)
-            {
-                var categories = _categoryService.GetCategoriesByCategoryParentId(id);
-                foreach (var item in categories)
-                {
-                    model.CategoryModels.Add(new MTHomeCategoryModel
-                    {
-                        CategoryName = item.CategoryName,
-                        CategoryContentTitle = item.CategoryContentTitle,
-                        CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName, null, null)
-                    });
-                }
-            }
-            else
-            {
-                var baseMenuCategories = _baseMenuService.GetBaseMenuCategoriesByBaseMenuId(baseMenu.BaseMenuId);
-                foreach (var category in baseMenuCategories)
-                {
-                    string urlCategoryname = category.Category.CategoryName;
-                    if (!string.IsNullOrEmpty(category.Category.CategoryContentTitle))
-                        urlCategoryname = category.Category.CategoryContentTitle;
-                    var categoryModel = new MTHomeCategoryModel
-                    {
-                        CategoryName = category.Category.CategoryName,
-                        CategoryContentTitle = category.Category.CategoryContentTitle,
-                        CategoryId = category.Category.CategoryId,
-                        CategoryUrlName = category.Category.CategoryContentTitle,
-                        CategoryUrl = UrlBuilder.GetCategoryUrl(category.Category.CategoryId, urlCategoryname, null, string.Empty),
 
-
-                    };
-                    var subCategories = _categoryService.GetCategoriesByCategoryParentId(category.CategoryId);
-                    foreach (var subItem in subCategories.OrderBy(x => x.CategoryOrder).ThenBy(x => x.CategoryName))
-                    {
-                        string categoryUrlName = subItem.CategoryName;
-                        if (!string.IsNullOrEmpty(subItem.CategoryContentTitle))
-                            categoryUrlName = subItem.CategoryContentTitle;
-                        var subCategory = new MTHomeCategoryModel
-                        {
-                            CategoryName = subItem.CategoryName,
-                            CategoryContentTitle = subItem.CategoryContentTitle,
-                            ProductCount = subItem.ProductCount.Value,
-                            CategoryUrlName = subItem.CategoryContentTitle,
-                            CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)
-                        };
-                        var subSubCategories = _categoryService.GetCategoriesByCategoryParentId(subItem.CategoryId);
-                        foreach (var subSubItem in subSubCategories)
-                        {
-                            categoryUrlName = subSubItem.CategoryName;
-                            if (!string.IsNullOrEmpty(subSubItem.CategoryContentTitle))
-                                categoryUrlName = subSubItem.CategoryContentTitle;
-                            var subSubCategory = new MTHomeCategoryModel
-                            {
-                                CategoryName = subSubItem.CategoryName,
-                                CategoryContentTitle = subItem.CategoryContentTitle,
-                                CategoryUrlName = subItem.CategoryContentTitle,
-                                ProductCount = subSubItem.ProductCount.Value,
-                                CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)
-                            };
-                            subCategory.SubCategoryModels.Add(subSubCategory);
-
-                        }
-                        categoryModel.SubCategoryModels.Add(subCategory);
-                    }
-
-                    model.CategoryModels.Add(categoryModel);
-                }
-
-                foreach (var item in baseMenu.BaseMenuImages)
-                {
-                    string url = "";
-                    if (!string.IsNullOrEmpty(item.Url))
-                        url = item.Url;
-                    model.ImageModels.Add(url, "https://s.makinaturkiye.com/" + AppSettings.BaseMenuImageFolder + item.MenuImagePath);
-
-                }
-            }
-
-            return PartialView("_HeaderSubMenu", model);
-        }
 
         public ActionResult _HeaderMainMenu()
         {
@@ -837,7 +756,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 string urlCategoryname = item.CategoryName;
                 if (!string.IsNullOrEmpty(item.CategoryContentTitle))
                     urlCategoryname = item.CategoryContentTitle;
-                mainCategoryModel.CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, urlCategoryname, null, string.Empty);
+                mainCategoryModel.CategoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, urlCategoryname, null, string.Empty, GetLanguageCode());
                 mainCategoryModel.ProductCount = item.ProductCount.Value;
 
                 var subCategories = _categoryService.GetCategoriesByCategoryParentId(item.CategoryId);
@@ -850,7 +769,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         CategoryName = subItem.CategoryName,
                         ProductCount = subItem.ProductCount.Value,
-                        CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty)
+                        CategoryUrl = UrlBuilder.GetCategoryUrl(subItem.CategoryId, categoryUrlName, null, string.Empty, GetLanguageCode())
                     });
                 }
 
@@ -1093,6 +1012,37 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
 
             return View();
+        }
+
+
+        public ActionResult SetLanguage(string LangCode, string redirectUrl)
+        {
+            // Validate input
+            string culture = CultureHelper.GetImplementedCulture(LangCode);
+            // Save culture in a cookie
+            HttpCookie cookie = Request.Cookies["_culture"];
+            if (cookie != null)
+                cookie.Value = LangCode;   // update cookie value
+            else
+            {
+                cookie = new HttpCookie("_culture");
+                cookie.Value = culture;
+                cookie.Expires = DateTime.Now.AddYears(1);
+            }
+            Response.Cookies.Add(cookie);
+            string lang1 = "";
+            if (culture == "en")
+                lang1 = "en";
+
+            if (culture == "en")
+            {
+                return Redirect("/" + culture+"/"+ redirectUrl);
+
+            }
+            else
+            {
+                return Redirect("/"+redirectUrl.Replace("en",""));
+            }
         }
     }
 }

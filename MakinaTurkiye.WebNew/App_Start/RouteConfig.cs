@@ -749,6 +749,14 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 ).DataTokens.Add("RouteName", "CategoryRouteNew");
 
             routes.MapRoute(
+       "CategoryRouteNewEn",
+       "{lang}/{categoryName}-c-{categoryId}",
+       new { controller = "Category", action = "Index2", categoryId = UrlParameter.Optional },
+       new { categoryId = @"\d+" },
+       new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+       ).DataTokens.Add("RouteName", "CategoryRouteNewEn");
+
+            routes.MapRoute(
           "CategoryRouteNewForRedirect",
           "-c-{categoryId}",
           new { controller = "Category", action = "Index2", categoryId = UrlParameter.Optional },
@@ -947,8 +955,6 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 ).DataTokens.Add("RouteName", "ProductDetailNew");
 
 
-
-
             routes.MapRoute(
                 "VideoSectorItemsRouteNew",
                 "{categoryName}-vc-{categoryId}/",
@@ -1007,27 +1013,32 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
 
 
             routes.MapRoute(
-     "NewDetail",
-     "{newname}-h-{newId}",
-     new { controller = "StoreNew", action = "Detail", newId = UrlParameter.Optional },
-     new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
-     );
+         "NewDetail",
+         "{newname}-h-{newId}",
+         new { controller = "StoreNew", action = "Detail", newId = UrlParameter.Optional },
+         new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+         );
 
 
             routes.MapRoute(
-     "ProductRequest",
-     "alim-talebi",
-     new { controller = "ProductRequest", action = "step1", newId = UrlParameter.Optional },
-     new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
-     );
-
+             "ProductRequest",
+             "alim-talebi",
+             new { controller = "ProductRequest", action = "step1", newId = UrlParameter.Optional },
+             new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+             );
 
             routes.MapRoute(
-     name: "CompanyProfileNewRoute",
-     url: "{username}",
-     defaults: new { controller = "StoreProfileNew", action = "CompanyProfileNew", username = UrlParameter.Optional },
-      constraints: new { username = new UserNameConstraint() }
- );
+        name: "CompanyProfileNewRouteLang",
+        url: "{lang}/{username}",
+        defaults: new { controller = "StoreProfileNew", action = "CompanyProfileNew", username = UrlParameter.Optional },
+        constraints: new { username = new UserNameConstraint() }
+        );
+            routes.MapRoute(
+             name: "CompanyProfileNewRoute",
+             url: "{username}",
+             defaults: new { controller = "StoreProfileNew", action = "CompanyProfileNew", username = UrlParameter.Optional },
+              constraints: new { username = new UserNameConstraint() }
+         );
 
             routes.MapRoute(
                 name: "CompanyProfileNewRouteWithParam",
@@ -1080,13 +1091,13 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 );
 
             routes.MapRoute(
-"AdvertİlanDeleteEdit",
-"Account/ilan/DeletePictureEditPage",
-new { controller = "Advert", action = "DeletePictureEditPage" },
-namespaces: new[] { "Web.Areas.Account.Controllers" }
+            "AdvertİlanDeleteEdit",
+            "Account/ilan/DeletePictureEditPage",
+            new { controller = "Advert", action = "DeletePictureEditPage" },
+            namespaces: new[] { "Web.Areas.Account.Controllers" }
 
-);
-            routes.MapRoute(
+            );
+                routes.MapRoute(
                 name: "StoreProfileVideosNewRoute",
                 url: "{username}/Videolarimiz",
                 defaults: new { controller = "StoreProfileNew", action = "VideosNew", username = UrlParameter.Optional },
@@ -1150,6 +1161,13 @@ namespaces: new[] { "Web.Areas.Account.Controllers" }
             new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
             );
 
+
+            routes.MapRoute(
+            name: "DefaultForLang",
+            url: "{lang}",
+            defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, lang = UrlParameter.Optional },
+            namespaces: new string[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+            );
 
 
             routes.MapRoute(

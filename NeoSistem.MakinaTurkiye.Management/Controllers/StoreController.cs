@@ -3469,6 +3469,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 template = template.Replace("#firmadi#", store.StoreName).Replace("#kullaniciadi#", store.StoreName).Replace("#pakettipi#", packet.PacketName).Replace("#tutar#", order.OrderPrice.ToDecimal().ToString("N") + " TL").Replace("#bankahesapbilgileri#", account.BankName + "-" + account.AccountNo);
 
             }
+            string sozlesmeLink = "https://www.makinaturkiye.com/satis-sozlesmesi-y-146659?storeId=" + store.MainPartyId + "&orderId=" + order.OrderId;
+
+            template = template.Replace("#sozlesmelink#", sozlesmeLink);
+
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
@@ -3506,7 +3510,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             scr1.Send(mailb);
             #endregion
 
-            return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(sozlesmeLink, JsonRequestBehavior.AllowGet);
         }
         public ActionResult StoreSector(int id)
         {

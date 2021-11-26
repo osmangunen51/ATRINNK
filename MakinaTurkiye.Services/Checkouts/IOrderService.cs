@@ -41,5 +41,10 @@ namespace MakinaTurkiye.Services.Checkouts
         List<ReturnInvoice> GetReturnInvoicesByOrderId(int orderId);
         ReturnInvoice GetReturnInvoiceByReturnInvoiceId(int invoiceId);
 
+
+        void InsertOrderConfirmation(OrderConfirmation orderConfirmation);
+
+        OrderConfirmation GetOrderConfirmationByOrderId(int orderId);
+
     }
 }

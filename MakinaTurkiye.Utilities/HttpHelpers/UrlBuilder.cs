@@ -73,18 +73,28 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             return string.Empty;
         }
 
-        public static string GetCategoryUrl(int categoryId, string categoryname,int? brandId,string brandName)
+        public static string GetCategoryUrl(int categoryId, string categoryname,int? brandId,string brandName, string languageCode)
         {
-            string url = GetHost(HostNameType.Default)+ "/" + ToUrl(categoryname + "-c-" + categoryId);
+            string url = GetHost(HostNameType.Default) + "/" + ToUrl(categoryname + "-c-" + categoryId);
 
             if (brandId != null)
             {
                 url = GetHost(HostNameType.Default) + "/" + ToUrl(brandName + "-" + categoryname + "-c-" + categoryId + "-" + brandId);
             }
+            if (!string.IsNullOrEmpty(languageCode))
+            {
+                 url = GetHost(HostNameType.Default) + "/"+ languageCode + "/" + ToUrl(categoryname + "-c-" + categoryId);
+
+                if (brandId != null)
+                {
+                    url = GetHost(HostNameType.Default) + "/"+ languageCode + "/" + ToUrl(brandName + "-" + categoryname + "-c-" + categoryId + "-" + brandId);
+                }
+            }
+ 
             return url;
         }
 
-        public static string GetCategoryUrl(int categoryId, string categoryname, int? brandId, string brandName, string searchText)
+        public static string GetCategoryUrl(int categoryId, string categoryname, int? brandId, string brandName, string searchText, string languageCode)
         {
             searchText = HttpUtility.UrlEncode(searchText);
             string url = GetHost(HostNameType.Default) + "/" + ToUrl(categoryname + "-c-" + categoryId) + "?SearchText=" + searchText;

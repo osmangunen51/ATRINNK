@@ -19,6 +19,7 @@ namespace MakinaTurkiye.Web.Infrastructure
                  .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("cache_static"));
 
             builder.RegisterType<ProductModelFactory>().As<IProductModelFactory>().InstancePerLifetimeScope();
+            builder.RegisterType<SalesDocumentInputFactory>().As<ISalesDocumentInputFactory>().InstancePerLifetimeScope();
             //builder.RegisterType<CatalogController>()
             //    .WithParameter(ResolvedParameter.ForNamed<ICacheManager>("nop_cache_static"));
             //builder.RegisterType<CountryController>()

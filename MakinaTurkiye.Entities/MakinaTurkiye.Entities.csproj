@@ -97,6 +97,7 @@
     <Compile Include="Tables\Catalog\DeletedProductRedirect.cs" />
     <Compile Include="Tables\Catalog\StoreProductCreatePropertie.cs" />
     <Compile Include="Tables\Catalog\StoreProductCreateSetting.cs" />
+    <Compile Include="Tables\Checkouts\OrderConfirmation.cs" />
     <Compile Include="Tables\Common\UrlRedirect.cs" />
     <Compile Include="Tables\Content\BaseMenu.cs" />
     <Compile Include="Tables\Content\BaseMenuCategory.cs" />
@@ -115,6 +116,8 @@
     <Compile Include="Tables\Catalog\ProductComplainDetail.cs" />
     <Compile Include="Tables\Catalog\FavoriteProduct.cs" />
     <Compile Include="Tables\Common\Currency.cs" />
+    <Compile Include="Tables\Cultures\StaticDefinition.cs" />
+    <Compile Include="Tables\Cultures\Language.cs" />
     <Compile Include="Tables\Media\Picture.cs" />
     <Compile Include="Tables\Catalog\ProductComplain.cs" />
     <Compile Include="Tables\Catalog\ProductExtensions.cs" />

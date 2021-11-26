@@ -559,7 +559,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 productModel.ProductUrl = UrlBuilder.GetProductUrl(productItem.ProductId, productItem.ProductName);
                                 productModel.LargePicturePath = ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicturePath, ProductImageSize.px400x300);
                                 productModel.SmallPicturePath = ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicturePath, ProductImageSize.px100x75);
-                                productModel.SimilarUrl = UrlBuilder.GetCategoryUrl(productItem.CategoryId, categoryUrlName, null, string.Empty);
+                                productModel.SimilarUrl = UrlBuilder.GetCategoryUrl(productItem.CategoryId, categoryUrlName, null, string.Empty,GetLanguageCode());
                                 storeModel.ProductModels.Add(productModel);
                             }
                         }
