@@ -97,84 +97,85 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             var model = new MyAccountHomeModel();
             var dataMessage = new Data.Message();
-            var messageErrors = _messageService.GetSendMessageErrorsBySenderId(AuthenticationUser.Membership.MainPartyId);
-            if (messageErrors.ToList().Count > 0)//gönderilmeyen tüm mailleri gönder
+            if (AuthenticationUser.Membership.MainPartyId!=null)
             {
-                foreach (var messageItem in messageErrors)
+                var messageErrors = _messageService.GetSendMessageErrorsBySenderId(AuthenticationUser.Membership.MainPartyId);
+                if (messageErrors.ToList().Count > 0)//gönderilmeyen tüm mailleri gönder
                 {
-                    var message = new Message
+                    foreach (var messageItem in messageErrors)
                     {
-                        Active = true,
-                        MessageContent = messageItem.MessageContent,
-                        MessageSubject = messageItem.MessageSubject,
-                        MessageDate = DateTime.Now,
-                        MessageRead = false,
-                        ProductId = messageItem.ProductID,
-                    };
-                    _messageService.InsertMessage(message);
+                        var message = new Message
+                        {
+                            Active = true,
+                            MessageContent = messageItem.MessageContent,
+                            MessageSubject = messageItem.MessageSubject,
+                            MessageDate = DateTime.Now,
+                            MessageRead = false,
+                            ProductId = messageItem.ProductID,
+                        };
+                        _messageService.InsertMessage(message);
 
-                    int messageId = message.MessageId;
-                    int mainPartyId = Convert.ToInt32(messageItem.ReceiverID);
-                    var messageMainParty = new MessageMainParty
-                    {
-                        MainPartyId = (int)messageItem.SenderID,
-                        MessageId = messageId,
-                        InOutMainPartyId = mainPartyId,
-                        MessageType = (byte)MessageType.Outbox,
-                    };
-                    _messageService.InsertMessageMainParty(messageMainParty);
+                        int messageId = message.MessageId;
+                        int mainPartyId = Convert.ToInt32(messageItem.ReceiverID);
+                        var messageMainParty = new MessageMainParty
+                        {
+                            MainPartyId = (int)messageItem.SenderID,
+                            MessageId = messageId,
+                            InOutMainPartyId = mainPartyId,
+                            MessageType = (byte)MessageType.Outbox,
+                        };
+                        _messageService.InsertMessageMainParty(messageMainParty);
 
-                    var curMessageMainParty = new MessageMainParty
-                    {
-                        InOutMainPartyId = (int)messageItem.SenderID,
-                        MessageId = messageId,
-                        MainPartyId = mainPartyId,
-                        MessageType = (byte)MessageType.Inbox,
-                    };
-                    _messageService.InsertMessageMainParty(curMessageMainParty);
+                        var curMessageMainParty = new MessageMainParty
+                        {
+                            InOutMainPartyId = (int)messageItem.SenderID,
+                            MessageId = messageId,
+                            MainPartyId = mainPartyId,
+                            MessageType = (byte)MessageType.Inbox,
+                        };
+                        _messageService.InsertMessageMainParty(curMessageMainParty);
 
-                    //var receiverUser = _memberService.GetMemberByMainPartyId(mainPartyId);
-                    if (messageItem.ProductID != 0)
-                    {
-                        #region messageissendbilgilendirme
+                        //var receiverUser = _memberService.GetMemberByMainPartyId(mainPartyId);
+                        if (messageItem.ProductID != 0)
+                        {
+                            #region messageissendbilgilendirme
 
-                        var product = _productService.GetProductByProductId(messageItem.ProductID);
-                        var kullaniciemail = _memberService.GetMemberByMainPartyId(messageItem.ReceiverID);
-                        string mailadresifirma = kullaniciemail.MemberEmail.ToString();
-                        string productName = product.ProductName.ToString();
-                        //var productno = entities.Products.Where(c => c.ProductId == messageItem.ProductID).SingleOrDefault().ProductNo;
-                        //var groupname = entities.Categories.Where(c => c.CategoryId == product.ProductGroupId).SingleOrDefault().CategoryName;
-                        //var categoryname = entities.Categories.Where(c => c.CategoryId == product.CategoryId).SingleOrDefault().CategoryName;
-                        //var categorymodelname = entities.Categories.Where(c => c.CategoryId == product.ModelId).SingleOrDefault().CategoryName;
-                        //var categorybrandname = entities.Categories.Where(c => c.CategoryId == product.BrandId).SingleOrDefault().CategoryName;
-                        string productnosub = productName + " " + product.Brand.CategoryName + " " + product.Model.CategoryName + " İlan no:" + product.ProductNo;
-                        string productUrl = Core.Web.Helpers.Helpers.ProductUrl(product.ProductId, productName);
+                            var product = _productService.GetProductByProductId(messageItem.ProductID);
+                            var kullaniciemail = _memberService.GetMemberByMainPartyId(messageItem.ReceiverID);
+                            string mailadresifirma = kullaniciemail.MemberEmail.ToString();
+                            string productName = product.ProductName.ToString();
+                            //var productno = entities.Products.Where(c => c.ProductId == messageItem.ProductID).SingleOrDefault().ProductNo;
+                            //var groupname = entities.Categories.Where(c => c.CategoryId == product.ProductGroupId).SingleOrDefault().CategoryName;
+                            //var categoryname = entities.Categories.Where(c => c.CategoryId == product.CategoryId).SingleOrDefault().CategoryName;
+                            //var categorymodelname = entities.Categories.Where(c => c.CategoryId == product.ModelId).SingleOrDefault().CategoryName;
+                            //var categorybrandname = entities.Categories.Where(c => c.CategoryId == product.BrandId).SingleOrDefault().CategoryName;
+                            string productnosub = productName + " " + product.Brand.CategoryName + " " + product.Model.CategoryName + " İlan no:" + product.ProductNo;
+                            string productUrl = Core.Web.Helpers.Helpers.ProductUrl(product.ProductId, productName);
 
-                        MailMessage mail = new MailMessage();
-                        MessagesMT mailTemplate = _messagesMTService.GetMessagesMTByMessageMTName("mesajınızvar");
-                        mail.From = new MailAddress(mailTemplate.Mail, mailTemplate.MailSendFromName); //Mailin kimden gittiğini belirtiyoruz
-                        mail.To.Add(mailadresifirma);                                                              //Mailin kime gideceğini belirtiyoruz
-                        mail.Subject = productnosub;                                              //Mail konusu
-                        string templatet = mailTemplate.MessagesMTPropertie;
-                        templatet = templatet.Replace("#kullaniciadi", kullaniciemail.MemberName + " " + kullaniciemail.MemberSurname).Replace("#urunadi", productName).Replace("#email#", mailadresifirma).Replace("#link", productUrl).Replace("#ilanno", product.ProductNo).Replace("#messagecontent#", message.MessageContent);
-                        mail.Body = templatet;                                                            //Mailin içeriği
-                        mail.IsBodyHtml = true;
-                        mail.Priority = MailPriority.Normal;
-                        SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                        sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                        sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                        sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                        sc.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                        sc.Send(mail);
+                            MailMessage mail = new MailMessage();
+                            MessagesMT mailTemplate = _messagesMTService.GetMessagesMTByMessageMTName("mesajınızvar");
+                            mail.From = new MailAddress(mailTemplate.Mail, mailTemplate.MailSendFromName); //Mailin kimden gittiğini belirtiyoruz
+                            mail.To.Add(mailadresifirma);                                                              //Mailin kime gideceğini belirtiyoruz
+                            mail.Subject = productnosub;                                              //Mail konusu
+                            string templatet = mailTemplate.MessagesMTPropertie;
+                            templatet = templatet.Replace("#kullaniciadi", kullaniciemail.MemberName + " " + kullaniciemail.MemberSurname).Replace("#urunadi", productName).Replace("#email#", mailadresifirma).Replace("#link", productUrl).Replace("#ilanno", product.ProductNo).Replace("#messagecontent#", message.MessageContent);
+                            mail.Body = templatet;                                                            //Mailin içeriği
+                            mail.IsBodyHtml = true;
+                            mail.Priority = MailPriority.Normal;
+                            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
+                            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
+                            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
+                            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
+                            sc.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
+                            sc.Send(mail);
 
-                        #endregion
+                            #endregion
 
-                        _messageService.DeleteSendMessageError(messageItem);
+                            _messageService.DeleteSendMessageError(messageItem);
+                        }
                     }
+                    return RedirectToAction("Index", "Message", new { MessagePageType = 2, messages = "true" });
                 }
-
-                return RedirectToAction("Index", "Message", new { MessagePageType = 2, messages = "true" });
-
             }
             if (gelenSayfa == "bireyselUyelikOnay")
             {

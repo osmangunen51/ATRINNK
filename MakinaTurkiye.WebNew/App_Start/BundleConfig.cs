@@ -8,7 +8,6 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
 
         public static void RegisterBundles(BundleCollection bundles)
         {
-
             var bundle = new ScriptBundle("~/js").Include(
                     "~/Content/V2/assets/js/jquery.min.js",
                     "~/Content/V2/assets/js/jquery.autocomplete.js",
@@ -48,8 +47,10 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                     "~/Content/v2/assets/js/membership.js"
                 //,"~/Content/V2/assets/js/jquery-ui-1.9.2.custom.js"
                 );
+
             bundle.Orderer = new NonOrderingBundleOrderer();
             bundles.Add(bundle);
+
             var StyleBundle = new StyleBundle("~/css").Include(
                 "~/Content/v2/assets/css/bootstrap.css",
                 "~/Content/v2/assets/css/font-awesome.css",
@@ -81,11 +82,11 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
             bundles.Add(StyleBundle);
 
             bundles.UseCdn = true;
-#if DEBUG
-            BundleTable.EnableOptimizations = false;
-#else
+            #if DEBUG
+                BundleTable.EnableOptimizations = false;
+            #else
 				BundleTable.EnableOptimizations = true;
-#endif
+            #endif
         }
     }
 }

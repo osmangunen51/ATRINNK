@@ -510,6 +510,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     return RedirectToAction("InstitutionalStep1", "Membership");
                 }
             }
+
             Session["sendingsucciid"] = 3;
             return RedirectToAction("messageView", "Home");
         }
@@ -523,8 +524,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         public void GoogleLogin(string email, string name, string gender, string lastname, string location)
         {
-
-
+        
         }
 
 
