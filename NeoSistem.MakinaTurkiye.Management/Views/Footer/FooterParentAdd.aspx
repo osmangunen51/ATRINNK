@@ -15,18 +15,6 @@
         
         <fieldset>
             <legend>Ekle</legend>
-                        <div class="editor-label" style="margin:20px;">
-            <span style="color:#868686; font-family:Arial; font-size:14px;">
-            Dil
-              <br />
-              </span>
-            </div>
-            <div class="editor-field" style="margin-left:20px;">
-              <select name="LanguageId">
-                  <option value="1">Türkçe</option>
-                   <option value="2">İngilizce</option>
-              </select>
-            </div>
             <div class="editor-label" style="margin:20px;">
             <span style="color:#868686; font-family:Arial; font-size:14px;">
               Başlık 

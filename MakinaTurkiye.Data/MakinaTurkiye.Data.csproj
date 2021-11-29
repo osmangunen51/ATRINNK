@@ -105,8 +105,6 @@
     <Compile Include="Mapping\Tables\Catalog\ProductComplainDetailMap.cs" />
     <Compile Include="Mapping\Tables\Catalog\FavoriteProductMap.cs" />
     <Compile Include="Mapping\Tables\Common\CurrencyMap.cs" />
-    <Compile Include="Mapping\Tables\Cultures\LanguageMap.cs" />
-    <Compile Include="Mapping\Tables\Cultures\StaticDefinitionMap.cs" />
     <Compile Include="Mapping\Tables\Media\PictureMap.cs" />
     <Compile Include="Mapping\Tables\Catalog\ProductComplainMap.cs" />
     <Compile Include="Mapping\Tables\Catalog\ProductHomePageMap.cs" />

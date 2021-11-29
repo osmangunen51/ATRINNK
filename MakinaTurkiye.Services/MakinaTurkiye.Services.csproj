@@ -121,8 +121,6 @@
     <Compile Include="Common\UrlRedirectService.cs" />
     <Compile Include="Content\BaseMenuService.cs" />
     <Compile Include="Content\IBaseMenuService.cs" />
-    <Compile Include="Cultures\ILanguageService.cs" />
-    <Compile Include="Cultures\LanguageService.cs" />
     <Compile Include="ICachingSupported.cs" />
     <Compile Include="Media\IPictureService.cs" />
     <Compile Include="Catalog\IProductCatologService.cs" />

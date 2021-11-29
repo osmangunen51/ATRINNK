@@ -169,7 +169,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         string categoryNameForUrl = c.CategoryName;
                         if (!string.IsNullOrEmpty(c.CategoryContentTitle)) categoryNameForUrl = c.CategoryContentTitle;
 
-                        var link = UrlBuilder.GetCategoryUrl(c.CategoryId, categoryNameForUrl, null, "", GetLanguageCode());
+                        var link = UrlBuilder.GetCategoryUrl(c.CategoryId, categoryNameForUrl, null, "");
                         if (url != link)
                         {
                             return link;
@@ -191,7 +191,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             {
                                 var ustCatNew = _categoryService.GetCategoryByCategoryId(c.CategoryParentId.Value);
                                 string categoryNameUrl = (!string.IsNullOrEmpty(ustCatNew.CategoryContentTitle)) ? ustCatNew.CategoryContentTitle : ustCatNew.CategoryName;
-                                var link = UrlBuilder.GetCategoryUrl(ustCatNew.CategoryId, categoryNameUrl, c.CategoryId, c.CategoryName, GetLanguageCode());
+                                var link = UrlBuilder.GetCategoryUrl(ustCatNew.CategoryId, categoryNameUrl, c.CategoryId, c.CategoryName);
                                 if (url != link)
                                 {
                                     return link;
@@ -201,7 +201,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             {
                                 string categoryNameUrl = (!string.IsNullOrEmpty(ustCat.CategoryContentTitle)) ? ustCat.CategoryContentTitle : ustCat.CategoryName;
 
-                                var link = UrlBuilder.GetCategoryUrl(ustCat.CategoryId, categoryNameUrl, c.CategoryId, c.CategoryName, GetLanguageCode());
+                                var link = UrlBuilder.GetCategoryUrl(ustCat.CategoryId, categoryNameUrl, c.CategoryId, c.CategoryName);
                                 if (url != link)
                                 {
                                     return link;
@@ -668,13 +668,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 {
 
                                     filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId,
-                                        selectedCategoryCategory.CategoryContentTitle, null, null, GetLanguageCode());
+                                        selectedCategoryCategory.CategoryContentTitle, null, null);
                                 }
                                 else
                                 {
 
                                     filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId,
-                                     selectedCategoryCategory.CategoryContentTitle, item.CategoryId, item.CategoryName, GetLanguageCode());
+                                     selectedCategoryCategory.CategoryContentTitle, item.CategoryId, item.CategoryName);
                                 }
 
                                 brandDataFilterModel.ItemModels.Add(new DataFilterItemModel
@@ -700,11 +700,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                     if (brandSelected && selectedBrandIdCategory.CategoryName == brands.First().CategoryName)
                                     {
                                         filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId,
-                                             selectedCategoryCategory.CategoryContentTitle, null, null, GetLanguageCode());
+                                             selectedCategoryCategory.CategoryContentTitle, null, null);
                                     }
                                     else
                                     {
-                                        filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId, selectedCategoryCategory.CategoryContentTitle, brands.First().CategoryId, brands.First().CategoryName, GetLanguageCode());
+                                        filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId, selectedCategoryCategory.CategoryContentTitle, brands.First().CategoryId, brands.First().CategoryName);
                                     }
 
                                     brandDataFilterModel.ItemModels.Add(new DataFilterItemModel
@@ -734,12 +734,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                         if (brandSelected && selectedBrandIdCategory.CategoryName == brands.First().CategoryName)
                                         {
                                             filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId, selectedCategoryCategory.CategoryContentTitle
-                                               , null, null, GetLanguageCode());
+                                               , null, null);
                                         }
                                         else
                                         {
 
-                                            filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId, selectedCategoryCategory.CategoryContentTitle, brands.First().CategoryId, brands.First().CategoryName, GetLanguageCode());
+                                            filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId, selectedCategoryCategory.CategoryContentTitle, brands.First().CategoryId, brands.First().CategoryName);
                                         }
 
                                         brandDataFilterModel.ItemModels.Add(new DataFilterItemModel
@@ -757,7 +757,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                         DataFilterItemModel selectedBrand = brandDataFilterModel.ItemModels.FirstOrDefault(f => f.Selected);
                         var clearFilterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId,
-                             selectedCategoryCategory.CategoryContentTitle, null, null, GetLanguageCode());
+                             selectedCategoryCategory.CategoryContentTitle, null, null);
                         if (selectedBrand != null)
                         {
                             brandDataFilterModel.SelectedFilter = true;
@@ -801,7 +801,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 {
                                     filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId,
                                         selectedCategoryCategory.CategoryContentTitle, selectedBrandCategory.CategoryId,
-                                        selectedBrandCategory.CategoryName, GetLanguageCode()
+                                        selectedBrandCategory.CategoryName
                                         );
                                 }
                                 else
@@ -820,7 +820,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 });
                             }
                             DataFilterItemModel selectedSeries = seriesDataFilterModel.ItemModels.FirstOrDefault(f => f.Selected);
-                            var clearFilterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId, selectedCategoryCategory.CategoryContentTitle, selectedBrandCategory.CategoryId, selectedBrandCategory.CategoryName, GetLanguageCode());
+                            var clearFilterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId, selectedCategoryCategory.CategoryContentTitle, selectedBrandCategory.CategoryId, selectedBrandCategory.CategoryName);
                             if (selectedSeries != null)
                             {
                                 seriesDataFilterModel.SelectedFilter = true;
@@ -862,7 +862,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                     {
                                         filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId,
                                             selectedCategoryCategory.CategoryContentTitle, selectedBrand.FilterItemId,
-                                            selectedBrand.FilterName, GetLanguageCode());
+                                            selectedBrand.FilterName);
                                     }
                                     else
                                     {
@@ -928,7 +928,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                     {
                                         filterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId,
                                             selectedCategoryCategory.CategoryContentTitle, selectedBrand.FilterItemId,
-                                            selectedBrand.FilterName, GetLanguageCode());
+                                            selectedBrand.FilterName);
                                     }
                                     else
                                     {
@@ -949,7 +949,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 DataFilterItemModel selectedModel = modelDataFilterModel.ItemModels.FirstOrDefault(f => f.Selected);
                                 if (selectedModel != null)
                                 {
-                                    var clearFilterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId, selectedCategoryCategory.CategoryContentTitle, selectedBrandCategory.CategoryId, selectedBrandCategory.CategoryName, GetLanguageCode());
+                                    var clearFilterUrl = UrlBuilder.GetCategoryUrl(selectedCategoryCategory.CategoryId, selectedCategoryCategory.CategoryContentTitle, selectedBrandCategory.CategoryId, selectedBrandCategory.CategoryName);
                                     modelDataFilterModel.SelectedFilter = true;
                                     modelDataFilterModel.SelectedFilterItemCount = selectedModel.Count;
                                     modelDataFilterModel.SelectedFilterItemName = selectedModel.FilterName;
@@ -1224,13 +1224,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var category = CategoryList.FirstOrDefault(x => x.CategoryId == item.CategoryId);
                 string categoryNameUrl = (!string.IsNullOrEmpty(category.CategoryContentTitle)) ? category.CategoryContentTitle : category.CategoryName;
 
-                string categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, null, GetLanguageCode());
+                string categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, null);
 
                 if (brandId > 0)
                 {
                     var brandCategory = _categoryService.GetCategoryByCategoryId(brandId);
 
-                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, brandCategory.CategoryId, brandCategory.CategoryName,GetLanguageCode());
+                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, brandCategory.CategoryId, brandCategory.CategoryName);
                 }
 
 
@@ -1295,7 +1295,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if (item.CategoryType == (byte)CategoryType.Sector || item.CategoryType == (byte)CategoryType.ProductGroup || item.CategoryType == (byte)CategoryType.Category)
                 {
 
-                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "", GetLanguageCode());
+                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "");
                     categoryUrl = UrlBuilder.GetFilterUrl(categoryUrl, filterParams);
                 }
                 else if (item.CategoryType == (byte)CategoryType.Brand)
@@ -1309,7 +1309,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     categoryNameUrl = (!string.IsNullOrEmpty(topCategory.CategoryContentTitle)) ? topCategory.CategoryContentTitle : topCategory.CategoryName;
 
                     categoryUrl = UrlBuilder.GetCategoryUrl(topCategory.CategoryId, categoryNameUrl, item.CategoryId,
-                            item.CategoryName, GetLanguageCode());
+                            item.CategoryName);
                     categoryUrl = UrlBuilder.GetFilterUrl(categoryUrl, filterParams);
                 }
                 else if (item.CategoryType == (byte)CategoryType.Model)
@@ -1402,7 +1402,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if (item.CategoryType == (byte)CategoryType.Sector || item.CategoryType == (byte)CategoryType.ProductGroup || item.CategoryType == (byte)CategoryType.Category)
                 {
 
-                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "", GetLanguageCode());
+                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "");
                     categoryUrl = UrlBuilder.GetFilterUrl(categoryUrl, filterParams);
                 }
                 else if (item.CategoryType == (byte)CategoryType.Brand)
@@ -1411,7 +1411,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     categoryNameUrl = (!string.IsNullOrEmpty(topCategory.CategoryContentTitle)) ? topCategory.CategoryContentTitle : item.CategoryName;
 
                     categoryUrl = UrlBuilder.GetCategoryUrl(topCategory.CategoryId, categoryNameUrl, item.CategoryId,
-                            item.CategoryName, GetLanguageCode());
+                            item.CategoryName);
                     categoryUrl = UrlBuilder.GetFilterUrl(categoryUrl, filterParams);
                 }
                 else if (item.CategoryType == (byte)CategoryType.Model)
@@ -1454,12 +1454,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 string categoryNameUrl = (!string.IsNullOrEmpty(item.CategoryContentTitle)) ? item.CategoryContentTitle : item.CategoryName;
 
-                string categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, null, GetLanguageCode());
+                string categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, null);
 
                 if (brandId > 0)
                 {
                     var brandCategory = _categoryService.GetCategoryByCategoryId(brandId);
-                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, brandCategory.CategoryId, brandCategory.CategoryName, GetLanguageCode());
+                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, brandCategory.CategoryId, brandCategory.CategoryName);
                 }
 
                 var categoryItemModel = new MTProductCategoryItemModel
@@ -1518,7 +1518,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 string categoryNameUrl = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
                 if (item.CategoryType == (byte)CategoryType.Sector || item.CategoryType == (byte)CategoryType.ProductGroup || item.CategoryType == (byte)CategoryType.Category)
                 {
-                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "", GetLanguageCode());
+                    categoryUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "");
                 }
                 else if (item.CategoryType == (byte)CategoryType.Brand)
                 {
@@ -1527,7 +1527,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         topCategory = topCategories.LastOrDefault(k => k.CategoryType == (byte)CategoryType.ProductGroup);
 
                     categoryNameUrl = (!string.IsNullOrEmpty(topCategory.CategoryContentTitle)) ? topCategory.CategoryContentTitle : topCategory.CategoryName;
-                    categoryUrl = UrlBuilder.GetCategoryUrl(topCategory.CategoryId, categoryNameUrl, item.CategoryId, item.CategoryName, GetLanguageCode());
+                    categoryUrl = UrlBuilder.GetCategoryUrl(topCategory.CategoryId, categoryNameUrl, item.CategoryId, item.CategoryName);
 
 
                 }
@@ -2055,7 +2055,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     string categoryUrl = Request.Url.ToString().Replace(Request.Url.AbsolutePath, "");
                     var categoryNameUrl = !string.IsNullOrEmpty(item.CategoryContentTitle) ? item.CategoryContentTitle : item.CategoryName;
                     categoryUrl = categoryUrl.Insert(categoryUrl.IndexOf("?"),
-                        UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "", GetLanguageCode()));
+                        UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, ""));
 
                     var categoryItemModel = new MTCategoryItemModel
                     {
@@ -2079,7 +2079,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 string categoryUrl = Request.Url.ToString().Replace(Request.Url.Segments[1], "");
                 categoryUrl = categoryUrl.Insert(categoryUrl.IndexOf("/kelime-arama"),
-                    UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "", GetLanguageCode()));
+                    UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, ""));
 
                 var categoryItemModel = new MTProductCategoryItemModel
                 {
@@ -2123,7 +2123,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                     string categoryUrl = Request.Url.ToString().Replace(Request.Url.Segments[1], "");
                     categoryUrl = categoryUrl.Insert(categoryUrl.IndexOf("?"),
-                        UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "", GetLanguageCode()).Replace("/", ""));
+                        UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "").Replace("/", ""));
 
                     var categoryItemModel = new MTCategoryItemModel
                     {
@@ -2147,7 +2147,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 string categoryUrl = Request.Url.ToString().Replace(Request.Url.Segments[1], "");
                 categoryUrl = categoryUrl.Insert(categoryUrl.IndexOf("?"),
-                    UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "", GetLanguageCode()).Replace("/", ""));
+                    UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameUrl, null, "").Replace("/", ""));
 
                 var categoryItemModel = new MTProductCategoryItemModel
                 {
@@ -2596,7 +2596,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public async Task<ActionResult> Index2(string selectedCategoryId, string SearchText)
         {
             //string File = this.ControllerContext.HttpContext.Server.MapPath("~/Log.txt");
-    
+
             var request = HttpContext.Request;
             if (request.Url.ToString().Contains("https://urun.ma"))
             {
@@ -2661,7 +2661,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         var categoryParent = _categoryService.GetCategoryByCategoryId(Convert.ToInt32(category1.CategoryParentId));
                         string categoryNameUrl = (!string.IsNullOrEmpty(categoryParent.CategoryContentTitle)) ? categoryParent.CategoryContentTitle : categoryParent.CategoryName;
 
-                        string urlNew =UrlBuilder.GetCategoryUrl(categoryParent.CategoryId, categoryNameUrl, Convert.ToInt32(idCategorie[0]), category1.CategoryName, GetLanguageCode());
+                        string urlNew = UrlBuilder.GetCategoryUrl(categoryParent.CategoryId, categoryNameUrl, Convert.ToInt32(idCategorie[0]), category1.CategoryName);
                         //System.IO.File.AppendAllText(File, $"4 - {DateTime.Now.ToString()} - {urlNew}");
                         return RedirectPermanent(urlNew);
 
@@ -2677,7 +2677,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var category = _categoryService.GetCategoryByCategoryId(GetCategoryIdRouteData());
                     string categoryNameUrl = (!string.IsNullOrEmpty(category.CategoryContentTitle)) ? category.CategoryContentTitle : category.CategoryName;
 
-                    var urlBuilder = UrlBuilder.GetCategoryUrl(category.CategoryId, categoryNameUrl, null, string.Empty, GetLanguageCode());
+                    var urlBuilder = UrlBuilder.GetCategoryUrl(category.CategoryId, categoryNameUrl, null, string.Empty);
                     //System.IO.File.AppendAllText(File, $"5 - {DateTime.Now.ToString()} - {urlBuilder}");
                     return RedirectPermanent(urlBuilder);
                 }
@@ -2701,14 +2701,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         var categoryNameUrl = !string.IsNullOrEmpty(selectedCategory.CategoryContentTitle) ? selectedCategory.CategoryContentTitle : selectedCategory.CategoryName;
 
                         redirectUrl = UrlBuilder.GetCategoryUrl(selectedCategory.CategoryId, categoryNameUrl,
-                            null, null, GetLanguageCode());
+                            null, null);
 
                         if (RouteData.Values.ContainsKey("categoryIddown"))
                         {
                             var brandCategory =
                                 _categoryService.GetCategoryByCategoryId(Convert.ToInt32(RouteData.Values["categoryIddown"]));
 
-                            redirectUrl = UrlBuilder.GetCategoryUrl(selectedCategory.CategoryId, categoryNameUrl, brandCategory.CategoryId, brandCategory.CategoryName, GetLanguageCode());
+                            redirectUrl = UrlBuilder.GetCategoryUrl(selectedCategory.CategoryId, categoryNameUrl, brandCategory.CategoryId, brandCategory.CategoryName);
                         }
                     }
                     else if (selectedCategory.CategoryType == (byte)CategoryType.Model)
@@ -2785,14 +2785,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                             redirectUrl = UrlBuilder.GetCategoryUrl(brandUpperCategory.CategoryId,
                                 categoryNameUrl, selectedCategory.CategoryId,
-                                selectedCategory.CategoryName, GetLanguageCode());
+                                selectedCategory.CategoryName);
                         }
                         else
                         {
                             string categoryNameUrl = (!string.IsNullOrEmpty(selectedCategory.CategoryContentTitle)) ? selectedCategory.CategoryContentTitle : selectedCategory.CategoryName;
 
                             redirectUrl = UrlBuilder.GetCategoryUrl(selectedCategory.CategoryId,
-                                categoryNameUrl, null, null, GetLanguageCode());
+                                categoryNameUrl, null, null);
                         }
                     }
                     //System.IO.File.AppendAllText(File, $"7 - {DateTime.Now.ToString()} - {redirectUrl}");
@@ -3082,13 +3082,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var categoryItem = _categoryService.GetCategoryByCategoryId(brandId);
                 brandCategory = categoryItem;
                 var categoryParentItem = _categoryService.GetCategoryByCategoryId(Convert.ToInt32(categoryItem.CategoryParentId));
-                url = UrlBuilder.GetCategoryUrl(categoryParentItem.CategoryId, categoryParentItem.CategoryName, brandId, categoryItem.CategoryName, GetLanguageCode());
+                url = UrlBuilder.GetCategoryUrl(categoryParentItem.CategoryId, categoryParentItem.CategoryName, brandId, categoryItem.CategoryName);
             }
             else
             {
                 var categoryItem = _categoryService.GetCategoryByCategoryId(categoryId);
                 categoryIdTemp = categoryId;
-                url = UrlBuilder.GetCategoryUrl(categoryItem.CategoryId, categoryItem.CategoryName, null, string.Empty, GetLanguageCode());
+                url = UrlBuilder.GetCategoryUrl(categoryItem.CategoryId, categoryItem.CategoryName, null, string.Empty);
             }
 
             if (countryId != 0)

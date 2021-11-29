@@ -116,8 +116,6 @@
     <Compile Include="Tables\Catalog\ProductComplainDetail.cs" />
     <Compile Include="Tables\Catalog\FavoriteProduct.cs" />
     <Compile Include="Tables\Common\Currency.cs" />
-    <Compile Include="Tables\Cultures\StaticDefinition.cs" />
-    <Compile Include="Tables\Cultures\Language.cs" />
     <Compile Include="Tables\Media\Picture.cs" />
     <Compile Include="Tables\Catalog\ProductComplain.cs" />
     <Compile Include="Tables\Catalog\ProductExtensions.cs" />

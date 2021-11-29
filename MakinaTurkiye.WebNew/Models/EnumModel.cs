@@ -37,20 +37,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
             Doping = 2
         }
 
-        public enum LanguageCode : byte
-        {
-            Tr = 1,
-            En = 2
-        }
-
-        public enum LanguageCodeString 
-        {
-            tr,
-            en
-        }
-
-
-
         //public static string AddressEdit(Address model)
         //{
         //    Town townItem = null;

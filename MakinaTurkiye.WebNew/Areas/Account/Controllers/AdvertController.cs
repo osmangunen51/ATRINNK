@@ -2187,7 +2187,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 _categoryService.InsertCategory(category);
 
                 treeName = treeName + category.CategoryId + ".";
-                category.CategoryPathUrl = UrlBuilder.GetCategoryUrl(model.CategorizationSessionModel.CategoryId, !string.IsNullOrEmpty(categoryParent.CategoryContentTitle) ? categoryParent.CategoryContentTitle : categoryParent.CategoryName, category.CategoryId, category.CategoryName,"");
+                category.CategoryPathUrl = UrlBuilder.GetCategoryUrl(model.CategorizationSessionModel.CategoryId, !string.IsNullOrEmpty(categoryParent.CategoryContentTitle) ? categoryParent.CategoryContentTitle : categoryParent.CategoryName, category.CategoryId, category.CategoryName);
                 _categoryService.UpdateCategory(category);
 
                 model.DropDownBrand = category.CategoryId;

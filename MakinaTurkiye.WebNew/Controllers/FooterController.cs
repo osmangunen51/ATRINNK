@@ -1,7 +1,6 @@
 ﻿using MakinaTurkiye.Caching;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Content;
-using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models.Footer;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,7 @@ using System.Web.Mvc;
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
     [AllowAnonymous]
-    public class FooterController : Controller
+    public class FooterController : BaseController
     {
         #region Fields
 
@@ -39,15 +38,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [ChildActionOnly]
         public ActionResult Content()
         {
-            //var sayfa = Request.QueryString["page"];{
-            int languageId = HtmlLangHelper.GetLanguageId();
-       
-            string key = string.Format("makinaturkiye.footer-content-test-"+ languageId);
+            //var sayfa = Request.QueryString["page"];
+            string key = string.Format("makinaturkiye.footer-content-test");
             var testModel = _cacheManager.Get(key, () =>
             {
                 MTFooterModel model = new MTFooterModel();
 
-                var footerParent = _footerService.GetAllFooterParent().Where(x=>x.LanguageId==languageId);
+                var footerParent = _footerService.GetAllFooterParent();
                 List<MTFooterParentModel> footerParents = new List<MTFooterParentModel>();
 
                 foreach (var item in footerParent)

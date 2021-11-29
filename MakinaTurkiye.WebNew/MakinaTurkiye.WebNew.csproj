@@ -353,8 +353,6 @@
     <Compile Include="Areas\Account\Models\Stores\StoresViewModel\MTStoreCatologViewModel.cs" />
     <Compile Include="Areas\Account\Models\StoreNews\MTCreateStoreNewForm.cs" />
     <Compile Include="Factories\SalesDocumentInputFactory.cs" />
-    <Compile Include="Helpers\CultureHelper.cs" />
-    <Compile Include="Helpers\HtmlLangHelper.cs" />
     <Compile Include="Infrastructure\UserNameConstraint.cs" />
     <Compile Include="Controllers\HeaderController.cs" />
     <Compile Include="Controllers\ProductRequestController.cs" />
@@ -2442,7 +2440,7 @@
     <Content Include="Views\Home\Index2222.cshtml" />
     <Content Include="Views\Home\TestCs.cshtml" />
     <Content Include="Views\Home\_HeaderMainMenu.cshtml" />
-    <Content Include="Views\CatologAjax\_HeaderSubMenu.cshtml" />
+    <Content Include="Views\Home\_HeaderSubMenu.cshtml" />
     <Content Include="Views\Home\_HomeLeftCategories.cshtml" />
     <Content Include="Views\Home\_HomeNews.cshtml" />
     <Content Include="Views\Home\_HomeSuccessStories.cshtml" />
@@ -2980,7 +2978,8 @@
           <IISUrl>http://localhost:35882/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>http://en.machinet.com</CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
           <servers defaultServer="">
             <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:9565/" workingDir="" />

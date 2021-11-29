@@ -926,7 +926,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 if ((category.CategoryType == (byte)CategoryType.Category ||
                                     category.CategoryType == (byte)CategoryType.ProductGroup ||
                                     category.CategoryType == (byte)CategoryType.Sector))
-                                    urlNew = UrlBuilder.GetCategoryUrl(categoryId, category.CategoryContentTitle, null, string.Empty,GetLanguageCode());
+                                    urlNew = UrlBuilder.GetCategoryUrl(categoryId, category.CategoryContentTitle, null, string.Empty);
                             }
 
                             return RedirectPermanent(urlNew);

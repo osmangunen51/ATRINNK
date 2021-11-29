@@ -9,8 +9,6 @@ namespace MakinaTurkiye.Entities.Tables.Content
         public string FooterParentName { get; set; }
         public int DisplayOrder { get; set; }
 
-        public int LanguageId { get; set; }
-
         public virtual ICollection<FooterContent> FooterContents
         {
             get { return _footerContents ?? (_footerContents = new List<FooterContent>()); }
