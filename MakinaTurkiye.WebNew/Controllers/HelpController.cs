@@ -178,7 +178,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 //SeoPageType = (byte)PageType.HelpCategory;
 
 
-                if (!string.IsNullOrEmpty(storeId) && !string.IsNullOrEmpty(orderId) && categoryId == 146659)
+                if (!string.IsNullOrEmpty(storeId) && !string.IsNullOrEmpty(orderId))
                 {
                     var orderConfirmation = _orderService.GetOrderConfirmationByOrderId(Convert.ToInt32(orderId));
 

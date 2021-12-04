@@ -251,6 +251,15 @@
                             <%:Html.CheckBoxFor(c => c.ShowAdmin, new { id = "showAdmin" })%>
                         </div>
                     </div>
+                                    <div style="float: left; width: 100%; margin-top: 5px;">
+                        <div style="float: left; width: 140px; padding-left: 10px;">
+                            Deneme Paketi:
+           
+                        </div>
+                        <div style="float: left; width: 280px;">
+                            <%:Html.CheckBoxFor(c => c.IsTryPacket, new { id = "IsTryPacket" })%>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div style="float: left; margin-top: 10px; margin-left: 10px;">

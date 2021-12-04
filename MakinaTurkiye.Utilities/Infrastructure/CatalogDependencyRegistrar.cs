@@ -49,6 +49,8 @@ namespace MakinaTurkiye.Utilities.Infrastructure
 
 
             builder.RegisterType<ProductStatisticService>().As<IProductStatisticService>().InstancePerLifetimeScope();
+            builder.RegisterType<ProductStatisticRepository>().As<ProductStatisticRepository>().InstancePerLifetimeScope();
+
             builder.RegisterType<SiteMapCategoryService>().As<ISiteMapCategoryService>().InstancePerLifetimeScope();
             builder.RegisterType<DeletedProductRedirectService>().As<IDeletedProductRedirectService>().InstancePerLifetimeScope();
             builder.RegisterType<CertificateTypeService>().As<ICertificateTypeService>()

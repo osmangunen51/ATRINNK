@@ -668,6 +668,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="IsDopingPacket" Type="bit" />
           <Property Name="DopingPacketDay" Type="smallint" />
           <Property Name="ShowAdmin" Type="bit" />
+          <Property Name="IsTryPacket" Type="bit" />
         </EntityType>
         <EntityType Name="PacketFeature">
           <Key>
@@ -4621,6 +4622,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <Property Name="IsDopingPacket" Type="Boolean" />
           <Property Name="DopingPacketDay" Type="Int16" />
           <Property Name="ShowAdmin" Type="Boolean" />
+          <Property Name="IsTryPacket" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Order_Packet">
           <End Type="MakinaTurkiyeModel.Packet" Role="Packet" Multiplicity="0..1" />
@@ -6300,6 +6302,7 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
           <EntitySetMapping Name="Packets">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.Packet">
               <MappingFragment StoreEntitySet="Packet">
+                <ScalarProperty Name="IsTryPacket" ColumnName="IsTryPacket" />
                 <ScalarProperty Name="ShowAdmin" ColumnName="ShowAdmin" />
                 <ScalarProperty Name="DopingPacketDay" ColumnName="DopingPacketDay" />
                 <ScalarProperty Name="IsDopingPacket" ColumnName="IsDopingPacket" />

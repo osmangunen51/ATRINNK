@@ -52,6 +52,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Factories
             var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(storeId);
             var member = _memberService.GetMemberByMainPartyId(memberStore.MemberMainPartyId.Value);
             var packet = _packetService.GetPacketByPacketId(order.PacketId);
+            var goldPacket = _packetService.GetPacketByPacketId(29);
 
             var orderInstallments = _orderInstallmentService.GetOrderInstallmentsByOrderId(orderId);
 
@@ -73,6 +74,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Factories
             datas.Add("{vergiSicilNo}", "");
             datas.Add("{sozlesmeTarih}", order.RecordDate.ToString("dd/MM/yyyy"));
             datas.Add("{orderType}", getOrderType(order.OrderType));
+            datas.Add("{packetDay}", packet.PacketDay.ToString());
+            datas.Add("{standartPacketPrice}", goldPacket.PacketPrice.ToString("N2"));
 
             if (getOrderType(order.OrderType).Contains("Taksit"))
                 datas.Add("{peşin}", "Taksit");

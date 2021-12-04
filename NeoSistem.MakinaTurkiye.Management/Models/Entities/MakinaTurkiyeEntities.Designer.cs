@@ -17003,6 +17003,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Boolean> _ShowAdmin;
         partial void OnShowAdminChanging(Nullable<global::System.Boolean> value);
         partial void OnShowAdminChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> IsTryPacket
+        {
+            get
+            {
+                return _IsTryPacket;
+            }
+            set
+            {
+                OnIsTryPacketChanging(value);
+                ReportPropertyChanging("IsTryPacket");
+                _IsTryPacket = StructuralObject.SetValidValue(value, "IsTryPacket");
+                ReportPropertyChanged("IsTryPacket");
+                OnIsTryPacketChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _IsTryPacket;
+        partial void OnIsTryPacketChanging(Nullable<global::System.Boolean> value);
+        partial void OnIsTryPacketChanged();
 
         #endregion
 

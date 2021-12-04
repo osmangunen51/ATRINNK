@@ -27,6 +27,7 @@
         public float? ProductFactor { get; set; }
         public bool IsDopingPacket { get; set; }
         public Int16? DopingPacketDay { get; set; }
+        public bool IsTryPacket { get; set; }
 
         public bool ShowAdmin { get; set; }
 

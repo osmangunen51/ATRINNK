@@ -58,11 +58,11 @@ namespace MakinaTurkiye.Utilities
                                         config.EntityFrameworkValidateOnSaveEnabled)).InstancePerLifetimeScope();
 
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
-           
+
 
             //cache manager
 
-            if(!config.CachingEnabled)
+            if (!config.CachingEnabled)
             {
                 builder.RegisterType<MakinaTurkiyeNullCache>().As<ICacheManager>().InstancePerLifetimeScope();
             }

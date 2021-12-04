@@ -7,7 +7,7 @@ namespace MakinaTurkiye.Services.Catalog
     public interface IProductStatisticService
     {
         List<ProductStatistic> GetProductStatistics(int page, int size);
-        void InsertProductStatistic(ProductStatistic productStatistics);
+        int InsertProductStatistic(ProductStatistic productStatistics);
         void UpdateProductStatistic(ProductStatistic productStatistics);
         ProductStatistic GetProductStatisticByStatisticId(int statisticId);
         List<ProductStatistic> GetProductStatisticsByProductId(int productId);

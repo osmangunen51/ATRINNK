@@ -99,7 +99,7 @@
             }
         }
 
-  </script>
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <%using (Html.BeginForm("Create", "Packet", FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -257,13 +257,22 @@
                             <%:Html.TextBoxFor(c => c.DopingPacketDay, new { id = "isDiscounted" })%>
                         </div>
                     </div>
-                                          <div style="float: left; width: 100%; margin-top: 5px;">
+                    <div style="float: left; width: 100%; margin-top: 5px;">
                         <div style="float: left; width: 140px; padding-left: 10px;">
-                          Admin Paket Satın Al
+                            Admin Paket Satın Al
            
                         </div>
                         <div style="float: left; width: 280px;">
                             <%:Html.CheckBoxFor(c => c.ShowAdmin, new { id = "showAdmin" })%>
+                        </div>
+                    </div>
+                    <div style="float: left; width: 100%; margin-top: 5px;">
+                        <div style="float: left; width: 140px; padding-left: 10px;">
+                            Deneme Paketi
+           
+                        </div>
+                        <div style="float: left; width: 280px;">
+                            <%:Html.CheckBoxFor(c => c.IsTryPacket, new { id = "IsTryPacket" })%>
                         </div>
                     </div>
                 </div>

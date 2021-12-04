@@ -1,9 +1,12 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace MakinaTurkiye.Entities.Tables.Catalog
 {
-    public class ProductStatistic: BaseEntity
+    public class ProductStatistic
     {
+        [Key]
+        public int idpos { get; set; }
        
         public int ProductId { get; set; }
         public int MemberMainPartyId { get; set; }
@@ -11,8 +14,8 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         public string UserCity { get; set; }
         public string UserCountry { get; set; }
         public byte SingularViewCount { get; set; }
-        public byte Hour { get; set; }
-        public byte ViewCount { get; set; }
+        public int Hour { get; set; }
+        public int ViewCount { get; set; }
 
         public DateTime RecordDate { get; set; }
     }

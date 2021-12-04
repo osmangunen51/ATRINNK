@@ -3469,7 +3469,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 template = template.Replace("#firmadi#", store.StoreName).Replace("#kullaniciadi#", store.StoreName).Replace("#pakettipi#", packet.PacketName).Replace("#tutar#", order.OrderPrice.ToDecimal().ToString("N") + " TL").Replace("#bankahesapbilgileri#", account.BankName + "-" + account.AccountNo);
 
             }
-            string sozlesmeLink = "https://www.makinaturkiye.com/satis-sozlesmesi-y-146659?storeId=" + store.MainPartyId + "&orderId=" + order.OrderId;
+            string sozlesmeLink = "";
+
+            if (packet.IsTryPacket.HasValue && packet.IsTryPacket.Value)
+            {
+                sozlesmeLink = "https://www.makinaturkiye.com/deneme-paketi-sozlesmesi-y-363195?storeId=" + store.MainPartyId + "&orderId=" + order.OrderId;
+            }
+            else
+            {
+                sozlesmeLink = "https://www.makinaturkiye.com/satis-sozlesmesi-y-146659?storeId=" + store.MainPartyId + "&orderId=" + order.OrderId;
+            }
+
 
             template = template.Replace("#sozlesmelink#", sozlesmeLink);
 

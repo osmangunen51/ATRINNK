@@ -1158,8 +1158,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     productStatistic.SingularViewCount = 1;
                     productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
                     productStatistic.ViewCount = 1;
-                    _productStatisticService.InsertProductStatistic(productStatistic);
-                    SessionStatisticIds.StatisticIds.Add(productId.Value, productStatistic.Id.ToString());
+                    int lastId= _productStatisticService.InsertProductStatistic(productStatistic);
+                    SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
                     _productService.CachingGetOrSetOperationEnabled = false;
                     updatedProduct.SingularViewCount += 1;
                     _productService.UpdateProduct(updatedProduct);

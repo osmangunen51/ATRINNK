@@ -53,7 +53,8 @@
             model.HeaderColor = packet.HeaderColor;
             model.IsDopingPacket = packet.IsDopingPacket.HasValue == true ? packet.IsDopingPacket.Value : false;
             model.DopingPacketDay = packet.DopingPacketDay;
-            model.ShowAdmin = packet.ShowAdmin.HasValue? packet.ShowAdmin.Value : false;
+            model.ShowAdmin = packet.ShowAdmin.HasValue ? packet.ShowAdmin.Value : false;
+            model.IsTryPacket = packet.IsTryPacket.HasValue ? packet.IsTryPacket.Value : false;
 
 
             if (packet.ProductFactor != null)
@@ -98,7 +99,7 @@
             entities.SaveChanges();
 
             var packet = entities.Packets.SingleOrDefault(c => c.PacketId == id);
-            packet.PacketDay = model.PacketDay.HasValue ? model.PacketDay.Value: 0;
+            packet.PacketDay = model.PacketDay.HasValue ? model.PacketDay.Value : 0;
             packet.PacketDescription = model.PacketDescription;
             packet.PacketName = model.PacketName;
             packet.PacketPrice = model.PacketPrice;
@@ -115,6 +116,7 @@
             packet.IsDopingPacket = model.IsDopingPacket;
             packet.DopingPacketDay = model.DopingPacketDay;
             packet.ShowAdmin = model.ShowAdmin;
+            packet.IsTryPacket = model.IsTryPacket;
             entities.SaveChanges();
 
             int packetId = id;
@@ -192,7 +194,8 @@
                 ProductFactor = model.ProductFactor,
                 DopingPacketDay = model.DopingPacketDay,
                 IsDopingPacket = model.IsDopingPacket,
-                ShowAdmin  = model.ShowAdmin
+                ShowAdmin = model.ShowAdmin,
+                IsTryPacket=model.IsTryPacket
             };
             entities.Packets.AddObject(packet);
             entities.SaveChanges();

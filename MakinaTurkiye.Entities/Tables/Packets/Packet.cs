@@ -28,6 +28,8 @@ namespace MakinaTurkiye.Entities.Tables.Packets
         public bool ? IsDopingPacket { get; set; }
         public Int16 ? DopingPacketDay { get; set; }
         public bool? ShowAdmin { get; set; }
+        
+        public bool? IsTryPacket { get; set; }
         public virtual ICollection<PacketFeature> PacketFeatures
         {
             get { return _packetFeatures ?? (_packetFeatures = new List<PacketFeature>()); }
