@@ -48,7 +48,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Factories
             var store = _storeService.GetStoreByMainPartyId(storeId);
             var order = _orderService.GetOrderByOrderId(orderId);
             var address = _addressService.GetAddressesByMainPartyId(storeId).FirstOrDefault();
-            var phone = _phoneService.GetPhonesByMainPartyId(storeId).FirstOrDefault(x => x.PhoneType == (byte)PhoneTypeEnum.Phone);
+            var phones = _phoneService.GetPhonesByMainPartyId(storeId);
             var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(storeId);
             var member = _memberService.GetMemberByMainPartyId(memberStore.MemberMainPartyId.Value);
             var packet = _packetService.GetPacketByPacketId(order.PacketId);
@@ -58,10 +58,24 @@ namespace NeoSistem.MakinaTurkiye.Web.Factories
 
             datas.Add("{companyName}", store.StoreName);
             datas.Add("{address}", address.GetFullAddress());
-            datas.Add("{phoneNumber}", phone.PhoneCulture + phone.PhoneAreaCode + " " + phone.PhoneNumber);
+            var phone = new Phone();
+
+            if (phones.Count() > 0)
+            {
+                phone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneTypeEnum.Phone);
+                if (phone == null)
+                {
+                    phone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneTypeEnum.Gsm);
+                }
+                datas.Add("{phoneNumber}", phone.PhoneCulture + phone.PhoneAreaCode + " " + phone.PhoneNumber);
+            }
+            else
+            {
+                datas.Add("{phoneNumber}", "");
+            }
             datas.Add("{email}", member.MemberEmail);
             datas.Add("{vergiNo}", store.TaxNumber);
-            datas.Add("{alinanPaket}",packet.PacketName);
+            datas.Add("{alinanPaket}", packet.PacketName);
             datas.Add("{paketBaslangic}", order.RecordDate.ToString("dd/MM/yyyy"));
             if (order.PacketDay.HasValue)
             {
@@ -76,6 +90,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Factories
             datas.Add("{orderType}", getOrderType(order.OrderType));
             datas.Add("{packetDay}", packet.PacketDay.ToString());
             datas.Add("{standartPacketPrice}", goldPacket.PacketPrice.ToString("N2"));
+            datas.Add(" {paymentDate}", order.PayDate.HasValue ? order.PayDate.Value.ToString("dd/MM/yyyy") : "");
 
             if (getOrderType(order.OrderType).Contains("Taksit"))
                 datas.Add("{peşin}", "Taksit");
@@ -89,21 +104,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Factories
                 orderInstallmentText += orderInsText;
             }
             datas.Add("{taksit}", orderInstallmentText);
-            
+
             return datas;
         }
-        
+
 
         private string getOrderType(int orderType)
         {
-      
+
             switch (orderType)
             {
                 case (int)Models.Ordertype.Havale:
                     return "Havale";
-               
+
                 case (int)Models.Ordertype.KrediKarti:
-                   return "Kredi Kartı";
+                    return "Kredi Kartı";
                 case 3:
                     return "Kredi Kartı Vade";
                 case 4:

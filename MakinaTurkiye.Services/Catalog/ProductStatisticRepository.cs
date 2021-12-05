@@ -33,8 +33,8 @@ namespace MakinaTurkiye.Services.Catalog
             using (var dbConnection = new NpgsqlConnection(connectionString))
             {
                 dbConnection.Open();
-                var sometings = dbConnection.Execute("INSERT INTO productstatistics1 (ProductId,MemberMainPartyId,IpAdress,UserCity,UserCountry,SingularViewCount,Hour,ViewCount, RecordDate) VALUES(@ProductId,@MemberMainPartyId,@IpAdress,@UserCity,@UserCountry,@SingularViewCount,@Hour,@ViewCount, @RecordDate)", item);
-                lastId=dbConnection.Query<int>("select idpos from productstatistics1 order by idpos desc limit 1").Single();
+                 lastId = dbConnection.ExecuteScalar<int>("INSERT INTO productstatistics1 (ProductId,MemberMainPartyId,IpAdress,UserCity,UserCountry,SingularViewCount,Hour,ViewCount, RecordDate) VALUES(@ProductId,@MemberMainPartyId,@IpAdress,@UserCity,@UserCountry,@SingularViewCount,@Hour,@ViewCount, @RecordDate) RETURNING idpos;", item);
+                //lastId=dbConnection.Query<int>("select idpos from productstatistics1 order by idpos desc limit 1").Single();
 
             }
             return lastId;

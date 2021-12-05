@@ -188,6 +188,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var def = _salesDocumentInputFactory.getPayload(Convert.ToInt32(storeId), Convert.ToInt32(orderId));
                     foreach (var item in def)
                     {
+                        if(item.Key== "{peşin}" && item.Value!= "Taksit")
+                        {
+                            model.Content = model.Content.Replace("<strong>Taksit</strong> :", "");
+                        }
                         model.Content = model.Content.Replace(item.Key, item.Value);
                     }
                 }
