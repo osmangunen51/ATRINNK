@@ -104,7 +104,7 @@ namespace MakinaTurkiye.Services.Catalog
             using (IDbConnection dbConnection = Connection)
             {
                 dbConnection.Open();
-                dbConnection.Query("UPDATE productstatistics1 SET MemberMainPartyId = @MemberMainPartyId,  IpAdress  = @IpAdress, UserCity= @UserCity, UserCountry= @UserCountry, SingularViewCount=@SingularViewCount,Hour=@Hour, ViewCount=@ViewCount  WHERE id = @Id", item);
+                dbConnection.Query("UPDATE productstatistics1 SET MemberMainPartyId = @MemberMainPartyId,  IpAdress  = @IpAdress, UserCity= @UserCity, UserCountry= @UserCountry, SingularViewCount=@SingularViewCount,Hour=@Hour, ViewCount=@ViewCount  WHERE idpos = @idpos", item);
             }
         }
 

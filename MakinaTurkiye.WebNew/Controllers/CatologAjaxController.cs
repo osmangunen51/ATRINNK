@@ -505,39 +505,39 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 var dic = SessionStatisticIds.StatisticIds.FirstOrDefault(c => c.Key == productId);
 
-                //if (!string.IsNullOrEmpty(dic.Value))
-                //{
-                //    int statisticId = Convert.ToInt32(dic.Value);
-                //    var productStatistic = _productStatisticService.GetProductStatisticByStatisticId(statisticId);
-                //    if (!string.IsNullOrEmpty(productStatistic.UserCity))
-                //    {
+                if (!string.IsNullOrEmpty(dic.Value))
+                {
+                    int statisticId = Convert.ToInt32(dic.Value);
+                    var productStatistic = _productStatisticService.GetProductStatisticByStatisticId(statisticId);
+                    if (!string.IsNullOrEmpty(productStatistic.UserCity))
+                    {
 
-                //        if (productStatistic.RecordDate.Minute <= (DateTime.Now.Minute - 1))
-                //        {
-                //            productStatistic.ViewCount += 1;
-                //            _productStatisticService.UpdateProductStatistic(productStatistic);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        try
-                //        {
-                //            var JSONObj =locationHelper.GetLocationFromIp();
-                //            city = JSONObj["regionName"].ToString();
-                //            country = JSONObj["country"].ToString();
-                //            productStatistic.UserCity = city;
-                //            productStatistic.UserCountry = country;
-                //            _productStatisticService.UpdateProductStatistic(productStatistic);
-                //        }
-                //        catch (Exception ex)
-                //        {
+                        if (productStatistic.RecordDate.Minute <= (DateTime.Now.Minute - 1))
+                        {
+                            productStatistic.ViewCount += 1;
+                            _productStatisticService.UpdateProductStatistic(productStatistic);
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            var JSONObj = locationHelper.GetLocationFromIp();
+                            city = JSONObj["regionName"].ToString();
+                            country = JSONObj["country"].ToString();
+                            productStatistic.UserCity = city;
+                            productStatistic.UserCountry = country;
+                            _productStatisticService.UpdateProductStatistic(productStatistic);
+                        }
+                        catch (Exception ex)
+                        {
 
-                //        }
+                        }
 
-                //    }
+                    }
 
 
-                //}
+                }
             }
 
             return Json(new { added = true }, JsonRequestBehavior.AllowGet);
