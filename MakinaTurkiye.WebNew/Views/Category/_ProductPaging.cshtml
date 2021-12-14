@@ -6,35 +6,36 @@
     //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
     int activeCategoryId = Convert.ToInt32(Request.QueryString["CategoryId"]);
 }
-    @if (Model.TotalPageCount > 0)
-    {
+@if (Model.TotalPageCount > 0)
+{
+    <input type="hidden" id="last-page-number" value="@Model.PageUrls.Keys.LastOrDefault()">
     <div class="row listbottombar">
         <div class="col-md-12 text-center">
             <ul class="pagination" style="margin-bottom:20px">
                 <li><a href="@Model.FirstPageUrl">&laquo; </a></li>
 
-                @foreach(var key in Model.PageUrls.Keys)
+                @foreach (var key in Model.PageUrls.Keys)
                 {
                     if (Model.TotalPageCount >= key)
                     {
                         if (key == Model.CurrentPageIndex)
                         {
-                <li class="active">
-                    <a href="@Model.PageUrls[key]">
-                         @key.ToString()
-                    </a>
-                </li>
+                            <li class="active">
+                                <a href="@Model.PageUrls[key]">
+                                    @key.ToString()
+                                </a>
+                            </li>
                         }
                         else
                         {
-                <li>
-                    <a href="@((key == 1) ? Model.FirstPageUrl : Model.PageUrls[key])">
-                     @key.ToString()
-                 </a>
-             </li>
+                            <li>
+                                <a href="@((key == 1) ? Model.FirstPageUrl : Model.PageUrls[key])">
+                                    @key.ToString()
+                                </a>
+                            </li>
 
-             }
-                }
+                        }
+                    }
 
                 }
 
@@ -48,4 +49,4 @@
             @Model.CurrentPageIndex. sayfayı görmektesiniz.
         </div>
     </div>
-    }
+}

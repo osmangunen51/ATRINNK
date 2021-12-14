@@ -45,59 +45,60 @@
 					//}
 				});
 			}
-		});
-		//lazyloading
-		document.addEventListener("DOMContentLoaded", function () {
-			var lazyloadImages;
+        });
+    function renderPage() {
+        //lazyloading
+        document.addEventListener("DOMContentLoaded", function () {
+            var lazyloadImages;
+            if ("IntersectionObserver" in window) {
+                lazyloadImages = document.querySelectorAll(".img-lazy");
+                var imageObserver = new IntersectionObserver(function (entries, observer) {
+                    entries.forEach(function (entry) {
+                        if (entry.isIntersecting) {
+                            var image = entry.target;
+                            image.src = image.dataset.src;
 
-			if ("IntersectionObserver" in window) {
-				lazyloadImages = document.querySelectorAll(".img-lazy");
-				var imageObserver = new IntersectionObserver(function (entries, observer) {
-					entries.forEach(function (entry) {
-						if (entry.isIntersecting) {
-							var image = entry.target;
-							image.src = image.dataset.src;
+                            imageObserver.unobserve(image);
+                        }
+                    });
+                });
 
-							imageObserver.unobserve(image);
-						}
-					});
-				});
+                lazyloadImages.forEach(function (image) {
+                    imageObserver.observe(image);
+                });
+            } else {
+                var lazyloadThrottleTimeout;
+                lazyloadImages = document.querySelectorAll(".img-lazy");
 
-				lazyloadImages.forEach(function (image) {
-					imageObserver.observe(image);
-				});
-			} else {
-				var lazyloadThrottleTimeout;
-				lazyloadImages = document.querySelectorAll(".img-lazy");
+                function lazyload() {
+                    if (lazyloadThrottleTimeout) {
+                        clearTimeout(lazyloadThrottleTimeout);
+                    }
 
-				function lazyload() {
-					if (lazyloadThrottleTimeout) {
-						clearTimeout(lazyloadThrottleTimeout);
-					}
+                    lazyloadThrottleTimeout = setTimeout(function () {
+                        var scrollTop = window.pageYOffset;
+                        lazyloadImages.forEach(function (img) {
+                            if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                                img.src = img.dataset.src;
+                                //img.classList.remove('img-thumbnail');
+                            }
+                        });
+                        if (lazyloadImages.length == 0) {
+                            document.removeEventListener("scroll", lazyload);
+                            window.removeEventListener("resize", lazyload);
+                            window.removeEventListener("orientationChange", lazyload);
+                        }
+                    }, 20);
+                }
 
-					lazyloadThrottleTimeout = setTimeout(function () {
-						var scrollTop = window.pageYOffset;
-						lazyloadImages.forEach(function (img) {
-							if (img.offsetTop < (window.innerHeight + scrollTop)) {
-								img.src = img.dataset.src;
-								//img.classList.remove('img-thumbnail');
-							}
-						});
-						if (lazyloadImages.length == 0) {
-							document.removeEventListener("scroll", lazyload);
-							window.removeEventListener("resize", lazyload);
-							window.removeEventListener("orientationChange", lazyload);
-						}
-					}, 20);
-				}
-
-				document.addEventListener("scroll", lazyload);
-				window.addEventListener("resize", lazyload);
-				window.addEventListener("orientationChange", lazyload);
-			}
-		})
+                document.addEventListener("scroll", lazyload);
+                window.addEventListener("resize", lazyload);
+                window.addEventListener("orientationChange", lazyload);
+            }
+        })
 		//lazyloading finish
-
+    }
+    renderPage();
 		function GetMostViewedProductAjax() {
 			$.ajax({
 				type: 'post',
@@ -710,7 +711,7 @@ else
                     </div>
                 </div>
             </div>
-            <div class="row clearfix">
+            <div class="row clearfix" id="listing-container">
                 <div class="col-md-12">
                     @if (1 == 1)
                     {
@@ -826,5 +827,118 @@ if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent) || !string.IsNullOrEmpty(Mo
 </div>
 <script type="application/ld+json">
 		@Html.Raw(Model.CategoryModel.MtJsonLdModel.JsonLdString)
+</script>
+<script>
+    function parseHash() {
+
+        var hashParams = {};
+        var e,
+            a = /\+/g,  // Regex for replacing addition symbol with a space
+            r = /([^&;=]+)=?([^&;]*)/g,
+            d = function (s) { return decodeURIComponent(s.replace(a, " ")); },
+            q = window.location.hash.substring(1);
+
+        while (e = r.exec(q))
+            hashParams[d(e[1])] = d(e[2]);
+
+        return hashParams;
+    }
+    let scrollControl = true;
+    window.addEventListener('scroll', function () {
+        const { scrollTop, scrollHeight, clientHeight, offsetHeight } = document.documentElement;
+        let listElm = document.querySelector('#listing-container');
+        let lastPageNumber = document.querySelector('#last-page-number').value;
+        //console.log(clientHeight + scrollTop >= (scrollHeight*75)/100 , clientHeight + scrollTop < (scrollHeight*96)/100 , scrollControl);
+        if (clientHeight + scrollTop >= (scrollHeight * 55) / 100 && clientHeight + scrollTop < (scrollHeight * 80) / 100 && scrollControl) {
+            scrollControl = false;
+            let hashParams = parseHash();
+            let newHashParams = {};
+            let nextPage;
+            if (hashParams.hasOwnProperty('sayfa')) {
+                if (hashParams['sayfa'] == lastPageNumber) {
+
+                    return false;
+                } else {
+                    newHashParams['sayfa'] = parseInt(hashParams['sayfa']) + 1;
+                }
+            } else {
+                if (lastPageNumber > 1) {
+                    newHashParams['sayfa'] = 2;
+                } else {
+                    return false;
+                }
+            }
+
+            console.log(hashParams);
+
+            let hashArray = [];
+            for (let p in newHashParams) {
+                if (newHashParams.hasOwnProperty(p)) {
+                    hashArray.push(encodeURIComponent(p) + "=" + encodeURIComponent(newHashParams[p]));
+                }
+            }
+            window.location.hash = hashArray.join("&");
+        }
+    });
+    window.addEventListener("load", function () {
+        let hashString = window.location.hash;
+        if (hashString.length > 0) {
+            applyFilters();
+        }
+    });
+    window.addEventListener("hashchange", function () {
+        applyFilters();
+    });
+
+    function applyFilters() {
+        scrollControl = false;
+        let hashParams = parseHash();
+        let hashString = window.location.hash;
+        let queryString = window.location.search;
+        let query;
+        if (queryString.length > 0) {
+            query = queryString + "&" + (hashString[0] === '#' ? hashString.substr(1) : hashString);
+        } else {
+            query = "?" + (hashString[0] === '#' ? hashString.substr(1) : hashString);
+        }
+        fetch(query)
+            .then(response => {
+                if (response.status !== 200) {
+                    return false;
+                }
+                return response.text();
+            })
+            .then(data => {
+                if (!data) {
+                    return false;
+                }
+                let doc = new DOMParser().parseFromString(data, "text/html");
+                let div;
+                if (hashParams.hasOwnProperty("sayfa")) {
+                    div = document.querySelector('#product-container');
+                    console.log(div);
+                    div.innerHTML = div.innerHTML + doc.querySelector("#product-container").innerHTML;
+                } else {
+                    div = document.querySelector('#listing-container');
+                    div.innerHTML = doc.querySelector("#listing-container").innerHTML;
+                }
+                renderPage();
+            })
+            .then(() => {
+                setTimeout(() => {
+                    scrollControl = true;
+                }, 4000);
+
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        if (!hashParams.hasOwnProperty("sayfa")) {
+            document.getElementById('listing-container').scrollIntoView(
+                { behavior: 'smooth' }
+            );
+        }
+        renderPage();
+    }
 </script>
 }

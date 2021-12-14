@@ -132,7 +132,6 @@ namespace MakinaTurkiye.Payment
         }
 
 
-
         private static string RemoveAccent(string text)
         {
             byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(text);
@@ -146,6 +145,7 @@ namespace MakinaTurkiye.Payment
                 return sifreOlusturucu.TextSifrele(value);
             }
         }
+
         public static string Coz(this string value)
         {
             using (SifreOlusturucu sifreOlusturucu = new SifreOlusturucu())
