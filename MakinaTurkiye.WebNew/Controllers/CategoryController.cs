@@ -2615,15 +2615,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             //System.IO.File.AppendAllText(File, $"1 - {DateTime.Now.ToString()} - {yenilink}");
                             return RedirectPermanent(request.Url.ToString().Replace("https://video.", "https://www."));
                         }
-
-
-
                         return RedirectPermanent(yenilink);
                     }
-
-
-
-
             #region redirect
 
             if (Server.UrlDecode(request.Url.AbsolutePath).Any(char.IsUpper))
@@ -2884,6 +2877,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.MTCategoSliderItems.Add(bannerItemModel);
             }
         }
+
         [HttpPost]
         public PartialViewResult GetStoresByCategoryId(string selectedCategoryId, string selectedBrandId, string selectedCountryId, string selectedCityId, string selectedLocalityId)
         {
@@ -3111,9 +3105,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                 }
             }
-
             return Redirect(url);
         }
+
         public ActionResult ProductContact(string productId)
         {
             return RedirectPermanent("/Product/ProductContact?productId=" + productId);

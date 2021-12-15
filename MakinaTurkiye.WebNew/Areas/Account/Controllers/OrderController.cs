@@ -64,7 +64,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         RecordDate = item.RecordDate,
                         TaxNo = item.TaxNo,
                         TaxOffice = item.TaxOffice,
-                        StoreId=item.MainPartyId
+                        StoreId = item.MainPartyId
                     };
                     var packet = _packetService.GetPacketByPacketId(item.PacketId);
                     orderListItem.PacketName = packet.PacketName;

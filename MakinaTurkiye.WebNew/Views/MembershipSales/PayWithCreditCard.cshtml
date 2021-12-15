@@ -32,11 +32,9 @@
                 $("#taksitDisplay").html("-");
                 var amount="@price.ToString("N2").Replace(".", "").Replace(",", ".")";
                 $("#amount").val(amount);
-
             }
             else
             {
-
                 $("#taksit").val(val);
                 var taksitF="";
                 $.ajax({

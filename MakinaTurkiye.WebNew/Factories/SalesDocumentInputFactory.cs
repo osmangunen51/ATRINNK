@@ -1,13 +1,12 @@
-﻿using MakinaTurkiye.Services.Checkouts;
+﻿using MakinaTurkiye.Entities.Tables.Common;
+using MakinaTurkiye.Services.Checkouts;
 using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Services.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Packets;
 
 namespace NeoSistem.MakinaTurkiye.Web.Factories
 {

@@ -78,7 +78,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
     public class SessionPayWithCreditCardModel
     {
         internal static readonly string SESSION_USERID = "SessionPayWithCreditCard";
-
         public static MTPayWithCreditCardModel MTPayWithCreditCardModel
         {
             get
@@ -1263,9 +1262,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 ccl.Detail = result.ErrorMessage;
                 _creditCardLogService.InsertCreditCardLog(ccl);
 
-                if (Session["PayWithCreditCard"]!=null)
+                if (Session["PayWithCreditCard"] != null)
                 {
-                    if (Session["PayWithCreditCard"].ToString()=="1")
+                    if (Session["PayWithCreditCard"].ToString() == "1")
                     {
                         return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
                     }
@@ -1277,7 +1276,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> paydirectAsync(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
-            tutar = tutar.Replace(",", ".");
+            tutar = tutar.Replace(",", ".").Trim();
             var order = new Order();
             if (OrderId != "0")
             {
@@ -1326,6 +1325,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //#if DEBUG
             //            BankParameters = provider.TestParameters;
             //#endif
+
             // string OrderNumber = Guid.NewGuid().ToString();
             var PaymentGatewayRequest = new PaymentGatewayRequest
             {
@@ -1336,13 +1336,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 CvvCode = cv2,
                 CardType = "1",
                 Installment = 1,
-                TotalAmount = Convert.ToDecimal(tutar)/100,
-                //CustomerIpAddress = Request.UserHostAddress.ToString(),
-                CustomerIpAddress = "194.27.70.200",
+                TotalAmount = Math.Round(Convert.ToDecimal(tutar)*Convert.ToDecimal("1,00"),2),
+                CustomerIpAddress = Request.UserHostAddress.ToString(),
                 CurrencyIsoCode = "949",
                 LanguageIsoCode = "tr",
                 OrderNumber = order.OrderId.ToString(),
-                BankName = BankNames.IsBankasi,
+                BankName = BankNames.Garanti,
                 BankParameters = BankParameters,
                 CallbackUrl = new Uri(NeoSistem.MakinaTurkiye.Core.Web.Helpers.Helpers.ResolveServerUrl("~/membershipsales/resultpay", false))
             };
@@ -1375,10 +1374,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             ccl.Code = gatewayResult.ErrorCode;
             ccl.Detail = gatewayResult.ErrorMessage;
             _creditCardLogService.InsertCreditCardLog(ccl);
-            
+
             string TxtPaymentGatewayRequest = Newtonsoft.Json.JsonConvert.SerializeObject(gatewayResult);
             Session["PaymentGatewayRequest"] = TxtPaymentGatewayRequest;
-            
+
             //check result status
             if (!gatewayResult.Success)
             {
@@ -2036,9 +2035,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     packetModel.OrderCode = order.OrderCode;
                     packetModel.OrderId = order.OrderId;
                     packetModel.OrderNo = order.OrderNo;
-                    packetModel.OrderPrice = order.OrderPrice;
+                    packetModel.OrderPrice = Math.Round(order.OrderPrice,2);
                     packetModel.PacketId = order.PacketId;
                     var packet = _packetService.GetPacketByPacketId(order.PacketId);
+                    if (packet!=null)
+                    {
+                        packetModel.OrderPrice = Math.Round(packet.PacketPrice, 2);
+                    }
                     packetModel.PacketName = packet.PacketName;
                     packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
                     if (!string.IsNullOrEmpty(priceAmount))
@@ -2072,7 +2075,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.DopingDay = day;
                 packetModel.OrderCode = "";
                 packetModel.OrderNo = "";
-                packetModel.OrderPrice = packet.PacketPrice;
+                packetModel.OrderPrice = Math.Round(packet.PacketPrice,2);
                 packetModel.PacketId = packet.PacketId;
                 packetModel.PacketName = packet.PacketName;
                 packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
@@ -2158,9 +2161,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 _orderService.InsertOrder(order);
             }
 
-            if (taksit==null || taksit == "" || taksit=="1")
+            if (taksit == null || taksit == "" || taksit == "1")
             {
-                Session["PayWithCreditCard"] =1;
+                Session["PayWithCreditCard"] = 1;
                 tutar = tutar.Replace(',', '.');
                 var snc = await paydirectAsync(pan, Ecom_Payment_Card_ExpDate_Month, Ecom_Payment_Card_ExpDate_Year, cv2, cardType, kartisim, taksit, tutar.ToString(), gsm, order.OrderId.ToString());
                 return snc;

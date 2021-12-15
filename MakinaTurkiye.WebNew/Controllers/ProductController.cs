@@ -432,25 +432,26 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     Image = imageList,
                     Offers = new Schema.NET.Offer
                     {
-                        Availability = (model.ProductDetailModel.IsActive? Schema.NET.ItemAvailability.InStock: Schema.NET.ItemAvailability.OutOfStock),
-                        Price = (model.ProductDetailModel.PriceDec.HasValue? model.ProductDetailModel.PriceDec:0),
+                        Availability = (model.ProductDetailModel.IsActive ? Schema.NET.ItemAvailability.InStock : Schema.NET.ItemAvailability.OutOfStock),
+                        Price = (model.ProductDetailModel.PriceDec.HasValue ? model.ProductDetailModel.PriceDec : 0),
                         PriceCurrency = model.ProductDetailModel.PriceDec.HasValue ? model.ProductDetailModel.ProductCurrencySymbol : "TRY",
                         AreaServed = "TR",
                         ItemCondition = Schema.NET.OfferItemCondition.NewCondition,
                         Name = model.ProductDetailModel.ProductName,
-                        PriceValidUntil=DateTime.Now.AddDays(365),
+                        PriceValidUntil = DateTime.Now.AddDays(365),
                         Url = this.Request.Url
                     },
-                    Description= model.ProductDetailModel.ProductName,
-                    Logo= imageList,
-                    ProductID= model.ProductDetailModel.ProductId.ToString(),
-                    Model=model.ProductDetailModel.ModelName,
-                    Audience=new Schema.NET.Audience() { 
-                        Name= model.ProductDetailModel.CategoryName.CheckNullString(),
-                        Url=new Uri(model.ProductDetailModel.CategoryUrl)
+                    Description = model.ProductDetailModel.ProductName,
+                    Logo = imageList,
+                    ProductID = model.ProductDetailModel.ProductId.ToString(),
+                    Model = model.ProductDetailModel.ModelName,
+                    Audience = new Schema.NET.Audience()
+                    {
+                        Name = model.ProductDetailModel.CategoryName.CheckNullString(),
+                        Url = new Uri(model.ProductDetailModel.CategoryUrl)
                     },
-                    Slogan= model.ProductDetailModel.ProductName.CheckNullString(),
-                    Url= this.Request.Url,
+                    Slogan = model.ProductDetailModel.ProductName.CheckNullString(),
+                    Url = this.Request.Url,
                 };
                 model.MtJsonLdModel.JsonLdString = webPage.ToString();
             }
@@ -1158,7 +1159,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     productStatistic.SingularViewCount = 1;
                     productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
                     productStatistic.ViewCount = 1;
-                    int lastId= _productStatisticService.InsertProductStatistic(productStatistic);
+                    int lastId = _productStatisticService.InsertProductStatistic(productStatistic);
                     SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
                     _productService.CachingGetOrSetOperationEnabled = false;
                     updatedProduct.SingularViewCount += 1;

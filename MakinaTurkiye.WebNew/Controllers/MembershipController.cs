@@ -524,7 +524,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         public void GoogleLogin(string email, string name, string gender, string lastname, string location)
         {
-        
+
         }
 
 

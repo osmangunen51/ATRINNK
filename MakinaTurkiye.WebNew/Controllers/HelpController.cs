@@ -182,13 +182,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     var orderConfirmation = _orderService.GetOrderConfirmationByOrderId(Convert.ToInt32(orderId));
 
-                    model.OrderConfirmationForm = new OrderConfirmationFormModel { OrderId = Convert.ToInt32(orderId), StoreMainPartyId = Convert.ToInt32(storeId), ReturnUrl = Request.Url.ToString(),
-                    IsConfirmed=orderConfirmation!=null, RecordDate=orderConfirmation!=null ? orderConfirmation.RecordDate : DateTime.Now};
+                    model.OrderConfirmationForm = new OrderConfirmationFormModel
+                    {
+                        OrderId = Convert.ToInt32(orderId),
+                        StoreMainPartyId = Convert.ToInt32(storeId),
+                        ReturnUrl = Request.Url.ToString(),
+                        IsConfirmed = orderConfirmation != null,
+                        RecordDate = orderConfirmation != null ? orderConfirmation.RecordDate : DateTime.Now
+                    };
 
                     var def = _salesDocumentInputFactory.getPayload(Convert.ToInt32(storeId), Convert.ToInt32(orderId));
                     foreach (var item in def)
                     {
-                        if(item.Key== "{peşin}" && item.Value!= "Taksit")
+                        if (item.Key == "{peşin}" && item.Value != "Taksit")
                         {
                             model.Content = model.Content.Replace("<strong>Taksit</strong> :", "");
                         }
@@ -231,12 +237,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         orderBeginDate = order.PacketStartDate.Value;
 
                     //hesap numnarası fiyatı
-                    var packet =_packetService.GetPacketByPacketId(order.PacketId);
+                    var packet = _packetService.GetPacketByPacketId(order.PacketId);
                     var store = _storeService.GetStoreByMainPartyId(order.MainPartyId);
                     var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(store.MainPartyId);
                     int memberMainPartyId = Convert.ToInt32(memberStore.MemberMainPartyId);
                     var member = _memberService.GetMemberByMainPartyId(memberMainPartyId);
-            
+
                     #region emailicin
                     var settings = ConfigurationManager.AppSettings;
                     MailMessage mail = new MailMessage();
@@ -331,7 +337,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     #endregion
                 }
             }
- 
+
             return Redirect(orderConfirm.ReturnUrl);
         }
 

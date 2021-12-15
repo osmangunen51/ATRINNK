@@ -97,7 +97,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             var model = new MyAccountHomeModel();
             var dataMessage = new Data.Message();
-            if (AuthenticationUser.Membership.MainPartyId!=null)
+            if (AuthenticationUser.Membership.MainPartyId != null)
             {
                 var messageErrors = _messageService.GetSendMessageErrorsBySenderId(AuthenticationUser.Membership.MainPartyId);
                 if (messageErrors.ToList().Count > 0)//gönderilmeyen tüm mailleri gönder

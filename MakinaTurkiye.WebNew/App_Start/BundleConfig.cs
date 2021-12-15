@@ -82,11 +82,11 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
             bundles.Add(StyleBundle);
 
             bundles.UseCdn = true;
-            #if DEBUG
-                BundleTable.EnableOptimizations = false;
-            #else
+#if DEBUG
+            BundleTable.EnableOptimizations = false;
+#else
 				BundleTable.EnableOptimizations = true;
-            #endif
+#endif
         }
     }
 }
