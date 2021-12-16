@@ -1168,6 +1168,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> FourStepNew(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
+         
             var order = new Order();
             if (OrderId != "0")
             {
@@ -1276,7 +1277,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpPost]
         public async Task<ActionResult> paydirectAsync(string pan, string Ecom_Payment_Card_ExpDate_Month, string Ecom_Payment_Card_ExpDate_Year, string cv2, string cardType, string kartisim, string taksit, string tutar, string gsm, string OrderId)
         {
-            tutar = tutar.Replace(",", ".").Trim();
+            //tutar = tutar.Replace(",", ".").Trim();
             var order = new Order();
             if (OrderId != "0")
             {
@@ -1336,7 +1337,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 CvvCode = cv2,
                 CardType = "1",
                 Installment = 1,
-                TotalAmount = Math.Round(Convert.ToDecimal(tutar)*Convert.ToDecimal("1,00"),2),
+                TotalAmount = Convert.ToDecimal(tutar.Replace(".",",")),
                 CustomerIpAddress = Request.UserHostAddress.ToString(),
                 CurrencyIsoCode = "949",
                 LanguageIsoCode = "tr",
@@ -1659,6 +1660,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 {
                                     if (SavedSession["PayWithCreditCard"].ToString() == "1")
                                     {
+                                        if (SavedSession["parcaliOdeme"]!=null)
+                                        {
+                                            tutar = Math.Round(Convert.ToDecimal(SavedSession["parcaliOdeme"].ToString()),2).ToString("0.00");
+                                            Session["parcaliOdeme"] = null;
+                                        }
                                         return RedirectToAction("PayWithCreditCard", "membershipsales", new { priceAmount = tutar, OrderId = order.OrderId });
                                     }
                                 }
@@ -1970,8 +1976,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
         public ActionResult PayWithCreditCard(string priceAmount, string ProductId, string PacketId, string OrderId)
         {
+            Session["parcaliOdeme"] = null;
             MTPayWithCreditCardModel model = new MTPayWithCreditCardModel();
-
             var packetModel = new PacketModel();
             int pID = Convert.ToInt32(PacketId);
             var memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
@@ -2045,7 +2051,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     packetModel.PacketName = packet.PacketName;
                     packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
                     if (!string.IsNullOrEmpty(priceAmount))
-                        packetModel.PayPriceAmount = Convert.ToDecimal(priceAmount.Replace(".", ","));
+                    {
+                        packetModel.PayPriceAmount = Convert.ToDecimal(Convert.ToDecimal(priceAmount.Replace(".", ",")).ToString("0.00"));
+                        Session["parcaliOdeme"] = packetModel.PayPriceAmount;
+                    }
                     else
                         if (paid != 0)
                         packetModel.PayPriceAmount = order.OrderPrice - paid;
@@ -2095,6 +2104,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
             }
             model.PacketModel = packetModel;
+            
             return View(model);
 
 
@@ -2164,14 +2174,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (taksit == null || taksit == "" || taksit == "1")
             {
                 Session["PayWithCreditCard"] = 1;
-                tutar = tutar.Replace(',', '.');
                 var snc = await paydirectAsync(pan, Ecom_Payment_Card_ExpDate_Month, Ecom_Payment_Card_ExpDate_Year, cv2, cardType, kartisim, taksit, tutar.ToString(), gsm, order.OrderId.ToString());
                 return snc;
             }
             else
             {
                 Session["PayWithCreditCard"] = 1;
-                tutar = tutar.Replace(',', '.');
                 return IyzicoOdemeAl(pan, Ecom_Payment_Card_ExpDate_Month, Ecom_Payment_Card_ExpDate_Year, cv2, kartisim, taksit, ref tutar, order);
             }
             if (ProductId == "0")

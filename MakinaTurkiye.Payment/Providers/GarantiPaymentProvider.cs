@@ -67,7 +67,9 @@ namespace MakinaTurkiye.Payment.Providers
 
                 //garanti bankasında tutar bilgisinde nokta, virgül gibi değerler istenmiyor. 1.10 TL'lik işlem 110 olarak gönderilmeli. Yani tutarı 100 ile çarpabiliriz.
                 //string amount = (request.TotalAmount * 100m).ToString("0.##", new CultureInfo("en-US"));//virgülden sonraki sıfırlara gerek yok
-                string amount = (request.TotalAmount).ToString("0.##", new CultureInfo("tr-TR"));//virgülden sonraki sıfırlara gerek yok
+                string amount = Convert.ToDecimal((request.TotalAmount).ToString("0.##", new CultureInfo("tr-TR"))).ToString("0.00");//virgülden sonraki sıfırlara gerek yok
+                amount = amount.Replace(".", "");
+                amount = amount.Replace(",", "");
                 parameters.Add("txnamount", amount);
 
                 string installment = request.Installment.ToString();
