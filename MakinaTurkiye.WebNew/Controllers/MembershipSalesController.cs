@@ -1323,9 +1323,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
 
-            //#if DEBUG
-            //            BankParameters = provider.TestParameters;
-            //#endif
+            #if DEBUG
+                        BankParameters = provider.TestParameters;
+            #endif
 
             // string OrderNumber = Guid.NewGuid().ToString();
             var PaymentGatewayRequest = new PaymentGatewayRequest

@@ -426,8 +426,8 @@ namespace MakinaTurkiye.Payment.Providers
             { "terminalProvPassword", "1" },
             { "storeKey", "1" },
             { "mode", "TEST" },
-            { "gatewayUrl", "https://sanalposprov.garanti.com.tr/VPServlet" },
-            { "verifyUrl", "https://sanalposprov.garanti.com.tr/VPServlet" }
+            { "gatewayUrl", "http://sanalposprovtest.garanti.com.tr/servlet/gt3dengine" },
+            { "verifyUrl", "http://sanalposprovtest.garanti.com.tr/servlet/gt3dengine" }
         };
 
         private string GetSHA1(string text)

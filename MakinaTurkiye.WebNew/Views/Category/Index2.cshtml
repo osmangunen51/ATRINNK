@@ -862,6 +862,7 @@ if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent) || !string.IsNullOrEmpty(Mo
         return hashParams;
     }
     let scrollControl = true;
+    let seperator = "#";
     window.addEventListener('scroll', function () {
         const { scrollTop, scrollHeight, clientHeight, offsetHeight } = document.documentElement;
         let listElm = document.querySelector('#listing-container');
@@ -886,16 +887,13 @@ if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent) || !string.IsNullOrEmpty(Mo
                     return false;
                 }
             }
-
-            console.log(hashParams);
-
             let hashArray = [];
             for (let p in newHashParams) {
                 if (newHashParams.hasOwnProperty(p)) {
                     hashArray.push(encodeURIComponent(p) + "=" + encodeURIComponent(newHashParams[p]));
                 }
             }
-            window.location.hash = hashArray.join("&");
+            window.location.hash=hashArray.join(seperator);
         }
     });
     window.addEventListener("load", function () {
@@ -915,9 +913,9 @@ if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent) || !string.IsNullOrEmpty(Mo
         let queryString = window.location.search;
         let query;
         if (queryString.length > 0) {
-            query = queryString + "&" + (hashString[0] === '#' ? hashString.substr(1) : hashString);
+            query = queryString + "&" + (hashString[0] === seperator ? hashString.substr(1) : hashString);
         } else {
-            query = "?" + (hashString[0] === '#' ? hashString.substr(1) : hashString);
+            query = "?" + (hashString[0] === seperator ? hashString.substr(1) : hashString);
         }
         fetch(query)
             .then(response => {
