@@ -301,7 +301,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     else
                         store.StorePacketEndDate = orderBeginDate.AddDays(packet.PacketDay);
 
-                    if (!order.ProductId.HasValue || (order.ProductId.HasValue && order.ProductId.Value == 0))
+                    if (!order.ProductId.HasValue || (order.ProductId.Value == 0))
                     {
                         _storeService.UpdateStore(store);
                     }

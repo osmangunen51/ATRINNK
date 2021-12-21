@@ -1328,6 +1328,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             #endif
 
             // string OrderNumber = Guid.NewGuid().ToString();
+            var payments = _orderService.GetPaymentsByOrderId(order.OrderId);
+            
             var PaymentGatewayRequest = new PaymentGatewayRequest
             {
                 CardHolderName = kartisim,
@@ -1337,11 +1339,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 CvvCode = cv2,
                 CardType = "1",
                 Installment = 1,
-                TotalAmount = Convert.ToDecimal(tutar.Replace(".",",")),
+                TotalAmount = Convert.ToDecimal(tutar.Replace(".", ",")),
                 CustomerIpAddress = Request.UserHostAddress.ToString(),
                 CurrencyIsoCode = "949",
                 LanguageIsoCode = "tr",
-                OrderNumber = order.OrderId.ToString(),
+                OrderNumber ="P"+ payments.Count.ToString()+ order.OrderId.ToString(),
                 BankName = BankNames.Garanti,
                 BankParameters = BankParameters,
                 CallbackUrl = new Uri(NeoSistem.MakinaTurkiye.Core.Web.Helpers.Helpers.ResolveServerUrl("~/membershipsales/resultpay", false))
@@ -1412,6 +1414,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             try
             {
                 string orderid = Request.Form["orderid"];
+                if (orderid.StartsWith("P"))
+                {
+                    orderid = orderid.Substring(2);
+                }
                 string ServerPath = $"~/file/{orderid}.sip";
                 string ServerFizikselPath = Server.MapPath(ServerPath);
                 FileInfo DosyaBilgisi = new FileInfo(ServerFizikselPath);
@@ -1531,10 +1537,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 #region payment
                                 var paymentM = new global::MakinaTurkiye.Entities.Tables.Checkouts.Payment();
                                 paymentM.OrderId = order.OrderId;
-                                paymentM.PaidAmount = Convert.ToDecimal(order.OrderPrice);
+                          
                                 paymentM.PaymentType = order.OrderType;
                                 paymentM.RecordDate = DateTime.Now;
-                                paymentM.RestAmount = (order.OrderPrice - Math.Round(Convert.ToDecimal(order.OrderPrice.ToString().Replace(".", ",")), 2));
+                                if (SavedSession["parcaliOdeme"] != null)
+                                {
+                                    tutar = Math.Round(Convert.ToDecimal(SavedSession["parcaliOdeme"].ToString()), 2).ToString("0.00");
+                                    paymentM.RestAmount = order.OrderPrice - Convert.ToDecimal(tutar);
+                                    paymentM.PaidAmount = Convert.ToDecimal(tutar);
+
+                                }
+                                else
+                                {
+                                    paymentM.RestAmount = (order.OrderPrice - Math.Round(Convert.ToDecimal(order.OrderPrice.ToString().Replace(".", ",")), 2));
+                                    paymentM.PaidAmount = Convert.ToDecimal(tutar);
+                                }
                                 _orderService.InsertPayment(paymentM);
                                 #endregion
 
@@ -2035,19 +2052,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if (paid < 0)
                     paid = 0;
 
-                if (!orderPriceCheck)
+                if (paid < order.OrderPrice)
                 {
 
                     packetModel.OrderCode = order.OrderCode;
                     packetModel.OrderId = order.OrderId;
                     packetModel.OrderNo = order.OrderNo;
-                    packetModel.OrderPrice = Math.Round(order.OrderPrice,2);
+                    packetModel.OrderPrice = Math.Round(order.OrderPrice, 2);
                     packetModel.PacketId = order.PacketId;
                     var packet = _packetService.GetPacketByPacketId(order.PacketId);
-                    if (packet!=null)
-                    {
-                        packetModel.OrderPrice = Math.Round(packet.PacketPrice, 2);
-                    }
+
                     packetModel.PacketName = packet.PacketName;
                     packetModel.CreditCardInstallmentItems = _creditCardService.GetCreditCardInstallmentsByCreditCardId(8);
                     if (!string.IsNullOrEmpty(priceAmount))
@@ -2065,6 +2079,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     model.ProductId = 0;
                     model.IsDoping = false;
                 }
+
+                
 
             }
             else
