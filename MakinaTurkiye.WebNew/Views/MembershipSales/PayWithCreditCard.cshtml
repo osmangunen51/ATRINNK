@@ -10,7 +10,7 @@
     <script type="text/javascript">
         @{
             price = Model.PacketModel.MaturityCalculation(Model.PacketModel.OrderPrice, 0);
-            if (Model.PacketModel.PayPriceAmount != 0)
+            if (Model.PacketModel.PayPriceAmount.HasValue)
             {
                 price = Convert.ToDecimal(Model.PacketModel.PayPriceAmount.Value);
             }

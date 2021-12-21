@@ -294,15 +294,12 @@ namespace MakinaTurkiye.Services.Stores
             if (mainPartyId == 0)
                 return null;
 
-            string key = string.Format(STORES_BY_MAINPARTY_ID_KEY, mainPartyId);
-            return _cacheManager.Get(key, () =>
-            {
-                var query = _storeRepository.Table;
+            var query = _storeRepository.Table;
 
-                query = query.Include(s => s.StoreActivityCategories);
+            query = query.Include(s => s.StoreActivityCategories);
 
-                return query.FirstOrDefault(s => s.MainPartyId == mainPartyId);
-            });
+            return query.FirstOrDefault(s => s.MainPartyId == mainPartyId);
+
         }
 
         public Store GetStoreByStoreEmail(string storeEmail)
