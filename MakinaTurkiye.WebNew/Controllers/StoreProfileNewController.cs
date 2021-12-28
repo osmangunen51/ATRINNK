@@ -674,7 +674,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     ProductTypeText = (item.ProductTypeText != null) ? (item.ProductTypeText + " ") : "",
                     ProductSalesTypeText = (item.ProductSalesTypeText != null) ? (item.ProductSalesTypeText + " ") : "",
                     ProductStatuText = (item.ProductStatuText != null) ? (item.ProductStatuText + " ") : "",
-                    ProductImagePath = ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px400x300),
+                    ProductImagePath = ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px500x375),
                     CityName = item.CityName,
                     LocalityName = item.LocalityName,
                     ProductNo = item.ProductNo,
