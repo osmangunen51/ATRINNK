@@ -2001,7 +2001,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (!string.IsNullOrEmpty(conversationData))
                 request.ConversationData = conversationData;
             ThreedsPayment threedsPayment = ThreedsPayment.Create(request, options);
-            string status1 = "error";
+            string status1 =threedsPayment.Status;
             decimal paidPrice = 0;
             var order = new Order();
             int orderId = Convert.ToInt32(request.ConversationId);

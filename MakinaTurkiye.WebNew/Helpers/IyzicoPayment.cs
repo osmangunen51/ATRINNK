@@ -153,7 +153,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
 
             buyer.Id = Member.MainPartyId.ToString();
             buyer.Name = Member.MemberName;
-            buyer.Surname = Member.MemberSurname;
+            buyer.Surname = !string.IsNullOrEmpty(Member.MemberSurname) ? Member.MemberSurname : Member.MemberName;
             if (Phone == null)
                 buyer.GsmNumber = "+9005326508841";
             else
