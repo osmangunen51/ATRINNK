@@ -10,7 +10,6 @@ namespace MakinaTurkiye.Api
     {
         protected void Application_Start()
         {
-            //initialize engine context
             EngineContext.Initialize(false);
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
