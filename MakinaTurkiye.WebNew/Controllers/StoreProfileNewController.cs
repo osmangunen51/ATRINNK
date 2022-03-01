@@ -429,7 +429,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     PriceText = item.GetFormattedPrice(),
                     FavoriteProductId = item.FavoriteProductId,
                     HasVideo = item.HasVideo,
-                    ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : ""
+                    ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.HasValue ?  item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString():"" : ""
 
                 };
                 if (item.ProductPriceType != (byte)ProductPriceType.PriceAsk && item.ProductPriceType != (byte)ProductPriceType.PriceDiscuss && !string.IsNullOrEmpty(item.GetCurrencyCssName()))

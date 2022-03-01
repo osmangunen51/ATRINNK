@@ -160,7 +160,7 @@ else
         @if (Model.PacketModel.OrderType == (byte)Ordertype.KrediKarti)
         {
 <div class="col-sm-5 col-md-4">
-
+        @Html.Hidden("PacketId", Model.PacketModel.PacketId)
     <div class="form-group">
         <label>
             Kart İsim
