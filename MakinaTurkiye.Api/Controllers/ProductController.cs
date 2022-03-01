@@ -21,12 +21,15 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Web.Http;
+using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Utilities.HttpHelpers;
 
 namespace MakinaTurkiye.Api.Controllers
 {
     public class ProductController : BaseApiController
     {
         private readonly IProductService _productService;
+        private readonly IAddressService _addressService;
         private readonly IPictureService _pictureService;
         private readonly IMemberStoreService _memberStoreService;
         private readonly IStoreService _storeService;
@@ -38,6 +41,7 @@ namespace MakinaTurkiye.Api.Controllers
         public ProductController()
         {
             _productService = EngineContext.Current.Resolve<IProductService>();
+            _addressService = EngineContext.Current.Resolve<IAddressService>();
             _pictureService = EngineContext.Current.Resolve<IPictureService>();
             _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
             _storeService = EngineContext.Current.Resolve<IStoreService>();
@@ -78,28 +82,79 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         ProductId = Result.ProductId,
                         CurrencyCodeName = "tr-TR",
-                        ProductName = Result.ProductName,
-                        BrandName = Result.Brand.CategoryName,
-                        ModelName = Result.Model.CategoryName,
+                        ProductName = Result?.ProductName,
+                        BrandName = Result?.Brand?.CategoryName,
+                        ModelName = Result?.Model?.CategoryName,
                         MainPicture = "",
-                        StoreName = "",
+                        StoreName="",
+                        PictureList="".Split(',').ToList(),
                         MainPartyId = (int)Result.MainPartyId,
                         ProductPrice = (Result.ProductPrice.HasValue ? Result.ProductPrice.Value : 0),
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast.HasValue ? Result.ProductPriceLast.Value : 0),
-                        ProductPriceBegin = (Result.ProductPriceBegin.HasValue ? Result.ProductPriceBegin.Value : 0)
+                        ProductPriceBegin = (Result.ProductPriceBegin.HasValue ? Result.ProductPriceBegin.Value : 0),
+
                     };
 
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
-                    if (picture != null)
-                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                    if (picture != null) picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                    TmpResult.MainPicture = picturePath;
+
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(TmpResult.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                    TmpResult.MainPicture = picturePath;
                     TmpResult.StoreName = store.StoreName;
-                    ProcessStatus.Result = TmpResult;
+                    var TmpPictureList=_pictureService.GetPicturesByProductId(TmpResult.ProductId);
+                    TmpResult.PictureList.Clear();
+                    foreach (var item in TmpPictureList)
+                    {
+                        var tmpPicturePath=!string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, item.PicturePath, ProductImageSize.px500x375) : null;
+                        TmpResult.PictureList.Add(tmpPicturePath);
+                    }
 
+                    TmpResult.ProductStatus = Result.GetProductStatuText();
+                    TmpResult.ProductType = Result.GetProductTypeText();
+                    TmpResult.Mensei = Result.GetMenseiText();
+                    TmpResult.DeliveryStatus = Result.GetOrderStatusText();
+                    TmpResult.SalesDetails = Result.GetProductSalesTypeText();
+                    TmpResult.ShortDescription = Result.GetBriefDetailText();
+                    TmpResult.CategoryName = !string.IsNullOrEmpty(Result.Category.CategoryContentTitle) ? Result.Category.CategoryContentTitle : Result.Category.CategoryName;
+
+
+                    string MapCode = "";
+                    string Location = "";
+                    if (memberStore != null)
+                    {
+                        var address = _addressService.GetFisrtAddressByMainPartyId(memberStore.StoreMainPartyId.Value);
+                        if (address != null)
+                        {
+                            MapCode = address.GetFullAddress();
+
+                            //satici bilgileri
+                            TmpResult.CityName = address.City != null ? address.City.CityName : string.Empty;
+                            TmpResult.CountryName = address.Country != null ? address.Country.CountryName : string.Empty;
+                            TmpResult.LocalityName = address.Locality != null ? address.Locality.LocalityName : string.Empty;
+                            TmpResult.ProductContactUrl = UrlBuilder.GetProductContactUrl(Result.ProductId,store?.StoreName,true);
+                            Location = Result.GetLocation();
+                        }
+                        else
+                        {
+                            MapCode = Result.GetFullAddress();
+                        }
+                    }
+                    else
+                    {
+                        MapCode = Result.GetFullAddress();
+                    }
+
+                    if (!string.IsNullOrEmpty(MapCode))
+                    {
+                        TmpResult.MapCode = string.Format("https://maps.google.com/maps?q={0}", MapCode);
+                    }
+                    TmpResult.ProductDescription = Result.ProductDescription;
+
+                    TmpResult.Location = Location;
+                    ProcessStatus.Result = TmpResult;
                     ProcessStatus.ActiveResultRowCount = 1;
                     ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
                     ProcessStatus.Message.Header = "Product Operations";
@@ -202,47 +257,42 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = _productService.GetSPMostViewProductsByCategoryId(categoryId);
-
-                if (allDetails)
+                var result = _productService.GetSPMostViewProductsByCategoryId(categoryId);
+                ProcessStatus.TotolRowCount = result.Count();
+                if (!allDetails)
                 {
-                    ProcessStatus.Result = Result;
-                }
-                else
-                {
-                    List<View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
-                                          new View.Result.ProductSearchResult
-                                          {
-                                              ProductId = Snc.ProductId,
-                                              CurrencyCodeName = "tr-TR",
-                                              ProductName = Snc.ProductName,
-                                              BrandName = Snc.BrandName,
-                                              ModelName = Snc.ModelName,
-                                              MainPicture = Snc.MainPicture,
-                                              StoreName = Snc.StoreName,
-                                              ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
-                                              ProductPriceType = (byte)Snc.ProductPriceType,
-                                              ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
-                                              ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
-                                          }
-                                      ).ToList();
-
-                    foreach (var item in TmpResult)
+                    if (ProcessStatus.TotolRowCount < pageSize)
                     {
-                        item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" +  ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
+                        pageNo = 0;
                     }
-
-                    ProcessStatus.Result = TmpResult;
+                    result = result.Skip(pageSize * pageNo).Take(pageSize).ToList();
                 }
 
-                ProcessStatus.TotolRowCount = Result.Count();
-                if (ProcessStatus.TotolRowCount < pageSize)
+                List<View.Result.ProductSearchResult> TmpResult = result.Select(Snc =>
+                                      new View.Result.ProductSearchResult
+                                      {
+                                          ProductId = Snc.ProductId,
+                                          CurrencyCodeName = "tr-TR",
+                                          ProductName = Snc.ProductName,
+                                          BrandName = Snc.BrandName,
+                                          ModelName = Snc.ModelName,
+                                          MainPicture = Snc.MainPicture,
+                                          StoreName = Snc.StoreName,
+                                          ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
+                                          ProductPriceType = (byte)Snc.ProductPriceType,
+                                          ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
+                                          ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
+                                      }
+                                  ).ToList();
+
+
+                foreach (var item in TmpResult)
                 {
-                    pageNo = 0;
+                    item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
                 }
-                ProcessStatus.Result = Result.Skip(pageSize * pageNo).Take(pageSize).ToList();
 
-                ProcessStatus.ActiveResultRowCount = Result.Count();
+                ProcessStatus.Result = TmpResult;
+                ProcessStatus.ActiveResultRowCount = TmpResult.Count();
                 ProcessStatus.Message.Header = "Product İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
                 ProcessStatus.Status = true;
@@ -582,6 +632,53 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Message.Text = "Başarısız";
                     processStatus.Status = false;
                 }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "GetAllProductComplaintType";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+        
+        public HttpResponseMessage NewAddProducts()
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                List<View.Result.ProductSearchResult> TmpResult = new List<View.Result.ProductSearchResult>();
+
+                IProductService _productService = EngineContext.Current.Resolve<IProductService>();
+                ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
+                var popularProducts = _productService.GetSPNewProducts();
+                List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
+                var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();
+                foreach (var Snc in popularProducts)
+                {
+                    var Result = _productService.GetProductByProductId(Snc.ProductId);
+                    var tmp = new View.Result.ProductSearchResult
+                    {
+                        ProductId = Result.ProductId,
+                        CurrencyCodeName = "tr-TR",
+                        ProductName = Result.ProductName,
+                        BrandName = Result.Brand.CategoryName,
+                        ModelName = Result.Model.CategoryName,
+                        MainPicture = "",
+                        StoreName = "",
+                        MainPartyId = (int)Result.MainPartyId,
+                        ProductPrice = (Result.ProductPrice ?? 0),
+                        ProductPriceType = (byte)Result.ProductPriceType,
+                        ProductPriceLast = (Result.ProductPriceLast ?? 0),
+                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0)
+                    };
+                }
+                processStatus.Result = TmpResult;
+                processStatus.Message.Header = "NewAddProducts";
+                processStatus.Message.Text = "Başarılı";
+                processStatus.Status = true;
             }
             catch (Exception ex)
             {

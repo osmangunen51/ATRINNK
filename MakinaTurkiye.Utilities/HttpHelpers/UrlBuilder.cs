@@ -23,11 +23,14 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
            StoreNews
         }
 
-        private static string GetHost(HostNameType hostNameType)
+        private static string GetHost(HostNameType hostNameType,bool ForceGlobalRequest=false)
         {
-            if (config.ApplicationTestModeEnabled || IsRequestLocal)
+            if (!ForceGlobalRequest)
             {
-                return IsRequestLocal ? string.Empty : "http://www.makinaturkiye.com";
+                if (config.ApplicationTestModeEnabled || IsRequestLocal)
+                {
+                    return IsRequestLocal ? string.Empty : "http://www.makinaturkiye.com";
+                }
             }
 
             switch (hostNameType)
@@ -204,9 +207,9 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
         }
 
 
-        public static string GetProductContactUrl(int productId,string storeName)
+        public static string GetProductContactUrl(int productId,string storeName,bool GetProductContactUrl=false)
         {
-            string url=  GetHost(HostNameType.Default) + "/Product/ProductContact?productId=" + productId + "&storeName=" + ToUrl(storeName);
+            string url=  GetHost(HostNameType.Default, GetProductContactUrl) + "/Product/ProductContact?productId=" + productId + "&storeName=" + ToUrl(storeName);
             return url;
         }
 

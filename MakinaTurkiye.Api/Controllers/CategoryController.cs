@@ -121,8 +121,13 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = _categoryService.GetMainCategories();
                 foreach (var item in Result)
                 {
-                    item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
+                    if (!item.CategoryIcon.Contains("https:"))
+                    {
+                        item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
+                    }
+                    
                 }
+
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
                 ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
