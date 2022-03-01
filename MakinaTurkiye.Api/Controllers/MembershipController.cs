@@ -66,24 +66,34 @@ namespace MakinaTurkiye.Api.Controllers
             {
                 if (Model.IsContractChecked)
                 {
-                    string activCode = Guid.NewGuid().ToString("N").ToUpper().Substring(0, 6);
-                    var anyUser = _memberService.GetMemberByMemberEmail(Model.MemberEmail);
-                    if (anyUser == null)
+                    if (Model.MemberEmail.IsValidEmail())
                     {
-                        InsertMember(Model);
+                        string activCode = Guid.NewGuid().ToString("N").ToUpper().Substring(0, 6);
+                        var anyUser = _memberService.GetMemberByMemberEmail(Model.MemberEmail);
+                        if (anyUser == null)
+                        {
+                            InsertMember(Model);
 
-                        processStatus.Message.Header = "Fast Membership";
-                        processStatus.Message.Text = "Başarılı";
-                        processStatus.Status = true;
-                        processStatus.Result = "Email adresinize gönderilen Üyelik Aktivasyon maili ile lütfen hesabınızı onaylayın";
+                            processStatus.Message.Header = "Fast Membership";
+                            processStatus.Message.Text = "Başarılı";
+                            processStatus.Status = true;
+                            processStatus.Result = "Email adresinize gönderilen Üyelik Aktivasyon maili ile lütfen hesabınızı onaylayın";
+                        }
+                        else
+                        {
+                            processStatus.Message.Header = "Fast Membership";
+                            processStatus.Message.Text = "Başarısız";
+                            processStatus.Status = false;
+                            processStatus.Result = "Belirtmiş olduğunuz e-posta adresi kullanılmaktadır!";
+                        }
                     }
                     else
                     {
                         processStatus.Message.Header = "Fast Membership";
                         processStatus.Message.Text = "Başarısız";
                         processStatus.Status = false;
-                        processStatus.Result = "Belirtmiş olduğunuz e-posta adresi kullanılmaktadır!";
-                    }
+                        processStatus.Result = "Geçersiz mail adresi.";
+                    }                    
                 }
                 else
                 {
