@@ -133,7 +133,7 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         if (!item.HomeImagePath.Contains("https://") && !item.HomeImagePath.Contains("http://"))
                         {
-                            item.HomeImagePath = !string.IsNullOrEmpty(item.HomeImagePath) ? "https:" + ImageHelper.GetBannerImagePath(item.HomeImagePath) : null;
+                            item.HomeImagePath = !string.IsNullOrEmpty(item.HomeImagePath) ? "https:" + ImageHelper.GetHomeSectorImagePath(item.HomeImagePath) : null;
                         }
                     }
                     
