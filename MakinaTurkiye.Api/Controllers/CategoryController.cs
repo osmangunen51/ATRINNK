@@ -121,10 +121,22 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = _categoryService.GetMainCategories();
                 foreach (var item in Result)
                 {
-                    if (!item.CategoryIcon.Contains("https://") | !item.CategoryIcon.Contains("http://"))
+                    if (item.CategoryIcon != null)
                     {
-                        item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
+                        if (!item.CategoryIcon.Contains("https://") && !item.CategoryIcon.Contains("http://"))
+                        {
+                            item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
+                        }
                     }
+
+                    if (item.HomeImagePath != null)
+                    {
+                        if (!item.HomeImagePath.Contains("https://") && !item.HomeImagePath.Contains("http://"))
+                        {
+                            item.HomeImagePath = !string.IsNullOrEmpty(item.HomeImagePath) ? "https:" + ImageHelper.GetBannerImagePath(item.HomeImagePath) : null;
+                        }
+                    }
+                    
                 }
 
                 ProcessStatus.Result = Result;

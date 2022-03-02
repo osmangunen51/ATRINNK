@@ -204,7 +204,7 @@ namespace MakinaTurkiye.Api.Controllers
         //public HttpResponseMessage ForgettedPassowrd(MemberEmailPassword model, string passwordCode)
 
         [System.Web.Http.HttpGet]
-        public HttpResponseMessage ForgettedPassowrd(string userEmail)
+        public HttpResponseMessage ForgotPassword(string userEmail)
         {
             ProcessResult processStatus = new ProcessResult();
 

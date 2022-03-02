@@ -664,8 +664,8 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductId = Result.ProductId,
                         CurrencyCodeName = "tr-TR",
                         ProductName = Result.ProductName,
-                        BrandName = Result.Brand.CategoryName,
-                        ModelName = Result.Model.CategoryName,
+                        BrandName = (Result.Brand==null?"":Result.Brand.CategoryName),
+                        ModelName = (Result.Model == null ? "" : Result.Model.CategoryName),
                         MainPicture = "",
                         StoreName = "",
                         MainPartyId = (int)Result.MainPartyId,
@@ -674,6 +674,18 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductPriceLast = (Result.ProductPriceLast ?? 0),
                         ProductPriceBegin = (Result.ProductPriceBegin ?? 0)
                     };
+                    TmpResult.Add(tmp);
+                }
+                foreach (var item in TmpResult)
+                {
+                    string picturePath = "";
+                    var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
+                    if (picture != null)
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                    var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
+                    var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                    item.MainPicture = picturePath;
+                    item.StoreName = store.StoreName;
                 }
                 processStatus.Result = TmpResult;
                 processStatus.Message.Header = "NewAddProducts";
