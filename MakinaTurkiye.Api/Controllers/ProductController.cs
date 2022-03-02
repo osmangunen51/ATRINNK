@@ -652,7 +652,10 @@ namespace MakinaTurkiye.Api.Controllers
                 List<View.Result.ProductSearchResult> TmpResult = new List<View.Result.ProductSearchResult>();
 
                 IProductService _productService = EngineContext.Current.Resolve<IProductService>();
+                ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
                 var popularProducts = _productService.GetSPNewProducts();
+                List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
+                var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();
                 foreach (var Snc in popularProducts)
                 {
                     var Result = _productService.GetProductByProductId(Snc.ProductId);
@@ -661,7 +664,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductId = Result.ProductId,
                         CurrencyCodeName = "tr-TR",
                         ProductName = Result.ProductName,
-                        BrandName = (Result.Brand==null?"": Result.Brand.CategoryName),
+                        BrandName = (Result.Brand==null?"":Result.Brand.CategoryName),
                         ModelName = (Result.Model == null ? "" : Result.Model.CategoryName),
                         MainPicture = "",
                         StoreName = "",
@@ -669,7 +672,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductPrice = (Result.ProductPrice ?? 0),
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast ?? 0),
-                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0),
+                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0)
                     };
                     TmpResult.Add(tmp);
                 }
@@ -684,7 +687,6 @@ namespace MakinaTurkiye.Api.Controllers
                     item.MainPicture = picturePath;
                     item.StoreName = store.StoreName;
                 }
-
                 processStatus.Result = TmpResult;
                 processStatus.Message.Header = "NewAddProducts";
                 processStatus.Message.Text = "Başarılı";

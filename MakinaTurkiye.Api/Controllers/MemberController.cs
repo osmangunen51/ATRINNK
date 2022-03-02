@@ -166,6 +166,10 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult processStatus = new ProcessResult();
             try
             {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+
                 var results = _memberService.GetMembersByMainPartyId(MainPartyId);
                 var memberInfoList = new List<MemberInfo>();
                 foreach (var result in results)
@@ -259,22 +263,6 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Message.Header = "Kullanıcı İşlemleri";
                 processStatus.Message.Text = "Başarılı";
                 processStatus.Status = true;
-
-                //var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
-
-                //var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
-
-                //if (member != null)
-                //{
-
-                //}
-                //else
-                //{
-                //    processStatus.Message.Header = "Kullanıcı İşlemleri";
-                //    processStatus.Message.Text = "Başarısız";
-                //    processStatus.Status = false;
-                //    processStatus.Result = "Login kullanıcı bulunamadı";
-                //}
             }
             catch (Exception Error)
             {

@@ -179,21 +179,7 @@ namespace MakinaTurkiye.Payment
             return long.TryParse(theValue, System.Globalization.NumberStyles.Integer, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
         }
 
-        public static bool IsValidTelefon(this string theValue)
-        {
-            return Regex.Match(theValue, @"^(\+[0-9]{9})$").Success;
-        }
-
-        public static string TrkToEng(this string theValue)
-        {
-            string Sonuc = String.Join("", theValue.Normalize(NormalizationForm.FormD).Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark));
-            return Sonuc;
-        }
-        public static string GetUniqKey(this string value)
-        {
-            string Sonuc = Guid.NewGuid().ToString();
-            return Sonuc;
-        }
+        
 
         public static string GetHiddenText(this string valuetxt,int KarakterSayisi,bool Sag=false)
         {
@@ -277,6 +263,37 @@ namespace MakinaTurkiye.Payment
             return match.Success;
         }
 
+        public static bool IsValidTelefon(this string theValue)
+        {
+            return Regex.Match(theValue, @"^(\+[0-9]{9})$").Success;
+        }
+
+        public static string TrkToEng(this string theValue)
+        {
+            string Sonuc = String.Join("", theValue.Normalize(NormalizationForm.FormD).Where(c => char.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark));
+            return Sonuc;
+        }
+        public static string GetUniqKey(this string value)
+        {
+            string Sonuc = Guid.NewGuid().ToString();
+            return Sonuc;
+        }
+
+
+        public static bool IsValidEmail(this string value)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(value);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+
         public static bool ValidCardNumber(this string value)
         {
             string cardNumber = value.Replace("-", "").Replace(" ", "");
@@ -357,18 +374,7 @@ namespace MakinaTurkiye.Payment
             }
         }
 
-        public static bool IsValidEmail(this string value)
-        {
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(value);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
+        
 
         private static Random random = new Random();
 
