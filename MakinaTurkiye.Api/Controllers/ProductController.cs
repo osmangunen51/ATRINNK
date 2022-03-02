@@ -652,10 +652,7 @@ namespace MakinaTurkiye.Api.Controllers
                 List<View.Result.ProductSearchResult> TmpResult = new List<View.Result.ProductSearchResult>();
 
                 IProductService _productService = EngineContext.Current.Resolve<IProductService>();
-                ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
                 var popularProducts = _productService.GetSPNewProducts();
-                List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
-                var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();
                 foreach (var Snc in popularProducts)
                 {
                     var Result = _productService.GetProductByProductId(Snc.ProductId);
@@ -664,17 +661,30 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductId = Result.ProductId,
                         CurrencyCodeName = "tr-TR",
                         ProductName = Result.ProductName,
-                        BrandName = Result.Brand.CategoryName,
-                        ModelName = Result.Model.CategoryName,
+                        BrandName = (Result.Brand==null?"": Result.Brand.CategoryName),
+                        ModelName = (Result.Model == null ? "" : Result.Model.CategoryName),
                         MainPicture = "",
                         StoreName = "",
                         MainPartyId = (int)Result.MainPartyId,
                         ProductPrice = (Result.ProductPrice ?? 0),
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast ?? 0),
-                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0)
+                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0),
                     };
+                    TmpResult.Add(tmp);
                 }
+                foreach (var item in TmpResult)
+                {
+                    string picturePath = "";
+                    var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
+                    if (picture != null)
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                    var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
+                    var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                    item.MainPicture = picturePath;
+                    item.StoreName = store.StoreName;
+                }
+
                 processStatus.Result = TmpResult;
                 processStatus.Message.Header = "NewAddProducts";
                 processStatus.Message.Text = "Başarılı";
