@@ -46,9 +46,6 @@ namespace MakinaTurkiye.Api.View.Result
         public decimal ProductPriceLast { get; set; } = 0;
         public decimal ProductPriceBegin { get; set; } = 0;
         public string ProductDescription { get; set; } = "";
-
-        
-
-
     }
 }
+

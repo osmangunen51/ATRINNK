@@ -252,23 +252,26 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50)
+        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50,string SearchText="", string ordertype= "a-z")
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var result = _productService.GetSPMostViewProductsByCategoryId(categoryId);
-                ProcessStatus.TotolRowCount = result.Count();
-                if (!allDetails)
+                int searchTypeId = 0;
+                int orderById = 0;
+                switch (ordertype)
                 {
-                    if (ProcessStatus.TotolRowCount < pageSize)
-                    {
-                        pageNo = 0;
-                    }
-                    result = result.Skip(pageSize * pageNo).Take(pageSize).ToList();
+                    case "a-z": orderById = 2; break;
+                    case "z-a": orderById = 3; break;
+                    case "soneklenen": orderById = 4; break;
+                    case "fiyat-artan": orderById = 6; break;
+                    default: orderById = 0; break;
                 }
 
-                List<View.Result.ProductSearchResult> TmpResult = result.Select(Snc =>
+                CategoryProductsResult result = _productService.GetCategoryProducts(categoryId, 0, 0, 0, searchTypeId, 0, 0, 0, 0, orderById, pageNo, pageSize, SearchText);
+                ProcessStatus.TotolRowCount = result.Products.Count();
+
+                List<View.Result.ProductSearchResult> TmpResult = result.Products.Select(Snc =>
                                       new View.Result.ProductSearchResult
                                       {
                                           ProductId = Snc.ProductId,
@@ -290,6 +293,7 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
                 }
+               
 
                 ProcessStatus.Result = TmpResult;
                 ProcessStatus.ActiveResultRowCount = TmpResult.Count();
