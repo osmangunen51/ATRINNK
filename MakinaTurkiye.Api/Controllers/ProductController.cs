@@ -267,7 +267,7 @@ namespace MakinaTurkiye.Api.Controllers
                     }
                     result = result.Skip(pageSize * pageNo).Take(pageSize).ToList();
                 }
-
+                 
                 List<View.Result.ProductSearchResult> TmpResult = result.Select(Snc =>
                                       new View.Result.ProductSearchResult
                                       {

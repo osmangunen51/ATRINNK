@@ -4,9 +4,12 @@ using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Media;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
+using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.HttpHelpers;
+using MakinaTurkiye.Utilities.ImageHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +27,9 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IProductService _productService;
         private readonly IMobileMessageService _mobileMessageService;
         private readonly IMessagesMTService _messagesMTService;
+        private readonly IPictureService _pictureService;
+        private readonly IMemberStoreService _memberStoreService;
+        private readonly IStoreService _storeService;
 
         public MessageController()
         {
@@ -33,6 +39,10 @@ namespace MakinaTurkiye.Api.Controllers
             _productService = EngineContext.Current.Resolve<IProductService>();
             _mobileMessageService = EngineContext.Current.Resolve<IMobileMessageService>();
             _messagesMTService = EngineContext.Current.Resolve<IMessagesMTService>();
+            _pictureService = EngineContext.Current.Resolve<IPictureService>();
+            _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
+            _storeService = EngineContext.Current.Resolve<IStoreService>();
+
         }
 
         //public MessageController(IMemberService memberService,
@@ -332,6 +342,31 @@ namespace MakinaTurkiye.Api.Controllers
                         var senderUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.InOutMainPartyId);
                         var targetUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.MainPartyId);
 
+                        var tmpproductresult = _productService.GetProductByProductId(messageData.ProductId);
+                        View.Result.ProductSearchResult ProductSearchResult = new View.Result.ProductSearchResult
+                        {
+                            ProductId = tmpproductresult.ProductId,
+                            CurrencyCodeName = "tr-TR",
+                            ProductName = tmpproductresult.ProductName,
+                            BrandName = tmpproductresult.Brand.CategoryName,
+                            ModelName = tmpproductresult.Model.CategoryName,
+                            MainPicture = "",
+                            StoreName = "",
+                            MainPartyId = (int)tmpproductresult.MainPartyId,
+                            ProductPrice = (tmpproductresult.ProductPrice ?? 0),
+                            ProductPriceType = (byte)tmpproductresult.ProductPriceType,
+                            ProductPriceLast = (tmpproductresult.ProductPriceLast ?? 0),
+                            ProductPriceBegin = (tmpproductresult.ProductPriceBegin ?? 0)
+                        };
+
+                        string picturePath = "";
+                        var picture = _pictureService.GetFirstPictureByProductId(ProductSearchResult.ProductId);
+                        if (picture != null)
+                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(ProductSearchResult.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                        var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(ProductSearchResult.MainPartyId);
+                        var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                        ProductSearchResult.MainPicture = picturePath;
+                        ProductSearchResult.StoreName = store.StoreName;
                         var privateMessage = new
                         {
                             TargetMainPartyId = targetUser.MainPartyId,
@@ -345,9 +380,10 @@ namespace MakinaTurkiye.Api.Controllers
                             MessageRead = messageData.MessageRead,
                             MessageSeenAdmin = messageData.MessageSeenAdmin,
                             MessageSubject = messageData.MessageSubject,
-                            ProductId = messageData.ProductId
+                            ProductId = messageData.ProductId,
+                            MessageContent = messageData.MessageContent,
+                            Product = ProductSearchResult
                         };
-
                         privateMessageViewList.Add(privateMessage);
                     }
 

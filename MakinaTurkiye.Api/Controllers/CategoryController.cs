@@ -3,6 +3,7 @@ using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using System;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 
@@ -118,7 +119,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = _categoryService.GetMainCategories();
+                var Result = _categoryService.GetMainCategories().Where(x => x.HomeImagePath != null);
                 foreach (var item in Result)
                 {
                     if (item.CategoryIcon != null)
@@ -140,7 +141,7 @@ namespace MakinaTurkiye.Api.Controllers
                 }
 
                 ProcessStatus.Result = Result;
-                ProcessStatus.ActiveResultRowCount = Result.Count;
+                ProcessStatus.ActiveResultRowCount = Result.Count();
                 ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
                 ProcessStatus.Message.Header = "Category İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
@@ -163,7 +164,25 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var Result = _categoryService.GetCategoriesByCategoryParentId(parentId);
+                foreach (var item in Result)
+                {
+                    if (item.CategoryIcon != null)
+                    {
+                        if (!item.CategoryIcon.Contains("https://") && !item.CategoryIcon.Contains("http://"))
+                        {
+                            item.CategoryIcon = !string.IsNullOrEmpty(item.CategoryIcon) ? "https:" + ImageHelper.GetCategoryIconPath(item.CategoryIcon) : null;
+                        }
+                    }
 
+                    if (item.HomeImagePath != null)
+                    {
+                        if (!item.HomeImagePath.Contains("https://") && !item.HomeImagePath.Contains("http://"))
+                        {
+                            item.HomeImagePath = !string.IsNullOrEmpty(item.HomeImagePath) ? "https:" + ImageHelper.GetHomeSectorImagePath(item.HomeImagePath) : null;
+                        }
+                    }
+
+                }
                 ProcessStatus.Result = Result;
                 ProcessStatus.ActiveResultRowCount = Result.Count;
                 ProcessStatus.TotolRowCount = ProcessStatus.ActiveResultRowCount;
