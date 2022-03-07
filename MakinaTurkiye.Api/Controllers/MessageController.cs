@@ -326,11 +326,9 @@ namespace MakinaTurkiye.Api.Controllers
         public HttpResponseMessage GetAllInboxPrivateMessage()
         {
             ProcessResult processStatus = new ProcessResult();
-
             try
             {
                 var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
-
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
@@ -341,52 +339,53 @@ namespace MakinaTurkiye.Api.Controllers
                         var messageData = _messageService.GetMessageByMesssageId(messageMainPartyForLogginMamber.MessageId);
                         var senderUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.InOutMainPartyId);
                         var targetUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.MainPartyId);
-
                         var tmpproductresult = _productService.GetProductByProductId(messageData.ProductId);
-                        View.Result.ProductSearchResult ProductSearchResult = new View.Result.ProductSearchResult
+                        if (tmpproductresult!=null)
                         {
-                            ProductId = tmpproductresult.ProductId,
-                            CurrencyCodeName = "tr-TR",
-                            ProductName = tmpproductresult.ProductName,
-                            BrandName = tmpproductresult.Brand.CategoryName,
-                            ModelName = tmpproductresult.Model.CategoryName,
-                            MainPicture = "",
-                            StoreName = "",
-                            MainPartyId = (int)tmpproductresult.MainPartyId,
-                            ProductPrice = (tmpproductresult.ProductPrice ?? 0),
-                            ProductPriceType = (byte)tmpproductresult.ProductPriceType,
-                            ProductPriceLast = (tmpproductresult.ProductPriceLast ?? 0),
-                            ProductPriceBegin = (tmpproductresult.ProductPriceBegin ?? 0)
-                        };
+                            View.Result.ProductSearchResult ProductSearchResult = new View.Result.ProductSearchResult
+                            {
+                                ProductId = tmpproductresult.ProductId,
+                                CurrencyCodeName = "tr-TR",
+                                ProductName = tmpproductresult.ProductName,
+                                BrandName = tmpproductresult.Brand.CategoryName,
+                                ModelName = tmpproductresult.Model.CategoryName,
+                                MainPicture = "",
+                                StoreName = "",
+                                MainPartyId = (int)tmpproductresult.MainPartyId,
+                                ProductPrice = (tmpproductresult.ProductPrice ?? 0),
+                                ProductPriceType = (byte)tmpproductresult.ProductPriceType,
+                                ProductPriceLast = (tmpproductresult.ProductPriceLast ?? 0),
+                                ProductPriceBegin = (tmpproductresult.ProductPriceBegin ?? 0)
+                            };
+                            string picturePath = "";
+                            var picture = _pictureService.GetFirstPictureByProductId(ProductSearchResult.ProductId);
+                            if (picture != null)
+                                picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(ProductSearchResult.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(ProductSearchResult.MainPartyId);
+                            var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                            ProductSearchResult.MainPicture = picturePath;
+                            ProductSearchResult.StoreName = store.StoreName;
+                            var privateMessage = new
+                            {
+                                TargetMainPartyId = targetUser.MainPartyId,
+                                TargetNameSurname = targetUser.MemberName + " " + targetUser.MemberSurname,
+                                SenderMainPartyId = senderUser.MainPartyId,
+                                SenderNameSurname = senderUser.MemberName + " " + senderUser.MemberSurname,
+                                MessageId = messageMainPartyForLogginMamber.MessageId,
+                                MessageType = messageMainPartyForLogginMamber.MessageType,
+                                MessageDate = messageData.MessageDate,
+                                MessageFile = messageData.MessageFile,
+                                MessageRead = messageData.MessageRead,
+                                MessageSeenAdmin = messageData.MessageSeenAdmin,
+                                MessageSubject = messageData.MessageSubject,
+                                ProductId = messageData.ProductId,
+                                MessageContent = messageData.MessageContent,
+                                Product = ProductSearchResult
+                            };
+                            privateMessageViewList.Add(privateMessage);
 
-                        string picturePath = "";
-                        var picture = _pictureService.GetFirstPictureByProductId(ProductSearchResult.ProductId);
-                        if (picture != null)
-                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(ProductSearchResult.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
-                        var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(ProductSearchResult.MainPartyId);
-                        var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                        ProductSearchResult.MainPicture = picturePath;
-                        ProductSearchResult.StoreName = store.StoreName;
-                        var privateMessage = new
-                        {
-                            TargetMainPartyId = targetUser.MainPartyId,
-                            TargetNameSurname = targetUser.MemberName + " " + targetUser.MemberSurname,
-                            SenderMainPartyId = senderUser.MainPartyId,
-                            SenderNameSurname = senderUser.MemberName + " " + senderUser.MemberSurname,
-                            MessageId = messageMainPartyForLogginMamber.MessageId,
-                            MessageType = messageMainPartyForLogginMamber.MessageType,
-                            MessageDate = messageData.MessageDate,
-                            MessageFile = messageData.MessageFile,
-                            MessageRead = messageData.MessageRead,
-                            MessageSeenAdmin = messageData.MessageSeenAdmin,
-                            MessageSubject = messageData.MessageSubject,
-                            ProductId = messageData.ProductId,
-                            MessageContent = messageData.MessageContent,
-                            Product = ProductSearchResult
-                        };
-                        privateMessageViewList.Add(privateMessage);
+                        }                        
                     }
-
                     processStatus.Result = privateMessageViewList;
                     processStatus.TotolRowCount = privateMessageViewList.Count;
                     processStatus.Message.Header = "Inbox Private Message";

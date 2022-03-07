@@ -1,4 +1,6 @@
-﻿namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
+﻿using System;
+
+namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
 {
     public class MostViewProductResult
     {
@@ -13,6 +15,9 @@
         public byte? ProductPriceType { get; set; }
         public decimal ?ProductPriceLast{get;set;}
         public decimal ?ProductPriceBegin { get; set; }
-        
+
+        public DateTime ProductRecodrtDate { get; set; } = default;
+        public int ViewCount { get; set; } = default;
+
     }
 }

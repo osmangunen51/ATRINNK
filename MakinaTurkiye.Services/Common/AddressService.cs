@@ -18,6 +18,7 @@ namespace MakinaTurkiye.Services.Common
 
         private const string LOCALITIES_BY_CITY_ID_KEY = "makinaturkiye.locality.bycityId-{0}";
         private const string CITIES_BY_COUNTRY_ID_KEY = "makinaturkiye.city.bycountryId-{0}";
+        private const string DISTRICTS_BY_CITY_ID_KEY = "makinaturkiye.district.bycityId-{0}";
         private const string DISTRICTS_BY_LOCALITY_ID_KEY = "makinaturkiye.district.bylocalityId-{0}";
         private const string TOWNS_BY_LOCALITY_ID_KEY = "makinaturkiye.town.bylocalityId-{0}";
         private const string ADDRESSES_BY_STORE_DEALER_ID_KEY = "makinaturkiye.address.bystoredealerid-{0}";
@@ -331,7 +332,23 @@ namespace MakinaTurkiye.Services.Common
 
             });
         }
+        public IList<District> GetDistrictsByCityId(int cityId)
+        {
+            if (cityId <= 0)
+                return new List<District>();
 
+
+            string key = string.Format(DISTRICTS_BY_LOCALITY_ID_KEY, cityId);
+            return _cacheManager.Get(key, () =>
+            {
+
+                var query = _districtRepository.Table;
+                query = query.Where(d => d.CityId == cityId);
+                var districts = query.ToList();
+                return districts;
+
+            });
+        }
 
         public IList<District> GetDistrictsByLocalityId(int localityId)
         {

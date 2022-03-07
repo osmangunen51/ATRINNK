@@ -24,6 +24,7 @@ namespace MakinaTurkiye.Services.Common
         City GetCityByCityId(int cityId);
 
         IList<District> GetDistrictsByLocalityId(int localityId);
+        IList<District> GetDistrictsByCityId(int localityId);
 
         District GetDistrictByDistrictId(int districtId);
 

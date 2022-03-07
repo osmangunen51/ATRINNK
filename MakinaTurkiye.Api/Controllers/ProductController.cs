@@ -96,6 +96,34 @@ namespace MakinaTurkiye.Api.Controllers
 
                     };
 
+                    var Product = _productService.GetProductByProductId(TmpResult.ProductId);
+                    if (Product != null)
+                    {
+                        TmpResult.DatePublished = default;
+
+                        if (Product.ProductRecordDate.HasValue)
+                        {
+                            TmpResult.DatePublished = Product.ProductRecordDate.Value;
+                        }
+                    }
+                    var Store = _storeService.GetStoreByMainPartyId(TmpResult.StoreMainPartyId);
+                    if (Store != null)
+                    {
+                        TmpResult.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                        var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
+                        var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
+                        if (StorePhone != null)
+                        {
+                            TmpResult.StorePhone = StorePhone.PhoneNumber;
+                            TmpResult.StoreBussinesPhone = StorePhone.PhoneNumber;
+                        }
+                        var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
+                        if (StoreGsm != null)
+                        {
+                            TmpResult.StoreGsm = StoreGsm.PhoneNumber;
+                        }
+                    }
+
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
                     if (picture != null) picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
@@ -219,11 +247,37 @@ namespace MakinaTurkiye.Api.Controllers
                             if (picture != null)
                                 picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
-                            var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                             item.MainPicture = picturePath;
-                            item.StoreName = store.StoreName;
-                        }
+                            var Product = _productService.GetProductByProductId(item.ProductId);
+                            if (Product != null)
+                            {
+                                item.DatePublished = default;
 
+                                if (Product.ProductRecordDate.HasValue)
+                                {
+                                    item.DatePublished = Product.ProductRecordDate.Value;
+                                }
+                            }
+                            var Store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                            if (Store != null)
+                            {
+                                item.StoreName = Store.StoreName;
+
+                                item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                                var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
+                                var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
+                                if (StorePhone != null)
+                                {
+                                    item.StorePhone = StorePhone.PhoneNumber;
+                                    item.StoreBussinesPhone = StorePhone.PhoneNumber;
+                                }
+                                var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
+                                if (StoreGsm != null)
+                                {
+                                    item.StoreGsm = StoreGsm.PhoneNumber;
+                                }
+                            }
+                        }
                         ProcessStatus.Result = TmpResult;
                     }
 
@@ -252,25 +306,29 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50)
+        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50,string SearchText="", string ordertype= "a-z")
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var result = _productService.GetSPMostViewProductsByCategoryId(categoryId);
-                ProcessStatus.TotolRowCount = result.Count();
-                if (!allDetails)
+                int searchTypeId = 0;
+                int orderById = 0;
+                switch (ordertype)
                 {
-                    if (ProcessStatus.TotolRowCount < pageSize)
-                    {
-                        pageNo = 0;
-                    }
-                    result = result.Skip(pageSize * pageNo).Take(pageSize).ToList();
+                    case "a-z": orderById = 2; break;
+                    case "z-a": orderById = 3; break;
+                    case "soneklenen": orderById = 4; break;
+                    case "fiyat-artan": orderById = 6; break;
+                    default: orderById = 0; break;
                 }
-                 
-                List<View.Result.ProductSearchResult> TmpResult = result.Select(Snc =>
+
+                CategoryProductsResult result = _productService.GetCategoryProducts(categoryId, 0, 0, 0, searchTypeId, 0, 0, 0, 0, orderById, pageNo, pageSize, SearchText);
+                ProcessStatus.TotolRowCount = result.Products.Count();
+
+                List<View.Result.ProductSearchResult> TmpResult = result.Products.Select(Snc =>
                                       new View.Result.ProductSearchResult
                                       {
+                                          StoreMainPartyId=Snc.StoreMainPartyId.Value,
                                           ProductId = Snc.ProductId,
                                           CurrencyCodeName = "tr-TR",
                                           ProductName = Snc.ProductName,
@@ -281,18 +339,45 @@ namespace MakinaTurkiye.Api.Controllers
                                           ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
                                           ProductPriceType = (byte)Snc.ProductPriceType,
                                           ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
-                                          ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
+                                          ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0),
                                       }
                                   ).ToList();
 
 
                 foreach (var item in TmpResult)
                 {
+                    var Product= _productService.GetProductByProductId(item.ProductId);
+                    if (Product!=null)
+                    {
+                        item.DatePublished = default;
+
+                        if (Product.ProductRecordDate.HasValue)
+                        {
+                            item.DatePublished = Product.ProductRecordDate.Value;
+                        }
+                    }
+                    var Store = _storeService.GetStoreByMainPartyId(item.StoreMainPartyId);
+                    if (Store != null)
+                    {
+                        item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                        var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
+                        var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
+                        if (StorePhone != null) {
+                            item.StorePhone = StorePhone.PhoneNumber;
+                            item.StoreBussinesPhone = StorePhone.PhoneNumber;
+                        }
+                        var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
+                        if (StoreGsm != null)
+                        {
+                            item.StoreGsm = StoreGsm.PhoneNumber;
+                        }
+                    }
                     item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
                 }
-
                 ProcessStatus.Result = TmpResult;
                 ProcessStatus.ActiveResultRowCount = TmpResult.Count();
+                ProcessStatus.TotolRowCount = result.TotalCount;
+                ProcessStatus.TotolPageCount = result.TotalPages;
                 ProcessStatus.Message.Header = "Product İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
                 ProcessStatus.Status = true;

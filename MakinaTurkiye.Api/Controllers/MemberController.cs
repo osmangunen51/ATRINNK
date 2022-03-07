@@ -646,6 +646,88 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
+        public HttpResponseMessage ValidatePhoneNumber(string PhoneNumber)
+        {
+            View.ProcessResult processStatus = new View.ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null)
+                {
+                    //Telefon işlemleri
+                    var userPhones = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).ToList();
+                    var isCurrentGsmSame = userPhones.Where(x => x.PhoneType == (int)PhoneTypeEnum.Gsm &&
+                                                                    x.active == 1 &&
+                                                                    x.PhoneNumber == PhoneNumber
+                                                                    ).SingleOrDefault();
+                    if (userPhones.Count != 0)
+                    {
+                        foreach (var phone in userPhones)
+                            _phoneService.DeletePhone(phone);
+                    }
+
+                    var phoneList = new List<Phone>();
+                    SmsHelper sms = new SmsHelper();
+                    string activeCode = sms.CreateActiveCode();
+
+                    var phoneGsm = new Phone()
+                    {
+                        MainPartyId = member.MainPartyId,
+                        PhoneCulture = "",
+                        PhoneAreaCode = "",
+                        PhoneNumber = PhoneNumber,
+                        PhoneType = (int)PhoneTypeEnum.Gsm,
+                        active = isCurrentGsmSame?.active,
+                        ActivationCode = isCurrentGsmSame != null ? isCurrentGsmSame.ActivationCode : activeCode,
+                    };
+                    phoneList.Add(phoneGsm);
+
+                    var phonesWillAdd = phoneList.Where(x => (!string.IsNullOrEmpty(x.PhoneNumber))).ToList();
+
+                    var addedGsmNo = phonesWillAdd.Where(x => x.PhoneType == (int)PhoneTypeEnum.Gsm).SingleOrDefault();
+                    if (addedGsmNo != null && addedGsmNo.active != 1)
+                    {
+                        MobileMessage messageTmp = _mobileMessageService.GetMobileMessageByMessageName("telefononayi");
+                        string messageMobile = messageTmp.MessageContent.Replace("#isimsoyisim#", member.MemberName + " " + member.MemberSurname).Replace("#aktivasyonkodu#", activeCode);
+                        sms.SendPhoneMessage(phoneGsm.PhoneCulture + phoneGsm.PhoneAreaCode + phoneGsm.PhoneNumber, messageMobile);
+                        processStatus.Message.Header = "Kullanıcı Doğrulama işlemleri";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
+                        processStatus.Result = "Bilgileriniz başarıyla güncellenmiştir. Telefonunuza gelen Aktivasyon kodunu kullanarak aktif ediniz.";
+                    }
+                    else
+                    {
+                        processStatus.Message.Header = "Kullanıcı Doğrulama işlemleri";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
+                        processStatus.Result = "Bilgileriniz başarıyla güncellenmiştir.";
+                    }
+
+                    foreach (var phoneWillAdd in phonesWillAdd)
+                        _phoneService.InsertPhone(phoneWillAdd);
+                }
+                else
+                {
+                    processStatus.Message.Header = "Kullanıcı adres güncelleme işlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "Bilgilerinizi güncelleme işlemi başarısızdır";
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Status = false;
+                processStatus.Error = ex;
+                processStatus.Message.Header = "Kullanıcı Doğrulama işlemleri";
+                processStatus.Message.Text = string.Format("Hata Oluştu : {0}", ex.Message);
+            }
+
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+
+
         public HttpResponseMessage ActivatePhone(PhoneActivationModel model)
         {
             ProcessResult processStatus = new ProcessResult();

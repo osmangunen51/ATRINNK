@@ -18,6 +18,7 @@ namespace MakinaTurkiye.Api.View.Result
     public class ProductSearchResult
     {
         public int ProductId { get; set; } = 0;
+        public int StoreMainPartyId { get; set; } = 0;
         public string CurrencyCodeName { get; set; } = "";
         public decimal ProductPrice { get; set; } = 0;
         public string ProductName { get; set; } = "";
@@ -47,8 +48,11 @@ namespace MakinaTurkiye.Api.View.Result
         public decimal ProductPriceBegin { get; set; } = 0;
         public string ProductDescription { get; set; } = "";
 
-        
-
-
+        public string Storelogo { get; set; } = "";
+        public string StorePhone { get; set; } = "";
+        public string StoreGsm { get; set; } = "";
+        public string StoreBussinesPhone { get; set; } = "";
+        public DateTime DatePublished { get; set; }
     }
 }
+

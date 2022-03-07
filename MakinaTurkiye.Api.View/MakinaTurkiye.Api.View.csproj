@@ -65,7 +65,9 @@
     <Compile Include="Products\MTProductComplainModel.cs" />
     <Compile Include="Products\ProductComplainTypeView.cs" />
     <Compile Include="Result\ProductSearchResult.cs" />
+    <Compile Include="SearchAutoCompleteResult.cs" />
     <Compile Include="SearchInput.cs" />
+    <Compile Include="District.cs" />
     <Compile Include="Town.cs" />
     <Compile Include="UpdatePeronalInfoModel.cs" />
     <Compile Include="UpdatePersonalAddressInfo.cs" />
