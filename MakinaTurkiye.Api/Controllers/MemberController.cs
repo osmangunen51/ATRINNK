@@ -446,7 +446,8 @@ namespace MakinaTurkiye.Api.Controllers
                 var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
 
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
-                if (member != null && model.GenderWoman != model.GenderMan && member.MemberPassword == model.Password)
+                //if (member != null && model.GenderWoman != model.GenderMan && member.MemberPassword == model.Password)
+                if (member != null && model.GenderWoman != model.GenderMan)
                 {
                     member.MemberName = model.Name;
                     member.MemberSurname = model.Surname;
@@ -646,7 +647,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        public HttpResponseMessage ValidatePhoneNumber(string PhoneNumber)
+        public HttpResponseMessage ValidatePhoneNumber(string CountryCode,string AreaCode, string PhoneNumber)
         {
             View.ProcessResult processStatus = new View.ProcessResult();
             try
@@ -655,10 +656,13 @@ namespace MakinaTurkiye.Api.Controllers
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
+
                     //Telefon işlemleri
                     var userPhones = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).ToList();
                     var isCurrentGsmSame = userPhones.Where(x => x.PhoneType == (int)PhoneTypeEnum.Gsm &&
                                                                     x.active == 1 &&
+                                                                    x.PhoneCulture == CountryCode &&
+                                                                    x.PhoneAreaCode == AreaCode &&
                                                                     x.PhoneNumber == PhoneNumber
                                                                     ).SingleOrDefault();
                     if (userPhones.Count != 0)
