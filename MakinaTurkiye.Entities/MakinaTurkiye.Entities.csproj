@@ -92,6 +92,7 @@
     <Compile Include="StoredProcedures\Stores\StoreChangeInfoResult.cs" />
     <Compile Include="StoredProcedures\Videos\ProductAndStoreDetailResult.cs" />
     <Compile Include="StoredProcedures\Videos\SiteMapVideoResult.cs" />
+    <Compile Include="Tables\Newsletter\Newsletter.cs" />
     <Compile Include="Tables\Catalog\CertificateType.cs" />
     <Compile Include="Tables\Catalog\CertificateTypeProduct.cs" />
     <Compile Include="Tables\Catalog\DeletedProductRedirect.cs" />

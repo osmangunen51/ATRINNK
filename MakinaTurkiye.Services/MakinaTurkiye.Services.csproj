@@ -175,6 +175,8 @@
     <Compile Include="Messages\IEmailSender.cs" />
     <Compile Include="Messages\IMessagesMTService.cs" />
     <Compile Include="Messages\MessagesMTService.cs" />
+    <Compile Include="Newsletter\INewsletterService.cs" />
+    <Compile Include="Newsletter\NewsletterService.cs" />
     <Compile Include="Seos\SeoIdNameEnum.cs" />
     <Compile Include="Settings\IMemberSettingService.cs" />
     <Compile Include="Settings\MemberSettingService.cs" />

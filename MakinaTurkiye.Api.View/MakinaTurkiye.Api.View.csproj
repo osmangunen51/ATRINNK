@@ -68,6 +68,7 @@
     <Compile Include="SearchAutoCompleteResult.cs" />
     <Compile Include="SearchInput.cs" />
     <Compile Include="District.cs" />
+    <Compile Include="Kvkk.cs" />
     <Compile Include="Town.cs" />
     <Compile Include="UpdatePeronalInfoModel.cs" />
     <Compile Include="UpdatePersonalAddressInfo.cs" />

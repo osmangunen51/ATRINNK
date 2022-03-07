@@ -4,6 +4,7 @@ using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Newsletters;
 using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Services.Stores;
 using System;
@@ -16,11 +17,11 @@ namespace MakinaTurkiye.Api.Controllers
 {
     public class NewsletterController : BaseApiController
     {
-        private readonly IAddressService _adressService;
+        private readonly INewsletterService newsletterService;
 
         public NewsletterController()
         {
-            _adressService = EngineContext.Current.Resolve<IAddressService>();
+            newsletterService = EngineContext.Current.Resolve<INewsletterService>();
         }
 
         public HttpResponseMessage Add(string email)
@@ -28,11 +29,41 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult processStatus = new ProcessResult();
             try
             {
-                processStatus.Message.Header = "Newsletter İşlemleri";
-                processStatus.Message.Text = "Yapılacak Daha Yapılmadı";
-                processStatus.Status = false;
-                processStatus.Result = "Yapılacak Daha Yapılmadı";
-                processStatus.Error = null;
+                var newsletter=newsletterService.GetNewsletterByNewsletterEmail(email);
+                if (newsletter == null)
+                {
+                    try
+                    {
+                        newsletterService.InsertNewsletter(new Entities.Tables.Newsletter.Newsletter()
+                        {
+                            Active = true,
+                            NewsletterDate = DateTime.Now,
+                            NewsletterEmail = email
+                        });
+                        processStatus.Message.Header = "Newsletter İşlemleri";
+                        processStatus.Message.Text = "kayıt edildi.";
+                        processStatus.Status = true;
+                        processStatus.Result = email;
+                        processStatus.Error = null;
+                    }
+                    catch (Exception e)
+                    {
+                        processStatus.Message.Header = "Newsletter İşlemleri";
+                        processStatus.Message.Text = "genel bir hata oluştu.";
+                        processStatus.Status = false;
+                        processStatus.Result = email;
+                        processStatus.Error = e;
+                    }
+                }
+                else
+                {
+                    processStatus.Message.Header = "Newsletter İşlemleri";
+                    processStatus.Message.Text = "zaten kayıtlı bir email adresi";
+                    processStatus.Status = false;
+                    processStatus.Result = newsletter.NewsletterEmail;
+                    processStatus.Error = null;
+                }
+                
             }
             catch (Exception ex)
             {

@@ -294,6 +294,7 @@
     <Compile Include="Code\CompressAttribute.cs" />
     <Compile Include="Code\ZamanlanmisGorevler\Gorevler\TmpGorev.cs" />
     <Compile Include="Code\ZamanlanmisGorevler\Zamanlayicilar\ZamanlayiciTmpGorev.cs" />
+    <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\LocalityController.cs" />
