@@ -59,7 +59,7 @@ namespace MakinaTurkiye.Api.Controllers
         //    this._storeService = storeService;
         //}
 
-        public HttpResponseMessage FastMembership([FromBody]UserRegister Model)
+        public HttpResponseMessage FastMembership([FromBody] UserRegister Model)
         {
             ProcessResult processStatus = new ProcessResult();
             try
@@ -93,7 +93,7 @@ namespace MakinaTurkiye.Api.Controllers
                         processStatus.Message.Text = "Başarısız";
                         processStatus.Status = false;
                         processStatus.Result = "Geçersiz mail adresi.";
-                    }                    
+                    }
                 }
                 else
                 {
@@ -260,7 +260,7 @@ namespace MakinaTurkiye.Api.Controllers
 
             try
             {
-              var loginMemberEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginMemberEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
 
                 _authenticationService.SignOut();
                 ProcessStatus.Status = true;
@@ -295,7 +295,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-    
+
         private void InsertMember(UserRegister model)
         {
             try

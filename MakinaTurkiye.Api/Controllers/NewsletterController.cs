@@ -1,15 +1,7 @@
-﻿using MakinaTurkiye.Api.Helpers;
-using MakinaTurkiye.Api.View;
+﻿using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Newsletters;
-using MakinaTurkiye.Services.Packets;
-using MakinaTurkiye.Services.Stores;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 
@@ -29,7 +21,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult processStatus = new ProcessResult();
             try
             {
-                var newsletter=newsletterService.GetNewsletterByNewsletterEmail(email);
+                var newsletter = newsletterService.GetNewsletterByNewsletterEmail(email);
                 if (newsletter == null)
                 {
                     try
@@ -63,7 +55,7 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Result = newsletter.NewsletterEmail;
                     processStatus.Error = null;
                 }
-                
+
             }
             catch (Exception ex)
             {

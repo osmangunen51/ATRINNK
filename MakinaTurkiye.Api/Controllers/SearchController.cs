@@ -1,12 +1,6 @@
-﻿using MakinaTurkiye.Api.Helpers;
-using MakinaTurkiye.Api.View;
+﻿using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Services.Search;
-using MakinaTurkiye.Services.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -223,7 +217,7 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Message.Header = "Search İşlemleri";
                 processStatus.Message.Text = "Başarılı";
                 processStatus.Status = true;
-                processStatus.Result = Sonuc.suggestions.Where(x=>!string.IsNullOrEmpty(x.Name));
+                processStatus.Result = Sonuc.suggestions.Where(x => !string.IsNullOrEmpty(x.Name));
                 processStatus.Error = null;
             }
             catch (Exception ex)
@@ -237,6 +231,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        
+
     }
 }

@@ -1,13 +1,7 @@
-﻿using MakinaTurkiye.Api.Helpers;
-using MakinaTurkiye.Api.View;
+﻿using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Packets;
-using MakinaTurkiye.Services.Stores;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -58,7 +52,7 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Message.Header = "Country İşlemleri";
                 processStatus.Message.Text = "Başarılı";
                 processStatus.Status = true;
-                processStatus.Result =_adressService.GetCountryByCountryId(CountryId)?.CultureCode;
+                processStatus.Result = _adressService.GetCountryByCountryId(CountryId)?.CultureCode;
                 processStatus.Error = null;
             }
             catch (Exception ex)

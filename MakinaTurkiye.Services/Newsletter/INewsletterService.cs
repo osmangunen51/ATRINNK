@@ -7,6 +7,6 @@ namespace MakinaTurkiye.Services.Newsletters
     {
         void InsertNewsletter(Newsletter Newsletter);
         void UpdateNewsletter(Newsletter Newsletter);
-        Newsletter GetNewsletterByNewsletterEmail(string NewsletterEmail)
+        Newsletter GetNewsletterByNewsletterEmail(string NewsletterEmail);
     }
 }

@@ -647,7 +647,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        public HttpResponseMessage ValidatePhoneNumber(string CountryCode,string AreaCode, string PhoneNumber)
+        public HttpResponseMessage ValidatePhoneNumber(string CountryCode, string AreaCode, string PhoneNumber)
         {
             View.ProcessResult processStatus = new View.ProcessResult();
             try

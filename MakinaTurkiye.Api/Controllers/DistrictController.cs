@@ -1,13 +1,7 @@
-﻿using MakinaTurkiye.Api.Helpers;
-using MakinaTurkiye.Api.View;
+﻿using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Packets;
-using MakinaTurkiye.Services.Stores;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -33,7 +27,7 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Result = _adressService.GetDistrictsByLocalityId(LocalityId).Select(Snc =>
                          new Api.View.District()
                          {
-                             DistrictId= Snc.DistrictId,
+                             DistrictId = Snc.DistrictId,
                              DistrictName = Snc.DistrictName,
                              CityId = Snc.CityId,
                              LocalityId = Snc.LocalityId,

@@ -10,7 +10,7 @@ namespace MakinaTurkiye.Api.Controllers
     public class ManagerController : ApiController
     {
         [System.Web.Http.HttpPost]
-        public HttpResponseMessage GetAccessToken([FromBody]User Model)
+        public HttpResponseMessage GetAccessToken([FromBody] User Model)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try

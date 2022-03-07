@@ -12,6 +12,7 @@ using MakinaTurkiye.Services.Media;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
 using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,6 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
 using System.Web.Http;
-using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Utilities.HttpHelpers;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -86,8 +85,8 @@ namespace MakinaTurkiye.Api.Controllers
                         BrandName = Result?.Brand?.CategoryName,
                         ModelName = Result?.Model?.CategoryName,
                         MainPicture = "",
-                        StoreName="",
-                        PictureList="".Split(',').ToList(),
+                        StoreName = "",
+                        PictureList = "".Split(',').ToList(),
                         MainPartyId = (int)Result.MainPartyId,
                         ProductPrice = (Result.ProductPrice.HasValue ? Result.ProductPrice.Value : 0),
                         ProductPriceType = (byte)Result.ProductPriceType,
@@ -132,11 +131,11 @@ namespace MakinaTurkiye.Api.Controllers
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(TmpResult.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                     TmpResult.StoreName = store.StoreName;
-                    var TmpPictureList=_pictureService.GetPicturesByProductId(TmpResult.ProductId);
+                    var TmpPictureList = _pictureService.GetPicturesByProductId(TmpResult.ProductId);
                     TmpResult.PictureList.Clear();
                     foreach (var item in TmpPictureList)
                     {
-                        var tmpPicturePath=!string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, item.PicturePath, ProductImageSize.px500x375) : null;
+                        var tmpPicturePath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, item.PicturePath, ProductImageSize.px500x375) : null;
                         TmpResult.PictureList.Add(tmpPicturePath);
                     }
 
@@ -162,7 +161,7 @@ namespace MakinaTurkiye.Api.Controllers
                             TmpResult.CityName = address.City != null ? address.City.CityName : string.Empty;
                             TmpResult.CountryName = address.Country != null ? address.Country.CountryName : string.Empty;
                             TmpResult.LocalityName = address.Locality != null ? address.Locality.LocalityName : string.Empty;
-                            TmpResult.ProductContactUrl = UrlBuilder.GetProductContactUrl(Result.ProductId,store?.StoreName,true);
+                            TmpResult.ProductContactUrl = UrlBuilder.GetProductContactUrl(Result.ProductId, store?.StoreName, true);
                             Location = Result.GetLocation();
                         }
                         else
@@ -306,7 +305,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50,string SearchText="", string ordertype= "a-z")
+        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50, string SearchText = "", string ordertype = "a-z")
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
@@ -328,7 +327,7 @@ namespace MakinaTurkiye.Api.Controllers
                 List<View.Result.ProductSearchResult> TmpResult = result.Products.Select(Snc =>
                                       new View.Result.ProductSearchResult
                                       {
-                                          StoreMainPartyId=Snc.StoreMainPartyId.Value,
+                                          StoreMainPartyId = Snc.StoreMainPartyId.Value,
                                           ProductId = Snc.ProductId,
                                           CurrencyCodeName = "tr-TR",
                                           ProductName = Snc.ProductName,
@@ -346,8 +345,8 @@ namespace MakinaTurkiye.Api.Controllers
 
                 foreach (var item in TmpResult)
                 {
-                    var Product= _productService.GetProductByProductId(item.ProductId);
-                    if (Product!=null)
+                    var Product = _productService.GetProductByProductId(item.ProductId);
+                    if (Product != null)
                     {
                         item.DatePublished = default;
 
@@ -362,7 +361,8 @@ namespace MakinaTurkiye.Api.Controllers
                         item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
                         var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
                         var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
-                        if (StorePhone != null) {
+                        if (StorePhone != null)
+                        {
                             item.StorePhone = StorePhone.PhoneNumber;
                             item.StoreBussinesPhone = StorePhone.PhoneNumber;
                         }
@@ -464,7 +464,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage Search([FromBody]SearchInput Model)
+        public HttpResponseMessage Search([FromBody] SearchInput Model)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
@@ -728,7 +728,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-        
+
         public HttpResponseMessage NewAddProducts()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -749,7 +749,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductId = Result.ProductId,
                         CurrencyCodeName = "tr-TR",
                         ProductName = Result.ProductName,
-                        BrandName = (Result.Brand==null?"":Result.Brand.CategoryName),
+                        BrandName = (Result.Brand == null ? "" : Result.Brand.CategoryName),
                         ModelName = (Result.Model == null ? "" : Result.Model.CategoryName),
                         MainPicture = "",
                         StoreName = "",

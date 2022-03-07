@@ -33,7 +33,7 @@ namespace MakinaTurkiye.Api.Helpers
             return Decrypt;
         }
 
-        
+
 
     }
 }

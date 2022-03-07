@@ -340,7 +340,7 @@ namespace MakinaTurkiye.Api.Controllers
                         var senderUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.InOutMainPartyId);
                         var targetUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.MainPartyId);
                         var tmpproductresult = _productService.GetProductByProductId(messageData.ProductId);
-                        if (tmpproductresult!=null)
+                        if (tmpproductresult != null)
                         {
                             View.Result.ProductSearchResult ProductSearchResult = new View.Result.ProductSearchResult
                             {
@@ -384,7 +384,7 @@ namespace MakinaTurkiye.Api.Controllers
                             };
                             privateMessageViewList.Add(privateMessage);
 
-                        }                        
+                        }
                     }
                     processStatus.Result = privateMessageViewList;
                     processStatus.TotolRowCount = privateMessageViewList.Count;

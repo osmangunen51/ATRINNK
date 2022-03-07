@@ -137,7 +137,7 @@ namespace MakinaTurkiye.Api.Controllers
                             item.HomeImagePath = !string.IsNullOrEmpty(item.HomeImagePath) ? "https:" + ImageHelper.GetHomeSectorImagePath(item.HomeImagePath) : null;
                         }
                     }
-                    
+
                 }
 
                 ProcessStatus.Result = Result;
