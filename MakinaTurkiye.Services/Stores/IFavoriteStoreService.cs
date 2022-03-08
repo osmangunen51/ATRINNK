@@ -7,6 +7,7 @@ namespace MakinaTurkiye.Services.Stores
     public interface IFavoriteStoreService
     {
         List<FavoriteStore> GetFavoriteStores();
+        List<FavoriteStore> GetFavoriteStoresByMemberMainPartyId(int memberMainPartyId);
 
         FavoriteStore GetFavoriteStoreByMemberMainPartyIdWithStoreMainPartyId(int memberMainPartyId, int storeMainPartyId);
         IList<FavoriteStore> GetAllFavoriteStore(int pageSize, int page);

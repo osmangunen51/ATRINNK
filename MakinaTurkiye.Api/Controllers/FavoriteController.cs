@@ -201,7 +201,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (member != null)
                 {
-                    var favoriteStores = _favoriteStoreService.GetFavoriteStores().Where(x => x.MemberMainPartyId == member.MainPartyId).ToList();
+                    var favoriteStores = _favoriteStoreService.GetFavoriteStoresByMemberMainPartyId(member.MainPartyId).ToList();
                     processStatus.Result = favoriteStores;
                     processStatus.TotolRowCount = favoriteStores.Count;
                     processStatus.Message.Header = "Favorite Stores";

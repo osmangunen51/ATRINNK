@@ -27,7 +27,7 @@ namespace MakinaTurkiye.Api.Controllers
                 if (Category != null)
                 {
                     processStatus.Message.Header = "System İşlemleri";
-                    processStatus.Message.Text = "genel bir hata oluştu.";
+                    processStatus.Message.Text = "Başarılı.";
                     processStatus.Status = true;
                     processStatus.Result = new Kvkk()
                     {

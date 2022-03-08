@@ -62,6 +62,14 @@ namespace MakinaTurkiye.Services.Stores
             return query.ToList();
 
         }
+        
+        public List<FavoriteStore> GetFavoriteStoresByMemberMainPartyId(int memberMainPartyId)
+        {
+            var query = _favoriteStoreRepository.Table;
+            return query.Where(x=>x.MemberMainPartyId== memberMainPartyId).ToList();
+
+        }
+
         public void InsertFavoriteStore(FavoriteStore favoriteStore)
         {
             if (favoriteStore == null)

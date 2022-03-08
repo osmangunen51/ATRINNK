@@ -86,13 +86,13 @@ namespace MakinaTurkiye.Api.Controllers
                         ModelName = Result?.Model?.CategoryName,
                         MainPicture = "",
                         StoreName = "",
+                        StoreMainPartyId=Result.MainPartyId
                         PictureList = "".Split(',').ToList(),
                         MainPartyId = (int)Result.MainPartyId,
                         ProductPrice = (Result.ProductPrice.HasValue ? Result.ProductPrice.Value : 0),
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast.HasValue ? Result.ProductPriceLast.Value : 0),
                         ProductPriceBegin = (Result.ProductPriceBegin.HasValue ? Result.ProductPriceBegin.Value : 0),
-
                     };
 
                     var Product = _productService.GetProductByProductId(TmpResult.ProductId);
@@ -105,9 +105,11 @@ namespace MakinaTurkiye.Api.Controllers
                             TmpResult.DatePublished = Product.ProductRecordDate.Value;
                         }
                     }
-                    var Store = _storeService.GetStoreByMainPartyId(TmpResult.StoreMainPartyId);
+
+                    var Store = _storeService.GetStoreByMainPartyId(TmpResult.Main);
                     if (Store != null)
                     {
+                        TmpResult.StoreMainPartyId= Store.MainPartyId;
                         TmpResult.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
                         var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
                         var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
