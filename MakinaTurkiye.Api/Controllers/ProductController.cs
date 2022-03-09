@@ -86,7 +86,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ModelName = Result?.Model?.CategoryName,
                         MainPicture = "",
                         StoreName = "",
-                        StoreMainPartyId=Result.MainPartyId
+                        StoreMainPartyId=Result.MainPartyId.Value,
                         PictureList = "".Split(',').ToList(),
                         MainPartyId = (int)Result.MainPartyId,
                         ProductPrice = (Result.ProductPrice.HasValue ? Result.ProductPrice.Value : 0),
@@ -106,7 +106,7 @@ namespace MakinaTurkiye.Api.Controllers
                         }
                     }
 
-                    var Store = _storeService.GetStoreByMainPartyId(TmpResult.Main);
+                    var Store = _storeService.GetStoreByMainPartyId(TmpResult.StoreMainPartyId);
                     if (Store != null)
                     {
                         TmpResult.StoreMainPartyId= Store.MainPartyId;
