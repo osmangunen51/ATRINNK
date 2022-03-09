@@ -361,10 +361,6 @@ namespace MakinaTurkiye.Api.Controllers
                             var picture = _pictureService.GetFirstPictureByProductId(ProductSearchResult.ProductId);
                             if (picture != null)
                                 picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(ProductSearchResult.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
-                            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(ProductSearchResult.MainPartyId);
-                            var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                            ProductSearchResult.MainPicture = picturePath;
-                            ProductSearchResult.StoreName = store.StoreName;
                             var privateMessage = new
                             {
                                 TargetMainPartyId = targetUser.MainPartyId,
@@ -383,7 +379,6 @@ namespace MakinaTurkiye.Api.Controllers
                                 Product = ProductSearchResult
                             };
                             privateMessageViewList.Add(privateMessage);
-
                         }
                     }
                     processStatus.Result = privateMessageViewList;

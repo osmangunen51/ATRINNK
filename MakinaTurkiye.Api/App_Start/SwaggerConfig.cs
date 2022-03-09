@@ -35,11 +35,11 @@ namespace MakinaTurkiye.Api
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-#if DEBUG
-                        c.RootUrl(x => "http://localhost:1300/");
-#else
-                            c.RootUrl(x => "https://api.makinaturkiye.com/");
-#endif
+                        #if DEBUG
+                                c.RootUrl(x => "http://localhost:8080/");
+                        #else
+                                c.RootUrl(x => "https://api.makinaturkiye.com/");
+                        #endif
                         //
                         c.Schemes(new[] { "http", "https" });
 

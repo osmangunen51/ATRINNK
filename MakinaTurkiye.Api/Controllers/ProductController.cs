@@ -86,7 +86,6 @@ namespace MakinaTurkiye.Api.Controllers
                         ModelName = Result?.Model?.CategoryName,
                         MainPicture = "",
                         StoreName = "",
-                        StoreMainPartyId=Result.MainPartyId.Value,
                         PictureList = "".Split(',').ToList(),
                         MainPartyId = (int)Result.MainPartyId,
                         ProductPrice = (Result.ProductPrice.HasValue ? Result.ProductPrice.Value : 0),
@@ -106,7 +105,9 @@ namespace MakinaTurkiye.Api.Controllers
                         }
                     }
 
-                    var Store = _storeService.GetStoreByMainPartyId(TmpResult.StoreMainPartyId);
+                    var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(TmpResult.MainPartyId);
+                    var Store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                    TmpResult.StoreName = Store.StoreName;
                     if (Store != null)
                     {
                         TmpResult.StoreMainPartyId= Store.MainPartyId;
@@ -130,9 +131,7 @@ namespace MakinaTurkiye.Api.Controllers
                     if (picture != null) picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                     TmpResult.MainPicture = picturePath;
 
-                    var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(TmpResult.MainPartyId);
-                    var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                    TmpResult.StoreName = store.StoreName;
+
                     var TmpPictureList = _pictureService.GetPicturesByProductId(TmpResult.ProductId);
                     TmpResult.PictureList.Clear();
                     foreach (var item in TmpPictureList)
@@ -163,7 +162,7 @@ namespace MakinaTurkiye.Api.Controllers
                             TmpResult.CityName = address.City != null ? address.City.CityName : string.Empty;
                             TmpResult.CountryName = address.Country != null ? address.Country.CountryName : string.Empty;
                             TmpResult.LocalityName = address.Locality != null ? address.Locality.LocalityName : string.Empty;
-                            TmpResult.ProductContactUrl = UrlBuilder.GetProductContactUrl(Result.ProductId, store?.StoreName, true);
+                            TmpResult.ProductContactUrl = UrlBuilder.GetProductContactUrl(Result.ProductId, Store?.StoreName, true);
                             Location = Result.GetLocation();
                         }
                         else
