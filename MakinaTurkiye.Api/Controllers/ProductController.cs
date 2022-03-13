@@ -36,6 +36,8 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IPhoneService _phoneService;
         private readonly IProductComplainService _productComplainService;
         private readonly IMessagesMTService _messagesMTService;
+        private readonly ICategoryService _categoryService;
+
 
         public ProductController()
         {
@@ -48,27 +50,8 @@ namespace MakinaTurkiye.Api.Controllers
             _phoneService = EngineContext.Current.Resolve<IPhoneService>();
             _productComplainService = EngineContext.Current.Resolve<IProductComplainService>();
             _messagesMTService = EngineContext.Current.Resolve<IMessagesMTService>();
+            _categoryService = EngineContext.Current.Resolve<ICategoryService>();
         }
-
-        //   public ProductController(IProductService productService,
-        //                            IPictureService pictureService,
-        //                            IMemberStoreService memberStoreService,
-        //                            IStoreService storeService,
-        //                            IMemberService memberService,
-        //                            IPhoneService phoneService,
-        //                            IProductComplainService productComplainService,
-        //                            IMessagesMTService messagesMTService)
-        //{
-        //    this._productService = productService;
-        //    this._pictureService = pictureService;
-        //    this._memberStoreService = memberStoreService;
-        //    this._storeService = storeService;
-        //    this._memberService = memberService;
-        //    this._phoneService = phoneService;
-        //    this._productComplainService = productComplainService;
-        //    this._messagesMTService = messagesMTService;
-        //}
-
         public HttpResponseMessage Get(int No)
         {
             ProcessResult ProcessStatus = new ProcessResult();
@@ -736,9 +719,6 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 List<View.Result.ProductSearchResult> TmpResult = new List<View.Result.ProductSearchResult>();
-
-                IProductService _productService = EngineContext.Current.Resolve<IProductService>();
-                ICategoryService _categoryService = EngineContext.Current.Resolve<ICategoryService>();
                 var popularProducts = _productService.GetSPNewProducts();
                 List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
                 var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();

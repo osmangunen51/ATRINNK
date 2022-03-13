@@ -294,11 +294,13 @@
     <Compile Include="Code\CompressAttribute.cs" />
     <Compile Include="Code\ZamanlanmisGorevler\Gorevler\TmpGorev.cs" />
     <Compile Include="Code\ZamanlanmisGorevler\Zamanlayicilar\ZamanlayiciTmpGorev.cs" />
+    <Compile Include="Controllers\ProductCommentController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\LocalityController.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
+    <Compile Include="Controllers\VideoController.cs" />
     <Compile Include="Controllers\TownController.cs" />
     <Compile Include="Controllers\CityController.cs" />
     <Compile Include="Controllers\CountryController.cs" />

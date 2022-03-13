@@ -14,8 +14,5 @@ namespace MakinaTurkiye.Services.Catalog
         void UpdateProductComment(ProductComment productComment);
         IPagedList<ProductComment> GetProductComments(int pageSize,int pageIndex,int productId=0,bool reported=false);
         IList<ProductComment> GetProductCommentsForStoreByMemberMainPartyId(int memberMainPartyId);
-   
-
-
     }
 }

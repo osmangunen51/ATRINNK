@@ -36,9 +36,9 @@ namespace MakinaTurkiye.Api
                         // additional fields by chaining methods off SingleApiVersion.
                         //
                         #if DEBUG
-                                c.RootUrl(x => "http://localhost:8080/");
+                                c.RootUrl(x => "http://localhost:8080");
                         #else
-                                c.RootUrl(x => "https://api.makinaturkiye.com/");
+                                c.RootUrl(x => "https://api.makinaturkiye.com");
                         #endif
                         //
                         c.Schemes(new[] { "http", "https" });

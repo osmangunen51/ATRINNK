@@ -80,6 +80,7 @@
     <Compile Include="StringExtentions.cs" />
     <Compile Include="LoginInfoFromToken.cs" />
     <Compile Include="UserRegister.cs" />
+    <Compile Include="Video.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MakinaTurkiye.Entities\MakinaTurkiye.Entities.csproj">

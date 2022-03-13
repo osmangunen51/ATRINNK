@@ -8,19 +8,19 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
         {
             string imageUrl = string.Format("//s.makinaturkiye.com/VideoThumb/{0}", videoPictureName);
 
-#if !DEBUG
-                 string fileBase = "/UserFiles/VideoThumb/" + videoPictureName;
-            var absolutePath = HttpContext.Current.Server.MapPath(fileBase);
-            if (System.IO.File.Exists(absolutePath))
-            {
-                return imageUrl;
-            }
-            else
-            {
-                return "https://dummyimage.com/245x165/dbdbdb/000000.jpg&text=Haz%C4%B1rlan%C4%B1yor";
+//#if !DEBUG
+//                 string fileBase = "/UserFiles/VideoThumb/" + videoPictureName;
+//            var absolutePath = HttpContext.Current.Server.MapPath(fileBase);
+//            if (System.IO.File.Exists(absolutePath))
+//            {
+//                return imageUrl;
+//            }
+//            else
+//            {
+//                return "https://dummyimage.com/245x165/dbdbdb/000000.jpg&text=Haz%C4%B1rlan%C4%B1yor";
 
-            }
-#endif
+//            }
+//#endif
 
 
 
