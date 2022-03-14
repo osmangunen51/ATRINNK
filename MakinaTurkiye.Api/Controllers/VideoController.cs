@@ -28,7 +28,10 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetSPPopularVideos().ToList();
                 foreach (var item in tmp)
                 {
-                    item.VideoPicturePath = "https:"+ImageHelper.GetVideoImagePath(item.VideoPicturePath);
+                    if (!item.VideoPicturePath.StartsWith("https"))
+                    {
+                        item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
+                    }
                 }
                 processStatus.Message.Header = "Video İşlemleri";
                 processStatus.Message.Text = "Başarılı";
@@ -56,8 +59,15 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetSPVideoByCategoryId(categoryId,pageIndex,pageSize).ToList();
                 foreach (var item in tmp)
                 {
-                    item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
-                    item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
+                    if (!item.VideoPicturePath.StartsWith("https"))
+                    {
+                        item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
+                    }
+                    if (!item.VideoPath.StartsWith("https"))
+                    {
+                        item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
+                    }
+                    
                 }
                 processStatus.Message.Header = "Video İşlemleri";
                 processStatus.Message.Text = "Başarılı";
@@ -84,8 +94,14 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetSPOtherVideoByCategoryIdAndSelectedCategoryId(categoryId, topCount, selectedCategoryId).ToList();
                 foreach (var item in tmp)
                 {
-                    item.VideoPicturePath = "https:"+ImageHelper.GetVideoImagePath(item.VideoPicturePath);
-                    item.VideoPath = "https:"+VideoHelper.GetVideoPath(item.VideoPath);
+                    if (!item.VideoPicturePath.StartsWith("https"))
+                    {
+                        item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
+                    }
+                    if (!item.VideoPath.StartsWith("https"))
+                    {
+                        item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
+                    }
                 }
                 processStatus.Message.Header = "Video İşlemleri";
                 processStatus.Message.Text = "Başarılı";
@@ -112,8 +128,14 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetSpVideosBySearchText(searchText, categoryId, pageSize, pageIndex).ToList();
                 foreach (var item in tmp)
                 {
-                    item.VideoPicturePath = "https:"+ImageHelper.GetVideoImagePath(item.VideoPicturePath);
-                    item.VideoPath = "https:"+VideoHelper.GetVideoPath(item.VideoPath);
+                    if (!item.VideoPicturePath.StartsWith("https"))
+                    {
+                        item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
+                    }
+                    if (!item.VideoPath.StartsWith("https"))
+                    {
+                        item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
+                    }
                 }
                 processStatus.Message.Header = "Video İşlemleri";
                 processStatus.Message.Text = "Başarılı";
@@ -141,8 +163,14 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetShowOnShowcaseVideos().ToList();
                 foreach (var item in tmp)
                 {
-                    item.VideoPicturePath = "https:"+ImageHelper.GetVideoImagePath(item.VideoPicturePath);
-                    item.VideoPath = "https:"+VideoHelper.GetVideoPath(item.VideoPath);
+                    if (!item.VideoPicturePath.StartsWith("https"))
+                    {
+                        item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
+                    }
+                    if (!item.VideoPath.StartsWith("https"))
+                    {
+                        item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
+                    }
                 }
                 processStatus.Message.Header = "Video İşlemleri";
                 processStatus.Message.Text = "Başarılı";
@@ -168,8 +196,14 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var tmp = videoService.GetVideoByVideoId(videoId, showHidden);
-                tmp.VideoPicturePath = ImageHelper.GetVideoImagePath(tmp.VideoPicturePath);
-                tmp.VideoPath = VideoHelper.GetVideoPath(tmp.VideoPath);
+                if (!tmp.VideoPicturePath.StartsWith("https"))
+                {
+                    tmp.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(tmp.VideoPicturePath);
+                }
+                if (!tmp.VideoPath.StartsWith("https"))
+                {
+                    tmp.VideoPath = "https:" + VideoHelper.GetVideoPath(tmp.VideoPath);
+                }
                 processStatus.Message.Header = "Video İşlemleri";
                 processStatus.Message.Text = "Başarılı";
                 processStatus.Status = true;
@@ -221,8 +255,14 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetVideosByProductId(productId).ToList();
                 foreach (var item in tmp)
                 {
-                    item.VideoPicturePath = "https:"+ImageHelper.GetVideoImagePath(item.VideoPicturePath);
-                    item.VideoPath = "https:"+VideoHelper.GetVideoPath(item.VideoPath);
+                    if (!item.VideoPicturePath.StartsWith("https"))
+                    {
+                        item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
+                    }
+                    if (!item.VideoPath.StartsWith("https"))
+                    {
+                        item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
+                    }
                 }
                 processStatus.Message.Header = "Video İşlemleri";
                 processStatus.Message.Text = "Başarılı";
@@ -249,8 +289,14 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetVideoByStoreMainPartyId(storeMainPartyId, showHidden).ToList();
                 foreach (var item in tmp)
                 {
-                    item.VideoPicturePath = "https:"+ImageHelper.GetVideoImagePath(item.VideoPicturePath);
-                    item.VideoPath = "https:"+VideoHelper.GetVideoPath(item.VideoPath);
+                    if (!item.VideoPicturePath.StartsWith("https"))
+                    {
+                        item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
+                    }
+                    if (!item.VideoPath.StartsWith("https"))
+                    {
+                        item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
+                    }
                 }
                 processStatus.Message.Header = "Video İşlemleri";
                 processStatus.Message.Text = "Başarılı";
@@ -268,35 +314,5 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
-        //public HttpResponseMessage GetVideoByProductMainPartyId(int productMainPartyId, int categoryId=0)
-        //{
-        //    ProcessResult processStatus = new ProcessResult();
-        //    try
-        //    {
-        //        var tmp = videoService.GetSPVideoByMainPartyIdAndCategoryId(productMainPartyId, categoryId).ToList();
-        //        foreach (var item in tmp)
-        //        {
-        //            item.VideoPicturePath = "https:"+ImageHelper.GetVideoImagePath(item.VideoPicturePath);
-        //            item.VideoPath = "https:"+VideoHelper.GetVideoPath(item.VideoPath);
-        //        }
-        //        processStatus.Message.Header = "Video İşlemleri";
-        //        processStatus.Message.Text = "Başarılı";
-        //        processStatus.Status = true;
-        //        processStatus.Result = tmp;
-        //        processStatus.Error = null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        processStatus.Message.Header = "Video İşlemleri";
-        //        processStatus.Message.Text = "İşlem başarısız.";
-        //        processStatus.Status = false;
-        //        processStatus.Result = "Hata ile karşılaşıldı!";
-        //        processStatus.Error = ex;
-        //    }
-        //    return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-        //}
-
-
     }
 }

@@ -1,6 +1,7 @@
 ﻿using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Media;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using System;
@@ -16,11 +17,15 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IStoreService _storeService;
         private readonly IStoreNewService _storeNewService;
         private readonly ICategoryService _categoryService;
+        private readonly IProductService _productService;
+        private readonly IPictureService _pictureService;
         public StoreController()
         {
             _storeService = EngineContext.Current.Resolve<IStoreService>();
             _storeNewService = EngineContext.Current.Resolve<IStoreNewService>();
             _categoryService = EngineContext.Current.Resolve<ICategoryService>();
+            _productService = EngineContext.Current.Resolve<IProductService>();
+            _pictureService = EngineContext.Current.Resolve<IPictureService>();
         }
 
         //public StoreController(IStoreService storeService)
@@ -230,12 +235,14 @@ namespace MakinaTurkiye.Api.Controllers
         }
 
 
-        public HttpResponseMessage GetAllStores(int pageDimension, int page, StoreActiveTypeEnum? storeActiveType = null)
+        public HttpResponseMessage GetAllStores(int pageDimension, int page, StoreActiveTypeEnum? storeActiveType = StoreActiveTypeEnum.Seller)
         {
             ProcessResult processStatus = new ProcessResult();
             try
             {
-                var Result = _storeNewService.GetAllStoreNews(pageDimension, page,(byte)storeActiveType);
+                var Result = _storeNewService.GetAllStoreNews((byte)storeActiveType);
+                var TotalRecord = Result.Count();
+                Result = Result.OrderByDescending(x => x.UpdateDate).Skip(page * pageDimension - pageDimension).Take(pageDimension).ToList();
                 foreach (var item in Result)
                 {
                     item.ImageName = ImageHelper.GetStoreNewImagePath(item.ImageName, StoreNewImageSize.px300x300.ToString());
@@ -288,22 +295,54 @@ namespace MakinaTurkiye.Api.Controllers
         //    return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         //}
         public HttpResponseMessage GetCategoryStores(int categoryId = 0, int modelId = 0, int brandId = 0,
-            int cityId = 0, IList<int> localityIds = null, string searchText = "",
+            int cityId = 0,  string searchText = "",
             int orderBy = 0, int pageIndex = 0, int pageSize = 0, string activityType = "")
         {
             {
             ProcessResult processStatus = new ProcessResult();
             try
             {
-                var Result = _storeService.GetCategoryStores(categoryId, modelId, brandId, cityId,
+                List<StoreListItem> Result=new List<StoreListItem>();
+                IList<int> localityIds =new List<int>();
+                var IslemResult = _storeService.GetCategoryStores(categoryId, modelId, brandId, cityId,
                 localityIds, searchText, orderBy, pageIndex, pageSize, activityType);
-                    foreach (var item in Result.Stores)
+                foreach (var item in IslemResult.Stores)
                 {
                     item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
                 }
-                processStatus.Result = Result.Stores;
-                processStatus.ActiveResultRowCount = Result.Stores.Count;
-                processStatus.TotolRowCount = Result.TotalPages;
+                foreach (var IslemStore in IslemResult.Stores)
+                {
+                        var tmpprodustResult = _productService.GetSPProductsByStoreMainPartyId(6,1, IslemStore.MainPartyId,0,0);
+                        List<View.Result.ProductSearchResult> TmpStoreProductList=new List<View.Result.ProductSearchResult>();
+                        foreach (var item in tmpprodustResult)
+                        {
+                            View.Result.ProductSearchResult TmpResult = new View.Result.ProductSearchResult
+                            {
+                                ProductId = item.ProductId,
+                                CurrencyCodeName = "tr-TR",
+                                ProductName = item.ProductName,
+                                BrandName = item.BrandName,
+                                ModelName = item.CategoryName,
+                                MainPicture = "",
+                                StoreName = "",
+                                PictureList = "".Split(',').ToList(),
+                            };
+                            string picturePath = "";
+                            var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
+                            if (picture != null) picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                            TmpResult.MainPicture = picturePath;
+                            TmpStoreProductList.Add(TmpResult);
+                        }
+                        Result.Add(new StoreListItem()
+                        {
+                            Store = IslemStore,
+                            Products = TmpStoreProductList
+                        });
+
+                    }
+                processStatus.Result = Result;
+                processStatus.ActiveResultRowCount = Result.Count;
+                processStatus.TotolRowCount = IslemResult.TotalPages;
                 processStatus.Message.Header = "Store İşlemleri";
                 processStatus.Message.Text = "Başarılı";
                 processStatus.Status = true;
