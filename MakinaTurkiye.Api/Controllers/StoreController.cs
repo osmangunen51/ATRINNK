@@ -308,7 +308,10 @@ namespace MakinaTurkiye.Api.Controllers
                 localityIds, searchText, orderBy, pageIndex, pageSize, activityType);
                 foreach (var item in IslemResult.Stores)
                 {
-                    item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
+                   if (!item.StoreLogo.StartsWith("https:"))
+                   {
+                       item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
+                   }
                 }
                 foreach (var IslemStore in IslemResult.Stores)
                 {
@@ -329,7 +332,13 @@ namespace MakinaTurkiye.Api.Controllers
                             };
                             string picturePath = "";
                             var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
-                            if (picture != null) picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                            if (picture != null)
+                            {
+                                if (!picture.PicturePath.StartsWith("https:"))
+                                {
+                                    picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                                }
+                            }
                             TmpResult.MainPicture = picturePath;
                             TmpStoreProductList.Add(TmpResult);
                         }
