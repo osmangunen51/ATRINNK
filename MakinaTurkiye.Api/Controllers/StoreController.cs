@@ -1,14 +1,17 @@
 ﻿using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Media;
 using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using MakinaTurkiye.Entities.Tables.Common;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -19,6 +22,11 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
         private readonly IPictureService _pictureService;
+        private readonly IAddressService _addressService;
+        private readonly IStoreActivityTypeService _storeActivityTypeService;
+        private readonly IConstantService _constantService;
+        private readonly IStoreInfoNumberShowService _storeNumberShowService;
+        private readonly IPhoneService _phoneService;
         public StoreController()
         {
             _storeService = EngineContext.Current.Resolve<IStoreService>();
@@ -26,6 +34,11 @@ namespace MakinaTurkiye.Api.Controllers
             _categoryService = EngineContext.Current.Resolve<ICategoryService>();
             _productService = EngineContext.Current.Resolve<IProductService>();
             _pictureService = EngineContext.Current.Resolve<IPictureService>();
+            _addressService = EngineContext.Current.Resolve<IAddressService>();
+            _storeActivityTypeService = EngineContext.Current.Resolve<IStoreActivityTypeService>();
+            _constantService = EngineContext.Current.Resolve<IConstantService>();
+            _storeNumberShowService = EngineContext.Current.Resolve<IStoreInfoNumberShowService>();
+            _phoneService = EngineContext.Current.Resolve<IPhoneService>();
         }
 
         //public StoreController(IStoreService storeService)
@@ -108,6 +121,100 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+        public HttpResponseMessage GetStoreDetailByMainPartyId(int MainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                MTStoreAboutModel model = new MTStoreAboutModel();
+                var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                if (!string.IsNullOrEmpty(store.StoreProfileHomeDescription))
+                {
+                    model.AboutText = store.StoreProfileHomeDescription;
+                    model.IsAboutText = false;
+                }
+                model.AboutImagePath = ImageHelper.GetStoreImage(store.MainPartyId, store.StoreLogo, "300");
+                model.StoreName = store.StoreName;
+                var storeActivtyType = _storeActivityTypeService.GetStoreActivityTypesByStoreId(store.MainPartyId);
+                foreach (var activity in storeActivtyType.ToList())
+                {
+                    model.StoreActivity += activity.ActivityType.ActivityName + " ";
+                }
+                if (store.StoreEmployeesCount > 0)
+                    model.StoreEmployeeCount = _constantService.GetConstantByConstantId((short)store.StoreEmployeesCount).ConstantName;
+                if (store.StoreActiveType != null)
+                    if (store.StoreActiveType > 0)
+                    {
+                        if (store.StoreType != null)
+                        {
+                            var constant = _constantService.GetConstantByConstantId((short)store.StoreType);
+                            if (constant != null)
+                            {
+                                model.StoreType = constant.ConstantName;
+                            }
+                        }
+                    }
+                model.StoreEstablishmentDate = Convert.ToString(store.StoreEstablishmentDate);
+                if (store.StoreCapital != null)
+                    if (store.StoreCapital > 0)
+                        model.StoreCapital = _constantService.GetConstantByConstantId((short)store.StoreCapital).ConstantName;
+                if (store.StoreEndorsement != null)
+                    if (store.StoreEndorsement > 0)
+                        model.StoreEndorsement = _constantService.GetConstantByConstantId((short)store.StoreEndorsement).ConstantName;
+                model.TaxNumber = store.TaxOffice;
+                model.TaxOffice = store.TaxOffice;
+                model.TradeRegistrNo = store.TradeRegistrNo;
+                model.MersisNo = store.MersisNo;
+                model.StoreAboutShort = store.StoreAbout;
+                model.StoreUrl = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
+                model.StoreProfileHomeDescription=store.StoreProfileHomeDescription;
+                model.GeneralText = store.GeneralText;
+                var phones = _phoneService.GetPhonesByMainPartyId(store.MainPartyId);
+                var gsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneTypeEnum.Gsm);
+                var localPhones = phones.Where(x => x.PhoneType == (byte)PhoneTypeEnum.Phone);
+                var whatsapp = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneTypeEnum.Whatsapp);
+
+                model.Gsm = $"{gsm.PhoneCulture.Replace("+", "")}-{gsm.PhoneAreaCode}-{gsm.PhoneNumber}";
+                model.StoreBanner = ImageHelper.GetStoreBanner(store.MainPartyId, store.StoreBanner);
+                if (localPhones.Count()>0)
+                {
+                    var localPhonesPhone = localPhones.ToArray()[0];
+                    model.Phone1= $"{localPhonesPhone.PhoneCulture.Replace("+", "")}-{localPhonesPhone.PhoneAreaCode}-{localPhonesPhone.PhoneNumber}";
+                }
+
+                if (localPhones.Count() > 1)
+                {
+                    var localPhonesPhone = localPhones.ToArray()[1];
+                    model.Phone2 = $"{localPhonesPhone.PhoneCulture.Replace("+", "")}-{localPhonesPhone.PhoneAreaCode}-{localPhonesPhone.PhoneNumber}";
+                }
+
+                model.Whatsapp = $"{whatsapp.PhoneCulture.Replace("+", "")}-{whatsapp.PhoneAreaCode}-{whatsapp.PhoneNumber}";
+                
+                var address = _addressService.GetAddressesByMainPartyId(MainPartyId).OrderBy(x=>x.AddressTypeId).FirstOrDefault();
+                if (address != null) 
+                {
+                    model.Address = address.GetFullAddress();                    
+                }
+
+                processStatus.Result = model;
+                processStatus.ActiveResultRowCount = 1;
+                processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarılı";
+                processStatus.Status = true;
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
         public HttpResponseMessage GetStoreByStoreEmail(string storeEmail)
         {
             ProcessResult processStatus = new ProcessResult();

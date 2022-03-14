@@ -27,6 +27,59 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
             return imageUrl;
         }
 
+        public static string CDNhost
+        {
+            get
+            {
+                //#if DEBUG
+                //                return "//s.makinaturkiye.com";
+                //#else
+                //                    return "//s.makinaturkiye.com";
+                //#endif
+                return "https://s.makinaturkiye.com";
+            }
+        }
+
+        public static string GetStoreBanner(int storeId, string banner)
+        {
+            if (string.IsNullOrEmpty(banner))
+                return string.Empty;
+            return string.Format(CDNhost + "/StoreBanner/{0}.jpg",
+                                             banner.Replace("_banner", "-1400x280").Replace(".jpg", ""));
+
+        }
+        public static string GetStoreImage(int storeId, string logo, string size)
+        {
+            if (string.IsNullOrEmpty(logo))
+                return string.Empty;
+            try
+            {
+                if (size == "300")
+                {
+                    return string.Format(CDNhost + "/Store/{0}/thumbs/{1}-{2}x200.jpg", storeId,
+                                                         logo.Replace("_logo", "").Replace(".jpg", ""), size);
+                }
+                else if (size == "120")
+                {
+
+                    return string.Format(CDNhost + "/Store/{0}/thumbs/{1}-{2}x80.jpg", storeId,
+                                                       logo.Replace("_logo", "").Replace(".jpg", ""), size);
+                }
+                else
+                {
+                    return string.Format(CDNhost + "/Store/{0}/thumbs/{1}-{2}x{2}.jpg", storeId,
+                                     logo.Replace("_logo", "").Replace(".jpg", ""), size);
+                }
+
+
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+
         public static string GetStoreLogoParh(int storeId, string storeLogo, int size)
         {
             if (string.IsNullOrEmpty(storeLogo))
