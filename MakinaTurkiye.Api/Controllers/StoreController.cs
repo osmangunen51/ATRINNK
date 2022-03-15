@@ -134,7 +134,9 @@ namespace MakinaTurkiye.Api.Controllers
                     model.AboutText = store.StoreProfileHomeDescription;
                     model.IsAboutText = false;
                 }
+
                 model.AboutImagePath = ImageHelper.GetStoreImage(store.MainPartyId, store.StoreLogo, "300");
+                model.StorePicture = ImageHelper.GetStoreProfilePicture(store.StorePicture);
                 model.StoreName = store.StoreName;
                 var storeActivtyType = _storeActivityTypeService.GetStoreActivityTypesByStoreId(store.MainPartyId);
                 foreach (var activity in storeActivtyType.ToList())
@@ -196,8 +198,9 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     model.Address = address.GetFullAddress();                    
                 }
-
-                processStatus.Result = model;
+                string encodeaddress = System.Web.HttpUtility.HtmlEncode(model.Address);
+                //model.MapAddress = $"https://api.makinaturkiye.com/map/{encodeaddress}";
+                //    processStatus.Result = model;
                 processStatus.ActiveResultRowCount = 1;
                 processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
                 processStatus.Message.Header = "Store İşlemleri";
