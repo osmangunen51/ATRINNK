@@ -461,7 +461,8 @@ namespace MakinaTurkiye.Api.Controllers
                     }
                 processStatus.Result = Result;
                 processStatus.ActiveResultRowCount = Result.Count;
-                processStatus.TotolRowCount = IslemResult.TotalPages;
+                processStatus.TotolRowCount = IslemResult.TotalCount;
+                processStatus.TotolPageCount = IslemResult.TotalPages;
                 processStatus.Message.Header = "Store İşlemleri";
                 processStatus.Message.Text = "Başarılı";
                 processStatus.Status = true;
@@ -479,36 +480,36 @@ namespace MakinaTurkiye.Api.Controllers
 
     }
 
-    public HttpResponseMessage GetStoresForCategoryBycategoryName(string categoryName)
-        {
-            {
-                ProcessResult processStatus = new ProcessResult();
-                try
-                {
-                    byte MainCategory = (byte)MainCategoryTypeEnum.MainCategory;
-                    var Result = _categoryService.GetSPCategoryGetCategoryByCategoryName(categoryName).Select(x => new {
-                        Text = (!string.IsNullOrEmpty(x.StorePageTitle)? x.StorePageTitle:(!string.IsNullOrEmpty(x.CategoryContentTitle) ? x.CategoryContentTitle : x.CategoryName)),
-                        Value = x.CategoryId.ToString()
-                    }).ToList();
+    //public HttpResponseMessage GetStoresForCategoryBycategoryName(string categoryName)
+    //    {
+    //        {
+    //            ProcessResult processStatus = new ProcessResult();
+    //            try
+    //            {
+    //                byte MainCategory = (byte)MainCategoryTypeEnum.MainCategory;
+    //                var Result = _categoryService.GetSPCategoryGetCategoryByCategoryName(categoryName).Select(x => new {
+    //                    Text = (!string.IsNullOrEmpty(x.StorePageTitle)? x.StorePageTitle:(!string.IsNullOrEmpty(x.CategoryContentTitle) ? x.CategoryContentTitle : x.CategoryName)),
+    //                    Value = x.CategoryId.ToString()
+    //                }).ToList();
 
-                    processStatus.Result = Result;
-                    processStatus.ActiveResultRowCount = 1;
-                    processStatus.TotolRowCount = 1;
-                    processStatus.Message.Header = "Store İşlemleri";
-                    processStatus.Message.Text = "Başarılı";
-                    processStatus.Status = true;
-                }
-                catch (Exception Error)
-                {
-                    processStatus.Message.Header = "Store İşlemleri";
-                    processStatus.Message.Text = "Başarısız";
-                    processStatus.Status = false;
-                    processStatus.Result = null;
-                    processStatus.Error = Error;
-                }
-                return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-            }
-        }
+    //                processStatus.Result = Result;
+    //                processStatus.ActiveResultRowCount = 1;
+    //                processStatus.TotolRowCount = 1;
+    //                processStatus.Message.Header = "Store İşlemleri";
+    //                processStatus.Message.Text = "Başarılı";
+    //                processStatus.Status = true;
+    //            }
+    //            catch (Exception Error)
+    //            {
+    //                processStatus.Message.Header = "Store İşlemleri";
+    //                processStatus.Message.Text = "Başarısız";
+    //                processStatus.Status = false;
+    //                processStatus.Result = null;
+    //                processStatus.Error = Error;
+    //            }
+    //            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+    //        }
+    //    }
 
 
         public HttpResponseMessage GetStoresForCategoryByCategoryId(int categoryId = 0)
@@ -576,7 +577,7 @@ namespace MakinaTurkiye.Api.Controllers
                     }
                     processStatus.Result = Result;
                     processStatus.ActiveResultRowCount = Result.Count();
-                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.TotolRowCount = Result.Count();
                     processStatus.Message.Header = "Store İşlemleri";
                     processStatus.Message.Text = "Başarılı";
                     processStatus.Status = true;

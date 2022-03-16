@@ -315,5 +315,40 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+        public HttpResponseMessage GetVideoByStoreMainPartyIdAndVideoName(string searchText, int categoryId, int pageSize, int pageIndex, int storeMainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var tmp = videoService.GetSpVideosBySearchText(searchText, categoryId, pageSize, pageIndex).Where(x=>x.StoreId==storeMainPartyId).ToList();
+                foreach (var item in tmp)
+                {
+                    if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))
+                    {
+                        item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
+                    }
+                    if (!string.IsNullOrEmpty(item.VideoPath) && !item.VideoPath.StartsWith("https"))
+                    {
+                        item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
+                    }
+                }
+                processStatus.Message.Header = "Video İşlemleri";
+                processStatus.Message.Text = "Başarılı";
+                processStatus.Status = true;
+                processStatus.Result = tmp;
+                processStatus.Error = null;
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "Video İşlemleri";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
     }
 }
