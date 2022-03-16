@@ -340,6 +340,7 @@ namespace MakinaTurkiye.Api.Controllers
                             item.DatePublished = Product.ProductRecordDate.Value;
                         }
                     }
+                    item.CurrencyCodeName = Product.GetCurrency();
                     var Store = _storeService.GetStoreByMainPartyId(item.StoreMainPartyId);
                     if (Store != null)
                     {
