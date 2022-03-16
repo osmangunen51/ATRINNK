@@ -448,6 +448,92 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
+
+        public HttpResponseMessage GetStoreMainPartyId(int storeMainPartyId,string SearchText="")
+        {
+            ProcessResult ProcessStatus = new ProcessResult();
+            try
+            {
+                var memberStore1 = _memberStoreService.GetMemberStoreByStoreMainPartyId(storeMainPartyId);
+                var Result = _productService.GetProductsByMainPartyId(Convert.ToInt32(memberStore1.MemberMainPartyId));
+                if (!string.IsNullOrEmpty(SearchText))
+                {
+                    Result = Result.Where(x => x.ProductName.ToLower().Contains(SearchText.ToLower())).ToList();
+                }
+
+                List<View.Result.ProductSearchResult> TmpResult = Result.Select(Snc =>
+                                                new View.Result.ProductSearchResult
+                                                {
+                                                    ProductId = Snc.ProductId,
+                                                    CurrencyCodeName = Snc.GetCurrency(),
+                                                    ProductName = Snc.ProductName,
+                                                    BrandName = Snc.Brand.CategoryName,
+                                                    ModelName = Snc.Model.CategoryName,
+                                                    MainPicture = "",
+                                                    StoreName = "",
+                                                    MainPartyId = (int)Snc.MainPartyId,
+                                                    ProductPrice = (Snc.ProductPrice ?? 0),
+                                                    ProductPriceType = (byte)Snc.ProductPriceType,
+                                                    ProductPriceLast = (Snc.ProductPriceLast ?? 0),
+                                                    ProductPriceBegin = (Snc.ProductPriceBegin ?? 0)
+                                                }
+                                            ).ToList();
+
+                foreach (var item in TmpResult)
+                {
+                    string picturePath = "";
+                    var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
+                    if (picture != null)
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                    var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
+                    item.MainPicture = picturePath;
+                    var Product = _productService.GetProductByProductId(item.ProductId);
+                    if (Product != null)
+                    {
+                        item.DatePublished = default;
+
+                        if (Product.ProductRecordDate.HasValue)
+                        {
+                            item.DatePublished = Product.ProductRecordDate.Value;
+                        }
+                    }
+                    var Store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                    if (Store != null)
+                    {
+                        item.StoreName = Store.StoreName;
+
+                        item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                        var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
+                        var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
+                        if (StorePhone != null)
+                        {
+                            item.StorePhone = StorePhone.PhoneNumber;
+                            item.StoreBussinesPhone = StorePhone.PhoneNumber;
+                        }
+                        var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
+                        if (StoreGsm != null)
+                        {
+                            item.StoreGsm = StoreGsm.PhoneNumber;
+                        }
+                    }
+                }
+                ProcessStatus.Result = TmpResult;
+                ProcessStatus.ActiveResultRowCount = TmpResult.Count();
+                ProcessStatus.Message.Header = "Product İşlemleri";
+                ProcessStatus.Message.Text = "Başarılı";
+                ProcessStatus.Status = true;
+            }
+            catch (Exception Error)
+            {
+                ProcessStatus.Message.Header = "Product İşlemleri";
+                ProcessStatus.Message.Text = "Başarısız";
+                ProcessStatus.Status = false;
+                ProcessStatus.Result = null;
+                ProcessStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
+        }
+
         public HttpResponseMessage Search([FromBody] SearchInput Model)
         {
             ProcessResult ProcessStatus = new ProcessResult();

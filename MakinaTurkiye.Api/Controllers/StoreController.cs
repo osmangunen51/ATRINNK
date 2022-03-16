@@ -200,7 +200,7 @@ namespace MakinaTurkiye.Api.Controllers
                 }
                 string encodeaddress = System.Web.HttpUtility.HtmlEncode(model.Address);
                 //model.MapAddress = $"https://api.makinaturkiye.com/map/{encodeaddress}";
-                //    processStatus.Result = model;
+                processStatus.Result = model;
                 processStatus.ActiveResultRowCount = 1;
                 processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
                 processStatus.Message.Header = "Store İşlemleri";
