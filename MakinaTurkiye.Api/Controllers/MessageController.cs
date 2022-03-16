@@ -1,6 +1,7 @@
 ﻿using MakinaTurkiye.Api.Helpers;
 using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
@@ -342,10 +343,11 @@ namespace MakinaTurkiye.Api.Controllers
                         var tmpproductresult = _productService.GetProductByProductId(messageData.ProductId);
                         if (tmpproductresult != null)
                         {
+                            var Currency = tmpproductresult.GetCurrency();
                             View.Result.ProductSearchResult ProductSearchResult = new View.Result.ProductSearchResult
                             {
                                 ProductId = tmpproductresult.ProductId,
-                                CurrencyCodeName = "tr-TR",
+                                CurrencyCodeName = Currency,
                                 ProductName = tmpproductresult.ProductName,
                                 BrandName = tmpproductresult.Brand.CategoryName,
                                 ModelName = tmpproductresult.Model.CategoryName,

@@ -28,7 +28,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetSPPopularVideos().ToList();
                 foreach (var item in tmp)
                 {
-                    if (!item.VideoPicturePath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))
                     {
                         item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
                     }
@@ -59,11 +59,12 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetSPVideoByCategoryId(categoryId,pageIndex,pageSize).ToList();
                 foreach (var item in tmp)
                 {
-                    if (!item.VideoPicturePath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))
                     {
                         item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
                     }
-                    if (!item.VideoPath.StartsWith("https"))
+
+                    if (!string.IsNullOrEmpty(item.VideoPath) && !item.VideoPath.StartsWith("https"))
                     {
                         item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
                     }
@@ -94,11 +95,11 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetSPOtherVideoByCategoryIdAndSelectedCategoryId(categoryId, topCount, selectedCategoryId).ToList();
                 foreach (var item in tmp)
                 {
-                    if (!item.VideoPicturePath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))
                     {
                         item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
                     }
-                    if (!item.VideoPath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPath) && !item.VideoPath.StartsWith("https"))
                     {
                         item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
                     }
@@ -128,11 +129,11 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetSpVideosBySearchText(searchText, categoryId, pageSize, pageIndex).ToList();
                 foreach (var item in tmp)
                 {
-                    if (!item.VideoPicturePath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))
                     {
                         item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
                     }
-                    if (!item.VideoPath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPath) && !item.VideoPath.StartsWith("https"))
                     {
                         item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
                     }
@@ -163,11 +164,11 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetShowOnShowcaseVideos().ToList();
                 foreach (var item in tmp)
                 {
-                    if (!item.VideoPicturePath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))
                     {
                         item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
                     }
-                    if (!item.VideoPath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPath) && !item.VideoPath.StartsWith("https"))
                     {
                         item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
                     }
@@ -255,11 +256,11 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetVideosByProductId(productId).ToList();
                 foreach (var item in tmp)
                 {
-                    if (!item.VideoPicturePath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))
                     {
                         item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
                     }
-                    if (!item.VideoPath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPath) && !item.VideoPath.StartsWith("https"))
                     {
                         item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
                     }
@@ -289,11 +290,11 @@ namespace MakinaTurkiye.Api.Controllers
                 var tmp = videoService.GetVideoByStoreMainPartyId(storeMainPartyId, showHidden).ToList();
                 foreach (var item in tmp)
                 {
-                    if (!item.VideoPicturePath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))
                     {
                         item.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(item.VideoPicturePath);
                     }
-                    if (!item.VideoPath.StartsWith("https"))
+                    if (!string.IsNullOrEmpty(item.VideoPath) && !item.VideoPath.StartsWith("https"))
                     {
                         item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
                     }

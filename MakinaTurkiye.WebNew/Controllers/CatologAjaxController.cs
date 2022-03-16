@@ -657,7 +657,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 IList<Category> categoryItems = null;
                 List<SelectListItem> categoryList = new List<SelectListItem>();
                 categoryItems = _categoryService.GetSPCategoryGetCategoryByCategoryName(categoryName);
-
                 foreach (var item in categoryItems)
                 {
                     string title = "";
