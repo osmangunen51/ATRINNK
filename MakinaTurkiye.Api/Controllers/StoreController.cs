@@ -134,7 +134,9 @@ namespace MakinaTurkiye.Api.Controllers
                     model.AboutText = store.StoreProfileHomeDescription;
                     model.IsAboutText = false;
                 }
+
                 model.AboutImagePath = ImageHelper.GetStoreImage(store.MainPartyId, store.StoreLogo, "300");
+                model.StorePicture = ImageHelper.GetStoreProfilePicture(store.StorePicture);
                 model.StoreName = store.StoreName;
                 var storeActivtyType = _storeActivityTypeService.GetStoreActivityTypesByStoreId(store.MainPartyId);
                 foreach (var activity in storeActivtyType.ToList())
@@ -196,8 +198,9 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     model.Address = address.GetFullAddress();                    
                 }
-
-                processStatus.Result = model;
+                string encodeaddress = System.Web.HttpUtility.HtmlEncode(model.Address);
+                //model.MapAddress = $"https://api.makinaturkiye.com/map/{encodeaddress}";
+                //    processStatus.Result = model;
                 processStatus.ActiveResultRowCount = 1;
                 processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
                 processStatus.Message.Header = "Store İşlemleri";
@@ -429,7 +432,7 @@ namespace MakinaTurkiye.Api.Controllers
                             View.Result.ProductSearchResult TmpResult = new View.Result.ProductSearchResult
                             {
                                 ProductId = item.ProductId,
-                                CurrencyCodeName = "tr-TR",
+                                CurrencyCodeName =item.CurrencyCodeName,
                                 ProductName = item.ProductName,
                                 BrandName = item.BrandName,
                                 ModelName = item.CategoryName,
@@ -475,6 +478,37 @@ namespace MakinaTurkiye.Api.Controllers
         }
 
     }
+
+    public HttpResponseMessage GetStoresForCategoryBycategoryName(string categoryName)
+        {
+            {
+                ProcessResult processStatus = new ProcessResult();
+                try
+                {
+                    byte MainCategory = (byte)MainCategoryTypeEnum.MainCategory;
+                    var Result = _categoryService.GetSPCategoryGetCategoryByCategoryName(categoryName).Select(x => new {
+                        Text = (!string.IsNullOrEmpty(x.StorePageTitle)? x.StorePageTitle:(!string.IsNullOrEmpty(x.CategoryContentTitle) ? x.CategoryContentTitle : x.CategoryName)),
+                        Value = x.CategoryId.ToString()
+                    }).ToList();
+
+                    processStatus.Result = Result;
+                    processStatus.ActiveResultRowCount = 1;
+                    processStatus.TotolRowCount = 1;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                catch (Exception Error)
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = Error;
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+            }
+        }
 
 
         public HttpResponseMessage GetStoresForCategoryByCategoryId(int categoryId = 0)

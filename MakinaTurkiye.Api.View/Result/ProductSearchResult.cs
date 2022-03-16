@@ -53,6 +53,7 @@ namespace MakinaTurkiye.Api.View.Result
         public string StoreGsm { get; set; } = "";
         public string StoreBussinesPhone { get; set; } = "";
         public DateTime DatePublished { get; set; }
+
     }
 }
 

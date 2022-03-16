@@ -60,10 +60,11 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = _productService.GetProductByProductId(No);
                 if (Result != null)
                 {
+                    var Currency = Result.GetCurrency();
                     View.Result.ProductSearchResult TmpResult = new View.Result.ProductSearchResult
                     {
                         ProductId = Result.ProductId,
-                        CurrencyCodeName = "tr-TR",
+                        CurrencyCodeName = Currency,
                         ProductName = Result?.ProductName,
                         BrandName = Result?.Brand?.CategoryName,
                         ModelName = Result?.Model?.CategoryName,
@@ -209,7 +210,7 @@ namespace MakinaTurkiye.Api.Controllers
                                                 new View.Result.ProductSearchResult
                                                 {
                                                     ProductId = Snc.ProductId,
-                                                    CurrencyCodeName = "tr-TR",
+                                                    CurrencyCodeName =Snc.GetCurrency(),
                                                     ProductName = Snc.ProductName,
                                                     BrandName = Snc.Brand.CategoryName,
                                                     ModelName = Snc.Model.CategoryName,
@@ -309,22 +310,22 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.TotolRowCount = result.Products.Count();
 
                 List<View.Result.ProductSearchResult> TmpResult = result.Products.Select(Snc =>
-                                      new View.Result.ProductSearchResult
-                                      {
-                                          StoreMainPartyId = Snc.StoreMainPartyId.Value,
-                                          ProductId = Snc.ProductId,
-                                          CurrencyCodeName = "tr-TR",
-                                          ProductName = Snc.ProductName,
-                                          BrandName = Snc.BrandName,
-                                          ModelName = Snc.ModelName,
-                                          MainPicture = Snc.MainPicture,
-                                          StoreName = Snc.StoreName,
-                                          ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
-                                          ProductPriceType = (byte)Snc.ProductPriceType,
-                                          ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
-                                          ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0),
-                                      }
-                                  ).ToList();
+                    new View.Result.ProductSearchResult
+                    {
+                        CurrencyCodeName =Snc.CurrencyCodeName,
+                        StoreMainPartyId = Snc.StoreMainPartyId.Value,
+                        ProductId = Snc.ProductId,
+                        ProductName = Snc.ProductName,
+                        BrandName = Snc.BrandName,
+                        ModelName = Snc.ModelName,
+                        MainPicture = Snc.MainPicture,
+                        StoreName = Snc.StoreName,
+                        ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
+                        ProductPriceType = (byte)Snc.ProductPriceType,
+                        ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
+                        ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0),
+                    }
+                ).ToList();
 
 
                 foreach (var item in TmpResult)
@@ -386,7 +387,6 @@ namespace MakinaTurkiye.Api.Controllers
                 if (allDetails)
                 {
                     ProcessStatus.Result = Result;
-
                 }
                 else
                 {
@@ -394,7 +394,7 @@ namespace MakinaTurkiye.Api.Controllers
                                             new MakinaTurkiye.Api.View.Result.ProductSearchResult
                                             {
                                                 ProductId = Snc.ProductId,
-                                                CurrencyCodeName = "tr-TR",
+                                                CurrencyCodeName = Snc.GetCurrency(),
                                                 ProductName = Snc.ProductName,
                                                 BrandName = Snc.Brand.CategoryName,
                                                 ModelName = Snc.Model.CategoryName,
@@ -460,7 +460,7 @@ namespace MakinaTurkiye.Api.Controllers
                         new MakinaTurkiye.Api.View.Result.ProductSearchResult
                         {
                             ProductId = Snc.ProductId,
-                            CurrencyCodeName = "tr-TR",
+                            CurrencyCodeName = Snc.GetCurrency(),
                             ProductName = Snc.ProductName,
                             BrandName = Snc.Brand.CategoryName,
                             ModelName = Snc.Model.CategoryName,
@@ -728,14 +728,14 @@ namespace MakinaTurkiye.Api.Controllers
                     var tmp = new View.Result.ProductSearchResult
                     {
                         ProductId = Result.ProductId,
-                        CurrencyCodeName = "tr-TR",
+                        CurrencyCodeName =Result.GetCurrency(),
                         ProductName = Result.ProductName,
                         BrandName = (Result.Brand == null ? "" : Result.Brand.CategoryName),
                         ModelName = (Result.Model == null ? "" : Result.Model.CategoryName),
                         MainPicture = "",
                         StoreName = "",
                         MainPartyId = (int)Result.MainPartyId,
-                        ProductPrice = (Result.ProductPrice ?? 0),
+                        ProductPrice =(Result.ProductPrice ?? 0),
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast ?? 0),
                         ProductPriceBegin = (Result.ProductPriceBegin ?? 0)

@@ -37,7 +37,8 @@ namespace MakinaTurkiye.Api.View
         public string Phone2 { get; set; }
         public string Whatsapp { get; set; }
         public string Address { get; set; } = "";
-
         public string StoreBanner { get; set; } = "";
+        public string StorePicture { get; set; } = "";
+        //public string MapAddress { get; set; } = "";
     }
 }

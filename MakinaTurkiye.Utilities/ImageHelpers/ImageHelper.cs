@@ -4,6 +4,17 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
 {
     public static class ImageHelper
     {
+        public static string GetStoreProfilePicture(string logo)
+        {
+            if (!string.IsNullOrWhiteSpace(logo) && logo.Contains("."))
+                logo= logo.Substring(0, logo.LastIndexOf(".")) + "_th" + logo.Substring(logo.LastIndexOf("."));
+            else
+                logo="";
+
+            return string.Format("https://makinaturkiye.com/UserFiles/Images/StoreProfilePicture/{0}", logo);
+        }
+
+
         public static string GetVideoImagePath(string videoPictureName)
         {
             string imageUrl = string.Format("//s.makinaturkiye.com/VideoThumb/{0}", videoPictureName);
