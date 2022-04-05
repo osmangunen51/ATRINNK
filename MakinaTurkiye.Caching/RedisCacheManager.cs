@@ -2,14 +2,11 @@
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace MakinaTurkiye.Caching
 {
@@ -45,7 +42,7 @@ namespace MakinaTurkiye.Caching
 
         #region Utilities
 
-        private  byte[] SerializeAndCompress(object obj)
+        private byte[] SerializeAndCompress(object obj)
         {
             using (MemoryStream ms = new MemoryStream())
             using (GZipStream zs = new GZipStream(ms, CompressionMode.Compress, true))
@@ -95,7 +92,7 @@ namespace MakinaTurkiye.Caching
         }
 
 
-        protected  byte[] Serialize(object item)
+        protected byte[] Serialize(object item)
         {
             JsonSerializerSettings serializerSettings = new JsonSerializerSettings
             {
@@ -111,7 +108,7 @@ namespace MakinaTurkiye.Caching
             return Encoding.UTF8.GetBytes(jsonString);
         }
 
-        protected  T Deserialize<T>(byte[] serializedObject)
+        protected T Deserialize<T>(byte[] serializedObject)
         {
             if (serializedObject == null)
                 return default(T);
@@ -142,7 +139,7 @@ namespace MakinaTurkiye.Caching
         /// <returns>The value associated with the specified key.</returns>
         public T Get<T>(string key)
         {
-            if(!AllOperationEnabled)
+            if (!AllOperationEnabled)
                 return default(T);
 
             if (!GetOperationEnabled)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MakinaTurkiye.Services.Catalog
 {
-    public interface IProductCatologService  : ICachingSupported
+    public interface IProductCatologService : ICachingSupported
     {
         ProductCatolog GetProductCatologByProductCatologId(int productCatologId);
 

@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Services.Catalog
 {
-    public enum CategoryTypeEnum:byte
+    public enum CategoryTypeEnum : byte
     {
         Brand = 3,
         Series = 4,

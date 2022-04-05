@@ -13,7 +13,7 @@ namespace MakinaTurkiye.Services.Members
         List<Member> GetMembersByMainPartyId(int Id);
 
         MainParty GetMainPartyByMainPartyId(int mainPartyId);
-       
+
         void InsertMainParty(MainParty mainParty);
         void UpdateMainParty(MainParty mainParty);
 

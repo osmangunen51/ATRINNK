@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Catalog
 {
-    public class ProductCommentMap:EntityTypeConfiguration<ProductComment>
+    public class ProductCommentMap : EntityTypeConfiguration<ProductComment>
     {
         public ProductCommentMap()
         {

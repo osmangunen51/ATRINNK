@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Services.SearchEngine
 {
-    public class SearchEngineService  : ISearchEngineService
+    public class SearchEngineService : ISearchEngineService
     {
 
     }

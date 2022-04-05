@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Messages
 {
-    public class AutoMailRecordMap:EntityTypeConfiguration<AutoMailRecord>
+    public class AutoMailRecordMap : EntityTypeConfiguration<AutoMailRecord>
     {
         public AutoMailRecordMap()
         {

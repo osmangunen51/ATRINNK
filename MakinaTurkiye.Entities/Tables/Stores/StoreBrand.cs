@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Stores
 {
-    public class StoreBrand:BaseEntity
+    public class StoreBrand : BaseEntity
     {
         public int StoreBrandId { get; set; }
         public int MainPartyId { get; set; }

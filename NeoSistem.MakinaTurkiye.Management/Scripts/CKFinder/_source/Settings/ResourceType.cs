@@ -15,66 +15,66 @@ using System;
 namespace CKFinder.Settings
 {
     public class ResourceType
-	{
-		internal string Name;
+    {
+        internal string Name;
 
-		private string _Url;
-		public string Dir;
-		public int MaxSize;
-		public string[] AllowedExtensions;
-		public string[] DeniedExtensions;
+        private string _Url;
+        public string Dir;
+        public int MaxSize;
+        public string[] AllowedExtensions;
+        public string[] DeniedExtensions;
 
-		internal ResourceType( string name )
-		{
-			Name = name;
+        internal ResourceType(string name)
+        {
+            Name = name;
 
-			Url = "";
-			Dir = "";
-			MaxSize = 0;
-			AllowedExtensions = new string[ 0 ];
-			DeniedExtensions = new string[ 0 ];
-		}
+            Url = "";
+            Dir = "";
+            MaxSize = 0;
+            AllowedExtensions = new string[0];
+            DeniedExtensions = new string[0];
+        }
 
-		public string Url
-		{
-			get
-			{
-				return _Url;
-			}
-			set
-			{
-				_Url = value;
+        public string Url
+        {
+            get
+            {
+                return _Url;
+            }
+            set
+            {
+                _Url = value;
 
-				if ( _Url.StartsWith( "~" ) )
-					_Url = ( (System.Web.UI.Page)System.Web.HttpContext.Current.Handler ).ResolveUrl( _Url );
+                if (_Url.StartsWith("~"))
+                    _Url = ((System.Web.UI.Page)System.Web.HttpContext.Current.Handler).ResolveUrl(_Url);
 
-				if ( !_Url.EndsWith( "/" ) )
-					_Url += "/";
-			}
-		}
+                if (!_Url.EndsWith("/"))
+                    _Url += "/";
+            }
+        }
 
-		public bool CheckExtension( string extension )
-		{
-			extension = extension.TrimStart( '.' ).ToLower();
+        public bool CheckExtension(string extension)
+        {
+            extension = extension.TrimStart('.').ToLower();
 
-			if ( DeniedExtensions.Length > 0 )
-			{
-				if ( Array.IndexOf( this.DeniedExtensions, extension ) >= 0 )
-					return false;
-			}
+            if (DeniedExtensions.Length > 0)
+            {
+                if (Array.IndexOf(this.DeniedExtensions, extension) >= 0)
+                    return false;
+            }
 
-			if ( AllowedExtensions.Length > 0 )
-				return ( Array.IndexOf( this.AllowedExtensions, extension ) >= 0 ) ;
-			else
-				return true;
-		}
+            if (AllowedExtensions.Length > 0)
+                return (Array.IndexOf(this.AllowedExtensions, extension) >= 0);
+            else
+                return true;
+        }
 
-		public string GetTargetDirectory()
-		{
-			if ( Dir.Length == 0 )
-				return System.Web.HttpContext.Current.Server.MapPath( Url );
-			else
-				return Dir;
-		}
-	}
+        public string GetTargetDirectory()
+        {
+            if (Dir.Length == 0)
+                return System.Web.HttpContext.Current.Server.MapPath(Url);
+            else
+                return Dir;
+        }
+    }
 }

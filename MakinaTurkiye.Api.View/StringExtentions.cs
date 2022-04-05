@@ -53,8 +53,8 @@ namespace MakinaTurkiye.Api.View
             return str;
         }
 
-        
-       
+
+
 
 
         private static string RemoveAccent(string text)

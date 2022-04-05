@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Common
 {
-    public class Town:BaseEntity
+    public class Town : BaseEntity
     {
         public int TownId { get; set; }
         public int? CityId { get; set; }

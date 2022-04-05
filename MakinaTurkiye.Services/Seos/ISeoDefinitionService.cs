@@ -9,6 +9,6 @@ namespace MakinaTurkiye.Services.Seos
     {
         SeoDefinition GetSeoDefinitionByEntityIdWithEntityType(int entityId, EntityTypeEnum entityType);
         IList<Seo> GetAllSeos();
-      
+
     }
 }

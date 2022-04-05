@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Stores
 {
-    public class StoreDiscountMap:EntityTypeConfiguration<StoreDiscount>
+    public class StoreDiscountMap : EntityTypeConfiguration<StoreDiscount>
     {
         public StoreDiscountMap()
         {

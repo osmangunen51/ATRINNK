@@ -22,7 +22,7 @@
         public string MemberLocalityName { get; set; }
         public string StoreUrlName { get; set; }
         public bool ProductActive { get; set; }
-      
+
 
     }
 }

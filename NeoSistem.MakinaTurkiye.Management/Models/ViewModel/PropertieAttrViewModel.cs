@@ -13,7 +13,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.ViewModel
         public string PropertieAttrValue { get; set; }
         public int Order { get; set; }
         public List<PropertieAttrModel> PropertieAttrs { get; set; }
-              
+
     }
-  
+
 }

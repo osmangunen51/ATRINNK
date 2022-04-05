@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Stores
 {
-    public class StoreCatologFile:BaseEntity
+    public class StoreCatologFile : BaseEntity
     {
         public int StoreCatologFileId { get; set; }
         public int StoreMainPartyId { get; set; }

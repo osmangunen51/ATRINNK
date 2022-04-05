@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Messages
 {
-    public class MessagesMT:BaseEntity
+    public class MessagesMT : BaseEntity
     {
         public int MessagesMTId { get; set; }
         public string MessagesMTName { get; set; }

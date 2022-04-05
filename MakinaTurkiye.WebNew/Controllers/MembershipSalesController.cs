@@ -1,28 +1,27 @@
 ﻿using Iyzipay;
 using Iyzipay.Model;
 using Iyzipay.Request;
-
+using MakinaTurkiye.Core;
+using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Entities.Tables.Checkouts;
 using MakinaTurkiye.Entities.Tables.Common;
+using MakinaTurkiye.Entities.Tables.Logs;
+using MakinaTurkiye.Entities.Tables.Members;
+using MakinaTurkiye.Entities.Tables.Packets;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Checkouts;
 using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Messages;
+using MakinaTurkiye.Services.Logs;
 using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Messages;
 using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Services.Payments;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.HttpHelpers;
-using MakinaTurkiye.Entities.Tables.Members;
-using MakinaTurkiye.Entities.Tables.Packets;
-using MakinaTurkiye.Entities.Tables.Catalog;
-using MakinaTurkiye.Services.Logs;
-using MakinaTurkiye.Entities.Tables.Logs;
-using MakinaTurkiye.Entities.Tables.Checkouts;
-
+using MakinaTurkiye.Utilities.MailHelpers;
+using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,15 +30,12 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Cryptography;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Xml;
-
 using static NeoSistem.MakinaTurkiye.Web.Models.EnumModel;
-using NeoSistem.MakinaTurkiye.Web.Helpers;
-using MakinaTurkiye.Utilities.MailHelpers;
-using System.Security.Cryptography;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
@@ -109,7 +105,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         }
     }
 
-    public class MembershipSalesController : Controller
+    public class MembershipSalesController : BaseController
     {
         #region Fields
 
@@ -544,12 +540,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             mail.Body = template;                                                            //Mailin içeriği
                             mail.IsBodyHtml = true;
                             mail.Priority = MailPriority.Normal;
-                            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                            sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                            sc.Send(mail);
+                            this.SendMail(mail);
 
                             //
 
@@ -568,12 +559,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             mailb.Body = bilgimakinaicin;
                             mailb.IsBodyHtml = true;
                             mailb.Priority = MailPriority.Normal;
-                            SmtpClient scr1 = new SmtpClient();
-                            scr1.Port = 587;
-                            scr1.Host = "smtp.gmail.com";
-                            scr1.EnableSsl = true;
-                            scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                            scr1.Send(mailb);
+                            this.SendMail(mailb);
 
                             #endregion
 
@@ -672,12 +658,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mail.Body = body;                                                            //Mailin içeriği
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
-                    SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                    sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                    sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                    sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                    sc.Credentials = new NetworkCredential(mtMessage.Mail, mtMessage.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                    sc.Send(mail);
+                    this.SendMail(mail);
                 }
                 catch (Exception ex)
                 {
@@ -866,12 +847,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 mail.Body = template;                                                            //Mailin içeriği
                                 mail.IsBodyHtml = true;
                                 mail.Priority = MailPriority.Normal;
-                                SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                                sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                                sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                                sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                                sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                                sc.Send(mail);
+                                this.SendMail(mail);
 
                                 #region packetconfirm
 
@@ -891,12 +867,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 mail.Body = template;                                                            //Mailin içeriği
                                 mail.IsBodyHtml = true;
                                 mail.Priority = MailPriority.Normal;
-                                sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                                sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                                sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                                sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                                sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                                sc.Send(mail);
+                                this.SendMail(mail);
                                 #endregion
                                 store.PacketId = packet.PacketId;
                                 store.StorePacketBeginDate = DateTime.Now;
@@ -951,12 +922,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 mailb.Body = bilgimakinaicin;
                                 mailb.IsBodyHtml = true;
                                 mailb.Priority = MailPriority.Normal;
-                                SmtpClient scr1 = new SmtpClient();
-                                scr1.Port = 587;
-                                scr1.Host = "smtp.gmail.com";
-                                scr1.EnableSsl = true;
-                                scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                                scr1.Send(mailb);
+                                this.SendMail(mailb);
                                 #endregion
 
 
@@ -1516,7 +1482,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 string template = mailMessage.MessagesMTPropertie;
                 template = template.Replace("#uyeadisoyadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname);
-                MailHelper mailHelper = new MailHelper(mailMessage.MessagesMTTitle, template, mailMessage.Mail, Email, mailMessage.MailPassword, mailMessage.MailSendFromName);
+                MailHelper mailHelper = new MailHelper(mailMessage.MessagesMTTitle, template, mailMessage.Mail, Email, mailMessage.MailPassword, mailMessage.MailSendFromName,AppSettings.MailHost, AppSettings.MailPort, AppSettings.MailSsl);
                 mailHelper.Send();
 
                 #region goldpacketmail
@@ -1525,7 +1491,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 template = mailT.MessagesMTPropertie;
                 string dateimiz = DateTime.Now.AddDays(packet.PacketDay).ToString();
                 template = template.Replace("#uyeliktipi#", packet.PacketName).Replace("#uyelikbaslangıctarihi#", DateTime.Now.ToShortDateString()).Replace("#uyelikbitistarihi#", dateimiz).Replace("#kullaniciadi#", AuthenticationUser.CurrentUser.Membership.MemberName + " " + AuthenticationUser.CurrentUser.Membership.MemberSurname).Replace("#pakettipi#", packet.PacketName);
-                var mailAnother = new MailHelper(mailT.MessagesMTTitle, template, mailT.Mail, Email, mailT.MailPassword, mailT.MailSendFromName);
+                var mailAnother = new MailHelper(mailT.MessagesMTTitle, template, mailT.Mail, Email, mailT.MailPassword, mailT.MailSendFromName, AppSettings.MailHost, AppSettings.MailPort, AppSettings.MailSsl);
                 mailAnother.Send();
                 #endregion
 
@@ -1587,12 +1553,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 mailb.Body = bilgimakinaicin;
                 mailb.IsBodyHtml = true;
                 mailb.Priority = MailPriority.Normal;
-                SmtpClient scr1 = new SmtpClient();
-                scr1.Port = 587;
-                scr1.Host = "smtp.gmail.com";
-                scr1.EnableSsl = true;
-                scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                scr1.Send(mailb);
+                this.SendMail(mailb);
 
                 #endregion
 
@@ -1653,12 +1614,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail);
+            this.SendMail(mail);
 
             #region bilgimakina
 
@@ -1675,12 +1631,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             mailb.Body = bilgimakinaicin;
             mailb.IsBodyHtml = true;
             mailb.Priority = MailPriority.Normal;
-            SmtpClient scr1 = new SmtpClient();
-            scr1.Port = 587;
-            scr1.Host = "smtp.gmail.com";
-            scr1.EnableSsl = true;
-            scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-            scr1.Send(mailb);
+            this.SendMail(mailb);
 
             #endregion
 
@@ -2001,7 +1952,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (!string.IsNullOrEmpty(conversationData))
                 request.ConversationData = conversationData;
             ThreedsPayment threedsPayment = ThreedsPayment.Create(request, options);
-            string status1 =threedsPayment.Status;
+            string status1 = threedsPayment.Status;
             decimal paidPrice = 0;
             var order = new Order();
             int orderId = Convert.ToInt32(request.ConversationId);
@@ -2073,12 +2024,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 mail.Body = template;                                                            //Mailin içeriği
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
-                SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                sc.Send(mail);
+                this.SendMail(mail);
                 #endregion
 
                 if (order.PriceCheck == true)
@@ -2104,12 +2050,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mail.Body = template;                                                            //Mailin içeriği
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
-                    sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                    sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                    sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                    sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                    sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                    sc.Send(mail);
+                    this.SendMail(mail);
                     #endregion
                     store.PacketId = packet.PacketId;
                     var recordDate = DateTime.Now;
@@ -2140,13 +2081,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mailb.Body = bilgimakinaicin;
                     mailb.IsBodyHtml = true;
                     mailb.Priority = MailPriority.Normal;
-                    SmtpClient scr1 = new SmtpClient();
-                    scr1.Port = 587;
-                    scr1.Host = "smtp.gmail.com";
-                    scr1.EnableSsl = true;
-                    scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                    scr1.Send(mailb);
-
+                    this.SendMail(mailb);
                     #endregion
                 }
                 catch (Exception ex)
@@ -2204,12 +2139,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mailb.Body = bilgimakinaicin;
                     mailb.IsBodyHtml = true;
                     mailb.Priority = MailPriority.Normal;
-                    SmtpClient scr1 = new SmtpClient();
-                    scr1.Port = 587;
-                    scr1.Host = "smtp.gmail.com";
-                    scr1.EnableSsl = true;
-                    scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                    scr1.Send(mailb);
+                    this.SendMail(mailb);
 
                     #endregion
                 }
@@ -2288,12 +2218,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail);
+            this.SendMail(mail);
         }
         #endregion
     }

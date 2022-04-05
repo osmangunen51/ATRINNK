@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Payments
 {
-    public class BankAccount: BaseEntity
+    public class BankAccount : BaseEntity
     {
         public byte AccountId { get; set; }
         public string AccountName { get; set; }

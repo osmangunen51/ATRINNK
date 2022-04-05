@@ -14,102 +14,102 @@
 namespace CKFinder.Connector
 {
     internal class Config
-	{
-		private static Config _Current;
+    {
+        private static Config _Current;
 
-		private Config()
-		{ }
+        private Config()
+        { }
 
-		public static Config Current
-		{
-			get
-			{
-				if ( _Current == null )
-					_Current = new Config();
-				return _Current;
-			}
-		}
+        public static Config Current
+        {
+            get
+            {
+                if (_Current == null)
+                    _Current = new Config();
+                return _Current;
+            }
+        }
 
-		public bool CheckAuthentication()
-		{
-			return Settings.ConfigFile.Current.CheckAuthentication();
-		}
+        public bool CheckAuthentication()
+        {
+            return Settings.ConfigFile.Current.CheckAuthentication();
+        }
 
-		public Settings.Thumbnails Thumbnails
-		{
-			get { return Settings.ConfigFile.Current.Thumbnails; }
-		}
+        public Settings.Thumbnails Thumbnails
+        {
+            get { return Settings.ConfigFile.Current.Thumbnails; }
+        }
 
-		public Settings.Images Images
-		{
-			get { return Settings.ConfigFile.Current.Images; }
-		}
+        public Settings.Images Images
+        {
+            get { return Settings.ConfigFile.Current.Images; }
+        }
 
-		public string LicenseKey
-		{
-			get { return Settings.ConfigFile.Current.LicenseKey.PadRight( 32, ' ' ); }
-		}
+        public string LicenseKey
+        {
+            get { return Settings.ConfigFile.Current.LicenseKey.PadRight(32, ' '); }
+        }
 
-		public string LicenseName
-		{
-			get { return Settings.ConfigFile.Current.LicenseName; }
-		}
+        public string LicenseName
+        {
+            get { return Settings.ConfigFile.Current.LicenseName; }
+        }
 
-		public string DefaultResourceTypes
-		{
-			get { return Settings.ConfigFile.Current.DefaultResourceTypes; }
-		}
+        public string DefaultResourceTypes
+        {
+            get { return Settings.ConfigFile.Current.DefaultResourceTypes; }
+        }
 
-		public bool ForceSingleExtension
-		{
-			get { return Settings.ConfigFile.Current.ForceSingleExtension; }
-		}
+        public bool ForceSingleExtension
+        {
+            get { return Settings.ConfigFile.Current.ForceSingleExtension; }
+        }
 
-		public bool SecureImageUploads
-		{
-			get { return Settings.ConfigFile.Current.SecureImageUploads; }
-		}
+        public bool SecureImageUploads
+        {
+            get { return Settings.ConfigFile.Current.SecureImageUploads; }
+        }
 
-		public bool CheckSizeAfterScaling
-		{
-			get { return Settings.ConfigFile.Current.CheckSizeAfterScaling; }
-		}
+        public bool CheckSizeAfterScaling
+        {
+            get { return Settings.ConfigFile.Current.CheckSizeAfterScaling; }
+        }
 
-		public string RoleSessionVar
-		{
-			get { return Settings.ConfigFile.Current.RoleSessionVar; }
-		}
+        public string RoleSessionVar
+        {
+            get { return Settings.ConfigFile.Current.RoleSessionVar; }
+        }
 
-		public Settings.ResourceTypeManager ResourceTypes
-		{
-			get { return Settings.ConfigFile.Current.ResourceType; }
-		}
+        public Settings.ResourceTypeManager ResourceTypes
+        {
+            get { return Settings.ConfigFile.Current.ResourceType; }
+        }
 
-		public Settings.ResourceType GetResourceTypeConfig( string resourceTypeName )
-		{
-			return Settings.ConfigFile.Current.ResourceType.GetByName( resourceTypeName );
-		}
+        public Settings.ResourceType GetResourceTypeConfig(string resourceTypeName)
+        {
+            return Settings.ConfigFile.Current.ResourceType.GetByName(resourceTypeName);
+        }
 
-		public Settings.AccessControlManager AccessControl
-		{
-			get { return Settings.ConfigFile.Current.AccessControl; }
-		}
+        public Settings.AccessControlManager AccessControl
+        {
+            get { return Settings.ConfigFile.Current.AccessControl; }
+        }
 
-		internal bool CheckIsNonHtmlExtension( string extension )
-		{
-			string[] htmlExtensions = Settings.ConfigFile.Current.HtmlExtensions;
+        internal bool CheckIsNonHtmlExtension(string extension)
+        {
+            string[] htmlExtensions = Settings.ConfigFile.Current.HtmlExtensions;
 
-			return ( htmlExtensions.Length == 0 || !Util.ArrayContains( htmlExtensions, extension, System.Collections.CaseInsensitiveComparer.DefaultInvariant ) );
-		}
+            return (htmlExtensions.Length == 0 || !Util.ArrayContains(htmlExtensions, extension, System.Collections.CaseInsensitiveComparer.DefaultInvariant));
+        }
 
-		internal bool CheckIsHiddenFolder( string folderName )
-		{
-			return Settings.ConfigFile.Current.HideFoldersRegex.IsMatch( folderName );
-		}
+        internal bool CheckIsHiddenFolder(string folderName)
+        {
+            return Settings.ConfigFile.Current.HideFoldersRegex.IsMatch(folderName);
+        }
 
-		internal bool CheckIsHiddenFile( string fileName )
-		{
-			return Settings.ConfigFile.Current.HideFilesRegex.IsMatch( fileName );
-		}
-	}
+        internal bool CheckIsHiddenFile(string fileName)
+        {
+            return Settings.ConfigFile.Current.HideFilesRegex.IsMatch(fileName);
+        }
+    }
 }

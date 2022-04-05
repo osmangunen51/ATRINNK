@@ -4,7 +4,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
 {
     public class NotificationModel
     {
-  
+
         public int ID { get; set; }
         public string MemberName { get; set; }
         public string StoreName { get; set; }
@@ -19,6 +19,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string FromUserName { get; set; }
         public bool IsFirst { get; set; }
         public bool IsImmediate { get; set; }
-     
+
     }
 }

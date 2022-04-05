@@ -40,7 +40,7 @@ namespace MakinaTurkiye.Services.Payments
                 throw new ArgumentNullException("bankAccountId");
 
             var query = _bankAccountRepository.Table;
-            var bankAccount=query.FirstOrDefault(ba => ba.AccountId == bankAccountId);
+            var bankAccount = query.FirstOrDefault(ba => ba.AccountId == bankAccountId);
             return bankAccount;
         }
     }

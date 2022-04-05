@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
 {
-    public class StoreStatisticService:IStoreStatisticService
+    public class StoreStatisticService : IStoreStatisticService
     {
         private readonly IRepository<StoreStatistic> _storeProductStatisticRepository;
         private readonly IDataProvider _dataProvider;
@@ -66,18 +66,18 @@ namespace MakinaTurkiye.Services.Stores
             pEndDate.ParameterName = "EndDate";
             pEndDate.Value = LastDate.Date;
             pEndDate.DbType = DbType.Date;
-            
+
             var storeStatistics = _dbContext.SqlQuery<StoreStatistic>("SP_GetStoreStatisticsByStoreIdAndDates @StoreId, @BeginDate, @EndDate", pMainPartyId, pBeginDate, pEndDate).ToList();
             return storeStatistics;
         }
-        
+
         public void InsertStoreStatistic(StoreStatistic storeProductStatistic)
         {
             if (storeProductStatistic == null)
                 throw new ArgumentNullException("storeStatistic");
 
-             _storeProductStatisticRepository.Insert(storeProductStatistic);
-            
+            _storeProductStatisticRepository.Insert(storeProductStatistic);
+
         }
 
         public void UpdateStoreStatistic(StoreStatistic storeProductStatistic)

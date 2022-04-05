@@ -30,8 +30,8 @@ namespace MakinaTurkiye.Services.Members
 
         #region Ctor
 
-        public MemberService(IRepository<Member> memberRepository, IRepository<MainParty> mainPartyRepository, 
-            ICacheManager cacheManager, IDataProvider dataProvider, IDbContext dbContext): base(cacheManager)
+        public MemberService(IRepository<Member> memberRepository, IRepository<MainParty> mainPartyRepository,
+            ICacheManager cacheManager, IDataProvider dataProvider, IDbContext dbContext) : base(cacheManager)
         {
             this._memberRepository = memberRepository;
             this._mainPartyRepository = mainPartyRepository;
@@ -100,7 +100,7 @@ namespace MakinaTurkiye.Services.Members
         public List<Member> GetMembersByMainPartyId(int Id)
         {
             var query = _memberRepository.Table;
-            return query.ToList().Where(x=> x.MainPartyId == Id).ToList();
+            return query.ToList().Where(x => x.MainPartyId == Id).ToList();
         }
 
         public List<MemberListForMailSender> SP_GetAllMemberListForMailSender(byte phoneConfirm, byte memberType, int fastMembershipType, int packetId, byte mailActive)
@@ -222,10 +222,10 @@ namespace MakinaTurkiye.Services.Members
 
         public IList<MemberByPhoneResult> SPGetInfoByPhone(string phoneNumber)
         {
-            phoneNumber = phoneNumber.Trim().Replace(" ","").Replace("+","").Replace("(","").Replace(")","").Replace("-","");
+            phoneNumber = phoneNumber.Trim().Replace(" ", "").Replace("+", "").Replace("(", "").Replace(")", "").Replace("-", "");
             if (phoneNumber.StartsWith("0"))
             {
-                phoneNumber = phoneNumber.Substring(1, phoneNumber.Length-1);
+                phoneNumber = phoneNumber.Substring(1, phoneNumber.Length - 1);
             }
             else if (phoneNumber.StartsWith("9"))
             {
@@ -237,7 +237,7 @@ namespace MakinaTurkiye.Services.Members
             pPhoneNumber.DbType = DbType.String;
 
 
-            var list = _dbContext.SqlQuery<MemberByPhoneResult>("SP_GetInfoByPhone @PhoneNumber",  pPhoneNumber);
+            var list = _dbContext.SqlQuery<MemberByPhoneResult>("SP_GetInfoByPhone @PhoneNumber", pPhoneNumber);
             return list.ToList();
         }
 

@@ -1,9 +1,5 @@
-﻿using System;
+﻿using MakinaTurkiye.Entities.Tables.Common;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MakinaTurkiye.Entities.Tables.Common;
 
 namespace MakinaTurkiye.Services.Common
 {

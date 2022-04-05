@@ -17,7 +17,7 @@ namespace MakinaTurkiye.Services.Stores
 
         public void DeleteWhatsappLog(WhatsappLog whatsappLog)
         {
-            if (whatsappLog==null)
+            if (whatsappLog == null)
                 throw new ArgumentNullException("whatsappLog");
             _whatsappLogResository.Delete(whatsappLog);
         }
@@ -33,8 +33,8 @@ namespace MakinaTurkiye.Services.Stores
             if (mainPartyId == 0)
                 throw new ArgumentNullException("mainPartyId");
             var query = _whatsappLogResository.Table;
-           return query.FirstOrDefault(x => x.MainPartyId==mainPartyId && x.RecordDate == dateTime);
-           
+            return query.FirstOrDefault(x => x.MainPartyId == mainPartyId && x.RecordDate == dateTime);
+
         }
 
         public List<WhatsappLog> GetWhatsappLogsByMainPartyId(int mainPartyId)
@@ -42,7 +42,7 @@ namespace MakinaTurkiye.Services.Stores
             if (mainPartyId == 0)
                 throw new ArgumentNullException("mainPartyId");
             var query = _whatsappLogResository.Table;
-            query = query.Where(x => x.MainPartyId==mainPartyId);
+            query = query.Where(x => x.MainPartyId == mainPartyId);
             return query.ToList();
         }
 

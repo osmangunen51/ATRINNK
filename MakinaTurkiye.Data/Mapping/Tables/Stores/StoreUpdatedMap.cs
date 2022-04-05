@@ -1,14 +1,9 @@
 ﻿using MakinaTurkiye.Entities.Tables.Stores;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity.ModelConfiguration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Stores
 {
-    public class StoreUpdatedMap:EntityTypeConfiguration<StoreUpdated>
+    public class StoreUpdatedMap : EntityTypeConfiguration<StoreUpdated>
     {
         public StoreUpdatedMap()
         {

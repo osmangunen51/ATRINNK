@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Logging
 {
-    public class SqlServerLoger: ILogger
+    public class SqlServerLoger : ILogger
     {
 
         public ILogger CreateChildLogger(string loggerName)

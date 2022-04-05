@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Api.View
+﻿namespace MakinaTurkiye.Api.View
 {
-  public  class MemberInfoForPrivateMessage
+    public class MemberInfoForPrivateMessage
     {
         public int MainPartyId { get; set; }
         public string MemberName { get; set; }

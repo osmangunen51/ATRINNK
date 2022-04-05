@@ -15,59 +15,59 @@ using System;
 namespace CKFinder.Connector.CommandHandlers
 {
     internal class DeleteFolderCommandHandler : XmlCommandHandlerBase
-	{
-		public DeleteFolderCommandHandler()
-			: base()
-		{
-		}
+    {
+        public DeleteFolderCommandHandler()
+            : base()
+        {
+        }
 
-		protected override void BuildXml()
-		{
-			if ( !this.CurrentFolder.CheckAcl( AccessControlRules.FolderDelete ) )
-			{
-				ConnectorException.Throw( Errors.Unauthorized );
-			}
+        protected override void BuildXml()
+        {
+            if (!this.CurrentFolder.CheckAcl(AccessControlRules.FolderDelete))
+            {
+                ConnectorException.Throw(Errors.Unauthorized);
+            }
 
-			// The root folder cannot be deleted.
-			if ( this.CurrentFolder.ClientPath == "/" )
-			{
-				ConnectorException.Throw( Errors.InvalidRequest );
-				return;
-			}
+            // The root folder cannot be deleted.
+            if (this.CurrentFolder.ClientPath == "/")
+            {
+                ConnectorException.Throw(Errors.InvalidRequest);
+                return;
+            }
 
-			if ( !System.IO.Directory.Exists( this.CurrentFolder.ServerPath ) )
-				ConnectorException.Throw( Errors.FolderNotFound );
+            if (!System.IO.Directory.Exists(this.CurrentFolder.ServerPath))
+                ConnectorException.Throw(Errors.FolderNotFound);
 
-			try
-			{
-				System.IO.Directory.Delete( this.CurrentFolder.ServerPath, true );
-			}
-			catch ( System.UnauthorizedAccessException )
-			{
-				ConnectorException.Throw( Errors.AccessDenied );
-			}
-			catch ( System.Security.SecurityException )
-			{
-				ConnectorException.Throw( Errors.AccessDenied );
-			}
-			catch ( System.ArgumentException )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-			}
-			catch ( System.IO.PathTooLongException )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-			}
-			catch ( Exception )
-			{
-				ConnectorException.Throw( Errors.Unknown );
-			}
+            try
+            {
+                System.IO.Directory.Delete(this.CurrentFolder.ServerPath, true);
+            }
+            catch (System.UnauthorizedAccessException)
+            {
+                ConnectorException.Throw(Errors.AccessDenied);
+            }
+            catch (System.Security.SecurityException)
+            {
+                ConnectorException.Throw(Errors.AccessDenied);
+            }
+            catch (System.ArgumentException)
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+            }
+            catch (System.IO.PathTooLongException)
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+            }
+            catch (Exception)
+            {
+                ConnectorException.Throw(Errors.Unknown);
+            }
 
-			try
-			{
-				System.IO.Directory.Delete( this.CurrentFolder.ThumbsServerPath, true );
-			}
-			catch { /* No errors if we are not able to delete the thumbs directory. */ }
-		}
-	}
+            try
+            {
+                System.IO.Directory.Delete(this.CurrentFolder.ThumbsServerPath, true);
+            }
+            catch { /* No errors if we are not able to delete the thumbs directory. */ }
+        }
+    }
 }

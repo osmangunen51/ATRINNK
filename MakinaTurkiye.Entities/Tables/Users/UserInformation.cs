@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Users
 {
-    public class UserInformation:BaseEntity
+    public class UserInformation : BaseEntity
     {
         public int UserInformationId { get; set; }
         public int UserId { get; set; }
@@ -23,5 +23,5 @@ namespace MakinaTurkiye.Entities.Tables.Users
         public string SecondPhoneNumber { get; set; }
         public DateTime RecordDate { get; set; }
         public DateTime UpdateDate { get; set; }
-     }
+    }
 }

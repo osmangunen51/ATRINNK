@@ -22,84 +22,87 @@ namespace NeoSistem.EnterpriseEntity.Business
     /// </para>
     /// </summary>
     public class ParameterCache
-  {
-    private CachingMechanism cache = new CachingMechanism();
-
-    /// <summary>
-    /// <para>
-    /// Populates the parameter collection for a command wrapper from the cache 
-    /// or performs a round-trip to the database to query the parameters.
-    /// </para>
-    /// </summary>
-    /// <param name="parametreCollection">
-    /// <para>The command to add the parameters.</para>
-    /// </param>
-    /// <param name="entity">
-    /// <para>The database to use to set the parameters.</para>
-    /// </param>
-    public bool SetParameters(ICollection<IDataParameter> parametreCollection, EntityObject entity)
     {
-      if(parametreCollection == null)
-        throw new ArgumentNullException("parametreCollection");
-      if(entity == null)
-        throw new ArgumentNullException("entity");
-      bool fromCache = false;
-      if(AlreadyCached(entity)) {
-        AddParametersFromCache(parametreCollection, entity);
-        entity.ProcedureNameProcess();
-        fromCache = true;
-      }
-      else {
-        entity.DiscoverParameter(parametreCollection);
-        IDataParameter[] copyOfParameters = CreateParameterCopy(parametreCollection);
-        this.cache.AddParameterSetToCache(entity, parametreCollection, copyOfParameters);
-      }
-      return fromCache;
-    }
+        private CachingMechanism cache = new CachingMechanism();
 
-    /// <summary>
-    /// <para>Empties the parameter cache.</para>
-    /// </summary>
-    protected internal void Clear()
-    {
-      this.cache.Clear();
-    }
+        /// <summary>
+        /// <para>
+        /// Populates the parameter collection for a command wrapper from the cache 
+        /// or performs a round-trip to the database to query the parameters.
+        /// </para>
+        /// </summary>
+        /// <param name="parametreCollection">
+        /// <para>The command to add the parameters.</para>
+        /// </param>
+        /// <param name="entity">
+        /// <para>The database to use to set the parameters.</para>
+        /// </param>
+        public bool SetParameters(ICollection<IDataParameter> parametreCollection, EntityObject entity)
+        {
+            if (parametreCollection == null)
+                throw new ArgumentNullException("parametreCollection");
+            if (entity == null)
+                throw new ArgumentNullException("entity");
+            bool fromCache = false;
+            if (AlreadyCached(entity))
+            {
+                AddParametersFromCache(parametreCollection, entity);
+                entity.ProcedureNameProcess();
+                fromCache = true;
+            }
+            else
+            {
+                entity.DiscoverParameter(parametreCollection);
+                IDataParameter[] copyOfParameters = CreateParameterCopy(parametreCollection);
+                this.cache.AddParameterSetToCache(entity, parametreCollection, copyOfParameters);
+            }
+            return fromCache;
+        }
 
-    /// <summary>
-    /// <para>Adds parameters to a command using the cache.</para>
-    /// </summary>
-    /// <param name="parametreCollection">
-    /// <para>The command to add the parameters.</para>
-    /// </param>
-    /// <param name="entity">The database to use.</param>
-    protected virtual void AddParametersFromCache(ICollection<IDataParameter> parametreCollection, EntityObject entity)
-    {
-      IDataParameter[] parameters = this.cache.GetCachedParameterSet(entity);
-      foreach(var item in parameters) {
-        parametreCollection.Add(item);
-      }
-    }
+        /// <summary>
+        /// <para>Empties the parameter cache.</para>
+        /// </summary>
+        protected internal void Clear()
+        {
+            this.cache.Clear();
+        }
 
-    /// <summary>
-    /// <para>Checks to see if a cache entry exists for a specific command on a specific connection</para>
-    /// </summary>
-    /// <param name="command">
-    /// <para>The command to check.</para>
-    /// </param>
-    /// <param name="entity">The database to check.</param>
-    /// <returns>True if the parameters are already cached for the provided command, false otherwise</returns>
-    private bool AlreadyCached(EntityObject entity)
-    {
-      return this.cache.IsParameterSetCached(entity);
-    }
+        /// <summary>
+        /// <para>Adds parameters to a command using the cache.</para>
+        /// </summary>
+        /// <param name="parametreCollection">
+        /// <para>The command to add the parameters.</para>
+        /// </param>
+        /// <param name="entity">The database to use.</param>
+        protected virtual void AddParametersFromCache(ICollection<IDataParameter> parametreCollection, EntityObject entity)
+        {
+            IDataParameter[] parameters = this.cache.GetCachedParameterSet(entity);
+            foreach (var item in parameters)
+            {
+                parametreCollection.Add(item);
+            }
+        }
 
-    private static IDataParameter[] CreateParameterCopy(ICollection<IDataParameter> parametreCollection)
-    {
-      ICollection<IDataParameter> parameters = parametreCollection;
-      IDataParameter[] parameterArray = new IDataParameter[parameters.Count];
-      parameters.CopyTo(parameterArray, 0);
+        /// <summary>
+        /// <para>Checks to see if a cache entry exists for a specific command on a specific connection</para>
+        /// </summary>
+        /// <param name="command">
+        /// <para>The command to check.</para>
+        /// </param>
+        /// <param name="entity">The database to check.</param>
+        /// <returns>True if the parameters are already cached for the provided command, false otherwise</returns>
+        private bool AlreadyCached(EntityObject entity)
+        {
+            return this.cache.IsParameterSetCached(entity);
+        }
 
-      return CachingMechanism.CloneParameters(parameterArray);
+        private static IDataParameter[] CreateParameterCopy(ICollection<IDataParameter> parametreCollection)
+        {
+            ICollection<IDataParameter> parameters = parametreCollection;
+            IDataParameter[] parameterArray = new IDataParameter[parameters.Count];
+            parameters.CopyTo(parameterArray, 0);
+
+            return CachingMechanism.CloneParameters(parameterArray);
+        }
     }
-  }
 }

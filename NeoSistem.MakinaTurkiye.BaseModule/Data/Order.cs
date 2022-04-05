@@ -7,10 +7,10 @@
     using System.Data;
 
     public class Order : BusinessDataEntity
-  {
-    public DataTable Search(ref int TotalRecord, int PageDimension, int Page, string Where, string OrderName, string Order)
     {
-      var prms = new List<IDataParameter> { 
+        public DataTable Search(ref int TotalRecord, int PageDimension, int Page, string Where, string OrderName, string Order)
+        {
+            var prms = new List<IDataParameter> {
         TotalRecord.InOutSqlParameter("TotalRecord"),
         PageDimension.InSqlParameter("PageDimension"),
         Page.InSqlParameter("Page"),
@@ -19,10 +19,10 @@
         Order.InSqlParameter("Order", SqlDbType.NVarChar)
       };
 
-      DataTable dt = ExecuteDataSet("spOrderSearch", prms).Tables[0];
-      TotalRecord = prms[0].Value.ToInt32();
-      return dt;
-    }
+            DataTable dt = ExecuteDataSet("spOrderSearch", prms).Tables[0];
+            TotalRecord = prms[0].Value.ToInt32();
+            return dt;
+        }
 
-  }
+    }
 }

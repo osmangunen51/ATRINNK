@@ -25,7 +25,7 @@ namespace MakinaTurkiye.Services.Stores
 
         #region Ctor
 
-        public StoreBrandService(IRepository<StoreBrand> storeBrandRepository, ICacheManager cacheManager): base(cacheManager)
+        public StoreBrandService(IRepository<StoreBrand> storeBrandRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             this._storeBrandRepository = storeBrandRepository;
             this._cacheManager = cacheManager;
@@ -46,7 +46,7 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentNullException("mainPartyId");
 
             string key = string.Format(STOREBRANS_BY_MAIN_PARTY_ID_KEY, mainPartyId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _storeBrandRepository.Table;
                 query = query.Where(sb => sb.MainPartyId == mainPartyId);

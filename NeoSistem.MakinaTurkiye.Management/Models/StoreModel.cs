@@ -557,6 +557,6 @@
         public DateTime? StoreUpdatedDate { get; set; }
 
         public int SeoStoreNotificationCount { get; set; }
- 
+
     }
 }

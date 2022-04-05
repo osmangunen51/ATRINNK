@@ -45,7 +45,7 @@ namespace MakinaTurkiye.Caching
         /// <returns>The value associated with the specified key.</returns>
         public virtual T Get<T>(string key)
         {
-            if(!GetOperationEnabled)
+            if (!GetOperationEnabled)
                 return default(T);
 
             var items = GetItems();

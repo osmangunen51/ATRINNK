@@ -15,7 +15,7 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Orders
         public string StoreName { get; set; }
         public decimal? PaidAmount { get; set; }
         public decimal? RestAmount { get; set; }
-   
+
         public int? CallingCount { get; set; }
         public string Description { get; set; }
         public byte? OrderType { get; set; }

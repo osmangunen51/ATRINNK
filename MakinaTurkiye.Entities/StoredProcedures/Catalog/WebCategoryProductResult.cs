@@ -37,7 +37,7 @@
         public bool? Kdv { get; set; }
         public bool? Fob { get; set; }
         public int? FavoriteProductId { get; set; }
-        public byte ? DiscountType { get; set; }
+        public byte? DiscountType { get; set; }
         public decimal? ProductPriceWithDiscount { get; set; }
         public string UnitType { get; set; }
         public byte? MinumumAmount { get; set; }

@@ -1,5 +1,4 @@
 ﻿using Elasticsearch.Net;
-using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Concurrent;
@@ -58,7 +57,7 @@ namespace MakinaTurkiye.Logging.ElasticSearch
                 {
                     var singleNode = new SingleNodeConnectionPool(_endpoint);
 
-                    var cc = new ConnectionConfiguration(singleNode,new ElasticSearchJsonNetSerializer())
+                    var cc = new ConnectionConfiguration(singleNode, new ElasticSearchJsonNetSerializer())
                         .RequestTimeout(TimeSpan.FromSeconds(15))
                         .EnableHttpPipelining()
                         .ThrowExceptions();
@@ -121,7 +120,7 @@ namespace MakinaTurkiye.Logging.ElasticSearch
             }
             catch (Exception ex)
             {
-               
+
             }
         }
 

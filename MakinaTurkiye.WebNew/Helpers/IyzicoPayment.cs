@@ -5,10 +5,10 @@ using MakinaTurkiye.Entities.Tables.Checkouts;
 using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Packets;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Web;
+using MakinaTurkiye.Core;
 namespace NeoSistem.MakinaTurkiye.Web.Helpers
 {
     public class IyzicoPayment

@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.ProductRequests
 {
-    public class ProductRequest:BaseEntity
+    public class ProductRequest : BaseEntity
     {
         public int ProductRequestId { get; set; }
         public int MemberMainPartyId { get; set; }

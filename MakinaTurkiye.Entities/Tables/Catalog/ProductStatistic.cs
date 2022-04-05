@@ -7,7 +7,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
     {
         [Key]
         public int idpos { get; set; }
-       
+
         public int ProductId { get; set; }
         public int MemberMainPartyId { get; set; }
         public string IpAdress { get; set; }

@@ -16,32 +16,32 @@ namespace MakinaTurkiye.Utilities.FileHelpers
             List<T> list = new List<T>();
 
             list.AddRange(values);
-            
+
             return list;
         }
 
-        public void ExportExcel<T>(List<T> values,string filename)
+        public void ExportExcel<T>(List<T> values, string filename)
         {
-     
+
             var response = HttpContext.Current.Response;
-            
+
             var gv = new GridView();
             gv.DataSource = values;
             gv.DataBind();
             gv.AllowPaging = false;
             response.Clear();
-            response.AddHeader("content-disposition", "attachment;filename="+filename+".xls");
+            response.AddHeader("content-disposition", "attachment;filename=" + filename + ".xls");
             response.ContentType = "application/ms-excel";
             response.ContentEncoding = System.Text.Encoding.Unicode;
             response.BinaryWrite(System.Text.Encoding.Unicode.GetPreamble());
-           
+
             StringWriter objStringWriter = new StringWriter();
             //Encoding.GetEncoding(1254).GetBytes(objStringWriter.ToString());
             HtmlTextWriter objHtmlTextWriter = new HtmlTextWriter(objStringWriter);
-   
+
             gv.RenderControl(objHtmlTextWriter);
             //response.Output.Write(objStringWriter.ToString());
-      
+
             response.Write(objStringWriter.ToString());
             //response.Flush();
             response.End();

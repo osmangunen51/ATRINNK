@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Messages
 {
-    public class Message:BaseEntity
+    public class Message : BaseEntity
     {
         public int MessageId { get; set; }
         public string MessageSubject { get; set; }
@@ -10,7 +10,7 @@ namespace MakinaTurkiye.Entities.Tables.Messages
         public bool MessageRead { get; set; }
         public DateTime MessageDate { get; set; }
         public string MessageFile { get; set; }
-        public int  ProductId { get; set; }
+        public int ProductId { get; set; }
         public bool Active { get; set; }
         public bool? MessageSeenAdmin { get; set; }
     }

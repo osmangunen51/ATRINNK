@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Services.Catalog
+﻿namespace MakinaTurkiye.Services.Catalog
 {
-    public enum SiteMapCategoryTypeEnum:byte
+    public enum SiteMapCategoryTypeEnum : byte
     {
         Brand = CategoryTypeEnum.Brand,
         Series = CategoryTypeEnum.Series,

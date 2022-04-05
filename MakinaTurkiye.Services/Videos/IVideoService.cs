@@ -20,16 +20,16 @@ namespace MakinaTurkiye.Services.Videos
         IList<VideoResult> GetSPOtherVideoByCategoryIdAndSelectedCategoryId(int categoryId, int topCount, int selectedCategoryId);
 
         IList<ShowOnShowcaseVideoResult> GetSPShowOnShowcaseVideos();
-         
+
         IList<Video> GetShowOnShowcaseVideos();
 
-        Video GetVideoByVideoId(int videoId,bool showHidden=false);
+        Video GetVideoByVideoId(int videoId, bool showHidden = false);
 
         void UpdateVideo(Video video);
         void InsertVideo(Video video);
         void DeleteVideo(Video video);
 
-        List<Video> GetVideoByStoreMainPartyId(int storeMainPartyId, bool showHidden=false);
+        List<Video> GetVideoByStoreMainPartyId(int storeMainPartyId, bool showHidden = false);
 
         ProductAndStoreDetailResult GetSPStoreAndProductDetailByProductId(int productId);
 

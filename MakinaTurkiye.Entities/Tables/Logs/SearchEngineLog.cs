@@ -3,10 +3,10 @@ using System;
 
 namespace MakinaTurkiye.Entities.Tables.Logs
 {
-    public class SearchEngineLog: BaseEntity
+    public class SearchEngineLog : BaseEntity
     {
         public int SearchEngineTypeId { get; set; }
-        public SearchEngineType  SearchEngineType
+        public SearchEngineType SearchEngineType
         {
             get { return (SearchEngineType)SearchEngineTypeId; }
             set { SearchEngineTypeId = (int)value; }

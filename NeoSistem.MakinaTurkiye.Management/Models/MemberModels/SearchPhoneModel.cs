@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace NeoSistem.MakinaTurkiye.Management.Models.MemberModels
+﻿namespace NeoSistem.MakinaTurkiye.Management.Models.MemberModels
 {
     public class SearchPhoneModel
     {
@@ -12,6 +7,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.MemberModels
         public string MemberTypeText { get; set; }
         public string PhoneNumber { get; set; }
 
-        public string Url { get; set; }       
+        public string Url { get; set; }
     }
 }

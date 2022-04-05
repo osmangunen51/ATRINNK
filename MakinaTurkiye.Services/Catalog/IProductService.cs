@@ -10,7 +10,7 @@ namespace MakinaTurkiye.Services.Catalog
     public interface IProductService : ICachingSupported
     {
         IList<Product> GetProductsAll();
-        IList<Product> Search(out int TotalRowCount,string name = "", string companyName = "", string country = "", string town = "", bool isnew = true, bool isold = true, bool sortByViews = true, bool sortByDate = true, decimal minPrice = 0, decimal maxPrice = 0, int PageNo = 0, int PageSize = 50);
+        IList<Product> Search(out int TotalRowCount, string name = "", string companyName = "", string country = "", string town = "", bool isnew = true, bool isold = true, bool sortByViews = true, bool sortByDate = true, decimal minPrice = 0, decimal maxPrice = 0, int PageNo = 0, int PageSize = 50);
         IList<Product> GetProductsWithPageNo(int PageNo = 0, int PageSize = 50);
         IList<ProductForStoreResult> GetSPProductForStoreByCategoryId(int categoryId = 0, int memberMainPartyId = 0, int topCount = 10);
 
@@ -26,7 +26,7 @@ namespace MakinaTurkiye.Services.Catalog
             out List<int> filterableModelIds, out List<int> filterableSeriesIds,
             out int newProductCount, out int usedProductCount, out int serviceProductCount,
             int categoryId, int brandId,
-            int modelId, int seriresId, int searchTypeId,int mainPartyId, int countryId = 0, int cityId = 0,
+            int modelId, int seriresId, int searchTypeId, int mainPartyId, int countryId = 0, int cityId = 0,
             int localityId = 0, int orderById = 0, int pageIndex = 0, int pageSize = 0, string searchText = "");
 
         IList<PopularProductResult> GetSPPopularProducts();
@@ -51,8 +51,8 @@ namespace MakinaTurkiye.Services.Catalog
         IList<Product> GetProductsByCategoryId(int categoryId);
         IList<Product> GetProductsByCategoryIds(List<int> CatList);
 
-        IList<Product> GetProductsByMainPartyId(int mainPartyId, bool showHidden=false);
-        IList<Product> GetAllProductsByMainPartyIds(List<int?> mainPartyIds, bool includeBrand=false);
+        IList<Product> GetProductsByMainPartyId(int mainPartyId, bool showHidden = false);
+        IList<Product> GetAllProductsByMainPartyIds(List<int?> mainPartyIds, bool includeBrand = false);
 
         IList<Product> GetProductsByProductName(string productName);
 
@@ -68,15 +68,15 @@ namespace MakinaTurkiye.Services.Catalog
         CategoryProductsResult GetCategoryProducts(int categoryId, int brandId, int modelId, int seriresId, int searchTypeId, int mainPartyId, int countryId = 0, int cityId = 0,
                                                                   int localityId = 0, int orderById = 0, int pageIndex = 0, int pageSize = 0, string searchText = "");
 
-        IList<StoreProfileProductsResult> GetSPProductsByStoreMainPartyId(int pageDimension, int page, int storeMainPartyId,int mainPartyId=0, byte searchType=0);
-        IList<StoreProfileProductsResult> GetSPProductsCountByStoreMainPartyIdAndSearchType(out int totalRecord, int mainPartyId,  byte searchType, int categoryId);
+        IList<StoreProfileProductsResult> GetSPProductsByStoreMainPartyId(int pageDimension, int page, int storeMainPartyId, int mainPartyId = 0, byte searchType = 0);
+        IList<StoreProfileProductsResult> GetSPProductsCountByStoreMainPartyIdAndSearchType(out int totalRecord, int mainPartyId, byte searchType, int categoryId);
 
 
-        IList<StoreProfileProductsResult> GetSPProductsByStoreMainPartyIdAndCategoryId(out int totalRecord, int pageDimension, int page, int storeMainPartyId, int categoryId, int userMainPartyId=0);
+        IList<StoreProfileProductsResult> GetSPProductsByStoreMainPartyIdAndCategoryId(out int totalRecord, int pageDimension, int page, int storeMainPartyId, int categoryId, int userMainPartyId = 0);
 
         IList<Product> GetRandomProductsByBill(int take);
 
-        int GetProductCountBySearchType(int categoryId, int brandId, int modelId, int seriresId, int searchTypeId, string searchText, int countryId = 0, int cityId = 0,int localityId = 0);
+        int GetProductCountBySearchType(int categoryId, int brandId, int modelId, int seriresId, int searchTypeId, string searchText, int countryId = 0, int cityId = 0, int localityId = 0);
 
         int GetNumberOfProductsByMainPartyId(int mainPartyId);//Count
 
@@ -94,7 +94,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         void SPUpdateProductSearchCategoriesByCategoryId(int categoryId);
 
-        IList<Product> GetProductsByProductIds(List<int> ProductIds,int take = 0);
+        IList<Product> GetProductsByProductIds(List<int> ProductIds, int take = 0);
         IList<Product> GetProductsByShowCase();
 
         IList<Product> GetSPFavoriteProductsByMainPartyId(int mainPartyId, int page, int pageSize, out int totalRecord);

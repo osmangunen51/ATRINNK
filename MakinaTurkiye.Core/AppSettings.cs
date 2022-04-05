@@ -1,9 +1,9 @@
 ﻿
-namespace NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
-{
-    using EnterpriseEntity.Extensions;
-    using System.Configuration;
+using NeoSistem.EnterpriseEntity.Extensions;
+using System.Configuration;
 
+namespace MakinaTurkiye.Core
+{
     public class AppSettings
     {
 
@@ -110,33 +110,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
         {
             get { return ConfigurationManager.AppSettings["BaseMenuImageFolder"].ToString(); }
         }
-        //public static string StoreLogoThumb75x75Folder
-        //{
-        //  get { return ConfigurationManager.AppSettings["StoreLogoThumb75x75Folder"].ToString(); }
-        //}
-        //public static string StoreLogoThumb150x90Folder
-        //{
-        //  get { return ConfigurationManager.AppSettings["StoreLogoThumb150x90Folder"].ToString(); }
-        //}
-        //public static string StoreLogoThumb110x110Folder
-        //{
-        //  get { return ConfigurationManager.AppSettings["StoreLogoThumb110x110Folder"].ToString(); }
-        //}
-        //public static string StoreLogoThumb55x40Folder
-        //{
-        //  get { return ConfigurationManager.AppSettings["StoreLogoThumb55x40Folder"].ToString(); }
-        //}
-        //public static string StoreLogoThumb170x90Folder
-        //{
-        //  get { return ConfigurationManager.AppSettings["StoreLogoThumb170x90Folder"].ToString(); }
-        //}
-        //public static string StoreLogoThumb200x100Folder
-        //{
-        //  get { return ConfigurationManager.AppSettings["StoreLogoThumb200x100Folder"].ToString(); }
-        //}
-
-
-
 
         public static string ProductImageThumb55x40Folder
         {
@@ -317,5 +290,56 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
             get { return ConfigurationManager.AppSettings["PaytrApiEmail"].ToString(); }
         }
 
+        public static string MailHost
+        {
+            get { return ConfigurationManager.AppSettings["Mail-Host"].ToString(); }
+        }
+
+
+        public static string MailUserName
+        {
+            get { return ConfigurationManager.AppSettings["Mail-UserName"].ToString(); }
+        }
+
+        public static string MailPassword
+        {
+            get { return ConfigurationManager.AppSettings["Mail-Password"].ToString(); }
+        }
+
+        public static bool MailSsl
+        {
+            get { return System.Convert.ToBoolean(ConfigurationManager.AppSettings["Mail-Ssl"].ToString()); }
+        }
+        public static int MailPort
+        {
+            get { return System.Convert.ToInt32(ConfigurationManager.AppSettings["Mail-Port"].ToString()); }
+        }
+
+        public static string CategoryHomePageImageFolder
+        {
+            get { return ConfigurationManager.AppSettings["CategoryHomePageImageFolder"].ToString(); }
+        }
+
+        public static string CategoryBannerImagesFolder
+        {
+            get { return ConfigurationManager.AppSettings["CategoryBannerImagesFolder"].ToString(); }
+        }
+
+
+        public static string MakinaTurkiyeWebUrl
+        {
+            get { return ConfigurationManager.AppSettings["MakinaTurkiyeWebUrl"].ToString(); }
+        }
+
+        public static string MakinaTurkiyeAdminUrl
+        {
+            get { return ConfigurationManager.AppSettings["MakinaTurkiyeAdminUrl"].ToString(); }
+        }
+
+
+        public static string CertificateTypeIconFolder
+        {
+            get { return ConfigurationManager.AppSettings["CertificateTypeIconFolder"].ToString(); }
+        }
     }
 }

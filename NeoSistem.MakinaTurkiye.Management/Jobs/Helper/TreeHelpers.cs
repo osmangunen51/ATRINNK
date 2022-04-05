@@ -4,28 +4,28 @@ using System.Collections.Generic;
 namespace NeoSistem.MakinaTurkiye.Management.Helper
 {
     public class TreeHelpers
-  {
-    public static IEnumerable<int> TreeHelper(int categoryId)
     {
-      using (var transaction = new TransactionUI())
-      {
-        var category = new Classes.Category();
-        if (category.LoadEntity(categoryId, transaction))
+        public static IEnumerable<int> TreeHelper(int categoryId)
         {
-          if (category.CategoryParentId == null)
-          {
-            transaction.Commit();
-            yield return 0;
-            yield break;
-          }
-          while (category.LoadEntity(category.CategoryParentId, transaction))
-          {
-            yield return category.CategoryId;
-          }
-          transaction.Commit();
+            using (var transaction = new TransactionUI())
+            {
+                var category = new Classes.Category();
+                if (category.LoadEntity(categoryId, transaction))
+                {
+                    if (category.CategoryParentId == null)
+                    {
+                        transaction.Commit();
+                        yield return 0;
+                        yield break;
+                    }
+                    while (category.LoadEntity(category.CategoryParentId, transaction))
+                    {
+                        yield return category.CategoryId;
+                    }
+                    transaction.Commit();
+                }
+            }
         }
-      }
-    }
 
-  }
+    }
 }

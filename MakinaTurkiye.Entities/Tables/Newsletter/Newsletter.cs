@@ -1,7 +1,4 @@
-﻿using MakinaTurkiye.Entities.Tables.Content;
-using MakinaTurkiye.Entities.Tables.Stores;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace MakinaTurkiye.Entities.Tables.Newsletter
 {

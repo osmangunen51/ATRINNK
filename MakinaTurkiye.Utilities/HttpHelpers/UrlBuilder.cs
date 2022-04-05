@@ -1,6 +1,5 @@
 ﻿using MakinaTurkiye.Core.Configuration;
 using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Utilities.FormatHelpers;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -12,18 +11,18 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
     public static class UrlBuilder
     {
         private static readonly MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
-       private static readonly  bool IsRequestLocal = (HttpContext.Current!=null ? HttpContext.Current.Request.IsLocal : false);
+        private static readonly bool IsRequestLocal = (HttpContext.Current != null ? HttpContext.Current.Request.IsLocal : false);
 
         private enum HostNameType
         {
-           Default,
-           Product,
-           Video,
-           Store,
-           StoreNews
+            Default,
+            Product,
+            Video,
+            Store,
+            StoreNews
         }
 
-        private static string GetHost(HostNameType hostNameType,bool ForceGlobalRequest=false)
+        private static string GetHost(HostNameType hostNameType, bool ForceGlobalRequest = false)
         {
             if (!ForceGlobalRequest)
             {
@@ -76,9 +75,9 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             return string.Empty;
         }
 
-        public static string GetCategoryUrl(int categoryId, string categoryname,int? brandId,string brandName)
+        public static string GetCategoryUrl(int categoryId, string categoryname, int? brandId, string brandName)
         {
-            string url = GetHost(HostNameType.Default)+ "/" + ToUrl(categoryname + "-c-" + categoryId);
+            string url = GetHost(HostNameType.Default) + "/" + ToUrl(categoryname + "-c-" + categoryId);
 
             if (brandId != null)
             {
@@ -93,17 +92,17 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             string url = GetHost(HostNameType.Default) + "/" + ToUrl(categoryname + "-c-" + categoryId) + "?SearchText=" + searchText;
 
             if (brandId != null)
-                url = GetHost(HostNameType.Default) + "/" + ToUrl(brandName + "-" + categoryname + "-c-" + categoryId + "-" + brandId + "?SearchText=" + searchText );
+                url = GetHost(HostNameType.Default) + "/" + ToUrl(brandName + "-" + categoryname + "-c-" + categoryId + "-" + brandId + "?SearchText=" + searchText);
 
             return url;
         }
 
         public static string GetFilterUrl(string url, CategoryFilterHelper filterHelper)
         {
-            if(IsRequestLocal)
+            if (IsRequestLocal)
             {
                 var requestUrl = HttpContext.Current.Request.Url;
-                url = requestUrl.Scheme+ "://" + requestUrl.Authority + url;
+                url = requestUrl.Scheme + "://" + requestUrl.Authority + url;
             }
             var uriBuilder = new UriBuilder(url);
             var query = HttpUtility.ParseQueryString(uriBuilder.Query);
@@ -117,7 +116,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             else if (filterHelper.CountryId > 0 && filterHelper.CityId > 0)
             {
                 query.Add("ulke", filterHelper.CountryId.ToString());
-                query.Add("sehir", ToUrl(filterHelper.CityName)+ "-" + filterHelper.CityId);
+                query.Add("sehir", ToUrl(filterHelper.CityName) + "-" + filterHelper.CityId);
             }
             else if (filterHelper.CountryId > 0)
             {
@@ -145,20 +144,20 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             return result;
         }
 
-        public static string GetHelpCategoryUrl(int categoryId,string categoryName)
+        public static string GetHelpCategoryUrl(int categoryId, string categoryName)
         {
             string url = GetHost(HostNameType.Default) + "/" + ToUrl(categoryName) + "-y-" + categoryId;
             return url;
         }
 
-        public static string GetStoreProfileProductCategoryUrl(int categoryId, string categoryname,string StoreUrlName)
+        public static string GetStoreProfileProductCategoryUrl(int categoryId, string categoryname, string StoreUrlName)
         {
             return GetHost(HostNameType.Default) + "/" + StoreUrlName + "/" + ToUrl(categoryname) + "-c-" + categoryId;
         }
 
-        public static string GetSerieUrl(int seriId, string seriname, string brandname,string categoryName)
+        public static string GetSerieUrl(int seriId, string seriname, string brandname, string categoryName)
         {
-            string url = GetHost(HostNameType.Default) + "/" + ToUrl(brandname + "-" +  seriname + "-" + categoryName + "-s-" + seriId);
+            string url = GetHost(HostNameType.Default) + "/" + ToUrl(brandname + "-" + seriname + "-" + categoryName + "-s-" + seriId);
             return url;
         }
 
@@ -170,16 +169,16 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             return url;
         }
 
-        public static string GetModelUrl(int modelId,string modelName ,string brandname, string categoryname,int selectedCategoryId)
+        public static string GetModelUrl(int modelId, string modelName, string brandname, string categoryname, int selectedCategoryId)
         {
-            string url = GetHost(HostNameType.Default) + "/" + ToUrl(brandname  + "-" + modelName + "-" + categoryname +
+            string url = GetHost(HostNameType.Default) + "/" + ToUrl(brandname + "-" + modelName + "-" + categoryname +
                 "-m-" + modelId + "-" + selectedCategoryId);
             return url;
         }
 
         public static string GetModelUrl(int modelId, string modelName, string brandname, string categoryname, int selectedCategoryId, string searchText)
         {
-            string url= GetHost(HostNameType.Default) + "/" + ToUrl(brandname + "-" + modelName + "-" + categoryname +
+            string url = GetHost(HostNameType.Default) + "/" + ToUrl(brandname + "-" + modelName + "-" + categoryname +
                         "-m-" + modelId + "-" + selectedCategoryId) + "?SearchText=" + searchText;
             return url;
         }
@@ -200,16 +199,16 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         public static string GetStoreNewsUrl(int storeId, string storeName, string storeUrlName)
         {
-            string url = string.Format("{0}/sirket/{1}/{2}/haberler",GetHost(HostNameType.Default), storeId, ToUrl(storeName));
+            string url = string.Format("{0}/sirket/{1}/{2}/haberler", GetHost(HostNameType.Default), storeId, ToUrl(storeName));
             if (!string.IsNullOrEmpty(storeUrlName))
                 url = string.Format("{0}/{1}/haberler", GetHost(HostNameType.Default), storeUrlName);
             return url;
         }
 
 
-        public static string GetProductContactUrl(int productId,string storeName,bool GetProductContactUrl=false)
+        public static string GetProductContactUrl(int productId, string storeName, bool GetProductContactUrl = false)
         {
-            string url=  GetHost(HostNameType.Default, GetProductContactUrl) + "/Product/ProductContact?productId=" + productId + "&storeName=" + ToUrl(storeName);
+            string url = GetHost(HostNameType.Default, GetProductContactUrl) + "/Product/ProductContact?productId=" + productId + "&storeName=" + ToUrl(storeName);
             return url;
         }
 
@@ -220,7 +219,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         public static string GetVideoUrl(int videoId, string productName)
         {
-            string url = string.Format("{0}/{1}-v-{2}",GetHost(HostNameType.Video), ToUrl(productName), videoId);
+            string url = string.Format("{0}/{1}-v-{2}", GetHost(HostNameType.Video), ToUrl(productName), videoId);
             return url;
         }
 
@@ -235,7 +234,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             string url = String.Format("{0}/sirket/{1}/{2}/", GetHost(HostNameType.Default), storeId, ToUrl(storeName));
             if (!string.IsNullOrWhiteSpace(storeUrlName))
             {
-                url = string.Format("{0}/{1}",GetHost(HostNameType.Default), storeUrlName);
+                url = string.Format("{0}/{1}", GetHost(HostNameType.Default), storeUrlName);
             }
             return url;
         }
@@ -243,7 +242,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
         public static string GetStoreProfileProductUrl(int storeId, string storeName, string storeUrlName)
         {
-            string url = string.Format("{0}/sirket/{1}/{2}/urunler", GetHost(HostNameType.Default),storeId, ToUrl(storeName));
+            string url = string.Format("{0}/sirket/{1}/{2}/urunler", GetHost(HostNameType.Default), storeId, ToUrl(storeName));
             if (!string.IsNullOrWhiteSpace(storeUrlName))
                 url = string.Format("{0}/{1}/urunler", GetHost(HostNameType.Default), storeUrlName);
             return url;
@@ -252,52 +251,52 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
 
 
 
-        public static string GetStoreVideoUrl(int storeId, string storeName,string storeUrlName)
+        public static string GetStoreVideoUrl(int storeId, string storeName, string storeUrlName)
         {
             string url = string.Format("{0}/sirket/{1}/{2}/videolarimiz", GetHost(HostNameType.Default), storeId, ToUrl(storeName));
             if (!string.IsNullOrEmpty(storeUrlName))
-              url = string.Format("{0}/{1}/videolarimiz", GetHost(HostNameType.Default),storeUrlName);
+                url = string.Format("{0}/{1}/videolarimiz", GetHost(HostNameType.Default), storeUrlName);
             return url;
         }
 
         public static string GetStoreConnectUrl(int storeId, string storeName, string storeUrlName)
         {
-            string url= string.Format("{0}/sirket/{1}/{2}/iletisim", GetHost(HostNameType.Default), storeId, ToUrl(storeName));
+            string url = string.Format("{0}/sirket/{1}/{2}/iletisim", GetHost(HostNameType.Default), storeId, ToUrl(storeName));
             if (!string.IsNullOrEmpty(storeUrlName))
             {
-                url= string.Format("{0}/{1}/iletisim", GetHost(HostNameType.Default), storeUrlName);
+                url = string.Format("{0}/{1}/iletisim", GetHost(HostNameType.Default), storeUrlName);
             }
             return url;
 
         }
 
-        public static string GetStoreCategoryUrl(int categoryId, string categoryName, int orderBy=0)
+        public static string GetStoreCategoryUrl(int categoryId, string categoryName, int orderBy = 0)
         {
             string url = string.Empty;
             if (orderBy > 0)
                 url = string.Format("{3}/{0}-sc-{1}?orderby={2}", ToUrl(categoryName), categoryId, orderBy, GetHost(HostNameType.Store));
             else
-                url = string.Format("{2}/{0}-sc-{1}",ToUrl(categoryName), categoryId, GetHost(HostNameType.Store));
+                url = string.Format("{2}/{0}-sc-{1}", ToUrl(categoryName), categoryId, GetHost(HostNameType.Store));
             return url;
 
         }
 
-        public static string GetBrandUrlForStoreProfile(int storeId, string storeName,string storeUrlName)
+        public static string GetBrandUrlForStoreProfile(int storeId, string storeName, string storeUrlName)
         {
             string url = string.Format("{2}/sirket/{0}/{1}/markalarimiz", storeId, storeName, GetHost(HostNameType.Default));
             if (!string.IsNullOrEmpty(storeUrlName))
-                url= string.Format("{1}/{0}/markalarimiz", storeUrlName, GetHost(HostNameType.Default));
+                url = string.Format("{1}/{0}/markalarimiz", storeUrlName, GetHost(HostNameType.Default));
 
             return url;
         }
 
-        public static string GetProductUrlForStoreProfile(int storeId, string storeName,string storeUrlName, int categoryId = 0)
+        public static string GetProductUrlForStoreProfile(int storeId, string storeName, string storeUrlName, int categoryId = 0)
         {
             string url = string.Empty;
             if (categoryId > 0)
             {
                 if (!string.IsNullOrEmpty(storeUrlName))
-                    url = string.Format("{2}/{0}/urunler?CategoryId={1}", storeUrlName,categoryId, GetHost(HostNameType.Default));
+                    url = string.Format("{2}/{0}/urunler?CategoryId={1}", storeUrlName, categoryId, GetHost(HostNameType.Default));
                 else
                     url = string.Format("{3}/sirket/{0}/{1}/urunler?CategoryId={2}", storeId, ToUrl(storeName), categoryId, GetHost(HostNameType.Default));
             }
@@ -312,20 +311,20 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
         }
 
 
-        public static string GetLocalityUrl(int localityId, string localityName, int cityId, int countryId, int categoryId, string categoryName, int brandId=0, string brandName="")
+        public static string GetLocalityUrl(int localityId, string localityName, int cityId, int countryId, int categoryId, string categoryName, int brandId = 0, string brandName = "")
         {
-            if (brandId>0)
+            if (brandId > 0)
             {
                 return GetHost(HostNameType.Default) + "/" + ToUrl(brandName + "-" + categoryName + "-c-" + categoryId + "-" + brandId) + "?ulke=" + countryId + "&sehir=" +
                     cityId + "&ilce=" + ToUrl(localityName) + "-" + localityId;
             }
-            return GetHost(HostNameType.Default) +"/" + ToUrl(categoryName + "-c-" + categoryId) + "?ulke=" + countryId + "&sehir=" + cityId + "&ilce=" +
+            return GetHost(HostNameType.Default) + "/" + ToUrl(categoryName + "-c-" + categoryId) + "?ulke=" + countryId + "&sehir=" + cityId + "&ilce=" +
                 ToUrl(localityName) + "-" + localityId;
         }
 
-        public static string GetCityUrl(int cityId, string cityName, int countryId, int categoryId, string categoryName, int brandId=0, string brandName="")
+        public static string GetCityUrl(int cityId, string cityName, int countryId, int categoryId, string categoryName, int brandId = 0, string brandName = "")
         {
-            if (brandId>0)
+            if (brandId > 0)
             {
                 return GetHost(HostNameType.Default) + "/" + ToUrl(brandName + "-" + categoryName + "-c-" + categoryId + "-" + brandId) + "?ulke=" + countryId +
                    "&sehir=" + ToUrl(cityName) + "-" + cityId;
@@ -335,9 +334,9 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
                    "&sehir=" + ToUrl(cityName) + "-" + cityId;
         }
 
-        public static string GetCountryUrl(int countryId, string countryName, int categoryId, string categoryName, int brandId=0, string brandName="")
+        public static string GetCountryUrl(int countryId, string countryName, int categoryId, string categoryName, int brandId = 0, string brandName = "")
         {
-            if (brandId>0)
+            if (brandId > 0)
             {
                 return GetHost(HostNameType.Default) + "/" + ToUrl(brandName + "-" + categoryName + "-c-" + categoryId + "-" + brandId) + "?ulke=" + ToUrl(countryName) + "-" + countryId;
             }

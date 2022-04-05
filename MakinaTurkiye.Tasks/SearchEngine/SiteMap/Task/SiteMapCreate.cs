@@ -1,15 +1,6 @@
-﻿using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Entities.Tables.Messages;
-using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Messages;
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Utilities.MailHelpers;
-using Quartz;
-using System;
+﻿using Quartz;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 

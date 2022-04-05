@@ -10,7 +10,7 @@ namespace MakinaTurkiye.Services.Users
         void InsertHelp(Help help);
         void DeleteHelp(Help help);
         void UpdateHelp(Help help);
-        IList<Help>  GetHelpByForPaging(int takeValue, int skipValue);
+        IList<Help> GetHelpByForPaging(int takeValue, int skipValue);
         IList<Help> HelpSearchBySearchText(string searchText);
 
         WebSiteError GetWebSiteErrorByWebSiteErrorId(int websiteErrorId);

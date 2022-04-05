@@ -15,7 +15,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
 
         }
         public int MailTemplateId { get; set; }
-     
+
         public int UserId { get; set; }
         [Required(ErrorMessage = "Mail Template Adı Seçiniz")]
         [DisplayName("Mail Template Adı")]
@@ -34,6 +34,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
 
         public List<SelectListItem> SpecialMails { get; set; }
         public List<SelectListItem> UserGroups { get; set; }
-       
+
     }
 }

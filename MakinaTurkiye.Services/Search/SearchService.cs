@@ -1,5 +1,4 @@
-﻿using MakinaTurkiye.Caching;
-using MakinaTurkiye.Core.Data;
+﻿using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.StoredProcedures.Search;
 using Nest;
@@ -29,7 +28,7 @@ namespace MakinaTurkiye.Services.Search
 
         #region Ctor
 
-        public SearchService(IDbContext dbContext,IDataProvider dataProvider)
+        public SearchService(IDbContext dbContext, IDataProvider dataProvider)
         {
             this._dbContext = dbContext;
             this._dataProvider = dataProvider;
@@ -53,7 +52,7 @@ namespace MakinaTurkiye.Services.Search
             foreach (var SonucItem in Result)
             {
                 List<string> InputListesi = new List<string>();
-                SonucItem.Name= new CultureInfo("tr-TR").TextInfo.ToTitleCase(SonucItem.Name.ToLower());
+                SonucItem.Name = new CultureInfo("tr-TR").TextInfo.ToTitleCase(SonucItem.Name.ToLower());
                 InputListesi.AddRange(SonucItem.Name.Split(' ').ToList());
                 bool Islem = true;
                 string Metin = SonucItem.Name.Trim();
@@ -114,7 +113,7 @@ namespace MakinaTurkiye.Services.Search
             int index = 0;
             foreach (var SonucItem in Result)
             {
-                if (SonucItem.Name!=null)
+                if (SonucItem.Name != null)
                 {
                     SonucItem.Name = new CultureInfo("tr-TR").TextInfo.ToTitleCase(SonucItem.Name.ToLower());
                     List<string> InputListesi = new List<string>();
@@ -137,7 +136,7 @@ namespace MakinaTurkiye.Services.Search
                             if (Ara > -1)
                             {
                                 string EklenecekMetin = SonucItem.Name.Substring(0, (Ara));
-                                if (!InputListesi.Contains(EklenecekMetin) && EklenecekMetin!="")
+                                if (!InputListesi.Contains(EklenecekMetin) && EklenecekMetin != "")
                                 {
                                     InputListesi.Add(EklenecekMetin);
                                 }
@@ -156,15 +155,15 @@ namespace MakinaTurkiye.Services.Search
                     {
                         InputListesi.Add(SonucItem.Name);
                     }
-                   
+
                     MakinaTurkiye.Services.Search.Product Kayit = new MakinaTurkiye.Services.Search.Product()
                     {
-                        Name =(!string.IsNullOrEmpty(SonucItem.Path) ? SonucItem.Path : SonucItem.Name),
+                        Name = (!string.IsNullOrEmpty(SonucItem.Path) ? SonucItem.Path : SonucItem.Name),
                         Url = SonucItem.Url,
-                        Category=SonucItem.Category,
+                        Category = SonucItem.Category,
                         Suggest = new CompletionField()
                         {
-                            Input = InputListesi.Where(x=>x!=""),
+                            Input = InputListesi.Where(x => x != ""),
                             Weight = (int)SonucItem.Score
                         }
                     };
@@ -242,7 +241,7 @@ namespace MakinaTurkiye.Services.Search
                 foreach (SearchResult Kayit in Kayitlar)
                 {
                     string KayitTxt = Kayit.Name.ToLower();
-                    if (KayitTxt!=string.Empty)
+                    if (KayitTxt != string.Empty)
                     {
                         int Start = -1;
                         int End = -1;
@@ -260,8 +259,8 @@ namespace MakinaTurkiye.Services.Search
                         {
                             Start = 0;
                         }
-                        End = (KayitTxt.Length - Start)-1;
-                        if (End>Start)
+                        End = (KayitTxt.Length - Start) - 1;
+                        if (End > Start)
                         {
                             KayitTxt = KayitTxt.Substring(Start, End);
                             if (KayitTxt != string.Empty)
@@ -281,7 +280,7 @@ namespace MakinaTurkiye.Services.Search
                                 {
                                     End = KayitTxt.Length;
                                 }
-                                if (End>Start)
+                                if (End > Start)
                                 {
                                     KayitTxt = Kayit.Name.Substring(Start, (End - Start) - 1);
                                     Kayit.Name = KayitTxt.Trim();
@@ -412,7 +411,7 @@ namespace MakinaTurkiye.Services.Search
                           Name = Snc.Name,
                           Category = Snc.Category,
                           Score = Snc.Score,
-                          Url=Snc.Url
+                          Url = Snc.Url
                       }
                 ).ToList();
             return Sonuc;

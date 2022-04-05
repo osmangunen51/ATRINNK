@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MakinaTurkiye.Caching;
+﻿using MakinaTurkiye.Caching;
 using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Common;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MakinaTurkiye.Services.Common
 {
@@ -15,11 +13,11 @@ namespace MakinaTurkiye.Services.Common
 
         private readonly IRepository<Currency> _currencyRepository;
         private readonly ICacheManager _cacheManager;
-        
+
         #endregion
 
         #region Ctor
-        public CurrencyService(IRepository<Currency> currencyRepository, ICacheManager cacheManager): base(cacheManager)
+        public CurrencyService(IRepository<Currency> currencyRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             this._currencyRepository = currencyRepository;
             this._cacheManager = cacheManager;

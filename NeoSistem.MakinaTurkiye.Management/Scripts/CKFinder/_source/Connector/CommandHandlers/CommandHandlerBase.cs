@@ -16,103 +16,103 @@ using System.Web;
 namespace CKFinder.Connector.CommandHandlers
 {
     internal abstract class CommandHandlerBase
-	{
-		private Connector _Connector;
-		private FolderHandler _CurrentFolder;
-		private HttpRequest _Request;
+    {
+        private Connector _Connector;
+        private FolderHandler _CurrentFolder;
+        private HttpRequest _Request;
 
-		public CommandHandlerBase()
-		{
-			_CurrentFolder = FolderHandler.GetCurrent();
-			_Request = HttpContext.Current.Request;
-		}
+        public CommandHandlerBase()
+        {
+            _CurrentFolder = FolderHandler.GetCurrent();
+            _Request = HttpContext.Current.Request;
+        }
 
-		protected HttpRequest Request
-		{
-			get { return _Request; }
-		}
+        protected HttpRequest Request
+        {
+            get { return _Request; }
+        }
 
-		protected Connector Connector
-		{
-			get
-			{
-				if ( _Connector == null )
-					_Connector = (Connector)HttpContext.Current.Handler;
-				return _Connector;
-			}
-		}
+        protected Connector Connector
+        {
+            get
+            {
+                if (_Connector == null)
+                    _Connector = (Connector)HttpContext.Current.Handler;
+                return _Connector;
+            }
+        }
 
-		public FolderHandler CurrentFolder
-		{
-			get
-			{
-				if ( _CurrentFolder == null )
-					_CurrentFolder = FolderHandler.GetCurrent();
-				return _CurrentFolder;
-			}
-		}
+        public FolderHandler CurrentFolder
+        {
+            get
+            {
+                if (_CurrentFolder == null)
+                    _CurrentFolder = FolderHandler.GetCurrent();
+                return _CurrentFolder;
+            }
+        }
 
-		protected void CheckConnector()
-		{
-			if ( !Config.Current.CheckAuthentication() )
-				ConnectorException.Throw( Errors.ConnectorDisabled );
-		}
+        protected void CheckConnector()
+        {
+            if (!Config.Current.CheckAuthentication())
+                ConnectorException.Throw(Errors.ConnectorDisabled);
+        }
 
-		protected void CheckRequest()
-		{
-			// Check if the current folder is a valid path.
-			if ( Regex.IsMatch( this.CurrentFolder.ClientPath, @"(/\.)|(\.\.)|(//)|([\\:\*\?""\<\>\|])" ) )
-				ConnectorException.Throw( Errors.InvalidName );
+        protected void CheckRequest()
+        {
+            // Check if the current folder is a valid path.
+            if (Regex.IsMatch(this.CurrentFolder.ClientPath, @"(/\.)|(\.\.)|(//)|([\\:\*\?""\<\>\|])"))
+                ConnectorException.Throw(Errors.InvalidName);
 
-			// Check all parts of "CurrentFolder".
-			string[] dirs = this.CurrentFolder.ClientPath.Split( '/' ) ;
-			foreach ( string dir in dirs )
-			{
-				if ( Config.Current.CheckIsHiddenFolder( dir ) )
-					ConnectorException.Throw( Errors.InvalidRequest );
-			}
+            // Check all parts of "CurrentFolder".
+            string[] dirs = this.CurrentFolder.ClientPath.Split('/');
+            foreach (string dir in dirs)
+            {
+                if (Config.Current.CheckIsHiddenFolder(dir))
+                    ConnectorException.Throw(Errors.InvalidRequest);
+            }
 
-			if ( this.CurrentFolder.ResourceTypeInfo == null )
-				ConnectorException.Throw( Errors.InvalidType );
+            if (this.CurrentFolder.ResourceTypeInfo == null)
+                ConnectorException.Throw(Errors.InvalidType);
 
-			if ( !this.CurrentFolder.FolderInfo.Exists )
-			{
-				if ( this.CurrentFolder.ClientPath == "/" )
-				{
-					try
-					{
-						this.CurrentFolder.FolderInfo.Create();
-					}
-					catch ( System.UnauthorizedAccessException )
-					{
+            if (!this.CurrentFolder.FolderInfo.Exists)
+            {
+                if (this.CurrentFolder.ClientPath == "/")
+                {
+                    try
+                    {
+                        this.CurrentFolder.FolderInfo.Create();
+                    }
+                    catch (System.UnauthorizedAccessException)
+                    {
 #if DEBUG
-						throw;
+                        throw;
 #else
 						ConnectorException.Throw( Errors.AccessDenied );
 #endif
-					}
-					catch ( System.Security.SecurityException )
-					{
+                    }
+                    catch (System.Security.SecurityException)
+                    {
 #if DEBUG
-						throw;
+                        throw;
 #else
 						ConnectorException.Throw( Errors.AccessDenied );
 #endif
-					}
-					catch
-					{
+                    }
+                    catch
+                    {
 #if DEBUG
-						throw;
+                        throw;
 #else
 						ConnectorException.Throw( Errors.Unknown );
 #endif
-					}
-				}
-				else
-					ConnectorException.Throw( Errors.FolderNotFound );
-			}
-		}
+                    }
+                }
+                else
+                    ConnectorException.Throw(Errors.FolderNotFound);
+            }
+        }
 
-		public abstract void SendResponse( HttpResponse response );
-	}
+        public abstract void SendResponse(HttpResponse response);
+    }
 }

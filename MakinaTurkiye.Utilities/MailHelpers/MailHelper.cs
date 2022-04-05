@@ -1,13 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using MakinaTurkiye.Core;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 
 namespace MakinaTurkiye.Utilities.MailHelpers
 {
-    public  class MailHelper
+    public class MailHelper
     {
 
-        public  string Subject { get; set; }
+        public string Host { get; set; }
+        public int Port { get; set; }
+        public bool Ssl { get; set; }
+        public string Subject { get; set; }
         public string Content { get; set; }
         public string FromMail { get; set; }
         public string FromName { get; set; }
@@ -18,7 +22,7 @@ namespace MakinaTurkiye.Utilities.MailHelpers
         {
 
         }
-        public MailHelper(string subject, string content, string fromMail, List<string> ToMails, string password, string fromName)
+        public MailHelper(string subject, string content, string fromMail, List<string> ToMails, string password, string fromName, string host, int port, bool ssl)
         {
             this.Subject = subject;
             this.Content = content;
@@ -26,9 +30,12 @@ namespace MakinaTurkiye.Utilities.MailHelpers
             this.ToMails = ToMails;
             this.Password = password;
             this.FromName = fromName;
+            this.Port = port;
+            this.Ssl = ssl;
+            this.Host = host;
         }
 
-        public MailHelper(string subject, string content, string fromMail, string toMail, string password, string fromName)
+        public MailHelper(string subject, string content, string fromMail, string toMail, string password, string fromName, string host, int port, bool ssl)
         {
             this.Subject = subject;
             this.Content = content;
@@ -36,30 +43,33 @@ namespace MakinaTurkiye.Utilities.MailHelpers
             this.ToMails = new List<string>();
             ToMails.Add(toMail);
             this.Password = password;
-            this.FromName = FromName;
+            this.FromName = fromName;
+            this.Port = port;
+            this.Ssl = ssl;
+            this.Host = host;
         }
 
         public void Send()
         {
-           
+
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress(FromMail, FromName); 
+            mail.From = new MailAddress(FromMail, FromName);
             foreach (var item in ToMails)
             {
                 mail.To.Add(item);
             }
-            mail.Subject = Subject; 
-            mail.Body = Content; 
+            mail.Subject = Subject;
+            mail.Body = Content;
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient();
-            sc.Port = 587; 
-            sc.Host = "smtp.gmail.com"; 
-            sc.EnableSsl = true;
-            sc.Credentials = new NetworkCredential(FromMail, Password);
-            sc.Send(mail); 
+            using (SmtpClient sc = new SmtpClient())
+            {
+                sc.Port = AppSettings.MailPort;                                                                   //Gmail için geçerli Portu bildiriyoruz
+                sc.Host = AppSettings.MailHost;                                                      //Gmailin smtp host adresini belirttik
+                sc.EnableSsl = AppSettings.MailSsl;                                                             //SSL’i etkinleştirdik
+                sc.Credentials = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
+                sc.Send(mail);
+            }
         }
-
-
     }
 }

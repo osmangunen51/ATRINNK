@@ -778,12 +778,7 @@ namespace MakinaTurkiye.Api.Controllers
                         mail.Body = template;                                                            //Mailin içeriği
                         mail.IsBodyHtml = true;
                         mail.Priority = MailPriority.Normal;
-                        SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                        sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                        sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                        sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                        sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                        sc.Send(mail);
+                        this.SendMail(mail);
 
                         #endregion bireyseldenkurumsalagecis
 
@@ -802,12 +797,7 @@ namespace MakinaTurkiye.Api.Controllers
                         mailb.Body = bilgimakinaicin;
                         mailb.IsBodyHtml = true;
                         mailb.Priority = MailPriority.Normal;
-                        SmtpClient scr1 = new SmtpClient();
-                        scr1.Port = 587;
-                        scr1.Host = "smtp.gmail.com";
-                        scr1.EnableSsl = true;
-                        scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                        scr1.Send(mailb);
+                        this.SendMail(mailb);
 
                         #endregion bilgimakina
 
@@ -1027,12 +1017,7 @@ namespace MakinaTurkiye.Api.Controllers
                             mail.Body = template;                                                            //Mailin içeriği
                             mail.IsBodyHtml = true;
                             mail.Priority = MailPriority.Normal;
-                            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                            sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                            sc.Send(mail);
+                            this.SendMail(mail);
 
                             #endregion bireyseldenkurumsalagecis
 
@@ -1051,12 +1036,7 @@ namespace MakinaTurkiye.Api.Controllers
                             mailb.Body = bilgimakinaicin;
                             mailb.IsBodyHtml = true;
                             mailb.Priority = MailPriority.Normal;
-                            SmtpClient scr1 = new SmtpClient();
-                            scr1.Port = 587;
-                            scr1.Host = "smtp.gmail.com";
-                            scr1.EnableSsl = true;
-                            scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                            scr1.Send(mailb);
+                            this.SendMail(mailb);
 
                             #endregion bilgimakina
 

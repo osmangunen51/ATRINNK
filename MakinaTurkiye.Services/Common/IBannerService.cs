@@ -10,6 +10,6 @@ namespace MakinaTurkiye.Services.Common
         Banner GetBannerByBannerId(int bannerId);
         void InsertBanner(Banner banner);
         void DeleteBanner(Banner banner);
-        
+
     }
 }

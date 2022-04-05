@@ -1,27 +1,10 @@
-using MakinaTurkiye.Api.Helpers;
 using MakinaTurkiye.Api.View;
-using MakinaTurkiye.Api.View.Products;
 using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Entities.Tables.Catalog;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Entities.Tables.Members;
-using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Services.Catalog;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Services.Media;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Messages;
-using MakinaTurkiye.Services.Stores;
-using MakinaTurkiye.Utilities.HttpHelpers;
-using MakinaTurkiye.Utilities.ImageHelpers;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Mail;
-using System.Web.Http;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -74,7 +57,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = _productCommentService.GetProductCommentsByProductId(productId,showHidden);
+                var Result = _productCommentService.GetProductCommentsByProductId(productId, showHidden);
                 if (Result != null)
                 {
                     ProcessStatus.Result = Result;

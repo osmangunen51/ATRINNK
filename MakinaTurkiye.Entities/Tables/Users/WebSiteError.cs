@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Users
 {
-    public class WebSiteError:BaseEntity
+    public class WebSiteError : BaseEntity
     {
         public int WebSiteErrorId { get; set; }
         public byte UserId { get; set; }

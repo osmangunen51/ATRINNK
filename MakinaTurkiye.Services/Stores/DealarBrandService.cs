@@ -13,7 +13,7 @@ namespace MakinaTurkiye.Services.Stores
         #region Constants
 
         private const string DEALARBRANS_BY_MAIN_PARTY_ID_KEY = "makinaturkiye.dealerbrand.bymainpartyid-{0}";
-        
+
         #endregion
 
         #region Fields
@@ -25,7 +25,7 @@ namespace MakinaTurkiye.Services.Stores
 
         #region Ctor
 
-        public DealarBrandService(IRepository<DealerBrand> dealarBrandRepository, ICacheManager cacheManager): base(cacheManager)
+        public DealarBrandService(IRepository<DealerBrand> dealarBrandRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             _dealarBrandRepository = dealarBrandRepository;
             _cacheManager = cacheManager;
@@ -41,7 +41,7 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentNullException("mainPartyId");
 
             string key = string.Format(DEALARBRANS_BY_MAIN_PARTY_ID_KEY, mainPartyId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _dealarBrandRepository.Table;
                 query = query.Where(x => x.MainPartyId == mainPartyId);

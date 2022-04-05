@@ -1,8 +1,7 @@
-﻿using System;
-using System.Linq.Expressions;
-
-namespace WebPWrapper.Decoder {
-    public interface IWebPDecoderBuilder {
+﻿namespace WebPWrapper.Decoder
+{
+    public interface IWebPDecoderBuilder
+    {
         /// <summary>
         /// 輸出格式
         /// </summary>

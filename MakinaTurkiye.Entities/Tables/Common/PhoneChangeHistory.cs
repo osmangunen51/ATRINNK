@@ -2,9 +2,9 @@
 
 namespace MakinaTurkiye.Entities.Tables.Common
 {
-    public class PhoneChangeHistory:BaseEntity
+    public class PhoneChangeHistory : BaseEntity
     {
-       public int PhoneChangeHistoryId { get; set; }
+        public int PhoneChangeHistoryId { get; set; }
         public int PhoneId { get; set; }
         public int? MainPartyId { get; set; }
         public int? AddressId { get; set; }

@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Stores
 {
-    public class StoreActivityCategory:BaseEntity
+    public class StoreActivityCategory : BaseEntity
     {
         public int StoreActivityCategoryId { get; set; }
         public int CategoryId { get; set; }

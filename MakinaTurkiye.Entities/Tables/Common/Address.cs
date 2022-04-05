@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Common
 {
-    public class Address: BaseEntity
+    public class Address : BaseEntity
     {
         private ICollection<Phone> _phones;
 

@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Services.Checkouts;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Services.Checkouts;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Packets;
@@ -123,7 +124,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 // Sipariş Listesini Getirirken hataya düşürüldüğü için bu kod kapatıldı.!!
                 //if (op)
                 //{
-                    whereClause.Append("AND");
+                whereClause.Append("AND");
                 //}
                 whereClause.AppendFormat(equalClause, "O.PacketStatu", Request.QueryString["PacketStatu"].ToString());
                 //op = true;
@@ -137,7 +138,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 whereClause.Clear();
             }
             collection = dataOrder.Search(ref total, (int)Session[SessionPage], 1, whereClause.ToString(), STARTCOLUMN, ORDER).AsCollection<OrderModel>();
-            var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 22 || g.UserGroupId == 18  select u;
+            var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 22 || g.UserGroupId == 18 select u;
             List<SelectListItem> salesUserManagers = new List<SelectListItem>();
             salesUserManagers.Add(new SelectListItem { Text = "Tümü", Value = "0" });
             foreach (var item in salesUsers)
@@ -588,7 +589,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             MailMessage mail = new MailMessage();
             MessagesMT mailT = entities.MessagesMTs.First(x => x.MessagesMTName == "goldenpro");
             mail.From = new MailAddress(mailT.Mail, mailT.MailSendFromName); //Mailin kimden gittiğini belirtiyoruz
-          
+
             mail.To.Add(member.MemberEmail);                                                              //Mailin kime gideceğini belirtiyoruz
             mail.Subject = mailT.MessagesMTTitle;                                              //Mail konusu
             string template = mailT.MessagesMTPropertie;
@@ -597,12 +598,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail);
+            this.SendMail(mail);
             #endregion
 
             store.PacketId = packet.PacketId;
@@ -698,12 +694,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail);
+            this.SendMail(mail);
             #endregion
             return RedirectToAction("Index");
 
@@ -1358,7 +1349,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                     if (orderInstallMents[i + 1] != null)
                                     {
                                         var anotherIns = orderInstallMents[i + 1];
-                                        anotherIns.Amunt =anotherIns.Amunt+ (secondInstallment.Amunt + rest);
+                                        anotherIns.Amunt = anotherIns.Amunt + (secondInstallment.Amunt + rest);
                                         _orderInstallmentService.UpdateOrderInstallment(anotherIns);
 
                                     }
@@ -1721,7 +1712,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             SalesResponsibleUpdateModel model = new SalesResponsibleUpdateModel();
             model.OrderId = orderId;
             var order = _orderService.GetOrderByOrderId(orderId);
-            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where  g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 22 || g.UserGroupId == 18  select new { u.UserName, u.UserId };
+            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 22 || g.UserGroupId == 18 select new { u.UserName, u.UserId };
             foreach (var item in users1)
             {
                 model.SalesResponsibleUser.Add(new SelectListItem { Text = item.UserName, Value = item.UserId.ToString(), Selected = item.UserId == order.AuthorizedId });

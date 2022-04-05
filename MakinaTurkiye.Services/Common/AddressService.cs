@@ -210,7 +210,7 @@ namespace MakinaTurkiye.Services.Common
 
             string key = string.Format(LOCALITIES_BY_LOCALITY_ID_KEY, localityId);
 
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _localityRepository.Table;
 
@@ -264,7 +264,7 @@ namespace MakinaTurkiye.Services.Common
 
             string key = string.Format(COUNTRIES_BY_COUNTRY_ID_KEY, countryId);
 
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _countryRepository.Table;
 
@@ -323,7 +323,7 @@ namespace MakinaTurkiye.Services.Common
 
             string key = string.Format(CITIES_BY_CITIY_ID_KEY, cityId);
 
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _cityRepository.Table;
 
@@ -412,12 +412,12 @@ namespace MakinaTurkiye.Services.Common
             return town;
         }
 
-        public IList<Country> GetAllCountries(bool showHidden=false)
+        public IList<Country> GetAllCountries(bool showHidden = false)
         {
             var query = _countryRepository.Table;
 
             if (!showHidden)
-                query = query.Where(c => c.Active==true);
+                query = query.Where(c => c.Active == true);
 
             query = query.OrderBy(c => c.CountryOrder).ThenBy(c => c.CountryName);
             var countries = query.ToList();

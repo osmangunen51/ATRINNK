@@ -1,6 +1,7 @@
 ﻿
 #region Using Directives
 
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Media;
 using MakinaTurkiye.Entities.Tables.Stores;
@@ -16,7 +17,6 @@ using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Profile;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreImage;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Data;

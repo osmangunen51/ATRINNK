@@ -1,5 +1,4 @@
-﻿using MakinaTurkiye.Core;
-using MakinaTurkiye.Entities.StoredProcedures.Catalog;
+﻿using MakinaTurkiye.Entities.StoredProcedures.Catalog;
 using System.Collections.Generic;
 
 namespace MakinaTurkiye.Services.Catalog

@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Payments
 {
-    public class CreditCardInstallment:BaseEntity
+    public class CreditCardInstallment : BaseEntity
     {
         public short CreditCardInstallmentId { get; set; }
         public byte CreditCardId { get; set; }

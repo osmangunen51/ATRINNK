@@ -623,9 +623,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 model.Contents.Add(item.ConstantId, item.ContstantPropertie);
             }
-            if(!string.IsNullOrEmpty(islem) && islem.Equals("success"))
+            if (!string.IsNullOrEmpty(islem) && islem.Equals("success"))
             {
-                model.Message = "İşlem Başarılı"; 
+                model.Message = "İşlem Başarılı";
             }
 
             return View(model);
@@ -644,13 +644,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         public JsonResult GetSubConstant(string id)
         {
             List<string> contents = new List<string>();
-            
+
             var constants = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.SubConstant && x.ConstantTitle == id).ToList();
             foreach (var item in constants)
             {
                 contents.Add(item.ContstantPropertie);
             }
-            
+
 
             return Json(new { data = contents }, JsonRequestBehavior.AllowGet);
         }

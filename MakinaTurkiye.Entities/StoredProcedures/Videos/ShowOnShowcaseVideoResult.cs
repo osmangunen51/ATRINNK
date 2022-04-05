@@ -20,6 +20,6 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Videos
         public byte? Minute { get; set; }
         public byte? Second { get; set; }
         public string StoreUrlName { get; set; }
- 
+
     }
 }

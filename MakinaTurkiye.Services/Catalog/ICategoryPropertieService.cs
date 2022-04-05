@@ -18,7 +18,7 @@ namespace MakinaTurkiye.Services.Catalog
         void DeletePropertie(Propertie propertie);
 
         void UpdatePropertie(Propertie propertie);
-  
+
 
         IList<PropertieAttr> GetPropertiesAttrByPropertieId(int propertieId);
 

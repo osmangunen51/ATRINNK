@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.ProductRequests
 {
-    public class ProductRequestMap:EntityTypeConfiguration<ProductRequest>
+    public class ProductRequestMap : EntityTypeConfiguration<ProductRequest>
     {
         public ProductRequestMap()
         {

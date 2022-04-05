@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.ProductRequests
 {
-    public class ProductRequestService:IProductRequestService
+    public class ProductRequestService : IProductRequestService
     {
         IRepository<ProductRequest> _productRequestRepository;
 
@@ -27,7 +27,7 @@ namespace MakinaTurkiye.Services.ProductRequests
             var query = _productRequestRepository.Table;
             int totalRecord = query.Count();
             var source = query.OrderByDescending(x => x.ProductRequestId).Skip(pageIndex * pageSize - pageSize).Take(pageSize);
-            return new PagedList<ProductRequest>(source, pageIndex, pageSize,totalRecord);
+            return new PagedList<ProductRequest>(source, pageIndex, pageSize, totalRecord);
         }
 
         public ProductRequest GetProductRequestByProductRequestId(int productRequestId)

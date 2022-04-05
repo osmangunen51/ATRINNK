@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Management.Models
 {
@@ -13,7 +10,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
             this.CertificateItemModel = new CertificateItemModel();
         }
         public CertificateItemModel CertificateItemModel { get; set; }
-       
+
         public List<CertificateItemModel> CertificateItems { get; set; }
     }
 

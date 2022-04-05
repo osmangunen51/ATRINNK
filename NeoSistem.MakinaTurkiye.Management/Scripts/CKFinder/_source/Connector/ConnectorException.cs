@@ -15,26 +15,26 @@ using System;
 namespace CKFinder.Connector
 {
     internal class ConnectorException : Exception
-	{
-		private int _Number;
+    {
+        private int _Number;
 
-		public ConnectorException( int number )
-			: base()
-		{
-			_Number = number;
-		}
+        public ConnectorException(int number)
+            : base()
+        {
+            _Number = number;
+        }
 
-		public int Number
-		{
-			get
-			{
-				return _Number;
-			}
-		}
+        public int Number
+        {
+            get
+            {
+                return _Number;
+            }
+        }
 
-		public static void Throw( int errorNumber )
-		{
-			throw new ConnectorException( errorNumber );
-		}
-	}
+        public static void Throw(int errorNumber)
+        {
+            throw new ConnectorException(errorNumber);
+        }
+    }
 }

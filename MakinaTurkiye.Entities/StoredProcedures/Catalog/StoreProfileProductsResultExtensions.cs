@@ -4,7 +4,7 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
 {
     public static class StoreProfileProductsResultExtensions
     {
-       public static string GetCurrencyCssName(this StoreProfileProductsResult product)
+        public static string GetCurrencyCssName(this StoreProfileProductsResult product)
         {
             byte PriceTypeDiscuss = 241;
             byte PriceTypeAsk = 240;

@@ -7,6 +7,6 @@
         public string ImagePath { get; set; }
         public bool Active { get; set; }
         public string Url { get; set; }
-       
+
     }
 }

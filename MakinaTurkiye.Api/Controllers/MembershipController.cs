@@ -359,12 +359,7 @@ namespace MakinaTurkiye.Api.Controllers
                 mail.Body = template;
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
-                SmtpClient sc = new SmtpClient();
-                sc.Port = 587;
-                sc.Host = "smtp.gmail.com";
-                sc.EnableSsl = true;
-                sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword);
-                sc.Send(mail);
+                this.SendMail(mail);
             }
             catch (Exception ex)
             {
@@ -392,12 +387,7 @@ namespace MakinaTurkiye.Api.Controllers
                     mail.Body = template;
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
-                    SmtpClient sc = new SmtpClient();
-                    sc.Port = 587;
-                    sc.Host = "smtp.gmail.com";
-                    sc.EnableSsl = true;
-                    sc.Credentials = new NetworkCredential(mailTemp.Mail, mailTemp.MailPassword);
-                    sc.Send(mail);
+                    this.SendMail(mail);
                 }
                 else
                 {
@@ -411,12 +401,7 @@ namespace MakinaTurkiye.Api.Controllers
                     mail.Body = template;
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
-                    SmtpClient sc = new SmtpClient();
-                    sc.Port = 587;
-                    sc.Host = "smtp.gmail.com";
-                    sc.EnableSsl = true;
-                    sc.Credentials = new NetworkCredential(mailTemp.Mail, mailTemp.MailPassword);
-                    sc.Send(mail);
+                    this.SendMail(mail);
                 }
             }
             catch (Exception ex)

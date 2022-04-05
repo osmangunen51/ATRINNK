@@ -72,7 +72,7 @@ namespace MakinaTurkiye.Data
         {
             var connectionFactory = new SqlConnectionFactory();
             //TODO fix compilation warning (below)
-            #pragma warning disable 0618
+#pragma warning disable 0618
             Database.DefaultConnectionFactory = connectionFactory;
         }
 

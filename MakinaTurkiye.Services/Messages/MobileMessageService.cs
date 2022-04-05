@@ -27,7 +27,7 @@ namespace MakinaTurkiye.Services.Messages
 
         #region Ctor
 
-        public MobileMessageService(IRepository<MobileMessage> mobileMessageRepository, 
+        public MobileMessageService(IRepository<MobileMessage> mobileMessageRepository,
                                     ICacheManager cacheManager)
         {
             this._mobileMessageRepository = mobileMessageRepository;
@@ -45,7 +45,7 @@ namespace MakinaTurkiye.Services.Messages
                 throw new ArgumentNullException("mobileMessageId");
 
             string key = string.Format(MOBILEMESSAGES_BY_MOBILEMESSAGE_ID_KEY, mobileMessageId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _mobileMessageRepository.Table;
                 return query.FirstOrDefault(x => x.ID == mobileMessageId);
@@ -71,7 +71,7 @@ namespace MakinaTurkiye.Services.Messages
                 throw new ArgumentNullException("messageType");
 
             string key = string.Format(MOBILEMESSAGES_BY_MESSAGE_TYPE_KEY, messageType);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _mobileMessageRepository.Table;
                 query = query.Where(x => x.MessageType == (byte)messageType);

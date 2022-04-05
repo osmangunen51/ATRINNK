@@ -52,7 +52,7 @@
                 {
                     CreditCardName = model.CreditCard.CreditCardName,
                     VirtualPosId = model.CreditCard.VirtualPosId,
-                    Active=model.CreditCard.Active
+                    Active = model.CreditCard.Active
                 };
                 entities.CreditCards.AddObject(curCreditCard);
                 entities.SaveChanges();
@@ -76,7 +76,7 @@
                 return View(model);
             }
         }
-        
+
         [HttpPost]
         public JsonResult Delete(byte id)
         {

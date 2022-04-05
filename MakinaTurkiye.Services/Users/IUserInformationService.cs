@@ -7,6 +7,6 @@ namespace MakinaTurkiye.Services.Users
         UserInformation GetUserInformationByUserId(int userId);
         void InsertUserInformation(UserInformation userInformation);
         void UpdateUserInformation(UserInformation userInformation);
-        
+
     }
 }

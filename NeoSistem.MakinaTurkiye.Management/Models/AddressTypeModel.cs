@@ -3,9 +3,9 @@
     using System.ComponentModel;
 
     public class AddressTypeModel
-  {
-    public int AddressTypeId { get; set; }
-    [DisplayName("Adres Tipi")]
-    public string AddressTypeName { get; set; }
-  }
+    {
+        public int AddressTypeId { get; set; }
+        [DisplayName("Adres Tipi")]
+        public string AddressTypeName { get; set; }
+    }
 }

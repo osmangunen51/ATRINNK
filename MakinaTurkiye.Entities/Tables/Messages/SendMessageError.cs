@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Messages
 {
-    public class SendMessageError:BaseEntity
+    public class SendMessageError : BaseEntity
     {
         public int MessageID { get; set; }
         public string MessageContent { get; set; }

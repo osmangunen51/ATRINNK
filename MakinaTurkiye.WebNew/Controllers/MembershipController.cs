@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Entities.Tables.Common;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Logs;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Messages;
@@ -20,7 +21,6 @@ using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Bulletins;
 using NeoSistem.MakinaTurkiye.Web.Models.MemberShip;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 using Newtonsoft.Json;
 using System;
@@ -735,13 +735,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 mail.Body = templatet;
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
-                SmtpClient sc = new SmtpClient();
-                sc.Port = 587;
-                sc.Host = "smtp.gmail.com";
-                sc.EnableSsl = true;
-                sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777");
-                sc.Send(mail);
-
+                this.SendMail(mail);
                 return Json(true);
             }
 
@@ -1043,12 +1037,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 mail.Body = templatet;
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
-                SmtpClient sc = new SmtpClient();
-                sc.Port = 587;
-                sc.Host = "smtp.gmail.com";
-                sc.EnableSsl = true;
-                sc.Credentials = new NetworkCredential(mailTemp.Mail, mailTemp.MailPassword);
-                sc.Send(mail);
+                this.SendMail(mail);
             }
             catch (Exception ex)
             {
@@ -1856,14 +1845,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 mail.Body = template;
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
-                SmtpClient sc = new SmtpClient();
-                sc.Port = 587;
-                sc.Host = "smtp.gmail.com";
-                sc.EnableSsl = true;
-                sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777");
-                sc.Send(mail);
-
-
+                this.SendMail(mail);
             }
             return Json(result);
         }
@@ -1906,12 +1888,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mailh.Body = template;
                     mailh.IsBodyHtml = true;
                     mailh.Priority = MailPriority.Normal;
-                    SmtpClient scr = new SmtpClient();
-                    scr.Port = 587;
-                    scr.Host = "smtp.gmail.com";
-                    scr.EnableSsl = true;
-                    scr.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword);
-                    scr.Send(mailh);
+                    this.SendMail(mailh);
 
                     #endregion
 
@@ -2007,12 +1984,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mailh.Body = template;
                     mailh.IsBodyHtml = true;
                     mailh.Priority = MailPriority.Normal;
-                    SmtpClient scr = new SmtpClient();
-                    scr.Port = 587;
-                    scr.Host = "smtp.gmail.com";
-                    scr.EnableSsl = true;
-                    scr.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword);
-                    scr.Send(mailh);
+                    this.SendMail(mailh);
 
                     #endregion
 
@@ -2032,13 +2004,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mailb.Body = bilgimakinaicin;
                     mailb.IsBodyHtml = true;
                     mailb.Priority = MailPriority.Normal;
-                    SmtpClient scr1 = new SmtpClient();
-                    scr1.Port = 587;
-                    scr1.Host = "smtp.gmail.com";
-                    scr1.EnableSsl = true;
-                    scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                    scr1.Send(mailb);
-
+                    this.SendMail(mailb);
                     #endregion
 
                     #region bilgimakina
@@ -2054,15 +2020,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     //templatet = messagesmttemplate.MessagesMTPropertie;
                     string bilgimakinaicin1 = mailTempInf.MessagesMTPropertie;
                     bilgimakinaicin1 = bilgimakinaicin1.Replace("#kullanicimiz#", member.MemberName).Replace("#kullanicisoyadi#", member.MemberSurname).Replace("#kullanicitipi#", "Bireysel Üyelik");
-                    mailb.Body = bilgimakinaicin1;
-                    mailb.IsBodyHtml = true;
-                    SmtpClient scc1 = new SmtpClient();
-                    scc1.Port = 587;
-                    scc1.Host = "smtp.gmail.com";
-                    scc1.EnableSsl = true;
-                    scc1.Credentials = new NetworkCredential(mailTempInf.Mail, mailTempInf.MailPassword);
-                    mailb.Priority = MailPriority.Normal;
-                    scc1.Send(mailb1);
+                    mailb1.Body = bilgimakinaicin1;
+                    mailb1.IsBodyHtml = true;
+                    mailb1.Priority = MailPriority.Normal;
+                    this.SendMail(mailb1);
 
                     #endregion
                 }
@@ -2131,12 +2092,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mail.Body = template;
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
-                    SmtpClient sc = new SmtpClient();
-                    sc.Port = 587;
-                    sc.Host = "smtp.gmail.com";
-                    sc.EnableSsl = true;
-                    sc.Credentials = new NetworkCredential(mailTemp.Mail, mailTemp.MailPassword);
-                    sc.Send(mail);
+                    this.SendMail(mail);
 
                     #endregion
 
@@ -2156,13 +2112,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mailf.Body = bilgimakinaicin;                                                            //Mailin içeriği
                     mailf.IsBodyHtml = true;
                     mailf.Priority = MailPriority.Normal;
-                    SmtpClient sc1 = new SmtpClient();
-                    sc1.Port = 587;
-                    sc1.Host = "smtp.gmail.com";
-                    sc1.EnableSsl = true;
-                    sc1.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword);
-                    sc1.Send(mail);
-                    sc1.Send(mailf);
+                    this.SendMail(mailf);
                     #endregion
                 }
                 else if (member.MemberType == (byte)MemberType.FastIndividual)
@@ -2212,12 +2162,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mailh.Body = template;
                     mailh.IsBodyHtml = true;
                     mailh.Priority = MailPriority.Normal;
-                    SmtpClient scr = new SmtpClient();
-                    scr.Port = 587;
-                    scr.Host = "smtp.gmail.com";
-                    scr.EnableSsl = true;
-                    scr.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword);
-                    scr.Send(mailh);
+                    this.SendMail(mailh);
                     #endregion
                     #region bilgimakina
                     MailMessage mailb = new MailMessage();
@@ -2235,12 +2180,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mailb.Body = bilgimakinaicin;
                     mailb.IsBodyHtml = true;
                     mailb.Priority = MailPriority.Normal;
-                    SmtpClient scr1 = new SmtpClient();
-                    scr1.Port = 587;
-                    scr1.Host = "smtp.gmail.com";
-                    scr1.EnableSsl = true;
-                    scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                    scr1.Send(mailb);
+                    this.SendMail(mailb);
                     #endregion
                 }
                 else if (member.MemberType == (byte)MemberType.Individual)
@@ -2263,12 +2203,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         maill.Body = template;
                         maill.IsBodyHtml = true;
                         maill.Priority = MailPriority.Normal;
-                        SmtpClient scc = new SmtpClient();
-                        scc.Port = 587;
-                        scc.Host = "smtp.gmail.com";
-                        scc.EnableSsl = true;
-                        scc.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword);
-                        scc.Send(maill);
+                        this.SendMail(maill);
                         #endregion
                     }
                     catch (Exception ex)
@@ -2300,14 +2235,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     bilgimakinaicin = bilgimakinaicin.Replace("#kullanicimiz#", member.MemberName).Replace("#kullanicisoyadi#", member.MemberSurname).Replace("#kullanicitipi#", "Bireysel Üyelik");
                     mailb.Body = bilgimakinaicin;
                     mailb.IsBodyHtml = true;
-                    SmtpClient scc1 = new SmtpClient();
-                    scc1.Port = 587;
-                    scc1.Host = "smtp.gmail.com";
-                    scc1.EnableSsl = true;
-                    scc1.Credentials = new NetworkCredential(mailTempInf.Mail, mailTempInf.MailPassword);
-                    mailb.Priority = MailPriority.Normal;
-                    scc1.Send(mailb);
-
+                    this.SendMail(mailb);
                     #endregion
                 }
 
@@ -2470,12 +2398,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mail.Body = template;
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
-                    SmtpClient sc = new SmtpClient();
-                    sc.Port = 587;
-                    sc.Host = "smtp.gmail.com";
-                    sc.EnableSsl = true;
-                    sc.Credentials = new NetworkCredential(mailTemp.Mail, mailTemp.MailPassword);
-                    sc.Send(mail);
+                    this.SendMail(mail);
                 }
                 else
                 {
@@ -2489,12 +2412,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mail.Body = template;
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
-                    SmtpClient sc = new SmtpClient();
-                    sc.Port = 587;
-                    sc.Host = "smtp.gmail.com";
-                    sc.EnableSsl = true;
-                    sc.Credentials = new NetworkCredential(mailTemp.Mail, mailTemp.MailPassword);
-                    sc.Send(mail);
+                    this.SendMail(mail);
                 }
 
             }
@@ -2523,14 +2441,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 mail.Body = template;
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
-                SmtpClient sc = new SmtpClient();
-                sc.Port = 587;
-                sc.Host = "smtp.gmail.com";
-                sc.EnableSsl = true;
-                sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword);
-                sc.Send(mail);
-
-
+                this.SendMail(mail);
             }
             catch (Exception ex)
             {

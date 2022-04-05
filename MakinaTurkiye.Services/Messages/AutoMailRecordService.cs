@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Messages
 {
-    public class AutoMailRecordService:IAutoMailRecordService
+    public class AutoMailRecordService : IAutoMailRecordService
     {
         IRepository<AutoMailRecord> _autoMailRecordRepository;
 

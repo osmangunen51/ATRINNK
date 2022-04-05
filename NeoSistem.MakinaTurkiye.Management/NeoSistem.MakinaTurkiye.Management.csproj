@@ -392,7 +392,6 @@
     <Compile Include="Models\Users\UserFileModel.cs" />
     <Compile Include="Models\Users\UserFormModel.cs" />
     <Compile Include="Models\Users\UserInformationModel.cs" />
-    <Compile Include="Models\UtilityModel\AppSettings.cs" />
     <Compile Include="Models\Validation\AddressViewModel.cs" />
     <Compile Include="Models\Validation\EmailAttribute.cs" />
     <Compile Include="Models\Validation\PropertiesMustMatchAttribute.cs" />
@@ -1929,6 +1928,7 @@
     <Folder Include="FilesError\" />
     <Folder Include="FilesMail\" />
     <Folder Include="FilesUser\" />
+    <Folder Include="Models\UtilityModel\" />
     <Folder Include="Scripts\CKEditor\images\" />
     <Folder Include="Scripts\CKEditor\plugins\a11yhelp\lang\" />
     <Folder Include="Scripts\CKEditor\plugins\iframedialog\" />

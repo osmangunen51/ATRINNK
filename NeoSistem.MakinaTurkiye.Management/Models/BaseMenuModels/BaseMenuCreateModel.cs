@@ -19,7 +19,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.BaseMenuModels
         public byte? HomePageOrder { get; set; }
         public string BackgroundCss { get; set; }
         public string TabBackgroundCss { get; set; }
-        public IDictionary<int,string> BaseMenuImages { get; set; }
+        public IDictionary<int, string> BaseMenuImages { get; set; }
 
     }
 }

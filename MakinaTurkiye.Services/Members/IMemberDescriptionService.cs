@@ -13,11 +13,11 @@ namespace MakinaTurkiye.Services.Members
         IList<MemberDescriptionForStore> GetByMainPartyIDOrderByColumn(string orderDesc, int mainPartyId);
         IList<MemberDescriptionForStore> GetMemberDescByOnDate(int userId, int userGroupId, int pageDimension, int pageIndex, int orderBy, int consttandtId, out int totalRecord);
         IList<MemberDescriptionForStore> GetMemberDescNoUpdateDate(int page, int pageSize);
-        IList<BaseMemberDescriptionForStore> GetMemberDescCloseDate(int Page, int PageSize, string Type,int UserId, out int TotalRecord );
-        IList<BaseMemberDescriptionForStore> GetMemberDateDesc(int Page, int PageSize, string Type,int UserId, out int TotalRecord);
+        IList<BaseMemberDescriptionForStore> GetMemberDescCloseDate(int Page, int PageSize, string Type, int UserId, out int TotalRecord);
+        IList<BaseMemberDescriptionForStore> GetMemberDateDesc(int Page, int PageSize, string Type, int UserId, out int TotalRecord);
         IList<MemberDescriptionForStore> GetMemberDescDate(int Page, int PageSize, string Type);
         IList<MemberDescriptionForStore> GetMemberDescSearchText(string Text);
-        List<MemberDescriptionTaskItem> SP_GetMemberDescriptionSearch(int Page, int PageSize, int UserId, System.DateTime? Date, string OrderColumn, byte OrderType, int ConstantId, string  addedDate,  out int TotalRecord);
+        List<MemberDescriptionTaskItem> SP_GetMemberDescriptionSearch(int Page, int PageSize, int UserId, System.DateTime? Date, string OrderColumn, byte OrderType, int ConstantId, string addedDate, out int TotalRecord);
         List<MemberDescriptionCount> SP_GetMemberDescriptionCount();
         List<MemberDescription> GetMemberDescriptionByPreRegistrationStoreId(int preRegistrationStoreId);
 

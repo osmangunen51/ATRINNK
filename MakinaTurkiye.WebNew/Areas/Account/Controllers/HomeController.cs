@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Core.Infrastructure;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Checkouts;
@@ -162,12 +163,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             mail.Body = templatet;                                                            //Mailin içeriği
                             mail.IsBodyHtml = true;
                             mail.Priority = MailPriority.Normal;
-                            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                            sc.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                            sc.Send(mail);
+                            this.SendMail(mail);
 
                             #endregion
 
@@ -574,7 +570,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                 //Mail konusu
                                 string templatet = mailTemplate.MessagesMTPropertie;
                                 templatet = templatet.Replace("#kullaniciadi", kullaniciemail.MemberName + " " + kullaniciemail.MemberSurname).Replace("#urunadi", productName).Replace("#email#", mailadresifirma).Replace("#link", productUrl).Replace("#ilanno", product.ProductNo).Replace("#messagecontent#", messageItem.MessageContent).Replace("#loginautolink#", loginAutoLink);
-                                MailHelper mailHelper = new MailHelper(productnosub, templatet, mailTemplate.Mail, mailadresifirma, mailTemplate.MailPassword, mailTemplate.MailSendFromName);
+                                MailHelper mailHelper = new MailHelper(productnosub, templatet, mailTemplate.Mail, mailadresifirma, mailTemplate.MailPassword, mailTemplate.MailSendFromName, AppSettings.MailHost, AppSettings.MailPort,AppSettings.MailSsl);
                                 var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(messageItem.ReceiverID);
                                 if (memberStore != null)
                                 {

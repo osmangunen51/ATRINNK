@@ -26,7 +26,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         #region Ctor
 
-        public ProductCommentService(IRepository<ProductComment> productCommentRepository, ICacheManager cacheManager): base(cacheManager)
+        public ProductCommentService(IRepository<ProductComment> productCommentRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             this._productCommentRepository = productCommentRepository;
             this._cacheManager = cacheManager;

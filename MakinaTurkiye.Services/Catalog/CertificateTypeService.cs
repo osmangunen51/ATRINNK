@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MakinaTurkiye.Caching;
+﻿using MakinaTurkiye.Caching;
 using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Catalog;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MakinaTurkiye.Services.Catalog
 {
@@ -144,8 +142,8 @@ namespace MakinaTurkiye.Services.Catalog
 
         public IList<CertificateTypeProduct> GetCertificateTypeProductsByStoreCertificateId(int storeCertificateId)
         {
-            if(storeCertificateId==0)
-            throw new ArgumentNullException("storeMainPartyId");
+            if (storeCertificateId == 0)
+                throw new ArgumentNullException("storeMainPartyId");
             var query = _certificateTypeProductRepository.Table;
             return query.Where(x => x.StoreCertificateId == storeCertificateId).ToList();
         }

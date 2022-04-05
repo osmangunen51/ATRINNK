@@ -11,7 +11,7 @@ namespace MakinaTurkiye.Data.Mapping.Tables.Catalog
             this.Ignore(c => c.Id);
             this.HasKey(c => c.CategoryId);
 
-           
+
         }
     }
 }

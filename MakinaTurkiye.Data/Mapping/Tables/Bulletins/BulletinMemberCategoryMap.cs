@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Bulletins
 {
-    public class BulletinMemberCategoryMap:EntityTypeConfiguration<BulletinMemberCategory>
+    public class BulletinMemberCategoryMap : EntityTypeConfiguration<BulletinMemberCategory>
     {
         public BulletinMemberCategoryMap()
         {

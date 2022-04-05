@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Users
 {
-    public class UserInformationService: IUserInformationService
+    public class UserInformationService : IUserInformationService
     {
         IRepository<UserInformation> _userInformationRepository;
         public UserInformationService(IRepository<UserInformation> userInformationRepository)
@@ -18,7 +18,7 @@ namespace MakinaTurkiye.Services.Users
             if (userId == 0)
                 throw new ArgumentException("userId");
             var query = _userInformationRepository.Table;
-            return query.FirstOrDefault(x => x.UserId==userId);
+            return query.FirstOrDefault(x => x.UserId == userId);
         }
 
         public void InsertUserInformation(UserInformation userInformation)

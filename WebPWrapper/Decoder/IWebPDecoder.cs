@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace WebPWrapper.Decoder {
+namespace WebPWrapper.Decoder
+{
     /// <summary>
     /// WebP解碼器
     /// </summary>
-    public interface IWebPDecoder {
+    public interface IWebPDecoder
+    {
         /// <summary>
         /// 解碼
         /// </summary>

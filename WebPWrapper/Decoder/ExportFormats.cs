@@ -1,5 +1,7 @@
-﻿namespace WebPWrapper.Decoder {
-    public enum ExportFormats {
+﻿namespace WebPWrapper.Decoder
+{
+    public enum ExportFormats
+    {
         PNG,
         TIFF,
         PAM,

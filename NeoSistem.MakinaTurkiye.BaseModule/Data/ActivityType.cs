@@ -3,7 +3,7 @@
     using EnterpriseEntity.Business;
 
     public class ActivityType : BusinessDataEntity
-  {
-   
-  }
+    {
+
+    }
 }

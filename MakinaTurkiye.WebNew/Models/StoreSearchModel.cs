@@ -1,9 +1,9 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Models.Entities;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using MakinaTurkiye.Core;
 
 namespace NeoSistem.MakinaTurkiye.Web.Models
 {

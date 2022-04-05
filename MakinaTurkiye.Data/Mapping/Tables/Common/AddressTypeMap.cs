@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Common
 {
-    public class AddressTypeMap:EntityTypeConfiguration<AddressType>
+    public class AddressTypeMap : EntityTypeConfiguration<AddressType>
     {
         public AddressTypeMap()
         {

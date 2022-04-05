@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Common
 {
-    public class PhoneMap: EntityTypeConfiguration<Phone>
+    public class PhoneMap : EntityTypeConfiguration<Phone>
     {
         public PhoneMap()
         {

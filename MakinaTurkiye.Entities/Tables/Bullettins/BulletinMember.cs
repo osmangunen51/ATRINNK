@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MakinaTurkiye.Entities.Tables.Bullettins
 {
-    public class BulletinMember:BaseEntity
+    public class BulletinMember : BaseEntity
     {
         private ICollection<BulletinMemberCategory> _bulletinMemberCategories;
         public int BulletinMemberId { get; set; }

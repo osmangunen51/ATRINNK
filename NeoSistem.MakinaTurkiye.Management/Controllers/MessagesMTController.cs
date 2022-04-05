@@ -6,7 +6,7 @@
     using System.Web.Mvc;
 
     public class MessagesMTController : BaseController
-    { 
+    {
 
         public ActionResult Index()
         {

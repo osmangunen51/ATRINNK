@@ -4,12 +4,10 @@ using MakinaTurkiye.Entities.Tables.Catalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Services.Catalog
 {
-    public class CategoryPlaceChoiceService : BaseService , ICategoryPlaceChoiceService
+    public class CategoryPlaceChoiceService : BaseService, ICategoryPlaceChoiceService
     {
 
         #region Constants
@@ -29,7 +27,7 @@ namespace MakinaTurkiye.Services.Catalog
         #region Ctor
 
         public CategoryPlaceChoiceService(IRepository<CategoryPlaceChoice> categoryPlaceChoiceRepository,
-                                          ICacheManager cacheManager): base(cacheManager)
+                                          ICacheManager cacheManager) : base(cacheManager)
         {
             _categoryPlaceChoiceRepository = categoryPlaceChoiceRepository;
             _cacheManager = cacheManager;

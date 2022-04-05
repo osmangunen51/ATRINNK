@@ -1,10 +1,9 @@
 ﻿using MakinaTurkiye.Entities.Tables.Catalog;
 using System;
-using System.Collections.Generic;
 
 namespace MakinaTurkiye.Entities.Tables.Content
 {
-    public class BaseMenuCategory:BaseEntity
+    public class BaseMenuCategory : BaseEntity
     {
         //private ICollection<Category> _categories;
 

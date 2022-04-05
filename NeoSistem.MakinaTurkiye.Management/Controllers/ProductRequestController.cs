@@ -12,7 +12,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly IProductRequestService _productRequestService;
         private readonly ICategoryService _categoryService;
 
-        public ProductRequestController(IProductRequestService productRequestService,ICategoryService categoryService)
+        public ProductRequestController(IProductRequestService productRequestService, ICategoryService categoryService)
         {
             this._productRequestService = productRequestService;
             this._categoryService = categoryService;
@@ -26,7 +26,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             PrepareProductRequestSource(model, page);
             return View(model);
         }
-        public void PrepareProductRequestSource(FilterModel<ProductRequestItem> model,int page)
+        public void PrepareProductRequestSource(FilterModel<ProductRequestItem> model, int page)
         {
             int pageSize = 20;
             var productRequests = _productRequestService.GetAllProductRequests(page, pageSize);
@@ -35,7 +35,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             foreach (var item in productRequests)
             {
                 var category = _categoryService.GetCategoryByCategoryId(item.CategoryId);
-                string categoryName = "",brandName="",seriesName="",modelName="";
+                string categoryName = "", brandName = "", seriesName = "", modelName = "";
                 if (category != null) categoryName = category.CategoryName;
                 if (item.BrandId != 0)
                 {
@@ -43,7 +43,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     if (brand != null)
                         brandName = brand.CategoryName;
                 }
-                if(item.SeriesId!=0)
+                if (item.SeriesId != 0)
                 {
                     var series = _categoryService.GetCategoryByCategoryId(item.SeriesId);
                     if (series != null)
@@ -55,7 +55,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     if (modelN != null)
                         modelName = modelN.CategoryName;
                 }
-             
+
                 source.Add(new ProductRequestItem
                 {
                     BrandName = brandName,
@@ -75,7 +75,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.PageDimension = pageSize;
             model.CurrentPage = page;
             model.TotalRecord = productRequests.TotalCount;
-          
+
         }
         [HttpPost]
         public ActionResult Index(int page)

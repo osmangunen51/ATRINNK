@@ -22,21 +22,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             return View(model);
         }
         [HttpPost]
-        public PartialViewResult Index(int page) {
+        public PartialViewResult Index(int page)
+        {
 
             FilterModel<LogItemModel> model = new FilterModel<LogItemModel>();
-            PrepareLogItems(model,page);
-            return PartialView("_Item",model);
+            PrepareLogItems(model, page);
+            return PartialView("_Item", model);
         }
-        
-        private void PrepareLogItems(FilterModel<LogItemModel> model,int page=0)
+
+        private void PrepareLogItems(FilterModel<LogItemModel> model, int page = 0)
         {
             List<LogItemModel> logItems = new List<LogItemModel>();
             int pageDimension = 100;
             var logs = _applicationLogService.GetApplicationLogs(page, pageDimension);
             foreach (var item in logs)
             {
-                var logItem = new LogItemModel { Date = item.Date, ID = item.Id, Logger = item.Logger,Message=item.Message };
+                var logItem = new LogItemModel { Date = item.Date, ID = item.Id, Logger = item.Logger, Message = item.Message };
                 switch (item.Level)
                 {
                     case "ERROR":

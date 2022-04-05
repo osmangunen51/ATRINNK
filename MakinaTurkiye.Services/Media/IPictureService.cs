@@ -21,6 +21,6 @@ namespace MakinaTurkiye.Services.Media
         void UpdatePicture(Picture picture);
 
         void InsertPicture(Picture picture);
-        
+
     }
 }

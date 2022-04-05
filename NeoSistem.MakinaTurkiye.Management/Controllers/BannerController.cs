@@ -1,7 +1,7 @@
-﻿using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
+﻿using MakinaTurkiye.Core;
+using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Management.Models;
 using NeoSistem.MakinaTurkiye.Management.Models.Entities;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -861,7 +861,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         public ActionResult SliderPost()
-        { 
+        {
             return View();
         }
     }

@@ -8,13 +8,13 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Catalog
 {
-    public class ProductComplainService:IProductComplainService
+    public class ProductComplainService : IProductComplainService
     {
         #region Constants
-      
+
         //private const string PRODUCTCOMPLAINTYPE_PATTERN_KEY = "makinaturkiye.productcomplaintype";
         private const string PRODUCTCOMPLAINTYPE_All_KEY = "makinaturkiye.productcomplaintype.byall";
-       
+
         #endregion
 
         #region Fields
@@ -43,7 +43,7 @@ namespace MakinaTurkiye.Services.Catalog
             var query = _productComplainRepository.Table;
             return query.ToList();
         }
-        
+
         public IList<ProductComplainType> GetAllProductComplainType()
         {
             string key = string.Format(PRODUCTCOMPLAINTYPE_All_KEY);
@@ -53,7 +53,7 @@ namespace MakinaTurkiye.Services.Catalog
                  return query.OrderBy(p => p.DisplayOrder).ToList();
              });
         }
-                
+
         public ProductComplain GetProductComplainByProductComplainId(int productComplainId)
         {
             if (productComplainId == 0)

@@ -1,6 +1,4 @@
-﻿using MakinaTurkiye.Core.Configuration;
-using System.Configuration;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 
 namespace MakinaTurkiye.Core.Infrastructure
 {

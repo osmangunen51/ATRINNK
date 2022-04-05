@@ -1,10 +1,13 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
+    using global::MakinaTurkiye.Core;
     using MakinaTurkiye.Management.Models.Entities;
     using NeoSistem.MakinaTurkiye.Management.Models.Authentication;
     using Properties;
     using System;
     using System.Linq;
+    using System.Net;
+    using System.Net.Mail;
     using System.Web;
     using System.Web.Mvc;
 
@@ -165,6 +168,7 @@
             return PostView<TModel, TVar>(string.Empty, method, model, value);
         }
 
+        
 
     }
 }

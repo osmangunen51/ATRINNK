@@ -1,15 +1,15 @@
-﻿using MakinaTurkiye.Services.Stores;
+﻿using MakinaTurkiye.Entities.Tables.Stores;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Utilities.FormatHelpers;
+using NeoSistem.MakinaTurkiye.Management.Models;
+using NeoSistem.MakinaTurkiye.Management.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Management.Models.Entities;
 using NeoSistem.MakinaTurkiye.Management.Models.Stores;
-using System.Web.Mvc;
-using System.Linq;
 using System;
-using MakinaTurkiye.Entities.Tables.Stores;
-using NeoSistem.MakinaTurkiye.Management.Models.Authentication;
 using System.Collections.Generic;
-using NeoSistem.MakinaTurkiye.Management.Models;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Utilities.FormatHelpers;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
@@ -369,7 +369,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             var storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(id);
             storeSeoNotification.IsFirst = Convert.ToBoolean(isFirst);
-           
+
             _storeSeoNotificationService.UpdateStoreSeoNotification(storeSeoNotification);
             return RedirectToAction("AllNotification");
 

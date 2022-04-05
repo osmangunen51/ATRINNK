@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Entities.Tables.Catalog
 {
-    public class CertificateType:BaseEntity
+    public class CertificateType : BaseEntity
     {
         public int CertificateTypeId { get; set; }
         public int? InsertedStoreMainPartyId { get; set; }

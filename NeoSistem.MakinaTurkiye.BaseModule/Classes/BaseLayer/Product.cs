@@ -141,18 +141,18 @@ namespace NeoSistem.MakinaTurkiye.Classes
 
         [Column("ChoicedForCategoryIndex", SqlDbType.Bit)]
         public bool? ChoicedForCategoryIndex { get; set; }
-        
+
         [Column("ProductPriceBegin", SqlDbType.Money)]
         public decimal? ProductPriceBegin { get; set; }
 
 
         [Column("ProductPriceLast", SqlDbType.Money)]
-        public decimal ?ProductPriceLast { get; set; }
+        public decimal? ProductPriceLast { get; set; }
 
-         [Column("Kdv", SqlDbType.Bit)]
+        [Column("Kdv", SqlDbType.Bit)]
         public bool? Kdv { get; set; }
 
-         [Column("Fob", SqlDbType.Bit)]
+        [Column("Fob", SqlDbType.Bit)]
         public bool? Fob { get; set; }
 
         [Column("ProductDopingBeginDate", SqlDbType.DateTime)]

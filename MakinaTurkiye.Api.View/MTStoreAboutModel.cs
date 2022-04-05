@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Api.View
+﻿namespace MakinaTurkiye.Api.View
 {
     public class MTStoreAboutModel
     {
         public MTStoreAboutModel()
         {
-            
+
         }
         public string GeneralText { get; set; }
         public string StoreProfileHomeDescription { get; set; }

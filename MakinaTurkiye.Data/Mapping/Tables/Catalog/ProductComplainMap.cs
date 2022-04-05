@@ -5,7 +5,7 @@ namespace MakinaTurkiye.Data.Mapping.Tables.Catalog
 {
     public class ProductComplainMap : EntityTypeConfiguration<ProductComplain>
     {
-         public ProductComplainMap()
+        public ProductComplainMap()
         {
             this.ToTable("ProductComplain");
             this.Ignore(pc => pc.Id);

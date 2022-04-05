@@ -19,7 +19,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         [DisplayName("İçerik Sol")]
         public string ContentSide { get; set; }
 
-         [DisplayName("İçerik Alt Orta")]
+        [DisplayName("İçerik Alt Orta")]
         public string ContentBottomCenter { get; set; }
         public bool Enabled { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Packets
 {
-    public class PacketFeatureType:BaseEntity
+    public class PacketFeatureType : BaseEntity
     {
         ICollection<PacketFeature> _packetFeatures;
 

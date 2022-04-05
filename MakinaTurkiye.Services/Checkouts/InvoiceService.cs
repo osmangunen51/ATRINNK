@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Checkouts
 {
-    public class InvoiceService:IInvoiceService
+    public class InvoiceService : IInvoiceService
     {
-        
+
         //TODO bu class kullanilmiyor silinebilir
         #region Fields
 
@@ -17,7 +17,7 @@ namespace MakinaTurkiye.Services.Checkouts
         #endregion
 
         #region Methods
-              
+
         public IList<Invoice> GetAllInvoices()
         {
             var query = _invoiceRepository.Table;
@@ -26,12 +26,12 @@ namespace MakinaTurkiye.Services.Checkouts
 
         public Invoice GetInvoiceByInvoiceId(int invoiceId)
         {
-            if(invoiceId==0)
+            if (invoiceId == 0)
                 throw new ArgumentException("invoiceId");
 
             var query = _invoiceRepository.Table;
-            return query.FirstOrDefault(i=>i.InvoiceId==invoiceId);
-     
+            return query.FirstOrDefault(i => i.InvoiceId == invoiceId);
+
         }
 
         public void InsertInvoice(Invoice invoice)
@@ -41,7 +41,7 @@ namespace MakinaTurkiye.Services.Checkouts
 
             _invoiceRepository.Insert(invoice);
         }
-       
+
         #endregion
 
     }

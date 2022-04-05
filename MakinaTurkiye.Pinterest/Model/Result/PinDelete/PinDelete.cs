@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Pinterest.Model.Result.PinDelete
+﻿namespace MakinaTurkiye.Pinterest.Model.Result.PinDelete
 {
     public class PinDelete
     {

@@ -1634,7 +1634,6 @@
     <Compile Include="Models\ProductModel.cs" />
     <Compile Include="Models\StoreModel.cs" />
     <Compile Include="Models\StoreSearchModel.cs" />
-    <Compile Include="Models\UtilityModel\AppSettings.cs" />
     <Compile Include="Models\EnumModel.cs" />
     <Compile Include="Models\UtilityModel\SearchModel.cs" />
     <Compile Include="Models\Validation\EmailAttribute.cs" />

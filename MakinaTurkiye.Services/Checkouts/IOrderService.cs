@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace MakinaTurkiye.Services.Checkouts
 {
-    public interface IOrderService 
+    public interface IOrderService
     {
         Order GetOrderByOrderId(int orderId);
         IList<Order> GetOrdersByMainPartyId(int StoreMainPartyId);
@@ -16,7 +16,7 @@ namespace MakinaTurkiye.Services.Checkouts
 
         IList<Order> GetOrdersWithNullInvoiceNumber();
         IList<Order> GetAllOrders();
-        
+
         IList<OrderReportResultModel> GetOrderReports(int pageDimension, int page, string where, string orderName, string order, out int totalRecord, out int totalPrice, out int totalPaid);
 
 

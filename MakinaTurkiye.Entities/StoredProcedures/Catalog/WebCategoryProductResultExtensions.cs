@@ -54,7 +54,7 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
         public static string GetFormattedPrice(this WebCategoryProductResult product)
         {
 
-                 byte PriceTypePrice = 238;
+            byte PriceTypePrice = 238;
             byte PriceTypeRange = 239;
             byte PriceTypeDiscuss = 241;
             byte PriceTypeAsk = 240;
@@ -85,11 +85,11 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
                 string priceBegin = "0";
                 string priceLast = "0";
 
-                if(product.ProductPriceBegin!=null)
+                if (product.ProductPriceBegin != null)
                 {
                     priceBegin = product.ProductPriceBegin.Value.ToString("0.00");
                 }
-                if(product.ProductPriceLast!=null)
+                if (product.ProductPriceLast != null)
                 {
                     priceLast = product.ProductPriceLast.Value.ToString("0.00");
                 }
@@ -115,7 +115,7 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
             }
         }
 
-    
+
 
 
     }

@@ -1,10 +1,8 @@
-﻿using System;
+﻿using MakinaTurkiye.Core.Data;
+using MakinaTurkiye.Entities.Tables.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MakinaTurkiye.Core.Data;
-using MakinaTurkiye.Entities.Tables.Users;
 
 namespace MakinaTurkiye.Services.Users
 {

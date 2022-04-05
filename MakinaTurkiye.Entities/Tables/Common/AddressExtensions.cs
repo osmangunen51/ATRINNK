@@ -17,7 +17,7 @@ namespace MakinaTurkiye.Entities.Tables.Common
                 sb.AppendFormat("{0} ", address.Street);
             }
             if (!string.IsNullOrEmpty(address.ApartmentNo))
-            { 
+            {
                 sb.AppendFormat("No: {0} ", address.ApartmentNo);
             }
             if (!string.IsNullOrWhiteSpace(address.DoorNo))
@@ -49,44 +49,44 @@ namespace MakinaTurkiye.Entities.Tables.Common
         {
             if (address.Locality != null && address.City != null)
             {
-                return string.Format("{0} / {1} / {2}",address.Town!=null ? address.Town.TownName:"" , address.Locality.LocalityName, address.City.CityName, address.Country.CountryName);
+                return string.Format("{0} / {1} / {2}", address.Town != null ? address.Town.TownName : "", address.Locality.LocalityName, address.City.CityName, address.Country.CountryName);
             }
             return string.Empty;
         }
         public static string GetAddressEdit(this Address address)
         {
-       
 
-            if(address!=null)
-            { 
-            var builder = new StringBuilder();
 
-            if (address.Town != null)
+            if (address != null)
             {
-                builder.AppendFormat("{0} ", address.Town.TownName);
-            }
+                var builder = new StringBuilder();
 
-            builder.AppendFormat("{0} ", address.Avenue);
+                if (address.Town != null)
+                {
+                    builder.AppendFormat("{0} ", address.Town.TownName);
+                }
 
-            if (!string.IsNullOrWhiteSpace(address.Street))
-            {
-                builder.AppendFormat("{0} ", address.Street);
-            }
+                builder.AppendFormat("{0} ", address.Avenue);
 
-            if (!string.IsNullOrWhiteSpace(address.ApartmentNo))
-            {
-                builder.AppendFormat("No: {0} ", address.ApartmentNo);
-            }
+                if (!string.IsNullOrWhiteSpace(address.Street))
+                {
+                    builder.AppendFormat("{0} ", address.Street);
+                }
 
-            if (!string.IsNullOrWhiteSpace(address.DoorNo))
-            {
-                builder.AppendFormat("/ {0} ", address.DoorNo);
-            }
+                if (!string.IsNullOrWhiteSpace(address.ApartmentNo))
+                {
+                    builder.AppendFormat("No: {0} ", address.ApartmentNo);
+                }
 
-       
-                builder.AppendFormat("{1} {0} {2} / {3}", address.Locality != null ? address.Locality.LocalityName : "", address.Town!=null?address.Town.District != null ? address.Town.District.ZipCode : "":"", address.City != null ? address.City.CityName : "-", address.Country != null ? address.Country.CountryName : "-");
+                if (!string.IsNullOrWhiteSpace(address.DoorNo))
+                {
+                    builder.AppendFormat("/ {0} ", address.DoorNo);
+                }
 
-            return builder.ToString();
+
+                builder.AppendFormat("{1} {0} {2} / {3}", address.Locality != null ? address.Locality.LocalityName : "", address.Town != null ? address.Town.District != null ? address.Town.District.ZipCode : "" : "", address.City != null ? address.City.CityName : "-", address.Country != null ? address.Country.CountryName : "-");
+
+                return builder.ToString();
             }
             else
             {

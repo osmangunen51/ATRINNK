@@ -1,5 +1,7 @@
-﻿namespace WebPWrapper.Encoder {
-    public enum Metadatas {
+﻿namespace WebPWrapper.Encoder
+{
+    public enum Metadatas
+    {
         All,
         EXIF,
         ICC,

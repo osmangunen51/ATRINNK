@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Catalog
 {
-    public class ProductComplainType:BaseEntity
+    public class ProductComplainType : BaseEntity
     {
         private ICollection<ProductComplainDetail> _productComplainDetails;
         public int ProductComplainTypeId { get; set; }

@@ -1,6 +1,5 @@
 ﻿using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Videos;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using MakinaTurkiye.Utilities.VideoHelpers;
@@ -56,7 +55,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult processStatus = new ProcessResult();
             try
             {
-                var tmp = videoService.GetSPVideoByCategoryId(categoryId,pageIndex,pageSize).ToList();
+                var tmp = videoService.GetSPVideoByCategoryId(categoryId, pageIndex, pageSize).ToList();
                 foreach (var item in tmp)
                 {
                     if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))
@@ -68,7 +67,7 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         item.VideoPath = "https:" + VideoHelper.GetVideoPath(item.VideoPath);
                     }
-                    
+
                 }
                 processStatus.Message.Header = "Video İşlemleri";
                 processStatus.Message.Text = "Başarılı";
@@ -87,7 +86,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        public HttpResponseMessage GetOtherVideoByCategoryIdAndSelectedCategoryId(int categoryId,  int selectedCategoryId, int topCount = 10)
+        public HttpResponseMessage GetOtherVideoByCategoryIdAndSelectedCategoryId(int categoryId, int selectedCategoryId, int topCount = 10)
         {
             ProcessResult processStatus = new ProcessResult();
             try
@@ -222,7 +221,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        public HttpResponseMessage GetCategoriesByCategoryId(int categoryId=0)
+        public HttpResponseMessage GetCategoriesByCategoryId(int categoryId = 0)
         {
             ProcessResult processStatus = new ProcessResult();
             try
@@ -321,7 +320,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult processStatus = new ProcessResult();
             try
             {
-                var tmp = videoService.GetSpVideosBySearchText(searchText, categoryId, pageSize, pageIndex).Where(x=>x.StoreId==storeMainPartyId).ToList();
+                var tmp = videoService.GetSpVideosBySearchText(searchText, categoryId, pageSize, pageIndex).Where(x => x.StoreId == storeMainPartyId).ToList();
                 foreach (var item in tmp)
                 {
                     if (!string.IsNullOrEmpty(item.VideoPicturePath) && !item.VideoPicturePath.StartsWith("https"))

@@ -44,7 +44,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpPost]
         public ActionResult EditShowcase(int videoId)
         {
-            var video = _videoService.GetVideoByVideoId(videoId,true);
+            var video = _videoService.GetVideoByVideoId(videoId, true);
             if (video != null)
             {
                 video.ShowOnShowcase = false;

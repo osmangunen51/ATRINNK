@@ -11,7 +11,6 @@ using NeoSistem.MakinaTurkiye.Management.Models;
 using NeoSistem.MakinaTurkiye.Management.Models.BaseMenuModels;
 using NeoSistem.MakinaTurkiye.Management.Models.Catolog;
 using NeoSistem.MakinaTurkiye.Management.Models.ViewModel;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
@@ -22,6 +21,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MakinaTurkiye.Core;
 
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {

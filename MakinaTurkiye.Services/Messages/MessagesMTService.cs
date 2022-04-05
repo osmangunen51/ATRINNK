@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Messages
 {
-    public class MessagesMTService:IMessagesMTService
+    public class MessagesMTService : IMessagesMTService
     {
         private readonly IRepository<MessagesMT> _messageMtRepository;
 

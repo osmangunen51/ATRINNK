@@ -21,9 +21,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string Description { get; set; }
         public string Title { get; set; }
         public DateTime InputDate { get; set; }
-        public DateTime ?LastDate { get; set; }
+        public DateTime? LastDate { get; set; }
         public int? DescriptionDegree { get; set; }
-        public Member Member { get; set;}
+        public Member Member { get; set; }
         public string StoreName { get; set; }
         public int? StoreID { get; set; }
         public int? UserId { get; set; }

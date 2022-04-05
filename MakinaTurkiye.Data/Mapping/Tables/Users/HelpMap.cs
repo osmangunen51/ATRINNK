@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Users
 {
-    public class HelpMap:EntityTypeConfiguration<Help>
+    public class HelpMap : EntityTypeConfiguration<Help>
     {
         public HelpMap()
         {

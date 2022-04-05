@@ -7,9 +7,7 @@ using MakinaTurkiye.Tasks.Settings;
 using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using Quartz;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Tasks.Catolog.Tasks
@@ -20,7 +18,7 @@ namespace MakinaTurkiye.Tasks.Catolog.Tasks
         {
             IProductService productService = EngineContext.Current.Resolve<IProductService>();
 
-            var products = productService.GetProductByProductActiveType(ProductActiveTypeEnum.CopKutusuYeni).Where(x=>x.ProductLastUpdate.HasValue && x.ProductLastUpdate.Value.AddMonths(3).Date < DateTime.Now.Date);
+            var products = productService.GetProductByProductActiveType(ProductActiveTypeEnum.CopKutusuYeni).Where(x => x.ProductLastUpdate.HasValue && x.ProductLastUpdate.Value.AddMonths(3).Date < DateTime.Now.Date);
             IDeletedProductRedirectService deleteProductService = EngineContext.Current.Resolve<IDeletedProductRedirectService>();
             IPictureService pictureService = EngineContext.Current.Resolve<IPictureService>();
             IVideoService videoService = EngineContext.Current.Resolve<IVideoService>();

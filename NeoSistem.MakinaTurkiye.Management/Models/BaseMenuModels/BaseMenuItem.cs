@@ -19,6 +19,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.BaseMenuModels
         public byte? HomePageOrder { get; set; }
         public List<BaseMenuCategory> BaseMenuCategories { get; set; }
         public List<string> ImagePaths { get; set; }
-        
+
     }
 }

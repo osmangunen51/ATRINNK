@@ -18,7 +18,7 @@ namespace MakinaTurkiye.Caching
         /// <returns>Cached item</returns>
         public static T Get<T>(this ICacheManager cacheManager, string key, Func<T> acquire)
         {
-            return Get(cacheManager, key,CachingDefaults.CacheTime,acquire);
+            return Get(cacheManager, key, CachingDefaults.CacheTime, acquire);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace MakinaTurkiye.Caching
         /// <param name="acquire">Function to load item if it's not in the cache yet</param>
         /// <param name="cacheTime">Cache time in minutes; pass 0 to do not cache; pass null to use the default time</param>
         /// <returns>The cached value associated with the specified key</returns>
-        public static async Task<T> GetAsync<T>(this ICacheManager cacheManager, string key,int cacheTime, Func<Task<T>> acquire)
+        public static async Task<T> GetAsync<T>(this ICacheManager cacheManager, string key, int cacheTime, Func<Task<T>> acquire)
         {
             //if (!cacheManager.GetEnabled)
             //{

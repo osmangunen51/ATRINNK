@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Payments
 {
-    public class VirtualPosMap: EntityTypeConfiguration<VirtualPos>
+    public class VirtualPosMap : EntityTypeConfiguration<VirtualPos>
     {
         public VirtualPosMap()
         {

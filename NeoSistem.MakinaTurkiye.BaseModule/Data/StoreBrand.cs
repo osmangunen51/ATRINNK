@@ -6,16 +6,16 @@
     using System.Data;
 
     public class StoreBrand : BusinessDataEntity
-  {
-    public DataTable GetStoreBrandByMainPartyId(int StoreId)
     {
-      var prm = new List<IDataParameter> 
+        public DataTable GetStoreBrandByMainPartyId(int StoreId)
+        {
+            var prm = new List<IDataParameter>
       {
         StoreId.InSqlParameter("StoreId")
       };
-      return ExecuteDataSet("spStoreBrandByMainPartyId", prm).Tables[0];
+            return ExecuteDataSet("spStoreBrandByMainPartyId", prm).Tables[0];
+        }
+
+
     }
-
-
-  }
 }

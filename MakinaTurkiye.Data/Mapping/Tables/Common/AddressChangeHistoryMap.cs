@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Common
 {
-    public class AddressChangeHistoryMap:EntityTypeConfiguration<AddressChangeHistory>
+    public class AddressChangeHistoryMap : EntityTypeConfiguration<AddressChangeHistory>
     {
         public AddressChangeHistoryMap()
         {

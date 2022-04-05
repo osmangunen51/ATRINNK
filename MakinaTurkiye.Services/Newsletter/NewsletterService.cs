@@ -3,8 +3,6 @@ using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.Tables.Newsletter;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
 namespace MakinaTurkiye.Services.Newsletters
@@ -29,7 +27,7 @@ namespace MakinaTurkiye.Services.Newsletters
         #region Ctor
 
         public NewsletterService(IRepository<Newsletter> NewsletterRepository,
-            ICacheManager cacheManager, IDataProvider dataProvider, IDbContext dbContext): base(cacheManager)
+            ICacheManager cacheManager, IDataProvider dataProvider, IDbContext dbContext) : base(cacheManager)
         {
             this._NewsletterRepository = NewsletterRepository;
             this._cacheManager = cacheManager;

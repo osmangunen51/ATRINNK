@@ -84,9 +84,9 @@
         public static string ProductUrl(int id, string productName)
         {
             string url = "/" + ToUrl(productName + "-p-" + id);
-            #if !DEBUG
+#if !DEBUG
                         url = "https://makinaturkiye.com" + url;
-            #endif
+#endif
             return url;
 
 
@@ -97,13 +97,13 @@
             //return url;
         }
 
-        public static string CountryUrl(int countryId, string countryName,int categoryId,string categoryName)
+        public static string CountryUrl(int countryId, string countryName, int categoryId, string categoryName)
         {
-            return "/" + ToUrl(categoryName) + "/" + categoryId + "--" + countryId + "/" + ToUrl(countryName)+"/";
+            return "/" + ToUrl(categoryName) + "/" + categoryId + "--" + countryId + "/" + ToUrl(countryName) + "/";
         }
         public static string CityUrl(int cityId, string cityName, int countryId, int categoryId, string categoryName)
         {
-            return "/" + ToUrl(categoryName) + "/" + categoryId + "--" + countryId +"-"+cityId+ "/" + ToUrl(cityName) + "/";
+            return "/" + ToUrl(categoryName) + "/" + categoryId + "--" + countryId + "-" + cityId + "/" + ToUrl(cityName) + "/";
         }
         public static string LocalityUrl(int localityId, string localityName, int cityId, string cityName, int countryId, int categoryId, string categoryName)
         {

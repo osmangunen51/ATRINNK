@@ -1,5 +1,4 @@
-﻿using MakinaTurkiye.Core.Configuration;
-using MakinaTurkiye.Core.Infrastructure.DependencyManagement;
+﻿using MakinaTurkiye.Core.Infrastructure.DependencyManagement;
 using System;
 
 namespace MakinaTurkiye.Core.Infrastructure

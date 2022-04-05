@@ -26,10 +26,10 @@ namespace MakinaTurkiye.Services.Stores
 
         public StoreSector GetStoreSectorByStoreMainPartyIdAndCategoryId(int mainPartyId, int categoryId)
         {
-            if (mainPartyId<= 0)
+            if (mainPartyId <= 0)
                 throw new ArgumentNullException("mainPartyId");
 
-            if(categoryId<=0)
+            if (categoryId <= 0)
                 throw new ArgumentNullException("categoryId");
 
             var query = _storeSectorRepository.Table;

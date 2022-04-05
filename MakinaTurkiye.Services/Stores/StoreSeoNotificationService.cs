@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Core.Objects;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MakinaTurkiye.Core.Data;
+﻿using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.Tables.Stores;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
 {
@@ -95,9 +92,9 @@ x.CreatedDate.Year == date.Year && x.CreatedDate.Month == date.Month && x.Create
 
         public void SP_StoreSeoNotificationChangeDateForRest()
         {
-            
-                _dbContext.ExecuteSqlCommand("exec SP_StoreSeoNotificationChangeDateForRest");
-            
+
+            _dbContext.ExecuteSqlCommand("exec SP_StoreSeoNotificationChangeDateForRest");
+
         }
 
         public void UpdateStoreSeoNotification(StoreSeoNotification storeSeoNotification)

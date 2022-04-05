@@ -86,6 +86,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppSettings.cs" />
     <Compile Include="Configuration\MakinaTurkiyeConfig.cs" />
     <Compile Include="Data\BaseDataProviderManager.cs" />
     <Compile Include="Data\IDataProvider.cs" />
@@ -115,6 +116,10 @@
     <ProjectReference Include="..\MakinaTurkiye.Entities\MakinaTurkiye.Entities.csproj">
       <Project>{3BD34B52-76FA-410E-AEAE-7A0D7A732750}</Project>
       <Name>MakinaTurkiye.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NeoSistem.EnterpriseEntity.Core\NeoSistem.EnterpriseEntity.Core.csproj">
+      <Project>{31D330E6-934C-4A83-86D5-404B75A540C8}</Project>
+      <Name>NeoSistem.EnterpriseEntity.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

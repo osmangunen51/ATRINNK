@@ -2,7 +2,7 @@
 {
     public class AllSubCategoryItemResult
     {
-   
+
         public int CategoryId { get; set; }
         public int? CategoryParentId { get; set; }
         public string CategoryContentTitle { get; set; }

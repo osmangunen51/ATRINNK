@@ -16,7 +16,8 @@ namespace MakinaTurkiye.Logging.ElasticSearch
                 KnownLists = knownLists;
             }
             IEnumerable<XElement> sorted = from XElement elt in node.Elements()
-                                           orderby node.Elements(elt.Name.LocalName).Count() descending select elt;
+                                           orderby node.Elements(elt.Name.LocalName).Count() descending
+                                           select elt;
 
             if (node.HasElements)
             {

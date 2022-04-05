@@ -10,7 +10,7 @@ namespace MakinaTurkiye.Entities.Tables.Stores
         public int OrderId { get; set; }
         public decimal? DiscountPercentage { get; set; }
         public decimal? DiscountAmount { get; set; }
-        
+
         public DateTime RecordDate { get; set; }
     }
 }

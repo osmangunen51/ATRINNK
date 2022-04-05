@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Entities.Tables.Catalog
 {
-    public class StoreProductCreateSetting:BaseEntity
+    public class StoreProductCreateSetting : BaseEntity
     {
         public int StoreProductCreateSettingId { get; set; }
         public int StoreMainPartyId { get; set; }

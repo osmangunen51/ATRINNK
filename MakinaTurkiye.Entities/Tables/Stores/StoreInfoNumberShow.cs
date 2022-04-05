@@ -1,8 +1,8 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Stores
 {
-    public class StoreInfoNumberShow:BaseEntity
+    public class StoreInfoNumberShow : BaseEntity
     {
-   
+
         public int StoreInfoNumberShowId { get; set; }
 
         public int StoreMainpartyId { get; set; }
@@ -15,7 +15,7 @@
 
         public bool MersisNoShow { get; set; }
 
-    
-        
+
+
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MakinaTurkiye.Entities.Tables.Packets
 {
-    public class Packet:BaseEntity
+    public class Packet : BaseEntity
     {
         //test yorum saıtır
 
@@ -17,24 +17,24 @@ namespace MakinaTurkiye.Entities.Tables.Packets
         public byte PacketOrder { get; set; }
         public string PacketColor { get; set; }
         public string HeaderColor { get; set; }
-        public bool ?IsOnset { get; set; }
-        public bool ?IsStandart { get; set; }
-        public bool ?Registered { get; set; }
-        public bool ?UnRegistered { get; set; }
+        public bool? IsOnset { get; set; }
+        public bool? IsStandart { get; set; }
+        public bool? Registered { get; set; }
+        public bool? UnRegistered { get; set; }
         public bool IsDiscounted { get; set; }
         public bool SendReminderMail { get; set; }
         public byte? StarNumber { get; set; }
-        public double ?ProductFactor { get; set;}
-        public bool ? IsDopingPacket { get; set; }
-        public Int16 ? DopingPacketDay { get; set; }
+        public double? ProductFactor { get; set; }
+        public bool? IsDopingPacket { get; set; }
+        public Int16? DopingPacketDay { get; set; }
         public bool? ShowAdmin { get; set; }
-        
+
         public bool? IsTryPacket { get; set; }
         public virtual ICollection<PacketFeature> PacketFeatures
         {
             get { return _packetFeatures ?? (_packetFeatures = new List<PacketFeature>()); }
             protected set { _packetFeatures = value; }
         }
-        
+
     }
 }

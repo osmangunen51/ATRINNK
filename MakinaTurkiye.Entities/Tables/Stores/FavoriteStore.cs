@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Stores
 {
-    public class FavoriteStore: BaseEntity
+    public class FavoriteStore : BaseEntity
     {
         public int FavoriteMainPartyId { get; set; }
         public int? MemberMainPartyId { get; set; }

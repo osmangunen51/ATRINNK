@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Checkouts
 {
-    public class ReturnInvoice:BaseEntity
+    public class ReturnInvoice : BaseEntity
     {
         public int ReturnInvoiceId { get; set; }
         public int OrderId { get; set; }

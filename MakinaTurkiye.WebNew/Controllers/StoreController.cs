@@ -1,3 +1,4 @@
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Entities.StoredProcedures.Stores;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Services.Catalog;
@@ -10,7 +11,6 @@ using MakinaTurkiye.Utilities.ImageHelpers;
 using MakinaTurkiye.Utilities.Mvc;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Stores;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

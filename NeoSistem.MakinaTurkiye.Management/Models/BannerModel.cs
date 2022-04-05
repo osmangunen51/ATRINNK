@@ -3,7 +3,8 @@
     using NeoSistem.MakinaTurkiye.Management.Models.Entities;
     using System.Collections.Generic;
 
-    public class BannerModel {
+    public class BannerModel
+    {
         public bool SaveMessage { get; set; }
 
         public string Url { get; set; }

@@ -14,30 +14,30 @@
 namespace CKFinder
 {
     public class TriStateBool
-	{
-		public const int True = 1;
-		public const int False = 0;
-		public const int Undefined = 2;
+    {
+        public const int True = 1;
+        public const int False = 0;
+        public const int Undefined = 2;
 
-		private int _Value = 0;
+        private int _Value = 0;
 
-		public static implicit operator TriStateBool( bool value )
-		{
-			TriStateBool triStateBool = new TriStateBool();
-			triStateBool._Value = value ? True : False;
-			return triStateBool;
-		}
+        public static implicit operator TriStateBool(bool value)
+        {
+            TriStateBool triStateBool = new TriStateBool();
+            triStateBool._Value = value ? True : False;
+            return triStateBool;
+        }
 
-		public static implicit operator TriStateBool( int value )
-		{
-			TriStateBool triStateBool = new TriStateBool();
-			triStateBool._Value = value;
-			return triStateBool;
-		}
+        public static implicit operator TriStateBool(int value)
+        {
+            TriStateBool triStateBool = new TriStateBool();
+            triStateBool._Value = value;
+            return triStateBool;
+        }
 
-		public static implicit operator int( TriStateBool value )
-		{
-			return value._Value ;
-		}
-	}
+        public static implicit operator int(TriStateBool value)
+        {
+            return value._Value;
+        }
+    }
 }

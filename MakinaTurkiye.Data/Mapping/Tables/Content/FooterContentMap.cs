@@ -8,10 +8,10 @@ namespace MakinaTurkiye.Data.Mapping.Tables.Content
         public FooterContentMap()
         {
             this.ToTable("FooterContent");
-            this.Ignore(fc=>fc.Id);
-            this.HasKey(fc=>fc.FooterContentId);
+            this.Ignore(fc => fc.Id);
+            this.HasKey(fc => fc.FooterContentId);
 
-            this.HasRequired(fc => fc.FooterParent).WithMany(fp => fp.FooterContents).HasForeignKey(fp=>fp.FooterParentId);
+            this.HasRequired(fc => fc.FooterParent).WithMany(fp => fp.FooterContents).HasForeignKey(fp => fp.FooterParentId);
         }
     }
 }

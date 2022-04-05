@@ -68,12 +68,12 @@ namespace MakinaTurkiye.Services.Content
             _baseMenuImageRepository.Delete(baseMenuImage);
         }
 
-        public IList<BaseMenu> GetAllBaseMenu(bool showHidden=false)
+        public IList<BaseMenu> GetAllBaseMenu(bool showHidden = false)
         {
             string key = string.Format(BASEMENUS_BY_ALL_KEY, showHidden);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
-                var query = _baseMenuRepository.Table.OrderBy(x=>x.Order);
+                var query = _baseMenuRepository.Table.OrderBy(x => x.Order);
 
                 var baseMenus = query.ToList();
                 return baseMenus;
@@ -82,7 +82,7 @@ namespace MakinaTurkiye.Services.Content
 
         public IList<BaseMenu> GetAllBaseMenus(int skip, int take)
         {
-            string key = string.Format(BASEMENUS_ALL_KEY, skip,take);
+            string key = string.Format(BASEMENUS_ALL_KEY, skip, take);
 
             return _cacheManager.Get(key, () =>
             {
@@ -98,7 +98,7 @@ namespace MakinaTurkiye.Services.Content
                 throw new ArgumentNullException("baseMenuId");
 
             string key = string.Format(BASEMENUS_BY_BASEMENU_ID_KEY, baseMenuId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _baseMenuRepository.Table;
                 return query.FirstOrDefault(b => b.BaseMenuId == baseMenuId);
@@ -121,7 +121,7 @@ namespace MakinaTurkiye.Services.Content
                 query = query.Include(bm => bm.Category);
 
                 query = query.OrderBy(bm => bm.Category.BaseMenuOrder).ThenBy(x => x.Category.CategoryName);
-              
+
                 var baseMenuCategories = query.ToList();
                 return baseMenuCategories;
             });

@@ -1,11 +1,6 @@
 ﻿using MakinaTurkiye.Tasks.Messages.Tasks;
 using Quartz;
 using Quartz.Impl;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace MakinaTurkiye.Tasks.Messages.Schedulers
@@ -18,7 +13,7 @@ namespace MakinaTurkiye.Tasks.Messages.Schedulers
             await scheduler.Start();
 
             IJobDetail job = JobBuilder.Create<StoreWeeklyStatisticMailSend>()
-                            .WithIdentity("StoreWeeklyStatisticMailSend","Messages")
+                            .WithIdentity("StoreWeeklyStatisticMailSend", "Messages")
                             .Build();
 
             job.JobDataMap["httpContext"] = HttpContext.Current;

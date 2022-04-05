@@ -19,7 +19,6 @@ using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NeoSistem.MakinaTurkiye.Web.Models.Videos;
 
 using Schema.NET;

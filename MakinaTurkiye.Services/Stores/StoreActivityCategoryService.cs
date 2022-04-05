@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
 {
-    public class StoreActivityCategoryService:IStoreActivityCategoryService
+    public class StoreActivityCategoryService : IStoreActivityCategoryService
     {
         private readonly IRepository<StoreActivityCategory> _storeActivityCategoryRepository;
 
@@ -21,7 +21,7 @@ namespace MakinaTurkiye.Services.Stores
             if (storeActivtyCategory == null)
                 throw new ArgumentNullException("storeActivityCategory");
 
-            _storeActivityCategoryRepository.Delete(storeActivtyCategory); 
+            _storeActivityCategoryRepository.Delete(storeActivtyCategory);
         }
 
         public List<StoreActivityCategory> GetStoreActivityCategoriesByMainPartyId(int mainPartyId)

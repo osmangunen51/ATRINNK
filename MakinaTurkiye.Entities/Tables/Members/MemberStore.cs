@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Members
 {
-    public class MemberStore: BaseEntity
+    public class MemberStore : BaseEntity
     {
         public int MemberStoreId { get; set; }
         public int? MemberMainPartyId { get; set; }

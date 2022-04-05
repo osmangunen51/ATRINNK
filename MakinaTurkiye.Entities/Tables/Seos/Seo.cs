@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Seos
 {
-    public class Seo:BaseEntity
+    public class Seo : BaseEntity
     {
         public int SeoId { get; set; }
         public string PageName { get; set; }

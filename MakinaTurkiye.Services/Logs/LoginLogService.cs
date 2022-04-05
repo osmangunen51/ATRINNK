@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Logs
 {
-    public class LoginLogService:ILoginLogService
+    public class LoginLogService : ILoginLogService
     {
         #region Fields
 
@@ -18,7 +18,7 @@ namespace MakinaTurkiye.Services.Logs
 
         public LoginLogService(IRepository<LoginLog> loginLogRepository)
         {
-            this._loginLogRepository = loginLogRepository; 
+            this._loginLogRepository = loginLogRepository;
         }
 
         #endregion
@@ -36,7 +36,7 @@ namespace MakinaTurkiye.Services.Logs
             if (loginLogId == 0)
                 throw new ArgumentNullException("loginLogId");
             var query = _loginLogRepository.Table;
-            return query.FirstOrDefault(x=>x.LoginLogId==loginLogId);
+            return query.FirstOrDefault(x => x.LoginLogId == loginLogId);
         }
 
         public void AddLoginLog(LoginLog loginLog)

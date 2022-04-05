@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Stores
 {
-    public class StoreCertificate:BaseEntity
+    public class StoreCertificate : BaseEntity
     {
 
         public int StoreCertificateId { get; set; }

@@ -10,6 +10,6 @@ namespace MakinaTurkiye.Services.Common
         void AddAddressChangeHistory(AddressChangeHistory addressChangeHistory);
         void AddAddressChangeHistoryForAddress(Address address);
         void DeleteAddressChangeHistory(AddressChangeHistory addressChangeHistory);
-        
+
     }
 }

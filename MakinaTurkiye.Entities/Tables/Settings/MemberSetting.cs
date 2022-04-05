@@ -1,6 +1,4 @@
-﻿using MakinaTurkiye.Entities.Tables.Members;
-using MakinaTurkiye.Entities.Tables.Stores;
-using System;
+﻿using System;
 
 namespace MakinaTurkiye.Entities.Tables.Settings
 {

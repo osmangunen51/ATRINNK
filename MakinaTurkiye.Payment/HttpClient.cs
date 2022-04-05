@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Payment
 {
-    public class HttpClient:RestSharp.RestClient
+    public class HttpClient : RestSharp.RestClient
     {
-     
+
         public Task<RestSharp.IRestResponse> PostAsync(string url, StringContent Content)
         {
             RestSharp.RestRequest Request = new RestSharp.RestRequest(url);

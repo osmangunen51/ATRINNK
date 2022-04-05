@@ -13,6 +13,6 @@
         public string WebUrl { get; set; }
         public string PhoneNumbers { get; set; }
         public int MemberMainPartyId { get; set; }
-        
+
     }
 }

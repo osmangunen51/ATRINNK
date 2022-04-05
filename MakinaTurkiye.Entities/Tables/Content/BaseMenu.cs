@@ -17,7 +17,7 @@ namespace MakinaTurkiye.Entities.Tables.Content
         public string BackgroundCss { get; set; }
         public string TabBackgroundCss { get; set; }
         public bool Active { get; set; }
-        
+
         public virtual ICollection<BaseMenuCategory> BaseMenuCategories
         {
             get { return _baseMenuCategories ?? (_baseMenuCategories = new List<BaseMenuCategory>()); }

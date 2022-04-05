@@ -1,5 +1,5 @@
+using MakinaTurkiye.Core;
 using NeoSistem.MakinaTurkiye.Web.Models;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -52,6 +52,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
     [HandleError]
     public class BaseController : Core.Web.Controller
     {
+
 
         private string _IpAdres = "";
 

@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Common
 {
-    public class AddressChangeHistory:BaseEntity
+    public class AddressChangeHistory : BaseEntity
     {
         public int AddressChangeHistoryId { get; set; }
         public int AddressId { get; set; }
@@ -24,6 +24,6 @@ namespace MakinaTurkiye.Entities.Tables.Common
         public virtual City City { get; set; }
         public virtual Locality Locality { get; set; }
         public virtual Town Town { get; set; }
-       
+
     }
 }

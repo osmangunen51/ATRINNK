@@ -10,6 +10,6 @@
         public decimal? ProductPriceBegin { get; set; }
         public decimal? ProductPriceLast { get; set; }
         public string CurrencyName { get; set; }
-        public string MainPicture { get; set; } 
+        public string MainPicture { get; set; }
     }
 }

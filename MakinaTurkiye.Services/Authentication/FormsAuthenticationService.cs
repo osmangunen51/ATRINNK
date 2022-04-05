@@ -1,10 +1,6 @@
 ﻿using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Services.Members;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.Security;
@@ -100,7 +96,7 @@ namespace MakinaTurkiye.Services.Authentication
             if (FormsAuthentication.CookieDomain != null)
             {
                 cookie.Domain = FormsAuthentication.CookieDomain;
-  
+
             }
 
             _httpContext.Response.Cookies.Add(cookie);
@@ -111,7 +107,7 @@ namespace MakinaTurkiye.Services.Authentication
         /// </summary>
         public virtual void SignOut()
         {
-            
+
             _httpContext.User = null;
             _cachedMember = null;
             FormsAuthentication.SignOut();

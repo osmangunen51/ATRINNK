@@ -143,7 +143,7 @@ namespace NeoSistem.MakinaTurkiye.Data
           PageDimension.InSqlParameter("PageDimension"),
           Page.InSqlParameter("Page"),
           advertType.InSqlParameter("AdvertType"),
-          mainPartyId.InSqlParameter("MainPartyId")     
+          mainPartyId.InSqlParameter("MainPartyId")
       };
             DataTable dt = ExecuteDataSet("SP_ProductSearchByProductActiveTypeNew", prms).Tables[0];
             TotalRecord = prms[0].Value.ToInt32();
@@ -166,7 +166,7 @@ namespace NeoSistem.MakinaTurkiye.Data
 
             return dt;
 
-    }
+        }
         public DataTable GetProductSearchByCategoryId(ref int TotalRecord, int PageDimension, int Page, int CategoryId)
         {
             var prms = new List<IDataParameter>

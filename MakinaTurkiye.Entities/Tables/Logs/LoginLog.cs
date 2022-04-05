@@ -3,7 +3,7 @@ using System;
 
 namespace MakinaTurkiye.Entities.Tables.Logs
 {
-    public class LoginLog:BaseEntity
+    public class LoginLog : BaseEntity
     {
         public int LoginLogId { get; set; }
         public int StoreMainPartyId { get; set; }

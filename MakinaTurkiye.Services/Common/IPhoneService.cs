@@ -18,7 +18,7 @@ namespace MakinaTurkiye.Services.Common
         void DeletePhone(Phone phone);
 
         Phone GetPhonesByMainPartyIdByPhoneType(int mainPartyId, PhoneTypeEnum phoneType);
-       
+
         IList<Phone> GetPhonesAddressId(int addressId);
     }
 }

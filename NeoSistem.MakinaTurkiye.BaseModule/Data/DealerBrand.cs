@@ -6,16 +6,16 @@
     using System.Data;
 
     public class DealerBrand : BusinessDataEntity
-  {
-    public DataTable GetDealerBrandByMainPartyId(int MainPartyId)
     {
-      var prm = new List<IDataParameter> 
+        public DataTable GetDealerBrandByMainPartyId(int MainPartyId)
+        {
+            var prm = new List<IDataParameter>
       {
         MainPartyId.InSqlParameter("MainPartyId")
       };
-      return ExecuteDataSet("spDealerBrandGetItemsByMainPartyId", prm).Tables[0];
+            return ExecuteDataSet("spDealerBrandGetItemsByMainPartyId", prm).Tables[0];
+        }
+
+
     }
-
-
-  }
 }

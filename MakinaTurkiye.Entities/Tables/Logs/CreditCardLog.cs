@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Logs
 {
-    public class CreditCardLog: BaseEntity
+    public class CreditCardLog : BaseEntity
     {
         public int CreditCardLogId { get; set; }
         public int MainPartyId { get; set; }

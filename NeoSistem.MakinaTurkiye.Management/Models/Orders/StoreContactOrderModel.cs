@@ -1,8 +1,5 @@
-﻿using System;
+﻿using NeoSistem.MakinaTurkiye.Management.Models.Entities;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using NeoSistem.MakinaTurkiye.Management.Models.Entities;
 
 namespace NeoSistem.MakinaTurkiye.Management.Models.Orders
 {

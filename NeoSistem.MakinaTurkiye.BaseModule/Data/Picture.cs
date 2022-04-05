@@ -5,28 +5,28 @@
     using System.Data;
 
     public class Picture : BusinessDataEntity
-  {
-    public DataTable GetItemsByProductId(int productId)
     {
-      var prm = new[] { 
+        public DataTable GetItemsByProductId(int productId)
+        {
+            var prm = new[] {
         productId.InSqlParameter("ProductId")
       };
 
-      var ds = ExecuteDataSet("spPictureGetItemsByProductId", prm);
+            var ds = ExecuteDataSet("spPictureGetItemsByProductId", prm);
 
-      return ds.Tables[0];
+            return ds.Tables[0];
+        }
+
+        //public DataTable GetItemsByStoreDealerId(int StoreDealerId)
+        //{
+        //  var prm = new[] { 
+        //    StoreDealerId.InSqlParameter("StoreDealerId")
+        //  };
+
+        //  var ds = ExecuteDataSet("spPictureGetItemsByStoreDealerId", prm);
+
+        //  return ds.Tables[0];
+        //}
+
     }
-
-    //public DataTable GetItemsByStoreDealerId(int StoreDealerId)
-    //{
-    //  var prm = new[] { 
-    //    StoreDealerId.InSqlParameter("StoreDealerId")
-    //  };
-
-    //  var ds = ExecuteDataSet("spPictureGetItemsByStoreDealerId", prm);
-
-    //  return ds.Tables[0];
-    //}
-
-  }
 }

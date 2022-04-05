@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace WebPWrapper.Encoder {
-    public interface IWebPEncoderBuilder {
+namespace WebPWrapper.Encoder
+{
+    public interface IWebPEncoderBuilder
+    {
         /// <summary>
         /// 輸入圖片裁減
         /// </summary>

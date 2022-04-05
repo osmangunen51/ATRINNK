@@ -94,7 +94,7 @@ namespace MakinaTurkiye.Api.Controllers
                     TmpResult.StoreName = Store.StoreName;
                     if (Store != null)
                     {
-                        TmpResult.StoreMainPartyId= Store.MainPartyId;
+                        TmpResult.StoreMainPartyId = Store.MainPartyId;
                         TmpResult.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
                         var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
                         var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
@@ -114,7 +114,7 @@ namespace MakinaTurkiye.Api.Controllers
                     var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
                     if (picture != null) picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                     TmpResult.MainPicture = picturePath;
-                    if (TmpResult.MainPicture==null)
+                    if (TmpResult.MainPicture == null)
                     {
                         TmpResult.MainPicture = "";
                     }
@@ -214,7 +214,7 @@ namespace MakinaTurkiye.Api.Controllers
                                                 new View.Result.ProductSearchResult
                                                 {
                                                     ProductId = Snc.ProductId,
-                                                    CurrencyCodeName =Snc.GetCurrency(),
+                                                    CurrencyCodeName = Snc.GetCurrency(),
                                                     ProductName = Snc.ProductName,
                                                     BrandName = Snc.Brand.CategoryName,
                                                     ModelName = Snc.Model.CategoryName,
@@ -236,7 +236,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                             item.MainPicture = picturePath;
-                            if (item.MainPicture==null)
+                            if (item.MainPicture == null)
                             {
                                 item.MainPicture = "";
                             }
@@ -320,13 +320,13 @@ namespace MakinaTurkiye.Api.Controllers
                 List<View.Result.ProductSearchResult> TmpResult = result.Products.Select(Snc =>
                     new View.Result.ProductSearchResult
                     {
-                        CurrencyCodeName =Snc.CurrencyCodeName,
+                        CurrencyCodeName = Snc.CurrencyCodeName,
                         StoreMainPartyId = Snc.StoreMainPartyId.Value,
                         ProductId = Snc.ProductId,
                         ProductName = Snc.ProductName,
                         BrandName = Snc.BrandName,
                         ModelName = Snc.ModelName,
-                        MainPicture = (Snc.MainPicture==null?"": Snc.MainPicture),
+                        MainPicture = (Snc.MainPicture == null ? "" : Snc.MainPicture),
                         StoreName = Snc.StoreName,
                         ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
                         ProductPriceType = (byte)Snc.ProductPriceType,
@@ -425,7 +425,7 @@ namespace MakinaTurkiye.Api.Controllers
                             picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                         var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                         var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                        item.MainPicture = (picturePath==null?"": picturePath);
+                        item.MainPicture = (picturePath == null ? "" : picturePath);
                         item.StoreName = store.StoreName;
                     }
 
@@ -458,7 +458,7 @@ namespace MakinaTurkiye.Api.Controllers
         }
 
 
-        public HttpResponseMessage GetStoreMainPartyId(int storeMainPartyId,string SearchText="")
+        public HttpResponseMessage GetStoreMainPartyId(int storeMainPartyId, string SearchText = "")
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
@@ -476,7 +476,7 @@ namespace MakinaTurkiye.Api.Controllers
                                                     ProductId = Snc.ProductId,
                                                     CurrencyCodeName = Snc.GetCurrency(),
                                                     ProductName = Snc.ProductName,
-                                                    BrandName = (Snc.Brand==null?"":Snc.Brand.CategoryName),
+                                                    BrandName = (Snc.Brand == null ? "" : Snc.Brand.CategoryName),
                                                     ModelName = (Snc.Model == null ? "" : Snc.Model.CategoryName),
                                                     MainPicture = "",
                                                     StoreName = "",
@@ -495,7 +495,7 @@ namespace MakinaTurkiye.Api.Controllers
                     if (picture != null)
                         picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
-                    item.MainPicture = (picturePath==null?"": picturePath);
+                    item.MainPicture = (picturePath == null ? "" : picturePath);
                     var Product = _productService.GetProductByProductId(item.ProductId);
                     if (Product != null)
                     {
@@ -727,12 +727,7 @@ namespace MakinaTurkiye.Api.Controllers
                     mailb.Body = bilgimakinaicin;
                     mailb.IsBodyHtml = true;
                     mailb.Priority = MailPriority.Normal;
-                    SmtpClient scr1 = new SmtpClient();
-                    scr1.Port = 587;
-                    scr1.Host = "smtp.gmail.com";
-                    scr1.EnableSsl = true;
-                    scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                    scr1.Send(mailb);
+                    this.SendMail(mailb);
 
                     #endregion bilgimakina
 
@@ -823,14 +818,14 @@ namespace MakinaTurkiye.Api.Controllers
                     var tmp = new View.Result.ProductSearchResult
                     {
                         ProductId = Result.ProductId,
-                        CurrencyCodeName =Result.GetCurrency(),
+                        CurrencyCodeName = Result.GetCurrency(),
                         ProductName = Result.ProductName,
                         BrandName = (Result.Brand == null ? "" : Result.Brand.CategoryName),
                         ModelName = (Result.Model == null ? "" : Result.Model.CategoryName),
                         MainPicture = "",
                         StoreName = "",
                         MainPartyId = (int)Result.MainPartyId,
-                        ProductPrice =(Result.ProductPrice ?? 0),
+                        ProductPrice = (Result.ProductPrice ?? 0),
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast ?? 0),
                         ProductPriceBegin = (Result.ProductPriceBegin ?? 0)

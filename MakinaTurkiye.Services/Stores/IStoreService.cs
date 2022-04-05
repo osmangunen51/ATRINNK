@@ -2,16 +2,15 @@ using MakinaTurkiye.Core;
 using MakinaTurkiye.Entities.StoredProcedures.Stores;
 using MakinaTurkiye.Entities.Tables.Stores;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Services.Stores
 {
     public interface IStoreService : ICachingSupported
     {
-        IList<Store> GetAllStores(StoreActiveTypeEnum? storeActiveType=null);
+        IList<Store> GetAllStores(StoreActiveTypeEnum? storeActiveType = null);
 
-        IPagedList<WebSearchStoreResult> SPWebSearch(out IList<int> filterableCityIds, out IList<int> filterableLocalityIds, 
-            out IList<int> filterableActivityIds,int categoryId = 0, int modelId = 0, int brandId = 0, 
+        IPagedList<WebSearchStoreResult> SPWebSearch(out IList<int> filterableCityIds, out IList<int> filterableLocalityIds,
+            out IList<int> filterableActivityIds, int categoryId = 0, int modelId = 0, int brandId = 0,
             int cityId = 0, IList<int> localityIds = null, string searchText = "",
             int orderBy = 0, int pageIndex = 0, int pageSize = 0, string activityType = "");
 
@@ -52,7 +51,7 @@ namespace MakinaTurkiye.Services.Stores
         void DeleteStoreCertificate(StoreCertificate storeCertificate);
 
         StoreCertificate GetStoreCertificateByStoreCertificateId(int storeCertificateId);
-        
+
 
         IList<StoreCertificate> GetStoreCertificatesByMainPartyId(int mainPartyId);
 

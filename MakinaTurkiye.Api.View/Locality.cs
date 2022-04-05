@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Api.View
+﻿namespace MakinaTurkiye.Api.View
 {
-   public class Locality
+    public class Locality
     {
         public int LocalityId { get; set; }
         public string LocalityName { get; set; }

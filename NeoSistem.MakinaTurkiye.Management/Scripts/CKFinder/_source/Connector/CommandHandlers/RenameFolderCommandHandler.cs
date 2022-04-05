@@ -17,125 +17,125 @@ using System.Xml;
 namespace CKFinder.Connector.CommandHandlers
 {
     internal class RenameFolderCommandHandler : XmlCommandHandlerBase
-	{
-		public RenameFolderCommandHandler()
-			: base()
-		{
-		}
+    {
+        public RenameFolderCommandHandler()
+            : base()
+        {
+        }
 
-		protected override void BuildXml()
-		{
-			if ( !this.CurrentFolder.CheckAcl( AccessControlRules.FolderRename ) )
-			{
-				ConnectorException.Throw( Errors.Unauthorized );
-				return;
-			}
+        protected override void BuildXml()
+        {
+            if (!this.CurrentFolder.CheckAcl(AccessControlRules.FolderRename))
+            {
+                ConnectorException.Throw(Errors.Unauthorized);
+                return;
+            }
 
-			// The root folder cannot be deleted.
-			if ( this.CurrentFolder.ClientPath == "/" )
-			{
-				ConnectorException.Throw( Errors.InvalidRequest );
-				return;
-			}
+            // The root folder cannot be deleted.
+            if (this.CurrentFolder.ClientPath == "/")
+            {
+                ConnectorException.Throw(Errors.InvalidRequest);
+                return;
+            }
 
-			string newFileName = Request[ "NewFolderName" ];
+            string newFileName = Request["NewFolderName"];
 
-			if ( !Connector.CheckFileName( newFileName ) || Config.Current.CheckIsHiddenFolder( newFileName ) )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-				return;
-			}
+            if (!Connector.CheckFileName(newFileName) || Config.Current.CheckIsHiddenFolder(newFileName))
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+                return;
+            }
 
-			// Get the current folder.
-			System.IO.DirectoryInfo oDir = new System.IO.DirectoryInfo( this.CurrentFolder.ServerPath );
+            // Get the current folder.
+            System.IO.DirectoryInfo oDir = new System.IO.DirectoryInfo(this.CurrentFolder.ServerPath);
 
-			bool bMoved = false;
+            bool bMoved = false;
 
-			try
-			{
-				if ( !oDir.Exists )
-					ConnectorException.Throw( Errors.InvalidRequest );
-				else
-				{
-					// Build the new folder path.
-					string newFolderPath = System.IO.Path.Combine( oDir.Parent.FullName, newFileName );
+            try
+            {
+                if (!oDir.Exists)
+                    ConnectorException.Throw(Errors.InvalidRequest);
+                else
+                {
+                    // Build the new folder path.
+                    string newFolderPath = System.IO.Path.Combine(oDir.Parent.FullName, newFileName);
 
-					if ( System.IO.Directory.Exists( newFolderPath ) || System.IO.File.Exists( newFolderPath ) )
-						ConnectorException.Throw( Errors.AlreadyExist );
+                    if (System.IO.Directory.Exists(newFolderPath) || System.IO.File.Exists(newFolderPath))
+                        ConnectorException.Throw(Errors.AlreadyExist);
 
-					oDir.MoveTo( newFolderPath );
-					bMoved = true;
-				}
-			}
-			catch ( System.UnauthorizedAccessException )
-			{
-				ConnectorException.Throw( Errors.AccessDenied );
-			}
-			catch ( System.Security.SecurityException )
-			{
-				ConnectorException.Throw( Errors.AccessDenied );
-			}
-			catch ( System.ArgumentException )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-			}
-			catch ( System.NotSupportedException )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-			}
-			catch ( System.IO.PathTooLongException )
-			{
-				ConnectorException.Throw( Errors.InvalidName );
-			}
-			catch ( System.IO.IOException )
-			{
-				ConnectorException.Throw( Errors.Unknown );
-			}
-			catch ( ConnectorException connectorException )
-			{
-				throw connectorException;
-			}
-			catch ( Exception )
-			{
-				ConnectorException.Throw( Errors.Unknown );
-			}
+                    oDir.MoveTo(newFolderPath);
+                    bMoved = true;
+                }
+            }
+            catch (System.UnauthorizedAccessException)
+            {
+                ConnectorException.Throw(Errors.AccessDenied);
+            }
+            catch (System.Security.SecurityException)
+            {
+                ConnectorException.Throw(Errors.AccessDenied);
+            }
+            catch (System.ArgumentException)
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+            }
+            catch (System.NotSupportedException)
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+            }
+            catch (System.IO.PathTooLongException)
+            {
+                ConnectorException.Throw(Errors.InvalidName);
+            }
+            catch (System.IO.IOException)
+            {
+                ConnectorException.Throw(Errors.Unknown);
+            }
+            catch (ConnectorException connectorException)
+            {
+                throw connectorException;
+            }
+            catch (Exception)
+            {
+                ConnectorException.Throw(Errors.Unknown);
+            }
 
-			if ( bMoved )
-			{
-				try
-				{
-					// Get the thumbnails folder.
-					System.IO.DirectoryInfo oThumbsDir = new System.IO.DirectoryInfo( this.CurrentFolder.ThumbsServerPath );
+            if (bMoved)
+            {
+                try
+                {
+                    // Get the thumbnails folder.
+                    System.IO.DirectoryInfo oThumbsDir = new System.IO.DirectoryInfo(this.CurrentFolder.ThumbsServerPath);
 
-					// Build the new folder path.
-					string newThumbsFolderPath = System.IO.Path.Combine( oThumbsDir.Parent.FullName, newFileName );
+                    // Build the new folder path.
+                    string newThumbsFolderPath = System.IO.Path.Combine(oThumbsDir.Parent.FullName, newFileName);
 
-					if ( System.IO.Directory.Exists( newThumbsFolderPath ) )
-					{
-						System.IO.File.Delete( this.CurrentFolder.ThumbsServerPath );
-					}
-					else
-					{
-						try
-						{
-							oThumbsDir.MoveTo( newThumbsFolderPath );
-						}
-						catch
-						{
-							System.IO.File.Delete( this.CurrentFolder.ThumbsServerPath );
-						}
-					}
-				}
-				catch { /* No errors if we are not able to delete the thumb. */ }
+                    if (System.IO.Directory.Exists(newThumbsFolderPath))
+                    {
+                        System.IO.File.Delete(this.CurrentFolder.ThumbsServerPath);
+                    }
+                    else
+                    {
+                        try
+                        {
+                            oThumbsDir.MoveTo(newThumbsFolderPath);
+                        }
+                        catch
+                        {
+                            System.IO.File.Delete(this.CurrentFolder.ThumbsServerPath);
+                        }
+                    }
+                }
+                catch { /* No errors if we are not able to delete the thumb. */ }
 
-				string newFolderPath = Regex.Replace( this.CurrentFolder.ClientPath, "[^/]+/?$", newFileName ) + "/";
-				string newFolderUrl = this.CurrentFolder.ResourceTypeInfo.Url + newFolderPath.TrimStart( '/' );
+                string newFolderPath = Regex.Replace(this.CurrentFolder.ClientPath, "[^/]+/?$", newFileName) + "/";
+                string newFolderUrl = this.CurrentFolder.ResourceTypeInfo.Url + newFolderPath.TrimStart('/');
 
-				XmlNode oRenamedNode = XmlUtil.AppendElement( this.ConnectorNode, "RenamedFolder" );
-				XmlUtil.SetAttribute( oRenamedNode, "newName", newFileName );
-				XmlUtil.SetAttribute( oRenamedNode, "newPath", newFolderPath );
-				XmlUtil.SetAttribute( oRenamedNode, "newUrl", newFolderUrl );
-			}
-		}
-	}
+                XmlNode oRenamedNode = XmlUtil.AppendElement(this.ConnectorNode, "RenamedFolder");
+                XmlUtil.SetAttribute(oRenamedNode, "newName", newFileName);
+                XmlUtil.SetAttribute(oRenamedNode, "newPath", newFolderPath);
+                XmlUtil.SetAttribute(oRenamedNode, "newUrl", newFolderUrl);
+            }
+        }
+    }
 }

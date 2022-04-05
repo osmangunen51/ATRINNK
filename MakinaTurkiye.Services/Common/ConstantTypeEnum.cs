@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Services.Common
+﻿namespace MakinaTurkiye.Services.Common
 {
     public enum ConstantTypeEnum : byte
     {
@@ -57,6 +51,6 @@ namespace MakinaTurkiye.Services.Common
         PaymentBank = 30,
         SeoDecriptionTitle = 31,
         CategoryFooterTopDesc = 32,
-        PacketSalesFooter = 33 
+        PacketSalesFooter = 33
     }
 }

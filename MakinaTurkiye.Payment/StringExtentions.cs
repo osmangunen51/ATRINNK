@@ -1,13 +1,8 @@
-﻿using Microsoft.VisualBasic;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Mvc;
 
 namespace MakinaTurkiye.Payment
 {
@@ -51,80 +46,80 @@ namespace MakinaTurkiye.Payment
                     {
                         Sonuc = "3D Secure Şifre Doğrulaması Yapılamadı"; break;
                     }
-                default:break;
+                default: break;
             }
             return Sonuc;
         }
-                    public static string ToMesaj(this string value)
+        public static string ToMesaj(this string value)
         {
             string Sonuc = "";
             switch (value)
             {
-                case "1001":{ Sonuc = "Hatalı URL Biçimi Geçersiz"; break; }
-                case "1002":{ Sonuc = "SuccessUrl formatı geçersiz."; break; }
-                case "1003":{ Sonuc = "BrandId formatı geçersiz"; break; }
-                case "1004":{ Sonuc = "DeviceCategory formatı geçersiz"; break; }
-                case "1005":{ Sonuc = "SessionInfo biçimi geçersiz"; break; }
-                case "1006":{ Sonuc = "Xid formatı geçersiz"; break; }
-                case "1007":{ Sonuc = "Para birimi biçimi geçersiz"; break; }
-                case "1008":{ Sonuc = "PurchaseAmount formatı geçersiz"; break; }
-                case "1009":{ Sonuc = "Bitiş Tarihi formatı geçersiz"; break; }
-                case "1010":{ Sonuc = "Pan formatı geçersiz"; break; }
-                case "1011":{ Sonuc = "Ticari alıcı kutusu parola biçimi geçersiz"; break; }
-                case "1012":{ Sonuc = "HostMerchant formatı geçersiz"; break; }
-                case "1013":{ Sonuc = "BankId formatı geçersiz"; break; }
-                case "1014":{ Sonuc = "Düzenli Biçim Geçersiz mi"; break; }
-                case "1015":{ Sonuc = "Tekrarlayan Frekans Formatı Geçersiz"; break; }
-                case "1016":{ Sonuc = "Tekrarlanan Bitiş Tarihi Formatı Geçersiz"; break; }
-                case "1017":{ Sonuc = "Taksit sayma biçimi geçersiz"; break; }
-                case "2000":{ Sonuc = "Alıcı bilgisi boş"; break; }
-                case "2005":{ Sonuc = "Bu banka için satıcı bulunamadı"; break; }
-                case "2006":{ Sonuc = "Ticari alıcı kutusu parolası gerekli"; break; }
-                case "2009":{ Sonuc = "Marka bulunamadı"; break; }
-                case "2010":{ Sonuc = "CardHolder bilgisi boş"; break; }
-                case "2011":{ Sonuc = "Pan boş"; break; }
-                case "2012":{ Sonuc = "DeviceCategory 0 ile 2 arasında olmalıdır"; break; }
-                case "2013":{ Sonuc = "Threed güvenli mesajı bulunamadı"; break; }
-                case "2014":{ Sonuc = "Ana mesaj kimliği, güvenli mesaj kimliği ile eşleşmiyor"; break; }
-                case "2015":{ Sonuc = "İmza doğrulama yanlış"; break; }
-                case "2017":{ Sonuc = "AcquireBin bulunamadı"; break; }
-                case "2018":{ Sonuc = "Satıcı edinicisi kutusu şifresi yanlış"; break; }
-                case "2019":{ Sonuc = "Banka bulunamadı"; break; }
-                case "2020":{ Sonuc = "Banka Kimliği ticari banka ile eşleşmiyor"; break; }
-                case "2021":{ Sonuc = "Geçersiz Para Birimi Kodu"; break; }
-                case "2022":{ Sonuc = "EnrollmentRequest Kimliğinin boş olamayacağını doğrulayın"; break; }
-                case "2023":{ Sonuc = "Kayıt İsteği Kimliğini Doğrula Bu satıcı için zaten var"; break; }
-                case "2024":{ Sonuc = "Acs sertifikası veritabanında bulunamıyor"; break; }
-                case "2025":{ Sonuc = "Sertifika deposunda sertifika bulunamadı"; break; }
-                case "2026":{ Sonuc = "Marka sertifikası mağazada bulunamadı"; break; }
-                case "2027":{ Sonuc = "Geçersiz xml dosyası"; break; }
-                case "2028":{ Sonuc = "Threed Güvenli Mesajı Geçersiz Durumda"; break; }
-                case "2029":{ Sonuc = "Geçersiz Pan"; break; }
-                case "2030":{ Sonuc = "Geçersiz Son Kullanma Tarihi"; break; }
-                case "2031":{ Sonuc = "Doğrulama başarısız oldu: Belgede İmza bulunamadı"; break; }
-                case "2032":{ Sonuc = "Doğrulama başarısız oldu: Belge için birden fazla imza bulundu"; break; }
-                case "2033":{ Sonuc = "Gerçek Marka Bulunamıyor"; break; }
-                case "2034":{ Sonuc = "Geçersiz Miktar"; break; }
-                case "2035":{ Sonuc = "Geçersiz Tekrarlanan Bilgiler"; break; }
-                case "2036":{ Sonuc = "Geçersiz Tekrarlayan Frekans"; break; }
-                case "2037":{ Sonuc = "Geçersiz Alım Bitiş Tarihi"; break; }
-                case "2038":{ Sonuc = "Tekrarlanan Bitiş Tarihi Bitiş Tarihinden Büyük olmalıdır"; break; }
-                case "2039":{ Sonuc = "Geçersiz x509 sertifikası Verileri"; break; }
-                case "2040":{ Sonuc = "Geçersiz Taksit"; break; }
-                case "2053":{ Sonuc = "Dizin Sunucusu İletişim Hatası"; break; }
-                case "3000":{ Sonuc = "Banka bulunamadı"; break; }
-                case "3001":{ Sonuc = "Ülke bulunamadı"; break; }
-                case "3002":{ Sonuc = "Geçersiz BaşarısızUrl"; break; }
-                case "3003":{ Sonuc = "HostMerchantNumber boş olamaz"; break; }
-                case "3004":{ Sonuc = "MerchantBrandAcquirerBin boş bırakılamaz"; break; }
-                case "3005":{ Sonuc = "MerchantName boş olamaz"; break; }
-                case "3006":{ Sonuc = "MerchantPassword boş olamaz"; break; }
-                case "3007":{ Sonuc = "Geçersiz Başarılı URL'si"; break; }
-                case "3008":{ Sonuc = "Geçersiz MerchantSiteUrl"; break; }
-                case "3009":{ Sonuc = "Geçersiz AlıcıBin uzunluğu"; break; }
-                case "3010":{ Sonuc = "Marka boş olamaz"; break; }
-                case "3011":{ Sonuc = "Geçersiz AlıcıBinPassword uzunluğu"; break; }
-                case "3012":{ Sonuc = "Geçersiz HostMerchantNumber uzunluğu"; break; }
+                case "1001": { Sonuc = "Hatalı URL Biçimi Geçersiz"; break; }
+                case "1002": { Sonuc = "SuccessUrl formatı geçersiz."; break; }
+                case "1003": { Sonuc = "BrandId formatı geçersiz"; break; }
+                case "1004": { Sonuc = "DeviceCategory formatı geçersiz"; break; }
+                case "1005": { Sonuc = "SessionInfo biçimi geçersiz"; break; }
+                case "1006": { Sonuc = "Xid formatı geçersiz"; break; }
+                case "1007": { Sonuc = "Para birimi biçimi geçersiz"; break; }
+                case "1008": { Sonuc = "PurchaseAmount formatı geçersiz"; break; }
+                case "1009": { Sonuc = "Bitiş Tarihi formatı geçersiz"; break; }
+                case "1010": { Sonuc = "Pan formatı geçersiz"; break; }
+                case "1011": { Sonuc = "Ticari alıcı kutusu parola biçimi geçersiz"; break; }
+                case "1012": { Sonuc = "HostMerchant formatı geçersiz"; break; }
+                case "1013": { Sonuc = "BankId formatı geçersiz"; break; }
+                case "1014": { Sonuc = "Düzenli Biçim Geçersiz mi"; break; }
+                case "1015": { Sonuc = "Tekrarlayan Frekans Formatı Geçersiz"; break; }
+                case "1016": { Sonuc = "Tekrarlanan Bitiş Tarihi Formatı Geçersiz"; break; }
+                case "1017": { Sonuc = "Taksit sayma biçimi geçersiz"; break; }
+                case "2000": { Sonuc = "Alıcı bilgisi boş"; break; }
+                case "2005": { Sonuc = "Bu banka için satıcı bulunamadı"; break; }
+                case "2006": { Sonuc = "Ticari alıcı kutusu parolası gerekli"; break; }
+                case "2009": { Sonuc = "Marka bulunamadı"; break; }
+                case "2010": { Sonuc = "CardHolder bilgisi boş"; break; }
+                case "2011": { Sonuc = "Pan boş"; break; }
+                case "2012": { Sonuc = "DeviceCategory 0 ile 2 arasında olmalıdır"; break; }
+                case "2013": { Sonuc = "Threed güvenli mesajı bulunamadı"; break; }
+                case "2014": { Sonuc = "Ana mesaj kimliği, güvenli mesaj kimliği ile eşleşmiyor"; break; }
+                case "2015": { Sonuc = "İmza doğrulama yanlış"; break; }
+                case "2017": { Sonuc = "AcquireBin bulunamadı"; break; }
+                case "2018": { Sonuc = "Satıcı edinicisi kutusu şifresi yanlış"; break; }
+                case "2019": { Sonuc = "Banka bulunamadı"; break; }
+                case "2020": { Sonuc = "Banka Kimliği ticari banka ile eşleşmiyor"; break; }
+                case "2021": { Sonuc = "Geçersiz Para Birimi Kodu"; break; }
+                case "2022": { Sonuc = "EnrollmentRequest Kimliğinin boş olamayacağını doğrulayın"; break; }
+                case "2023": { Sonuc = "Kayıt İsteği Kimliğini Doğrula Bu satıcı için zaten var"; break; }
+                case "2024": { Sonuc = "Acs sertifikası veritabanında bulunamıyor"; break; }
+                case "2025": { Sonuc = "Sertifika deposunda sertifika bulunamadı"; break; }
+                case "2026": { Sonuc = "Marka sertifikası mağazada bulunamadı"; break; }
+                case "2027": { Sonuc = "Geçersiz xml dosyası"; break; }
+                case "2028": { Sonuc = "Threed Güvenli Mesajı Geçersiz Durumda"; break; }
+                case "2029": { Sonuc = "Geçersiz Pan"; break; }
+                case "2030": { Sonuc = "Geçersiz Son Kullanma Tarihi"; break; }
+                case "2031": { Sonuc = "Doğrulama başarısız oldu: Belgede İmza bulunamadı"; break; }
+                case "2032": { Sonuc = "Doğrulama başarısız oldu: Belge için birden fazla imza bulundu"; break; }
+                case "2033": { Sonuc = "Gerçek Marka Bulunamıyor"; break; }
+                case "2034": { Sonuc = "Geçersiz Miktar"; break; }
+                case "2035": { Sonuc = "Geçersiz Tekrarlanan Bilgiler"; break; }
+                case "2036": { Sonuc = "Geçersiz Tekrarlayan Frekans"; break; }
+                case "2037": { Sonuc = "Geçersiz Alım Bitiş Tarihi"; break; }
+                case "2038": { Sonuc = "Tekrarlanan Bitiş Tarihi Bitiş Tarihinden Büyük olmalıdır"; break; }
+                case "2039": { Sonuc = "Geçersiz x509 sertifikası Verileri"; break; }
+                case "2040": { Sonuc = "Geçersiz Taksit"; break; }
+                case "2053": { Sonuc = "Dizin Sunucusu İletişim Hatası"; break; }
+                case "3000": { Sonuc = "Banka bulunamadı"; break; }
+                case "3001": { Sonuc = "Ülke bulunamadı"; break; }
+                case "3002": { Sonuc = "Geçersiz BaşarısızUrl"; break; }
+                case "3003": { Sonuc = "HostMerchantNumber boş olamaz"; break; }
+                case "3004": { Sonuc = "MerchantBrandAcquirerBin boş bırakılamaz"; break; }
+                case "3005": { Sonuc = "MerchantName boş olamaz"; break; }
+                case "3006": { Sonuc = "MerchantPassword boş olamaz"; break; }
+                case "3007": { Sonuc = "Geçersiz Başarılı URL'si"; break; }
+                case "3008": { Sonuc = "Geçersiz MerchantSiteUrl"; break; }
+                case "3009": { Sonuc = "Geçersiz AlıcıBin uzunluğu"; break; }
+                case "3010": { Sonuc = "Marka boş olamaz"; break; }
+                case "3011": { Sonuc = "Geçersiz AlıcıBinPassword uzunluğu"; break; }
+                case "3012": { Sonuc = "Geçersiz HostMerchantNumber uzunluğu"; break; }
                 default:
                     break;
             }
@@ -179,9 +174,9 @@ namespace MakinaTurkiye.Payment
             return long.TryParse(theValue, System.Globalization.NumberStyles.Integer, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
         }
 
-        
 
-        public static string GetHiddenText(this string valuetxt,int KarakterSayisi,bool Sag=false)
+
+        public static string GetHiddenText(this string valuetxt, int KarakterSayisi, bool Sag = false)
         {
             string Sonuc = "";
             foreach (var item in valuetxt.ToCharArray().Select((value, i) => new { i, value }))
@@ -201,7 +196,7 @@ namespace MakinaTurkiye.Payment
                 }
                 else
                 {
-                    if (index > valuetxt.Length-KarakterSayisi)
+                    if (index > valuetxt.Length - KarakterSayisi)
                     {
                         Sonuc += value;
                     }
@@ -374,7 +369,7 @@ namespace MakinaTurkiye.Payment
             }
         }
 
-        
+
 
         private static Random random = new Random();
 

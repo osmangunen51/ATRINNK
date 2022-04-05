@@ -12,9 +12,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Catolog
         }
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
-        
+
         public IconModel IconModel { get; set; }
-            public string HomePageImagePath { get; set; }
+        public string HomePageImagePath { get; set; }
         public List<Banner> BannerItems { get; set; }
     }
 }

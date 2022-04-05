@@ -52,7 +52,7 @@ namespace MakinaTurkiye.Services.Search
             //    _elasticClient.DeleteIndex(indexName.ToLowerInvariant());
             //}
 
-            var createIndexResponse =_elasticClient.Indices.Create(createIndexDescriptor);
+            var createIndexResponse = _elasticClient.Indices.Create(createIndexDescriptor);
             return createIndexResponse.IsValid;
         }
         public bool DeleteIndex(string indexName)
@@ -60,7 +60,7 @@ namespace MakinaTurkiye.Services.Search
             var DeleteIndexRequest = new DeleteIndexRequest(indexName.ToLowerInvariant());
             if (_elasticClient.Indices.Exists(indexName.ToLowerInvariant()).Exists)
             {
-                var Sonuc=_elasticClient.Indices.Delete(DeleteIndexRequest);
+                var Sonuc = _elasticClient.Indices.Delete(DeleteIndexRequest);
                 return Sonuc.IsValid;
             }
             return false;
@@ -68,14 +68,14 @@ namespace MakinaTurkiye.Services.Search
 
         public bool CheckIndex(string indexName)
         {
-            bool Sonuc= _elasticClient.Indices.Exists(indexName.ToLowerInvariant()).Exists;
+            bool Sonuc = _elasticClient.Indices.Exists(indexName.ToLowerInvariant()).Exists;
             return Sonuc;
         }
 
 
         public void IndexVeriYukle(string indexName, List<Product> Liste)
         {
-            if (Liste.Count>0)
+            if (Liste.Count > 0)
             {
                 var Sonuc = _elasticClient.IndexMany<Product>(Liste, indexName);
             }
@@ -91,7 +91,7 @@ namespace MakinaTurkiye.Services.Search
                                                .Field(f => f.Suggest)
                                                .Size(1000))
                                              ));
-          
+
             List<ProductSuggest> SuggestsListesi = new List<ProductSuggest>();
             if (searchResponse.Suggest.ContainsKey("suggestions"))
             {
@@ -101,8 +101,8 @@ namespace MakinaTurkiye.Services.Search
                                {
                                    Name = option.Source.Name,
                                    Score = option.Score,
-                                   Url=option.Source.Url,
-                                   Category= option.Source.Category
+                                   Url = option.Source.Url,
+                                   Category = option.Source.Category
                                };
                 SuggestsListesi = suggests.ToList();
             }

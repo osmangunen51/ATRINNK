@@ -1,8 +1,7 @@
 ﻿using NeoSistem.MakinaTurkiye.Web.Models;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System.Collections.Generic;
 using System.Linq;
-
+using MakinaTurkiye.Core;
 namespace NeoSistem.MakinaTurkiye.Web.Helpers
 {
     public class ProfileFillRateCalculaterBase

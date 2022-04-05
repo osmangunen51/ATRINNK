@@ -3,7 +3,6 @@ using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Common;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace MakinaTurkiye.Services.Common
@@ -26,7 +25,7 @@ namespace MakinaTurkiye.Services.Common
 
         #region Ctor
 
-        public PhoneService(IRepository<Phone> phoneRepository, ICacheManager cacheManager): base(cacheManager)
+        public PhoneService(IRepository<Phone> phoneRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             _phoneRepository = phoneRepository;
             _cacheManager = cacheManager;
@@ -68,32 +67,32 @@ namespace MakinaTurkiye.Services.Common
                  return phones;
              });
         }
-        
+
         public Phone GetPhonesByMainPartyIdByPhoneType(int mainPartyId, PhoneTypeEnum phoneType)
         {
             if (mainPartyId == 0)
                 throw new ArgumentNullException("mainPartyId");
 
             var query = _phoneRepository.Table;
-            return query.FirstOrDefault(x=>x.MainPartyId==mainPartyId && x.PhoneType==(byte)phoneType);
+            return query.FirstOrDefault(x => x.MainPartyId == mainPartyId && x.PhoneType == (byte)phoneType);
         }
-        
+
         public Phone GetPhoneByPhoneId(int phoneId)
         {
             if (phoneId == 0)
                 throw new ArgumentNullException("phoneId");
 
             var query = _phoneRepository.Table;
-            return query.FirstOrDefault(p=>p.PhoneId==phoneId);
+            return query.FirstOrDefault(p => p.PhoneId == phoneId);
         }
-        
+
         public IList<Phone> GetPhonesAddressId(int addresId)
         {
             if (addresId == 0)
                 throw new ArgumentNullException("storeDealerId");
 
             string key = string.Format(PHONES_BY_ADDRESS_ID_KEY, addresId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _phoneRepository.Table;
                 query = query.Where(x => x.AddressId == addresId);

@@ -31,9 +31,9 @@ namespace BulkImageResizeTool
                 Console.WriteLine("Main Image Path not exist!");
 
             //if (args[0].Equals("product"))
-                //ProcessProduct();
+            //ProcessProduct();
             //if (args[0].Equals("store"))
-                ProcessStore();
+            ProcessStore();
 
             LogConsole("\r\nI'm done, Enter for exit!");
             Console.ReadKey();
@@ -66,7 +66,7 @@ namespace BulkImageResizeTool
                 foreach (
                     var image in _db.Picture
                             .Where(x => x.ProductId.HasValue && x.ProductId.Value.Equals(product.ProductId))
-                    // Eger resim daha once islenmis ise hic bir sey yapma
+                            // Eger resim daha once islenmis ise hic bir sey yapma
                             .Where(x => string.IsNullOrEmpty(x.PicturePath))
                             .OrderBy(x => x.PictureId))
                 {

@@ -38,7 +38,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             int pageSize = 50;
             int totalRecord;
-            var result = _storeChangeHistoryService.SP_StoreInfoChange(pageSize,1, out totalRecord);
+            var result = _storeChangeHistoryService.SP_StoreInfoChange(pageSize, 1, out totalRecord);
             FilterModel<global::MakinaTurkiye.Entities.StoredProcedures.Stores.StoreChangeInfoResult> model = new FilterModel<global::MakinaTurkiye.Entities.StoredProcedures.Stores.StoreChangeInfoResult>();
             model.PageDimension = pageSize;
             model.Source = result;
@@ -66,11 +66,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
 
             int pageSize = 30;
-   
+
             int skipRows = 0;
             ViewData["page"] = page == null ? 0 : (int)page;
-            
-            
+
+
             FilterModel<global::MakinaTurkiye.Entities.Tables.Stores.StoreChangeHistory> filterModel = new FilterModel<global::MakinaTurkiye.Entities.Tables.Stores.StoreChangeHistory>();
             var result = new List<StoreChangeHistory>();
             if (mainpartyId != null)
@@ -95,7 +95,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             skipRows = page == null || page == 0 ? 0 : (int)(page - 1) * pageSize;
             ViewData["page"] = page == null ? 0 : (int)page;
 
-            var result =new List<global::MakinaTurkiye.Entities.Tables.Common.PhoneChangeHistory>();
+            var result = new List<global::MakinaTurkiye.Entities.Tables.Common.PhoneChangeHistory>();
             if (mainPartyId != null)
                 result = _phoneChangeHistoryService.GetAllPhoneChangeHistory().Where(x => x.MainPartyId == mainPartyId).ToList();
             else
@@ -137,7 +137,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             ViewData["pageNumbers"] = Convert.ToInt32(Math.Ceiling(result.Count / (float)pageSize));
 
-            var addressChangeHistories =result.OrderByDescending(x => x.AddressChangeHistoryId).Skip(skipRows).Take(pageSize).ToList();
+            var addressChangeHistories = result.OrderByDescending(x => x.AddressChangeHistoryId).Skip(skipRows).Take(pageSize).ToList();
 
             return View(addressChangeHistories);
         }

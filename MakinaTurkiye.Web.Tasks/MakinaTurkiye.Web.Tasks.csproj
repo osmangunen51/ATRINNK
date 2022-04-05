@@ -325,6 +325,10 @@
       <Project>{53482EA7-D0EB-4F50-A04B-6EEDE701B53D}</Project>
       <Name>MakinaTurkiye.Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NeoSistem.EnterpriseEntity.Core\NeoSistem.EnterpriseEntity.Core.csproj">
+      <Project>{31D330E6-934C-4A83-86D5-404B75A540C8}</Project>
+      <Name>NeoSistem.EnterpriseEntity.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

@@ -8,16 +8,16 @@ namespace NeoSistem.EnterpriseEntity.Business.Interfaces
     /// IEntity arayüzü
     /// </summary>
     public interface IEntity
-  {
-    EntityAction Action { get; set; }
+    {
+        EntityAction Action { get; set; }
 
-    object Save();
-    object Save(TransactionUI transaction);
+        object Save();
+        object Save(TransactionUI transaction);
 
-    bool Delete(object value);
-    bool Delete(object value, TransactionUI transaction);
+        bool Delete(object value);
+        bool Delete(object value, TransactionUI transaction);
 
-    bool LoadEntity(object value);
-    bool LoadEntity(object value, TransactionUI transaction);
-  }
+        bool LoadEntity(object value);
+        bool LoadEntity(object value, TransactionUI transaction);
+    }
 }

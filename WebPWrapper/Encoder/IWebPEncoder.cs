@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
+﻿using System.IO;
 using System.Threading.Tasks;
 
-namespace WebPWrapper.Encoder {
+namespace WebPWrapper.Encoder
+{
     /// <summary>
     /// WebP編碼器
     /// </summary>
-    public interface IWebPEncoder {
+    public interface IWebPEncoder
+    {
         /// <summary>
         /// 編碼
         /// </summary>

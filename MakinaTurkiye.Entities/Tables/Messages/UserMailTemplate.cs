@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Messages
 {
-    public class UserMailTemplate:BaseEntity
+    public class UserMailTemplate : BaseEntity
     {
         public int UserMailTemplateId { get; set; }
         public int UserId { get; set; }

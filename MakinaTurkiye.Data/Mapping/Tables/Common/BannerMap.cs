@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Common
 {
-    public class BannerMap: EntityTypeConfiguration<Banner>
+    public class BannerMap : EntityTypeConfiguration<Banner>
     {
         public BannerMap()
         {

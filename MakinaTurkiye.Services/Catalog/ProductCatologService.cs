@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Catalog
 {
-    public class ProductCatologService : BaseService,IProductCatologService
+    public class ProductCatologService : BaseService, IProductCatologService
     {
 
         #region Constants 
@@ -26,7 +26,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         #region Ctor
 
-        public ProductCatologService(IRepository<ProductCatolog> productCatologRepository, ICacheManager cacheManager): base(cacheManager)
+        public ProductCatologService(IRepository<ProductCatolog> productCatologRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             this._productCatologRepository = productCatologRepository;
             this._cacheManager = cacheManager;
@@ -42,7 +42,7 @@ namespace MakinaTurkiye.Services.Catalog
                 throw new ArgumentNullException("productCatologId");
 
             string key = string.Format(PRODUCTCATALOGS_BY_PRODUCTCATALOG_ID_KEY, productCatologId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _productCatologRepository.Table;
                 return query.FirstOrDefault(x => x.ProductCatologId == productCatologId);
@@ -55,7 +55,7 @@ namespace MakinaTurkiye.Services.Catalog
                 throw new ArgumentNullException("productId");
 
             string key = string.Format(PRODUCTCATALOGS_BY_PRODUCT_ID_KEY, productId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _productCatologRepository.Table;
                 query = query.Where(x => x.ProductId == productId);

@@ -1,7 +1,7 @@
 ﻿using global::MakinaTurkiye.Services.Users;
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Messages;
-using MakinaTurkiye.Utilities.FileHelpers;
 using NeoSistem.EnterpriseEntity.Extensions;
 using NeoSistem.EnterpriseEntity.Extensions.Data;
 using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
@@ -105,8 +105,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             UserFormModel model = new UserFormModel();
             ViewData["Title"] = "Avansas - Kullanıcı Ekle ";
             var userModel = new UserModel { };
-            userModel.MailSmtp = "smtp.gmail.com";
-            userModel.SendCode = 587;
+            userModel.MailSmtp =AppSettings.MailHost;
+            userModel.SendCode = AppSettings.MailPort;
             var dataPermissionUser = new Data.PermissionUser();
             var userGroups = entities.UserGroups.ToList();
             var userGroupModel = new List<UserGroupModel>();
@@ -208,8 +208,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             };
             if (curUser.MailSmtp == "")
             {
-                curUser.MailSmtp = "smtp.gmail.com";
-                curUser.SendCode = 587;
+                curUser.MailSmtp = AppSettings.MailHost;
+                curUser.SendCode = AppSettings.MailPort;
             }
             var dataPermissionUser = new Data.PermissionUser();
             userModel.Groups = dataPermissionUser.GetItemsByUserId(curUser.UserId).AsCollection<UserGroupModel>();

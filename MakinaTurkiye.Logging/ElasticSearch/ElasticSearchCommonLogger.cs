@@ -2,14 +2,11 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Dynamic;
-using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
@@ -25,7 +22,7 @@ namespace MakinaTurkiye.Logging.ElasticSearch
 
         public ElasticSearchCommonLogger(string categoryName, Action<JObject> scribeProcessor)
         {
-             Name = categoryName;
+            Name = categoryName;
             _scribeProcessor = scribeProcessor;
 
             // Default is to turn on all the logging
@@ -76,7 +73,7 @@ namespace MakinaTurkiye.Logging.ElasticSearch
 
 
         protected void WriteTrace(string loggerName, Microsoft.Extensions.Logging.LogLevel eventType,
-                                  int id,string message,Guid? relatedActivityId,object data)
+                                  int id, string message, Guid? relatedActivityId, object data)
         {
             string updatedMessage = message;
             JObject payload = null;
@@ -147,8 +144,8 @@ namespace MakinaTurkiye.Logging.ElasticSearch
             InternalWrite(new TraceEventCache(), loggerName, eventType, id, updatedMessage, relatedActivityId, payload);
         }
 
-        private void InternalWrite( TraceEventCache eventCache, string loggerName, Microsoft.Extensions.Logging.LogLevel eventType, 
-                    int? traceId, string message, Guid? relatedActivityId,JObject dataObject)
+        private void InternalWrite(TraceEventCache eventCache, string loggerName, Microsoft.Extensions.Logging.LogLevel eventType,
+                    int? traceId, string message, Guid? relatedActivityId, JObject dataObject)
         {
             DateTime logTime;
             string logicalOperationStack = null;

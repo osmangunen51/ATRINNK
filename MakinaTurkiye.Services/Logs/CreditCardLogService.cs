@@ -4,7 +4,7 @@ using System;
 
 namespace MakinaTurkiye.Services.Logs
 {
-    public class CreditCardLogService :ICreditCardLogService
+    public class CreditCardLogService : ICreditCardLogService
     {
 
         #region Fileds

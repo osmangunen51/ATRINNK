@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Payments
 {
-    public class BankAccountMap: EntityTypeConfiguration<BankAccount>
+    public class BankAccountMap : EntityTypeConfiguration<BankAccount>
     {
         public BankAccountMap()
         {

@@ -62,11 +62,11 @@ namespace MakinaTurkiye.Services.Stores
             return query.ToList();
 
         }
-        
+
         public List<FavoriteStore> GetFavoriteStoresByMemberMainPartyId(int memberMainPartyId)
         {
             var query = _favoriteStoreRepository.Table;
-            return query.Where(x=>x.MemberMainPartyId== memberMainPartyId).ToList();
+            return query.Where(x => x.MemberMainPartyId == memberMainPartyId).ToList();
 
         }
 
@@ -84,7 +84,7 @@ namespace MakinaTurkiye.Services.Stores
             _favoriteStoreRepository.Delete(favoriteStore);
         }
 
-        
+
 
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Services.Members;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Services.Videos;
 using MakinaTurkiye.Utilities.Controllers;
@@ -8,7 +9,6 @@ using NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants;
 using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Videos;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Web.Mvc;
 

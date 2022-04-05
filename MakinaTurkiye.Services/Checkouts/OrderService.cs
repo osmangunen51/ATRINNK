@@ -20,7 +20,7 @@ namespace MakinaTurkiye.Services.Checkouts
         private readonly IRepository<OrderDescription> _orderDescriptionRepository;
         private readonly IRepository<ReturnInvoice> _returnInvoiceRepository;
         private readonly IRepository<OrderConfirmation> _orderConfirmationRepository;
-       
+
         #endregion
 
         #region Ctor
@@ -250,8 +250,8 @@ namespace MakinaTurkiye.Services.Checkouts
             if (returnInvoice == null)
                 throw new ArgumentNullException("returnInvoice");
 
-           _returnInvoiceRepository.Delete(returnInvoice);
-            
+            _returnInvoiceRepository.Delete(returnInvoice);
+
         }
 
         public void UpdateReturnInvoice(ReturnInvoice returnInvoice)
@@ -288,7 +288,7 @@ namespace MakinaTurkiye.Services.Checkouts
 
         public OrderConfirmation GetOrderConfirmationByOrderId(int orderId)
         {
-            var query= _orderConfirmationRepository.Table;
+            var query = _orderConfirmationRepository.Table;
             return query.FirstOrDefault(x => x.OrderId == orderId);
         }
 

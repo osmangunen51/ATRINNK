@@ -13,7 +13,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.ViewModel
         public int PropertieId { get; set; }
         public string PropertieName { get; set; }
         public byte PropertieType { get; set; }
-        public List<SelectListItem> PropertieTypes {get; set; }
+        public List<SelectListItem> PropertieTypes { get; set; }
         public FilterModel<PropertieModel> Properties { get; set; }
     }
 }

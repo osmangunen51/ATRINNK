@@ -1,13 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebPWrapper.Encoder;
 
@@ -30,7 +26,7 @@ namespace MakinaTurkiye.ImageToWebP
         {
             using (FolderBrowserDialog AcKutu = new FolderBrowserDialog())
             {
-                if (AcKutu.ShowDialog() ==DialogResult.OK)
+                if (AcKutu.ShowDialog() == DialogResult.OK)
                 {
                     txtPath.Text = AcKutu.SelectedPath;
                 }
@@ -42,7 +38,8 @@ namespace MakinaTurkiye.ImageToWebP
         Thread KanalIslem = null;
         int ToplamDosyaSayisi = 0;
 
-        private void IslemYap() {
+        private void IslemYap()
+        {
             var builder = new WebPEncoderBuilder();
             var encoder = builder
                 .LowMemory()
@@ -57,7 +54,7 @@ namespace MakinaTurkiye.ImageToWebP
 
                 System.IO.DirectoryInfo AktifDirectory = DizinListesi[DizinIndex];
                 LogEkle($"{AktifDirectory.FullName} İşlem Yapılıyor...");
-                List<System.IO.FileInfo> DosyaListesi = AktifDirectory.GetFiles("*",SearchOption.AllDirectories).Where(snc=> extensions.Contains(snc.Extension.ToLower())).ToList();
+                List<System.IO.FileInfo> DosyaListesi = AktifDirectory.GetFiles("*", SearchOption.AllDirectories).Where(snc => extensions.Contains(snc.Extension.ToLower())).ToList();
 
 
                 for (int DosyaIndex = 0; DosyaIndex < DosyaListesi.Count(); DosyaIndex++)
@@ -68,7 +65,7 @@ namespace MakinaTurkiye.ImageToWebP
                     {
 
                         //Bitmap bmp = (Bitmap)Image.FromFile(Dosya.FullName);
-                        string simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension,".webp");
+                        string simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension, ".webp");
                         System.IO.FileInfo DosyaKontrol = new FileInfo(simpleLosslessFileName);
                         if (!DosyaKontrol.Exists)
                         {
@@ -87,7 +84,7 @@ namespace MakinaTurkiye.ImageToWebP
                     }
                     catch (Exception Hata)
                     {
-                        LogEkle($"{Dosya.FullName} İşleminde Hata Oluştu..."+ Hata.Message);
+                        LogEkle($"{Dosya.FullName} İşleminde Hata Oluştu..." + Hata.Message);
                     }
                     ToplamDosyaSayisi++;
                     this.Text = $"Dizin : {DizinListesi.Count()} - {DizinIndex + 1} | {DosyaListesi.Count()} - {DosyaIndex + 1} ==> {ToplamDosyaSayisi} Dosyada Dönüştürüldü.";

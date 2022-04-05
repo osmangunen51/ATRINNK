@@ -10,6 +10,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.ViewModel
         }
         public virtual List<MemberTypeModel> MemberTypes { get; set; }
         public virtual List<global::MakinaTurkiye.Entities.Tables.Packets.Packet> Packets { get; set; }
-               
+
     }
 }

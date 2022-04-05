@@ -10,7 +10,7 @@ namespace MakinaTurkiye.Data.Mapping.Tables.Members
             this.ToTable("Member");
 
             this.Ignore(m => m.Id);
-            this.HasKey(m => m.MainPartyId);         
+            this.HasKey(m => m.MainPartyId);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string Content { get; set; }
         public string StoreMail { get; set; }
         public int MemberID { get; set; }
-       public string Message { get; set; }
+        public string Message { get; set; }
         public List<SelectListItem> Files { get; set; }
 
     }

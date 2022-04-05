@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Searchs
 {
-    public class SearchScoreMap:EntityTypeConfiguration<SearchScore>
+    public class SearchScoreMap : EntityTypeConfiguration<SearchScore>
     {
         public SearchScoreMap()
         {

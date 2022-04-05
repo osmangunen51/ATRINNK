@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Checkouts
 {
-    public class OrderInstallment:BaseEntity
+    public class OrderInstallment : BaseEntity
     {
         public int OrderInstallmentId { get; set; }
         public int OrderId { get; set; }
@@ -12,6 +12,6 @@ namespace MakinaTurkiye.Entities.Tables.Checkouts
         public DateTime RecordDate { get; set; }
         public bool? IsPaid { get; set; }
 
-       
+
     }
 }

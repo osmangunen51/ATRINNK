@@ -3,8 +3,8 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Catalog
 {
-    public class PropertieMap:EntityTypeConfiguration<Propertie>
-    {   
+    public class PropertieMap : EntityTypeConfiguration<Propertie>
+    {
         public PropertieMap()
         {
             this.ToTable("Propertie");

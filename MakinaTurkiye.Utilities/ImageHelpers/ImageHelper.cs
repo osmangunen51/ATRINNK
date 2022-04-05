@@ -7,9 +7,9 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
         public static string GetStoreProfilePicture(string logo)
         {
             if (!string.IsNullOrWhiteSpace(logo) && logo.Contains("."))
-                logo= logo.Substring(0, logo.LastIndexOf(".")) + "_th" + logo.Substring(logo.LastIndexOf("."));
+                logo = logo.Substring(0, logo.LastIndexOf(".")) + "_th" + logo.Substring(logo.LastIndexOf("."));
             else
-                logo="";
+                logo = "";
 
             return string.Format("https://makinaturkiye.com/UserFiles/Images/StoreProfilePicture/{0}", logo);
         }
@@ -19,19 +19,19 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
         {
             string imageUrl = string.Format("//s.makinaturkiye.com/VideoThumb/{0}", videoPictureName);
 
-//#if !DEBUG
-//                 string fileBase = "/UserFiles/VideoThumb/" + videoPictureName;
-//            var absolutePath = HttpContext.Current.Server.MapPath(fileBase);
-//            if (System.IO.File.Exists(absolutePath))
-//            {
-//                return imageUrl;
-//            }
-//            else
-//            {
-//                return "https://dummyimage.com/245x165/dbdbdb/000000.jpg&text=Haz%C4%B1rlan%C4%B1yor";
+            //#if !DEBUG
+            //                 string fileBase = "/UserFiles/VideoThumb/" + videoPictureName;
+            //            var absolutePath = HttpContext.Current.Server.MapPath(fileBase);
+            //            if (System.IO.File.Exists(absolutePath))
+            //            {
+            //                return imageUrl;
+            //            }
+            //            else
+            //            {
+            //                return "https://dummyimage.com/245x165/dbdbdb/000000.jpg&text=Haz%C4%B1rlan%C4%B1yor";
 
-//            }
-//#endif
+            //            }
+            //#endif
 
 
 
@@ -108,7 +108,7 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
                 return string.Format("//s.makinaturkiye.com/Store/{0}/thumbs/{1}-{2}x{2}.jpg", storeId, storeLogo.Replace("_logo", "").Replace(".jpg", ""), size);
             }
         }
-        public static string GetStoreLogoParh(int storeId, string storeLogo, int width,int height)
+        public static string GetStoreLogoParh(int storeId, string storeLogo, int width, int height)
         {
             if (string.IsNullOrEmpty(storeLogo))
             {
@@ -117,11 +117,11 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
 
 
 
-                return string.Format("//s.makinaturkiye.com/Store/{0}/thumbs/{1}-{2}x{3}.jpg", storeId, storeLogo.Replace("_logo", "").Replace(".jpg", ""), width,height);
+            return string.Format("//s.makinaturkiye.com/Store/{0}/thumbs/{1}-{2}x{3}.jpg", storeId, storeLogo.Replace("_logo", "").Replace(".jpg", ""), width, height);
 
 
         }
-        public static string GetStoreNewImagePath(string imageName,string imageSize)
+        public static string GetStoreNewImagePath(string imageName, string imageSize)
         {
             if (!string.IsNullOrEmpty(imageName))
             {

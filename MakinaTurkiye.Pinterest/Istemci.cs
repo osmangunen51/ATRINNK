@@ -1,12 +1,8 @@
-﻿using MakinaTurkiye.Pinterest.Model.Input;
-using MakinaTurkiye.Pinterest.Model.Input.PinCreate;
+﻿using MakinaTurkiye.Pinterest.Model.Input.PinCreate;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Pinterest
 {
@@ -18,7 +14,7 @@ namespace MakinaTurkiye.Pinterest
         public string Password { get; set; } = "";
 
         public string ProxyServer { get; set; } = "";
-        public Istemci(string UserName, string Password,string ProxyServer="")
+        public Istemci(string UserName, string Password, string ProxyServer = "")
         {
             this.UserName = UserName;
             this.Password = Password;
@@ -46,7 +42,7 @@ namespace MakinaTurkiye.Pinterest
 
         public void Dispose()
         {
-                
+
         }
 
         public void AddDefaultHeader()
@@ -78,12 +74,12 @@ namespace MakinaTurkiye.Pinterest
                 Dictionary<string, string> IstekListesi = new Dictionary<string, string>();
                 string RequestUrl = $"";
                 #region IlkIstek
-                    RequestUrl = $"{BaseUrl}";
-                    IstekSonuc = HttpIstemci.HttpGet(RequestUrl);
+                RequestUrl = $"{BaseUrl}";
+                IstekSonuc = HttpIstemci.HttpGet(RequestUrl);
 
-                    IstekListesi.Clear();
-                    RequestUrl = $"{BaseUrl}/resource/StatsLogResource/create/";
-                    IstekSonuc = HttpIstemci.HttpPost(RequestUrl, IstekListesi);
+                IstekListesi.Clear();
+                RequestUrl = $"{BaseUrl}/resource/StatsLogResource/create/";
+                IstekSonuc = HttpIstemci.HttpPost(RequestUrl, IstekListesi);
                 #endregion
                 RequestUrl = $"{BaseUrl}/resource/UserSessionResource/create/";
                 MakinaTurkiye.Pinterest.Model.Input.User.UserSessionResourceCreate UserSessionResourceCreate = new MakinaTurkiye.Pinterest.Model.Input.User.UserSessionResourceCreate();
@@ -97,7 +93,7 @@ namespace MakinaTurkiye.Pinterest
                 IstekListesi.Clear();
                 IstekListesi.Add("source_url", "/");
                 IstekListesi.Add("data", JsUserSessionResourceCreate);
-                IstekSonuc=HttpIstemci.HttpPost(RequestUrl, IstekListesi);                
+                IstekSonuc = HttpIstemci.HttpPost(RequestUrl, IstekListesi);
                 if (!string.IsNullOrEmpty(IstekSonuc))
                 {
                     if (string.IsNullOrEmpty(IstekSonuc) | IstekSonuc.Contains(IstekKontrolIfadesi))
@@ -108,7 +104,7 @@ namespace MakinaTurkiye.Pinterest
                         Result.Tip = ProcessStatus.ProcessType.Success;
                         Result.Value = Value;
                     }
-                }                
+                }
             }
             catch (Exception Hata)
             {
@@ -124,7 +120,7 @@ namespace MakinaTurkiye.Pinterest
 
         public ProcessStatus CreatePin(string ImageUrl, string BoardID, string Description, string Link, string Title, string SectionID = "")
         {
-            ProcessStatus Result = new ProcessStatus() { Status = false};
+            ProcessStatus Result = new ProcessStatus() { Status = false };
             try
             {
                 int Adet = 0;
@@ -155,7 +151,7 @@ namespace MakinaTurkiye.Pinterest
                     int IstekTimeOut = 1000;
                     if (IstekSonuc.Contains("(429)"))
                     {
-                        IstekTimeOut = Rnd.Next(300000,600000);
+                        IstekTimeOut = Rnd.Next(300000, 600000);
                     }
                     else
                     {
@@ -166,7 +162,7 @@ namespace MakinaTurkiye.Pinterest
                     Adet++;
                 }
                 IstekKontrolIfadesi = "resource_response\":{\"code\":0,";
-                 if (!string.IsNullOrEmpty(IstekSonuc))
+                if (!string.IsNullOrEmpty(IstekSonuc))
                 {
                     if (string.IsNullOrEmpty(IstekSonuc) | IstekSonuc.Contains(IstekKontrolIfadesi))
                     {
@@ -200,18 +196,19 @@ namespace MakinaTurkiye.Pinterest
                 Dictionary<string, string> IstekListesi = new Dictionary<string, string>();
                 string RequestUrl = $"";
                 RequestUrl = $"{BaseUrl}resource/UserSessionResource/create/";
-                MakinaTurkiye.Pinterest.Model.Input.ChangeBussines.ChangeBussines ChangeBussines = new MakinaTurkiye.Pinterest.Model.Input.ChangeBussines.ChangeBussines() { 
-                options=new Model.Input.ChangeBussines.Options() 
-                    { 
-                        business_id=business_id,
-                        get_user=true,
-                        app_type_from_client=5,
-                        no_fetch_context_on_resource=false,
-                        visited_pages_before_login=null,
-                        owner_id =owner_id
+                MakinaTurkiye.Pinterest.Model.Input.ChangeBussines.ChangeBussines ChangeBussines = new MakinaTurkiye.Pinterest.Model.Input.ChangeBussines.ChangeBussines()
+                {
+                    options = new Model.Input.ChangeBussines.Options()
+                    {
+                        business_id = business_id,
+                        get_user = true,
+                        app_type_from_client = 5,
+                        no_fetch_context_on_resource = false,
+                        visited_pages_before_login = null,
+                        owner_id = owner_id
                     },
-                    context=new Model.Input.ChangeBussines.Context() 
-                    { 
+                    context = new Model.Input.ChangeBussines.Context()
+                    {
 
                     }
                 };
@@ -247,7 +244,7 @@ namespace MakinaTurkiye.Pinterest
 
 
 
-        public ProcessStatus CreateBoard(string name, string description, string privacy= "public",bool collaborator_invites_enabled=false, bool no_fetch_context_on_resource=false,string source_url="")
+        public ProcessStatus CreateBoard(string name, string description, string privacy = "public", bool collaborator_invites_enabled = false, bool no_fetch_context_on_resource = false, string source_url = "")
         {
             ProcessStatus Result = new ProcessStatus();
             try
@@ -274,14 +271,14 @@ namespace MakinaTurkiye.Pinterest
                     if (string.IsNullOrEmpty(IstekSonuc) | IstekSonuc.Contains(IstekKontrolIfadesi))
                     {
                         MakinaTurkiye.Pinterest.Model.Result.BoardCreate.BoardCreate Value = Newtonsoft.Json.JsonConvert.DeserializeObject<MakinaTurkiye.Pinterest.Model.Result.BoardCreate.BoardCreate>(IstekSonuc);
-                        if (Value!=null)
+                        if (Value != null)
                         {
                             Result.Message = "İşlem Başarılı";
                             Result.Status = true;
                             Result.Tip = ProcessStatus.ProcessType.Success;
                             Result.Value = Value;
                         }
-                        
+
                     }
                 }
             }
@@ -296,7 +293,7 @@ namespace MakinaTurkiye.Pinterest
             return Result;
         }
 
-        public ProcessStatus ArchiveBoard(string boardId, bool no_fetch_context_on_resource = false,string source_url="")
+        public ProcessStatus ArchiveBoard(string boardId, bool no_fetch_context_on_resource = false, string source_url = "")
         {
             ProcessStatus Result = new ProcessStatus();
             try

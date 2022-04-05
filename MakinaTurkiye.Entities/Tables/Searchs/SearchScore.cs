@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Searchs
 {
-    public class SearchScore:BaseEntity
+    public class SearchScore : BaseEntity
     {
         public int Id { get; set; }
         public string Keyword { get; set; }

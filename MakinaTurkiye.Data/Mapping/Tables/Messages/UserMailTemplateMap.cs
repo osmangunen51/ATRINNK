@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Members
 {
-    public class UserMailTemplateMap:EntityTypeConfiguration<UserMailTemplate>
+    public class UserMailTemplateMap : EntityTypeConfiguration<UserMailTemplate>
     {
         public UserMailTemplateMap()
         {

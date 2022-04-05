@@ -94,7 +94,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             var attributes = new ImageAttributes();
             attributes.SetWrapMode(WrapMode.TileFlipXY);
 
-            var destination = new Rectangle(0, 0,newWidth,newHeight);
+            var destination = new Rectangle(0, 0, newWidth, newHeight);
             grPhoto.DrawImage(imgPhoto, destination, 0, 0, imgPhoto.Width, imgPhoto.Height,
                 GraphicsUnit.Pixel, attributes);
             string destImagePath = stPhotoPath;
@@ -164,7 +164,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
                 try
                 {
-                    ImageBuilder.Current.Build(new ImageJob(originalFile, thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x","X"), settings, false, true));
+                    ImageBuilder.Current.Build(new ImageJob(originalFile, thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X"), settings, false, true));
                 }
                 catch
                 {

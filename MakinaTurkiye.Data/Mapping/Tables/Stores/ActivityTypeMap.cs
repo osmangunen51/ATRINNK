@@ -8,8 +8,8 @@ namespace MakinaTurkiye.Data.Mapping.Tables.Stores
         public ActivityTypeMap()
         {
             this.ToTable("ActivityType");
-            this.Ignore(a=>a.Id);
-            this.HasKey(a=>a.ActivityTypeId);
+            this.Ignore(a => a.Id);
+            this.HasKey(a => a.ActivityTypeId);
 
         }
     }

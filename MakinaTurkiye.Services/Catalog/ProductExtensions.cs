@@ -56,7 +56,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         public static string GetProductSalesTypeText(this Product product)
         {
-            if (string.IsNullOrEmpty(product.ProductSalesType) || product.ProductSalesType==",")
+            if (string.IsNullOrEmpty(product.ProductSalesType) || product.ProductSalesType == ",")
                 return string.Empty;
             IConstantService _constantService = EngineContext.Current.Resolve<IConstantService>();
             List<string> productSalesTypes = product.ProductSalesType.Split(',').ToList();

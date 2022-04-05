@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
 
-namespace WebPWrapper.Decoder {
-    public class WebPDecoderBuilder : IWebPDecoderBuilder {
+namespace WebPWrapper.Decoder
+{
+    public class WebPDecoderBuilder : IWebPDecoderBuilder
+    {
         /// <summary>
         /// 建構中的參數暫存
         /// </summary>
@@ -23,22 +24,32 @@ namespace WebPWrapper.Decoder {
         /// 初始化WebP解碼器建構器
         /// </summary>
         /// <param name="executeFilePath">執行檔路徑，如為空則使用預設路徑</param>
-        public WebPDecoderBuilder(string executeFilePath = null) {
+        public WebPDecoderBuilder(string executeFilePath = null)
+        {
             _executeFilePath = executeFilePath;
-            if (_executeFilePath == null) {
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+            if (_executeFilePath == null)
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
                     _executeFilePath = $"webp/{_windowsDir}/bin/dwebp.exe";
-                } else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
                     _executeFilePath = $"webp/{_linuxDir}/bin/dwebp";
-                } else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) {
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
                     _executeFilePath = $"webp/{_osxDir}/bin/dwebp";
-                } else {
+                }
+                else
+                {
                     throw new PlatformNotSupportedException();
                 }
                 _executeFilePath = Path.Combine(Path.GetFullPath("."), _executeFilePath);
             }
 
-            if (!File.Exists(_executeFilePath)) {
+            if (!File.Exists(_executeFilePath))
+            {
                 throw new FileNotFoundException();
             }
         }
@@ -47,8 +58,10 @@ namespace WebPWrapper.Decoder {
         /// 輸出格式
         /// </summary>
         /// <param name="format">格式</param> 
-        public IWebPDecoderBuilder ExportFormat(ExportFormats format) {
-            switch (format) {
+        public IWebPDecoderBuilder ExportFormat(ExportFormats format)
+        {
+            switch (format)
+            {
                 case ExportFormats.BMP:
                     _arguments.Add((key: "-bmp", value: null));
                     break;
@@ -78,7 +91,8 @@ namespace WebPWrapper.Decoder {
         /// <param name="y">起始座標Y</param>
         /// <param name="width">寬度</param>
         /// <param name="height">高度</param> 
-        public IWebPDecoderBuilder Crop(int x, int y, int width, int height) {
+        public IWebPDecoderBuilder Crop(int x, int y, int width, int height)
+        {
             _arguments.Add((key: "-crop", value: $"{x} {y} {width} {height}"));
             return this;
         }
@@ -88,7 +102,8 @@ namespace WebPWrapper.Decoder {
         /// </summary>
         /// <param name="width">寬度</param>
         /// <param name="height">寬度</param>   
-        public IWebPDecoderBuilder Resize(int width, int height) {
+        public IWebPDecoderBuilder Resize(int width, int height)
+        {
             _arguments.Add((key: "-resize", $"{width} {height}"));
             return this;
         }
@@ -96,7 +111,8 @@ namespace WebPWrapper.Decoder {
         /// <summary>
         /// 容許多執行序
         /// </summary>
-        public IWebPDecoderBuilder MultiThread() {
+        public IWebPDecoderBuilder MultiThread()
+        {
             _arguments.Add((key: "-mt", value: null));
             return this;
         }
@@ -104,7 +120,8 @@ namespace WebPWrapper.Decoder {
         /// <summary>
         /// 停用ASM優化
         /// </summary>
-        public IWebPDecoderBuilder DisableAssemblyOptimization() {
+        public IWebPDecoderBuilder DisableAssemblyOptimization()
+        {
             _arguments.Add((key: "-noasm", value: null));
             return this;
         }
@@ -112,7 +129,8 @@ namespace WebPWrapper.Decoder {
         /// <summary>
         /// 禁止濾波過程
         /// </summary> 
-        public IWebPDecoderBuilder NoFilter() {
+        public IWebPDecoderBuilder NoFilter()
+        {
             _arguments.Add((key: "-nofilter", value: null));
             return this;
         }
@@ -120,7 +138,8 @@ namespace WebPWrapper.Decoder {
         /// <summary>
         /// 禁止YUV420升級器
         /// </summary>
-        public IWebPDecoderBuilder NoFancy() {
+        public IWebPDecoderBuilder NoFancy()
+        {
             _arguments.Add((key: "-nofancy", value: null));
             return this;
         }
@@ -129,7 +148,8 @@ namespace WebPWrapper.Decoder {
         /// 抖動強度，抖動是應用於有損壓縮中的色度分量的後處理效果。它有助於平滑漸變並避免條帶偽影
         /// </summary>
         /// <param name="strength">強度，最小0，最大100</param> 
-        public IWebPDecoderBuilder Dither(int strength) {
+        public IWebPDecoderBuilder Dither(int strength)
+        {
             _arguments.Add((key: "-dither", value: strength.ToString()));
             return this;
         }
@@ -137,7 +157,8 @@ namespace WebPWrapper.Decoder {
         /// <summary>
         /// 垂直翻轉解碼圖片
         /// </summary>
-        public IWebPDecoderBuilder Flip() {
+        public IWebPDecoderBuilder Flip()
+        {
             _arguments.Add((key: "-flip", value: null));
             return this;
         }
@@ -145,7 +166,8 @@ namespace WebPWrapper.Decoder {
         /// <summary>
         /// 重設回預設值
         /// </summary>
-        public IWebPDecoderBuilder Reset() {
+        public IWebPDecoderBuilder Reset()
+        {
             _arguments.Clear();
             return this;
         }
@@ -154,7 +176,8 @@ namespace WebPWrapper.Decoder {
         /// 建構WebP解碼器
         /// </summary>
         /// <returns>WebP解碼器</returns>
-        public IWebPDecoder Build() {
+        public IWebPDecoder Build()
+        {
             var args = GetCurrentArguments();
             return new WebPDecoder(_executeFilePath, args);
         }
@@ -163,11 +186,16 @@ namespace WebPWrapper.Decoder {
         /// 取得目前CLI參數
         /// </summary>
         /// <returns>CLI參數</returns>
-        public string GetCurrentArguments() {
-            return string.Join(" ", _arguments.Select(x => {
-                if (x.key.StartsWith("-")) {
+        public string GetCurrentArguments()
+        {
+            return string.Join(" ", _arguments.Select(x =>
+            {
+                if (x.key.StartsWith("-"))
+                {
                     return $"{x.key} {x.value}";
-                } else {
+                }
+                else
+                {
                     return x.value;
                 }
             }));

@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Services.Catalog
+﻿namespace MakinaTurkiye.Services.Catalog
 {
-    public enum ProductActiveTypeEnum:byte
+    public enum ProductActiveTypeEnum : byte
     {
         Inceleniyor,
         Onaylandi,

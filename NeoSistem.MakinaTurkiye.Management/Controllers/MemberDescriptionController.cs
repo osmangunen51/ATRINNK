@@ -348,7 +348,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int pageDimension = 30;
             var memberDescs = new List<global::MakinaTurkiye.Entities.StoredProcedures.Members.MemberDescriptionForStore>();
             int totalRecord = 0;
-            
+
             memberDescs = _memberDescService.GetMemberDescByOnDate(userId, userGroupId, pageDimension, page, orderBy, constantId, out totalRecord).ToList();
             memberDescs = memberDescs.OrderByDescending(x => x.IsFirst).ThenBy(x => x.UpdateDate).ToList();
             var listNotif = PrepareNotificationList(memberDescs, pageDimension);
@@ -554,7 +554,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int TotalRecord;
             DateTime date = Convert.ToDateTime("2001.1.1");
 
-            var list = _memberDescService.SP_GetMemberDescriptionSearch(page, pageSize, UserId, date, OrderColumn, OrderType, 0,"" ,out TotalRecord);
+            var list = _memberDescService.SP_GetMemberDescriptionSearch(page, pageSize, UserId, date, OrderColumn, OrderType, 0, "", out TotalRecord);
             foreach (var item in list)
             {
                 if (item.Description != null)
@@ -571,7 +571,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.OrderName = OrderColumn;
             model.Order = OrderType.ToString();
 
-            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where p.UserGroupId == 16 || p.UserGroupId == 18 || p.UserGroupId==20 select new { u.UserName, u.UserId };
+            var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where p.UserGroupId == 16 || p.UserGroupId == 18 || p.UserGroupId == 20 select new { u.UserName, u.UserId };
 
             List<SelectListItem> users = new List<SelectListItem>();
             if (any == true)
@@ -612,7 +612,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             DateTime date = Convert.ToDateTime("2001.1.1");
             if (!string.IsNullOrEmpty(Date)) date = Convert.ToDateTime(Date);
 
-    
+
 
 
             var list = _memberDescService.SP_GetMemberDescriptionSearch(Page, 100, UserId, date, OrderColumn, OrderType, ConstantId, CreatedDate, out TotalRecord);
@@ -648,7 +648,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var itemModel = new MemberDescriptionCountModel { TotalCount = item2.totalCount, UpdateDateNew = item2.date1 };
                 var users1 = entities.Users.Where(x => userIds.Contains(x.UserId));
 
-              //  var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 18 || g.UserGroupId == 20 select new { u.UserName, u.UserId };
+                //  var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 18 || g.UserGroupId == 20 select new { u.UserName, u.UserId };
                 foreach (var item in users1)
                 {
                     itemModel.Usercounts.Add(new Usercount { Count = 0, UserName = item.UserName });

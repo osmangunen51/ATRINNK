@@ -1,11 +1,6 @@
 ﻿using MakinaTurkiye.Tasks.Catolog.Tasks;
 using Quartz;
 using Quartz.Impl;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Tasks.Catolog.Schedulers
 {
@@ -22,7 +17,7 @@ namespace MakinaTurkiye.Tasks.Catolog.Schedulers
                 .WithIdentity("ProductDeleteFromGarbage", "Products")
                 .Build();
 
-                
+
             ITrigger trigger = TriggerBuilder.Create()
              .WithDailyTimeIntervalSchedule
                (s =>

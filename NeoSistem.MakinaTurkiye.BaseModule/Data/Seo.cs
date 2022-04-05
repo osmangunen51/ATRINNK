@@ -7,11 +7,11 @@
     using System.Data;
 
     public class Seo : BusinessDataEntity
-  {
-
-    public DataTable Search(ref int TotalRecord, int PageDimension, int Page, string Where, string OrderName, string Order)
     {
-      var prms = new List<IDataParameter> { 
+
+        public DataTable Search(ref int TotalRecord, int PageDimension, int Page, string Where, string OrderName, string Order)
+        {
+            var prms = new List<IDataParameter> {
         TotalRecord.InOutSqlParameter("TotalRecord"),
         PageDimension.InSqlParameter("PageDimension"),
         Page.InSqlParameter("Page"),
@@ -20,11 +20,11 @@
         Order.InSqlParameter("Order", SqlDbType.NVarChar)
       };
 
-      DataSet ds = ExecuteDataSet("spSeoSearch", prms);
-      TotalRecord = prms[0].Value.ToInt32();
-      return ds.Tables[0];
-    }
+            DataSet ds = ExecuteDataSet("spSeoSearch", prms);
+            TotalRecord = prms[0].Value.ToInt32();
+            return ds.Tables[0];
+        }
 
-  }
+    }
 
 }

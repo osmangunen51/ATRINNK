@@ -1,8 +1,6 @@
 ﻿using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Entities.Tables.Videos;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MakinaTurkiye.Entities.Tables.Catalog
 {
@@ -16,13 +14,13 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         //private ICollection<ProductCatolog> _productCatologs;
         private ICollection<ProductComment> _productComments;
         //private ICollection<Video> _videos;
-       
+
 
         public Product()
         {
             //this.Videos = new HashSet<Video>();
         }
-        
+
         public int ProductId { get; set; }
         public int? CategoryId { get; set; }
         public int? ProductGroupId { get; set; }
@@ -68,7 +66,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         public bool Doping { get; set; }
         public int? Sort { get; set; }
         public bool HasVideo { get; set; }
-        public decimal ?ProductPriceBegin { get; set; }
+        public decimal? ProductPriceBegin { get; set; }
         public decimal? ProductPriceLast { get; set; }
         public byte? ProductPriceType { get; set; }
         public bool? ChoicedForCategoryIndex { get; set; }
@@ -81,10 +79,10 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         public string ProductSellUrl { get; set; }
         public string Keywords { get; set; }
         public byte? ProductHomePageOrder { get; set; }
-        public decimal ? ProductPriceWithDiscount { get; set; }
+        public decimal? ProductPriceWithDiscount { get; set; }
         public decimal? DiscountAmount { get; set; }
         public byte? DiscountType { get; set; }
-      
+
         public decimal? ProductPriceForOrder { get; set; }
 
         public byte? MinumumAmount { get; set; }

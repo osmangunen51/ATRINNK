@@ -36,8 +36,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
 
         public int ProductId { get; set; }
 
-  
-            
+
+
 
         [DisplayName("Menşei")]
         public int? MenseiId { get; set; }
@@ -58,7 +58,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public int? BrandId { get; set; }
 
         public string BrandNameTitle { get; set; }
-        
+
 
         [DisplayName("Seri Adı")]
         public int? SeriesId { get; set; }
@@ -184,9 +184,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public int PictureCount { get; set; }
         public bool? Kdv { get; set; }
         public bool? Fob { get; set; }
-        public byte ?ProductPriceType { get; set; }
+        public byte? ProductPriceType { get; set; }
 
-   
+
         public decimal? ProductPriceBegin { get; set; }
         public decimal? ProductPriceLast { get; set; }
 
@@ -315,8 +315,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string ProductSellUrl { get; set; }
         public bool AllowProductSellUrl { get; set; }
         public string Keywords { get; set; }
-        public int ? ProductHomePageId { get; set; }
-        public byte ? DiscountType { get; set; }
+        public int? ProductHomePageId { get; set; }
+        public byte? DiscountType { get; set; }
         public decimal? ProductPriceWithDiscount { get; set; }
         public decimal? DiscountAmount { get; set; }
     }

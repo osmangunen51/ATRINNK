@@ -105,6 +105,10 @@
       <Project>{53482ea7-d0eb-4f50-a04b-6eede701b53d}</Project>
       <Name>MakinaTurkiye.Utilities</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NeoSistem.EnterpriseEntity.Core\NeoSistem.EnterpriseEntity.Core.csproj">
+      <Project>{31D330E6-934C-4A83-86D5-404B75A540C8}</Project>
+      <Name>NeoSistem.EnterpriseEntity.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NeoSistem.MakinaTurkiye.Core\NeoSistem.MakinaTurkiye.Core.csproj">
       <Project>{2AB87953-145F-4334-BB14-E7D1FBB466B0}</Project>
       <Name>NeoSistem.MakinaTurkiye.Core</Name>

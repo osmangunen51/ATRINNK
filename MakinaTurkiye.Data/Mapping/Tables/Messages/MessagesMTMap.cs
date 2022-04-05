@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Messages
 {
-    public class MessagesMTMap:EntityTypeConfiguration<MessagesMT>
+    public class MessagesMTMap : EntityTypeConfiguration<MessagesMT>
     {
         public MessagesMTMap()
         {

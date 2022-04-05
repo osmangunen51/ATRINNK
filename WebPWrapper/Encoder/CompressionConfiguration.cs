@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace WebPWrapper.Encoder {
-    public class CompressionConfiguration {
+namespace WebPWrapper.Encoder
+{
+    public class CompressionConfiguration
+    {
         /// <summary>
         /// 建構中的參數暫存
         /// </summary>
@@ -16,7 +18,8 @@ namespace WebPWrapper.Encoder {
         /// 無損壓縮
         /// </summary>
         /// <param name="config">壓縮設定</param>
-        public void Lossless(Expression<Action<LosslessConfiguration>> config) {
+        public void Lossless(Expression<Action<LosslessConfiguration>> config)
+        {
             var _losslessCompressionConfiguration = new LosslessConfiguration();
             config.Compile().Invoke(_losslessCompressionConfiguration);
 
@@ -32,7 +35,8 @@ namespace WebPWrapper.Encoder {
         /// </summary>
         /// <param name="config">壓縮設定</param>
         /// <param name="level">等級，最小0，最大100效果等同-lossless</param>
-        public void NearLossless(int level, Expression<Action<NearLosslessConfiguration>> config) {
+        public void NearLossless(int level, Expression<Action<NearLosslessConfiguration>> config)
+        {
             var _nearLosslessCompressionConfiguration = new NearLosslessConfiguration();
             config.Compile().Invoke(_nearLosslessCompressionConfiguration);
 
@@ -47,11 +51,16 @@ namespace WebPWrapper.Encoder {
         /// 取得目前CLI參數
         /// </summary>
         /// <returns>CLI參數</returns>
-        internal string GetCurrentArguments() {
-            return string.Join(" ", _arguments.Select(x => {
-                if (x.key.StartsWith("-")) {
+        internal string GetCurrentArguments()
+        {
+            return string.Join(" ", _arguments.Select(x =>
+            {
+                if (x.key.StartsWith("-"))
+                {
                     return $"{x.key} {x.value}";
-                } else {
+                }
+                else
+                {
                     return x.value;
                 }
             }));

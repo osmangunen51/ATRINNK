@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace NeoSistem.MakinaTurkiye.Management.Models
 {
@@ -17,7 +16,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public StoreInformationModel StoreInformationModel { get; set; }
         public StoreContactInfoModel StoreContactInfoModel { get; set; }
         public List<StoreMemberDescriptionItem> StoreMemberDescriptionItems { get; set; }
-                   public List<StoreMemberDescriptionItem> StoreSeoNotificationItems { get; set; }
+        public List<StoreMemberDescriptionItem> StoreSeoNotificationItems { get; set; }
         public string StoreActivityTypes { get; set; }
         public int ActiveProductCount { get; set; }
         public int PasiveProductCount { get; set; }

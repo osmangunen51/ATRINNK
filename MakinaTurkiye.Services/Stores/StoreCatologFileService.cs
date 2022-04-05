@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
 {
-    public class StoreCatologFileService: BaseService, IStoreCatologFileService
+    public class StoreCatologFileService : BaseService, IStoreCatologFileService
     {
 
         #region Constants
@@ -31,7 +31,7 @@ namespace MakinaTurkiye.Services.Stores
             this._storeCatologFileRepository = storeCatologFileRepository;
             this._cacheManager = cacheManager;
         }
-        
+
         #endregion
 
         #region Methods

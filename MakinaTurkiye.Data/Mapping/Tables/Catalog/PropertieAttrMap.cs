@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Catalog
 {
-    public class PropertieAttrMap:EntityTypeConfiguration<PropertieAttr>
+    public class PropertieAttrMap : EntityTypeConfiguration<PropertieAttr>
     {
         public PropertieAttrMap()
         {

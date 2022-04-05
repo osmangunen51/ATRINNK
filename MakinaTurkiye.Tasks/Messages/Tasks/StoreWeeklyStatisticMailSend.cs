@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Core.Infrastructure;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Members;
@@ -52,8 +53,8 @@ namespace MakinaTurkiye.Tasks.Messages.Tasks
                     mails.Add("mustafabas2189@gmail.com");
                     mails.Add("osmanhaciosmanoglu@gmail.com");
 
-                    MailHelper mailHelper = new MailHelper(messageMail.MessagesMTTitle, mailContent, 
-                        messageMail.Mail, mails, messageMail.MailPassword, messageMail.MailSendFromName);
+                    MailHelper mailHelper = new MailHelper(messageMail.MessagesMTTitle, mailContent,
+                        messageMail.Mail, mails, messageMail.MailPassword, messageMail.MailSendFromName, AppSettings.MailHost, AppSettings.MailPort, AppSettings.MailSsl);
 
                     mailHelper.Send();
 

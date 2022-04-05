@@ -6,8 +6,8 @@ namespace MakinaTurkiye.Api.View
         public string name { get; set; } = "";
         public string companyName { get; set; } = "";
         public string country { get; set; } = "";
-        public string town { get; set; } ="";
-        public decimal minPrice { get; set; } =0;
+        public string town { get; set; } = "";
+        public decimal minPrice { get; set; } = 0;
         public decimal maxPrice { get; set; } = 0;
         public bool isnew { get; set; } = true;
 

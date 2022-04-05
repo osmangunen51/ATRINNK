@@ -11,21 +11,21 @@ namespace MakinaTurkiye.Services.Seos
 
         private const string SEOS_BY_All_SEO_KEY = "makinaturkiye.seo.all-seo";
         private const string SEODEFINITIONS_BY_ENTITY_ID_KEY = "makinaturkiye.seodefinition.byentityId-{0}-{1}";
-        
+
         #endregion
-       
+
         #region Fields
 
         private readonly IRepository<SeoDefinition> _seoDefinitionRepository;
         private readonly IRepository<Seo> _seoRepository;
         private readonly ICacheManager _cacheManager;
-        
+
         #endregion
 
         #region Ctor
 
-        public SeoDefinitionService(IRepository<SeoDefinition> seoDefinitionRepository, 
-            IRepository<Seo> seoRepository, 
+        public SeoDefinitionService(IRepository<SeoDefinition> seoDefinitionRepository,
+            IRepository<Seo> seoRepository,
             ICacheManager cacheManager)
         {
             _seoDefinitionRepository = seoDefinitionRepository;
@@ -65,7 +65,7 @@ namespace MakinaTurkiye.Services.Seos
 
                 var seos = query.ToList();
                 return seos;
-                
+
             });
         }
 

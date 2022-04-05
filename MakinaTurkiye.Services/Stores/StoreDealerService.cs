@@ -40,12 +40,12 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentNullException("mainPartyId");
 
             string key = string.Format(STOREDEALERS_BY_MAIN_PARTY_ID_KEY, mainPartyId, dealerType);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _storeDealerRepository.Table;
                 query = query.Where(sd => sd.MainPartyId == mainPartyId);
 
-                if(dealerType!= DealerTypeEnum.All)
+                if (dealerType != DealerTypeEnum.All)
                     query = query.Where(x => x.DealerType == (byte)dealerType);
 
                 var storeDealers = query.ToList();

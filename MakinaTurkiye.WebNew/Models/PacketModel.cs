@@ -1,7 +1,7 @@
-﻿using MakinaTurkiye.Core.Infrastructure;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Payments;
 using MakinaTurkiye.Services.Payments;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;

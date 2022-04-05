@@ -1,11 +1,8 @@
-﻿using MakinaTurkiye.Entities.Tables.Content;
-using MakinaTurkiye.Entities.Tables.Stores;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace MakinaTurkiye.Entities.Tables.Catalog
 {
-    public partial class Category:BaseEntity
+    public partial class Category : BaseEntity
     {
         //private ICollection<Product> _brandProducts;
         //private ICollection<Product> _modelProducts;
@@ -42,7 +39,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         public string StorePageTitle { get; set; }
         public string CategoryPath { get; set; }
         public string CategoryPathUrl { get; set; }
-        public Int16 ? BaseMenuOrder { get; set; }
+        public Int16? BaseMenuOrder { get; set; }
         public string HomeImagePath { get; set; }
 
         public string PinId { get; set; }

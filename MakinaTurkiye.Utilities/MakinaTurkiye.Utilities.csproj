@@ -185,6 +185,10 @@
       <Project>{703A6535-115C-4056-97ED-48FD93D05C4C}</Project>
       <Name>MakinaTurkiye.Services</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NeoSistem.MakinaTurkiye.Core\NeoSistem.MakinaTurkiye.Core.csproj">
+      <Project>{2ab87953-145f-4334-bb14-e7d1fbb466b0}</Project>
+      <Name>NeoSistem.MakinaTurkiye.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

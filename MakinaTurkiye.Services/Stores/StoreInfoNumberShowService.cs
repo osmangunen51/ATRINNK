@@ -12,7 +12,7 @@ namespace MakinaTurkiye.Services.Stores
         #region Constants
 
         private const string STOREINFONUMBERSHOWS_BY_STORE_MAIN_PARTY_ID_KEY = "makinaturkiye.storeinfonumbershow.bystoremainpartid-{0}";
-        
+
         #endregion
 
         #region Fields
@@ -56,7 +56,7 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentException("storeMainPartyId");
 
             string key = string.Format(STOREINFONUMBERSHOWS_BY_STORE_MAIN_PARTY_ID_KEY, storeMainPartyId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _storeInfoNumberRepository.Table;
                 return query.FirstOrDefault(x => x.StoreMainpartyId == storeMainPartyId);

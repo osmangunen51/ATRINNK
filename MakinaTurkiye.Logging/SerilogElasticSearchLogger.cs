@@ -1,16 +1,10 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Serilog;
+﻿using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Logging
 {
-    public class SerilogElasticSearchLogger :ILogger
+    public class SerilogElasticSearchLogger : ILogger
     {
 
         private Serilog.Core.Logger _logger;
@@ -26,7 +20,7 @@ namespace MakinaTurkiye.Logging
                 {
                     TemplateName = "serilog-events-template",
                     AutoRegisterTemplate = true,
-                    IndexFormat = "makinaturkiye-log-{0:yyyy.MM.dd}" 
+                    IndexFormat = "makinaturkiye-log-{0:yyyy.MM.dd}"
                 });
             _logger = loggerConfig.CreateLogger();
         }

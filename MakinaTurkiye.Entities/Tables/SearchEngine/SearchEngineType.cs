@@ -2,8 +2,8 @@
 {
     public enum SearchEngineType
     {
-        Solr=0,
-        ElasticSearch=1,
-        Sphinx=2
+        Solr = 0,
+        ElasticSearch = 1,
+        Sphinx = 2
     }
 }

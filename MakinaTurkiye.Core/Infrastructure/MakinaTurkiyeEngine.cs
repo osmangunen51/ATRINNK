@@ -50,7 +50,7 @@ namespace MakinaTurkiye.Core.Infrastructure
             var config = ConfigurationManager.GetSection("MakinaTurkiyeConfig") as MakinaTurkiyeConfig;
 
             var builder = new ContainerBuilder();
-          
+
             //we create new instance of ContainerBuilder
             //because Build() or Update() method can only be called once on a ContainerBuilder.
             //dependencies
@@ -70,7 +70,7 @@ namespace MakinaTurkiye.Core.Infrastructure
             //sort
             drInstances = drInstances.AsQueryable().OrderBy(t => t.Order).ToList();
             foreach (var dependencyRegistrar in drInstances)
-                dependencyRegistrar.Register(builder, typeFinder,config);
+                dependencyRegistrar.Register(builder, typeFinder, config);
             //builder.Update(container);
 
 

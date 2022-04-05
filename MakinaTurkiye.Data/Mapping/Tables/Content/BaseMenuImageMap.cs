@@ -4,7 +4,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Content
 {
-    public class BaseMenuImageMap:EntityTypeConfiguration<BaseMenuImage>
+    public class BaseMenuImageMap : EntityTypeConfiguration<BaseMenuImage>
     {
         public BaseMenuImageMap()
         {

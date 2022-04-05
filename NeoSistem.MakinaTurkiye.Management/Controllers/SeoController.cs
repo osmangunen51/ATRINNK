@@ -16,7 +16,7 @@
 
         #endregion
 
-        static Data.Seo dataSeo = null; 
+        static Data.Seo dataSeo = null;
         static ICollection<SeoModel> collection = null;
 
         #region Methods
@@ -115,8 +115,8 @@
                 bool hasRecord = seo.LoadEntity(id);
                 if (hasRecord)
                 {
-                  
-                  
+
+
                     UpdateClass(model, seo);
                     seo.SeoId = id;
                     seo.Action = EnterpriseEntity.Business.EntityAction.Update;
@@ -126,7 +126,7 @@
             }
             return View(model);
         }
-       
+
         #endregion
 
     }

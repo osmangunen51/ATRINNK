@@ -1,5 +1,7 @@
-﻿namespace WebPWrapper.Encoder {
-    public enum TransparentProcesses {
+﻿namespace WebPWrapper.Encoder
+{
+    public enum TransparentProcesses
+    {
         /// <summary>
         /// 維持原樣
         /// </summary>

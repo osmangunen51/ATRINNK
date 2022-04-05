@@ -12,6 +12,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string MemberName { get; set; }
         public string MemberSurname { get; set; }
         public List<string> MemberEmails { get; set; }
-    
+
     }
 }

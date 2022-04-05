@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Checkouts
 {
-    public class OrderDescription:BaseEntity
+    public class OrderDescription : BaseEntity
     {
         public int OrderDescriptionId { get; set; }
         public int OrderId { get; set; }

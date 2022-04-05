@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Common
 {
-    public class Locality:BaseEntity
+    public class Locality : BaseEntity
     {
         public int LocalityId { get; set; }
         public Nullable<int> CountryId { get; set; }

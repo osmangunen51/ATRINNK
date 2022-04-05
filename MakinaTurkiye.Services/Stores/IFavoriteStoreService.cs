@@ -1,5 +1,4 @@
-﻿using MakinaTurkiye.Core;
-using MakinaTurkiye.Entities.Tables.Stores;
+﻿using MakinaTurkiye.Entities.Tables.Stores;
 using System.Collections.Generic;
 
 namespace MakinaTurkiye.Services.Stores

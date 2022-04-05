@@ -1,8 +1,4 @@
-﻿using MakinaTurkiye.Entities.Tables.Logs;
-using MakinaTurkiye.Entities.Tables.Members;
-using MakinaTurkiye.Entities.Tables.Messages;
-using MakinaTurkiye.Entities.Tables.Settings;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +9,7 @@ namespace MakinaTurkiye.Entities.Tables.Stores
 
         //private ICollection<StoreChangeHistory> _storechangeHistories;
         private ICollection<StoreActivityCategory> _storeActivityCategories;
-        
+
         //private ICollection<DealerBrand> _dealerBrands;
         //private ICollection<WhatsappLog> _whatsaooLogs;
         //private ICollection<StoreNew> _storeNews;

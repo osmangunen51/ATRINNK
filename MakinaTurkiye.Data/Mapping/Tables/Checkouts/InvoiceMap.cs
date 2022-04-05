@@ -5,9 +5,9 @@ namespace MakinaTurkiye.Data.Mapping.Tables.Checkouts
 {
     public class InvoiceMap : EntityTypeConfiguration<Invoice>
     {
-       public InvoiceMap()
+        public InvoiceMap()
         {
-            this.HasKey(i=>i.InvoiceId);
+            this.HasKey(i => i.InvoiceId);
             this.Ignore(i => i.Id);
 
         }

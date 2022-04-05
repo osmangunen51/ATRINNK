@@ -7,23 +7,23 @@
     using System.Data;
 
     public class News : BusinessDataEntity
-  {
-
-    public DataTable GetNewsTopByTopCount(byte NewsCount)
     {
-      var prm = new HashSet<IDataParameter> 
+
+        public DataTable GetNewsTopByTopCount(byte NewsCount)
+        {
+            var prm = new HashSet<IDataParameter>
       {
         NewsCount.InSqlParameter("NewsCount")
       };
 
-      DataTable dt = ExecuteDataSet("spNewsGetItemsByNewsTopCount", prm).Tables[0];
-      return dt;
-    }
+            DataTable dt = ExecuteDataSet("spNewsGetItemsByNewsTopCount", prm).Tables[0];
+            return dt;
+        }
 
-    public DataTable Search(ref int TotalRecord, int PageDimension, int Page, string Where, string OrderName, string Order)
-    {
-      var prms = new List<IDataParameter> 
-      { 
+        public DataTable Search(ref int TotalRecord, int PageDimension, int Page, string Where, string OrderName, string Order)
+        {
+            var prms = new List<IDataParameter>
+      {
         TotalRecord.InOutSqlParameter("TotalRecord"),
         PageDimension.InSqlParameter("PageDimension"),
         Page.InSqlParameter("Page"),
@@ -32,10 +32,10 @@
         Order.InSqlParameter("Order", SqlDbType.NVarChar)
       };
 
-      DataTable dt = ExecuteDataSet("spNewsSearch", prms).Tables[0];
-      TotalRecord = prms[0].Value.ToInt32();
-      return dt;
-    }
+            DataTable dt = ExecuteDataSet("spNewsSearch", prms).Tables[0];
+            TotalRecord = prms[0].Value.ToInt32();
+            return dt;
+        }
 
-  }
+    }
 }

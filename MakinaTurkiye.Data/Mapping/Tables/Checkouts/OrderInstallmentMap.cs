@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Checkouts
 {
-    public class OrderInstallmentMap:EntityTypeConfiguration<OrderInstallment>
+    public class OrderInstallmentMap : EntityTypeConfiguration<OrderInstallment>
     {
         public OrderInstallmentMap()
         {

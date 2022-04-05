@@ -13,6 +13,6 @@ namespace MakinaTurkiye.Services.Common
 
         void InsertPhoneChangeHistoryForPhone(Phone phone);
 
-        void DeletePhoneChangeHistory(PhoneChangeHistory phoneChangeHistory); 
+        void DeletePhoneChangeHistory(PhoneChangeHistory phoneChangeHistory);
     }
 }

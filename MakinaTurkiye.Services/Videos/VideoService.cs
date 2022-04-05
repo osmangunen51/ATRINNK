@@ -45,10 +45,10 @@ namespace MakinaTurkiye.Services.Videos
 
         #region Ctor
 
-        public VideoService(IDbContext dbContext, IDataProvider dataProvider, 
-            IRepository<Video> videoRepository, 
-            ICacheManager cacheManager, 
-            ICategoryService categoryService): base(cacheManager)
+        public VideoService(IDbContext dbContext, IDataProvider dataProvider,
+            IRepository<Video> videoRepository,
+            ICacheManager cacheManager,
+            ICategoryService categoryService) : base(cacheManager)
         {
             this._dbContext = dbContext;
             this._dataProvider = dataProvider;
@@ -64,13 +64,13 @@ namespace MakinaTurkiye.Services.Videos
 
         private void RemoveVideoCache(Video video)
         {
-            if(video.ProductId>0)
+            if (video.ProductId > 0)
             {
                 string productIdKey = string.Format(VIDEOS_BY_PRODUCT_ID_KEY, video.ProductId);
                 _cacheManager.Remove(productIdKey);
             }
 
-            if(video.StoreMainPartyId>0)
+            if (video.StoreMainPartyId > 0)
             {
                 string patternKey = string.Format(VIDEOS_STOREMAINPARTY_PATTERN, video.StoreMainPartyId);
                 _cacheManager.RemoveByPattern(patternKey);
@@ -139,7 +139,7 @@ namespace MakinaTurkiye.Services.Videos
         public IList<VideoCategoryResult> GetSPVideoCategoryByCategoryParentIdNew(int categoryParentId = 0)
         {
             string key = string.Format(VIDEOS_VIDEO_CATEGORY_BY_CATEGORY_PARENT_ID_KEY, categoryParentId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var pCategoryParentId = _dataProvider.GetParameter();
                 pCategoryParentId.ParameterName = "CategoryParentId";
@@ -154,7 +154,7 @@ namespace MakinaTurkiye.Services.Videos
         {
             string key = string.Format(VIDEOS_SP_CATEGORY_ID_KEY, categoryId, pageIndex, pageSize);
 
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var pCategoryId = _dataProvider.GetParameter();
                 pCategoryId.ParameterName = "CategoryId";
@@ -189,7 +189,7 @@ namespace MakinaTurkiye.Services.Videos
         {
 
             string key = string.Format(VIDEOS_SP_OTHER_VIDEO_BY_CATEGORY_ID_KEY, categoryId, topCount, selectedCategoryId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
 
                 var pCategoryId = _dataProvider.GetParameter();
@@ -217,7 +217,7 @@ namespace MakinaTurkiye.Services.Videos
         {
 
             string key = string.Format(VIDEOS_SP_BY_SEARCH_TEXT_KEY, searchText, categoryId, pageSize, pageIndex);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var pSearchText = _dataProvider.GetParameter();
                 pSearchText.ParameterName = "SearchText";
@@ -256,7 +256,7 @@ namespace MakinaTurkiye.Services.Videos
         public IList<ShowOnShowcaseVideoResult> GetSPShowOnShowcaseVideos()
         {
             string key = string.Format(VIDEOS_SP_SHOWONSHOWCASE_KEY);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var showOnShowcaseVideos = _dbContext.SqlQuery<ShowOnShowcaseVideoResult>("SP_GetShowOnShowcaseVideo").ToList();
                 return showOnShowcaseVideos;
@@ -275,16 +275,16 @@ namespace MakinaTurkiye.Services.Videos
             return showOnShowcaseVideos;
         }
 
-        public Video GetVideoByVideoId(int videoId,bool showHidden=false)
+        public Video GetVideoByVideoId(int videoId, bool showHidden = false)
         {
 
-            string key = string.Format(VIDEOS_BY_VIDEO_ID_KEY,videoId);
-            return _cacheManager.Get(key, () => 
+            string key = string.Format(VIDEOS_BY_VIDEO_ID_KEY, videoId);
+            return _cacheManager.Get(key, () =>
             {
                 var query = _videoRepository.Table;
 
                 if (!showHidden)
-                    query = query.Where(v => v.Active==true);
+                    query = query.Where(v => v.Active == true);
 
                 query = query.Include(v => v.Product);
                 query = query.Include(v => v.Product.Brand);
@@ -326,12 +326,12 @@ namespace MakinaTurkiye.Services.Videos
             return productAndStoreDetails.FirstOrDefault();
         }
 
-        public IList<VideoResult> GetSPVideoByMainPartyIdAndCategoryId(int mainPartyId,int categoryId)
+        public IList<VideoResult> GetSPVideoByMainPartyIdAndCategoryId(int mainPartyId, int categoryId)
         {
             if (mainPartyId == 0)
                 throw new ArgumentNullException("mainPartyId");
 
-            string key = string.Format(VIDEOS_SP_MAINPARTY_ID_KEY, mainPartyId,categoryId);
+            string key = string.Format(VIDEOS_SP_MAINPARTY_ID_KEY, mainPartyId, categoryId);
             return _cacheManager.Get(key, () =>
             {
                 var pMainPartyId = _dataProvider.GetParameter();
@@ -349,17 +349,17 @@ namespace MakinaTurkiye.Services.Videos
             });
         }
 
-        public List<Video> GetVideoByStoreMainPartyId(int storeMainPartyId, bool showHidden=false)
+        public List<Video> GetVideoByStoreMainPartyId(int storeMainPartyId, bool showHidden = false)
         {
             if (storeMainPartyId == 0)
                 throw new ArgumentNullException("storeMainPartyId");
 
-            string key = string.Format(VIDEOS_STOREMAINPARTY_ID_KEY, storeMainPartyId,showHidden);
-            return _cacheManager.Get(key, () => 
+            string key = string.Format(VIDEOS_STOREMAINPARTY_ID_KEY, storeMainPartyId, showHidden);
+            return _cacheManager.Get(key, () =>
             {
                 var query = _videoRepository.Table;
 
-                if(!showHidden)
+                if (!showHidden)
                     query = query.Where(v => v.Active == true);
 
                 query = query.Where(x => x.StoreMainPartyId == storeMainPartyId);

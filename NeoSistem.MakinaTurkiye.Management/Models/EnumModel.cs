@@ -336,10 +336,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         StoreProfileHomeDecriptionTemplate = 29,
         PaymentBank = 30,
         SeoDescriptionTitle = 31,
-        CategoryFooterTopDescription=32,
+        CategoryFooterTopDescription = 32,
         PacketSalesFooter = 33,
         SubConstant = 34,
-        FirmaKatsayilar=35
+        FirmaKatsayilar = 35
     }
     public enum MobileMessageType : byte
     {

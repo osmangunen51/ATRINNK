@@ -22,6 +22,6 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Videos
         public string ModelName { get; set; }
         public byte? Minute { get; set; }
         public byte? Second { get; set; }
-     
+
     }
 }

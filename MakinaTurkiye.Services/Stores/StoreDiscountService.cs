@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
 {
-    public class StoreDiscountService:IStoreDiscountService
+    public class StoreDiscountService : IStoreDiscountService
     {
         IRepository<StoreDiscount> _storeDiscountRepository;
 

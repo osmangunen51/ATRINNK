@@ -195,7 +195,7 @@
                 DopingPacketDay = model.DopingPacketDay,
                 IsDopingPacket = model.IsDopingPacket,
                 ShowAdmin = model.ShowAdmin,
-                IsTryPacket=model.IsTryPacket
+                IsTryPacket = model.IsTryPacket
             };
             entities.Packets.AddObject(packet);
             entities.SaveChanges();

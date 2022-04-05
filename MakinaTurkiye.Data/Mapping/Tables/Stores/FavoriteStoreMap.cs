@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Stores
 {
-    public class FavoriteStoreMap: EntityTypeConfiguration<FavoriteStore>
+    public class FavoriteStoreMap : EntityTypeConfiguration<FavoriteStore>
     {
         public FavoriteStoreMap()
         {

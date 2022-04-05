@@ -1,11 +1,10 @@
-﻿using MakinaTurkiye.Core.Infrastructure;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Utilities.MailHelpers;
 using Quartz;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Tasks.Messages.Tasks
@@ -41,8 +40,7 @@ namespace MakinaTurkiye.Tasks.Messages.Tasks
                 string toEmail = "sistem@anexxa.net";
 
                 mailContent = mailContent + "<br> ürünlerinin anasayfa sektör ürünlerinde süresi bitmiştir. Lütfen ürünleri kontrol edin veya kaldırın.";
-                MailHelper mailHelper = new MailHelper(title, mailContent,
-       "makinaturkiye@makinaturkiye.com", toEmail, "haciosman7777", "Makinaturkiye Sistem Mesajı");
+                MailHelper mailHelper = new MailHelper(title, mailContent, AppSettings.MailUserName, toEmail, AppSettings.MailPassword, "Makinaturkiye Sistem Mesajı", AppSettings.MailHost, AppSettings.MailPort, AppSettings.MailSsl);
 
                 mailHelper.Send();
 

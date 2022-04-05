@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Settings
 {
-    public class Setting:BaseEntity
+    public class Setting : BaseEntity
     {
 
         private ICollection<MemberSetting> _memberSettings;

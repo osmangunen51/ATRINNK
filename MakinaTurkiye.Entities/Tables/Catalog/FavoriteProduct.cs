@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Catalog
 {
-    public class FavoriteProduct: BaseEntity
+    public class FavoriteProduct : BaseEntity
     {
         public int FavoriteProductId { get; set; }
 
@@ -10,6 +10,6 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
 
         public int? ProductId { get; set; }
 
-        public  DateTime? CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
     }
 }

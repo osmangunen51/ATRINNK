@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MakinaTurkiye.Entities.Tables.Users
 {
-    public class Help:BaseEntity
+    public class Help : BaseEntity
     {
         public int HelpId { get; set; }
         [MaxLength(250)]
@@ -12,6 +12,6 @@ namespace MakinaTurkiye.Entities.Tables.Users
         [Column(TypeName = "text")]
         public string Content { get; set; }
         public DateTime RecordDate { get; set; }
-   
+
     }
 }

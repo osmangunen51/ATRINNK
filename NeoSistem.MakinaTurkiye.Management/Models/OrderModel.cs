@@ -6,7 +6,7 @@
         public int OrderId { get; set; }
         public int MainPartyId { get; set; }
         public int PacketId { get; set; }
-    
+
         public byte AccountId { get; set; }
         public string OrderCode { get; set; }
         public string OrderNo { get; set; }

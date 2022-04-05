@@ -2,11 +2,11 @@
 
 namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
 {
-    public static  class TopCategoryResultExtensions
+    public static class TopCategoryResultExtensions
     {
         public static string GetUnifiedCategories(this IList<TopCategoryResult> topCategories)
         {
-            if (topCategories.Count==0)
+            if (topCategories.Count == 0)
                 return string.Empty;
 
             string result = string.Empty;

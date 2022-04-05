@@ -37,9 +37,9 @@ namespace MakinaTurkiye.Entities.Tables.Stores
         public string MersisNo { get; set; }
         public string TradeRegistrNo { get; set; }
         public DateTime UpdatedDated { get; set; }
-  
+
         public virtual Store Store { get; set; }
 
-       
+
     }
 }

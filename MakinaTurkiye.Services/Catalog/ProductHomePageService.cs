@@ -7,12 +7,12 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Catalog
 {
-    public class ProductHomePageService:IProductHomePageService
+    public class ProductHomePageService : IProductHomePageService
     {
         #region Constants
 
         private const string PRODUCTHOMEPAGES_BY_CATEGORY_ID_KEY = "makinaturkiye.producthomepage.bycategoryId-{0}";
-        
+
 
         #endregion
 
@@ -20,7 +20,7 @@ namespace MakinaTurkiye.Services.Catalog
         IRepository<ProductHomePage> _productHomePageRepository;
         ICacheManager _cacheManager;
 
-        public ProductHomePageService(IRepository<ProductHomePage> productHomePageRepository, 
+        public ProductHomePageService(IRepository<ProductHomePage> productHomePageRepository,
                         ICacheManager cacheManager)
         {
             this._productHomePageRepository = productHomePageRepository;
@@ -42,7 +42,7 @@ namespace MakinaTurkiye.Services.Catalog
             return query.ToList();
         }
 
-        public IList<ProductHomePage> GetProductHomePagesByCategoryId(int categoryId, bool showHidden=false)
+        public IList<ProductHomePage> GetProductHomePagesByCategoryId(int categoryId, bool showHidden = false)
         {
             if (categoryId <= 0)
                 throw new ArgumentNullException("categoryId");

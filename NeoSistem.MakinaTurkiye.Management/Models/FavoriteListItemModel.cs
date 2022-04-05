@@ -4,8 +4,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
 {
     public class FavoriteListItemModel
     {
-       
-     
+
+
         public int ProductId { get; set; }
         public string ProductNo { get; set; }
         public string ProductName { get; set; }

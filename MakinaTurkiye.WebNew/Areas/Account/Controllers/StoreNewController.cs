@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Entities.Tables.Stores;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Services.Stores;
@@ -12,7 +13,6 @@ using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.StoreNews;
 using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 
 using System;
 using System.Drawing;

@@ -6,12 +6,12 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Users
 {
-    public class HelpService:IHelpService
+    public class HelpService : IHelpService
     {
         private IRepository<Help> _helpRepository;
         private IRepository<WebSiteError> _webSiteErrors;
 
-       public HelpService(IRepository<Help> helpRepository, IRepository<WebSiteError> webSiteErrors)
+        public HelpService(IRepository<Help> helpRepository, IRepository<WebSiteError> webSiteErrors)
         {
             this._helpRepository = helpRepository;
             this._webSiteErrors = webSiteErrors;
@@ -38,10 +38,10 @@ namespace MakinaTurkiye.Services.Users
             var query = _helpRepository.Table;
             return query.ToList();
         }
-        public IList<Help> GetHelpByForPaging(int takeValue,int skipValue )
+        public IList<Help> GetHelpByForPaging(int takeValue, int skipValue)
         {
             var query = _helpRepository.Table;
-            return query.OrderBy(x=>x.HelpId).Skip(skipValue).Take(takeValue).ToList();
+            return query.OrderBy(x => x.HelpId).Skip(skipValue).Take(takeValue).ToList();
         }
 
         public Help GetHelpByHelpId(int helpId)

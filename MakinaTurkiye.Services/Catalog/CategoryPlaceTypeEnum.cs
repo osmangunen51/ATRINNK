@@ -2,8 +2,8 @@
 {
     public enum CategoryPlaceTypeEnum : byte
     {
-        Country =1,
-        City=2,
-        Locality=3
+        Country = 1,
+        City = 2,
+        Locality = 3
     }
 }

@@ -1,5 +1,7 @@
-﻿namespace WebPWrapper.Encoder {
-    public enum PresetProfiles {
+﻿namespace WebPWrapper.Encoder
+{
+    public enum PresetProfiles
+    {
         Default,
         Photo,
         Picture,

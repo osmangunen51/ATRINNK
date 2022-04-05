@@ -50,7 +50,7 @@ namespace MakinaTurkiye.Services.Members
             return _dbContext.SqlQuery<MemberDescriptionForStore>("SP_DescriptionGetByMainPartyIdDescDate @Colname, @MainPartyId", pOrderDesc, pMainPartyId).ToList();
         }
 
-        public IList<MemberDescriptionForStore> GetMemberDescByOnDate(int userId, int userGroupId, int pageDimension, int pageIndex, int orderBy, int consttandtId,  out int totalRecord)
+        public IList<MemberDescriptionForStore> GetMemberDescByOnDate(int userId, int userGroupId, int pageDimension, int pageIndex, int orderBy, int consttandtId, out int totalRecord)
         {
 
             var pUserId = _dataProvider.GetParameter();
@@ -89,7 +89,7 @@ namespace MakinaTurkiye.Services.Members
             pTotalRecords.Direction = ParameterDirection.Output;
 
 
-            var descripitons = _dbContext.SqlQuery<MemberDescriptionForStore>("SP_GETMEMBERDESCBYONDATE @UserId, @UserGroupId, @PageIndex, @PageDimension,@OrderBy, @ConstantId, @TotalRecord output", pUserId, pUserGroupId, pPageIndex, pPageSize,pOrderBy, pConstantId, pTotalRecords).ToList();
+            var descripitons = _dbContext.SqlQuery<MemberDescriptionForStore>("SP_GETMEMBERDESCBYONDATE @UserId, @UserGroupId, @PageIndex, @PageDimension,@OrderBy, @ConstantId, @TotalRecord output", pUserId, pUserGroupId, pPageIndex, pPageSize, pOrderBy, pConstantId, pTotalRecords).ToList();
             totalRecord = (pTotalRecords.Value != DBNull.Value) ? Convert.ToInt32(pTotalRecords.Value) : 0;
             return descripitons;
         }

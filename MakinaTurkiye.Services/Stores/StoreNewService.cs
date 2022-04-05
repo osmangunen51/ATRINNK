@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
 {
-    public class StoreNewService: BaseService, IStoreNewService
+    public class StoreNewService : BaseService, IStoreNewService
     {
 
         #region Constants
@@ -47,9 +47,9 @@ namespace MakinaTurkiye.Services.Stores
         public IList<StoreNew> GetAllStoreNews(byte newType)
         {
             var query = _storeNewRepository.Table;
-     
-            return query.Where(x=>x.NewType==newType).ToList();
-    
+
+            return query.Where(x => x.NewType == newType).ToList();
+
         }
 
         public StoreNew GetStoreNewByStoreNewId(int storeNewId)
@@ -69,10 +69,10 @@ namespace MakinaTurkiye.Services.Stores
             var query = _storeNewRepository.Table;
 
 
-            int totalRecord = query.Where(x=>x.Active==true).Count();
+            int totalRecord = query.Where(x => x.Active == true).Count();
 
-            query = query.Where(x=>x.Active==true && x.NewType==newType)
-                .OrderByDescending(x=>x.UpdateDate).Skip(page * pageDimension - pageDimension).Take(pageDimension);
+            query = query.Where(x => x.Active == true && x.NewType == newType)
+                .OrderByDescending(x => x.UpdateDate).Skip(page * pageDimension - pageDimension).Take(pageDimension);
 
             var storeNews = query.ToList();
             return new PagedList<StoreNew>(storeNews, page, pageDimension, totalRecord);
@@ -84,10 +84,10 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentNullException("storeMainPartyId");
 
             string key = string.Format(STORENEWS_BY_STORE_MAIN_PARTY_ID_KEY, storeMainPartyId, newType);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _storeNewRepository.Table;
-         
+
                 query = query.Where(x => x.StoreMainPartyId == storeMainPartyId && x.NewType == (byte)newType);
 
                 var storeNews = query.ToList();
@@ -99,7 +99,7 @@ namespace MakinaTurkiye.Services.Stores
         {
             var query = _storeNewRepository.Table;
 
-            query = query.Where(x=>x.Active==true && x.NewType==newType).OrderByDescending(x => x.UpdateDate).Skip(0).Take(top);
+            query = query.Where(x => x.Active == true && x.NewType == newType).OrderByDescending(x => x.UpdateDate).Skip(0).Take(top);
             return query.ToList();
         }
 

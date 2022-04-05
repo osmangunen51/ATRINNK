@@ -8,7 +8,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public BulletinMemberModel()
         {
             this.Categories = new List<CategoryModel>();
-    
+
         }
         public int BulletinMemberId { get; set; }
         public List<CategoryModel> Categories { get; set; }
@@ -16,6 +16,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string MemberSurname { get; set; }
         public string Email { get; set; }
         public DateTime RecordDate { get; set; }
-       
+
     }
 }

@@ -26,7 +26,7 @@ namespace MakinaTurkiye.Services.Common
 
         #region Ctor
 
-        public ConstantService(IRepository<Constant> constantRepository, ICacheManager cacheManager): base(cacheManager)
+        public ConstantService(IRepository<Constant> constantRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             _constantRepository = constantRepository;
             _cacheManager = cacheManager;
@@ -70,14 +70,14 @@ namespace MakinaTurkiye.Services.Common
             constantIdsText = constantIdsText.Substring(0, constantIdsText.Length - 1);
 
             string key = string.Format(CONSTANTS_BY_CONSTANT_IDS_KEY, constantIdsText);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _constantRepository.Table;
                 query = query.Where(c => constantIds.Contains(c.ConstantId));
                 return query.ToList();
             });
         }
-         
+
         public List<Constant> GetConstantByConstantType(ConstantTypeEnum constantType)
         {
             if (constantType == 0)
@@ -87,7 +87,7 @@ namespace MakinaTurkiye.Services.Common
             return _cacheManager.Get(key, () =>
             {
                 var query = _constantRepository.Table;
-                query = query.Where(c => c.ConstantType ==(byte)constantType);
+                query = query.Where(c => c.ConstantType == (byte)constantType);
                 return query.ToList();
             });
         }

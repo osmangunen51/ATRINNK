@@ -1,5 +1,4 @@
-﻿using MakinaTurkiye.Core.Data;
-using MakinaTurkiye.Data;
+﻿using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using System;
 using System.Collections.Generic;
@@ -12,26 +11,26 @@ namespace MakinaTurkiye.Services.Catalog
     public class ProductStatisticService : IProductStatisticService
     {
         private readonly ProductStatisticRepository _productStatisticRepository;
-    
+
 
         public ProductStatisticService(ProductStatisticRepository productStatisticRepository)
         {
             this._productStatisticRepository = productStatisticRepository;
         }
 
-        public List<ProductStatistic> GetProductStatistics(int page,int size)
+        public List<ProductStatistic> GetProductStatistics(int page, int size)
         {
-            var query = _productStatisticRepository.FindAll().OrderByDescending(x=>x.idpos).Skip((page * size) - size).Take(size);
+            var query = _productStatisticRepository.FindAll().OrderByDescending(x => x.idpos).Skip((page * size) - size).Take(size);
             return query.ToList();
         }
 
-        public ProductStatistic GetProductStatisticByProductIdAndIpAdressAndDate(int productId, string ipAdress,DateTime date,int hour) 
+        public ProductStatistic GetProductStatisticByProductIdAndIpAdressAndDate(int productId, string ipAdress, DateTime date, int hour)
         {
             if (productId == 0)
                 throw new ArgumentNullException("productId");
 
-        
-            var query = _productStatisticRepository.FindAll().Where(x => x.IpAdress == ipAdress && x.ProductId == productId && x.Hour==hour && x.RecordDate.Date==date.Date);
+
+            var query = _productStatisticRepository.FindAll().Where(x => x.IpAdress == ipAdress && x.ProductId == productId && x.Hour == hour && x.RecordDate.Date == date.Date);
 
             return query.FirstOrDefault();
         }
@@ -40,7 +39,7 @@ namespace MakinaTurkiye.Services.Catalog
         {
             var query = _productStatisticRepository.FindByID(statisticId);
             return query;
-        
+
         }
 
         public List<ProductStatistic> GetProductStatisticsByProductId(int productId)
@@ -52,7 +51,7 @@ namespace MakinaTurkiye.Services.Catalog
             return query.ToList();
         }
 
-        public List<ProductStatistic> GetProductStatisticsByMemberMainPartyIdAndDate(int memberMainPartyId, DateTime beginDate,DateTime endDate, bool forOneDay)
+        public List<ProductStatistic> GetProductStatisticsByMemberMainPartyIdAndDate(int memberMainPartyId, DateTime beginDate, DateTime endDate, bool forOneDay)
         {
             /*
             var pMainPartyId = _dataProvider.GetParameter();
@@ -80,7 +79,7 @@ namespace MakinaTurkiye.Services.Catalog
             return productStatistics;
    */
 
-           return  _productStatisticRepository.GetProductStatisticsForReport(memberMainPartyId, beginDate, endDate, forOneDay);
+            return _productStatisticRepository.GetProductStatisticsForReport(memberMainPartyId, beginDate, endDate, forOneDay);
 
         }
 
@@ -89,8 +88,8 @@ namespace MakinaTurkiye.Services.Catalog
             if (productStatistic == null)
                 throw new ArgumentNullException("productStatistic");
 
-          return  _productStatisticRepository.Add(productStatistic);
-        
+            return _productStatisticRepository.Add(productStatistic);
+
         }
 
         public void UpdateProductStatistic(ProductStatistic productStatistic)

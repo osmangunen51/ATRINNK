@@ -209,7 +209,7 @@ namespace MakinaTurkiye.Api.View
     [Flags]
     public enum PhoneType : byte
     {
-        Phone=0,
+        Phone = 0,
         Fax = 1,
         Gsm = 2,
         Whatsapp = 3

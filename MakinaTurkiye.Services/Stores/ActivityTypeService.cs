@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
 {
-    public class ActivityTypeService: BaseService, IActivityTypeService
+    public class ActivityTypeService : BaseService, IActivityTypeService
     {
 
         #region Constants
@@ -38,7 +38,7 @@ namespace MakinaTurkiye.Services.Stores
         public IList<ActivityType> GetAllActivityTypes()
         {
             string key = string.Format(ACTIVITYTYPES_BY_ALL_KEY);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _activityTypeRepository.Table;
                 query = query.OrderBy(at => at.Order);
@@ -50,10 +50,10 @@ namespace MakinaTurkiye.Services.Stores
 
         public ActivityType GetActivityTypeByActivityTypeId(byte activityTypeId)
         {
-           if (activityTypeId == 0)
-               throw new ArgumentNullException("activityTypeId");
-           var query = _activityTypeRepository.Table;
-           return query.FirstOrDefault(x => x.ActivityTypeId == activityTypeId);
+            if (activityTypeId == 0)
+                throw new ArgumentNullException("activityTypeId");
+            var query = _activityTypeRepository.Table;
+            return query.FirstOrDefault(x => x.ActivityTypeId == activityTypeId);
 
         }
 

@@ -32,7 +32,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     if (entityTypeId == (byte)SeoDefinitionType.Category)
                     {
                         string categoryUrlName = !string.IsNullOrEmpty(categoryKeyword.CategoryContentTitle) ? categoryKeyword.CategoryContentTitle : categoryKeyword.CategoryName;
-                        Url = "https://www.makinaturkiye.com/"+ UrlBuilder.ToUrl(categoryUrlName + "-c-" + categoryKeyword.CategoryId);
+                        Url = "https://www.makinaturkiye.com/" + UrlBuilder.ToUrl(categoryUrlName + "-c-" + categoryKeyword.CategoryId);
                     }
                     else
                     {
@@ -54,7 +54,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         else
                             storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryKeyword.CategoryName, CategorySyntaxType.Store);
 
-                        Url = "https://magaza.makinaturkiye.com/"+ UrlBuilder.ToUrl(storePageTitle+"-sc-"+ categoryKeyword.CategoryId);
+                        Url = "https://magaza.makinaturkiye.com/" + UrlBuilder.ToUrl(storePageTitle + "-sc-" + categoryKeyword.CategoryId);
                     }
                     model.KeywordAnalysis = Analyzer.GetUrlAnalizWithUrl(Url);
                 }

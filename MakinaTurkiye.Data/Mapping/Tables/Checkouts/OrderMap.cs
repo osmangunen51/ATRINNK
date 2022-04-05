@@ -8,7 +8,7 @@ namespace MakinaTurkiye.Data.Mapping.Tables.Checkouts
         public OrderMap()
         {
             this.ToTable("Order");
-            this.Ignore(o=>o.Id);
+            this.Ignore(o => o.Id);
             this.HasKey(o => o.OrderId);
 
             //TODO:İlişkilendirmeler yapılacak

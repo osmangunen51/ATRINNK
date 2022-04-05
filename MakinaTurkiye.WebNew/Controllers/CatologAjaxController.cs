@@ -34,7 +34,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
     [AllowAnonymous]
     [AllowSameSite]
-    public class CatologAjaxController : Controller
+    public class CatologAjaxController : BaseController
     {
         IProductComplainService _productComplainService;
         IMemberService _memberService;
@@ -258,13 +258,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mailb.Body = bilgimakinaicin;
                     mailb.IsBodyHtml = true;
                     mailb.Priority = MailPriority.Normal;
-                    SmtpClient scr1 = new SmtpClient();
-                    scr1.Port = 587;
-                    scr1.Host = "smtp.gmail.com";
-                    scr1.EnableSsl = true;
-                    scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-                    scr1.Send(mailb);
-
+                    this.SendMail(mailb);
                     #endregion
                     return Json(true, JsonRequestBehavior.AllowGet);
                 }

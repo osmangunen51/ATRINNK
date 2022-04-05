@@ -1,8 +1,6 @@
-﻿using System.Collections.Generic;
-
-namespace MakinaTurkiye.Entities.Tables.Stores
+﻿namespace MakinaTurkiye.Entities.Tables.Stores
 {
-    public class ActivityType:BaseEntity
+    public class ActivityType : BaseEntity
     {
         //private ICollection<StoreActivityType> _storeActivityTypes;
 
@@ -16,6 +14,6 @@ namespace MakinaTurkiye.Entities.Tables.Stores
         public string ActivityName { get; set; }
         public byte? Order { get; set; }
 
-       
+
     }
 }

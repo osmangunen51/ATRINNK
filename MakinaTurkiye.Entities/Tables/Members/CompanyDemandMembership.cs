@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Members
 {
-    public class CompanyDemandMembership:BaseEntity
+    public class CompanyDemandMembership : BaseEntity
     {
         public int CompanyDemandMembershipId { get; set; }
         public string NameSurname { get; set; }
@@ -12,6 +12,6 @@
         public int Status { get; set; }
         public string DemandDate { get; set; }
         public bool isDemandForPacket { get; set; }
-        
+
     }
 }

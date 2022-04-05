@@ -11,12 +11,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
             this.AvairableCategories = new List<SelectListItem>();
             this.Stores = new List<SelectListItem>();
         }
-       
+
         public List<ProductDopingListModel> DopingModels { get; set; }
         public List<SelectListItem> AvairableCategories { get; set; }
         public List<SelectListItem> Stores { get; set; }
         public int SelectedCategoryId { get; set; }
         public int StoreMainPartyId { get; set; }
-  
+
     }
 }

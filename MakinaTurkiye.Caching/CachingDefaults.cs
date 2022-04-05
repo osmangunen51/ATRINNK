@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Caching
+﻿namespace MakinaTurkiye.Caching
 {
     /// <summary>
     /// Represents default values related to caching

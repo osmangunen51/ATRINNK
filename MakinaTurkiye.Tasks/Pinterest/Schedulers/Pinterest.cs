@@ -1,14 +1,8 @@
 ﻿using MakinaTurkiye.Core.Configuration;
 using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Tasks.Members.Tasks;
-using MakinaTurkiye.Tasks.Pinterest.Tasks;
 using Quartz;
 using Quartz.Impl;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Tasks.Pinterest.Schedulers
 {
@@ -37,7 +31,7 @@ namespace MakinaTurkiye.Tasks.Pinterest.Schedulers
                       )
                     .Build();
                 var result = await scheduler.ScheduleJob(job, trigger);
-            }           
+            }
         }
     }
 }

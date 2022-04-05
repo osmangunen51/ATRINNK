@@ -7,21 +7,21 @@
     using System.Data;
 
     public class FavoriteStore : BusinessDataEntity
-  {
-    public DataTable GetSearchWebByMainPartyId(ref int TotalRecord, int PageDimension, int Page, int MainPartyId)
     {
-      var prms = new List<IDataParameter> 
-      { 
-        TotalRecord.OutSqlParameter("TotalRecord"), 
+        public DataTable GetSearchWebByMainPartyId(ref int TotalRecord, int PageDimension, int Page, int MainPartyId)
+        {
+            var prms = new List<IDataParameter>
+      {
+        TotalRecord.OutSqlParameter("TotalRecord"),
         PageDimension.InSqlParameter("PageDimension"),
-        Page.InSqlParameter("Page"), 
+        Page.InSqlParameter("Page"),
         MainPartyId.InSqlParameter("MainPartyId")
       };
-      DataTable dt = ExecuteDataSet("spFavoriteStoreSearchByMainPartyId", prms).Tables[0];
-      TotalRecord = prms[0].Value.ToInt32();
+            DataTable dt = ExecuteDataSet("spFavoriteStoreSearchByMainPartyId", prms).Tables[0];
+            TotalRecord = prms[0].Value.ToInt32();
 
-      return dt;
+            return dt;
+        }
+
     }
-
-  }
 }

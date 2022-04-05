@@ -1,4 +1,5 @@
 ﻿using MakinaTurkiye.Caching;
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Services.Catalog;
@@ -16,7 +17,6 @@ using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
 using NeoSistem.MakinaTurkiye.Web.Models.Home;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

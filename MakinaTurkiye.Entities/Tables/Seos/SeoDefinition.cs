@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Seos
 {
-    public class SeoDefinition:BaseEntity
+    public class SeoDefinition : BaseEntity
     {
         public int SeoDefinitionId { get; set; }
         public int EntityId { get; set; }

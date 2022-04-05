@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MakinaTurkiye.Entities.Tables.Checkouts
 {
-    public class Order:BaseEntity
+    public class Order : BaseEntity
     {
         private ICollection<Payment> _payments;
         //private ICollection<ReturnInvoice> _returnInvoices;
@@ -12,9 +12,9 @@ namespace MakinaTurkiye.Entities.Tables.Checkouts
         public int MainPartyId { get; set; }
         public int PacketId { get; set; }
         public int? AuthorizedId { get; set; }
-        public byte ?AccountId { get; set; }
+        public byte? AccountId { get; set; }
         public int? ProductId { get; set; }
-        public Int16 ?CreditCardInstallmentId { get; set; }
+        public Int16? CreditCardInstallmentId { get; set; }
         public byte OrderType { get; set; }
         public string OrderCode { get; set; }
         public string OrderNo { get; set; }
@@ -27,12 +27,12 @@ namespace MakinaTurkiye.Entities.Tables.Checkouts
         public DateTime? OrderPacketEndDate { get; set; }
         public string StoreNameForInvoice { get; set; }
         public string EBillNumber { get; set; }
-        public bool ?InvoiceStatus { get; set; }
+        public bool? InvoiceStatus { get; set; }
         public string InvoiceNumber { get; set; }
         public bool? PriceCheck { get; set; }
         public string OrderDescription { get; set; }
         public string IyzicoPaymentId { get; set; }
-        public DateTime ? PayDate { get; set; }
+        public DateTime? PayDate { get; set; }
         public bool? SendedMail { get; set; }
         public bool? OrderCancelled { get; set; }
         public int? PacketDay { get; set; }

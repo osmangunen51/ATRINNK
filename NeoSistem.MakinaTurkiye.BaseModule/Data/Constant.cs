@@ -6,15 +6,15 @@
     using System.Data;
 
     public class Constant : BusinessDataEntity
-  {
-    public DataTable ConstantGetByConstantType(byte ConstantType)
     {
-      var prm = new List<IDataParameter> 
-      { 
+        public DataTable ConstantGetByConstantType(byte ConstantType)
+        {
+            var prm = new List<IDataParameter>
+      {
         ConstantType.InSqlParameter("ConstantType")
       };
-      return ExecuteDataSet("spConstantGetItemByConstantType", prm).Tables[0];
-    }
+            return ExecuteDataSet("spConstantGetItemByConstantType", prm).Tables[0];
+        }
 
-  }
+    }
 }

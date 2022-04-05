@@ -27,7 +27,7 @@ namespace MakinaTurkiye.Services.Media
 
         #region Ctor
 
-        public PictureService(IRepository<Picture> pictureService, ICacheManager cacheManager): base(cacheManager)
+        public PictureService(IRepository<Picture> pictureService, ICacheManager cacheManager) : base(cacheManager)
         {
             this._pictureService = pictureService;
             this._cacheManager = cacheManager;
@@ -63,7 +63,7 @@ namespace MakinaTurkiye.Services.Media
             return _cacheManager.Get(key, () =>
             {
                 var query = _pictureService.Table;
-                query = query.Where(p => p.ProductId == productId).OrderBy(p => p.PictureOrder).ThenBy(x=>x.PictureId);
+                query = query.Where(p => p.ProductId == productId).OrderBy(p => p.PictureOrder).ThenBy(x => x.PictureId);
                 return query.FirstOrDefault();
             });
         }
@@ -74,7 +74,7 @@ namespace MakinaTurkiye.Services.Media
                 return new List<Picture>();
 
             string key = string.Format(PICTURES_BY_PRODUCT_ID_KEY, productId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _pictureService.Table;
                 query = query.Where(p => p.ProductId == productId);

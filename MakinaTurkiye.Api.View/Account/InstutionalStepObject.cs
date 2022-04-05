@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Api.View.Account
+﻿namespace MakinaTurkiye.Api.View.Account
 {
     public class InstutionalStepObject
     {
@@ -31,7 +25,7 @@ namespace MakinaTurkiye.Api.View.Account
         public string TaxOffice { get; set; }
 
         public string[] StoreActivityCategoryIdList { get; set; }
-     
+
 
 
     }

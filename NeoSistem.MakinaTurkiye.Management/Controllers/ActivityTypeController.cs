@@ -14,7 +14,7 @@
 
         static ICollection<ActivityTypeModel> collection = null;
         public IActivityTypeService _activityTypeService;
-       
+
         public ActivityTypeController(IActivityTypeService activityTypeService)
         {
             _activityTypeService = activityTypeService;
@@ -56,7 +56,7 @@
                 var curActivityType = new Classes.ActivityType
                 {
                     ActivityName = model.ActivityName,
-                    Order=model.Order
+                    Order = model.Order
                 };
                 curActivityType.Save();
 
@@ -80,7 +80,7 @@
             PAGEID = PermissionPage.FaaliyetTipiDuzenle;
 
             var curActivityType = new Classes.ActivityType();
-           
+
             if (curActivityType.LoadEntity(id))
             {
                 var model = new ActivityTypeModel();
@@ -96,14 +96,14 @@
         [ValidateInput(false)]
         public ActionResult Edit(byte id, ActivityTypeModel model)
         {
-       
-                var activity = _activityTypeService.GetActivityTypeByActivityTypeId(id);
-                activity.ActivityName = model.ActivityName;
-                activity.Order = model.Order;
-                _activityTypeService.UpdateActivityType(activity);
-       
 
-            return RedirectToAction("Edit", new { id=id});
+            var activity = _activityTypeService.GetActivityTypeByActivityTypeId(id);
+            activity.ActivityName = model.ActivityName;
+            activity.Order = model.Order;
+            _activityTypeService.UpdateActivityType(activity);
+
+
+            return RedirectToAction("Edit", new { id = id });
         }
 
     }

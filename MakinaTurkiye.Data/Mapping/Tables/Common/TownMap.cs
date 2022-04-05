@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Common
 {
-    public class TownMap: EntityTypeConfiguration<Town>
+    public class TownMap : EntityTypeConfiguration<Town>
     {
         public TownMap()
         {

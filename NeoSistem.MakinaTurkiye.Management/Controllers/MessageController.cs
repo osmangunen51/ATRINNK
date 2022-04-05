@@ -24,16 +24,16 @@
         public IMemberStoreService _memberStoreService;
         public IStoreService _storeService;
         public IMessageService _messageService;
-        public MessageController(IMemberStoreService memberStoreService,IStoreService storeService,IMessageService messageService)
+        public MessageController(IMemberStoreService memberStoreService, IStoreService storeService, IMessageService messageService)
         {
             this._memberStoreService = memberStoreService;
-            this._storeService=storeService;
+            this._storeService = storeService;
             this._messageService = messageService;
         }
 
         static Data.Message dataMessage = null;
         static ICollection<MessageModel> collection = null;
-         
+
         #region Methods
 
         public ActionResult Index()
@@ -58,7 +58,7 @@
                         item.ToMainPartyId = store.MainPartyId;
                         item.ToSecondName = store.StoreShortName;
                     }
-                
+
                 }
 
             }
@@ -158,22 +158,22 @@
         public JsonResult UpdateSeen(string id)
         {
             //string[] id = ids.Split(',');
-        
-                int ID = Convert.ToInt32(id);
-                var message = entities.Messages.First(x => x.MessageId == ID);
-                var messageMainParty = entities.MessageMainParties.FirstOrDefault(x => x.MessageId == message.MessageId);
 
-                var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(messageMainParty.InOutMainPartyId);
-                if (memberStore != null)
+            int ID = Convert.ToInt32(id);
+            var message = entities.Messages.First(x => x.MessageId == ID);
+            var messageMainParty = entities.MessageMainParties.FirstOrDefault(x => x.MessageId == message.MessageId);
+
+            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(messageMainParty.InOutMainPartyId);
+            if (memberStore != null)
+            {
+                var messagesOld = from mw in entities.Messages join me in entities.MessageMainParties on mw.MessageId equals me.MessageId where me.InOutMainPartyId == messageMainParty.InOutMainPartyId select mw;
+                foreach (var oldMessage in messagesOld)
                 {
-                    var messagesOld = from mw in entities.Messages join me in entities.MessageMainParties on mw.MessageId equals me.MessageId where me.InOutMainPartyId == messageMainParty.InOutMainPartyId select mw;
-                    foreach (var oldMessage in messagesOld)
-                    {
-                        oldMessage.MessageSeenAdmin = true;
+                    oldMessage.MessageSeenAdmin = true;
 
-                    }
                 }
-                message.MessageSeenAdmin = true;
+            }
+            message.MessageSeenAdmin = true;
             entities.SaveChanges();
             return Json(true, JsonRequestBehavior.AllowGet);
         }

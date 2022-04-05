@@ -5,10 +5,10 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Members
     public class MemberDescriptionForStore
     {
         public int descId { get; set; }
-    
+
         public string Description { get; set; }
         public int? MainPartyId { get; set; }
-    
+
         public string Title { get; set; }
         public DateTime Date { get; set; }
         public DateTime? UpdateDate { get; set; }

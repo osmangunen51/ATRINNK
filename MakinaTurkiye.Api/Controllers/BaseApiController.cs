@@ -1,4 +1,8 @@
-﻿using System.Net.Http;
+﻿using MakinaTurkiye.Core;
+using System;
+using System.Net;
+using System.Net.Http;
+using System.Net.Mail;
 using System.ServiceModel.Channels;
 using System.Web;
 using System.Web.Http;
@@ -8,6 +12,30 @@ namespace MakinaTurkiye.Api.Controllers
     [MakinaTurkiye.Api.Code.ApiAuthorize]
     public class BaseApiController : ApiController
     {
+
+        public bool SendMail(MailMessage mailMessage)
+        {
+            bool Status = false;
+            try
+            {
+                using (SmtpClient sc = new SmtpClient())
+                {
+                    sc.Port = AppSettings.MailPort;                                                                   //Gmail için geçerli Portu bildiriyoruz
+                    sc.Host = AppSettings.MailHost;                                                      //Gmailin smtp host adresini belirttik
+                    sc.EnableSsl = AppSettings.MailSsl;                                                             //SSL’i etkinleştirdik
+                    sc.Credentials = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
+                    sc.Send(mailMessage);
+                    Status = true;
+                }
+            }
+            catch (Exception Hata)
+            {
+                Status = false;
+            }
+            return Status;
+        }
+
+
         private string _Ip = "";
 
         public string Ip

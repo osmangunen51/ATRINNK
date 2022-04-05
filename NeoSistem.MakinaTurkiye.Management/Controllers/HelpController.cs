@@ -224,7 +224,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             if (!string.IsNullOrEmpty(type))
                 isAdvice = true;
             var errors = _helpService.GetWebSiteErrors();
-            errors = errors.Where(x => x.IsAdvice == isAdvice && x.IsSolved==false).OrderByDescending(x => x.IsFirst).ThenBy(x => x.WebSiteErrorId).ToList();
+            errors = errors.Where(x => x.IsAdvice == isAdvice && x.IsSolved == false).OrderByDescending(x => x.IsFirst).ThenBy(x => x.WebSiteErrorId).ToList();
             List<WebSiteErrorListItem> errorList = new List<WebSiteErrorListItem>();
             model.ProblemTypes.Add(new SelectListItem { Text = "Tümü", Value = "0" });
             var errorTypes = _constantService.GetConstantByConstantType(ConstantTypeEnum.ProblemType).OrderBy(x => x.Order).ThenBy(x => x.ConstantName).ToList();
@@ -244,7 +244,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
 
 
-           model.WebSiteErrorList =  PrepareWebSiteErrorModel(errors);
+            model.WebSiteErrorList = PrepareWebSiteErrorModel(errors);
             model.Type = type;
             return View(model);
         }
@@ -304,12 +304,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 errors = errors.Where(x => x.UserId == Convert.ToInt32(userId)).ToList();
 
             }
-            if (!string.IsNullOrEmpty(problemType) && problemType!="0")
+            if (!string.IsNullOrEmpty(problemType) && problemType != "0")
                 errors = errors.Where(x => x.ProblemTypeId == Convert.ToInt32(problemType)).ToList();
 
             List<WebSiteErrorListItem> errorList = new List<WebSiteErrorListItem>();
 
-            var websiteErrorList = PrepareWebSiteErrorModel( errors);
+            var websiteErrorList = PrepareWebSiteErrorModel(errors);
             return PartialView("_WebsiteErrorListItem", websiteErrorList);
 
         }

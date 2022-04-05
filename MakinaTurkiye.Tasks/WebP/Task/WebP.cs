@@ -1,13 +1,8 @@
-﻿using MakinaTurkiye.Core.Infrastructure;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Stores;
-using Quartz;
+﻿using Quartz;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
 using System.Threading.Tasks;
 using WebPWrapper.Encoder;
 
@@ -17,7 +12,7 @@ namespace MakinaTurkiye.Tasks.WebP.Tasks
     {
         public Task Execute(IJobExecutionContext context)
         {
-            string DizinPath=System.Web.Hosting.HostingEnvironment.MapPath("~/UserFiles/Product/");
+            string DizinPath = System.Web.Hosting.HostingEnvironment.MapPath("~/UserFiles/Product/");
             DirectoryInfo Dizin = new DirectoryInfo(DizinPath);
             if (Dizin.Exists)
             {
@@ -30,7 +25,7 @@ namespace MakinaTurkiye.Tasks.WebP.Tasks
                 List<System.IO.FileInfo> DosyaJpgListesi = Dizin.GetFiles("*.jpg", SearchOption.AllDirectories).ToList();
                 List<System.IO.FileInfo> DosyaWebPListesi = Dizin.GetFiles("*.webp", SearchOption.AllDirectories).ToList();
 
-                List<string> TxtDosyaJpgListesi = DosyaJpgListesi.Select(x=>x.FullName.Replace(".jpg",".islemyap")).ToList();
+                List<string> TxtDosyaJpgListesi = DosyaJpgListesi.Select(x => x.FullName.Replace(".jpg", ".islemyap")).ToList();
                 List<string> TxtDosyaWebPListesi = DosyaWebPListesi.Select(x => x.FullName.Replace(".webp", ".islemyap")).ToList();
                 var TxtIslemYapilacakListesi = TxtDosyaJpgListesi.Except(TxtDosyaWebPListesi);
                 foreach (var DosyaTxt in TxtIslemYapilacakListesi)

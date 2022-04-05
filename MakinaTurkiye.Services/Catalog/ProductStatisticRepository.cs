@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Services.Catalog
 {
@@ -33,7 +31,7 @@ namespace MakinaTurkiye.Services.Catalog
             using (var dbConnection = new NpgsqlConnection(connectionString))
             {
                 dbConnection.Open();
-                 lastId = dbConnection.ExecuteScalar<int>("INSERT INTO productstatistics1 (ProductId,MemberMainPartyId,IpAdress,UserCity,UserCountry,SingularViewCount,Hour,ViewCount, RecordDate) VALUES(@ProductId,@MemberMainPartyId,@IpAdress,@UserCity,@UserCountry,@SingularViewCount,@Hour,@ViewCount, @RecordDate) RETURNING idpos;", item);
+                lastId = dbConnection.ExecuteScalar<int>("INSERT INTO productstatistics1 (ProductId,MemberMainPartyId,IpAdress,UserCity,UserCountry,SingularViewCount,Hour,ViewCount, RecordDate) VALUES(@ProductId,@MemberMainPartyId,@IpAdress,@UserCity,@UserCountry,@SingularViewCount,@Hour,@ViewCount, @RecordDate) RETURNING idpos;", item);
                 //lastId=dbConnection.Query<int>("select idpos from productstatistics1 order by idpos desc limit 1").Single();
 
             }
@@ -64,7 +62,7 @@ namespace MakinaTurkiye.Services.Catalog
                 }
                 else
                 {
-                    return dbConnection.Query<ProductStatistic>("select * from productstatistics1 where MemberMainPartyId = @memberMainPartyId  and date(RecordDate) >= TO_DATE(@BeginDate, 'YYYYMMDD') and date(RecordDate) <= TO_DATE(@EndDate, 'YYYYMMDD'); ", new { memberMainPartyId = memberMainPartyId, BeginDate = parStartDate, EndDate=parEndDate }).ToList();
+                    return dbConnection.Query<ProductStatistic>("select * from productstatistics1 where MemberMainPartyId = @memberMainPartyId  and date(RecordDate) >= TO_DATE(@BeginDate, 'YYYYMMDD') and date(RecordDate) <= TO_DATE(@EndDate, 'YYYYMMDD'); ", new { memberMainPartyId = memberMainPartyId, BeginDate = parStartDate, EndDate = parEndDate }).ToList();
 
                 }
             }
@@ -79,7 +77,7 @@ namespace MakinaTurkiye.Services.Catalog
             }
         }
 
-        
+
 
         public ProductStatistic FindByID(int id)
         {
@@ -108,7 +106,7 @@ namespace MakinaTurkiye.Services.Catalog
             }
         }
 
-       
+
     }
 }
 

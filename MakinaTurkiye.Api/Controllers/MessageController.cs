@@ -170,12 +170,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 mail.Body = templatet;                                                            //Mailin içeriği
                                 mail.IsBodyHtml = true;
                                 mail.Priority = MailPriority.Normal;
-                                SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                                sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                                sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                                sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                                sc.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                                sc.Send(mail);
+                                this.SendMail(mail);
                             }
 
                             #endregion messageissendbilgilendirme

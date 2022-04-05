@@ -3,11 +3,11 @@
 namespace NeoSistem.MakinaTurkiye.ExchangeService
 {
     [RunInstaller(true)]
-  public partial class ProjectInstaller : System.Configuration.Install.Installer
-  {
-    public ProjectInstaller()
+    public partial class ProjectInstaller : System.Configuration.Install.Installer
     {
-      InitializeComponent();
+        public ProjectInstaller()
+        {
+            InitializeComponent();
+        }
     }
-  }
 }

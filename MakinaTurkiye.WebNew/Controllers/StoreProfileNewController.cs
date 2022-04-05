@@ -1,3 +1,4 @@
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Entities.StoredProcedures.Catalog;
 using MakinaTurkiye.Entities.StoredProcedures.Videos;
 using MakinaTurkiye.Entities.Tables.Catalog;
@@ -22,7 +23,6 @@ using NeoSistem.MakinaTurkiye.Web.Models.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models.Products;
 using NeoSistem.MakinaTurkiye.Web.Models.StoreNews;
 using NeoSistem.MakinaTurkiye.Web.Models.StoreProfiles;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NeoSistem.MakinaTurkiye.Web.Models.Videos;
 using System;
 using System.Collections.Generic;
@@ -429,7 +429,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     PriceText = item.GetFormattedPrice(),
                     FavoriteProductId = item.FavoriteProductId,
                     HasVideo = item.HasVideo,
-                    ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.HasValue ?  item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString():"" : ""
+                    ProductPriceWithDiscount = item.DiscountType.HasValue && item.DiscountType.Value != 0 ? item.ProductPriceWithDiscount.HasValue ? item.ProductPriceWithDiscount.Value.GetMoneyFormattedDecimalToString() : "" : ""
 
                 };
                 if (item.ProductPriceType != (byte)ProductPriceType.PriceAsk && item.ProductPriceType != (byte)ProductPriceType.PriceDiscuss && !string.IsNullOrEmpty(item.GetCurrencyCssName()))

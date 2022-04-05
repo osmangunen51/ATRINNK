@@ -18,7 +18,7 @@ namespace MakinaTurkiye.Services.Payments
 
         #region Ctor
 
-        public CreditCardService(IRepository<CreditCard> creditCardRepository, 
+        public CreditCardService(IRepository<CreditCard> creditCardRepository,
                                 IRepository<CreditCardInstallment> creditCardInstallmentRepository)
         {
             _creditCardRepository = creditCardRepository;
@@ -64,7 +64,7 @@ namespace MakinaTurkiye.Services.Payments
         {
             if (creditCardInstallmentId == 0) creditCardInstallmentId = 1;
 
-             var query = _creditCardInstallmentRepository.Table;
+            var query = _creditCardInstallmentRepository.Table;
             var creditCardInstallment = query.FirstOrDefault(cc => cc.CreditCardInstallmentId == creditCardInstallmentId);
             return creditCardInstallment;
         }

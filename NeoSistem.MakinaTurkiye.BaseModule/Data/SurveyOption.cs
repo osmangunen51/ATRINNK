@@ -7,19 +7,19 @@ namespace NeoSistem.MakinaTurkiye.Data
 {
 
     public class SurveyOption : BusinessDataEntity
-  {
-
-    public DataTable GetItemsBySurveyId(int surveyId)
     {
-      var prm = new HashSet<IDataParameter> { 
+
+        public DataTable GetItemsBySurveyId(int surveyId)
+        {
+            var prm = new HashSet<IDataParameter> {
         surveyId.InSqlParameter("SurveyId")
       };
 
-      DataSet ds = ExecuteDataSet("spSurveyOptionGetItemsBySurveyId", prm);
-      
-      return ds.Tables[0];
-    }
+            DataSet ds = ExecuteDataSet("spSurveyOptionGetItemsBySurveyId", prm);
 
-  }
+            return ds.Tables[0];
+        }
+
+    }
 
 }

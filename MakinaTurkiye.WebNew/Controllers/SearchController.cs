@@ -1,7 +1,7 @@
-﻿using MakinaTurkiye.Services.Catalog;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Search;
 using MakinaTurkiye.Utilities.Mvc;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;

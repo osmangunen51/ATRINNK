@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace WebPWrapper.Encoder {
-    public class AlphaConfiguration {
+namespace WebPWrapper.Encoder
+{
+    public class AlphaConfiguration
+    {
         /// <summary>
         /// 建構中的參數暫存
         /// </summary>
@@ -16,7 +18,8 @@ namespace WebPWrapper.Encoder {
         /// Alpha過濾方法
         /// </summary>
         /// <param name="filter">過濾方法</param> 
-        public AlphaConfiguration Filter(AlphaFilters filter) {
+        public AlphaConfiguration Filter(AlphaFilters filter)
+        {
             _arguments.Add((key: "-alpha_filter", value: filter.ToString().ToLower()));
             return this;
         }
@@ -24,7 +27,8 @@ namespace WebPWrapper.Encoder {
         /// <summary>
         /// 禁止Alpha壓縮
         /// </summary>
-        public AlphaConfiguration DisableCompression() {
+        public AlphaConfiguration DisableCompression()
+        {
             _arguments.Add((key: "-alpha_method", value: ""));
             return this;
         }
@@ -35,8 +39,10 @@ namespace WebPWrapper.Encoder {
         /// <param name="process">處理方法</param>
         /// <param name="blendColor">混合顏色，此選項在<paramref name="process"/>為<see cref="TransparentProcesses.Blend"/>的情況下才作用</param>
         public AlphaConfiguration TransparentProcess(
-            TransparentProcesses process) {
-            switch (process) {
+            TransparentProcesses process)
+        {
+            switch (process)
+            {
                 case TransparentProcesses.Exact:
                     _arguments.Add((key: "-exact", value: null));
                     break;
@@ -57,8 +63,10 @@ namespace WebPWrapper.Encoder {
         /// <param name="blendColor">混合顏色，此選項在<paramref name="process"/>為<see cref="TransparentProcesses.Blend"/>的情況下才作用</param>
         public AlphaConfiguration TransparentProcess(
             TransparentProcesses process,
-            Color blendColor) {
-            switch (process) {
+            Color blendColor)
+        {
+            switch (process)
+            {
                 case TransparentProcesses.Exact:
                     _arguments.Add((key: "-exact", value: null));
                     break;
@@ -81,11 +89,16 @@ namespace WebPWrapper.Encoder {
         /// 取得目前CLI參數
         /// </summary>
         /// <returns>CLI參數</returns>
-        internal string GetCurrentArguments() {
-            return string.Join(" ", _arguments.Select(x => {
-                if (x.key.StartsWith("-")) {
+        internal string GetCurrentArguments()
+        {
+            return string.Join(" ", _arguments.Select(x =>
+            {
+                if (x.key.StartsWith("-"))
+                {
                     return $"{x.key} {x.value}";
-                } else {
+                }
+                else
+                {
                     return x.value;
                 }
             }));

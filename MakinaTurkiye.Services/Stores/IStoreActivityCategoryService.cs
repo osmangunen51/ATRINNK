@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MakinaTurkiye.Services.Stores
 {
-    public interface IStoreActivityCategoryService 
+    public interface IStoreActivityCategoryService
     {
         StoreActivityCategory GetStoreActivityCategoryByStoreActivityCategoryId(int storeActivityCategoryId);
         List<StoreActivityCategory> GetStoreActivityCategoriesByMainPartyId(int mainPartyId);

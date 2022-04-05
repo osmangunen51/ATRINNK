@@ -5,11 +5,6 @@ using MakinaTurkiye.Core.Configuration;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Core.Infrastructure.DependencyManagement;
 using MakinaTurkiye.Services.Catalog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Utilities.Infrastructure
 {

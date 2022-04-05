@@ -2,7 +2,7 @@
 {
     public enum CategorySyntaxType
     {
-      Store=1,
-      CategoryNameOnyl=2
+        Store = 1,
+        CategoryNameOnyl = 2
     }
 }

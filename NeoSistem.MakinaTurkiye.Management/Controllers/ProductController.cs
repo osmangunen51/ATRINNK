@@ -3,6 +3,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
     using EnterpriseEntity.Extensions;
     using EnterpriseEntity.Extensions.Data;
+    using global::MakinaTurkiye.Core;
     using global::MakinaTurkiye.Services.Catalog;
     using global::MakinaTurkiye.Services.Common;
     using global::MakinaTurkiye.Services.Media;
@@ -11,7 +12,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
     using global::MakinaTurkiye.Services.Videos;
     using global::MakinaTurkiye.Utilities.HttpHelpers;
     using MakinaTurkiye.Core.Web.Helpers;
-    using MakinaTurkiye.Web.Models.UtilityModel;
     using Models;
     using NeoSistem.MakinaTurkiye.Management.Models.Catolog;
     using NeoSistem.MakinaTurkiye.Management.Models.Entities;
@@ -1644,7 +1644,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             curProduct.Keywords = model.Keywords;
             curProduct.HasVideo = _videoService.GetVideosByProductId(id).Any();
             curProduct.MinumumAmount = model.MinumumOrderAmount;
-            
+
             if (curProduct.ProductPriceType == (byte)ProductPriceType.Price)
             {
 
@@ -1961,12 +1961,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         mail.Body = template;                                                            //Mailin içeriği
                         mail.IsBodyHtml = true;
                         mail.Priority = MailPriority.Normal;
-                        SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                        sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                        sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                        sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                        sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                        sc.Send(mail);
+                        this.SendMail(mail);
                         #endregion
                     }
                     catch (Exception ex)
@@ -2101,12 +2096,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail);
+            this.SendMail(mail);
 
         }
         public void ProductCountCalc(Product curProduct, bool add)

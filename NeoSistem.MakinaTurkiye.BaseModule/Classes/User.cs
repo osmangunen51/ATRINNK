@@ -3,7 +3,7 @@
     using System.Collections.Generic;
 
     public partial class User
-  {
-    public ICollection<Permission> Permissions { get; set; }
-  }
+    {
+        public ICollection<Permission> Permissions { get; set; }
+    }
 }

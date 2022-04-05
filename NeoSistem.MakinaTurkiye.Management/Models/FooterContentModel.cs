@@ -14,7 +14,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string FooterContentUrl { get; set; }
         public int DisplayOrder { get; set; }
         public string FooterParentName { get; set; }
-  
+
         public string FooterParentId { get; set; }
         public List<SelectListItem> FooterParentItems { get; set; }
 

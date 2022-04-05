@@ -1,11 +1,6 @@
 ﻿using MakinaTurkiye.Core.Configuration;
 using MakinaTurkiye.Core.Infrastructure;
-using System;
-using System.Collections.Generic;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -17,7 +12,7 @@ namespace MakinaTurkiye.Utilities.Mvc
         {
 
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
-            if(config.CompressEnabled)
+            if (config.CompressEnabled)
             {
                 HttpRequestBase request = filterContext.HttpContext.Request;
                 string acceptEncoding = request.Headers["Accept-Encoding"];

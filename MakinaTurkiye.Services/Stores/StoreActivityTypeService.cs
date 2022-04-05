@@ -37,7 +37,7 @@ namespace MakinaTurkiye.Services.Stores
 
         #region Ctor
 
-        public StoreActivityTypeService(IRepository<StoreActivityType> storeActivityTypeRepository, ICacheManager cacheManager): base(cacheManager)
+        public StoreActivityTypeService(IRepository<StoreActivityType> storeActivityTypeRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             _storeActivityTypeRepository = storeActivityTypeRepository;
             _cacheManager = cacheManager;
@@ -52,7 +52,7 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentNullException("storeId");
 
             string key = string.Format(STOREACTIVITYTYPES_BY_STORE_ID_KEY, storeId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _storeActivityTypeRepository.Table;
 

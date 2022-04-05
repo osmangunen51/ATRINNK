@@ -5,7 +5,7 @@ namespace MakinaTurkiye.Caching
     /// <summary>
     /// Cache manager interface
     /// </summary>
-    public interface ICacheManager 
+    public interface ICacheManager
     {
         /// <summary>
         /// Gets or sets the value associated with the specified key.

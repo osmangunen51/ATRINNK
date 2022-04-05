@@ -2,16 +2,11 @@
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Media;
-using MakinaTurkiye.Services.Members;
-using MakinaTurkiye.Services.Stores;
 using Quartz;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Hosting;
@@ -22,9 +17,9 @@ namespace MakinaTurkiye.Tasks.Pinterest.Tasks
     {
         public string LogFile { get; set; } = "";
 
-        private void  LogEkle(string Mesaj)
+        private void LogEkle(string Mesaj)
         {
-            if (LogFile=="")
+            if (LogFile == "")
             {
                 LogFile = HostingEnvironment.MapPath("~/Log/Pinterest.txt");
             }
@@ -39,7 +34,7 @@ namespace MakinaTurkiye.Tasks.Pinterest.Tasks
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
             string Proxy = "";
             Random Rnd = new Random();
-            Basla:
+        Basla:
             try
             {
                 // LogEkle("Pinterest Görevi Başladı");
@@ -75,7 +70,7 @@ namespace MakinaTurkiye.Tasks.Pinterest.Tasks
                             var ProductList = productService.GetProductsOnlyIdList();
                             foreach (var productitm in ProductList)
                             {
-                                if (DateTime.Now> GorevBitisZaman)
+                                if (DateTime.Now > GorevBitisZaman)
                                 {
                                     break;
                                 }
@@ -111,7 +106,7 @@ namespace MakinaTurkiye.Tasks.Pinterest.Tasks
                                         foreach (var item in productCategoryIdList)
                                         {
                                             var snc = categoryService.GetCategoryByCategoryId(item);
-                                            if (snc!=null)
+                                            if (snc != null)
                                             {
                                                 if (snc.CategoryType == (byte)CategoryTypeEnum.Brand)
                                                 {
@@ -200,13 +195,13 @@ namespace MakinaTurkiye.Tasks.Pinterest.Tasks
                                                     System.IO.FileInfo FileInfoProductKontrolUrl = new FileInfo(ProductKontrolUrl);
                                                     bool FileKontrol = FileInfoProductKontrolUrl.Exists;
 
-                                                    #if DEBUG
-                                                        FileKontrol = true;
-                                                    #endif
+#if DEBUG
+                                                    FileKontrol = true;
+#endif
 
                                                     //if (FileInfoProductKontrolUrl.Exists | FileKontrol)
                                                     if (FileKontrol)
-                                                       {
+                                                    {
                                                         //// LogEkle("R%esim Diskte Var   ===> " + FileInfoProductKontrolUrl.FullName);
                                                         int IstekTimeOut = Rnd.Next(500, 3000);
                                                         Thread.Sleep(IstekTimeOut);

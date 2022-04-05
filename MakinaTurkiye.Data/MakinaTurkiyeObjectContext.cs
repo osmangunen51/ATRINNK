@@ -67,10 +67,10 @@ namespace MakinaTurkiye.Data
             //dynamically load all configuration
             //System.Type configType = typeof(LanguageMap);   //any of your configuration classes here
             //var typesToRegister = Assembly.GetAssembly(configType).GetTypes()
-  
+
             var typesToRegister = Assembly.GetExecutingAssembly().GetTypes()
             .Where(type => !String.IsNullOrEmpty(type.Namespace))
-            .Where(type => type.BaseType != null && type.BaseType.IsGenericType && 
+            .Where(type => type.BaseType != null && type.BaseType.IsGenericType &&
             type.BaseType.GetGenericTypeDefinition() == typeof(EntityTypeConfiguration<>));
             foreach (var type in typesToRegister)
             {
@@ -92,7 +92,7 @@ namespace MakinaTurkiye.Data
         /// <typeparam name="TEntity">TEntity</typeparam>
         /// <param name="entity">Entity</param>
         /// <returns>Attached entity</returns>
-        protected virtual TEntity AttachEntityToContext<TEntity>(TEntity entity) where TEntity : BaseEntity , new()
+        protected virtual TEntity AttachEntityToContext<TEntity>(TEntity entity) where TEntity : BaseEntity, new()
         {
             //little hack here until Entity Framework really supports stored procedures
             //otherwise, navigation properties of loaded entities are not loaded until an entity is attached to the context
@@ -122,8 +122,8 @@ namespace MakinaTurkiye.Data
             int keyMemberValue = GetKeyPropertyValue(entity);
             var defaultEntity = Set<TEntity>().Find(keyMemberValue);
 
-            bool changedProperties=SetChangedPropertyVales(defaultEntity, entity);
-            if(!changedProperties)
+            bool changedProperties = SetChangedPropertyVales(defaultEntity, entity);
+            if (!changedProperties)
             {
                 Set<TEntity>().Attach(entity);
                 return entity;
@@ -135,7 +135,7 @@ namespace MakinaTurkiye.Data
             }
         }
 
-        private int GetKeyPropertyValue<TEntity>(TEntity entity) where TEntity: BaseEntity
+        private int GetKeyPropertyValue<TEntity>(TEntity entity) where TEntity : BaseEntity
         {
             ObjectContext objectContext = ((IObjectContextAdapter)this).ObjectContext;
             ObjectSet<TEntity> customEntity = objectContext.CreateObjectSet<TEntity>();
@@ -175,11 +175,11 @@ namespace MakinaTurkiye.Data
 
             var changeEntityProperties = changeEntity.GetType().GetProperties();
 
-            List<string> changedProperties = ElaborateChangedProperties(defaultEntityProperties,changeEntityProperties,defaultEntity,changeEntity);
+            List<string> changedProperties = ElaborateChangedProperties(defaultEntityProperties, changeEntityProperties, defaultEntity, changeEntity);
             return changedProperties;
         }
 
-        private List<string> ElaborateChangedProperties(PropertyInfo[] defaultEntityProperty, PropertyInfo[] changeEntityProperty, 
+        private List<string> ElaborateChangedProperties(PropertyInfo[] defaultEntityProperty, PropertyInfo[] changeEntityProperty,
                                                          BaseEntity defaultEntity, BaseEntity changeEntity)
         {
             List<string> changedProperties = new List<string>();

@@ -1,10 +1,7 @@
 ﻿using Elasticsearch.Net;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -37,7 +34,7 @@ namespace MakinaTurkiye.Logging.ElasticSearch
             }
         }
 
-        public async Task SerializeAsync<T>(T data, Stream stream, SerializationFormatting formatting = SerializationFormatting.None, 
+        public async Task SerializeAsync<T>(T data, Stream stream, SerializationFormatting formatting = SerializationFormatting.None,
                                         CancellationToken cancellationToken = default(CancellationToken))
         {
             Serialize(data, stream);
@@ -47,12 +44,12 @@ namespace MakinaTurkiye.Logging.ElasticSearch
         public object Deserialize(Type type, Stream stream)
         {
             var settings = this._settings;
-            return Deserialize(type,stream, settings);
+            return Deserialize(type, stream, settings);
         }
 
         public async Task<object> DeserializeAsync(Type type, Stream stream, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return await Task.FromResult(Deserialize(type,stream));
+            return await Task.FromResult(Deserialize(type, stream));
         }
 
         public T Deserialize<T>(Stream stream)
@@ -67,12 +64,12 @@ namespace MakinaTurkiye.Logging.ElasticSearch
         }
 
 
-        private object Deserialize(Type type,Stream stream, JsonSerializerSettings settings = null)
+        private object Deserialize(Type type, Stream stream, JsonSerializerSettings settings = null)
         {
             settings = settings ?? this._settings;
             var serializer = JsonSerializer.Create(settings);
             var jsonTextReader = new JsonTextReader(new StreamReader(stream));
-            var result = serializer.Deserialize(jsonTextReader,type);
+            var result = serializer.Deserialize(jsonTextReader, type);
             return result;
         }
 

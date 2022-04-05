@@ -1,14 +1,15 @@
-﻿namespace NeoSistem.MakinaTurkiye.Management.Controllers
-{
-    using Core.Web.Helpers;
-    using EnterpriseEntity.Extensions.Data;
-    using Models;
-    using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Web.Mvc;
+﻿using MakinaTurkiye.Core;
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Web.Mvc;
+using NeoSistem.MakinaTurkiye.Management.Models;
+using NeoSistem.EnterpriseEntity.Extensions.Data;
+using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 
+namespace NeoSistem.MakinaTurkiye.Management.Controllers
+{
+    
     public class NewsController : BaseController
     {
 

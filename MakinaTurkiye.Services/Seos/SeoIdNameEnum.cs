@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Services.Seos
+﻿namespace MakinaTurkiye.Services.Seos
 {
     public enum SeoIdNameEnum : byte
     {
@@ -60,7 +54,7 @@ namespace MakinaTurkiye.Services.Seos
         ProductRequest = 53,
 
         SectorCountry = 54,
- 
+
         SectorCity = 55,
         SectorLocality = 56,
 
@@ -108,19 +102,19 @@ namespace MakinaTurkiye.Services.Seos
         Certificate = 87,
         ContactSettings = 88,
         CreateCatolog = 89,
-        CreateCertificate =90 ,
+        CreateCertificate = 90,
         CreateStoreSliderImage = 91,
         MyCatolog = 92,
         UpdateActivity = 93,
         UpdateBanner = 94,
-        UpdateLogo  =95,
+        UpdateLogo = 95,
         UpdateStore = 96,
 
-        StoreActivity=97,
-        StoreNewManagment=98,
+        StoreActivity = 97,
+        StoreNewManagment = 98,
         StoreUsersManagment = 99,
-        StoreVideosManagment =100,
-        StorePromotionVideo=101,
+        StoreVideosManagment = 100,
+        StorePromotionVideo = 101,
 
         Register = 103,
         AdvancedSearch = 104,

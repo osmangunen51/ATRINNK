@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MakinaTurkiye.Services.Members
 {
-    public interface IMemberStoreService: ICachingSupported
+    public interface IMemberStoreService : ICachingSupported
     {
         MemberStore GetMemberStoreByMemberMainPartyId(int memberMainPartyId);
         MemberStore GetMemberStoreByStoreMainPartyId(int storeMainPartyId);

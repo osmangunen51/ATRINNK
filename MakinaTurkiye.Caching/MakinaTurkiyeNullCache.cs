@@ -1,12 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Caching
 {
     /// <summary>
     /// Represents a MakinaTurkiyeNullCache
     /// </summary>
-    public partial class MakinaTurkiyeNullCache  : ICacheManager
+    public partial class MakinaTurkiyeNullCache : ICacheManager
     {
         /// <summary>
         /// Gets or sets the value associated with the specified key.

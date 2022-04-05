@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Members
 {
-    public class MemberDescriptionLog:BaseEntity
+    public class MemberDescriptionLog : BaseEntity
     {
         public int MemberDescription_logId { get; set; }
         public int descId { get; set; }

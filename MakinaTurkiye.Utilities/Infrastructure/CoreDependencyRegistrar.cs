@@ -51,7 +51,7 @@ namespace MakinaTurkiye.Utilities
             //data layer
             builder.Register(x => new EfDataProviderManager()).As<BaseDataProviderManager>().InstancePerDependency();
             builder.Register(x => x.Resolve<BaseDataProviderManager>().LoadDataProvider()).As<IDataProvider>().InstancePerDependency();
-       
+
 
             builder.Register<IDbContext>(c => new MakinaTurkiyeObjectContext(config.EntityFrameworkLazyLoadingEnabled,
                                         config.EntityFrameworkProxyCreationEnabled, config.EntityFrameworkAutoDetectChangesEnabled,

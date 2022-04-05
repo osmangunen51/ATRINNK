@@ -14,16 +14,16 @@
 namespace CKFinder.Settings
 {
     public class Images
-	{
-		public int MaxWidth;
-		public int MaxHeight;
-		public int Quality;
+    {
+        public int MaxWidth;
+        public int MaxHeight;
+        public int Quality;
 
-		public Images()
-		{
-			MaxWidth = 1600;
-			MaxHeight = 1200;
-			Quality = 80;
-		}
-	}
+        public Images()
+        {
+            MaxWidth = 1600;
+            MaxHeight = 1200;
+            Quality = 80;
+        }
+    }
 }

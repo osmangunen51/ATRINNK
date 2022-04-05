@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Api.View.Result
 {
@@ -31,7 +28,7 @@ namespace MakinaTurkiye.Api.View.Result
         public string LocalityName { get; set; } = "";
 
         public string ProductType { get; set; } = "";
-        public string ProductStatus { get; set; } ="";
+        public string ProductStatus { get; set; } = "";
         public string CategoryName { get; set; } = "";
 
         public string ProductContactUrl { get; set; } = "";
@@ -41,7 +38,7 @@ namespace MakinaTurkiye.Api.View.Result
         public string Location { get; set; } = "";
         public string ShortDescription { get; set; } = "";
         public string SalesDetails { get; set; } = "";
-        public List<string> PictureList { get; set; } =new List<string>();
+        public List<string> PictureList { get; set; } = new List<string>();
         public int MainPartyId { get; set; } = 0;
         public byte ProductPriceType { get; set; }
         public decimal ProductPriceLast { get; set; } = 0;

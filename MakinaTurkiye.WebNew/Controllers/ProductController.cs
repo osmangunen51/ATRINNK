@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Entities.StoredProcedures.Catalog;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Entities.StoredProcedures.Catalog;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Members;
@@ -26,7 +27,6 @@ using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Web.Models.Catalog;
 using NeoSistem.MakinaTurkiye.Web.Models.Products;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -255,12 +255,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 mail.Body = template;
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
-                SmtpClient sc = new SmtpClient();
-                sc.Port = 587;
-                sc.Host = "smtp.gmail.com";
-                sc.EnableSsl = true;
-                sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword);
-                sc.Send(mail);
+                this.SendMail(mail);
 
 
             }
@@ -1570,7 +1565,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         string templatet = mailTemplate.MessagesMTPropertie;
                         templatet = templatet.Replace("#kullaniciadi", kullaniciemail.MemberName + " " + kullaniciemail.MemberSurname).Replace("#urunadi", productName).Replace("#email#", mailadresifirma).Replace("#link", productUrl).Replace("#ilanno", productno).Replace("#producturl#", productUrl).Replace("#messagecontent#", messageContent).Replace("#loginautolink#", loginauto);
 
-                        MailHelper mailHelper = new MailHelper(productnosub, templatet, mailTemplate.Mail, mailadresifirma, mailTemplate.MailPassword, mailTemplate.MailSendFromName);
+                        MailHelper mailHelper = new MailHelper(productnosub, templatet, mailTemplate.Mail, mailadresifirma, mailTemplate.MailPassword, mailTemplate.MailSendFromName, AppSettings.MailHost, AppSettings.MailPort, AppSettings.MailSsl);
                         var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(receverMainPartyId);
                         if (memberStore != null)
                         {

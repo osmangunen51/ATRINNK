@@ -1,13 +1,4 @@
-﻿using MakinaTurkiye.Core.Configuration;
-using MakinaTurkiye.Core.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-
-namespace MakinaTurkiye.Tasks.Settings
+﻿namespace MakinaTurkiye.Tasks.Settings
 {
     public class ProductSettings
     {

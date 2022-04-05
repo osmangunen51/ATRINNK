@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Common
 {
-    public class Country: BaseEntity
+    public class Country : BaseEntity
     {
         public int CountryId { get; set; }
         public string CountryName { get; set; }

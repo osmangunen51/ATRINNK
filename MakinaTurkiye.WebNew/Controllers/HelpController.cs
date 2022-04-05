@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Entities.Tables.Checkouts;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Entities.Tables.Checkouts;
 using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Checkouts;
@@ -11,7 +12,6 @@ using MakinaTurkiye.Utilities.Mvc;
 using NeoSistem.MakinaTurkiye.Web.Factories;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Help;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -257,12 +257,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     mail.Body = template;                                                            //Mailin içeriği
                     mail.IsBodyHtml = true;
                     mail.Priority = MailPriority.Normal;
-                    SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                    sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                    sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                    sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                    sc.Credentials = new NetworkCredential(mailT.Mail, mailT.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                    sc.Send(mail);
+                    this.SendMail(mail);
                     #endregion
 
                     store.PacketId = packet.PacketId;

@@ -9,7 +9,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.ViewModel
         {
             this.Questions = new List<SelectListItem>();
             this.PropertieModels = new List<PropertieModel>();
-            
+
         }
         public List<SelectListItem> Questions { get; set; }
         public List<PropertieModel> PropertieModels { get; set; }

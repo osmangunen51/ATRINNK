@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Bullettins
 {
-    public class BulletinMemberCategory:BaseEntity
+    public class BulletinMemberCategory : BaseEntity
     {
         public int BulletinMemberCategoryId { get; set; }
         public int BulletinMemberId { get; set; }

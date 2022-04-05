@@ -27,15 +27,15 @@
         }
 
         [ValidateInput(false)]
-        [HttpPost] 
-        public ActionResult Create(NeoSistem.MakinaTurkiye.Management.Models.Entities.MobileMessage model,string MessageType)
+        [HttpPost]
+        public ActionResult Create(NeoSistem.MakinaTurkiye.Management.Models.Entities.MobileMessage model, string MessageType)
         {
             MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
             var packet = new NeoSistem.MakinaTurkiye.Management.Models.Entities.MobileMessage
             {
                 MessageName = model.MessageName,
                 MessageContent = model.MessageContent,
-                MessageType=Convert.ToByte(MessageType)
+                MessageType = Convert.ToByte(MessageType)
 
             };
             entities.MobileMessages.AddObject(packet);
@@ -54,7 +54,7 @@
 
         [ValidateInput(false)]
         [HttpPost]
-        public ActionResult EditMessage(int id, NeoSistem.MakinaTurkiye.Management.Models.Entities.MobileMessage model,string MessageType)
+        public ActionResult EditMessage(int id, NeoSistem.MakinaTurkiye.Management.Models.Entities.MobileMessage model, string MessageType)
         {
             MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
             MobileMessage newmodel = entities.MobileMessages.Where(c => c.ID == model.ID).SingleOrDefault();

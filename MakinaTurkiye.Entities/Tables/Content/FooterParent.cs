@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Content
 {
-    public class FooterParent:BaseEntity
+    public class FooterParent : BaseEntity
     {
         private ICollection<FooterContent> _footerContents;
         public int FooterParentId { get; set; }

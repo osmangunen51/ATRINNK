@@ -6,7 +6,7 @@ namespace MakinaTurkiye.Data
 {
     public partial class EfDataProviderManager : BaseDataProviderManager
     {
-        public EfDataProviderManager(): base()
+        public EfDataProviderManager() : base()
         {
         }
 

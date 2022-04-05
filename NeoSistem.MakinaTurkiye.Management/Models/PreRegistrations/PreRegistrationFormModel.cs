@@ -7,7 +7,7 @@
         public string MemberName { get; set; }
         public string MemberSurname { get; set; }
         public string Email { get; set; }
-        public string  PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string PhoneNumber2 { get; set; }
         public string PhoneNumber3 { get; set; }
         public string WebUrl { get; set; }

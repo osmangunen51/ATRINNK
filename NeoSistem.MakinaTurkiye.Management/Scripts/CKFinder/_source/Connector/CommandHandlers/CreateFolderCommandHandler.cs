@@ -17,69 +17,69 @@ using System.Xml;
 namespace CKFinder.Connector.CommandHandlers
 {
     internal class CreateFolderCommandHandler : XmlCommandHandlerBase
-	{
-		public CreateFolderCommandHandler()
-			: base()
-		{
-		}
+    {
+        public CreateFolderCommandHandler()
+            : base()
+        {
+        }
 
-		protected override void BuildXml()
-		{
-			if ( !this.CurrentFolder.CheckAcl( AccessControlRules.FolderCreate ) )
-			{
-				ConnectorException.Throw( Errors.Unauthorized );
-			}
+        protected override void BuildXml()
+        {
+            if (!this.CurrentFolder.CheckAcl(AccessControlRules.FolderCreate))
+            {
+                ConnectorException.Throw(Errors.Unauthorized);
+            }
 
-			string sNewFolderName = HttpContext.Current.Request.QueryString[ "newFolderName" ];
+            string sNewFolderName = HttpContext.Current.Request.QueryString["newFolderName"];
 
-			if ( !Connector.CheckFileName( sNewFolderName ) || Config.Current.CheckIsHiddenFolder( sNewFolderName ) )
-				ConnectorException.Throw( Errors.InvalidName );
-			else
-			{
-				// Map the virtual path to the local server path of the current folder.
-				string sServerDir = System.IO.Path.Combine( this.CurrentFolder.ServerPath, sNewFolderName );
+            if (!Connector.CheckFileName(sNewFolderName) || Config.Current.CheckIsHiddenFolder(sNewFolderName))
+                ConnectorException.Throw(Errors.InvalidName);
+            else
+            {
+                // Map the virtual path to the local server path of the current folder.
+                string sServerDir = System.IO.Path.Combine(this.CurrentFolder.ServerPath, sNewFolderName);
 
-				bool bCreated = false;
+                bool bCreated = false;
 
-				if ( System.IO.Directory.Exists( sServerDir ) )
-					ConnectorException.Throw( Errors.AlreadyExist );
+                if (System.IO.Directory.Exists(sServerDir))
+                    ConnectorException.Throw(Errors.AlreadyExist);
 
-				try
-				{
-					Util.CreateDirectory( sServerDir );
-					bCreated = true;
-				}
-				catch ( ArgumentException )
-				{
-					ConnectorException.Throw( Errors.InvalidName );
-				}
-				catch ( System.IO.PathTooLongException )
-				{
-					ConnectorException.Throw( Errors.InvalidName );
-				}
-				catch ( System.Security.SecurityException )
-				{
-					ConnectorException.Throw( Errors.AccessDenied );
-				}
-				catch ( ConnectorException connectorException )
-				{
-					throw connectorException;
-				}
-				catch ( Exception )
-				{
+                try
+                {
+                    Util.CreateDirectory(sServerDir);
+                    bCreated = true;
+                }
+                catch (ArgumentException)
+                {
+                    ConnectorException.Throw(Errors.InvalidName);
+                }
+                catch (System.IO.PathTooLongException)
+                {
+                    ConnectorException.Throw(Errors.InvalidName);
+                }
+                catch (System.Security.SecurityException)
+                {
+                    ConnectorException.Throw(Errors.AccessDenied);
+                }
+                catch (ConnectorException connectorException)
+                {
+                    throw connectorException;
+                }
+                catch (Exception)
+                {
 #if DEBUG
-					throw;
+                    throw;
 #else
 					ConnectorException.Throw( Errors.Unknown );
 #endif
-				}
+                }
 
-				if ( bCreated )
-				{
-					XmlNode oNewFolderNode = XmlUtil.AppendElement( this.ConnectorNode, "NewFolder" );
-					XmlUtil.SetAttribute( oNewFolderNode, "name", sNewFolderName );
-				}
-			}
-		}
-	}
+                if (bCreated)
+                {
+                    XmlNode oNewFolderNode = XmlUtil.AppendElement(this.ConnectorNode, "NewFolder");
+                    XmlUtil.SetAttribute(oNewFolderNode, "name", sNewFolderName);
+                }
+            }
+        }
+    }
 }

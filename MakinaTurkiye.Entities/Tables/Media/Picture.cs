@@ -1,10 +1,10 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Media
 {
-    public class Picture:BaseEntity
+    public class Picture : BaseEntity
     {
         public int PictureId { get; set; }
         public int? ProductId { get; set; }
-        public int ? MainPartyId { get; set; }
+        public int? MainPartyId { get; set; }
         public int? StoreCertificateId { get; set; }
         public string PictureName { get; set; }
         public string PicturePath { get; set; }

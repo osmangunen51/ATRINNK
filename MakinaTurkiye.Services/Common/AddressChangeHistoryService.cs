@@ -6,9 +6,9 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Common
 {
-    public class AddressChangeHistoryService:IAddressChangeHistoryService
+    public class AddressChangeHistoryService : IAddressChangeHistoryService
     {
-       
+
         #region Fields
 
         private readonly IRepository<AddressChangeHistory> _addressChangeHistoryRepository;
@@ -36,8 +36,8 @@ namespace MakinaTurkiye.Services.Common
             if (addressChangeHistoryId == 0)
                 throw new ArgumentNullException("addressChangeHistoryId");
             var query = _addressChangeHistoryRepository.Table;
-            return query.FirstOrDefault(a=>a.AddressChangeHistoryId==addressChangeHistoryId);
-            
+            return query.FirstOrDefault(a => a.AddressChangeHistoryId == addressChangeHistoryId);
+
         }
 
         public void AddAddressChangeHistory(AddressChangeHistory addressChangeHistory)
@@ -67,7 +67,7 @@ namespace MakinaTurkiye.Services.Common
             addressChangeHistory.TownId = address.TownId;
             addressChangeHistory.UpdatedDate = DateTime.Now;
             _addressChangeHistoryRepository.Insert(addressChangeHistory);
-           
+
         }
 
         public void DeleteAddressChangeHistory(AddressChangeHistory addressChangeHistory)
@@ -76,7 +76,7 @@ namespace MakinaTurkiye.Services.Common
                 throw new ArgumentNullException("addressChangeHistory");
             _addressChangeHistoryRepository.Delete(addressChangeHistory);
         }
-        
+
         #endregion
 
     }

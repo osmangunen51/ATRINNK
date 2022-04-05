@@ -5,7 +5,6 @@ using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.StoredProcedures.Catalog;
 using MakinaTurkiye.Entities.StoredProcedures.Stores;
 using MakinaTurkiye.Entities.Tables.Catalog;
-using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Services.Common;
 using System;
 using System.Collections.Generic;
@@ -652,31 +651,31 @@ namespace MakinaTurkiye.Services.Catalog
             });
         }
 
-        public IList<Product> GetProductsWithPageNo(int PageNo=0, int PageSize=50)
+        public IList<Product> GetProductsWithPageNo(int PageNo = 0, int PageSize = 50)
         {
-            var query = _productRepository.Table.OrderBy(x=>x.ProductId).Skip(PageNo * PageSize).Take(PageSize);
+            var query = _productRepository.Table.OrderBy(x => x.ProductId).Skip(PageNo * PageSize).Take(PageSize);
             return query.ToList();
         }
 
 
         public IList<Product> GetProductsAll()
         {
-            var query = _productRepository.Table.OrderBy(x=>x.ProductId);
+            var query = _productRepository.Table.OrderBy(x => x.ProductId);
             return query.ToList();
         }
 
-        public IList<Product> Search(out int TotolRowCount,string name="",string companyName="",string country = "",string town="",bool isnew=true,bool isold=true, bool sortByViews= true, bool sortByDate= true,decimal minPrice=0,decimal maxPrice=0,int PageNo = 0, int PageSize = 50)
+        public IList<Product> Search(out int TotolRowCount, string name = "", string companyName = "", string country = "", string town = "", bool isnew = true, bool isold = true, bool sortByViews = true, bool sortByDate = true, decimal minPrice = 0, decimal maxPrice = 0, int PageNo = 0, int PageSize = 50)
         {
-            List<int> CategoryIdList = _categoryService.GetCategoriesByName(companyName).Select(x=>x.CategoryId).ToList();
+            List<int> CategoryIdList = _categoryService.GetCategoriesByName(companyName).Select(x => x.CategoryId).ToList();
             var query = _productRepository.Table.OrderBy(x =>
-            ( x.ProductName.Contains(name) | name == "") && (CategoryIdList.Contains((int)x.CategoryId) | companyName == "")
+            (x.ProductName.Contains(name) | name == "") && (CategoryIdList.Contains((int)x.CategoryId) | companyName == "")
             &&
             (
-                (x.ProductPrice >= minPrice| minPrice==0 ) && (x.ProductPrice <= maxPrice | maxPrice==0
+                (x.ProductPrice >= minPrice | minPrice == 0) && (x.ProductPrice <= maxPrice | maxPrice == 0
                 )
             )
             &&
-            (x.City.CityName.Contains(town) | town=="")
+            (x.City.CityName.Contains(town) | town == "")
             &&
             (x.Country.CountryName.Contains(country) | country == "")
             );
@@ -1208,7 +1207,7 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
 
         public void CalculateSPProductRate()
         {
-            
+
             _dbContext.ExecuteSqlCommand("exec ProductRateCalculate");
         }
 
@@ -1256,7 +1255,7 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
 
             else if (product.ProductPriceType == 239 && product.ProductPriceBegin != 0)
                 product.ProductPriceForOrder = product.ProductPriceBegin;
-            else if (product.ProductPriceType == 238 && product.ProductPrice!=0)
+            else if (product.ProductPriceType == 238 && product.ProductPrice != 0)
                 product.ProductPriceForOrder = product.ProductPrice;
             else
                 product.ProductPriceForOrder = 99999999999;

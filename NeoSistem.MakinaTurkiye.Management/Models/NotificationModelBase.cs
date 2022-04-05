@@ -16,6 +16,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public FilterModel<NotificationModel> Notifications { get; set; }
         public List<SelectListItem> UserTypes { get; set; }
         public List<SelectListItem> Titles { get; set; }
-     
+
     }
 }

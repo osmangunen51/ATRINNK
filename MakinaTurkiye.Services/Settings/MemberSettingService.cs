@@ -28,8 +28,8 @@ namespace MakinaTurkiye.Services.Settings
 
         #region Ctor
 
-        public MemberSettingService(IRepository<Setting> settingRepository, 
-            IRepository<MemberSetting> memberSettingRepository, ICacheManager cacheManager): base(cacheManager)
+        public MemberSettingService(IRepository<Setting> settingRepository,
+            IRepository<MemberSetting> memberSettingRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             this._settingRepository = settingRepository;
             this._memberSettingRepository = memberSettingRepository;
@@ -56,7 +56,7 @@ namespace MakinaTurkiye.Services.Settings
 
         public Setting GetSettingBySettingId(int settingId)
         {
-            if (settingId<=0)
+            if (settingId <= 0)
                 throw new ArgumentNullException("settingId");
 
             var query = _settingRepository.Table;
@@ -72,7 +72,7 @@ namespace MakinaTurkiye.Services.Settings
                 throw new ArgumentNullException("storeMainPartyId");
 
             string key = string.Format(MEMBERSETTINGS_BY_SETTING_NAME_STORE_MAIN_PARTY_KEY, settingName, storeMainPartyId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = from s in _settingRepository.Table
                             join ms in _memberSettingRepository.Table on s.SettingId equals ms.SettingId
@@ -91,7 +91,7 @@ namespace MakinaTurkiye.Services.Settings
                 throw new ArgumentNullException("settingName");
 
             string key = string.Format(SETTINGS_BY_SETTING_NAME_KEY, settingName);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _settingRepository.Table;
                 return query.FirstOrDefault(x => x.SettingName == settingName);

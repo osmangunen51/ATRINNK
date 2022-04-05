@@ -21,8 +21,8 @@ namespace MakinaTurkiye.Services.Packets
 
         #region Ctor
 
-        public PacketService(IRepository<Packet> packetRespository, 
-            IRepository<PacketFeatureType> packetFeatureTypeRepository, 
+        public PacketService(IRepository<Packet> packetRespository,
+            IRepository<PacketFeatureType> packetFeatureTypeRepository,
             IRepository<PacketFeature> packetFeatureRepository, ICacheManager cacheManager) : base(cacheManager)
         {
             this._packetRepository = packetRespository;
@@ -43,7 +43,7 @@ namespace MakinaTurkiye.Services.Packets
             var query = _packetRepository.Table;
             query = query.Include(p => p.PacketFeatures);
 
-            var packet= query.FirstOrDefault(p => p.PacketId == packetId);
+            var packet = query.FirstOrDefault(p => p.PacketId == packetId);
             return packet;
         }
 
@@ -79,7 +79,7 @@ namespace MakinaTurkiye.Services.Packets
         public IList<Packet> GetPacketIsOnsetFalseByDiscountType(bool isDiscounted)
         {
             var query = _packetRepository.Table;
-            return query.Where(p => p.IsDiscounted == isDiscounted && p.IsOnset == false).OrderBy(x=>x.PacketOrder).ToList();
+            return query.Where(p => p.IsDiscounted == isDiscounted && p.IsOnset == false).OrderBy(x => x.PacketOrder).ToList();
         }
 
         public IList<Packet> GetAllPacket()

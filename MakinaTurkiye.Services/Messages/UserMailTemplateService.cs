@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Messages
 {
-    public class UserMailTemplateService:IUserMailTemplateService
+    public class UserMailTemplateService : IUserMailTemplateService
     {
         private readonly IRepository<UserMailTemplate> _userMailTemplateRepository;
 
@@ -33,7 +33,7 @@ namespace MakinaTurkiye.Services.Messages
             if (userMailTemplateId == 0)
                 throw new ArgumentNullException();
             var query = _userMailTemplateRepository.Table;
-            return query.FirstOrDefault(x => x.UserMailTemplateId ==userMailTemplateId);
+            return query.FirstOrDefault(x => x.UserMailTemplateId == userMailTemplateId);
         }
 
         public List<UserMailTemplate> GetUserMailTemplatesByUserId(int userId)

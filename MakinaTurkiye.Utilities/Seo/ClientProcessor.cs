@@ -16,18 +16,18 @@ namespace MakinaTurkiye.Utilities.Seo
         {
             KeywordAnalysis Sonuc = new KeywordAnalysis();
             string Txt = "";
-            using (Client HttpIstemci =new Client())
+            using (Client HttpIstemci = new Client())
             {
                 HttpIstemci.Kodlama = Encoding.UTF8;
                 Txt = HttpIstemci.HttpGet(Url);
-                Txt=HttpUtility.HtmlDecode(Txt);
+                Txt = HttpUtility.HtmlDecode(Txt);
             }
-            if (Txt!="")
+            if (Txt != "")
             {
                 HtmlText htmlText = new HtmlText();
                 Txt = htmlText.Turn(Txt);
                 KeywordAnalyzer KeywordAnalyzer = new KeywordAnalyzer();
-                var KeywordAnalyzerSonuc=KeywordAnalyzer.Analyze(Txt);
+                var KeywordAnalyzerSonuc = KeywordAnalyzer.Analyze(Txt);
                 Sonuc = KeywordAnalyzerSonuc;
             }
             return Sonuc;

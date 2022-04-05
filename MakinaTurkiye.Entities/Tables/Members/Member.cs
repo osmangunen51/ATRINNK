@@ -1,13 +1,11 @@
 ﻿using MakinaTurkiye.Entities.Tables.Catalog;
-using MakinaTurkiye.Entities.Tables.Common;
-using MakinaTurkiye.Entities.Tables.Settings;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MakinaTurkiye.Entities.Tables.Members
 {
-    public class Member: BaseEntity
+    public class Member : BaseEntity
     {
         //private ICollection<Phone> _phones;
         //private ICollection<ProductComplain> _productComplains;

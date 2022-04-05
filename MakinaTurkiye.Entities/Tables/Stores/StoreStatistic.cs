@@ -2,9 +2,9 @@
 
 namespace MakinaTurkiye.Entities.Tables.Stores
 {
-    public class StoreStatistic: BaseEntity
+    public class StoreStatistic : BaseEntity
     {
-        
+
         public int StoreId { get; set; }
         public string UserIp { get; set; }
         public string UserCity { get; set; }

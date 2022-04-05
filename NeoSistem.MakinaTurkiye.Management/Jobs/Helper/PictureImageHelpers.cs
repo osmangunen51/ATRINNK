@@ -1,12 +1,9 @@
 ﻿using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Management.Models;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
-using WebPWrapper;
-using WebPWrapper.Encoder;
 
 namespace NeoSistem.MakinaTurkiye.Management.Helper
 {
@@ -84,7 +81,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                         fileName = productName.ToImageFileName(count) + ".jpg";
                         filePath = HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName;
                         file.SaveAs(filePath);
-                        bool thumbResult = ImageProcessHelper.ImageResize(HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName,HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count), this.ThumbSizes);
+                        bool thumbResult = ImageProcessHelper.ImageResize(HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName, HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count), this.ThumbSizes);
                         if (thumbResult)
                         {
                             #region Webp Dönüşümü

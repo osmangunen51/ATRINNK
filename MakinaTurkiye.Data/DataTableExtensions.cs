@@ -12,7 +12,7 @@ namespace MakinaTurkiye.Data
         {
             DataTable newDt = datatable.Clone();
             datatable.Select(whereClause).CopyToDataTable(newDt, LoadOption.OverwriteChanges,
-              delegate(object sender, FillErrorEventArgs f)
+              delegate (object sender, FillErrorEventArgs f)
               {
                   throw f.Errors;
               });
@@ -29,7 +29,7 @@ namespace MakinaTurkiye.Data
         {
             DataTable newDt = datatable.Clone();
             datatable.Select().Take(count).CopyToDataTable(newDt, LoadOption.OverwriteChanges,
-              delegate(object sender, FillErrorEventArgs f)
+              delegate (object sender, FillErrorEventArgs f)
               {
                   throw f.Errors;
               });
@@ -40,7 +40,7 @@ namespace MakinaTurkiye.Data
         {
             DataTable newDt = datatable.Clone();
             datatable.Select(whereClause).Take(count).CopyToDataTable(newDt, LoadOption.OverwriteChanges,
-              delegate(object sender, FillErrorEventArgs f)
+              delegate (object sender, FillErrorEventArgs f)
               {
                   throw f.Errors;
               });
@@ -168,7 +168,7 @@ namespace MakinaTurkiye.Data
             return list;
         }
 
-        
+
 
         public static TResult AsRowScalar<TResult>(this DataTable datatable) where TResult : new()
         {

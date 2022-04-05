@@ -1,13 +1,8 @@
 ﻿using MakinaTurkiye.Caching;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Services
 {
-    public abstract class BaseService : ICachingSupported 
+    public abstract class BaseService : ICachingSupported
     {
         private readonly ICacheManager _cacheManager;
 
@@ -46,7 +41,7 @@ namespace MakinaTurkiye.Services
         {
             if (_cacheManager is RedisCacheManager redisCacheManager)
             {
-                if(redisCacheManager.AllOperationEnabled)
+                if (redisCacheManager.AllOperationEnabled)
                 {
                     redisCacheManager.GetOperationEnabled = this.CachingGetOrSetOperationEnabled;
                     redisCacheManager.SetOperationEnabled = this.CachingGetOrSetOperationEnabled;
@@ -55,13 +50,13 @@ namespace MakinaTurkiye.Services
             }
             if (_cacheManager is MemoryCacheManager memoryCacheManager)
             {
-                if(memoryCacheManager.AllOperationEnabled)
+                if (memoryCacheManager.AllOperationEnabled)
                 {
                     memoryCacheManager.GetOperationEnabled = this.CachingGetOrSetOperationEnabled;
                     memoryCacheManager.SetOperationEnabled = this.CachingGetOrSetOperationEnabled;
                     memoryCacheManager.RemoveOperationEnabled = this.CachingRemoveOperationEnabled;
                 }
-            } 
+            }
         }
     }
 }

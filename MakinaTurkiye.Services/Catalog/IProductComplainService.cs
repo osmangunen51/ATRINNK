@@ -13,6 +13,6 @@ namespace MakinaTurkiye.Services.Catalog
         void DeleteProductComplain(ProductComplain productComplain);
 
         ProductComplainType GetProductComplainType(int complainTypeId);
-       
+
     }
 }

@@ -1,5 +1,7 @@
-﻿namespace WebPWrapper.Encoder {
-    public enum AlphaFilters {
+﻿namespace WebPWrapper.Encoder
+{
+    public enum AlphaFilters
+    {
         None,
         Fast,
         Best

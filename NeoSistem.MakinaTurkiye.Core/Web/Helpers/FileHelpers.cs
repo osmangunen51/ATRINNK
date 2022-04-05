@@ -36,7 +36,7 @@
             {
                 Directory.Delete(fileFullPath, true);
             }
-            return  true;
+            return true;
         }
 
         public static string ImageResize(string filePath, HttpPostedFileBase postedFile, Dictionary<string, string> thumbs)

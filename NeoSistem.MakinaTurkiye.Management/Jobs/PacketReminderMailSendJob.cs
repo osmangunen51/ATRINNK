@@ -1,4 +1,5 @@
-﻿using NeoSistem.MakinaTurkiye.Management.Models.Entities;
+﻿using MakinaTurkiye.Core;
+using NeoSistem.MakinaTurkiye.Management.Models.Entities;
 using Quartz;
 using System;
 using System.Data.Objects;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace NeoSistem.MakinaTurkiye.Management.Jobs
 {
-    public class PacketReminderMailSendJob:IJob
+    public class PacketReminderMailSendJob : IJob
     {
         //private readonly IStoreService _storeService;
 
@@ -17,7 +18,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Jobs
         //{
         //    this._storeService = storeService;
         //}
-        
+
         public Task Execute(IJobExecutionContext context)
         {
             var entities = new MakinaTurkiyeEntities();
@@ -110,10 +111,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Jobs
                         mail.IsBodyHtml = true;
                         mail.Priority = MailPriority.Normal;
                         SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                        sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                        sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                        sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                        sc.Credentials = new NetworkCredential(mailTemplate.Mail, mailTemplate.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
+                        sc.Port = AppSettings.MailPort;                                                                   //Gmail için geçerli Portu bildiriyoruz
+                        sc.Host = AppSettings.MailHost;                                                      //Gmailin smtp host adresini belirttik
+                        sc.EnableSsl = AppSettings.MailSsl;                                                             //SSL’i etkinleştirdik
+                        sc.Credentials = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
                         sc.Send(mail);
                         #endregion
 

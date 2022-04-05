@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Users
 {
-    public class WebSiteErrorMap:EntityTypeConfiguration<WebSiteError>
+    public class WebSiteErrorMap : EntityTypeConfiguration<WebSiteError>
     {
         public WebSiteErrorMap()
         {

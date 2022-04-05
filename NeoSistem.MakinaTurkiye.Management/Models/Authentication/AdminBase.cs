@@ -3,8 +3,8 @@
 namespace NeoSistem.MakinaTurkiye.Management.Models.Authentication
 {
     [Authorize(Roles = "Admin")]
-  public class AdminBase : Controller
-  {
+    public class AdminBase : Controller
+    {
 
-  }
+    }
 }

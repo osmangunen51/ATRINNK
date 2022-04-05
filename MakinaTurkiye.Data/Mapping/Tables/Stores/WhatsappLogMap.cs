@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Stores
 {
-    public class WhatsappLogMap:EntityTypeConfiguration<WhatsappLog>
+    public class WhatsappLogMap : EntityTypeConfiguration<WhatsappLog>
     {
         public WhatsappLogMap()
         {

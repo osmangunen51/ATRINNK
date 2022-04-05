@@ -7,22 +7,22 @@
     using System.Web.Mvc;
 
     [Bind(Exclude = "UserGroupId")]
-  public class UserGroupModel
-  {
-    public int UserGroupId { get; set; }
-
-    [RequiredValidation, StringLengthValidation(50)]
-    [DisplayName("Grup Adı")]
-    public string GroupName { get; set; }
-
-    public ICollection<PermissionModel> Permissions { get; set; }
-
-    public static ICollection<UserGroupModel> UserGroups
+    public class UserGroupModel
     {
-      get
-      {
-        return new Classes.UserGroup().GetDataTable().AsCollection<UserGroupModel>();
-      }
+        public int UserGroupId { get; set; }
+
+        [RequiredValidation, StringLengthValidation(50)]
+        [DisplayName("Grup Adı")]
+        public string GroupName { get; set; }
+
+        public ICollection<PermissionModel> Permissions { get; set; }
+
+        public static ICollection<UserGroupModel> UserGroups
+        {
+            get
+            {
+                return new Classes.UserGroup().GetDataTable().AsCollection<UserGroupModel>();
+            }
+        }
     }
-  }
 }

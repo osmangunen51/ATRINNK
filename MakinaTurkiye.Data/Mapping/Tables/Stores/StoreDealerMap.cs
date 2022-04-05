@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Stores
 {
-    public class StoreDealerMap:EntityTypeConfiguration<StoreDealer> 
+    public class StoreDealerMap : EntityTypeConfiguration<StoreDealer>
     {
         public StoreDealerMap()
         {
@@ -11,7 +11,7 @@ namespace MakinaTurkiye.Data.Mapping.Tables.Stores
             this.Ignore(sd => sd.Id);
             this.HasKey(sd => sd.StoreDealerId);
 
-     
+
 
         }
     }

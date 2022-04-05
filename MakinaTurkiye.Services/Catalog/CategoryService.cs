@@ -19,14 +19,14 @@ namespace MakinaTurkiye.Services.Catalog
         #region Constants
 
         private const string CATEGORIES_BY_MAIN_CATEGORIES_KEY = "makinaturkiye.category.main-category";
-        private const string CATEGORIES_TOP_CATEGORIES_BY_CATEGORY_ID_KEY ="makinaturkiye.category.top-category.bycategoryId-{0}";
+        private const string CATEGORIES_TOP_CATEGORIES_BY_CATEGORY_ID_KEY = "makinaturkiye.category.top-category.bycategoryId-{0}";
         private const string CATEGORIES_BOTTOM_CATEGORIES_BY_CATEGORY_ID_KEY = "makinaturkiye.category.bottom-category.bycategoryId-{0}";
         private const string CATEGORIES_BY_CATEGORYPARENT_ID_KEY = "makinaturkiye.category.bycategoryparentId-{0}";
         private const string CATEGORIES_BY_CATEGORY_IDS_KEY = "makinaturkiye.category.bycategoryIds-{0}";
         private const string CATEGORIES_BY_CATEGORY_NAME_KEY = "makinaturkiye.category.bycategoryname-{0}";
         private const string CATEGORIES_BY_CATEGORY_ID_KEY = "makinaturkiye.category.bycategoryId-{0}";
         private const string CATEGORIES_BY_MAIN_CATEGORY_TYPE_KEY = "makinaturkiye.category.bymaincategorytype-{0}";
-        private const string CATEGORIES_BY_CATEGORYPARENT_ID_KEY_ASYNC ="makinaturkiye.category.bycategoryparentId-{0}-async";
+        private const string CATEGORIES_BY_CATEGORYPARENT_ID_KEY_ASYNC = "makinaturkiye.category.bycategoryparentId-{0}-async";
         private const string CATEGORIES_SP_PRODUCTCATEGORY_FOR_SEARCH_TEXT_KEY = "makinaturkiye.category.sp.productcategory.forseachtext-{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}";
         private const string CATEGORIES_SP_PRODUCTCATEGORY_ONE_STEP_FOR_SEARCH_TEXT_KEY = "makinaturkiye.category.sp.productcategory.onestep.forseachtext-{0}";
         private const string CATEGORIES_SP_VIDEOCATEGORY_FOR_SEARCH_TEXT_KEY = "makinaturkiye.category.sp.videocategory.forseachtext-{0}-{1}";
@@ -56,7 +56,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         public CategoryService(IDbContext dbContext, IDataProvider dataProvider,
             IRepository<Category> categoryRepository, ICacheManager cacheManager,
-            IRepository<CategoryPlaceChoice> categoryPlaceChoiceRepository): base(cacheManager)
+            IRepository<CategoryPlaceChoice> categoryPlaceChoiceRepository) : base(cacheManager)
         {
             _dbContext = dbContext;
             _dataProvider = dataProvider;
@@ -135,7 +135,7 @@ namespace MakinaTurkiye.Services.Catalog
             return productCategory;
         }
 
-        public IList<Category> GetCategoriesByCategoryParentId(int categoryParentId, bool showHidden=false, bool fromCache = true, bool isProductCount = true)
+        public IList<Category> GetCategoriesByCategoryParentId(int categoryParentId, bool showHidden = false, bool fromCache = true, bool isProductCount = true)
         {
             if (categoryParentId == 0)
                 return new List<Category>();
@@ -167,8 +167,8 @@ namespace MakinaTurkiye.Services.Catalog
                 if (!showHidden)
                     query = query.Where(c => c.Active == true);
 
-                query=query.Where( c => c.CategoryParentId == categoryParentId && c.ProductCount > 0);
-                query=query.OrderBy(c => c.CategoryOrder).ThenBy(k => k.CategoryName);
+                query = query.Where(c => c.CategoryParentId == categoryParentId && c.ProductCount > 0);
+                query = query.OrderBy(c => c.CategoryOrder).ThenBy(k => k.CategoryName);
 
                 var categories = query.ToList();
                 return categories;
@@ -422,11 +422,11 @@ namespace MakinaTurkiye.Services.Catalog
 
         public IList<Category> GetCategoriesByName(string Name)
         {
-            string key = string.Format(CATEGORIES_BY_CATEGORY_NAME_KEY,Name);
+            string key = string.Format(CATEGORIES_BY_CATEGORY_NAME_KEY, Name);
             return _cacheManager.Get(key, () =>
             {
                 var query = _categoryRepository.Table;
-                query = query.Where(c =>(c.CategoryType== (byte)CategoryTypeEnum.Sector | c.CategoryType == (byte)CategoryTypeEnum.Category) && c.CategoryName.Contains(Name));
+                query = query.Where(c => (c.CategoryType == (byte)CategoryTypeEnum.Sector | c.CategoryType == (byte)CategoryTypeEnum.Category) && c.CategoryName.Contains(Name));
                 query = query.OrderBy(c => c.CategoryName);
                 return query.ToList();
             });
@@ -480,7 +480,7 @@ namespace MakinaTurkiye.Services.Catalog
             }
             categoryParentIdsText = categoryParentIdsText.Substring(0, categoryParentIdsText.Length - 1);
 
-            string key = string.Format(CATEGORIES_BY_CATEGORY_IDS_KEY, categoryParentIdsText,showHidden);
+            string key = string.Format(CATEGORIES_BY_CATEGORY_IDS_KEY, categoryParentIdsText, showHidden);
             return _cacheManager.Get(key, () =>
             {
                 var query = _categoryRepository.Table;
@@ -510,12 +510,12 @@ namespace MakinaTurkiye.Services.Catalog
             });
         }
 
-        public IList<Category> GetCategoriesByCategoryParentIdWithCategoryType(int categoryParentId, CategoryTypeEnum categoryType, bool showHidden=false)
+        public IList<Category> GetCategoriesByCategoryParentIdWithCategoryType(int categoryParentId, CategoryTypeEnum categoryType, bool showHidden = false)
         {
             //if (categoryParentId == 0)
             //    throw new ArgumentException("categoryParentId");
 
-            string key = string.Format(CATEGORIES_BY_CATEGORYPARENT_ID_WITH_CATEGORY_TYPE_KEY, categoryParentId, (byte)categoryType,showHidden);
+            string key = string.Format(CATEGORIES_BY_CATEGORYPARENT_ID_WITH_CATEGORY_TYPE_KEY, categoryParentId, (byte)categoryType, showHidden);
             return _cacheManager.Get(key, () =>
             {
                 var query = _categoryRepository.Table;
@@ -524,7 +524,7 @@ namespace MakinaTurkiye.Services.Catalog
                     query = query.Where(c => c.Active == true);
 
                 query = query.Where(c => c.CategoryParentId == categoryParentId && c.CategoryType == (byte)categoryType);
-                query = query.OrderBy(c => c.CategoryOrder).ThenBy(c=>c.CategoryName);
+                query = query.OrderBy(c => c.CategoryOrder).ThenBy(c => c.CategoryName);
 
                 var categories = query.ToList();
                 return categories;

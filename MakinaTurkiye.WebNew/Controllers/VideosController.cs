@@ -14,7 +14,6 @@ using MakinaTurkiye.Utilities.ImageHelpers;
 using MakinaTurkiye.Utilities.Mvc;
 
 using NeoSistem.MakinaTurkiye.Web.Models;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NeoSistem.MakinaTurkiye.Web.Models.Videos;
 
 using System;

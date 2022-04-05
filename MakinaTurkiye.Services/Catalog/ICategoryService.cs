@@ -22,7 +22,7 @@ namespace MakinaTurkiye.Services.Catalog
                      int seriesId = 0, int searchType = 0, int countryId = 0, int cityId = 0, int localityId = 0,
                      int customFilterId = 0);
 
-        IList<Category> GetCategoriesByCategoryParentId(int categoryParentId, bool showHidden = false , bool fromCache = true, bool isProductCount=true);
+        IList<Category> GetCategoriesByCategoryParentId(int categoryParentId, bool showHidden = false, bool fromCache = true, bool isProductCount = true);
 
         IList<int> GetCategoryIdsByCategoryParentId(int categoryParentId, bool showHidden = false);
 
@@ -47,7 +47,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         IList<Category> GetCategoriesByCategoryIds(List<int> categoryIds);
 
-        IList<Category> GetCategoriesByCategoryParentIds(List<int> categoryParentIds, bool showHidden=false);
+        IList<Category> GetCategoriesByCategoryParentIds(List<int> categoryParentIds, bool showHidden = false);
 
         Task<List<Category>> GetCategoriesByCategoryParentIdAsync(int categoryParentId);
 

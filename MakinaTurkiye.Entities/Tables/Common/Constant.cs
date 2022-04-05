@@ -1,6 +1,6 @@
 ﻿namespace MakinaTurkiye.Entities.Tables.Common
 {
-    public class Constant:BaseEntity
+    public class Constant : BaseEntity
     {
         //private ICollection<Product> _productTypeProducts;
         //private ICollection<Product> _productStatuProducts;

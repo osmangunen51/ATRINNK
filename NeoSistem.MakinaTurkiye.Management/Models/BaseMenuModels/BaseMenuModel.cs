@@ -9,6 +9,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.BaseMenuModels
             this.BaseMenuItems = new List<BaseMenuItem>();
         }
         public List<BaseMenuItem> BaseMenuItems { get; set; }
-       
+
     }
 }

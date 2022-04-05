@@ -26,36 +26,36 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
             byte PriceTypePrice = 238;
             byte PriceTypeRange = 239;
             byte PriceTypeDiscuss = 241;
-           // byte PriceTypeAsk = 240;
+            // byte PriceTypeAsk = 240;
 
-             if (product.ProductPriceType == PriceTypePrice || (product.ProductPriceType == 0 || product.ProductPriceType == null))
+            if (product.ProductPriceType == PriceTypePrice || (product.ProductPriceType == 0 || product.ProductPriceType == null))
             {
 
                 if (!product.ProductPrice.HasValue || product.ProductPrice.Value == 0)
-                return string.Empty;
+                    return string.Empty;
 
-            //return product.ProductPrice.Value.ToString("0.##").Replace(",", ".");
-            string price = product.ProductPrice.Value.ToString("0.00");
-            if (string.Format("{0:#,0.00}", Convert.ToDouble(price)).EndsWith(",00"))
-            {
-                price = string.Format("{0:#,0.00}", Convert.ToDouble(price)).Replace(",00", "");
-            }
-            else
-            {
+                //return product.ProductPrice.Value.ToString("0.##").Replace(",", ".");
+                string price = product.ProductPrice.Value.ToString("0.00");
+                if (string.Format("{0:#,0.00}", Convert.ToDouble(price)).EndsWith(",00"))
+                {
+                    price = string.Format("{0:#,0.00}", Convert.ToDouble(price)).Replace(",00", "");
+                }
+                else
+                {
 
-                price = string.Format("{0:#,0.00}", Convert.ToDouble(price));
+                    price = string.Format("{0:#,0.00}", Convert.ToDouble(price));
+                }
+                return price;
             }
-            return price;
-           }
             else if (product.ProductPriceType == PriceTypeRange)
             {
                 string priceBegin = "0";
                 string priceLast = "0";
                 if (product.ProductPriceBegin.HasValue)
-                     priceBegin = product.ProductPriceBegin.Value.ToString("0.00");
-                if(product.ProductPriceLast.HasValue)
+                    priceBegin = product.ProductPriceBegin.Value.ToString("0.00");
+                if (product.ProductPriceLast.HasValue)
                     priceLast = product.ProductPriceLast.Value.ToString("0.00");
-                
+
                 if (string.Format("{0:#,0.00}", Convert.ToDouble(priceBegin)).EndsWith(",00") && string.Format("{0:#,0.00}", Convert.ToDouble(priceLast)).EndsWith(",00"))
                 {
                     priceBegin = string.Format("{0:#,0.00}", Convert.ToDouble(priceBegin)).Replace(",00", "");

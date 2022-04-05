@@ -54,7 +54,7 @@ namespace MakinaTurkiye.Services.Members
                 throw new ArgumentNullException("");
 
             string key = string.Format(MEMBERSTORES_BY_STORE_MAIN_PARTY_ID_KEY, storeMainPartyId);
-            return _cacheManager.Get(key, () => 
+            return _cacheManager.Get(key, () =>
             {
                 var query = _memberStoreRepository.Table;
                 return query.FirstOrDefault(ms => ms.StoreMainPartyId == storeMainPartyId);

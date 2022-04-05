@@ -6,7 +6,6 @@ using NeoSistem.MakinaTurkiye.Cache;
 using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Management.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Management.Models.Entities;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,14 +17,13 @@ using System.Text;
 using System.Transactions;
 using System.Web.Mvc;
 using System.Web.Routing;
-
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
+    using global::MakinaTurkiye.Core;
     using global::MakinaTurkiye.Services.Bulletins;
     using global::MakinaTurkiye.Services.Catalog;
     using global::MakinaTurkiye.Services.Common;
     using global::MakinaTurkiye.Services.Messages;
-    using global::MakinaTurkiye.Services.Users;
     using global::MakinaTurkiye.Utilities.FormatHelpers;
     using global::MakinaTurkiye.Utilities.HttpHelpers;
     using global::MakinaTurkiye.Utilities.MailHelpers;
@@ -274,24 +272,20 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         //string template = entities.MessagesMTs.SingleOrDefault(c => c.MessagesMTId == 15).MessagesMTPropertie;
                         template = template.Replace("#firmabilgileri#", intemplate).Replace("#uyeadisoyadi#", singlemember.MemberName + " " + singlemember.MemberSurname).Replace("#kullaniciadi#", singlemember.MemberEmail).Replace("#sifre#", singlemember.MemberPassword);
                         realtitle = realtitle.Replace("#firmabilgileri#", intemplate).Replace("#uyeadisoyadi#", singlemember.MemberName + " " + singlemember.MemberSurname).Replace("#kullaniciadi#", singlemember.MemberEmail).Replace("#sifre#", singlemember.MemberPassword);
-                        mail.From = new MailAddress("makinaturkiye@makinaturkiye.com", "Makina Türkiye"); //Mailin kimden gittiğini belirtiyoruz
+                        mail.From = new MailAddress(AppSettings.MailUserName, "Makina Türkiye"); //Mailin kimden gittiğini belirtiyoruz
                         mail.To.Add(singlemember.MemberEmail); //Mailin kime gideceğini belirtiyoruz
                         mail.Subject = realtitle; //Mail konusu
                         mail.Body = template; //Mailin içeriği
                         mail.IsBodyHtml = true;
                         mail.Priority = MailPriority.Normal;
-                        SmtpClient sc = new SmtpClient(); //sc adında SmtpClient nesnesi yaratıyoruz.
-                        sc.Port = 587; //Gmail için geçerli Portu bildiriyoruz
-                        sc.Host = "smtp.gmail.com"; //Gmailin smtp host adresini belirttik
-                        sc.EnableSsl = true; //SSL’i etkinleştirdik
-                        sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-                        sc.Send(mail); //Mailinizi gönderiyoruz.
 
+
+
+                        this.SendMail(mail);
                     }
                     catch
                     {
                         logfailcount += 1;
-
                     }
                 }
             }
@@ -314,18 +308,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         string template = Resources.Email.firmaonaylanmadi;
                         template = template.Replace("#firmabilgileri#", intemplate).Replace("#uyeadisoyadi#", singlemember.MemberName + " " + singlemember.MemberSurname).Replace("#kullaniciadi#", singlemember.MemberEmail).Replace("#sifre#", singlemember.MemberPassword);
                         subtitle = subtitle.Replace("#firmabilgileri#", intemplate).Replace("#uyeadisoyadi#", singlemember.MemberName + " " + singlemember.MemberSurname).Replace("#kullaniciadi#", singlemember.MemberEmail).Replace("#sifre#", singlemember.MemberPassword);
-                        mail.From = new MailAddress("makinaturkiye@makinaturkiye.com", "Makina Türkiye"); //Mailin kimden gittiğini belirtiyoruz
+                        mail.From = new MailAddress(AppSettings.MailUserName, "Makina Türkiye"); //Mailin kimden gittiğini belirtiyoruz
                         mail.To.Add(singlemember.MemberEmail); //Mailin kime gideceğini belirtiyoruz
                         mail.Subject = subtitle; //Mail konusu
                         mail.Body = template; //Mailin içeriği
                         mail.IsBodyHtml = true;
                         mail.Priority = MailPriority.Normal;
-                        SmtpClient sc = new SmtpClient(); //sc adında SmtpClient nesnesi yaratıyoruz.
-                        sc.Port = 587; //Gmail için geçerli Portu bildiriyoruz
-                        sc.Host = "smtp.gmail.com"; //Gmailin smtp host adresini belirttik
-                        sc.EnableSsl = true; //SSL’i etkinleştirdik
-                        sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-                        sc.Send(mail); //Mailinizi gönderiyoruz.
+
+                        this.SendMail(mail);
 
                     }
                     catch
@@ -360,12 +350,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         mail.Body = template; //Mailin içeriği
                         mail.IsBodyHtml = true;
                         mail.Priority = MailPriority.Normal;
-                        SmtpClient sc = new SmtpClient(); //sc adında SmtpClient nesnesi yaratıyoruz.
-                        sc.Port = 587; //Gmail için geçerli Portu bildiriyoruz
-                        sc.Host = "smtp.gmail.com"; //Gmailin smtp host adresini belirttik
-                        sc.EnableSsl = true; //SSL’i etkinleştirdik
-                        sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-                        sc.Send(mail); //Mailinizi gönderiyoruz.
+                        this.SendMail(mail);
 
                     }
                     catch
@@ -466,12 +451,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 mail.Body = template; //Mailin içeriği
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
-                SmtpClient sc = new SmtpClient(); //sc adında SmtpClient nesnesi yaratıyoruz.
-                sc.Port = 587; //Gmail için geçerli Portu bildiriyoruz
-                sc.Host = "smtp.gmail.com"; //Gmailin smtp host adresini belirttik
-                sc.EnableSsl = true; //SSL’i etkinleştirdik
-                sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-                sc.Send(mail); //Mailinizi gönderiyoruz.
+                this.SendMail(mail);
                 BaseMemberDescription baseMember = new BaseMemberDescription();
                 baseMember.Date = DateTime.Now;
                 baseMember.MainPartyId = Convert.ToInt32(id);
@@ -507,12 +487,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 mail.Body = template; //Mailin içeriği
                 mail.IsBodyHtml = true;
                 mail.Priority = MailPriority.Normal;
-                SmtpClient sc = new SmtpClient(); //sc adında SmtpClient nesnesi yaratıyoruz.
-                sc.Port = 587; //Gmail için geçerli Portu bildiriyoruz
-                sc.Host = "smtp.gmail.com"; //Gmailin smtp host adresini belirttik
-                sc.EnableSsl = true; //SSL’i etkinleştirdik
-                sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-                sc.Send(mail); //Mailinizi gönderiyoruz.
+                this.SendMail(mail);
                 BaseMemberDescription baseMember = new BaseMemberDescription();
                 baseMember.Date = DateTime.Now;
                 baseMember.MainPartyId = Convert.ToInt32(id);
@@ -649,7 +624,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 //date time karşılaştırmak için compare
                 //DateTime.Compare(t1, t2);
 
-                mail.From = new MailAddress("makina@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                mail.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
                 mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
                 mail.Subject = subtitle; //Mail konusu
                 mail.Body = template; //Mailin içeriği
@@ -668,13 +643,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 //smtpServer.SmtpAuthToken = new LoginAuthToken(settings["SmtpUserName"], settings["SmtpUserPassword"]);
                 //mail.HeaderCharSet = Encoding.GetEncoding("UTF-8");
                 //mail.HtmlPart.CharSet = Encoding.GetEncoding("UTF-8");
-                SmtpClient sc = new SmtpClient(); //sc adında SmtpClient nesnesi yaratıyoruz.
-                sc.Port = 587; //Gmail için geçerli Portu bildiriyoruz
-                sc.Host = "smtp.gmail.com"; //Gmailin smtp host adresini belirttik
-                sc.EnableSsl = true; //SSL’i etkinleştirdik
-                sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-                sc.Send(mail); //Mailinizi gönderiyoruz.
-                               //mail.Send(smtpServer);
+                this.SendMail(mail);
                 #endregion
                 #region digerkullanicilar
                 var alluserfriend = entities.MainPartyIdEpostas.Where(c => c.MainPartyId == storeid).SingleOrDefault();
@@ -693,13 +662,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             maila.Body = template; //Mailin içeriği
                             maila.IsBodyHtml = true;
                             maila.Priority = MailPriority.Normal;
-                            sc.Send(maila);
+                            this.SendMail(maila);
                         }
                         else
                         {
                             alluserfriend.Eposta1check = false;
                         }
-         
+
                     }
                     if (alluserfriend.Eposta2check == true)
                     {
@@ -713,7 +682,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             mailb.Body = template; //Mailin içeriği
                             mailb.IsBodyHtml = true;
                             mailb.Priority = MailPriority.High;
-                            sc.Send(mailb);
+                            this.SendMail(mailb);
 
                         }
 
@@ -851,12 +820,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 }
             }
 
-            SmtpClient sc = new SmtpClient(); //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587; //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com"; //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true; //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail); //Mailinizi gönderiyoruz.
+            this.SendMail(mail);
 
             return RedirectToAction("SendSpecialEmailToStore", new { success = "true" });
 
@@ -908,12 +872,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         mail.Attachments.Add(new Attachment(Server.MapPath("~/FilesMail/Teklif.pdf")));
                         mail.Attachments.Add(new Attachment(Server.MapPath("~/FilesMail/Tanıtım.pdf")));
                     }
-                    SmtpClient sc = new SmtpClient(); //sc adında SmtpClient nesnesi yaratıyoruz.
-                    sc.Port = Convert.ToInt32(user.SendCode); //Gmail için geçerli Portu bildiriyoruz
-                    sc.Host = user.MailSmtp; //Gmailin smtp host adresini belirttik
-                    sc.EnableSsl = true; //SSL’i etkinleştirdik
-                    sc.Credentials = new NetworkCredential(user.UserMail, user.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                    sc.Send(mail); //Mailinizi gönderiyoruz.
+                    this.SendMail(mail);
                     var anyMember = entities.BaseMemberDescriptions.FirstOrDefault(x => x.MainPartyId == member.MainPartyId);
 
                     var basemember = new BaseMemberDescription();
@@ -1035,18 +994,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mail.Body = template; //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient(); //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587; //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com"; //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true; //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail); //Mailinizi gönderiyoruz.
+            this.SendMail(mail);
             #endregion
-            //int salla = id;
-            //RelatedCategory = null;
-            //var dataConstant = new Data.Constant();
-            //var model = dataConstant.ConstantGetByConstantType(13).AsCollection<ConstantModel>();
-
             return RedirectToAction("Succees");
         }
 
@@ -1524,12 +1473,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
               dataMember.Search(ref total, PageDimension, Page ?? 1, whereClause.ToString(), OrderName, Order).AsCollection<MemberModel>();
             foreach (var memberItem in collection)
             {
-                if(memberItem.MemberType != (byte)MemberType.Enterprise)
+                if (memberItem.MemberType != (byte)MemberType.Enterprise)
                 {
                     collection.First(x => x.MainPartyId == memberItem.MainPartyId).PhoneItems = entities.Phones.Where(x => x.MainPartyId == memberItem.MainPartyId);
 
                 }
-                else 
+                else
                 {
                     collection.First(x => x.MainPartyId == memberItem.MainPartyId).PhoneItems = entities.Phones.Where(x => x.MainPartyId == memberItem.StoreMainPartyId);
 
@@ -1569,12 +1518,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail);
+            this.SendMail(mail);
             BaseMemberDescription baseMember = new BaseMemberDescription();
             baseMember.Date = DateTime.Now;
             baseMember.MainPartyId = Convert.ToInt32(id);
@@ -1722,7 +1666,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             //Mail konusu
                             string templatet = mailTemplate.MessagesMTPropertie;
                             templatet = templatet.Replace("#kullaniciadi", kullaniciemail.MemberName + " " + kullaniciemail.MemberSurname).Replace("#urunadi", productName).Replace("#email#", mailadresifirma).Replace("#link", productUrl).Replace("#ilanno", productno).Replace("#messagecontent#", messageItem.MessageContent).Replace("#loginautolink#", loginAutoLink);
-                            MailHelper mailHelper = new MailHelper(productnosub, templatet, mailTemplate.Mail, mailadresifirma, mailTemplate.MailPassword, mailTemplate.MailSendFromName);
+                            MailHelper mailHelper = new MailHelper(productnosub, templatet, mailTemplate.Mail, mailadresifirma, mailTemplate.MailPassword, mailTemplate.MailSendFromName, AppSettings.MailHost, AppSettings.MailPort, AppSettings.MailSsl);
                             var memberStore = _memberstoreService.GetMemberStoreByMemberMainPartyId(messageItem.ReceiverID);
                             if (memberStore != null)
                             {
@@ -1756,13 +1700,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail);
-
+            this.SendMail(mail);
         }
 
         [HttpPost]
@@ -2442,8 +2380,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 if (item.UpdateDate != null) otherItem.LastDate = Convert.ToDateTime(item.UpdateDate);
                 otherItem.MainPartyId = item.MainPartyId.ToInt32();
                 var memberSub = entities.Members.FirstOrDefault(m => m.MainPartyId == item.MainPartyId);
-               
-                if (memberSub!=null && memberSub.MainPartyId!=0)
+
+                if (memberSub != null && memberSub.MainPartyId != 0)
                 {
                     var memberStore = entities.MemberStores.FirstOrDefault(x => x.MemberMainPartyId == item.MainPartyId);
                     otherItem.Title = item.Title;
@@ -2909,7 +2847,7 @@ new { controller = "Member", action = "BrowseDesc1", id = redirectId }));
             return View();
         }
         [HttpPost]
-       public ActionResult SearchPhone(string phoneText)
+        public ActionResult SearchPhone(string phoneText)
         {
             var records = _memberService.SPGetInfoByPhone(phoneText);
             List<SearchPhoneModel> model = new List<SearchPhoneModel>();
@@ -2919,7 +2857,7 @@ new { controller = "Member", action = "BrowseDesc1", id = redirectId }));
                 if (item.MemberType == 2)
                 {
                     var preRegistrationStore = _preRegistrationStoreService.GetPreRegistirationStoreByPreRegistrationStoreId(item.PreRegistrationStoreId);
-                    searchPhone.NameSurname = preRegistrationStore.MemberName+" -"+preRegistrationStore.StoreName;
+                    searchPhone.NameSurname = preRegistrationStore.MemberName + " -" + preRegistrationStore.StoreName;
                     searchPhone.MemberTypeText = "Ön Kayıt";
                 }
                 else
@@ -2948,7 +2886,7 @@ new { controller = "Member", action = "BrowseDesc1", id = redirectId }));
                     model.Add(searchPhone);
                 }
             }
-            return PartialView("_SearchPhoneList",model);
+            return PartialView("_SearchPhoneList", model);
         }
         #endregion
     }

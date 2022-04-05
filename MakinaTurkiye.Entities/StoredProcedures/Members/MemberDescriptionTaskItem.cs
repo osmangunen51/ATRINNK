@@ -26,6 +26,6 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Members
         public string PreStoreName { get; set; }
         public string PreMemberName { get; set; }
         public string PreMemberSurname { get; set; }
-        
+
     }
 }

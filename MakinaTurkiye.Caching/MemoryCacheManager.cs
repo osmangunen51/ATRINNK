@@ -67,7 +67,7 @@ namespace MakinaTurkiye.Caching
         {
             if (!SetOperationEnabled)
                 return;
-            
+
             if (data == null)
                 return;
 

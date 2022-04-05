@@ -13,8 +13,8 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Catalog
         public string MainPicture { get; set; }
         public string StoreName { get; set; }
         public byte? ProductPriceType { get; set; }
-        public decimal ?ProductPriceLast{get;set;}
-        public decimal ?ProductPriceBegin { get; set; }
+        public decimal? ProductPriceLast { get; set; }
+        public decimal? ProductPriceBegin { get; set; }
 
         public DateTime ProductRecodrtDate { get; set; } = default;
         public int ViewCount { get; set; } = default;

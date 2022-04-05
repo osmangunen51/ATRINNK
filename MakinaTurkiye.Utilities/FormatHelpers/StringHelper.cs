@@ -2,7 +2,7 @@
 {
     public static class StringHelper
     {
-        public static string Truncate(string value, int length, bool isEllipsis=false)
+        public static string Truncate(string value, int length, bool isEllipsis = false)
         {
             if (!string.IsNullOrEmpty(value))
             {
@@ -10,7 +10,7 @@
                 {
                     return value;
                 }
-                value  =  value.Substring(0, length);
+                value = value.Substring(0, length);
                 if (isEllipsis)
                 {
                     value += "...";

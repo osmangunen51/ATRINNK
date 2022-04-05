@@ -5,13 +5,13 @@ namespace NeoSistem.MakinaTurkiye.Classes
     using System.Data;
 
     [Table("RelMainPartyCategory")]
-  public partial class RelMainPartyCategory : EntityObject
-  {
-    [Column("MainPartyId", SqlDbType.Int)]
-    public int MainPartyId { get; set; }
+    public partial class RelMainPartyCategory : EntityObject
+    {
+        [Column("MainPartyId", SqlDbType.Int)]
+        public int MainPartyId { get; set; }
 
-    [Column("CategoryId", SqlDbType.Int)]
-    public int CategoryId { get; set; }
-  }
+        [Column("CategoryId", SqlDbType.Int)]
+        public int CategoryId { get; set; }
+    }
 
 }

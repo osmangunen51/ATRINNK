@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MakinaTurkiye.Pinterest.Model.Input.PinCreate
+﻿namespace MakinaTurkiye.Pinterest.Model.Input.PinCreate
 {
 
     public class PinCreate
     {
-        public Options options { get; set; }=new Options();
-        public Context context { get; set; }=new Context();
+        public Options options { get; set; } = new Options();
+        public Context context { get; set; } = new Context();
     }
 
     public class Options

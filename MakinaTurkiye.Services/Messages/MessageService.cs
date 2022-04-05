@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Messages
 {
-    public class MessageService:IMessageService
+    public class MessageService : IMessageService
     {
         private readonly IRepository<Message> _messageRepository;
         private readonly IRepository<MessageMainParty> _messageMainPartyRepository;
@@ -19,8 +19,8 @@ namespace MakinaTurkiye.Services.Messages
         private readonly IDbContext _dbContext;
         private readonly IDataProvider _dataProvider;
 
-        public MessageService(IRepository<Message> messageRepository, IDbContext dbContext, 
-            IDataProvider dataProvider, IRepository<MessageMainParty> messageMainPartyRepository, 
+        public MessageService(IRepository<Message> messageRepository, IDbContext dbContext,
+            IDataProvider dataProvider, IRepository<MessageMainParty> messageMainPartyRepository,
             IRepository<SendMessageError> sendMessageErrorRepository,
             IRepository<MessageCheck> messageCheckRepository)
         {
@@ -55,12 +55,12 @@ namespace MakinaTurkiye.Services.Messages
 
         public IList<SendMessageError> GetSendMessageErrorsBySenderId(int senderId)
         {
-           if(senderId==0)
-               throw new ArgumentNullException("senderId");
+            if (senderId == 0)
+                throw new ArgumentNullException("senderId");
 
-           var query = _sendMessageErrorRepository.Table;
-           query=query.Where(x=>x.SenderID==senderId);
-           return query.ToList();
+            var query = _sendMessageErrorRepository.Table;
+            query = query.Where(x => x.SenderID == senderId);
+            return query.ToList();
         }
 
         public SendMessageError GetSendMessageErrorByMessageId(int messageId)
@@ -69,14 +69,14 @@ namespace MakinaTurkiye.Services.Messages
                 throw new ArgumentNullException("messageId");
 
             var sendMessageError = _sendMessageErrorRepository.Table;
-            return sendMessageError.FirstOrDefault(x=>x.MessageID==messageId);
+            return sendMessageError.FirstOrDefault(x => x.MessageID == messageId);
         }
 
         public IList<SendMessageError> GetAllSendMessageErrors(int senderId = 0, string messageSubject = "", int receiverId = 0)
         {
             var query = _sendMessageErrorRepository.Table;
 
-            if (senderId >0)
+            if (senderId > 0)
                 query = query.Where(s => s.SenderID == senderId);
 
             if (!string.IsNullOrEmpty(messageSubject))
@@ -178,7 +178,7 @@ namespace MakinaTurkiye.Services.Messages
             if (messageCheck == null)
                 throw new ArgumentNullException("messageCheck");
 
-            _messageCheckRepository.Insert(messageCheck); 
+            _messageCheckRepository.Insert(messageCheck);
         }
 
         public void DeleteMessageCheck(MessageCheck messageCheck)
@@ -192,12 +192,12 @@ namespace MakinaTurkiye.Services.Messages
         public IList<MessageMainParty> GetAllMessageMainParty(int memberMainPartyId, byte messageType)
         {
             var messageMainPartyList = new List<MessageMainParty>();
-           var messageMainPartyRepo  =  _messageMainPartyRepository.Table;
+            var messageMainPartyRepo = _messageMainPartyRepository.Table;
             //if(messageType == 2)
             //    messageMainPartyList = messageMainPartyRepo.Where(m => m.MessageType == (byte)messageType && (m.MainPartyId == memberMainPartyId || m.InOutMainPartyId == memberMainPartyId)).ToList();
 
             //else
-                messageMainPartyList = messageMainPartyRepo.Where(m => m.MessageType == (byte)messageType && m.MainPartyId == memberMainPartyId).ToList();
+            messageMainPartyList = messageMainPartyRepo.Where(m => m.MessageType == (byte)messageType && m.MainPartyId == memberMainPartyId).ToList();
 
             return messageMainPartyList;
         }

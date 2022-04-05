@@ -1,16 +1,13 @@
 ﻿using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.StoredProcedures.Catalog;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MakinaTurkiye.Services.Catalog
 {
-    public class SiteMapCategoryService :ISiteMapCategoryService
+    public class SiteMapCategoryService : ISiteMapCategoryService
     {
         #region  Fields
 

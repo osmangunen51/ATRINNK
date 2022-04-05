@@ -15,60 +15,60 @@ using System.Xml;
 namespace CKFinder.Connector.CommandHandlers
 {
     internal class GetFoldersCommandHandler : XmlCommandHandlerBase
-	{
-		public GetFoldersCommandHandler()
-			: base()
-		{
-		}
+    {
+        public GetFoldersCommandHandler()
+            : base()
+        {
+        }
 
-		protected override void BuildXml()
-		{
-			if ( !this.CurrentFolder.CheckAcl( AccessControlRules.FolderView ) )
-			{
-				ConnectorException.Throw( Errors.Unauthorized );
-			}
-			
-			// Map the virtual path to the local server path.
-			string sServerDir = this.CurrentFolder.ServerPath;
+        protected override void BuildXml()
+        {
+            if (!this.CurrentFolder.CheckAcl(AccessControlRules.FolderView))
+            {
+                ConnectorException.Throw(Errors.Unauthorized);
+            }
 
-			System.IO.DirectoryInfo oDir = new System.IO.DirectoryInfo( sServerDir );
-			if ( !oDir.Exists )
-			{
-				ConnectorException.Throw( Errors.FolderNotFound );
-				return;
-			}
+            // Map the virtual path to the local server path.
+            string sServerDir = this.CurrentFolder.ServerPath;
 
-			// Create the "Folders" node.
-			XmlNode oFoldersNode = XmlUtil.AppendElement( this.ConnectorNode, "Folders" );
+            System.IO.DirectoryInfo oDir = new System.IO.DirectoryInfo(sServerDir);
+            if (!oDir.Exists)
+            {
+                ConnectorException.Throw(Errors.FolderNotFound);
+                return;
+            }
 
-			System.IO.DirectoryInfo[] aSubDirs = oDir.GetDirectories();
+            // Create the "Folders" node.
+            XmlNode oFoldersNode = XmlUtil.AppendElement(this.ConnectorNode, "Folders");
 
-			for ( int i = 0 ; i < aSubDirs.Length ; i++ )
-			{
-				string sSubDirName = aSubDirs[ i ].Name;
+            System.IO.DirectoryInfo[] aSubDirs = oDir.GetDirectories();
 
-				if ( Config.Current.CheckIsHiddenFolder( sSubDirName ) )
-					continue;
+            for (int i = 0; i < aSubDirs.Length; i++)
+            {
+                string sSubDirName = aSubDirs[i].Name;
 
-				int aclMask = Config.Current.AccessControl.GetComputedMask( this.CurrentFolder.ResourceTypeName, this.CurrentFolder.ClientPath + sSubDirName + "/" );
+                if (Config.Current.CheckIsHiddenFolder(sSubDirName))
+                    continue;
 
-				if ( ( aclMask & (int)AccessControlRules.FolderView ) != (int)AccessControlRules.FolderView )
-					continue;
+                int aclMask = Config.Current.AccessControl.GetComputedMask(this.CurrentFolder.ResourceTypeName, this.CurrentFolder.ClientPath + sSubDirName + "/");
 
-				// Create the "Folders" node.
-				XmlNode oFolderNode = XmlUtil.AppendElement( oFoldersNode, "Folder" );
-				XmlUtil.SetAttribute( oFolderNode, "name", sSubDirName );
-				try
-				{
-					XmlUtil.SetAttribute( oFolderNode, "hasChildren", aSubDirs[ i ].GetDirectories().Length > 0 ? "true" : "false" );
-				}
-				catch
-				{
-					// It was not possible to verify if it has children. Assume "yes".
-					XmlUtil.SetAttribute( oFolderNode, "hasChildren", "true" );
-				}
-				XmlUtil.SetAttribute( oFolderNode, "acl", aclMask.ToString() );
-			}
-		}
-	}
+                if ((aclMask & (int)AccessControlRules.FolderView) != (int)AccessControlRules.FolderView)
+                    continue;
+
+                // Create the "Folders" node.
+                XmlNode oFolderNode = XmlUtil.AppendElement(oFoldersNode, "Folder");
+                XmlUtil.SetAttribute(oFolderNode, "name", sSubDirName);
+                try
+                {
+                    XmlUtil.SetAttribute(oFolderNode, "hasChildren", aSubDirs[i].GetDirectories().Length > 0 ? "true" : "false");
+                }
+                catch
+                {
+                    // It was not possible to verify if it has children. Assume "yes".
+                    XmlUtil.SetAttribute(oFolderNode, "hasChildren", "true");
+                }
+                XmlUtil.SetAttribute(oFolderNode, "acl", aclMask.ToString());
+            }
+        }
+    }
 }

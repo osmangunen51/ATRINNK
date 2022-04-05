@@ -7,6 +7,6 @@ namespace MakinaTurkiye.Services.Checkouts
     {
         IList<Invoice> GetAllInvoices();
         Invoice GetInvoiceByInvoiceId(int invoiceId);
-        void InsertInvoice(Invoice invoice); 
+        void InsertInvoice(Invoice invoice);
     }
 }

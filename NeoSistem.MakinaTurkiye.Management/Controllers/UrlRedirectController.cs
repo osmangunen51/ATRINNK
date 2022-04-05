@@ -3,9 +3,6 @@ using MakinaTurkiye.Services.Common;
 using NeoSistem.MakinaTurkiye.Management.Models;
 using NeoSistem.MakinaTurkiye.Management.Models.UrlRedirectModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
@@ -38,10 +35,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpPost]
         public PartialViewResult Index(int page)
         {
-            
+
 
             int take = PAGE_DIMENSION;
-            int skip = (page*take)-take;
+            int skip = (page * take) - take;
             int totalCount;
             var urlRedirects = _urlRedirectService.GetUrlRedirects(skip, take, out totalCount);
             FilterModel<UrlRedirect> model = new FilterModel<UrlRedirect>();
@@ -49,7 +46,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.TotalRecord = totalCount;
             model.PageDimension = take;
             model.CurrentPage = page;
-            return PartialView("_UrlRedirectList",model);
+            return PartialView("_UrlRedirectList", model);
 
         }
 
@@ -72,7 +69,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             if (model.UrlRedirectId != 0)
             {
-               
+
             }
             else
             {
@@ -81,7 +78,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 urlRedirect.OldUrl = model.OldUrl;
                 urlRedirect.CreatedDate = DateTime.Now;
                 _urlRedirectService.InsertUrlRedirect(urlRedirect);
-                
+
             }
             TempData["Message"] = "Başarılı";
             return RedirectToAction("Create");

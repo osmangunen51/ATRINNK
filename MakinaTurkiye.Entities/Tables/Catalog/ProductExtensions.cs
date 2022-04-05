@@ -55,7 +55,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
 
         public static string GetCurrencyCssName(this string CurrencyName)
         {
-            if (CurrencyName==string.Empty)
+            if (CurrencyName == string.Empty)
                 return string.Empty;
 
             switch (CurrencyName)
@@ -112,7 +112,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
 
             if (product.ProductPriceType == PriceTypePrice || (product.ProductPriceType == 0 || product.ProductPriceType == null))
             {
-                if (product.ProductPrice==null || product.ProductPrice == 0)
+                if (product.ProductPrice == null || product.ProductPrice == 0)
                     return string.Empty;
                 //return product.ProductPrice.Value.ToString("0.##").Replace(",", ".");
                 string price = product.ProductPrice.Value.ToString("0.00");
@@ -159,40 +159,40 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         }
         public static string GetFormattedPriceWithCurrency(this Product product)
         {
-             byte PriceTypePrice=238;
-             byte PriceTypeRange=239;
-             byte PriceTypeDiscuss = 241;
-             //byte PriceTypeAsk = 240;
-            if(product.ProductPriceType==PriceTypePrice || (product.ProductPriceType==0 || product.ProductPriceType==null))
+            byte PriceTypePrice = 238;
+            byte PriceTypeRange = 239;
+            byte PriceTypeDiscuss = 241;
+            //byte PriceTypeAsk = 240;
+            if (product.ProductPriceType == PriceTypePrice || (product.ProductPriceType == 0 || product.ProductPriceType == null))
             {
-                if (product.ProductPrice==null || product.ProductPrice == 0)
-                return string.Empty;
-            //return product.ProductPrice.Value.ToString("0.##").Replace(",", ".");
-            string price = product.ProductPrice.Value.ToString("0.00");
-            if (string.Format("{0:#,0.00}", Convert.ToDouble(price)).EndsWith(",00"))
-            {
-                price = string.Format("{0:#,0.00}", Convert.ToDouble(price)).Replace(",00", "");
+                if (product.ProductPrice == null || product.ProductPrice == 0)
+                    return string.Empty;
+                //return product.ProductPrice.Value.ToString("0.##").Replace(",", ".");
+                string price = product.ProductPrice.Value.ToString("0.00");
+                if (string.Format("{0:#,0.00}", Convert.ToDouble(price)).EndsWith(",00"))
+                {
+                    price = string.Format("{0:#,0.00}", Convert.ToDouble(price)).Replace(",00", "");
+                }
+                else
+                {
+                    price = string.Format("{0:#,0.00}", Convert.ToDouble(price));
+                }
+                string currency = GetCurrency(product);
+                return string.Format("{0} {1}", price, currency);
             }
-            else
-            {
-                price = string.Format("{0:#,0.00}", Convert.ToDouble(price));
-            }
-            string currency = GetCurrency(product);
-            return string.Format("{0} {1}", price, currency);
-            }
-            else if(product.ProductPriceType==PriceTypeRange)
+            else if (product.ProductPriceType == PriceTypeRange)
             {
                 if (product.ProductPriceBegin == null)
                     product.ProductPriceBegin = 0;
                 if (product.ProductPriceLast == null)
                     product.ProductPriceLast = 0;
-                string priceBegin= product.ProductPriceBegin.Value.ToString("0.00");
-                string priceLast=product.ProductPriceLast.Value.ToString("0.00");
+                string priceBegin = product.ProductPriceBegin.Value.ToString("0.00");
+                string priceLast = product.ProductPriceLast.Value.ToString("0.00");
 
-                if (string.Format("{0:#,0.00}", Convert.ToDouble(priceBegin)).EndsWith(",00") && string.Format("{0:#,0.00}", Convert.ToDouble(priceLast)).EndsWith(",00") )
+                if (string.Format("{0:#,0.00}", Convert.ToDouble(priceBegin)).EndsWith(",00") && string.Format("{0:#,0.00}", Convert.ToDouble(priceLast)).EndsWith(",00"))
                 {
                     priceBegin = string.Format("{0:#,0.00}", Convert.ToDouble(priceBegin)).Replace(",00", "");
-                    priceLast=string.Format("{0:#,0.00}", Convert.ToDouble(priceLast)).Replace(",00", "");
+                    priceLast = string.Format("{0:#,0.00}", Convert.ToDouble(priceLast)).Replace(",00", "");
                 }
                 else
                 {
@@ -201,7 +201,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
                     priceLast = string.Format("{0:#,0.00}", Convert.ToDouble(priceLast));
                 }
                 string currency = GetCurrency(product);
-                return string.Format("{0} - {1} {2}", priceBegin,priceLast, currency);
+                return string.Format("{0} - {1} {2}", priceBegin, priceLast, currency);
             }
             else
             {
@@ -257,7 +257,7 @@ namespace MakinaTurkiye.Entities.Tables.Catalog
         {
             if (product.Locality != null && product.City != null)
             {
-                return string.Format("{0} / {1} / {2}", product.Town!=null ?  product.Town.TownName : "", product.Locality.LocalityName, product.City.CityName, product.Country.CountryName);
+                return string.Format("{0} / {1} / {2}", product.Town != null ? product.Town.TownName : "", product.Locality.LocalityName, product.City.CityName, product.Country.CountryName);
             }
             return string.Empty;
         }

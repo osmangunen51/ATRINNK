@@ -1,5 +1,5 @@
-﻿using NeoSistem.MakinaTurkiye.Web.Controllers;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
+﻿using MakinaTurkiye.Core;
+using NeoSistem.MakinaTurkiye.Web.Controllers;
 using Schema.NET;
 using System;
 using System.Collections.Generic;

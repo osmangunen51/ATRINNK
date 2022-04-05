@@ -1,5 +1,4 @@
 ﻿using MakinaTurkiye.Entities.Tables.Newsletter;
-using System.Collections.Generic;
 
 namespace MakinaTurkiye.Services.Newsletters
 {

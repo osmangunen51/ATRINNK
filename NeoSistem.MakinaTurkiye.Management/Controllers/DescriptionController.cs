@@ -99,7 +99,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             return "basarili";
         }
-   
-        
+
+
     }
 }

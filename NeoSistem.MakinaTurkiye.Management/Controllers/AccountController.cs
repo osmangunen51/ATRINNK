@@ -38,7 +38,7 @@
                     if (curUser != null)
                     {
 
-                
+
                         EnterpriseFormsAuthentication.CreateFormsAuthenticationTicket(curUser.UserName, "Admin");
                         CurrentUserModel.CurrentManagement = curUser;
 

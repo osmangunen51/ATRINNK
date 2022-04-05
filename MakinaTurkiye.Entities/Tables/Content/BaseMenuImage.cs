@@ -2,7 +2,7 @@
 
 namespace MakinaTurkiye.Entities.Tables.Content
 {
-    public class BaseMenuImage:BaseEntity
+    public class BaseMenuImage : BaseEntity
     {
         public int BaseMenuImageId { get; set; }
         public int BaseMenuId { get; set; }

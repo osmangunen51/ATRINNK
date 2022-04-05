@@ -4,6 +4,7 @@ using global::MakinaTurkiye.Services.Common;
 using global::MakinaTurkiye.Services.Members;
 
 using global::MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Services.Logs;
 using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Utilities.FileHelpers;
@@ -19,7 +20,6 @@ using NeoSistem.MakinaTurkiye.Management.Models.Authentication;
 using NeoSistem.MakinaTurkiye.Management.Models.Entities;
 using NeoSistem.MakinaTurkiye.Management.Models.Orders;
 using NeoSistem.MakinaTurkiye.Management.Models.Stores;
-using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using System;
@@ -883,7 +883,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             else
             {
-                var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId==22 || g.UserGroupId==18 select new { u.UserName, u.UserId };
+                var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 22 || g.UserGroupId == 18 select new { u.UserName, u.UserId };
                 //var users = entities.Users.OrderBy(x => x.UserName).ToList();
                 var users = users1.ToList();
                 if (curStore.AuthorizedId == null || curStore.AuthorizedId == 0)
@@ -903,7 +903,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             else
             {
-                var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 18  select new { u.UserName, u.UserId };
+                var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 18 select new { u.UserName, u.UserId };
                 //var users = entities.Users.OrderBy(x => x.UserName).ToList();
                 var users = users1.ToList();
                 if (curStore.PortfoyUserId == null || curStore.PortfoyUserId == 0)
@@ -920,7 +920,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 if (model.Users.Count <= 0)
                 {
-                    var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 18 || g.UserGroupId==22 select new { u.UserName, u.UserId };
+                    var users1 = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 18 || g.UserGroupId == 22 select new { u.UserName, u.UserId };
                     //var users = entities.Users.OrderBy(x => x.UserName).ToList();
                     var users = users1.ToList();
                     if (curStore.AuthorizedId == null || curStore.AuthorizedId == 0)
@@ -1175,12 +1175,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 mail.Body = template;                                                            //Mailin içeriği
                                 mail.IsBodyHtml = true;
                                 mail.Priority = MailPriority.Normal;
-                                SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                                sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                                sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                                sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                                sc.Credentials = new NetworkCredential(messageMt.Mail, messageMt.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-                                sc.Send(mail);
+                                this.SendMail(mail);
                             }
                             catch (Exception ex)
                             {
@@ -1219,12 +1214,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 mail.Body = template;                                                            //Mailin içeriği
                                 mail.IsBodyHtml = true;
                                 mail.Priority = MailPriority.Normal;
-                                SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                                sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                                sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                                sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                                sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-                                sc.Send(mail);
+                                this.SendMail(mail);
                             }
                             catch (Exception ex)
                             {
@@ -1266,12 +1256,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 mail.Body = template;                                                            //Mailin içeriği
                                 mail.IsBodyHtml = true;
                                 mail.Priority = MailPriority.Normal;
-                                SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-                                sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                                sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-                                sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-                                sc.Credentials = new NetworkCredential("makinaturkiye@makinaturkiye.com", "haciosman7777"); //Gmail hesap kontrolü için bilgilerimizi girdi
-                                sc.Send(mail);
+                                this.SendMail(mail);
                                 //-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*
                             }
                             catch (Exception ex)
@@ -3204,7 +3189,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 content = content.Replace("#firmaadi#", store.StoreName).Replace("#firmahaberanasayfa#", storeProfileNewLink).Replace("#haberlink#", newLink);
                 var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(storeNew.StoreMainPartyId);
                 var member = _memberService.GetMemberByMainPartyId(memberStore.MemberMainPartyId.Value);
-                var mailHelper = new MailHelper(mailTemplate.MessagesMTTitle, content, mailTemplate.Mail, member.MemberEmail, mailTemplate.MailPassword, mailTemplate.MailSendFromName);
+                var mailHelper = new MailHelper(mailTemplate.MessagesMTTitle, content, mailTemplate.Mail,
+                    member.MemberEmail, mailTemplate.MailPassword, mailTemplate.MailSendFromName,AppSettings.MailHost,AppSettings.MailPort,AppSettings.MailSsl);
                 mailHelper.Send();
             }
             catch (Exception ex)
@@ -3307,9 +3293,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var store = _storeService.GetStoreByMainPartyId(id);
             model.TaxNo = store.TaxNumber;
             model.TaxOffice = store.TaxOffice;
-            
+
             model.PacketDay = 0;
-            model.Packets = _packetService.GetAllPacket().Where(x=>x.ShowAdmin==true).ToList(); 
+            model.Packets = _packetService.GetAllPacket().Where(x => x.ShowAdmin == true).ToList();
 
             return View(model);
         }
@@ -3329,13 +3315,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 mailTemplateName = "kredikartivadebildirim";
 
             var packet = _packetService.GetPacketByPacketId(model.PacketId);
-            decimal packetPriceWithoutTax =  Convert.ToDecimal(model.PriceValueWithTax) / (decimal)1.18;
+            decimal packetPriceWithoutTax = Convert.ToDecimal(model.PriceValueWithTax) / (decimal)1.18;
             decimal amount = 0;
-            decimal packetPrice =Convert.ToDecimal(model.PriceValueWithTax);
+            decimal packetPrice = Convert.ToDecimal(model.PriceValueWithTax);
             if (model.DiscountType != "0")
             {
                 amount = Convert.ToDecimal(model.DiscountAmount);
-                
+
             }
 
 
@@ -3486,13 +3472,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mail.Body = template;                                                            //Mailin içeriği
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
-            SmtpClient sc = new SmtpClient();                                                //sc adında SmtpClient nesnesi yaratıyoruz.
-            sc.Port = 587;                                                                   //Gmail için geçerli Portu bildiriyoruz
-            sc.Host = "smtp.gmail.com";                                                      //Gmailin smtp host adresini belirttik
-            sc.EnableSsl = true;                                                             //SSL’i etkinleştirdik
-            sc.Credentials = new NetworkCredential(mailMessage.Mail, mailMessage.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
-            sc.Send(mail);
-
+            this.SendMail(mail);
 
             #region bilgimakina
             MailMessage mailb = new MailMessage();
@@ -3512,12 +3492,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mailb.Body = bilgimakinaicin;
             mailb.IsBodyHtml = true;
             mailb.Priority = MailPriority.Normal;
-            SmtpClient scr1 = new SmtpClient();
-            scr1.Port = 587;
-            scr1.Host = "smtp.gmail.com";
-            scr1.EnableSsl = true;
-            scr1.Credentials = new NetworkCredential(mailTmpInf.Mail, mailTmpInf.MailPassword);
-            scr1.Send(mailb);
+            this.SendMail(mailb);
             #endregion
 
             return Json(sozlesmeLink, JsonRequestBehavior.AllowGet);

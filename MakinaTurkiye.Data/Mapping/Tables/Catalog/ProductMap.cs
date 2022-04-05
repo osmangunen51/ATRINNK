@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Catalog
 {
-    public class ProductMap:EntityTypeConfiguration<Product>
+    public class ProductMap : EntityTypeConfiguration<Product>
     {
         public ProductMap()
         {

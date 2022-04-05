@@ -6,27 +6,27 @@ using System.Linq;
 
 namespace MakinaTurkiye.Services.Bulletins
 {
-    public class BulletinService:IBulletinService
+    public class BulletinService : IBulletinService
     {
         IRepository<BulletinMember> _bulletinMembeRepository;
         IRepository<BulletinMemberCategory> _bulletinMemberCategoryRepository;
 
 
-        public BulletinService(IRepository<BulletinMember> bulletinMemberRepository, 
+        public BulletinService(IRepository<BulletinMember> bulletinMemberRepository,
             IRepository<BulletinMemberCategory> bulletinMemberCategoryRepository)
         {
             this._bulletinMemberCategoryRepository = bulletinMemberCategoryRepository;
             this._bulletinMembeRepository = bulletinMemberRepository;
         }
 
-   
+
 
         public BulletinMember GetBulletinMemberByBulletinMemberId(int bulletinMemberId)
         {
             if (bulletinMemberId == 0)
                 throw new ArgumentNullException();
             var query = _bulletinMembeRepository.Table;
-     
+
             return query.FirstOrDefault(x => x.BulletinMemberId == bulletinMemberId);
         }
 
@@ -42,8 +42,10 @@ namespace MakinaTurkiye.Services.Bulletins
                 throw new ArgumentNullException();
             var bulletinMembercategories = _bulletinMemberCategoryRepository.Table;
             var bulletinMembers = _bulletinMembeRepository.Table;
-            var query = from b in bulletinMembers join c in bulletinMembercategories on b.BulletinMemberId equals c.BulletinMemberId
-                        where c.CategoryId == categoryId select b;
+            var query = from b in bulletinMembers
+                        join c in bulletinMembercategories on b.BulletinMemberId equals c.BulletinMemberId
+                        where c.CategoryId == categoryId
+                        select b;
             return query.ToList();
         }
 
@@ -65,9 +67,9 @@ namespace MakinaTurkiye.Services.Bulletins
         {
             if (bulletinMemberCategory == null)
                 throw new ArgumentNullException();
-        
-                _bulletinMemberCategoryRepository.Insert(bulletinMemberCategory);
-            
+
+            _bulletinMemberCategoryRepository.Insert(bulletinMemberCategory);
+
         }
 
         public void UpdateBulletinMember(BulletinMember bulletinMember)

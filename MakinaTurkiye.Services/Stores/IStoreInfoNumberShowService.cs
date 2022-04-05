@@ -15,6 +15,6 @@ namespace MakinaTurkiye.Services.Stores
 
         void UpdateStoreInfoNumberShow(StoreInfoNumberShow storeInfoNumberShow);
 
-        void DeleteStoreInfoNumberShow(StoreInfoNumberShow storeInfoNumberShow); 
+        void DeleteStoreInfoNumberShow(StoreInfoNumberShow storeInfoNumberShow);
     }
 }

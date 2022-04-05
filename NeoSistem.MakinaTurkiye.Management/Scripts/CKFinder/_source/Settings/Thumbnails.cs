@@ -14,32 +14,32 @@
 namespace CKFinder.Settings
 {
     public class Thumbnails
-	{
-		public string Url;
-		public string Dir;
-		public bool Enabled;
-		public bool DirectAccess;
-		public int MaxWidth;
-		public int MaxHeight;
-		public int Quality;
+    {
+        public string Url;
+        public string Dir;
+        public bool Enabled;
+        public bool DirectAccess;
+        public int MaxWidth;
+        public int MaxHeight;
+        public int Quality;
 
-		public Thumbnails()
-		{
-			Url = "";
-			Dir = "";
-			Enabled = true;
-			DirectAccess = false;
-			MaxWidth = 100;
-			MaxHeight = 100;
-			Quality = 80;
-		}
+        public Thumbnails()
+        {
+            Url = "";
+            Dir = "";
+            Enabled = true;
+            DirectAccess = false;
+            MaxWidth = 100;
+            MaxHeight = 100;
+            Quality = 80;
+        }
 
-		public string GetTargetDirectory()
-		{
-			if ( Dir.Length == 0 )
-				return System.Web.HttpContext.Current.Server.MapPath( Url );
-			else
-				return Dir;
-		}
-	}
+        public string GetTargetDirectory()
+        {
+            if (Dir.Length == 0)
+                return System.Web.HttpContext.Current.Server.MapPath(Url);
+            else
+                return Dir;
+        }
+    }
 }
