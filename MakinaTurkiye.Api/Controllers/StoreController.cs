@@ -449,7 +449,7 @@ namespace MakinaTurkiye.Api.Controllers
                                     picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                                 }
                             }
-                            TmpResult.MainPicture = picturePath;
+                            TmpResult.MainPicture = (picturePath == null ? "" : picturePath);
                             TmpStoreProductList.Add(TmpResult);
                         }
                         Result.Add(new StoreListItem()

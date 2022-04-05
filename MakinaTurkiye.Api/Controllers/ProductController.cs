@@ -114,6 +114,10 @@ namespace MakinaTurkiye.Api.Controllers
                     var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
                     if (picture != null) picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                     TmpResult.MainPicture = picturePath;
+                    if (TmpResult.MainPicture==null)
+                    {
+                        TmpResult.MainPicture = "";
+                    }
 
 
                     var TmpPictureList = _pictureService.GetPicturesByProductId(TmpResult.ProductId);
@@ -232,6 +236,10 @@ namespace MakinaTurkiye.Api.Controllers
                                 picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                             item.MainPicture = picturePath;
+                            if (item.MainPicture==null)
+                            {
+                                item.MainPicture = "";
+                            }
                             var Product = _productService.GetProductByProductId(item.ProductId);
                             if (Product != null)
                             {
@@ -318,7 +326,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductName = Snc.ProductName,
                         BrandName = Snc.BrandName,
                         ModelName = Snc.ModelName,
-                        MainPicture = Snc.MainPicture,
+                        MainPicture = (Snc.MainPicture==null?"": Snc.MainPicture),
                         StoreName = Snc.StoreName,
                         ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
                         ProductPriceType = (byte)Snc.ProductPriceType,
@@ -358,7 +366,7 @@ namespace MakinaTurkiye.Api.Controllers
                             item.StoreGsm = StoreGsm.PhoneNumber;
                         }
                     }
-                    item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : null;
+                    item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : "";
                 }
                 ProcessStatus.Result = TmpResult;
                 ProcessStatus.ActiveResultRowCount = TmpResult.Count();
@@ -417,7 +425,7 @@ namespace MakinaTurkiye.Api.Controllers
                             picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                         var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                         var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                        item.MainPicture = picturePath;
+                        item.MainPicture = (picturePath==null?"": picturePath);
                         item.StoreName = store.StoreName;
                     }
 
@@ -487,7 +495,7 @@ namespace MakinaTurkiye.Api.Controllers
                     if (picture != null)
                         picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
-                    item.MainPicture = picturePath;
+                    item.MainPicture = (picturePath==null?"": picturePath);
                     var Product = _productService.GetProductByProductId(item.ProductId);
                     if (Product != null)
                     {
@@ -569,7 +577,7 @@ namespace MakinaTurkiye.Api.Controllers
                         picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                    item.MainPicture = picturePath;
+                    item.MainPicture = (picturePath == null ? "" : picturePath);
                     item.StoreName = store.StoreName;
                 }
 
@@ -837,7 +845,7 @@ namespace MakinaTurkiye.Api.Controllers
                         picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                    item.MainPicture = picturePath;
+                    item.MainPicture = (picturePath == null ? "" : picturePath);
                     item.StoreName = store.StoreName;
                 }
                 processStatus.Result = TmpResult;
