@@ -45,10 +45,10 @@
             {
                 using (SmtpClient sc = new SmtpClient())
                 {
-                    sc.Port = AppSettings.MailPort;                                                                   //Gmail için geçerli Portu bildiriyoruz
-                    sc.Host = AppSettings.MailHost;                                                      //Gmailin smtp host adresini belirttik
-                    sc.EnableSsl = AppSettings.MailSsl;                                                             //SSL’i etkinleştirdik
-                    sc.Credentials = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword); //Gmail hesap kontrolü için bilgilerimizi girdi
+                    sc.Port = AppSettings.MailPort;                                                                   
+                    sc.Host = AppSettings.MailHost;                                                      
+                    sc.EnableSsl = AppSettings.MailSsl;                                                  
+                    sc.Credentials = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
                     sc.Send(mailMessage);
                     Status = true;
                 }

@@ -624,7 +624,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 //date time karşılaştırmak için compare
                 //DateTime.Compare(t1, t2);
 
-                mail.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                mail.From = new MailAddress("makina@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
                 mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
                 mail.Subject = subtitle; //Mail konusu
                 mail.Body = template; //Mailin içeriği
@@ -635,15 +635,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     mail.Attachments.Add(new Attachment(Server.MapPath("~/Content/teklif.pdf")));
                 }
 
-
                 //mail.HtmlPart = new HtmlAttachment(template);
+
                 //mail.From = new EmailAddress(settings["MailAddress"], settings["MailName"]);
+
                 //mail.AddToAddress(new EmailAddress(adress));
+
                 //SmtpServer smtpServer = new SmtpServer(settings["SmtpServer"], int.Parse(settings["SmtpPort"]));
+
                 //smtpServer.SmtpAuthToken = new LoginAuthToken(settings["SmtpUserName"], settings["SmtpUserPassword"]);
+
                 //mail.HeaderCharSet = Encoding.GetEncoding("UTF-8");
+
                 //mail.HtmlPart.CharSet = Encoding.GetEncoding("UTF-8");
+
                 this.SendMail(mail);
+
                 #endregion
                 #region digerkullanicilar
                 var alluserfriend = entities.MainPartyIdEpostas.Where(c => c.MainPartyId == storeid).SingleOrDefault();
@@ -668,7 +675,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         {
                             alluserfriend.Eposta1check = false;
                         }
-
                     }
                     if (alluserfriend.Eposta2check == true)
                     {
@@ -683,11 +689,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             mailb.IsBodyHtml = true;
                             mailb.Priority = MailPriority.High;
                             this.SendMail(mailb);
-
                         }
-
                     }
                 }
+
                 BaseMemberDescription baseMember = new BaseMemberDescription();
                 baseMember.Date = DateTime.Now;
                 baseMember.MainPartyId = Convert.ToInt32(id);
