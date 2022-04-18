@@ -197,5 +197,38 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+        //public HttpResponseMessage GetDescriptions(int LocalityId)
+        //{
+        //    ProcessResult processStatus = new ProcessResult();
+        //    try
+        //    {
+        //        var country = _addressService.GetTownsByLocalityId(LocalityId);
+        //        if (country != null)
+        //        {
+        //            processStatus.Result = country;
+        //            processStatus.ActiveResultRowCount = country.Count;
+        //            processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+        //            processStatus.Message.Header = "Towns İşlemleri";
+        //            processStatus.Message.Text = "Başarılı";
+        //            processStatus.Status = true;
+        //        }
+        //        else
+        //        {
+        //            processStatus.Message.Header = "Towns İşlemleri";
+        //            processStatus.Message.Text = "Başarısız";
+        //            processStatus.Status = false;
+        //            processStatus.Result = "Sorgu sonucu boş!";
+        //        }
+        //    }
+        //    catch (Exception Error)
+        //    {
+        //        processStatus.Message.Header = "Towns İşlemleri";
+        //        processStatus.Message.Text = "Başarısız";
+        //        processStatus.Status = false;
+        //        processStatus.Result = null;
+        //        processStatus.Error = Error;
+        //    }
+        //    return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        //}
     }
 }

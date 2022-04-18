@@ -1,9 +1,10 @@
 ﻿@model NeoSistem.MakinaTurkiye.Web.Models.Catalog.MTCategoryProductViewModel
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
+@using MakinaTurkiye.Core
 @{
     //@using NeoSistem.MakinaTurkiye.Web.Helpers
     //using NeoSistem.MakinaTurkiye.Web.Models
-    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+    //using MakinaTurkiye.Core
     //int activeCategoryId = Convert.ToInt32(Request.QueryString["CategoryId"]);
 
     int categoryListIndex = 1;
@@ -26,7 +27,7 @@
                     <div class="sector-category-list__big-title" role="tab" data-role="anchor-@Helpers.ToUrl(i.CategoryName)-scroll" id="@("heading" + categoryListIndex)">
                         @if (Model.CategoryModel.SelectedCategoryId == 0)
                         {
-                        <a href="@(NeoSistem.MakinaTurkiye.Web.Models.UtilityModel.AppSettings.SiteUrl + Helpers.ToUrl(categoryUrlName) + "-c-" + i.CategoryId.ToString())">@i.CategoryName</a>
+                        <a href="@(AppSettings.SiteUrl + Helpers.ToUrl(categoryUrlName) + "-c-" + i.CategoryId.ToString())">@i.CategoryName</a>
                         }
                         else
                         {
@@ -56,7 +57,7 @@
                                 if (item.ProductCount.Value != 0)
                                 {
                                     <li class="s_category__sub-item">
-                                        <a href="@(NeoSistem.MakinaTurkiye.Web.Models.UtilityModel.AppSettings.SiteUrl + urlHead)">@(HttpContext.Current.Request.Browser.IsMobileDevice?item.CategoryName:item.CategoryContentTitle)</a>
+                                        <a href="@(MakinaTurkiye.Core.AppSettings.SiteUrl + urlHead)">@(HttpContext.Current.Request.Browser.IsMobileDevice?item.CategoryName:item.CategoryContentTitle)</a>
                                         <span class="text-muted text-sm">(@item.ProductCount)</span>
                                     </li>
                                 }

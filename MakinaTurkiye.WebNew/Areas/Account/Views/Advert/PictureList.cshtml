@@ -1,7 +1,8 @@
 ﻿@model IList<PictureModel>
+@using MakinaTurkiye.Core
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
 @using NeoSistem.MakinaTurkiye.Web.Models
-@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using MakinaTurkiye.Core
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
 @using NeoSistem.MakinaTurkiye.Web.Helpers
 @using System.Diagnostics
@@ -65,7 +66,7 @@ else
     {
         <div class="col-xs-12 col-md-6">
             <div class="picture-list-item picture-list-item__big">
-                <img src="@string.Format("https://dummyimage.com/200x161/efefef/000000.jpg&text=resim{0}", i)" alt="@string.Format("resim{0}", i)"/>
+                <img src="@string.Format("https://dummyimage.com/200x161/efefef/000000.jpg&text=resim{0}", i)" alt="@string.Format("resim{0}", i)" />
             </div>
         </div>
     }

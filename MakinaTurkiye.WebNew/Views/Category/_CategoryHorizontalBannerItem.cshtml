@@ -1,8 +1,8 @@
 ﻿@model  NeoSistem.MakinaTurkiye.Web.Models.Catalog.MTBannerModel
 @using NeoSistem.MakinaTurkiye.Web.Models
-@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using MakinaTurkiye.Core
 @{
-//using NeoSistem.MakinaTurkiye.Web.Model
+    //using NeoSistem.MakinaTurkiye.Web.Model
 }
 
 @if (Model.BannerType == (byte)BannerType.CategoryHorizontalBlankBanner)
@@ -23,15 +23,15 @@ else
             {
                 <a href="@Model.BannerLink" target="_blank">
                     <img src="@(AppSettings.BannerImagesThumbFolder + Model.BannerResource)" class="img-thumbnail" alt="@(!string.IsNullOrEmpty(Model.BannerDescription) ? Model.BannerDescription : " ")" />
-</a>
+                </a>
 
-                        }
-                        else
-                        {
+            }
+            else
+            {
                 <a href="@Model.BannerLink" target="_blank">
                     <img src="@(AppSettings.BannerImagesThumbFolder + Model.BannerResource)" class="img-thumbnail" alt="@(!string.IsNullOrEmpty(Model.BannerDescription) ? Model.BannerDescription : " ")" />
                 </a>
-                        } 
-            </div>
+            }
         </div>
-                        }
+    </div>
+}

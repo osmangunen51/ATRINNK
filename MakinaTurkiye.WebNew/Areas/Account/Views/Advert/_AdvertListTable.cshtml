@@ -1,7 +1,7 @@
 ﻿@model SearchModel<NeoSistem.MakinaTurkiye.Web.Areas.Account.Models.Advert.MTProductItem>
 @using NeoSistem.MakinaTurkiye.Web.Areas.Account.Models
 @using NeoSistem.MakinaTurkiye.Web.Models
-@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using MakinaTurkiye.Core
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
 @using NeoSistem.MakinaTurkiye.Web.Helpers
 @using System.Diagnostics
@@ -167,7 +167,7 @@
                 <td>@item.BrandName</td>
                 <td>
                     <strong style="color: #666">
-                         @if ((!string.IsNullOrEmpty(item.CurrencyCssText)) && (!string.IsNullOrEmpty(item.ProductPrice)))
+                        @if ((!string.IsNullOrEmpty(item.CurrencyCssText)) && (!string.IsNullOrEmpty(item.ProductPrice)))
                         {
                             <i class="@item.CurrencyCssText"></i>
                         }
@@ -258,7 +258,7 @@
     </div>
 }
 
-@Html.HiddenFor(x => x.CurrentPage, new { @id= "currentPage" })
+@Html.HiddenFor(x => x.CurrentPage, new { @id = "currentPage" })
 
 
 <script type="text/javascript">
@@ -298,7 +298,7 @@
         var OrderType = $("#OrderType").val();
 
         $.ajax({
-            url:'@(AppSettings.SiteUrl+"Account/Advert/AdvertPaging")',
+            url:'@(MakinaTurkiye.Core.AppSettings.SiteUrl+"Account/Advert/AdvertPaging")',
             type: 'POST',
             data: {
                 page: p, displayType: d, advertListType: $('#hdnActiveType').val(),

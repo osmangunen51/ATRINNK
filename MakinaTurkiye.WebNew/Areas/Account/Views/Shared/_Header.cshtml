@@ -1,6 +1,6 @@
 ﻿@model dynamic
 @using NeoSistem.MakinaTurkiye.Web.Models
-@using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+@using MakinaTurkiye.Core
 @using NeoSistem.MakinaTurkiye.Core.Web.Helpers
 @using NeoSistem.MakinaTurkiye.Web.Helpers
 @using System.Diagnostics
@@ -13,12 +13,11 @@
 @using NeoSistem.MakinaTurkiye.Web.Models.Catalog
 @using NeoSistem.MakinaTurkiye.Web.Models.Entities
 @using NeoSistem.MakinaTurkiye.Web.Models.ProductRequests
-
 @{
     //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
     //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
     //using NeoSistem.MakinaTurkiye.Web.Models
-    //using NeoSistem.MakinaTurkiye.Web.Models.UtilityModel
+    //using MakinaTurkiye.Core
     Layout = null;
 
 }
@@ -104,11 +103,11 @@
                         @if (notReadInboxMessageCount > 0)
                         {
 
-                        <li class="user-topmenu__item hidden-sm hidden-md hidden-lg">
-                            <a style="font-size:13px !important;margin-bottom:5px;" href="@AppSettings.SiteUrl/Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
-                                <span class="icon-paper-plane"></span>Mesajlar <span class="label label-primary pull-right">@notReadInboxMessageCount</span>
-                            </a>
-                        </li>
+                            <li class="user-topmenu__item hidden-sm hidden-md hidden-lg">
+                                <a style="font-size:13px !important;margin-bottom:5px;" href="@AppSettings.SiteUrl/Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
+                                    <span class="icon-paper-plane"></span>Mesajlar <span class="label label-primary pull-right">@notReadInboxMessageCount</span>
+                                </a>
+                            </li>
 
                         }
 
@@ -297,11 +296,11 @@
                                 <a target="_blank" href="@AppSettings.VideoUrlBase">Videolar</a>
                             </li>
                             @*<li>
-                                <a target="_blank" href="https://blog.makinaturkiye.com">Blog</a>
-                            </li>*@
+                                    <a target="_blank" href="https://blog.makinaturkiye.com">Blog</a>
+                                </li>*@
                             @*<li>
-                                <a target="_blank" href="@AppSettings.SiteUrlWithoutLastSlash/yardim">Yardım</a>
-                            </li>*@
+                                    <a target="_blank" href="@AppSettings.SiteUrlWithoutLastSlash/yardim">Yardım</a>
+                                </li>*@
                         </ul>
                     </div>
                 </div>
