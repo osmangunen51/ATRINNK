@@ -12,9 +12,11 @@ namespace MakinaTurkiye.Api.Controllers
     {
         private readonly IAddressService _adressService;
 
+
         public CountryController()
         {
             _adressService = EngineContext.Current.Resolve<IAddressService>();
+
         }
         public HttpResponseMessage GetAllCountries()
         {
@@ -65,5 +67,8 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+
+
     }
 }

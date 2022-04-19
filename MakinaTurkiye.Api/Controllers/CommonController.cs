@@ -4,6 +4,7 @@ using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 
@@ -13,19 +14,55 @@ namespace MakinaTurkiye.Api.Controllers
     {
         private readonly IMemberService _memberService;
         private readonly IAddressService _addressService;
-
+        private readonly IConstantService _constantService;
         public CommonController()
         {
             _memberService = EngineContext.Current.Resolve<IMemberService>();
             _addressService = EngineContext.Current.Resolve<IAddressService>();
+            _constantService = EngineContext.Current.Resolve<IConstantService>();
         }
 
-        //public CommonController(IMemberService memberService,
-        //                            IAddressService addressService)
-        //{
-        //    this._memberService = memberService;
-        //    this._addressService = addressService;
-        //}
+        public HttpResponseMessage GetConstants()
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var constantList = _constantService.GetAllConstants().OrderBy(x => x.ConstantType).ThenByDescending(x => x.Order).ToList();
+                if (constantList != null)
+                {
+                    processStatus.Result = constantList.Select(x => new
+                    {
+                        ConstantGrupNo = (int)x.ConstantType,
+                        ConstantGrupAd = ((ConstantTypeEnum)x.ConstantType).GetDescription(),
+                        ConstantNo = (int)x.ConstantType,
+                        ConstantAd = x.ConstantName,
+                        ConstantEkBilgi = x.ContstantPropertie,
+                        ConstantSira = x.Order
+                    });
+                    processStatus.ActiveResultRowCount = constantList.Count;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Constant İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Constant İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "Constant sonucu boş!";
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Constant İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
         public HttpResponseMessage GetAllLocalityByCityId(int CityId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -197,38 +234,5 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-        //public HttpResponseMessage GetDescriptions(int LocalityId)
-        //{
-        //    ProcessResult processStatus = new ProcessResult();
-        //    try
-        //    {
-        //        var country = _addressService.GetTownsByLocalityId(LocalityId);
-        //        if (country != null)
-        //        {
-        //            processStatus.Result = country;
-        //            processStatus.ActiveResultRowCount = country.Count;
-        //            processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
-        //            processStatus.Message.Header = "Towns İşlemleri";
-        //            processStatus.Message.Text = "Başarılı";
-        //            processStatus.Status = true;
-        //        }
-        //        else
-        //        {
-        //            processStatus.Message.Header = "Towns İşlemleri";
-        //            processStatus.Message.Text = "Başarısız";
-        //            processStatus.Status = false;
-        //            processStatus.Result = "Sorgu sonucu boş!";
-        //        }
-        //    }
-        //    catch (Exception Error)
-        //    {
-        //        processStatus.Message.Header = "Towns İşlemleri";
-        //        processStatus.Message.Text = "Başarısız";
-        //        processStatus.Status = false;
-        //        processStatus.Result = null;
-        //        processStatus.Error = Error;
-        //    }
-        //    return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-        //}
     }
 }
