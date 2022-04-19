@@ -33,11 +33,11 @@
                             first = false;
                         }
 
-                        <div class="item @active">
-                            <img src="@item.LargePath" title="@item.ProductName" alt="@item.ProductName" />
+                        <div class="item @active" style=" min-height: 280px;">
+                            <img class="urun_rsm" src="@item.LargePath" title="@item.ProductName" alt="@item.ProductName" />
                             <a href="@item.MegaPicturePath" title="@item.ProductName" class="img-product-mega-link" data-title="@item.ProductName">
 
-                                <img alt="Büyük resimi göster" class="res-buyut" src="/Content/V2/images/resim-buyult.png">
+                                <img style="width: auto !important;" alt="Büyük resimi göster" class="res-buyut" src="/Content/V2/images/resim-buyult.png">
                             </a>
                         </div>
                     }

@@ -15038,6 +15038,7 @@ body {
 
 .footer-social-media, .footer__bottom .menu {
     text-align: left;
+    max-width: 50%;
 }
 
 .footer__top-inner h1 {
@@ -15053,9 +15054,9 @@ body {
 
 .footer__bottom .menu > h4 {
     color: #4F4F4F;
-    font-size: 20px;
+    font-size: 17px;
     line-height: 1.2;
-    margin-bottom: .5rem
+    margin-bottom: 0.5rem;
 }
 
 .footer__bottom .menu ul li {
@@ -15171,10 +15172,11 @@ body {
 .home-seo-content {
     text-align: center;
     /* padding: 20px 0 0; */
-    padding: 18px;
+    padding: 10px;
     /* text-align: justify; */
     border: 1px solid #e0e0e0;
-    margin: 14px;
+    margin: 0px;
+    margin-top: 15px;
 }
 
     .home-seo-content h1 {
@@ -17209,8 +17211,8 @@ img {
 }
 
 .one-cikan-firma-urunleri {
-    margin-left: 3px;
-    margin-right: 3px;
+    margin-left: -15px;
+    margin-right:-5px;
 }
 
 @media (min-width:767px) {
@@ -17567,11 +17569,23 @@ li.active > a > .menutoggleicon {
         }
 
 .resim-urun .carousel .carousel-inner .item {
-    height: 370px;
-    border-bottom: 1px solid #dcdcdc
+    border-bottom: 1px solid #dcdcdc;
+    width: 100%;
 }
 
-    .resim-urun .carousel .carousel-inner .item img {
+.resim-urun .carousel .carousel-inner item.img {
+    /*height: 100%;*/
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    /*width: auto !important;*/
+    width: auto !important;
+}
+
+    .urun_rsm {
         /*height: 100%;*/
         position: absolute;
         left: 0;
@@ -17579,30 +17593,33 @@ li.active > a > .menutoggleicon {
         top: 0;
         bottom: 0;
         margin: auto;
-        width: auto !important
+        /*width: auto !important;*/
+        width: 100% !important;
     }
 
-img.res-buyut {
-    width: inherit !important;
-    height: inherit !important;
-    position: absolute !important;
-    bottom: 10px !important;
-    right: 10px !important;
-    left: inherit !important;
-    top: inherit !important;
-    margin: inherit !important;
-    z-index: 333
-}
+    .res-buyut {
+        height: inherit !important;
+        position: absolute !important;
+        bottom: 10px !important;
+        right: 10px !important;
+        left: inherit !important;
+        top: inherit !important;
+        margin: inherit !important;
+        z-index: 333;
+        width: auto !important;
 
-.resim-urun .carousel .carousel-control {
-    padding: 20% 0;
-    font-size: 55px;
-    background: 0 -10px;
-    border: none;
-    color: #e0e0e0;
-    text-shadow: none;
-    top: 0
-}
+
+    }
+
+    .resim-urun .carousel .carousel-control {
+        padding: 20% 0;
+        font-size: 55px;
+        background: 0 -10px;
+        border: none;
+        color: #e0e0e0;
+        text-shadow: none;
+        top: 0
+    }
 
     .resim-urun .carousel .carousel-control.left {
         left: 5px
@@ -17980,8 +17997,9 @@ img.res-buyut {
         }
 
     .urun-aciklama {
-        margin-top: 30px;
-        padding-left: 25px;
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
         .urun-aciklama .tab-content {
@@ -19171,7 +19189,7 @@ img.res-buyut {
 
 @media (min-width:1200px) {
     .menu-container {
-        width: 1400px;
+        width: 1375px;
         padding: 0
     }
 
@@ -21922,7 +21940,7 @@ img.res-buyut {
 
     .advertiseHome .buttons {
         float: right;
-        margin-top: 21px
+        /*margin-top: 21px*/
     }
 
 @media (max-width:768px) {
@@ -21935,6 +21953,13 @@ img.res-buyut {
         }
 }
 
+@media (max-width:768px) {
+    .advertiseHome .buttons a {
+        height: 50px !important;
+        width: 130px !important;
+        margin-top: -5px;
+    }
+}
 .advertiseHome .buttons a:first-child {
     background-color: #fff;
     color: #0c3871
@@ -22266,8 +22291,9 @@ img.res-buyut {
     min-height: 390px;
     background-color: #fff;
     border: 1px solid #ebebeb;
-    /*    padding: 10px;*/
-    margin-bottom: 20px
+    /* padding: 10px; */
+    margin-bottom: 20px;
+    padding-left: 20px;
 }
 
 .company-list-mt__title {
@@ -22353,12 +22379,15 @@ img.res-buyut {
 }
 
 .product-list-mt {
-    margin-right: 0
+    margin-right: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
 }
 
-    .product-list-mt [class*=col-] {
-        padding-right: 0
-    }
+.product-list-mt [class*=col-] {
+    padding-right: 0
+}
 
 .product-list-mt__item {
     padding: .75rem;
@@ -22380,7 +22409,7 @@ img.res-buyut {
 
 @media (max-width:768px) {
     .product-list-mt__item {
-        height: 365px !important;
+        height: 325px !important;
     }
 }
 
@@ -23292,7 +23321,7 @@ img.res-buyut {
     .new-header__top-center {
         float: left;
         position: static;
-        width: 43%;
+        width: 38%;
         margin-left:50px !important;
     }
 }
@@ -23305,7 +23334,7 @@ img.res-buyut {
 
 @media (min-width:992px) {
     .new-header__top-right {
-        width: 26%;
+        width: 34%;
         padding-top: 3px;
     }
 }
@@ -26278,7 +26307,8 @@ input[name="SearchText"]::-webkit-input-placeholder {
     }
 
     .homeCont {
-        padding-right: 15px;
+        padding-right: 10px;
+        padding-left: 10px;
     }
 
     /*#myTabContent {
@@ -26294,16 +26324,29 @@ input[name="SearchText"]::-webkit-input-placeholder {
 }
 
 @media (max-width: 991px) {
-    .xssm-visible {
+    .xssm-visible 
+    {
         display: block !important;
     }
 
-    .xssm-hidden {
-        display: none;
+    .xssm-hidden 
+    {
+      display: none;
     }
 
     .nopadding-xssm {
-        padding: 0px !important;
+      padding: 0px !important;
+    }
+    .nopadding {
+      padding: 3px !important;
+    }
+    .nomargin {
+        margin-left: 1px !important;
+        margin-right: 1px !important;
+    }
+    .new-header__search input 
+    {
+      font-size: 1.1rem !important;
     }
 }
 
@@ -26315,20 +26358,21 @@ input[name="SearchText"]::-webkit-input-placeholder {
     .mdlg-hidden {
         display: none;
     }
+    .nopadding {
+        padding: 0px !important;
+    }
+
+    .nomargin {
+        margin: 0px !important;
+    }
+
+    .nogutters {
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
 }
 
-.nopadding {
-    padding: 0px !important;
-}
-
-.nomargin {
-    margin: 0px !important;
-}
-
-.nogutters {
-    padding: 0px !important;
-    margin: 0px !important;
-}
 
 /*@media (max-width: 767px) {
     .product-list-mt__item_card.first {
@@ -26381,12 +26425,6 @@ input[name="SearchText"]::-webkit-input-placeholder {
     .product-list-mt__item_card {
     }
 }*/
-
-.product-popup-gallery > .item > img {
-    background-color: #0d0d0d;
-    width: 100% !important;
-    height: 100px;
-}
 
 
 .help-block a {

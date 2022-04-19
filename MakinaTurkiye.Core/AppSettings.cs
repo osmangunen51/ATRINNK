@@ -341,5 +341,10 @@ namespace MakinaTurkiye.Core
         {
             get { return ConfigurationManager.AppSettings["CertificateTypeIconFolder"].ToString(); }
         }
+
+        public static string CssVersiyon
+        {
+            get { return ConfigurationManager.AppSettings["Css-Versiyon"].ToString(); }
+        }
     }
 }

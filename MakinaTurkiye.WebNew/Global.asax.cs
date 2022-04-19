@@ -63,7 +63,6 @@ namespace NeoSistem.MakinaTurkiye.Web
                 }
             }
 
-
             if (config.ApplicationLogEnabled)
             {
                 Exception exception = Server.GetLastError();

@@ -1154,8 +1154,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     productStatistic.SingularViewCount = 1;
                     productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
                     productStatistic.ViewCount = 1;
-                    int lastId = _productStatisticService.InsertProductStatistic(productStatistic);
-                    SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
+                    int lastId = 0;
+                    #if DEBUG
+                     try
+                     {
+                         lastId = _productStatisticService.InsertProductStatistic(productStatistic);
+                         SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
+                     }
+                     catch (Exception Hata)
+                     {
+
+                     }
+                    #endif
+                    #if RELEASE
+                        lastId = _productStatisticService.InsertProductStatistic(productStatistic);
+                        SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
+                    #endif
                     _productService.CachingGetOrSetOperationEnabled = false;
                     updatedProduct.SingularViewCount += 1;
                     _productService.UpdateProduct(updatedProduct);

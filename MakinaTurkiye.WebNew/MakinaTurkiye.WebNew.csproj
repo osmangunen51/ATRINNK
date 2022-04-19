@@ -2862,15 +2862,15 @@
     <Content Include="Views\Home\_HeaderBaseMenu.cshtml" />
     <Content Include="Views\Home\_NewAddedProducts.cshtml" />
     <None Include="Views\Message\Send.cshtml" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
-    <Content Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </Content>
+	  <Content Include="Web.config">
+		  <SubType>Designer</SubType>
+	  </Content>
+	  <Content Include="Web.Debug.config">
+		  <DependentUpon>Web.config</DependentUpon>
+	  </Content>
+	  <Content Include="Web.Release.config">
+		  <DependentUpon>Web.config</DependentUpon>
+	  </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
