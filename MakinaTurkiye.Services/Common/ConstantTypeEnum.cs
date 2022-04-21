@@ -51,6 +51,9 @@
         PaymentBank = 30,
         SeoDecriptionTitle = 31,
         CategoryFooterTopDesc = 32,
-        PacketSalesFooter = 33
+        PacketSalesFooter = 33,
+        Cinsiyet = 34,
+        MedeniHali = 35,
+        Meslek = 36,
     }
 }

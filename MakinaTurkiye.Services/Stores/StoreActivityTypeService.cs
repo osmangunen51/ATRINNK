@@ -14,6 +14,7 @@ namespace MakinaTurkiye.Services.Stores
         #region Constants
 
         private const string STOREACTIVITYTYPES_BY_STORE_ID_KEY = "makinaturkiye.storeactivitytype.bystoreid-{0}";
+        private const string STOREACTIVITYTYPES = "makinaturkiye.storeactivitytypes";
 
         #endregion
 
@@ -64,6 +65,9 @@ namespace MakinaTurkiye.Services.Stores
                 return storeActivityTypes;
             });
         }
+
+        
+
 
         public void InsertStoreActivityType(StoreActivityType storeActivityType)
         {

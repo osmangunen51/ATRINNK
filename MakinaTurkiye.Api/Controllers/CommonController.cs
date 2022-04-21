@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using MakinaTurkiye.Services.Stores;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -15,11 +16,14 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IMemberService _memberService;
         private readonly IAddressService _addressService;
         private readonly IConstantService _constantService;
+        private readonly IActivityTypeService _activityTypeService;
+
         public CommonController()
         {
             _memberService = EngineContext.Current.Resolve<IMemberService>();
             _addressService = EngineContext.Current.Resolve<IAddressService>();
             _constantService = EngineContext.Current.Resolve<IConstantService>();
+            _activityTypeService = EngineContext.Current.Resolve<IActivityTypeService>();
         }
 
         public HttpResponseMessage GetConstants()
@@ -30,7 +34,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var constantList = _constantService.GetAllConstants().OrderBy(x => x.ConstantType).ThenByDescending(x => x.Order).ToList();
                 if (constantList != null)
                 {
-                    processStatus.Result = constantList.Select(x => new
+                    var Liste = constantList.Select(x => new
                     {
                         ConstantGrupNo = (int)x.ConstantType,
                         ConstantGrupAd = ((ConstantTypeEnum)x.ConstantType).GetDescription(),
@@ -39,6 +43,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ConstantEkBilgi = x.ContstantPropertie,
                         ConstantSira = x.Order
                     });
+                    processStatus.Result =Liste;
                     processStatus.ActiveResultRowCount = constantList.Count;
                     processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
                     processStatus.Message.Header = "Constant İşlemleri";
@@ -63,6 +68,46 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+        public HttpResponseMessage GetStoreActivityType()
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var constantList = _activityTypeService.GetAllActivityTypes().OrderBy(x => x.Order).ToList();
+                if (constantList != null)
+                {
+                    processStatus.Result = constantList.Select(x => new
+                    {
+                        Id = (int)x.ActivityTypeId,
+                        Name = x.ActivityName,
+                        Order = x.Order
+                    });
+                    processStatus.ActiveResultRowCount = constantList.Count;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "ActivityType İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "ActivityType İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "ActivityType sonucu boş!";
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "ActivityType İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
         public HttpResponseMessage GetAllLocalityByCityId(int CityId)
         {
             ProcessResult processStatus = new ProcessResult();
