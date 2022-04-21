@@ -678,8 +678,8 @@ namespace MakinaTurkiye.Api.Controllers
                     var phoneGsm = new Phone()
                     {
                         MainPartyId = member.MainPartyId,
-                        PhoneCulture = "",
-                        PhoneAreaCode = "",
+                        PhoneCulture = CountryCode,
+                        PhoneAreaCode = AreaCode,
                         PhoneNumber = PhoneNumber,
                         PhoneType = (int)PhoneTypeEnum.Gsm,
                         active = isCurrentGsmSame?.active,
@@ -694,7 +694,7 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         MobileMessage messageTmp = _mobileMessageService.GetMobileMessageByMessageName("telefononayi");
                         string messageMobile = messageTmp.MessageContent.Replace("#isimsoyisim#", member.MemberName + " " + member.MemberSurname).Replace("#aktivasyonkodu#", activeCode);
-                        sms.SendPhoneMessage(phoneGsm.PhoneCulture + phoneGsm.PhoneAreaCode + phoneGsm.PhoneNumber, messageMobile);
+                        var snc=sms.SendPhoneMessage(phoneGsm.PhoneCulture + phoneGsm.PhoneAreaCode + phoneGsm.PhoneNumber, messageMobile);
                         processStatus.Message.Header = "Kullanıcı Doğrulama işlemleri";
                         processStatus.Message.Text = "Başarılı";
                         processStatus.Status = true;
