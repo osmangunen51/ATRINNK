@@ -1,4 +1,5 @@
-﻿<!doctype html>
+﻿@using MakinaTurkiye.Core;
+<!doctype html>
 <html lang="tr">
 <head>
 
@@ -6,9 +7,9 @@
     @Html.Partial("_Head")
     @Scripts.Render("~/js")
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700,800&amp;subset=latin-ext&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=10.14" />
-    <link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/autocomplete.css")" />
-    <link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v=5")" />
+    <link rel="stylesheet" href="/Content/V2/public/build/css/bundle-main.css?v=@AppSettings.CssVersiyon" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/autocomplete.css?v="+AppSettings.CssVersiyon)" />
+    <link rel="stylesheet" href="@Url.Content("~/Content/V2/assets/css/jquery.autocomplete.css?v="+AppSettings.CssVersiyon)" />
     <script async>
         (function (w, d, s, l, i) {
             w[l] = w[l] || []; w[l].push({
@@ -49,11 +50,11 @@
     <div id="fb-root"></div>
     <div class="responsive-overlay"></div>
     @Html.Partial("_Header")
-<div class="main-container container subcontainer">
-    <div class="row  nomargin">
-        @RenderBody()
+    <div class="main-container container subcontainer">
+        <div class="row  nomargin">
+            @RenderBody()
+        </div>
     </div>
-</div>
-@{Html.RenderAction("Content", "Footer");}
+    @{Html.RenderAction("Content", "Footer");}
 </body>
 </html>

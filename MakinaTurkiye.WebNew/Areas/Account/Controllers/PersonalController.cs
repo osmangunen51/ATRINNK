@@ -385,11 +385,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         phoneChangeHistory.active = item.active;
                         phoneChangeHistory.UpdatedDate = DateTime.Now;
                         _phoneChangeHistoryService.InsertPhoneChange(phoneChangeHistory);
-
                         _phoneService.DeletePhone(item);
                     }
-
-
                 }
 
                 if (model.InstitutionalPhoneNumber != null && !string.IsNullOrWhiteSpace(model.InstitutionalPhoneNumber))
@@ -478,6 +475,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 {
                     phoneActive = false;
                 }
+
                 var address = _addressService.GetFisrtAddressByMainPartyId(mainPartyId);
                 bool hasAddress = false;
                 if (address != null)
@@ -490,7 +488,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 else
                 {
                     address = new Address();
-
                 }
 
                 if (model.CityId > 0)
@@ -507,7 +504,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     address.TownId = model.TownId;
                 else
                     address.TownId = null;
-
 
                 if (model.LocalityId > 0)
                     address.LocalityId = model.LocalityId;
@@ -527,7 +523,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 address.PostCode = model.PostCode;
                 if (model.CountryId != 246 && model.CountryId > 0)
                 {
-                    phoneActive = false;
+                    //phoneActive = false;
                     address.Avenue = MembershipModel_AvenueOtherCountries;
                 }
                 else
@@ -570,9 +566,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         PhoneType = (byte)PhoneType.Whatsapp
                     };
                     _phoneService.InsertPhone(curPhoneGsmForWp);
-
                 }
-
             }
             if (phoneActive)
                 return View("PhoneActive");
