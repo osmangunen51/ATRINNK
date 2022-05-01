@@ -643,7 +643,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     //cookie.Value = data;
                     cookie.Value = data;
 #if !DEBUG
-      cookie.Domain = ".makinaturkiye.com";
+                    cookie.Domain = ".makinaturkiye.com";
 #endif
                     cookie.Expires = DateTime.Now.AddDays(2);
                     Response.Cookies.Add(cookie);
@@ -658,7 +658,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                 HttpCookie cookieVisitor = new HttpCookie("ProductVisited", data);
 #if !DEBUG
-  cookieVisitor.Domain = ".makinaturkiye.com";
+                cookieVisitor.Domain = ".makinaturkiye.com";
 #endif
 
                 cookieVisitor.Expires = DateTime.Now.AddDays(2);
@@ -1078,8 +1078,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     ProductName = product.ProductName,
                     PictureName = item.PictureName,
-                    LargePath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px500x375),
-                    SmallPath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px100x75),
+                    LargePath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px900x675),
+                    SmallPath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px200x150),
                     MegaPicturePath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.pxx980)
                 });
             }
@@ -1155,21 +1155,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
                     productStatistic.ViewCount = 1;
                     int lastId = 0;
-                    #if DEBUG
-                     try
-                     {
-                         lastId = _productStatisticService.InsertProductStatistic(productStatistic);
-                         SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
-                     }
-                     catch (Exception Hata)
-                     {
-
-                     }
-                    #endif
-                    #if RELEASE
+#if DEBUG
+                    try
+                    {
                         lastId = _productStatisticService.InsertProductStatistic(productStatistic);
                         SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
-                    #endif
+                    }
+                    catch (Exception Hata)
+                    {
+
+                    }
+#endif
+#if RELEASE
+                        lastId = _productStatisticService.InsertProductStatistic(productStatistic);
+                        SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
+#endif
                     _productService.CachingGetOrSetOperationEnabled = false;
                     updatedProduct.SingularViewCount += 1;
                     _productService.UpdateProduct(updatedProduct);

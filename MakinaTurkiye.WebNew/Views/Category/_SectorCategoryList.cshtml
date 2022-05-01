@@ -27,11 +27,11 @@
                     <div class="sector-category-list__big-title" role="tab" data-role="anchor-@Helpers.ToUrl(i.CategoryName)-scroll" id="@("heading" + categoryListIndex)">
                         @if (Model.CategoryModel.SelectedCategoryId == 0)
                         {
-                        <a href="@(AppSettings.SiteUrl + Helpers.ToUrl(categoryUrlName) + "-c-" + i.CategoryId.ToString())">@i.CategoryName</a>
+                        <a href="@(AppSettings.SiteUrl + Helpers.ToUrl(categoryUrlName) + "-c-" + i.CategoryId.ToString())">@i.CategoryContentTitle</a>
                         }
                         else
                         {
-                        @i.CategoryName
+                        @i.CategoryContentTitle
                         }
                         <span class="text-muted text-ln">(@i.ProductCount)</span>
                         <a class="hidden-lg"

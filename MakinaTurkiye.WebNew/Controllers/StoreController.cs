@@ -24,7 +24,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
     {
         #region Constants
 
-        private const int SHOWED_PAGE_LENGTH = 12;
+        private const int SHOWED_PAGE_LENGTH = 30;
         private const string PAGE_INDEX_QUERY_STRING_KEY = "page";
         private const string ORDER_BY_QUERY_STRING_KEY = "orderby";
         private const string CITY_ID_QUERY_STRING_KEY = "cityId";

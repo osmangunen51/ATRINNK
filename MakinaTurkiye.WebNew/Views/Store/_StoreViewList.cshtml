@@ -28,21 +28,23 @@
     <div class="company-list-mt row clearfix nomargin ">
         @foreach (var item in Model.Where(x => x.ProductModels.Count() > 0))
         {
-            <div class="col-xs-12 col-md-6 col-lg-4 clearfix" style="padding-right:0;">
+            <div class="col-xs-12 col-md-6 col-lg-4 clearfix">
                 <div class="company-list-mt__item">
 
-                    <h4 class="company-list-mt__title">
-                        <a href="@item.StoreProfileUrl">
-                            @if (!string.IsNullOrEmpty(item.StoreShortName))
-                            {
-                                @item.StoreShortName
-                            }
-                            else
-                            {
-                                @item.TruncateStoreName
-                            }
-                        </a>
-                    </h4>
+                    <div class="itemStoreName">
+                        <h4 class="company-list-mt__title">
+                            <a href="@item.StoreProfileUrl">
+                                @if (!string.IsNullOrEmpty(item.StoreShortName))
+                                {
+                                    @item.StoreShortName
+                                }
+                                else
+                                {
+                                    @item.TruncateStoreName
+                                }
+                            </a>
+                        </h4>
+                    </div>
                     <hr />
                     <div class="company-list-mt__image">
                         <a href="@item.StoreProfileUrl">
@@ -71,7 +73,7 @@
                     </div>
                     <div class="clearfix"></div>
                     <div class="company-list-mt__product-gallery clearfix" >
-                        @foreach (var productItem in item.ProductModels)
+                        @foreach (var productItem in item.ProductModels.ToList().Take(3))
                         {
                             <a class="popovers company-list-mt__product-gallery-item"  style="margin:1px;"
                                data-container="body"
@@ -80,23 +82,31 @@
                                data-placement="bottom"
                                href="#mtmt"
                                data-content="<a href='@productItem.ProductUrl'><img src='@productItem.LargePicturePath' class='img-mt' title='@productItem.ProductName' alt='@productItem.ProductName' /> </a>
-                                    <br>
-                                    <br>
-                                    <div class='row'>
-                                        <div class='col-xs-6'>
-                                            Marka:@productItem.BrandName
-                                            <br>
-                                            Model:@productItem.ModelName
-                                        </div>
-                                        <div class='col-xs-6 text-right'>
-                                            <div class='btn-group-vertical'>
-                                                <a href='@productItem.ProductUrl' class='btn btn-sm btn-success'>İlanı İncele</a>
-                                                <a href='@productItem.SimilarUrl' class='btn btn-sm btn-default'>Benzer İlanlar</a>
-                                            </div>
-                                        </div>
-                                    </div>" >
-                                    <img src='@productItem.SmallPicturePath' class='img-mt' title='@productItem.ProductName' alt='@productItem.ProductName' /></a>
+                               <br>
+                               <br>
+                               <div class='row'>
+                                   <div class='col-xs-6'>
+                                       Marka:@productItem.BrandName
+                                       <br>
+                                       Model:@productItem.ModelName
+                                   </div>
+                                   <div class='col-xs-6 text-right'>
+                                       <div class='btn-group-vertical'>
+                                           <a href='@productItem.ProductUrl' class='btn btn-sm btn-success'>İlanı İncele</a>
+                                           <a href='@productItem.SimilarUrl' class='btn btn-sm btn-default'>Benzer İlanlar</a>
+                                       </div>
+                                   </div>
+                               </div>" >
+                               <img src='@productItem.SmallPicturePath' class='img-mt' title='@productItem.ProductName' alt='@productItem.ProductName' /></a>
                         }
+                    </div>
+                    <br />
+                    <div class="company-list-mt__product-gallery clearfix">
+                        @if (item.StoreAbout.Length>185)
+                        {
+                            item.StoreAbout = item.StoreAbout.Substring(0, 185)+" ...";
+                        }
+                        @item.StoreAbout
                     </div>
                 </div>
             </div>

@@ -367,7 +367,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         CategoryId = item.CategoryId,
                         CategoryName = item.CategoryName,
-                        ProductCount = item.ProductCount
+                        ProductCount = item.ProductCount,
+                        CategoryContentTitle=item.CategoryContentTitle
                     });
                 }
 
@@ -526,7 +527,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         ModelId = product.ModelId,
                         ModelName = product.ModelName,
                         ModelYear = product.ModelYear,
-                        PicturePath = ImageHelper.GetProductImagePath(product.ProductId, product.MainPicture, ProductImageSize.px200x150),
+                        PicturePath = ImageHelper.GetProductImagePath(product.ProductId, product.MainPicture, ProductImageSize.px400x300),
                         ProductId = product.ProductId,
                         ProductName = product.ProductName,
                         ProductNo = product.ProductNo,
@@ -1838,7 +1839,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         ProductName = item1.ProductName,
                         ProductUrl = UrlBuilder.GetProductUrl(item1.ProductId, item1.ProductName),
                         SmallPictureName = StringHelper.Truncate(item1.ProductName, 80),
-                        SmallPicturePah = ImageHelper.GetProductImagePath(item1.ProductId, item1.MainPicture, ProductImageSize.x160x120),
+                        SmallPicturePah = ImageHelper.GetProductImagePath(item1.ProductId, item1.MainPicture, ProductImageSize.px400x300),
                         CurrencyCss = item1.GetCurrencyCssName(),
                         Price = item1.GetFormattedPrice(),
                         ProductContactUrl = UrlBuilder.GetProductContactUrl(item1.ProductId, item1.StoreName),
