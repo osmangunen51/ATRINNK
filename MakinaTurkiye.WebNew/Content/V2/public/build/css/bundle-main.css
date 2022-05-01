@@ -1658,11 +1658,17 @@ table td[class*=col-], table th[class*=col-] {
 
 @media (max-width:767px) {
 
+    .resim-urun .carousel .carousel-inner .item {
+        border-bottom: 1px solid #dcdcdc;
+        width: 100%;
+        /* min-height: 375px !important; */
+    }
+
     .carousel-inner > .item > a > img, .carousel-inner > .item > img {
         display: block;
         max-width: 100%;
-        height: auto;
         line-height: 1;
+        height: auto !important;
     }
 
     .urun_rsm {
@@ -17231,7 +17237,7 @@ img {
 
 .one-cikan-firma-urunleri {
     margin-left: -15px;
-    margin-right:-5px;
+    margin-right: -5px;
 }
 
 @media (min-width:767px) {
@@ -17604,41 +17610,39 @@ li.active > a > .menutoggleicon {
     width: auto !important;
 }
 
-    .urun_rsm {
-        height: 100%;
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        width: auto !important;*/
-        width: 100% !important;
-    }
+.urun_rsm {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: auto !important;
+    */ width: 100% !important;
+}
 
-    .res-buyut {
-        height: inherit !important;
-        position: absolute !important;
-        bottom: 10px !important;
-        right: 10px !important;
-        left: inherit !important;
-        top: inherit !important;
-        margin: inherit !important;
-        z-index: 333;
-        width: auto !important;
+.res-buyut {
+    height: inherit !important;
+    position: absolute !important;
+    bottom: 10px !important;
+    right: 10px !important;
+    left: inherit !important;
+    top: inherit !important;
+    margin: inherit !important;
+    z-index: 333;
+    width: auto !important;
+}
 
-
-    }
-
-    .resim-urun .carousel .carousel-control {
-        padding: 20% 0;
-        font-size: 55px;
-        background: 0 -10px;
-        border: none;
-        color: #e0e0e0;
-        text-shadow: none;
-        top: 0
-    }
+.resim-urun .carousel .carousel-control {
+    padding: 20% 0;
+    font-size: 55px;
+    background: 0 -10px;
+    border: none;
+    color: #e0e0e0;
+    text-shadow: none;
+    top: 0
+}
 
     .resim-urun .carousel .carousel-control.left {
         left: 5px
@@ -17678,7 +17682,7 @@ li.active > a > .menutoggleicon {
         #kresim .carousel-inner .item a img {
             height: inherit;
             /*width: inherit !important;*/
-            width:auto !important;
+            width: auto !important;
             position: inherit
         }
 
@@ -18003,6 +18007,8 @@ li.active > a > .menutoggleicon {
 }
 
 @media (max-width:768px) {
+
+
     .urun-detay .thumbnail .urun-bilgi .fiyat {
         font-size: 24px;
         font-weight: 600
@@ -18477,6 +18483,10 @@ li.active > a > .menutoggleicon {
     }*/
 
 @media (min-width:768px) {
+    .urun_rsm {
+        min-height: 375px !important;
+    }
+
     .mobile-filter-buttons.mobile-filter-top-alignment {
         position: unset;
         bottom: unset;
@@ -19221,8 +19231,9 @@ li.active > a > .menutoggleicon {
         padding-left: 0px !important;
         padding-right: 0px !important;
     }
+
     .nopadding {
-        padding:0px;
+        padding: 0px;
     }
 }
 
@@ -21980,6 +21991,7 @@ li.active > a > .menutoggleicon {
         margin-top: -5px;
     }
 }
+
 .advertiseHome .buttons a:first-child {
     background-color: #fff;
     color: #0c3871
@@ -22405,9 +22417,9 @@ li.active > a > .menutoggleicon {
     justify-content: space-around;
 }
 
-.product-list-mt [class*=col-] {
-    padding-right: 0
-}
+    .product-list-mt [class*=col-] {
+        padding-right: 0
+    }
 
 .product-list-mt__item {
     padding: .75rem;
@@ -22461,12 +22473,12 @@ li.active > a > .menutoggleicon {
     /*padding-right: 15px;*/
 }
 
-.product-list-mt__image-area .img-thumbnail {
-    /*min-height: 150px;*/
-    /*max-height: 171px;*/
-    border: 0;
-    width: 100%;
-}
+    .product-list-mt__image-area .img-thumbnail {
+        /*min-height: 150px;*/
+        /*max-height: 171px;*/
+        border: 0;
+        width: 100%;
+    }
 
 .product-list-mt__detail .product-list-favorite-icon {
     top: 20px !important;
@@ -23342,7 +23354,7 @@ li.active > a > .menutoggleicon {
         float: left;
         position: static;
         width: 38%;
-        margin-left:50px !important;
+        margin-left: 50px !important;
     }
 }
 
@@ -26304,7 +26316,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
     .main-container {
         transform: none;
         overflow: hidden;
-        padding:0px;
+        padding: 0px;
         /*padding-right: 37px;*/
     }
 
@@ -26344,29 +26356,29 @@ input[name="SearchText"]::-webkit-input-placeholder {
 }
 
 @media (max-width: 991px) {
-    .xssm-visible 
-    {
+    .xssm-visible {
         display: block !important;
     }
 
-    .xssm-hidden 
-    {
-      display: none;
+    .xssm-hidden {
+        display: none;
     }
 
     .nopadding-xssm {
-      padding: 0px !important;
+        padding: 0px !important;
     }
+
     .nopadding {
-      padding: 3px !important;
+        padding: 3px !important;
     }
+
     .nomargin {
         margin-left: 1px !important;
         margin-right: 1px !important;
     }
-    .new-header__search input 
-    {
-      font-size: 1.1rem !important;
+
+    .new-header__search input {
+        font-size: 1.1rem !important;
     }
 }
 
@@ -26378,6 +26390,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
     .mdlg-hidden {
         display: none;
     }
+
     .nopadding {
         padding: 0px !important;
     }
@@ -26390,7 +26403,6 @@ input[name="SearchText"]::-webkit-input-placeholder {
         padding: 0px !important;
         margin: 0px !important;
     }
-
 }
 
 
