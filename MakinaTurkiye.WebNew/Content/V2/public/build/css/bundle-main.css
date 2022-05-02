@@ -22330,7 +22330,7 @@ li.active > a > .menutoggleicon {
 }
 
 .company-list-mt__item {
-    min-height: 390px;
+    min-height: 410px;
     background-color: #fff;
     border: 0.1px solid #f9401b;
     /* padding: 10px; */

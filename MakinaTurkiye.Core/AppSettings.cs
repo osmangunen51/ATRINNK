@@ -296,6 +296,11 @@ namespace MakinaTurkiye.Core
         }
 
 
+        public static string MailDisplayName
+        {
+            get { return ConfigurationManager.AppSettings["Mail-DisplayName"].ToString(); }
+        }
+
         public static string MailUserName
         {
             get { return ConfigurationManager.AppSettings["Mail-UserName"].ToString(); }

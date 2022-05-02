@@ -165,6 +165,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     if (url.Contains("Order"))
                         url = RemoveQueryStringByKey(url, "Order");
 
+                    //if (url.Contains("Page"))
+                    //    url = RemoveQueryStringByKey(url, "Page");
+
                     //if (request.Url.Query.Contains("page"))
                     //{
 

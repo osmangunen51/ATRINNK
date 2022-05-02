@@ -102,9 +102,12 @@
                     </div>
                     <br />
                     <div class="company-list-mt__product-gallery clearfix">
-                        @if (item.StoreAbout.Length>185)
+                        @if (!string.IsNullOrEmpty(item.StoreAbout))
                         {
-                            item.StoreAbout = item.StoreAbout.Substring(0, 185)+" ...";
+                            if (item.StoreAbout.Length > 175)
+                            {
+                                item.StoreAbout = item.StoreAbout.Substring(0, 175) + " ...";
+                            }
                         }
                         @item.StoreAbout
                     </div>

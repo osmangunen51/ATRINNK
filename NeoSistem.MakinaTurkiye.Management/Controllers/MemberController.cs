@@ -444,7 +444,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                 #region kullanici
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
                 mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
                 mail.Subject = subtitle; //Mail konusu
                 string template = aciklama;
@@ -624,7 +624,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 //date time karşılaştırmak için compare
                 //DateTime.Compare(t1, t2);
 
-                mail.From = new MailAddress("makina@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
                 mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
                 mail.Subject = subtitle; //Mail konusu
                 mail.Body = template; //Mailin içeriği
@@ -662,7 +662,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         if (alluserfriend.Eposta1 != null)
                         {
                             MailMessage maila = new MailMessage();
-                            maila.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                            mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName);
                             maila.To.Add(alluserfriend.Eposta1); //Mailin kime gideceğini belirtiyoruz
                             allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad1 + " " + alluserfriend.SoyAd2);
                             maila.Subject = allusersubtitle; //Mail konusu
@@ -681,7 +681,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         if (alluserfriend.EPosta2 != null)
                         {
                             MailMessage mailb = new MailMessage();
-                            mailb.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                            mailb.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
                             mailb.To.Add(alluserfriend.EPosta2); //Mailin kime gideceğini belirtiyoruz
                             allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad2 + " " + alluserfriend.SoyAd2);
                             mailb.Subject = allusersubtitle; //Mail konusu
@@ -949,7 +949,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             string advertfix = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=" + product.ProductId;
             //buraya mail gödnersin sorna başarılı falan diye sayfa oluştur o çıksın.
             #region kullanici
-            var settings = ConfigurationManager.AppSettings;
+            //var settings = ConfigurationManager.AppSettings;
             //EmailMessage mail = new EmailMessage();
             //mail.HeaderCharSet = System.Text.Encoding.UTF8;
             string template = Resources.Email.ilanonaylanmadi;
@@ -993,7 +993,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             aciklama = Resources.Email.masterpage.Replace("#aciklama#", aciklama);
             template = template.Replace("#ilanbilgileri#", aciklama);
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+            mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
             mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
             mail.Subject = subtitle; //Mail konusu
             mail.Body = template; //Mailin içeriği
