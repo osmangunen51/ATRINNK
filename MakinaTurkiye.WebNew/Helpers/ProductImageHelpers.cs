@@ -215,21 +215,15 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             {
                 DirectoryInfo directory = Directory.CreateDirectory(HttpContext.Current.Server.MapPath(this.ImageFolder));
             }
-
             if (!Directory.Exists(HttpContext.Current.Server.MapPath(this.ImageFolder) + productID.ToString()))
             {
                 DirectoryInfo directory = Directory.CreateDirectory(HttpContext.Current.Server.MapPath(this.ImageFolder) + productID.ToString());
                 directory.CreateSubdirectory("thumbs");
             }
-            //MakinaTurkiye.Web.Models.Entities.MakinaTurkiyeEntities entities = new MakinaTurkiye.Web.Models.Entities.MakinaTurkiyeEntities();
-
             int count = 0;
-
             IPictureService pictureService = EngineContext.Current.Resolve<IPictureService>();
             var countmodel = pictureService.GetPicturesByProductId(productID);
-
             string productPicturePath = string.Empty;
-
             if (countmodel != null)
             {
                 do
@@ -239,9 +233,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
                 } while (countmodel.Where(c => c.PicturePath == productPicturePath).FirstOrDefault() != null);
 
-
             }
-
             List<PictureModel> pictureList = new List<PictureModel>();
             for (int i = 0; i < imageFiles.Files.Count; i++)
             {
@@ -254,19 +246,17 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                     if (this.ImageContentType.Any(fc => fc == file.ContentType))
                     {
                         string fileName = file.FileName;
+
                         //string fileExtension = fileName.Substring(fileName.LastIndexOf("."), fileName.Length - fileName.LastIndexOf("."));
+                        
                         string filePath = string.Empty;
-
                         string newMainImageFilePath = this.ImageFolder + productID.ToString() + "\\";
-
                         fileName = productName.ToImageFileName(count) + ".jpg";
                         filePath = HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName;
                         file.SaveAs(filePath);
 
                         bool thumbResult = ImageProcessHelper.ImageResize(HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName,
                         HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count), this.ThumbSizes);
-
-
                         foreach (var thumbSize in ThumbSizes)
                         {
                             if (thumbSize == "980x*" || thumbSize == "500x375" || thumbSize == "*x980")
@@ -278,18 +268,13 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                         }
 
                         pictureList.Add(new PictureModel { PictureId = count, ProductId = productID, PicturePath = fileName });
-
                         count++;
-                    }
 
+                    }
                 }
             }
-
             return pictureList;
         }
-
-
         #endregion
-
     }
 }

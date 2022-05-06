@@ -1074,14 +1074,35 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             for (int Step = 0; Step < pictures.Count(); Step++)
             {
                 var item = pictures[Step];
-                model.ProductPictureModels.Add(new MTProductPictureModel
+                MTProductPictureModel MTProductPictureModel = new MTProductPictureModel
                 {
                     ProductName = product.ProductName,
                     PictureName = item.PictureName,
                     LargePath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px900x675),
                     SmallPath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px200x150),
                     MegaPicturePath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.pxx980)
-                });
+                };
+
+                // LargePath Kontrol
+                string ServerPath = "";
+                string LargePathUrl = MTProductPictureModel.LargePath;
+                LargePathUrl = LargePathUrl.Replace("//s.makinaturkiye.com", "UserFiles");
+                ServerPath = Server.MapPath(LargePathUrl);
+                System.IO.FileInfo fileInfo = new System.IO.FileInfo(ServerPath);
+                if (!fileInfo.Exists)
+                {
+                    MTProductPictureModel.LargePath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px500x375);
+                }
+
+                LargePathUrl = MTProductPictureModel.MegaPicturePath;
+                LargePathUrl = LargePathUrl.Replace("//s.makinaturkiye.com", "UserFiles");
+                ServerPath = Server.MapPath(LargePathUrl);
+                fileInfo = new System.IO.FileInfo(ServerPath);
+                if (!fileInfo.Exists)
+                {
+                    MTProductPictureModel.MegaPicturePath = ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px980x);
+                }
+                model.ProductPictureModels.Add(MTProductPictureModel);
             }
 
             List<string> thumbSizes = new List<string>();

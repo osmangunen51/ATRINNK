@@ -297,18 +297,14 @@
 
     %>
     <td class="Cell CellEnd">
-
-        <div>
-            <a title="Sil" style="cursor: pointer; float: left;" href="/OrderFirm/DeleteOrder/<%:item.OrderId %>?type=delete">
-                <img src="/Content/images/delete.png" style="width: 16px;" />
-            </a>
-            <a href="/Store/StoreContactInfo/<%=item.MainPartyId  %>" style="float: left;" id="lightbox_click" rel="superbox[iframe]" title="İletişim Bilgileri">
-                <img src="/Content/RibbonImages/phone-list.png" style="width: 16px;" /></a>
-        </div>
-
         <div style="margin-top: 1px; float: left; margin-bottom: 2px;">
             <a style="margin-left: 3px;" href="<%:Url.Action("GetInvoice", new {orderId=item.OrderId })%>" target="_blank" style="float: left;" title="Faturayı Gör"><span style="padding: 2px; background-color: #bb8c36; color: #fff; font-weight: 600;">F</span></a>
             <a href="/OrderFirm/Payments?OrderId=<%=item.OrderId  %>" style="float: left;" id="lightbox_click" rel="superbox[iframe]" title="Ödemeleri Gör"><span style="padding: 2px; background-color: #0eb907; color: #fff; font-weight: 600;">Ö</span></a>
+        </div>
+        <div class="panel2" style="margin-top: 1px; float: left; margin-bottom: 2px;margin-left: 2px;">
+            <a href="/Member/stororderremembermail?orderId=<%:item.OrderId %>" title="Paket ödeme hatırlatma maili gönder.">
+                <span style="padding: 2px; background-color: #0eb907; color: #fff; font-weight: 600;">ÖH</span>
+            </a>
         </div>
         <%if (item.InvoiceStatus != null)
             {
@@ -366,8 +362,13 @@
             <img src="../../Content/Images/mail-check.png" title="Mail Gönderilmiş" style="width: 16px;" />
         </div>
         <% } %>
-
-
+        <div class="panel2" style="float: left;">
+            <a title="Sil" style="cursor: pointer; float: left;" href="/OrderFirm/DeleteOrder/<%:item.OrderId %>?type=delete">
+                <img src="/Content/images/delete.png" style="width: 16px;" />
+            </a>
+            <a href="/Store/StoreContactInfo/<%=item.MainPartyId  %>" style="float: left;" id="lightbox_click" rel="superbox[iframe]" title="İletişim Bilgileri">
+                <img src="/Content/RibbonImages/phone-list.png" style="width: 16px;" /></a>
+        </div>
     </td>
 </tr>
 <% } %>

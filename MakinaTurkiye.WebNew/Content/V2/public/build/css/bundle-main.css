@@ -22330,7 +22330,7 @@ li.active > a > .menutoggleicon {
 }
 
 .company-list-mt__item {
-    min-height: 410px;
+    min-height: 420px;
     background-color: #fff;
     border: 0.1px solid #f9401b;
     /* padding: 10px; */
@@ -22445,7 +22445,7 @@ li.active > a > .menutoggleicon {
 
 @media (min-width:768px) {
     .company-list-mt__product-gallery-item img {
-        width: 84px
+        width: 100%;
     }
 
     /*.product-list-mt__item {
@@ -22564,12 +22564,13 @@ li.active > a > .menutoggleicon {
 }
 
     .product-list-mt__advert-no:before {
-        content: 'Ã„Â°lan No: '
+        content: 'İlan No: '
     }
 
 @media (min-width:480px) {
     .product-list-mt__advert-no {
-        display: block
+        display: block;
+        margin-left: 10px;
     }
 }
 

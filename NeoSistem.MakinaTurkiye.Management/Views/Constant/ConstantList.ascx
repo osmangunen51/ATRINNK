@@ -16,7 +16,7 @@
         <%:Html.Raw(item.ConstantTitle) %>
   </td>
     <td class="Cell">
-  <a style="padding-bottom: 5px; cursor: pointer; float:left; margin-right:7px;" href="/Constant/EditConstants/<%=item.ConstantId %>" id="lightbox_click" rel="superbox[iframe]">içerik</a>
+  <a style="padding-bottom: 5px; cursor: pointer; float:left; margin-right:7px;" target="_blank" href="/Constant/EditConstants/<%=item.ConstantId %>" <%--id="lightbox_click" rel="superbox[iframe]"--%>>içerik</a>
   </td>
    <%} %>
     

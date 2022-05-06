@@ -122,7 +122,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     BriefDetail = item.GetBriefDetailText(),
                     CategoryName = item.Category.CategoryName,
                     City = item.City.CityName,
-                    Locality = item.Locality.LocalityName,
+                    Locality = (item.Locality!=null?item.Locality.LocalityName:""),
                     ModelName = item.Model != null ? item.Model.CategoryName : "",
                     ModelYear = item.ModelYear.HasValue == true ? item.ModelYear.Value.ToString() : "0",
                     ProductActive = item.ProductActive.Value,
