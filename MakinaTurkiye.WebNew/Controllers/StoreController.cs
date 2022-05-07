@@ -802,9 +802,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             urlName = FormatHelper.GetCategoryNameWithSynTax(category.CategoryContentTitle, CategorySyntaxType.Store);
                         else
                             urlName = FormatHelper.GetCategoryNameWithSynTax(category.CategoryName, CategorySyntaxType.Store);
-
                         redirectUrl = UrlBuilder.GetStoreCategoryUrl(categoryParent.CategoryId, urlName);
-
                     }
                 }
                 model.RedirectUrl = redirectUrl;
@@ -834,12 +832,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
             }
 
-
-
-            
-
-
-
             if (string.IsNullOrEmpty(searchText))
             {
 
@@ -856,8 +848,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (model.StoreModels.Count == 0 | (category != null && category.CategoryType == 3))
             {
-                string RedirectUrl = model.StoreCategoryModel.StoreTopCategoryItemModels.Where(x => x.CategoryId == category.CategoryParentId).LastOrDefault()?.CategoryUrl;
-                return RedirectPermanent(RedirectUrl);
+                string RedirectUrl = model.StoreCategoryModel.StoreTopCategoryItemModels.Where(x => x.CategoryId == category.CategoryParentId)?.LastOrDefault()?.CategoryUrl;
+                if (RedirectUrl!=null)
+                {
+                    return RedirectPermanent(RedirectUrl);
+                }
+                
             }
             return View(model);
         }
@@ -986,7 +982,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     videoCategoryItemModels.Add(itemModel);
                 }
             }
-
             model.StoreCategoryItemModels = videoCategoryItemModels;
             return PartialView(model);
         }
@@ -995,26 +990,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
             if (categoryId.HasValue)
             {
-                var category = _categoryService.GetCategoryByCategoryId(categoryId.Value);
-                if (category == null)
-                {
-                    return RedirectPermanent(AppSettings.StoreAllUrl);
-                }
-                var storeUrl = UrlBuilder.GetStoreCategoryUrl(category.CategoryId, FormatHelper.GetCategoryNameWithSynTax(category.CategoryName, CategorySyntaxType.Store));
-                return RedirectPermanent(storeUrl);
+              var category = _categoryService.GetCategoryByCategoryId(categoryId.Value);
+              if (category == null)
+              {
+                  return RedirectPermanent(AppSettings.StoreAllUrl);
+              }
+              var storeUrl = UrlBuilder.GetStoreCategoryUrl(category.CategoryId, FormatHelper.GetCategoryNameWithSynTax(category.CategoryName, CategorySyntaxType.Store));
+              return RedirectPermanent(storeUrl);
             }
             else
             {
-                return RedirectPermanent(AppSettings.StoreAllUrl);
+              return RedirectPermanent(AppSettings.StoreAllUrl);
             }
-
-
         }
-
-
-
         #endregion
-
     }
-
 }

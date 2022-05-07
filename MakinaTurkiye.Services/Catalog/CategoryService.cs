@@ -187,17 +187,12 @@ namespace MakinaTurkiye.Services.Catalog
 
         public Category GetCategoryByCategoryId(int categoryId)
         {
-            if (categoryId == 0)
-                throw new ArgumentNullException("categoryId");
-
-            string key = string.Format(CATEGORIES_BY_CATEGORY_ID_KEY, categoryId);
-            //return _cacheManager.Get(key, () =>
-            //{
-            //    var category = _categoryRepository.Table.FirstOrDefault(c => c.CategoryId == categoryId);
-            //    return category;
-            //});
-
-            var category = _categoryRepository.Table.FirstOrDefault(c => c.CategoryId == categoryId);
+            var category = new Category();
+                if (categoryId>0)
+                {
+                    string key = string.Format(CATEGORIES_BY_CATEGORY_ID_KEY, categoryId);
+                    category = _categoryRepository.Table.FirstOrDefault(c => c.CategoryId == categoryId);
+                }
             return category;
         }
 
