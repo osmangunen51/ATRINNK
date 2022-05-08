@@ -318,6 +318,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\StoreController.cs" />
+    <Compile Include="ExtentionsMethod\StringExtentions.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -458,6 +459,7 @@
     <Content Include="Scripts\jquery-3.6.0.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="UserFiles\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Sistem\" />
   </ItemGroup>

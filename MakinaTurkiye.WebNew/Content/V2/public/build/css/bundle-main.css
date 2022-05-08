@@ -22515,7 +22515,7 @@ li.active > a > .menutoggleicon {
 
     .product-list-mt__image-area .img-thumbnail {
         /* min-height: 150px; */
-        /*max-height: 171px;*/
+        max-height: 180px;
         border: 0;
         width: 100%;
         border-radius: 3px;

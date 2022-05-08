@@ -19,7 +19,11 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Http;
+using MakinaTurkiye.Api.ExtentionsMethod;
 using ProcessResult = MakinaTurkiye.Api.View.ProcessResult;
+using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Core;
+using System.Collections.Generic;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -33,6 +37,9 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IAuthenticationService _authenticationService;
         private readonly IStoreService _storeService;
         private readonly IPacketService _packetService;
+        private readonly IAddressService _addressService;
+        private readonly IPhoneService _phoneService;
+        private readonly IStoreActivityTypeService _storeActivityTypeService;
 
         public MembershipController()
         {
@@ -44,6 +51,9 @@ namespace MakinaTurkiye.Api.Controllers
             _authenticationService = EngineContext.Current.Resolve<IAuthenticationService>();
             _storeService = EngineContext.Current.Resolve<IStoreService>();
             _packetService = EngineContext.Current.Resolve<IPacketService>();
+            _addressService = EngineContext.Current.Resolve<IAddressService>();
+            _phoneService = EngineContext.Current.Resolve<IPhoneService>();
+            _storeActivityTypeService = EngineContext.Current.Resolve<IStoreActivityTypeService>();
         }
 
         public HttpResponseMessage FastMembership([FromBody] UserRegister Model)
@@ -506,30 +516,243 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        public HttpResponseMessage FastToInstitutional(CorporateInfoModelInput corporateInfoModelInput)
+        public HttpResponseMessage FastToInstitutional(CorporateInfoModelInput Model)
         {
             ProcessResult processStatus = new ProcessResult();
-
             try
             {
                 var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
-
                 var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
-
                 if (loginmember != null)
                 {
-                    processStatus.Message.Header = "CheckEmailForNewMember";
+                    string StoreLogo = "";
+                    var StoreEstablishment = Convert.ToInt32(Model.storeEstDate);
+
+                    if (StoreEstablishment == null)
+                    {
+                        StoreEstablishment = 0;
+                    }
+
+                    var member = _memberService.GetMemberByMainPartyId(loginmember.MainPartyId);
+                    if (member != null)
+                    {
+                        member.MemberName = Model.name;
+                        member.MemberSurname = Model.surname;
+                        member.BirthDate = Convert.ToDateTime(member.BirthDate);
+
+                        member.MemberTitleType = (byte)MemberType.Enterprise;
+                        member.MemberType = (byte)MemberType.Enterprise;
+                        member.FastMemberShipType = (byte)FastMembershipType.Normal;
+                        _memberService.UpdateMember(member);
+                    }
+
+                    var storeMainParty = new MainParty
+                    {
+                        Active = false,
+                        MainPartyType = (byte)MainPartyType.Firm,
+                        MainPartyRecordDate = DateTime.Now,
+                        MainPartyFullName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.storeName.ToLower()),
+                    };
+
+                    _memberService.InsertMainParty(storeMainParty);
+
+
+                    var packet = _packetService.GetPacketByIsStandart(true);
+
+
+
+                    var store = new Store
+                    {
+                        MainPartyId = storeMainParty.MainPartyId,
+                        PacketId = packet.PacketId,
+                        StoreName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.storeName.ToLower()),
+                        StoreEMail = member.MemberEmail,
+                        StoreWeb = Model.storeWeb,
+                        StoreLogo = StoreLogo,
+                        StoreActiveType = (byte)PacketStatu.Inceleniyor,
+                        StorePacketBeginDate = DateTime.Now,
+                        StorePacketEndDate = DateTime.Now.AddDays(packet.PacketDay),
+                        StoreAbout = Model.storeAbout,
+                        StoreRecordDate = DateTime.Now,
+                        StoreEstablishmentDate = StoreEstablishment,
+                        StoreCapital = (byte)Model.storeCapID,
+                        StoreEmployeesCount = (byte)Model.storeEmpCountID,
+                        StoreEndorsement = (byte)Model.storeEndorseID,
+                        StoreType = (byte)Model.storeTypeID,
+                        TaxOffice = Model.storeTaxAuth,
+                        TaxNumber = Model.storeTaxNo,
+                        StoreUrlName = Model.storeUrl,
+                        StoreShortName = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Model.storeName.ToLower()),
+                        PurchasingDepartmentEmail = member.MemberEmail,
+                        PurchasingDepartmentName = "Satın Alma",
+                        FounderText = string.Empty,
+                        GeneralText = string.Empty,
+                        HistoryText = string.Empty,
+                        PhilosophyText = string.Empty,
+                        ViewCount = 0,
+                        SingularViewCount = 0,
+                        StoreShowcase = false,
+                    };
+                    string storeNo = "###";
+                    for (int i = 0; i < 6 - storeMainParty.MainPartyId.ToString().Length; i++)
+                    {
+                        storeNo = storeNo + "0";
+                    }
+                    storeNo = storeNo + storeMainParty.MainPartyId;
+                    store.StoreNo = storeNo;
+                    _storeService.InsertStore(store);
+
+                    var storeMainPartyId = store.MainPartyId;
+                    var address = _addressService.GetFisrtAddressByMainPartyId(member.MainPartyId);
+
+                    if (address != null)
+                    {
+                        address.MainPartyId = storeMainPartyId;
+                        address.Street = Model.sokak;
+                        address.CityId = Model.selectedCityID;
+                        address.CountryId = Model.selectedCountryID;
+                        address.LocalityId = Model.selectedLocalityID;
+                        address.TownId = Model.selectedTownID;
+                        address.Avenue = Model.cadde;
+                        address.PostCode = Model.posta;
+                        _addressService.UpdateAddress(address);
+                    }
+
+                    var phones = _phoneService.GetPhonesByMainPartyId(member.MainPartyId);
+                    foreach (var phoneItem in phones)
+                    {
+                        phoneItem.MainPartyId = storeMainPartyId;
+                        _phoneService.UpdatePhone(phoneItem);
+                    }
+
+                    foreach (var ActivityId in Model.storeActivitySelected)
+                    {
+                        var storeActivityType = new StoreActivityType
+                        {
+                            StoreId = storeMainPartyId,
+                            ActivityTypeId = (byte)ActivityId
+                        };
+                        _storeActivityTypeService.InsertStoreActivityType(storeActivityType);
+                    }
+
+                    var memberStore = new MemberStore
+                    {
+                        MemberMainPartyId = member.MainPartyId,
+                        StoreMainPartyId = storeMainPartyId,
+                        MemberStoreType = (byte)MemberStoreType.Owner
+                    };
+
+                    _memberStoreService.InsertMemberStore(memberStore);
+
+                    #region bireyseldenkurumsalagecis
+
+                    //var settings = ConfigurationManager.AppSettings;
+                    MailMessage mail = new MailMessage();
+                    MessagesMT mailT = _messagesMTService.GetMessagesMTByMessageMTName("storedesc");
+                    mail.From = new MailAddress(mailT.Mail, mailT.MailSendFromName); //Mailin kimden gittiğini belirtiyoruz
+                    mail.To.Add(member.MemberEmail);                                                              //Mailin kime gideceğini belirtiyoruz
+                    mail.Subject = mailT.MessagesMTTitle;                                              //Mail konusu
+                    string template = mailT.MessagesMTPropertie;
+                    template = template.Replace("#kullaniciadi#", member.MemberName + " " + member.MemberSurname).Replace("#uyeeposta#", member.MemberEmail).Replace("#kullanicisifre#", member.MemberPassword).Replace("#firmaadi#", store.StoreName);
+                    mail.Body = template;                                                            //Mailin içeriği
+                    mail.IsBodyHtml = true;
+                    mail.Priority = MailPriority.Normal;
+                    this.SendMail(mail);
+                    #endregion
+                    #region bilgimakina
+
+                    MailMessage mailb = new MailMessage();
+                    MessagesMT mailTmpInf = _messagesMTService.GetMessagesMTByMessageMTName("bilgimakinasayfası");
+
+
+                    mailb.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
+                    mailb.To.Add("bilgi@makinaturkiye.com");
+                    mailb.Subject = "Firma Üyeliği " + member.MemberName + " " + member.MemberSurname;
+                    //var messagesmttemplate = entities.MessagesMTs.Where(c => c.MessagesMTId == 2).SingleOrDefault();
+                    //templatet = messagesmttemplate.MessagesMTPropertie;
+                    string bilgimakinaicin = mailTmpInf.MessagesMTPropertie;
+                    bilgimakinaicin = bilgimakinaicin.Replace("#kullanicimiz#", member.MemberName).Replace("#kullanicisoyadi#", member.MemberSurname).Replace("#kullanicitipi#", "Firma Üyelik");
+                    mailb.Body = bilgimakinaicin;
+                    mailb.IsBodyHtml = true;
+                    mailb.Priority = MailPriority.Normal;
+                    this.SendMail(mailb);
+                    #endregion
+
+                    string Logo = Model.logoBase64;
+                    if (!string.IsNullOrEmpty(store.StoreName))
+                    {
+                        // Gelen Base64String CVonvert Edilerek Kayıt Edilecek...
+                        string Uzanti = Logo.GetUzanti();
+                        if (!string.IsNullOrEmpty(Uzanti))
+                        {
+                            bool IslemDurum = false;
+                            string ServerImageUrl = "";
+                            if (Uzanti == "jpg")
+                            {
+                                IslemDurum = true;
+                            }
+                            if (Uzanti == "png")
+                            {
+                                IslemDurum = true;
+                            }
+
+                            if (IslemDurum)
+                            {
+                                string storeLogoFolder = System.Web.Hosting.HostingEnvironment.MapPath(AppSettings.StoreLogoFolder);
+                                string resizeStoreFolder = System.Web.Hosting.HostingEnvironment.MapPath(AppSettings.ResizeStoreLogoFolder);
+                                string storeLogoThumbSize = AppSettings.StoreLogoThumbSizes;
+                                List<string> thumbSizesForStoreLogo = new List<string>();
+                                thumbSizesForStoreLogo.AddRange(storeLogoThumbSize.Split(';'));
+                                var di = System.IO.Directory.CreateDirectory(string.Format("{0}{1}", resizeStoreFolder, store.MainPartyId.ToString()));
+                                di.CreateSubdirectory("thumbs");
+
+                                string newStoreLogoImageFilePath = resizeStoreFolder + store.MainPartyId.ToString() + "\\";
+                                string newStoreLogoImageFileName = store.StoreName.ToImageFileName() + "_logo.jpg";
+
+                                ServerImageUrl = $"~{AppSettings.StoreLogoFolder}/{store.StoreName.ToImageFileName()}_logo.{Uzanti}";
+                                string ServerFile = System.Web.Hosting.HostingEnvironment.MapPath(ServerImageUrl);
+                                System.Drawing.Image Img = Logo.ToImage();
+                                Img.Save(ServerFile);
+
+                                store.StoreLogo = ServerImageUrl;
+                                _storeService.UpdateStore(store);
+                                bool thumbResult = ImageProcessHelper.ImageResize(ServerFile, newStoreLogoImageFilePath + "thumbs\\" + store.StoreName.ToImageFileName(), thumbSizesForStoreLogo);
+                            }
+                            processStatus.ActiveResultRowCount = 1;
+                            processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                            processStatus.Message.Header = "Store İşlemleri";
+                            processStatus.Message.Text = "Başarılı";
+                            processStatus.Status = true;
+                        }
+                        else
+                        {
+                            processStatus.ActiveResultRowCount = 1;
+                            processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                            processStatus.Message.Header = "Store İşlemleri";
+                            processStatus.Message.Text = "Resim Uzantısı Hatalı";
+                            processStatus.Status = false;
+                        }
+                    }
+
+                    processStatus.Message.Header = "Store İşlemleri";
                     processStatus.Message.Text = "İşlem başarılı";
                     processStatus.Status = true;
+                    processStatus.Result = null;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Member Bulunamadı";
+                    processStatus.Status = false;
                     processStatus.Result = null;
                 }
             }
             catch (Exception ex)
             {
-                processStatus.Message.Header = "CheckEmailForNewMember";
+                processStatus.Message.Header = "Store İşlemleri";
                 processStatus.Message.Text = "İşlem başarısız";
                 processStatus.Status = false;
-                processStatus.Result = "Şifre yenileme işlemi başarısız.";
+                processStatus.Result = ex.Message;
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }

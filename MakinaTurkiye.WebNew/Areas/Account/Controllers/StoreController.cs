@@ -59,6 +59,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         private readonly IStoreSectorService _storeSectorService;
         private readonly ICertificateTypeService _certificateTypeService;
 
+
         public StoreController(IStoreChangeHistoryService storeChangeHistoryService,
             IStoreService storeService, ICategoryService categoryService,
             IPictureService pictureService,

@@ -12,7 +12,6 @@ namespace MakinaTurkiye.Api.Controllers
     [MakinaTurkiye.Api.Code.ApiAuthorize]
     public class BaseApiController : ApiController
     {
-
         public bool SendMail(MailMessage mailMessage)
         {
             bool Status = false;

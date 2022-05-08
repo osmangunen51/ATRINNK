@@ -6,8 +6,5 @@
         public int MainPartyId { get; set; }
         public string DealerName { get; set; }
         public byte DealerType { get; set; }
-
-
-
     }
 }

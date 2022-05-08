@@ -1,9 +1,14 @@
-﻿using MakinaTurkiye.Api.View;
+﻿using MakinaTurkiye.Api.ExtentionsMethod;
+using MakinaTurkiye.Api.Helpers;
+using MakinaTurkiye.Api.View;
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Common;
+using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Media;
+using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
@@ -12,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -27,8 +33,15 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IConstantService _constantService;
         private readonly IStoreInfoNumberShowService _storeNumberShowService;
         private readonly IPhoneService _phoneService;
+        private readonly IStoreDealerService _storeDealerService;
+        private readonly IAddressService _adressService;
+        private readonly IStoreBrandService _storeBrandService;
+        private readonly IDealarBrandService _dealarBrandService;
+        private readonly IMemberService _memberService;
+
         public StoreController()
         {
+
             _storeService = EngineContext.Current.Resolve<IStoreService>();
             _storeNewService = EngineContext.Current.Resolve<IStoreNewService>();
             _categoryService = EngineContext.Current.Resolve<ICategoryService>();
@@ -39,6 +52,11 @@ namespace MakinaTurkiye.Api.Controllers
             _constantService = EngineContext.Current.Resolve<IConstantService>();
             _storeNumberShowService = EngineContext.Current.Resolve<IStoreInfoNumberShowService>();
             _phoneService = EngineContext.Current.Resolve<IPhoneService>();
+            _storeDealerService = EngineContext.Current.Resolve<IStoreDealerService>();
+            _adressService = EngineContext.Current.Resolve<IAddressService>();
+            _storeBrandService = EngineContext.Current.Resolve<IStoreBrandService>();
+            _dealarBrandService = EngineContext.Current.Resolve<IDealarBrandService>();
+            _memberService = EngineContext.Current.Resolve<IMemberService>();
         }
 
         //public StoreController(IStoreService storeService)
@@ -46,6 +64,600 @@ namespace MakinaTurkiye.Api.Controllers
         //    this._storeService = storeService;
         //}
 
+        // Firma Ayarları
+
+        public HttpResponseMessage GetAbout(int MainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    MTStoreAboutModel model = new MTStoreAboutModel();
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    processStatus.Result = store.StoreAbout;
+                    processStatus.ActiveResultRowCount = 1;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+        [HttpPost]
+        public HttpResponseMessage SetAbout(int MainPartyId, string About)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    store.StoreAbout = About;
+                    _storeService.UpdateStore(store);
+                    processStatus.Result = store.StoreAbout;
+                    processStatus.ActiveResultRowCount = 1;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+        
+        public HttpResponseMessage GetHomePageInfo(int MainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    processStatus.Result = store.StoreProfileHomeDescription;
+                    processStatus.ActiveResultRowCount = 1;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+        [HttpPost]
+        public HttpResponseMessage SetHomePageInfo(int MainPartyId, string StoreProfileHomeDescription)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    store.StoreProfileHomeDescription = StoreProfileHomeDescription;
+                    _storeService.UpdateStore(store);
+                    processStatus.Result = store.StoreProfileHomeDescription;
+                    processStatus.ActiveResultRowCount = 1;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }        
+        
+        public HttpResponseMessage GetLogo(int MainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    string StoreLogo = !string.IsNullOrEmpty(store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 300) : null;
+                    processStatus.Result = StoreLogo;
+                    processStatus.ActiveResultRowCount = 1;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+        [HttpPost]
+        public HttpResponseMessage SetLogo(int MainPartyId, string Logo)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    if (store != null)
+                    {
+                        if (!string.IsNullOrEmpty(store.StoreName))
+                        {
+                            // Gelen Base64String CVonvert Edilerek Kayıt Edilecek...
+                            string Uzanti = Logo.GetUzanti();
+                            if (!string.IsNullOrEmpty(Uzanti))
+                            {
+                                bool IslemDurum = false;
+                                string ServerImageUrl = "";
+                                if (Uzanti == "jpg")
+                                {
+                                    IslemDurum = true;
+                                }
+                                if (Uzanti == "png")
+                                {
+                                    IslemDurum = true;
+                                }
+
+                                if (IslemDurum)
+                                {
+                                    string storeLogoFolder = System.Web.Hosting.HostingEnvironment.MapPath(AppSettings.StoreLogoFolder);
+                                    string resizeStoreFolder = System.Web.Hosting.HostingEnvironment.MapPath(AppSettings.ResizeStoreLogoFolder);
+                                    string storeLogoThumbSize = AppSettings.StoreLogoThumbSizes;
+                                    List<string> thumbSizesForStoreLogo = new List<string>();
+                                    thumbSizesForStoreLogo.AddRange(storeLogoThumbSize.Split(';'));
+                                    var di = System.IO.Directory.CreateDirectory(string.Format("{0}{1}", resizeStoreFolder, store.MainPartyId.ToString()));
+                                    di.CreateSubdirectory("thumbs");
+
+                                    string newStoreLogoImageFilePath = resizeStoreFolder + store.MainPartyId.ToString() + "\\";
+                                    string newStoreLogoImageFileName = store.StoreName.ToImageFileName() + "_logo.jpg";
+
+                                    ServerImageUrl = $"~{AppSettings.StoreLogoFolder}/{store.StoreName.ToImageFileName()}_logo.{Uzanti}";
+                                    string ServerFile = System.Web.Hosting.HostingEnvironment.MapPath(ServerImageUrl);
+                                    System.Drawing.Image Img = Logo.ToImage();
+                                    Img.Save(ServerFile);
+
+                                    store.StoreLogo = ServerImageUrl;
+                                    _storeService.UpdateStore(store);
+                                    bool thumbResult = ImageProcessHelper.ImageResize(ServerFile, newStoreLogoImageFilePath + "thumbs\\" + store.StoreName.ToImageFileName(), thumbSizesForStoreLogo);
+                                }
+                                processStatus.ActiveResultRowCount = 1;
+                                processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                                processStatus.Message.Header = "Store İşlemleri";
+                                processStatus.Message.Text = "Başarılı";
+                                processStatus.Status = true;
+                            }
+                            else
+                            {
+                                processStatus.ActiveResultRowCount = 1;
+                                processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                                processStatus.Message.Header = "Store İşlemleri";
+                                processStatus.Message.Text = "Resim Uzantısı Hatalı";
+                                processStatus.Status = false;
+                            }
+                        }
+                        else
+                        {
+                            processStatus.ActiveResultRowCount = 1;
+                            processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                            processStatus.Message.Header = "Store İşlemleri";
+                            processStatus.Message.Text = "Mağaza Adı Boş";
+                            processStatus.Status = false;
+                        }
+                    }
+                    else
+                    {
+                        processStatus.ActiveResultRowCount = 1;
+                        processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                        processStatus.Message.Header = "Store İşlemleri";
+                        processStatus.Message.Text = "Mağaza Bulunamadı";
+                        processStatus.Status = false;
+                    }
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+
+        public HttpResponseMessage GetBrand(int MainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var List = _storeBrandService.GetStoreBrandByMainPartyId(MainPartyId);
+                    processStatus.Result = List;
+                    processStatus.ActiveResultRowCount = List.Count;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+        public HttpResponseMessage DeleteBrand(int StoreBrandId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var StoreBrand = _storeBrandService.GetStoreBrandByStoreBrand(StoreBrandId);
+                    if (StoreBrand != null)
+                    {
+                        var store = _storeService.GetStoreByMainPartyId(StoreBrand.MainPartyId);
+                        if (store != null)
+                        {
+                            _storeBrandService.DeleteStoreBrand(StoreBrand);
+                            processStatus.Result = "";
+                            processStatus.ActiveResultRowCount = 1;
+                            processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                            processStatus.Message.Header = "Store İşlemleri";
+                            processStatus.Message.Text = "Başarılı";
+                            processStatus.Status = true;
+                        }
+                        else
+                        {
+                            processStatus.Message.Header = "Store İşlemleri";
+                            processStatus.Message.Text = "Store Bulunamadı.";
+                            processStatus.Status = false;
+                            processStatus.Result = null;
+                        }
+                    }
+                    else
+                    {
+                        processStatus.Message.Header = "Store İşlemleri";
+                        processStatus.Message.Text = "Brand Bulunamadı";
+                        processStatus.Status = false;
+                        processStatus.Result = null;
+                        processStatus.Error = null;
+                    }
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+        [HttpPost]
+        public HttpResponseMessage InsertBrand(int MainPartyId, string BrandName, string BrandDescription, string Logo)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    if (store != null)
+                    {
+                        string Uzanti = Logo.GetUzanti();
+                        var Img = Logo.ToImage();
+                        string fileName = FileHelpers.ImageThumbnail(AppSettings.DealerBrandImageFolder, Img, Uzanti, 50, FileHelpers.ThumbnailType.Width);
+                        var StoreBrand = new StoreBrand()
+                        {
+                            BrandPicture = fileName,
+                            MainPartyId = MainPartyId,
+                            BrandDescription = BrandDescription,
+                            BrandName = BrandName,
+                        };
+                        _storeBrandService.InsertStoreBrand(StoreBrand);
+                        processStatus.Result = StoreBrand;
+                        processStatus.ActiveResultRowCount = 1;
+                        processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                        processStatus.Message.Header = "Store İşlemleri";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
+                    }
+                    else
+                    {
+                        processStatus.Message.Header = "Store İşlemleri";
+                        processStatus.Message.Text = "Store Bulunamadı.";
+                        processStatus.Status = false;
+                        processStatus.Result = null;
+                    }
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        public HttpResponseMessage GetDealerShip(int MainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var List = _dealarBrandService.GetDealarBrandsByMainPartyId(MainPartyId);
+                    processStatus.Result = List;
+                    processStatus.ActiveResultRowCount = List.Count;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+        public HttpResponseMessage DeleteDealerShip(int DealerBrandId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+                    var dealerBrand = _dealarBrandService.GetDealerBrandByDealerBrandId(DealerBrandId);
+                    if (dealerBrand != null)
+                    {
+                        var store = _storeService.GetStoreByMainPartyId(dealerBrand.MainPartyId);
+                        if (store != null)
+                        {
+                            _dealarBrandService.DeleteDealerBrand(dealerBrand);
+                            processStatus.Result = "";
+                            processStatus.ActiveResultRowCount = 1;
+                            processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                            processStatus.Message.Header = "Store İşlemleri";
+                            processStatus.Message.Text = "Başarılı";
+                            processStatus.Status = true;
+                        }
+                        else
+                        {
+                            processStatus.Message.Header = "Store İşlemleri";
+                            processStatus.Message.Text = "Store Bulunamadı.";
+                            processStatus.Status = false;
+                            processStatus.Result = null;
+                        }
+                    }
+                    else
+                    {
+                        processStatus.Message.Header = "Store İşlemleri";
+                        processStatus.Message.Text = "DealerShip Bulunamadı";
+                        processStatus.Status = false;
+                        processStatus.Result = null;
+                        processStatus.Error = null;
+                    }
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+        [HttpPost]
+        public HttpResponseMessage InsertDealerShip(int MainPartyId, string BrandName, string Logo)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                if (store != null)
+                {
+                    string Uzanti = Logo.GetUzanti();
+                    var Img = Logo.ToImage();
+                    string fileName = FileHelpers.ImageThumbnail(AppSettings.DealerBrandImageFolder, Img, Uzanti, 50, FileHelpers.ThumbnailType.Width);
+                    var curDealerBrand = new DealerBrand()
+                    {
+                        DealerBrandPicture = fileName,
+                        MainPartyId = MainPartyId,
+                        DealerBrandName = BrandName
+                    };
+
+                    _dealarBrandService.InsertDealerBrand(curDealerBrand);
+                    processStatus.Result = curDealerBrand;
+                    processStatus.ActiveResultRowCount = 1;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Store Bulunamadı.";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        
         public HttpResponseMessage GetWithName(string Name)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -73,6 +685,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetStoreByStoreUrlName(string storeUrlName)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -97,6 +710,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetByMainPartyId(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -242,12 +856,12 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetStoresByMainPartyIds(List<int?> mainPartyIds)
         {
             ProcessResult processStatus = new ProcessResult();
             try
             {
-
                 var Result = _storeService.GetStoresByMainPartyIds(mainPartyIds);
                 foreach (var item in Result)
                 {
@@ -270,6 +884,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetSPGetStoreForCategoryByCategoryIdAndBrandId(int categoryId = 0, int brandId = 0)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -297,6 +912,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetBransList(int StoreMainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -320,6 +936,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetModelList(int StoreMainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -343,7 +960,6 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
 
         public HttpResponseMessage GetAllStores(int pageDimension, int page, StoreActiveTypeEnum? storeActiveType = StoreActiveTypeEnum.Seller)
         {
@@ -375,13 +991,11 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         //public HttpResponseMessage GetAllStores(StoreActiveTypeEnum? storeActiveType = null)
         //{
         //    ProcessResult processStatus = new ProcessResult();
         //    try
         //    {
-
         //        var Result = _storeService.GetAllStores(storeActiveType);
         //        foreach (var item in Result)
         //        {
@@ -391,7 +1005,7 @@ namespace MakinaTurkiye.Api.Controllers
         //        processStatus.ActiveResultRowCount = Result.Count();
         //        processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
         //        processStatus.Message.Header = "Store İşlemleri";
-        //        processStatus.Message.Text = "Başarılı"; 
+        //        processStatus.Message.Text = "Başarılı";
         //        processStatus.Status = true;
         //    }
         //    catch (Exception Error)
@@ -457,7 +1071,6 @@ namespace MakinaTurkiye.Api.Controllers
                             Store = IslemStore,
                             Products = TmpStoreProductList
                         });
-
                     }
                     processStatus.Result = Result;
                     processStatus.ActiveResultRowCount = Result.Count;
@@ -477,7 +1090,6 @@ namespace MakinaTurkiye.Api.Controllers
                 }
                 return Request.CreateResponse(HttpStatusCode.OK, processStatus);
             }
-
         }
 
         //public HttpResponseMessage GetStoresForCategoryBycategoryName(string categoryName)
@@ -510,7 +1122,6 @@ namespace MakinaTurkiye.Api.Controllers
         //            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         //        }
         //    }
-
 
         public HttpResponseMessage GetStoresForCategoryByCategoryId(int categoryId = 0)
         {
@@ -564,6 +1175,7 @@ namespace MakinaTurkiye.Api.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, processStatus);
             }
         }
+
         public HttpResponseMessage GetHomeStores(int pageSize = int.MaxValue)
         {
             {
@@ -593,6 +1205,7 @@ namespace MakinaTurkiye.Api.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, processStatus);
             }
         }
+
         public HttpResponseMessage GetStoreSearchByStoreName(string storeName)
         {
             {
@@ -649,7 +1262,6 @@ namespace MakinaTurkiye.Api.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, processStatus);
             }
         }
-
 
         public HttpResponseMessage GetStoreCertificatesByMainPartyId(int mainPartyId)
         {
