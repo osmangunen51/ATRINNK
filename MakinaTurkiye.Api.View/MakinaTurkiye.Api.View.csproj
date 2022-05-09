@@ -72,6 +72,7 @@
     <Compile Include="SearchInput.cs" />
     <Compile Include="District.cs" />
     <Compile Include="Kvkk.cs" />
+    <Compile Include="StoreLogo.cs" />
     <Compile Include="Town.cs" />
     <Compile Include="UpdatePeronalInfoModel.cs" />
     <Compile Include="UpdatePersonalAddressInfo.cs" />
