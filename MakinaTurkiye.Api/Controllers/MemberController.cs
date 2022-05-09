@@ -6,6 +6,7 @@ using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
+using MakinaTurkiye.Services.Stores;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -20,6 +21,8 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IMemberService _memberService;
         private readonly IAddressService _addressService;
         private readonly IPhoneService _phoneService;
+        private readonly IStoreService _storeService;
+        private readonly IMemberStoreService _memberStoreService;
         private readonly IMobileMessageService _mobileMessageService;
 
         public MemberController()
@@ -28,6 +31,8 @@ namespace MakinaTurkiye.Api.Controllers
             _addressService = EngineContext.Current.Resolve<IAddressService>();
             _phoneService = EngineContext.Current.Resolve<IPhoneService>();
             _mobileMessageService = EngineContext.Current.Resolve<IMobileMessageService>();
+            _storeService = EngineContext.Current.Resolve<IStoreService>();
+            _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
         }
 
         //public MemberController(IMemberService memberService,
@@ -169,11 +174,11 @@ namespace MakinaTurkiye.Api.Controllers
                 var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
 
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
-
                 var results = _memberService.GetMembersByMainPartyId(MainPartyId);
                 var memberInfoList = new List<MemberInfo>();
                 foreach (var result in results)
                 {
+
                     var userAddresses = _addressService.GetAddressesByMainPartyId(result.MainPartyId).ToList();
                     var AddressList = new List<View.Address>();
 
@@ -239,6 +244,24 @@ namespace MakinaTurkiye.Api.Controllers
                         };
                         AddressList.Add(adress);
                     }
+
+                    byte StoreState = 0;
+                    byte StoreMainPartyId = 0;
+
+                    if (member.MemberTitleType==20)
+                    {
+                        var storemember = _memberStoreService.GetMemberStoreByMemberMainPartyId(member.MainPartyId);
+                        var store = _storeService.GetStoreByMainPartyId(Convert.ToInt32(storemember.StoreMainPartyId));
+                    }
+
+                    var userPhone = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).FirstOrDefault(x=>x.active==1 && x.PhoneType==(byte)PhoneType.Gsm);
+                    bool PhoneActive = false;
+                    string Phone = "";
+                    if (userPhone != null)
+                    {
+                        PhoneActive = true;
+                        Phone = $"{userPhone.PhoneCulture} {userPhone.PhoneAreaCode} {userPhone.PhoneNumber}";
+                    }
                     var memberInfo = new MemberInfo()
                     {
                         Active = result.Active,
@@ -252,9 +275,12 @@ namespace MakinaTurkiye.Api.Controllers
                         MemberSurname = result.MemberSurname,
                         MemberTitleType = result.MemberTitleType,
                         MemberType = result.MemberType,
-                        Address = AddressList
+                        Address = AddressList,
+                        StoreState= StoreState,
+                        StoreMainPartyId = StoreMainPartyId,
+                        PhoneActive= PhoneActive,
+                        Phone = Phone
                     };
-
                     memberInfoList.Add(memberInfo);
                 }
 

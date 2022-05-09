@@ -103,6 +103,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         [HttpPost]
         public HttpResponseMessage SetAbout(int MainPartyId, string About)
         {
@@ -256,7 +257,9 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         [HttpPost]
+        [RequestFormLimits(ValueLengthLimit = int.MaxValue)]
         public HttpResponseMessage SetLogo(int MainPartyId, string Logo)
         {
             ProcessResult processStatus = new ProcessResult();
