@@ -527,8 +527,6 @@ namespace MakinaTurkiye.Api.Controllers
                     var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                     if (loginmember != null)
                     {
-
-
                         string StoreLogo = "";
                         int? StoreEstablishment = Convert.ToInt32(Convert.ToDateTime(Model.storeEstDate).Year);
 
@@ -543,7 +541,6 @@ namespace MakinaTurkiye.Api.Controllers
                             member.MemberName = Model.name;
                             member.MemberSurname = Model.surname;
                             member.BirthDate = Convert.ToDateTime(member.BirthDate);
-
                             member.MemberTitleType = (byte)MemberType.Enterprise;
                             member.MemberType = (byte)MemberType.Enterprise;
                             member.FastMemberShipType = (byte)FastMembershipType.Normal;
@@ -711,13 +708,19 @@ namespace MakinaTurkiye.Api.Controllers
                                     di.CreateSubdirectory("thumbs");
 
                                     string newStoreLogoImageFilePath = resizeStoreFolder + store.MainPartyId.ToString() + "\\";
-                                    string newStoreLogoImageFileName = store.StoreName.ToImageFileName() + "_logo.jpg";
+                                    string newStoreLogoImageFileName = store.StoreName.ToImageFileName() + "_logo." + Uzanti;
 
                                     ServerImageUrl = $"~{AppSettings.StoreLogoFolder}/{store.StoreName.ToImageFileName()}_logo.{Uzanti}";
                                     string ServerFile = System.Web.Hosting.HostingEnvironment.MapPath(ServerImageUrl);
                                     System.Drawing.Image Img = Logo.ToImage();
-                                    Img.Save(ServerFile);
-
+                                    if (Uzanti == "png")
+                                    {
+                                        Img.Save(ServerFile, System.Drawing.Imaging.ImageFormat.Png);
+                                    }
+                                    if (Uzanti == "jpg")
+                                    {
+                                        Img.Save(ServerFile, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    }
                                     store.StoreLogo = ServerImageUrl;
                                     _storeService.UpdateStore(store);
                                     bool thumbResult = ImageProcessHelper.ImageResize(ServerFile, newStoreLogoImageFilePath + "thumbs\\" + store.StoreName.ToImageFileName(), thumbSizesForStoreLogo);

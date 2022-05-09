@@ -55,6 +55,7 @@
     <Compile Include="City.cs" />
     <Compile Include="CorporateInfoModelInput.cs" />
     <Compile Include="Description.cs" />
+    <Compile Include="StoreInformation.cs" />
     <Compile Include="MTStoreAboutModel.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="EnumModel.cs" />

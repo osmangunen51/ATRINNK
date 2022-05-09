@@ -245,13 +245,17 @@ namespace MakinaTurkiye.Api.Controllers
                         AddressList.Add(adress);
                     }
 
-                    byte StoreState = 0;
-                    byte StoreMainPartyId = 0;
-
-                    if (member.MemberTitleType==20)
+                    byte? StoreState = 0;
+                    int StoreMainPartyId = 0;
+                    if (member.MemberType==20)
                     {
                         var storemember = _memberStoreService.GetMemberStoreByMemberMainPartyId(member.MainPartyId);
                         var store = _storeService.GetStoreByMainPartyId(Convert.ToInt32(storemember.StoreMainPartyId));
+                        if (store!=null)
+                        {
+                            StoreMainPartyId = store.MainPartyId;
+                            StoreState = (byte)store.StoreActiveType;
+                        }
                     }
 
                     var userPhone = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).FirstOrDefault(x=>x.active==1 && x.PhoneType==(byte)PhoneType.Gsm);

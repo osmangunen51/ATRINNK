@@ -66,6 +66,70 @@ namespace MakinaTurkiye.Api.Controllers
 
         // Firma Ayarları
 
+
+        public HttpResponseMessage GetInformation(int MainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (loginmember != null)
+                {
+
+                    StoreInformation StoreInformation=new StoreInformation();
+
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    var phones = _phoneService.GetPhonesByMainPartyId(MainPartyId).FirstOrDefault();
+                    var address = _addressService.GetAddressesByMainPartyId(MainPartyId).FirstOrDefault();
+                    var StoreActivityItems = _storeActivityTypeService.GetStoreActivityTypesByStoreId(MainPartyId);
+
+                    if (store!=null)
+                    {
+                        StoreInformation = new StoreInformation()
+                        {
+                            cadde=address.Avenue,
+                            sokak=address.Street,
+                            selectedCityID= (int)address.CityId,
+                            selectedCountryID= (int)address.CountryId,
+                            selectedLocalityID= (int)address.LocalityId,
+                            selectedTownID= (int)address.TownId,
+                            memberTitleID=(int)loginmember.MemberTitleType.Value,
+                            posta=store.StoreEMail,
+                            storeActivitySelected= StoreActivityItems.Select(x=>x.Id).ToList(),
+                            storeCapID=(int)store.StoreCapital,
+                            storeEmpCountID = (int)store.StoreEmployeesCount,
+                            storeEndorseID = (int)store.StoreEndorsement,
+                        };
+                    }
+                    processStatus.Result = StoreInformation;
+                    processStatus.ActiveResultRowCount = 1;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Store İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+
         public HttpResponseMessage GetAbout(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -103,6 +167,9 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+
+
 
         [HttpPost]
         public HttpResponseMessage SetAbout(int MainPartyId, string About)
@@ -259,17 +326,17 @@ namespace MakinaTurkiye.Api.Controllers
         }
 
         [HttpPost]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue)]
-        public HttpResponseMessage SetLogo(int MainPartyId, string Logo)
+        public HttpResponseMessage SetLogo(StoreLogo Model)
         {
             ProcessResult processStatus = new ProcessResult();
             try
             {
+                string Logo = Model.Logo;
                 var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
                 var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (loginmember != null)
                 {
-                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    var store = _storeService.GetStoreByMainPartyId(Model.MainPartyId);
                     if (store != null)
                     {
                         if (!string.IsNullOrEmpty(store.StoreName))
@@ -300,13 +367,19 @@ namespace MakinaTurkiye.Api.Controllers
                                     di.CreateSubdirectory("thumbs");
 
                                     string newStoreLogoImageFilePath = resizeStoreFolder + store.MainPartyId.ToString() + "\\";
-                                    string newStoreLogoImageFileName = store.StoreName.ToImageFileName() + "_logo.jpg";
+                                    string newStoreLogoImageFileName = store.StoreName.ToImageFileName() + "_logo."+ Uzanti;
 
                                     ServerImageUrl = $"~{AppSettings.StoreLogoFolder}/{store.StoreName.ToImageFileName()}_logo.{Uzanti}";
                                     string ServerFile = System.Web.Hosting.HostingEnvironment.MapPath(ServerImageUrl);
                                     System.Drawing.Image Img = Logo.ToImage();
-                                    Img.Save(ServerFile);
-
+                                    if (Uzanti=="png")
+                                    {
+                                        Img.Save(ServerFile, System.Drawing.Imaging.ImageFormat.Png);
+                                    }
+                                    if (Uzanti == "jpg")
+                                    {
+                                        Img.Save(ServerFile, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    }
                                     store.StoreLogo = ServerImageUrl;
                                     _storeService.UpdateStore(store);
                                     bool thumbResult = ImageProcessHelper.ImageResize(ServerFile, newStoreLogoImageFilePath + "thumbs\\" + store.StoreName.ToImageFileName(), thumbSizesForStoreLogo);

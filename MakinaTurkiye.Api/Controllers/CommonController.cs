@@ -38,7 +38,7 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         ConstantGrupNo = (int)x.ConstantType,
                         ConstantGrupAd = ((ConstantTypeEnum)x.ConstantType).GetDescription(),
-                        ConstantNo = (int)x.ConstantType,
+                        ConstantNo = (int)x.ConstantId,
                         ConstantAd = x.ConstantName,
                         ConstantEkBilgi = x.ContstantPropertie,
                         ConstantSira = x.Order
