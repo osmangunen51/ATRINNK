@@ -61,7 +61,6 @@
     {
         <div class="col-sm-12 col-md-12">
             <div>
-
                 <div class="well store-panel-container clearfix">
                     <div>
                         <div>
@@ -90,7 +89,6 @@
             </div>
         </div>
         <script>
-
             $(document).ready(function () {
                 $('[data-rel="deleteImage"]').click(function () {
                     var productId = $(this).attr('data-productid');
@@ -106,7 +104,6 @@
 
                 $('[data-rel="form-submit"]').removeClass('disabled');
             });
-
             function mainImage(productID, picturePath) {
                 $.ajax({
                     url: '/Account/ilan/mainImage',
@@ -120,7 +117,6 @@
                     }
                 });
             }
-
             function DeleteImage(index, productID, picturePath) {
                 $.ajax({
                     url: '/Account/ilan/DeleteImage',
@@ -134,7 +130,6 @@
                     }
                 });
             }
-
             function DeletePicture(id) {
                 $.ajax({
                     url: '/Account/Advert/DeletePicture',
@@ -148,19 +143,16 @@
                     }
                 });
             }
-
-            function nextStatu(e) {
+            function nextStatu(e)
+            {
                 $('#loaderDiv').show();
             }
-
             $(document).on('invalid-form.validate', 'form', function () {
                 $('[data-rel="form-submit"]').removeClass('disabled');
             });
-
             $(document).on('submit', 'form', function () {
                 $('[data-rel="form-submit"]').addClass('disabled');
             });
-
             $('.file-input-advanced').fileinput({
                 browseLabel: 'Dosyadan Seç',
                 browseClass: 'btn btn-primary',
@@ -192,7 +184,6 @@
                         "</div>"
                 }
             });
-
         </script>
     }
 </div>

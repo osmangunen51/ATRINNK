@@ -35,24 +35,6 @@ namespace MakinaTurkiye.Api.Controllers
             _storeSectorService = EngineContext.Current.Resolve<IStoreSectorService>();
             _categoryService = EngineContext.Current.Resolve<ICategoryService>();
         }
-
-        //public AdvertController(IProductCommentService productCommentService,
-        //                            IMemberService memberService,
-        //                            IMemberStoreService memberStoreService,
-        //                            IProductService productService,
-        //                            IStoreService storeService,
-        //                            IPacketService packetService,
-        //                            IStoreSectorService storeSectorService)
-        //{
-        //    this._productCommentService = productCommentService;
-        //    this._memberService = memberService;
-        //    this._memberStoreService = memberStoreService;
-        //    this._storeService = storeService;
-        //    this._packetService = packetService;
-        //    this._productService = productService;
-        //    this._storeSectorService = storeSectorService;
-
-        //}
         public HttpResponseMessage ReportProductComment(int productCommentId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -239,5 +221,127 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+
+        public HttpResponseMessage GetAdvert(int AdvertId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null)
+                {
+
+                }
+                else
+                {
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
+                    processStatus.Message.Header = "Advert";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "advert";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        public HttpResponseMessage GetAll(int StoreMainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null)
+                {
+
+                }
+                else
+                {
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
+                    processStatus.Message.Header = "Advert";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "advert";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        public HttpResponseMessage Update(int StoreMainPartyId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null)
+                {
+
+                }
+                else
+                {
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
+                    processStatus.Message.Header = "Advert";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "advert";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        public HttpResponseMessage Delete(int AdvertId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null)
+                {
+
+                }
+                else
+                {
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
+                    processStatus.Message.Header = "Advert";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "advert";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
     }
 }

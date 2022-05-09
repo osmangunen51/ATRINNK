@@ -24,7 +24,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
     {
         #region Constants
 
-        private const int SHOWED_PAGE_LENGTH = 12;
+        private const int SHOWED_PAGE_LENGTH = 30;
         private const string PAGE_INDEX_QUERY_STRING_KEY = "page";
         private const string ORDER_BY_QUERY_STRING_KEY = "orderby";
         private const string CITY_ID_QUERY_STRING_KEY = "cityId";
@@ -297,9 +297,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.StorePagingModel.FirstPageUrl = QueryStringBuilder.ModifyQueryString(this.Request.Url.ToString(), PAGE_INDEX_QUERY_STRING_KEY + "=1", null);
                 model.StorePagingModel.LastPageUrl = QueryStringBuilder.ModifyQueryString(this.Request.Url.ToString(), PAGE_INDEX_QUERY_STRING_KEY + "=" + model.StorePagingModel.TotalPageCount, null);
 
+                string pageurl = RemoveQueryStringByKey(this.Request.Url.ToString(), "Page");
                 for (int i = model.StorePagingModel.FirstPage; i <= model.StorePagingModel.LastPage; i++)
                 {
-                    model.StorePagingModel.PageUrls.Add(i, QueryStringBuilder.ModifyQueryString(this.Request.Url.ToString(), PAGE_INDEX_QUERY_STRING_KEY + "=" + i, null));
+                    model.StorePagingModel.PageUrls.Add(i, QueryStringBuilder.ModifyQueryString(pageurl, PAGE_INDEX_QUERY_STRING_KEY + "=" + i, null));
                 }
             }
         }
@@ -801,9 +802,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             urlName = FormatHelper.GetCategoryNameWithSynTax(category.CategoryContentTitle, CategorySyntaxType.Store);
                         else
                             urlName = FormatHelper.GetCategoryNameWithSynTax(category.CategoryName, CategorySyntaxType.Store);
-
                         redirectUrl = UrlBuilder.GetStoreCategoryUrl(categoryParent.CategoryId, urlName);
-
                     }
                 }
                 model.RedirectUrl = redirectUrl;
@@ -811,18 +810,25 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             #region canonicals
 
+
             if (model.StorePagingModel.TotalPageCount > model.StorePagingModel.CurrentPageIndex + 1)
             {
                 int nextP = model.StorePagingModel.CurrentPageIndex + 1;
                 model.NextPage = QueryStringBuilder.ModifyQueryString(AppSettings.SiteUrl.Substring(0, AppSettings.SiteUrl.Length - 1) + request.Url.PathAndQuery, "page" + "=" + nextP, null);
 
             }
+
             if (Request.QueryString["page"] != null)
             {
-                if (Convert.ToInt32(Request.QueryString["page"]) > 1 && Convert.ToInt32(Request.QueryString["page"]) <= model.StorePagingModel.TotalPageCount)
+                string page = Request.QueryString["page"].ToString().Split(',').ToList().LastOrDefault();
+                if (page!=null)
                 {
-                    int prevP = model.StorePagingModel.CurrentPageIndex - 1;
-                    model.PrevPage = QueryStringBuilder.ModifyQueryString(AppSettings.SiteUrl.Substring(0, AppSettings.SiteUrl.Length - 1) + request.Url.PathAndQuery, "page" + "=" + prevP, null); ;
+                    int pagei = Convert.ToInt32(page);
+                    if (pagei > 1 && pagei <= model.StorePagingModel.TotalPageCount)
+                    {
+                        int prevP = model.StorePagingModel.CurrentPageIndex - 1;
+                        model.PrevPage = QueryStringBuilder.ModifyQueryString(AppSettings.SiteUrl.Substring(0, AppSettings.SiteUrl.Length - 1) + request.Url.PathAndQuery, "page" + "=" + prevP, null); ;
+                    }
                 }
             }
 
@@ -842,8 +848,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (model.StoreModels.Count == 0 | (category != null && category.CategoryType == 3))
             {
-                string RedirectUrl = model.StoreCategoryModel.StoreTopCategoryItemModels.Where(x => x.CategoryId == category.CategoryParentId).LastOrDefault()?.CategoryUrl;
-                return RedirectPermanent(RedirectUrl);
+                string RedirectUrl = model.StoreCategoryModel.StoreTopCategoryItemModels.Where(x => x.CategoryId == category.CategoryParentId)?.LastOrDefault()?.CategoryUrl;
+                if (RedirectUrl!=null)
+                {
+                    return RedirectPermanent(RedirectUrl);
+                }
+                
             }
             return View(model);
         }
@@ -972,7 +982,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     videoCategoryItemModels.Add(itemModel);
                 }
             }
-
             model.StoreCategoryItemModels = videoCategoryItemModels;
             return PartialView(model);
         }
@@ -981,26 +990,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
             if (categoryId.HasValue)
             {
-                var category = _categoryService.GetCategoryByCategoryId(categoryId.Value);
-                if (category == null)
-                {
-                    return RedirectPermanent(AppSettings.StoreAllUrl);
-                }
-                var storeUrl = UrlBuilder.GetStoreCategoryUrl(category.CategoryId, FormatHelper.GetCategoryNameWithSynTax(category.CategoryName, CategorySyntaxType.Store));
-                return RedirectPermanent(storeUrl);
+              var category = _categoryService.GetCategoryByCategoryId(categoryId.Value);
+              if (category == null)
+              {
+                  return RedirectPermanent(AppSettings.StoreAllUrl);
+              }
+              var storeUrl = UrlBuilder.GetStoreCategoryUrl(category.CategoryId, FormatHelper.GetCategoryNameWithSynTax(category.CategoryName, CategorySyntaxType.Store));
+              return RedirectPermanent(storeUrl);
             }
             else
             {
-                return RedirectPermanent(AppSettings.StoreAllUrl);
+              return RedirectPermanent(AppSettings.StoreAllUrl);
             }
-
-
         }
-
-
-
         #endregion
-
     }
-
 }

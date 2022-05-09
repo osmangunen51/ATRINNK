@@ -46,7 +46,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             else
                             {
                                 storePageTitle = FormatHelper.GetCategoryNameWithSynTax(categoryKeyword.StorePageTitle, CategorySyntaxType.Store);
-
                             }
                         }
                         else if (!string.IsNullOrEmpty(categoryKeyword.CategoryContentTitle))

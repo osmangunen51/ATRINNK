@@ -52,7 +52,7 @@
             $('#lightbox_click').trigger('click');
         }
         $(document).ready(function () {
-            $('#NewConstantForm').dialog({ autoOpen: false, modal: true, width: 420, height: 140, resizable: false });
+            $('#NewConstantForm').dialog({ autoOpen: false, modal: true, width: 420, height: 700, resizable: true });
         });
         $(function () {
             $.superbox.settings = {

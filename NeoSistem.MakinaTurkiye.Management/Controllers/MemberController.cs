@@ -22,6 +22,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
     using global::MakinaTurkiye.Core;
     using global::MakinaTurkiye.Services.Bulletins;
     using global::MakinaTurkiye.Services.Catalog;
+    using global::MakinaTurkiye.Services.Checkouts;
     using global::MakinaTurkiye.Services.Common;
     using global::MakinaTurkiye.Services.Messages;
     using global::MakinaTurkiye.Utilities.FormatHelpers;
@@ -58,30 +59,27 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private IMessageService _messageService;
         private IWhatsappLogService _whatsappLogService;
 
-
+        private IOrderService _orderService;
 
         #endregion
 
         #region Ctor
 
-        public MemberController(IMemberDescriptionService memberDescService,
-            IPreRegistirationStoreService preRegistrationStoreService,
-            IMessageService messageService, ICategoryService categoryService,
-            IBulletinService bulletinService, IStoreService storeService, IMemberService memberService,
-            IMemberStoreService memberstoreService, IConstantService constantService,
-            IUserMailTemplateService usermailTemplateService, IWhatsappLogService whatsappLogService)
+
+        public MemberController(IMemberDescriptionService memberDescService, IStoreService storeService, IMemberStoreService memberstoreService, IConstantService constantService, IMemberService memberService, IUserMailTemplateService usermailTemplateService, IBulletinService bulletinService, ICategoryService categoryService, IPreRegistirationStoreService preRegistrationStoreService, IMessageService messageService, IWhatsappLogService whatsappLogService, IOrderService orderService)
         {
-            this._memberService = memberService;
-            this._memberDescService = memberDescService;
-            this._storeService = storeService;
-            this._constantService = constantService;
-            this._memberstoreService = memberstoreService;
-            this._usermailTemplateService = usermailTemplateService;
-            this._bulletinService = bulletinService;
-            this._preRegistrationStoreService = preRegistrationStoreService;
-            this._categoryService = categoryService;
-            this._messageService = messageService;
-            this._whatsappLogService = whatsappLogService;
+            _memberDescService = memberDescService;
+            _storeService = storeService;
+            _memberstoreService = memberstoreService;
+            _constantService = constantService;
+            _memberService = memberService;
+            _usermailTemplateService = usermailTemplateService;
+            _bulletinService = bulletinService;
+            _categoryService = categoryService;
+            _preRegistrationStoreService = preRegistrationStoreService;
+            _messageService = messageService;
+            _whatsappLogService = whatsappLogService;
+            _orderService = orderService;
         }
 
         #endregion
@@ -444,7 +442,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                 #region kullanici
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
                 mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
                 mail.Subject = subtitle; //Mail konusu
                 string template = aciklama;
@@ -601,7 +599,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     aciklama = aciklama.Replace("#loginlink#", loginLink);
                 }
+
                 template = aciklama.Replace("#firmaadi#", firma.StoreName);
+
                 if (sayi == 144 || sayi == 145)
                 {
                     if (sayi == 144)
@@ -624,7 +624,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 //date time karşılaştırmak için compare
                 //DateTime.Compare(t1, t2);
 
-                mail.From = new MailAddress("makina@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
                 mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
                 mail.Subject = subtitle; //Mail konusu
                 mail.Body = template; //Mailin içeriği
@@ -662,7 +662,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         if (alluserfriend.Eposta1 != null)
                         {
                             MailMessage maila = new MailMessage();
-                            maila.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                            mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName);
                             maila.To.Add(alluserfriend.Eposta1); //Mailin kime gideceğini belirtiyoruz
                             allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad1 + " " + alluserfriend.SoyAd2);
                             maila.Subject = allusersubtitle; //Mail konusu
@@ -681,7 +681,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         if (alluserfriend.EPosta2 != null)
                         {
                             MailMessage mailb = new MailMessage();
-                            mailb.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+                            mailb.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
                             mailb.To.Add(alluserfriend.EPosta2); //Mailin kime gideceğini belirtiyoruz
                             allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad2 + " " + alluserfriend.SoyAd2);
                             mailb.Subject = allusersubtitle; //Mail konusu
@@ -734,6 +734,258 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
 
         }
+
+
+
+        [HttpGet]
+        public ActionResult stororderremembermail(int orderId)
+        {
+            try
+            {
+                int id = 0;
+                var order = _orderService.GetOrderByOrderId(orderId);
+                var payment = _orderService.GetPaymentsByOrderId(orderId).FirstOrDefault();
+                var ReturnInvoices = _orderService.GetReturnInvoicesByOrderId(orderId);
+                if (order != null)
+                {
+                    id = order.MainPartyId;
+                    DateTime SonOdemetarihi = default;
+                    decimal KalanTutar = 0;
+                    decimal PaketTutar = 0;
+                    decimal OdeneneTutar = 0;
+                    int sayi = 0;
+                    string aciklama = "";
+                    string subtitle = "";
+                    string aciklamabaslik = "";
+                    var constatn = new Constant();
+                    if (payment != null)
+                    {
+                        PaketTutar = payment.RestAmount;
+                    }
+                    else
+                    {
+                        PaketTutar = order.OrderPrice;
+                    }
+
+                    if (ReturnInvoices!=null)
+                    {
+                        OdeneneTutar = ReturnInvoices.Sum(x => x.Amount);
+                    }
+                    KalanTutar = PaketTutar - OdeneneTutar;
+                    SonOdemetarihi = order.PayDate.Value;
+
+                    constatn = entities.Constants.Where(c => c.ConstantName == "Paket Ödeme Hatırlatma").SingleOrDefault();
+                    sayi = constatn.ConstantId;
+                    aciklama = aciklama + constatn.ContstantPropertie + "</br>";
+                    subtitle = constatn.ConstantTitle;
+                    aciklamabaslik = constatn.ConstantName;
+
+                    if (string.IsNullOrEmpty(subtitle))
+                    {
+                        subtitle = "";
+                    }
+                    var firma = _storeService.GetStoreByMainPartyId(id);
+                    var memberStore = entities.MemberStores.Where(c => c.StoreMainPartyId == firma.MainPartyId).FirstOrDefault();
+                    string allusersubtitle = subtitle;
+                    var mailadress = entities.Members.Where(c => c.MainPartyId == memberStore.MemberMainPartyId).SingleOrDefault();
+                    var storeid = memberStore.StoreMainPartyId;
+                    LinkHelper linkHelper = new LinkHelper();
+                    var crtypoUyeId = linkHelper.Encrypt(memberStore.MemberMainPartyId.ToString());
+                    var loginLink = "https://www.makinaturkiye.com/membership/LogonAuto?validateId=" + crtypoUyeId;
+
+                    string adress = mailadress.MemberEmail.ToString();
+                    #region firmaolayi
+                    var urunler = entities.Products.Where(c => c.MainPartyId == id).ToList();
+                    int tekil = 0;
+                    int cogul = 0;
+                    string firmaurunlinki = UrlBuilder.GetStoreProfileProductUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
+
+
+                    string istatistikfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=1";
+
+                    string istatistikilanfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=3";
+                    string packetupgrade = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=5";
+                    if (urunler.Count != 0)
+                    {
+                        foreach (var product in urunler)
+                        {
+                            tekil = tekil + product.SingularViewCount.ToInt32();
+                            cogul = cogul + product.ViewCount.ToInt32();
+                        }
+                        float oran = tekil / urunler.Count;
+                        aciklama = aciklama.Replace("#tekililantiklama#", tekil.ToString()).Replace("#cogulilantiklama#", cogul.ToString()).Replace("#ilantiklamaorani#", oran.ToString());
+                    }
+
+                    string linkuyeliktipi = "https://www.makinaturkiye.com/magaza-paket-fiyatlari-y-143135";
+                    //singular view count ve view count değişecek.
+
+                    aciklama = aciklama.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi)).Replace("#firmauyelikyukseltme#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", packetupgrade));
+                   
+                    subtitle = subtitle.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi));
+
+                    #endregion
+                    #region kullanici
+                    string template = "";
+                    var settings = ConfigurationManager.AppSettings;
+                    MailMessage mail = new MailMessage();
+                    string storefix = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=2";
+
+                    string firmalinki = UrlBuilder.GetStoreProfileUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
+                    aciklama = aciklama.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki)).Replace("#uyeliktarihi#", firma.StoreRecordDate.ToDateTime().ToString("dd/MM/yyyy"));
+                    subtitle = subtitle.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki));
+                    if (sayi != 247 && sayi != 246 && sayi != 248)
+                    {
+                        aciklama = Resources.Email.masterpage.Replace("#aciklama#", aciklama);
+                    }
+                    else
+                    {
+                        aciklama = aciklama.Replace("#loginlink#", loginLink);
+                    }
+
+                    template = aciklama.Replace("#firmaadi#", firma.StoreName);
+
+
+                    #region  Ödeme Bilgileri Ayarlanıyor...
+                    template = template.Replace("#sonodemetarih#", SonOdemetarihi.ToString("D"));
+                    template = template.Replace("#pakettutar#", PaketTutar.ToString("N2"));
+                    template = template.Replace("#kalantutar#", KalanTutar.ToString("N2"));
+                    #endregion
+
+                    if (sayi == 144 || sayi == 145)
+                    {
+                        if (sayi == 144)
+                        {
+                            sayi = 22;
+                        }
+                        else
+                            sayi = 23;
+                        string iskontoluyelik = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&sifre=" + mailadress.MemberPassword + "&Packetid=" + sayi;
+                        template = template.Replace("#baslangiczamani#", DateTime.Now.ToShortDateString()).Replace("#bitiszamani#", DateTime.Now.AddDays(8).ToShortDateString()).Replace("#iskontolulink#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", iskontoluyelik));
+                        var storeindirim = new Storeindirim()
+                        {
+                            MainPartyId = mailadress.MainPartyId,
+                            BeginDate = DateTime.Now,
+                            Enddate = DateTime.Now.AddDays(8)
+                        };
+                        entities.Storeindirims.AddObject(storeindirim);
+                        entities.SaveChanges();
+                    }
+
+                    //date time karşılaştırmak için compare
+                    //DateTime.Compare(t1, t2);
+
+                    mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
+                    mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
+                    mail.Subject = subtitle; //Mail konusu
+                    mail.Body = template; //Mailin içeriği
+                    mail.IsBodyHtml = true;
+                    mail.Priority = MailPriority.Normal;
+                    if (constatn.ConstantId == 248)
+                    {
+                        mail.Attachments.Add(new Attachment(Server.MapPath("~/Content/teklif.pdf")));
+                    }
+
+                    //mail.HtmlPart = new HtmlAttachment(template);
+
+                    //mail.From = new EmailAddress(settings["MailAddress"], settings["MailName"]);
+
+                    //mail.AddToAddress(new EmailAddress(adress));
+
+                    //SmtpServer smtpServer = new SmtpServer(settings["SmtpServer"], int.Parse(settings["SmtpPort"]));
+
+                    //smtpServer.SmtpAuthToken = new LoginAuthToken(settings["SmtpUserName"], settings["SmtpUserPassword"]);
+
+                    //mail.HeaderCharSet = Encoding.GetEncoding("UTF-8");
+
+                    //mail.HtmlPart.CharSet = Encoding.GetEncoding("UTF-8");
+
+                    this.SendMail(mail);
+
+                    #endregion
+                    #region digerkullanicilar
+                    var alluserfriend = entities.MainPartyIdEpostas.Where(c => c.MainPartyId == storeid).SingleOrDefault();
+                    if (alluserfriend != null)
+                    {
+                        if (alluserfriend.Eposta1check == true)
+                        {
+
+                            if (alluserfriend.Eposta1 != null)
+                            {
+                                MailMessage maila = new MailMessage();
+                                mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName);
+                                maila.To.Add(alluserfriend.Eposta1); //Mailin kime gideceğini belirtiyoruz
+                                allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad1 + " " + alluserfriend.SoyAd2);
+                                maila.Subject = allusersubtitle; //Mail konusu
+                                maila.Body = template; //Mailin içeriği
+                                maila.IsBodyHtml = true;
+                                maila.Priority = MailPriority.Normal;
+                                this.SendMail(maila);
+                            }
+                            else
+                            {
+                                alluserfriend.Eposta1check = false;
+                            }
+                        }
+                        if (alluserfriend.Eposta2check == true)
+                        {
+                            if (alluserfriend.EPosta2 != null)
+                            {
+                                MailMessage mailb = new MailMessage();
+                                mailb.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
+                                mailb.To.Add(alluserfriend.EPosta2); //Mailin kime gideceğini belirtiyoruz
+                                allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad2 + " " + alluserfriend.SoyAd2);
+                                mailb.Subject = allusersubtitle; //Mail konusu
+                                mailb.Body = template; //Mailin içeriği
+                                mailb.IsBodyHtml = true;
+                                mailb.Priority = MailPriority.High;
+                                this.SendMail(mailb);
+                            }
+                        }
+                    }
+
+                    BaseMemberDescription baseMember = new BaseMemberDescription();
+                    baseMember.Date = DateTime.Now;
+                    baseMember.MainPartyId = Convert.ToInt32(id);
+                    baseMember.Title = aciklamabaslik;
+
+                    if (sayi == 128)
+                    {
+                        template = "Ürün Çoğul Tıklanma Sayısı:" + cogul + "<br>Ürün Tekil Tıklanma Sayısı:" + tekil + "<br>Firma Tekil Tıklanma Sayısı:" + firma.SingularViewCount.ToString() + "<br>Firma Çoğul Tıklanma Sayısı:" + firma.ViewCount.ToString();
+
+                        var whatsappLog = _whatsappLogService.GetWhatsappLogsByMainPartyId(memberStore.StoreMainPartyId.Value);
+                        int whatsappCount = 0;
+                        if (whatsappLog.Count > 0)
+                        {
+                            whatsappCount = whatsappLog.Select(x => x.ClickCount).Sum();
+                        }
+                        template += "<br>Whatsapp Tıklanma:" + whatsappCount;
+
+                    }
+                    baseMember.Description = template;
+                    baseMember.UpdateDate = null;
+                    entities.BaseMemberDescriptions.AddObject(baseMember);
+                    entities.SaveChanges();
+
+                    MemberDescription memd = new MemberDescription();
+                    memd.MainPartyId = mailadress.MainPartyId;
+                    memd.Date = DateTime.Now;
+                    memd.Description = template;
+                    memd.Title = aciklamabaslik;
+                    memd.UpdateDate = null;
+                    entities.MemberDescriptions.AddObject(memd);
+                    entities.SaveChanges();
+                    #endregion
+
+                }
+                return RedirectToAction("", "orderfirm");
+            }
+            catch (Exception)
+            {
+                TempData["StoreEmailError"] = "Mail Gönderilirken Bir Hata Oluştu. Lütfen yöneticinize bildiriniz.";
+                return RedirectToAction("", "orderfirm");
+            }
+        }
+
         public ActionResult SendSpecialEmailToStore(int id, string success)
         {
 
@@ -949,7 +1201,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             string advertfix = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=" + product.ProductId;
             //buraya mail gödnersin sorna başarılı falan diye sayfa oluştur o çıksın.
             #region kullanici
-            var settings = ConfigurationManager.AppSettings;
+            //var settings = ConfigurationManager.AppSettings;
             //EmailMessage mail = new EmailMessage();
             //mail.HeaderCharSet = System.Text.Encoding.UTF8;
             string template = Resources.Email.ilanonaylanmadi;
@@ -993,7 +1245,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             aciklama = Resources.Email.masterpage.Replace("#aciklama#", aciklama);
             template = template.Replace("#ilanbilgileri#", aciklama);
             MailMessage mail = new MailMessage();
-            mail.From = new MailAddress("makinaturkiye@makinaturkiye.com"); //Mailin kimden gittiğini belirtiyoruz
+            mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
             mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
             mail.Subject = subtitle; //Mail konusu
             mail.Body = template; //Mailin içeriği

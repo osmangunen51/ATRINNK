@@ -269,6 +269,63 @@ namespace MakinaTurkiye.Api.Helpers
             return filename;
         }
 
+        public static string ImageThumbnail(string filePath, System.Drawing.Image image, string uzanti,int size, ThumbnailType type)
+        {
+            string filename = string.Empty; 
+            filename = Guid.NewGuid().ToString("N") + uzanti;
+            var targetFile = new FileInfo(filePath + filename);
+
+            if (targetFile.Exists)
+            {
+                filename = Guid.NewGuid().ToString("N") + uzanti;
+            }
+
+            if (type == ThumbnailType.Height)
+            {
+                if (image.Height < size)
+                {
+                    size = image.Height;
+                }
+
+            }
+            else
+            {
+                if (image.Width < size)
+                {
+                    size = image.Width;
+                }
+            }
+
+            Size thumbSize = Size.Empty;
+
+            int sizeWidth = image.Width;
+            int sizeHeight = image.Height;
+
+            if (type == ThumbnailType.Width)
+            {
+                thumbSize = new Size(size, Convert.ToInt32(((double)sizeHeight / sizeWidth) * size));
+            }
+            else
+            {
+                thumbSize = new Size(Convert.ToInt32(((double)sizeWidth / sizeHeight) * size), size);
+            }
+
+            using (var bmp = new Bitmap(image, thumbSize))
+            {
+                using (var gr = Graphics.FromImage(bmp))
+                {
+                    gr.SmoothingMode = SmoothingMode.HighQuality;
+                    gr.CompositingQuality = CompositingQuality.HighQuality;
+                    gr.InterpolationMode = InterpolationMode.High;
+
+                    var rectDestination = new Rectangle(Point.Empty, thumbSize);
+                    gr.DrawImage(image, rectDestination, 0, 0, sizeWidth, sizeHeight, GraphicsUnit.Pixel);
+                }
+                bmp.Save(HttpContext.Current.Server.MapPath(filePath) + filename.Replace(".", "_th."));
+            }
+            return filename;
+        }
+
         public static bool HasFile(string filePath)
         {
 

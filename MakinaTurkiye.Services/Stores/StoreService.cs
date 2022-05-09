@@ -173,7 +173,7 @@ namespace MakinaTurkiye.Services.Stores
             pTotalRecords.DbType = DbType.Int32;
             pTotalRecords.Direction = ParameterDirection.Output;
 
-            string sql = "SP_WebSearchStore_new1 @CategoryId, @ModelId, @BrandId, @CityId, @LocalityIds, @SearchText, @OrderBy, @PageIndex, @PageSize, @ActivityType," +
+            string sql = "SP_WebSearchStore_new @CategoryId, @ModelId, @BrandId, @CityId, @LocalityIds, @SearchText, @OrderBy, @PageIndex, @PageSize, @ActivityType," +
                          " @TotalRecords output, @FilterableCityIds output, @FilterableLocalityIds output, @FilterableActivityIds output";
 
             var stores = _dbContext.SqlQuery<WebSearchStoreResult>(sql, pCategoryId, pModelId, pBrandId, pCityId, pLocalityId, pSearchText, pOrderBy,

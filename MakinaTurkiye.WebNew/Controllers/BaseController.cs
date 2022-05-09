@@ -165,6 +165,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     if (url.Contains("Order"))
                         url = RemoveQueryStringByKey(url, "Order");
 
+                    //if (url.Contains("Page"))
+                    //    url = RemoveQueryStringByKey(url, "Page");
+
                     //if (request.Url.Query.Contains("page"))
                     //{
 
@@ -415,10 +418,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public int GetPageQueryString()
         {
             int page = 1;
-            if (Request.QueryString["page"] == null)
-                return page;
-
-            int.TryParse(Request.QueryString["page"], out page);
+            if (Request.QueryString["sayfa"] != null)
+            {
+                int.TryParse(Request.QueryString["sayfa"], out page);
+            }
+            else 
+            if (Request.QueryString["page"] != null)
+            {
+                int.TryParse(Request.QueryString["page"], out page);
+            }
             return page == 0 ? 1 : page;
         }
 

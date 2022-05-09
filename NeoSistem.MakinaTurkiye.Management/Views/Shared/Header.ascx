@@ -87,7 +87,7 @@
     <div style="position: absolute; right: 350px; top: 10px;">
         <a style="padding: 2px;" href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
     </div>
-    <div style="position: absolute; right: 180px; top: 10px;">
+    <div style="position: absolute; right: 190px; top: 10px;">
         <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;" href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
     </div>
     <div style="position: absolute; right: 80px; top: 10px;">

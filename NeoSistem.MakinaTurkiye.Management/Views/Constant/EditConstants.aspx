@@ -138,6 +138,9 @@
             Firma Adı</button>
             <button type="button" title="firma üyelik yükseltme" value="#firmauyelikyukseltme#">
             firma üyelik yükseltme</button>
+            <button type="button" title="Son Ödeme Tarihi" value="#sonodemetarih#">Son Ödeme Tarihi</button>
+            <button type="button" title="Paket Tutar" value="#pakettutar#">Paket Tutar</button>
+            <button type="button" title="Kalan Tutar" value="#kalantutar#">Kalan Tutar</button>
             <br />
           İlan maili:
           <br />

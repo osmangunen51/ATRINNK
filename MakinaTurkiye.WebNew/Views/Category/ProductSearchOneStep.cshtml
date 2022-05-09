@@ -41,7 +41,7 @@
 }
 
 
-<div class="col-md-12" style="padding-right: 0px; padding-left: 0px; margin-top: 20px;">
+<div class="col-md-12">
     @if (Request.QueryString["SearchText"] != null && Request.QueryString["SearchText"].ToString().Length < 3)
     {
         <div class="row">
@@ -64,31 +64,26 @@
     {
         if (Model.CategoryModel.TopCategoryItemModels.ToList().Count > 0)
         {
-            <h4>"@Model.SearchText" aramanızda <b style="color: #bf0a0a">"@Model.TotalCount"</b> ilan bulundu </h4>
-            <div class="small">Aşağıdaki linklerden arama sonuçlarına ulaşabilirsiniz</div>
-            <hr />
             <div class="result-category">
-                <div class="row">
-                    @foreach (var item in Model.CategoryModel.TopCategoryItemModels.ToList().OrderBy(s => s.CategoryName))
-                    {
-                        <div class="col-md-2" style="padding-left:1px;padding-right:1px;">
-                            <div class="result-category__item searchResultCategory">
-                                @*<img class="result-category__img" src="@item.CategoryIcon" />*@
-                                <p class="result-category__category-name"><a href="@item.CategoryUrl">@item.CategoryName &nbsp<b style="color: #808080">(@item.ProductCount)</b></a></p>
-                                <ul class="subCategory" id="subCategory@(item.CategoryId )">
-                                    @foreach (var subCategory in Model.CategoryModel.SubCategories.Where(c => c.CategoryParentId == item.CategoryId).OrderBy(x => x.CategoryName))
-                                    {
-                                        <li><a href="@subCategory.CategoryUrl">@subCategory.CategoryName &nbsp<small style="color: #808080">(@subCategory.ProductCount)</small></a></li>
-                                    }
-                                    @if (Model.CategoryModel.SubCategories.Where(x => x.CategoryParentId == item.CategoryId).ToList().Count > 5)
-                                    {
-                                        <li class="showAllSub" id="showAllSub@(item.CategoryId )"><b>Tümünü Gör</b><span class="icon-fill-down-arrow" aria-hidden="true"></span></li>
-                                    }
-                                </ul>
-                            </div>
-                        </div>
-                    }
-                </div>
+                <h4>"@Model.SearchText" aramanızda <b style="color: #bf0a0a">"@Model.TotalCount"</b> ilan bulundu </h4>
+                <div class="small">Aşağıdaki linklerden arama sonuçlarına ulaşabilirsiniz</div>
+                @foreach (var item in Model.CategoryModel.TopCategoryItemModels.ToList().OrderBy(s => s.CategoryName))
+                {
+                    <div class="col-md-4 col-sm-6 result-category__item searchResultCategory">
+                        @*<img class="result-category__img" src="@item.CategoryIcon" />*@
+                        <p class="result-category__category-name"><a href="@item.CategoryUrl">@item.CategoryName &nbsp<b style="color: #808080">(@item.ProductCount)</b></a></p>
+                        <ul class="subCategory" id="subCategory@(item.CategoryId )">
+                            @foreach (var subCategory in Model.CategoryModel.SubCategories.Where(c => c.CategoryParentId == item.CategoryId).OrderBy(x => x.CategoryName))
+                            {
+                                <li><a href="@subCategory.CategoryUrl">@subCategory.CategoryName &nbsp<small style="color: #808080">(@subCategory.ProductCount)</small></a></li>
+                            }
+                            @if (Model.CategoryModel.SubCategories.Where(x => x.CategoryParentId == item.CategoryId).ToList().Count > 5)
+                            {
+                                <li class="showAllSub" id="showAllSub@(item.CategoryId )"><b>Tümünü Gör</b><span class="icon-fill-down-arrow" aria-hidden="true"></span></li>
+                            }
+                        </ul>
+                    </div>
+                }
             </div>
         }
         else

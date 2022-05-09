@@ -1,18 +1,18 @@
 ﻿$(document).ready(function () {
 
   $('#btnSearchTop').click(function () {
-    if ($('#hdnTopSearchType').val() == 3) {
-      window.location = '/sirketler?SearchType=3&SearchText=' + $('#topSearchText').val();
-    }
-    else if ($('#hdnTopSearchType').val() == 2) {
-      window.location = '/Urunler/AramaSonuclari?SearchText=' + $('#topSearchText').val() + "&CategoryId=" + $('#searchCategoryId').val();
-    }
-    else if ($('#hdnTopSearchType').val() == 1) {
-      alert('Alım talebi araması şuan etkin değildir.');
-    }
-    else if ($('#hdnTopSearchType').val() == 4) {
-      alert('Video araması şuan etkin değildir.');
-    }
+        if ($('#hdnTopSearchType').val() == 3) {
+          window.location = '/sirketler?SearchType=3&SearchText=' + $('#topSearchText').val();
+        }
+        else if ($('#hdnTopSearchType').val() == 2) {
+          window.location = '/Urunler/AramaSonuclari?SearchText=' + $('#topSearchText').val() + "&CategoryId=" + $('#searchCategoryId').val();
+        }
+        else if ($('#hdnTopSearchType').val() == 1) {
+          alert('Alım talebi araması şuan etkin değildir.');
+        }
+        else if ($('#hdnTopSearchType').val() == 4) {
+          alert('Video araması şuan etkin değildir.');
+        }
   });
 
   $('#topSearchText').keyup(function () {
@@ -126,6 +126,4 @@
       })
     }
   });
-
-
 });
