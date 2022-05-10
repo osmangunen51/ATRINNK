@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -55,7 +58,14 @@
     <Compile Include="City.cs" />
     <Compile Include="CorporateInfoModelInput.cs" />
     <Compile Include="Description.cs" />
+    <Compile Include="Statistics\Advert.cs" />
+    <Compile Include="Statistics\Store.cs" />
+    <Compile Include="StoreCompanyPicture.cs" />
+    <Compile Include="StoreProfilFoto.cs" />
+    <Compile Include="StoreSector.cs" />
     <Compile Include="StoreBanner.cs" />
+    <Compile Include="StoreDealer.cs" />
+    <Compile Include="StoreActivity.cs" />
     <Compile Include="StoreVideo.cs" />
     <Compile Include="StoreWorkingTime.cs" />
     <Compile Include="StorePermissionUser.cs" />
@@ -106,6 +116,10 @@
       <Project>{703A6535-115C-4056-97ED-48FD93D05C4C}</Project>
       <Name>MakinaTurkiye.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

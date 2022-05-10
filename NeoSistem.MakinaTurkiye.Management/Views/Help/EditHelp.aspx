@@ -9,7 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-  <div style="float: left; width: 800px; margin-top: 10px;">
+  <div style="float: left; width: 100%; margin-top: 10px;">
       <div style="margin-left:20px">
       <%
           if (!string.IsNullOrEmpty(ViewBag.Message)) {%>

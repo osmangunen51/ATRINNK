@@ -63,7 +63,23 @@ namespace MakinaTurkiye.Services.Stores
             string key = string.Format(STOREDEALERS_BY_MAIN_PARTY_ID_KEY, storeDealer.MainPartyId, storeDealer.DealerType);
             _cacheManager.Remove(key);
         }
+        public void DeleteStoreDealer(StoreDealer storeDealer)
+        {
+            if (storeDealer == null)
+                throw new ArgumentNullException("storeDealer");
 
+            _storeDealerRepository.Delete(storeDealer);
+            string key = string.Format(STOREDEALERS_BY_MAIN_PARTY_ID_KEY, storeDealer.MainPartyId, storeDealer.DealerType);
+            _cacheManager.Remove(key);
+        }
+
+        public void UpdateStoreDealer(StoreDealer storeDealer)
+        {
+            if (storeDealer == null) throw new ArgumentNullException("storeDealer");
+            _storeDealerRepository.Delete(storeDealer);
+            string key = string.Format(STOREDEALERS_BY_MAIN_PARTY_ID_KEY, storeDealer.MainPartyId, storeDealer.DealerType);
+            _cacheManager.Remove(key);
+        }
         #endregion
     }
 }

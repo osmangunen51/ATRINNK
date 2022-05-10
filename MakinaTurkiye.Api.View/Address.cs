@@ -17,6 +17,5 @@
         public string PostCode { get; set; }
         public bool? AddressDefault { get; set; }
 
-
     }
 }

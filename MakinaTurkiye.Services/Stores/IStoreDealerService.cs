@@ -7,5 +7,7 @@ namespace MakinaTurkiye.Services.Stores
     {
         IList<StoreDealer> GetStoreDealersByMainPartyId(int mainPartyId, DealerTypeEnum dealerType);
         void InsertStoreDealer(StoreDealer storeDealer);
+        void DeleteStoreDealer(StoreDealer storeDealer);
+        void UpdateStoreDealer(StoreDealer storeDealer);
     }
 }

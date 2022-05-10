@@ -236,9 +236,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             statisticModel.JsonDatas = JsonConvert.SerializeObject(viewCounts);
             statisticModel.JsoonLabels = JsonConvert.SerializeObject(dates);
-
-
-
             return statisticModel;
         }
         public ActionResult ProductStatistics(string ProductId, string betweenDate, string startDate, string endDate)

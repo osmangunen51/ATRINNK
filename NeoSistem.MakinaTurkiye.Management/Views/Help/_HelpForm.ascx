@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<NeoSistem.MakinaTurkiye.Management.Models.HelpModel>" %>
- <table border="0" class="tableForm" cellpadding="5" cellspacing="0">
+ <table border="0" class="tableForm" cellpadding="5" cellspacing="0" style="width:100%">
      <tr style="height: 40px;">
       <td colspan="3" align="right">
         <button type="submit" style="width: 70px; height: 35px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">
