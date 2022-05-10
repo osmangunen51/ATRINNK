@@ -11,7 +11,6 @@ namespace MakinaTurkiye.Api.View.Statistics
     {
         public int MainPartyId { get; set; }
         public long ViewCount { get; set; }
-        public long SingularViewCount 
         public string Series { get { return JsonConvert.SerializeObject(VSeries); }}
         public string Datas { get { return JsonConvert.SerializeObject(VDatas); } }
         public List<string> VSeries { get; set; }
@@ -28,6 +27,12 @@ namespace MakinaTurkiye.Api.View.Statistics
         public int ViewCount { get; set; }
     }
 
+    public class ProductDetailItem
+    {
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public int ViewCount { get; set; }
+    }
     public class AdvertDetail
     {
         public int MainPartyId { get; set; }
@@ -37,6 +42,11 @@ namespace MakinaTurkiye.Api.View.Statistics
         public long TotalUserCount { get; set; }
         public long LastTotalViewCount { get; set; }
         public long LastSingularViewCount { get; set; }
-        public List<AdvertDetail> DetailList { get; set; }=new List<AdvertDetail>();
+        public List<AdvertDetailItem> DetailList { get; set; }=new List<AdvertDetailItem>();
+        public List<ProductDetailItem> ProductDetailList { get; set; } = new List<ProductDetailItem>();
+        public string Series { get { return JsonConvert.SerializeObject(VSeries); } }
+        public string Datas { get { return JsonConvert.SerializeObject(VDatas); } }
+        public List<string> VSeries { get; set; }
+        public List<int> VDatas { get; set; }
     }
 }
