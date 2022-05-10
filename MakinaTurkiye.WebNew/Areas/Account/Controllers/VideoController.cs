@@ -165,7 +165,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
-
         }
     }
 }

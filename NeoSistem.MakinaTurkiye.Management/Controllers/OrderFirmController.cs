@@ -1,5 +1,4 @@
-﻿using MakinaTurkiye.Core;
-using MakinaTurkiye.Services.Checkouts;
+﻿using MakinaTurkiye.Services.Checkouts;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Packets;
@@ -16,25 +15,22 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Web.Mvc;
 
-
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
-
     public class OrderFirmController : BaseController
     {
         #region Constants
 
-        const string STARTCOLUMN = "OrderId";
-        const string ORDER = "Desc";
-        const int PAGEDIMENSION = 50;
-        const string SessionPage = "Order_PAGEDIMENSION";
+        private const string STARTCOLUMN = "OrderId";
+        private const string ORDER = "Desc";
+        private const int PAGEDIMENSION = 50;
+        private const string SessionPage = "Order_PAGEDIMENSION";
 
-        #endregion
+        #endregion Constants
 
         #region Fields
 
@@ -48,7 +44,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly IOrderInstallmentService _orderInstallmentService;
         private readonly IStoreDiscountService _storeDiscountService;
 
-        #endregion
+        #endregion Fields
 
         #region Ctor
 
@@ -71,10 +67,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             this._storeDiscountService = storeDiscountService;
         }
 
-        #endregion
+        #endregion Ctor
 
-        static Data.Order dataOrder = null;
-        static ICollection<OrderModel> collection = null;
+        private static Data.Order dataOrder = null;
+        private static ICollection<OrderModel> collection = null;
 
         #region Methods
 
@@ -165,7 +161,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpPost]
         public ActionResult Index(OrderModel model, string OrderName, string OrderCancelled, string Order, string RegisterStartDate, string RegisterEndDate, int? Page, int PageDimension, string LastPayDate, string PaidBill, string SalesUserId, DateTime? OrderEndDate1, string OrderEndDate2)
         {
-
             var orderNullInvoice = _orderService.GetOrdersWithNullInvoiceNumber();
             if (orderNullInvoice.Count > 0)
             {
@@ -186,13 +181,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             whereClause.AppendFormat(equalClause, "O.IsNew", "1");
             bool op = true;
 
-
             if (!string.IsNullOrWhiteSpace(model.InvoiceNumber))
             {
                 if (op == true)
                     whereClause.Append("AND");
                 whereClause.AppendFormat(likeClaue, "InvoiceNumber", model.InvoiceNumber);
-
             }
             if (!string.IsNullOrWhiteSpace(model.OrderNo))
             {
@@ -229,7 +222,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 whereClause.AppendFormat(equalClause, "PacketStatu", model.PacketStatu);
                 op = true;
             }
-
 
             if (!string.IsNullOrEmpty(RegisterEndDate))
             {
@@ -268,7 +260,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 whereClause.AppendFormat(equalClause, "u.UserId", SalesUserId);
             }
 
-
             if (!string.IsNullOrEmpty(LastPayDate))
             {
                 if (model.PayDate != null)
@@ -295,8 +286,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 }
             }
 
-
-
             if (OrderEndDate1.HasValue)
             {
                 if (!string.IsNullOrEmpty(OrderEndDate2))
@@ -305,7 +294,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     {
                         whereClause.Append("AND");
                     }
-
 
                     string dateEqual = " Cast(S.StorePacketEndDate as date) >= Cast('{0}' as date)  and Cast(S.StorePacketEndDate as date) <=Cast('{1}' as date) ";
                     whereClause.AppendFormat(dateEqual, Convert.ToDateTime(OrderEndDate1).ToString("yyyyMMdd"), DateTime.ParseExact(OrderEndDate2, "dd.MM.yyyy", CultureInfo.InvariantCulture).ToString("yyyyMMdd"));
@@ -322,7 +310,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     whereClause.Append("AND");
                 }
                 whereClause.AppendFormat(equalClause, "OrderCancelled", OrderCancelled);
-
             }
             if (PaidBill != "0")
             {
@@ -332,15 +319,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 }
                 if (PaidBill == "2")
                 {
-
                     whereClause.AppendFormat(equalClause, "PriceCheck", 1);
-
                 }
                 else
                 {
                     whereClause.AppendFormat("(PriceCheck=0 or PriceCheck is null)");
-
-
                 }
             }
             int total = 0;
@@ -360,10 +343,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             return View("OrderList", filterItems);
         }
+
         [HttpGet]
         public ActionResult ExportExel(OrderModel model, string OrderName, string RegisterStartDate, string RegisterEndDate, string OrderCancelled, string Order, int? Page, string SalesUserId, int PageDimension, string PayDate1, string LastPayDate, string PaidBill)
         {
-
             dataOrder = dataOrder ?? new Data.Order();
 
             var whereClause = new StringBuilder("Where");
@@ -373,7 +356,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             whereClause.AppendFormat(equalClause, "O.IsNew", "1");
             bool op = true;
-
 
             if (!string.IsNullOrWhiteSpace(model.InvoiceNumber))
             {
@@ -422,7 +404,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     whereClause.Append("AND");
                 }
                 whereClause.AppendFormat(equalClause, "OrderCancelled", OrderCancelled);
-
             }
             if (PaidBill != "0")
             {
@@ -432,15 +413,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 }
                 if (PaidBill == "2")
                 {
-
                     whereClause.AppendFormat(equalClause, "PriceCheck", 1);
-
                 }
                 else
                 {
                     whereClause.AppendFormat("(PriceCheck=0 or PriceCheck is null)");
-
-
                 }
             }
             if (RegisterStartDate != "")
@@ -479,7 +456,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     }
                     whereClause.AppendFormat(equalClause, "u.UserId", SalesUserId);
                 }
-
             }
             else
             {
@@ -560,9 +536,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             fileHelper.ExportExcel<OrderExcelModel>(list, filename);
 
             return View("Index");
-
-
         }
+
         public ActionResult Confirm(int id)
         {
             var order = _orderService.GetOrderByOrderId(id);
@@ -585,6 +560,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             //_orderService.InsertOrderDescription(orderDescription);
 
             #region emailicin
+
             var settings = ConfigurationManager.AppSettings;
             MailMessage mail = new MailMessage();
             MessagesMT mailT = entities.MessagesMTs.First(x => x.MessagesMTName == "goldenpro");
@@ -599,7 +575,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
             this.SendMail(mail);
-            #endregion
+
+            #endregion emailicin
 
             store.PacketId = packet.PacketId;
 
@@ -656,6 +633,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             _orderService.UpdateOrder(order);
 
             #region paymentsadd
+
             if (order.PriceCheck == true)
             {
                 var paymentsNew = _orderService.GetPaymentsByOrderId(order.OrderId);
@@ -668,9 +646,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 newPayment1.RestAmount = 0;
                 newPayment1.PaymentType = order.OrderType;
                 _orderService.InsertPayment(newPayment1);
-
             }
-            #endregion
+
+            #endregion paymentsadd
 
             return RedirectToAction("Index");
         }
@@ -680,7 +658,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var order = entities.Orders.SingleOrDefault(c => c.OrderId == id);
             order.PacketStatu = (byte)PacketStatu.Onaylanmadi;
             entities.SaveChanges();
+
             #region emailicin
+
             var store = entities.Stores.SingleOrDefault(c => c.MainPartyId == order.MainPartyId);
             var packet = entities.Packets.SingleOrDefault(c => c.PacketId == order.PacketId);
             var settings = ConfigurationManager.AppSettings;
@@ -695,9 +675,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             mail.IsBodyHtml = true;
             mail.Priority = MailPriority.Normal;
             this.SendMail(mail);
-            #endregion
-            return RedirectToAction("Index");
 
+            #endregion emailicin
+
+            return RedirectToAction("Index");
         }
 
         public ActionResult DeleteOrder(int id, string type)
@@ -737,7 +718,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         var order = _orderService.GetOrderByOrderId(model.OrderId);
                         order.OrderCancelled = true;
                         _orderService.UpdateOrder(order);
-
                     }
                     return RedirectToAction("index", "OrderFirm", new { opr = "success" });
                 }
@@ -756,7 +736,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             PAGEID = PermissionPage.TümSiparisListesi;
             var model = entities.ProductSales.ToList();
 
-
             return View(model);
         }
 
@@ -767,8 +746,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             order.StoreNameForInvoice = name;
             _orderService.UpdateOrder(order);
             return Json(true, JsonRequestBehavior.AllowGet);
-
         }
+
         [HttpPost]
         public JsonResult UpdateOrderEndDate(string id, string date)
         {
@@ -779,8 +758,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             store.StorePacketEndDate = dateNew;
             _orderService.UpdateOrder(order);
             return Json(true, JsonRequestBehavior.AllowGet);
-
         }
+
         [HttpPost]
         public JsonResult UpdatePaidMount(string id, string paidPrice)
         {
@@ -794,18 +773,16 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             newPayment.RestAmount = order.OrderPrice - PaidPrice;
             _orderService.InsertPayment(newPayment);
             return Json(true, JsonRequestBehavior.AllowGet);
-
         }
+
         public ActionResult GetInvoicePdf(int OrderId)
         {
-
             var model = new InvoiceModel();
             var order = _orderService.GetOrderByOrderId(OrderId);
             if (order.InvoiceNumber == "" || order.InvoiceNumber == null)
             {
                 order.InvoiceNumber = "N" + order.OrderId;
                 _orderService.UpdateOrder(order);
-
             }
             model.InvoiceId = order.OrderId;
             if (order != null)
@@ -843,14 +820,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         public ActionResult GetInvoice(int OrderId)
         {
-
             var model = new InvoiceModel();
             var order = _orderService.GetOrderByOrderId(OrderId);
             if (order.InvoiceNumber == "" || order.InvoiceNumber == null)
             {
                 order.InvoiceNumber = "N" + order.OrderId;
                 _orderService.UpdateOrder(order);
-
             }
             model.InvoiceId = order.OrderId;
             if (order != null)
@@ -951,7 +926,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             order.Address = newAddress;
             _orderService.UpdateOrder(order);
             return Json(true, JsonRequestBehavior.AllowGet);
-
         }
 
         public JsonResult UpdatePrice(string price, int orderId)
@@ -964,12 +938,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             catch (Exception)
             {
-
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);
-
         }
 
         [HttpPost]
@@ -986,6 +958,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             return Json(false, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult InvoiceNumberUpdate(int id, string invoiceNumber)
         {
@@ -1004,7 +977,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         private string priceToWord(decimal tutar)
         {
-            string sTutar = tutar.ToString("F2").Replace('.', ','); // Replace('.',',') ondalık ayracının . olma durumu için            
+            string sTutar = tutar.ToString("F2").Replace('.', ','); // Replace('.',',') ondalık ayracının . olma durumu için
             string lira = sTutar.Substring(0, sTutar.IndexOf(',')); //tutarın tam kısmı
             string kurus = sTutar.Substring(sTutar.IndexOf(',') + 1, 2);
             string yazi = "";
@@ -1016,7 +989,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int grupSayisi = 6; //sayıdaki 3'lü grup sayısı. katrilyon içi 6. (1.234,00 daki grup sayısı 2'dir.)
                                 //KATRİLYON'un başına ekleyeceğiniz her değer için grup sayısını artırınız.
 
-            lira = lira.PadLeft(grupSayisi * 3, '0'); //sayının soluna '0' eklenerek sayı 'grup sayısı x 3' basakmaklı yapılıyor.            
+            lira = lira.PadLeft(grupSayisi * 3, '0'); //sayının soluna '0' eklenerek sayı 'grup sayısı x 3' basakmaklı yapılıyor.
 
             string grupDegeri;
 
@@ -1025,14 +998,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 grupDegeri = "";
 
                 if (lira.Substring(i, 1) != "0")
-                    grupDegeri += birler[Convert.ToInt32(lira.Substring(i, 1))] + "yüz"; //yüzler                
+                    grupDegeri += birler[Convert.ToInt32(lira.Substring(i, 1))] + "yüz"; //yüzler
 
                 if (grupDegeri == "Biryüz") //biryüz düzeltiliyor.
                     grupDegeri = "Yüz";
 
                 grupDegeri += onlar[Convert.ToInt32(lira.Substring(i + 1, 1))]; //onlar
 
-                grupDegeri += birler[Convert.ToInt32(lira.Substring(i + 2, 1))]; //birler                
+                grupDegeri += birler[Convert.ToInt32(lira.Substring(i + 2, 1))]; //birler
 
                 if (grupDegeri != "") //binler
                     grupDegeri += binler[i / 3];
@@ -1064,7 +1037,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         public ActionResult OrderCreate(int storeId)
         {
-
             var store = _storeService.GetStoreByMainPartyId(storeId);
 
             OrderModel viewModel = new OrderModel();
@@ -1075,21 +1047,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(storeId);
             int memberMainPartyId = Convert.ToInt32(memberStore.MemberMainPartyId);
 
-
-
             MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
 
             var address = entities.Addresses.FirstOrDefault(a => a.MainPartyId == storeId);
 
             viewModel.Address = EnumModels.AddressEditForOrder(address);
             return View(viewModel);
-
         }
 
         [HttpPost]
         public ActionResult OrderCreate(OrderModel order)
         {
-
             global::MakinaTurkiye.Entities.Tables.Checkouts.Order addOrderModel = new global::MakinaTurkiye.Entities.Tables.Checkouts.Order();
             var store = _storeService.GetStoreByMainPartyId(order.MainPartyId);
             addOrderModel.MainPartyId = order.MainPartyId;
@@ -1101,14 +1069,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             addOrderModel.TaxOffice = order.TaxOffice;
             addOrderModel.RecordDate = DateTime.Now;
 
-
             _orderService.InsertOrder(addOrderModel);
 
             store.TaxNumber = order.TaxNo;
             store.TaxOffice = order.TaxOffice;
             _storeService.UpdateStore(store);
             return RedirectToAction("GetInvoice", "OrderFirm", new { orderId = addOrderModel.OrderId });
-
         }
 
         [HttpPost]
@@ -1153,7 +1119,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
 
             return RedirectToAction("OrderWriteLogs", new { page = page1 });
-
         }
 
         public ActionResult UpdatePayDate(int orderId)
@@ -1163,8 +1128,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.OrderId = order.OrderId;
             PrepareUpdatePayDateModel(model);
             return View(model);
-
         }
+
         [HttpPost]
         public ActionResult UpdatePayDate(UpdatePayDateModel model)
         {
@@ -1182,13 +1147,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 orderDescription.RecordDate = DateTime.Now;
                 _orderService.InsertOrderDescription(orderDescription);
 
-
-
                 var order = _orderService.GetOrderByOrderId(model.OrderId);
                 order.PayDate = model.WillPayDate;
                 _orderService.UpdateOrder(order);
 
                 #region inserttodescriptions
+
                 var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(order.MainPartyId);
                 var constant = _constantService.GetConstantByConstantId(444);
                 var baseMemberDescription = entities.BaseMemberDescriptions.FirstOrDefault(x => x.MainPartyId == memberStore.MemberMainPartyId.Value);
@@ -1208,7 +1172,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     var memberDesc = new global::MakinaTurkiye.Entities.Tables.Members.MemberDescription();
                     memberDesc.Date = DateTime.Now;
                     memberDesc.MainPartyId = memberStore.MemberMainPartyId;
-
 
                     memberDesc.Title = constant.ConstantName;
 
@@ -1230,14 +1193,15 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 model = new UpdatePayDateModel();
                 model.OrderId = order.OrderId;
                 PrepareUpdatePayDateModel(model);
-                #endregion
+
+                #endregion inserttodescriptions
             }
             return View(model);
         }
+
         [HttpPost]
         public ActionResult DeleteOrderDesc(int id)
         {
-
             int tempOrderId = 0;
             var orderDesc = _orderService.GetOrderDescriptionByOrderDescriptionId(id);
             tempOrderId = orderDesc.OrderId;
@@ -1251,6 +1215,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+
         public void PrepareUpdatePayDateModel(UpdatePayDateModel model)
         {
             var orderdescriptions = _orderService.GetOrderDescriptionsByOrderId(model.OrderId).OrderByDescending(x => x.OrderDescriptionId).ToList();
@@ -1270,6 +1235,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 });
             }
         }
+
         public ActionResult Payments(int OrderId)
         {
             PaymentModel model = new PaymentModel();
@@ -1278,10 +1244,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             PreparePaymentModel(model);
             return View(model);
         }
+
         [HttpPost]
         public ActionResult Payments(PaymentModel model)
         {
-
             int ID = Convert.ToInt32(model.OrderId);
             decimal PaidPrice = Convert.ToDecimal(model.PaidAmount);
             var order = _orderService.GetOrderByOrderId(ID);
@@ -1307,7 +1273,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             newPayment.SenderNameSurname = model.SenderNameSurname;
             _orderService.InsertPayment(newPayment);
 
-
             var orderInstallMents = _orderInstallmentService.GetOrderInstallmentsByOrderId(model.OrderId).Where(x => x.IsPaid == false).ToList();
             var firstOrderInstallment = orderInstallMents.FirstOrDefault();
             if (firstOrderInstallment != null)
@@ -1325,7 +1290,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         _orderInstallmentService.UpdateOrderInstallment(secondInstallment);
                         _orderService.UpdateOrder(order);
                     }
-
                 }
                 else
                 {
@@ -1338,7 +1302,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             if (rest != 0)
                             {
                                 var secondInstallment = orderInstallMents[i];
-                                if (Math.Abs(rest) > secondInstallment.Amunt) //--1400 800 
+                                if (Math.Abs(rest) > secondInstallment.Amunt) //--1400 800
                                 {
                                     rest = Math.Abs(rest) - secondInstallment.Amunt;
 
@@ -1351,7 +1315,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                         var anotherIns = orderInstallMents[i + 1];
                                         anotherIns.Amunt = anotherIns.Amunt + (secondInstallment.Amunt + rest);
                                         _orderInstallmentService.UpdateOrderInstallment(anotherIns);
-
                                     }
                                     else
                                     {
@@ -1359,7 +1322,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                     }
                                     secondInstallment.IsPaid = true;
                                     rest = 0;
-
                                 }
 
                                 order.PayDate = secondInstallment.PayDate;
@@ -1367,13 +1329,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 _orderService.UpdateOrder(order);
                             }
                         }
-
                     }
-
-
                 }
                 _orderInstallmentService.UpdateOrderInstallment(firstOrderInstallment);
-
             }
             if (newPayment.RestAmount == 0)
             {
@@ -1384,7 +1342,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             PreparePaymentModel(model);
 
             return View(model);
-
         }
 
         private void PreparePaymentModel(PaymentModel model)
@@ -1398,7 +1355,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.PayUrl = "https://www.makinaturkiye.com/membership/LogonAuto?validateId=" + link;
             if (order.PriceCheck == true && payments.Count == 0)
             {
-
                 var newPayment = new global::MakinaTurkiye.Entities.Tables.Checkouts.Payment();
                 newPayment.OrderId = order.OrderId;
                 newPayment.PaidAmount = order.OrderPrice;
@@ -1453,11 +1409,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     Text = item.ConstantName,
                     Value = item.ConstantId.ToString()
                 });
-
             }
-
         }
-        #endregion
+
+        #endregion Methods
+
         [HttpPost]
         public JsonResult ReturnAmountAdd(string orderId, string amount, string billdate)
         {
@@ -1481,6 +1437,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
         }
+
         [HttpPost]
         public JsonResult DeleteReturnInvoice(int invoiceId)
         {
@@ -1489,8 +1446,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             _orderService.UpdateOrder(order);
             _orderService.DelteReturnInvoice(returnInvoice);
             return Json(true, JsonRequestBehavior.AllowGet);
-
         }
+
         [HttpGet]
         public ActionResult DeletePayment(int paymentId)
         {
@@ -1504,7 +1461,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var paymentLast = _orderService.GetPaymentsByOrderId(orderId).LastOrDefault();
 
             return RedirectToAction("Payments", new { OrderId = orderId });
-
         }
 
         public ActionResult Reports()
@@ -1533,6 +1489,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.TotalRestPrice = totalPrice - totalPaid;
             return View(model);
         }
+
         [HttpPost]
         public ActionResult Reports(int page, string recordDate, string storeName, string payDate)
         {
@@ -1566,7 +1523,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     whereClause.Append(" AND");
                 string likeClaue = " {0} LIKE N'{1}%' ";
                 whereClause.AppendFormat(likeClaue, "dbo.Store.StoreName", storeName);
-
             }
 
             var reports = _orderService.GetOrderReports(pageDimension, page, whereClause.ToString() == "Where" ? "" : whereClause.ToString(), "", "desc", out totalRecord, out totalPrice, out totalPaid);
@@ -1582,6 +1538,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             return View("_OrderReportList", model);
         }
+
         public List<OrderReportItemModel> PrepareReportList(IList<global::MakinaTurkiye.Entities.StoredProcedures.Orders.OrderReportResultModel> reports)
         {
             List<OrderReportItemModel> list = new List<OrderReportItemModel>();
@@ -1607,12 +1564,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     UserName = item.UserName,
                     PayDate = item.PayDate
                 });
-
-
             }
 
             return list;
-
         }
 
         public ActionResult BillNumber(int id, string page)
@@ -1627,6 +1581,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.OrderId = id;
             return View(model);
         }
+
         [HttpPost]
         public ActionResult BillNumber(EbillNumberModel model)
         {
@@ -1637,7 +1592,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             return RedirectToAction("BillNumber", new { page = "success" });
         }
-
 
         public ActionResult OrderCount()
         {
@@ -1673,7 +1627,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         public List<OrderCountItemModel> PrepareOrderCoutModel(DateTime dateNow)
         {
-
             var orders = _orderService.GetAllOrders().Where(x => x.RecordDate.Date.Month == dateNow.Date.Month && x.RecordDate.Date.Year == dateNow.Date.Year && x.OrderCancelled != true && x.OrderPacketType != 2);
             var s = orders.Where(x => x.AuthorizedId > 0).GroupBy(x => (int)x.AuthorizedId).Select(g => new { id = g.Key, count = g.Count() }).OrderBy(x => x.count);
             List<OrderCountItemModel> list = new List<OrderCountItemModel>();
@@ -1699,13 +1652,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpGet]
         public PartialViewResult OrderCountItem(string month)
         {
-
             var dateTime = new DateTime(DateTime.Now.Year, Convert.ToInt32(month), DateTime.Now.Date.Day);
             var orderList = PrepareOrderCoutModel(dateTime);
             return PartialView("_OrderCountList", orderList);
         }
-
-
 
         public ActionResult SalesResponsibleUpdate(int orderId)
         {
@@ -1730,8 +1680,5 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             TempData["Message"] = "Başarıyla Kayıt Edilmiştir";
             return RedirectToAction("SalesResponsibleUpdate", new { orderId = OrderId });
         }
-
     }
-
-
 }

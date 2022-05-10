@@ -36,9 +36,6 @@ using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
-
-
-
     public class StoreController : BaseAccountController
     {
         private readonly IStoreChangeHistoryService _storeChangeHistoryService;
@@ -58,7 +55,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         private readonly IConstantService _constantService;
         private readonly IStoreSectorService _storeSectorService;
         private readonly ICertificateTypeService _certificateTypeService;
-
 
         public StoreController(IStoreChangeHistoryService storeChangeHistoryService,
             IStoreService storeService, ICategoryService categoryService,
@@ -106,8 +102,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._categoryPlaceChoiceService.CachingGetOrSetOperationEnabled = false;
             this._constantService.CachingGetOrSetOperationEnabled = false;
             this._certificateTypeService.CachingGetOrSetOperationEnabled = false;
-
         }
+
         public ActionResult Index()
         {
             int mainPartyId = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId).StoreMainPartyId.Value;
@@ -149,21 +145,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return View(model);
         }
 
-
-
         [HttpPost]
         public ActionResult UpdateLogo(StoreModel model, bool Delete)
         {
-
-
-
-
             int mainPartyId = AuthenticationUser.Membership.MainPartyId;
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(mainPartyId);
 
             var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-
-
 
             HttpPostedFileBase file = Request.Files[0];
             if (file != null && file.ContentLength > 0)
@@ -198,7 +186,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             FileHelpers.Delete(resizeStoreLogoImageFilePath + "thumbs\\" + resizeStoreThumbsLogoName);
                         }
                     }
-
                 }
 
                 if (!Directory.Exists(resizeStoreLogoImageFilePath + "thumbs"))
@@ -206,7 +193,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     var di = Directory.CreateDirectory(string.Format("{0}{1}", resizeStoreFolder, store.MainPartyId.ToString()));
                     di.CreateSubdirectory("thumbs");
                 }
-
 
                 // eski logoyu kopyala, varsa ustune yaz
                 string storeLogoImageFileName = store.StoreName.ToImageFileName() + "_logo.jpg";
@@ -218,12 +204,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 store.StoreLogo = storeLogoImageFileName;
 
                 _storeService.UpdateStore(store);
-
-
             }
 
             return RedirectToAction("updatelogo", "store");
         }
+
         public ActionResult UpdateBanner(string error)
         {
             if (!string.IsNullOrEmpty(error))
@@ -253,19 +238,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             model.StoreBanner = store.StoreBanner;
             return View(model);
         }
+
         [HttpPost]
         public ActionResult UpdateBanner(StoreModel model, bool Delete)
         {
-
-
-
-
-
             int mainPartyId = AuthenticationUser.Membership.MainPartyId;
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(mainPartyId);
             var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-
-
 
             HttpPostedFileBase file = Request.Files[0];
             if (file != null && file.ContentLength > 0)
@@ -291,7 +270,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         {
                             // kullanıcı yeni üye olduğu zamanki resimleri sil.
                             FileHelpers.Delete(AppSettings.StoreBannerFolder + oldStoreBanner);
-
                         }
                         if (System.IO.File.Exists(this.Server.MapPath(AppSettings.StoreBannerFolder) + store.StoreBanner.Replace("_banner", "-1400x280")))
                         {
@@ -310,7 +288,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         //        FileHelpers.Delete(resizeStoreLogoImageFilePath + "thumbs\\" + resizeStoreThumbsLogoName);
                         //    }
                         //}
-
                     }
 
                     //if (!Directory.Exists(resizeStoreLogoImageFilePath + "thumbs"))
@@ -318,7 +295,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     //    var di = Directory.CreateDirectory(string.Format("{0}{1}", resizeStoreFolder, storeM.MainPartyId.ToString()));
                     //    di.CreateSubdirectory("thumbs");
                     //}
-
 
                     // eski logoyu kopyala, varsa ustune yaz
                     string mapPath = this.Server.MapPath(AppSettings.StoreBannerFolder);
@@ -341,14 +317,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 {
                     return RedirectToAction("updatebanner", "store", new { error = "type" });
                 }
-
-
             }
             else
             {
                 return RedirectToAction("updatebanner", "store", new { error = "null" });
             }
         }
+
         public ActionResult CreateCertificate()
         {
             CreateStoreCertificateModel model = new CreateStoreCertificateModel();
@@ -366,6 +341,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             model.CertificateTypes.Add(new SelectListItem { Text = "Diğer", Value = "99999" });
             return View(model);
         }
+
         [HttpPost]
         public ActionResult CreateCertificate(CreateStoreCertificateModel model)
         {
@@ -385,7 +361,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
-
                     int storeCertificateId = 0;
                     if (i == 0)
                     {
@@ -433,7 +408,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                     if (ImageContentType.Any(x => x == file.ContentType) && file.ContentLength > 0)
                     {
-
                         string oldfile = file.FileName;
                         string mapPath = this.Server.MapPath(AppSettings.StoreCertificateImageFolder);
                         string uzanti = oldfile.Substring(oldfile.LastIndexOf("."), oldfile.Length - oldfile.LastIndexOf("."));
@@ -485,9 +459,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 ModelState.AddModelError("CertificateImages", "Sertifika İçin Fotoğraf Seçmelisiniz");
                 return View(modelNew);
             }
-
-
         }
+
         public ActionResult Certificate()
         {
             int memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
@@ -516,7 +489,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.Membership.MainPartyId);
 
-
             var certificate = _storeService.GetStoreCertificateByStoreCertificateId(certificateId);
 
             List<SelectListItem> certificateList = new List<SelectListItem>();
@@ -539,6 +511,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             return Json(new { Order = certificate.Order, Name = certificate.CertificateName, CertificateOptions = certificateOptions }, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult UpdateCertificate(int certificateId, string name, int order, string certificateType)
         {
@@ -556,7 +529,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     {
                         CertificateTypeId = Convert.ToInt32(certificateType),
                         StoreCertificateId = certificateId,
-
                     };
                     _certificateTypeService.InsertCertificateTypeProduct(certificateTypeStore);
                 }
@@ -565,11 +537,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult DeleteCertificate(int id)
         {
-
-
             var certificate = _storeService.GetStoreCertificateByStoreCertificateId(id);
             List<int> ids = new List<int>();
             ids.Add(id);
@@ -578,16 +549,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             foreach (var item in certificateTypes)
             {
                 _certificateTypeService.DeleteCertificateType(item);
-
             }
 
             var certificateTypeProducts = _certificateTypeService.GetCertificateTypeProductsByStoreCertificateId(id);
             foreach (var certificateTypeProduct in certificateTypeProducts)
             {
                 _certificateTypeService.DeleteCertificateTypeProduct(certificateTypeProduct);
-
             }
-
 
             var pictures = _pictureService.GetPictureByStoreCertificateId(id);
             foreach (var item in pictures)
@@ -598,7 +566,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 if (System.IO.File.Exists(this.Server.MapPath(AppSettings.StoreCertificateImageFolder) + item.PicturePath))
                 {
-
                     FileHelpers.Delete(AppSettings.StoreCertificateImageFolder + item.PicturePath);
                 }
                 _pictureService.DeletePicture(item);
@@ -606,6 +573,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             _storeService.DeleteStoreCertificate(certificate);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+
         public ActionResult CreateStoreSliderImage()
         {
             int mainPartyId = AuthenticationUser.Membership.MainPartyId;
@@ -624,14 +592,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             foreach (var storeImageItem in storeImages)
             {
                 model.StoreImageItems.Add(new StoreImageItem { ImageId = storeImageItem.PictureId, ImagePath = AppSettings.StoreSliderImageFolder + storeImageItem.PicturePath });
-
             }
             return View(model);
         }
+
         [HttpPost]
         public ActionResult CreateStoreSliderImage(FormCollection frm)
         {
-
             string[] ImageContentType = { "image/bmp", "image/cis-cod", "image/gif", "image/ief", "image/jpeg", "image/jpg",
                                                 "image/jpeg", "image/pipeg", "image/svg+xml", "image/tiff", "image/tiff",
                                                 "image/x-cmu-raster", "image/x-cmx", "image/x-icon", "image/x-portable-anymap",
@@ -647,14 +614,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             int storeImagesCount = storeImages.ToList().Count;
             if (storeImages.ToList().Count < 8)
             {
-
                 for (int i = 0; i < Request.Files.Count; i++)
                 {
-
                     HttpPostedFileBase file = Request.Files[i];
                     if (ImageContentType.Any(x => x == file.ContentType) && file.ContentLength > 0)
                     {
-
                         string oldfile = file.FileName;
                         string mapPath = this.Server.MapPath(AppSettings.StoreSliderImageFolder);
                         string uzanti = oldfile.Substring(oldfile.LastIndexOf("."), oldfile.Length - oldfile.LastIndexOf("."));
@@ -683,11 +647,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                         _pictureService.InsertPicture(curPicture);
                     }
-
                 }
             }
             return RedirectToAction("createstoresliderimage");
         }
+
         [HttpPost]
         public JsonResult DeleteImage(int id)
         {
@@ -708,12 +672,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
             return Json(false, JsonRequestBehavior.AllowGet);
-
         }
+
         [HttpPost]
         public JsonResult DeleteBanner(int id)
         {
-
             var store = _storeService.GetStoreByMainPartyId(id);
             if (System.IO.File.Exists(this.Server.MapPath(AppSettings.StoreBannerFolder) + store.StoreBanner))
             {
@@ -826,7 +789,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 address.TownId = model.TownId;
             else
                 address.TownId = null;
-
 
             if (model.LocalityId > 0)
                 address.LocalityId = model.LocalityId;
@@ -1026,6 +988,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         public ActionResult UpdateActivity(string[] StoreActivityCategory)
         {
@@ -1107,13 +1070,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         [ChildActionOnly]
         public ActionResult _HeaderStoreCategoryGeneral()
         {
-
             MTStoreCategoryModel model = new MTStoreCategoryModel();
             var storeCategories = _categoryService.GetSPStoreCategoryByCategoryParentId(0).Where(x => x.CategoryType != (byte)CategoryType.Brand).ToList();
             IList<MTStoreCategoryItemModel> videoCategoryItemModels = new List<MTStoreCategoryItemModel>();
             foreach (var item in storeCategories)
             {
-
                 var itemModel = new MTStoreCategoryItemModel
                 {
                     CategoryUrl = UrlBuilder.GetStoreCategoryUrl(item.CategoryId, FormatHelper.GetCategoryNameWithSynTax(item.CategoryName, CategorySyntaxType.Store)),
@@ -1147,7 +1108,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 //    itemModel.CategoryName = FormatHelper.GetCategoryNameWithSynTax(brandCategoryName, CategorySyntaxType.Store);
                 //    itemModel.CategoryUrl = UrlBuilder.GetStoreCategoryUrl(item.CategoryId, FormatHelper.GetCategoryNameWithSynTax(brandCategoryName, CategorySyntaxType.Store), selectedOrderby);
                 //}
-
                 else if (item.CategoryType == (byte)CategoryTypeEnum.Model)
                 {
                     int topCategoryCount = model.StoreTopCategoryItemModels.Count;
@@ -1186,7 +1146,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return View(model);
         }
 
-
         public ActionResult CreateCatolog()
         {
             MTCreateCatologViewModel model = new MTCreateCatologViewModel();
@@ -1194,6 +1153,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         public ActionResult CreateCatolog(MTCreateCatologViewModel model)
         {
@@ -1202,9 +1162,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             if (model.CreateCatologForm.FilePaths.Count() == 0)
             {
-
                 ModelState.AddModelError("CreateCatologForm.FilePath", "Lütfen dosya seçiniz");
-
             }
             else
             {
@@ -1241,8 +1199,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
 
             return View(modelView);
-
         }
+
         [HttpPost]
         public JsonResult DeleteCatolog(int id)
         {
@@ -1263,6 +1221,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             item.FileOrder = catolog.FileOrder;
             return Json(item, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult UpdateCatolog(MTCatologItem model)
         {
@@ -1286,7 +1245,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 phones = _phoneService.GetPhonesByMainPartyId(mainPartyId);
             foreach (var item in phones)
             {
-
                 model.MTSettingItems.Add(PrepareMTSettingItemModel(item, storeMainPartyId));
             }
             model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.StoreSettings, (byte)LeftMenuConstants.StoreSettingGeneralInfo.ContactSettings);
@@ -1295,16 +1253,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
         public MTSettingItemModel PrepareMTSettingItemModel(global::MakinaTurkiye.Entities.Tables.Common.Phone phone, int storeMainPartyId)
         {
-
             string phoneTypeText = "";
             switch (phone.PhoneType)
             {
                 case (byte)PhoneType.Gsm:
                     phoneTypeText = "Cep Telefon";
                     break;
+
                 case (byte)PhoneType.Phone:
                     phoneTypeText = "İş telefonu";
                     break;
+
                 case (byte)PhoneType.Fax:
                     phoneTypeText = "Fax";
                     break;
@@ -1341,14 +1300,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
 
             return settingModel;
-
         }
 
         [HttpGet]
         public JsonResult GetPhoneSetting(int phoneId)
         {
             ResponseModel<MTSettingItemModel> response = new ResponseModel<MTSettingItemModel>();
-
 
             var phone = _phoneService.GetPhoneByPhoneId(phoneId);
             string name = GetEnumValue<PhoneType>(Convert.ToByte(phone.PhoneType.Value)).ToString();
@@ -1359,7 +1316,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 var settingItemModel = PrepareMTSettingItemModel(phone, storeMainPartyId);
                 response.IsSuccess = true;
                 response.Result = settingItemModel;
-
             }
             else
             {
@@ -1368,6 +1324,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             return Json(response, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         public JsonResult ChangePhoneSettings(MTContactSettingItemFormModel model)
         {
@@ -1385,8 +1342,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 else
                 {
                     memberSetting.FirstValue = model.StartTime + "-" + model.EndTime;
-                    //memberSetting.SecondValue = model.EndTime;
-
                     string weekendWorking = "";
                     if (model.SaturdayWorking)
                         weekendWorking = "1";
@@ -1438,10 +1393,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return Json(resModel, JsonRequestBehavior.AllowGet);
         }
 
-
         public ActionResult Sector()
         {
-
             var sectoreCategories = _categoryService.GetMainCategories();
             MTStoreActivityModel model = new MTStoreActivityModel();
             var memberMainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
@@ -1468,8 +1421,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 model.StoreActivityCategories.Add(item.StoreSectorId, !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName);
             }
             return View(model);
-
         }
+
         [HttpPost]
         public ActionResult Sector(int[] subcategory)
         {
@@ -1488,10 +1441,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             CategoryId = item,
                             RecordDate = DateTime.Now,
                             StoreMainPartyId = storeMainPartyId,
-
                         };
                         _storeSectorService.InsertStoreSector(storeSector);
-
                     }
                 }
                 TempData["SuccessMessage"] = "Firma ilgili sektör kayıt edilmiştir.";
@@ -1503,7 +1454,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return RedirectToAction("Sector");
         }
 
-
         [HttpGet]
         public JsonResult DeleteSector(int storeSectorId)
         {
@@ -1514,6 +1464,5 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

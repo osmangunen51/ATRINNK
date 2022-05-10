@@ -12,6 +12,27 @@ namespace MakinaTurkiye.Api.Controllers
     [MakinaTurkiye.Api.Code.ApiAuthorize]
     public class BaseApiController : ApiController
     {
+        protected T GetEnumValue<T>(int intValue) where T : struct, IConvertible
+        {
+            if (!typeof(T).IsEnum)
+            {
+                throw new Exception("T must be an Enumeration type.");
+            }
+            T val = ((T[])Enum.GetValues(typeof(T)))[0];
+
+            foreach (T enumValue in (T[])Enum.GetValues(typeof(T)))
+            {
+                if (Convert.ToInt32(enumValue).Equals(intValue))
+                {
+                    val = enumValue;
+                    break;
+                }
+            }
+            return val;
+        }
+
+
+
         public bool SendMail(MailMessage mailMessage)
         {
             bool Status = false;
@@ -34,6 +55,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Status;
         }
 
+       
 
         private string _Ip = "";
 

@@ -5,6 +5,7 @@ namespace MakinaTurkiye.Api.View
 {
     public class StoreInformation
     {
+        public int MainPartyId { get; set; }
         public int selectedCountryID { get; set; }
         public int selectedCityID { get; set; }
         public int selectedLocalityID { get; set; }
@@ -13,7 +14,6 @@ namespace MakinaTurkiye.Api.View
         public String sokak { get; set; }
         public String posta { get; set; }
         public int memberTitleID { get; set; }
-        public String storeTitle { get; set; }
         public String storeName { get; set; }
         public String storeUrl { get; set; }
         public String storeWeb { get; set; }
@@ -21,7 +21,8 @@ namespace MakinaTurkiye.Api.View
         public int storeCapID { get; set; }
         public int storeEmpCountID { get; set; }
         public int storeTypeID { get; set; }
-        public String storeEstDate { get; set; }
+        public int storeEstDate { get; set; }
         public List<int> storeActivitySelected { get; set; } = new List<int>();
+        public int addressId { get; set; }
     }
 }

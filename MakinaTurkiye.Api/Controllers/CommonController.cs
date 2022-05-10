@@ -2,12 +2,12 @@
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using MakinaTurkiye.Services.Stores;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -43,7 +43,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ConstantEkBilgi = x.ContstantPropertie,
                         ConstantSira = x.Order
                     });
-                    processStatus.Result =Liste;
+                    processStatus.Result = Liste;
                     processStatus.ActiveResultRowCount = constantList.Count;
                     processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
                     processStatus.Message.Header = "Constant İşlemleri";

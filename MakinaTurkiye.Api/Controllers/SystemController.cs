@@ -11,7 +11,6 @@ namespace MakinaTurkiye.Api.Controllers
     {
         private readonly ICategoryService CategoryService;
 
-
         public SystemController()
         {
             CategoryService = EngineContext.Current.Resolve<ICategoryService>();
@@ -59,6 +58,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetGizlilikPolitikasi()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -101,6 +101,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetUyelikSozlesmesi()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -143,6 +144,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetBlogUrl()
         {
             ProcessResult processStatus = new ProcessResult();

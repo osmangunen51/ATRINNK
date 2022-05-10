@@ -35,6 +35,7 @@ namespace MakinaTurkiye.Api.Controllers
             _storeSectorService = EngineContext.Current.Resolve<IStoreSectorService>();
             _categoryService = EngineContext.Current.Resolve<ICategoryService>();
         }
+
         public HttpResponseMessage ReportProductComment(int productCommentId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -201,7 +202,6 @@ namespace MakinaTurkiye.Api.Controllers
                         processStatus.Message.Text = "Başarılı";
                         processStatus.Status = true;
                     }
-
                 }
                 else
                 {
@@ -222,7 +222,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         public HttpResponseMessage GetAdvert(int AdvertId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -232,7 +231,6 @@ namespace MakinaTurkiye.Api.Controllers
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
-
                 }
                 else
                 {
@@ -262,7 +260,6 @@ namespace MakinaTurkiye.Api.Controllers
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
-
                 }
                 else
                 {
@@ -292,7 +289,6 @@ namespace MakinaTurkiye.Api.Controllers
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
-
                 }
                 else
                 {
@@ -322,7 +318,6 @@ namespace MakinaTurkiye.Api.Controllers
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
-
                 }
                 else
                 {
@@ -342,6 +337,5 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
     }
 }

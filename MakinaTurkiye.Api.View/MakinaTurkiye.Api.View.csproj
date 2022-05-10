@@ -55,6 +55,15 @@
     <Compile Include="City.cs" />
     <Compile Include="CorporateInfoModelInput.cs" />
     <Compile Include="Description.cs" />
+    <Compile Include="StoreBanner.cs" />
+    <Compile Include="StoreVideo.cs" />
+    <Compile Include="StoreWorkingTime.cs" />
+    <Compile Include="StorePermissionUser.cs" />
+    <Compile Include="StoreCatalog.cs" />
+    <Compile Include="StoreCertificate.cs" />
+    <Compile Include="StorePicture.cs" />
+    <Compile Include="StoreTaxAdministration.cs" />
+    <Compile Include="StoreConctactInformation.cs" />
     <Compile Include="StoreInformation.cs" />
     <Compile Include="MTStoreAboutModel.cs" />
     <Compile Include="Country.cs" />

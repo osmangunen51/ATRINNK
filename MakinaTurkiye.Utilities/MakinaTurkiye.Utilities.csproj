@@ -106,6 +106,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MemoryPostedFile.cs" />
     <Compile Include="Controllers\BaseAccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Infrastructure\AuthenticationDependencyRegistrar.cs" />

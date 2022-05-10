@@ -178,7 +178,6 @@ namespace MakinaTurkiye.Api.Controllers
                 var memberInfoList = new List<MemberInfo>();
                 foreach (var result in results)
                 {
-
                     var userAddresses = _addressService.GetAddressesByMainPartyId(result.MainPartyId).ToList();
                     var AddressList = new List<View.Address>();
 
@@ -247,18 +246,18 @@ namespace MakinaTurkiye.Api.Controllers
 
                     byte? StoreState = 0;
                     int StoreMainPartyId = 0;
-                    if (member.MemberType==20)
+                    if (member.MemberType == 20)
                     {
                         var storemember = _memberStoreService.GetMemberStoreByMemberMainPartyId(member.MainPartyId);
                         var store = _storeService.GetStoreByMainPartyId(Convert.ToInt32(storemember.StoreMainPartyId));
-                        if (store!=null)
+                        if (store != null)
                         {
                             StoreMainPartyId = store.MainPartyId;
                             StoreState = (byte)store.StoreActiveType;
                         }
                     }
 
-                    var userPhone = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).FirstOrDefault(x=>x.active==1 && x.PhoneType==(byte)PhoneType.Gsm);
+                    var userPhone = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).FirstOrDefault(x => x.active == 1 && x.PhoneType == (byte)PhoneType.Gsm);
                     bool PhoneActive = false;
                     string Phone = "";
                     if (userPhone != null)
@@ -280,9 +279,9 @@ namespace MakinaTurkiye.Api.Controllers
                         MemberTitleType = result.MemberTitleType,
                         MemberType = result.MemberType,
                         Address = AddressList,
-                        StoreState= StoreState,
+                        StoreState = StoreState,
                         StoreMainPartyId = StoreMainPartyId,
-                        PhoneActive= PhoneActive,
+                        PhoneActive = PhoneActive,
                         Phone = Phone
                     };
                     memberInfoList.Add(memberInfo);
@@ -686,7 +685,6 @@ namespace MakinaTurkiye.Api.Controllers
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
-
                     //Telefon işlemleri
                     var userPhones = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).ToList();
                     var isCurrentGsmSame = userPhones.Where(x => x.PhoneType == (int)PhoneTypeEnum.Gsm &&
@@ -724,7 +722,7 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         MobileMessage messageTmp = _mobileMessageService.GetMobileMessageByMessageName("telefononayi");
                         string messageMobile = messageTmp.MessageContent.Replace("#isimsoyisim#", member.MemberName + " " + member.MemberSurname).Replace("#aktivasyonkodu#", activeCode);
-                        var snc=sms.SendPhoneMessage(phoneGsm.PhoneCulture + phoneGsm.PhoneAreaCode + phoneGsm.PhoneNumber, messageMobile);
+                        var snc = sms.SendPhoneMessage(phoneGsm.PhoneCulture + phoneGsm.PhoneAreaCode + phoneGsm.PhoneNumber, messageMobile);
                         processStatus.Message.Header = "Kullanıcı Doğrulama işlemleri";
                         processStatus.Message.Text = "Başarılı";
                         processStatus.Status = true;
@@ -759,8 +757,6 @@ namespace MakinaTurkiye.Api.Controllers
 
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
-
 
         public HttpResponseMessage ActivatePhone(PhoneActivationModel model)
         {

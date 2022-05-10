@@ -1,17 +1,21 @@
-﻿using MakinaTurkiye.Api.Helpers;
+﻿using MakinaTurkiye.Api.ExtentionsMethod;
+using MakinaTurkiye.Api.Helpers;
 using MakinaTurkiye.Api.View;
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Logs;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Authentication;
+using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Logs;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
-using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Services.Packets;
+using MakinaTurkiye.Services.Stores;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Net;
@@ -19,11 +23,7 @@ using System.Net.Http;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Http;
-using MakinaTurkiye.Api.ExtentionsMethod;
 using ProcessResult = MakinaTurkiye.Api.View.ProcessResult;
-using MakinaTurkiye.Services.Common;
-using MakinaTurkiye.Core;
-using System.Collections.Generic;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -292,7 +292,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-
         private void InsertMember(UserRegister model)
         {
             try
@@ -557,10 +556,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                         _memberService.InsertMainParty(storeMainParty);
 
-
                         var packet = _packetService.GetPacketByIsStandart(true);
-
-
 
                         var store = new Store
                         {
@@ -659,12 +655,13 @@ namespace MakinaTurkiye.Api.Controllers
                         mail.IsBodyHtml = true;
                         mail.Priority = MailPriority.Normal;
                         this.SendMail(mail);
-                        #endregion
+
+                        #endregion bireyseldenkurumsalagecis
+
                         #region bilgimakina
 
                         MailMessage mailb = new MailMessage();
                         MessagesMT mailTmpInf = _messagesMTService.GetMessagesMTByMessageMTName("bilgimakinasayfası");
-
 
                         mailb.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
                         mailb.To.Add("bilgi@makinaturkiye.com");
@@ -677,7 +674,8 @@ namespace MakinaTurkiye.Api.Controllers
                         mailb.IsBodyHtml = true;
                         mailb.Priority = MailPriority.Normal;
                         this.SendMail(mailb);
-                        #endregion
+
+                        #endregion bilgimakina
 
                         string Logo = Model.logoBase64;
                         if (!string.IsNullOrEmpty(store.StoreName))

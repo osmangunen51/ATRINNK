@@ -4,7 +4,6 @@ namespace MakinaTurkiye.Entities.Tables.Stores
 {
     public class StoreCertificate : BaseEntity
     {
-
         public int StoreCertificateId { get; set; }
         public int MainPartyId { get; set; }
         public string CertificateName { get; set; }

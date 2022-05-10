@@ -39,7 +39,6 @@ using System.Web.UI;
 
 namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 {
-
     public class SessionProductPropertieModel
     {
         internal static readonly string SESSION_USERID = "MTProductPropertieModel";
@@ -57,13 +56,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             set { HttpContext.Current.Session[SESSION_USERID] = value; }
         }
 
-
         public static bool HasSession()
         {
             if (HttpContext.Current.Session[SESSION_USERID] != null)
                 return true;
             return false;
-
         }
 
         public static void Flush()
@@ -90,8 +87,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         private readonly ICurrencyService _currencyService;
         private readonly ICertificateTypeService _certificateTypeService;
         private readonly IMemberService _memberService;
-
-
 
         public AdvertController(IProductService productService,
             IProductCommentService productCommentService,
@@ -134,13 +129,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this._productCommentService.CachingGetOrSetOperationEnabled = false;
             this._currencyService.CachingGetOrSetOperationEnabled = false;
             this._certificateTypeService.CachingGetOrSetOperationEnabled = false;
-
         }
 
-        int TotalRecord = 0;
-        byte pageDimension = 20;
-        string activeClass = "active";
-        string activeStyleRed = "color: Red";
+        private int TotalRecord = 0;
+        private byte pageDimension = 20;
+        private string activeClass = "active";
+        private string activeStyleRed = "color: Red";
 
         public ActionResult IndexNew(string currentPage, string categoryId)
         {
@@ -169,12 +163,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 {
                     var products1 = products.Where(x => x.Sort != null && x.Sort != 0).OrderBy(x => x.Sort).ToList();
                     products = products1.Concat(products.Where(x => x.Sort == null || x.Sort == 0).OrderByDescending(x => x.ViewCount)).ToList();
-
                 }
                 else if (orderType == 2)
                     products = products.OrderByDescending(x => x.ViewCount).ToList();
-
-
 
                 var model = new MTProductViewModel();
                 model.OrderType = orderType;
@@ -209,9 +200,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         if (productActive == 1) productAc = true;
                         products = products.Where(x => x.ProductActive == productAc).ToList();
                     }
-
                 }
-
 
                 int takeFrom = page * pageDimension - pageDimension;
                 int totalCount = products.Count;
@@ -223,7 +212,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 searchModel.PageDimension = pageDimension;
                 searchModel.CurrentPage = page;
 
-
                 model.MTProducts = searchModel;
                 model.LeftMenuModel = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.MyAds, (byte)LeftMenuConstants.MyAd.AllAd);
 
@@ -233,8 +221,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 return RedirectToAction("Home");
             }
-
         }
+
         public List<MTProductItem> PrepapareProductsModel(List<global::MakinaTurkiye.Entities.Tables.Catalog.Product> products, bool showDopingForm)
         {
             List<MTProductItem> productsModel = new List<MTProductItem>();
@@ -280,13 +268,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
 
             return productsModel;
-
         }
 
         public void PrepareAdvertTopViewModel(MTProductViewModel model, int displayType, int productActiveType, int productActive, IList<global::MakinaTurkiye.Entities.Tables.Catalog.Product> products)
         {
-
-
             MTAdvertFilterItemModel itemTumu = new MTAdvertFilterItemModel();
             itemTumu.FilterUrl = "/Account/Advert/Index?ProductActiveType=" + (byte)ProductActiveType.Tumu + "&DisplayType=" + displayType;
             itemTumu.FilterName = "Tüm İlanlar(" + products.Count + ")";
@@ -301,9 +286,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             if (productActive == (byte)ProductActive.Aktif)
             {
                 itemAktif.CssClass = activeClass;
-
             }
-
 
             model.MTAdvertsTopViewModel.MTAdvertFilterItemModel.Add(itemAktif);
 
@@ -323,7 +306,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     itemConfirmWaiting.CssClass = activeClass;
 
             model.MTAdvertsTopViewModel.MTAdvertFilterItemModel.Add(itemConfirmWaiting);
-
 
             MTAdvertFilterItemModel itemConfirmed = new MTAdvertFilterItemModel();
             itemConfirmed.FilterUrl = "/Account/Advert/Index?ProductActiveType=" + (byte)ProductActiveType.Onaylandi + "&DisplayType=" + displayType;
@@ -349,7 +331,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             model.MTAdvertsTopViewModel.MTAdvertFilterItemModel.Add(itemDeleted);
 
-
             MTAdvertFilterItemModel itemGarbage = new MTAdvertFilterItemModel();
             itemGarbage.FilterUrl = "/Account/Advert/Index?ProductActiveType=" + (byte)ProductActiveType.CopKutusunda + "&DisplayType=" + displayType;
             itemGarbage.FilterName = "Çöp İlanlar(" + products.Where(x => x.ProductActiveType == (byte)ProductActiveType.CopKutusunda).Count() + ")";
@@ -358,7 +339,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             model.MTAdvertsTopViewModel.TotalProductCount = products.Count;
             model.MTAdvertsTopViewModel.MTAdvertFilterItemModel.Add(itemGarbage);
-
 
             var orderType = Request.QueryString["OrderType"];
             byte ordert = 1;
@@ -397,7 +377,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             var categoryIds = products.Select(x => x.CategoryId.Value).Distinct().ToList();
 
-
             var categories = _categoryService.GetCategoriesByCategoryIds(categoryIds);
             foreach (var item in categories)
             {
@@ -420,7 +399,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         [HttpGet]
         public string ProductSearchGet(string productName, string productActiveType, string productActivee)
         {
-
             ICollection<ProductModel> data = new ProductModel[] { };
             var dataProduct = new Data.Product();
             var currentPage = 1;
@@ -432,10 +410,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 else
                 {
-
                     if (Request.UrlReferrer != null)
                     {
-
                         currentPage = Int32.Parse(HttpUtility.ParseQueryString(Request.UrlReferrer.Query)["currentPage"]);
                     }
                 }
@@ -443,7 +419,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             catch (Exception)
             {
                 currentPage = 1;
-
             }
             var getProduct = new SearchModel<ProductModel>
             {
@@ -460,21 +435,27 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     case ProductActiveType.Tumu:
                         ViewData["AdvertMenuTumu"] = activeClass;
                         break;
+
                     case ProductActiveType.Inceleniyor:
                         ViewData["AdvertMenuInceleniyor"] = activeClass;
                         break;
+
                     case ProductActiveType.Onaylanmadi:
                         ViewData["AdvertMenuOnaylanmadi"] = activeClass;
                         break;
+
                     case ProductActiveType.Onaylandi:
                         ViewData["AdvertMenuOnaylandi"] = activeClass;
                         break;
+
                     case ProductActiveType.Silindi:
                         ViewData["AdvertMenuActiveSilindi"] = activeClass;
                         break;
+
                     case ProductActiveType.CopKutusunda:
                         ViewData["AdvertMenuActiveCopKutusunda"] = activeClass;
                         break;
+
                     default:
                         break;
                 }
@@ -489,9 +470,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     case ProductActive.Pasif:
                         ViewData["AdvertMenuPassive"] = activeClass;
                         break;
+
                     case ProductActive.Aktif:
                         ViewData["AdvertMenuActive"] = activeClass;
                         break;
+
                     default:
                         break;
                 }
@@ -516,6 +499,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 return ret;
             }
         }
+
         public ActionResult Edit(int id, string result)
         {
             int mainPartyId = AuthenticationUser.Membership.MainPartyId;
@@ -613,7 +597,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     }
                 }
 
-
                 if (model.ModelId.HasValue)
                 {
                     var modelModel = _categoryService.GetCategoryByCategoryId(model.ModelId.Value);
@@ -646,7 +629,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     model.Fob = Convert.ToBoolean(product.Fob);
                 else product.Fob = false;
 
-
                 string[] categoryIds = new string[0];
                 if (!string.IsNullOrEmpty(product.CategoryTreeName))
                 {
@@ -667,11 +649,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         {
                             var propertieAttrs = _categoryPropertieService.GetPropertiesAttrByPropertieId(categoryPropertieItem.PropertieId);
 
-
                             if (productPropertieValue == null || productPropertieValue.Value == "0")
                             {
                                 propertieItem.Attrs.Add(new SelectListItem { Text = "< Seçiniz >", Value = "", Selected = true });
-
                             }
                             foreach (var propertieAttrItem in propertieAttrs.OrderBy(x => x.DisplayOrder).ThenBy(x => x.AttrValue))
                             {
@@ -680,7 +660,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                 {
                                     if (int.Parse(productPropertieValue.Value) == propertieAttrItem.PropertieAttrId)
                                         itemSelect.Selected = true;
-
                                 }
 
                                 propertieItem.Attrs.Add(itemSelect);
@@ -692,7 +671,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     }
                     if (anyCategoryPropertie)
                         break;
-
                 }
                 SessionProductPropertieModel.MTProductPropertieModel = propertieModel;
 
@@ -736,7 +714,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         {
                             Text = item.CertificateName,
                             Value = certificateType.CertificateTypeId.ToString(),
-
                         };
                         if (certificateTypeProducts.FirstOrDefault(x => x.CertificateTypeId == certificateType.CertificateTypeId) != null)
                             listItem.Selected = true;
@@ -750,18 +727,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             return RedirectToAction("Index");
         }
+
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Edit(int id, ProductModel model, FormCollection coll, string ProductPrice1, string PActiveType, string productPriceType, List<HttpPostedFileBase> NewProductCatolog, string[] certificateTypes)
         {
             #region ImageUpload
+
             bool hasFile = false;
             bool pictureIsOK = false;
             foreach (string inputTagName in Request.Files)
             {
                 if (inputTagName == "NewProductPicture" && Request.Files[inputTagName].ContentLength > 0 && pictureIsOK == false)
                 {
-
                     List<string> thumbSizes = new List<string>();
                     thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
 
@@ -777,13 +755,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             PicturePath = item.PicturePath,
                             ProductId = id,
                             PictureOrder = pictureOrder
-
                         };
                         _pictureService.InsertPicture(modelpicture);
                         ++pictureOrder;
                     }
                     pictureIsOK = true;
-
                 }
                 else if (inputTagName == "NewProductVideo" && Request.Files[inputTagName].ContentLength > 0)
                 {
@@ -793,10 +769,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     VideoModelHelper vModel = FileHelpers.fffmpegVideoConvert(file, AppSettings.TempFolder, AppSettings.VideoThumbnailFolder, AppSettings.NewVideosFolder, AppSettings.ffmpegFolder, 490, 328);
                     DateTime timesplit;
 
-
                     if (DateTime.TryParse(vModel.Duration, out timesplit))
                     {
-
                     }
                     else
                     {
@@ -819,7 +793,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     _videoService.InsertVideo(video);
                 }
             }
-            #endregion
+
+            #endregion ImageUpload
 
             if (hasFile)
             {
@@ -841,12 +816,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         case ProductPublicationDateType.Gun:
                             dateProductEndDate = dateProductEndDate.AddDays(model.ProductPublicationDate);
                             break;
+
                         case ProductPublicationDateType.Ay:
                             dateProductEndDate = dateProductEndDate.AddHours(model.ProductPublicationDate);
                             break;
+
                         case ProductPublicationDateType.Yil:
                             dateProductEndDate = dateProductEndDate.AddYears(model.ProductPublicationDate);
                             break;
+
                         default:
                             break;
                     }
@@ -910,12 +888,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         decimal price = Convert.ToDecimal(productPrice, cultInfo.NumberFormat);
                         product.ProductPrice = price;
 
-
                         product.DiscountType = Convert.ToByte(model.DiscountType);
                         if (model.DiscountType != 0)
                         {
-
-
                             if (!string.IsNullOrEmpty(coll["DiscountAmount"]))
                             {
                                 product.DiscountAmount = Convert.ToDecimal(model.DiscountAmount);
@@ -992,7 +967,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         product.ProductPriceWithDiscount = 0;
                         product.DiscountType = 0;
                         product.DiscountAmount = 0;
-
                     }
 
                     product.ProductLastUpdate = DateTime.Now;
@@ -1058,7 +1032,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     product.BriefDetail = model.BriefDetail; //BriefDetail;
                     product.ProductActiveType = (byte)ProductActiveType.Inceleniyor;
 
-
                     //product.ProductName = model.ProductName;
                     string productName = LimitText(model.ProductName, 100);
                     var productNumbers = _productService.GetProductsByProductName(productName);
@@ -1099,14 +1072,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                     _categoryPropertieService.InsertProductProertieValue(productPropertieVal);
                                 }
                             }
-
-
                         }
                     }
 
                     if (Convert.ToByte(Session["ProductActiveType"]) == (byte)ProductActiveType.Onaylandi)
                     {
-
                         if (Convert.ToBoolean(Session["ProductActive"]))
                         {
                             if (model.ProductActive == false)
@@ -1139,7 +1109,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                 _productCatologService.InsertProductCatolog(productCatolog);
                             }
                         }
-
                     }
 
                     if (certificateTypes != null)
@@ -1153,9 +1122,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                         for (int i = 0; i < certificateTypes.Length; i++)
                         {
-
                             var storeCertificate = _certificateTypeService.GetCertificateTypeProductsByCerticateTypeId(Convert.ToInt32(certificateTypes[i])).FirstOrDefault(x => x.StoreCertificateId != null);
-
 
                             var certificateTypeProduct = new CertificateTypeProduct
                             {
@@ -1166,7 +1133,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             _certificateTypeService.InsertCertificateTypeProduct(certificateTypeProduct);
                         }
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -1187,7 +1153,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             FileHelpers.Delete(AppSettings.StoreCatologFolder + "/" + productCatolog.ProductId + "/" + productCatolog.FileName);
             _productCatologService.DeleteProductCatolog(productCatolog);
             return Json(true, JsonRequestBehavior.AllowGet);
-
         }
 
         [HttpPost]
@@ -1201,7 +1166,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 List<string> thumbSizes = new List<string>();
                 thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
 
-
                 ProductImageHelpers productImageHelpers = new ProductImageHelpers(AppSettings.ProductImageFolder, thumbSizes);
                 List<PictureModel> pictureModel = productImageHelpers.SaveProductImageEdit(Request, id, ProductName);
 
@@ -1214,7 +1178,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         PicturePath = item.PicturePath,
                         ProductId = id,
                         PictureOrder = pictureOrder
-
                     };
                     _pictureService.InsertPicture(modelpicture);
                     ++pictureOrder;
@@ -1224,9 +1187,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var pictureModel1 = dataPicture.GetItemsByProductId(id).AsCollection<PictureModel>();
 
             return PartialView("/Areas/Account/Views/Advert/EditProductPicture.cshtml", pictureModel1);
-
         }
-
 
         public void ProductCountCalc(Product curProduct, bool add)
         {
@@ -1234,22 +1195,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             if (curProduct.ModelId.HasValue)
             {
                 topCategories = _categoryService.GetSPTopCategories(curProduct.ModelId.Value);
-
             }
             else if (curProduct.SeriesId.HasValue)
             {
                 topCategories = _categoryService.GetSPTopCategories(curProduct.SeriesId.Value);
-
             }
             else if (curProduct.BrandId.HasValue)
             {
                 topCategories = _categoryService.GetSPTopCategories(curProduct.BrandId.Value);
-
             }
             else if (curProduct.CategoryId.HasValue)
             {
                 topCategories = _categoryService.GetSPTopCategories(curProduct.CategoryId.Value);
-
             }
 
             if (topCategories.Count > 0)
@@ -1284,7 +1241,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                                 else if (curProduct.ProductStatu == "201")
                                     category.ProductCountNew = category.ProductCountNew - 1;
                             }
-
                         }
 
                         _categoryService.UpdateCategory(category);
@@ -1312,6 +1268,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             return false;
         }
+
         [HttpPost]
         public ActionResult AdvertPagingfor(int page, byte displayType, byte advertListType, byte ProductActiveType)
         {
@@ -1335,18 +1292,22 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 case DisplayType.Window:
                     userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
+
                 case DisplayType.List:
                     userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
+
                 case DisplayType.Text:
                     userControlName = "/Areas/Account/Views/Statistic/_ProductLists.cshtml";
                     break;
+
                 default:
                     break;
             }
 
             return View(userControlName, getProduct);
         }
+
         [HttpPost]
         public ActionResult AdvertPaging(int page, byte displayType, byte advertListType, byte productActiveType, int productActive, string productNo, string categoryName, string productName, string brandName, byte orderType = 1)
         {
@@ -1372,10 +1333,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             else
             {
-
                 var products1 = products.Where(x => x.Sort != null && x.Sort != 0).OrderBy(x => x.Sort).ToList();
                 products = products1.Concat(products.Where(x => x.Sort == null || x.Sort == 0).OrderByDescending(x => x.ViewCount)).ToList();
-
             }
 
             if (!string.IsNullOrEmpty(productName))
@@ -1406,7 +1365,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     if (productActive == 1) productAc = true;
                     products = products.Where(x => x.ProductActive == productAc).ToList();
                 }
-
             }
 
             int takeFrom = page * pageDimension - pageDimension;
@@ -1458,21 +1416,24 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 case DisplayType.Window:
                     userControlName = "/Areas/Account/Views/Advert/AdvertWindow.cshtml";
                     break;
+
                 case DisplayType.List:
                     userControlName = "/Areas/Account/Views/Advert/_AdvertListWindow.cshtml";
                     break;
+
                 case DisplayType.Text:
                     userControlName = "/Areas/Account/Views/Advert/AdvertText.cshtml";
                     break;
+
                 case DisplayType.Table:
                     userControlName = "/Areas/Account/Views/Advert/_AdvertListTable.cshtml";
                     break;
+
                 default:
                     break;
             }
 
             return View(userControlName, getProduct);
-
         }
 
         public ActionResult Advert()
@@ -1500,7 +1461,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 if (store.ProductCount == null)
                 {
-
                     var packetFeature = _packetService.GetPacketFeatureByPacketIdAndPacketFeatureTypeId(store.PacketId, 3);
 
                     if (packetFeature.FeatureContent != null)
@@ -1623,6 +1583,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             return View("/Areas/Account/Views/Advert/PictureList.cshtml", PictureList);
         }
+
         /*
         [HttpDelete]
         public ActionResult DeleteImage(int index, int productID, string picturePath, bool horizontal)
@@ -1677,7 +1638,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         [HttpPost]
         public ActionResult mainImageEdit(string idArray, int productID, string picturePath)
         {
-
             var dataPicture = new Data.Picture();
             var pictureModel = dataPicture.GetItemsByProductId(productID).AsCollection<PictureModel>();
             List<PictureModel> newpictures = new List<PictureModel>();
@@ -1738,7 +1698,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             FileHelpers.Delete(AppSettings.ProductImageThumb75x75Folder + picture.PicturePath);
             FileHelpers.Delete(AppSettings.ProductImageThumb800x600Folder + picture.PicturePath);
 
-
             Session["PictureItems"] = pictures;
 
             if (horizontal)
@@ -1754,7 +1713,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             var curPicture = new Classes.Picture();
 
-
             curPicture.Delete(PictureId);
 
             List<string> thumbSizes = new List<string>();
@@ -1762,7 +1720,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             FileHelpers.Delete(AppSettings.ProductImageFolder + ProductId + "/" + PictureName);
             foreach (string thumb in thumbSizes)
             {
-
                 string imagetype = PictureName.Substring(PictureName.LastIndexOf("."), PictureName.Length - PictureName.LastIndexOf("."));//örnek .jpeg
                 string imagename = PictureName.Remove(PictureName.Length - PictureName.Substring(PictureName.LastIndexOf("."), PictureName.Length - PictureName.LastIndexOf(".")).Length);
 
@@ -1772,26 +1729,20 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var dataPicture = new Data.Picture();
             var pictureModel = dataPicture.GetItemsByProductId(Convert.ToInt32(ProductId)).AsCollection<PictureModel>();
 
-
             return View("/Areas/Account/Views/Advert/EditProductPicture.cshtml", pictureModel);
         }
-
 
         [HttpPost]
         public ActionResult DeletePictureFromList(int ProductId, int PictureId, string PictureName)
         {
-
-
             var curPicture = new Classes.Picture();
             curPicture.Delete(PictureId);
-
 
             List<string> thumbSizes = new List<string>();
             thumbSizes.AddRange(AppSettings.ProductThumbSizes.Replace("*", "").Split(';'));
             FileHelpers.Delete(AppSettings.ProductImageFolder + ProductId + "/" + PictureName);
             foreach (string thumb in thumbSizes)
             {
-
                 string imagetype = PictureName.Substring(PictureName.LastIndexOf("."), PictureName.Length - PictureName.LastIndexOf("."));//örnek .jpeg
                 string imagename = PictureName.Remove(PictureName.Length - PictureName.Substring(PictureName.LastIndexOf("."), PictureName.Length - PictureName.LastIndexOf(".")).Length);
 
@@ -1800,7 +1751,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             var dataPicture = new Data.Picture();
             var pictureModel = dataPicture.GetItemsByProductId(ProductId).AsCollection<PictureModel>();
-
 
             return View("/Areas/Account/Views/Advert/PictureListNew.cshtml", pictureModel);
         }
@@ -1881,7 +1831,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             string[] arr = idArray.Split(',');
             foreach (var id in arr)
             {
-
                 var picture = _pictureService.GetPictureByPictureId(int.Parse(id));
                 if (picture != null)
                 {
@@ -1898,7 +1847,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         {
             Product product = (Product)Session["CurProduct"];
 
-
             List<string> thumbSizes = new List<string>();
             thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
 
@@ -1907,13 +1855,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             this.PictureList.AddRange(pictureModel);
 
             #region Old Code
+
             //for (int i = 0; i < request.files.count; i++)
             //{
             //    httppostedfilebase file = request.files[i];
 
             //    if (file.contentlength > 0)
             //    {
-
             //        hasfile = true;
             //        var thumns = new dictionary<string, string>();
 
@@ -1929,7 +1877,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             //        picturelist.add(picturemodel);
             //    }
             //}
-            #endregion
+
+            #endregion Old Code
 
             if (!PacketAuthenticationModel.IsAccess(PacketPage.UrunResimSayisi, PictureList.Count + 1))
             {
@@ -1947,7 +1896,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return RedirectToAction("Video", "Advert");
         }
 
-
         public ActionResult ProductCatolog()
         {
             ViewData["AdvertMenuActiveAdd"] = activeStyleRed;
@@ -1957,6 +1905,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.MyAds, (byte)LeftMenuConstants.MyAd.AddAd);
             return View(model);
         }
+
         [HttpPost]
         public ActionResult ProductCatolog(AdvertViewModel model)
         {
@@ -1975,23 +1924,20 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             return RedirectToAction("AdvertEnd", "Advert");
         }
+
         [HttpPost]
         public ActionResult SavePicture(AdvertViewModel model, HttpRequestBase[] files)
         {
             Product product = (Product)Session["CurProduct"];
 
-
-
             List<string> thumbSizes = new List<string>();
             thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
-
 
             for (int i = 0; i < files.Length; i++)
             {
                 ProductImageHelpers productImageHelpers = new ProductImageHelpers(AppSettings.ProductImageFolder, thumbSizes);
                 List<PictureModel> pictureModel = productImageHelpers.SaveProductImage(files[i], product.ProductId, product.ProductName);
                 this.PictureList.AddRange(pictureModel);
-
 
                 if (!PacketAuthenticationModel.IsAccess(PacketPage.UrunResimSayisi, PictureList.Count + 1))
                 {
@@ -2024,7 +1970,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         [HttpPost]
         public ActionResult TreeCategoryList(int productGroupId)
         {
-
             AdvertViewModel model = new AdvertViewModel();
             var categoryList = _categoryService.GetCategoriesByCategoryParentId(productGroupId);
 
@@ -2155,7 +2100,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 model.OtherBrand = null;
             if (!string.IsNullOrEmpty(model.OtherModel) && model.OtherModel.Trim() == "") model.OtherModel = null;
 
-
             model.CategorizationSessionModel.OtherBrand = model.OtherBrand;
             model.CategorizationSessionModel.OtherModel = model.OtherModel;
 
@@ -2163,7 +2107,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             if (!string.IsNullOrWhiteSpace(model.CategorizationSessionModel.OtherBrand))
             {
                 treeListForCategoryName.Add(CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.OtherBrand.ToLower()));
-
 
                 model.CategorizationSessionModel.CategoryPath = String.Join(" - ", treeListForCategoryName.ToList());
 
@@ -2181,7 +2124,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     MainCategoryType = (byte)MainCategoryType.Ana_Kategori,
                     CategoryContentTitle = model.CategorizationSessionModel.OtherBrand,
                     CategoryPath = model.CategorizationSessionModel.CategoryPath,
-
                 };
 
                 _categoryService.InsertCategory(category);
@@ -2217,17 +2159,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             //}
             HttpPostedFileBase file = Request.Files[0];
 
-
             if (file.ContentLength > 0)
             {
-
                 VideoModelHelper vModel = FileHelpers.fffmpegVideoConvert(file, AppSettings.TempFolder, AppSettings.VideoThumbnailFolder, AppSettings.NewVideosFolder, AppSettings.ffmpegFolder, 490, 328);
                 DateTime timesplit;
 
-
                 if (DateTime.TryParse(vModel.Duration, out timesplit))
                 {
-
                 }
                 else
                 {
@@ -2265,7 +2203,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 return View(model);
             }
 
-
             return RedirectToAction("ProductCatolog", "Advert");
         }
 
@@ -2280,7 +2217,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             model.ProductId = id;
             foreach (var item in videos)
             {
-
                 model.Videos.Add(new VideoModel
                 {
                     Active = item.Active.HasValue ? item.Active.Value : false,
@@ -2295,15 +2231,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     VideoMinute = item.VideoMinute,
                     VideoSecond = item.VideoSecond,
                     VideoUrl = UrlBuilder.GetVideoUrl(item.VideoId, product.ProductName),
-
-
-
                 });
             }
 
             model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.MyAds, (byte)LeftMenuConstants.MyAd.AddAd);
             return View(model);
         }
+
         [HttpPost]
         public ActionResult ProductVideos(MTProductUpdateVideoModel model)
         {
@@ -2318,15 +2252,12 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 {
                     HttpPostedFileBase file = Request.Files[0];
 
-
                     if (file.ContentLength > 0)
                     {
-
                         VideoModelHelper vModel = FileHelpers.fffmpegVideoConvert(file, AppSettings.TempFolder, AppSettings.VideoThumbnailFolder, AppSettings.NewVideosFolder, AppSettings.ffmpegFolder, 490, 328);
                         DateTime timesplit;
                         if (DateTime.TryParse(vModel.Duration, out timesplit))
                         {
-
                         }
                         else
                         {
@@ -2343,8 +2274,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                             VideoMinute = (byte?)timesplit.Minute,
                             VideoSecond = (byte?)timesplit.Second,
                             SingularViewCount = 0,
-
-
                         };
 
                         _videoService.InsertVideo(curVideo);
@@ -2353,16 +2282,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 catch (Exception)
                 {
-
                     TempData["ErrorMessage"] = "Bir hata oluştu lütfen tekrar deneyiniz";
                 }
-
             }
 
-
             return RedirectToAction("ProductVideos", new { id = model.ProductId });
-
         }
+
         [HttpPost]
         public JsonResult DeleteProductVideo(int videoId)
         {
@@ -2373,6 +2299,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             _videoService.DeleteVideo(video);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
+
         //category tree güncelleme
         //public ActionResult CategoryUpdate()
         //{
@@ -2424,14 +2351,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         //        }
         //        item.CategoryTreeName = treeName;
 
-
-
         //    }
         //    entities.SaveChanges();
 
         //    return View();
         //}
-
 
         public ActionResult Model()
         {
@@ -2479,8 +2403,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             int mainPartyId = AuthenticationUser.Membership.MainPartyId;
 
-
-
             if (AuthenticationUser.Membership.MemberType == (byte)MemberType.Enterprise)
             {
                 mainPartyId = _memberStoreService.GetMemberStoreByMemberMainPartyId(mainPartyId).StoreMainPartyId.Value;
@@ -2500,7 +2422,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 if (memberStore != null)
                 {
                     memberAddress = _addressService.GetFisrtAddressByMainPartyId(Convert.ToInt32(memberStore.StoreMainPartyId));
-
                 }
             }
 
@@ -2514,8 +2435,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var curCountry = new Classes.Country();
             //productModel.CountryItems = new SelectList(curCountry.GetDataTable().DefaultView, "CountryId", "CountryName", 0);
             productModel.CountryItems = new SelectList(_addressService.GetAllCountries(), "CountryId", "CountryName", 0);
-
-
 
             if (memberAddress != null)
             {
@@ -2554,7 +2473,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 productModel.LocalityItems = new SelectList(localityItems, "LocalityId", "LocalityName");
 
                 productModel.CountryId = memberAddress.CountryId.Value;
-
             }
             else
             {
@@ -2600,7 +2518,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 if (anyCategoryPropertie)
                     break;
-
             }
 
             productModel.SiparisList = _constantService.GetConstantByConstantType(ConstantTypeEnum.SiparisDurumu);
@@ -2625,7 +2542,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var certificateTypes = _certificateTypeService.GetCertificateTypes();
             //  var storeCertificates = _storeService.GetStoreCertificatesByMainPartyId(mainPartyId);
 
-
             var storeCertificateType = certificateTypes.Where(x => x.InsertedStoreMainPartyId == mainPartyId);
             foreach (var certificateType in storeCertificateType)
             {
@@ -2639,7 +2555,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     });
                 }
             }
-
 
             SessionProductPropertieModel.MTProductPropertieModel = propertieModel;
             return View(productModel);
@@ -2656,12 +2571,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 case ProductPublicationDateType.Gun:
                     dateProductEndDate = dateProductEndDate.AddDays(modelProduct.ProductPublicationDate);
                     break;
+
                 case ProductPublicationDateType.Ay:
                     dateProductEndDate = dateProductEndDate.AddHours(modelProduct.ProductPublicationDate);
                     break;
+
                 case ProductPublicationDateType.Yil:
                     dateProductEndDate = dateProductEndDate.AddYears(modelProduct.ProductPublicationDate);
                     break;
+
                 default:
                     break;
             }
@@ -2709,7 +2627,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 ProductSellUrl = modelProduct.ProductSellUrl,
                 Keywords = PrepareKeyword(productName),
                 MinumumAmount = modelProduct.MinumumAmount.HasValue ? modelProduct.MinumumAmount.Value : (byte)1
-
             };
             string productPrice = ProductPrice1;
             System.Globalization.CultureInfo culInfo = new System.Globalization.CultureInfo("tr-TR");
@@ -2724,7 +2641,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                 if (productPrice.Trim() != "")
                 {
-
                     if (productPrice.IndexOf('.') > 0)
                     {
                         productPrice = productPrice.Replace(".", "");
@@ -2732,11 +2648,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 else productPrice = "0";
 
-
                 curProduct.DiscountType = Convert.ToByte(modelProduct.DiscountType);
                 if (modelProduct.DiscountType != 0)
                 {
-
                     if (!string.IsNullOrEmpty(coll["DiscountAmount"]))
                     {
                         curProduct.DiscountAmount = Convert.ToDecimal(modelProduct.DiscountAmount);
@@ -2751,7 +2665,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         }
                         curProduct.ProductPriceWithDiscount = Convert.ToDecimal(totalPrice, culInfo.NumberFormat);
                     }
-
                 }
                 curProduct.ProductPrice = Convert.ToDecimal(productPrice, culInfo.NumberFormat);
             }
@@ -2763,7 +2676,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     curProduct.Kdv = true;
                 else if (coll["pricePropertie"].ToString() == "fob")
                     curProduct.Fob = true;
-
 
                 string productPriceBegin = ProductPriceBegin.ToString();
                 if (productPriceBegin.Trim() != "")
@@ -2790,7 +2702,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 curProduct.ProductPriceBegin = 0;
                 curProduct.ProductPriceLast = 0;
                 curProduct.ProductPrice = 0;
-
             }
 
             if (!string.IsNullOrWhiteSpace(AdvertVModel.CategorizationSessionModel.OtherBrand))
@@ -2841,7 +2752,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 BriefDetail = coll["ProductBriefDetail"].ToString();
             }
             curProduct.BriefDetail = BriefDetail;
-
 
             if (modelProduct.CountryId > 0)
                 curProduct.CountryId = modelProduct.CountryId;
@@ -2894,7 +2804,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             productNo = productNo + producId;
 
-
             curProduct.ProductNo = productNo;
             _productService.UpdateProduct(curProduct);
 
@@ -2918,7 +2827,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         _categoryPropertieService.InsertProductProertieValue(productPropertie);
                     }
                 }
-
             }
             if (certificateTypes != null)
             {
@@ -2928,13 +2836,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     {
                         CertificateTypeId = Convert.ToInt32(certificateTypes[i]),
                         ProductId = curProduct.ProductId,
-
                     };
                     _certificateTypeService.InsertCertificateTypeProduct(certificateTypeProduct);
                 }
             }
             return RedirectToAction("Picture", "Advert");
         }
+
         public string PrepareKeyword(string productName)
         {
             string keyword = "";
@@ -2963,8 +2871,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
             var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
             return store.IsAllowProductSellUrl.HasValue ? store.IsAllowProductSellUrl.Value : false;
-
         }
+
         public ActionResult AdvertEnd()
         {
             ViewData["AdvertMenuActiveAdd"] = activeStyleRed;
@@ -3002,6 +2910,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var curProduct = (Product)Session["CurProduct"];
 
             #region Picture & Video Save
+
             var curPicture = new Classes.Picture();
             int counter = 1;
             foreach (PictureModel item in PictureList)
@@ -3040,7 +2949,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 _videoService.InsertVideo(curVideo);
             }
 
-            #endregion
+            #endregion Picture & Video Save
 
             var product = _productService.GetProductByProductId(curProduct.ProductId);
             if (product != null)
@@ -3052,7 +2961,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         product.HasVideo = true;
                         _productService.UpdateProduct(product);
                     }
-
                 }
                 else
                 {
@@ -3061,7 +2969,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         product.HasVideo = false;
                         _productService.UpdateProduct(product);
                     }
-
                 }
             }
             return RedirectToAction("AdvertSuccessfull", "Advert");
@@ -3123,7 +3030,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return Regex.IsMatch(text.ToString(), "^\\d+$");
         }
 
-
         [HttpPost]
         public JsonResult CategoryProductGroup(int id)
         {
@@ -3145,7 +3051,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 {
                     Text = item.PacketName.Split(' ')[0],
                     Value = item.PacketId.ToString()
-
                 });
             }
 
@@ -3154,6 +3059,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             model.ProductDopingPricePerMonth = packets.FirstOrDefault().PacketPrice;
             return PartialView("_ProductInfoDoping", model);
         }
+
         [HttpGet]
         public string GetDopingPrice(int PacketId)
         {
@@ -3162,14 +3068,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             //float newPrice = perDay * DopingDay;
             return packet.PacketPrice.ToString("C2");
         }
+
         [HttpPost]
         public string SellProductDoping(int productId, int dopingDay, int packetId)
         {
-
             //string Url=
             //return View();
             return "";
         }
+
         [HttpPost]
         public JsonResult ProductActiveUpdate(int ProductId, bool Active)
         {
@@ -3177,7 +3084,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             if (Active)
             {
                 product.ProductActiveType = (byte)ProductActiveType.Inceleniyor;
-
             }
             if (product.ProductActive == true && Active == false)
             {
@@ -3200,7 +3106,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             if (Active)
             {
                 product.ProductActiveType = (byte)ProductActiveType.Onaylandi;
-
             }
             if (product.ProductActive == false && product.ProductActiveType == (byte)ProductActiveType.Onaylandi)
             {
@@ -3228,10 +3133,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             return Json(true);
         }
+
         [HttpPost]
         public JsonResult ProductDelete(int ProductId)
         {
-
             //ilan silindiği zaman kullanıcıya mail gidecek.
             var product = _productService.GetProductByProductId(ProductId);
             if (product.ProductActiveType != (byte)ProductActiveType.Silindi)
@@ -3243,8 +3148,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             _productService.UpdateProduct(product);
 
             return Json(true);
-
         }
+
         public ActionResult NotLimitedAccess()
         {
             var model = new AdvertViewModel();
@@ -3258,10 +3163,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var model = new AdvertViewModel();
             model.LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.MyAds, (byte)LeftMenuConstants.MyAd.AddAd);
 
-
             return View(model);
         }
-
 
         [HttpPost]
         public JsonResult ProductSortUpdate(int ProductId, int SortNumber)
@@ -3295,14 +3198,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return Json(product.Sort.ToString());
         }
 
-
-
         [HttpPost]
         public ActionResult ProductSearchGet(int ProductId)
         {
             var product = _productService.GetProductByProductId(ProductId);
             return Json(product.ProductPrice.Value.ToString("N2"));
         }
+
         [HttpPost]
         public ActionResult PriceUpdateAdvertList(int id, string price)
         {
@@ -3316,18 +3218,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             }
             catch (Exception)
             {
-
                 return Json(false, JsonRequestBehavior.AllowGet);
             }
-
         }
+
         [HttpPost]
         public JsonResult AdvertSearch(string name)
         {
             var storeforProduct = _productService.GetProductsByMainPartyId(AuthenticationUser.Membership.MainPartyId);
             var productNames = from p in storeforProduct where p.ProductName.ToLower().Contains(name.Trim().ToLower()) select (p.ProductName);
             return Json(productNames.ToList().Take(5), JsonRequestBehavior.AllowGet);
-
         }
 
         [HttpPost]
@@ -3339,9 +3239,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
             return Json(false, JsonRequestBehavior.AllowGet); ;
-
         }
-
 
         public static string RenderViewToStringCsHtml(ControllerContext context, string viewPath, object model = null, bool partial = false)
         {
@@ -3371,7 +3269,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return result;
         }
 
-
         public static string RenderPartialToString(string controlName, object viewData)
         {
             ViewPage viewPage = new ViewPage() { ViewContext = new ViewContext() };
@@ -3391,10 +3288,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             return sb.ToString();
         }
 
-
         public ActionResult Comments()
         {
-
             var model = new MTCommentsViewModel();
             int page = 1;
             int pageDimension = 20;
@@ -3436,6 +3331,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         public PartialViewResult commentpaging(int page)
         {
@@ -3493,13 +3389,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 item.ProductLastUpdate = DateTime.Now;
                 _productService.UpdateProduct(item);
-
             }
             TempData["Message"] = "Ürünler Güncellenmiştir";
             return Redirect("/Account/Advert/Index?ProductActive=1&DisplayType=2");
         }
-
     }
-
-
 }

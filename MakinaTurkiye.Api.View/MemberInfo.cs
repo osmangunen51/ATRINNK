@@ -17,7 +17,7 @@ namespace MakinaTurkiye.Api.View
         public int Gender { get; set; }
         public DateTime? BirthDate { get; set; }
         public List<Address> Address { get; set; }
-        public byte? StoreState{ get; set; }
+        public byte? StoreState { get; set; }
         public int StoreMainPartyId { get; set; }
         public bool? PhoneActive { get; set; }
         public string Phone { get; set; }

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MakinaTurkiye.Utilities;
+using System;
 using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
-using System.Web;
 
 namespace MakinaTurkiye.Api.ExtentionsMethod
 {
@@ -22,6 +20,8 @@ namespace MakinaTurkiye.Api.ExtentionsMethod
         public byte[] RawData { get; }
 
         public Image Image => Image.FromStream(new MemoryStream(RawData));
+
+        public MemoryPostedFile File(string FName)=> new MemoryPostedFile(RawData, FName);
 
         public static DataImage TryParse(string dataUri)
         {
@@ -52,16 +52,23 @@ namespace MakinaTurkiye.Api.ExtentionsMethod
 
     public static class StringExtentions
     {
-
         public static Image ToImage(this string value)
         {
             DataImage dtimage = DataImage.TryParse(value);
             return dtimage.Image;
         }
 
+        public static MemoryPostedFile ToFile(this string value,string filename="")
+        {
+            string Uzanti= value.GetUzanti();
+            filename = $"{filename}.{Uzanti}";
+            DataImage dtimage = DataImage.TryParse(value);
+            return dtimage.File(filename);
+        }
+
         public static string GetUzanti(this string value)
         {
-            string Sonuc="";
+            string Sonuc = "";
             if (value.Contains("data:image/png"))
             {
                 Sonuc = "png";
@@ -70,8 +77,11 @@ namespace MakinaTurkiye.Api.ExtentionsMethod
             {
                 Sonuc = "jpg";
             }
+            else if (value.Contains("data:application/pdf"))
+            {
+                Sonuc = "pdf";
+            }
             return Sonuc;
         }
-
     }
 }
