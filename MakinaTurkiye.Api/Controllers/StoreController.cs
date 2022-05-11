@@ -1554,57 +1554,73 @@ namespace MakinaTurkiye.Api.Controllers
                         foreach (var item in qlist)
                         {
                             var address = _adressService.GetAddressByStoreDealerId(item.StoreDealerId);
-                            var Phones = _phoneService.GetPhonesAddressId(address.AddressId);
-                            var tel1 = Phones.Where(x => x.GsmType==(byte)PhoneType.Phone).ToList().Take(1).FirstOrDefault();
-                            var tel2 = Phones.Where(x => x.GsmType ==(byte)PhoneType.Phone).ToList().Skip(1).Take(1).FirstOrDefault();
-                            var fax = Phones.FirstOrDefault(x => x.GsmType == (byte)PhoneType.Fax);
-                            var Gsm = Phones.FirstOrDefault(x => x.GsmType == (byte)PhoneType.Gsm);
-                            StoreDealerItemList.Add(
-                                    new StoreDealerItem
+                            if (address!=null)
+                            {
+                                var Phones = _phoneService.GetPhonesAddressId(address.AddressId);
+                                var tel1 = Phones.Where(x => x.GsmType == (byte)PhoneType.Phone).ToList().Take(1).FirstOrDefault();
+                                var tel2 = Phones.Where(x => x.GsmType == (byte)PhoneType.Phone).ToList().Skip(1).Take(1).FirstOrDefault();
+                                var fax = Phones.FirstOrDefault(x => x.GsmType == (byte)PhoneType.Fax);
+                                var Gsm = Phones.FirstOrDefault(x => x.GsmType == (byte)PhoneType.Gsm);
+                                var itm = new StoreDealerItem
+                                {
+                                    DealerId = item.StoreDealerId,
+                                    Name = item.DealerName,
+                                    DealerType = item.DealerType,
+                                    Address = new DealerAddress()
                                     {
-                                        DealerId=item.StoreDealerId,
-                                        Name=item.DealerName,
-                                        DealerType=item.DealerType,
-                                        Address=new DealerAddress() { 
-                                            BinaNo=address.DoorNo,
-                                            KapiNo = address.DoorNo,
-                                            CountryID = address.CountryId,
-                                            CityID = address.CityId,
-                                            LocalityID = address.LocalityId,
-                                            TownID = address.TownId,
-                                            cadde = address.Avenue,
-                                            posta = address.DoorNo,
-                                            sokak = address.Street,
-                                        },
-                                        Tel1=new DealerPhone 
-                                        { 
-                                            CountryCode= tel1.PhoneCulture,
-                                            AreaCode = tel1.PhoneCulture,
-                                            Number= tel1.PhoneNumber,
-                                            Type= tel1.GsmType
-                                        },
-                                        Tel2 = new DealerPhone
-                                        {
-                                            CountryCode = tel2.PhoneCulture,
-                                            AreaCode = tel2.PhoneCulture,
-                                            Number = tel2.PhoneNumber,
-                                            Type = tel2.GsmType
-                                        },
-                                        Fax = new DealerPhone
-                                        {
-                                            CountryCode = fax.PhoneCulture,
-                                            AreaCode = fax.PhoneCulture,
-                                            Number = fax.PhoneNumber,
-                                            Type = fax.GsmType
-                                        },
-                                        Gsm = new DealerPhone
-                                        {
-                                            CountryCode = Gsm.PhoneCulture,
-                                            AreaCode = Gsm.PhoneCulture,
-                                            Number = Gsm.PhoneNumber,
-                                            Type = Gsm.GsmType
-                                        }
-                                    });
+                                        BinaNo = address.DoorNo,
+                                        KapiNo = address.DoorNo,
+                                        CountryID = address.CountryId,
+                                        CityID = address.CityId,
+                                        LocalityID = address.LocalityId,
+                                        TownID = address.TownId,
+                                        cadde = address.Avenue,
+                                        posta = address.DoorNo,
+                                        sokak = address.Street,
+                                    }
+                                };
+                                if (tel1 != null)
+                                {
+                                    itm.Tel1 = new DealerPhone
+                                    {
+                                        CountryCode = tel1.PhoneCulture,
+                                        AreaCode = tel1.PhoneCulture,
+                                        Number = tel1.PhoneNumber,
+                                        Type = tel1.GsmType
+                                    };
+                                }
+                                if (tel2 != null)
+                                {
+                                    itm.Tel2 = new DealerPhone
+                                    {
+                                        CountryCode = tel2.PhoneCulture,
+                                        AreaCode = tel2.PhoneCulture,
+                                        Number = tel2.PhoneNumber,
+                                        Type = tel2.GsmType
+                                    };
+                                }
+                                if (fax != null)
+                                {
+                                    itm.Fax = new DealerPhone
+                                    {
+                                        CountryCode = fax.PhoneCulture,
+                                        AreaCode = fax.PhoneCulture,
+                                        Number = fax.PhoneNumber,
+                                        Type = fax.GsmType
+                                    };
+                                }
+                                if (Gsm != null)
+                                {
+                                    itm.Gsm = new DealerPhone
+                                    {
+                                        CountryCode = Gsm.PhoneCulture,
+                                        AreaCode = Gsm.PhoneCulture,
+                                        Number = Gsm.PhoneNumber,
+                                        Type = Gsm.GsmType
+                                    };
+                                }
+                                StoreDealerItemList.Add(itm);
+                            }
                         }
                         MakinaTurkiye.Api.View.StoreDealer StoreDealer = new MakinaTurkiye.Api.View.StoreDealer()
                         {
@@ -1674,7 +1690,6 @@ namespace MakinaTurkiye.Api.Controllers
                                     var Phones = _phoneService.GetPhonesAddressId(address.AddressId);
                                     if (address != null)
                                     {
-                                        _adressService.DeleteAddress(address);
                                         foreach (var Phone in Phones)
                                         {
                                             _phoneService.DeletePhone(Phone);
@@ -1772,7 +1787,11 @@ namespace MakinaTurkiye.Api.Controllers
                                         AddressDefault = true,
                                         StoreDealerId = dealer.StoreDealerId,
                                         AddressTypeId = null,
-                                        CountryId = model.Address.CountryID
+                                        CountryId = model.Address.CountryID,
+                                        CityId=model.Address.CityID,
+                                        LocalityId=model.Address.LocalityID,
+                                        TownId=model.Address.TownID,
+                                        PostCode=model.Address.posta
                                     };
                                     _adressService.InsertAdress(address);
                                 }
@@ -1785,6 +1804,10 @@ namespace MakinaTurkiye.Api.Controllers
                                     address.StoreDealerId = dealer.StoreDealerId;
                                     address.AddressTypeId = null;
                                     address.CountryId = model.Address.CountryID;
+                                    address.CityId = model.Address.CityID;
+                                    address.LocalityId = model.Address.LocalityID;
+                                    address.TownId = model.Address.TownID;
+                                    address.PostCode = model.Address.posta;
                                     _adressService.UpdateAddress(address);
                                 }
 
