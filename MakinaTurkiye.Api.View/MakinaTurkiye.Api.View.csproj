@@ -53,6 +53,7 @@
     <Compile Include="Account\OrderListItem.cs" />
     <Compile Include="Account\OrderPageModel.cs" />
     <Compile Include="Address.cs" />
+    <Compile Include="Advert.cs" />
     <Compile Include="ChangeEmailModel.cs" />
     <Compile Include="ChangePasswordModel.cs" />
     <Compile Include="City.cs" />

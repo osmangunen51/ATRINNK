@@ -318,6 +318,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (member != null)
                 {
+                
                 }
                 else
                 {
