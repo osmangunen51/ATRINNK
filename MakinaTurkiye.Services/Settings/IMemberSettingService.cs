@@ -17,6 +17,8 @@ namespace MakinaTurkiye.Services.Settings
 
         void UpdateMemberSetting(MemberSetting memberSetting);
 
+        MemberSetting GetMemberSettingByMemberSettingId(int MemberSettingId);
+
         void DeleteMemberSetting(MemberSetting memberSetting);
     }
 }

@@ -145,8 +145,8 @@ namespace MakinaTurkiye.Services.Common
 
         public Address GetAddressByAddressId(int addressId)
         {
-            if (addressId <= 0)
-                throw new ArgumentNullException("addressId");
+            //if (addressId <= 0)
+            //    throw new ArgumentNullException("addressId");
 
             var query = _addressRepository.Table;
 

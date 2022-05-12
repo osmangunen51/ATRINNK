@@ -54,6 +54,15 @@ namespace MakinaTurkiye.Services.Settings
 
         #region Methods
 
+        public MemberSetting GetMemberSettingByMemberSettingId(int MemberSettingId)
+        {
+            if (MemberSettingId <= 0)
+                throw new ArgumentNullException("MemberSettingId");
+
+            var query = _memberSettingRepository.Table;
+            return query.FirstOrDefault(x => x.MemberSettingId == MemberSettingId);
+        }
+
         public Setting GetSettingBySettingId(int settingId)
         {
             if (settingId <= 0)

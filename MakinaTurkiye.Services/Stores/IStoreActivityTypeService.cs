@@ -7,10 +7,8 @@ namespace MakinaTurkiye.Services.Stores
     {
 
         void InsertStoreActivityType(StoreActivityType storeActivityType);
-
         void DeleteStoreActivityType(StoreActivityType storeActivityType);
-
         IList<StoreActivityType> GetStoreActivityTypesByStoreId(int storeId);
-
+        StoreActivityType GetActivityTypeById(int StoreActivityTypeId);
     }
 }

@@ -80,6 +80,7 @@ namespace MakinaTurkiye.Services.Stores
 
         }
 
+
         public void DeleteStoreActivityType(StoreActivityType storeActivityType)
         {
             if (storeActivityType == null)
@@ -88,6 +89,12 @@ namespace MakinaTurkiye.Services.Stores
             _storeActivityTypeRepository.Delete(storeActivityType);
 
             RemoveStoreActivityTypeCache(storeActivityType);
+        }
+
+
+        public StoreActivityType GetActivityTypeById(int storeActivityTypeId)
+        {
+            return _storeActivityTypeRepository.GetById(storeActivityTypeId);
         }
     }
 }

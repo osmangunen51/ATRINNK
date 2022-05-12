@@ -103,14 +103,10 @@ namespace MakinaTurkiye.Data
         {
             try
             {
-                if (entity == null)
-                    throw new ArgumentNullException("entity");
-
+                if (entity == null)   throw new ArgumentNullException("entity");
                 this.Entities.Remove(entity);
-
                 //entity = _context.AttachEntity(entity);
                 //this._context.Entry(entity).State = EntityState.Deleted;
-
                 this._context.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)

@@ -77,6 +77,10 @@ namespace MakinaTurkiye.Api.ExtentionsMethod
             {
                 Sonuc = "jpg";
             }
+            else if (value.Contains("data:image/jpeg"))
+            {
+                Sonuc = "jpg";
+            }
             else if (value.Contains("data:application/pdf"))
             {
                 Sonuc = "pdf";
