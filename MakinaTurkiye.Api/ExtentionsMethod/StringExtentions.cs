@@ -35,7 +35,7 @@ namespace MakinaTurkiye.Api.ExtentionsMethod
             var data = match.Groups["data"].Value;
             if (!match.Success) return null;
 
-            string mimeType = match.Groups["type"].Value;
+            string mimeType = match.Groups["mime"].Value;
             string base64Data = match.Groups["data"].Value;
 
             try
@@ -84,6 +84,10 @@ namespace MakinaTurkiye.Api.ExtentionsMethod
             else if (value.Contains("data:application/pdf"))
             {
                 Sonuc = "pdf";
+            }
+            else if (value.Contains("data:video/mp4"))
+            {
+                Sonuc = "mp4";
             }
             return Sonuc;
         }

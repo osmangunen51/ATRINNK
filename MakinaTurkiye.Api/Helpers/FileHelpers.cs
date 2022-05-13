@@ -14,7 +14,7 @@ namespace MakinaTurkiye.Api.Helpers
     {
         public string newFileName { get; set; }
 
-        public string Duration { get; set; }
+        public string Duration { get; set; } = "0";
     }
 
     public class FileHelpers
@@ -409,7 +409,78 @@ namespace MakinaTurkiye.Api.Helpers
                 }
             }
         }
+    public static VideoModelHelper fffmpegVideoConvert2(HttpPostedFileBase file, string tempFolder, string thumbnailImageFolder, string videoFolder, string ffmpegFolder, short genislik, short yukseklik)
+        {
+            FileInfo fileInfo = new FileInfo(file.FileName);
+            string fileName = fileInfo.Name;
+            using (FileStream fileToSave = new FileStream(HttpContext.Current.Server.MapPath(tempFolder + fileName), FileMode.Create))
+            {
+                file.InputStream.CopyTo(fileToSave);
+            }
 
+            string newFileName = Guid.NewGuid().ToString("N");
+
+            string video = HttpContext.Current.Server.MapPath(tempFolder + fileName);
+            string picture = HttpContext.Current.Server.MapPath(thumbnailImageFolder + newFileName + ".jpg");
+
+            var procThumbnail = new Process();
+
+            procThumbnail.StartInfo.Arguments = " -i \"" + video + "\" -s " + genislik + "*" + yukseklik + " -ss 00:00:02 -vframes 1 -an -f rawvideo -vcodec mjpeg \"" + picture + "\"";
+            procThumbnail.StartInfo.FileName = HttpContext.Current.Server.MapPath(ffmpegFolder + "ffmpeg.exe");
+            procThumbnail.Start();
+            procThumbnail.WaitForExit();
+            procThumbnail.Close();
+            string mp4 = HttpContext.Current.Server.MapPath(videoFolder + newFileName + ".mp4");
+
+            var procConvertFlv = new Process();
+
+            //procConvertFlv.StartInfo.Arguments = " -i \"" + video + "\" -acodec libmp3lame -ar 44100 -ab 64k -ac 2 -r 24 -b 650k  -f mp4  -s " + genislik + "x" + yukseklik + " \"" + mp4 + "\"";
+            //ffmpeg -i INPUTFILE -b 1500k -vcodec libx264 -vpre slow -vpre baseline -g 30 "OUTPUTFILE.mp4
+            //ffmpeg -i inputfile.avi -codec:v libx264 -profile:v baseline -preset slow -b:v 250k -maxrate 250k -bufsize 500k -vf scale=-1:360 -threads 0 -codec:a libfdk_aac -b:a 96k output.mp4
+
+            //ffmpeg -i input_file.avi -codec:v libx264 -profile:v high -preset slow -b:v 500k -maxrate 500k -bufsize 1000k -vf scale=-1:480 -threads 0 -codec:a libfdk_aac -b:a 128k output_file.mp4
+
+            //var Params = string.Format("ffmpeg -i \"{0}\" -b 1500k -vcodec libx264 -vpre slow -vpre baseline -g 30 \"{1}\"", video, mp4);
+            //var Params = string.Format("-y -i \"{0}\" -coder ac -me_method full -me_range 16 -subq 5 -sc_threshold 40 -vcodec libx264 -cmp +chroma -partitions +parti4x4+partp8x8+partb8x8 -i_qfactor 0.71 -keyint_min 25 -b_strategy 1 -g 250 -r 20 \"{1}\"", video, mp4);
+            //var Params = string.Format("-y -i \"{0}\" -acodec libfaac -ar 44100 -ab 96k -coder ac -me_method full -me_range 16 -subq 5 -sc_threshold 40 -vcodec libx264 -s 1280x544 -b 1600k -cmp +chroma -partitions +parti4x4+partp8x8+partb8x8 -i_qfactor 0.71 -keyint_min 25 -b_strategy 1 -g 250 -r 20 c:\\output3.mp4", video.Path, videoFileName);
+            // procConvertFlv.StartInfo.Arguments = Params;
+            procConvertFlv.StartInfo.Arguments = " -i \"" + video + "\" -s " + genislik + "x" + yukseklik + " \"" + mp4 + "\"";
+            //procConvertFlv.StartInfo.Arguments = "ffmpeg -i " + video + " -codec:v libx264 -profile:v high -preset slow -b:v 500k -maxrate 500k -bufsize 1000k -vf scale=-1:480 -threads 0 -codec:a libfdk_aac -b:a 128k " + mp4;
+            procConvertFlv.StartInfo.FileName = HttpContext.Current.Server.MapPath(ffmpegFolder + "ffmpeg.exe");
+            procConvertFlv.StartInfo.UseShellExecute = false;
+            procConvertFlv.StartInfo.RedirectStandardError = true;
+            procConvertFlv.StartInfo.RedirectStandardOutput = true;
+            procConvertFlv.StartInfo.CreateNoWindow = true;
+            procConvertFlv.Start();
+
+            string consoleData = "";
+            string OneLine;
+            StreamReader myStreamReader;
+            myStreamReader = procConvertFlv.StandardError;
+            OneLine = myStreamReader.ReadLine();
+            do
+            {
+                consoleData = consoleData + OneLine + "<br>";
+                OneLine = myStreamReader.ReadLine();
+            }
+            while (!(procConvertFlv.HasExited & (string.Compare(OneLine, "") == 0 | OneLine == null)));
+            procConvertFlv.WaitForExit();
+            if ((procConvertFlv.ExitCode == 0))
+                procConvertFlv.Close();
+            else
+                procConvertFlv.Close();
+
+            File.Delete(video);
+
+            var videomodel = new VideoModelHelper();
+            videomodel.newFileName = newFileName;
+            int Index = consoleData.LastIndexOf("Duration");
+            if (Index > -1)
+            {
+                videomodel.Duration = consoleData.Substring(Index, 21).Replace("Duration: ", "").Replace("Duration:", "");
+            }
+            return videomodel;
+        }
         public static VideoModelHelper fffmpegVideoConvert(HttpPostedFileBase file, string tempFolder, string thumbnailImageFolder, string videoFolder, string ffmpegFolder, short genislik, short yukseklik)
         {
             FileInfo fileInfo = new FileInfo(file.FileName);

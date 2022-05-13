@@ -381,10 +381,10 @@ namespace MakinaTurkiye.Api.Controllers
                             address.Street = Model.sokak;
                             address.Avenue = Model.cadde;
                             address.PostCode = Model.posta;
-                            address.CityId = (byte)Model.selectedCityID;
-                            address.CountryId = (byte)Model.selectedCountryID;
-                            address.LocalityId = (byte)Model.selectedLocalityID;
-                            address.TownId = (byte)Model.selectedTownID;
+                            address.CityId = (int)Model.selectedCityID;
+                            address.CountryId = (int)Model.selectedCountryID;
+                            address.LocalityId = (int)Model.selectedLocalityID;
+                            address.TownId = (int)Model.selectedTownID;
                             if (address.AddressId == 0)
                             {
                                 MainPartyId = Model.MainPartyId;
@@ -437,7 +437,6 @@ namespace MakinaTurkiye.Api.Controllers
                     if (store != null)
                     {
 
-
                         StoreTaxAdministration StoreTaxAdministration = new StoreTaxAdministration()
                         {
                             MainPartyId = store.MainPartyId,
@@ -446,15 +445,21 @@ namespace MakinaTurkiye.Api.Controllers
 
                         if (storeInfoNumber != null)
                         {
+                            
                             bool MersisNoState = storeInfoNumber.MersisNoShow;
+
                             bool TicaretSicilNoNoState = storeInfoNumber.TradeRegistryNoShow;
+
                             bool NameState = storeInfoNumber.TaxOfficeShow;
+
                             bool NoState = storeInfoNumber.TaxNumberShow;
+
                             StoreTaxAdministration.TicaretSicilNo = new StoreTaxAdministrationItem()
                             {
                                 ProfileState = TicaretSicilNoNoState,
                                 Value = store.TradeRegistrNo,
                             };
+
                             StoreTaxAdministration.No = new StoreTaxAdministrationItem()
                             {
                                 ProfileState = NoState,
@@ -470,7 +475,9 @@ namespace MakinaTurkiye.Api.Controllers
                                 ProfileState = NameState,
                                 Value = store.TaxOffice,
                             };
+
                         }
+
                         processStatus.Result = StoreTaxAdministration;
                         processStatus.ActiveResultRowCount = 1;
                         processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -541,7 +548,7 @@ namespace MakinaTurkiye.Api.Controllers
                             if (storeInfoNumber.StoreInfoNumberShowId <= 0)
                             {
                                 storeInfoNumber.StoreInfoNumberShowId = 0;
-                                _storeNumberShowService.UpdateStoreInfoNumberShow(storeInfoNumber);
+                                _storeNumberShowService.InsertStoreInfoNumberShow(storeInfoNumber);
                             }
                             else
                             {
@@ -584,7 +591,6 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
 
         public HttpResponseMessage GetWorkingTime(int MainPartyId)
         {
@@ -1011,6 +1017,7 @@ namespace MakinaTurkiye.Api.Controllers
                     var videos = _videoService.GetVideoByStoreMainPartyId(store.MainPartyId);
                     if (store != null)
                     {
+                        
                         string StoreVideoFolder = AppSettings.VideoFolder;
                         StoreVideo StoreVideo = new StoreVideo()
                         {
@@ -1021,7 +1028,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 Minute = item.VideoMinute.HasValue ? item.VideoMinute.Value : 0,
                                 VideoId = item.VideoId,
                                 Second = item.VideoSecond.HasValue ? item.VideoSecond.Value : 0,
-                                VideoPath = item.VideoPath,
+                                VideoPath = MakinaTurkiye.Utilities.VideoHelpers.VideoHelper.GetVideoPath(item.VideoPath),
                                 ViewCount = item.SingularViewCount.HasValue ? item.SingularViewCount.Value : 0,
                                 RecordDate = item.VideoRecordDate.Value,
                                 Title = item.VideoTitle,
@@ -1156,7 +1163,7 @@ namespace MakinaTurkiye.Api.Controllers
                         var store = _storeService.GetStoreByMainPartyId(Model.MainPartyId);
                         if (store != null)
                         {
-                            string StoreSliderImageFolder = AppSettings.StoreSliderImageFolder;
+                            string StoreSliderImageFolder = AppSettings.VideoFolder;
                             var storeImages = _pictureService.GetPictureByMainPartyIdWithStoreImageType(store.MainPartyId, StoreImageTypeEnum.StoreProfileSliderImage).ToList();
                             int imageCount = storeImages.Count();
                             foreach (var item in Model.List)
@@ -1165,6 +1172,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     string Logo = model.File;
                                     string Uzanti = "";
+                                    Uzanti = Logo.GetUzanti();
                                     bool IslemDurum = false;
                                     if (Uzanti == "mp4")
                                     {
@@ -1174,7 +1182,7 @@ namespace MakinaTurkiye.Api.Controllers
                                     {
                                         string newFileName = !string.IsNullOrEmpty(model.Title) ? model.Title : $"{store.StoreName}-{Guid.NewGuid()}";
                                         var file = Logo.ToFile(newFileName);
-                                        VideoModelHelper vModel = FileHelpers.fffmpegVideoConvert(file, AppSettings.TempFolder, AppSettings.VideoThumbnailFolder, AppSettings.NewVideosFolder, AppSettings.ffmpegFolder, 490, 328);
+                                        VideoModelHelper vModel = FileHelpers.fffmpegVideoConvert2(file, AppSettings.TempFolder, AppSettings.VideoThumbnailFolder, AppSettings.NewVideosFolder, AppSettings.ffmpegFolder, 490, 328);
                                         DateTime timesplit;
                                         if (!(DateTime.TryParse(vModel.Duration, out timesplit)))
                                         {
