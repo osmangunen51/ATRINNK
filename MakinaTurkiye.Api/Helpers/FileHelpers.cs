@@ -272,12 +272,12 @@ namespace MakinaTurkiye.Api.Helpers
         public static string ImageThumbnail(string filePath, System.Drawing.Image image, string uzanti,int size, ThumbnailType type)
         {
             string filename = string.Empty; 
-            filename = Guid.NewGuid().ToString("N") + uzanti;
-            var targetFile = new FileInfo(filePath + filename);
+            filename = Guid.NewGuid().ToString("N")+"."+uzanti;
+            var targetFile = new FileInfo(HttpContext.Current.Server.MapPath(filePath + filename));
 
             if (targetFile.Exists)
             {
-                filename = Guid.NewGuid().ToString("N") + uzanti;
+                filename = Guid.NewGuid().ToString("N")+"."+uzanti;
             }
 
             if (type == ThumbnailType.Height)
@@ -321,7 +321,16 @@ namespace MakinaTurkiye.Api.Helpers
                     var rectDestination = new Rectangle(Point.Empty, thumbSize);
                     gr.DrawImage(image, rectDestination, 0, 0, sizeWidth, sizeHeight, GraphicsUnit.Pixel);
                 }
-                bmp.Save(HttpContext.Current.Server.MapPath(filePath) + filename.Replace(".", "_th."));
+                string saveFileName = HttpContext.Current.Server.MapPath(filePath+ filename);
+                if (uzanti != "jpg")
+                {
+                    bmp.Save(saveFileName, System.Drawing.Imaging.ImageFormat.Jpeg);
+                }
+                else if (uzanti != "png")
+                {
+                    bmp.Save(saveFileName, System.Drawing.Imaging.ImageFormat.Png);
+                }
+                
             }
             return filename;
         }

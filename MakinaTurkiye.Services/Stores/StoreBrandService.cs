@@ -13,6 +13,7 @@ namespace MakinaTurkiye.Services.Stores
         #region Constants
 
         private const string STOREBRANS_BY_MAIN_PARTY_ID_KEY = "makinaturkiye.storebrand.bymainpartyid-{0}";
+        private const string STOREBRANS_BY_BY_ID_KEY = "makinaturkiye.storebrand.byid-{0}";
 
         #endregion
 
@@ -58,7 +59,15 @@ namespace MakinaTurkiye.Services.Stores
 
         public StoreBrand GetStoreBrandByStoreBrand(int storeBrandId)
         {
-            throw new NotImplementedException();
+            string key = string.Format(STOREBRANS_BY_BY_ID_KEY, storeBrandId);
+            return _cacheManager.Get(key, () =>
+            {
+                StoreBrand result = new StoreBrand();
+                var query = _storeBrandRepository.Table;
+                query = query.Where(sb => sb.StoreBrandId==storeBrandId);
+                result = query.FirstOrDefault();
+                return result;
+            });
         }
 
         public void InsertStoreBrand(StoreBrand storeBrand)
@@ -67,9 +76,22 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentNullException("storeBrand");
 
             _storeBrandRepository.Insert(storeBrand);
+            RemoveStoreBrandCache(storeBrand);
         }
 
+        private void RemoveStoreBrandCache(StoreBrand StoreBrand)
+        {
+            if (StoreBrand.MainPartyId > 0)
+            {
+                string key = string.Format(STOREBRANS_BY_MAIN_PARTY_ID_KEY, StoreBrand.MainPartyId);
+                _cacheManager.Remove(key);
+            }
+            if (StoreBrand.StoreBrandId > 0)
+            {
+                string key = string.Format(STOREBRANS_BY_BY_ID_KEY, StoreBrand.StoreBrandId);
+                _cacheManager.Remove(key);
+            }
+        }
         #endregion
-
     }
 }

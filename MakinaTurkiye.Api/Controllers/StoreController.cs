@@ -3076,6 +3076,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
+        [HttpPost]
         public HttpResponseMessage DeleteCompanyImage(StoreCompanyPicture Model)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -3168,7 +3169,7 @@ namespace MakinaTurkiye.Api.Controllers
                             foreach (var item in Model.List)
                             {
                                 string Logo = item.Value;
-                                string Uzanti = "";
+                                string Uzanti = item.Value.GetUzanti();
                                 bool IslemDurum = false;
                                 if (Uzanti == "jpg")
                                 {
@@ -3180,9 +3181,8 @@ namespace MakinaTurkiye.Api.Controllers
                                 }
                                 if (IslemDurum)
                                 {
-                                    string newFileName =$"{store.StoreName}-{Guid.NewGuid()}.{Uzanti}";
-                                    var file = Logo.ToFile(newFileName);
-                                    string fileName = FileHelpers.ImageThumbnail(AppSettings.StoreImageFolder, file, 170, FileHelpers.ThumbnailType.Width);
+                                    var file = Logo.ToImage();
+                                    string fileName = FileHelpers.ImageThumbnail(AppSettings.StoreImageFolder,file, Uzanti, 170,FileHelpers.ThumbnailType.Width);
                                     var curPicture = new Picture()
                                     {
                                         PicturePath = fileName,
@@ -3833,7 +3833,7 @@ namespace MakinaTurkiye.Api.Controllers
                         string Logo = Model.Logo;
                         string Uzanti = Logo.GetUzanti();
                         var Img = Logo.ToImage();
-                        string fileName = FileHelpers.ImageThumbnail(AppSettings.DealerBrandImageFolder, Img, Uzanti, 50, FileHelpers.ThumbnailType.Width);
+                        string fileName = FileHelpers.ImageThumbnail(AppSettings.StoreBrandImageFolder, Img, Uzanti, 100, FileHelpers.ThumbnailType.Width);
                         var StoreBrand = new MakinaTurkiye.Entities.Tables.Stores.StoreBrand()
                         {
                             BrandPicture = fileName,
