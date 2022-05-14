@@ -2379,6 +2379,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
+        [HttpPost]
         public HttpResponseMessage DeleteDealer(MakinaTurkiye.Api.View.StoreDealer Model)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -3889,7 +3890,8 @@ namespace MakinaTurkiye.Api.Controllers
                     var List = _dealarBrandService.GetDealarBrandsByMainPartyId(MainPartyId).Select(x => new StoreDealerShip(){ 
                      Name=x.DealerBrandName,
                      Logo=ImageHelper.GetDealerShipPicture(x.DealerBrandPicture),
-                     MainPartyId=x.MainPartyId
+                     MainPartyId=x.MainPartyId,
+                     DealerBrandId=x.DealerBrandId
                     }).ToList();
                     processStatus.Result = List;
                     processStatus.ActiveResultRowCount = List.Count;
@@ -3918,7 +3920,8 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        public HttpResponseMessage DeleteDealerShip(int DealerBrandId)
+
+        public HttpResponseMessage DeleteDealerShip(StoreDealerShip Model)
         {
             ProcessResult processStatus = new ProcessResult();
             try
@@ -3927,7 +3930,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (loginmember != null)
                 {
-                    var dealerBrand = _dealarBrandService.GetDealerBrandByDealerBrandId(DealerBrandId);
+                    var dealerBrand = _dealarBrandService.GetDealerBrandByDealerBrandId(Model.DealerBrandId);
                     if (dealerBrand != null)
                     {
                         var store = _storeService.GetStoreByMainPartyId(dealerBrand.MainPartyId);
@@ -3990,7 +3993,7 @@ namespace MakinaTurkiye.Api.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage InsertDealerShip(StoreDealerShip Model)
+        public HttpResponseMessage InsertUpdateDealerShip(StoreDealerShip Model)
         {
             ProcessResult processStatus = new ProcessResult();
             try
@@ -4002,14 +4005,27 @@ namespace MakinaTurkiye.Api.Controllers
                     string Uzanti = Logo.GetUzanti();
                     var Img = Logo.ToImage();
                     string fileName = FileHelpers.ImageThumbnail(AppSettings.DealerBrandImageFolder, Img, Uzanti, 50, FileHelpers.ThumbnailType.Width);
-                    var curDealerBrand = new DealerBrand()
+                    if (Model.DealerBrandId > 0)
                     {
-                        DealerBrandPicture = fileName,
-                        MainPartyId = Model.MainPartyId,
-                        DealerBrandName = Model.Name
-                    };
-                    _dealarBrandService.InsertDealerBrand(curDealerBrand);
-                    processStatus.Result = curDealerBrand;
+                        MakinaTurkiye.Entities.Tables.Stores.DealerBrand dealerBrand= _dealarBrandService.GetDealerBrandByDealerBrandId(Model.DealerBrandId);
+                        if (dealerBrand!=null)
+                        {
+                            dealerBrand.DealerBrandPicture = fileName;
+                            dealerBrand.DealerBrandName = Model.Name;
+                            _dealarBrandService.UpdateDealerBrand(dealerBrand);
+                        }
+                    }
+                    else
+                    {
+                        var curDealerBrand = new DealerBrand()
+                        {
+                            DealerBrandPicture = fileName,
+                            MainPartyId = Model.MainPartyId,
+                            DealerBrandName = Model.Name
+                        };
+                        _dealarBrandService.InsertDealerBrand(curDealerBrand);
+                    }
+                    processStatus.Result = null;
                     processStatus.ActiveResultRowCount = 1;
                     processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
                     processStatus.Message.Header = "Store İşlemleri";

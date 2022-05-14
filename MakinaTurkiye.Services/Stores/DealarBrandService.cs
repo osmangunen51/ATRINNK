@@ -51,13 +51,22 @@ namespace MakinaTurkiye.Services.Stores
             });
         }
 
-
         public void InsertDealerBrand(DealerBrand dealerBrand)
         {
             if (dealerBrand == null)
                 throw new ArgumentException("dealerBrand");
 
             _dealarBrandRepository.Insert(dealerBrand);
+            this.RemoveCache(dealerBrand);
+        }
+
+        public void UpdateDealerBrand(DealerBrand dealerBrand)
+        {
+            if (dealerBrand == null)
+                throw new ArgumentException("dealerBrand");
+
+            _dealarBrandRepository.Update(dealerBrand);
+            this.RemoveCache(dealerBrand);
         }
 
         public void DeleteDealerBrand(DealerBrand dealerBrand)
@@ -66,19 +75,26 @@ namespace MakinaTurkiye.Services.Stores
                 throw new ArgumentException("dealerBrand");
 
             _dealarBrandRepository.Delete(dealerBrand);
+            this.RemoveCache(dealerBrand);
         }
 
         public DealerBrand GetDealerBrandByDealerBrandId(int dealerBrandId)
         {
             if (dealerBrandId <= 0)
                 throw new ArgumentNullException("dealerBrandId");
-
             var query = _dealarBrandRepository.Table;
-
             var dealerBrand = query.FirstOrDefault(d => d.DealerBrandId == dealerBrandId);
             return dealerBrand;
         }
 
+
+
+
+        private void RemoveCache(DealerBrand dealerBrand)
+        {
+            string key = string.Format(DEALARBRANS_BY_MAIN_PARTY_ID_KEY, dealerBrand.MainPartyId);
+            _cacheManager.Remove(key);
+        }
         #endregion
 
     }

@@ -8,6 +8,7 @@ namespace MakinaTurkiye.Services.Stores
         DealerBrand GetDealerBrandByDealerBrandId(int dealerBrandId);
         IList<DealerBrand> GetDealarBrandsByMainPartyId(int mainPartyId);
         void InsertDealerBrand(DealerBrand dealerBrand);
+        void UpdateDealerBrand(DealerBrand dealerBrand);
 
         void DeleteDealerBrand(DealerBrand dealerBrand);
     }
