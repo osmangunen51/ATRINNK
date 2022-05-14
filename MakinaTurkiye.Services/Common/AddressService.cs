@@ -151,6 +151,10 @@ namespace MakinaTurkiye.Services.Common
             var query = _addressRepository.Table;
 
             query = query.Include(a => a.Phones);
+            query = query.Include(a => a.City);
+            query = query.Include(a => a.Country);
+            query = query.Include(a => a.Locality);
+            query = query.Include(a => a.Town);
 
             var address = query.FirstOrDefault(a => a.AddressId == addressId);
             return address;

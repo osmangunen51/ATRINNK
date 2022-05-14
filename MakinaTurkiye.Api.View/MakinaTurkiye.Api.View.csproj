@@ -61,6 +61,8 @@
     <Compile Include="Description.cs" />
     <Compile Include="Statistics\Advert.cs" />
     <Compile Include="Statistics\Store.cs" />
+    <Compile Include="StoreDealerShip.cs" />
+    <Compile Include="StoreBrand.cs" />
     <Compile Include="StoreCompanyPicture.cs" />
     <Compile Include="StoreProfilFoto.cs" />
     <Compile Include="StoreSector.cs" />

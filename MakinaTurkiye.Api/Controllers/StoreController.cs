@@ -2265,6 +2265,7 @@ namespace MakinaTurkiye.Api.Controllers
                             var address = _adressService.GetAddressByStoreDealerId(item.StoreDealerId);
                             if (address!=null)
                             {
+                                address = _addressService.GetAddressByAddressId(address.AddressId);
                                 var Phones = _phoneService.GetPhonesAddressId(address.AddressId);
                                 var tel1 = Phones.Where(x => x.GsmType == (byte)PhoneType.Phone).ToList().Take(1).FirstOrDefault();
                                 var tel2 = Phones.Where(x => x.GsmType == (byte)PhoneType.Phone).ToList().Skip(1).Take(1).FirstOrDefault();
@@ -2283,6 +2284,10 @@ namespace MakinaTurkiye.Api.Controllers
                                         CityID = address.CityId,
                                         LocalityID = address.LocalityId,
                                         TownID = address.TownId,
+                                        Country=(address.Country!=null? address.Country.CountryName:""),
+                                        City = (address.City != null ? address.City.CityName:""),
+                                        Locality = (address.Locality != null ? address.Locality.LocalityName:""),
+                                        Town = (address.Town != null ? address.Town.TownName:""),
                                         cadde = address.Avenue,
                                         posta = address.DoorNo,
                                         sokak = address.Street,
@@ -2652,7 +2657,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        public HttpResponseMessage GetSector(MakinaTurkiye.Api.View.StoreSector Model)
+        public HttpResponseMessage GetSector(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
             try
@@ -2661,7 +2666,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (loginmember != null)
                 {
-                    var store = _storeService.GetStoreByMainPartyId(Model.MainPartyId);
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
                     if (store != null)
                     {
                         List<StoreSectorItem> StoreSectorItemList = new List<StoreSectorItem>();
@@ -2808,7 +2813,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-        public HttpResponseMessage GetActivity(MakinaTurkiye.Api.View.StoreActivity Model)
+        public HttpResponseMessage GetActivity(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
             try
@@ -2817,12 +2822,12 @@ namespace MakinaTurkiye.Api.Controllers
                 var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (loginmember != null)
                 {
-                    var store = _storeService.GetStoreByMainPartyId(Model.MainPartyId);
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
                     if (store != null)
                     {
                         List<StoreActivityItem> StoreActivityItemList = new List<StoreActivityItem>();
                         var sectorItems = _categoryService.GetCategoriesByCategoryType(CategoryTypeEnum.Sector);
-                        var storeActivityCategorys = _storeActivityCategoryService.GetStoreActivityCategoriesByMainPartyId(Model.MainPartyId);
+                        var storeActivityCategorys = _storeActivityCategoryService.GetStoreActivityCategoriesByMainPartyId(MainPartyId);
                         foreach (var item in sectorItems)
                         {
                             bool selected = false;
@@ -3031,7 +3036,7 @@ namespace MakinaTurkiye.Api.Controllers
                             List = storeImages.Select(x => new StoreCompanyPictureItem()
                             {
                                 CompanyPictureId = x.PictureId,
-                                Value = AppSettings.StoreImageFolder + x.PicturePath
+                                Value = ImageHelper.GetCompainyPicture(x.PicturePath)
                             }).ToList(),
                         };
                         processStatus.Result = StoreCompanyPicture;
@@ -3085,18 +3090,18 @@ namespace MakinaTurkiye.Api.Controllers
                         var store = _storeService.GetStoreByMainPartyId(Model.MainPartyId);
                         if (store != null)
                         {
-                            string StoreSliderImageFolder = AppSettings.StoreDealerImageFolder;
+                            string StoreImageFolder = AppSettings.StoreImageFolder;
                             List<string> listDeleteFile = new List<string>();
-                            var storeImages = _pictureService.GetPictureByMainPartyIdWithStoreImageType(store.MainPartyId, StoreImageTypeEnum.StoreProfileSliderImage).ToList();
+                            var storeImages = _pictureService.GetPictureByMainPartyIdWithStoreImageType(store.MainPartyId, StoreImageTypeEnum.StoreImage).ToList();
                             foreach (var item in Model.List)
                             {
                                 var storeImage = storeImages.FirstOrDefault(x => x.PictureId == item.CompanyPictureId);
                                 if (storeImage != null)
                                 {
                                     _pictureService.DeletePicture(storeImage);
-                                    if (System.IO.File.Exists(StoreSliderImageFolder + storeImage.PicturePath))
+                                    if (System.IO.File.Exists(StoreImageFolder + storeImage.PicturePath))
                                     {
-                                        listDeleteFile.Add(AppSettings.StoreDealerImageFolder + storeImage.PicturePath);
+                                        listDeleteFile.Add(AppSettings.StoreImageFolder + storeImage.PicturePath);
                                     }
                                 }
                             }
@@ -3157,8 +3162,8 @@ namespace MakinaTurkiye.Api.Controllers
                         var store = _storeService.GetStoreByMainPartyId(Model.MainPartyId);
                         if (store != null)
                         {
-                            string StoreSliderImageFolder = AppSettings.StoreSliderImageFolder;
-                            var storeImages = _pictureService.GetPictureByMainPartyIdWithStoreImageType(store.MainPartyId, StoreImageTypeEnum.StoreProfileSliderImage).ToList();
+                            string StoreSliderImageFolder = AppSettings.StoreImageFolder;
+                            var storeImages = _pictureService.GetPictureByMainPartyIdWithStoreImageType(store.MainPartyId, StoreImageTypeEnum.StoreImage).ToList();
                             int imageCount = storeImages.Count();
                             foreach (var item in Model.List)
                             {
@@ -3717,7 +3722,14 @@ namespace MakinaTurkiye.Api.Controllers
                 var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (loginmember != null)
                 {
-                    var List = _storeBrandService.GetStoreBrandByMainPartyId(MainPartyId);
+                    var List = _storeBrandService.GetStoreBrandByMainPartyId(MainPartyId).Select(x => new View.StoreBrand()
+                    {
+
+                        Description = x.BrandDescription,
+                        MainPartyId = x.MainPartyId,
+                        Logo = ImageHelper.GetBrandPicture(x.BrandPicture)
+
+                    }).ToList();
                     processStatus.Result = List;
                     processStatus.ActiveResultRowCount = List.Count;
                     processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -3806,7 +3818,7 @@ namespace MakinaTurkiye.Api.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage InsertBrand(int MainPartyId, string BrandName, string BrandDescription, string Logo)
+        public HttpResponseMessage InsertBrand(View.StoreBrand Model)
         {
             ProcessResult processStatus = new ProcessResult();
             try
@@ -3815,18 +3827,19 @@ namespace MakinaTurkiye.Api.Controllers
                 var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (loginmember != null)
                 {
-                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    var store = _storeService.GetStoreByMainPartyId(Model.MainPartyId);
                     if (store != null)
                     {
+                        string Logo = Model.Logo;
                         string Uzanti = Logo.GetUzanti();
                         var Img = Logo.ToImage();
                         string fileName = FileHelpers.ImageThumbnail(AppSettings.DealerBrandImageFolder, Img, Uzanti, 50, FileHelpers.ThumbnailType.Width);
-                        var StoreBrand = new StoreBrand()
+                        var StoreBrand = new MakinaTurkiye.Entities.Tables.Stores.StoreBrand()
                         {
                             BrandPicture = fileName,
-                            MainPartyId = MainPartyId,
-                            BrandDescription = BrandDescription,
-                            BrandName = BrandName,
+                            MainPartyId = Model.MainPartyId,
+                            BrandDescription = Model.Description,
+                            BrandName = Model.Name,
                         };
                         _storeBrandService.InsertStoreBrand(StoreBrand);
                         processStatus.Result = StoreBrand;
@@ -3873,7 +3886,11 @@ namespace MakinaTurkiye.Api.Controllers
                 var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (loginmember != null)
                 {
-                    var List = _dealarBrandService.GetDealarBrandsByMainPartyId(MainPartyId);
+                    var List = _dealarBrandService.GetDealarBrandsByMainPartyId(MainPartyId).Select(x => new StoreDealerShip(){ 
+                     Name=x.DealerBrandName,
+                     Logo=ImageHelper.GetDealerShipPicture(x.DealerBrandPicture),
+                     MainPartyId=x.MainPartyId
+                    }).ToList();
                     processStatus.Result = List;
                     processStatus.ActiveResultRowCount = List.Count;
                     processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -3916,6 +3933,7 @@ namespace MakinaTurkiye.Api.Controllers
                         var store = _storeService.GetStoreByMainPartyId(dealerBrand.MainPartyId);
                         if (store != null)
                         {
+                            List<string> listDeleteFile = new List<string>();
                             _dealarBrandService.DeleteDealerBrand(dealerBrand);
                             processStatus.Result = "";
                             processStatus.ActiveResultRowCount = 1;
@@ -3923,6 +3941,16 @@ namespace MakinaTurkiye.Api.Controllers
                             processStatus.Message.Header = "Store İşlemleri";
                             processStatus.Message.Text = "Başarılı";
                             processStatus.Status = true;
+
+
+                            FileHelpers.Delete(AppSettings.DealerBrandImageFolder + dealerBrand.DealerBrandPicture);
+                            FileHelpers.Delete(AppSettings.DealerBrandImageFolder + FileHelper.ImageThumbnailName(dealerBrand.DealerBrandPicture));
+
+                            //Dosyalar Diskten Siliniyor...
+                            foreach (var item in listDeleteFile)
+                            {
+                                FileHelpers.Delete(item);
+                            }
                         }
                         else
                         {
@@ -3962,24 +3990,24 @@ namespace MakinaTurkiye.Api.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage InsertDealerShip(int MainPartyId, string BrandName, string Logo)
+        public HttpResponseMessage InsertDealerShip(StoreDealerShip Model)
         {
             ProcessResult processStatus = new ProcessResult();
             try
             {
-                var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                var store = _storeService.GetStoreByMainPartyId(Model.MainPartyId);
                 if (store != null)
                 {
+                    string Logo = Model.Logo;
                     string Uzanti = Logo.GetUzanti();
                     var Img = Logo.ToImage();
                     string fileName = FileHelpers.ImageThumbnail(AppSettings.DealerBrandImageFolder, Img, Uzanti, 50, FileHelpers.ThumbnailType.Width);
                     var curDealerBrand = new DealerBrand()
                     {
                         DealerBrandPicture = fileName,
-                        MainPartyId = MainPartyId,
-                        DealerBrandName = BrandName
+                        MainPartyId = Model.MainPartyId,
+                        DealerBrandName = Model.Name
                     };
-
                     _dealarBrandService.InsertDealerBrand(curDealerBrand);
                     processStatus.Result = curDealerBrand;
                     processStatus.ActiveResultRowCount = 1;

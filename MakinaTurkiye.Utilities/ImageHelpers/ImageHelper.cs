@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using MakinaTurkiye.Core;
+using System.Web;
 
 namespace MakinaTurkiye.Utilities.ImageHelpers
 {
@@ -50,6 +51,31 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
                 return "https://s.makinaturkiye.com";
             }
         }
+
+        public static string GetDealerShipPicture(string file)
+        {
+            if (string.IsNullOrEmpty(file))
+                return string.Empty;            
+            return $"{CDNhost}{AppSettings.DealerBrandImageFolder}{file}".Replace("UserFiles/","");
+
+        }
+
+        public static string GetBrandPicture(string file)
+        {
+            if (string.IsNullOrEmpty(file))
+                return string.Empty;            
+            return $"{CDNhost}{AppSettings.StoreBrandImageFolder}{file}".Replace("UserFiles/","");
+
+        }
+
+        public static string GetCompainyPicture(string file)
+        {
+            if (string.IsNullOrEmpty(file))
+                return string.Empty;
+            return $"{CDNhost}{AppSettings.StoreImageFolder}{file}".Replace("UserFiles/", "");
+
+        }
+
 
         public static string GetStoreBanner(int storeId, string banner)
         {

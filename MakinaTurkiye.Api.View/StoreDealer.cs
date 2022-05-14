@@ -18,6 +18,12 @@ namespace MakinaTurkiye.Api.View
         public int? CityID { get; set; }
         public int? LocalityID { get; set; }
         public int? TownID { get; set; }
+
+        public string Country { get; set; }
+        public string City { get; set; }
+        public string Locality { get; set; }
+        public string Town { get; set; }
+
         public string cadde { get; set; }
         public string sokak { get; set; }
         public string posta { get; set; }
