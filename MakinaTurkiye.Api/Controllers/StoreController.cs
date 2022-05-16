@@ -2690,6 +2690,7 @@ namespace MakinaTurkiye.Api.Controllers
                             var StoreSectorItem = new StoreSectorItem()
                             {
                                 CategoryId = item.CategoryId,
+
                                 SectorId = SectorId,
                                 IsSelected = selected,
                                 Name = item.CategoryName
@@ -2755,7 +2756,7 @@ namespace MakinaTurkiye.Api.Controllers
                         {
                             foreach (var item in Model.List)
                             {
-                                if (item.SectorId > 0)
+                                if (item.SectorId==0)
                                 {
                                     if (item.IsSelected)
                                     {
@@ -2780,6 +2781,14 @@ namespace MakinaTurkiye.Api.Controllers
                                     }
                                 }
                             }
+                            processStatus.Result = null;
+                            processStatus.ActiveResultRowCount = 1;
+                            processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                            processStatus.Message.Header = "Store İşlemleri";
+                            processStatus.Message.Text = "Başarılı";
+                            processStatus.Status = true;
+                            Transaction.Complete();
+
                         }
                         else
                         {
@@ -2848,7 +2857,7 @@ namespace MakinaTurkiye.Api.Controllers
                             };
                             StoreActivityItemList.Add(StoreActivityItem);
                         }
-                        MakinaTurkiye.Api.View.StoreActivity StoreActivity = new MakinaTurkiye.Api.View.StoreActivity()
+                            MakinaTurkiye.Api.View.StoreActivity StoreActivity = new MakinaTurkiye.Api.View.StoreActivity()
                         {
                             MainPartyId = store.MainPartyId,
                             List = StoreActivityItemList
@@ -2906,7 +2915,7 @@ namespace MakinaTurkiye.Api.Controllers
                         {
                             foreach (var item in Model.List)
                             {
-                                if (item.ActivityId > 0)
+                                if (item.ActivityId== 0)
                                 {
                                     if (item.IsSelected)
                                     {
@@ -2930,6 +2939,12 @@ namespace MakinaTurkiye.Api.Controllers
                                     }
                                 }
                             }
+                            processStatus.Message.Header = "Store İşlemleri";
+                            processStatus.Message.Text = "Başarılı";
+                            processStatus.Status = true;
+                            processStatus.Result = null;
+                            processStatus.Error = null;
+                            Transaction.Complete();
                         }
                         else
                         {
