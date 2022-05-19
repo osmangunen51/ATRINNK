@@ -31,8 +31,5 @@
         public decimal? ProductPriceWithDiscountDecimal { get; set; }
         public bool IsKdv { get; set; }
         public bool ShowDopingForm { get; set; }
-
-
-
     }
 }

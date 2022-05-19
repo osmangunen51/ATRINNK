@@ -13,26 +13,42 @@ namespace MakinaTurkiye.Api.View
         public string Value { get; set; }
     }
 
-    public class AdvertItem
+    public class Advert
     {
         public int ProductId { get; set; }=0;
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
-        public string ShortDetail { get; set; } = "";
-        public List<AdvertItemPicture> Pictures { get; set; } = new List<AdvertItemPicture>();
         public int Order { get; set; } = 0;
         public int CategoryId { get; set; } = 0;
-        public byte? Type { get; set; } = 0;
-        public byte? State { get; set; } = 0;
-        public byte? Mensei { get; set; } = 0;
-        public byte? SaleState { get; set; } = 0;
-        public byte? Location { get; set; } = 0;
-        public List<byte> Certifications { get; set; } = new List<byte>();
-    }
+        public string ProductType { get; set; } = "";
+        public string ProductTypeText { get; set; } = "";
+        public bool Active { get; set; } = false;
+        public byte ActiveType { get; set; } = 0;
+        public byte Mensei { get; set; } = 0;
+        public string Price { get; set; } = "";
+        public string SalesType { get; set; }
+        public string SalesTypeText { get; set; }
+        public string TypeText { get; set; } = "";
+        public string Picture { get; set; } = "";
+        public string Statu { get; set; } = "";
+        public string StatuText { get; set; } ="";
+        public string ModelName { get; set; } = "";
+        public string ModelYear { get; set; } = "";
+        public string SeriesName { get; set; } = "";
+        public byte CurrencyId { get; set; }
+        public bool Doping { get; set; }
+        public string CategoryName { get; set; }
+        public string BrandName { get; set; }
+        public long ViewCount { get; set; }
+        public int CityId { get; set; } = 0;
+        public string City { get; set; }
+        public int LocalityId { get; set; } = 0;
+        public string Locality { get; set; }
+        public string BriefDetail { get; set; }
+        public int CountryId { get; set; } = 0;
+        public string Country { get; set; }
 
-    public class Advert
-    {
-        public int MainMartyId { get; set; } = 0;
-        public AdvertItem AdvertItem { get; set; }=new AdvertItem();
+        public int TownId { get; set; } = 0;
+        public string Town { get; set; }
     }
 }

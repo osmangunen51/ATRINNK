@@ -2684,13 +2684,12 @@ namespace MakinaTurkiye.Api.Controllers
                             if (sectoreStore!=null)
                             {
                                 selected = true;
-                                SectorId = sectoreStore.CategoryId;
+                                SectorId = sectoreStore.StoreSectorId;
                             }
 
                             var StoreSectorItem = new StoreSectorItem()
                             {
                                 CategoryId = item.CategoryId,
-
                                 SectorId = SectorId,
                                 IsSelected = selected,
                                 Name = item.CategoryName
@@ -2755,6 +2754,7 @@ namespace MakinaTurkiye.Api.Controllers
                         if (store != null)
                         {
                             foreach (var item in Model.List)
+
                             {
                                 if (item.SectorId==0)
                                 {
