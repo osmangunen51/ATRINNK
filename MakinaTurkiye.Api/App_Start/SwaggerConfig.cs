@@ -190,6 +190,7 @@ namespace MakinaTurkiye.Api
                         // alternative implementation for ISwaggerProvider with the CustomProvider option.
                         //
                         //c.CustomProvider((defaultProvider) => new CachingSwaggerProvider(defaultProvider));
+                        c.SchemaId(x => x.FullName);
                     })
                 .EnableSwaggerUi(c =>
                     {

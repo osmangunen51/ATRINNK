@@ -37,7 +37,7 @@ namespace MakinaTurkiye.Api.Controllers
                     var Liste = constantList.Select(x => new
                     {
                         ConstantGrupNo = (int)x.ConstantType,
-                        ConstantGrupAd = ((ConstantTypeEnum)x.ConstantType).GetDescription(),
+                        ConstantGrupAd = ((ConstantTypeEnum)x.ConstantType).GetDisplayName(),
                         ConstantNo = (int)x.ConstantId,
                         ConstantAd = x.ConstantName,
                         ConstantEkBilgi = x.ContstantPropertie,

@@ -971,7 +971,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
 
                     product.ProductLastUpdate = DateTime.Now;
                     product.ProductType = model.ProductType;
-
+                    
                     string ProductSalesType = String.Empty;
                     if (coll["ProductSalesType"] != null)
                     {
@@ -1745,7 +1745,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             {
                 string imagetype = PictureName.Substring(PictureName.LastIndexOf("."), PictureName.Length - PictureName.LastIndexOf("."));//örnek .jpeg
                 string imagename = PictureName.Remove(PictureName.Length - PictureName.Substring(PictureName.LastIndexOf("."), PictureName.Length - PictureName.LastIndexOf(".")).Length);
-
                 FileHelpers.Delete(AppSettings.ProductImageFolder + ProductId + "/" + "thumbs/" + imagename + "-" + thumb + imagetype);
             }
 

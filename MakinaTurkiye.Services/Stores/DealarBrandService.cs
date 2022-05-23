@@ -9,19 +9,18 @@ namespace MakinaTurkiye.Services.Stores
 {
     public class DealarBrandService : BaseService, IDealarBrandService
     {
-
         #region Constants
 
         private const string DEALARBRANS_BY_MAIN_PARTY_ID_KEY = "makinaturkiye.dealerbrand.bymainpartyid-{0}";
 
-        #endregion
+        #endregion Constants
 
         #region Fields
 
         private readonly IRepository<DealerBrand> _dealarBrandRepository;
         private readonly ICacheManager _cacheManager;
 
-        #endregion
+        #endregion Fields
 
         #region Ctor
 
@@ -31,7 +30,7 @@ namespace MakinaTurkiye.Services.Stores
             _cacheManager = cacheManager;
         }
 
-        #endregion
+        #endregion Ctor
 
         #region Methods
 
@@ -87,15 +86,12 @@ namespace MakinaTurkiye.Services.Stores
             return dealerBrand;
         }
 
-
-
-
         private void RemoveCache(DealerBrand dealerBrand)
         {
             string key = string.Format(DEALARBRANS_BY_MAIN_PARTY_ID_KEY, dealerBrand.MainPartyId);
             _cacheManager.Remove(key);
         }
-        #endregion
 
+        #endregion Methods
     }
 }

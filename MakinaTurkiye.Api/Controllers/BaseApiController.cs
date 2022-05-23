@@ -31,8 +31,6 @@ namespace MakinaTurkiye.Api.Controllers
             return val;
         }
 
-
-
         public bool SendMail(MailMessage mailMessage)
         {
             bool Status = false;

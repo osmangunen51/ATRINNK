@@ -28,7 +28,7 @@ namespace MakinaTurkiye.Tasks.Catolog.Tasks
                 deletedProduct.CategoryId = item.CategoryId.HasValue ? item.CategoryId.Value : 0;
                 deletedProduct.ProductId = item.ProductId;
                 deleteProductService.InsertDeletedProductRedirect(deletedProduct);
-                var pictures = pictureService.GetPicturesByProductId(item.ProductId, false);
+                var pictures = pictureService.GetPicturesByProductId(item.ProductId,false);
                 FileHelpers.DeleteFullPath(ProductSettings.ProductImageFolder + item.ProductId);
                 foreach (var picture in pictures)
                 {

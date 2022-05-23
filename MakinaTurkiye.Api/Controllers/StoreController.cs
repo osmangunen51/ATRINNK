@@ -12,10 +12,13 @@ using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Media;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Messages;
+using MakinaTurkiye.Services.Settings;
 using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Services.Videos;
 using MakinaTurkiye.Utilities.FileHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
+using MakinaTurkiye.Utilities.MailHelpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -25,10 +28,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Hosting;
 using System.Web.Http;
-using MakinaTurkiye.Utilities.MailHelpers;
-using MakinaTurkiye.Services.Settings;
-using MakinaTurkiye.Services.Videos;
-
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -88,7 +87,7 @@ namespace MakinaTurkiye.Api.Controllers
             _storeSectorService = EngineContext.Current.Resolve<IStoreSectorService>();
             _videoService = EngineContext.Current.Resolve<IVideoService>();
             _messageMTService = EngineContext.Current.Resolve<IMessagesMTService>();
-            _memberSettingService= EngineContext.Current.Resolve<IMemberSettingService>();
+            _memberSettingService = EngineContext.Current.Resolve<IMemberSettingService>();
         }
 
         public HttpResponseMessage GetInformation(int MainPartyId)
@@ -109,7 +108,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                     if (store != null)
                     {
-                        if (address==null)
+                        if (address == null)
                         {
                             address = new Entities.Tables.Common.Address();
                         }
@@ -126,20 +125,19 @@ namespace MakinaTurkiye.Api.Controllers
                             storeTypeID = (int)store.StoreType,
                             storeUrl = store.StoreUrlName,
                             storeWeb = store.StoreWeb,
-                            
                         };
 
-                        if (address!=null)
+                        if (address != null)
                         {
                             StoreInformation.addressId = address.AddressId;
                             StoreInformation.cadde = address.Avenue;
                             StoreInformation.sokak = address.Street;
                             StoreInformation.selectedCityID = address.CityId;
                             StoreInformation.selectedCountryID = address.CountryId;
-                            StoreInformation.selectedLocalityID =address.LocalityId;
+                            StoreInformation.selectedLocalityID = address.LocalityId;
                             StoreInformation.selectedTownID = address.TownId;
                             StoreInformation.posta = address.PostCode;
-                        }      
+                        }
 
                         processStatus.Result = StoreInformation;
                         processStatus.ActiveResultRowCount = 1;
@@ -221,25 +219,19 @@ namespace MakinaTurkiye.Api.Controllers
                             _memberService.UpdateMember(loginmember);
                         }
 
-
                         // Tümü Siliniyor...
                         var storeAcTypes = _storeActivityTypeService.GetStoreActivityTypesByStoreId((int)Model.MainPartyId).ToList();
-                        if (storeAcTypes!=null)
+                        if (storeAcTypes != null)
                         {
                             foreach (var item in storeAcTypes)
                             {
                                 var deleteitem = _storeActivityTypeService.GetActivityTypeById(item.StoreActivityTypeId);
-                                if (deleteitem!=null)
+                                if (deleteitem != null)
                                 {
                                     _storeActivityTypeService.DeleteStoreActivityType(deleteitem);
-
                                 }
-                                
                             }
                         }
-                        
-
-
 
                         // Yoksa Ekleniyor.
 
@@ -253,7 +245,6 @@ namespace MakinaTurkiye.Api.Controllers
                             _storeActivityTypeService.InsertStoreActivityType(storeActivityType);
                         }
 
-
                         processStatus.Result = Model;
                         processStatus.ActiveResultRowCount = 1;
                         processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -261,9 +252,6 @@ namespace MakinaTurkiye.Api.Controllers
                         processStatus.Message.Text = "Başarılı";
                         processStatus.Status = true;
                         Transaction.Complete();
-
-                        
-
                     }
                     else
                     {
@@ -307,7 +295,7 @@ namespace MakinaTurkiye.Api.Controllers
                         {
                             MainPartyId = store.MainPartyId,
                         };
-                        if (address!=null)
+                        if (address != null)
                         {
                             StoreConctactInformation.cadde = address.Avenue;
                             StoreConctactInformation.sokak = address.Street;
@@ -369,10 +357,11 @@ namespace MakinaTurkiye.Api.Controllers
                         int MainPartyId = Model.MainPartyId;
                         var store = _storeService.GetStoreByMainPartyId(MainPartyId);
                         var address = _addressService.GetAddressByAddressId(Model.addressId);
-                        if (address==null)
+                        if (address == null)
                         {
-                            address = new Entities.Tables.Common.Address() { 
-                                MainPartyId=Model.MainPartyId
+                            address = new Entities.Tables.Common.Address()
+                            {
+                                MainPartyId = Model.MainPartyId
                             };
                         }
                         var StoreActivityItems = _storeActivityTypeService.GetStoreActivityTypesByStoreId(MainPartyId).ToList();
@@ -390,7 +379,8 @@ namespace MakinaTurkiye.Api.Controllers
                                 MainPartyId = Model.MainPartyId;
                                 _addressService.InsertAdress(address);
                             }
-                            else {
+                            else
+                            {
                                 _addressService.UpdateAddress(address);
                             }
                         }
@@ -436,16 +426,13 @@ namespace MakinaTurkiye.Api.Controllers
                     var storeInfoNumber = _storeNumberShowService.GetStoreInfoNumberShowByStoreMainPartyId(Convert.ToInt32(store.MainPartyId));
                     if (store != null)
                     {
-
                         StoreTaxAdministration StoreTaxAdministration = new StoreTaxAdministration()
                         {
                             MainPartyId = store.MainPartyId,
-                            
                         };
 
                         if (storeInfoNumber != null)
                         {
-                            
                             bool MersisNoState = storeInfoNumber.MersisNoShow;
 
                             bool TicaretSicilNoNoState = storeInfoNumber.TradeRegistryNoShow;
@@ -475,7 +462,6 @@ namespace MakinaTurkiye.Api.Controllers
                                 ProfileState = NameState,
                                 Value = store.TaxOffice,
                             };
-
                         }
 
                         processStatus.Result = StoreTaxAdministration;
@@ -528,7 +514,7 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         var store = _storeService.GetStoreByMainPartyId(Model.MainPartyId);
                         var storeInfoNumber = _storeNumberShowService.GetStoreInfoNumberShowByStoreMainPartyId(Convert.ToInt32(store.MainPartyId));
-                        if (storeInfoNumber==null)
+                        if (storeInfoNumber == null)
                         {
                             storeInfoNumber = new StoreInfoNumberShow();
                         }
@@ -610,7 +596,7 @@ namespace MakinaTurkiye.Api.Controllers
                         };
 
                         var phone = _phoneService.GetPhonesByMainPartyId(store.MainPartyId).FirstOrDefault();
-                        if (phone==null)
+                        if (phone == null)
                         {
                             phone = _phoneService.GetPhonesByMainPartyId(loginmember.MainPartyId).FirstOrDefault();
                             phone.PhoneId = 0;
@@ -618,7 +604,7 @@ namespace MakinaTurkiye.Api.Controllers
                             phone.MainPartyId = store.MainPartyId;
                             _phoneService.InsertPhone(phone);
                         }
-                        if (phone!=null)
+                        if (phone != null)
                         {
                             string phoneTypeText = "";
                             switch (phone.PhoneType)
@@ -651,7 +637,7 @@ namespace MakinaTurkiye.Api.Controllers
                             StoreWorkingTime.IsSunday = true;
                             StoreWorkingTime.IsSaturday = true;
                             var memberSettings = _memberSettingService.GetMemberSettingsBySettingNameWithStoreMainPartyId(name, store.MainPartyId);
-                            if (memberSettings.Count>0)
+                            if (memberSettings.Count > 0)
                             {
                                 var setting = memberSettings.FirstOrDefault();
                                 if (setting != null)
@@ -670,7 +656,7 @@ namespace MakinaTurkiye.Api.Controllers
                                     StoreWorkingTime.EndTime = setting.FirstValue.Split('-')[1];
                                 }
                             }
-                            
+
                             StoreWorkingTime.IsAllDays = (bool)(StoreWorkingTime.IsSunday && StoreWorkingTime.IsSaturday);
                         }
                         processStatus.Result = StoreWorkingTime;
@@ -841,7 +827,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         public HttpResponseMessage GetLogo(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -1003,7 +988,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         public HttpResponseMessage GetVideo(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -1017,7 +1001,6 @@ namespace MakinaTurkiye.Api.Controllers
                     var videos = _videoService.GetVideoByStoreMainPartyId(store.MainPartyId);
                     if (store != null)
                     {
-                        
                         string StoreVideoFolder = AppSettings.VideoFolder;
                         StoreVideo StoreVideo = new StoreVideo()
                         {
@@ -1117,7 +1100,6 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 FileHelpers.Delete(item);
                             }
-
                         }
                         else
                         {
@@ -1241,7 +1223,6 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
 
         public HttpResponseMessage GetSlideImage(int MainPartyId)
         {
@@ -2049,7 +2030,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         public HttpResponseMessage GetPermissionUser(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -2069,18 +2049,19 @@ namespace MakinaTurkiye.Api.Controllers
                         {
                             var mainParty = _memberService.GetMainPartyByMainPartyId(item.MainPartyId);
                             StorePermissionUserItemList.Add(
-                                new StorePermissionUserItem{
-                                        Active =item.Active,
-                                        Mail = item.MemberEmail,
-                                        PermissionMainPartyId = item.MainPartyId,
-                                        Name = item.MemberName,
-                                        Surname =item.MemberSurname, 
-                                        Password = item.MemberPassword,
-                                        Gender=Convert.ToByte(item.Gender)
-                                    }
+                                new StorePermissionUserItem
+                                {
+                                    Active = item.Active,
+                                    Mail = item.MemberEmail,
+                                    PermissionMainPartyId = item.MainPartyId,
+                                    Name = item.MemberName,
+                                    Surname = item.MemberSurname,
+                                    Password = item.MemberPassword,
+                                    Gender = Convert.ToByte(item.Gender)
+                                }
                                 );
                         }
-                        
+
                         MakinaTurkiye.Api.View.StorePermissionUser StorePermissionUser = new MakinaTurkiye.Api.View.StorePermissionUser()
                         {
                             MainPartyId = store.MainPartyId,
@@ -2141,7 +2122,6 @@ namespace MakinaTurkiye.Api.Controllers
                         {
                             foreach (var model in Model.List)
                             {
-
                                 var mainParty = new MakinaTurkiye.Entities.Tables.Members.MainParty
                                 {
                                     Active = false,
@@ -2164,7 +2144,6 @@ namespace MakinaTurkiye.Api.Controllers
                                 member.Gender = Convert.ToBoolean(model.Gender);
                                 _memberService.InsertMember(member);
 
-
                                 string memberNo = "##";
                                 for (int i = 0; i < 7 - mainParty.MainPartyId.ToString().Length; i++)
                                 {
@@ -2181,7 +2160,6 @@ namespace MakinaTurkiye.Api.Controllers
                                 memberStore.StoreMainPartyId = store.MainPartyId;
                                 memberStore.MemberStoreType = (byte)MemberStoreType.Helper;
                                 _memberStoreService.InsertMemberStore(memberStore);
-
 
                                 var mailMessageTemplate = _messageMTService.GetMessagesMTByMessageMTName("kullanicibilgileri");
                                 string content = mailMessageTemplate.MailContent.Replace("#email#", model.Mail).Replace("#sifre#", model.Password).Replace("#firmaadi#", store.StoreName);
@@ -2240,9 +2218,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
-
-        public HttpResponseMessage GetDealer(int MainPartyId,byte DealerType)
+        public HttpResponseMessage GetDealer(int MainPartyId, byte DealerType)
         {
             DealerTypeEnum Type = (DealerTypeEnum)DealerType;
 
@@ -2263,7 +2239,7 @@ namespace MakinaTurkiye.Api.Controllers
                         foreach (var item in qlist)
                         {
                             var address = _adressService.GetAddressByStoreDealerId(item.StoreDealerId);
-                            if (address!=null)
+                            if (address != null)
                             {
                                 address = _addressService.GetAddressByAddressId(address.AddressId);
                                 var Phones = _phoneService.GetPhonesAddressId(address.AddressId);
@@ -2284,10 +2260,10 @@ namespace MakinaTurkiye.Api.Controllers
                                         CityID = address.CityId,
                                         LocalityID = address.LocalityId,
                                         TownID = address.TownId,
-                                        Country=(address.Country!=null? address.Country.CountryName:""),
-                                        City = (address.City != null ? address.City.CityName:""),
-                                        Locality = (address.Locality != null ? address.Locality.LocalityName:""),
-                                        Town = (address.Town != null ? address.Town.TownName:""),
+                                        Country = (address.Country != null ? address.Country.CountryName : ""),
+                                        City = (address.City != null ? address.City.CityName : ""),
+                                        Locality = (address.Locality != null ? address.Locality.LocalityName : ""),
+                                        Town = (address.Town != null ? address.Town.TownName : ""),
                                         cadde = address.Avenue,
                                         posta = address.DoorNo,
                                         sokak = address.Street,
@@ -2472,13 +2448,13 @@ namespace MakinaTurkiye.Api.Controllers
                                 DealerTypeEnum Type = (DealerTypeEnum)model.DealerType;
                                 var qlist = _storeDealerService.GetStoreDealersByMainPartyId(store.MainPartyId, Type).ToList();
                                 MakinaTurkiye.Entities.Tables.Stores.StoreDealer dealer = qlist.FirstOrDefault(x => x.StoreDealerId == model.DealerId);
-                                if (dealer==null)
+                                if (dealer == null)
                                 {
                                     dealer = new Entities.Tables.Stores.StoreDealer()
                                     {
-                                        MainPartyId=Model.MainPartyId,
-                                        DealerName=model.Name,
-                                        DealerType= (byte)Type
+                                        MainPartyId = Model.MainPartyId,
+                                        DealerName = model.Name,
+                                        DealerType = (byte)Type
                                     };
                                     _storeDealerService.InsertStoreDealer(dealer);
                                 }
@@ -2503,10 +2479,10 @@ namespace MakinaTurkiye.Api.Controllers
                                         StoreDealerId = dealer.StoreDealerId,
                                         AddressTypeId = null,
                                         CountryId = model.Address.CountryID,
-                                        CityId=model.Address.CityID,
-                                        LocalityId=model.Address.LocalityID,
-                                        TownId=model.Address.TownID,
-                                        PostCode=model.Address.posta
+                                        CityId = model.Address.CityID,
+                                        LocalityId = model.Address.LocalityID,
+                                        TownId = model.Address.TownID,
+                                        PostCode = model.Address.posta
                                     };
                                     _adressService.InsertAdress(address);
                                 }
@@ -2681,7 +2657,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                             var sectoreStore = storeSectors.FirstOrDefault(x => x.CategoryId == item.CategoryId);
 
-                            if (sectoreStore!=null)
+                            if (sectoreStore != null)
                             {
                                 selected = true;
                                 SectorId = sectoreStore.StoreSectorId;
@@ -2738,6 +2714,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage AddUpdateSector(MakinaTurkiye.Api.View.StoreSector Model)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -2756,7 +2733,7 @@ namespace MakinaTurkiye.Api.Controllers
                             foreach (var item in Model.List)
 
                             {
-                                if (item.SectorId==0)
+                                if (item.SectorId == 0)
                                 {
                                     if (item.IsSelected)
                                     {
@@ -2764,7 +2741,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         {
                                             CategoryId = item.CategoryId,
                                             StoreMainPartyId = Model.MainPartyId,
-                                            RecordDate=DateTime.Now
+                                            RecordDate = DateTime.Now
                                         };
                                         _storeSectorService.InsertStoreSector(StoreSectorCategory);
                                     }
@@ -2788,7 +2765,6 @@ namespace MakinaTurkiye.Api.Controllers
                             processStatus.Message.Text = "Başarılı";
                             processStatus.Status = true;
                             Transaction.Complete();
-
                         }
                         else
                         {
@@ -2823,6 +2799,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage GetActivity(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -2857,7 +2834,7 @@ namespace MakinaTurkiye.Api.Controllers
                             };
                             StoreActivityItemList.Add(StoreActivityItem);
                         }
-                            MakinaTurkiye.Api.View.StoreActivity StoreActivity = new MakinaTurkiye.Api.View.StoreActivity()
+                        MakinaTurkiye.Api.View.StoreActivity StoreActivity = new MakinaTurkiye.Api.View.StoreActivity()
                         {
                             MainPartyId = store.MainPartyId,
                             List = StoreActivityItemList
@@ -2898,6 +2875,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
         public HttpResponseMessage AddUpdateActivity(MakinaTurkiye.Api.View.StoreActivity Model)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -2915,7 +2893,7 @@ namespace MakinaTurkiye.Api.Controllers
                         {
                             foreach (var item in Model.List)
                             {
-                                if (item.ActivityId== 0)
+                                if (item.ActivityId == 0)
                                 {
                                     if (item.IsSelected)
                                     {
@@ -2980,9 +2958,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
-
-
         public HttpResponseMessage GetBanner(int MainPartyId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -3031,7 +3006,6 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
 
         public HttpResponseMessage GetCompanyImage(int MainPartyId)
         {
@@ -3198,7 +3172,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 if (IslemDurum)
                                 {
                                     var file = Logo.ToImage();
-                                    string fileName = FileHelpers.ImageThumbnail(AppSettings.StoreImageFolder,file, Uzanti, 170,FileHelpers.ThumbnailType.Width);
+                                    string fileName = FileHelpers.ImageThumbnail(AppSettings.StoreImageFolder, file, Uzanti, 170, FileHelpers.ThumbnailType.Width);
                                     var curPicture = new Picture()
                                     {
                                         PicturePath = fileName,
@@ -3570,9 +3544,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
-        
-        
         public HttpResponseMessage GetProfilFoto(int MainPartyId)
         {
             List<string> listDeleteFile = new List<string>();
@@ -3586,7 +3557,7 @@ namespace MakinaTurkiye.Api.Controllers
                     var store = _storeService.GetStoreByMainPartyId(MainPartyId);
                     if (store != null)
                     {
-                        string StoreProfilFoto = !string.IsNullOrEmpty(store.StorePicture) ?ImageHelper.GetStoreProfilePicture(store.StorePicture) : null;
+                        string StoreProfilFoto = !string.IsNullOrEmpty(store.StorePicture) ? ImageHelper.GetStoreProfilePicture(store.StorePicture) : null;
                         processStatus.Result = StoreProfilFoto;
                         processStatus.ActiveResultRowCount = 1;
                         processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -3614,7 +3585,6 @@ namespace MakinaTurkiye.Api.Controllers
             }
             catch (Exception Error)
             {
-
                 foreach (var item in listDeleteFile)
                 {
                     FileHelpers.Delete(item);
@@ -3632,8 +3602,7 @@ namespace MakinaTurkiye.Api.Controllers
         public HttpResponseMessage SetProfilFoto(StoreProfilFoto Model)
         {
             ProcessResult processStatus = new ProcessResult();
-          
-            
+
             try
             {
                 string ProfilFoto = Model.ProfilFoto;
@@ -3724,7 +3693,6 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Status = false;
                 processStatus.Result = null;
                 processStatus.Error = Error;
-
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
@@ -3740,11 +3708,9 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     var List = _storeBrandService.GetStoreBrandByMainPartyId(MainPartyId).Select(x => new View.StoreBrand()
                     {
-
                         Description = x.BrandDescription,
                         MainPartyId = x.MainPartyId,
                         Logo = ImageHelper.GetBrandPicture(x.BrandPicture)
-
                     }).ToList();
                     processStatus.Result = List;
                     processStatus.ActiveResultRowCount = List.Count;
@@ -3902,11 +3868,12 @@ namespace MakinaTurkiye.Api.Controllers
                 var loginmember = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                 if (loginmember != null)
                 {
-                    var List = _dealarBrandService.GetDealarBrandsByMainPartyId(MainPartyId).Select(x => new StoreDealerShip(){ 
-                     Name=x.DealerBrandName,
-                     Logo=ImageHelper.GetDealerShipPicture(x.DealerBrandPicture),
-                     MainPartyId=x.MainPartyId,
-                     DealerBrandId=x.DealerBrandId
+                    var List = _dealarBrandService.GetDealarBrandsByMainPartyId(MainPartyId).Select(x => new StoreDealerShip()
+                    {
+                        Name = x.DealerBrandName,
+                        Logo = ImageHelper.GetDealerShipPicture(x.DealerBrandPicture),
+                        MainPartyId = x.MainPartyId,
+                        DealerBrandId = x.DealerBrandId
                     }).ToList();
                     processStatus.Result = List;
                     processStatus.ActiveResultRowCount = List.Count;
@@ -3935,7 +3902,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         public HttpResponseMessage DeleteDealerShip(StoreDealerShip Model)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -3959,7 +3925,6 @@ namespace MakinaTurkiye.Api.Controllers
                             processStatus.Message.Header = "Store İşlemleri";
                             processStatus.Message.Text = "Başarılı";
                             processStatus.Status = true;
-
 
                             FileHelpers.Delete(AppSettings.DealerBrandImageFolder + dealerBrand.DealerBrandPicture);
                             FileHelpers.Delete(AppSettings.DealerBrandImageFolder + FileHelper.ImageThumbnailName(dealerBrand.DealerBrandPicture));
@@ -4022,8 +3987,8 @@ namespace MakinaTurkiye.Api.Controllers
                     string fileName = FileHelpers.ImageThumbnail(AppSettings.DealerBrandImageFolder, Img, Uzanti, 50, FileHelpers.ThumbnailType.Width);
                     if (Model.DealerBrandId > 0)
                     {
-                        MakinaTurkiye.Entities.Tables.Stores.DealerBrand dealerBrand= _dealarBrandService.GetDealerBrandByDealerBrandId(Model.DealerBrandId);
-                        if (dealerBrand!=null)
+                        MakinaTurkiye.Entities.Tables.Stores.DealerBrand dealerBrand = _dealarBrandService.GetDealerBrandByDealerBrandId(Model.DealerBrandId);
+                        if (dealerBrand != null)
                         {
                             dealerBrand.DealerBrandPicture = fileName;
                             dealerBrand.DealerBrandName = Model.Name;

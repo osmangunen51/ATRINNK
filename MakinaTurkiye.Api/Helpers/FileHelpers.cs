@@ -490,6 +490,8 @@ namespace MakinaTurkiye.Api.Helpers
             }
             return videomodel;
         }
+
+
         public static VideoModelHelper fffmpegVideoConvert(HttpPostedFileBase file, string tempFolder, string thumbnailImageFolder, string videoFolder, string ffmpegFolder, short genislik, short yukseklik)
         {
             FileInfo fileInfo = new FileInfo(file.FileName);

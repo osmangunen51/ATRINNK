@@ -4,7 +4,9 @@ namespace MakinaTurkiye.Api.View
     using System;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
     using System.Linq;
+    using System.Reflection;
 
     public static class EnumModel
     {
@@ -65,6 +67,16 @@ namespace MakinaTurkiye.Api.View
             else
                 return 0;
         }
+
+        public static string GetDisplayName(this Enum enumValue)
+        {
+            return enumValue.GetType()
+              .GetMember(enumValue.ToString())
+              .First()
+              .GetCustomAttribute<DisplayAttribute>()
+              ?.GetName();
+        }
+
         public static string GetDescription(this Enum value)
         {
             var descriptionAttribute = (DescriptionAttribute)value.GetType()?
@@ -519,4 +531,43 @@ namespace MakinaTurkiye.Api.View
         Login = 1,
         Register = 2
     }
+
+    public enum PacketFeatureType
+    {
+        ProcessCount = 1,
+        Active = 2,
+        Content = 3
+    }
+
+    public enum PacketPage
+    {
+        FirmaBilgileri = 1,
+        IletisimBilgileri = 2,
+        UrunEkleme = 3,
+        UrunResimSayisi = 4,
+        VideoEkleme = 5,
+        FAGFA = 6,
+        FaaliyetTipi = 7,
+        Mesajlasma = 8,
+        Logo = 9,
+        SirketGorseli = 10,
+        Subeler = 11,
+        Bayiler = 12,
+        YetkiliServisler = 13,
+        Markalarimiz = 14,
+        Hakkimizda = 15,
+        FirmaVitrini = 16,
+        UrunVitrini = 17,
+        RaporBildirimi = 18,
+        UrunGoruntulenmeSayisi = 19,
+        FirmaGoruntulenmeSayisi = 20,
+        UrunFavorilereEkleme = 21,
+        FirmaFavorilereEkleme = 22,
+        TeklifGonderme = 23,
+        SEO = 24,
+        SirketProfilGorseli = 25,
+        OzelHizmetDestegi = 26,
+        AranmaTalebi = 27
+    }
+
 }
