@@ -1818,7 +1818,7 @@ namespace MakinaTurkiye.Api.Controllers
                         product.ProductSalesType = Model.ProductSalesType;
                         product.WarrantyPeriod = Model.WarrantyPeriod;
                         product.OrderStatus = Model.OrderStatus;
-
+                        product.MinumumAmount = Model.MinumumAmount.HasValue ? Model.MinumumAmount.Value : (byte)1;
                         if (product.ProductId == 0)
                         {
                             _productService.InsertProduct(product);

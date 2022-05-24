@@ -17,13 +17,15 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IAddressService _addressService;
         private readonly IConstantService _constantService;
         private readonly IActivityTypeService _activityTypeService;
-
+        private readonly ICurrencyService _currencyService;
         public CommonController()
         {
             _memberService = EngineContext.Current.Resolve<IMemberService>();
             _addressService = EngineContext.Current.Resolve<IAddressService>();
             _constantService = EngineContext.Current.Resolve<IConstantService>();
             _activityTypeService = EngineContext.Current.Resolve<IActivityTypeService>();
+            _currencyService = EngineContext.Current.Resolve<ICurrencyService>();
+            
         }
 
         public HttpResponseMessage GetConstants()
@@ -61,6 +63,41 @@ namespace MakinaTurkiye.Api.Controllers
             catch (Exception Error)
             {
                 processStatus.Message.Header = "Constant İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+
+        public HttpResponseMessage GetCurrencies()
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var rslt = _currencyService.GetAllCurrencies().Select(x=>new { Key = x.CurrencyId, Name = x.CurrencyName, FullName = x.CurrencyFullName }).ToList();
+                if (rslt != null)
+                {
+                    processStatus.Result = rslt;
+                    processStatus.ActiveResultRowCount = rslt.Count;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Currencies İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Currencies İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "Currencies sonucu boş!";
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "Currencies İşlemleri";
                 processStatus.Message.Text = "Başarısız";
                 processStatus.Status = false;
                 processStatus.Result = null;

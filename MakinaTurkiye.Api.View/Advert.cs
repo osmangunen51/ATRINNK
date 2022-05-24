@@ -75,5 +75,6 @@ namespace MakinaTurkiye.Api.View
         public string ProductSalesType { get; set; } = "";
         public string WarrantyPeriod { get; set; } = "";
         public int OrderStatus { get; set; } = 0;
+        public byte? MinumumAmount { get; set; } = 0;
     }
 }
