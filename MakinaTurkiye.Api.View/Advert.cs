@@ -16,6 +16,8 @@ namespace MakinaTurkiye.Api.View
     public class Advert
     {
         public int CategoryId { get; set; } = 0;
+        public int ProductGroupId { get; set; } = 0;
+        public string ProductGroup { get; set; } = "";
 
         public int BrandId { get; set; } = 0;
         public string Brand { get; set; } = "";
@@ -32,7 +34,7 @@ namespace MakinaTurkiye.Api.View
         public string ProductTypeText { get; set; } = "";
         public bool Active { get; set; } = false;
         public byte ActiveType { get; set; } = 0;
-        public byte Mensei { get; set; } = 0;
+        public int? Mensei { get; set; } = 0;
         public string Price { get; set; } = "";
         public string SalesType { get; set; }
         public string SalesTypeText { get; set; }

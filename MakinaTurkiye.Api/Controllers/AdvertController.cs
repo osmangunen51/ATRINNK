@@ -1598,7 +1598,12 @@ namespace MakinaTurkiye.Api.Controllers
                     var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                     if (member != null)
                     {
-                        var product = _productService.GetProductByProductId(Model.ProductId);
+                        MakinaTurkiye.Entities.Tables.Catalog.Product product = null;
+                        if (Model.ProductId>0)
+                        {
+                            product=_productService.GetProductByProductId(Model.ProductId);
+                        }
+                        
                         if (product == null)
                         {
                             product = new Product();
@@ -1611,7 +1616,7 @@ namespace MakinaTurkiye.Api.Controllers
                         if (category != null)
                         {
                             brand = _categoryService.GetCategoryByCategoryId(Model.BrandId);
-                            if (brand == null)
+                            if (brand == null | brand.CategoryId==0)
                             {
                                 if (!string.IsNullOrEmpty(Model.BrandName))
                                 {
@@ -1635,9 +1640,11 @@ namespace MakinaTurkiye.Api.Controllers
                                     _categoryService.UpdateCategory(category);
                                     _categoryService.InsertCategory(brand);
                                 }
-
+                            }
+                            if (brand!=null)
+                            {
                                 model = _categoryService.GetCategoryByCategoryId(Model.ModelId);
-                                if (model == null)
+                                if (model.Id== 0)
                                 {
                                     if (!string.IsNullOrEmpty(Model.ModelName))
                                     {
@@ -1662,7 +1669,6 @@ namespace MakinaTurkiye.Api.Controllers
                                         _categoryService.InsertCategory(model);
                                     }
                                 }
-
                             }
                         }
                         if (brand==null)
@@ -1675,7 +1681,6 @@ namespace MakinaTurkiye.Api.Controllers
                         }
                         product.CategoryId =Model.CategoryId;
                         product.BrandId = brand.CategoryId;
-                        product.ModelId = model.CategoryId;
                         product.ModelId = model.CategoryId;
 
 
@@ -1731,7 +1736,7 @@ namespace MakinaTurkiye.Api.Controllers
                         var cultInfo = new CultureInfo("tr-TR");
 
                         string productPrice = Model.Price;
-                        if (product.ProductPriceType == (byte)ProductPriceType.Price)
+                        if (Model.ProductPriceType == ProductPriceType.Price)
                         {
                             product.Fob = false;
                             product.Kdv = false;
@@ -1767,7 +1772,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 product.ProductPriceWithDiscount = 0;
                             }
                         }
-                        else if (product.ProductPriceType == (byte)ProductPriceType.PriceRange)
+                        else if (Model.ProductPriceType==ProductPriceType.PriceRange)
                         {
                             product.Fob = Model.Fob;
                             product.Kdv = Model.Kdv;
@@ -1815,18 +1820,49 @@ namespace MakinaTurkiye.Api.Controllers
                         }
 
 
-                        product.ProductSalesType = Model.ProductSalesType;
+                        product.ProductSalesType = Model.SalesType;
                         product.WarrantyPeriod = Model.WarrantyPeriod;
                         product.OrderStatus = Model.OrderStatus;
                         product.MinumumAmount = Model.MinumumAmount.HasValue ? Model.MinumumAmount.Value : (byte)1;
+                        product.ProductName = Model.Name;
+                        product.ProductDescription= Model.Description;
+                        product.ProductType = Model.ProductType;
+                        product.ProductStatu = Model.Statu;
+                        product.ProductActiveType = Model.ActiveType;
+                        product.ProductLastUpdate = DateTime.Now;
+                        product.MenseiId = Model.Mensei.Value;
+                        product.BriefDetail = Model.BriefDetail;
+
                         if (product.ProductId == 0)
                         {
+                            product.ReadyforSale = false;
+
+                            product.ProductRecordDate = DateTime.Now;
+                            product.ProductActive = true;
+                            product.ViewCount = 0;
+                            product.SingularViewCount = 0;
+                            product.MainPartyId = member.MainPartyId;
                             _productService.InsertProduct(product);
+                            // Product No Oluşturuluyor...
+                            int kalansayisi = 8 - product.ProductId.ToString().Length;
+                            if (kalansayisi<0)
+                            {
+                                kalansayisi = 0;
+                            }
+                            for (int i = 0; i < kalansayisi; i++)
+                            {
+                                product.ProductNo = "0" + product.ProductNo;
+                            }
+
+                            product.ProductNo = "#" + product.ProductNo;
+                            _productService.UpdateProduct(product);
+
                         }
                         else
                         { 
                             _productService.UpdateProduct(product);
                         }
+
                         var productpictures = _pictureService.GetPicturesByProductId(product.ProductId).ToList();
                         int PictureOrder = 0;
                         List<string> thumbSizes = new List<string>();
