@@ -1609,7 +1609,34 @@ namespace MakinaTurkiye.Api.Controllers
                             product = new Product();
                             product.ProductAdvertBeginDate = DateTime.Now;
                             product.ProductAdvertEndDate = DateTime.Now;
+                            product.ModelYear = 0;
+                            product.MoneyCondition = true;
+                            product.ProductActiveType = (byte)ProductActiveType.Inceleniyor;
+                            product.ProductShowcase = false;
+                            product.Sort = 0;
+                            product.HasVideo = false;
+                            product.ProductPriceBegin = 0;
+                            product.ProductPriceLast = 0;
+
                         }
+
+                        product.ProductGroupId = Model.ProductGroupId;
+                        product.ProductPriceType =(byte)Model.ProductPriceType;
+                        product.UnitType = Model.UnitType;
+                        product.ProductSalesType = Model.SalesType;
+                        product.WarrantyPeriod = Model.WarrantyPeriod;
+                        product.OrderStatus = Model.OrderStatus;
+                        product.MinumumAmount = Model.MinumumAmount.HasValue ? Model.MinumumAmount.Value : (byte)1;
+                        product.ProductName = Model.Name;
+                        product.ProductDescription = Model.Description;
+                        product.ProductType = Model.ProductType;
+                        product.ProductStatu = Model.Statu;
+                        product.ProductActiveType = Model.ActiveType;
+                        product.ProductLastUpdate = DateTime.Now;
+                        product.MenseiId = Model.Mensei.Value;
+                        product.BriefDetail = Model.BriefDetail;
+
+
                         MakinaTurkiye.Entities.Tables.Catalog.Category brand = null;
                         MakinaTurkiye.Entities.Tables.Catalog.Category model = null;
                         MakinaTurkiye.Entities.Tables.Catalog.Category category= _categoryService.GetCategoryByCategoryId(Model.CategoryId);
@@ -1732,7 +1759,7 @@ namespace MakinaTurkiye.Api.Controllers
                             product.CurrencyId = Model.CurrencyId;
                         else
                             product.CurrencyId = null;
-
+                        
                         var cultInfo = new CultureInfo("tr-TR");
 
                         string productPrice = Model.Price;
@@ -1763,6 +1790,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 if (Model.DiscountAmount>0)
                                 {
                                     product.DiscountAmount = Model.DiscountAmount;
+                                    Model.TotalPrice = Convert.ToDecimal(product.ProductPrice - ((product.ProductPrice.Value * product.DiscountAmount) / 100));
                                     product.ProductPriceWithDiscount = Model.TotalPrice;
                                 }
                             }
@@ -1806,7 +1834,7 @@ namespace MakinaTurkiye.Api.Controllers
                             product.ProductPriceBegin = Convert.ToDecimal(productPriceBegin, cultInfo.NumberFormat);
                             product.ProductPriceLast = Convert.ToDecimal(productPriceLast, cultInfo.NumberFormat);
                             productPrice = "0";
-                            product.UnitType = Model.UnitType;
+                            
                         }
                         else
                         {
@@ -1820,18 +1848,10 @@ namespace MakinaTurkiye.Api.Controllers
                         }
 
 
-                        product.ProductSalesType = Model.SalesType;
-                        product.WarrantyPeriod = Model.WarrantyPeriod;
-                        product.OrderStatus = Model.OrderStatus;
-                        product.MinumumAmount = Model.MinumumAmount.HasValue ? Model.MinumumAmount.Value : (byte)1;
-                        product.ProductName = Model.Name;
-                        product.ProductDescription= Model.Description;
-                        product.ProductType = Model.ProductType;
-                        product.ProductStatu = Model.Statu;
-                        product.ProductActiveType = Model.ActiveType;
-                        product.ProductLastUpdate = DateTime.Now;
-                        product.MenseiId = Model.Mensei.Value;
-                        product.BriefDetail = Model.BriefDetail;
+
+
+                        if (product.ProductPriceWithDiscount > 0)
+                            product.ProductPriceForOrder = product.ProductPriceWithDiscount;
 
                         if (product.ProductId == 0)
                         {
@@ -1944,7 +1964,7 @@ namespace MakinaTurkiye.Api.Controllers
                             }
                         }
                         Transaction.Complete();
-                        processStatus.Result = null;
+                        processStatus.Result = product.ProductId;
                         processStatus.Message.Header = "Advert";
                         processStatus.Message.Text = "Başarılı";
                         processStatus.Status = true;

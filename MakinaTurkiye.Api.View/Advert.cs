@@ -29,14 +29,14 @@ namespace MakinaTurkiye.Api.View
         public int ProductId { get; set; }=0;
         public string Name { get; set; } = "";
         public string Description { get; set; } = "";
-        public int Order { get; set; } = 0;
         public string ProductType { get; set; } = "";
+        public string SalesType { get; set; }
+        public int Order { get; set; } = 0;
         public string ProductTypeText { get; set; } = "";
         public bool Active { get; set; } = false;
         public byte ActiveType { get; set; } = 0;
         public int? Mensei { get; set; } = 0;
         public string Price { get; set; } = "";
-        public string SalesType { get; set; }
         public string SalesTypeText { get; set; }
         public string TypeText { get; set; } = "";
         public string Picture { get; set; } = "";
