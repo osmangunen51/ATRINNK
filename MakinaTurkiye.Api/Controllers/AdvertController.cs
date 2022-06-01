@@ -573,20 +573,16 @@ namespace MakinaTurkiye.Api.Controllers
                     var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
                     if (member != null)
                     {
-
                         var product = _productService.GetProductByProductId(AdvertId);
                         if (Active)
                         {
                             product.ProductActiveType = (byte)ProductActiveType.Inceleniyor;
                         }
-                        if (product.ProductActive == true && Active == false)
+                        else if (product.ProductActive == true && Active == false)
                         {
-                            if (product.ProductActive == true)
-                            {
-                                ProductCountCalc(product, false);
-                            }
+                            ProductCountCalc(product, false);
                         }
-                        product.ProductActive = Active;
+                         product.ProductActive = Active;
                         product.ProductLastUpdate = DateTime.Now;
                         _productService.UpdateProduct(product);
                         Transaction.Complete();
@@ -1885,6 +1881,7 @@ namespace MakinaTurkiye.Api.Controllers
                             PictureOrder++;
                             string Logo = Picture.Value;
                             string Uzanti = "";
+                            Uzanti = Logo.GetUzanti();
                             bool IslemDurum = false;
                             if (Uzanti == "jpg")
                             {
@@ -1913,6 +1910,11 @@ namespace MakinaTurkiye.Api.Controllers
                                 string newMainImageFilePath = AppSettings.ProductImageFolder + product.ProductId.ToString() + "\\";
                                 string fileName = product.ProductName.ToImageFileName(count) + ".jpg";
                                 string fileserverpath = System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + fileName;
+                                System.IO.FileInfo file = new FileInfo(fileserverpath);
+                                if (!file.Directory.Exists)
+                                {
+                                    file.Directory.Create();
+                                }
                                 System.Drawing.Image Img = Logo.ToImage();
                                 if (Uzanti == "png")
                                 {
@@ -1924,15 +1926,28 @@ namespace MakinaTurkiye.Api.Controllers
                                 }
                                 bool thumbResult = ImageProcessHelper.ImageResize(System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + fileName,
                                 System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + "thumbs\\" + product.ProductName.ToImageFileName(count), thumbSizes);
-                                foreach (var thumbSize in thumbSizes)
+                                if (thumbResult)
                                 {
-                                    if (thumbSize == "980x*" || thumbSize == "500x375" || thumbSize == "*x980")
+                                    foreach (var thumbSize in thumbSizes)
                                     {
-                                        var yol = System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + "thumbs\\" +
-                                                  product.ProductName.ToImageFileName(count) + "-" + thumbSize.Replace("*", "") + ".jpg";
-                                        ImageProcessHelper.AddWaterMarkNew(yol, thumbSize);
+                                        if (thumbSize == "980x*" || thumbSize == "500x375" || thumbSize == "*x980")
+                                        {
+                                            var yol = System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + "thumbs\\" +
+                                                      product.ProductName.ToImageFileName(count) + "-" + thumbSize.Replace("*", "") + ".jpg";
+                                            System.IO.FileInfo fileyol = new FileInfo(yol);
+                                            if (!fileyol.Directory.Exists)
+                                            {
+                                                fileyol.Directory.Create();
+                                            }
+                                            ImageProcessHelper.AddWaterMarkNew(yol, thumbSize);
+                                        }
                                     }
                                 }
+                                else
+                                {
+                                    
+                                }
+                                
 
                                 int pictureOrder = 0;
                                 if (productpictures != null)

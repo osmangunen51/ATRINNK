@@ -266,9 +266,14 @@ namespace MakinaTurkiye.Api.Helpers
 
                 try
                 {
+                    System.IO.FileInfo fileyol = new FileInfo(thumbFile);
+                    if (!fileyol.Directory.Exists)
+                    {
+                        fileyol.Directory.Create();
+                    }
                     ImageBuilder.Current.Build(new ImageJob(originalFile, thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X"), settings, false, true));
                 }
-                catch
+                catch(Exception e)
                 {
                     anyError = true;
                 }
