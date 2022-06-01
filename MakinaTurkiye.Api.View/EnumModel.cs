@@ -334,9 +334,9 @@ namespace MakinaTurkiye.Api.View
 
     public enum ProductActiveType : byte
     {
-        Inceleniyor,
-        Onaylandi,
-        Onaylanmadi,
+        Inceleniyor=0,
+        Onaylandi=1,
+        Onaylanmadi=2,
         Silindi,
         CopKutusunda = 6,
         Tumu = 7,

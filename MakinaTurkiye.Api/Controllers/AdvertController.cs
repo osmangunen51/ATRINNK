@@ -23,6 +23,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Http;
 
 namespace MakinaTurkiye.Api.Controllers
 {
@@ -468,6 +469,54 @@ namespace MakinaTurkiye.Api.Controllers
                 }
             }
         }
+
+        [HttpPost]
+        public HttpResponseMessage ChangeActiveType(int AdvertId, ProductActiveType ActiveType)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            using (System.Transactions.TransactionScope Transaction = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.Required, TimeSpan.FromMinutes(30)))
+            {
+                try
+                {
+                    var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                    var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                    if (member != null)
+                    {
+
+                        var product = _productService.GetProductByProductId(AdvertId);
+                        if (product!=null)
+                        {
+                            product.ProductActiveType = (byte)ActiveType;
+                            product.ProductLastUpdate = DateTime.Now;
+                            _productService.UpdateProduct(product);
+                            Transaction.Complete();
+                        }
+                        processStatus.Result = null;
+                        processStatus.Message.Header = "Advert";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
+                    }
+                    else
+                    {
+                        processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
+                        processStatus.Message.Header = "Advert";
+                        processStatus.Message.Text = "Başarısız";
+                        processStatus.Status = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    processStatus.Message.Header = "advert";
+                    processStatus.Message.Text = "İşlem başarısız.";
+                    processStatus.Status = false;
+                    processStatus.Result = "Hata ile karşılaşıldı!";
+                    processStatus.Error = ex;
+                }
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        [HttpPost]
         public HttpResponseMessage Delete(int AdvertId)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -565,64 +614,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-        public HttpResponseMessage ChangeActiveType(int AdvertId, ProductActiveType ActiveType)
-        {
-            ProcessResult processStatus = new ProcessResult();
-            using (System.Transactions.TransactionScope Transaction = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.Required, TimeSpan.FromMinutes(30)))
-            {
-                try
-                {
-                    var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
-                    var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
-                    if (member != null)
-                    {
-                        bool ProductActive = true;
-                        if (ActiveType == ProductActiveType.Silindi) {
-                            ProductActive = false;
-                        };
-                        if (ActiveType == ProductActiveType.CopKutusunda)
-                        {
-                            ProductActive = false;
-                        };
-                        if (ActiveType == ProductActiveType.CopKutusuYeni)
-                        {
-                            ProductActive = false;
-                        };
-                        var product = _productService.GetProductByProductId(AdvertId);
-                        product.ProductActiveType = (byte)ActiveType;
-                        if (product.ProductActive == false && product.ProductActiveType == (byte)ProductActiveType.Onaylandi)
-                        {
-                            ProductCountCalc(product, true);
-                        }
-                        product.ProductActive = ProductActive;
-                        product.ProductLastUpdate = DateTime.Now;
-                        _productService.UpdateProduct(product);
-                        Transaction.Complete();
 
-                        processStatus.Result = null;
-                        processStatus.Message.Header = "Advert";
-                        processStatus.Message.Text = "Başarılı";
-                        processStatus.Status = true;
-                    }
-                    else
-                    {
-                        processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız";
-                        processStatus.Message.Header = "Advert";
-                        processStatus.Message.Text = "Başarısız";
-                        processStatus.Status = false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    processStatus.Message.Header = "advert";
-                    processStatus.Message.Text = "İşlem başarısız.";
-                    processStatus.Status = false;
-                    processStatus.Result = "Hata ile karşılaşıldı!";
-                    processStatus.Error = ex;
-                }
-            }
-            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-        }
         public HttpResponseMessage ChangeOrder(int AdvertId, int Order)
         {
             ProcessResult processStatus = new ProcessResult();
@@ -1602,8 +1594,7 @@ namespace MakinaTurkiye.Api.Controllers
                         if (Model.ProductId>0)
                         {
                             product=_productService.GetProductByProductId(Model.ProductId);
-                        }
-                        
+                        }                        
                         if (product == null)
                         {
                             product = new Product();
@@ -1617,9 +1608,7 @@ namespace MakinaTurkiye.Api.Controllers
                             product.HasVideo = false;
                             product.ProductPriceBegin = 0;
                             product.ProductPriceLast = 0;
-
                         }
-
                         product.ProductGroupId = Model.ProductGroupId;
                         product.ProductPriceType =(byte)Model.ProductPriceType;
                         product.UnitType = Model.UnitType;
@@ -1635,8 +1624,6 @@ namespace MakinaTurkiye.Api.Controllers
                         product.ProductLastUpdate = DateTime.Now;
                         product.MenseiId = Model.Mensei.Value;
                         product.BriefDetail = Model.BriefDetail;
-
-
                         MakinaTurkiye.Entities.Tables.Catalog.Category brand = null;
                         MakinaTurkiye.Entities.Tables.Catalog.Category model = null;
                         MakinaTurkiye.Entities.Tables.Catalog.Category category= _categoryService.GetCategoryByCategoryId(Model.CategoryId);
@@ -1709,7 +1696,6 @@ namespace MakinaTurkiye.Api.Controllers
                         product.CategoryId =Model.CategoryId;
                         product.BrandId = brand.CategoryId;
                         product.ModelId = model.CategoryId;
-
 
                         DateTime dateProductEndDate = DateTime.Now;
                         switch (Model.ProductPublicationDateType)
