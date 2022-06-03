@@ -303,13 +303,13 @@ namespace MakinaTurkiye.Api.Controllers
                             BriefDetail = item.GetBriefDetailText(),
                             CategoryName = item.Category != null ? item.Category.CategoryName : "",
                             ViewCount = item.ViewCount.Value,
-                            CountryId = (int)item.CountryId,
+                            CountryId = (item.CountryId != null ? (int)item.CountryId : 0),
                             Country = (item.Country != null) ? item.Country.CountryName : "",
-                            LocalityId = (int)item.LocalityId,
+                            LocalityId =(item.LocalityId!=null?(int)item.LocalityId:0),
                             Locality = (item.Locality != null) ? item.Locality.LocalityName : "",
-                            CityId = (int)item.CityId,
+                            CityId = (item.CityId != null ? (int)item.CityId : 0),
                             City = (item.City != null) ? item.City.CityName : "",
-                            TownId = (int)item.TownId,
+                            TownId = (item.TownId!= null?(int)item.TownId:0),
                             Town = (item.Town != null) ? item.Town.TownName : "",
                             ProductAdvertBeginDate=item.ProductAdvertBeginDate.Value,
                             ProductAdvertEndDate=item.ProductAdvertEndDate.Value
@@ -1553,7 +1553,7 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Result = AdvertItm;
                     processStatus.Message.Header = "Advert";
                     processStatus.Message.Text = "Ürün Bulunamadı";
-                    processStatus.Status = false;
+                    processStatus.Status = true;
                 }
                 else
                 {
