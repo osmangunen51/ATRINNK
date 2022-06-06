@@ -117,7 +117,7 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
         }
 
 
-        public static string GetStoreLogoParh(int storeId, string storeLogo, int size)
+        public static string GetStoreLogoPath(int storeId, string storeLogo, int size)
         {
             if (string.IsNullOrEmpty(storeLogo))
             {
@@ -130,6 +130,20 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
                 storeLogo = storeLogo.Replace(".jpg", "");
                 storeLogo = storeLogo.Replace(".png", "");
                 return string.Format("//s.makinaturkiye.com/Store/{0}/thumbs/{1}-{2}x200.jpg", storeId, storeLogo, size);
+            }
+            if (size == 400)
+            {
+                storeLogo = storeLogo.Replace("_logo", "");
+                storeLogo = storeLogo.Replace(".jpg", "");
+                storeLogo = storeLogo.Replace(".png", "");
+                return string.Format("//s.makinaturkiye.com/Store/{0}/thumbs/{1}-{2}x300.jpg", storeId, storeLogo, size);
+            }
+            if (size == 500)
+            {
+                storeLogo = storeLogo.Replace("_logo", "");
+                storeLogo = storeLogo.Replace(".jpg", "");
+                storeLogo = storeLogo.Replace(".png", "");
+                return string.Format("//s.makinaturkiye.com/Store/{0}/thumbs/{1}-{2}x375.jpg", storeId, storeLogo, size);
             }
             else
             {

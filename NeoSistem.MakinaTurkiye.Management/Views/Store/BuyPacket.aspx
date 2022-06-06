@@ -92,7 +92,7 @@
             });
         });
         function BuyPacket() {
-
+            var storename = $("#StoreName").val();
             var storeMainPartyId = $("#StoreMainPartyId").val();
             var orderType = $("#OrderType").val();
             var intallment = $("#Installment").val();
@@ -163,6 +163,7 @@
                 url: '/Store/BuyPacket',
                 type: 'POST',
                 data: {
+                    'StoreName': storename,
                     'OrderType': orderType,
                     "Installment": intallment,
                     "Description": description,
@@ -232,6 +233,13 @@
         <table>
             <%:Html.Hidden("StoreMainPartyId",this.Page.RouteData.Values["id"]) %>
             <%:Html.HiddenFor(x=>x.PacketPrice) %>
+            <tr>
+                <td>Firma</td>
+                <td>:</td>
+                <td>
+                     <%:Html.TextBoxFor(x => x.StoreName, new {@style="width:100%"}) %>
+                </td>
+            </tr>
             <tr>
                 <td>Ödeme Tipi</td>
                 <td>:</td>

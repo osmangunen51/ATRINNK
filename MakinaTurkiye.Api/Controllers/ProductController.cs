@@ -95,7 +95,7 @@ namespace MakinaTurkiye.Api.Controllers
                     if (Store != null)
                     {
                         TmpResult.StoreMainPartyId = Store.MainPartyId;
-                        TmpResult.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                        TmpResult.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Store.MainPartyId, Store.StoreLogo, 300) : null;
                         var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
                         var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
                         if (StorePhone != null)
@@ -233,7 +233,7 @@ namespace MakinaTurkiye.Api.Controllers
                             string picturePath = "";
                             var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                             if (picture != null)
-                                picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                                picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                             var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                             item.MainPicture = picturePath;
                             if (item.MainPicture == null)
@@ -255,7 +255,7 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 item.StoreName = Store.StoreName;
 
-                                item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                                item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Store.MainPartyId, Store.StoreLogo, 300) : null;
                                 var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
                                 var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
                                 if (StorePhone != null)
@@ -352,7 +352,7 @@ namespace MakinaTurkiye.Api.Controllers
                     var Store = _storeService.GetStoreByMainPartyId(item.StoreMainPartyId);
                     if (Store != null)
                     {
-                        item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                        item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Store.MainPartyId, Store.StoreLogo, 300) : null;
                         var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
                         var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
                         if (StorePhone != null)
@@ -366,7 +366,7 @@ namespace MakinaTurkiye.Api.Controllers
                             item.StoreGsm = StoreGsm.PhoneNumber;
                         }
                     }
-                    item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px200x150) : "";
+                    item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px500x375) : "";
                 }
                 ProcessStatus.Result = TmpResult;
                 ProcessStatus.ActiveResultRowCount = TmpResult.Count();
@@ -422,7 +422,7 @@ namespace MakinaTurkiye.Api.Controllers
                         string picturePath = "";
                         var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                         if (picture != null)
-                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                         var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                         var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                         item.MainPicture = (picturePath == null ? "" : picturePath);
@@ -493,7 +493,7 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                     if (picture != null)
-                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                     item.MainPicture = (picturePath == null ? "" : picturePath);
                     var Product = _productService.GetProductByProductId(item.ProductId);
@@ -511,7 +511,7 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         item.StoreName = Store.StoreName;
 
-                        item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                        item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Store.MainPartyId, Store.StoreLogo, 300) : null;
                         var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
                         var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
                         if (StorePhone != null)
@@ -574,7 +574,7 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                     if (picture != null)
-                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                     item.MainPicture = (picturePath == null ? "" : picturePath);
@@ -837,7 +837,7 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                     if (picture != null)
-                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
                     var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                     item.MainPicture = (picturePath == null ? "" : picturePath);

@@ -23,7 +23,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public int PacketDay { get; set; }
         public int PacketId { get; set; }
         public string PriceValueWithTax { get; set; }
-
+        public string StoreName { get; set; } = "";
         public List<global::MakinaTurkiye.Entities.Tables.Packets.Packet> Packets { get; set; }
     }
 }
