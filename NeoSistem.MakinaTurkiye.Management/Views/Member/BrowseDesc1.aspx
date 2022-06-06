@@ -87,6 +87,7 @@
                 <%int row = 0; %>
                 <%foreach (var itemMemberDesc in Model.BaseMemberDescriptionModelItems.ToList())
                     {
+                        decimal 
                         row++;
                         string backColor = "";
                         if (itemMemberDesc.Title == "Ödeme")

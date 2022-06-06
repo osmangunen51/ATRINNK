@@ -268,7 +268,7 @@ namespace MakinaTurkiye.Api.Controllers
                         string picturePath = "";
                         var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                         if (picture != null)
-                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
 
                         var model = item.ModelId.HasValue ? _categoryService.GetCategoryByCategoryId(item.ModelId.Value) : new MakinaTurkiye.Entities.Tables.Catalog.Category();
                         var serie = item.SeriesId.HasValue ? _categoryService.GetCategoryByCategoryId(item.SeriesId.Value) : new MakinaTurkiye.Entities.Tables.Catalog.Category();
@@ -531,11 +531,11 @@ namespace MakinaTurkiye.Api.Controllers
                     {
 
                         var product = _productService.GetProductByProductId(AdvertId);
-                        if (product.ProductActiveType != (byte)ProductActiveType.Silindi)
+                        if (product.ProductActiveType != (byte)ProductActiveType.CopKutusuYeni)
                         {
                             ProductCountCalc(product, false);
                         }
-                        product.ProductActiveType = (byte)ProductActiveType.Silindi;
+                        product.ProductActiveType = (byte)ProductActiveType.CopKutusuYeni;
                         product.ProductLastUpdate = DateTime.Now;
                         _productService.UpdateProduct(product);
                         Transaction.Complete();
@@ -908,7 +908,7 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 PictureId= item.PictureId,
                                 LargePath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px900x675) : "",
-                                SmallPath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px200x150) : "",
+                                SmallPath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px500x375) : "",
                                 MegaPicturePath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.pxx980) : "",
                             }
                         );
@@ -1505,7 +1505,7 @@ namespace MakinaTurkiye.Api.Controllers
                     string picturePath = "";
                     var picture = _pictureService.GetFirstPictureByProductId(product.ProductId);
                     if (picture != null)
-                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(product.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(product.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
 
                     var model = product.ModelId.HasValue ? _categoryService.GetCategoryByCategoryId(product.ModelId.Value) : new MakinaTurkiye.Entities.Tables.Catalog.Category();
                     var serie = product.SeriesId.HasValue ? _categoryService.GetCategoryByCategoryId(product.SeriesId.Value) : new MakinaTurkiye.Entities.Tables.Catalog.Category();

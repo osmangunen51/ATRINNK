@@ -58,15 +58,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private IPreRegistirationStoreService _preRegistrationStoreService;
         private IMessageService _messageService;
         private IWhatsappLogService _whatsappLogService;
-
         private IOrderService _orderService;
+        private IPaymentService _paymentService;
+        private IPaymenService _paymentService;
+        private IReturnInvoice _returnInvoice;
 
         #endregion
 
         #region Ctor
 
 
-        public MemberController(IMemberDescriptionService memberDescService, IStoreService storeService, IMemberStoreService memberstoreService, IConstantService constantService, IMemberService memberService, IUserMailTemplateService usermailTemplateService, IBulletinService bulletinService, ICategoryService categoryService, IPreRegistirationStoreService preRegistrationStoreService, IMessageService messageService, IWhatsappLogService whatsappLogService, IOrderService orderService)
+        public MemberController(IMemberDescriptionService memberDescService, IStoreService storeService, IMemberStoreService memberstoreService, IConstantService constantService, IMemberService memberService, IUserMailTemplateService usermailTemplateService, IBulletinService bulletinService, ICategoryService categoryService, IPreRegistirationStoreService preRegistrationStoreService, IMessageService messageService, IWhatsappLogService whatsappLogService, IOrderService orderService, IPaymentService paymentService, IReturnInvoice returnInvoice)
         {
             _memberDescService = memberDescService;
             _storeService = storeService;
@@ -80,6 +82,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             _messageService = messageService;
             _whatsappLogService = whatsappLogService;
             _orderService = orderService;
+            _paymentService = paymentService;
+            _returnInvoice = returnInvoice;
         }
 
         #endregion
@@ -2125,6 +2129,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var userTo = entities.Users.FirstOrDefault(x => x.UserId == item.UserId);
                 if (userTo != null)
                     memberDesc.ToUserName = userTo.UserName;
+                //,RestAmount=(select top 1 RestAmount from Payment as P where P.OrderId=O.OrderId order by RecordDate desc) - ISNULL((select sum(Amount) from ReturnInvoice where OrderId=O.OrderId), 0)
+                decimal RestAmount = 0;
+                //RestAmount=_paymentService
+                //memberDesc.RemainingAmount= RestAmount
                 memberDescList.Add(memberDesc);
             }
             model.BaseMemberDescriptionModelItems = memberDescList;

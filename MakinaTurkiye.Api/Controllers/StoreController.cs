@@ -839,7 +839,7 @@ namespace MakinaTurkiye.Api.Controllers
                     var store = _storeService.GetStoreByMainPartyId(MainPartyId);
                     if (store != null)
                     {
-                        string StoreLogo = !string.IsNullOrEmpty(store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 300) : null;
+                        string StoreLogo = !string.IsNullOrEmpty(store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 300) : null;
                         processStatus.Result = StoreLogo;
                         processStatus.ActiveResultRowCount = 1;
                         processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -4039,7 +4039,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = _storeService.GetStoreSearchByStoreName(Name);
                 foreach (var item in Result)
                 {
-                    item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
+                    item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(item.MainPartyId, item.StoreLogo, 300) : null;
                 }
                 processStatus.Result = Result;
                 processStatus.ActiveResultRowCount = Result.Count;
@@ -4065,7 +4065,7 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var Result = _storeService.GetStoreByStoreUrlName(storeUrlName);
-                Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Result.MainPartyId, Result.StoreLogo, 300) : null;
+                Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Result.MainPartyId, Result.StoreLogo, 300) : null;
                 processStatus.Result = Result;
                 processStatus.ActiveResultRowCount = 1;
                 processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -4090,7 +4090,7 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var Result = _storeService.GetStoreByMainPartyId(MainPartyId);
-                Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Result.MainPartyId, Result.StoreLogo, 300) : null;
+                Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Result.MainPartyId, Result.StoreLogo, 300) : null;
                 processStatus.Result = Result;
                 processStatus.ActiveResultRowCount = 1;
                 processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -4211,7 +4211,7 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var Result = _storeService.GetStoreByStoreEmail(storeEmail);
-                Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Result.MainPartyId, Result.StoreLogo, 300) : null;
+                Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Result.MainPartyId, Result.StoreLogo, 300) : null;
                 processStatus.Result = Result;
                 processStatus.ActiveResultRowCount = 1;
                 processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -4238,7 +4238,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = _storeService.GetStoresByMainPartyIds(mainPartyIds);
                 foreach (var item in Result)
                 {
-                    item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
+                    item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(item.MainPartyId, item.StoreLogo, 300) : null;
                 }
                 processStatus.Result = Result;
                 processStatus.ActiveResultRowCount = Result.Count();
@@ -4266,7 +4266,7 @@ namespace MakinaTurkiye.Api.Controllers
                 var Result = _storeService.GetSPGetStoreForCategoryByCategoryIdAndBrandId(categoryId, brandId);
                 foreach (var item in Result)
                 {
-                    item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
+                    item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(item.MainPartyId, item.StoreLogo, 300) : null;
                 }
                 processStatus.Result = Result;
                 processStatus.ActiveResultRowCount = 1;
@@ -4407,7 +4407,7 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         if (!item.StoreLogo.StartsWith("https:"))
                         {
-                            item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
+                            item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(item.MainPartyId, item.StoreLogo, 300) : null;
                         }
                     }
                     foreach (var IslemStore in IslemResult.Stores)
@@ -4529,7 +4529,7 @@ namespace MakinaTurkiye.Api.Controllers
                 try
                 {
                     var Result = _storeService.GetStoreForVideoSearch(searchText);
-                    Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Result.MainPartyId, Result.StoreLogo, 300) : null;
+                    Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Result.MainPartyId, Result.StoreLogo, 300) : null;
                     processStatus.Result = Result;
                     processStatus.ActiveResultRowCount = 1;
                     processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -4558,7 +4558,7 @@ namespace MakinaTurkiye.Api.Controllers
                     var Result = _storeService.GetHomeStores(pageSize);
                     foreach (var item in Result)
                     {
-                        item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
+                        item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(item.MainPartyId, item.StoreLogo, 300) : null;
                     }
                     processStatus.Result = Result;
                     processStatus.ActiveResultRowCount = Result.Count();
@@ -4588,7 +4588,7 @@ namespace MakinaTurkiye.Api.Controllers
                     var Result = _storeService.GetStoreSearchByStoreName(storeName);
                     foreach (var item in Result)
                     {
-                        item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 300) : null;
+                        item.StoreLogo = !string.IsNullOrEmpty(item.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(item.MainPartyId, item.StoreLogo, 300) : null;
                     }
                     processStatus.Result = Result;
                     processStatus.ActiveResultRowCount = Result.Count();
@@ -4616,7 +4616,7 @@ namespace MakinaTurkiye.Api.Controllers
                 try
                 {
                     var Result = _storeService.GetStoreByStoreNo(storeNo);
-                    Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoParh(Result.MainPartyId, Result.StoreLogo, 300) : null;
+                    Result.StoreLogo = !string.IsNullOrEmpty(Result.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Result.MainPartyId, Result.StoreLogo, 300) : null;
                     processStatus.Result = Result;
                     processStatus.ActiveResultRowCount = 1;
                     processStatus.TotolRowCount = processStatus.ActiveResultRowCount;

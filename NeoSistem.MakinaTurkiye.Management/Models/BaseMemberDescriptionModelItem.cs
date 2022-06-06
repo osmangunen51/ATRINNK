@@ -28,5 +28,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string MemberSurname { get; set; }
         public int MemberMainPartyId { get; set; }
         public byte MemberType { get; set; }
+        public decimal RemainingAmount { get; set; } = 0;
     }
 }

@@ -3291,6 +3291,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             BuyPacketModel model = new BuyPacketModel();
 
             var store = _storeService.GetStoreByMainPartyId(id);
+            model.StoreName = store.StoreName;
             model.TaxNo = store.TaxNumber;
             model.TaxOffice = store.TaxOffice;
 
@@ -3347,7 +3348,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 OrderType = Convert.ToByte(model.OrderType),
                 RecordDate = DateTime.Now,
                 PacketStartDate = packetStartDate,
-                PacketDay = model.PacketDay
+                PacketDay = model.PacketDay,
+                StoreNameForInvoice=model.StoreName
             };
             if (store.AuthorizedId != null)
             {

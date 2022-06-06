@@ -357,7 +357,7 @@ namespace MakinaTurkiye.Api.Controllers
                             string picturePath = "";
                             var picture = _pictureService.GetFirstPictureByProductId(ProductSearchResult.ProductId);
                             if (picture != null)
-                                picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(ProductSearchResult.ProductId, picture.PicturePath, ProductImageSize.px200x150) : null;
+                                picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(ProductSearchResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                             var privateMessage = new
                             {
                                 TargetMainPartyId = targetUser.MainPartyId,
