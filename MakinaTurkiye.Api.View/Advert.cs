@@ -56,6 +56,7 @@ namespace MakinaTurkiye.Api.View
         public int LocalityId { get; set; } = 0;
         public string Locality { get; set; }
         public string BriefDetail { get; set; }
+        public string BriefDetailText { get; set; }
         public int CountryId { get; set; } = 0;
         public string Country { get; set; }
         public int TownId { get; set; } = 0;

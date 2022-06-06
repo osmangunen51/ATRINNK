@@ -300,7 +300,8 @@ namespace MakinaTurkiye.Api.Controllers
                             ProductTypeText = item.GetProductTypeText(),
                             ProductType = item.ProductType,
                             BrandName = brand != null ? brand.CategoryName : "",
-                            BriefDetail = item.GetBriefDetailText(),
+                            BriefDetail = item.BriefDetail,
+                            BriefDetailText = item.GetBriefDetailText(),
                             CategoryName = item.Category != null ? item.Category.CategoryName : "",
                             ViewCount = item.ViewCount.Value,
                             CountryId = (item.CountryId != null ? (int)item.CountryId : 0),
@@ -538,7 +539,7 @@ namespace MakinaTurkiye.Api.Controllers
                         product.ProductLastUpdate = DateTime.Now;
                         _productService.UpdateProduct(product);
                         Transaction.Complete();
-                        processStatus.Result = null;
+                        processStatus.Result = true;
                         processStatus.Message.Header = "Advert";
                         processStatus.Message.Text = "Başarılı";
                         processStatus.Status = true;
@@ -1711,7 +1712,6 @@ namespace MakinaTurkiye.Api.Controllers
                             default:
                                 break;
                         }
-
                         if (Model.ProductPublicationDateType != 0)
                         {
                             product.ProductAdvertEndDate = dateProductEndDate;
