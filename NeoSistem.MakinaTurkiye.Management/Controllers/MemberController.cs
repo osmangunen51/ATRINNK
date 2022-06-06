@@ -59,16 +59,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private IMessageService _messageService;
         private IWhatsappLogService _whatsappLogService;
         private IOrderService _orderService;
-        private IPaymentService _paymentService;
-        private IPaymenService _paymentService;
-        private IReturnInvoice _returnInvoice;
-
         #endregion
 
         #region Ctor
 
 
-        public MemberController(IMemberDescriptionService memberDescService, IStoreService storeService, IMemberStoreService memberstoreService, IConstantService constantService, IMemberService memberService, IUserMailTemplateService usermailTemplateService, IBulletinService bulletinService, ICategoryService categoryService, IPreRegistirationStoreService preRegistrationStoreService, IMessageService messageService, IWhatsappLogService whatsappLogService, IOrderService orderService, IPaymentService paymentService, IReturnInvoice returnInvoice)
+        public MemberController(IMemberDescriptionService memberDescService, IStoreService storeService, IMemberStoreService memberstoreService, IConstantService constantService, IMemberService memberService, IUserMailTemplateService usermailTemplateService, IBulletinService bulletinService, ICategoryService categoryService, IPreRegistirationStoreService preRegistrationStoreService, IMessageService messageService, IWhatsappLogService whatsappLogService, IOrderService orderService)
         {
             _memberDescService = memberDescService;
             _storeService = storeService;
@@ -82,8 +78,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             _messageService = messageService;
             _whatsappLogService = whatsappLogService;
             _orderService = orderService;
-            _paymentService = paymentService;
-            _returnInvoice = returnInvoice;
         }
 
         #endregion
@@ -2131,13 +2125,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     memberDesc.ToUserName = userTo.UserName;
                 //,RestAmount=(select top 1 RestAmount from Payment as P where P.OrderId=O.OrderId order by RecordDate desc) - ISNULL((select sum(Amount) from ReturnInvoice where OrderId=O.OrderId), 0)
                 decimal RestAmount = 0;
-                //RestAmount=_paymentService
-                //memberDesc.RemainingAmount= RestAmount
+                int totalRecord = 0;
+                int totalPrice = 0;
+                int totalPaid = 0;
+                memberDesc.OrderReport= _orderService.GetOrderReports(25, 1, "", "", "desc", out totalRecord, out totalPrice, out totalPaid).OrderByDescending(x=>x.RecordDateOrder).FirstOrDefault();
                 memberDescList.Add(memberDesc);
             }
+
             model.BaseMemberDescriptionModelItems = memberDescList;
             return View(model);
         }
+
         [HttpPost]
         public ActionResult BrowseDesc1(int AuthorizedId, int StoreMainPartyId, int MemberMainPartyId)
         {

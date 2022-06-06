@@ -1812,7 +1812,7 @@
       <Name>MakinaTurkiye.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\MakinaTurkiye.Entities\MakinaTurkiye.Entities.csproj">
-      <Project>{3BD34B52-76FA-410E-AEAE-7A0D7A732750}</Project>
+      <Project>{3bd34b52-76fa-410e-aeae-7a0d7a732750}</Project>
       <Name>MakinaTurkiye.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\MakinaTurkiye.Services\MakinaTurkiye.Services.csproj">

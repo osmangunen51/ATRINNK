@@ -87,7 +87,6 @@
                 <%int row = 0; %>
                 <%foreach (var itemMemberDesc in Model.BaseMemberDescriptionModelItems.ToList())
                     {
-                        decimal 
                         row++;
                         string backColor = "";
                         if (itemMemberDesc.Title == "Ödeme")
@@ -133,6 +132,11 @@
                         <%:type %>
                     </td>
                     <td class="Cell">
+                        <%if (itemMemberDesc.OrderReport.RestAmount>0)
+                            {%>
+                               <span><%=itemMemberDesc.OrderReport.RestAmount%></span> 
+                            <%}%>
+
                         <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+" && itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
                             {%>
                         <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
@@ -158,8 +162,6 @@
             </tbody>
         </table>
     </div>
-
-
 </asp:Content>
 
 <asp:Content ID="Content6" ContentPlaceHolderID="HeadContent" runat="server">
