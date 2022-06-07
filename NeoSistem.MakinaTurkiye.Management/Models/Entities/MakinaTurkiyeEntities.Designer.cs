@@ -25399,6 +25399,54 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Boolean> _IsProductAdded;
         partial void OnIsProductAddedChanging(Nullable<global::System.Boolean> value);
         partial void OnIsProductAddedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ContactNameSurname
+        {
+            get
+            {
+                return _ContactNameSurname;
+            }
+            set
+            {
+                OnContactNameSurnameChanging(value);
+                ReportPropertyChanging("ContactNameSurname");
+                _ContactNameSurname = StructuralObject.SetValidValue(value, true, "ContactNameSurname");
+                ReportPropertyChanged("ContactNameSurname");
+                OnContactNameSurnameChanged();
+            }
+        }
+        private global::System.String _ContactNameSurname;
+        partial void OnContactNameSurnameChanging(global::System.String value);
+        partial void OnContactNameSurnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String ContactPhoneNumber
+        {
+            get
+            {
+                return _ContactPhoneNumber;
+            }
+            set
+            {
+                OnContactPhoneNumberChanging(value);
+                ReportPropertyChanging("ContactPhoneNumber");
+                _ContactPhoneNumber = StructuralObject.SetValidValue(value, true, "ContactPhoneNumber");
+                ReportPropertyChanged("ContactPhoneNumber");
+                OnContactPhoneNumberChanged();
+            }
+        }
+        private global::System.String _ContactPhoneNumber;
+        partial void OnContactPhoneNumberChanging(global::System.String value);
+        partial void OnContactPhoneNumberChanged();
 
         #endregion
 

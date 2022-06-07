@@ -220,7 +220,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     MainPartyId = item.MainPartyId,
                     StoreAbout = StringHelper.Truncate(item.StoreAbout, 50),
                     StoreName = StringHelper.Truncate(item.StoreName, 45),
-                    StoreLogo = ImageHelper.GetStoreLogoParh(item.MainPartyId, item.StoreLogo, 100),
+                    StoreLogo = ImageHelper.GetStoreLogoPath(item.MainPartyId, item.StoreLogo, 100),
                     StoreUrl = UrlBuilder.GetStoreProfileUrl(item.MainPartyId, item.StoreName, item.StoreUrlName)
                 };
                 var topProducts = _productService.GetSPProductsByStoreMainPartyId(3, 1, item.MainPartyId);
@@ -523,7 +523,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 string imagePath = ImageHelper.GetStoreNewImagePath(item.ImageName, StoreNewImageSize.px100x100.ToString());
                 if (string.IsNullOrEmpty(imagePath))
                 {
-                    imagePath = ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 100);
+                    imagePath = ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 100);
                 }
                 storeSuccessList.Add(new MTStoreNewItem { Date = item.RecordDate.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture), ImagePath = imagePath, NewUrl = UrlBuilder.GetStoreNewUrl(item.StoreNewId, item.Title), Title = item.Title });
             }
@@ -542,7 +542,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 string imagePath = ImageHelper.GetStoreNewImagePath(item.ImageName, StoreNewImageSize.px100x100.ToString());
                 if (string.IsNullOrEmpty(imagePath))
                 {
-                    imagePath = ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 100);
+                    imagePath = ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 100);
                 }
                 storeNewList.Add(new MTStoreNewItem { Date = item.RecordDate.ToString("dd MMM, yyyy", CultureInfo.InvariantCulture), ImagePath = imagePath, NewUrl = UrlBuilder.GetStoreNewUrl(item.StoreNewId, item.Title), Title = item.Title });
             }

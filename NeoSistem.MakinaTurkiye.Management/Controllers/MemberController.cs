@@ -2128,7 +2128,20 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 int totalRecord = 0;
                 int totalPrice = 0;
                 int totalPaid = 0;
-                memberDesc.OrderReport= _orderService.GetOrderReports(25, 1, "", "", "desc", out totalRecord, out totalPrice, out totalPaid).OrderByDescending(x=>x.RecordDateOrder).FirstOrDefault();
+
+                int total = 0;
+                var dataOrder = new Data.Order();
+                var whereClause = new StringBuilder("Where");
+                string equalClause = " {0} = {1} ";
+                whereClause.AppendFormat(equalClause, "O.IsNew", "1");
+                whereClause.Append("AND");
+                whereClause.AppendFormat(equalClause, "S.MainPartyId", memberDesc.StoreID);
+                if (whereClause.ToString() == "Where")
+                {
+                    whereClause.Clear();
+                }
+                string Sart = whereClause.ToString();
+                //var collection = dataOrder.Search(ref total, 10, 1, whereClause.ToString(), STARTCOLUMN, ORDER);
                 memberDescList.Add(memberDesc);
             }
 
@@ -2145,6 +2158,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             return RedirectToAction("BrowseDesc1", new { id = MemberMainPartyId });
 
         }
+
         [HttpPost]
         public JsonResult DeleteDescription(int id)
         {
@@ -2202,9 +2216,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
 
             }
-
             return Json(res, JsonRequestBehavior.AllowGet);
-
         }
 
         public ActionResult CreateDesc()
@@ -2587,7 +2599,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             bModelDesc.IsFirst = false;
             bModelDesc.IsImmediate = false;
 
-            string memberName = "", memberSurname = "", storeName = "";
+            string memberName = "";
+            string memberSurname = "";
+            string storeShortName = "";
+            string storeName = "";
+            string ContactNameSurname = "";
+            string ContactPhoneNumber = "";
+            List<string> Contacts = new List<string>();
             if (MemberDesc.MainPartyId.HasValue)
             {
                 var anyStore = entities.MemberStores.FirstOrDefault(x => x.MemberMainPartyId == MemberDesc.MainPartyId);
@@ -2597,6 +2615,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 if (anyStore1 != null)
                 {
                     storeName = anyStore1.StoreName;
+                    storeShortName = anyStore1.StoreShortName;
+                    ContactNameSurname = anyStore1.ContactNameSurname;
+                    ContactPhoneNumber = anyStore1.ContactPhoneNumber;
+                    
                     var storeUserManager = entities.Users.FirstOrDefault(x => x.UserId == anyStore1.AuthorizedId);
                     var storePorfoy = entities.Users.FirstOrDefault(x => x.UserId == anyStore1.PortfoyUserId);
                     if (storeUserManager != null)
@@ -2624,10 +2646,43 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     memberName = preRegistration.MemberName;
                     memberSurname = preRegistration.MemberSurname;
                     storeName = preRegistration.StoreName;
+                    storeShortName = "";
+                    ContactNameSurname = "";
+                    ContactPhoneNumber = "";
                 }
-
             }
+            
+            bModelDesc.City = "";
+            var Adresss = entities.Addresses.Where(x => x.MainPartyId == bModelDesc.StoreID).FirstOrDefault();
+            if (Adresss!=null)
+            {
+                bModelDesc.City = Adresss.City.CityName;
+            }
+
+            
+            var Phones = entities.Phones.Where(x => x.MainPartyId == bModelDesc.StoreID).ToList();
+            foreach (var x in Phones.Where(x=>x.PhoneType!=(byte)PhoneType.Fax))
+            {
+                var tmp = $"{Enum.GetName(typeof(PhoneType),x.PhoneType)} : {x.PhoneCulture} {x.PhoneAreaCode} {x.PhoneNumber}";
+                Contacts.Add(tmp);
+            }
+
+            if (member!=null)
+            {
+                Contacts.Add("Email : "+member.MemberEmail);
+            }
+            
+
+            bModelDesc.Contact = "";
+            if (Contacts!=null)
+            {
+                bModelDesc.Contact = String.Join("<br>", Contacts.ToArray());
+            }
+
             bModelDesc.StoreName = storeName;
+            bModelDesc.StoreShortName = storeShortName;
+            bModelDesc.ContactNameSurname = ContactNameSurname;
+            bModelDesc.ContactPhoneNumber = ContactPhoneNumber;
             ViewData["MemberName"] = memberName + " " + memberSurname;
             if (MemberDesc.Status == null) ViewData["status"] = "0";
             else ViewData["status"] = MemberDesc.Status.ToString();
@@ -2827,6 +2882,26 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             MemberDescUp.IsFirst = model.IsFirst;
                             MemberDescUp.IsImmediate = model.IsImmediate;
                             AddMemberDescriptionLog(MemberDescUp, "U");
+
+                            int selectUserId = Convert.ToByte(userId);
+                            var SelectUser = entities.Users.FirstOrDefault(x => x.UserId == selectUserId);
+                            if (SelectUser!=null)
+                            {
+                                var UserPermissions = entities.PermissionUsers.Where(x => x.UserId == SelectUser.UserId && (x.UserGroupId == 16 | x.UserGroupId == 22)).ToList();
+                                if (UserPermissions!=null)
+                                {
+                                    var memberStore = _memberstoreService.GetMemberStoreByMemberMainPartyId(model.MainPartyId);
+                                    if (memberStore != null)
+                                    {
+                                        var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                                        if (store != null)
+                                        {
+                                            store.AuthorizedId = SelectUser.UserId;
+                                            _storeService.UpdateStore(store);
+                                        }
+                                    }
+                                }
+                            }
                         }
                         entities.SaveChanges();
                         int redirectId = model.MainPartyId;
@@ -2857,12 +2932,29 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             entities.SaveChanges();
 
                             AddMemberDescriptionLog(memberDescNew, "U");
+
+                            int selectUserId = Convert.ToByte(userId);
+                            var SelectUser = entities.Users.FirstOrDefault(x => x.UserId == selectUserId);
+                            if (SelectUser != null)
+                            {
+                                var UserPermissions = entities.PermissionUsers.Where(x => x.UserId == SelectUser.UserId && (x.UserGroupId == 16 | x.UserGroupId == 22)).ToList();
+                                if (UserPermissions != null)
+                                {
+                                    var memberStore = _memberstoreService.GetMemberStoreByMemberMainPartyId(model.MainPartyId);
+                                    if (memberStore != null)
+                                    {
+                                        var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                                        if (store != null)
+                                        {
+                                            store.AuthorizedId = SelectUser.UserId;
+                                            _storeService.UpdateStore(store);
+                                        }
+                                    }
+                                }
+                            }
+
                         }
-
-
-                        return RedirectToAction("BrowseDesc1", new RouteValueDictionary(
-new { controller = "Member", action = "BrowseDesc1", id = redirectId }));
-
+                        return RedirectToAction("BrowseDesc1", new RouteValueDictionary(new { controller = "Member", action = "BrowseDesc1", id = redirectId }));
                     }
                     else
                     {
@@ -3152,5 +3244,26 @@ new { controller = "Member", action = "BrowseDesc1", id = redirectId }));
             return PartialView("_SearchPhoneList", model);
         }
         #endregion
+
+        [HttpPost]
+        public JsonResult ChangeContactInformation(int storemainPartyId,string name,string number)
+        {
+            ResponseModel<string> res = new ResponseModel<string>();
+            var _store=_storeService.GetStoreByMainPartyId(storemainPartyId);
+            if (_store != null)
+            {
+                _store.ContactNameSurname = name;
+                _store.ContactPhoneNumber = number;
+                _storeService.UpdateStore(_store);
+                res.IsSuccess = true;
+                res.Message = "Başarıyla güncellendi.";
+            }
+            else
+            {
+                res.IsSuccess = true;
+                res.Message = "store bulunamadı.";
+            }
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
     }
 }

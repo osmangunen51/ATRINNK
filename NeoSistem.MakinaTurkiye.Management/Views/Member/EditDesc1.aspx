@@ -49,12 +49,8 @@
 
                     }
                 });
-
-
             });
-
             $('#LastDateNew').datepicker().val();
-
             $('#form').submit(function (event) {
                 var last = $("#LastDateNew").val();
                 var time = $("#timeNew").val();
@@ -138,7 +134,6 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div style="width: 100%;">
-        <div style="font-size: 15px; margin-top: 10px; margin-bottom: 10px;"><%:ViewData["MemberName"] %> - <a target="_blank" href="/Store/EditStore/<%:Model.StoreID %>">(<%:Html.Truncate(Model.StoreName,20) %>..)</a></div>
         <div style="margin-left: 20px">
             <%
                 foreach (ModelState modelState in ViewData.ModelState.Values)
@@ -151,8 +146,24 @@
                 }
             %>
         </div>
-        <% using (Html.BeginForm("EditDesc1", "Member", FormMethod.Post, new { @id = "form" }))
+         <% using (Html.BeginForm("EditDesc1", "Member", FormMethod.Post, new { @id = "form" }))
             {%>
+        <br />
+        <fieldset>
+                         <br />
+            <legend>
+             <a style="font-size: 16px;" target="_blank" href="/Store/EditStore/<%:Model.StoreID %>"><%=Model.StoreName%></a>&nbsp;&nbsp;-&nbsp;&nbsp;<label style="font-size: 16px;color:#31c854;font-weight:bold"><%=Model.StoreShortName %> </label><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><label style="font-size:16px;text-transform: uppercase;color:#b70606;font-weight:bold"><%=Model.City %></label></legend>
+              <label style="color:#000000;font-weight:bold"><%:ViewData["MemberName"] %> </label><br /><label style="color:#2776e5;font-weight:bold"><%=Model.Contact %> </label> 
+              <br />
+              <br />
+             <label>Aranacak Kişi : </label>
+             <input id="txtContactName" type="text" value="<%=Model.ContactNameSurname %>" />
+          
+             <input id="txtPhoneNumber" type="text" value="<%=Model.ContactPhoneNumber%>" />
+              <button type="button" id="btnContactChange" data-storemainPartyId="<%=Model.StoreID%>">Kaydet</button>
+             <br />
+        </fieldset>
+       <br />
         <%: Html.ValidationSummary(true) %>
         <%:Html.HiddenFor(x=>x.ID)%>
         <%:Html.HiddenFor(x=>x.InputDate) %>
@@ -167,10 +178,9 @@
                 <div class="editor-field">
                     <%: Html.TextArea("DescriptionNew", new {@style="width:100%; height:100px;" })%>
                 </div>
-
-                        <div class="editor-field" id="DescriptionLastC">  
+                <%--<div class="editor-field" id="DescriptionLastC">  
                     <%: Html.TextArea("DescriptionLast", Model.Description, new {@style="width:100%; height:100px;" })%>
-                </div>
+                </div>--%>
             </div>
             <div  style="width: 49%; float: right; margin-left: 2%; margin-top: 15px;">
                 <table>
@@ -265,24 +275,7 @@
 
                         </td>
                         <td>
-                            
-     
-                                <div class="editor-label">
-                        Tele Satış Sorumlusu
-                    </div>
-                    <div class="editor-field">
-                        <b style="font-size: 14px;"><%:Model.AuthorizeName %></b>
 
-                    </div>
-                       <div class="editor-label">
-                        Porföy Yöneticisi
-                    </div>
-                    <div class="editor-field">
-                        <b style="font-size: 14px;"><%:Model.PortfoyName %></b>
-
-                    </div>
-
-                                            
             <% using (Html.BeginForm())
                 { %>
             <div style="float: left; margin-left: 15px; margin-top:10px">
@@ -303,17 +296,39 @@
 
 
             <% } %>
+                            <br />
+                            <br />
+                            <br />
+                            <table style="margin-top:20px">
+                                <tbody>
+                                    <tr>
+                                        <td style="width:40px">
+                                          TS
+                                        </td>
+                                        <td style="width:20px">
+                                            :
+                                        </td>
+                                        <td style="color:#31c854;font-weight:800">
+                                            <%:Model.AuthorizeName %>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                         <td style="width:40px">
+                                          PY
+                                        </td>
+                                        <td style="width:20px">
+                                            :
+                                        </td>
+                                        <td style="color:#2776e5;font-weight:800">
+                                            <%:Model.PortfoyName %>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </td>
                     </tr>
       
                 </table>
-  
-         
-       
-              
-
-
-
             </div>
             <div style="border-bottom: dashed 1px #c0c0c0; clear: both; width: 100%; height: 1px; margin-top: 15px; margin-bottom: 10px;">
             </div>
@@ -410,11 +425,8 @@
             <%} %>
         </tbody>
     </table>
-    </div>
    <script type="text/javascript" defer="defer">
-
-
-       //CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
+      
 
        CKEDITOR.replace('DescriptionNew', {
            toolbar: [
@@ -424,16 +436,50 @@
                { name: 'basicstyles', items: ['Bold', 'NumberedList'] },
            ],
 
+
        });
 
-       CKEDITOR.replace('DescriptionLast', {
-           toolbar: [
-               //{ name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
-               //  ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],			// Defines toolbar group without name.
-               '/',																					// Line break - next group will be placed in new line.
-               { name: 'basicstyles', items: ['Bold', 'NumberedList'] }
-           ]
-       });
+       function InitInformationUpdate()
+       {
+           var txtContactName = $('#txtContactName').val();
+           var txtPhoneNumber = $('#txtPhoneNumber').val();
+           var content = '<p><strong style="color:red;font-weight:bold">' + txtContactName + ' ' + txtPhoneNumber +'</strong></p>';
+           CKEDITOR.instances["DescriptionNew"].setData(content);
+       }
+
+       InitInformationUpdate();
+      
+
+       $('#btnContactChange').click(
+           function () {
+               var storemainPartyId = $(this).attr("data-storemainPartyId");
+               var txtContactName = $('#txtContactName').val();
+               var txtPhoneNumber = $('#txtPhoneNumber').val();
+               var dt = { storemainPartyId: storemainPartyId, name: txtContactName, number: txtPhoneNumber };
+               $.ajax({
+                   url: '/Member/ChangeContactInformation',
+                   data: dt,
+                   type: 'post',
+                   dataType: 'json',
+                   success: function (data) {
+                       if (data.IsSuccess) {
+                           InitInformationUpdate();
+                       }
+                       else {
+
+                       }
+                   }
+               });
+           });
+
+       //CKEDITOR.replace('DescriptionLast', {
+       //    toolbar: [
+       //        //{ name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+       //        //  ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],			// Defines toolbar group without name.
+       //        '/',																					// Line break - next group will be placed in new line.
+       //        { name: 'basicstyles', items: ['Bold', 'NumberedList'] }
+       //    ]
+       //});
        //<![CDATA[
 
        //]]>
@@ -454,6 +500,7 @@
            }
        }
 
+       //CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
    </script>
 </asp:Content>
 

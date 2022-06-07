@@ -133,6 +133,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 whereClause.Clear();
             }
+
             collection = dataOrder.Search(ref total, (int)Session[SessionPage], 1, whereClause.ToString(), STARTCOLUMN, ORDER).AsCollection<OrderModel>();
             var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 22 || g.UserGroupId == 18 select u;
             List<SelectListItem> salesUserManagers = new List<SelectListItem>();

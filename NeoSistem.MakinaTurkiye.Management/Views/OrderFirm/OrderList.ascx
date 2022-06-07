@@ -27,8 +27,8 @@
         <%:item.OrderNo %>&nbsp;/<br />
         <%if (!string.IsNullOrEmpty(item.EBillNumber))
             {%>
-        <%:item.EBillNumber %>
-        <% }
+            <%:item.EBillNumber %>
+            <% }
             else
             {%>
         <div class="panel2" style="float: left;">

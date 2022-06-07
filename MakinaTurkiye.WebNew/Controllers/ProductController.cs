@@ -290,7 +290,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 model.StoreModel.StoreAllProductUrl = UrlBuilder.GetProductUrlForStoreProfile(store.MainPartyId, store.StoreName, store.StoreUrlName);
                 model.StoreUrl = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
-                model.StoreModel.StoreLogoPath = ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 300);
+                model.StoreModel.StoreLogoPath = ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 300);
                 model.StoreModel.StoreName = store.StoreName;
                 model.StoreModel.MainPartyId = store.MainPartyId;
                 model.StoreModel.TruncateStoreName = StringHelper.Truncate(store.StoreName, 200);
@@ -784,7 +784,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if (store != null)
                 {
                     model.ProductStoreModel.StoreAllProductUrl = UrlBuilder.GetProductUrlForStoreProfile(store.MainPartyId, store.StoreName, store.StoreUrlName);
-                    model.ProductStoreModel.StoreLogoPath = ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 100);
+                    model.ProductStoreModel.StoreLogoPath = ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 100);
                     model.ProductStoreModel.StoreName = store.StoreName;
                     model.ProductStoreModel.TruncateStoreName = StringHelper.Truncate(store.StoreName, 200);
                     model.ProductStoreModel.StoreUrl = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
@@ -1741,7 +1741,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     model.StoreModel.StoreAllProductUrl = UrlBuilder.GetProductUrlForStoreProfile(store.MainPartyId, store.StoreName, store.StoreUrlName);
                     model.StoreUrl = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
-                    model.StoreModel.StoreLogoPath = ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 300);
+                    model.StoreModel.StoreLogoPath = ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 300);
                     model.StoreModel.StoreName = store.StoreName;
                     model.StoreModel.TruncateStoreName = StringHelper.Truncate(store.StoreName, 200);
                     model.StoreModel.StoreUrl = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);

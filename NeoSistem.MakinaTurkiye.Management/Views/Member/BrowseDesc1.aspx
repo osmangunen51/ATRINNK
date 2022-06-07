@@ -132,10 +132,6 @@
                         <%:type %>
                     </td>
                     <td class="Cell">
-                        <%if (itemMemberDesc.OrderReport.RestAmount>0)
-                            {%>
-                               <span><%=itemMemberDesc.OrderReport.RestAmount%></span> 
-                            <%}%>
 
                         <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+" && itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
                             {%>

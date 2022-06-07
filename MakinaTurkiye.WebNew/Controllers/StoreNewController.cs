@@ -108,7 +108,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             MTNewStoreModel newStoreModel = new MTNewStoreModel();
             newStoreModel.StoreName = store.StoreShortName;
             newStoreModel.StoreUrl = UrlBuilder.GetStoreProfileUrl(store.MainPartyId, store.StoreName, store.StoreUrlName);
-            newStoreModel.StoreLogoPath = ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 100);
+            newStoreModel.StoreLogoPath = ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 100);
             var phones = _phoneService.GetPhonesByMainPartyId(store.MainPartyId).Where(x => x.PhoneType == (byte)PhoneType.Gsm || x.PhoneType == (byte)PhoneType.Phone);
             foreach (var item in phones)
             {
@@ -123,7 +123,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var st = _storeService.GetStoreByMainPartyId(item.StoreMainPartyId);
                 var imagePath = ImageHelper.GetStoreNewImagePath(item.ImageName, StoreNewImageSize.px100x100.ToString());
                 if (string.IsNullOrEmpty(imagePath))
-                    imagePath = ImageHelper.GetStoreLogoParh(st.MainPartyId, st.StoreLogo, 100);
+                    imagePath = ImageHelper.GetStoreLogoPath(st.MainPartyId, st.StoreLogo, 100);
 
                 model.NewOthers.Add(new MTNewOtherItem
                 {

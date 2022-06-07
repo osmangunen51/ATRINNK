@@ -70,6 +70,8 @@ namespace MakinaTurkiye.Entities.Tables.Stores
         public string SeoDescription { get; set; }
         public string SeoKeyword { get; set; }
         public bool? IsProductAdded { get; set; }
+        public string ContactNameSurname { get; set; }
+        public string ContactPhoneNumber { get; set; }
 
         public virtual ICollection<StoreActivityCategory> StoreActivityCategories
         {

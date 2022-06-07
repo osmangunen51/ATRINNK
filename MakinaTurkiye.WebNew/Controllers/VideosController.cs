@@ -441,7 +441,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 videoItemModel.MTStoreAndProductDetailModel.ModelName = product.ModelName;
 
             videoItemModel.MTStoreAndProductDetailModel.ProductTypeText = video.Product.GetProductTypeText();
-            videoItemModel.MTStoreAndProductDetailModel.StoreLogo = ImageHelper.GetStoreLogoParh(Convert.ToInt32(product.StoreMainPartyId), product.StoreLogo, 100);
+            videoItemModel.MTStoreAndProductDetailModel.StoreLogo = ImageHelper.GetStoreLogoPath(Convert.ToInt32(product.StoreMainPartyId), product.StoreLogo, 100);
             videoItemModel.MTStoreAndProductDetailModel.VideoSingularViewCount = Convert.ToInt64(video.SingularViewCount);
             videoItemModel.MTStoreAndProductDetailModel.StoreName = product.StoreName;
             videoItemModel.MTStoreAndProductDetailModel.StoreUrl = UrlBuilder.GetStoreProfileUrl(Convert.ToInt32(product.StoreMainPartyId), product.StoreName, product.StoreUrlName);
@@ -456,7 +456,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 model.Store.StoreName = store.StoreName;
                 model.Store.StoreVideosPageUrl = UrlBuilder.GetStoreVideoUrl(Convert.ToInt32(store.MainPartyId), store.StoreName, store.StoreUrlName);
-                model.Store.StoreLogo = ImageHelper.GetStoreLogoParh(Convert.ToInt32(store.MainPartyId), store.StoreLogo, 300);
+                model.Store.StoreLogo = ImageHelper.GetStoreLogoPath(Convert.ToInt32(store.MainPartyId), store.StoreLogo, 300);
                 model.Store.StoreAbout = store.StoreAbout;
 
             }

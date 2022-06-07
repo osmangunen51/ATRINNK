@@ -514,7 +514,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 headerModel.StoreShortName = "";
                 headerModel.StoreName += currentText;
             }
-            headerModel.StoreLogoPath = ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 300);
+            headerModel.StoreLogoPath = ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 300);
             string storeAbout = "";
             if (store.StoreAbout != null)
             {
@@ -697,7 +697,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     Description = model.MTStoreProfileHeaderModel.StoreAbout.CheckNullString(),
                     Name = model.StoreName.CheckNullString(),
                     Telephone = phone == null ? string.Empty : (phone.PhoneCulture + " " + phone.PhoneAreaCode + " " + phone.PhoneNumber),
-                    Image = new Uri(ImageHelper.GetStoreLogoParh(store.MainPartyId, store.StoreLogo, 300))
+                    Image = new Uri(ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 300))
                 };
                 model.MtJsonLdModel.JsonLdString = localBusiness.ToString();
             }
@@ -1023,7 +1023,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var store = _storeService.GetStoreByMainPartyId(id);
             MTNoAccessStoreModel model = new MTNoAccessStoreModel();
             model.StoreName = store.StoreName.Replace("Silindi", "").Replace("Silinen", "");
-            model.StoreLogoPath = ImageHelper.GetStoreLogoParh(id, store.StoreLogo, 300);
+            model.StoreLogoPath = ImageHelper.GetStoreLogoPath(id, store.StoreLogo, 300);
             return View(model);
         }
 

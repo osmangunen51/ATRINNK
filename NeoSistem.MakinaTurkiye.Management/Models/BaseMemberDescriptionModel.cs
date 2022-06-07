@@ -25,6 +25,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public int? DescriptionDegree { get; set; }
         public Member Member { get; set; }
         public string StoreName { get; set; }
+        public string StoreShortName { get; set; }
         public int? StoreID { get; set; }
         public int? UserId { get; set; }
         public string DescriptionNew { get; set; }
@@ -42,5 +43,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public List<SelectListItem> Users { get; set; }
         public List<BaseMemberDescriptionModel> BaseMemberDescriptionByUser;
         public List<SelectListItem> ConstantModel { get; set; }
+        public string ContactNameSurname { get; set; }
+        public string ContactPhoneNumber { get; set; }
+        public string Contact { get; set; }
+        public string City { get; set; }
     }
 }
