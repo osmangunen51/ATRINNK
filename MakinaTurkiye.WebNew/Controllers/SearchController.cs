@@ -17,6 +17,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public string Name { get; set; } = "";
         public string Url { get; set; } = "";
         public data data { get; set; } = new data();
+        public string Value { get; set; } = "";
     }
 
     public class data
@@ -87,7 +88,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         {
                             Name = item.Name,
                             data = new data() { category = string.Format("{0}", item.Category) },
-                            Url = item.Url
+                            Url = item.Url,
                         };
                     }
                     if (!EklenenListesi.Contains(ItemOneri.Name.Trim()))

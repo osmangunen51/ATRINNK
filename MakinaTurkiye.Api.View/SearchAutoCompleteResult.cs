@@ -11,6 +11,7 @@ namespace MakinaTurkiye.Api.View
         public string Name { get; set; } = "";
         public string Url { get; set; } = "";
         public data data { get; set; } = new data();
+        public string Value { get; set; } = "";
     }
 
     public class data

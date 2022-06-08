@@ -165,7 +165,8 @@ namespace MakinaTurkiye.Services.Search
                         {
                             Input = InputListesi.Where(x => x != ""),
                             Weight = (int)SonucItem.Score
-                        }
+                        },
+                        Value=SonucItem.Value
                     };
                     index++;
                     Kayit.Id = index;
@@ -395,7 +396,8 @@ namespace MakinaTurkiye.Services.Search
                             Name = Snc.Name,
                             Category = "Oneri",
                             Score = Snc.Score,
-                            Url = Snc.Url
+                            Url = Snc.Url,
+                            Value = Snc.Value
                         }
                 ).ToList();
             return Sonuc;
@@ -411,7 +413,8 @@ namespace MakinaTurkiye.Services.Search
                           Name = Snc.Name,
                           Category = Snc.Category,
                           Score = Snc.Score,
-                          Url = Snc.Url
+                          Url = Snc.Url,
+                          Value = Snc.Value
                       }
                 ).ToList();
             return Sonuc;
@@ -420,7 +423,6 @@ namespace MakinaTurkiye.Services.Search
 
         public void Search(string SeacrhText)
         {
-
         }
     }
 }

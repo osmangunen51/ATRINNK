@@ -6,6 +6,7 @@
         public string Category { get; set; } = "";
         public double Score { get; set; } = 0;
         public string Url { get; set; } = "";
+        public string Value { get; set; } = "";
     }
 
     public class SearchResultCategory
@@ -15,5 +16,6 @@
         public string Url { get; set; } = "";
         public double Score { get; set; }
         public string Category { get; set; } = "";
+        public string Value { get; set; } = "";
     }
 }

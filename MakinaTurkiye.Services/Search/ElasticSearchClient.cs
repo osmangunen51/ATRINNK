@@ -13,6 +13,7 @@ namespace MakinaTurkiye.Services.Search
         public string Category { get; set; } = "";
         public string Keyword { get; set; } = "";
         public CompletionField Suggest { get; set; }
+        public string Value { get; set; } = "";
     }
 
     public class ProductSuggestResponse
@@ -27,6 +28,7 @@ namespace MakinaTurkiye.Services.Search
         public string Category { get; set; } = "";
         public double Score { get; set; }
         public string Url { get; set; } = "";
+        public string Value { get; set; } = "";
     }
 
     public class ElasticSearchClient
@@ -102,7 +104,8 @@ namespace MakinaTurkiye.Services.Search
                                    Name = option.Source.Name,
                                    Score = option.Score,
                                    Url = option.Source.Url,
-                                   Category = option.Source.Category
+                                   Category = option.Source.Category,
+                                   Value = option.Source.Value
                                };
                 SuggestsListesi = suggests.ToList();
             }
@@ -142,7 +145,8 @@ namespace MakinaTurkiye.Services.Search
                 Name = x.Name,
                 Url = x.Url,
                 Category = x.Category,
-                Score = x.Suggest.Weight.Value
+                Score = x.Suggest.Weight.Value,
+                Value=x.Value
             });
             return new ProductSuggestResponse
             {
