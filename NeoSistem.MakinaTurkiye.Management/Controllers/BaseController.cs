@@ -67,7 +67,10 @@
                 var prop = toProperties.SingleOrDefault(p => p.Name == item.Name);
                 if (prop != null)
                 {
-                    prop.SetValue(toClass, item.GetValue(fromClass, null), null);
+                    if (fromClass!=null)
+                    {
+                        prop.SetValue(toClass, item.GetValue(fromClass, null), null);
+                    }
                 }
             }
         }

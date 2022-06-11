@@ -400,11 +400,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             var error = _helpService.GetWebSiteErrorByWebSiteErrorId(ID);
             string filePath = Server.MapPath(error.FilePath);
-            if (System.IO.File.Exists(filePath))
-                System.IO.File.Delete(filePath);
+            System.IO.FileInfo fileInfo = new System.IO.FileInfo(filePath);
+            if (fileInfo.Exists) {
+                fileInfo.Delete();
+            }   
             _helpService.DeleteWebSitError(error);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

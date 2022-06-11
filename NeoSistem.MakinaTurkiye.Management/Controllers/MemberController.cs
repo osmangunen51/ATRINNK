@@ -32,6 +32,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
     using NeoSistem.EnterpriseEntity.Business;
     using NeoSistem.MakinaTurkiye.Management.Models.MemberModels;
     using System.IO;
+    using System.Threading.Tasks;
     using System.Web;
 
     public class MemberController : BaseController
@@ -2407,7 +2408,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                                 memberDesc.UpdateDate = lastDate;
                                 memberDesc.Title = constant.ConstantName;
-                                memberDesc.Description = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-" + model.Description + "-" + "<span style='color:#44000d'>" + CurrentUserModel.CurrentManagement.UserName + "</span>";
+                                memberDesc.Description = "<span style='color:#b70606;'>" + DateTime.Now + "</span> - " + model.Description + "-" + "<span style='color:#b70606'>" + CurrentUserModel.CurrentManagement.UserName + "</span>";
                                 memberDesc.Status = 0;
                                 memberDesc.ConstantId = Convert.ToInt32(constantId);
                                 memberDesc.FromUserId = CurrentUserModel.CurrentManagement.UserId;
@@ -2605,6 +2606,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             string storeName = "";
             string ContactNameSurname = "";
             string ContactPhoneNumber = "";
+            string StoreWebUrl = "";
+            string StoreUrl = "";
             List<string> Contacts = new List<string>();
             if (MemberDesc.MainPartyId.HasValue)
             {
@@ -2618,7 +2621,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     storeShortName = anyStore1.StoreShortName;
                     ContactNameSurname = anyStore1.ContactNameSurname;
                     ContactPhoneNumber = anyStore1.ContactPhoneNumber;
-                    
+                    StoreWebUrl = anyStore1.StoreWeb;
+                    StoreUrl= UrlBuilder.GetStoreProfileUrl(anyStore1.MainPartyId, anyStore1.StoreName, anyStore1.StoreUrlName); 
                     var storeUserManager = entities.Users.FirstOrDefault(x => x.UserId == anyStore1.AuthorizedId);
                     var storePorfoy = entities.Users.FirstOrDefault(x => x.UserId == anyStore1.PortfoyUserId);
                     if (storeUserManager != null)
@@ -2646,9 +2650,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     memberName = preRegistration.MemberName;
                     memberSurname = preRegistration.MemberSurname;
                     storeName = preRegistration.StoreName;
+                    StoreWebUrl = preRegistration.WebUrl;
                     storeShortName = "";
                     ContactNameSurname = "";
                     ContactPhoneNumber = "";
+                    StoreUrl = "";
                 }
             }
             
@@ -2680,9 +2686,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
 
             bModelDesc.StoreName = storeName;
+            bModelDesc.StoreWebUrl = StoreWebUrl;
             bModelDesc.StoreShortName = storeShortName;
             bModelDesc.ContactNameSurname = ContactNameSurname;
             bModelDesc.ContactPhoneNumber = ContactPhoneNumber;
+            bModelDesc.StoreUrl = StoreUrl;
             ViewData["MemberName"] = memberName + " " + memberSurname;
             if (MemberDesc.Status == null) ViewData["status"] = "0";
             else ViewData["status"] = MemberDesc.Status.ToString();
@@ -2690,6 +2698,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var otherMemberDescs = entities.MemberDescriptions.Where(x => x.MainPartyId == bModelDesc.MainPartyId).OrderByDescending(x => x.descId).ToList();
             if (otherMemberDescs.Count() == 0)
                 otherMemberDescs = entities.MemberDescriptions.Where(x => x.PreRegistrationStoreId == bModelDesc.RegistrationStoreId).OrderByDescending(x => x.descId).ToList();
+
+            var Members = entities.Members.ToList();
+            var MemberStores = entities.MemberStores.ToList();
             foreach (var item in otherMemberDescs)
             {
                 BaseMemberDescriptionModel otherItem = new BaseMemberDescriptionModel();
@@ -2697,11 +2708,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 otherItem.InputDate = item.Date.ToDateTime();
                 if (item.UpdateDate != null) otherItem.LastDate = Convert.ToDateTime(item.UpdateDate);
                 otherItem.MainPartyId = item.MainPartyId.ToInt32();
-                var memberSub = entities.Members.FirstOrDefault(m => m.MainPartyId == item.MainPartyId);
-
+                var memberSub = Members.FirstOrDefault(m => m.MainPartyId == item.MainPartyId);
                 if (memberSub != null && memberSub.MainPartyId != 0)
                 {
-                    var memberStore = entities.MemberStores.FirstOrDefault(x => x.MemberMainPartyId == item.MainPartyId);
+                    var memberStore = MemberStores.FirstOrDefault(x => x.MemberMainPartyId == item.MainPartyId);
                     otherItem.Title = item.Title;
                     if (item.Description != null)
                     {
@@ -2727,7 +2737,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     otherItem.ToUserName = userTo.UserName;
                 }
-                memberDescriptionsOther.Add(otherItem);
+                lock (this)
+                {
+                    memberDescriptionsOther.Add(otherItem);
+                }
             }
             bModelDesc.BaseMemberDescriptionByUser = memberDescriptionsOther;
             var users = entities.Users.Where(x => x.ActiveForDesc == true).OrderBy(x => x.UserName).ToList();
@@ -2888,7 +2901,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             if (SelectUser!=null)
                             {
                                 var UserPermissions = entities.PermissionUsers.Where(x => x.UserId == SelectUser.UserId && (x.UserGroupId == 16 | x.UserGroupId == 22)).ToList();
-                                if (UserPermissions!=null)
+                                if (UserPermissions.Count()>0)
                                 {
                                     var memberStore = _memberstoreService.GetMemberStoreByMemberMainPartyId(model.MainPartyId);
                                     if (memberStore != null)
@@ -2938,7 +2951,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             if (SelectUser != null)
                             {
                                 var UserPermissions = entities.PermissionUsers.Where(x => x.UserId == SelectUser.UserId && (x.UserGroupId == 16 | x.UserGroupId == 22)).ToList();
-                                if (UserPermissions != null)
+                                if (UserPermissions.Count() > 0)
                                 {
                                     var memberStore = _memberstoreService.GetMemberStoreByMemberMainPartyId(model.MainPartyId);
                                     if (memberStore != null)

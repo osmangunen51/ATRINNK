@@ -577,6 +577,7 @@ dd {
 }
 
 @media (min-width:992px) and (max-width:1199px) {
+
     .menu-container {
         padding: 0px !important;
     }
@@ -1656,12 +1657,13 @@ table td[class*=col-], table th[class*=col-] {
 }
 
 @media (max-width:767px) {
-    .result-category > .small {
-        margin-left: 10px;
+
+    .fast-access-bar {
+        margin-top: 0px;
     }
 
-    .result-category > h4 {
-        margin-left: 5px;
+    .result-category > .small {
+        margin-left: 0px;
     }
 
     .result-category {
@@ -1670,13 +1672,16 @@ table td[class*=col-], table th[class*=col-] {
 
         .result-category > h4 {
             padding: 8px;
+            margin-left: 0px;
         }
 
     .result-category__item {
-        min-height: 50px;
+        min-height: 50px !important;
         max-width: 100%;
         margin-top: 10px;
     }
+
+
 
     .resim-urun .carousel .carousel-inner .item {
         border-bottom: 1px solid #dcdcdc;
@@ -18036,6 +18041,8 @@ li.active > a > .menutoggleicon {
 }
 
 @media (max-width:768px) {
+
+
     .urun-detay .thumbnail .urun-bilgi .fiyat {
         font-size: 24px;
         font-weight: 600
@@ -18346,6 +18353,8 @@ li.active > a > .menutoggleicon {
     cursor: pointer;
     margin-top: -2px
 }
+
+
 
     .overflow-next div:hover, .overflow-prev div:hover {
         background-color: #64738e;
@@ -19246,7 +19255,7 @@ li.active > a > .menutoggleicon {
 
 @media (min-width:1200px) {
     .menu-container {
-        width: 1375px;
+        width: 1320px;
         padding: 0
     }
 
@@ -20300,6 +20309,7 @@ li.active > a > .menutoggleicon {
 }
 
 @media (max-width:992px) {
+
     .dropdown-menu {
         top: 100%;
         width: 100%;
@@ -20325,6 +20335,7 @@ li.active > a > .menutoggleicon {
 }
 
 @media (min-width:993px) {
+
     .dropdown-menu {
         position: absolute;
         top: 100%;
@@ -21976,14 +21987,17 @@ li.active > a > .menutoggleicon {
 .advertiseHome {
     background: url(../../../images/home-b-bg-main.png) no-repeat;
     padding: 55px 0;
+    padding-right: 600px !important;
     background-size: cover;
     margin-bottom: 20px;
     margin-top: 20px;
     width: 100vw;
     position: relative;
-    margin-left: -50vw;
-    left: 50%;
-    height: 200px
+    /*margin-left: -31vw;
+        left: 49%;
+		*/
+    height: 200px;
+    max-width: 1290px;
 }
 
     .advertiseHome span {
@@ -23965,9 +23979,11 @@ li.active > a > .menutoggleicon {
         width: auto
     }
 
+
     .mobilustmenuitemilanver:hover {
         color: #f9401b !important;
     }
+
 
     .mobilustmenuitemilanver {
         fill: #28b129 !important;
@@ -24011,6 +24027,7 @@ li.active > a > .menutoggleicon {
     -ms-border-radius: 4px;
     display: none
 }
+
 
 .bold {
     font-weight: 700 !important
@@ -26250,13 +26267,16 @@ img.mfp-img {
     padding-top: 8px;
 }
 
+
 .user-topmenu > svg:hover {
     fill: #f9401b;
 }
 
+
 .ilanver > span:hover {
     color: #232a6a;
 }
+
 
 .ilanver > svg {
     fill: #28b129;
@@ -26267,6 +26287,7 @@ img.mfp-img {
         font-weight: bold;
         transition-delay: 0.2s;
     }
+
 
 input[name="SearchText"]::-webkit-input-placeholder {
     color: #b3b2b2;
@@ -26291,6 +26312,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
     padding-top: 10px;
 }
 
+
 .category-list-wrapper {
     width: 80%
 }
@@ -26300,6 +26322,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
 }
 
 @media (min-width:768px) and (max-width:991px) {
+
     .leftSideBar {
         width: 100% !important;
         position: relative !important;
@@ -26315,6 +26338,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
 }
 
 @media (min-width:991px) {
+
     .category-list-wrapper {
         padding-right: 0px;
         padding-left: 10px;
@@ -26343,9 +26367,11 @@ input[name="SearchText"]::-webkit-input-placeholder {
         position: relative;
     }
 
+
     .breadcrumb-mt {
         margin-left: 10px !important;
     }
+
 
     .mobilustmenuitem > svg {
         height: 40px;
@@ -26404,6 +26430,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
     }*/
 }
 
+
 .yardimIcerik {
     text-align: justify;
 }
@@ -26457,6 +26484,7 @@ input[name="SearchText"]::-webkit-input-placeholder {
         margin: 0px !important;
     }
 }
+
 
 /*@media (max-width: 767px) {
     .product-list-mt__item_card.first {

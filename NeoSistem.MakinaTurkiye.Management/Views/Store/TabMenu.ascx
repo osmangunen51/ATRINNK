@@ -122,8 +122,8 @@
             <a class="tabStore" href="/Store/EditProfilePicture/<%:this.Page.RouteData.Values["id"]%>">Profil Görseli</a>
         </div>
 
-        <div class="<%:tab %> anotherback" data-a="BrowseDesc1">
-            <a class="tabStore" data-a="BrowseDesc1" target="_blank" href="/Member/BrowseDesc1/<%=mainpartyid%>">Açıklama</a>
+        <div style="background-color:#7fbf99" class="<%:tab %> anotherback" data-a="BrowseDesc1">
+            <a  class="tabStore" data-a="BrowseDesc1" target="_blank" href="/Member/BrowseDesc1/<%=mainpartyid%>">Açıklama</a>
         </div>
         <div class="<%:tab %> anotherback">
             <% NeoSistem.MakinaTurkiye.Management.Controllers.LinkHelper lHelper = new NeoSistem.MakinaTurkiye.Management.Controllers.LinkHelper();
@@ -151,7 +151,7 @@
             <a href="javascript:void(0)" onclick="SpecialMailSend(<%:item.ConstantId %>)"><%:item.ConstantName %></a>
         </div>
         <%} %>
-        <div class="<%:tab %> mailback">
+        <div style="background-color:#4cb4e5" class="<%:tab %> mailback">
             <a href="/Member/storemail/<%=mainpartyid%>" id="lightbox_click" rel="superbox[iframe]">Mailing </a>
         </div>
                 <div class="<%: ViewData["StoreSector"] != null ? tabActive:tab %> anotherback">

@@ -47,5 +47,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string ContactPhoneNumber { get; set; }
         public string Contact { get; set; }
         public string City { get; set; }
+        public string StoreWebUrl { get; set; }
+        public string StoreUrl { get; set; } = "";
     }
 }

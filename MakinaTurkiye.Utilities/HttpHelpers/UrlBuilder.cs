@@ -236,7 +236,7 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             {
                 url = string.Format("{0}/{1}", GetHost(HostNameType.Default), storeUrlName);
             }
-            return url;
+            return url.Replace(" ","");
         }
 
 

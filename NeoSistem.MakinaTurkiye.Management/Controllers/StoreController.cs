@@ -148,19 +148,19 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
 
             StringBuilder s = new StringBuilder();
-            s.Append("<span style='color:#bababa;'>Toplam Ürün: </span>");
+            s.Append("<span style='color:#bababa;'>Toplam Ürün Sayısı: </span>");
             s.Append(product.Count);
             s.Append("<br />");
-            s.Append("<span style='color:#bababa;'>Aktif: </span>");
+            s.Append("<span style='color:#bababa;'>Aktif Ürün Sayısı: </span>");
             s.Append(activepro);
             s.Append("<br />");
-            s.Append("<span style='color:#bababa;'>Pasif: </span>");
+            s.Append("<span style='color:#bababa;'>Pasif Ürün Sayısı: </span>");
             s.Append(pasifpro);
             s.Append("<br />");
-            s.Append("<span style='color:#bababa;'>Çoğul: </span>");
+            s.Append("<span style='color:#bababa;'>Ürün Çoğul Tıklanma: </span>");
             s.Append(pluralproduct);
             s.Append("<br />");
-            s.Append("<span style='color:#bababa;'>Tekil: </span>");
+            s.Append("<span style='color:#bababa;'>Ürün Tekil Tıklanma: </span>");
             s.Append(singleproduct);
             return s.ToString();
         }

@@ -133,7 +133,7 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div style="width: 100%;">
+    <div style="width:100%;">
         <div style="margin-left: 20px">
             <%
                 foreach (ModelState modelState in ViewData.ModelState.Values)
@@ -149,56 +149,107 @@
          <% using (Html.BeginForm("EditDesc1", "Member", FormMethod.Post, new { @id = "form" }))
             {%>
         <br />
-        <fieldset>
-                         <br />
+       <div style="width:100%">
+           <div style="width: 40%; float: left;">
+            <a style="font-size: 18px;margin-left:10px" target="_blank" href="/Store/EditStore/<%:Model.StoreID %>"><%=Model.StoreName%></a>
+            <br />
+            <fieldset style="height:382px;margin-top:10px;">
             <legend>
-             <a style="font-size: 16px;" target="_blank" href="/Store/EditStore/<%:Model.StoreID %>"><%=Model.StoreName%></a>&nbsp;&nbsp;-&nbsp;&nbsp;<label style="font-size: 16px;color:#31c854;font-weight:bold"><%=Model.StoreShortName %> </label><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><label style="font-size:16px;text-transform: uppercase;color:#b70606;font-weight:bold"><%=Model.City %></label></legend>
-              <label style="color:#000000;font-weight:bold"><%:ViewData["MemberName"] %> </label><br /><label style="color:#2776e5;font-weight:bold"><%=Model.Contact %> </label> 
+            </legend>
               <br />
-              <br />
-             <label>Aranacak Kişi : </label>
-             <input id="txtContactName" type="text" value="<%=Model.ContactNameSurname %>" />
-          
-             <input id="txtPhoneNumber" type="text" value="<%=Model.ContactPhoneNumber%>" />
-              <button type="button" id="btnContactChange" data-storemainPartyId="<%=Model.StoreID%>">Kaydet</button>
+             <label style="font-size: 16px;color:#458754;"><%=Model.StoreShortName %> </label><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><label style="font-size:16px;text-transform: uppercase;color:#b70606;font-weight:bold"><%=Model.City %></label>
              <br />
+              <br />
+              <label style="color:#000000;font-weight:bold"><%:ViewData["MemberName"] %> </label><br /><br /><label style="color:#617889;font-weight:bold"><%=Model.Contact.Replace("<br>","<br><br>") %> </label> 
+              <br />
+              <br />
+             <br />
+             <a style="font-size: 13px;color:#489be3" target="_blank"  href="//<%=Model.StoreWebUrl%>">
+                <label><%=Model.StoreWebUrl %></label>
+             </a>
+             <br />
+             <%if (!string.IsNullOrEmpty(Model.StoreUrl))
+                {%>
+                  <br />
+                    <a style="font-size: 13px;color:#489be3" target="_blank" href="<%=Model.StoreUrl%>">
+                          <label><%=Model.StoreUrl%></label>
+                     </a>
+                  <br />
+                <%}%>
+
         </fieldset>
-       <br />
-        <%: Html.ValidationSummary(true) %>
-        <%:Html.HiddenFor(x=>x.ID)%>
-        <%:Html.HiddenFor(x=>x.InputDate) %>
-        <%:Html.HiddenFor(x=>x.MainPartyId) %>
-        <%:Html.HiddenFor(x=>x.RegistrationStoreId) %>
-        <fieldset>
-            <legend>Açıklama</legend>
-              <div style="width: 49%; float: left;">
-                <div class="editor-label">
-                    <%: Html.Label("Yeni Açıklama :") %>
-                </div>
+           </div>
+           <div style="width: 60%; float: left;">
+               <div style="margin-left:80px;">
+                     <label>Aranacak Kişi : </label>
+                     <input id="txtContactName" type="text"  placeholder="Adı Soyadı" value="<%=Model.ContactNameSurname %>"  />
+                     <input id="txtPhoneNumber" type="text" placeholder="Telefon" value="<%=Model.ContactPhoneNumber%>" />
+                      <%if (!string.IsNullOrEmpty(Model.ContactNameSurname) | !string.IsNullOrEmpty(Model.ContactPhoneNumber))
+                          {%>
+                             <button type="button" id="btnContactChange" data-storemainPartyId="<%=Model.StoreID%>">Güncelle</button>
+                          <%}
+                          else
+                          {%> 
+                            <button type="button" id="btnContactChange" data-storemainPartyId="<%=Model.StoreID%>">Kaydet</button>
+                          <%}
+                       %>
+                     <br />
+             </div>
+            <fieldset>
+            <legend>
+              <%: Html.Label("Yeni Açıklama :") %>
+            </legend>
                 <div class="editor-field">
-                    <%: Html.TextArea("DescriptionNew", new {@style="width:100%; height:100px;" })%>
+                    <%: Html.TextArea("DescriptionNew", new {@style="width:100%; height:60px;" })%>
                 </div>
-                <%--<div class="editor-field" id="DescriptionLastC">  
-                    <%: Html.TextArea("DescriptionLast", Model.Description, new {@style="width:100%; height:100px;" })%>
-                </div>--%>
-            </div>
-            <div  style="width: 49%; float: right; margin-left: 2%; margin-top: 15px;">
-                <table>
-                                  <tr>
-                        <td colspan="2"></td>
-                                      <td>
-                                         <div class="editor-field">
-                        <%:Html.CheckBoxFor(m=>m.IsFirst) %> Önemli 
+                <%: Html.ValidationSummary(true) %>
+                <%:Html.HiddenFor(x=>x.ID)%>
+                <%:Html.HiddenFor(x=>x.InputDate) %>
+                <%:Html.HiddenFor(x=>x.MainPartyId) %>
+                <%:Html.HiddenFor(x=>x.RegistrationStoreId) %>
+               <div  style="margin-top:2px;">
+                    <table>
+                        <tr>
+                            <td colspan="4">
+                                <table style="margin-top:20px">
+                            <tbody>
+                                <tr>
+                                    <td style="width:40px;text-align:right">
+                                      TS
+                                    </td>
+                                    <td style="width:5px">
+                                        :
+                                    </td>
+                                    <td style="color:#2776e5;font-weight:800;width:150px">
+                                        <%:Model.AuthorizeName %>
+                                    </td>
+                                   <td style="width:10px">
+
+                                    </td>
+                                    <td style="width:40px;text-align:right">
+                                      PY
+                                    </td>
+                                    <td style="width:5px">
+                                        :
+                                    </td>
+                                    <td style="color:#31c854;font-weight:800;width:150px">
+                                        <%:Model.PortfoyName %>
+                                    </td>
+                                    <td style="width:150px">
+                                        <div class="editor-field"><%:Html.CheckBoxFor(m=>m.IsFirst) %> Önemli 
                                          </div>
-                                      </td>
-                        <td>
-       
-               
-                    <div class="editor-field">
-                        <%:Html.CheckBoxFor(m=>m.IsImmediate) %> Çok Acil 
-                    </div>
+                                    </td>
+                                    <td style="width:150px">
+                                    <div class="editor-field">
+                                        <%:Html.CheckBoxFor(m=>m.IsImmediate) %> Çok Acil 
+                                    </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                         </td>
                     </tr>
+               
                     <tr>
                         <td>
                                                <div class="editor-label">
@@ -206,11 +257,10 @@
                 </div>
                 <div class="editor-field">
                     <%:Html.DropDownList("constantId",Model.ConstantModel,new {@onchange="UpdateDescriptionText()" }) %>
-      
                 </div>
                         </td>
                         <td>
-                                                       <div class="editor-label">
+                    <div class="editor-label">
                         Yeni Hatırlatma Tarihi
                     </div>
                     <div class="editor-field">
@@ -226,9 +276,9 @@
 
                         <select name="timeNew" style="width: 150px;" id="timeNew">
                             <option value="">Seçiniz</option>
-                            <%for (int i = 6; i <= 23; i++)
+                            <%for (int i = 9; i <= 17; i++)
                                 {
-                                    for (int a = 0; a <= 3; a++)
+                                    for (int a = 0; a <= 2; a++)
                                     {
                                         if (a == 0)
                                         {
@@ -236,17 +286,17 @@
                                         }
                                         else if (a == 1)
                                         {
-                                            Response.Write("<option value='" + i + ":15'>" + i + ":15</option>");
+                                            Response.Write("<option value='" + i + ":15'>" + i + ":20</option>");
 
                                         }
                                         else if (a == 2)
                                         {
-                                            Response.Write("<option value='" + i + ":30'>" + i + ":30</option>");
+                                            Response.Write("<option value='" + i + ":30'>" + i + ":40</option>");
                                         }
-                                        else
-                                        {
-                                            Response.Write("<option value='" + i + ":45'>" + i + ":45</option>");
-                                        }
+                                        //else
+                                        //{
+                                        //    Response.Write("<option value='" + i + ":45'>" + i + ":45</option>");
+                                        //}
 
                                     }
                                 }%>
@@ -264,78 +314,48 @@
    
                     </tr>
                     <tr>
-                        <td colspan="3">
-                                         <div id="subContent" style="width:500px;">
-                                             <%foreach (var item in Model.SubConstants)
-                                                 {
-                                                      %>
-                                                  <input type='checkbox' onclick='subContentCheck(this)' value='<%:item %>' /><%:item %> <br>
-                                                 <%} %>
-                   </div>
-
-                        </td>
-                        <td>
-
-            <% using (Html.BeginForm())
-                { %>
-            <div style="float: left; margin-left: 15px; margin-top:10px">
-                <button type="submit"  style="width: 90px; height: 35px; border: 1px solid #404241; background: #dfefcc;">
-                    <b>Atama Yap</b>
-                </button>
+                    <td colspan="3">
+                    <div id="subContent" style="width:500px;">
+                            <%foreach (var item in Model.SubConstants)
+                                {
+                                     %>
+                                 <input type='checkbox' onclick='subContentCheck(this)' value='<%:item %>' /><%:item %> <br>
+                                <%} %>
+                    </div>
+                    </td>
+                    <td>
+                    <% using (Html.BeginForm())
+                            { %>
+                        <div style="float: left; margin-left: 15px; margin-top:10px">
+                            <button type="submit"  style="width: 90px; height: 35px; border: 1px solid #404241; background: #dfefcc;">
+                                <b>Atama Yap</b>
+                            </button>
+                        </div>
+                        <%if (Model.LastDate == null && Model.BaseMemberDescriptionByUser.Where(x => x.LastDate != null).Count() == 0)
+                            {%>
+                        <div style="float: right; margin-left: 15px;margin-top:10px"">
+                            <button type="button" style="width: 120px; height: 35px; background-color: #617cca;" onclick="window.location='/Member/CreateDesc1/<%:Model.MainPartyId %>?descId=<%:Model.ID %>'">
+                                Yeni Açıklama Girişi
+                            </button>
+                        </div>
+                        <% } %>
+                        <% } %>
+                    <br />
+                    <br />
+                    <br />
+                    
+                </td>
+            </tr>
+            </table>
             </div>
-            <%if (Model.LastDate == null && Model.BaseMemberDescriptionByUser.Where(x => x.LastDate != null).Count() == 0)
-                {%>
-            <div style="float: right; margin-left: 15px;margin-top:10px"">
-                <button type="button" style="width: 120px; height: 35px; background-color: #617cca;" onclick="window.location='/Member/CreateDesc1/<%:Model.MainPartyId %>?descId=<%:Model.ID %>'">
-                    Yeni Açıklama Girişi
-                </button>
-            </div>
-            <% } %>
-
-
-
-
-            <% } %>
-                            <br />
-                            <br />
-                            <br />
-                            <table style="margin-top:20px">
-                                <tbody>
-                                    <tr>
-                                        <td style="width:40px">
-                                          TS
-                                        </td>
-                                        <td style="width:20px">
-                                            :
-                                        </td>
-                                        <td style="color:#31c854;font-weight:800">
-                                            <%:Model.AuthorizeName %>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                         <td style="width:40px">
-                                          PY
-                                        </td>
-                                        <td style="width:20px">
-                                            :
-                                        </td>
-                                        <td style="color:#2776e5;font-weight:800">
-                                            <%:Model.PortfoyName %>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-      
-                </table>
-            </div>
-            <div style="border-bottom: dashed 1px #c0c0c0; clear: both; width: 100%; height: 1px; margin-top: 15px; margin-bottom: 10px;">
-            </div>
-    </div>
-    </fieldset>
+            </fieldset>
+           </div>
+       </div>
+       <br />
     <% } %>
-    <div style="font-size: 15px; margin-top: 10px;">Diğer Açıklamaları</div>
+    <div>
+    <br />
+    </div>
     <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
         <thead>
             <tr>
@@ -381,7 +401,7 @@
                 %>
                 </td>
                 <td class="Cell"><% if (itemMemberDesc.InputDate != null)
-                                     {
+{
                                          string[] Inputdate = itemMemberDesc.InputDate.ToString().Split(' ');
                                          Response.Write(Inputdate[0] + " ");
                                          Response.Write("<font style='color:#C5D5DD'>" + Inputdate[1] + "</font>");
@@ -392,10 +412,10 @@
                                          Response.Write(lastDate[0] + " ");
                                          Response.Write("<font style='color:#C5D5DD'>" + lastDate[1] + "</font>");
                                      } %></td>
-                <td class="Cell" style="background-color: #2776e5; color: #fff">
+                <td class="Cell" style="background-color:#8ed9fa;color:#3f2828;">
                     <%:itemMemberDesc.UserName %>
                 </td>
-                <td class="Cell" style="background-color: #31c854; color: #fff">
+                <td class="Cell" style="background-color:#bff5cb;color:#3f2828;">
                     <%:itemMemberDesc.ToUserName %>
                 </td>
                 <td class="Cell">
@@ -403,7 +423,6 @@
                         if (!itemMemberDesc.StoreID.HasValue)
                         { type = "Ön Kayıt"; }%>
                     <%:type %>
-
                 </td>
                 <td class="CellEnd">
                     <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description))
@@ -416,10 +435,8 @@
                     <a style="cursor: pointer;" onclick="DeletePost(<%:itemMemberDesc.ID %>);">
                         <img src="/Content/images/delete.png" hspace="5" />
                     </a>
-
                 </td>
             </tr>
-
             <%} %>
 
             <%} %>
@@ -434,20 +451,20 @@
                //['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],			// Defines toolbar group without name.
                '/',																					// Line break - next group will be placed in new line.
                { name: 'basicstyles', items: ['Bold', 'NumberedList'] },
+               
            ],
-
-
+           height: '135px'
        });
 
        function InitInformationUpdate()
        {
            var txtContactName = $('#txtContactName').val();
            var txtPhoneNumber = $('#txtPhoneNumber').val();
-           var content = '<p><strong style="color:red;font-weight:bold">' + txtContactName + ' ' + txtPhoneNumber +'</strong></p>';
+           var content = '<p>Aranan Kişi : <strong style="color:red;font-weight:bold">' + txtContactName + ' ' + txtPhoneNumber +'</strong></p><br>';
            CKEDITOR.instances["DescriptionNew"].setData(content);
        }
 
-       InitInformationUpdate();
+       // InitInformationUpdate();
       
 
        $('#btnContactChange').click(
