@@ -33,6 +33,8 @@
         public string Address { get; set; } = "";
         public string StoreBanner { get; set; } = "";
         public string StorePicture { get; set; } = "";
+        public string OfficialName { get; set; } = "";
+        public string OfficialSurName { get; set; } = "";
         //public string MapAddress { get; set; } = "";
     }
 }

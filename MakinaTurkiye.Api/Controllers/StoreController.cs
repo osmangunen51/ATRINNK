@@ -16,6 +16,7 @@ using MakinaTurkiye.Services.Settings;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Services.Videos;
 using MakinaTurkiye.Utilities.FileHelpers;
+using MakinaTurkiye.Utilities.FormatHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using MakinaTurkiye.Utilities.MailHelpers;
@@ -4187,6 +4188,17 @@ namespace MakinaTurkiye.Api.Controllers
                 }
                 string encodeaddress = System.Web.HttpUtility.HtmlEncode(model.Address);
                 //model.MapAddress = $"https://api.makinaturkiye.com/map/{encodeaddress}";
+                var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(store.MainPartyId);
+                if (memberStore != null)
+                {
+                    var member = _memberService.GetMemberByMainPartyId((int)memberStore.MemberMainPartyId);
+                    if (member!=null)
+                    {
+                        model.OfficialName = member.MemberName;
+                        model.OfficialSurName = member.MemberSurname;
+                    }
+                }
+
                 processStatus.Result = model;
                 processStatus.ActiveResultRowCount = 1;
                 processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -4672,6 +4684,71 @@ namespace MakinaTurkiye.Api.Controllers
                     processStatus.Result = Result;
                     processStatus.ActiveResultRowCount = Result.Count();
                     processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                catch (Exception Error)
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = Error;
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+            }
+        }
+
+        public HttpResponseMessage PromotedStores(int StoreSize = 6, int ProductSize= 3)
+        {
+            {
+                ProcessResult processStatus = new ProcessResult();
+                try
+                {
+                    List<PromotedStoreItem> Result = new List<PromotedStoreItem>();
+                    var stores = _storeService.GetHomeStores(pageSize: StoreSize);
+                    foreach (var IslemStore in stores)
+                    {
+                        IslemStore.StoreLogo = !string.IsNullOrEmpty(IslemStore.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(IslemStore.MainPartyId, IslemStore.StoreLogo, 300) : null;
+
+                        var tmpprodustResult = _productService.GetSPProductsByStoreMainPartyId(ProductSize, 1, IslemStore.MainPartyId, 0, 0);
+                        List<View.Result.ProductSearchResult> TmpStoreProductList = new List<View.Result.ProductSearchResult>();
+                        foreach (var item in tmpprodustResult)
+                        {
+                            View.Result.ProductSearchResult TmpResult = new View.Result.ProductSearchResult
+                            {
+                                ProductId = item.ProductId,
+                                CurrencyCodeName = item.CurrencyCodeName,
+                                ProductName = item.ProductName,
+                                BrandName = item.BrandName,
+                                ModelName = item.CategoryName,
+                                MainPicture = "",
+                                StoreName = "",
+                                PictureList = "".Split(',').ToList(),
+                            };
+                            string picturePath = "";
+                            var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
+                            if (picture != null)
+                            {
+                                if (!picture.PicturePath.StartsWith("https:"))
+                                {
+                                    picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                                }
+                            }
+                            TmpResult.MainPicture = (picturePath == null ? "" : picturePath);
+                            TmpStoreProductList.Add(TmpResult);
+                        }
+                        Result.Add(new PromotedStoreItem()
+                        {
+                            Store = IslemStore,
+                            Products = TmpStoreProductList
+                        });
+                    }
+                    processStatus.Result = Result;
+                    processStatus.ActiveResultRowCount = Result.Count;
+                    processStatus.TotolRowCount = Result.Count;
+                    processStatus.TotolPageCount = 1;
                     processStatus.Message.Header = "Store İşlemleri";
                     processStatus.Message.Text = "Başarılı";
                     processStatus.Status = true;

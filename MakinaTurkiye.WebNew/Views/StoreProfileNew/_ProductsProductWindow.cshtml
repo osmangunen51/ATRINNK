@@ -34,7 +34,7 @@
     <div  class="product-list-mt row clearfix">
         @foreach (var item in Model.MTProductsPageProductLists.Source.ToList())
         {
-            <div class="col-md-4 col-lg-3">
+            <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3">
                 <div class="product-list-mt__item js-hover-product-item">
                     <div class="product-list-mt__inner">
                         <div class="row">
@@ -63,9 +63,9 @@
 
                                     </div>
                                     <div class="product-list-mt__detail">
-                                        <div class="product-list-mt__title-info">
+                                        <div class="product-list-mt__title-info ">
                                             <h4 class="product-list-mt__title">@item.ProductName</h4>
-                                            <p class="product-list-mt__brand-model">@item.BrandName | @item.ModelName</p>
+                                            <p class="product-list-mt__brand-model hidden-xs hidden-sm">@item.BrandName | @item.ModelName</p>
                                         </div>
                                         <p class="product-list-mt__price">
                                             @if (!item.ProductPrice.Contains("Fiyat"))
@@ -85,7 +85,7 @@
                                                 <span class="interview"></span>
                                             }
                                         </p>
-                                        <p class="product-list-mt__advert-no">
+                                        <p class="product-list-mt__advert-no hidden-xs hidden-sm">
                                             @item.ProductNo
                                         </p>
                                     </div>

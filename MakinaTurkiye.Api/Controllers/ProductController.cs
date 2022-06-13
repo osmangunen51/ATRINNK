@@ -457,7 +457,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-
         public HttpResponseMessage GetStoreMainPartyId(int storeMainPartyId, string SearchText = "")
         {
             ProcessResult ProcessStatus = new ProcessResult();
@@ -851,6 +850,62 @@ namespace MakinaTurkiye.Api.Controllers
             catch (Exception ex)
             {
                 processStatus.Message.Header = "GetAllProductComplaintType";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+        public HttpResponseMessage Showcase()
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                List<View.Result.ProductSearchResult> TmpResult = new List<View.Result.ProductSearchResult>();
+                var popularProducts = _productService.GetProductsByShowCase();
+                List<int> Liste = popularProducts.Select(x => (int)x.CategoryId).ToList();
+                var CategoryList = _categoryService.GetCategoriesByCategoryIds(Liste).ToList();
+                foreach (var Snc in popularProducts)
+                {
+                    var Result = _productService.GetProductByProductId(Snc.ProductId);
+                    var tmp = new View.Result.ProductSearchResult
+                    {
+                        ProductId = Result.ProductId,
+                        CurrencyCodeName = Result.GetCurrency(),
+                        ProductName = Result.ProductName,
+                        BrandName = (Result.Brand == null ? "" : Result.Brand.CategoryName),
+                        ModelName = (Result.Model == null ? "" : Result.Model.CategoryName),
+                        MainPicture = "",
+                        StoreName = "",
+                        MainPartyId = (int)Result.MainPartyId,
+                        ProductPrice = (Result.ProductPrice ?? 0),
+                        ProductPriceType = (byte)Result.ProductPriceType,
+                        ProductPriceLast = (Result.ProductPriceLast ?? 0),
+                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0)
+                    };
+                    TmpResult.Add(tmp);
+                }
+                foreach (var item in TmpResult)
+                {
+                    string picturePath = "";
+                    var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
+                    if (picture != null)
+                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                    var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
+                    var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                    item.MainPicture = (picturePath == null ? "" : picturePath);
+                    item.StoreName = store.StoreName;
+                }
+                processStatus.Result = TmpResult;
+                processStatus.Message.Header = "Showcase";
+                processStatus.Message.Text = "Başarılı";
+                processStatus.Status = true;
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "Showcase";
                 processStatus.Message.Text = "İşlem başarısız.";
                 processStatus.Status = false;
                 processStatus.Result = "Hata ile karşılaşıldı!";

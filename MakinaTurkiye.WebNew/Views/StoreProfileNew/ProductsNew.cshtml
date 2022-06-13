@@ -62,12 +62,23 @@
                 <div class="col-md-12" style="padding: 0px;">
                     <div class="categort-filter">
                         <div class="row">
+                            <div class="col-xs-9 col-sm-6 col-md-4">
+                                @foreach (var item in Model.CustomFilterModels.Where(x => x.ProductCount > 0))
+                                {
+                                    string active = "";
+                                    if (item.Selected)
+                                    {
+                                        active = "active";
+                                    }
+                                    <a href="@item.FilterUrl" class="categort-filter__link @active">@item.FilterName<span class="category-filter-count">&nbsp;(@item.ProductCount)</span></a>}
+                            </div>
+
                             <div class="col-xs-3 col-sm-6 col-md-8">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="dropdown pull-right" style="width: 160px;">
                                             <button class="btn btn-default btn-block dropdown-toggle" type="button" id="btnGroupVerticalDrop1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                                Sıralama Türü Seçiniz
+                                                Akıllı Sıralama
                                                 <span class="caret"></span>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="btnGroupVerticalDrop1">
@@ -88,16 +99,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-9 col-sm-6 col-md-4">
-                                @foreach (var item in Model.CustomFilterModels.Where(x => x.ProductCount > 0))
-                                {
-                                    string active = "";
-                                    if (item.Selected)
-                                    {
-                                        active = "active";
-                                    }
-                                    <a href="@item.FilterUrl" class="categort-filter__link @active">@item.FilterName<span class="category-filter-count">&nbsp;(@item.ProductCount)</span></a>}
-                            </div>
+
 
                         </div>
                     </div>

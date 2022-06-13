@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="NeoSistem.MakinaTurkiye.Core.Web.ViewPage<StoreModel>" %>
-
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-    Edit
+    Düzenle | <%=Model.StoreName%>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="HeadContent" runat="server">
     
@@ -474,7 +473,18 @@
                 </td>
                 <td style="width:30%; vertical-align:top">
                     <table border="0" cellpadding="5" cellspacing="0" style="margin-left: 20px;">
-                        <tr>
+                    <tr>
+                    <td>
+                    </td>
+                    <td>:
+                    </td>
+                    <td>
+                            <button type="submit" style="font-size:14px"> Kaydet</button>
+                            <%--<button type="reset" style="font-size:14px">İptal</button>--%>
+                    </td>
+                    <td></td>
+                    </tr>
+                    <tr>
                     <td>Üyelik Paketi :
                     </td>
                     <td>:

@@ -164,7 +164,7 @@
               <br />
               <br />
              <br />
-             <a style="font-size: 13px;color:#489be3" target="_blank"  href="//<%=Model.StoreWebUrl%>">
+             <a style="font-size: 13px;color:#489be3" target="_blank"  href="<%=Model.StoreWebUrl%>">
                 <label><%=Model.StoreWebUrl %></label>
              </a>
              <br />

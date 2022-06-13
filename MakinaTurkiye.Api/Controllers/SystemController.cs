@@ -148,6 +148,7 @@ namespace MakinaTurkiye.Api.Controllers
         public HttpResponseMessage GetBlogUrl()
         {
             ProcessResult processStatus = new ProcessResult();
+
             try
             {
                 string BlogUrl = "https://blog.makinaturkiye.com/";
@@ -165,6 +166,7 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Result = "Hata ile karşılaşıldı!";
                 processStatus.Error = ex;
             }
+
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
     }

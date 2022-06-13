@@ -65,6 +65,7 @@
     <Compile Include="StoreDealerShip.cs" />
     <Compile Include="StoreBrand.cs" />
     <Compile Include="StoreCompanyPicture.cs" />
+    <Compile Include="PromotedStoreItem.cs" />
     <Compile Include="StoreProfilFoto.cs" />
     <Compile Include="StoreSector.cs" />
     <Compile Include="StoreBanner.cs" />

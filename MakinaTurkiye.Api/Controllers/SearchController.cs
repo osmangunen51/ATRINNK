@@ -94,7 +94,7 @@ namespace MakinaTurkiye.Api.Controllers
                             Name = "",
                             data = new data() { category = "Kategoriler" },
                             Url = "#",
-                            Value=""
+                            Value = ""
                         };
                         Sonuc.suggestions.Add(ItemCategory);
                         foreach (var item in DtKategori)
@@ -133,7 +133,7 @@ namespace MakinaTurkiye.Api.Controllers
                             Name = "",
                             data = new data() { category = "Firmalar" },
                             Url = "#",
-                            Value=""
+                            Value = ""
                         };
                         Sonuc.suggestions.Add(ItemCategory);
 

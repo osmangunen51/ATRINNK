@@ -45,21 +45,15 @@ namespace NeoSistem.MakinaTurkiye.Management
 
         protected void Application_Start()
         {
-
             //JobScheduler.Start();
-
             //initialize engine context
             EngineContext.Initialize(false);
-
             AreaRegistration.RegisterAllAreas();
-
             RegisterRoutes(RouteTable.Routes);
-
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredValidationAttribute), typeof(RequiredAttributeAdapter));
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(StringLengthValidationAttribute), typeof(StringLengthAttributeAdapter));
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(EmailValidationAttribute), typeof(RegularExpressionAttributeAdapter));
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RangeValidationAttribute), typeof(RangeAttributeAdapter));
-
         }
 
         protected void Application_Error(object sender, EventArgs e)
