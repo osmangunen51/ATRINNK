@@ -349,6 +349,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 op = true;
             }
 
+            if (!string.IsNullOrWhiteSpace(model.StoreAdres))
+            {
+                if (op)
+                {
+                    whereClause.Append("AND");
+                }
+
+                whereClause.Append("(");
+                whereClause.AppendFormat(likeClaue, "Loc.LocalityName", model.StoreAdres);
+
+                whereClause.Append("OR");
+
+                whereClause.AppendFormat(likeClaue, "Cit.CityName", model.StoreAdres+"");
+                whereClause.Append(")");
+                op = true;
+            }
 
             if (whereClause.ToString() == "Where")
             {

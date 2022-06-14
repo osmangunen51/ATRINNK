@@ -15,6 +15,7 @@
         <a href="<%:item.WebUrl %>" target="_blank"><%:item.WebUrl %></a>
         <% } %>
     </td>
+    <td class="Cell"><%:item.City %></td>
     <td class="Cell"><%:item.RecordDate.ToString("dd/MM/yyyy HH:mm") %></td>
     <td class="Cell CellEnd">
         <a href="/PreRegistrationStore/Edit/<%:item.Id %>">

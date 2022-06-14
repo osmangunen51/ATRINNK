@@ -47,7 +47,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         #endregion
 
         #region Fields
-
         private IMemberDescriptionService _memberDescService;
         private IStoreService _storeService;
         private IMemberStoreService _memberstoreService;
@@ -2608,6 +2607,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             string ContactPhoneNumber = "";
             string StoreWebUrl = "";
             string StoreUrl = "";
+            string City = "";
             List<string> Contacts = new List<string>();
             if (MemberDesc.MainPartyId.HasValue)
             {
@@ -2652,9 +2652,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     storeName = preRegistration.StoreName;
                     StoreWebUrl = preRegistration.WebUrl;
                     storeShortName = "";
-                    ContactNameSurname = "";
-                    ContactPhoneNumber = "";
+                    ContactNameSurname = preRegistration.ContactNameSurname;
+                    ContactPhoneNumber = preRegistration.ContactPhoneNumber;
                     StoreUrl = "";
+                    City = preRegistration.City;
                 }
             }
             
@@ -2685,6 +2686,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 bModelDesc.Contact = String.Join("<br>", Contacts.ToArray());
             }
 
+            bModelDesc.City = City;
             bModelDesc.StoreName = storeName;
             bModelDesc.StoreWebUrl = StoreWebUrl;
             bModelDesc.StoreShortName = storeShortName;
@@ -3273,8 +3275,20 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             else
             {
-                res.IsSuccess = true;
-                res.Message = "store bulunamadı.";
+                var preRegistrationStore = _preRegistrationStoreService.GetPreRegistirationStoreByPreRegistrationStoreId(storemainPartyId);
+                if (preRegistrationStore != null)
+                {
+                    preRegistrationStore.ContactNameSurname = name;
+                    preRegistrationStore.ContactPhoneNumber = number;
+                    _preRegistrationStoreService.UpdatePreRegistrationStore(preRegistrationStore);
+                    res.IsSuccess = true;
+                    res.Message = "Başarıyla güncellendi.";
+                }
+                else
+                {
+                    res.IsSuccess = true;
+                    res.Message = "store bulunamadı.";
+                }
             }
             return Json(res, JsonRequestBehavior.AllowGet);
         }

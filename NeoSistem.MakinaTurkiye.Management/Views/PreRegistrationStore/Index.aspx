@@ -107,6 +107,7 @@
                     </td>
                     <td class="Header">Diğer Telefon</td>
                     <td class="Header">Web Adresi</td>
+                    <td class="Header">Şehir</td>
                     <td class="Header">Tarih</td>
                     <td class="HeaderEnd"></td>
                 </tr>

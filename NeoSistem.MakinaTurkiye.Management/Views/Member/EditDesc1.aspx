@@ -157,7 +157,7 @@
             <legend>
             </legend>
               <br />
-             <label style="font-size: 16px;color:#458754;"><%=Model.StoreShortName %> </label><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><label style="font-size:16px;text-transform: uppercase;color:#b70606;font-weight:bold"><%=Model.City %></label>
+             <label style="font-size: 16px;color:#458754;"><%=Model.StoreShortName %> </label><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><label style="font-size:18px;color:#b70606;font-weight:bold"><%=Model.City %></label>
              <br />
               <br />
               <label style="color:#000000;font-weight:bold"><%:ViewData["MemberName"] %> </label><br /><br /><label style="color:#617889;font-weight:bold"><%=Model.Contact.Replace("<br>","<br><br>") %> </label> 
@@ -176,7 +176,6 @@
                      </a>
                   <br />
                 <%}%>
-
         </fieldset>
            </div>
            <div style="width: 60%; float: left;">
@@ -186,11 +185,11 @@
                      <input id="txtPhoneNumber" type="text" placeholder="Telefon" value="<%=Model.ContactPhoneNumber%>" />
                       <%if (!string.IsNullOrEmpty(Model.ContactNameSurname) | !string.IsNullOrEmpty(Model.ContactPhoneNumber))
                           {%>
-                             <button type="button" id="btnContactChange" data-storemainPartyId="<%=Model.StoreID%>">Güncelle</button>
+                             <button type="button" id="btnContactChange" data-storemainPartyId="<%=(Model.StoreID.HasValue?Model.StoreID.Value:Model.RegistrationStoreId)%>">Güncelle</button>
                           <%}
                           else
                           {%> 
-                            <button type="button" id="btnContactChange" data-storemainPartyId="<%=Model.StoreID%>">Kaydet</button>
+                            <button type="button" id="btnContactChange" data-storemainPartyId="<%=(Model.StoreID.HasValue?Model.StoreID.Value:Model.RegistrationStoreId)%>">Kaydet</button>
                           <%}
                        %>
                      <br />

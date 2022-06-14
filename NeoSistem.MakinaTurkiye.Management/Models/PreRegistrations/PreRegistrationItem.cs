@@ -16,5 +16,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.PreRegistrations
         public DateTime RecordDate { get; set; }
         public string WebUrl { get; set; }
         public bool IsInserted { get; set; }
+
+        public string City { get; set; }
+
+        public string ContactPhoneNumber { get; set; }
+        public string ContactNameSurname { get; set; }
+
     }
 }

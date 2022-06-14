@@ -14,5 +14,8 @@
         public string PhoneNumbers { get; set; }
         public int MemberMainPartyId { get; set; }
 
+        public string City { get; set; }
+        public string ContactNameSurname { get; set; }
+        public string ContactPhoneNumber { get; set; }
     }
 }

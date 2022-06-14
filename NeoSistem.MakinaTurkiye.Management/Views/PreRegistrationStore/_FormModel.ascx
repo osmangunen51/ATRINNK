@@ -69,10 +69,15 @@
             <td>:</td>
             <td><%:Html.TextBoxFor(x=>x.PhoneNumber3) %></td>
         </tr>
-                <tr>
+        <tr>
             <td>Web Adresi:</td>
             <td>:</td>
             <td><%:Html.TextBoxFor(x=>x.WebUrl) %></td>
+        </tr>
+        <tr>
+            <td>Şehir</td>
+            <td>:</td>
+            <td><%:Html.TextBoxFor(x=>x.City) %></td>
         </tr>
     </table>
 </div>

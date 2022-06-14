@@ -23,10 +23,10 @@ Firmalar
     <table cellpadding="13" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
       <thead>
         <tr>
-          <td class="Header HeaderBegin" style="width: 5%;" unselectable="on" onclick="OrderPost('StoreNo', this);">
+          <td class="Header HeaderBegin" style="width: 3%;text-align:center" unselectable="on" onclick="OrderPost('StoreNo', this);">
             Mağaza No
           </td>
-          <td class="Header" style="width: 9%;" unselectable="on" onclick="OrderPost('MainPartyFullName', this);">
+          <td class="Header" style="width: 7%;" unselectable="on" onclick="OrderPost('MainPartyFullName', this);">
             Firma Yetkilisi
           </td>
           <td class="Header" style="width: 12%;" unselectable="on" onclick="OrderPost('StoreName', this);">
@@ -35,7 +35,7 @@ Firmalar
           <td class="Header" style="width: 4%;" unselectable="on" onclick="OrderPost('StorePacketId', this);">
             Logo
           </td>
-          <td class="Header" style="width: 8%;" unselectable="on" onclick="OrderPost('StoreRecordDate', this);">
+          <td class="Header" style="width: 3%;" unselectable="on" onclick="OrderPost('StoreRecordDate', this);">
             Kayıt Tarihi
           </td>
           <td class="Header" style="width: 4%;" unselectable="on" >
@@ -47,7 +47,7 @@ Firmalar
           <td class="Header" style="width: 5%;" unselectable="on">
             Paket
           </td>
-          <td class="Header" style="width: 5%;" unselectable="on">
+          <td class="Header" style="width: 3%;" unselectable="on">
             Mağaza Durumu
           </td>
     
@@ -55,19 +55,19 @@ Firmalar
           <td class="Header" style="width: 4%;" unselectable="on" onclick="OrderPost('CountryName', this);">
             Adres
           </td>
-          <td class="Header" style="width: 10%;" unselectable="on" onclick="OrderPost('StoreWeb', this);">
+          <td class="Header" style="width: 6%;" unselectable="on" onclick="OrderPost('StoreWeb', this);">
             Web Adresi
           </td>
-          <td class="Header" style="width: 3%;" unselectable="on" onclick="OrderPost('StoreClick', this);">
+<%--          <td class="Header" style="width: 3%;" unselectable="on" onclick="OrderPost('StoreClick', this);">
           F.T.S.
-          </td>
+          </td>--%>
           <td class="Header" style="width: 4%;" unselectable="on" onclick="OrderPost('StoreProduct', this);">
-          F.Ü.S.
+          Firma Ürün<br />Sayısı
           </td>
-          <td class="Header" style="width: 4%;" unselectable="on">
+<%--          <td class="Header" style="width: 4%;" unselectable="on">
           Ü.T.S.
-          </td>
-          <td class="Header" style="width: 8%;">
+          </td>--%>
+          <td class="Header" style="width: 15%;">
             Araçlar
           </td>
         </tr>
@@ -76,9 +76,9 @@ Firmalar
             <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
               <tbody>
                 <tr>
-                  <td style="border: solid 1px #CCC; background-color: #FFF">
-                    <input id="StoreNo" class="Search" style="width: 75%; border: none;" value="###" />
-                    <span class="ui-icon ui-icon-close searchClear" style="width: 16%;" onclick="$('#StoreNo').val('###');">
+                  <td style="border: solid 1px #CCC; background-color: #FFF;text-align:center">
+                    <input id="StoreNo" class="Search" style="width: 75%; text-align:center;border: none;" value="###" />
+                    <span class="ui-icon ui-icon-close searchClear" style="width: 16%;text-align:center" onclick="$('#StoreNo').val('###');">
                     </span>
                   </td>
                 </tr>
@@ -188,9 +188,11 @@ Firmalar
             </table>
           </td>
           <td class="Cell" style="width: 5%;">
+               <input id="StoreAdres" class="Search" style="width: 70%; border: none" /><span class="ui-icon ui-icon-close searchClear"
+                      onclick="clearSearch('StoreAdres');"></span>
           </td>
    
-          <td class="Cell" style="width: 10%">
+          <td class="Cell" style="width: 8%">
             <table style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
               <tbody>
                 <tr>
@@ -202,13 +204,9 @@ Firmalar
               </tbody>
             </table>
           </td>
-          <td class="Cell" style="width: 3%;">
+          <td class="Cell" style="width: 7%;">
           </td>
-          <td class="Cell" style="width: 4%;">
-          </td>
-          <td class="Cell" style="width: 4%;">
-          </td>
-          <td class="CellEnd" style="width: 8%;">
+          <td class="CellEnd" style="width:15%">
           </td>
         </tr>
       </thead>
@@ -287,7 +285,6 @@ Firmalar
     function SearchPost() {
       if ($('#StoreNo').val().length == 3 || $('#StoreNo').val().length == 9) {
         $('#preLoading').show();
-
         $.ajax({
           url: '/Store/Index',
           data: {
@@ -299,6 +296,7 @@ Firmalar
             StorePacketEndDate: $('#StorePacketEndDate').val(),
             StoreActiveType: $('#StoreActiveType').val(),
             StoreWeb: $('#StoreWeb').val(),
+            StoreAdres: $('#StoreAdres').val(),
             OrderName: $('#OrderName').val(),
             PacketId: $('#PacketId').val(),
             Order: $('#Order').val(),
@@ -311,7 +309,8 @@ Firmalar
           type: 'post',
           success: function (data) {
             $('#table').html(data);
-            $('#table tr td:first').each(function () {
+            $('#table tr td:first').each(function () 
+            {
               var text = $('#StoreName').val();
               $(this).html(
               $(this).text().replace(new RegExp(text, 'gi'), '<span style="background-color:#fff18c"><strong>' + $('#StoreName').val() + '</strong></span>')

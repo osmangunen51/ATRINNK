@@ -6,7 +6,7 @@
 <%MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities(); %>
 <% row++; %>
 <tr id="row<%: item.MainPartyId %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
-    <td class="CellBegin">
+    <td class="CellBegin" style="text-align:center">
         <%: item.StoreNo %>
     </td>
     <td class="Cell">
@@ -29,7 +29,7 @@
         <%if (!item.PacketName.Equals("Standart Paket") && !item.PacketName.Equals("Özel Paket") && !item.PacketName.Equals("Sınırlı Paket"))
             {
         %>
-        <span style="color: #9d0606">
+        <span style="color: #9d0606;text-align:center">
             <%: (item.StorePacketEndDate.HasValue ? item.StorePacketEndDate.Value.ToString("dd.MM.yyyy") : "")%>
         </span>
         <%} %>
@@ -99,9 +99,13 @@
     </td>
 
     <td class="Cell">
-        <%:item.LocalityName %>&nbsp
-      <%:item.CityName %><br />
-        <%: item.CountryName  %>
+            <%if (item.CountryName!="Türkiye")
+                {%>
+                    <span style="color:yellow"><%:item.CountryName %></span><br />
+                <%}%>
+                <span style="color:red"><%:item.CityName.ToUpper() %></span><br />
+                <span style="color:yellowgreen"><%:item.LocalityName %></span>
+                &nbsp
     </td>
     <td class="Cell">
         <%string webUrl = EnumModels.UrlHttpEdit(item.StoreWeb);  %>
@@ -112,18 +116,16 @@
         <% } %>
 
     </td>
-    <%var mem = (from c in new MakinaTurkiyeEntities().MemberStores
+     <%var mem = (from c in new MakinaTurkiyeEntities().MemberStores
                    where c.StoreMainPartyId == item.MainPartyId
                    select c).FirstOrDefault();%>
-    <td class="Cell">
+    <%--<td class="Cell">
         <%
             int Mainpartyid = 49348;
             if (mem != null)
             {
                 Mainpartyid = mem.MemberMainPartyId.ToInt32();
             }
-
-
             var product = entities.Products.Where(c => c.MainPartyId == Mainpartyid).ToList();
 
             int singleproduct = 0;
@@ -153,21 +155,78 @@
             {  %>
 	 -
 	 <%} %>
-    </td>
+    </td>--%>
     <td class="Cell">
+        <%
+            int Mainpartyid = 49348;
+            if (mem != null)
+            {
+                Mainpartyid = mem.MemberMainPartyId.ToInt32();
+            }
+            var product = entities.Products.Where(c => c.MainPartyId == Mainpartyid).ToList();
 
-        <%if (product.Count != 0)
+            int singleproduct = 0;
+            int pluralproduct = 0;
+            int activepro = 0;
+            int pasifpro = 0;
+            if (product != null)
+            {
+                foreach (var spro in product)
+                {
+                    singleproduct = singleproduct + spro.SingularViewCount.ToInt32();
+                    pluralproduct = pluralproduct + spro.ViewCount.ToInt32();
+                    if (spro.ProductActive == false)
+                    {
+                        pasifpro = pasifpro + 1;
+                    }
+                    else activepro = activepro + 1;
+                }
+            }
+
+            if (product.Count != 0)
             {  %>
-        <span style="color: #bababa;">T: </span><%=product.Count%><br />
-        <span style="color: #bababa;">A: </span><%=activepro%><br />
-        <span style="color: #bababa;">P: </span><%=pasifpro%>
+        <table>
+            <tr>
+                <td>
+                    <span style="color: #bababa;">Tplm</span>
+                </td>
+                <td width:5>
+                    :
+                </td>
+                <td>
+                    <span style="color: red;"><%=product.Count%></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="color: #bababa;">Aktif</span>
+                </td>
+                <td width:5>
+                    :
+                </td>
+                <td>
+                    <span style="color: green;"><%=product.Count%></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span style="color: #bababa;">Pasif</span>
+                </td>
+                <td width:5>
+                    :
+                </td>
+                <td>
+                    <span style="color: blue;"><%=product.Count%></span>
+                </td>
+            </tr>
+        </table>
         <%}
             else
             {%>
 		 -
 	<%} %>
     </td>
-    <td class="Cell">
+    <%--<td class="Cell">
         <%if (product.Count != 0)
             {  %>
         <span style="color: #bababa;">Ç: </span><%=pluralproduct%><br />
@@ -178,9 +237,9 @@
             {  %>
 	 -
 	 <%} %>
-    </td>
-    <td class="CellEnd" align="center">
-        <a title="Giriş" style="cursor: pointer;" target="_blank" href="<%:item.LogingLink %>">giriş </a>
+    </td>--%>
+    <td class="CellEnd" align="center" style="width:15%">
+        <a title="Giriş" style="cursor: pointer;" target="_blank" href="<%:item.LogingLink %>">Hesabım </a>
         <%string updateLink = "/Store/EditStore/" + item.MainPartyId; %>
         <%if (item.StoreActiveType == 2) { updateLink = "/Store/StoreDetailInformation/" + item.MainPartyId; } %>
         <a title="Düzenle" href="<%:updateLink %>">

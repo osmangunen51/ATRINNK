@@ -110,7 +110,7 @@
         public string SeoDescription { get; set; }
         public string SeoKeyword { get; set; }
         public NeoSistem.MakinaTurkiye.Management.Models.Entities.Address Address { get; set; }
-
+        public string StoreAdres { get; set; } = "";
         public IEnumerable<Phone> PhoneItems { get; set; }
 
         public SelectList CurrencyItems

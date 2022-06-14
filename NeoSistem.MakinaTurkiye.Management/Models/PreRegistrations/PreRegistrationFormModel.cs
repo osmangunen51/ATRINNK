@@ -11,5 +11,11 @@
         public string PhoneNumber2 { get; set; }
         public string PhoneNumber3 { get; set; }
         public string WebUrl { get; set; }
+        public string City { get; set; }
+
+        public string ContactPhoneNumber { get; set; }
+        public string ContactNameSurname { get; set; }
+
+
     }
 }

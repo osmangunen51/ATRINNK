@@ -64,6 +64,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     StoreName = item.StoreName,
                     RecordDate = item.RecordDate,
                     WebUrl = item.WebUrl,
+                    City = item.City,
+                    ContactNameSurname= item.ContactNameSurname,
+                    ContactPhoneNumber= item.ContactPhoneNumber,
                     PhoneNumber2 = item.PhoneNumber2,
                     PhoneNumber3 = item.PhoneNumber3,
                     HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
@@ -100,6 +103,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     PhoneNumber = item.PhoneNumber,
                     StoreName = item.StoreName,
                     WebUrl = item.WebUrl,
+                    City = item.City,
+                    ContactNameSurname = item.ContactNameSurname,
+                    ContactPhoneNumber = item.ContactPhoneNumber,
                     RecordDate = item.RecordDate,
                     PhoneNumber2 = item.PhoneNumber2,
                     PhoneNumber3 = item.PhoneNumber3,
@@ -138,6 +144,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 preRegistrationStore.StoreName = model.StoreName;
                 preRegistrationStore.RecordDate = DateTime.Now;
                 preRegistrationStore.WebUrl = model.WebUrl;
+                preRegistrationStore.City = model.City;
+                preRegistrationStore.ContactNameSurname = model.ContactNameSurname;
+                preRegistrationStore.ContactPhoneNumber = model.ContactPhoneNumber;
+
                 _preRegistrationService.InsertPreRegistrationStore(preRegistrationStore);
                 TempData["success"] = true;
                 return RedirectToAction("Create");
@@ -157,6 +167,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.PhoneNumber2 = preRegistration.PhoneNumber2;
             model.PhoneNumber3 = preRegistration.PhoneNumber3;
             model.WebUrl = preRegistration.WebUrl;
+            model.City = preRegistration.City;
+            model.ContactNameSurname = preRegistration.ContactNameSurname;
+            model.ContactPhoneNumber = preRegistration.ContactPhoneNumber;
             return View(model);
         }
         [HttpPost]
@@ -171,6 +184,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             preRegistration.PhoneNumber2 = model.PhoneNumber2;
             preRegistration.PhoneNumber3 = model.PhoneNumber3;
             preRegistration.WebUrl = model.WebUrl;
+            preRegistration.City= model.City;
+            preRegistration.ContactPhoneNumber = model.ContactPhoneNumber;
+            preRegistration.ContactNameSurname = model.ContactNameSurname;
             _preRegistrationService.UpdatePreRegistrationStore(preRegistration);
             return RedirectToAction("Index");
         }
@@ -216,7 +232,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         WebUrl = item.StoreWeb,
                         MemberEmail = memberEmail,
                         PhoneNumbers = phoneNumber,
-                        MemberMainPartyId = MemberMainPartyId
+                        MemberMainPartyId = MemberMainPartyId,
+                        ContactNameSurname=item.ContactNameSurname,
+                        ContactPhoneNumber = item.ContactPhoneNumber,
                     });
                 }
 
@@ -232,6 +250,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         MemberEmail = item.Email,
                         PhoneNumbers = item.PhoneNumber + "," + item.PhoneNumber2 + "," + item.PhoneNumber3,
                         WebUrl = item.WebUrl,
+                        City = item.City,
+                        ContactPhoneNumber = item.ContactPhoneNumber,
+                        ContactNameSurname = item.ContactNameSurname
                     });
                 }
 

@@ -14,6 +14,9 @@ namespace MakinaTurkiye.Entities.Tables.Stores
         public string PhoneNumber3 { get; set; }
         public DateTime RecordDate { get; set; }
         public string WebUrl { get; set; }
+        public string City { get; set; }
+        public string ContactNameSurname { get; set; }
+        public string ContactPhoneNumber { get; set; }
 
     }
 }
