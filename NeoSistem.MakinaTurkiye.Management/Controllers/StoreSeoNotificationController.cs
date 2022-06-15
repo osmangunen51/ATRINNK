@@ -1,5 +1,4 @@
-﻿using MakinaTurkiye.Entities.Tables.Stores;
-using MakinaTurkiye.Services.Common;
+﻿using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.FormatHelpers;
 using NeoSistem.MakinaTurkiye.Management.Models;
@@ -68,7 +67,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(storeNotId.Value);
                 model.PreviousText = storeSeoNotification.Text;
                 model.StoreSeoNotificationId = storeNotId.Value;
-                model.StoreMainPartyId = storeSeoNotification.StoreMainPartyId;
+                model.StoreMainPartyId =(int)storeSeoNotification.StoreMainPartyId;
                 if (!storeSeoNotification.ConstantId.HasValue || storeSeoNotification.ConstantId == 0)
                     model.Titles.Add(new SelectListItem { Text = "Seçiniz", Value = "0" });
 
@@ -84,7 +83,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     }
 
                 }
-                model.ToUserId = storeSeoNotification.ToUserId;
+                model.ToUserId = (int)storeSeoNotification.ToUserId;
                 model.ConstantId = storeSeoNotification.ConstantId.HasValue ? storeSeoNotification.ConstantId.Value : (short)0;
             }
             else if (id.HasValue)

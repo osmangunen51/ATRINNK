@@ -31,5 +31,15 @@
         public bool Active { get; set; }
         public bool ActiveForDesc { get; set; }
         public IEnumerable<UserGroupModel> Groups { get; set; }
+
+        [DisplayName("Mail İmzası")]
+        public string Signature { get; set; }
+        
+        [DisplayName("Ad")]
+        public string Name { get; set; }
+
+        [DisplayName("Soyad")]
+        public string Surname { get; set; }
+
     }
 }

@@ -21,6 +21,9 @@
                 <%: Html.ValidationMessageFor(model => model.UserPass)%>
             </td>
         </tr>
+
+
+
         <tr>
             <td>İzin Grubu :
             </td>
@@ -40,6 +43,26 @@
         </tr>
         <tr>
             <td>
+                <%:Html.LabelFor(x=>x.Name) %>
+              :
+            </td>
+            <td>
+                <%:Html.TextBoxFor(x=>x.Name) %>
+            </td>
+
+        </tr>
+                <tr>
+            <td>
+                <%:Html.LabelFor(x=>x.Surname) %>
+              :
+            </td>
+            <td>
+                <%:Html.TextBoxFor(x=>x.Surname) %>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
                 <%:Html.LabelFor(x=>x.UserMail) %>
               :
             </td>
@@ -48,6 +71,27 @@
             </td>
 
         </tr>
+        <tr>
+            <td>
+                <%:Html.LabelFor(x=>x.UserMail) %>
+              :
+            </td>
+            <td>
+                <%:Html.TextBoxFor(x=>x.UserMail) %>
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+                <%: Html.LabelFor(model => model.Signature) %>
+            :
+            </td>
+            <td>
+                <%: Html.TextAreaFor(model => model.Signature, new {style = "width:300px" })%>
+                <%: Html.ValidationMessageFor(model => model.Signature)%>
+            </td>
+        </tr>
+
         <tr>
             <td><%:Html.LabelFor(x=>x.MailPassword) %>:</td>
             <td><%:Html.TextBoxFor(x=>x.MailPassword) %></td>

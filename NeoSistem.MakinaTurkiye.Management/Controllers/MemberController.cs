@@ -513,7 +513,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         [HttpPost]
-        public ActionResult storemail(int id, string[] RelatedCategory)
+        public ActionResult storemail(int id, string[] RelatedCategory,int tip)
         {
             try
             {
@@ -556,11 +556,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 int tekil = 0;
                 int cogul = 0;
                 string firmaurunlinki = UrlBuilder.GetStoreProfileProductUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
-
-
-
                 string istatistikfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=1";
-
                 string istatistikilanfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=3";
                 string packetupgrade = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=5";
                 if (urunler.Count != 0)
@@ -573,7 +569,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     float oran = tekil / urunler.Count;
                     aciklama = aciklama.Replace("#tekililantiklama#", tekil.ToString()).Replace("#cogulilantiklama#", cogul.ToString()).Replace("#ilantiklamaorani#", oran.ToString());
                 }
-
                 string linkuyeliktipi = "https://www.makinaturkiye.com/magaza-paket-fiyatlari-y-143135";
                 //singular view count ve view count değişecek.
 
@@ -647,6 +642,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                 //mail.HtmlPart.CharSet = Encoding.GetEncoding("UTF-8");
 
+                
+                if (tip == 2)
+                {
+                    RevizeMailSenderInformation(mail);
+                }
+
                 this.SendMail(mail);
 
                 #endregion
@@ -667,6 +668,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             maila.Body = template; //Mailin içeriği
                             maila.IsBodyHtml = true;
                             maila.Priority = MailPriority.Normal;
+                            if (tip == 2)
+                            {
+                                RevizeMailSenderInformation(mail);
+                            }
                             this.SendMail(maila);
                         }
                         else
@@ -686,6 +691,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             mailb.Body = template; //Mailin içeriği
                             mailb.IsBodyHtml = true;
                             mailb.Priority = MailPriority.High;
+                            if (tip == 2)
+                            {
+                                RevizeMailSenderInformation(mail);
+                            }
                             this.SendMail(mailb);
                         }
                     }
@@ -733,6 +742,18 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         }
 
+        private void RevizeMailSenderInformation(MailMessage mail)
+        {
+            string Imza = "";
+            var user = entities.Users.FirstOrDefault(x => x.UserId == CurrentUserModel.CurrentManagement.UserId);
+            Imza = user.Signature;
+            mail.Sender = new MailAddress(user.UserMail, $"{user.Name} {user.Surname}");
+            mail.Sender = new MailAddress(user.UserMail, $"{user.Name} {user.Surname}");
+            if (mail.Body.Contains("#signature#"))
+            {
+                mail.Body = mail.Body.Replace("#signature#", Imza);
+            }
+        }
 
 
         [HttpGet]
@@ -973,7 +994,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     entities.MemberDescriptions.AddObject(memd);
                     entities.SaveChanges();
                     #endregion
-
                 }
                 return RedirectToAction("", "orderfirm");
             }
@@ -2680,11 +2700,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             
 
-            bModelDesc.Contact = "";
-            if (Contacts!=null)
-            {
-                bModelDesc.Contact = String.Join("<br>", Contacts.ToArray());
-            }
+
 
             bModelDesc.City = City;
             bModelDesc.StoreName = storeName;
@@ -2728,6 +2744,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     otherItem.StoreName = preRegistration.StoreName;
                     otherItem.Member.MemberName = preRegistration.MemberName;
                     otherItem.Member.MemberSurname = preRegistration.MemberSurname;
+                    Contacts.Add("Telefon 1 : " + preRegistration.PhoneNumber);
+                    Contacts.Add("Telefon 2 : " + preRegistration.PhoneNumber2);
+                    Contacts.Add("Telefon 3 : " + preRegistration.PhoneNumber3);
+                    Contacts.Add("Email : " + preRegistration.Email);
                 }
 
                 var user = entities.Users.FirstOrDefault(x => x.UserId == item.FromUserId);
@@ -2743,6 +2763,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     memberDescriptionsOther.Add(otherItem);
                 }
+            }
+            bModelDesc.Contact = "";
+            if (Contacts != null)
+            {
+                bModelDesc.Contact = String.Join("<br>", Contacts.ToArray());
             }
             bModelDesc.BaseMemberDescriptionByUser = memberDescriptionsOther;
             var users = entities.Users.Where(x => x.ActiveForDesc == true).OrderBy(x => x.UserName).ToList();

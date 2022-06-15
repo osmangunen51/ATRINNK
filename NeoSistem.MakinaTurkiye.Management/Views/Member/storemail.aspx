@@ -7,7 +7,9 @@
     <title>storemail</title>
     <script type="text/javascript">
    
-      function gonder() {
+      function gonder(tip)
+      {
+        $('#tip').val(tip);
         $('#gonderr').hide();
         $('#divLoading').show();
        }
@@ -18,6 +20,7 @@
   
    <%using (Html.BeginForm())
      {%>
+     <input id="tip" name="tip" type="hidden" value="1" />
      <div id="gonderr">
               <div id="cons" class="plusContent">
                   <%if (TempData["StoreEmailError"] != null) {%>
@@ -44,11 +47,27 @@
               <% } %>
             </ul>
           </div>
-          <div id="button3" style="float: left; margin-left: 10px;">
-          <button type="submit" class="btnOnayla" onclick="gonder();">
-          Mail Gönder
-          </button>
-        </div>
+         <table>
+             <tbody>
+                 <tr>
+                     <td>
+                         <div id="button3" style="float: left; margin-left: 10px;">
+                          <button type="submit" class="btnOnayla" onclick="gonder(1);">
+                                  Sistem Maili İle Gönder
+                          </button>
+                        </div>
+                     </td>
+                      <td>
+                         <div id="button4" style="float: left; margin-left: 10px;">
+                          <button type="submit" class="btnOnayla" onclick="gonder(2);">
+                                  Benim Mailim İle Gönder 
+                          </button>
+                        </div>
+                     </td>
+                 </tr>
+             </tbody>
+         </table>
+          
         </div>
         <div style="float: left; margin-left: 270px; margin-top:200px; width:580px; height:400px; display: none;" id="divLoading">
         <div style="float: left; font-size: 12px;">

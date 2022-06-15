@@ -33,7 +33,12 @@ namespace NeoSistem.MakinaTurkiye.Classes
         [Column("ActiveForDesc", SqlDbType.Bit)]
         public bool ActiveForDesc { get; set; }
 
-
+        [Column("Mail Ýmza", SqlDbType.NVarChar)]
+        public string Signature { get; set; }
+        [Column("Ad", SqlDbType.NVarChar)]
+        public string Name { get; set; }
+        [Column("Soyad", SqlDbType.NVarChar)]
+        public string Surname { get; set; }
     }
 
 

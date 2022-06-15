@@ -196,6 +196,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             bool hasRecord = curUser.LoadEntity(id);
             var userModel = new UserModel
             {
+                Name=curUser.Name,
+                Surname=curUser.Surname,
                 UserName = curUser.UserName,
                 UserPass = curUser.UserPass,
                 MailPassword = curUser.MailPassword,
@@ -204,7 +206,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 UserMail = curUser.UserMail,
                 UserColor = curUser.UserColor,
                 Active = curUser.Active,
-                ActiveForDesc = curUser.ActiveForDesc
+                ActiveForDesc = curUser.ActiveForDesc,
+                Signature=curUser.Signature
             };
             if (curUser.MailSmtp == "")
             {
@@ -246,6 +249,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var curUser = entities.Users.FirstOrDefault(x => x.UserId == id);
                 if (curUser != null)
                 {
+                    curUser.Name = model.Name;
+                    curUser.Surname = model.Surname;
                     curUser.UserName = model.UserName;
                     curUser.UserPass = model.UserPass;
                     curUser.UserMail = model.UserMail;
@@ -255,6 +260,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     curUser.UserColor = model.UserColor;
                     curUser.Active = model.Active;
                     curUser.ActiveForDesc = model.ActiveForDesc;
+                    curUser.Signature = model.Signature;
                     entities.SaveChanges();
 
                 }
