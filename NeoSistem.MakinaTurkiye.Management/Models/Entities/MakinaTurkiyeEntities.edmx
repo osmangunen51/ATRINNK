@@ -255,14 +255,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.BI_PremiumLimit' does not have a
           <Property Name="Name" Type="varchar(max)" />
           <Property Name="Description" Type="varchar(max)" />
         </EntityType>
-        <EntityType Name="BoardDeveloper">
-          <Key>
-            <PropertyRef Name="BoardId" />
-            <PropertyRef Name="DeveloperId" />
-          </Key>
-          <Property Name="BoardId" Type="int" Nullable="false" />
-          <Property Name="DeveloperId" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="BulletinMember">
           <Key>
             <PropertyRef Name="BulletinMemberId" />
@@ -1884,21 +1876,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primar
           <Property Name="CategoryId" Type="int" />
           <Property Name="RecordDate" Type="datetime" />
         </EntityType>
-        <EntityType Name="StoreSeoNotification">
-          <Key>
-            <PropertyRef Name="StoreSeoNotificationId" />
-          </Key>
-          <Property Name="StoreSeoNotificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ConstantId" Type="smallint" />
-          <Property Name="StoreMainPartyId" Type="int" />
-          <Property Name="FromUserId" Type="tinyint" />
-          <Property Name="ToUserId" Type="tinyint" />
-          <Property Name="Text" Type="text" />
-          <Property Name="CreatedDate" Type="datetime" />
-          <Property Name="RemindDate" Type="datetime" />
-          <Property Name="Status" Type="tinyint" />
-          <Property Name="IsFirst" Type="bit" />
-        </EntityType>
         <EntityType Name="StoreStatistic">
           <Key>
             <PropertyRef Name="Id" />
@@ -2138,76 +2115,8 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary 
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MakinaTurkiye.dbo.ydkConstant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="ydkConstant">
-          <Key>
-            <PropertyRef Name="ConstantId" />
-          </Key>
-          <Property Name="ConstantId" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ConstantType" Type="tinyint" />
-          <Property Name="ConstantName" Type="varchar" MaxLength="100" />
-          <Property Name="ContstantPropertie" Type="nvarchar(max)" />
-          <Property Name="ConstantTitle" Type="nvarchar(max)" />
-          <Property Name="Order" Type="int" />
-          <Property Name="ConstantMailContent" Type="text" />
-        </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'MakinaTurkiye.dbo.YDKStore07062022' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="YDKStore07062022">
-          <Key>
-            <PropertyRef Name="MainPartyId" />
-          </Key>
-          <Property Name="MainPartyId" Type="int" Nullable="false" />
-          <Property Name="PacketId" Type="int" />
-          <Property Name="AuthorizedId" Type="int" />
-          <Property Name="PortfoyUserId" Type="int" />
-          <Property Name="StoreNo" Type="varchar" MaxLength="10" />
-          <Property Name="StoreName" Type="nvarchar" MaxLength="200" />
-          <Property Name="StoreEMail" Type="nvarchar" MaxLength="320" />
-          <Property Name="StoreWeb" Type="nvarchar" MaxLength="320" />
-          <Property Name="StoreLogo" Type="nvarchar" MaxLength="100" />
-          <Property Name="OldStoreLogo" Type="nvarchar" MaxLength="50" />
-          <Property Name="StoreActiveType" Type="tinyint" />
-          <Property Name="StorePacketBeginDate" Type="datetime" />
-          <Property Name="StorePacketEndDate" Type="datetime" />
-          <Property Name="StoreAbout" Type="ntext" />
-          <Property Name="StoreRecordDate" Type="datetime" />
-          <Property Name="StoreEstablishmentDate" Type="int" />
-          <Property Name="StoreCapital" Type="tinyint" />
-          <Property Name="StoreEmployeesCount" Type="tinyint" />
-          <Property Name="StoreEndorsement" Type="tinyint" />
-          <Property Name="StoreType" Type="tinyint" />
-          <Property Name="PurchasingDepartmentName" Type="varchar" MaxLength="50" />
-          <Property Name="PurchasingDepartmentEmail" Type="varchar" MaxLength="320" />
-          <Property Name="GeneralText" Type="ntext" />
-          <Property Name="HistoryText" Type="ntext" />
-          <Property Name="FounderText" Type="ntext" />
-          <Property Name="PhilosophyText" Type="ntext" />
-          <Property Name="ViewCount" Type="bigint" />
-          <Property Name="SingularViewCount" Type="bigint" />
-          <Property Name="StoreShowcase" Type="bit" />
-          <Property Name="StorePicture" Type="nvarchar" MaxLength="50" />
-          <Property Name="OrderCode" Type="nvarchar" MaxLength="50" />
-          <Property Name="storerate" Type="decimal" Precision="18" Scale="5" />
-          <Property Name="ProductCount" Type="int" />
-          <Property Name="ReadyForSale" Type="bit" />
-          <Property Name="StoreUniqueShortName" Type="nvarchar" MaxLength="50" />
-          <Property Name="TaxOffice" Type="nvarchar" MaxLength="250" />
-          <Property Name="TaxNumber" Type="nvarchar" MaxLength="40" />
-          <Property Name="MersisNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="TradeRegistrNo" Type="nvarchar" MaxLength="50" />
-          <Property Name="StoreUrlName" Type="varchar" MaxLength="150" />
-          <Property Name="StoreShortName" Type="varchar" MaxLength="250" />
-          <Property Name="StoreBanner" Type="nvarchar" MaxLength="250" />
-          <Property Name="IsWhatsappNotUsing" Type="bit" />
-          <Property Name="IsAllowProductSellUrl" Type="bit" />
-          <Property Name="StoreProfileHomeDescription" Type="ntext" />
-          <Property Name="SeoTitle" Type="nvarchar" MaxLength="150" />
-          <Property Name="SeoDescription" Type="nvarchar" MaxLength="250" />
-          <Property Name="SeoKeyword" Type="nvarchar(max)" />
-          <Property Name="IsProductAdded" Type="bit" />
-          <Property Name="ContactNameSurname" Type="nvarchar" MaxLength="255" />
-          <Property Name="ContactPhoneNumber" Type="nvarchar" MaxLength="25" />
-        </EntityType>
         <Association Name="FK__AutoMailR__Membe__16F6A265">
           <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
           <End Role="AutoMailRecord" Type="Self.AutoMailRecord" Multiplicity="*" />
@@ -2578,44 +2487,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.YDKStore07062022' does not have 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__StoreSeoN__FromU__5F103D84">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="StoreSeoNotification" Type="Self.StoreSeoNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="StoreSeoNotification">
-              <PropertyRef Name="FromUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__StoreSeoN__Store__5E1C194B">
-          <End Role="Store" Type="Self.Store" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="StoreSeoNotification" Type="Self.StoreSeoNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="MainPartyId" />
-            </Principal>
-            <Dependent Role="StoreSeoNotification">
-              <PropertyRef Name="StoreMainPartyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__StoreSeoN__ToUse__600461BD">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="StoreSeoNotification" Type="Self.StoreSeoNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="StoreSeoNotification">
-              <PropertyRef Name="ToUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__StoreSett__MainP__63E8D24F">
           <End Role="Store" Type="Self.Store" Multiplicity="0..1" />
           <End Role="MemberSetting" Type="Self.MemberSetting" Multiplicity="*" />
@@ -2773,30 +2644,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.YDKStore07062022' does not have 
             </Principal>
             <Dependent Role="Banner">
               <PropertyRef Name="CategoryId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BoardDev_Board">
-          <End Role="Board" Type="Self.Board" Multiplicity="1" />
-          <End Role="BoardDeveloper" Type="Self.BoardDeveloper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Board">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BoardDeveloper">
-              <PropertyRef Name="BoardId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_BoardDev_Dev">
-          <End Role="Developer" Type="Self.Developer" Multiplicity="1" />
-          <End Role="BoardDeveloper" Type="Self.BoardDeveloper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Developer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BoardDeveloper">
-              <PropertyRef Name="DeveloperId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3627,7 +3474,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.YDKStore07062022' does not have 
           <EntitySet Name="BaseMenuCategory" EntityType="Self.BaseMenuCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BaseMenuImage" EntityType="Self.BaseMenuImage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Board" EntityType="Self.Board" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="BoardDeveloper" EntityType="Self.BoardDeveloper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BulletinMember" EntityType="Self.BulletinMember" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BulletinMemberCategory" EntityType="Self.BulletinMemberCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
@@ -3737,7 +3583,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.YDKStore07062022' does not have 
           <EntitySet Name="StoreProductCreatePropertie" EntityType="Self.StoreProductCreatePropertie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreProductCreateSetting" EntityType="Self.StoreProductCreateSetting" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreSector" EntityType="Self.StoreSector" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="StoreSeoNotification" EntityType="Self.StoreSeoNotification" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreStatistic" EntityType="Self.StoreStatistic" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreUpdated" EntityType="Self.StoreUpdated" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -3950,72 +3795,6 @@ FROM [dbo].[StoreNew] AS [StoreNew]</DefiningQuery>
 [table1].[CategoryName] AS [CategoryName]
 FROM [dbo].[table1] AS [table1]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="ydkConstant" EntityType="Self.ydkConstant" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[ydkConstant].[ConstantId] AS [ConstantId], 
-[ydkConstant].[ConstantType] AS [ConstantType], 
-[ydkConstant].[ConstantName] AS [ConstantName], 
-[ydkConstant].[ContstantPropertie] AS [ContstantPropertie], 
-[ydkConstant].[ConstantTitle] AS [ConstantTitle], 
-[ydkConstant].[Order] AS [Order], 
-[ydkConstant].[ConstantMailContent] AS [ConstantMailContent]
-FROM [dbo].[ydkConstant] AS [ydkConstant]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="YDKStore07062022" EntityType="Self.YDKStore07062022" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-[YDKStore07062022].[MainPartyId] AS [MainPartyId], 
-[YDKStore07062022].[PacketId] AS [PacketId], 
-[YDKStore07062022].[AuthorizedId] AS [AuthorizedId], 
-[YDKStore07062022].[PortfoyUserId] AS [PortfoyUserId], 
-[YDKStore07062022].[StoreNo] AS [StoreNo], 
-[YDKStore07062022].[StoreName] AS [StoreName], 
-[YDKStore07062022].[StoreEMail] AS [StoreEMail], 
-[YDKStore07062022].[StoreWeb] AS [StoreWeb], 
-[YDKStore07062022].[StoreLogo] AS [StoreLogo], 
-[YDKStore07062022].[OldStoreLogo] AS [OldStoreLogo], 
-[YDKStore07062022].[StoreActiveType] AS [StoreActiveType], 
-[YDKStore07062022].[StorePacketBeginDate] AS [StorePacketBeginDate], 
-[YDKStore07062022].[StorePacketEndDate] AS [StorePacketEndDate], 
-[YDKStore07062022].[StoreAbout] AS [StoreAbout], 
-[YDKStore07062022].[StoreRecordDate] AS [StoreRecordDate], 
-[YDKStore07062022].[StoreEstablishmentDate] AS [StoreEstablishmentDate], 
-[YDKStore07062022].[StoreCapital] AS [StoreCapital], 
-[YDKStore07062022].[StoreEmployeesCount] AS [StoreEmployeesCount], 
-[YDKStore07062022].[StoreEndorsement] AS [StoreEndorsement], 
-[YDKStore07062022].[StoreType] AS [StoreType], 
-[YDKStore07062022].[PurchasingDepartmentName] AS [PurchasingDepartmentName], 
-[YDKStore07062022].[PurchasingDepartmentEmail] AS [PurchasingDepartmentEmail], 
-[YDKStore07062022].[GeneralText] AS [GeneralText], 
-[YDKStore07062022].[HistoryText] AS [HistoryText], 
-[YDKStore07062022].[FounderText] AS [FounderText], 
-[YDKStore07062022].[PhilosophyText] AS [PhilosophyText], 
-[YDKStore07062022].[ViewCount] AS [ViewCount], 
-[YDKStore07062022].[SingularViewCount] AS [SingularViewCount], 
-[YDKStore07062022].[StoreShowcase] AS [StoreShowcase], 
-[YDKStore07062022].[StorePicture] AS [StorePicture], 
-[YDKStore07062022].[OrderCode] AS [OrderCode], 
-[YDKStore07062022].[storerate] AS [storerate], 
-[YDKStore07062022].[ProductCount] AS [ProductCount], 
-[YDKStore07062022].[ReadyForSale] AS [ReadyForSale], 
-[YDKStore07062022].[StoreUniqueShortName] AS [StoreUniqueShortName], 
-[YDKStore07062022].[TaxOffice] AS [TaxOffice], 
-[YDKStore07062022].[TaxNumber] AS [TaxNumber], 
-[YDKStore07062022].[MersisNo] AS [MersisNo], 
-[YDKStore07062022].[TradeRegistrNo] AS [TradeRegistrNo], 
-[YDKStore07062022].[StoreUrlName] AS [StoreUrlName], 
-[YDKStore07062022].[StoreShortName] AS [StoreShortName], 
-[YDKStore07062022].[StoreBanner] AS [StoreBanner], 
-[YDKStore07062022].[IsWhatsappNotUsing] AS [IsWhatsappNotUsing], 
-[YDKStore07062022].[IsAllowProductSellUrl] AS [IsAllowProductSellUrl], 
-[YDKStore07062022].[StoreProfileHomeDescription] AS [StoreProfileHomeDescription], 
-[YDKStore07062022].[SeoTitle] AS [SeoTitle], 
-[YDKStore07062022].[SeoDescription] AS [SeoDescription], 
-[YDKStore07062022].[SeoKeyword] AS [SeoKeyword], 
-[YDKStore07062022].[IsProductAdded] AS [IsProductAdded], 
-[YDKStore07062022].[ContactNameSurname] AS [ContactNameSurname], 
-[YDKStore07062022].[ContactPhoneNumber] AS [ContactPhoneNumber]
-FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK__AutoMailR__Membe__16F6A265" Association="Self.FK__AutoMailR__Membe__16F6A265">
             <End Role="Member" EntitySet="Member" />
             <End Role="AutoMailRecord" EntitySet="AutoMailRecord" />
@@ -4132,18 +3911,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
             <End Role="Category" EntitySet="Category" />
             <End Role="StoreSector" EntitySet="StoreSector" />
           </AssociationSet>
-          <AssociationSet Name="FK__StoreSeoN__FromU__5F103D84" Association="Self.FK__StoreSeoN__FromU__5F103D84">
-            <End Role="User" EntitySet="User" />
-            <End Role="StoreSeoNotification" EntitySet="StoreSeoNotification" />
-          </AssociationSet>
-          <AssociationSet Name="FK__StoreSeoN__Store__5E1C194B" Association="Self.FK__StoreSeoN__Store__5E1C194B">
-            <End Role="Store" EntitySet="Store" />
-            <End Role="StoreSeoNotification" EntitySet="StoreSeoNotification" />
-          </AssociationSet>
-          <AssociationSet Name="FK__StoreSeoN__ToUse__600461BD" Association="Self.FK__StoreSeoN__ToUse__600461BD">
-            <End Role="User" EntitySet="User" />
-            <End Role="StoreSeoNotification" EntitySet="StoreSeoNotification" />
-          </AssociationSet>
           <AssociationSet Name="FK__StoreSett__MainP__63E8D24F" Association="Self.FK__StoreSett__MainP__63E8D24F">
             <End Role="Store" EntitySet="Store" />
             <End Role="MemberSetting" EntitySet="MemberSetting" />
@@ -4195,14 +3962,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
           <AssociationSet Name="FK_Banner_Category" Association="Self.FK_Banner_Category">
             <End Role="Category" EntitySet="Category" />
             <End Role="Banner" EntitySet="Banner" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BoardDev_Board" Association="Self.FK_BoardDev_Board">
-            <End Role="Board" EntitySet="Board" />
-            <End Role="BoardDeveloper" EntitySet="BoardDeveloper" />
-          </AssociationSet>
-          <AssociationSet Name="FK_BoardDev_Dev" Association="Self.FK_BoardDev_Dev">
-            <End Role="Developer" EntitySet="Developer" />
-            <End Role="BoardDeveloper" EntitySet="BoardDeveloper" />
           </AssociationSet>
           <AssociationSet Name="FK_Category_Category" Association="Self.FK_Category_Category">
             <End Role="Category" EntitySet="Category" />
@@ -4755,11 +4514,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
           <EntitySet Name="MessagesMTs" EntityType="MakinaTurkiyeModel.MessagesMT" />
           <EntitySet Name="AlertMessages" EntityType="MakinaTurkiyeModel.AlertMessage" />
           <EntitySet Name="Boards" EntityType="MakinaTurkiyeModel.Board" />
-          <EntitySet Name="BoardDevelopers" EntityType="MakinaTurkiyeModel.BoardDeveloper" />
-          <AssociationSet Name="FK_BoardDev_Board" Association="MakinaTurkiyeModel.FK_BoardDev_Board">
-            <End Role="Board" EntitySet="Boards" />
-            <End Role="BoardDeveloper" EntitySet="BoardDevelopers" />
-          </AssociationSet>
           <EntitySet Name="SeoDefinitions" EntityType="MakinaTurkiyeModel.SeoDefinition" />
           <EntitySet Name="Logs" EntityType="MakinaTurkiyeModel.Log" />
           <EntitySet Name="UserLogs" EntityType="MakinaTurkiyeModel.UserLog" />
@@ -4994,8 +4748,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
           <EntitySet Name="OsmanSilIslemProducts" EntityType="MakinaTurkiyeModel.OsmanSilIslemProduct" />
           <EntitySet Name="PictureYedeks" EntityType="MakinaTurkiyeModel.PictureYedek" />
           <EntitySet Name="table1" EntityType="MakinaTurkiyeModel.table1" />
-          <EntitySet Name="ydkConstants" EntityType="MakinaTurkiyeModel.ydkConstant" />
-          <EntitySet Name="YDKStore07062022" EntityType="MakinaTurkiyeModel.YDKStore07062022" />
           <AssociationSet Name="FK__AutoMailR__Membe__16F6A265" Association="MakinaTurkiyeModel.FK__AutoMailR__Membe__16F6A265">
             <End Role="Member" EntitySet="Members" />
             <End Role="AutoMailRecord" EntitySet="AutoMailRecords" />
@@ -5104,20 +4856,7 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
             <End Role="StoreProductCreatePropertie" EntitySet="StoreProductCreateProperties" />
             <End Role="StoreProductCreateSetting" EntitySet="StoreProductCreateSettings" />
           </AssociationSet>
-          <EntitySet Name="StoreSeoNotifications" EntityType="MakinaTurkiyeModel.StoreSeoNotification" />
-          <AssociationSet Name="FK__StoreSeoN__Store__5E1C194B" Association="MakinaTurkiyeModel.FK__StoreSeoN__Store__5E1C194B">
-            <End Role="Store" EntitySet="Stores" />
-            <End Role="StoreSeoNotification" EntitySet="StoreSeoNotifications" />
-          </AssociationSet>
           <EntitySet Name="Users" EntityType="MakinaTurkiyeModel.User" />
-          <AssociationSet Name="FK__StoreSeoN__FromU__5F103D84" Association="MakinaTurkiyeModel.FK__StoreSeoN__FromU__5F103D84">
-            <End Role="User" EntitySet="Users" />
-            <End Role="StoreSeoNotification" EntitySet="StoreSeoNotifications" />
-          </AssociationSet>
-          <AssociationSet Name="FK__StoreSeoN__ToUse__600461BD" Association="MakinaTurkiyeModel.FK__StoreSeoN__ToUse__600461BD">
-            <End Role="User" EntitySet="Users" />
-            <End Role="StoreSeoNotification" EntitySet="StoreSeoNotifications" />
-          </AssociationSet>
           <AssociationSet Name="FK__UserFile__UserId__77661EAB" Association="MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB">
             <End Role="User" EntitySet="Users" />
             <End Role="UserFile" EntitySet="UserFiles" />
@@ -6823,30 +6562,8 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
           <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Type="String" Name="Name" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Type="String" Name="Description" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="BoardDevelopers" Relationship="MakinaTurkiyeModel.FK_BoardDev_Board" FromRole="Board" ToRole="BoardDeveloper" />
           <NavigationProperty Name="Posts" Relationship="MakinaTurkiyeModel.FK_Post_Board" FromRole="Board" ToRole="Post" />
         </EntityType>
-        <EntityType Name="BoardDeveloper">
-          <Key>
-            <PropertyRef Name="BoardId" />
-            <PropertyRef Name="DeveloperId" />
-          </Key>
-          <Property Type="Int32" Name="BoardId" Nullable="false" />
-          <Property Type="Int32" Name="DeveloperId" Nullable="false" />
-          <NavigationProperty Name="Board" Relationship="MakinaTurkiyeModel.FK_BoardDev_Board" FromRole="BoardDeveloper" ToRole="Board" />
-        </EntityType>
-        <Association Name="FK_BoardDev_Board">
-          <End Type="MakinaTurkiyeModel.Board" Role="Board" Multiplicity="1" />
-          <End Type="MakinaTurkiyeModel.BoardDeveloper" Role="BoardDeveloper" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Board">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="BoardDeveloper">
-              <PropertyRef Name="BoardId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="SeoDefinition">
           <Key>
             <PropertyRef Name="SeoDefinitionId" />
@@ -7137,7 +6854,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
           <NavigationProperty Name="StoreDiscounts" Relationship="MakinaTurkiyeModel.FK__StoreDisc__Store__40534D14" FromRole="Store" ToRole="StoreDiscount" />
           <NavigationProperty Name="StoreProductCreateSettings" Relationship="MakinaTurkiyeModel.FK__StoreProd__Store__6ED59CB4" FromRole="Store" ToRole="StoreProductCreateSetting" />
           <NavigationProperty Name="StoreUpdateds" Relationship="MakinaTurkiyeModel.FK_Store_MainPartyId" FromRole="Store" ToRole="StoreUpdated" />
-          <NavigationProperty Name="StoreSeoNotifications" Relationship="MakinaTurkiyeModel.FK__StoreSeoN__Store__5E1C194B" FromRole="Store" ToRole="StoreSeoNotification" />
         </EntityType>
         <Association Name="FK_CreditCardLog_Store">
           <End Type="MakinaTurkiyeModel.Store" Role="Store" Multiplicity="0..1" />
@@ -8630,74 +8346,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
           </Key>
           <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="ydkConstant">
-          <Key>
-            <PropertyRef Name="ConstantId" />
-          </Key>
-          <Property Name="ConstantId" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ConstantType" Type="Byte" />
-          <Property Name="ConstantName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ContstantPropertie" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ConstantTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Order" Type="Int32" />
-          <Property Name="ConstantMailContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="YDKStore07062022">
-          <Key>
-            <PropertyRef Name="MainPartyId" />
-          </Key>
-          <Property Name="MainPartyId" Type="Int32" Nullable="false" />
-          <Property Name="PacketId" Type="Int32" />
-          <Property Name="AuthorizedId" Type="Int32" />
-          <Property Name="PortfoyUserId" Type="Int32" />
-          <Property Name="StoreNo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="StoreName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="StoreEMail" Type="String" MaxLength="320" FixedLength="false" Unicode="true" />
-          <Property Name="StoreWeb" Type="String" MaxLength="320" FixedLength="false" Unicode="true" />
-          <Property Name="StoreLogo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="OldStoreLogo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StoreActiveType" Type="Byte" />
-          <Property Name="StorePacketBeginDate" Type="DateTime" Precision="3" />
-          <Property Name="StorePacketEndDate" Type="DateTime" Precision="3" />
-          <Property Name="StoreAbout" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="StoreRecordDate" Type="DateTime" Precision="3" />
-          <Property Name="StoreEstablishmentDate" Type="Int32" />
-          <Property Name="StoreCapital" Type="Byte" />
-          <Property Name="StoreEmployeesCount" Type="Byte" />
-          <Property Name="StoreEndorsement" Type="Byte" />
-          <Property Name="StoreType" Type="Byte" />
-          <Property Name="PurchasingDepartmentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PurchasingDepartmentEmail" Type="String" MaxLength="320" FixedLength="false" Unicode="false" />
-          <Property Name="GeneralText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="HistoryText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FounderText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="PhilosophyText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ViewCount" Type="Int64" />
-          <Property Name="SingularViewCount" Type="Int64" />
-          <Property Name="StoreShowcase" Type="Boolean" />
-          <Property Name="StorePicture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrderCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="storerate" Type="Decimal" Precision="18" Scale="5" />
-          <Property Name="ProductCount" Type="Int32" />
-          <Property Name="ReadyForSale" Type="Boolean" />
-          <Property Name="StoreUniqueShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TaxOffice" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="TaxNumber" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
-          <Property Name="MersisNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="TradeRegistrNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="StoreUrlName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="StoreShortName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="StoreBanner" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="IsWhatsappNotUsing" Type="Boolean" />
-          <Property Name="IsAllowProductSellUrl" Type="Boolean" />
-          <Property Name="StoreProfileHomeDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="SeoTitle" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="SeoDescription" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="SeoKeyword" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsProductAdded" Type="Boolean" />
-          <Property Name="ContactNameSurname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="ContactPhoneNumber" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
-        </EntityType>
         <Association Name="FK__AutoMailR__Membe__16F6A265">
           <End Type="MakinaTurkiyeModel.Member" Role="Member" Multiplicity="0..1" />
           <End Type="MakinaTurkiyeModel.AutoMailRecord" Role="AutoMailRecord" Multiplicity="*" />
@@ -9046,38 +8694,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="StoreSeoNotification">
-          <Key>
-            <PropertyRef Name="StoreSeoNotificationId" />
-          </Key>
-          <Property Name="StoreSeoNotificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ConstantId" Type="Int16" />
-          <Property Name="StoreMainPartyId" Type="Int32" />
-          <Property Name="FromUserId" Type="Byte" />
-          <Property Name="ToUserId" Type="Byte" />
-          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="RemindDate" Type="DateTime" Precision="3" />
-          <Property Name="Status" Type="Byte" />
-          <Property Name="IsFirst" Type="Boolean" />
-          <NavigationProperty Name="Store" Relationship="MakinaTurkiyeModel.FK__StoreSeoN__Store__5E1C194B" FromRole="StoreSeoNotification" ToRole="Store" />
-          <NavigationProperty Name="User" Relationship="MakinaTurkiyeModel.FK__StoreSeoN__FromU__5F103D84" FromRole="StoreSeoNotification" ToRole="User" />
-          <NavigationProperty Name="User1" Relationship="MakinaTurkiyeModel.FK__StoreSeoN__ToUse__600461BD" FromRole="StoreSeoNotification" ToRole="User" />
-        </EntityType>
-        <Association Name="FK__StoreSeoN__Store__5E1C194B">
-          <End Type="MakinaTurkiyeModel.Store" Role="Store" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="MakinaTurkiyeModel.StoreSeoNotification" Role="StoreSeoNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Store">
-              <PropertyRef Name="MainPartyId" />
-            </Principal>
-            <Dependent Role="StoreSeoNotification">
-              <PropertyRef Name="StoreMainPartyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="User">
           <Key>
             <PropertyRef Name="UserId" />
@@ -9095,35 +8711,9 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
           <Property Name="Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="StoreSeoNotifications" Relationship="MakinaTurkiyeModel.FK__StoreSeoN__FromU__5F103D84" FromRole="User" ToRole="StoreSeoNotification" />
-          <NavigationProperty Name="StoreSeoNotifications1" Relationship="MakinaTurkiyeModel.FK__StoreSeoN__ToUse__600461BD" FromRole="User" ToRole="StoreSeoNotification" />
           <NavigationProperty Name="UserFiles" Relationship="MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB" FromRole="User" ToRole="UserFile" />
           <NavigationProperty Name="WebSiteErrors" Relationship="MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A" FromRole="User" ToRole="WebSiteError" />
         </EntityType>
-        <Association Name="FK__StoreSeoN__FromU__5F103D84">
-          <End Type="MakinaTurkiyeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="MakinaTurkiyeModel.StoreSeoNotification" Role="StoreSeoNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="StoreSeoNotification">
-              <PropertyRef Name="FromUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__StoreSeoN__ToUse__600461BD">
-          <End Type="MakinaTurkiyeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="MakinaTurkiyeModel.StoreSeoNotification" Role="StoreSeoNotification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="StoreSeoNotification">
-              <PropertyRef Name="ToUserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK__UserFile__UserId__77661EAB">
           <End Type="MakinaTurkiyeModel.User" Role="User" Multiplicity="0..1" />
           <End Type="MakinaTurkiyeModel.UserFile" Role="UserFile" Multiplicity="*" />
@@ -9862,14 +9452,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="BoardDevelopers">
-            <EntityTypeMapping TypeName="MakinaTurkiyeModel.BoardDeveloper">
-              <MappingFragment StoreEntitySet="BoardDeveloper">
-                <ScalarProperty Name="DeveloperId" ColumnName="DeveloperId" />
-                <ScalarProperty Name="BoardId" ColumnName="BoardId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -11281,92 +10863,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ydkConstants">
-            <EntityTypeMapping TypeName="MakinaTurkiyeModel.ydkConstant">
-              <MappingFragment StoreEntitySet="ydkConstant">
-                <ScalarProperty Name="ConstantMailContent" ColumnName="ConstantMailContent" />
-                <ScalarProperty Name="Order" ColumnName="Order" />
-                <ScalarProperty Name="ConstantTitle" ColumnName="ConstantTitle" />
-                <ScalarProperty Name="ContstantPropertie" ColumnName="ContstantPropertie" />
-                <ScalarProperty Name="ConstantName" ColumnName="ConstantName" />
-                <ScalarProperty Name="ConstantType" ColumnName="ConstantType" />
-                <ScalarProperty Name="ConstantId" ColumnName="ConstantId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="YDKStore07062022">
-            <EntityTypeMapping TypeName="MakinaTurkiyeModel.YDKStore07062022">
-              <MappingFragment StoreEntitySet="YDKStore07062022">
-                <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
-                <ScalarProperty Name="ContactNameSurname" ColumnName="ContactNameSurname" />
-                <ScalarProperty Name="IsProductAdded" ColumnName="IsProductAdded" />
-                <ScalarProperty Name="SeoKeyword" ColumnName="SeoKeyword" />
-                <ScalarProperty Name="SeoDescription" ColumnName="SeoDescription" />
-                <ScalarProperty Name="SeoTitle" ColumnName="SeoTitle" />
-                <ScalarProperty Name="StoreProfileHomeDescription" ColumnName="StoreProfileHomeDescription" />
-                <ScalarProperty Name="IsAllowProductSellUrl" ColumnName="IsAllowProductSellUrl" />
-                <ScalarProperty Name="IsWhatsappNotUsing" ColumnName="IsWhatsappNotUsing" />
-                <ScalarProperty Name="StoreBanner" ColumnName="StoreBanner" />
-                <ScalarProperty Name="StoreShortName" ColumnName="StoreShortName" />
-                <ScalarProperty Name="StoreUrlName" ColumnName="StoreUrlName" />
-                <ScalarProperty Name="TradeRegistrNo" ColumnName="TradeRegistrNo" />
-                <ScalarProperty Name="MersisNo" ColumnName="MersisNo" />
-                <ScalarProperty Name="TaxNumber" ColumnName="TaxNumber" />
-                <ScalarProperty Name="TaxOffice" ColumnName="TaxOffice" />
-                <ScalarProperty Name="StoreUniqueShortName" ColumnName="StoreUniqueShortName" />
-                <ScalarProperty Name="ReadyForSale" ColumnName="ReadyForSale" />
-                <ScalarProperty Name="ProductCount" ColumnName="ProductCount" />
-                <ScalarProperty Name="storerate" ColumnName="storerate" />
-                <ScalarProperty Name="OrderCode" ColumnName="OrderCode" />
-                <ScalarProperty Name="StorePicture" ColumnName="StorePicture" />
-                <ScalarProperty Name="StoreShowcase" ColumnName="StoreShowcase" />
-                <ScalarProperty Name="SingularViewCount" ColumnName="SingularViewCount" />
-                <ScalarProperty Name="ViewCount" ColumnName="ViewCount" />
-                <ScalarProperty Name="PhilosophyText" ColumnName="PhilosophyText" />
-                <ScalarProperty Name="FounderText" ColumnName="FounderText" />
-                <ScalarProperty Name="HistoryText" ColumnName="HistoryText" />
-                <ScalarProperty Name="GeneralText" ColumnName="GeneralText" />
-                <ScalarProperty Name="PurchasingDepartmentEmail" ColumnName="PurchasingDepartmentEmail" />
-                <ScalarProperty Name="PurchasingDepartmentName" ColumnName="PurchasingDepartmentName" />
-                <ScalarProperty Name="StoreType" ColumnName="StoreType" />
-                <ScalarProperty Name="StoreEndorsement" ColumnName="StoreEndorsement" />
-                <ScalarProperty Name="StoreEmployeesCount" ColumnName="StoreEmployeesCount" />
-                <ScalarProperty Name="StoreCapital" ColumnName="StoreCapital" />
-                <ScalarProperty Name="StoreEstablishmentDate" ColumnName="StoreEstablishmentDate" />
-                <ScalarProperty Name="StoreRecordDate" ColumnName="StoreRecordDate" />
-                <ScalarProperty Name="StoreAbout" ColumnName="StoreAbout" />
-                <ScalarProperty Name="StorePacketEndDate" ColumnName="StorePacketEndDate" />
-                <ScalarProperty Name="StorePacketBeginDate" ColumnName="StorePacketBeginDate" />
-                <ScalarProperty Name="StoreActiveType" ColumnName="StoreActiveType" />
-                <ScalarProperty Name="OldStoreLogo" ColumnName="OldStoreLogo" />
-                <ScalarProperty Name="StoreLogo" ColumnName="StoreLogo" />
-                <ScalarProperty Name="StoreWeb" ColumnName="StoreWeb" />
-                <ScalarProperty Name="StoreEMail" ColumnName="StoreEMail" />
-                <ScalarProperty Name="StoreName" ColumnName="StoreName" />
-                <ScalarProperty Name="StoreNo" ColumnName="StoreNo" />
-                <ScalarProperty Name="PortfoyUserId" ColumnName="PortfoyUserId" />
-                <ScalarProperty Name="AuthorizedId" ColumnName="AuthorizedId" />
-                <ScalarProperty Name="PacketId" ColumnName="PacketId" />
-                <ScalarProperty Name="MainPartyId" ColumnName="MainPartyId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="StoreSeoNotifications">
-            <EntityTypeMapping TypeName="MakinaTurkiyeModel.StoreSeoNotification">
-              <MappingFragment StoreEntitySet="StoreSeoNotification">
-                <ScalarProperty Name="IsFirst" ColumnName="IsFirst" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="RemindDate" ColumnName="RemindDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Text" ColumnName="Text" />
-                <ScalarProperty Name="ToUserId" ColumnName="ToUserId" />
-                <ScalarProperty Name="FromUserId" ColumnName="FromUserId" />
-                <ScalarProperty Name="StoreMainPartyId" ColumnName="StoreMainPartyId" />
-                <ScalarProperty Name="ConstantId" ColumnName="ConstantId" />
-                <ScalarProperty Name="StoreSeoNotificationId" ColumnName="StoreSeoNotificationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.User">
               <MappingFragment StoreEntitySet="User">
@@ -11407,7 +10903,7 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="MakinaTurkiyeEntities" ZoomLevel="97">
+      <Diagram Name="MakinaTurkiyeEntities" ZoomLevel="63">
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Account" Width="1.5" PointX="3.75" PointY="10.25" Height="2.5571907552083317" IsExpanded="true" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.ActivityType" Width="1.5" PointX="5.75" PointY="2" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Address" Width="1.5" PointX="5.25" PointY="18.75" Height="5.057109374999996" IsExpanded="true" />
@@ -12027,11 +11523,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
         <EntityTypeShape EntityType="MakinaTurkiyeModel.MessagesMT" Width="1.5" PointX="20.375" PointY="11.75" Height="1.7879850260416674" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.AlertMessage" Width="1.5" PointX="21.375" PointY="3.75" Height="2.3951182655493426" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Board" Width="1.5" PointX="21.375" PointY="18.875" Height="1.80914528588454" />
-        <EntityTypeShape EntityType="MakinaTurkiyeModel.BoardDeveloper" Width="1.5" PointX="23.625" PointY="19" Height="1.6138209593295869" />
-        <AssociationConnector Association="MakinaTurkiyeModel.FK_BoardDev_Board">
-          <ConnectorPoint PointX="22.875" PointY="19.806910479664793" />
-          <ConnectorPoint PointX="23.625" PointY="19.806910479664793" />
-        </AssociationConnector>
         <EntityTypeShape EntityType="MakinaTurkiyeModel.SeoDefinition" Width="1.5" PointX="21.375" PointY="21.75" Height="2.7494921874999818" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Log" Width="1.5" PointX="23.375" PointY="0.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.UserLog" Width="1.5" PointX="23.375" PointY="11.75" />
@@ -12149,8 +11640,6 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
         <EntityTypeShape EntityType="MakinaTurkiyeModel.OsmanSilIslemProduct" Width="1.5" PointX="26.75" PointY="36.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.PictureYedek" Width="1.5" PointX="28.75" PointY="36.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.table1" Width="1.5" PointX="0.75" PointY="11.75" />
-        <EntityTypeShape EntityType="MakinaTurkiyeModel.ydkConstant" Width="1.5" PointX="37.75" PointY="6.75" />
-        <EntityTypeShape EntityType="MakinaTurkiyeModel.YDKStore07062022" Width="1.5" PointX="37.75" PointY="10.75" />
         <AssociationConnector Association="MakinaTurkiyeModel.FK__AutoMailR__Membe__16F6A265" />
         <AssociationConnector Association="MakinaTurkiyeModel.FK__AutoMailR__Store__17EAC69E" />
         <AssociationConnector Association="MakinaTurkiyeModel.FK__BaseMenuC__BaseM__34B9AD71" />
@@ -12178,11 +11667,7 @@ FROM [dbo].[YDKStore07062022] AS [YDKStore07062022]</DefiningQuery>
         <AssociationConnector Association="MakinaTurkiyeModel.FK__StoreProd__Store__6ED59CB4" />
         <AssociationConnector Association="MakinaTurkiyeModel.FK_Store_MainPartyId" />
         <AssociationConnector Association="MakinaTurkiyeModel.FK__StoreProd__Store__6FC9C0ED" />
-        <EntityTypeShape EntityType="MakinaTurkiyeModel.StoreSeoNotification" Width="1.5" PointX="28" PointY="23.375" />
-        <AssociationConnector Association="MakinaTurkiyeModel.FK__StoreSeoN__Store__5E1C194B" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.User" Width="1.5" PointX="6.125" PointY="40.25" />
-        <AssociationConnector Association="MakinaTurkiyeModel.FK__StoreSeoN__FromU__5F103D84" />
-        <AssociationConnector Association="MakinaTurkiyeModel.FK__StoreSeoN__ToUse__600461BD" />
         <AssociationConnector Association="MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB" />
         <AssociationConnector Association="MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A" />
         </Diagram>

@@ -67,7 +67,6 @@
                     sayi = "(" + packetfeature.FeatureProcessCount.ToString() + ")";
                 }
             }
-
         %>
         <%: item.PacketName %>
         <%if (sayi != "")
@@ -205,7 +204,7 @@
                     :
                 </td>
                 <td>
-                    <span style="color: green;"><%=product.Count%></span>
+                    <span style="color: green;"><%=activepro%></span>
                 </td>
             </tr>
             <tr>
@@ -216,15 +215,15 @@
                     :
                 </td>
                 <td>
-                    <span style="color: blue;"><%=product.Count%></span>
+                    <span style="color: blue;"><%=pasifpro%></span>
                 </td>
             </tr>
         </table>
         <%}
-            else
-            {%>
+        else
+        {%>
 		 -
-	<%} %>
+	    <%}%>
     </td>
     <%--<td class="Cell">
         <%if (product.Count != 0)
@@ -245,6 +244,7 @@
         <a title="Düzenle" href="<%:updateLink %>">
             <img src="/Content/images/edit.png" hspace="2" />
         </a><a title="Sil" style="cursor: pointer;" onclick="DeletePost(<%: item.MainPartyId %>);">
+
             <img src="/Content/images/delete.png" hspace="2" />
         </a><a title="Ürünler" href="/Product/Index?StoreMainPartyId=<%: item.MainPartyId %>"
             hspace="2">

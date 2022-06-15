@@ -2652,7 +2652,16 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     }
                     if (storePorfoy != null)
                         bModelDesc.PortfoyName = storePorfoy.UserName;
+
+
                 }
+            }
+
+            bModelDesc.City = "";
+            var Adresss = entities.Addresses.Where(x => x.MainPartyId == bModelDesc.StoreID).FirstOrDefault();
+            if (Adresss != null)
+            {
+                bModelDesc.City = Adresss.City.CityName;
             }
 
 
@@ -2676,16 +2685,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     ContactPhoneNumber = preRegistration.ContactPhoneNumber;
                     StoreUrl = "";
                     City = preRegistration.City;
+                    bModelDesc.City = City;
                 }
             }
-            
-            bModelDesc.City = "";
-            var Adresss = entities.Addresses.Where(x => x.MainPartyId == bModelDesc.StoreID).FirstOrDefault();
-            if (Adresss!=null)
-            {
-                bModelDesc.City = Adresss.City.CityName;
-            }
-
             
             var Phones = entities.Phones.Where(x => x.MainPartyId == bModelDesc.StoreID).ToList();
             foreach (var x in Phones.Where(x=>x.PhoneType!=(byte)PhoneType.Fax))
@@ -2702,7 +2704,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
 
 
-            bModelDesc.City = City;
+            
             bModelDesc.StoreName = storeName;
             bModelDesc.StoreWebUrl = StoreWebUrl;
             bModelDesc.StoreShortName = storeShortName;
@@ -2810,10 +2812,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             return View(bModelDesc);
         }
-
-
-
-
 
         [HttpPost, ValidateInput(false)]
         public ActionResult EditDesc1(BaseMemberDescriptionModel model, string time, string constantId, string DescriptionNew, string LastDate, string userId, string LastDateNew, string timeNew)

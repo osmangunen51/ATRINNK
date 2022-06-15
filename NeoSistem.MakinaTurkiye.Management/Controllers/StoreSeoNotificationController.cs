@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Services.Common;
+﻿using MakinaTurkiye.Entities.Tables.Stores;
+using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.FormatHelpers;
 using NeoSistem.MakinaTurkiye.Management.Models;

@@ -153,7 +153,7 @@
            <div style="width: 40%; float: left;">
             <%if (Model.StoreID.HasValue)
                 {%>
-                    <span style="font-size: 18px;margin-left:10px" target="_blank"><%=Model.StoreName%></span>
+                    <a style="font-size: 18px;margin-left:10px" target="_blank" href="/Store/EditStore/<%:Model.StoreID %>"><%=Model.StoreName%></a>
                 <%}
                 else
                 {%>
