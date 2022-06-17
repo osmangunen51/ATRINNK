@@ -49,7 +49,7 @@
                       <td>
                          <div id="button4" style="float: left; margin-left: 10px;">
                           <button type="button" class="btnOnayla" onclick="gonder(2);">
-                                  Benim Mailim İle Gönder 
+                                  Düzenle | Benim Mailim İle Gönder 
                           </button>
                         </div>
                      </td>
@@ -69,7 +69,7 @@
             <%: Html.TextArea("mailcontent", new {id="mailcontent",@style="width:100%; height:60px;" })%>
             <hr />
             <div style="width100%;text-align:right">
-                 <button type="button" class="btnOnayla">
+                 <button type="button" onclick="gonder(3);">
                         Gönder
                   </button>
             </div>
@@ -93,19 +93,21 @@
             });
     </script>
     <script type="text/javascript">
-        function gonder(tip) {
+        function gonder(tip)
+        {
             if (tip == 1) {
                 $('#tip').val(tip);
                 $('#frmmailsend').submit();
                 $('#gonderr').hide();
                 $('#divLoading').show();
             }
-            else {
+            else if (tip == 2) {
                 var data = {
                     id: "107166",
                     RelatedCategory:
                         $("#RelatedCategory").val(),
                 };
+
                 $.ajax({
                     type: 'POST',
                     url: '/Member/GetCreateMailForm',
@@ -113,15 +115,22 @@
                     dataType: 'json',
                     success: function (result) {
                         if (result.IsSuccess) {
-                            $('#mailcontent').val(result.Result);
+                            CKEDITOR.instances["mailcontent"].setData(result.Result);
                             $('#pnlmail').show();
                         }
                         else {
-                            alert(result.Message);
+
                         }
                     }
                 });
                 event.preventDefault();
+            }
+            else if(tip==3)
+            {
+                    $('#tip').val(tip);
+                    $('#frmmailsend').submit();
+                    $('#gonderr').hide();
+                    $('#divLoading').show();
             }
         }
         $('#pnlmail').hide();
