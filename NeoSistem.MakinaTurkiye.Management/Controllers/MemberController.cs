@@ -513,7 +513,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         [HttpPost]
-        public ActionResult storemail(int id, string[] RelatedCategory,int tip)
+        public ActionResult storemail(int id, string[] RelatedCategory,int tip,string mailcontent)
         {
             try
             {
@@ -642,13 +642,18 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                 //mail.HtmlPart.CharSet = Encoding.GetEncoding("UTF-8");
 
-                
-                if (tip == 2)
+                NetworkCredential NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
+                if (tip == 1)
                 {
-                    RevizeMailSenderInformation(mail);
+                    mail.Body = mail.Body.Replace("#signature#", "");
+                    this.SendMail(mail, NetworkCredential);
                 }
-
-                this.SendMail(mail);
+                else if (tip == 2)
+                {
+                    RevizeMailSenderInformation(mail,ref NetworkCredential);
+                    this.SendMail(mail, NetworkCredential);
+                }
+                
 
                 #endregion
                 #region digerkullanicilar
@@ -668,11 +673,16 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             maila.Body = template; //Mailin içeriği
                             maila.IsBodyHtml = true;
                             maila.Priority = MailPriority.Normal;
-                            if (tip == 2)
+                            NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
+                            if (tip == 1)
                             {
-                                RevizeMailSenderInformation(mail);
+                                mail.Body = mail.Body.Replace("#signature#", "");
                             }
-                            this.SendMail(maila);
+                            else if (tip == 2)
+                            {
+                                RevizeMailSenderInformation(mail, ref NetworkCredential);
+                            }
+                            this.SendMail(maila,NetworkCredential);
                         }
                         else
                         {
@@ -691,11 +701,16 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             mailb.Body = template; //Mailin içeriği
                             mailb.IsBodyHtml = true;
                             mailb.Priority = MailPriority.High;
-                            if (tip == 2)
+                            NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
+                            if (tip == 1)
                             {
-                                RevizeMailSenderInformation(mail);
+                                mailb.Body = mailb.Body.Replace("#signature#", "");
                             }
-                            this.SendMail(mailb);
+                            else if (tip == 2)
+                            {
+                                RevizeMailSenderInformation(mailb,ref NetworkCredential);
+                            }
+                            this.SendMail(mailb, NetworkCredential);
                         }
                     }
                 }
@@ -742,13 +757,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         }
 
-        private void RevizeMailSenderInformation(MailMessage mail)
+        private void RevizeMailSenderInformation(MailMessage mail,ref NetworkCredential NetworkCredential)
         {
             string Imza = "";
             var user = entities.Users.FirstOrDefault(x => x.UserId == CurrentUserModel.CurrentManagement.UserId);
             Imza = user.Signature;
-            mail.Sender = new MailAddress(user.UserMail, $"{user.Name} {user.Surname}");
-            mail.Sender = new MailAddress(user.UserMail, $"{user.Name} {user.Surname}");
+            mail.From = new MailAddress(user.UserMail, $"{user.Name} {user.Surname}");
+            //mail.Sender = new MailAddress(user.UserMail, $"{user.Name} {user.Surname}");
+            NetworkCredential = new NetworkCredential(user.UserMail, user.MailPassword);
             if (mail.Body.Contains("#signature#"))
             {
                 mail.Body = mail.Body.Replace("#signature#", Imza);
@@ -2570,6 +2586,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             return View(md);
         }
+
         [HttpPost]
         public ActionResult EditDesc(int id, FormCollection collection)
         {
@@ -2583,10 +2600,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 UpdateModel(md);
                 entities.SaveChanges();
             }
+
             if (TempData["id4"] == null)
             {
                 return RedirectToAction("Index");
             }
+
             int ids = (int)TempData["id4"];
             return RedirectToAction("BrowseDesc", new RouteValueDictionary(
       new { controller = "Member", action = "BrowseDesc", id = ids }));
@@ -2628,6 +2647,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             string StoreWebUrl = "";
             string StoreUrl = "";
             string City = "";
+         
+
             List<string> Contacts = new List<string>();
             if (MemberDesc.MainPartyId.HasValue)
             {
@@ -2652,8 +2673,19 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     }
                     if (storePorfoy != null)
                         bModelDesc.PortfoyName = storePorfoy.UserName;
-
-
+                    Packet Packet = entities.Packets.FirstOrDefault(x => x.PacketId == anyStore1.PacketId);
+                    if (Packet.ShowSetProcess==null)
+                    {
+                        Packet.ShowSetProcess = true;
+                    }
+                    if (Packet != null && (bool)Packet.ShowSetProcess)
+                    {
+                        bModelDesc.StorePacket = Packet.PacketName;
+                    }
+                    if (anyStore1.StorePacketEndDate.HasValue && (bool)Packet.ShowSetProcess)
+                    {
+                        bModelDesc.StorePacketEndDate = anyStore1.StorePacketEndDate.Value;
+                    }
                 }
             }
 
@@ -3312,6 +3344,123 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     res.IsSuccess = true;
                     res.Message = "store bulunamadı.";
                 }
+            }
+            return Json(res, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpPost]
+        public JsonResult GetCreateMailForm(int id,string[] RelatedCategory)
+        {
+            ResponseModel<string> res = new ResponseModel<string>();
+            try
+            {
+                int sayi = 0;
+                string aciklama = "";
+                string subtitle = "";
+                string aciklamabaslik = "";
+                var constatn = new Constant();
+
+                if (RelatedCategory != null)
+                {
+                    for (int i = 0; i < RelatedCategory.Length; i++)
+                    {
+                        if (RelatedCategory.GetValue(i).ToString() != "false")
+                        {
+                            sayi = RelatedCategory.GetValue(i).ToInt32();
+                            constatn = entities.Constants.Where(c => c.ConstantId == sayi).SingleOrDefault();
+                            aciklama = aciklama + constatn.ContstantPropertie + "</br>";
+                            subtitle = constatn.ConstantTitle;
+                            aciklamabaslik = constatn.ConstantName;
+
+
+                        }
+                    }
+                }
+
+                string allusersubtitle = subtitle;
+                var mailadress = entities.Members.Where(c => c.MainPartyId == id).SingleOrDefault();
+                var memberStore = entities.MemberStores.Where(c => c.MemberMainPartyId == id).SingleOrDefault();
+                var storeid = memberStore.StoreMainPartyId;
+                LinkHelper linkHelper = new LinkHelper();
+                var crtypoUyeId = linkHelper.Encrypt(memberStore.MemberMainPartyId.ToString());
+                var loginLink = "https://www.makinaturkiye.com/membership/LogonAuto?validateId=" + crtypoUyeId;
+
+                var firma = entities.Stores.Where(c => c.MainPartyId == storeid).SingleOrDefault();
+                string adress = mailadress.MemberEmail.ToString();
+                #region firmaolayi
+                var urunler = entities.Products.Where(c => c.MainPartyId == id).ToList();
+                int tekil = 0;
+                int cogul = 0;
+                string firmaurunlinki = UrlBuilder.GetStoreProfileProductUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
+                string istatistikfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=1";
+                string istatistikilanfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=3";
+                string packetupgrade = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=5";
+                if (urunler.Count != 0)
+                {
+                    foreach (var product in urunler)
+                    {
+                        tekil = tekil + product.SingularViewCount.ToInt32();
+                        cogul = cogul + product.ViewCount.ToInt32();
+                    }
+                    float oran = tekil / urunler.Count;
+                    aciklama = aciklama.Replace("#tekililantiklama#", tekil.ToString()).Replace("#cogulilantiklama#", cogul.ToString()).Replace("#ilantiklamaorani#", oran.ToString());
+                }
+                string linkuyeliktipi = "https://www.makinaturkiye.com/magaza-paket-fiyatlari-y-143135";
+                //singular view count ve view count değişecek.
+
+                aciklama = aciklama.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi)).Replace("#firmauyelikyukseltme#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", packetupgrade));
+                subtitle = subtitle.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi));
+                #endregion
+                #region kullanici
+
+                string template = "";
+                var settings = ConfigurationManager.AppSettings;
+                MailMessage mail = new MailMessage();
+                string storefix = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=2";
+
+                string firmalinki = UrlBuilder.GetStoreProfileUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
+                aciklama = aciklama.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki)).Replace("#uyeliktarihi#", firma.StoreRecordDate.ToDateTime().ToString("dd/MM/yyyy"));
+                subtitle = subtitle.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki));
+                if (sayi != 247 && sayi != 246 && sayi != 248)
+                {
+                    aciklama = Resources.Email.masterpage.Replace("#aciklama#", aciklama);
+                }
+                else
+                {
+                    aciklama = aciklama.Replace("#loginlink#", loginLink);
+                }
+
+                template = aciklama.Replace("#firmaadi#", firma.StoreName);
+
+                if (sayi == 144 || sayi == 145)
+                {
+                    if (sayi == 144)
+                    {
+                        sayi = 22;
+                    }
+                    else
+                        sayi = 23;
+                    string iskontoluyelik = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&sifre=" + mailadress.MemberPassword + "&Packetid=" + sayi;
+                    template = template.Replace("#baslangiczamani#", DateTime.Now.ToShortDateString()).Replace("#bitiszamani#", DateTime.Now.AddDays(8).ToShortDateString()).Replace("#iskontolulink#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", iskontoluyelik));
+                    //var storeindirim = new Storeindirim()
+                    //{
+                    //    MainPartyId = mailadress.MainPartyId,
+                    //    BeginDate = DateTime.Now,
+                    //    Enddate = DateTime.Now.AddDays(8)
+                    //};
+                    //entities.Storeindirims.AddObject(storeindirim);
+                    //entities.SaveChanges();
+                }
+                #endregion
+                res.Result = template;
+                res.IsSuccess = true;
+                res.Message = "Başarıyla güncellendi.";
+            }
+            catch (Exception)
+            {
+                res.IsSuccess = true;
+                res.Message = "Mail Gönderilirken Bir Hata Oluştu. Lütfen yöneticinize bildiriniz.";
             }
             return Json(res, JsonRequestBehavior.AllowGet);
         }

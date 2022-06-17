@@ -1095,6 +1095,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.OsmanSilIslemProduct' does not h
           <Property Name="DopingPacketDay" Type="smallint" />
           <Property Name="ShowAdmin" Type="bit" />
           <Property Name="IsTryPacket" Type="bit" />
+          <Property Name="ShowSetProcess" Type="bit" />
         </EntityType>
         <EntityType Name="PacketFeature">
           <Key>
@@ -2113,10 +2114,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary 
           <Property Name="RecordDate" Type="datetime" Nullable="false" />
           <Property Name="ClickCount" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.ydkConstant' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.YDKStore07062022' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <Association Name="FK__AutoMailR__Membe__16F6A265">
           <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
           <End Role="AutoMailRecord" Type="Self.AutoMailRecord" Multiplicity="*" />
@@ -6324,6 +6321,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Name="DopingPacketDay" Type="Int16" />
           <Property Name="ShowAdmin" Type="Boolean" />
           <Property Name="IsTryPacket" Type="Boolean" />
+          <Property Name="ShowSetProcess" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Order_Packet">
           <End Type="MakinaTurkiyeModel.Packet" Role="Packet" Multiplicity="0..1" />
@@ -9226,6 +9224,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <EntitySetMapping Name="Packets">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.Packet">
               <MappingFragment StoreEntitySet="Packet">
+                <ScalarProperty Name="ShowSetProcess" ColumnName="ShowSetProcess" />
                 <ScalarProperty Name="IsTryPacket" ColumnName="IsTryPacket" />
                 <ScalarProperty Name="ShowAdmin" ColumnName="ShowAdmin" />
                 <ScalarProperty Name="DopingPacketDay" ColumnName="DopingPacketDay" />

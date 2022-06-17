@@ -26477,6 +26477,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Boolean> _IsTryPacket;
         partial void OnIsTryPacketChanging(Nullable<global::System.Boolean> value);
         partial void OnIsTryPacketChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> ShowSetProcess
+        {
+            get
+            {
+                return _ShowSetProcess;
+            }
+            set
+            {
+                OnShowSetProcessChanging(value);
+                ReportPropertyChanging("ShowSetProcess");
+                _ShowSetProcess = StructuralObject.SetValidValue(value, "ShowSetProcess");
+                ReportPropertyChanged("ShowSetProcess");
+                OnShowSetProcessChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _ShowSetProcess;
+        partial void OnShowSetProcessChanging(Nullable<global::System.Boolean> value);
+        partial void OnShowSetProcessChanged();
 
         #endregion
 

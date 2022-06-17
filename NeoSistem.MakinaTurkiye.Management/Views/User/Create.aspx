@@ -29,4 +29,18 @@ Makinaturkiye | Kullanıcı Ekle
     </button>
   <%} %>
   <%} %>
+            <script type="text/javascript" src="/Scripts/CKEditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
+    <script type="text/javascript" defer="defer">
+        CKEDITOR.replace('Signature',
+            {
+                toolbar: [
+                    //{ name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+                    //['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],			// Defines toolbar group without name.
+                    '/',																					// Line break - next group will be placed in new line.
+                    { name: 'basicstyles', items: ['Bold', 'NumberedList'] },
+                ],
+                height: '135px'
+            });
+    </script>
 </asp:Content>

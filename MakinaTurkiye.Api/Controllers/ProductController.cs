@@ -1,6 +1,7 @@
 using MakinaTurkiye.Api.Helpers;
 using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Api.View.Products;
+using MakinaTurkiye.Api.View.Result;
 using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Entities.Tables.Common;
@@ -298,7 +299,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50, string SearchText = "", string ordertype = "a-z")
+        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50, string SearchText = "", string ordertype = "a-z", int SeriresId = 0,int ModelId = 0, int BrandId = 0, int CountryId = 0, int CityId = 0, int LocalityId = 0)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
@@ -313,8 +314,7 @@ namespace MakinaTurkiye.Api.Controllers
                     case "fiyat-artan": orderById = 6; break;
                     default: orderById = 0; break;
                 }
-
-                CategoryProductsResult result = _productService.GetCategoryProducts(categoryId, 0, 0, 0, searchTypeId, 0, 0, 0, 0, orderById, pageNo, pageSize, SearchText);
+                CategoryProductsResult result = _productService.GetCategoryProducts(categoryId, BrandId,ModelId, SeriresId, searchTypeId, 0, CountryId,CityId,LocalityId, orderById, pageNo, pageSize, SearchText);
                 ProcessStatus.TotolRowCount = result.Products.Count();
 
                 List<View.Result.ProductSearchResult> TmpResult = result.Products.Select(Snc =>
@@ -368,7 +368,156 @@ namespace MakinaTurkiye.Api.Controllers
                     }
                     item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px500x375) : "";
                 }
-                ProcessStatus.Result = TmpResult;
+
+                List<AdvancedSearchFilterItem> filterItems = new List<AdvancedSearchFilterItem>();
+
+
+                if (result.FilterableSeriesIds != null && result.FilterableSeriesIds.Count > 0)
+                {
+                    var filterableSeries = _categoryService.GetCategoriesByCategoryIds(result.FilterableSeriesIds.Distinct().ToList());
+                    if (filterableSeries.Count > 0)
+                    {
+                        foreach (var item in filterableSeries)
+                        {
+                            filterItems.Add(new AdvancedSearchFilterItem
+                            {
+                                Value = item.CategoryId,
+                                Name = item.CategoryName,
+                                Type = (byte)AdvancedSearchFilterType.Serie
+                            });
+                        }
+                    }
+                }
+
+                if (result.FilterableModelIds != null && result.FilterableModelIds.Count > 0)
+                {
+                    var filterableModels = _categoryService.GetCategoriesByCategoryIds(result.FilterableModelIds.Distinct().ToList());
+                    if (filterableModels.Count > 0)
+                    {
+
+                        foreach (var item in filterableModels)
+                        {
+                            filterItems.Add(new AdvancedSearchFilterItem
+                            {
+                                Value = item.CategoryId,
+                                Name = item.CategoryName,
+                                Type = (byte)AdvancedSearchFilterType.Model
+                            });
+                        }
+
+                    }
+
+                }
+
+
+                if (result.FilterableBrandIds != null && result.FilterableBrandIds.Count > 0)
+                {
+                    var filterableBrands = _categoryService.GetCategoriesByCategoryIds(result.FilterableBrandIds.Distinct().ToList());
+                    if (filterableBrands.Count > 0)
+                    {
+                        var distinctfilterableBrands = filterableBrands.Select(b => b.CategoryName).Distinct();
+                        if (distinctfilterableBrands.Count() == filterableBrands.Count)
+                        {
+                            foreach (var item in filterableBrands)
+                            {
+                                filterItems.Add(new AdvancedSearchFilterItem
+                                {
+                                    Value = item.CategoryId,
+                                    Name = item.CategoryName,
+                                    Type = (byte)AdvancedSearchFilterType.Brand
+
+                                });
+                            }
+                        }
+                        else
+                        {
+                            foreach (var item in distinctfilterableBrands)
+                            {
+                                var brands = filterableBrands.Where(b => b.CategoryName == item);
+                                if (brands.Count() == 1)
+                                {
+                                    filterItems.Add(new AdvancedSearchFilterItem
+                                    {
+                                        Value = brands.First().CategoryId,
+                                        Name = brands.First().CategoryName,
+                                        Type = (byte)AdvancedSearchFilterType.Brand
+
+                                    });
+                                }
+                                else
+                                {
+                                    filterItems.Add(new AdvancedSearchFilterItem
+                                    {
+                                        Value = brands.First().CategoryId,
+                                        Name = brands.First().CategoryName,
+                                        Type = (byte)AdvancedSearchFilterType.Brand
+
+                                    });
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (result.FilterableCountryIds != null && result.FilterableCountryIds.Count > 0)
+                {
+                    var filterableresult = _addressService.GetCountriesByCountryIds(result.FilterableCountryIds.Distinct().ToList());
+                    if (filterableresult.Count > 0)
+                    {
+                        foreach (var item in filterableresult)
+                        {
+                            filterItems.Add(new AdvancedSearchFilterItem
+                            {
+                                Value = item.CountryId,
+                                Name = item.CountryName,
+                                Type = (byte)AdvancedSearchFilterType.Country
+                            });
+                        }
+                    }
+                }
+
+                if (result.FilterableCityIds != null && result.FilterableCityIds.Count > 0)
+                {
+                    var filterableCities = _addressService.GetCitiesByCityIds(result.FilterableCityIds.Distinct().ToList());
+                    if (filterableCities.Count > 0)
+                    {
+                        foreach (var item in filterableCities)
+                        {
+                            filterItems.Add(new AdvancedSearchFilterItem
+                            {
+                                Value = item.CityId,
+                                Name = item.CityName,
+                                Type = (byte)AdvancedSearchFilterType.City
+                            });
+                        }
+                    }
+                }
+
+                if (CityId > 0)
+                {
+                    if (result.FilterableLocalityIds != null && result.FilterableLocalityIds.Count > 0)
+                    {
+                        var filterableLocalities = _addressService.GetLocalitiesByLocalityIds(result.FilterableLocalityIds.Distinct().ToList());
+                        if (filterableLocalities.Count > 0)
+                        {
+                            foreach (var item in filterableLocalities)
+                            {
+                                filterItems.Add(new AdvancedSearchFilterItem
+                                {
+                                    Value = item.LocalityId,
+                                    Name = item.LocalityName,
+                                    Type = (byte)AdvancedSearchFilterType.Locality
+                                });
+                            }
+                        }
+                    }
+                }
+
+                ProcessStatus.Result = new {
+                    Product = TmpResult,
+                    Filters = filterItems
+                };
+
                 ProcessStatus.ActiveResultRowCount = TmpResult.Count();
                 ProcessStatus.TotolRowCount = result.TotalCount;
                 ProcessStatus.TotolPageCount = result.TotalPages;
@@ -857,6 +1006,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
 
         public HttpResponseMessage Showcase()
         {

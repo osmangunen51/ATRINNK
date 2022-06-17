@@ -149,6 +149,8 @@
             Firma Adı</button>
             <button type="button" title="firma üyelik yükseltme" value="#firmauyelikyukseltme#">
             firma üyelik yükseltme</button>
+                <button type="button" title="Mail İmza" value="#signature#">
+            Mail İmza</button>    
             <br />
           İlan maili:
           <br />
@@ -167,7 +169,8 @@
           <button type="button" title="Üye Adı Soyadı" value="#uyeadisoyadi#">
             Üye Adı Soyadı</button>
           <button type="button" title="İlan Adı Köprü" value="#ilanadikopru#">
-            İlan Adı Köprü</button>            
+            İlan Adı Köprü</button>
+                        
             </div>
             <p>
                 <input type="submit" value="Güncelle" />

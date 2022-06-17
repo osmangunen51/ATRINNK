@@ -55,6 +55,7 @@
             model.DopingPacketDay = packet.DopingPacketDay;
             model.ShowAdmin = packet.ShowAdmin.HasValue ? packet.ShowAdmin.Value : false;
             model.IsTryPacket = packet.IsTryPacket.HasValue ? packet.IsTryPacket.Value : false;
+            model.ShowSetProcess = packet.ShowSetProcess.HasValue ? packet.ShowSetProcess.Value : false;
 
 
             if (packet.ProductFactor != null)
@@ -117,6 +118,7 @@
             packet.DopingPacketDay = model.DopingPacketDay;
             packet.ShowAdmin = model.ShowAdmin;
             packet.IsTryPacket = model.IsTryPacket;
+            packet.ShowSetProcess = model.ShowSetProcess;
             entities.SaveChanges();
 
             int packetId = id;

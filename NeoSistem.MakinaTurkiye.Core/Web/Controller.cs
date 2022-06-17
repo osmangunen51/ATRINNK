@@ -38,17 +38,21 @@
         }
 
 
-        public bool SendMail(MailMessage mailMessage)
+        public bool SendMail(MailMessage mailMessage, NetworkCredential NetworkCredential=null)
         {
             bool Status = false;
             try
             {
+                if (NetworkCredential==null)
+                {
+                    NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
+                }
                 using (SmtpClient sc = new SmtpClient())
                 {
                     sc.Port = AppSettings.MailPort;                                                                   
                     sc.Host = AppSettings.MailHost;                                                      
                     sc.EnableSsl = AppSettings.MailSsl;                                                  
-                    sc.Credentials = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
+                    sc.Credentials = NetworkCredential;
                     sc.Send(mailMessage);
                     Status = true;
                 }

@@ -128,6 +128,7 @@ namespace MakinaTurkiye.Api.View
     }
     public enum AdvancedSearchFilterType
     {
+        Country = 0,
         City = 1,
         Locality = 2,
         Brand = 3,

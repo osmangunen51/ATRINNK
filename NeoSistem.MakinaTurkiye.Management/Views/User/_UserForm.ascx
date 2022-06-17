@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#"   Inherits="System.Web.Mvc.ViewUserControl<UserModel>" %>
+
     <table class="tableForm" style="padding: 10px; height: auto;">
         <%:Html.HiddenFor(x=>x.UserId) %>
         <tr>
@@ -82,17 +83,6 @@
 
         </tr>
         <tr>
-            <td>
-                <%: Html.LabelFor(model => model.Signature) %>
-            :
-            </td>
-            <td>
-                <%: Html.TextAreaFor(model => model.Signature, new {style = "width:300px" })%>
-                <%: Html.ValidationMessageFor(model => model.Signature)%>
-            </td>
-        </tr>
-
-        <tr>
             <td><%:Html.LabelFor(x=>x.MailPassword) %>:</td>
             <td><%:Html.TextBoxFor(x=>x.MailPassword) %></td>
         </tr>
@@ -119,6 +109,15 @@
                 <%:Html.CheckBoxFor(x=>x.ActiveForDesc) %> Açıklama Aktif
             </td>
         </tr>
+        <tr>
+            <td>
+                <%: Html.LabelFor(model => model.Signature) %>
+            :
+            </td>
+            <td>
+                <%: Html.TextAreaFor(model => model.Signature, new {@style="width:100%; height:60px;" })%>
+            </td>
+        </tr>
         <tr style="height: 40px;">
             <td colspan="2" align="right" style="padding-bottom: 10px;">
                 <div style="border-bottom: dashed 1px #c0c0c0; width: 100%; height: 1px; margin-top: 15px; margin-bottom: 10px;">
@@ -127,3 +126,4 @@
             </td>
         </tr>
     </table>
+

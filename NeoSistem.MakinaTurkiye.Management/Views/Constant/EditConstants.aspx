@@ -141,6 +141,8 @@
             <button type="button" title="Son Ödeme Tarihi" value="#sonodemetarih#">Son Ödeme Tarihi</button>
             <button type="button" title="Paket Tutar" value="#pakettutar#">Paket Tutar</button>
             <button type="button" title="Kalan Tutar" value="#kalantutar#">Kalan Tutar</button>
+            <button type="button" title="Mail İmza" value="#signature#">
+            Mail İmza</button>    
             <br />
           İlan maili:
           <br />

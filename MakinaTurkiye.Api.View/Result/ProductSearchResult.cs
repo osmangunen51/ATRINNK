@@ -10,7 +10,12 @@ namespace MakinaTurkiye.Api.View.Result
         public string longitude { get; set; } = "0";
     }
 
-
+    public class AdvancedSearchFilterItem
+    {
+        public int Value { get; set; }
+        public string Name { get; set; }
+        public int Type { get; set; }
+    }
 
     public class ProductSearchResult
     {

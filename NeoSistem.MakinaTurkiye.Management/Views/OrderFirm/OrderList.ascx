@@ -44,7 +44,7 @@
                 item.StoreName = item.StoreNameForInvoice;
             } %>
         <span id="storeDisplay<%:item.OrderId %>">
-            <a href="/Store/EditStore/<%:item.MainPartyId %>"><%: item.StoreName %></a>
+            <a target="_blank" href="/Store/EditStore/<%:item.MainPartyId %>"><%: item.StoreName %></a>
         </span>
         <div style="float: right; cursor: pointer;" id="StoreChangePencil<%:item.OrderId%>" onclick="StoreChangeClick(<%:item.OrderId %>)">
             <img src="/Content/images/edit.png" />

@@ -275,6 +275,15 @@
                             <%:Html.CheckBoxFor(c => c.IsTryPacket, new { id = "IsTryPacket" })%>
                         </div>
                     </div>
+                    <div style="float: left; width: 100%; margin-top: 5px;">
+                        <div style="float: left; width: 140px; padding-left: 10px;">
+                            Atama Ekranı Göster / Gösterme
+           
+                        </div>
+                        <div style="float: left; width: 280px;">
+                            <%:Html.CheckBoxFor(c => c.ShowSetProcess, new { id = "ShowSetProcess" })%>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div style="float: left; margin-top: 10px; margin-left: 10px;">

@@ -49,5 +49,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string City { get; set; }
         public string StoreWebUrl { get; set; }
         public string StoreUrl { get; set; } = "";
+        public string StorePacket { get; set; } = "";
+        public DateTime StorePacketEndDate { get; set; }
     }
 }

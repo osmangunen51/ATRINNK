@@ -2370,8 +2370,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             Value = item.CountryId,
                             Name = item.CountryName,
                             Type = 0
-
-
                         });
                     }
 

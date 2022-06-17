@@ -30,6 +30,7 @@
         public bool IsTryPacket { get; set; }
 
         public bool ShowAdmin { get; set; }
+        public bool ShowSetProcess { get; set; }
 
         public static SelectList Packets()
         {

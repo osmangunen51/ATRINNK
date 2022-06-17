@@ -185,6 +185,63 @@
                   <br />
                 <%}%>
         </fieldset>
+               <%if (!string.IsNullOrEmpty(Model.StorePacket))
+                   {
+                    int Days = (Model.StorePacketEndDate - DateTime.Now.Date).Days;
+                    string clrs = "#77ec546e";
+                    if (Days <= 90)
+                    {
+                        clrs = "#f7ffb2";
+                    }
+                    if (Days <= 21)
+                    {
+                        clrs = "#edac2d";
+                    }
+                    if (Days < 1)
+                    { 
+                        clrs = "#ed2121e8";
+                    }%>
+               <fieldset style="background-color:<%=clrs%>">
+                <legend>
+                    <span>Paket Bilgileri</span>
+                </legend>
+                <table style="width:100%">
+                    <tr>
+                        <td>
+                            Paket
+                        </td>
+                        <td width="5">
+                            :
+                        </td>
+                        <td>
+                            <%=Model.StorePacket%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Bitiş Tarihi
+                        </td>
+                        <td width="5">
+                            :
+                        </td>
+                        <td>
+                            <%=Model.StorePacketEndDate.ToString("dd.MMM.yyyy")%>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Kalan Gün Syaısı
+                        </td>
+                        <td width="5">
+                            :
+                        </td>
+                        <td>
+                            <%=(Model.StorePacketEndDate-DateTime.Now.Date).Days%>
+                        </td>
+                    </tr>
+               </table>
+            </fieldset>
+                   <%} %>
            </div>
            <div style="width: 60%; float: left;">
                <div style="margin-left:80px;">
