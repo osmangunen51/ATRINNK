@@ -18,11 +18,11 @@
                     </div>
                     
                   <% } %>
-            <ul style="list-style: none; float: left; padding: 0px; width: 580px; border: solid 1px #8fc0d1;
+            <ul style="list-style: none; float: left; padding: 0px; width:98%;margin-right:10px; border: solid 1px #8fc0d1;
               padding-top: 10px; padding-left: 10px; background-color: #f8fbff">
-              <% foreach (var item2 in Model)
+              <% foreach (var item2 in Model.OrderBy(x=>x.Order))
                  { %>
-              <li style="float: left; width: 240px;">
+              <li style="float: left; width:25%;">
                 <div style="width: auto; float: left; height: auto;">
                   <div style="width: auto; float: left; height: auto;">
                     <%: Html.CheckBox("RelatedCategory", false, new { value = item2.ConstantId, @class = "ActivityName", style = "border:solid 1px #c9e6e2;padding:0px; height:15px;" })%>
@@ -36,7 +36,8 @@
               <% } %>
             </ul>
           </div>
-         <table>
+         <br />
+         <table style="float:left;">
              <tbody>
                  <tr>
                      <td>
@@ -63,17 +64,20 @@
         <div style="float: left; margin-left: 10px; margin-top: 2px;">
           <img src="/Content/Images/load.gif"  alt=""/></div>
       </div>
-    <div id="pnlmail">
-        <fieldset>
-            <legend> Mail İçeriği </legend>
-            <%: Html.TextArea("mailcontent", new {id="mailcontent",@style="width:100%; height:60px;" })%>
-            <hr />
-            <div style="width100%;text-align:right">
+    <br />
+    <div id="pnlmail" style="width:100%;height:100%;min-height:480px">
+        <h2>Mail İçeriği</h2>
+        <%: Html.TextArea("mailcontent", new {id="mailcontent",@style="width:100%; height:60px;" })%>
+                    <div style="width100%;text-align:right;margin-top:10px">
+                 <button type="button" onclick="mailpenceresikapat();">
+                        Kapat
+                  </button>
                  <button type="button" onclick="gonder(3);">
                         Gönder
                   </button>
             </div>
-        </fieldset>
+
+
     </div>
         <%} %>
 
@@ -83,16 +87,17 @@
     <script type="text/javascript" defer="defer">
         CKEDITOR.replace('mailcontent',
             {
-                toolbar: [
-                    //{ name: 'document', items: ['Source', '-', 'NewPage', 'Preview', '-', 'Templates'] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
-                    //['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],			// Defines toolbar group without name.
-                    '/',																					// Line break - next group will be placed in new line.
-                    { name: 'basicstyles', items: ['Bold', 'NumberedList'] },
-                ],
-                height: '135px'
+                extraAllowedContent: 'table{*}',
+                height:'420px',
+                width:'100%',
             });
     </script>
     <script type="text/javascript">
+        function mailpenceresikapat(tip)
+        {
+            $('#pnlmail').hide();
+            $("#gonderr").show();
+        }
         function gonder(tip)
         {
             if (tip == 1) {
@@ -102,12 +107,16 @@
                 $('#divLoading').show();
             }
             else if (tip == 2) {
-                var data = {
-                    id: "107166",
-                    RelatedCategory:
-                        $("#RelatedCategory").val(),
-                };
 
+                var RelatedCategory = [];
+                $("input:checkbox:checked").each(function () {
+                    RelatedCategory.push($(this).val());
+                });
+                console.log(RelatedCategory);
+                var data = {
+                    id: "<%=ViewData["storemailid"]%>",
+                    RelatedCategory: RelatedCategory,
+                };
                 $.ajax({
                     type: 'POST',
                     url: '/Member/GetCreateMailForm',
@@ -117,6 +126,7 @@
                         if (result.IsSuccess) {
                             CKEDITOR.instances["mailcontent"].setData(result.Result);
                             $('#pnlmail').show();
+                            $("#gonderr").hide();
                         }
                         else {
 
@@ -129,6 +139,7 @@
             {
                     $('#tip').val(tip);
                     $('#frmmailsend').submit();
+                    $('#pnlmail').hide();
                     $('#gonderr').hide();
                     $('#divLoading').show();
             }

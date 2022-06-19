@@ -23,5 +23,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Stores
         public string CanonicalUrl { get; set; }
         public string SeoContent { get; set; }
         public string RedirectUrl { get; set; }
+        public bool ShowFilters { get; set; } = true;
     }
 }

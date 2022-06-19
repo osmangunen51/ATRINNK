@@ -57,41 +57,30 @@
         <div class="theiaStickySidebar">
             <div class="filters" style="display:none;">
                 <div class="pos-relative">
-                    @*<div class="filters__header row  xssm-visible">
-                        <div class="col-xs-12">
-                            <a href="javascript:;" class="js-close-filters"><span class="icon-close"></span></a>Filtrele
-                        </div>
-                    </div>*@
-
                     <div class="filters__inner">
                         <div class="pos-absolute">
                             <div class="pos-absolute__inner panel-group" id="filters" role="tablist">
                                 @Html.Partial("_StoreCategories", Model.StoreCategoryModel)
-                                @Html.Partial("_FilterActivityType", Model.FilteringContext.MtStoreActivityTypeFilterModel)
-                                @Html.Partial("_FilterAddressBox", Model.FilteringContext.StoreAddressFilterModel)
+                                @if (Model.ShowFilters)
+                                {
+                                    @Html.Partial("_FilterActivityType", Model.FilteringContext.MtStoreActivityTypeFilterModel)
+                                    @Html.Partial("_FilterAddressBox", Model.FilteringContext.StoreAddressFilterModel)
+                                }
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-
-
-            @{ var display = string.IsNullOrEmpty(Request.QueryString["Gorunum"]) ? "?Gorunum=Liste" : "?Gorunum=" + Request.QueryString["Gorunum"].ToString();
-
-
+            @{ 
+                var display = string.IsNullOrEmpty(Request.QueryString["Gorunum"]) ? "?Gorunum=Liste" : "?Gorunum=" + Request.QueryString["Gorunum"].ToString();
                 string page = ""; if (Request.QueryString["Sayfa"] != null) { page = "&Sayfa=" + Request.QueryString["Sayfa"]; }
-
-
                 string querySearchType = string.IsNullOrEmpty(Request.QueryString["SearchType"]) ? "" : "&SearchType=" + Request.QueryString["SearchType"].ToString();
             }
             <div class="mobile-filter-buttons mobile-filter-top-alignment mdlg-hidden">
                 <a href="javascript:;" class="js-toggle-filter"><span class="icon-filter"></span>Filtrele</a>
                 <a href="javascript:;" class="js-toggle-sort"><span class="icon-sort"></span>Sırala</a>
                 <select class="mobile-sort" style="position: absolute; right: 0; width: 50%; height: 100%; opacity: 0">
-
-
-
                     @foreach (var item in Model.FilteringContext.SortOptionModels)
                     {
                         if (item.Selected)

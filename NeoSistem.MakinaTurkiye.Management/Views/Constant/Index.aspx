@@ -157,7 +157,6 @@
                     constantName = data.constantName;
                     order = data.order;
                     constantPropertie = data.constantPropertie;
-                    alert(constantPropertie);
                     $('#ConstantName').val(constantName);
                     $('#ConstantPropertie').val(constantPropertie);
                     $('#Order').val(order);

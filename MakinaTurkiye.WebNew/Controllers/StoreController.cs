@@ -637,14 +637,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 return RedirectToActionPermanent("Index");
             }
 
-            if (Request.Url.ToString().ToLower().Contains("/sirketler"))
-            {
-                return RedirectPermanent(AppSettings.StoreAllUrl+"/?"+Request.QueryString.ToString());
-            }
-
+           
 
             int categoryId = GetCategoryIdRouteData();
             int orderby = GetOrderByQueryString();
+
+            if (categoryId==0 && Request.Url.ToString().ToLower().Contains("/?"))
+            {
+                return RedirectPermanent(AppSettings.StoreAllUrl);
+            }
+
+            if (Request.Url.ToString().ToLower().Contains("/sirketler"))
+            {
+                return RedirectPermanent(AppSettings.StoreAllUrl + "/?" + Request.QueryString.ToString());
+            }
+
 
             //var cityID = Request.QueryString["cityID"] != null ? Request.QueryString["cityID"] : "0";
             //var pageId = Request.QueryString["page"] != null ? Request.QueryString["page"] : "0";
@@ -856,6 +863,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 
             }
+            model.ShowFilters = categoryId > 0;
             return View(model);
         }
 

@@ -509,6 +509,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             var dataConstant = new Data.Constant();
             var model = dataConstant.ConstantGetByConstantType(14).AsCollection<ConstantModel>();
+            ViewData["storemailid"]= id;
             return View(model);
         }
 
@@ -890,7 +891,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     }
                     else if (tip == 3)
                     {
-                        mail.Body = template;
+                        mail.Body = mailcontent;
+                        mail.BodyEncoding = Encoding.UTF8;
                         RevizeMailSenderInformation(mail, ref NetworkCredential);
                     }
                     this.SendMail(mail, NetworkCredential);
@@ -925,7 +927,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 }
                                 else if (tip == 3)
                                 {
-                                    maila.Body = template;
+                                    maila.Body = mailcontent;
                                     RevizeMailSenderInformation(maila, ref NetworkCredential);
                                 }
                                 this.SendMail(maila, NetworkCredential);
@@ -959,7 +961,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 }
                                 else if (tip == 3)
                                 {
-                                    mailb.Body = template;
+                                    mailb.Body = mailcontent;
                                     RevizeMailSenderInformation(mailb, ref NetworkCredential);
                                 }
                                 this.SendMail(mailb, NetworkCredential);
@@ -3618,13 +3620,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     {
                         if (RelatedCategory.GetValue(i).ToString() != "false")
                         {
-                            sayi = RelatedCategory.GetValue(i).ToInt32();
+                            sayi = RelatedCategory[i].ToInt32();
                             constatn = entities.Constants.Where(c => c.ConstantId == sayi).SingleOrDefault();
-                            aciklama = aciklama + constatn.ContstantPropertie + "</br>";
+                            aciklama = aciklama + constatn.ConstantMailContent + "</br>";
                             subtitle = constatn.ConstantTitle;
                             aciklamabaslik = constatn.ConstantName;
-
-
                         }
                     }
                 }
@@ -3704,6 +3704,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     //entities.SaveChanges();
                 }
                 #endregion
+
+                string Imza = "";
+                var user = entities.Users.FirstOrDefault(x => x.UserId == CurrentUserModel.CurrentManagement.UserId);
+                Imza = user.Signature;
+                template= template.Replace("#signature#", Imza);
                 res.Result = template;
                 res.IsSuccess = true;
                 res.Message = "Başarıyla güncellendi.";
