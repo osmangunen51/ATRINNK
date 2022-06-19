@@ -80,7 +80,7 @@
                 @if (Model.MTStoreProfileMenuHasModel.HasProducts)
                 {
             <li class="@Model.MTStoreProfileMenuActivePage.ProductsActive">
-                <span class="fa fa-shopping-cart" aria-hidden="true"></span><a href="@Model.StoreUrl/urunler">Ürünler</a><i class="icon-down-arrow menuarrow"></i>
+                <span class="fa fa-shopping-cart" aria-hidden="false"></span><a href="@Model.StoreUrl/urunler">Ürünler</a><i class="icon-down-arrow menuarrow"></i>
                 @{ var request = Request;
                     string[] req = request.Url.AbsolutePath.Split('/');
                 }

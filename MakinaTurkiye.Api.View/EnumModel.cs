@@ -133,7 +133,8 @@ namespace MakinaTurkiye.Api.View
         Locality = 2,
         Brand = 3,
         Model = 4,
-        Serie = 5
+        Serie = 5,
+        Category=6
     }
     public enum StoreDealerType
     {

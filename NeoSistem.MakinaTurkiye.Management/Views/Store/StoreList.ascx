@@ -286,7 +286,7 @@
         </a>
         <%} %>
         <div style="float: right; width: 30px; text-align: right; cursor: pointer;">
-            <a href="/Member/storemail/<%=mem.MemberMainPartyId  %>" id="lightbox_click" rel="superbox[iframe]">
+            <a href="/Member/storemail/<%=mem.MemberMainPartyId  %>" id="lightbox_click" rel="superbox[iframe][1024x600]">
                 <img src="/Content/Images/ikon_ozel_mesaj_gonder.png" /></a>
         </div>
         <% }

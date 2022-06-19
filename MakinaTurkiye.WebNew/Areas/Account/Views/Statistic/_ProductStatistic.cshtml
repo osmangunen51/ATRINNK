@@ -39,19 +39,20 @@
 
 <script src="../../../../Content/V2/assets/js/chart-util.js"></script>
 <script src="../../../../Content/V2/assets/js/Chart.min.js"></script>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>*@
 <script>
 
         var config = {
             type: 'line',
             data: {
-                labels: @Model.JsoonLabels,
+                labels: '@Html.Raw(Model.JsoonLabels)',
                 datasets: [{
                     label: 'Görüntülenme Sayısı',
-                    backgroundColor: window.chartColors.blue,
-                    borderColor: window.chartColors.blue,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 0.2)',
                     data: @Model.JsonDatas,
                     fill: false,
-                }]
+                }],
             },
             options: {
                 responsive: true,
@@ -73,7 +74,7 @@
                         scaleLabel: {
                             display: true,
                             labelString: '@Model.LabelString'
-                        }
+                        },
                     }],
                     yAxes: [{
                         display: true,

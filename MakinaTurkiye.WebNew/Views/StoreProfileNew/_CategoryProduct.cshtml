@@ -24,8 +24,8 @@
 
 
 }
-@{string display = ""; }
-@if (Model.ActiveCategory != null) { display = "display:block; list-style-type:none;"; }
+@{string display = "display:block; list-style-type:none;"; }
+@*@if (Model.ActiveCategory != null) { display = "display:block; list-style-type:none;"; }*@
 <ul class="sub-menu" style="@display">
     @*<%--Üst Kategoriler--%>*@
     @{int LeftMargin = 0;

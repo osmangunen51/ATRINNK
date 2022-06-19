@@ -371,6 +371,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                 List<AdvancedSearchFilterItem> filterItems = new List<AdvancedSearchFilterItem>();
 
+                var categories =_categoryService.GetCategoriesByCategoryIds(result.FilterableCategoryIds.Select(x => x.CategoryId).ToList());
 
                 if (result.FilterableSeriesIds != null && result.FilterableSeriesIds.Count > 0)
                 {
@@ -511,6 +512,16 @@ namespace MakinaTurkiye.Api.Controllers
                             }
                         }
                     }
+                }
+
+                foreach (var item in categories)
+                {
+                    filterItems.Add(new AdvancedSearchFilterItem
+                    {
+                        Value = item.CategoryId,
+                        Name = item.CategoryName,
+                        Type = (byte)AdvancedSearchFilterType.Category
+                    });
                 }
 
                 ProcessStatus.Result = new {

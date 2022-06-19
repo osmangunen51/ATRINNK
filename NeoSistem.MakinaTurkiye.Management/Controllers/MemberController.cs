@@ -535,7 +535,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             {
                                 sayi = RelatedCategory.GetValue(i).ToInt32();
                                 constatn = entities.Constants.Where(c => c.ConstantId == sayi).SingleOrDefault();
-                                aciklama = aciklama + constatn.ContstantPropertie + "</br>";
+                                aciklama = aciklama + constatn.ConstantMailContent + "</br>";
                                 subtitle = constatn.ConstantTitle;
                                 aciklamabaslik = constatn.ConstantName;
 
@@ -928,6 +928,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 else if (tip == 3)
                                 {
                                     maila.Body = mailcontent;
+                                    mail.BodyEncoding = Encoding.UTF8;
                                     RevizeMailSenderInformation(maila, ref NetworkCredential);
                                 }
                                 this.SendMail(maila, NetworkCredential);
@@ -962,6 +963,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 else if (tip == 3)
                                 {
                                     mailb.Body = mailcontent;
+                                    mail.BodyEncoding = Encoding.UTF8;
                                     RevizeMailSenderInformation(mailb, ref NetworkCredential);
                                 }
                                 this.SendMail(mailb, NetworkCredential);

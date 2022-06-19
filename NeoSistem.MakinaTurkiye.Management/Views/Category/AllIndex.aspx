@@ -880,7 +880,7 @@
           :
         </td>
         <td>
-          <%: Html.TextBox("Edit_Name", "", new { validate = "required:true" })%>
+          <%: Html.TextBox("Edit_Name", "", new { @style="min-width:200px;",validate = "required:true" })%>
           <%: Html.Hidden("Edit_CategoryId") %>
             
         </td>
@@ -896,7 +896,7 @@
           :
         </td>
         <td>
-          <%: Html.TextBox("CategoryContentTitle", "")%>
+          <%: Html.TextBox("CategoryContentTitle", "", new {@style="min-width:200px;"})%>
           <%: Html.Hidden("Edit_CategoryId") %>
         </td>
            <td>

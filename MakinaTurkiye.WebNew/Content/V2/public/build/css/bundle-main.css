@@ -22499,7 +22499,8 @@ li.active > a > .menutoggleicon {
     .product-list-mt__item {
         /*min-height: 330px !important;*/
         /*margin-left: 10px*/
-        height:220px !important; 
+        /*height:220px !important;*/
+        height: auto !important;
     }
 }
 

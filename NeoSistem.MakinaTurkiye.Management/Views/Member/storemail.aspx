@@ -18,23 +18,42 @@
                     </div>
                     
                   <% } %>
-            <ul style="list-style: none; float: left; padding: 0px; width:98%;margin-right:10px; border: solid 1px #8fc0d1;
-              padding-top: 10px; padding-left: 10px; background-color: #f8fbff">
+                  <div style="column-count:3;
+       -moz-column-count:3;
+       -webkit-column-count:3;
+       background-color: #f8fbff;
+       border:
+       solid 1px #808080;
+       padding-top: 10px;
+       padding-bottom: 10px;
+       ">
+                      <ul style="list-style:none;background-color: #f8fbff;margin-top:0px;">
               <% foreach (var item2 in Model.OrderBy(x=>x.Order))
                  { %>
-              <li style="float: left; width:25%;">
-                <div style="width: auto; float: left; height: auto;">
-                  <div style="width: auto; float: left; height: auto;">
-                    <%: Html.CheckBox("RelatedCategory", false, new { value = item2.ConstantId, @class = "ActivityName", style = "border:solid 1px #c9e6e2;padding:0px; height:15px;" })%>
-                  </div>
-                  <div style="width: auto; float: left; margin-left: 5px; margin-top: 5px; font-size: 12px;
-                    color: #000">
-                    <%: item2.ConstantName%>
-                  </div>
-                </div>
-              </li>
+                    <li style="float:left;width:90%">
+                          <div style="width:15px;float: left;">
+                            <%: Html.CheckBox("RelatedCategory", false, new { value = item2.ConstantId, @class = "ActivityName", style = "border:solid 1px #c9e6e2;padding:0px; height:15px;" })%>
+                          </div>
+                          <div style="float: left; margin-left: 5px; margin-top: 5px; font-size: 12px;
+                            color: #000">
+                            <%: item2.ConstantName%>
+                          </div>
+                    </li>
+                    <%--  <li style="width:25%;">
+                        <div style="width: auto; float: left; height: auto;">
+                          <div style="width: auto; float: left; height: auto;">
+                            <%: Html.CheckBox("RelatedCategory", false, new { value = item2.ConstantId, @class = "ActivityName", style = "border:solid 1px #c9e6e2;padding:0px; height:15px;" })%>
+                          </div>
+                          <div style="width: auto; float: left; margin-left: 5px; margin-top: 5px; font-size: 12px;
+                            color: #000">
+                            <%: item2.ConstantName%>
+                          </div>
+                        </div>
+                      </li>--%>
               <% } %>
             </ul>
+                  </div>
+            
           </div>
          <br />
          <table style="float:left;">
@@ -87,8 +106,9 @@
     <script type="text/javascript" defer="defer">
         CKEDITOR.replace('mailcontent',
             {
+                toolbar: 'webtool',
                 extraAllowedContent: 'table{*}',
-                height:'420px',
+                height:'300px',
                 width:'100%',
             });
     </script>

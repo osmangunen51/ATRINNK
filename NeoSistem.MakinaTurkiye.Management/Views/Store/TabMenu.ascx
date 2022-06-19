@@ -152,7 +152,7 @@
         </div>
         <%} %>
         <div style="background-color:#4cb4e5" class="<%:tab %> mailback">
-            <a href="/Member/storemail/<%=mainpartyid%>" id="lightbox_click" rel="superbox[iframe][1024x700]">Mailing </a>
+            <a href="/Member/storemail/<%=mainpartyid%>" id="lightbox_click" rel="superbox[iframe][1024x600]">Mailing </a>
         </div>
                 <div class="<%: ViewData["StoreSector"] != null ? tabActive:tab %> anotherback">
             <a href="/Store/StoreSector/<%:this.Page.RouteData.Values["id"] %>">İlgili Sektör</a>

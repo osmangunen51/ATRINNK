@@ -636,9 +636,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 return RedirectToActionPermanent("Index");
             }
-
-           
-
             int categoryId = GetCategoryIdRouteData();
             int orderby = GetOrderByQueryString();
 
@@ -649,9 +646,27 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             if (Request.Url.ToString().ToLower().Contains("/sirketler"))
             {
-                return RedirectPermanent(AppSettings.StoreAllUrl + "/?" + Request.QueryString.ToString());
+                if (!string.IsNullOrEmpty(Request.QueryString.ToString()))
+                {
+                    return RedirectPermanent(AppSettings.StoreAllUrl + "/?" + Request.QueryString.ToString());
+                }
+                else
+                {
+                    return RedirectPermanent(AppSettings.StoreAllUrl);
+                }
             }
-
+            
+            if(Request.Url.ToString().ToLower().Contains("/store"))
+            {
+                if (!string.IsNullOrEmpty(Request.QueryString.ToString()))
+                {
+                    return RedirectPermanent(AppSettings.StoreAllUrl + "/?" + Request.QueryString.ToString());
+                }
+                else
+                {
+                    return RedirectPermanent(AppSettings.StoreAllUrl);
+                }
+            }
 
             //var cityID = Request.QueryString["cityID"] != null ? Request.QueryString["cityID"] : "0";
             //var pageId = Request.QueryString["page"] != null ? Request.QueryString["page"] : "0";
