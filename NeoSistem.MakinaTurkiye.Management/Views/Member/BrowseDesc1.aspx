@@ -1,5 +1,4 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<NeoSistem.MakinaTurkiye.Management.Models.BrowseDescModel>" %>
-
 <asp:Content ID="Content4" ContentPlaceHolderID="TitleContent" runat="server">
     BrowseDesc
 </asp:Content>
@@ -45,23 +44,23 @@
                 {%>
             <%if (Model.RegistrationType == (byte)RegistrationType.Full)
                 {%>
-            <table style="margin-top: 17px;">
-                <tr>
-                    <td><b>Portföy Yöneticisi</b></td>
-                    <td>:</td>
-                    <%using (Html.BeginForm())
-                        {%>
-                    <td>
-                        <%:Html.HiddenFor(x=>x.StoreMainPartyId)%>
-                        <%:Html.HiddenFor(x=>x.MemberMainPartyId) %>
+                    <table style="margin-top: 17px;">
+                        <tr>
+                            <td><b>Portföy Yöneticisi</b></td>
+                            <td>:</td>
+                            <%using (Html.BeginForm())
+                                {%>
+                            <td>
+                                <%:Html.HiddenFor(x=>x.StoreMainPartyId)%>
+                                <%:Html.HiddenFor(x=>x.MemberMainPartyId) %>
 
-                        <%:Html.DropDownListFor(x=>x.AuthorizedId,Model.Users) %>
-                    </td>
-                    <td>
-                        <input type="submit" value="Kaydet" /></td>
-                    <%} %>
-                </tr>
-            </table>
+                                <%:Html.DropDownListFor(x=>x.AuthorizedId,Model.Users) %>
+                            </td>
+                            <td>
+                                <input type="submit" value="Kaydet" /></td>
+                            <%} %>
+                        </tr>
+                    </table>
             <% } %>
             <% } %>
         </div>
@@ -86,80 +85,85 @@
             <tbody>
                 <%int row = 0; %>
                 <%foreach (var itemMemberDesc in Model.BaseMemberDescriptionModelItems.ToList())
-                    {
+                {
                         row++;
                         string backColor = "";
                         if (itemMemberDesc.Title == "Ödeme")
                         {
                             backColor = "#dabd9b";
                         }
+                        string key = Guid.NewGuid().ToString();                       
                 %>
-                <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>" style="background-color: <%:backColor%>">
-                    <td class="Cell">
-                        <%:Html.Truncate(Model.MemberNameSurname.ToString(),15)%>..</td>
-                    <td class="Cell"><%if (!string.IsNullOrEmpty(Model.StoreName))
-                                         {
-                    %>
-                        <a target="_blank" href="/Store/EditStore/<%:itemMemberDesc.StoreID %>"><%:Html.Truncate(Model.StoreName.ToString(),20)%></a>
-                        <%}%></td>
-                    <td class="Cell"><%:itemMemberDesc.Title %></td>
-                    <td class="Cell" style="font-size: 15px;"><% if (itemMemberDesc.Description != null)
-                                                                  { %>
-                        <%=Html.Raw(itemMemberDesc.Description)%>
-                        <% }
+                    <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>" style="background-color: <%:backColor%>">
+                        <td class="Cell">
+                            <%:Html.Truncate(Model.MemberNameSurname.ToString(),15)%>..</td>
+                        <td class="Cell"><%if (!string.IsNullOrEmpty(Model.StoreName)){
                         %>
-                    </td>
-                    <td class="Cell"><% if (itemMemberDesc.InputDate != null)
-                                         {
-                                             string[] Inputdate = itemMemberDesc.InputDate.ToString().Split(' ');
-                                             Response.Write(Inputdate[0] + " ");
-                                             Response.Write("<font style='color:#C5D5DD'>" + Inputdate[1] + "</font>");
-                                         }%></td>
-                    <td class="Cell"><%if (itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
-                                         {
-                                             string[] lastDate = itemMemberDesc.LastDate.ToString().Split(' ');
-                                             Response.Write(lastDate[0] + " ");
-                                             Response.Write("<font style='color:#C5D5DD'>" + lastDate[1] + "</font>");
-                                         } %></td>
-                    <td class="Cell" style="background-color: #2776e5; color: #fff"><%:itemMemberDesc.UserName %></td>
-                    <td class="Cell" style="background-color: #31c854; color: #fff">
-                        <%:itemMemberDesc.ToUserName %>
-                    </td>
-                    <td class="Cell">
-                        <%string type = "Normal";
-                            if (!itemMemberDesc.StoreID.HasValue)
-                            { type = "Ön Kayıt"; }%>
-                        <%:type %>
-                    </td>
-                    <td class="Cell">
+                            <a target="_blank" href="/Store/EditStore/<%:itemMemberDesc.StoreID %>"><%:Html.Truncate(Model.StoreName.ToString(),20)%></a>
+                            <%}%></td>
+                        <td class="Cell"><%:itemMemberDesc.Title %></td>
+                        <td class="Cell" style="font-size: 15px;width:50%">
+                            <%if (itemMemberDesc.IsOpened)
+                                {%>
+                                <%=Html.Raw(itemMemberDesc.Description)%>
+                            <%}
+                            %>
+                            <%else{%>
+                                 <button style="float:right;padding:10px" class="toggle" data-hedef="#pnl<%=key%>"> Göster </button>
+                                      <div class="target kapali" id="pnl<%=key%>">
+                                         <%=Html.Raw(itemMemberDesc.Description)%>
+                                 </div>
+                             <%}%>
+                        </td>
+                        <td class="Cell"><% if (itemMemberDesc.InputDate != null)
+                                             {
+                                                 string[] Inputdate = itemMemberDesc.InputDate.ToString().Split(' ');
+                                                 Response.Write(Inputdate[0] + " ");
+                                                 Response.Write("<font style='color:#C5D5DD'>" + Inputdate[1] + "</font>");
+                                             }%></td>
+                        <td class="Cell"><%if (itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
+                                             {
+                                                 string[] lastDate = itemMemberDesc.LastDate.ToString().Split(' ');
+                                                 Response.Write(lastDate[0] + " ");
+                                                 Response.Write("<font style='color:#C5D5DD'>" + lastDate[1] + "</font>");
+                                             } %></td>
+                        <td class="Cell" style="background-color: #2776e5; color: #fff"><%:itemMemberDesc.UserName %></td>
+                        <td class="Cell" style="background-color: #31c854; color: #fff">
+                            <%:itemMemberDesc.ToUserName %>
+                        </td>
+                        <td class="Cell">
+                            <%string type = "Normal";
+                                if (!itemMemberDesc.StoreID.HasValue)
+                                { type = "Ön Kayıt"; }%>
+                            <%:type %>
+                        </td>
+                        <td class="Cell">
 
-                        <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+" && itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
-                            {%>
-                        <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
-                            <img src="/Content/images/ac.png" alt="" />
-                        </a>
+                            <%if (itemMemberDesc.Description != "Mail" && !string.IsNullOrEmpty(itemMemberDesc.Description) && itemMemberDesc.Title != "Ödeme" && itemMemberDesc.Title != "Bilgi +kayıt tar + tıklama sayısı+" && itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
+                                {%>
+                            <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
+                                <img src="/Content/images/ac.png" alt="" />
+                            </a>
 
-                        <a style="cursor: pointer;" onclick="DeletePost(<%:itemMemberDesc.ID %>);">
-                            <img src="/Content/images/delete.png" hspace="5" />
-                        </a>
-                        <% } %>
-                        <%if (Model.BaseMemberDescriptionModelItems.Where(x => x.LastDate.ToDateTime().Date >= DateTime.Now.Date).Count() == 0 && row == 1)
-                            {%>
-                        <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
-                            <img src="/Content/images/ac.png" alt="" />
-                        </a>
-                        <% } %>
+                            <a style="cursor: pointer;" onclick="DeletePost(<%:itemMemberDesc.ID %>);">
+                                <img src="/Content/images/delete.png" hspace="5" />
+                            </a>
+                            <% } %>
+                            <%if (Model.BaseMemberDescriptionModelItems.Where(x => x.LastDate.ToDateTime().Date >= DateTime.Now.Date).Count() == 0 && row == 1)
+                                {%>
+                            <a href="/Member/EditDesc1/<%:itemMemberDesc.ID %>">
+                                <img src="/Content/images/ac.png" alt="" />
+                            </a>
+                            <% } %>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
 
-                <%} %>
-                <tr></tr>
+                <%}%>
             </tbody>
         </table>
     </div>
 </asp:Content>
-
 <asp:Content ID="Content6" ContentPlaceHolderID="HeadContent" runat="server">
     <script type="text/javascript">
         function DeletePost(descId) {
@@ -180,5 +184,31 @@
             }
         }
     </script>
+      <script type="text/javascript">
+            $(document).ready(function ()
+            {
+                $(".kapali").each(function (index)
+                {
+                    var kontrol = $(this);
+                    kontrol.toggle();
+                });
+                $(".toggle").click(function () {
+                    var kontrol = $(this);
+                    var hedef = kontrol.attr("data-hedef");
+                    console.log(hedef);
+                    if ($(hedef).hasClass("open"))
+                    {
+                        $(hedef).hide();
+                        $(hedef).removeClass("open");
+                        kontrol.html('Göster');
+                    }
+                    else {
+                        $(hedef).show();
+                        $(hedef).addClass("open");
+                        kontrol.html('Gizle');
+                    }
+                });
+            });
+      </script>
 </asp:Content>
 

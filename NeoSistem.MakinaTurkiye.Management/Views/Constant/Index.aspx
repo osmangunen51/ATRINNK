@@ -128,7 +128,8 @@
                         ConstantName: $('#ConstantName').val(),
                         Order: $('#Order').val(),
                         ConstantId: $('#ConstantId').val(),
-                        ConstantPropertie: $('#ConstantPropertie').val()
+                        ConstantPropertie: $('#ConstantPropertie').val(),
+                        MemberDescriptionIsOpened: document.querySelector('#MemberDescriptionIsOpened').checked,
                     },
                     type: 'post',
                     success: function (data) {
@@ -157,9 +158,12 @@
                     constantName = data.constantName;
                     order = data.order;
                     constantPropertie = data.constantPropertie;
+                    MemberDescriptionIsOpened = data.MemberDescriptionIsOpened;
                     $('#ConstantName').val(constantName);
                     $('#ConstantPropertie').val(constantPropertie);
+                    $('#ConstantPropertie').val(constantPropertie);
                     $('#Order').val(order);
+                    document.querySelector('#MemberDescriptionIsOpened').checked = MemberDescriptionIsOpened;
                 }, error: function (x, l, e) {
                     alert(e.responseText);
                 }

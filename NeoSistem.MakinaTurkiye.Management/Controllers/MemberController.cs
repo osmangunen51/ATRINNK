@@ -739,6 +739,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     }
                     baseMember.Description = template;
                     baseMember.UpdateDate = null;
+                    baseMember.ConstantId = constatn.ConstantId;
                     entities.BaseMemberDescriptions.AddObject(baseMember);
                     entities.SaveChanges();
 
@@ -748,6 +749,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     memd.Description = template;
                     memd.Title = aciklamabaslik;
                     memd.UpdateDate = null;
+                    memd.ConstantId = constatn.ConstantId;
                     entities.MemberDescriptions.AddObject(memd);
                     entities.SaveChanges();
                     #endregion
@@ -855,6 +857,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     //date time karşılaştırmak için compare
                     //DateTime.Compare(t1, t2);
 
+                    template = mailcontent;
+
                     mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
                     mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
                     mail.Subject = subtitle; //Mail konusu
@@ -881,23 +885,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     //mail.HtmlPart.CharSet = Encoding.GetEncoding("UTF-8");
 
                     NetworkCredential NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
-                    if (tip == 1)
-                    {
-                        mail.Body = mail.Body.Replace("#signature#", "");
-                    }
-                    else if (tip == 2)
-                    {
-                        RevizeMailSenderInformation(mail, ref NetworkCredential);
-                    }
-                    else if (tip == 3)
-                    {
-                        mail.Body = mailcontent;
-                        mail.BodyEncoding = Encoding.UTF8;
-                        RevizeMailSenderInformation(mail, ref NetworkCredential);
-                    }
+                    mail.BodyEncoding = Encoding.UTF8;
+                    RevizeMailSenderInformation(mail, ref NetworkCredential);
                     this.SendMail(mail, NetworkCredential);
-
-
                     #endregion
                     #region digerkullanicilar
                     var alluserfriend = entities.MainPartyIdEpostas.Where(c => c.MainPartyId == storeid).SingleOrDefault();
@@ -917,20 +907,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 maila.IsBodyHtml = true;
                                 maila.Priority = MailPriority.Normal;
                                 NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
-                                if (tip == 1)
-                                {
-                                    maila.Body = mail.Body.Replace("#signature#", "");
-                                }
-                                else if (tip == 2)
-                                {
-                                    RevizeMailSenderInformation(maila, ref NetworkCredential);
-                                }
-                                else if (tip == 3)
-                                {
-                                    maila.Body = mailcontent;
-                                    mail.BodyEncoding = Encoding.UTF8;
-                                    RevizeMailSenderInformation(maila, ref NetworkCredential);
-                                }
+                                mail.BodyEncoding = Encoding.UTF8;
+                                RevizeMailSenderInformation(maila, ref NetworkCredential);
                                 this.SendMail(maila, NetworkCredential);
                             }
                             else
@@ -951,21 +929,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 mailb.IsBodyHtml = true;
                                 mailb.Priority = MailPriority.High;
                                 NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
-                                
-                                if (tip == 1)
-                                {
-                                    mailb.Body = mail.Body.Replace("#signature#", "");
-                                }
-                                else if (tip == 2)
-                                {
-                                    RevizeMailSenderInformation(mailb, ref NetworkCredential);
-                                }
-                                else if (tip == 3)
-                                {
-                                    mailb.Body = mailcontent;
-                                    mail.BodyEncoding = Encoding.UTF8;
-                                    RevizeMailSenderInformation(mailb, ref NetworkCredential);
-                                }
+
+                                mail.BodyEncoding = Encoding.UTF8;
+                                RevizeMailSenderInformation(mailb, ref NetworkCredential);
                                 this.SendMail(mailb, NetworkCredential);
                             }
                         }
@@ -990,15 +956,16 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     }
                     baseMember.Description = template;
                     baseMember.UpdateDate = null;
+                    baseMember.ConstantId = constatn.ConstantId;
                     entities.BaseMemberDescriptions.AddObject(baseMember);
                     entities.SaveChanges();
-
                     MemberDescription memd = new MemberDescription();
                     memd.MainPartyId = mailadress.MainPartyId;
                     memd.Date = DateTime.Now;
                     memd.Description = template;
                     memd.Title = aciklamabaslik;
                     memd.UpdateDate = null;
+                    memd.ConstantId = constatn.ConstantId;
                     entities.MemberDescriptions.AddObject(memd);
                     entities.SaveChanges();
                     #endregion
@@ -2379,8 +2346,15 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             model.MemberNameSurname = memberName + " " + memberSurname;
             model.StoreName = storeName;
+
+            var contantlist = _constantService.GetAllConstants();
+
             foreach (var item in MemberDescription)
             {
+               
+
+
+
                 BaseMemberDescriptionModelItem memberDesc = new BaseMemberDescriptionModelItem
                 {
                     ID = Convert.ToInt32(item.descId),
@@ -2433,9 +2407,32 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 }
                 string Sart = whereClause.ToString();
                 //var collection = dataOrder.Search(ref total, 10, 1, whereClause.ToString(), STARTCOLUMN, ORDER);
+
+                memberDesc.IsOpened = true;
+                if (item.ConstandId.HasValue)
+                {
+                    var cons = contantlist.FirstOrDefault(x => x.ConstantId == item.ConstandId);
+                    if (cons != null)
+                    {
+                        if (cons.MemberDescriptionIsOpened.HasValue)
+                        {
+                            memberDesc.IsOpened = (bool)cons.MemberDescriptionIsOpened;
+                        }
+                    }
+                }
+                else
+                {
+                    var cons = contantlist.FirstOrDefault(x => x.ConstantName == item.Title);
+                    if (cons != null)
+                    {
+                        if (cons.MemberDescriptionIsOpened.HasValue)
+                        {
+                            memberDesc.IsOpened = (bool)cons.MemberDescriptionIsOpened;
+                        }
+                    }
+                }
                 memberDescList.Add(memberDesc);
             }
-
             model.BaseMemberDescriptionModelItems = memberDescList;
             return View(model);
         }

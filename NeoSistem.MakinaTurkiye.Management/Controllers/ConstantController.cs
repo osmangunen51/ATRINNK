@@ -42,7 +42,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string ConstantName, byte ConstantType, int Order, short ConstantId, string ConstantPropertie)
+        public ActionResult Create(string ConstantName, byte ConstantType, int Order, short ConstantId, string ConstantPropertie,bool MemberDescriptionIsOpened)
         {
 
             var curConstant = new Classes.Constant();
@@ -59,6 +59,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         duzelt.ConstantType = ConstantType;
                         duzelt.ContstantPropertie = ConstantPropertie;
                         duzelt.Order = Order;
+                        duzelt.MemberDescriptionIsOpened = MemberDescriptionIsOpened;
                         entities.SaveChanges();
                     }
                 }
@@ -73,6 +74,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         ConstantName = ConstantName,
                         ConstantType = ConstantType,
                         ContstantPropertie = ConstantPropertie,
+                        MemberDescriptionIsOpened= MemberDescriptionIsOpened,
                         Order = Order
                     };
                     entities.Constants.AddObject(constant);
@@ -137,7 +139,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             var curConstant = new Classes.Constant();
             curConstant.LoadEntity(ConstantId);
-            return Json(new { order = curConstant.Order, constantName = curConstant.ConstantName, constantPropertie = curConstant.ConstantPropertie });
+            return Json(new { order = curConstant.Order, constantName = curConstant.ConstantName, constantPropertie = curConstant.ConstantPropertie,MemberDescriptionIsOpened=curConstant.MemberDescriptionIsOpened });
             //return Content(curConstant.ConstantName);
         }
 
@@ -486,7 +488,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 ID = Convert.ToInt32(id);
                 propertie = _categoryPropertieService.GetPropertieById(ID);
                 model.PropertieId = ID;
-
                 model.PropertieName = propertie.PropertieName;
 
             }

@@ -13,11 +13,8 @@
             <th class="Header">Üye Email</th>
             <th class="Header">Telefon</th>
             <th class="Header">Web Adres</th>
-
             <th class="Header">Kayıt Tipi</th>
-            <th class="HeaderEnd Header">Üye No</th>
-
-
+            <th class="HeaderEnd Header">İşlemler</th>
         </tr>
     </thead>
     <tbody>
@@ -44,9 +41,8 @@
             <td class="Cell"><%:item.MemberEmail %></td>
             <td class="Cell"><%:item.PhoneNumbers %></td>
             <td class="Cell"><%:item.WebUrl %></td>
-
-            <td class="Cell"><%:item.MemberNo %></td>
-            <td class="CellEnd Cell"><%:item.Type %>
+            <td class="Cell"><%:item.Type %></td>
+            <td class="CellEnd Cell">
                 <a title="Açıklamalar" href="/Member/BrowseDesc1/<%: item.MemberMainPartyId %>" target="_blank">
             <img src="/Content/images/productonay.png">
         </a>

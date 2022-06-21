@@ -9,6 +9,8 @@
         public string ConstantTitle { get; set; }
         public string ConstantMailContent { get; set; }
         public int Order { get; set; }
+
+        public bool MemberDescriptionIsOpened { get; set; } = false;
     }
 
 }

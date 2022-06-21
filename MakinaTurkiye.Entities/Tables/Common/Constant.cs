@@ -15,7 +15,7 @@
         public string ContstantPropertie { get; set; }
         public string ConstantTitle { get; set; }
         public int? Order { get; set; }
-
+        public bool? MemberDescriptionIsOpened { get; set; }
 
         //public virtual ICollection<Product> ProductTypeProducts
         //{

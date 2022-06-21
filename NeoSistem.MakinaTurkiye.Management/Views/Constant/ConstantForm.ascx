@@ -23,8 +23,17 @@
       <%= Html.TextBoxFor(model => model.Order, new { style="height: 20px; width:205px;" })%>
     </td>
   </tr>
-
-
+     <tr>
+    <td valign="top">
+      Atama Açık Olma Durumu
+    </td>
+    <td valign="top">
+      :
+    </td>
+    <td valign="top">
+      <%= Html.CheckBoxFor(model => model.MemberDescriptionIsOpened, new { style="height: 20px; width:205px;" })%>
+    </td>
+  </tr>
   <tr>
     <td colspan="2">
     </td>

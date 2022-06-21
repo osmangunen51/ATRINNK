@@ -30,5 +30,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public int MemberMainPartyId { get; set; }
         public byte MemberType { get; set; }
         public decimal RestAmount { get; set; }
+        public bool IsOpened { get; set; } = true;
     }
 }

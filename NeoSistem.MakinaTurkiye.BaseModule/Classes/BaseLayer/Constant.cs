@@ -22,7 +22,7 @@ namespace NeoSistem.MakinaTurkiye.Classes
         [Column("Order", SqlDbType.Int)]
         public int Order { get; set; }
 
+        [Column("MemberDescriptionIsOpened", SqlDbType.Bit)]
+        public bool MemberDescriptionIsOpened { get; set; }
     }
-
-
 }

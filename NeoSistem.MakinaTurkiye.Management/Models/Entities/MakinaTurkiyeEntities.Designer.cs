@@ -12656,6 +12656,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private global::System.String _ConstantMailContent;
         partial void OnConstantMailContentChanging(global::System.String value);
         partial void OnConstantMailContentChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> MemberDescriptionIsOpened
+        {
+            get
+            {
+                return _MemberDescriptionIsOpened;
+            }
+            set
+            {
+                OnMemberDescriptionIsOpenedChanging(value);
+                ReportPropertyChanging("MemberDescriptionIsOpened");
+                _MemberDescriptionIsOpened = StructuralObject.SetValidValue(value, "MemberDescriptionIsOpened");
+                ReportPropertyChanged("MemberDescriptionIsOpened");
+                OnMemberDescriptionIsOpenedChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _MemberDescriptionIsOpened;
+        partial void OnMemberDescriptionIsOpenedChanging(Nullable<global::System.Boolean> value);
+        partial void OnMemberDescriptionIsOpenedChanged();
 
         #endregion
 

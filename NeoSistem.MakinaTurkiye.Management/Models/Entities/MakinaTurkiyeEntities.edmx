@@ -420,6 +420,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="ConstantTitle" Type="nvarchar(max)" />
           <Property Name="Order" Type="int" />
           <Property Name="ConstantMailContent" Type="text" />
+          <Property Name="MemberDescriptionIsOpened" Type="bit" />
         </EntityType>
         <EntityType Name="Country">
           <Key>
@@ -6482,6 +6483,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Type="String" Name="ConstantTitle" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Order" Type="Int32" />
           <Property Name="ConstantMailContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="MemberDescriptionIsOpened" Type="Boolean" />
         </EntityType>
         <EntityType Name="ProductSale">
           <Key>
@@ -9373,6 +9375,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <EntitySetMapping Name="Constants">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.Constant">
               <MappingFragment StoreEntitySet="Constant">
+                <ScalarProperty Name="MemberDescriptionIsOpened" ColumnName="MemberDescriptionIsOpened" />
                 <ScalarProperty Name="ConstantMailContent" ColumnName="ConstantMailContent" />
                 <ScalarProperty Name="Order" ColumnName="Order" />
                 <ScalarProperty Name="ConstantTitle" ColumnName="ConstantTitle" />
