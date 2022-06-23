@@ -1,5 +1,7 @@
 ﻿using MakinaTurkiye.Api.View;
 using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Services.Members;
+using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Services.Videos;
 using MakinaTurkiye.Utilities.ImageHelpers;
 using MakinaTurkiye.Utilities.VideoHelpers;
@@ -13,10 +15,13 @@ namespace MakinaTurkiye.Api.Controllers
     public class VideoController : BaseApiController
     {
         private readonly IVideoService videoService;
-
+        private readonly IStoreService _storeService;
+        private readonly IMemberStoreService _memberStoreService;
         public VideoController()
         {
             videoService = EngineContext.Current.Resolve<IVideoService>();
+            _storeService = EngineContext.Current.Resolve<IStoreService>();
+            _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
         }
 
         public HttpResponseMessage GetPopularVideos()
@@ -196,19 +201,42 @@ namespace MakinaTurkiye.Api.Controllers
             try
             {
                 var tmp = videoService.GetVideoByVideoId(videoId, showHidden);
-                if (!tmp.VideoPicturePath.StartsWith("https"))
+
+
+                if (tmp != null)
                 {
-                    tmp.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(tmp.VideoPicturePath);
+                    if (!tmp.VideoPicturePath.StartsWith("https"))
+                    {
+                        tmp.VideoPicturePath = "https:" + ImageHelper.GetVideoImagePath(tmp.VideoPicturePath);
+                    }
+                    if (!tmp.VideoPath.StartsWith("https"))
+                    {
+                        tmp.VideoPath = "https:" + VideoHelper.GetVideoPath(tmp.VideoPath);
+                    }
+                    var MemberStore=_memberStoreService.GetMemberStoreByMemberMainPartyId((int)tmp.Product.MainPartyId);
+                    MakinaTurkiye.Entities.Tables.Stores.Store store = new MakinaTurkiye.Entities.Tables.Stores.Store();
+                    if (MemberStore != null)
+                    {
+                        store = _storeService.GetStoreByMainPartyId((int)MemberStore.StoreMainPartyId);
+                        store.StoreLogo = !string.IsNullOrEmpty(store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(store.MainPartyId, store.StoreLogo, 300) : null;
+                    }
+                    processStatus.Message.Header = "Video İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                    processStatus.Result = new { 
+                        Video=tmp,
+                        Store= store
+                    };
+                    processStatus.Error = null;
                 }
-                if (!tmp.VideoPath.StartsWith("https"))
+                else
                 {
-                    tmp.VideoPath = "https:" + VideoHelper.GetVideoPath(tmp.VideoPath);
+                    processStatus.Message.Header = "Video İşlemleri";
+                    processStatus.Message.Text = "Video Bulunamadı";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = null;
                 }
-                processStatus.Message.Header = "Video İşlemleri";
-                processStatus.Message.Text = "Başarılı";
-                processStatus.Status = true;
-                processStatus.Result = tmp;
-                processStatus.Error = null;
             }
             catch (Exception ex)
             {

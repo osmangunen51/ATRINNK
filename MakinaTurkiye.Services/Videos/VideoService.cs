@@ -285,12 +285,10 @@ namespace MakinaTurkiye.Services.Videos
 
                 if (!showHidden)
                     query = query.Where(v => v.Active == true);
-
                 query = query.Include(v => v.Product);
                 query = query.Include(v => v.Product.Brand);
                 query = query.Include(v => v.Product.Model);
                 query = query.Include(v => v.Product.Category);
-
                 var video = query.FirstOrDefault(v => v.VideoId == videoId);
                 return video;
             });

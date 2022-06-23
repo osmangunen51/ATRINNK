@@ -631,6 +631,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.FooterContent' does not have a p
           <Property Name="Subject" Type="nvarchar" MaxLength="250" />
           <Property Name="Content" Type="text" />
           <Property Name="RecordDate" Type="datetime" />
+          <Property Name="ConstantId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -7698,6 +7699,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Name="Subject" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="RecordDate" Type="DateTime" Precision="3" />
+          <Property Name="ConstantId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Invoice">
           <Key>
@@ -10193,6 +10195,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <EntitySetMapping Name="Helps">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.Help">
               <MappingFragment StoreEntitySet="Help">
+                <ScalarProperty Name="ConstantId" ColumnName="ConstantId" />
                 <ScalarProperty Name="RecordDate" ColumnName="RecordDate" />
                 <ScalarProperty Name="Content" ColumnName="Content" />
                 <ScalarProperty Name="Subject" ColumnName="Subject" />

@@ -2973,8 +2973,21 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var Phones = entities.Phones.Where(x => x.MainPartyId == bModelDesc.StoreID).ToList();
             foreach (var x in Phones.Where(x=>x.PhoneType!=(byte)PhoneType.Fax))
             {
-                var tmp = $"{Enum.GetName(typeof(PhoneType),x.PhoneType)} : {x.PhoneCulture} {x.PhoneAreaCode} {x.PhoneNumber}";
-                Contacts.Add(tmp);
+                if ((PhoneType)x.PhoneType==PhoneType.Phone)
+                {
+                    var tmp = $"{Enum.GetName(typeof(PhoneType), x.PhoneType)} : <a target=\"_blank\" href=\"tel:{ x.PhoneCulture} {x.PhoneAreaCode} {x.PhoneNumber}\">{ x.PhoneCulture} {x.PhoneAreaCode} {x.PhoneNumber}</a>";
+                    Contacts.Add(tmp);
+                }
+                if ((PhoneType)x.PhoneType == PhoneType.Gsm)
+                {
+                    var tmp = $"{Enum.GetName(typeof(PhoneType), x.PhoneType)} : <a target=\"_blank\" href=\"tel:{ x.PhoneCulture} {x.PhoneAreaCode} {x.PhoneNumber}\">{ x.PhoneCulture} {x.PhoneAreaCode} {x.PhoneNumber}</a>";
+                    Contacts.Add(tmp);
+                }
+                if ((PhoneType)x.PhoneType == PhoneType.Whatsapp)
+                {
+                    var tmp = $"{Enum.GetName(typeof(PhoneType), x.PhoneType)} :  <a target=\"_blank\" href='https://api.whatsapp.com/send?phone={x.PhoneCulture}{x.PhoneAreaCode}{x.PhoneNumber}&text=Merhaba MakinaTürkiye | Sizinle iş birliği yapabiliriz.'>{x.PhoneAreaCode}{x.PhoneNumber}</a>";
+                    Contacts.Add(tmp);
+                }
             }
 
             if (member!=null)
@@ -3002,6 +3015,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             var Members = entities.Members.ToList();
             var MemberStores = entities.MemberStores.ToList();
+            var contantlist = _constantService.GetAllConstants();
             foreach (var item in otherMemberDescs)
             {
                 BaseMemberDescriptionModel otherItem = new BaseMemberDescriptionModel();
@@ -3040,11 +3054,33 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     otherItem.ToUserName = userTo.UserName;
                 }
-                lock (this)
+
+                otherItem.IsOpened = true;
+                if (item.ConstantId.HasValue)
                 {
-                    memberDescriptionsOther.Add(otherItem);
+                    var cons = contantlist.FirstOrDefault(x => x.ConstantId == item.ConstantId);
+                    if (cons != null)
+                    {
+                        if (cons.MemberDescriptionIsOpened.HasValue)
+                        {
+                            otherItem.IsOpened = (bool)cons.MemberDescriptionIsOpened;
+                        }
+                    }
                 }
+                else
+                {
+                    var cons = contantlist.FirstOrDefault(x => x.ConstantName == item.Title);
+                    if (cons != null)
+                    {
+                        if (cons.MemberDescriptionIsOpened.HasValue)
+                        {
+                            otherItem.IsOpened = (bool)cons.MemberDescriptionIsOpened;
+                        }
+                    }
+                }
+                memberDescriptionsOther.Add(otherItem);
             }
+
             bModelDesc.Contact = "";
             if (Contacts != null)
             {

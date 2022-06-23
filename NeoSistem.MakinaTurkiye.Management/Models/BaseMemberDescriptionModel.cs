@@ -51,5 +51,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string StoreUrl { get; set; } = "";
         public string StorePacket { get; set; } = "";
         public DateTime StorePacketEndDate { get; set; }
+
+        public bool IsOpened { get; set; } = true;
+
     }
 }

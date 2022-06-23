@@ -85,14 +85,18 @@
             <tbody>
                 <%int row = 0; %>
                 <%foreach (var itemMemberDesc in Model.BaseMemberDescriptionModelItems.ToList())
-                {
+                    {
                         row++;
                         string backColor = "";
                         if (itemMemberDesc.Title == "Ödeme")
                         {
                             backColor = "#dabd9b";
                         }
-                        string key = Guid.NewGuid().ToString();                       
+                        string key = Guid.NewGuid().ToString();
+                        if (!itemMemberDesc.IsOpened)
+                        {
+                            backColor = "#ff76002b";
+                        }
                 %>
                     <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>" style="background-color: <%:backColor%>">
                         <td class="Cell">

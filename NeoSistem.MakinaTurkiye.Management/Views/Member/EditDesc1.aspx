@@ -150,14 +150,14 @@
             {%>
         <br />
        <div style="width:100%">
-           <div style="width: 40%; float: left;">
+           <div style="width: 40%; float: left;<%=(Model.StoreID.HasValue?"":"background-color:rgb(224 242 244)")%>">
             <%if (Model.StoreID.HasValue)
                 {%>
                     <a style="font-size: 18px;margin-left:10px" target="_blank" href="/Store/EditStore/<%:Model.StoreID %>"><%=Model.StoreName%></a>
                 <%}
                 else
                 {%>
-                    <a style="font-size: 18px;margin-left:10px" target="_blank" href="#"><%=Model.StoreName%></a>
+                    <a style="font-size: 18px;margin-left:10px" target="_blank" href="#"><%=Model.StoreName%></a> <span style="font-weight:700;font-size:16px;color:red;float:right">ÖN KAYIT</span>
                 <%}%>
             
             <br />
@@ -419,8 +419,8 @@
     <% } %>
     <div>
     <br />
-    </div>
-    <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
+   </div>
+   <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
         <thead>
             <tr>
                 <td class="Header HeaderBegin">Üye Adı
@@ -437,14 +437,24 @@
             </tr>
         </thead>
         <tbody>
-            <%int row = 0; %>
+            <%int row = 0;%>
             <%if (Model.BaseMemberDescriptionByUser.Count > 0)
                 { %>
             <%foreach (var itemMemberDesc in Model.BaseMemberDescriptionByUser)
                 {
                     row++;
+                     string backColor = "";
+                        if (itemMemberDesc.Title == "Ödeme")
+                        {
+                            backColor = "#dabd9b";
+                        }
+                        string key = Guid.NewGuid().ToString();
+                        if (!itemMemberDesc.IsOpened)
+                        {
+                            backColor = "#ff76002b";
+                        }
             %>
-            <tr id="row<%:itemMemberDesc.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
+            <tr id="row<%:itemMemberDesc.ID %>" class="<%:(row % 2 == 0 ? "Row" : "RowAlternate")%>" style="background-color: <%:backColor%>">
                 <td class="Cell CellBegin">
                     <%:Html.Truncate(ViewData["MemberName"].ToString(),15)%>..</td>
                 <td class="Cell"><%if (Model.StoreName != "")
@@ -461,8 +471,18 @@
                     <%} %>
                     <%}%></td>
                 <td class="Cell"><%:itemMemberDesc.Title %></td>
-                <td class="Cell" style="font-size: 15px;"><%:Html.Raw(itemMemberDesc.Description)
-                %>
+                <td class="Cell" style="font-size: 15px;">
+                     <%if (itemMemberDesc.IsOpened)
+                                {%>
+                                <%=Html.Raw(itemMemberDesc.Description)%>
+                            <%}
+                            %>
+                            <%else{%>
+                                 <button style="float:right;padding:10px" class="toggle" data-hedef="#pnl<%=key%>"> Göster </button>
+                                      <div class="target kapali" id="pnl<%=key%>">
+                                         <%=Html.Raw(itemMemberDesc.Description)%>
+                                 </div>
+                             <%}%>
                 </td>
                 <td class="Cell"><% if (itemMemberDesc.InputDate != null)
 {
@@ -583,6 +603,29 @@
 
        //CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
    </script>
+         <script type="text/javascript">
+             $(document).ready(function () {
+                 $(".kapali").each(function (index) {
+                     var kontrol = $(this);
+                     kontrol.toggle();
+                 });
+                 $(".toggle").click(function () {
+                     var kontrol = $(this);
+                     var hedef = kontrol.attr("data-hedef");
+                     console.log(hedef);
+                     if ($(hedef).hasClass("open")) {
+                         $(hedef).hide();
+                         $(hedef).removeClass("open");
+                         kontrol.html('Göster');
+                     }
+                     else {
+                         $(hedef).show();
+                         $(hedef).addClass("open");
+                         kontrol.html('Gizle');
+                     }
+                 });
+             });
+         </script>
 </asp:Content>
 
 

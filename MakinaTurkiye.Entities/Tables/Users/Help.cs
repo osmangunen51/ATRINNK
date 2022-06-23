@@ -12,6 +12,6 @@ namespace MakinaTurkiye.Entities.Tables.Users
         [Column(TypeName = "text")]
         public string Content { get; set; }
         public DateTime RecordDate { get; set; }
-
+        public int ConstantId { get; set; }
     }
 }

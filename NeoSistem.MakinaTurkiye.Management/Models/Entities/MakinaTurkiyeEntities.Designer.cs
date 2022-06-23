@@ -16488,10 +16488,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// Create a new Help object.
         /// </summary>
         /// <param name="helpId">Initial value of the HelpId property.</param>
-        public static Help CreateHelp(global::System.Int32 helpId)
+        /// <param name="constantId">Initial value of the ConstantId property.</param>
+        public static Help CreateHelp(global::System.Int32 helpId, global::System.Int32 constantId)
         {
             Help help = new Help();
             help.HelpId = helpId;
+            help.ConstantId = constantId;
             return help;
         }
 
@@ -16597,6 +16599,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.DateTime> _RecordDate;
         partial void OnRecordDateChanging(Nullable<global::System.DateTime> value);
         partial void OnRecordDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ConstantId
+        {
+            get
+            {
+                return _ConstantId;
+            }
+            set
+            {
+                OnConstantIdChanging(value);
+                ReportPropertyChanging("ConstantId");
+                _ConstantId = StructuralObject.SetValidValue(value, "ConstantId");
+                ReportPropertyChanged("ConstantId");
+                OnConstantIdChanged();
+            }
+        }
+        private global::System.Int32 _ConstantId;
+        partial void OnConstantIdChanging(global::System.Int32 value);
+        partial void OnConstantIdChanged();
 
         #endregion
 
