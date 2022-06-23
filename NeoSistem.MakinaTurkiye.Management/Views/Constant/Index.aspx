@@ -241,7 +241,7 @@
             <option value="<%=(byte)ConstantType.SeoDescriptionTitle %>">Firma Seo Açıklama Başlık</option>
             <option value="<%=(byte)ConstantType.CategoryFooterTopDescription %>">Kategori Footer Üstü Açıklama</option>
             <option value="<%=(byte)ConstantType.PacketSalesFooter %>">Paket Satın Al Sayfası Alt</option>
-
+            <option value="<%=(byte)ConstantType.CrmYardimKategori %>">Crm Yardım Kategori</option>
         </select>&nbsp;&nbsp;
     <button onclick="openDialog();">
         Sabit Başlık Ekle</button>

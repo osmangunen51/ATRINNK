@@ -16,6 +16,18 @@
     </tr>
   <tr>
     <td valign="top">
+     Kategori
+    </td>
+      <td valign="top">
+      :
+    </td>
+    <td style="height: 30px;">
+      <div id="divConstantId" class="dropdownAddress">
+        <%:Html.DropDownListFor(model => model.ConstantId, Model.ConstantList, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })%></div>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
      Konu
     </td>
     <td valign="top">

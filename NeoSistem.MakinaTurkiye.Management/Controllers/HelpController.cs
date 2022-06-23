@@ -56,6 +56,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 global::MakinaTurkiye.Entities.Tables.Users.Help help = new global::MakinaTurkiye.Entities.Tables.Users.Help();
                 help.Content = model.Content;
                 help.RecordDate = DateTime.Now;
+                help.ConstantId = model.ConstantId;
                 help.Subject = model.Subject;
                 _helpService.InsertHelp(help);
                 return RedirectToAction("index");
@@ -72,7 +73,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var help = _helpService.GetHelpByHelpId(id);
             HelpModel model = new HelpModel();
             model.Content = help.Content;
-
+            model.ConstantId = help.ConstantId;
             model.Subject = help.Subject;
             model.ID = help.HelpId;
             return View(model);
@@ -84,6 +85,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var help = _helpService.GetHelpByHelpId(model.ID);
             help.Content = model.Content;
             help.Subject = model.Subject;
+            help.ConstantId = model.ConstantId;
             _helpService.UpdateHelp(help);
             ViewBag.Message = "Kayıt Başarıyla Güncellenmiştir.";
             return View(model);

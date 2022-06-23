@@ -34,7 +34,7 @@ namespace MakinaTurkiye.Api.Controllers
 {
     public class StoreController : BaseApiController
     {
-        private readonly IStoreService _storeService;
+
         private readonly IStoreNewService _storeNewService;
         private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
@@ -51,6 +51,7 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IMemberService _memberService;
         private readonly ICertificateTypeService _certificateTypeService;
         private readonly IStoreCatologFileService _storeCatologFileService;
+        private readonly IStoreService _storeService;
         private readonly IMemberStoreService _memberStoreService;
         private readonly IMessagesMTService _messageMTService;
         private readonly IMemberSettingService _memberSettingService;
@@ -63,7 +64,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public StoreController()
         {
-            _storeService = EngineContext.Current.Resolve<IStoreService>();
+           
             _storeNewService = EngineContext.Current.Resolve<IStoreNewService>();
             _categoryService = EngineContext.Current.Resolve<ICategoryService>();
             _productService = EngineContext.Current.Resolve<IProductService>();
@@ -80,6 +81,7 @@ namespace MakinaTurkiye.Api.Controllers
             _memberService = EngineContext.Current.Resolve<IMemberService>();
             _certificateTypeService = EngineContext.Current.Resolve<ICertificateTypeService>();
             _storeCatologFileService = EngineContext.Current.Resolve<IStoreCatologFileService>();
+            _storeService = EngineContext.Current.Resolve<IStoreService>();
             _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
             _storeChangeHistoryService = EngineContext.Current.Resolve<IStoreChangeHistoryService>();
             _storeActivityCategoryService = EngineContext.Current.Resolve<IStoreActivityCategoryService>();
