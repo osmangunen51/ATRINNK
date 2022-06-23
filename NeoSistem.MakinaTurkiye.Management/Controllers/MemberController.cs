@@ -667,7 +667,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             if (alluserfriend.Eposta1 != null)
                             {
                                 MailMessage maila = new MailMessage();
-                                mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName);
+                                maila.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName);
                                 maila.To.Add(alluserfriend.Eposta1); //Mailin kime gideceğini belirtiyoruz
                                 allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad1 + " " + alluserfriend.SoyAd2);
                                 maila.Subject = allusersubtitle; //Mail konusu
@@ -677,11 +677,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
                                 if (tip == 1)
                                 {
-                                    mail.Body = mail.Body.Replace("#signature#", "");
+                                    maila.Body = mail.Body.Replace("#signature#", "");
                                 }
                                 else if (tip == 2)
                                 {
-                                    RevizeMailSenderInformation(mail, ref NetworkCredential);
+                                    RevizeMailSenderInformation(maila, ref NetworkCredential);
                                 }
                                 this.SendMail(maila, NetworkCredential);
                             }
@@ -896,7 +896,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             if (alluserfriend.Eposta1 != null)
                             {
                                 MailMessage maila = new MailMessage();
-                                mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName);
+                                maila.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName);
                                 maila.To.Add(alluserfriend.Eposta1); //Mailin kime gideceğini belirtiyoruz
                                 allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad1 + " " + alluserfriend.SoyAd2);
                                 maila.Subject = allusersubtitle; //Mail konusu
@@ -904,7 +904,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 maila.IsBodyHtml = true;
                                 maila.Priority = MailPriority.Normal;
                                 NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
-                                mail.BodyEncoding = Encoding.UTF8;
+                                maila.BodyEncoding = Encoding.UTF8;
                                 RevizeMailSenderInformation(maila, ref NetworkCredential);
                                 this.SendMail(maila, NetworkCredential);
                             }
@@ -927,7 +927,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 mailb.Priority = MailPriority.High;
                                 NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
 
-                                mail.BodyEncoding = Encoding.UTF8;
+                                mailb.BodyEncoding = Encoding.UTF8;
                                 RevizeMailSenderInformation(mailb, ref NetworkCredential);
                                 this.SendMail(mailb, NetworkCredential);
                             }

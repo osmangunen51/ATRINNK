@@ -89,6 +89,7 @@ namespace MakinaTurkiye.Services.Members
             pTotalRecords.Direction = ParameterDirection.Output;
 
 
+            
             var descripitons = _dbContext.SqlQuery<MemberDescriptionForStore>("SP_GETMEMBERDESCBYONDATE @UserId, @UserGroupId, @PageIndex, @PageDimension,@OrderBy, @ConstantId, @TotalRecord output", pUserId, pUserGroupId, pPageIndex, pPageSize, pOrderBy, pConstantId, pTotalRecords).ToList();
             totalRecord = (pTotalRecords.Value != DBNull.Value) ? Convert.ToInt32(pTotalRecords.Value) : 0;
             return descripitons;

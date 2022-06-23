@@ -60,6 +60,7 @@
             catch (Exception Hata)
             {
                 Status = false;
+                TempData["StoreEmailError"]=Hata.Message;
             }
             return Status;
         }

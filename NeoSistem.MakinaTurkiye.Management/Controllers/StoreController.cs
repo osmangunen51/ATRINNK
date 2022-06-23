@@ -74,6 +74,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly IStoreSectorService _storeSectorService;
         private readonly IStoreDiscountService _storeDiscountService;
         private readonly IStoreSeoNotificationService _storeSeoNotificationService;
+        private readonly IConstantService _constantService;
 
 
 
@@ -89,7 +90,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
              IStoreSectorService storeSectorService,
              ICategoryService categoryService,
               IStoreDiscountService storeDiscountService,
-              IStoreSeoNotificationService storeSeoNotificationService)
+              IStoreSeoNotificationService storeSeoNotificationService,
+              IConstantService constantService
+              )
         {
             this._loginLogService = loginLogService;
             this._whatsapplogService = whatsapplogService;
@@ -107,9 +110,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             this._categoryService = categoryService;
             this._storeDiscountService = storeDiscountService;
             this._storeSeoNotificationService = storeSeoNotificationService;
-
+            this._constantService = constantService;
             _phoneService.CachingGetOrSetOperationEnabled = false;
-
 
         }
 
@@ -2798,8 +2800,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 store1.StoreUrlName = store1.StoreUrlName + +i;
                                 entites1.SaveChanges();
                             }
-
-                        }
+                                                    }
 
                     }
                 }
@@ -2913,7 +2914,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 model.WhatsappClickCount = 0;
 
 
-            var memberDescriptions = entities.MemberDescriptions.Where(x => x.MainPartyId == member.MainPartyId && x.ConstantId != null).OrderByDescending(x => x.descId);
+            var memberDescriptions = entities.MemberDescriptions.Where(x => x.MainPartyId == member.MainPartyId && x.ConstantId != null).OrderByDescending(x => x.descId).ToList();
+            var contantlist = _constantService.GetAllConstants();
             foreach (var item in memberDescriptions.Skip(0).Take(4))
             {
                 
@@ -2923,6 +2925,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var userFrom = entities.Users.FirstOrDefault(x => x.UserId == item.FromUserId);
                 if (userFrom != null)
                     modelMemberdesc.UserName = userFrom.UserName;
+
+                modelMemberdesc.IsOpened = true;
+                if (item.ConstantId.HasValue)
+                {
+                    var cons = contantlist.FirstOrDefault(x => x.ConstantId == item.ConstantId);
+                    if (cons != null)
+                    {
+                        if (cons.MemberDescriptionIsOpened.HasValue)
+                        {
+                            modelMemberdesc.IsOpened = (bool)cons.MemberDescriptionIsOpened;
+                        }
+                    }
+                }
+                else
+                {
+                    var cons = contantlist.FirstOrDefault(x => x.ConstantName == item.Title);
+                    if (cons != null)
+                    {
+                        if (cons.MemberDescriptionIsOpened.HasValue)
+                        {
+                            modelMemberdesc.IsOpened = (bool)cons.MemberDescriptionIsOpened;
+                        }
+                    }
+                }
                 model.StoreMemberDescriptionItems.Add(modelMemberdesc);
             }
             model.MemberMainPartyId = member.MainPartyId.ToString();
@@ -2943,6 +2969,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             if (storeUpdate != null)
                 model.StoreInformationModel.StoreUpdatedDate = storeUpdate.UpdatedDate;
             ViewData["StoreInformation"] = true;
+            
+
             return View(model);
         }
         public ActionResult WithoutDescriptionStore(string page)

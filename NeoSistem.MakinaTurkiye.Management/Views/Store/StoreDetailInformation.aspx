@@ -477,7 +477,12 @@
                 </tr>
                
               <%foreach (var item in Model.StoreMemberDescriptionItems)
-                    {%>
+                  {
+                      if (!item.IsOpened)
+                      {
+                          item.Description = "Mail";
+                      }
+                      %>
                         
                         <tr>
                             <td colspan="3">

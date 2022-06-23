@@ -17,7 +17,12 @@
                     </div>
                     
                   <% } %>
-                  <div style="column-count:3;
+                  
+            
+          </div>
+         <br />
+     <div id="gonderr">
+         <div style="column-count:3;
        -moz-column-count:3;
        -webkit-column-count:3;
        background-color: #f8fbff;
@@ -52,11 +57,6 @@
               <% } %>
             </ul>
                   </div>
-            
-          </div>
-         <br />
-     <div id="gonderr">
-
          <table style="float:left;">
              <tbody>
                  <tr>

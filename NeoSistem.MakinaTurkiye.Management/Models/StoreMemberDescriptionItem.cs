@@ -9,5 +9,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public int DescId { get; set; }
         public string Description { get; set; }
         public DateTime? RecordDate { get; set; }
+
+        public bool IsOpened { get; set; } = true;
     }
 }
