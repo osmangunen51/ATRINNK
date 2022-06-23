@@ -2916,6 +2916,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var memberDescriptions = entities.MemberDescriptions.Where(x => x.MainPartyId == member.MainPartyId && x.ConstantId != null).OrderByDescending(x => x.descId);
             foreach (var item in memberDescriptions.Skip(0).Take(4))
             {
+                
                 var modelMemberdesc = new StoreMemberDescriptionItem { DescId = item.descId, Description = item.Description, Title = item.Title };
                 if (item.Date.HasValue)
                     modelMemberdesc.RecordDate = item.Date.Value;

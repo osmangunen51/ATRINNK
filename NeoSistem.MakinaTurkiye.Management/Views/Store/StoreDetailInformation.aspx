@@ -478,6 +478,7 @@
                
               <%foreach (var item in Model.StoreMemberDescriptionItems)
                     {%>
+                        
                         <tr>
                             <td colspan="3">
                                <b> <%:item.Title %></b>(<%:item.UserName %>)<br />

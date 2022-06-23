@@ -10,8 +10,7 @@
    <%using (Html.BeginForm(null, null, FormMethod.Post, new { id = "frmmailsend" }))
      {%>
      <input id="tip" name="tip" type="hidden" value="1" />
-     <div id="gonderr">
-              <div id="cons" class="plusContent">
+                  <div id="cons" class="plusContent">
                   <%if (TempData["StoreEmailError"] != null) {%>
                     <div style="font-size:16px; color:#780000">
                         <%:TempData["StoreEmailError"].ToString() %>*
@@ -56,6 +55,8 @@
             
           </div>
          <br />
+     <div id="gonderr">
+
          <table style="float:left;">
              <tbody>
                  <tr>

@@ -274,9 +274,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         mail.Body = template; //Mailin içeriği
                         mail.IsBodyHtml = true;
                         mail.Priority = MailPriority.Normal;
-
-
-
                         this.SendMail(mail);
                     }
                     catch
@@ -3035,10 +3032,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     Contacts.Add("Telefon 3 : " + preRegistration.PhoneNumber3);
                     Contacts.Add("Email : " + preRegistration.Email);
                 }
-
                 var user = entities.Users.FirstOrDefault(x => x.UserId == item.FromUserId);
-                if (user != null)
-                    otherItem.UserName = user.UserName;
+                if (user != null) otherItem.UserName = user.UserName;
 
                 var userTo = entities.Users.FirstOrDefault(x => x.UserId == item.UserId);
                 if (userTo != null)
@@ -3078,7 +3073,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 if (item.ConstantName != "Ödeme")
                 {
                     var selectListItem = new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString() };
-
                     if (item.ConstantId == MemberDesc.ConstantId)
                     {
                         selectListItem.Selected = true;
