@@ -201,8 +201,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Constants
         private static List<LeftMenuItems> CreateStatisticItems(int itemActive = 0)
         {
             List<LeftMenuItems> leftMenuItems = new List<LeftMenuItems>();
-            leftMenuItems.Add(new LeftMenuItems { Name = "Firma İstatistikleri", IsActive = (itemActive == (byte)Statistic.StoreStatistics ? true : false), ControlNubmer = (byte)Statistic.StoreStatistics, Url = "/Account/Statistic/Index?pagetype=1" });
-            leftMenuItems.Add(new LeftMenuItems { Name = "İlan İstatistikleri", IsActive = (itemActive == (byte)Statistic.AdStatistics), ControlNubmer = (byte)Statistic.AdStatistics, Url = "/Account/Statistic/Index?pagetype=3" });
+            //leftMenuItems.Add(new LeftMenuItems { Name = "Firma İstatistikleri", IsActive = (itemActive == (byte)Statistic.StoreStatistics ? true : false), ControlNubmer = (byte)Statistic.StoreStatistics, Url = "/Account/Statistic/Index" });
+            leftMenuItems.Add(new LeftMenuItems { Name = "İlan İstatistikleri", IsActive = (itemActive == (byte)Statistic.AdStatistics), ControlNubmer = (byte)Statistic.AdStatistics, Url = "/Account/Statistic/Index" });
             return leftMenuItems;
         }
         private static List<LeftMenuItems> CreateStatusItems(int itemActive = 0)

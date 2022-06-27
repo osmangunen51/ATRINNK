@@ -26,7 +26,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
-    <IISExpressSSLPort>44312</IISExpressSSLPort>
+    <IISExpressSSLPort>2526</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
     <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
@@ -489,6 +489,7 @@
     <Compile Include="Models\Statistics\FilterItemModel.cs" />
     <Compile Include="Models\Statistics\MTProductItem.cs" />
     <Compile Include="Models\Statistics\MTProductStatisticViewModel.cs" />
+    <Compile Include="Models\Statistics\StatisticModel.cs" />
     <Compile Include="Models\Statistics\ProductStatisticModel.cs" />
     <Compile Include="Models\StoreNews\MTNewDetailModel.cs" />
     <Compile Include="Models\StoreNews\MTNewOtherItem.cs" />
@@ -720,6 +721,7 @@
     <Content Include="Content\V2\assets\js\bootstrapValidator.js" />
     <Content Include="Content\V2\assets\js\chart-util.js" />
     <Content Include="Content\V2\assets\js\Chart.min.js" />
+    <Content Include="Content\V2\assets\js\echarts.js" />
     <Content Include="Content\V2\assets\js\imagesloaded.js" />
     <Content Include="Content\V2\assets\js\jquery-ui-1.9.2.custom.min.js">
       <DependentUpon>jquery-ui-1.9.2.custom.js</DependentUpon>
@@ -2862,15 +2864,15 @@
     <Content Include="Views\Home\_HeaderBaseMenu.cshtml" />
     <Content Include="Views\Home\_NewAddedProducts.cshtml" />
     <None Include="Views\Message\Send.cshtml" />
-	  <Content Include="Web.config">
-		  <SubType>Designer</SubType>
-	  </Content>
-	  <Content Include="Web.Debug.config">
-		  <DependentUpon>Web.config</DependentUpon>
-	  </Content>
-	  <Content Include="Web.Release.config">
-		  <DependentUpon>Web.config</DependentUpon>
-	  </Content>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

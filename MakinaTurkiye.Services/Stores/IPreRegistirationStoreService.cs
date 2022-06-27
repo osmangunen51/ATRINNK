@@ -12,6 +12,8 @@ namespace MakinaTurkiye.Services.Stores
 
         IPagedList<PreRegistrationStore> GetPreRegistirationStores(int page, int pageSize, string storeName, string email);
 
+        IList<PreRegistrationStore> GetPreRegistrationStoreSearchByPhone(params string[] Phones);
+
         PreRegistrationStore GetPreRegistirationStoreByPreRegistrationStoreId(int preRegistraionStoreId);
 
         IList<PreRegistrationStore> GetPreRegistrationStoreSearchByName(string storeName);

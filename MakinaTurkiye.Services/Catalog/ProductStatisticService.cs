@@ -42,6 +42,14 @@ namespace MakinaTurkiye.Services.Catalog
 
         }
 
+
+        public List<ProductStatistic> GetProductStatisticsByMemberMainPartyId(int memberMainPartyId)
+        {
+            var query = _productStatisticRepository.GetProductStatisticByMemberMainPartyID(memberMainPartyId);
+            return query;
+        }
+
+
         public List<ProductStatistic> GetProductStatisticsByProductId(int productId)
         {
             if (productId == 0)

@@ -28,20 +28,46 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
         public ActionResult Index()
         {
-
             HelpListModel model = new HelpListModel();
             model.TotalPage = Convert.ToInt32(Math.Ceiling((decimal)(_helpService.GetAllHelp().Count / PageSize)));
             model.CurrentPage = 1;
             var helps = _helpService.GetHelpByForPaging(PageSize, 0);
-
-            foreach (var help in helps)
+            using (MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities())
             {
-                HelpModel item = new HelpModel { Content = help.Content, ID = help.HelpId, RecordDate = help.RecordDate, Subject = help.Subject };
-                model.HelpModels.Add(item);
-
+                var constandList = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.CrmYardimKategori).ToList();
+                foreach (var help in helps)
+                {
+                    HelpModel item = new HelpModel { ConstantId=help.ConstantId,Content = help.Content, ID = help.HelpId, RecordDate = help.RecordDate, Subject = help.Subject };
+                    if (item.ConstantId > 0)
+                    {
+                        item.Constant = constandList.FirstOrDefault(x => x.ConstantId == (short)item.ConstantId);
+                    }
+                    model.HelpModels.Add(item);
+                }
             }
             return View(model);
         }
+
+        public ActionResult Show()
+        {
+            HelpListModel model = new HelpListModel();
+            var helps1 = _helpService.GetHelpByForPaging(10000, 0);
+            using (MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities())
+            {
+                var constandList = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.CrmYardimKategori).ToList();
+                foreach (var help in helps1)
+                {
+                    HelpModel item = new HelpModel { ConstantId = help.ConstantId, Content = help.Content, ID = help.HelpId, RecordDate = help.RecordDate, Subject = help.Subject };
+                    if (item.ConstantId > 0)
+                    {
+                        item.Constant = constandList.FirstOrDefault(x => x.ConstantId == (short)item.ConstantId);
+                    }
+                    model.WHelpModels.Add(item);
+                }
+            }
+            return View(model);
+        }
+
         public ActionResult Add()
         {
             HelpModel model = new HelpModel();
@@ -100,13 +126,19 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.TotalPage = _helpService.GetAllHelp().Count;
             model.CurrentPage = newPage;
             model.TotalPage = Convert.ToInt32(Math.Ceiling((decimal)(_helpService.GetAllHelp().Count / PageSize)));
-            foreach (var help in helps)
+            using (MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities())
             {
-                HelpModel item = new HelpModel { Content = help.Content, ID = help.HelpId, RecordDate = help.RecordDate, Subject = help.Subject };
-                model.HelpModels.Add(item);
-
+                var constandList = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.CrmYardimKategori).ToList();
+                foreach (var help in helps)
+                {
+                    HelpModel item = new HelpModel { ConstantId = help.ConstantId, Content = help.Content, ID = help.HelpId, RecordDate = help.RecordDate, Subject = help.Subject };
+                    if (item.ConstantId > 0)
+                    {
+                        item.Constant = constandList.FirstOrDefault(x => x.ConstantId == (short)item.ConstantId);
+                    }
+                    model.HelpModels.Add(item);
+                }
             }
-
             return PartialView("_HelpDataItem", model);
         }
         [HttpPost]

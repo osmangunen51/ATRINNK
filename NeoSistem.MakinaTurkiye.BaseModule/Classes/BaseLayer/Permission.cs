@@ -15,8 +15,5 @@ namespace NeoSistem.MakinaTurkiye.Classes
 
         [Column("PermissionGroupName", SqlDbType.VarChar)]
         public string PermissionGroupName { get; set; }
-
     }
-
-
 }

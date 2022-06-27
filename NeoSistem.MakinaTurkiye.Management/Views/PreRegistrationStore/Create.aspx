@@ -48,6 +48,10 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div style="width: 30%; float: left; margin-left: 10px;">
+            <%if (TempData["error"] != null)
+        {%>
+        <p style="font-size:15px;"><%=TempData["error"].ToString()%></p>
+        <%} %>
         <%if (TempData["success"] != null)
             {%>
         <p style="font-size: 15px;">Firma Eklenmiştir</p>

@@ -11,7 +11,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Statistics
             this.ProductItems = new SearchModel<ProductModel>();
             this.MTStatisticModel = new MTStatisticModel();
         }
-
         public SearchModel<ProductModel> ProductItems { get; set; }
 
         public LeftMenuModel LeftMenu { get; set; }

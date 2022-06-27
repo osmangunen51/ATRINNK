@@ -134,23 +134,32 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             else
             {
-                var preRegistrationStore = new PreRegistrationStore();
-                preRegistrationStore.Email = model.Email;
-                preRegistrationStore.MemberName = model.MemberName;
-                preRegistrationStore.MemberSurname = model.MemberSurname;
-                preRegistrationStore.PhoneNumber = model.PhoneNumber;
-                preRegistrationStore.PhoneNumber2 = model.PhoneNumber2;
-                preRegistrationStore.PhoneNumber3 = model.PhoneNumber3;
-                preRegistrationStore.StoreName = model.StoreName;
-                preRegistrationStore.RecordDate = DateTime.Now;
-                preRegistrationStore.WebUrl = model.WebUrl;
-                preRegistrationStore.City = model.City;
-                preRegistrationStore.ContactNameSurname = model.ContactNameSurname;
-                preRegistrationStore.ContactPhoneNumber = model.ContactPhoneNumber;
+                var checkpreRegistrationStore = _preRegistrationService.GetPreRegistrationStoreSearchByPhone(model.PhoneNumber, model.PhoneNumber2, model.PhoneNumber3, model.ContactPhoneNumber);
+                if (checkpreRegistrationStore.Count() == 0)
+                {
+                    var preRegistrationStore = new PreRegistrationStore();
+                    preRegistrationStore.Email = model.Email;
+                    preRegistrationStore.MemberName = model.MemberName;
+                    preRegistrationStore.MemberSurname = model.MemberSurname;
+                    preRegistrationStore.PhoneNumber = model.PhoneNumber;
+                    preRegistrationStore.PhoneNumber2 = model.PhoneNumber2;
+                    preRegistrationStore.PhoneNumber3 = model.PhoneNumber3;
+                    preRegistrationStore.StoreName = model.StoreName;
+                    preRegistrationStore.RecordDate = DateTime.Now;
+                    preRegistrationStore.WebUrl = model.WebUrl;
+                    preRegistrationStore.City = model.City;
+                    preRegistrationStore.ContactNameSurname = model.ContactNameSurname;
+                    preRegistrationStore.ContactPhoneNumber = model.ContactPhoneNumber;
 
-                _preRegistrationService.InsertPreRegistrationStore(preRegistrationStore);
-                TempData["success"] = true;
-                return RedirectToAction("Create");
+                    _preRegistrationService.InsertPreRegistrationStore(preRegistrationStore);
+                    TempData["success"] = true;
+                    return RedirectToAction("Create");
+                }
+                else
+                {
+                    TempData["error"] = "Bu iletişim bilgilerinde bir ön kayıt firması daha önce kayıt edilmiş.";
+                }
+                
             }
             return View(model);
         }
@@ -175,20 +184,29 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpPost]
         public ActionResult Edit(PreRegistrainFormModel model)
         {
-            var preRegistration = _preRegistrationService.GetPreRegistirationStoreByPreRegistrationStoreId(model.Id);
-            preRegistration.Email = model.Email;
-            preRegistration.MemberName = model.MemberName;
-            preRegistration.MemberSurname = model.MemberSurname;
-            preRegistration.PhoneNumber = model.PhoneNumber;
-            preRegistration.StoreName = model.StoreName;
-            preRegistration.PhoneNumber2 = model.PhoneNumber2;
-            preRegistration.PhoneNumber3 = model.PhoneNumber3;
-            preRegistration.WebUrl = model.WebUrl;
-            preRegistration.City= model.City;
-            preRegistration.ContactPhoneNumber = model.ContactPhoneNumber;
-            preRegistration.ContactNameSurname = model.ContactNameSurname;
-            _preRegistrationService.UpdatePreRegistrationStore(preRegistration);
-            return RedirectToAction("Index");
+            var checkpreRegistrationStore = _preRegistrationService.GetPreRegistrationStoreSearchByPhone(model.PhoneNumber, model.PhoneNumber2, model.PhoneNumber3, model.ContactPhoneNumber);
+            if (checkpreRegistrationStore.Count() == 0)
+            {
+                var preRegistration = _preRegistrationService.GetPreRegistirationStoreByPreRegistrationStoreId(model.Id);
+                preRegistration.Email = model.Email;
+                preRegistration.MemberName = model.MemberName;
+                preRegistration.MemberSurname = model.MemberSurname;
+                preRegistration.PhoneNumber = model.PhoneNumber;
+                preRegistration.StoreName = model.StoreName;
+                preRegistration.PhoneNumber2 = model.PhoneNumber2;
+                preRegistration.PhoneNumber3 = model.PhoneNumber3;
+                preRegistration.WebUrl = model.WebUrl;
+                preRegistration.City = model.City;
+                preRegistration.ContactPhoneNumber = model.ContactPhoneNumber;
+                preRegistration.ContactNameSurname = model.ContactNameSurname;
+                _preRegistrationService.UpdatePreRegistrationStore(preRegistration);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["error"] = "Bu iletişim bilgilerinde bir ön kayıt firması daha önce kayıt edilmiş.";
+            }
+            return View(model);
         }
         [HttpPost]
         public PartialViewResult SerachByName(string storename, string email)

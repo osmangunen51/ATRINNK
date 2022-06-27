@@ -505,6 +505,18 @@ namespace MakinaTurkiye.Services.Catalog
             });
         }
 
+        public IList<Product> GetProductByProductsIds(List<int> productIds)
+        {
+            var query = _productRepository.Table;
+            query = query.Include(p => p.Category);
+
+            query = query.Include(p => p.Country);
+            query = query.Include(p => p.City);
+            query = query.Include(p => p.Locality);
+            query = query.Include(p => p.Town);
+            var result = query.Where(p => productIds.Contains(p.ProductId));
+            return result.ToList();
+        }
 
 
         public Product GetProductByProductId(int productId)

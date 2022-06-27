@@ -77,7 +77,14 @@ namespace MakinaTurkiye.Services.Catalog
             }
         }
 
-
+        public List<ProductStatistic> GetProductStatisticByMemberMainPartyID(int memberMainPartyID)
+        {
+            using (IDbConnection dbConnection = Connection)
+            {
+                dbConnection.Open();
+                return dbConnection.Query<ProductStatistic>($"SELECT * FROM productstatistics1 where membermainpartyid='{memberMainPartyID}'").ToList();
+            }
+        }
 
         public ProductStatistic FindByID(int id)
         {

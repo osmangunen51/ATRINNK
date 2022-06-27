@@ -3,6 +3,7 @@
 <%foreach (var item in Model.HelpModels.ToList())
     {%>
 <tr id="row<%: item.ID %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
+  
   <td class="CellBegin">
     <%: item.Subject %>
   </td>
@@ -22,6 +23,9 @@
        
     </td>
     <td class="Cell"><%:item.RecordDate %></td>
+    <td class="CellBegin">
+    <%: (item.ConstantId>0?item.Constant.ConstantName:"") %>
+  </td>
      <td class="Cell"> <div style="float: left;">
             <a style="cursor: pointer;" onclick="DeleteHelp(<%:item.ID %>)">
         <img src="/Content/images/delete.png" />
@@ -34,7 +38,7 @@
     <%} %>
 
 <tr>
-  <td class="ui-state ui-state-default" colspan="4" align="left" style="border-color: #DDD;
+  <td class="ui-state ui-state-default" colspan="5" align="left" style="border-color: #DDD;
     border-top: none; border-bottom: none;">
     <div style="float: right;" class="pagination">
       <ul>

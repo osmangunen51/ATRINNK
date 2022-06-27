@@ -66,8 +66,6 @@
             onclick="ribbonTabSlide('tabUser');" group="tabs">Kullanıcılar</a> </li>
         <li><a unselectable="on" class="tabSales" ondblclick="minimizeRibbon('tab-content');"
             onclick="ribbonTabSlide('tabSales');" group="tabs">Pörtfoy</a></li>
-
-
     </ul>
     <div id="newNot" style="background-color: #2db007; display: none; color: #fff; padding: 5px; position: absolute; right: 240px; top: 3px;">
     </div>
@@ -80,25 +78,31 @@
         <a href="/CompanyDemand/DemandForPacket?pagetype=DemandsForPacket" title="İndirimli paket bilgi talebi"><font style="color: red"><%:demandForPacketNumber %></font>Bilgi Talebi</a>
     </div>
     <%} %>
-
-
-
-
-    <div style="position: absolute; right: 350px; top: 10px;">
-        <a style="padding: 2px;" href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
-    </div>
-    <div style="position: absolute; right: 190px; top: 10px;">
-        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;" href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
-    </div>
-    <div style="position: absolute; right: 80px; top: 10px;">
-        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;" href="/MemberDescription/Notification" title="Bildirimler" id="notification"></a>
-    </div>
-    <div style="float: right; position: absolute; right: 10px; top: 10px;">
-        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;" href="/Account/Logout">Çıkış Yap</a>
-    </div>
-
-
-
+    <table style="float:right;top:1px;position:absolute;right:10px">
+        <tr>
+            <td>
+                <a style="padding: 2px;" href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
+            </td>
+            <td>
+                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;" href="/MemberDescription/Notification?UserId=<%:NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId%>" title="Bildirimler" id="notification1"></a>
+            </td>
+            <td>
+                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;" href="/MemberDescription/Notification" title="Bildirimler" id="notification"></a>
+            </td>
+            <td>
+                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 6px;
+    background: #63b413;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-weight: 600;" href="/Help/Show" title="Yardım">Yardım</a>
+            </td>
+            <td>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;background: #3d6bcd;color:white;padding: 6px;" href="/Account/Logout">
+            <%= NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserName%> | Çıkış Yap</a>
+            </td>
+        </tr>
+    </table>
     <%--    <div class="tabtabs" id="tabMainHome">
       <ul class="Ribbon_Zone">
         <script type="text/javascript">

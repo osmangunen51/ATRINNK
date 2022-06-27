@@ -1,4 +1,11 @@
 ﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<NeoSistem.MakinaTurkiye.Management.Models.HelpModel>" %>
+<%
+    MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
+    List<Constant> Data = new List<Constant>();
+    Data.Add(new Constant { ConstantId = 0, ConstantName = "< Lütfen Seçiniz >" });
+    Data.AddRange(entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.CrmYardimKategori));
+    SelectList ConstantList =new SelectList(Data, "ConstantId", "ConstantName", 0);
+%>
  <table border="0" class="tableForm" cellpadding="5" cellspacing="0" style="width:100%">
      <tr style="height: 40px;">
       <td colspan="3" align="right">
@@ -23,7 +30,7 @@
     </td>
     <td style="height: 30px;">
       <div id="divConstantId" class="dropdownAddress">
-        <%:Html.DropDownListFor(model => model.ConstantId, Model.ConstantList, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })%></div>
+        <%:Html.DropDownListFor(model => model.ConstantId,ConstantList, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })%></div>
     </td>
   </tr>
   <tr>

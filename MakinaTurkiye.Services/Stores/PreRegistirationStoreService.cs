@@ -50,6 +50,15 @@ namespace MakinaTurkiye.Services.Stores
 
         }
 
+
+        public IList<PreRegistrationStore> GetPreRegistrationStoreSearchByPhone(params string[] Phones)
+        {
+            Phones = Phones.Where(x => !string.IsNullOrEmpty(x)).ToArray();
+            var query = _preRegistrationStoreRepository.Table;
+            query = query.Where(x => Phones.Contains(x.PhoneNumber) || Phones.Contains(x.PhoneNumber2) || Phones.Contains(x.PhoneNumber3) || Phones.Contains(x.ContactPhoneNumber));
+            return query.ToList();
+        }
+
         public IList<PreRegistrationStore> GetPreRegistrationStoreSearchByName(string storeName)
         {
             var query = _preRegistrationStoreRepository.Table;
