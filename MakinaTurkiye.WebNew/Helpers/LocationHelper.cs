@@ -19,7 +19,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
 
                 using (var webClient = new System.Net.WebClient())
                 {
-                    string url1 = "http://ip-api.com/json/" + this.IpAdress + "?fields=status,country,countryCode,region,regionName,city";
+                    string url1 = "http://ip-api.com/json/" + this.IpAdress;
                     webClient.Encoding = Encoding.UTF8;
                     var json = webClient.DownloadString(url1);
                     var JSONObj = new JavaScriptSerializer().Deserialize<Dictionary<string, string>>(json);

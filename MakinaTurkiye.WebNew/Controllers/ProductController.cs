@@ -1163,10 +1163,25 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 if (!SessionSingularViewCountType.SingularViewCountTypes.Any(c => c.Key == productId && c.Value == SingularViewCountType.Product))
                 {
+                    
+
+
                     var productStatistic = new ProductStatistic();
                     if (product.MainPartyId.HasValue)
                         productStatistic.MemberMainPartyId = product.MainPartyId.Value;
                     string ipAdress = Request.UserHostAddress;
+                    var locationHelper = new LocationHelper(ipAdress);
+                    try
+                    {
+                        var JSONObj = locationHelper.GetLocationFromIp();
+
+                        productStatistic.UserCity = JSONObj["regionName"].ToString();
+                        productStatistic.UserCountry = JSONObj["country"].ToString();
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
                     DateTime dateNow = DateTime.Now;
                     DateTime recordDate = DateTime.Now;
                     productStatistic.RecordDate = dateNow;
@@ -1176,21 +1191,21 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
                     productStatistic.ViewCount = 1;
                     int lastId = 0;
-#if DEBUG
-                    try
-                    {
-                        lastId = _productStatisticService.InsertProductStatistic(productStatistic);
-                        SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
-                    }
-                    catch (Exception Hata)
-                    {
+                    #if DEBUG
+                                        try
+                                        {
+                                            lastId = _productStatisticService.InsertProductStatistic(productStatistic);
+                                            SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
+                                        }
+                                        catch (Exception Hata)
+                                        {
 
-                    }
-#endif
-#if RELEASE
-                        lastId = _productStatisticService.InsertProductStatistic(productStatistic);
-                        SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
-#endif
+                                        }
+                    #endif
+                    #if RELEASE
+                                            lastId = _productStatisticService.InsertProductStatistic(productStatistic);
+                                            SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
+                    #endif
                     _productService.CachingGetOrSetOperationEnabled = false;
                     updatedProduct.SingularViewCount += 1;
                     _productService.UpdateProduct(updatedProduct);

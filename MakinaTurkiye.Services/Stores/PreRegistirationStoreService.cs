@@ -55,7 +55,11 @@ namespace MakinaTurkiye.Services.Stores
         {
             Phones = Phones.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             var query = _preRegistrationStoreRepository.Table;
-            query = query.Where(x => Phones.Contains(x.PhoneNumber) || Phones.Contains(x.PhoneNumber2) || Phones.Contains(x.PhoneNumber3) || Phones.Contains(x.ContactPhoneNumber));
+            for (int Don = 0; Don < Phones.Length; Don++)
+            {
+                Phones[Don] = Phones[Don].Replace(" ", "");
+            }
+            query = query.Where(x => Phones.Contains(x.PhoneNumber.Replace(" ","")) || Phones.Contains(x.PhoneNumber2.Replace(" ", "")) || Phones.Contains(x.PhoneNumber3.Replace(" ", "")) || Phones.Contains(x.ContactPhoneNumber.Replace(" ", "")));
             return query.ToList();
         }
 
