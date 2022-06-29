@@ -34,8 +34,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
                 return new Dictionary<string, string>();
 
             }
-
-
         }
     }
 }

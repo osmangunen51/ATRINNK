@@ -13,7 +13,7 @@ namespace MakinaTurkiye.Services.Catalog
         private string connectionString;
         public ProductStatisticRepository()
         {
-            connectionString = "server=213.238.178.76;database=MakinaTurkiye;user id=postgres;password=m4k!n+3^05trk,3";
+            connectionString = "server=77.92.151.138;database=MakinaTurkiye;user id=postgres;password=m4k!n+3^05trk,3";
         }
 
         internal IDbConnection Connection

@@ -1159,13 +1159,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var updatedProduct = _productService.GetProductByProductId(product.ProductId);
 
 
+            #region Urun İstatistik Güncellleme
             try
             {
                 if (!SessionSingularViewCountType.SingularViewCountTypes.Any(c => c.Key == productId && c.Value == SingularViewCountType.Product))
                 {
-                    
-
-
                     var productStatistic = new ProductStatistic();
                     if (product.MainPartyId.HasValue)
                         productStatistic.MemberMainPartyId = product.MainPartyId.Value;
@@ -1216,6 +1214,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
 
             }
+            #endregion
 
             if (product.GetActiveStatus())
             {
