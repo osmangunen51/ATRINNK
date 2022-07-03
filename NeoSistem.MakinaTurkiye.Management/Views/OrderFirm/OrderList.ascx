@@ -302,7 +302,7 @@
             <a href="/OrderFirm/Payments?OrderId=<%=item.OrderId  %>" style="float: left;" id="lightbox_click" rel="superbox[iframe]" title="Ödemeleri Gör"><span style="padding: 2px; background-color: #0eb907; color: #fff; font-weight: 600;">Ö</span></a>
         </div>
         <div class="panel2" style="margin-top: 1px; float: left; margin-bottom: 2px;margin-left: 2px;">
-            <a href="/Member/stororderremembermail?orderId=<%:item.OrderId %>" title="Paket ödeme hatırlatma maili gönder.">
+            <a class="btnohmg"  href="#" data-hedef="/Member/stororderremembermail?orderId=<%:item.OrderId %>" title="Paket ödeme hatırlatma maili gönder.">
                 <span style="padding: 2px; background-color: #0eb907; color: #fff; font-weight: 600;">ÖH</span>
             </a>
         </div>
@@ -429,6 +429,18 @@
             prevTxt: "Önceki"
         };
         $.superbox();
+
+        $(".btnohmg").click(function () { 
+            var hedef = $(this).attr("data-hedef");
+            $.ajax({
+                type: 'GET',
+                url: hedef,
+                success: function (result) {
+                    alert(result.Message);
+                }
+            });
+            event.preventDefault();
+        });
     });
 </script>
 <style type="text/css">

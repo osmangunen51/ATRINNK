@@ -15,7 +15,6 @@
                     <div style="font-size:16px; color:#780000">
                         <%:TempData["StoreEmailError"].ToString() %>*
                     </div>
-                    
                   <% } %>
                   
             
@@ -149,8 +148,9 @@
                             $('#pnlmail').show();
                             $("#gonderr").hide();
                         }
-                        else {
-
+                        else
+                        {
+                            alert(result.Message);
                         }
                     }
                 });

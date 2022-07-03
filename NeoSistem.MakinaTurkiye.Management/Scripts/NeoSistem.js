@@ -10,6 +10,5 @@ NeoSistem.Util.$0=function($p0,$p1){var $0=document.getElementById($p0);for(var 
 NeoSistem.Util.enable=function(formname){NeoSistem.Util.$0(formname,false);}
 NeoSistem.Util.disable=function(formname){NeoSistem.Util.$0(formname,true);}
 NeoSistem.Ajax.registerClass('NeoSistem.Ajax');NeoSistem.Util.registerClass('NeoSistem.Util');
-// ---- Do not remove this footer ----
-// This script was generated using Script# v0.5.5.0 (http://projects.nikhilk.net/ScriptSharp)
-// -----------------------------------
+
+

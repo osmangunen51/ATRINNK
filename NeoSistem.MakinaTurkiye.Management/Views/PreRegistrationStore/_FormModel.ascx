@@ -77,7 +77,7 @@
         <tr>
             <td>Şehir</td>
             <td>:</td>
-            <td><%:Html.TextBoxFor(x=>x.City) %></td>
+            <td><%:Html.TextBoxFor(x=>x.City) %><%:Html.ValidationMessageFor(x=>x.StoreName) %></td>
         </tr>
     </table>
 </div>

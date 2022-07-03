@@ -541,216 +541,225 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         }
                     }
 
-
-                    string allusersubtitle = subtitle;
-                    var mailadress = entities.Members.Where(c => c.MainPartyId == id).SingleOrDefault();
-                    var memberStore = entities.MemberStores.Where(c => c.MemberMainPartyId == id).SingleOrDefault();
-                    var storeid = memberStore.StoreMainPartyId;
-                    LinkHelper linkHelper = new LinkHelper();
-                    var crtypoUyeId = linkHelper.Encrypt(memberStore.MemberMainPartyId.ToString());
-                    var loginLink = "https://www.makinaturkiye.com/membership/LogonAuto?validateId=" + crtypoUyeId;
-
-                    var firma = entities.Stores.Where(c => c.MainPartyId == storeid).SingleOrDefault();
-                    string adress = mailadress.MemberEmail.ToString();
-                    #region firmaolayi
-                    var urunler = entities.Products.Where(c => c.MainPartyId == id).ToList();
-                    int tekil = 0;
-                    int cogul = 0;
-                    string firmaurunlinki = UrlBuilder.GetStoreProfileProductUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
-                    string istatistikfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=1";
-                    string istatistikilanfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=3";
-                    string packetupgrade = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=5";
-                    if (urunler.Count != 0)
+                    if (constatn.ConstantName.Contains("Paket Ödeme Hatırlatma"))
                     {
-                        foreach (var product in urunler)
-                        {
-                            tekil = tekil + product.SingularViewCount.ToInt32();
-                            cogul = cogul + product.ViewCount.ToInt32();
-                        }
-                        float oran = tekil / urunler.Count;
-                        aciklama = aciklama.Replace("#tekililantiklama#", tekil.ToString()).Replace("#cogulilantiklama#", cogul.ToString()).Replace("#ilantiklamaorani#", oran.ToString());
-                    }
-                    string linkuyeliktipi = "https://www.makinaturkiye.com/magaza-paket-fiyatlari-y-143135";
-                    //singular view count ve view count değişecek.
-
-                    aciklama = aciklama.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi)).Replace("#firmauyelikyukseltme#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", packetupgrade));
-                    subtitle = subtitle.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi));
-                    #endregion
-                    #region kullanici
-                    string template = "";
-                    var settings = ConfigurationManager.AppSettings;
-                    MailMessage mail = new MailMessage();
-                    string storefix = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=2";
-
-                    string firmalinki = UrlBuilder.GetStoreProfileUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
-                    aciklama = aciklama.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki)).Replace("#uyeliktarihi#", firma.StoreRecordDate.ToDateTime().ToString("dd/MM/yyyy"));
-                    subtitle = subtitle.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki));
-                    if (sayi != 247 && sayi != 246 && sayi != 248)
-                    {
-                        aciklama = Resources.Email.masterpage.Replace("#aciklama#", aciklama);
+                        TempData["StoreEmailError"] = "Paket Ödeme Hatırlatma Maili Siparişler ekranından yapabilirsiniz.";
                     }
                     else
                     {
-                        aciklama = aciklama.Replace("#loginlink#", loginLink);
-                    }
+                        string allusersubtitle = subtitle;
+                        var mailadress = entities.Members.Where(c => c.MainPartyId == id).SingleOrDefault();
+                        var memberStore = entities.MemberStores.Where(c => c.MemberMainPartyId == id).SingleOrDefault();
+                        var storeid = memberStore.StoreMainPartyId;
+                        LinkHelper linkHelper = new LinkHelper();
+                        var crtypoUyeId = linkHelper.Encrypt(memberStore.MemberMainPartyId.ToString());
+                        var loginLink = "https://www.makinaturkiye.com/membership/LogonAuto?validateId=" + crtypoUyeId;
 
-                    template = aciklama.Replace("#firmaadi#", firma.StoreName);
-
-                    if (sayi == 144 || sayi == 145)
-                    {
-                        if (sayi == 144)
+                        var firma = entities.Stores.Where(c => c.MainPartyId == storeid).SingleOrDefault();
+                        string adress = mailadress.MemberEmail.ToString();
+                        #region firmaolayi
+                        var urunler = entities.Products.Where(c => c.MainPartyId == id).ToList();
+                        int tekil = 0;
+                        int cogul = 0;
+                        string firmaurunlinki = UrlBuilder.GetStoreProfileProductUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
+                        string istatistikfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=1";
+                        string istatistikilanfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=3";
+                        string packetupgrade = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=5";
+                        if (urunler.Count != 0)
                         {
-                            sayi = 22;
+                            foreach (var product in urunler)
+                            {
+                                tekil = tekil + product.SingularViewCount.ToInt32();
+                                cogul = cogul + product.ViewCount.ToInt32();
+                            }
+                            float oran = tekil / urunler.Count;
+                            aciklama = aciklama.Replace("#tekililantiklama#", tekil.ToString()).Replace("#cogulilantiklama#", cogul.ToString()).Replace("#ilantiklamaorani#", oran.ToString());
+                        }
+                        string linkuyeliktipi = "https://www.makinaturkiye.com/magaza-paket-fiyatlari-y-143135";
+                        //singular view count ve view count değişecek.
+
+                        aciklama = aciklama.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi)).Replace("#firmauyelikyukseltme#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", packetupgrade));
+                        subtitle = subtitle.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi));
+                        #endregion
+                        #region kullanici
+                        string template = "";
+                        var settings = ConfigurationManager.AppSettings;
+                        MailMessage mail = new MailMessage();
+                        string storefix = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=2";
+
+                        string firmalinki = UrlBuilder.GetStoreProfileUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
+                        aciklama = aciklama.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki)).Replace("#uyeliktarihi#", firma.StoreRecordDate.ToDateTime().ToString("dd/MM/yyyy"));
+                        subtitle = subtitle.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki));
+                        if (sayi != 247 && sayi != 246 && sayi != 248)
+                        {
+                            aciklama = Resources.Email.masterpage.Replace("#aciklama#", aciklama);
                         }
                         else
-                            sayi = 23;
-                        string iskontoluyelik = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&sifre=" + mailadress.MemberPassword + "&Packetid=" + sayi;
-                        template = template.Replace("#baslangiczamani#", DateTime.Now.ToShortDateString()).Replace("#bitiszamani#", DateTime.Now.AddDays(8).ToShortDateString()).Replace("#iskontolulink#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", iskontoluyelik));
-                        var storeindirim = new Storeindirim()
                         {
-                            MainPartyId = mailadress.MainPartyId,
-                            BeginDate = DateTime.Now,
-                            Enddate = DateTime.Now.AddDays(8)
-                        };
-                        entities.Storeindirims.AddObject(storeindirim);
-                        entities.SaveChanges();
-                    }
-                    //date time karşılaştırmak için compare
-                    //DateTime.Compare(t1, t2);
+                            aciklama = aciklama.Replace("#loginlink#", loginLink);
+                        }
 
-                    mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
-                    mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
-                    mail.Subject = subtitle; //Mail konusu
-                    mail.Body = template; //Mailin içeriği
-                    mail.IsBodyHtml = true;
-                    mail.Priority = MailPriority.Normal;
-                    if (constatn.ConstantId == 248)
-                    {
-                        mail.Attachments.Add(new Attachment(Server.MapPath("~/Content/teklif.pdf")));
-                    }
+                        template = aciklama.Replace("#firmaadi#", firma.StoreName);
 
-                    //mail.HtmlPart = new HtmlAttachment(template);
-
-                    //mail.From = new EmailAddress(settings["MailAddress"], settings["MailName"]);
-
-                    //mail.AddToAddress(new EmailAddress(adress));
-
-                    //SmtpServer smtpServer = new SmtpServer(settings["SmtpServer"], int.Parse(settings["SmtpPort"]));
-
-                    //smtpServer.SmtpAuthToken = new LoginAuthToken(settings["SmtpUserName"], settings["SmtpUserPassword"]);
-
-                    //mail.HeaderCharSet = Encoding.GetEncoding("UTF-8");
-
-                    //mail.HtmlPart.CharSet = Encoding.GetEncoding("UTF-8");
-
-                    NetworkCredential NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
-                    if (tip == 1)
-                    {
-                        mail.Body = mail.Body.Replace("#signature#", "");
-                        this.SendMail(mail, NetworkCredential);
-                    }
-                    else if (tip == 2)
-                    {
-                        RevizeMailSenderInformation(mail, ref NetworkCredential);
-                        this.SendMail(mail, NetworkCredential);
-                    }
-
-
-                    #endregion
-                    #region digerkullanicilar
-                    var alluserfriend = entities.MainPartyIdEpostas.Where(c => c.MainPartyId == storeid).SingleOrDefault();
-                    if (alluserfriend != null)
-                    {
-                        if (alluserfriend.Eposta1check == true)
+                        if (sayi == 144 || sayi == 145)
                         {
-
-                            if (alluserfriend.Eposta1 != null)
+                            if (sayi == 144)
                             {
-                                MailMessage maila = new MailMessage();
-                                maila.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName);
-                                maila.To.Add(alluserfriend.Eposta1); //Mailin kime gideceğini belirtiyoruz
-                                allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad1 + " " + alluserfriend.SoyAd2);
-                                maila.Subject = allusersubtitle; //Mail konusu
-                                maila.Body = template; //Mailin içeriği
-                                maila.IsBodyHtml = true;
-                                maila.Priority = MailPriority.Normal;
-                                NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
-                                if (tip == 1)
-                                {
-                                    maila.Body = mail.Body.Replace("#signature#", "");
-                                }
-                                else if (tip == 2)
-                                {
-                                    RevizeMailSenderInformation(maila, ref NetworkCredential);
-                                }
-                                this.SendMail(maila, NetworkCredential);
+                                sayi = 22;
                             }
                             else
+                                sayi = 23;
+                            string iskontoluyelik = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&sifre=" + mailadress.MemberPassword + "&Packetid=" + sayi;
+                            template = template.Replace("#baslangiczamani#", DateTime.Now.ToShortDateString()).Replace("#bitiszamani#", DateTime.Now.AddDays(8).ToShortDateString()).Replace("#iskontolulink#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", iskontoluyelik));
+                            var storeindirim = new Storeindirim()
                             {
-                                alluserfriend.Eposta1check = false;
+                                MainPartyId = mailadress.MainPartyId,
+                                BeginDate = DateTime.Now,
+                                Enddate = DateTime.Now.AddDays(8)
+                            };
+                            entities.Storeindirims.AddObject(storeindirim);
+                            entities.SaveChanges();
+                        }
+                        //date time karşılaştırmak için compare
+                        //DateTime.Compare(t1, t2);
+
+                        mail.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
+                        mail.To.Add(adress); //Mailin kime gideceğini belirtiyoruz
+                        mail.Subject = subtitle; //Mail konusu
+                        mail.Body = template; //Mailin içeriği
+                        mail.IsBodyHtml = true;
+                        mail.Priority = MailPriority.Normal;
+                        if (constatn.ConstantId == 248)
+                        {
+                            mail.Attachments.Add(new Attachment(Server.MapPath("~/Content/teklif.pdf")));
+                        }
+
+                        //mail.HtmlPart = new HtmlAttachment(template);
+
+                        //mail.From = new EmailAddress(settings["MailAddress"], settings["MailName"]);
+
+                        //mail.AddToAddress(new EmailAddress(adress));
+
+                        //SmtpServer smtpServer = new SmtpServer(settings["SmtpServer"], int.Parse(settings["SmtpPort"]));
+
+                        //smtpServer.SmtpAuthToken = new LoginAuthToken(settings["SmtpUserName"], settings["SmtpUserPassword"]);
+
+                        //mail.HeaderCharSet = Encoding.GetEncoding("UTF-8");
+
+                        //mail.HtmlPart.CharSet = Encoding.GetEncoding("UTF-8");
+
+                        NetworkCredential NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
+                        if (tip == 1)
+                        {
+                            mail.Body = mail.Body.Replace("#signature#", "");
+                            this.SendMail(mail, NetworkCredential);
+                        }
+                        else if (tip == 2)
+                        {
+                            RevizeMailSenderInformation(mail, ref NetworkCredential);
+                            this.SendMail(mail, NetworkCredential);
+                        }
+
+
+                        #endregion
+                        #region digerkullanicilar
+                        var alluserfriend = entities.MainPartyIdEpostas.Where(c => c.MainPartyId == storeid).SingleOrDefault();
+                        if (alluserfriend != null)
+                        {
+                            if (alluserfriend.Eposta1check == true)
+                            {
+
+                                if (alluserfriend.Eposta1 != null)
+                                {
+                                    MailMessage maila = new MailMessage();
+                                    maila.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName);
+                                    maila.To.Add(alluserfriend.Eposta1); //Mailin kime gideceğini belirtiyoruz
+                                    allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad1 + " " + alluserfriend.SoyAd2);
+                                    maila.Subject = allusersubtitle; //Mail konusu
+                                    maila.Body = template; //Mailin içeriği
+                                    maila.IsBodyHtml = true;
+                                    maila.Priority = MailPriority.Normal;
+                                    NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
+                                    if (tip == 1)
+                                    {
+                                        maila.Body = mail.Body.Replace("#signature#", "");
+                                    }
+                                    else if (tip == 2)
+                                    {
+                                        RevizeMailSenderInformation(maila, ref NetworkCredential);
+                                    }
+                                    this.SendMail(maila, NetworkCredential);
+                                }
+                                else
+                                {
+                                    alluserfriend.Eposta1check = false;
+                                }
+                            }
+                            if (alluserfriend.Eposta2check == true)
+                            {
+                                if (alluserfriend.EPosta2 != null)
+                                {
+                                    MailMessage mailb = new MailMessage();
+                                    mailb.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
+                                    mailb.To.Add(alluserfriend.EPosta2); //Mailin kime gideceğini belirtiyoruz
+                                    allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad2 + " " + alluserfriend.SoyAd2);
+                                    mailb.Subject = allusersubtitle; //Mail konusu
+                                    mailb.Body = template; //Mailin içeriği
+                                    mailb.IsBodyHtml = true;
+                                    mailb.Priority = MailPriority.High;
+                                    NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
+                                    if (tip == 1)
+                                    {
+                                        mailb.Body = mailb.Body.Replace("#signature#", "");
+                                    }
+                                    else if (tip == 2)
+                                    {
+                                        RevizeMailSenderInformation(mailb, ref NetworkCredential);
+                                    }
+                                    this.SendMail(mailb, NetworkCredential);
+                                }
                             }
                         }
-                        if (alluserfriend.Eposta2check == true)
+
+                        BaseMemberDescription baseMember = new BaseMemberDescription();
+                        baseMember.Date = DateTime.Now;
+                        baseMember.MainPartyId = Convert.ToInt32(id);
+                        baseMember.Title = aciklamabaslik;
+
+                        if (sayi == 128)
                         {
-                            if (alluserfriend.EPosta2 != null)
+                            template = "Ürün Çoğul Tıklanma Sayısı:" + cogul + "<br>Ürün Tekil Tıklanma Sayısı:" + tekil + "<br>Firma Tekil Tıklanma Sayısı:" + firma.SingularViewCount.ToString() + "<br>Firma Çoğul Tıklanma Sayısı:" + firma.ViewCount.ToString();
+
+                            var whatsappLog = _whatsappLogService.GetWhatsappLogsByMainPartyId(memberStore.StoreMainPartyId.Value);
+                            int whatsappCount = 0;
+                            if (whatsappLog.Count > 0)
                             {
-                                MailMessage mailb = new MailMessage();
-                                mailb.From = new MailAddress(AppSettings.MailUserName, AppSettings.MailDisplayName); //Mailin kimden gittiğini belirtiyoruz
-                                mailb.To.Add(alluserfriend.EPosta2); //Mailin kime gideceğini belirtiyoruz
-                                allusersubtitle = allusersubtitle.Replace("#uyeadisoyadi#", alluserfriend.Ad2 + " " + alluserfriend.SoyAd2);
-                                mailb.Subject = allusersubtitle; //Mail konusu
-                                mailb.Body = template; //Mailin içeriği
-                                mailb.IsBodyHtml = true;
-                                mailb.Priority = MailPriority.High;
-                                NetworkCredential = new NetworkCredential(AppSettings.MailUserName, AppSettings.MailPassword);
-                                if (tip == 1)
-                                {
-                                    mailb.Body = mailb.Body.Replace("#signature#", "");
-                                }
-                                else if (tip == 2)
-                                {
-                                    RevizeMailSenderInformation(mailb, ref NetworkCredential);
-                                }
-                                this.SendMail(mailb, NetworkCredential);
+                                whatsappCount = whatsappLog.Select(x => x.ClickCount).Sum();
                             }
+                            template += "<br>Whatsapp Tıklanma:" + whatsappCount;
+
                         }
+                        baseMember.Description = template;
+                        baseMember.UpdateDate = null;
+                        baseMember.ConstantId = constatn.ConstantId;
+                        entities.BaseMemberDescriptions.AddObject(baseMember);
+                        entities.SaveChanges();
+
+                        MemberDescription memd = new MemberDescription();
+                        memd.MainPartyId = mailadress.MainPartyId;
+                        memd.Date = DateTime.Now;
+                        memd.Description = template;
+                        memd.Title = aciklamabaslik;
+                        memd.UpdateDate = null;
+                        memd.ConstantId = constatn.ConstantId;
+                        entities.MemberDescriptions.AddObject(memd);
+                        entities.SaveChanges();
+                        #endregion
+                        return RedirectToAction("storemail");
+
                     }
 
-                    BaseMemberDescription baseMember = new BaseMemberDescription();
-                    baseMember.Date = DateTime.Now;
-                    baseMember.MainPartyId = Convert.ToInt32(id);
-                    baseMember.Title = aciklamabaslik;
-
-                    if (sayi == 128)
-                    {
-                        template = "Ürün Çoğul Tıklanma Sayısı:" + cogul + "<br>Ürün Tekil Tıklanma Sayısı:" + tekil + "<br>Firma Tekil Tıklanma Sayısı:" + firma.SingularViewCount.ToString() + "<br>Firma Çoğul Tıklanma Sayısı:" + firma.ViewCount.ToString();
-
-                        var whatsappLog = _whatsappLogService.GetWhatsappLogsByMainPartyId(memberStore.StoreMainPartyId.Value);
-                        int whatsappCount = 0;
-                        if (whatsappLog.Count > 0)
-                        {
-                            whatsappCount = whatsappLog.Select(x => x.ClickCount).Sum();
-                        }
-                        template += "<br>Whatsapp Tıklanma:" + whatsappCount;
-
-                    }
-                    baseMember.Description = template;
-                    baseMember.UpdateDate = null;
-                    baseMember.ConstantId = constatn.ConstantId;
-                    entities.BaseMemberDescriptions.AddObject(baseMember);
-                    entities.SaveChanges();
-
-                    MemberDescription memd = new MemberDescription();
-                    memd.MainPartyId = mailadress.MainPartyId;
-                    memd.Date = DateTime.Now;
-                    memd.Description = template;
-                    memd.Title = aciklamabaslik;
-                    memd.UpdateDate = null;
-                    memd.ConstantId = constatn.ConstantId;
-                    entities.MemberDescriptions.AddObject(memd);
-                    entities.SaveChanges();
-                    #endregion
-                    return RedirectToAction("storemail");
+                    
                 }
                 else if (tip == 3)
                 {
@@ -994,6 +1003,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpGet]
         public ActionResult stororderremembermail(int orderId)
         {
+            ResponseModel<string> res = new ResponseModel<string>();
             try
             {
                 int id = 0;
@@ -1230,13 +1240,15 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     entities.SaveChanges();
                     #endregion
                 }
-                return RedirectToAction("", "orderfirm");
+                res.IsSuccess = true;
+                res.Message = "Başarıyla gönderildi.";
             }
             catch (Exception)
             {
-                TempData["StoreEmailError"] = "Mail Gönderilirken Bir Hata Oluştu. Lütfen yöneticinize bildiriniz.";
-                return RedirectToAction("", "orderfirm");
+                res.IsSuccess = false;
+                res.Message = "Mail Gönderilirken Bir Hata Oluştu. Lütfen yöneticinize bildiriniz.";
             }
+            return Json(res, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult SendSpecialEmailToStore(int id, string success)
@@ -3651,100 +3663,111 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         {
                             sayi = RelatedCategory[i].ToInt32();
                             constatn = entities.Constants.Where(c => c.ConstantId == sayi).SingleOrDefault();
-                            aciklama = aciklama + constatn.ConstantMailContent + "</br>";
+                            aciklama = aciklama + 
+                                constatn.ConstantMailContent + "</br>";
                             subtitle = constatn.ConstantTitle;
                             aciklamabaslik = constatn.ConstantName;
                         }
                     }
                 }
 
-                string allusersubtitle = subtitle;
-                var mailadress = entities.Members.Where(c => c.MainPartyId == id).SingleOrDefault();
-                var memberStore = entities.MemberStores.Where(c => c.MemberMainPartyId == id).SingleOrDefault();
-                var storeid = memberStore.StoreMainPartyId;
-                LinkHelper linkHelper = new LinkHelper();
-                var crtypoUyeId = linkHelper.Encrypt(memberStore.MemberMainPartyId.ToString());
-                var loginLink = "https://www.makinaturkiye.com/membership/LogonAuto?validateId=" + crtypoUyeId;
-
-                var firma = entities.Stores.Where(c => c.MainPartyId == storeid).SingleOrDefault();
-                string adress = mailadress.MemberEmail.ToString();
-                #region firmaolayi
-                var urunler = entities.Products.Where(c => c.MainPartyId == id).ToList();
-                int tekil = 0;
-                int cogul = 0;
-                string firmaurunlinki = UrlBuilder.GetStoreProfileProductUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
-                string istatistikfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=1";
-                string istatistikilanfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=3";
-                string packetupgrade = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=5";
-                if (urunler.Count != 0)
+                if (constatn.ConstantName.Contains("Paket Ödeme Hatırlatma"))
                 {
-                    foreach (var product in urunler)
-                    {
-                        tekil = tekil + product.SingularViewCount.ToInt32();
-                        cogul = cogul + product.ViewCount.ToInt32();
-                    }
-                    float oran = tekil / urunler.Count;
-                    aciklama = aciklama.Replace("#tekililantiklama#", tekil.ToString()).Replace("#cogulilantiklama#", cogul.ToString()).Replace("#ilantiklamaorani#", oran.ToString());
-                }
-                string linkuyeliktipi = "https://www.makinaturkiye.com/magaza-paket-fiyatlari-y-143135";
-                //singular view count ve view count değişecek.
-
-                aciklama = aciklama.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi)).Replace("#firmauyelikyukseltme#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", packetupgrade));
-                subtitle = subtitle.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi));
-                #endregion
-                #region kullanici
-
-                string template = "";
-                var settings = ConfigurationManager.AppSettings;
-                MailMessage mail = new MailMessage();
-                string storefix = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=2";
-
-                string firmalinki = UrlBuilder.GetStoreProfileUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
-                aciklama = aciklama.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki)).Replace("#uyeliktarihi#", firma.StoreRecordDate.ToDateTime().ToString("dd/MM/yyyy"));
-                subtitle = subtitle.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki));
-                if (sayi != 247 && sayi != 246 && sayi != 248)
-                {
-                    aciklama = Resources.Email.masterpage.Replace("#aciklama#", aciklama);
+                    res.IsSuccess = false;
+                    res.Message = "Paket Ödeme Hatırlatma Maili Siparişler ekranından yapabilirsiniz.";
                 }
                 else
                 {
-                    aciklama = aciklama.Replace("#loginlink#", loginLink);
-                }
+                    string allusersubtitle = subtitle;
+                    var mailadress = entities.Members.Where(c => c.MainPartyId == id).SingleOrDefault();
+                    var memberStore = entities.MemberStores.Where(c => c.MemberMainPartyId == id).SingleOrDefault();
+                    var storeid = memberStore.StoreMainPartyId;
+                    LinkHelper linkHelper = new LinkHelper();
+                    var crtypoUyeId = linkHelper.Encrypt(memberStore.MemberMainPartyId.ToString());
+                    var loginLink = "https://www.makinaturkiye.com/membership/LogonAuto?validateId=" + crtypoUyeId;
 
-                template = aciklama.Replace("#firmaadi#", firma.StoreName);
-
-                if (sayi == 144 || sayi == 145)
-                {
-                    if (sayi == 144)
+                    var firma = entities.Stores.Where(c => c.MainPartyId == storeid).SingleOrDefault();
+                    string adress = mailadress.MemberEmail.ToString();
+                    #region firmaolayi
+                    var urunler = entities.Products.Where(c => c.MainPartyId == id).ToList();
+                    int tekil = 0;
+                    int cogul = 0;
+                    string firmaurunlinki = UrlBuilder.GetStoreProfileProductUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
+                    string istatistikfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=1";
+                    string istatistikilanfix = loginLink + "&returnUrl=/Account/Statistic/Index?pagetype=3";
+                    string packetupgrade = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=5";
+                    if (urunler.Count != 0)
                     {
-                        sayi = 22;
+                        foreach (var product in urunler)
+                        {
+                            tekil = tekil + product.SingularViewCount.ToInt32();
+                            cogul = cogul + product.ViewCount.ToInt32();
+                        }
+                        float oran = tekil / urunler.Count;
+                        aciklama = aciklama.Replace("#tekililantiklama#", tekil.ToString()).Replace("#cogulilantiklama#", cogul.ToString()).Replace("#ilantiklamaorani#", oran.ToString());
+                    }
+                    string linkuyeliktipi = "https://www.makinaturkiye.com/magaza-paket-fiyatlari-y-143135";
+                    //singular view count ve view count değişecek.
+
+                    aciklama = aciklama.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi)).Replace("#firmauyelikyukseltme#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", packetupgrade));
+                    subtitle = subtitle.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi));
+                    #endregion
+                    #region kullanici
+
+                    string template = "";
+                    var settings = ConfigurationManager.AppSettings;
+                    MailMessage mail = new MailMessage();
+                    string storefix = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&pagetype=2";
+
+                    string firmalinki = UrlBuilder.GetStoreProfileUrl(firma.MainPartyId, firma.StoreName, firma.StoreUrlName);
+                    aciklama = aciklama.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki)).Replace("#uyeliktarihi#", firma.StoreRecordDate.ToDateTime().ToString("dd/MM/yyyy"));
+                    subtitle = subtitle.Replace("#uyeadisoyadi#", mailadress.MemberName + " " + mailadress.MemberSurname).Replace("#firmaduzenlemekopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", storefix)).Replace("#firmakopru#", Resources.Email.firmalink.Replace("#firmalink#", firmalinki));
+
+                    if (sayi != 247 && sayi != 246 && sayi != 248)
+                    {
+                        aciklama = Resources.Email.masterpage.Replace("#aciklama#", aciklama);
                     }
                     else
-                        sayi = 23;
-                    string iskontoluyelik = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&sifre=" + mailadress.MemberPassword + "&Packetid=" + sayi;
-                    template = template.Replace("#baslangiczamani#", DateTime.Now.ToShortDateString()).Replace("#bitiszamani#", DateTime.Now.AddDays(8).ToShortDateString()).Replace("#iskontolulink#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", iskontoluyelik));
-                    //var storeindirim = new Storeindirim()
-                    //{
-                    //    MainPartyId = mailadress.MainPartyId,
-                    //    BeginDate = DateTime.Now,
-                    //    Enddate = DateTime.Now.AddDays(8)
-                    //};
-                    //entities.Storeindirims.AddObject(storeindirim);
-                    //entities.SaveChanges();
-                }
-                #endregion
+                    {
+                        aciklama = aciklama.Replace("#loginlink#", loginLink);
+                    }
 
-                string Imza = "";
-                var user = entities.Users.FirstOrDefault(x => x.UserId == CurrentUserModel.CurrentManagement.UserId);
-                Imza = user.Signature;
-                template= template.Replace("#signature#", Imza);
-                res.Result = template;
-                res.IsSuccess = true;
-                res.Message = "Başarıyla güncellendi.";
+                    template = aciklama.Replace("#firmaadi#", firma.StoreName);
+
+                    if (sayi == 144 || sayi == 145)
+                    {
+                        if (sayi == 144)
+                        {
+                            sayi = 22;
+                        }
+                        else
+                            sayi = 23;
+                        string iskontoluyelik = "http://www.makinaturkiye.com/uyelikgiris?email=" + adress + "&sifre=" + mailadress.MemberPassword + "&Packetid=" + sayi;
+                        template = template.Replace("#baslangiczamani#", DateTime.Now.ToShortDateString()).Replace("#bitiszamani#", DateTime.Now.AddDays(8).ToShortDateString()).Replace("#iskontolulink#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", iskontoluyelik));
+                        //var storeindirim = new Storeindirim()
+                        //{
+                        //    MainPartyId = mailadress.MainPartyId,
+                        //    BeginDate = DateTime.Now,
+                        //    Enddate = DateTime.Now.AddDays(8)
+                        //};
+                        //entities.Storeindirims.AddObject(storeindirim);
+                        //entities.SaveChanges();
+                    }
+                    #endregion
+
+                    string Imza = "";
+                    var user = entities.Users.FirstOrDefault(x => x.UserId == CurrentUserModel.CurrentManagement.UserId);
+                    Imza = user.Signature;
+                    template = template.Replace("#signature#", Imza);
+                    res.Result = template;
+                    res.IsSuccess = true;
+                    res.Message = "Başarıyla güncellendi.";
+
+                }
             }
             catch (Exception)
             {
-                res.IsSuccess = true;
+                res.IsSuccess = false;
                 res.Message = "Mail Gönderilirken Bir Hata Oluştu. Lütfen yöneticinize bildiriniz.";
             }
             return Json(res, JsonRequestBehavior.AllowGet);

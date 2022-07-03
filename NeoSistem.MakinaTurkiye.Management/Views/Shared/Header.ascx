@@ -81,6 +81,11 @@
     <table style="float:right;top:1px;position:absolute;right:10px">
         <tr>
             <td>
+                <a href="#" id="callcenterpanel-btn">
+                    <i  class="fa-solid fa-2x fa-phone"></i>
+                </a>
+            </td>
+            <td>
                 <a style="padding: 2px;" href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
             </td>
             <td>

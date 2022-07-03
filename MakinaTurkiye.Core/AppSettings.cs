@@ -301,6 +301,12 @@ namespace MakinaTurkiye.Core
             get { return ConfigurationManager.AppSettings["Mail-DisplayName"].ToString(); }
         }
 
+        public static string CallCenterToken
+        {
+            get { return ConfigurationManager.AppSettings["CallCenter-Token"].ToString(); }
+        }
+
+
         public static string MailUserName
         {
             get { return ConfigurationManager.AppSettings["Mail-UserName"].ToString(); }

@@ -7,45 +7,44 @@
     <script type="text/javascript" src="/Scripts/CKEditor/ckeditor.js"></script>
     <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
     <script type="text/javascript">
-        function subContentCheck(cb) {
+        function subContentCheck(cb)
+        {
             console.log(cb.checked);
-
-
-            if (cb.checked == true) {
+            if (cb.checked == true)
+            {
                 var text = cb.value + " ";
 
                 CKEDITOR.instances["DescriptionNew"].insertHtml(text);
             }
-            else {
+            else
+            {
                 var value = CKEDITOR.instances['DescriptionNew'].getData()
                 console.log(value);
                 console.log(cb.value, 'val');
                 var newValue = value.replace(cb.value, " ");
                 console.log(newValue);
                 CKEDITOR.instances["DescriptionNew"].setData(newValue);
-
             }
         }
+
         var data = [];
-        $(document).ready(function () {
-
-
-            $("#constantId").change(function () {
+        $(document).ready(function ()
+        {
+            $("#constantId").change(function ()
+            {
                 $("#subContent").html("");
-
                 var val = $("#constantId").val();
                 $.ajax({
-
                     url: '/Constant/GetSubConstant/' + val,
                     type: 'GET',
-
-                    success: function (data) {
+                    success: function (data)
+                    {
                         $.each(data.data, function (key, value) {
                             $("#subContent").append("<input type='checkbox' onClick='subContentCheck(this)'  value='" + value + "'/>" + value + "<br>");
                         });
-
                     },
-                    error: function (request, error) {
+                    error: function (request, error)
+                    {
 
                     }
                 });
@@ -54,25 +53,25 @@
             $('#form').submit(function (event) {
                 var last = $("#LastDateNew").val();
                 var time = $("#timeNew").val();
-
                 var isLarger = fn_DateCompare(new Date(), last + " " + time);
-
-                if (isLarger < 0) {
+                if (isLarger < 0)
+                {
                     alert("Atama tarihi şuan ki tarihten küçük olamaz");
                     return false;
                 }
-
             });
 
         });
-        function UpdateDescriptionText() {
 
-            if ($("#constantId").val() == "<%:Model.ConstantId%>") {
-
+        function UpdateDescriptionText()
+        {
+            if ($("#constantId").val() == "<%:Model.ConstantId%>")
+            {
                 $("#DescriptionLastC").show();
                 //CKEDITOR.instances["DescriptionNew"].setData(text);
             }
-            else {
+            else
+            {
                 $("#DescriptionLastC").hide();
             }
         }
@@ -168,7 +167,8 @@
              <label style="font-size: 16px;color:#458754;"><%=Model.StoreShortName %> </label><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><label style="font-size:18px;color:#b70606;font-weight:bold"><%=Model.City %></label>
              <br />
               <br />
-              <label style="color:#000000;font-weight:bold"><%:ViewData["MemberName"] %> </label><br /><br /><label style="color:#617889;font-weight:bold"><%=Model.Contact.Replace("<br>","<br><br>") %> </label> 
+              <label style="color:#000000;font-weight:bold"><%:ViewData["MemberName"] %> </label><br /><br /><label style="color:#617889;font-weight:bold">
+                  <%=Model.Contact.Replace("<br>","<br><br>") %> </label> 
               <br />
               <br />
              <br />

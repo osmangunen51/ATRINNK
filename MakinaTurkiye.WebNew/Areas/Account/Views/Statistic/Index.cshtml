@@ -619,9 +619,10 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var Product in Model.StatisticList.GroupBy(x => x.Product))
+                                            @foreach (var Product in Model.StatisticList.Where(x=>x.Product!=null).GroupBy(x => x.Product))
                                             {
-                                                var StatisticListItem = Model.StatisticList.Where(x => x.Product.ProductId == Product.Key.ProductId);
+                                                
+                                                var StatisticListItem = Model.StatisticList.Where(x =>x.Product!=null && x.Product.ProductId == Product.Key.ProductId);
                                                 string productUrl = "";
                                                 //string productUrl = Helpers.ProductUrl(count.ProductId, count.ProductName);
                                                 <tr>

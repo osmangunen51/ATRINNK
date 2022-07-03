@@ -1,5 +1,6 @@
 ﻿using MakinaTurkiye.Core;
 using MakinaTurkiye.Core.Data;
+using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Stores;
 using System;
 using System.Collections.Generic;
@@ -10,10 +11,14 @@ namespace MakinaTurkiye.Services.Stores
     public class PreRegistirationStoreService : IPreRegistirationStoreService
     {
         IRepository<PreRegistrationStore> _preRegistrationStoreRepository;
+        IRepository<Store> _StoreRepository;
+        IRepository<Phone> _PhoneRepository;
 
-        public PreRegistirationStoreService(IRepository<PreRegistrationStore> repository)
+        public PreRegistirationStoreService(IRepository<PreRegistrationStore> repository, IRepository<Phone> PhoneRepository,IRepository<Store> StoreRepository)
         {
             this._preRegistrationStoreRepository = repository;
+            this._StoreRepository = StoreRepository;
+            this._PhoneRepository = PhoneRepository;
         }
 
         public void DeletePreRegistrationStore(PreRegistrationStore preRegistirationStore)
@@ -51,16 +56,26 @@ namespace MakinaTurkiye.Services.Stores
         }
 
 
-        public IList<PreRegistrationStore> GetPreRegistrationStoreSearchByPhone(params string[] Phones)
+        public IList<Store> GetPreRegistrationStoreSearchByPhone(params string[] Phones)
         {
             Phones = Phones.Where(x => !string.IsNullOrEmpty(x)).ToArray();
-            var query = _preRegistrationStoreRepository.Table;
             for (int Don = 0; Don < Phones.Length; Don++)
             {
                 Phones[Don] = Phones[Don].Replace(" ", "");
             }
-            query = query.Where(x => Phones.Contains(x.PhoneNumber.Replace(" ","")) || Phones.Contains(x.PhoneNumber2.Replace(" ", "")) || Phones.Contains(x.PhoneNumber3.Replace(" ", "")) || Phones.Contains(x.ContactPhoneNumber.Replace(" ", "")));
-            return query.ToList();
+            List<int> vs = new List<int>();
+            var query = _PhoneRepository.Table;
+            foreach (string phone in Phones)
+            {
+                var tmpquery = query.Where(x => Phones.Contains(phone));
+                if (tmpquery.Count() > 0)
+                { 
+                    vs.AddRange(tmpquery.Select(x=>(int)x.MainPartyId).ToList());
+                }
+            }
+            var querystore = _StoreRepository.Table;
+            querystore = querystore.Where(x => vs.Contains(x.MainPartyId));
+            return querystore.ToList();
         }
 
         public IList<PreRegistrationStore> GetPreRegistrationStoreSearchByName(string storeName)

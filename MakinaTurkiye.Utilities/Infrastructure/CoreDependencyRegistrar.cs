@@ -10,6 +10,7 @@ using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Core.Infrastructure.DependencyManagement;
 using MakinaTurkiye.Data;
 using MakinaTurkiye.Logging;
+using MakinaTurkiye.Services.CallCenter;
 using MakinaTurkiye.Services.ProductRequests;
 using MakinaTurkiye.Services.Search;
 using MakinaTurkiye.Services.SearchEngine;
@@ -107,6 +108,8 @@ namespace MakinaTurkiye.Utilities
             builder.RegisterType<SearchScoreService>().As<ISearchScoreService>().InstancePerLifetimeScope();
 
             builder.RegisterType<SerilogElasticSearchLogger>().As<ILogger>().InstancePerLifetimeScope();
+
+            builder.RegisterType<CallCenterService>().As<ICallCenterService>().InstancePerLifetimeScope();
 
         }
         public int Order

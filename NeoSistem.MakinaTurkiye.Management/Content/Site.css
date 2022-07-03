@@ -898,3 +898,28 @@ pnlcontent {
     position: fixed;
     top: 0;
 }
+
+#callcenterpanel {
+    width: 310px;
+    background: #7fc854;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: -310px;
+    transition: left 0.5s ease;
+    z-index: 999;
+}
+
+    #callcenterpanel.visible {
+        left: 0px;
+        transition: left 0.7s ease;
+    }
+
+
+
+.callcenterheader {
+    color:white;
+    font-size:20px;
+    font-weight:700;
+    text-align:center;
+}

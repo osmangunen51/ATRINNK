@@ -6,7 +6,7 @@
 <%MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities(); %>
 <% row++; %>
 <tr id="row<%: item.MainPartyId %>" class="<%: (row % 2 == 0 ? "Row" : "RowAlternate") %>">
-    <td class="CellBegin" style="text-align:center">
+    <td class="CellBegin">
         <%: item.StoreNo %>
     </td>
     <td class="Cell">
@@ -102,7 +102,7 @@
                 {%>
                     <span style="color:yellow"><%:item.CountryName %></span><br />
                 <%}%>
-                <span style="color:red"><%:item.CityName.ToUpper() %></span><br />
+                <span style="color:red"><%:(item.CityName!=null?item.CityName.ToUpper():"") %></span><br />
                 <span style="color:yellowgreen"><%:item.LocalityName %></span>
                 &nbsp
     </td>
@@ -286,7 +286,7 @@
         </a>
         <%} %>
         <div style="float: right; width: 30px; text-align: right; cursor: pointer;">
-            <a href="/Member/storemail/<%=mem.MemberMainPartyId  %>" id="lightbox_click" rel="superbox[iframe][1024x600]">
+            <a href="/Member/storemail/<%=mem.MemberMainPartyId  %>" id="lightbox_click" rel="superbox[iframe][1000x600]">
                 <img src="/Content/Images/ikon_ozel_mesaj_gonder.png" /></a>
         </div>
         <% }

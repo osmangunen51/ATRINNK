@@ -270,7 +270,7 @@
           }
       %>
       <%:phoneType %>
-      <%:item.PhoneCulture%>&nbsp;<%:item.PhoneAreaCode%>&nbsp;<%:item.PhoneNumber%><br />
+      <%:item.PhoneCulture%>&nbsp;<%:item.PhoneAreaCode%>&nbsp;<%:item.PhoneNumber%>&nbsp;&nbsp;<button type="button" class="call" data-number="<%="0"+item.PhoneAreaCode+item.PhoneNumber%>"><i class="fa-solid fa-phone"></i> Ara</button><br /> 
   
       <% } %>
       <% } %>

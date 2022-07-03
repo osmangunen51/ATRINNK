@@ -76,7 +76,7 @@ Firmalar
             <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
               <tbody>
                 <tr>
-                  <td style="border: solid 1px #CCC; background-color: #FFF;text-align:center">
+                  <td style="border: solid 1px #CCC; background-color: #FFF;">
                     <input id="StoreNo" class="Search" style="width: 75%; text-align:center;border: none;" value="###" />
                     <span class="ui-icon ui-icon-close searchClear" style="width: 16%;text-align:center" onclick="$('#StoreNo').val('###');">
                     </span>
