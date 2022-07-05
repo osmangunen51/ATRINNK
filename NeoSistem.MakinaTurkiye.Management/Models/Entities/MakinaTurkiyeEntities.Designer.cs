@@ -44820,10 +44820,24 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// Create a new User object.
         /// </summary>
         /// <param name="userId">Initial value of the UserId property.</param>
-        public static User CreateUser(global::System.Byte userId)
+        /// <param name="userName">Initial value of the UserName property.</param>
+        /// <param name="userPass">Initial value of the UserPass property.</param>
+        /// <param name="userMail">Initial value of the UserMail property.</param>
+        /// <param name="mailSmtp">Initial value of the MailSmtp property.</param>
+        /// <param name="mailPassword">Initial value of the MailPassword property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="surname">Initial value of the Surname property.</param>
+        public static User CreateUser(global::System.Byte userId, global::System.String userName, global::System.String userPass, global::System.String userMail, global::System.String mailSmtp, global::System.String mailPassword, global::System.String name, global::System.String surname)
         {
             User user = new User();
             user.UserId = userId;
+            user.UserName = userName;
+            user.UserPass = userPass;
+            user.UserMail = userMail;
+            user.MailSmtp = mailSmtp;
+            user.MailPassword = mailPassword;
+            user.Name = name;
+            user.Surname = surname;
             return user;
         }
 
@@ -44861,7 +44875,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String UserName
         {
@@ -44873,7 +44887,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             {
                 OnUserNameChanging(value);
                 ReportPropertyChanging("UserName");
-                _UserName = StructuralObject.SetValidValue(value, true, "UserName");
+                _UserName = StructuralObject.SetValidValue(value, false, "UserName");
                 ReportPropertyChanged("UserName");
                 OnUserNameChanged();
             }
@@ -44885,7 +44899,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String UserPass
         {
@@ -44897,7 +44911,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             {
                 OnUserPassChanging(value);
                 ReportPropertyChanging("UserPass");
-                _UserPass = StructuralObject.SetValidValue(value, true, "UserPass");
+                _UserPass = StructuralObject.SetValidValue(value, false, "UserPass");
                 ReportPropertyChanged("UserPass");
                 OnUserPassChanged();
             }
@@ -44909,7 +44923,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String UserMail
         {
@@ -44921,7 +44935,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             {
                 OnUserMailChanging(value);
                 ReportPropertyChanging("UserMail");
-                _UserMail = StructuralObject.SetValidValue(value, true, "UserMail");
+                _UserMail = StructuralObject.SetValidValue(value, false, "UserMail");
                 ReportPropertyChanged("UserMail");
                 OnUserMailChanged();
             }
@@ -44933,7 +44947,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String MailSmtp
         {
@@ -44945,7 +44959,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             {
                 OnMailSmtpChanging(value);
                 ReportPropertyChanging("MailSmtp");
-                _MailSmtp = StructuralObject.SetValidValue(value, true, "MailSmtp");
+                _MailSmtp = StructuralObject.SetValidValue(value, false, "MailSmtp");
                 ReportPropertyChanged("MailSmtp");
                 OnMailSmtpChanged();
             }
@@ -44957,7 +44971,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String MailPassword
         {
@@ -44969,7 +44983,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             {
                 OnMailPasswordChanging(value);
                 ReportPropertyChanging("MailPassword");
-                _MailPassword = StructuralObject.SetValidValue(value, true, "MailPassword");
+                _MailPassword = StructuralObject.SetValidValue(value, false, "MailPassword");
                 ReportPropertyChanged("MailPassword");
                 OnMailPasswordChanged();
             }
@@ -45101,7 +45115,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Name
         {
@@ -45113,7 +45127,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             {
                 OnNameChanging(value);
                 ReportPropertyChanging("Name");
-                _Name = StructuralObject.SetValidValue(value, true, "Name");
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
                 ReportPropertyChanged("Name");
                 OnNameChanged();
             }
@@ -45125,7 +45139,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String Surname
         {
@@ -45137,7 +45151,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             {
                 OnSurnameChanging(value);
                 ReportPropertyChanging("Surname");
-                _Surname = StructuralObject.SetValidValue(value, true, "Surname");
+                _Surname = StructuralObject.SetValidValue(value, false, "Surname");
                 ReportPropertyChanged("Surname");
                 OnSurnameChanged();
             }
@@ -45145,6 +45159,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private global::System.String _Surname;
         partial void OnSurnameChanging(global::System.String value);
         partial void OnSurnameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String CallCenterUrl
+        {
+            get
+            {
+                return _CallCenterUrl;
+            }
+            set
+            {
+                OnCallCenterUrlChanging(value);
+                ReportPropertyChanging("CallCenterUrl");
+                _CallCenterUrl = StructuralObject.SetValidValue(value, true, "CallCenterUrl");
+                ReportPropertyChanged("CallCenterUrl");
+                OnCallCenterUrlChanged();
+            }
+        }
+        private global::System.String _CallCenterUrl;
+        partial void OnCallCenterUrlChanging(global::System.String value);
+        partial void OnCallCenterUrlChanged();
 
         #endregion
 
@@ -45406,10 +45444,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// Create a new UserGroup object.
         /// </summary>
         /// <param name="userGroupId">Initial value of the UserGroupId property.</param>
-        public static UserGroup CreateUserGroup(global::System.Int32 userGroupId)
+        /// <param name="groupName">Initial value of the GroupName property.</param>
+        /// <param name="active">Initial value of the Active property.</param>
+        public static UserGroup CreateUserGroup(global::System.Int32 userGroupId, global::System.String groupName, global::System.Boolean active)
         {
             UserGroup userGroup = new UserGroup();
             userGroup.UserGroupId = userGroupId;
+            userGroup.GroupName = groupName;
+            userGroup.Active = active;
             return userGroup;
         }
 
@@ -45447,7 +45489,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.String GroupName
         {
@@ -45459,7 +45501,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             {
                 OnGroupNameChanging(value);
                 ReportPropertyChanging("GroupName");
-                _GroupName = StructuralObject.SetValidValue(value, true, "GroupName");
+                _GroupName = StructuralObject.SetValidValue(value, false, "GroupName");
                 ReportPropertyChanged("GroupName");
                 OnGroupNameChanged();
             }
@@ -45467,6 +45509,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private global::System.String _GroupName;
         partial void OnGroupNameChanging(global::System.String value);
         partial void OnGroupNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Active
+        {
+            get
+            {
+                return _Active;
+            }
+            set
+            {
+                OnActiveChanging(value);
+                ReportPropertyChanging("Active");
+                _Active = StructuralObject.SetValidValue(value, "Active");
+                ReportPropertyChanged("Active");
+                OnActiveChanged();
+            }
+        }
+        private global::System.Boolean _Active;
+        partial void OnActiveChanging(global::System.Boolean value);
+        partial void OnActiveChanged();
 
         #endregion
 

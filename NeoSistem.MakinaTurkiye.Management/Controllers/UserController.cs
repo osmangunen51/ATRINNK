@@ -207,7 +207,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 UserColor = curUser.UserColor,
                 Active = curUser.Active,
                 ActiveForDesc = curUser.ActiveForDesc,
-                Signature=curUser.Signature
+                Signature=curUser.Signature,
+                CallCenterUrl = curUser.CallCenterUrl,
             };
             if (curUser.MailSmtp == "")
             {
@@ -261,6 +262,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     curUser.Active = model.Active;
                     curUser.ActiveForDesc = model.ActiveForDesc;
                     curUser.Signature = model.Signature;
+                    curUser.CallCenterUrl = model.CallCenterUrl;
                     entities.SaveChanges();
 
                 }

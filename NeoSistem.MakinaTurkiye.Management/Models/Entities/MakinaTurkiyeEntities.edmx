@@ -1944,18 +1944,19 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary 
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="varchar" MaxLength="20" />
-          <Property Name="UserPass" Type="varchar" MaxLength="20" />
-          <Property Name="UserMail" Type="nvarchar" MaxLength="150" />
-          <Property Name="MailSmtp" Type="nvarchar" MaxLength="250" />
-          <Property Name="MailPassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserPass" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserMail" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="MailSmtp" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="MailPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SendCode" Type="int" />
           <Property Name="UserColor" Type="nvarchar" MaxLength="15" />
           <Property Name="Active" Type="bit" />
           <Property Name="ActiveForDesc" Type="bit" />
           <Property Name="Signature" Type="nvarchar(max)" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="Surname" Type="nvarchar" MaxLength="50" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CallCenterUrl" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="UserFile">
           <Key>
@@ -1972,7 +1973,8 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary 
             <PropertyRef Name="UserGroupId" />
           </Key>
           <Property Name="UserGroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GroupName" Type="varchar" MaxLength="50" />
+          <Property Name="GroupName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="UserInformation">
           <Key>
@@ -5498,7 +5500,8 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
             <PropertyRef Name="UserGroupId" />
           </Key>
           <Property Name="UserGroupId" Type="Int32" Nullable="false" />
-          <Property Name="GroupName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="GroupName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Video">
           <Key>
@@ -8701,20 +8704,21 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UserPass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="UserMail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="MailSmtp" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MailPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserPass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserMail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MailSmtp" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MailPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="SendCode" Type="Int32" />
           <Property Name="UserColor" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="ActiveForDesc" Type="Boolean" />
           <Property Name="Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="UserFiles" Relationship="MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB" FromRole="User" ToRole="UserFile" />
           <NavigationProperty Name="WebSiteErrors" Relationship="MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A" FromRole="User" ToRole="WebSiteError" />
+          <Property Name="CallCenterUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK__UserFile__UserId__77661EAB">
           <End Type="MakinaTurkiyeModel.User" Role="User" Multiplicity="0..1" />
@@ -9134,7 +9138,8 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
             <ScalarProperty Name="TownName_Small" ColumnName="TownName_Small" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="UserGroups"><EntityTypeMapping TypeName="MakinaTurkiyeModel.UserGroup"><MappingFragment StoreEntitySet="UserGroup">
-            <ScalarProperty Name="UserGroupId" ColumnName="UserGroupId" />
+            <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="UserGroupId" ColumnName="UserGroupId" />
             <ScalarProperty Name="GroupName" ColumnName="GroupName" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
           <EntitySetMapping Name="Videos"><EntityTypeMapping TypeName="MakinaTurkiyeModel.Video"><MappingFragment StoreEntitySet="Video">
@@ -10871,6 +10876,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="CallCenterUrl" ColumnName="CallCenterUrl" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Signature" ColumnName="Signature" />

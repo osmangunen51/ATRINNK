@@ -203,6 +203,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Email.resx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\ObjectionableContentController.cs" />
     <Compile Include="Controllers\CallCenterController.cs" />
     <Compile Include="Controllers\StoreSeoNotificationController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -4131,6 +4132,7 @@
     <Folder Include="Scripts\CKFinder\core\images\icons\" />
     <Folder Include="UserFiles\" />
     <Folder Include="Views\HeadAlertMessage\" />
+    <Folder Include="Views\ObjectionableContent\" />
     <Folder Include="Views\Transfer\" />
     <Folder Include="webp\libwebp\bin\" />
   </ItemGroup>

@@ -118,6 +118,15 @@
                 <%: Html.TextAreaFor(model => model.Signature, new {@style="width:100%; height:60px;" })%>
             </td>
         </tr>
+        <tr>
+            <td>
+                <%: Html.LabelFor(model => model.CallCenterUrl) %>
+            :
+            </td>
+            <td>
+                <%: Html.TextAreaFor(model => model.CallCenterUrl, new {@style="width:100%; height:60px;" })%>
+            </td>
+        </tr>
         <tr style="height: 40px;">
             <td colspan="2" align="right" style="padding-bottom: 10px;">
                 <div style="border-bottom: dashed 1px #c0c0c0; width: 100%; height: 1px; margin-top: 15px; margin-bottom: 10px;">

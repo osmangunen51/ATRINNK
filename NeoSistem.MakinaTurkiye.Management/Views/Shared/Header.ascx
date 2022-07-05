@@ -1029,7 +1029,19 @@
                                             align: 'left', image: 'password.png', action: "window.location ='/ApplicationLog';"
                                         }]
                                 }
-
+                                ,
+                                {
+                                    text: 'İçerik Kontrolü',
+                                    type: Ribbon.GroupType.Group,
+                                    width: 'auto',
+                                    buttons:
+                                        [
+                                            {
+                                                Id: 'ObjectionableContent', text: 'Sakıncalı<br> İçerikler', type: Ribbon.ButtonType.BigItem,
+                                                align: 'left', image: 'AdvertCheck.png', action: "window.location ='/ObjectionableContent';"
+                                            }
+                                        ]
+                                }
 
                             ]
                         });

@@ -41,5 +41,8 @@
         [DisplayName("Soyad")]
         public string Surname { get; set; }
 
+        [DisplayName("Call Center Adresi")]
+        public string CallCenterUrl { get; set; }
+
     }
 }

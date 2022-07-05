@@ -39,6 +39,9 @@ namespace NeoSistem.MakinaTurkiye.Classes
         public string Name { get; set; }
         [Column("Soyad", SqlDbType.NVarChar)]
         public string Surname { get; set; }
+
+        [Column("Call Center Adresi", SqlDbType.NVarChar)]
+        public string CallCenterUrl { get; set; }
     }
 
 
