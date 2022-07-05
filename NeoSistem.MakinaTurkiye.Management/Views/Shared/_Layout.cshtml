@@ -1,0 +1,134 @@
+﻿@using MakinaTurkiye.Core.Infrastructure;
+@using MakinaTurkiye.Core;
+<!doctype html>
+<html lang="tr">
+<head>
+    <title>
+        @RenderSection("TitleContent", required: false)
+    </title>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <script src="/Scripts/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+    <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/Ribbon.css" rel="stylesheet" type="text/css" />
+    <script src="/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
+    <script src="/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
+    <script src="/Scripts/MicrosoftMvcValidation.js" type="text/javascript"></script>
+    <script src="/Scripts/NeoSistem.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui.datepicker-tr.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/Scripts/Ribbon.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui-1.8.8.custom.min.js" type="text/javascript"></script>
+    <link href="/Content/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <link href="../../vendor/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="../../vendor/fontawesome/css/all.css" rel="stylesheet" />
+    <script src="/Scripts/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
+    <script src="/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
+    <script src="/Scripts/MicrosoftMvcValidation.js" type="text/javascript"></script>
+    <script src="/Scripts/NeoSistem.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="/Scripts/Ribbon.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var resizeHeight = 132;
+        var numberGetNot = 0;
+        var countNot = 0;
+        var lastCountNot = 0;
+        function resizeContent() {
+            $('.Content').height($(window).height() - resizeHeight);
+        }
+        setInterval('resizeContent()', 100);
+        $(document).ready(function () {
+            GetSeoNotification();
+            numberGetNot = 0;
+            $("button").button();
+            GetNotification();
+            GetNotSpecialForUser();
+            lastCountNot = 0;
+            countNot = 0;
+            setInterval(GetNotification, 400000);
+        });
+        function GetNotSpecialForUser() {
+            $.ajax({
+                url: '/MemberDescription/getNotification1',
+                type: 'post',
+                data: {},
+                success: function (data) {
+                    $("#notification1").html("<font style='color:#ed1818; font-weight:600'>" + data + "</font> Bildirim");
+
+                },
+                error: function (x) {
+                    $('#preLoading').hide();
+                    //$('#table').html(x.responseText);
+                }
+            });
+        }
+        function GetNotification() {
+            numberGetNot = numberGetNot + 1;
+            $.ajax({
+                url: '/MemberDescription/getNotification',
+                type: 'post',
+                data: {},
+                success: function (data) {
+                    $("#notification").html("<font style='color:#ed1818; font-weight:600'>" + data.count + " Genel </font> Bildirim");
+                    countNot = data.count;
+                    if (numberGetNot > 1) {
+                        if (parseInt(data.count) > lastCountNot) {
+                            $("#newNot").html(data.count - lastCountNot + " yeni bildirim");
+                            $("#newNot").slideDown();
+                        }
+                    }
+                    lastCountNot = countNot;
+                },
+                error: function (x) {
+                    $('#preLoading').hide();
+                    //$('#table').html(x.responseText);
+                }
+            });
+        }
+        function GetSeoNotification() {
+            $.ajax({
+                url: '/StoreSeoNotification/GetCountSeoNotification',
+                type: 'get',
+                data: {},
+                success: function (data) {
+                    if (data != false) {
+                        $("#notSeo").html("<span style='color:red'>" + data.Count + " </span> seo bildirim");
+                    }
+
+                },
+                error: function (x) {
+                    $('#preLoading').hide();
+                    //$('#table').html(x.responseText);
+                }
+            });
+        }
+    </script>
+    @RenderSection("HeadContent", required: false)
+</head>
+<body unselectable="on">
+    @Html.Partial("Header")
+    <div class="ContentTopSep">
+    </div>
+    <div class="Content">
+        <div id="callcenterpanel">
+            <div>
+                <h3 class="callcenterheader">Call Center</h3>
+                <hr />
+                <iframe src="https://phone.ncvav.com/webrtc/151681531565/ANEXXABLSM/test.html" style="border:none;" title="CallCenter Terminal">
+                </iframe>
+            </div>
+        </div>
+        @RenderBody()
+    </div>
+    <script src="../../vendor/bootstrap-sweetalert/sweetalert.js"></script>
+    <script src="../../vendor/fontawesome/js/all.js"></script>
+    <script src="../../Scripts/system.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,57 @@
+﻿@model FilterModel<AddressTypeModel>
+
+@section TitleContent {
+
+  Makina Türkiye | Adres Tipi Listesi
+
+}
+@section HeadContent {
+
+  <script type="text/javascript">
+    function DeletePost(storeId) {
+      if (confirm('Kaydı Silmek istediğinizden eminmisiniz ?')) {
+        $.ajax({
+          url: '/AddressType/Delete',
+          data: { id: storeId },
+          type: 'post',
+          dataType: 'json',
+          success: function (data) {
+            var e = data.m;
+            if (e) {
+              $('#row' + storeId).hide();
+            }
+          }
+        });
+      }
+    }
+  </script>
+
+}
+
+  <div style="width: 100%; margin: 0 auto;">
+    <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
+      <thead>
+        <tr>
+          <td class="Header HeaderBegin" unselectable="on">
+            Adres Tipi
+          </td>
+          <td class="Header" style="width: 70px; height: 19px">
+          </td>
+        </tr>
+      </thead>
+      <tbody id="table">
+        @Html.RenderPartial("AddressTypeList", Model)
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="ui-state ui-state-hover" colspan="3" align="right" style="border-color: #DDD;
+            border-top: none; padding-right: 10px">
+            Toplam Kayıt : &nbsp;&nbsp;<strong>
+              @Model.TotalRecord</strong>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+

@@ -1,0 +1,34 @@
+﻿@model NeoSistem.MakinaTurkiye.Management.Models.Entities.HelpSubcategory
+
+@section TitleContent {
+
+	DeleteSub
+
+}
+
+
+
+    <h2>Alt Kategori Silme Onayı</h2>
+
+    <h3>@Model.HelpCategory.KategoriAd kategorisine bağlı olan @Model.SubCategoryName alt kategorisini <br /> silmek istediğinize emin misiniz?</h3>
+   
+    @using (Html.BeginForm()) { 
+        <p>
+		    <p>
+		    <button type="submit" value="Sil" style="width:70px;height:35px" > Sil</button> 
+            
+		    <button type="button" style="width: 70px; height: 35px;" onclick="window.location='/Help/BrowseSub'">
+          İptal
+        </button>
+        </p>
+        </p>
+     } 
+
+
+
+@section HeadContent {
+
+
+}
+
+

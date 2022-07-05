@@ -1,0 +1,65 @@
+﻿@model IList<VirtualPos>
+
+@section TitleContent {
+
+  Makina Türkiye | Sanal Post Listesi
+
+}
+@section HeadContent {
+
+  <script type="text/javascript">
+    function DeletePost(virtualPostId) {
+      if (confirm('Kaydı Silmek istediğinizden eminmisiniz ?')) {
+        $.ajax({
+          url: '/VirtualPos/Delete',
+          data: { id: virtualPostId },
+          type: 'post',
+          dataType: 'json',
+          success: function (data) {
+            var e = data;
+            if (e) {
+              $('#row' + virtualPostId).hide();
+            }
+            else {
+            }
+          }
+        });
+      }
+    }
+  </script>
+
+}
+
+  <div style="width: 100%; margin: 0 auto;">
+    <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
+      <thead>
+        <tr>
+          <td class="Header HeaderBegin" unselectable="on">
+            Sanal Pos Adı
+          </td>
+          <td class="Header" unselectable="on">
+            Sanal Pos Türü
+          </td>
+          <td class="Header" unselectable="on">
+            Aktif
+          </td>
+          <td class="Header HeaderEnd" style="width: 70px; height: 19px">
+          </td>
+        </tr>
+      </thead>
+      <tbody id="table">
+        @Html.RenderPartial("VirtualPosList", Model)
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="ui-state ui-state-hover" colspan="5" align="right" style="border-color: #DDD;
+            border-top: none; padding-right: 10px">
+            Toplam Kayıt : &nbsp;&nbsp;<strong>
+              @Model.Count</strong>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+

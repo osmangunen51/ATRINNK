@@ -1,0 +1,39 @@
+﻿@model NeoSistem.MakinaTurkiye.Management.Models.HelpModel
+@section TitleContent {
+
+  Satış Yardım Ekle
+
+}
+@section HeadContent {
+
+  <script type="text/javascript" src="/Scripts/CKEditor/ckeditor.js"></script>
+  <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
+
+
+}
+
+
+  <div style="float: left; width: 100%; margin-top: 10px;">
+      <div style="margin-left:20px">
+      @if (!string.IsNullOrEmpty(ViewBag.Message)) {
+          <p style="font-size:16px; color:#028f2c">@ViewBag.Message</p>
+
+          }
+ 
+          
+          </div>
+      @using (Html.BeginForm())
+          { 
+      @Html.HiddenFor(x=>x.ID)
+               @Html.Partial("_HelpForm", Model) 
+      } 
+ </div>
+         <script type="text/javascript" defer="defer">
+   
+         var editor = CKEDITOR.replace('Content', { toolbar: 'webtool', allowedContent: true });
+         CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
+
+  </script>
+
+
+

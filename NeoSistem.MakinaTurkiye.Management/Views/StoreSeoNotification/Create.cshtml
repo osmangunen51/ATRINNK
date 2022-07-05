@@ -1,0 +1,50 @@
+﻿@model NeoSistem.MakinaTurkiye.Management.Models.Stores.StoreSeoNotificationFormModel
+
+@section TitleContent {
+
+    Seo Bildirim Ekle
+
+}
+@section HeadContent {
+
+    <script type="text/javascript" src="/Scripts/CKEditor/ckeditor.js"></script>
+    <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#RemindDate').datepicker().val();
+            CKEDITOR.replace('Text', {
+                toolbar: [
+                    '/',																					// Line break - next group will be placed in new line.
+                    { name: 'basicstyles', items: ['Bold'] },
+                ],
+
+            });
+                        CKEDITOR.replace('PreviousText', {
+                toolbar: [
+                    '/',																					// Line break - next group will be placed in new line.
+                    { name: 'basicstyles', items: ['Bold'] },
+                ],
+
+            });
+
+        });
+
+
+
+    </script>
+    <style type="text/css">
+        .editor-label { padding-top: 5px; }
+    </style>
+
+
+}
+
+    @using (Html.BeginForm("Create", "StoreSeoNotification", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+        { 
+    @Html.Partial("_StoreNotificationFormModel", Model) 
+    } 
+
+
+

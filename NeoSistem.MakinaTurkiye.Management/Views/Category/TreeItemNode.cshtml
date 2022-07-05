@@ -1,0 +1,13 @@
+﻿@model IEnumerable<TreeViewNode>
+@foreach (var item in Model)
+   { 
+<li>
+  @item.text@item.tool
+  @if (item.hasChildren)
+     { 
+  <ul>
+     @Html.Partial("TreeItemNode", Model) 
+  </ul>
+   } 
+</li>
+ } 
