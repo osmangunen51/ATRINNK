@@ -109,6 +109,7 @@ namespace MakinaTurkiye.Services.Catalog
         IList<SiteMapProductResult> GetSiteMapProducts();
         IList<int> GetProductsOnlyIdList();
 
-
+        Product ClearObjectionableContent(Product product);
+        string ClearObjectionableContent(string txt);
     }
 }

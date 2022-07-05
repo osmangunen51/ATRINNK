@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MakinaTurkiye.Services.Catalog
 {
@@ -544,6 +545,31 @@ namespace MakinaTurkiye.Services.Catalog
                 }
                 return product;
             });
+        }
+
+        public Product ClearObjectionableContent(Product product)
+        {
+            var s = product.ProductDescription;
+            var rxUrl = @"\b(https?://(www\.)?)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}[-a-zA-Z0-9@:%_+.~#?&/=]*";
+            var rxPhone = @"\+?[0-9]{0,4}(?:[-./() ]*[0-9]{3,4}){3}(?![a-z]{1,4})";
+            var rxEmail = @"(?i)\b[A-Z0-9._%+*-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b";
+            var res = Regex.Replace(s, $@"(\*{{3}}{rxUrl})|{rxUrl}", m => m.Groups[1].Success ? m.Value : "[ URL HIDDEN ]");
+            res = Regex.Replace(res, $@"(\*{{3}}{rxPhone})|{rxPhone}", m => m.Groups[1].Success ? m.Value : "[ PHONE HIDDEN ]");
+            res = Regex.Replace(res, $@"(\*{{3}}{rxEmail})|{rxEmail}", m => m.Groups[1].Success ? m.Value : "[ EMAIL HIDDEN ]");
+            //product.ProductDescription = s;
+            //_productRepository.Update(product);
+            return product;
+        }
+
+        public string ClearObjectionableContent(string txt)
+        {
+            var rxUrl = @"\b(https?://(www\.)?)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}[-a-zA-Z0-9@:%_+.~#?&/=]*";
+            var rxPhone = @"\+?[0-9]{0,4}(?:[-./() ]*[0-9]{3,4}){3}(?![a-z]{1,4})";
+            var rxEmail = @"(?i)\b[A-Z0-9._%+*-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b";
+            txt = Regex.Replace(txt, $@"(\*{{3}}{rxUrl})|{rxUrl}", m => m.Groups[1].Success ? m.Value : "[ URL HIDDEN ]");
+            txt = Regex.Replace(txt, $@"(\*{{3}}{rxPhone})|{rxPhone}", m => m.Groups[1].Success ? m.Value : "[ PHONE HIDDEN ]");
+            txt = Regex.Replace(txt, $@"(\*{{3}}{rxEmail})|{rxEmail}", m => m.Groups[1].Success ? m.Value : "[ EMAIL HIDDEN ]");
+            return txt;
         }
 
         public Product GetProductByProductNo(string productNo)
