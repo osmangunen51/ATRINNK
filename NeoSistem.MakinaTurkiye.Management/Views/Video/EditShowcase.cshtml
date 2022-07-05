@@ -8,7 +8,7 @@
 
 @section HeadContent {
 
-  @Html.RenderPartial("Style")
+  @Html.Partial("Style")
   <script src="/Scripts/MakinaTurkiye.js" type="text/javascript" defer="defer"></script>
   <style type="text/css">
     .row
@@ -38,7 +38,7 @@
 
   @using (Html.BeginPanel())
     { 
-  @Html.RenderPartial("TabMenu")
+  @Html.Partial("TabMenu")
   @using (Html.BeginForm("EditShowcase", "Video", FormMethod.Post))
      { 
   <div style="float: left; width: 90%; margin: 20px 0px 0px 25px">

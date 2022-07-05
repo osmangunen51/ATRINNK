@@ -65,8 +65,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     RecordDate = item.RecordDate,
                     WebUrl = item.WebUrl,
                     City = item.City,
-                    ContactNameSurname= item.ContactNameSurname,
-                    ContactPhoneNumber= item.ContactPhoneNumber,
+                    ContactNameSurname = item.ContactNameSurname,
+                    ContactPhoneNumber = item.ContactPhoneNumber,
                     PhoneNumber2 = item.PhoneNumber2,
                     PhoneNumber3 = item.PhoneNumber3,
                     HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
@@ -158,13 +158,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 //var checkpreRegistrationStore = _preRegistrationService.GetPreRegistrationStoreSearchByPhone(model.PhoneNumber, model.PhoneNumber2, model.PhoneNumber3, model.ContactPhoneNumber);
                 //if (checkpreRegistrationStore==null || checkpreRegistrationStore.Count() == 0)
                 //{
-                    
+
                 //}
                 //else
                 //{
                 //    TempData["error"] = "Bu iletişim bilgilerinde bir ön kayıt firması daha önce kayıt edilmiş.";
                 //}
-                
+
             }
             return View(model);
         }
@@ -269,7 +269,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         MemberEmail = memberEmail,
                         PhoneNumbers = phoneNumber,
                         MemberMainPartyId = MemberMainPartyId,
-                        ContactNameSurname=item.ContactNameSurname,
+                        ContactNameSurname = item.ContactNameSurname,
                         ContactPhoneNumber = item.ContactPhoneNumber,
                     });
                 }

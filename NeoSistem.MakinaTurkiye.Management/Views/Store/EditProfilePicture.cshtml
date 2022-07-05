@@ -7,14 +7,14 @@
 }
 @section HeadContent {
 
-  @Html.RenderPartial("Style")
+  @Html.Partial("Style")
   <script src="/Scripts/MakinaTurkiye.js" type="text/javascript" defer="defer"></script>
 
 }
 
   @using (Html.BeginPanel())
     { 
-  @Html.RenderPartial("TabMenu")
+  @Html.Partial("TabMenu")
   @using (Html.BeginForm("EditProfilePicture", "Store", FormMethod.Post, new { enctype = "multipart/form-data" }))
      { 
   <div style="width: 800px; float: left; margin: 20px 0px 20px 20px">

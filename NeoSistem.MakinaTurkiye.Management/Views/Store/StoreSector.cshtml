@@ -7,13 +7,13 @@
 }
 @section HeadContent {
 
-    @Html.RenderPartial("Style")
+    @Html.Partial("Style")
     <script src="/Scripts/MakinaTurkiye.js" type="text/javascript" defer="defer"></script>
 
 
 }
 
-    @Html.RenderPartial("TabMenu")
+    @Html.Partial("TabMenu")
     <div style="margin-top: 70px; margin-left: 10px;">
 
         @if (TempData["success"] != null)

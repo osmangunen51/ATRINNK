@@ -1272,7 +1272,7 @@
                 <td colspan="4">
                     <span style="font-weight: bold;">Ürün Resimleri</span>
                     <div id="divPictureList" style="width: 100%; height: auto; float: left; border: solid 1px #bababa; padding-bottom: 20px; margin-top: 5px;">
-                        @Html.RenderPartial("PictureList", Model.ProductPictureItems)
+                        @Html.Partial("PictureList", Model.ProductPictureItems)
                     </div>
                 </td>
             </tr>
@@ -1291,7 +1291,7 @@
                 <td colspan="4">
                     <span style="font-weight: bold;">Videolar</span>
                     <div id="divVideoList" style="width: 100%; height: auto; float: left; border: solid 1px #bababa; padding-bottom: 20px; margin-top: 5px;">
-                        @Html.RenderPartial("VideoList", Model.VideoItems)
+                        @Html.Partial("VideoList", Model.VideoItems)
                     </div>
                 </td>
             </tr>

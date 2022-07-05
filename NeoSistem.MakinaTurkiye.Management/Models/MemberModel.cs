@@ -1,6 +1,7 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Management.Models
 {
     using EnterpriseEntity.Extensions.Data;
+    using global::MakinaTurkiye.Core;
     using NeoSistem.MakinaTurkiye.Management.Models.Entities;
     using System;
     using System.Collections.Generic;
@@ -8,8 +9,6 @@
     using System.Linq;
     using System.Web.Mvc;
     using Validation;
-    using MakinaTurkiye.Core;
-    using global::MakinaTurkiye.Core;
 
     public class MemberModel
     {

@@ -257,7 +257,7 @@
     </div>
 
 
-    @Html.RenderPartial("CategoryParentView", entities.Categories.Where(c => c.CategoryParentId == null).ToList())
+    @Html.Partial("CategoryParentView", entities.Categories.Where(c => c.CategoryParentId == null).ToList())
     <div id="element@s">
     </div>
   </div>
@@ -268,7 +268,7 @@
 
      
 
-    @Html.RenderPartial("CategoryParentViewSecond", entities.Categories.Where(c => c.CategoryParentId == null).ToList())
+    @Html.Partial("CategoryParentViewSecond", entities.Categories.Where(c => c.CategoryParentId == null).ToList())
         
     <div id="elementa@s">
     </div>

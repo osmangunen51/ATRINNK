@@ -1,9 +1,8 @@
 ﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewUserControl<FilterModel<NeoSistem.MakinaTurkiye.Management.Models.Catolog.HomeSectorProductItem>>
 @{ int row = 0; }
-
-@{ foreach (var item in Model.Source)
-    { 
-@{ row++; }
+@{foreach (var item in Model.Source)
+{ 
+ row++; 
 <tr id="row@item.Id" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
     <td class="CellBegin">
         @item.SectorName
@@ -19,8 +18,6 @@
     <td class="Cell">
         @item.ProductName
     </td>
-
-
     <td class="Cell">
         @{string beginDate = item.BeginDate != null ? item.BeginDate.ToDateTime().ToString("dd.MM.yyyy") : ""; }
         @beginDate
@@ -56,9 +53,6 @@
                 Kaydet
             </button>
         </div>
-
-
-
     </td>
     <td class="Cell">
         <a title="Düzenle" style="cursor: pointer;" href="/Product/Edit/@item.ProductId">
@@ -70,7 +64,6 @@
     </td>
     <td class="CellEnd">
     @{string text = "";
-
         if (DateTime.Now.Date > item.EndDate.Date)
         {
             text = "<span style='color:red;'>Süresi Doldu</span>";

@@ -7,7 +7,7 @@
 }
 @section HeadContent {
 
-  @Html.RenderPartial("Style")
+  @Html.Partial("Style")
   <script src="/Scripts/MakinaTurkiye.js" type="text/javascript" defer="defer"></script>
   <script src="/Scripts/JQuery-dropdowncascading.js" type="text/javascript"></script>
   <script type="text/javascript">
@@ -240,7 +240,7 @@
 
   @using (Html.BeginPanel())
     { 
-  @Html.RenderPartial("TabMenu")
+  @Html.Partial("TabMenu")
   @using (Html.BeginForm("EditCommunication", "Store", FormMethod.Post))
      { 
   <div style="width: 800px; float: left; margin: 20px 0px 0px 20px">
@@ -361,7 +361,7 @@
         </td>
       </tr>
     </table>
-    @Html.RenderPartial("PhoneItem", Model.PhoneItems)
+    @Html.Partial("PhoneItem", Model.PhoneItems)
       <div style="margin-left:80px;">
            
         @Html.CheckBoxFor(x=>x.IsWhatsappNotUsing) Whatsapp Kullanmıyor

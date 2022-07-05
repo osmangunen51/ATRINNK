@@ -7,7 +7,7 @@
 }
 @section HeadContent {
 
-  @Html.RenderPartial("Style")
+  @Html.Partial("Style")
   <script type="text/javascript">
     function DeleteStoreBrand(Id) {
       if (confirm('Markayı silmek istediğinizden eminmisiniz ?')) {
@@ -32,7 +32,7 @@
 
   @using (Html.BeginPanel())
     { 
-  @Html.RenderPartial("TabMenu")
+  @Html.Partial("TabMenu")
   @using (Html.BeginForm("EditBrand", "Store", FormMethod.Post, new { enctype = "multipart/form-data" }))
      { 
   <div style="width: 900px; float: left; margin: 20px 0px 0px 20px">
@@ -92,7 +92,7 @@
       <input type="hidden" id="storeId" name="storeId" value="@this.RouteData.Values["id"]" />
     </div>
     <div id="divStoreBrandItems" style="width: 300px; height: 270px; float: left; margin-top: 20px;">
-      @Html.RenderPartial("StoreBrand", Model.StoreBrandItems)
+      @Html.Partial("StoreBrand", Model.StoreBrandItems)
     </div>
   </div>
    } 

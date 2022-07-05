@@ -7,7 +7,7 @@
 }
 @section HeadContent {
 
-  @Html.RenderPartial("Style")
+  @Html.Partial("Style")
   <script src="/Scripts/MakinaTurkiye.js" type="text/javascript" defer="defer"></script>
   <script type="text/javascript">
 
@@ -33,7 +33,7 @@
 
   @using (Html.BeginPanel())
     { 
-  @Html.RenderPartial("TabMenu")
+  @Html.Partial("TabMenu")
   @using (Html.BeginForm("EditStoreImages", "Store", FormMethod.Post, new { enctype = "multipart/form-data" }))
      { 
   <div style="width: 900px; float: left; margin: 20px 0px 0px 20px">
@@ -81,7 +81,7 @@
         <tr>
           <td colspan="3">
             <div id="divPictureList">
-              @Html.RenderPartial("StoreImages")
+              @Html.Partial("StoreImages")
             </div>
           </td>
         </tr>

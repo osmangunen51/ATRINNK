@@ -72,7 +72,7 @@
     </div>
   </div>
   <div style="float: left;">
-    @Html.RenderPartial("Address")
+    @Html.Partial("Address")
     <div style="margin: 20px auto; padding-top: 10px; border-top: solid 1px #DDD; width: 99%;
       float: left">
       <button type="submit" onclick="return checkForm();">
@@ -87,7 +87,7 @@
     <span style="font-size: 13px; font-weight: bold;">Yetkili Servisler ve Adresleri</span>
   </div>
   <div style="float: left;" id="divAddressItems">
-    @Html.RenderPartial("DealerAddressItems", Model.DealerAddressItems)</div>
+    @Html.Partial("DealerAddressItems", Model.DealerAddressItems)</div>
 </div>
 <input type="hidden" id="hdnDealerType" value="@Request.QueryString["DealerType"]" />
 <input type="hidden" id="storeId" name="storeId" value="@this.Page.RouteData.Values["id"]" />

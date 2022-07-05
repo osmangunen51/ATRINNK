@@ -1,4 +1,17 @@
-﻿
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Data;
+using System.Data.OleDb;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net.Mail;
+using System.Text;
+using System.Transactions;
+using System.Web;
+using System.Web.Mvc;
+
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
     using EnterpriseEntity.Extensions;
@@ -18,20 +31,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
     using NeoSistem.MakinaTurkiye.Management.Models.ProductModels;
     using NPOI.HSSF.UserModel;
     using NPOI.SS.UserModel;
-    using System;
-    using System.Collections.Generic;
-    using System.Configuration;
-    using System.Data;
-    using System.Data.OleDb;
-    using System.Globalization;
-    using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Mail;
-    using System.Text;
-    using System.Transactions;
-    using System.Web;
-    using System.Web.Mvc;
 
     public class ProductController : BaseController
     {
@@ -252,8 +251,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 dataProduct = new Data.Product();
 
                 string whereClause = string.Empty;
-
-
 
                 if (Request.QueryString["StoreMainPartyId"] != null)
                 {

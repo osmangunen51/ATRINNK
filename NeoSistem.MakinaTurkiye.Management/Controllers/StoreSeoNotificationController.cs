@@ -68,7 +68,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 storeSeoNotification = _storeSeoNotificationService.GetStoreSeoNotificationByStoreSeoNotificationId(storeNotId.Value);
                 model.PreviousText = storeSeoNotification.Text;
                 model.StoreSeoNotificationId = storeNotId.Value;
-                model.StoreMainPartyId =(int)storeSeoNotification.StoreMainPartyId;
+                model.StoreMainPartyId = (int)storeSeoNotification.StoreMainPartyId;
                 if (!storeSeoNotification.ConstantId.HasValue || storeSeoNotification.ConstantId == 0)
                     model.Titles.Add(new SelectListItem { Text = "Seçiniz", Value = "0" });
 

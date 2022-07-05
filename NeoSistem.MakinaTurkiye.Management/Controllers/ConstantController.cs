@@ -42,7 +42,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(string ConstantName, byte ConstantType, int Order, short ConstantId, string ConstantPropertie,bool MemberDescriptionIsOpened)
+        public ActionResult Create(string ConstantName, byte ConstantType, int Order, short ConstantId, string ConstantPropertie, bool MemberDescriptionIsOpened)
         {
 
             var curConstant = new Classes.Constant();
@@ -74,7 +74,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         ConstantName = ConstantName,
                         ConstantType = ConstantType,
                         ContstantPropertie = ConstantPropertie,
-                        MemberDescriptionIsOpened= MemberDescriptionIsOpened,
+                        MemberDescriptionIsOpened = MemberDescriptionIsOpened,
                         Order = Order
                     };
                     entities.Constants.AddObject(constant);
@@ -139,7 +139,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             var curConstant = new Classes.Constant();
             curConstant.LoadEntity(ConstantId);
-            return Json(new { order = curConstant.Order, constantName = curConstant.ConstantName, constantPropertie = curConstant.ConstantPropertie,MemberDescriptionIsOpened=curConstant.MemberDescriptionIsOpened });
+            return Json(new { order = curConstant.Order, constantName = curConstant.ConstantName, constantPropertie = curConstant.ConstantPropertie, MemberDescriptionIsOpened = curConstant.MemberDescriptionIsOpened });
             //return Content(curConstant.ConstantName);
         }
 

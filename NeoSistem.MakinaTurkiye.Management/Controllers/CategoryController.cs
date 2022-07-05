@@ -1,4 +1,5 @@
 ﻿using global::MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Content;
@@ -21,7 +22,6 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using MakinaTurkiye.Core;
 
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {

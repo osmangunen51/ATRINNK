@@ -7,7 +7,7 @@
 }
 @section HeadContent {
 
-  @Html.RenderPartial("Style")
+  @Html.Partial("Style")
   <script src="/Scripts/MakinaTurkiye.js" type="text/javascript" defer="defer"></script>
   <script type="text/javascript">
     $(function () {
@@ -30,7 +30,7 @@
 
   @using (Html.BeginPanel())
     { 
-  @Html.RenderPartial("TabMenu")
+  @Html.Partial("TabMenu")
   @using (Html.BeginForm("StoreProfileHomeDescription", "Store", FormMethod.Post))
      { 
   <div style="width: 600px; float: left; margin: 20px 0px 0px 20px">

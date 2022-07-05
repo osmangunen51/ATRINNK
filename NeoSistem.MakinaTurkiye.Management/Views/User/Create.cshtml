@@ -16,10 +16,10 @@ Makinaturkiye | Kullanıcı Ekle
   @using ( Html.BeginPanel() )
      { 
     <div style="float:left; width:40%; margin-right:10px;">
-            @Html.RenderPartial("_UserForm",Model.UserModel)
+            @Html.Partial("_UserForm",Model.UserModel)
         </div>
     <div style="float:left; width:40%">
-        @Html.RenderPartial("_UserInformationForm", Model.UserInformationModel)
+        @Html.Partial("_UserInformationForm", Model.UserInformationModel)
     </div>
     <div style="clear:both"></div>
     <br />

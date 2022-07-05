@@ -1,7 +1,6 @@
 ﻿using MakinaTurkiye.Services.Logs;
 using NeoSistem.MakinaTurkiye.Management.Models;
 using NeoSistem.MakinaTurkiye.Management.Models.Logs;
-using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Management.Controllers

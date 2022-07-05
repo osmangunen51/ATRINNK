@@ -70,9 +70,6 @@
     <Reference Include="Common.Logging.Core, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.Core.3.4.1\lib\net40\Common.Logging.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenMail">
-      <HintPath>..\External\DotNetOpenMail.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -92,21 +89,7 @@
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=59d6d24383174ac4, processorArchitecture=MSIL">
-      <HintPath>..\packages\CommonServiceLocation.1.0.0\lib\Microsoft.Practices.ServiceLocation.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.Interception.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Interception.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Practices.Unity.Interception.Configuration, Version=2.1.505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Unity.Interception.2.1.505.0\lib\NET35\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.VisualC" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
@@ -169,7 +152,6 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.9\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -196,7 +178,6 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
@@ -3627,9 +3608,13 @@
     <Content Include="Views\BankAccount\Create.cshtml" />
     <Content Include="Views\BankAccount\Edit.cshtml" />
     <Content Include="Views\BankAccount\Index.cshtml" />
-    <Content Include="Views\Banner\Edit.cshtml" />
+    <Content Include="Views\Banner\Edit.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Banner\EditHomePage.cshtml" />
-    <Content Include="Views\Category\addImages.cshtml" />
+    <Content Include="Views\Category\addImages.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Category\AllIndex.cshtml" />
     <Content Include="Views\Category\AllIndexHelp.cshtml" />
     <Content Include="Views\Category\BaseMenuImage.cshtml" />
@@ -3637,27 +3622,39 @@
     <Content Include="Views\Category\CategoryParentView.cshtml" />
     <Content Include="Views\Category\CategoryParentViewSecond.cshtml" />
     <Content Include="Views\Category\CategoryPlaceList.cshtml" />
-    <Content Include="Views\Category\CategoryPlaces.cshtml" />
+    <Content Include="Views\Category\CategoryPlaces.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Category\ChildrenItem.cshtml" />
     <Content Include="Views\Category\ChildrenItems.cshtml" />
     <Content Include="Views\Category\CreateBaseMenu.cshtml" />
     <Content Include="Views\Category\EditBaseMenu.cshtml" />
     <Content Include="Views\Category\EditCategoryQuestion.cshtml" />
     <Content Include="Views\Category\EditContent.cshtml" />
-    <Content Include="Views\Category\Index.cshtml" />
+    <Content Include="Views\Category\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Category\ProductMove.cshtml" />
     <Content Include="Views\Category\TreeItemNode.cshtml" />
     <Content Include="Views\Category\UpdateCategoryByExcelFile.cshtml" />
     <Content Include="Views\ChangeLogs\address.cshtml" />
-    <Content Include="Views\ChangeLogs\AddressList.cshtml" />
+    <Content Include="Views\ChangeLogs\AddressList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\ChangeLogs\Index.cshtml" />
     <Content Include="Views\ChangeLogs\phone.cshtml" />
     <Content Include="Views\ChangeLogs\phonedetail.cshtml" />
-    <Content Include="Views\ChangeLogs\PhoneList.cshtml" />
+    <Content Include="Views\ChangeLogs\PhoneList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\ChangeLogs\store.cshtml" />
     <Content Include="Views\ChangeLogs\storedetail.cshtml" />
-    <Content Include="Views\ChangeLogs\StoreList.cshtml" />
-    <Content Include="Views\ChangeLogs\_StoreChangeList.cshtml" />
+    <Content Include="Views\ChangeLogs\StoreList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\ChangeLogs\_StoreChangeList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\CompanyDemand\DemandForPacket.cshtml" />
     <Content Include="Views\CompanyDemand\Index.cshtml" />
     <Content Include="Views\Constant\ConstantForm.cshtml" />
@@ -3665,7 +3662,9 @@
     <Content Include="Views\Constant\country.cshtml" />
     <Content Include="Views\Constant\countryList.cshtml" />
     <Content Include="Views\Constant\EditConstants.cshtml" />
-    <Content Include="Views\Constant\Index.cshtml" />
+    <Content Include="Views\Constant\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Constant\Propertie.cshtml" />
     <Content Include="Views\Constant\PropertieAttr.cshtml" />
     <Content Include="Views\Constant\subAddress.cshtml" />
@@ -3711,8 +3710,12 @@
     <Content Include="Views\Help\_WebsiteErrorListItem.cshtml" />
     <Content Include="Views\Home\Forbidden.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\LastViewed\LVProductIndex.cshtml" />
-    <Content Include="Views\LastViewed\LVProductList.cshtml" />
+    <Content Include="Views\LastViewed\LVProductIndex.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\LastViewed\LVProductList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Log\Index.cshtml" />
     <Content Include="Views\MailMessageSender\Index.cshtml" />
     <Content Include="Views\MailSenders\Index.cshtml" />
@@ -3721,7 +3724,9 @@
     <Content Include="Views\MailSenders\MailTemplateList.cshtml" />
     <Content Include="Views\MailSenders\MailTemplateToUserList.cshtml" />
     <Content Include="Views\MailSenders\MemberList.cshtml" />
-    <Content Include="Views\MailSenders\UserAllList.cshtml" />
+    <Content Include="Views\MailSenders\UserAllList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\MemberDescription\AllTask.cshtml" />
     <Content Include="Views\MemberDescription\DescList.cshtml" />
     <Content Include="Views\MemberDescription\DescList1.cshtml" />
@@ -3744,14 +3749,18 @@
     <Content Include="Views\Member\Edit.cshtml" />
     <Content Include="Views\Member\EditDesc.cshtml" />
     <Content Include="Views\Member\EditDesc1.cshtml" />
-    <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Member\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Member\LeftSideCategoryFill.cshtml" />
     <Content Include="Views\Member\MailAllMemberSender.cshtml" />
     <Content Include="Views\Member\MailAllMemberType.cshtml" />
     <Content Include="Views\Member\memberactivation.cshtml" />
     <Content Include="Views\Member\MemberList.cshtml" />
     <Content Include="Views\Member\PhoneItem.cshtml" />
-    <Content Include="Views\Member\SearchPhone.cshtml" />
+    <Content Include="Views\Member\SearchPhone.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Member\SendSpecialEmailToStore.cshtml" />
     <Content Include="Views\Member\storemail.cshtml" />
     <Content Include="Views\Member\Succees.cshtml" />
@@ -3760,25 +3769,43 @@
     <Content Include="Views\MessagesMT\Create.cshtml" />
     <Content Include="Views\MessagesMT\EditConstants.cshtml" />
     <Content Include="Views\MessagesMT\Index.cshtml" />
-    <Content Include="Views\Message\Index.cshtml" />
+    <Content Include="Views\Message\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Message\MessageList.cshtml" />
-    <Content Include="Views\Message\View.cshtml" />
+    <Content Include="Views\Message\View.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\MobileMessage\Create.cshtml" />
     <Content Include="Views\MobileMessage\EditMessage.cshtml" />
     <Content Include="Views\MobileMessage\Index.cshtml" />
-    <Content Include="Views\News\Create.cshtml" />
-    <Content Include="Views\News\Edit.cshtml" />
-    <Content Include="Views\News\Index.cshtml" />
+    <Content Include="Views\News\Create.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\News\Edit.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\News\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\News\NewsList.cshtml" />
     <Content Include="Views\NotificationForm\Index.cshtml" />
     <Content Include="Views\NotificationForm\NotificationFormList.cshtml" />
     <Content Include="Views\NotificationForm\View.cshtml" />
     <Content Include="Views\OrderFirm\BillNumber.cshtml" />
     <Content Include="Views\OrderFirm\DeleteOrder.cshtml" />
-    <Content Include="Views\OrderFirm\GetInvoice.cshtml" />
-    <Content Include="Views\OrderFirm\GetInvoicePdf.cshtml" />
-    <Content Include="Views\OrderFirm\Index.cshtml" />
-    <Content Include="Views\OrderFirm\OrderCount.cshtml" />
+    <Content Include="Views\OrderFirm\GetInvoice.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\OrderFirm\GetInvoicePdf.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\OrderFirm\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\OrderFirm\OrderCount.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\OrderFirm\OrderCreate.cshtml" />
     <Content Include="Views\OrderFirm\OrderFirmList.cshtml" />
     <Content Include="Views\OrderFirm\OrderList.cshtml" />
@@ -3786,7 +3813,9 @@
     <Content Include="Views\OrderFirm\Payments.cshtml" />
     <Content Include="Views\OrderFirm\ProductSaleList.cshtml" />
     <Content Include="Views\OrderFirm\ProductSales.cshtml" />
-    <Content Include="Views\OrderFirm\Reports.cshtml" />
+    <Content Include="Views\OrderFirm\Reports.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\OrderFirm\SalesResponsibleUpdate.cshtml" />
     <Content Include="Views\OrderFirm\UpdatePayDate.cshtml" />
     <Content Include="Views\OrderFirm\_OrderCountList.cshtml" />
@@ -3799,10 +3828,18 @@
     <Content Include="Views\Packet\Edit.cshtml" />
     <Content Include="Views\Packet\Index.cshtml" />
     <Content Include="Views\Packet\PacketList.cshtml" />
-    <Content Include="Views\Permission\Create.cshtml" />
-    <Content Include="Views\Permission\Edit.cshtml" />
-    <Content Include="Views\Permission\Index.cshtml" />
-    <Content Include="Views\Permission\PermissionList.cshtml" />
+    <Content Include="Views\Permission\Create.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\Permission\Edit.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\Permission\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\Permission\PermissionList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\PreRegistrationStore\Create.cshtml" />
     <Content Include="Views\PreRegistrationStore\Delete.cshtml" />
     <Content Include="Views\PreRegistrationStore\Edit.cshtml" />
@@ -3815,21 +3852,33 @@
     <Content Include="Views\ProductRequest\_Item.cshtml" />
     <Content Include="Views\Product\CertificateTypes.cshtml" />
     <Content Include="Views\Product\Comment.cshtml" />
-    <Content Include="Views\Product\DopingShowcase.cshtml" />
+    <Content Include="Views\Product\DopingShowcase.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Product\DopingShowcaseList.cshtml" />
-    <Content Include="Views\Product\Edit.cshtml" />
+    <Content Include="Views\Product\Edit.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Product\EditShowcase.cshtml" />
     <Content Include="Views\Product\FavoriteProducts.cshtml" />
-    <Content Include="Views\Product\HomeSectorProduct.cshtml" />
-    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\HomeSectorProduct.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
+    <Content Include="Views\Product\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Product\PictureList.cshtml" />
-    <Content Include="Views\Product\ProductList.cshtml" />
+    <Content Include="Views\Product\ProductList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Product\ReadExcel.cshtml" />
     <Content Include="Views\Product\UpdateProductByExcelFile.cshtml" />
     <Content Include="Views\Product\VideoList.cshtml" />
     <Content Include="Views\Product\_CommentList.cshtml" />
     <Content Include="Views\Product\_FavoriteProductListItem.cshtml" />
-    <Content Include="Views\Product\_HomeSectorProductList.cshtml" />
+    <Content Include="Views\Product\_HomeSectorProductList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\SendedErrorMessage\Index.cshtml" />
     <Content Include="Views\SeoDefinition\Edit.cshtml" />
     <Content Include="Views\SEO\Edit.cshtml" />
@@ -3851,9 +3900,13 @@
     <Content Include="Views\Store\DealerBrand.cshtml" />
     <Content Include="Views\Store\DealerServisAddressList.cshtml" />
     <Content Include="Views\Store\DealerSubeAddressList.cshtml" />
-    <Content Include="Views\Store\Detail.cshtml" />
+    <Content Include="Views\Store\Detail.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Store\DownloadAsExcel.cshtml" />
-    <Content Include="Views\Store\Edit.cshtml" />
+    <Content Include="Views\Store\Edit.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Store\EditAbout.cshtml" />
     <Content Include="Views\Store\EditActivityCategory.cshtml" />
     <Content Include="Views\Store\EditActivityType.cshtml" />
@@ -3868,10 +3921,14 @@
     <Content Include="Views\Store\EditProfilePicture.cshtml" />
     <Content Include="Views\Store\EditService.cshtml" />
     <Content Include="Views\Store\EditShowcase.cshtml" />
-    <Content Include="Views\Store\EditStore.cshtml" />
+    <Content Include="Views\Store\EditStore.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Store\EditStoreImages.cshtml" />
     <Content Include="Views\Store\ImageDelete.cshtml" />
-    <Content Include="Views\Store\Index.cshtml" />
+    <Content Include="Views\Store\Index.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Store\LoginLogs.cshtml" />
     <Content Include="Views\Store\MemberAddressList.cshtml" />
     <Content Include="Views\Store\New.cshtml" />
@@ -3879,9 +3936,13 @@
     <Content Include="Views\Store\PictureList.cshtml" />
     <Content Include="Views\Store\StoreBrand.cshtml" />
     <Content Include="Views\Store\StoreContactInfo.cshtml" />
-    <Content Include="Views\Store\StoreDetailInformation.cshtml" />
+    <Content Include="Views\Store\StoreDetailInformation.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Store\StoreImages.cshtml" />
-    <Content Include="Views\Store\StoreList.cshtml" />
+    <Content Include="Views\Store\StoreList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Store\StoreProfileHomeDescription.cshtml" />
     <Content Include="Views\Store\StoreSector.cshtml" />
     <Content Include="Views\Store\Style.cshtml" />

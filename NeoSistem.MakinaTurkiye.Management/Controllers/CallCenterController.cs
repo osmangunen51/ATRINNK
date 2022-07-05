@@ -1,12 +1,8 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
-    using EnterpriseEntity.Extensions.Data;
     using global::MakinaTurkiye.Core;
     using global::MakinaTurkiye.Services.CallCenter;
-    using global::MakinaTurkiye.Services.Users;
-    using Models;
-    using Models.Authentication;
-    using System;
+    using System.Linq;
     using System.Web.Mvc;
 
     public class CallCenterController : Controller
@@ -19,9 +15,21 @@
             _callCenterService.Token = AppSettings.CallCenterToken;
         }
 
-        public JsonResult Calling(string destination, string number)
+        public JsonResult Calling(string number)
         {
-            var result=_callCenterService.Calling(destination,number);
+            ResponseModel<CallInfo> result = new ResponseModel<CallInfo>();
+            string destination = "";
+            var Lst = NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.CallCenterUrl.Split('/').ToList().LastOrDefault();
+            if (!string.IsNullOrEmpty(Lst))
+            {
+              destination = Lst;
+              result = _callCenterService.Calling(destination, number);
+            }
+            else
+            {
+                result.IsSuccess = false;
+                result.Message = "Kullanıcı CallCenter Ayarları Yapılmamış. Lütfen Kullanıcı düzenleme bölümünden tanımlama yapınız.";
+            }
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

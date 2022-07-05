@@ -7,7 +7,7 @@
 }
 @section HeadContent {
 
-  @Html.RenderPartial("Style")
+  @Html.Partial("Style")
   <script src="/Scripts/MakinaTurkiye.js" type="text/javascript" defer="defer"></script>
   <script type="text/javascript">
 
@@ -307,13 +307,13 @@
     } }
   @using (Html.BeginPanel())
     { 
-  @Html.RenderPartial("TabMenu")
+  @Html.Partial("TabMenu")
   @using (Html.BeginForm("EditDealers", "Store", FormMethod.Post))
     {
   <div style="width: 900px; float: left; margin: 20px 0px 0px 20px">
     <input id="DealerTypeId" name="DealerTypeId" value="@Request.QueryString["DealerType"].ToByte()"
       type="hidden" />
-    @Html.RenderPartial(uControlName)</div>
+    @Html.Partial(uControlName)</div>
   } 
    } 
 

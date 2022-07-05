@@ -94,7 +94,7 @@
   <input id="ConstantId" type="hidden" value="0" />
   <input id="ConstantType" type="hidden" value="0" />
   <div id="NewConstantForm" title="">
-    @Html.RenderPartial("ConstantForm", new ConstantModel())
+    @Html.Partial("ConstantForm", new ConstantModel())
   </div>
   <div style="width: auto; height: auto; float: left; padding: 10px 0px 10px 10px">
     <select   onchange="GetCategoryPlaces($(this).val())">
@@ -125,7 +125,7 @@
         </tr>
       </thead>
       <tbody id="table" class="dataList">
-        @Html.RenderPartial("CategoryPlaceList",Model.Categories)
+        @Html.Partial("CategoryPlaceList",Model.Categories)
       </tbody>
       <tfoot>
         <tr>

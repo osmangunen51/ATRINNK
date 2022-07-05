@@ -1,13 +1,10 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
-    using global::MakinaTurkiye.Core;
     using MakinaTurkiye.Management.Models.Entities;
     using NeoSistem.MakinaTurkiye.Management.Models.Authentication;
     using Properties;
     using System;
     using System.Linq;
-    using System.Net;
-    using System.Net.Mail;
     using System.Web;
     using System.Web.Mvc;
 
@@ -67,7 +64,7 @@
                 var prop = toProperties.SingleOrDefault(p => p.Name == item.Name);
                 if (prop != null)
                 {
-                    if (fromClass!=null)
+                    if (fromClass != null)
                     {
                         prop.SetValue(toClass, item.GetValue(fromClass, null), null);
                     }
@@ -171,7 +168,7 @@
             return PostView<TModel, TVar>(string.Empty, method, model, value);
         }
 
-        
+
 
     }
 }

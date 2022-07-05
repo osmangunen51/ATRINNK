@@ -29,7 +29,6 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Transactions;
@@ -363,7 +362,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                 whereClause.Append("OR");
 
-                whereClause.AppendFormat(likeClaue, "Cit.CityName", model.StoreAdres+"");
+                whereClause.AppendFormat(likeClaue, "Cit.CityName", model.StoreAdres + "");
                 whereClause.Append(")");
                 op = true;
             }
@@ -2800,7 +2799,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                 store1.StoreUrlName = store1.StoreUrlName + +i;
                                 entites1.SaveChanges();
                             }
-                                                    }
+                        }
 
                     }
                 }
@@ -2918,7 +2917,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var contantlist = _constantService.GetAllConstants();
             foreach (var item in memberDescriptions.Skip(0).Take(4))
             {
-                
+
                 var modelMemberdesc = new StoreMemberDescriptionItem { DescId = item.descId, Description = item.Description, Title = item.Title };
                 if (item.Date.HasValue)
                     modelMemberdesc.RecordDate = item.Date.Value;
@@ -2969,7 +2968,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             if (storeUpdate != null)
                 model.StoreInformationModel.StoreUpdatedDate = storeUpdate.UpdatedDate;
             ViewData["StoreInformation"] = true;
-            
+
 
             return View(model);
         }
@@ -3235,7 +3234,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(storeNew.StoreMainPartyId);
                 var member = _memberService.GetMemberByMainPartyId(memberStore.MemberMainPartyId.Value);
                 var mailHelper = new MailHelper(mailTemplate.MessagesMTTitle, content, mailTemplate.Mail,
-                    member.MemberEmail, mailTemplate.MailPassword, mailTemplate.MailSendFromName,AppSettings.MailHost,AppSettings.MailPort,AppSettings.MailSsl);
+                    member.MemberEmail, mailTemplate.MailPassword, mailTemplate.MailSendFromName, AppSettings.MailHost, AppSettings.MailPort, AppSettings.MailSsl);
                 mailHelper.Send();
             }
             catch (Exception ex)
@@ -3394,7 +3393,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 RecordDate = DateTime.Now,
                 PacketStartDate = packetStartDate,
                 PacketDay = model.PacketDay,
-                StoreNameForInvoice=model.StoreName
+                StoreNameForInvoice = model.StoreName
             };
             if (store.AuthorizedId != null)
             {

@@ -32,7 +32,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
     using NeoSistem.EnterpriseEntity.Business;
     using NeoSistem.MakinaTurkiye.Management.Models.MemberModels;
     using System.IO;
-    using System.Threading.Tasks;
     using System.Web;
 
     public class MemberController : BaseController
@@ -506,13 +505,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             var dataConstant = new Data.Constant();
             var model = dataConstant.ConstantGetByConstantType(14).AsCollection<ConstantModel>();
-            ViewData["storemailid"]= id;
+            ViewData["storemailid"] = id;
             return View(model);
         }
 
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult storemail(int id, string[] RelatedCategory,int tip,string mailcontent)
+        public ActionResult storemail(int id, string[] RelatedCategory, int tip, string mailcontent)
         {
             try
             {
@@ -759,7 +758,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                     }
 
-                    
+
                 }
                 else if (tip == 3)
                 {
@@ -985,7 +984,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             return RedirectToAction("storemail");
         }
 
-        private void RevizeMailSenderInformation(MailMessage mail,ref NetworkCredential NetworkCredential)
+        private void RevizeMailSenderInformation(MailMessage mail, ref NetworkCredential NetworkCredential)
         {
             string Imza = "";
             var user = entities.Users.FirstOrDefault(x => x.UserId == CurrentUserModel.CurrentManagement.UserId);
@@ -1031,7 +1030,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         PaketTutar = order.OrderPrice;
                     }
 
-                    if (ReturnInvoices!=null)
+                    if (ReturnInvoices != null)
                     {
                         OdeneneTutar = ReturnInvoices.Sum(x => x.Amount);
                     }
@@ -1084,7 +1083,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     //singular view count ve view count değişecek.
 
                     aciklama = aciklama.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi)).Replace("#firmauyelikyukseltme#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", packetupgrade));
-                   
+
                     subtitle = subtitle.Replace("#firmatekiltiklama#", firma.SingularViewCount.ToString()).Replace("#firmacogultiklama#", firma.ViewCount.ToString()).Replace("#ilansayisi#", urunler.Count.ToString()).Replace("#firmaurunlerkopru#", Resources.Email.firmalink.Replace("#firmalink#", firmaurunlinki)).Replace("#firmaistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikfix)).Replace("#ilanistatistikkopru#", Resources.Email.firmaduzenle.Replace("#firmaduzenle#", istatistikilanfix)).Replace("#kullaniciadi#", mailadress.MemberEmail).Replace("#sifre#", mailadress.MemberPassword).Replace("#uyelikpaket#", Resources.Email.firmalink.Replace("#firmalink#", linkuyeliktipi));
 
                     #endregion
@@ -2360,7 +2359,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             foreach (var item in MemberDescription)
             {
-               
+
 
 
 
@@ -2908,7 +2907,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             string StoreWebUrl = "";
             string StoreUrl = "";
             string City = "";
-         
+
 
             List<string> Contacts = new List<string>();
             if (MemberDesc.MainPartyId.HasValue)
@@ -2924,7 +2923,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     ContactNameSurname = anyStore1.ContactNameSurname;
                     ContactPhoneNumber = anyStore1.ContactPhoneNumber;
                     StoreWebUrl = anyStore1.StoreWeb;
-                    StoreUrl= UrlBuilder.GetStoreProfileUrl(anyStore1.MainPartyId, anyStore1.StoreName, anyStore1.StoreUrlName); 
+                    StoreUrl = UrlBuilder.GetStoreProfileUrl(anyStore1.MainPartyId, anyStore1.StoreName, anyStore1.StoreUrlName);
                     var storeUserManager = entities.Users.FirstOrDefault(x => x.UserId == anyStore1.AuthorizedId);
                     var storePorfoy = entities.Users.FirstOrDefault(x => x.UserId == anyStore1.PortfoyUserId);
                     if (storeUserManager != null)
@@ -2935,7 +2934,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     if (storePorfoy != null)
                         bModelDesc.PortfoyName = storePorfoy.UserName;
                     Packet Packet = entities.Packets.FirstOrDefault(x => x.PacketId == anyStore1.PacketId);
-                    if (Packet.ShowSetProcess==null)
+                    if (Packet.ShowSetProcess == null)
                     {
                         Packet.ShowSetProcess = true;
                     }
@@ -2981,11 +2980,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     bModelDesc.City = City;
                 }
             }
-            
+
             var Phones = entities.Phones.Where(x => x.MainPartyId == bModelDesc.StoreID).ToList();
-            foreach (var x in Phones.Where(x=>x.PhoneType!=(byte)PhoneType.Fax))
+            foreach (var x in Phones.Where(x => x.PhoneType != (byte)PhoneType.Fax))
             {
-                if ((PhoneType)x.PhoneType==PhoneType.Phone)
+                if ((PhoneType)x.PhoneType == PhoneType.Phone)
                 {
                     var tmp = $"{Enum.GetName(typeof(PhoneType), x.PhoneType)} : <a target=\"_blank\" href=\"tel:{ x.PhoneCulture} {x.PhoneAreaCode} {x.PhoneNumber}\">{ x.PhoneCulture} {x.PhoneAreaCode} {x.PhoneNumber}</a>";
                     Contacts.Add(tmp);
@@ -3002,15 +3001,15 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 }
             }
 
-            if (member!=null)
+            if (member != null)
             {
-                Contacts.Add("Email : "+member.MemberEmail);
+                Contacts.Add("Email : " + member.MemberEmail);
             }
-            
 
 
 
-            
+
+
             bModelDesc.StoreName = storeName;
             bModelDesc.StoreWebUrl = StoreWebUrl;
             bModelDesc.StoreShortName = storeShortName;
@@ -3249,10 +3248,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
                             int selectUserId = Convert.ToByte(userId);
                             var SelectUser = entities.Users.FirstOrDefault(x => x.UserId == selectUserId);
-                            if (SelectUser!=null)
+                            if (SelectUser != null)
                             {
                                 var UserPermissions = entities.PermissionUsers.Where(x => x.UserId == SelectUser.UserId && (x.UserGroupId == 16 | x.UserGroupId == 22)).ToList();
-                                if (UserPermissions.Count()>0)
+                                if (UserPermissions.Count() > 0)
                                 {
                                     var memberStore = _memberstoreService.GetMemberStoreByMemberMainPartyId(model.MainPartyId);
                                     if (memberStore != null)
@@ -3610,10 +3609,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         #endregion
 
         [HttpPost]
-        public JsonResult ChangeContactInformation(int storemainPartyId,string name,string number)
+        public JsonResult ChangeContactInformation(int storemainPartyId, string name, string number)
         {
             ResponseModel<string> res = new ResponseModel<string>();
-            var _store=_storeService.GetStoreByMainPartyId(storemainPartyId);
+            var _store = _storeService.GetStoreByMainPartyId(storemainPartyId);
             if (_store != null)
             {
                 _store.ContactNameSurname = name;
@@ -3644,7 +3643,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
 
         [HttpPost]
-        public JsonResult GetCreateMailForm(int id,string[] RelatedCategory)
+        public JsonResult GetCreateMailForm(int id, string[] RelatedCategory)
         {
             ResponseModel<string> res = new ResponseModel<string>();
             try
@@ -3663,7 +3662,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         {
                             sayi = RelatedCategory[i].ToInt32();
                             constatn = entities.Constants.Where(c => c.ConstantId == sayi).SingleOrDefault();
-                            aciklama = aciklama + 
+                            aciklama = aciklama +
                                 constatn.ConstantMailContent + "</br>";
                             subtitle = constatn.ConstantTitle;
                             aciklamabaslik = constatn.ConstantName;

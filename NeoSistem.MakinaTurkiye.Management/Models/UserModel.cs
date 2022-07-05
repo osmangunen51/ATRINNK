@@ -34,7 +34,7 @@
 
         [DisplayName("Mail İmzası")]
         public string Signature { get; set; }
-        
+
         [DisplayName("Ad")]
         public string Name { get; set; }
 

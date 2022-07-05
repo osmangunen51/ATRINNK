@@ -1,5 +1,4 @@
-﻿using MakinaTurkiye.Entities.StoredProcedures.Orders;
-using System;
+﻿using System;
 
 namespace NeoSistem.MakinaTurkiye.Management.Models
 {

@@ -1,7 +1,4 @@
-﻿using NeoSistem.MakinaTurkiye.BaseModule.Entities;
-using System;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System;
 
 namespace NeoSistem.MakinaTurkiye.Management.Models
 {

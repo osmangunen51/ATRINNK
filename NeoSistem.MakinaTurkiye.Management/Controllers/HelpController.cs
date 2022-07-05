@@ -37,7 +37,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var constandList = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.CrmYardimKategori).ToList();
                 foreach (var help in helps)
                 {
-                    HelpModel item = new HelpModel { ConstantId=help.ConstantId,Content = help.Content, ID = help.HelpId, RecordDate = help.RecordDate, Subject = help.Subject };
+                    HelpModel item = new HelpModel { ConstantId = help.ConstantId, Content = help.Content, ID = help.HelpId, RecordDate = help.RecordDate, Subject = help.Subject };
                     if (item.ConstantId > 0)
                     {
                         item.Constant = constandList.FirstOrDefault(x => x.ConstantId == (short)item.ConstantId);
@@ -435,9 +435,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var error = _helpService.GetWebSiteErrorByWebSiteErrorId(ID);
             string filePath = Server.MapPath(error.FilePath);
             System.IO.FileInfo fileInfo = new System.IO.FileInfo(filePath);
-            if (fileInfo.Exists) {
+            if (fileInfo.Exists)
+            {
                 fileInfo.Delete();
-            }   
+            }
             _helpService.DeleteWebSitError(error);
             return Json(true, JsonRequestBehavior.AllowGet);
         }

@@ -1,8 +1,8 @@
-﻿@model IList<Account>
+﻿@model IList<NeoSistem.MakinaTurkiye.Management.Models.Entities.Account>
 @{ int row = 0; }
 @foreach (var item in Model)
    { 
-@{ row++; }
+    row++;
 <tr id="row@item.AccountId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.BankName

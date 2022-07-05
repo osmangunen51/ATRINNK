@@ -4,7 +4,6 @@
             var number = $(this).attr("data-number");
             if (typeof (number) != 'undefined') {
                 data = {
-                    destination: '105',
                     number: number
                 };
                 $.ajax({

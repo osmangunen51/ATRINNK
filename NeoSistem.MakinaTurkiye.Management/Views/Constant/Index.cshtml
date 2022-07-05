@@ -205,7 +205,7 @@
     <input id="ConstantId" type="hidden" value="0" />
     <input id="ConstantType" type="hidden" value="0" />
     <div id="NewConstantForm" title="">
-        @Html.RenderPartial("ConstantForm", new ConstantModel())
+        @Html.Partial("ConstantForm", new ConstantModel())
     </div>
     <div id="SubConstantForm">
             
@@ -265,7 +265,7 @@
                 </tr>
             </thead>
             <tbody id="table">
-                @Html.RenderPartial("ConstantList")
+                @Html.Partial("ConstantList")
             </tbody>
             <tfoot>
                 <tr>

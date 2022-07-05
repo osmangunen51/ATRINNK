@@ -8,7 +8,7 @@
 
     
     <script src="/Scripts/JQuery-dropdowncascading.js" type="text/javascript"></script>
-    @Html.RenderPartial("Style")
+    @Html.Partial("Style")
     <script type="text/javascript">
 
         function DontAllowForAnotherTab() {
@@ -92,7 +92,7 @@
 
     @using (Html.BeginPanel())
         { 
-    @Html.RenderPartial("TabMenu")
+    @Html.Partial("TabMenu")
 
     @if (Request.QueryString["page"] != null)
         {

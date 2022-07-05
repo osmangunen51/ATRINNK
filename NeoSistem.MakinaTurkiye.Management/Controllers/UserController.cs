@@ -105,7 +105,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             UserFormModel model = new UserFormModel();
             ViewData["Title"] = "Avansas - Kullanıcı Ekle ";
             var userModel = new UserModel { };
-            userModel.MailSmtp =AppSettings.MailHost;
+            userModel.MailSmtp = AppSettings.MailHost;
             userModel.SendCode = AppSettings.MailPort;
             var dataPermissionUser = new Data.PermissionUser();
             var userGroups = entities.UserGroups.ToList();
@@ -196,8 +196,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             bool hasRecord = curUser.LoadEntity(id);
             var userModel = new UserModel
             {
-                Name=curUser.Name,
-                Surname=curUser.Surname,
+                Name = curUser.Name,
+                Surname = curUser.Surname,
                 UserName = curUser.UserName,
                 UserPass = curUser.UserPass,
                 MailPassword = curUser.MailPassword,
@@ -207,7 +207,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 UserColor = curUser.UserColor,
                 Active = curUser.Active,
                 ActiveForDesc = curUser.ActiveForDesc,
-                Signature=curUser.Signature,
+                Signature = curUser.Signature,
                 CallCenterUrl = curUser.CallCenterUrl,
             };
             if (curUser.MailSmtp == "")

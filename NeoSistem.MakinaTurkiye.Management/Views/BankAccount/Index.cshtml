@@ -1,4 +1,4 @@
-﻿@model IList<Account>
+﻿@model IList<NeoSistem.MakinaTurkiye.Management.Models.Entities.Account>
 
 @section TitleContent {
 
@@ -58,7 +58,7 @@
         </tr>
       </thead>
       <tbody id="table">
-        @Html.RenderPartial("AccountList", Model)
+        @Html.Partial("AccountList", Model)
       </tbody>
       <tfoot>
         <tr>

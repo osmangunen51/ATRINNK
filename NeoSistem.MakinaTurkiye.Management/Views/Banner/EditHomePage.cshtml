@@ -1,9 +1,6 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<BannerModel>
-
+﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewPage<BannerModel>
 @section TitleContent {
-
     Index
-
 }
 @section HeadContent {
 
@@ -278,7 +275,7 @@
                 <tr>
                     <td align="center" valign="middle">
                         @if (banner1 != null) { 
-                        @if (banner1.BannerResource.Contains("gif")) { 
+                        if (banner1.BannerResource.Contains("gif")) { 
                         <a href="@banner1.BannerLink">
                             <img src="@AppSettings.BannerGifFolder  + banner1.BannerResource" /></a>
                          } else if (banner1.BannerResource.Contains("swf")) { 
@@ -348,7 +345,7 @@
                 <tr>
                     <td align="center" valign="middle">
                         @if (banner2 != null) { 
-                        @if (banner2.BannerResource.Contains(".gif")) { 
+                        if (banner2.BannerResource.Contains(".gif")) { 
                         <a href="@banner2.BannerLink">
                             <img src="@AppSettings.BannerGifFolder  + banner2.BannerResource" /></a>
                          } else if (banner2.BannerResource.Contains("swf")) { 
