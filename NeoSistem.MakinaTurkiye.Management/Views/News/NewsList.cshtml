@@ -1,7 +1,7 @@
 ﻿@model FilterModel<NewsModel>
 @{ int row = 0; }
 @foreach(var item in Model.Source) { 
-@{ row++; }
+row++; 
 <tr id="row@item.NewsId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     <div style="overflow: hidden; width: 100%; float: left; height: 15px;">
@@ -47,11 +47,11 @@
         <li>
           @if(page == Model.CurrentPage) { 
           <span class="currentpage">
-            @page</span>&nbsp;
+            @page</span>
            } 
-          @else { 
+          else { 
           <a onclick="PagePost(@page)">
-            @page</a>&nbsp;
+            @page</a>
            } 
         </li>
          } 

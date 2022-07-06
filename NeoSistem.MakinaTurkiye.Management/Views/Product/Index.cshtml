@@ -1,21 +1,13 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<FilterModel<ProductModel>>
-
+﻿@model FilterModel<ProductModel>
 @section TitleContent {
-
   Index
-
 }
-@section HeadContent {
-
-  @*  <script src="/Scripts/MakinaTurkiye.js" type="text/javascript"></script>*@
+@section HeadContent
+{
   <script src="/Scripts/JQuery-qtip.js" type="text/javascript"></script>
   <link href="/Content/qtip.css" rel="Stylesheet" type="text/css" />
-
-
-
 }
-
-  <div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px;
+<div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px;
     border-width: 5px;" id="preLoading">
     <span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>
     <strong>Yükleniyor.</strong> Lütfen bekleyiniz...
@@ -284,15 +276,15 @@
               <button type="button" style="cursor: pointer;" onclick="SendForStore(4);">
                 Ürün Transfer
               </button>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              
               <button type="button" style="cursor: pointer;" onclick="confirmMember(1);">
                 Onayla
               </button>
-              &nbsp;&nbsp;
+              
               <button type="button" style="cursor: pointer;" onclick="confirmMember(3);">
                 Onaylama
               </button>
-              &nbsp;&nbsp;
+              
               <button type="button" style="cursor: pointer;" onclick="confirmMember(2);">
                 Sil
               </button>
@@ -302,8 +294,7 @@
 
             </div>
             <div style="width: 100%; height: auto; float: left; text-align: right; margin-top: 10px;">
-              Toplam Kayıt : &nbsp;&nbsp;<strong>
-                @Model.TotalRecord</strong>
+              Toplam Kayıt : <strong>@Model.TotalRecord</strong>
             </div>
           </td>
         </tr>

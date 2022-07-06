@@ -1,4 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<StoreModel>
+﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewPage<StoreModel>
 
 @section TitleContent {
 
@@ -625,10 +625,10 @@
                                                 silindi = true;
                                             }
                     }
-                    &nbsp;@Html.RadioButton("PacketStatu", "0", inceleniyor)&nbsp;&nbsp;İnceleniyor
-                    &nbsp;@Html.RadioButton("PacketStatu", "1", onaylandi)&nbsp;&nbsp;Onaylandı
-                    &nbsp;@Html.RadioButton("PacketStatu", "2", onaylanmadi)&nbsp;&nbsp;Onaylanmadı
-                    &nbsp;@Html.RadioButton("PacketStatu", "3", silindi)&nbsp;&nbsp;Silindi
+                    @Html.RadioButton("PacketStatu", "0", inceleniyor)İnceleniyor
+                    @Html.RadioButton("PacketStatu", "1", onaylandi)Onaylandı
+                    @Html.RadioButton("PacketStatu", "2", onaylanmadi)Onaylanmadı
+                    @Html.RadioButton("PacketStatu", "3", silindi)Silindi
                   </td>
                                     <td>
                                         @Html.ValidationMessageFor(m => m.PacketStatu)
@@ -858,7 +858,7 @@
                                 }
                 }
                             @phoneType
-                +90&nbsp;@item.PhoneAreaCode&nbsp;@item.PhoneNumber<br />
+                +90@item.PhoneAreaCode@item.PhoneNumber<br />
                              } 
                              } 
                         </div>
@@ -939,7 +939,7 @@
                                     @Html.LabelFor(model => model.ApartmentNo)
                 </td>
                                 <td style="padding-top: 5px">
-                                    @Html.TextBoxFor(model => model.ApartmentNo, new { style = "width: 50px;" })&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    @Html.TextBoxFor(model => model.ApartmentNo, new { style = "width: 50px;" })
                  
                                     @Html.LabelFor(model => model.DoorNo)
                                     @Html.TextBoxFor(model => model.DoorNo, new { style = "width: 58px;"})

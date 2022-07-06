@@ -1,8 +1,8 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewUserControl<List<ProductDopingListModel>>
+﻿@model List<ProductDopingListModel>
 @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-   @{ row++; }
+{
+    row++;
     <tr id="row@item.ProductId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
        <td class="CellBegin">
             @item.CategoryBreadCrumb
@@ -54,7 +54,6 @@
           type: 'post',
           dataType: 'json',
           success: function (data) {
-           
             if (data) {
               $('#row' + productId).hide();
             }

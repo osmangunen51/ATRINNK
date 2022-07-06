@@ -182,16 +182,18 @@
         </fieldset>
 
      } 
-         <script type="text/javascript" defer="defer">
-             @if (Model.MessagesMTName == "templatemail")
-               { 
-             var editor = CKEDITOR.replace('MessagesMTPropertie', { toolbar: 'webtool', allowedContent: true });
-             CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
-             }else{
-             var editor = CKEDITOR.replace('MailContent', { toolbar: 'webtool', allowedContent: true });
-             CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
-             }
-  </script>
+<script type="text/javascript" defer="defer">
+      @if (Model.MessagesMTName == "templatemail")
+      {
+          @:var editor = CKEDITOR.replace('MessagesMTPropertie', { toolbar: 'webtool', allowedContent: true });
+          @:CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
+      }
+      else
+      {
+          @:var editor = CKEDITOR.replace('MailContent', { toolbar: 'webtool', allowedContent: true });
+          @:CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
+      }
+</script>
 
 
 

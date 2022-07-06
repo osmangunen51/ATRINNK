@@ -274,7 +274,7 @@
           }
       }
       @phoneType
-      @item.PhoneCulture&nbsp;@item.PhoneAreaCode&nbsp;@item.PhoneNumber&nbsp;&nbsp;<button type="button" class="call" data-number="@"0"+item.PhoneAreaCode+item.PhoneNumber"><i class="fa-solid fa-phone"></i> Ara</button><br /> 
+      @item.PhoneCulture@item.PhoneAreaCode@item.PhoneNumber<button type="button" class="call" data-number="@"0"+item.PhoneAreaCode+item.PhoneNumber"><i class="fa-solid fa-phone"></i> Ara</button><br /> 
   
        } 
        } 
@@ -355,7 +355,7 @@
           @Html.LabelFor(model => model.ApartmentNo)
         </td>
         <td style="padding-top: 5px">
-          @Html.TextBoxFor(model => model.ApartmentNo, new { style = "width: 50px;" })&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          @Html.TextBoxFor(model => model.ApartmentNo, new { style = "width: 50px;" })
           @Html.LabelFor(model => model.DoorNo)
           @Html.TextBoxFor(model => model.DoorNo, new { style = "width: 58px;"})
         </td>

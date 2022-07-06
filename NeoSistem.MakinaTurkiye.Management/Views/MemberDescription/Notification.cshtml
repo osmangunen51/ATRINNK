@@ -18,11 +18,9 @@
         Filtrele:
                  <select name="users" id="UserId" onchange="SearchPost();">
                      @foreach (var item in Model.Users)
-                         {
-                             string selected = "";
-                             if (item.Selected)
-                                 selected = "selected";
-                     
+                     {
+                         string selected = "";
+                         if (item.Selected) { selected = "selected"; }
                      <option value="@item.Value" @selected>@item.Text</option>
                      } 
                  </select>

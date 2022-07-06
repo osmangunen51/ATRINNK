@@ -39,7 +39,7 @@
   @using (Html.BeginPanel())
     { 
   @Html.Partial("TabMenu")
-  @using (Html.BeginForm("EditShowcase", "Video", FormMethod.Post))
+  using (Html.BeginForm("EditShowcase", "Video", FormMethod.Post))
      { 
   <div style="float: left; width: 90%; margin: 20px 0px 0px 25px">
     <div style="float: left; width: 30%; border-bottom: dashed 1px #bababa; height: 20px;">

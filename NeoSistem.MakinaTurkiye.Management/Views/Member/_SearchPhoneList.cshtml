@@ -12,29 +12,27 @@
     </tr>
     @foreach (var item in Model.ToList())
         {
-    <tr>
-        <td class="CellBegin Cell">
-            @if (!string.IsNullOrEmpty(item.Url))
-                { 
-            <a href="@item.Url">
-                @item.NameSurname
-            </a>
-             }
-                else
-                {
-            @item.NameSurname
-             } 
-        </td>
-        <td class="Cell">@item.MemberTypeText</td>
-        <td class="CellEnd">@item.PhoneNumber</td>
-    </tr>
-    } 
+            <tr>
+                <td class="CellBegin Cell">
+                    @if (!string.IsNullOrEmpty(item.Url))
+                        { 
+                        <a href="@item.Url">
+                            @item.NameSurname
+                        </a>
+                     }
+                     else
+                        {
+                        @item.NameSurname
+                     } 
+                </td>
+                <td class="Cell">@item.MemberTypeText</td>
+                <td class="CellEnd">@item.PhoneNumber</td>
+            </tr>
+        } 
 </table>
-
-
- }
-    else {
-<p>Aradığınız telefon numarası bulunamamıştır. Eğer kaydın var olduğunu düşünüyorsanız lütfen numarayı inceleyiniz.</p>
-
- } 
+}
+else 
+{
+    <p>Aradığınız telefon numarası bulunamamıştır. Eğer kaydın var olduğunu düşünüyorsanız lütfen numarayı inceleyiniz.</p>
+} 
 

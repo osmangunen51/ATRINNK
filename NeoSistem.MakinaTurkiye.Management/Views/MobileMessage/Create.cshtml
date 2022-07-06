@@ -1,20 +1,15 @@
 ﻿@model NeoSistem.MakinaTurkiye.Management.Models.Entities.MobileMessage
 
 @section TitleContent {
-
 	Create
-
 }
-@section HeadContent {
-
+@section HeadContent 
+{
 <script src="http: //code.jquery.com/jquery-1.10.2.min.js" type="text/javascript"></script>
-  <script type="text/javascript" src="/Scripts/CKEditor/ckeditor.js"></script>
-  <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
-
+<script type="text/javascript" src="/Scripts/CKEditor/ckeditor.js"></script>
+<script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
 }
-
-
-  <script type="text/javascript">
+ <script type="text/javascript">
   </script>
   <input id="activeText" type="hidden" value="" />
    @using (Html.BeginForm("Create", "MobileMessage", FormMethod.Post, new { enctype = "multipart/form-data" }))

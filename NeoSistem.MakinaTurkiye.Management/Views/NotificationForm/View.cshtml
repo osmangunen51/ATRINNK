@@ -28,7 +28,7 @@
         Üye Adı :
       </td>
       <td>
-        @Model.MemberName + " "+Model.MemberSurname
+        @(Model.MemberName + " " + Model.MemberSurname)
       </td>
     </tr>
     <tr>
@@ -44,7 +44,7 @@
         Okundu Durumu :
       </td>
       <td>
-        @Model.IsRead ? "Okundu" : "Okunmadı"
+        @(Model.IsRead ? "Okundu" : "Okunmadı")
       </td>
     </tr>
   </table>

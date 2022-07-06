@@ -1,8 +1,9 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewUserControl<FilterModel<ProductModel>>
-@{ int row = 0; }
-@{ foreach (var item in Model.Source)
-    { 
-@{ row++; }
+﻿@model FilterModel<ProductModel>
+@{
+int row = 0;
+foreach (var item in Model.Source)
+{
+row++;
 <tr id="row@item.ProductId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
     <td class="CellBegin">
         @item.ProductNo
@@ -14,7 +15,7 @@
         <div>
 
             <textarea id="@item.ProductId" rows="4" cols="5" column="product" class="edit-input" style="display: none; width: 200px;"></textarea>
-            @Html.Label("",item.ProductName)
+            @Html.Label("", item.ProductName)
 
             @*  <%: item.ProductName%>*@
             <div class="controls">
@@ -32,9 +33,9 @@
     </td>
     <td class="Cell">
         @if (!string.IsNullOrEmpty(item.NameBrand))
-            {  
+        {
         <div>
-            @Html.Label("",item.NameBrand)
+            @Html.Label("", item.NameBrand)
 
 
 
@@ -45,11 +46,11 @@
         </div>
         } 
         @if (!string.IsNullOrEmpty(item.BrandContentTitle))
-            {
+        {
         <span style="color: #07a71e">
             @item.BrandContentTitle
         </span>
-         } 
+        }
 
 
 
@@ -58,7 +59,7 @@
     <td class="Cell">
 
         @if (!string.IsNullOrEmpty(item.NameSeries))
-            {  
+        {
         <div>
             @Html.Label(item.NameSeries)
 
@@ -67,14 +68,14 @@
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
             </div>
         </div>
-        } 
+        }
 
         @* <%: item.NameSeries%>*@
     </td>
     <td class="Cell">
         <div>
             @if (!string.IsNullOrEmpty(item.NameModel))
-                {  
+            {
 
             @Html.Label("", item.NameModel)
             <textarea column="model" id="@item.ModelId" class="edit-input" style="display: none; width: 150px;"></textarea>
@@ -85,29 +86,29 @@
 
             <textarea type="text" id="@item.ProductId" column="modelNon" class="edit-input" style="display: none; width: 150px;"></textarea>
 
-             }
+            }
             <div class="controls">
                 <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
             </div>
         </div>
 
         @if (!string.IsNullOrEmpty(item.ModelContentTitle))
-            {
+        {
         <span style="color: #07a71e">
             @item.ModelContentTitle
         </span>
-         } 
+        }
         @* <%: item.NameModel%>*@
     </td>
     <td class="Cell" style="text-align: center; padding-top: 5px">
         @if (!string.IsNullOrWhiteSpace(item.OtherBrand))
-            {
+        {
         <a onclick="BrandInsert('@item.ProductId');">
             <img src="/Content/images/brand.png" />
         </a>
         }
         @if (!string.IsNullOrWhiteSpace(item.OtherModel))
-            {
+        {
         <a onclick="ModelInsert('@item.ProductId');">
             <img src="/Content/images/model.png" />
         </a>
@@ -157,13 +158,13 @@
     </td>
     <td class="Cell">
         @if (item.ProductActive)
-            {
-                text = "Aktif";
-            }
-            else
-            {
-                text = "Pasif";
-            }
+        {
+            text = "Aktif";
+        }
+        else
+        {
+            text = "Pasif";
+        }
 
         
         <div style="height: 20px; margin-top: 4px; text-align: center">
@@ -178,61 +179,67 @@
     </td>
     <td class="Cell">
         @if (item.MemberType == (byte)MemberType.Individual)
-            { 
-    Bireysel
+        {
+        <span>Bireysel</span>
      }
         else
-        { 
-    Kurumsal
-     } 
+        {
+    <span>Kurumsal</span>
+             } 
     </td>
     <td class="Cell">
 
         @if (item.ProductPriceType != null && item.ProductPriceType != 0)
+        {
+            if (item.ProductPriceType == (byte)ProductPriceType.Price)
             {
-                if (item.ProductPriceType == (byte)ProductPriceType.Price)
-                {
-                    decimal newPrice = 0;
-        
+                decimal newPrice = 0;
 
-        @if (item.DiscountType == (byte)ProductDiscountType.Amount)
+
+        if (item.DiscountType == (byte)ProductDiscountType.Amount)
+        {
+            if (item.DiscountAmount.HasValue)
             {
-                if (item.DiscountAmount.HasValue)
-                {
-                    newPrice = item.ProductPrice.Value - item.DiscountAmount.Value;
-                }
+                newPrice = item.ProductPrice.Value - item.DiscountAmount.Value;
             }
-            else
+        }
+        else
+        {
+            if (item.DiscountAmount.HasValue)
             {
-                if (item.DiscountAmount.HasValue)
-                    newPrice = item.ProductPrice.Value - ((item.DiscountAmount.Value * item.ProductPrice.Value) / 100);
+                newPrice = item.ProductPrice.Value - ((item.DiscountAmount.Value * item.ProductPrice.Value) / 100);
             }
-        
-        @if (newPrice != 0)
-            { 
+        }
+        if (newPrice != 0)
+        {
 
         @newPrice.ToString("N2")
         }
 
-        <span style="@(newPrice!=0) ? "text-decoration: line-through;":""">@item.ProductPrice.Value.ToString("N2") </span>@item.CurrencyName
-        }
+        <span style="@(newPrice != 0) ? "text-decoration: line-through;":""">@item.ProductPrice.Value.ToString("N2") </span>@item.CurrencyName
+            }
             else if (item.ProductPriceType == (byte)ProductPriceType.PriceRange)
             {
-        
-        @Convert.ToDecimal(item.ProductPriceBegin).ToString("N2")-@Convert.ToDecimal(item.ProductPriceLast).ToString("N2")   @item.CurrencyName
-        }
-            else if (item.ProductPriceType == (byte)ProductPriceType.PriceAsk)
-            { 
-        Fiyat Sorunuz
-      }
-          else
-          {
-                Fiyat Görüşülür
+                <span>
+                    @Convert.ToDecimal(item.ProductPriceBegin).ToString("N2")
+                </span>
+                <span>-</span>
+                <span>
+                    @Convert.ToDecimal(item.ProductPriceLast).ToString("N2")
+                </span>
+                <span>item.CurrencyName</span>
             }
-                }
-
-                else
-                { 
+            else if (item.ProductPriceType == (byte)ProductPriceType.PriceAsk)
+            {
+                <span>Fiyat Sorunuz</span>
+              }
+            else
+            {
+                <span>Fiyat Görüşülür</span>
+            }
+        }
+        else
+        {
         @item.ProductPrice.Value.ToString("N2")  @item.CurrencyName
         }
 
@@ -254,72 +261,72 @@
             <img src="/Content/images/rightAllow.png" />
         </a>
         @if (item.Doping)
-            { 
+        {
         <span style="padding: 1px; background-color: #07a71e; color: #fff">D</span>
         }
         @if (item.ProductHomePageId != null)
-            { 
+        {
         <span style="padding: 1px; background-color: #07a71e; color: #fff" title="Anasayfa Seçilen Ürün">A</span>
         }
         @if (item.VideoCount > 0)
-            { 
+        {
         <img src="/Content/images/Slate-slate_icons-video_ico-16x16.png" />
-         } 
+        } 
         @if (item.ReadyforSale == null || item.ReadyforSale == false)
-            { 
+        {
         <a onclick="ProductReadyForSale('@item.ProductId');">
             <img src="/Content/images/hemen_sat.png" />
         </a>
         }
-            else
-            {  
+        else
+        {
         <a onclick="ProductReadyForSale('@item.ProductId');">
             <img src="/Content/images/hemen_satma.png" />
         </a>
         } 
         @if (NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserId == 1)
-            {
-        
+        {
+
         <a style="cursor: pointer; color: Blue;" onclick="DeleteProductSure(@item.ProductId)">(Sil)</a>
-        
-            } 
+
+        } 
         @if (item.PictureCount == 0)
-            {
+        {
         <img src="/Content/images/no-photo.png" style="height: 16px" title="Fotoğrafsız Ürün" />
-         } 
+        } 
     </td>
     <td class="CellEnd" align="center">
-        @Html.CheckBox("CheckItems", new { value = item.ProductId, @class="CheckItems" })
+        @Html.CheckBox("CheckItems", new { value = item.ProductId, @class = "CheckItems" })
     </td>
 </tr>
- } 
-@if (Model.TotalRecord <= 0)
-    { 
-<tr class="Row">
-    <td colspan="19" class="CellBegin Cell" style="color: #FF0000; padding: 5px; font-weight: 700; font-size: 14px;">Ürün bulunamadı.
-    </td>
-</tr>
- } 
+}
+if (Model.TotalRecord <= 0)
+{
+    <tr class="Row">
+        <td colspan="19" class="CellBegin Cell" style="color: #FF0000; padding: 5px; font-weight: 700; font-size: 14px;">Ürün bulunamadı.
+        </td>
+    </tr>
+}
 <tr>
     <td class="ui-state ui-state-default" colspan="19" align="left" style="border-color: #DDD; border-top: none; border-bottom: none;">
         <div style="float: right;" class="pagination">
             <ul>
-                &nbsp;Sayfa&nbsp;&nbsp;
+                Sayfa
         @foreach (int page in Model.TotalLinkPages)
-            { 
+        {
                 <li>
                     @if (page == Model.CurrentPage)
-                        { 
+                    {
                     <span class="currentpage">
-                        @page</span>&nbsp;
-           } 
-                    @else
-                        { 
+                        @page</span>
+                    }
+                    else
+                    {
                     <a onclick="PagePost(@page)">
-                        @page</a>&nbsp;
-           } 
+                        @page</a>
+                    } 
                 </li>
-                 } 
+        } 
                 <li>Gösterim: </li>
                 <li>
                     <select id="PageDimension" name="PageDimension" onchange="SearchPost();">
@@ -346,6 +353,7 @@
     </td>
 </tr>
 
+}
 
 <script type="text/javascript">
     $(function () {

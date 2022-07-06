@@ -1,8 +1,8 @@
 ﻿@model ICollection<Country>
 @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-@{ row++; }
+{
+    row++;
 <tr id="row@item.CountryId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
     <td class="CellBegin">@item.CountryId</td>
   <td class="Cell">
@@ -15,10 +15,10 @@
   @if (item.Active==true)
     { 
 
-    Onaylanmış
+            <span>Onaylanmış</span>
      
    }else{ 
-    Onaylanmamış
+        <span>Onaylanmamış</span>
     } 
     </td>
   <td class="CellEnd" style="width:100px;">
@@ -47,12 +47,12 @@
           <% if (page == Model.CurrentPage)
              { %>
           <span class="currentpage">
-            <%: page %></span>&nbsp;
+            <%: page %></span>
           <% } %>
           <% else
              { %>
           <a onclick="PagePost(<%: page %>)">
-            <%: page %></a>&nbsp;
+            <%: page %></a>
           <% } %>
           <% } %>
         </li>

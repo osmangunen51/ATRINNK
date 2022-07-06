@@ -42,19 +42,19 @@
     border-top: none; border-bottom: none;">
     <div style="float: right;" class="pagination">
       <ul>
-        &nbsp;Sayfa&nbsp;&nbsp;
+        Sayfa
         @{ for (int i=1; i<=Model.TotalPage; i++)
            { 
         <li>
           @if (i == Model.CurrentPage)
              { 
           <span class="currentpage">
-            @i</span>&nbsp;
+            @i</span>
            } 
-          @else
+          else
              { 
           <a onclick="PageHelp(@i)">
-            @i</a>&nbsp;
+            @i</a>
            } 
         </li>
          } }

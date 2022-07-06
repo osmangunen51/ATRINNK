@@ -240,8 +240,8 @@
 @{MakinaTurkiyeEntities entities=new MakinaTurkiyeEntities(); }
      @using (Html.BeginForm("ProductMove", "Category", FormMethod.Post))
     { 
-    @{string s = "0"; }
-    @if (ViewData["selecteddone"] == null)
+    string s = "0";
+    if (ViewData["selecteddone"] == null)
       {  
 
   <div class="emptyContent" style="padding-bottom: 15px;float: left;width: 800px;height: auto;">

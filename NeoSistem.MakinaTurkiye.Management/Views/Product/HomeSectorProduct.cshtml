@@ -1,24 +1,20 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<NeoSistem.MakinaTurkiye.Management.Models.Catolog.HomeSectorProductModel>
-
+﻿@model NeoSistem.MakinaTurkiye.Management.Models.Catolog.HomeSectorProductModel
 @section TitleContent {
-
     Anasayfa Sektör Seçilen Ürünler
+}
+@section HeadContent
+{
 
 }
-@section HeadContent {
-
-
-}
-
-    <div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px; border-width: 5px;"
-        id="preLoading">
-        <span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>
-        <strong>Yükleniyor.</strong> Lütfen bekleyiniz...
-    </div>
-    <div style="width: 100%; margin: 0 auto;">
-        <table cellpadding="13" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
-            @Html.HiddenFor(x=>x.HomeSectorProductItemsFilter.CurrentPage, new {id="PageIndex" })
-            <thead>
+<div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px; border-width: 5px;"
+id="preLoading">
+<span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>
+<strong>Yükleniyor.</strong> Lütfen bekleyiniz...
+</div>
+<div style="width: 100%; margin: 0 auto;">
+<table cellpadding="13" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
+@Html.HiddenFor(x=>x.HomeSectorProductItemsFilter.CurrentPage, new {id="PageIndex" })
+<thead>
                 <tr>
                     <td class="HeaderBegin" style="width: 6%" unselectable="on">Sektör
                     </td>
@@ -27,8 +23,6 @@
                     </td>
                     <td class="Header" style="width: 12%" unselectable="on">İlan Adı
                     </td>
-
-
                     <td class="Header" style="width: 5%" unselectable="on">Başlangıç Tarihi
                     </td>
                     <td class="Header" style="width: 5%" unselectable="on">Bitiş Tarihi
@@ -45,25 +39,21 @@
                     <td class="CellBegin" style="width: 6%">
                         @Html.DropDownListFor(m => m.SelectedCategoryId,Model.Sectors, new { onchange="SearchPost();" })
                     </td>
-
                     <td class="Cell" style="width: 5%"></td>
                     <td class="Cell" align="center" style="width: 9%"></td>
                     <td class="Cell" style="width: 5%"></td>
                     <td class="Cell" style="width: 5%"></td>
                     <td class="Cell" style="width: 5%"></td>
-
                     <td class="Cell" style="width: 5%">
                         <select name="type" id="Type" onchange="SearchPost();">
                             <option value="0">Tümü</option>
                             <option value="2">Ücretli</option>
                             <option value="1">Ücretsiz</option>
                         </select>
-
                     </td>
                     <td class="Cell"></td>
                     <td class="Cell"></td>
                     <td class="CellEnd" style="width: 5%">
-
                         <select name="time" id="time" onchange="SearchPost();">
                             <option value="0">Tümü</option>
                             <option value="1">Süresi Geçenler</option>
@@ -75,14 +65,14 @@
             <tbody id="table1">
                 @Html.Partial("_HomeSectorProductList", Model.HomeSectorProductItemsFilter)
             </tbody>
-        </table>
-    </div>
-    <script type="text/javascript">
-        function PagePost(val) {
+</table>
+</div>
+<script type="text/javascript">
+    function PagePost(val) {
             $("#PageIndex").val(val);
             SearchPost();
         }
-        function SearchPost() {
+    function SearchPost() {
             $("#preLoading").show();
             $.ajax({
                 url: '/Product/HomeSectorProduct',
@@ -102,6 +92,4 @@
                 }
             });
         }
-    </script>
-
-
+</script>

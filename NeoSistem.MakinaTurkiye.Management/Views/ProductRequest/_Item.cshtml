@@ -28,7 +28,7 @@
         <a href="/Member/BrowseDesc1/@item.ProductRequestId"></a>
     </td>
 </tr>
-@{count = count + 1; }
+    count = count + 1;
 } 
 <tr>
     <td class="ui-state ui-state-default" colspan="9" align="right" style="border-color: #DDD; border-top: none; border-bottom: none;">
@@ -47,12 +47,12 @@
                     @if (i == Model.CurrentPage)
                         { 
                     <span class="currentpage">
-                        @i</span>&nbsp;
+                        @i</span>
 			  } 
-                    @else
+                    else
                         { 
                     <a href="javascript:void(0)" onclick="PagingPost(@i)">
-                        @i</a>&nbsp;
+                        @i</a>
 			  } 
                 </li>
                  } 

@@ -1,20 +1,20 @@
 ﻿@model IList<NotificationFormModel>
 @{ int row = 0; }
 @foreach (var item in Model.OrderByDescending(c => c.RecordDate).ThenByDescending(c => c.IsRead))
-   { 
-@{ row++; }
+{
+    row++;
 <tr id="row@item.NotificationFormId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.NotificationFormSubject
   </td>
   <td class="Cell">
-    @item.MemberName + " "+ item.MemberSurname
+    @(item.MemberName + " " + item.MemberSurname)
   </td>
   <td class="Cell">
     @item.RecordDate.ToString("dd.MM.yyyy HH:mm:ss")
   </td>
   <td class="Cell">
-    @item.IsRead ? "Okundu" : "Okunmadı"
+    @(item.IsRead ? "Okundu" : "Okunmadı")
   </td>
   <td class="CellEnd">
     <a href="/NotificationForm/View/@item.NotificationFormId" style="padding-bottom: 5px;">

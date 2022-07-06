@@ -7,19 +7,18 @@
     <ul class="iListCategory1" control="#DropDownCategory" show="#ListCategory">
       @foreach (var item in Model)
          { 
-          @{
            int deger = 0;
-           if (item.CategoryParentId == null) { } else { deger = item.CategoryParentId.ToInt32(); } }
-      <li value="@item.CategoryId" name="ParentCategory" parent="@deger">
-        <div style="float: left; width: 95%">
-          <a>
-            @item.CategoryName
-          </a>
-        </div>
-        <div style="float: left; width: 5%">
-          >>
-        </div>
-      </li>
+           if (item.CategoryParentId == null) { } else { deger = item.CategoryParentId.ToInt32(); } 
+          <li value="@item.CategoryId" name="ParentCategory" parent="@deger">
+            <div style="float: left; width: 95%">
+              <a>
+                @item.CategoryName
+              </a>
+            </div>
+            <div style="float: left; width: 5%">
+              >>
+            </div>
+          </li>
        } 
     </ul>
   </div>

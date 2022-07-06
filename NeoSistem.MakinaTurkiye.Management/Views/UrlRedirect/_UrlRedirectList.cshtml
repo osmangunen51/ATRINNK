@@ -7,7 +7,7 @@
 <tr id="row@urlRedirect.UrlRedirectId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
     <td class="Cell">@urlRedirect.UrlRedirectId</td>
     <td class="Cell">
-        <a target="_blank" href="@ConfigurationManager.AppSettings["MakinaTurkiyeWebUrl"]+urlRedirect.OldUrl">
+        <a target="_blank" href="@System.Configuration.ConfigurationManager.AppSettings["MakinaTurkiyeWebUrl"]+urlRedirect.OldUrl">
             @urlRedirect.OldUrl
         </a>
         </td>
@@ -29,21 +29,18 @@
         <div style="float: right;" class="pagination">
             <ul>
                 @foreach (int page in Model.TotalLinkPages)
-                    { 
-                <li>
-                    @if (page == Model.CurrentPage)
-                        { 
-                    <span class="currentpage">
-                        @page</span>&nbsp;
-           } 
-                    @else
-                        { 
-                    <a onclick="PagingPost(@page)">
-                        @page</a>&nbsp;
-           } 
-                     } 
-                </li>
-
+                {
+                    <li>
+                        @if (page == Model.CurrentPage)
+                        {
+                            <span class="currentpage">@page</span>
+                        }
+                        else
+                        {
+                            <a onclick="PagingPost(@page)">@page</a>
+                        } 
+                    </li>
+                }
             </ul>
         </div>
     </td>
@@ -51,7 +48,7 @@
 <tr>
     <td class="ui-state ui-state-hover" colspan="17" align="right" style="border-color: #DDD; border-top: none;">
         @*    <input type="button" value="Exele Aktar" id="ExcelButon" onclick="ExportExcel();" />*@
-        Toplam Kayıt : &nbsp;&nbsp;<strong>
+        Toplam Kayıt : <strong>
             @Model.TotalRecord</strong>
     </td>
 </tr>

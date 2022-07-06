@@ -3003,7 +3003,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     categoryBreadCrumb = categoryBreadCrumb + category.CategoryName + ">";
                 }
-                categoryBreadCrumb = categoryBreadCrumb.Remove(categoryBreadCrumb.Length - 1, 1);
+                if (categoryBreadCrumb.Length>0)
+                {
+                    categoryBreadCrumb = categoryBreadCrumb.Remove(categoryBreadCrumb.Length - 1, 1);
+                }
+                
 
                 model.DopingModels.Add(new ProductDopingListModel
                 {

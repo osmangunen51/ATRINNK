@@ -3855,7 +3855,9 @@
     <Content Include="Views\Product\DopingShowcase.cshtml">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
-    <Content Include="Views\Product\DopingShowcaseList.cshtml" />
+    <Content Include="Views\Product\DopingShowcaseList.cshtml">
+      <SubType>ASPXCodeBehind</SubType>
+    </Content>
     <Content Include="Views\Product\Edit.cshtml">
       <SubType>ASPXCodeBehind</SubType>
     </Content>
@@ -3945,8 +3947,8 @@
     </Content>
     <Content Include="Views\Store\StoreProfileHomeDescription.cshtml" />
     <Content Include="Views\Store\StoreSector.cshtml" />
-    <Content Include="Views\Store\Style.cshtml" />
-    <Content Include="Views\Store\TabMenu.cshtml" />
+    <Content Include="Views\Shared\Style.cshtml" />
+    <Content Include="Views\Shared\TabMenu.cshtml" />
     <Content Include="Views\Store\TooltipContent.cshtml" />
     <Content Include="Views\Store\UpdateStoreByExel.cshtml" />
     <Content Include="Views\Store\Users.cshtml" />

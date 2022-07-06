@@ -26,7 +26,7 @@
          } 
     </td>
     <td class="Cell">@if (item.Reported) {
-            Şikayetli
+        <span>Şikayetli</span>
          } </td>
     <td class="Cell">
         <input type="checkbox" class="checkBoxProductComment" value="@item.ProductCommentId" />
@@ -43,22 +43,20 @@
                 <li>
                     <button value="Onayla" type="button" onclick="confirmComment(0)">Onay Kaldır</button></li>
 
-                &nbsp;Sayfa&nbsp;&nbsp;
-        @foreach (int page in Model.TotalLinkPages)
-            { 
-                <li>
-                    @if (page == Model.CurrentPage)
-                        { 
-                    <span class="currentpage">
-                        @page</span>&nbsp;
-           } 
-                    @else
-                        { 
-                    <a onclick="PagePost(@page)">
-                        @page</a>&nbsp;
-           } 
-                </li>
-                 } 
+                Sayfa
+                    @foreach (int page in Model.TotalLinkPages)
+                     { 
+                            <li>
+                                @if (page == Model.CurrentPage)
+                                   { 
+                                    <span class="currentpage">@page</span>
+                                    } 
+                                    else
+                                    { 
+                                     <a onclick="PagePost(@page)">@page</a>
+                                    } 
+                            </li>
+                     } 
                 <li>Toplam Yorum:<b>@Model.TotalRecord</b></li>
             </ul>
         </div>

@@ -49,28 +49,29 @@
 <button style="margin-top:10px;" onclick="window.location='/Footer/FooterContentAdd'" >Yeni Ekle</button>
     <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
       <thead>
-        <tr>
-          <td class="Header HeaderBegin">
-          Başlık
-          </td>
-            <td>
-                Üst Başlık
-            </td>
-            <td>
-                Link
-            </td>
-            <td>
-               Sıra
-            </td>
-          <td>
-          </td>
-        </tr>
+          <tr>
+              <td class="Header HeaderBegin">
+                  Başlık
+              </td>
+              <td class="Header HeaderBegin">
+                  Üst Başlık
+              </td>
+              <td class="Header HeaderBegin">
+                  Link
+              </td>
+              <td class="Header HeaderBegin">
+                  Sıra
+              </td>
+              <td class="Header HeaderBegin">
+                  #
+              </td>
+          </tr>
       </thead>
       <tbody id="table">
        @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-@{ row++; }
+{
+    row++;
 <tr id="row@item.FooterContentId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.FooterContentName
@@ -118,27 +119,7 @@
     </div>
   </td>
 </tr>
-
       </tbody>
-@*      <tfoot>
-        <tr>
-          <td class="ui-state ui-state-hover" style="border-color: #DDD;
-            border-top: none; padding-right: 10px" colspan="1" valign="top" style="width: 150px;">
-          <%:Ajax.ActionLink("Hesapla", "ProductRateCalculate", new AjaxOptions() { UpdateTargetId = "statisticproduct", HttpMethod = "Post" })%>
-          </td>
-          <td class="ui-state ui-state-hover" style="border-color: #DDD;
-            border-top: none; padding-right: 10px" colspan="1">
-           : <div id="statisticproduct" style="margin-top: 5px">
-
-            </div>
-          </td>
-          <td class="ui-state ui-state-hover" colspan="1" align="right" style="border-color: #DDD;
-            border-top: none; padding-right: 10px">
-            Toplam Kayıt : &nbsp;&nbsp;<strong>
-              <%= Model.Count %></strong>
-          </td>
-        </tr>
-      </tfoot>*@
     </table>
   </div>
 

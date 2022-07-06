@@ -507,7 +507,7 @@
                   $(parent).treeview({ add: $(parent) });
               }
 
-              var newSubItem = $("<li class=liRow id=\"" + model.id + "\"><span class='folder'><label>" + model.text + "</label><div style=\"float:right; width:665px;\">&nbsp;&nbsp;&nbsp;&nbsp;" + model.tool + "</div></span></li>").appendTo($(parent).find('ul:first'));
+              var newSubItem = $("<li class=liRow id=\"" + model.id + "\"><span class='folder'><label>" + model.text + "</label><div style=\"float:right; width:665px;\">" + model.tool + "</div></span></li>").appendTo($(parent).find('ul:first'));
 
               $(tree).treeview({ add: $(newSubItem)[0] });
 
@@ -568,9 +568,9 @@
           (Toplam : @cou)
         </td>
         <td class="Header" style="width: 230px">
-          &nbsp;&nbsp;&nbsp;&nbsp;
+          
           <button id="btnSectorCreate">
-            &nbsp;&nbsp;&nbsp;&nbsp;Ana Kategori Ekle &nbsp;&nbsp;&nbsp;&nbsp;</button>
+            Ana Kategori Ekle </button>
         </td>
       </tr>
     </thead>

@@ -36,8 +36,14 @@
 
                         @foreach (var baseCategory in item.BaseMenuCategories)
                             {
-                        @baseCategory.Category.CategoryContentTitle,
-                                    } </td>
+                                <span>
+                                    @baseCategory.Category.CategoryContentTitle
+                                </span>
+                                <span>
+                                    ,
+                                </span>
+                            } 
+                    </td>
                     <td class="Cell">
                         @item.CreatedTime.ToString("dd/MM/yyyy")
                     </td>

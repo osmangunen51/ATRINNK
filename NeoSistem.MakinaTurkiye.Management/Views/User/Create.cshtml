@@ -13,7 +13,7 @@ Makinaturkiye | Kullanıcı Ekle
   @using ( Html.BeginForm("Create", "User", FormMethod.Post, new { enctype = "multipart/form-data" }) )
     {
   @Html.ValidationSummary();
-  @using ( Html.BeginPanel() )
+  using ( Html.BeginPanel() )
      { 
     <div style="float:left; width:40%; margin-right:10px;">
             @Html.Partial("_UserForm",Model.UserModel)

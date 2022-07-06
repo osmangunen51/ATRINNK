@@ -1,4 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<ICollection<ConstantModel>>
+﻿@model ICollection<ConstantModel>
 
 @section TitleContent {
 
@@ -213,40 +213,40 @@
     <div style="float: left; width: 15%; padding-top: 10px;">
         <select size="25" onchange="GetConstant($(this).val())">
             <option value="0">< Sabit Tipi Seçiniz ></option>
-            <option value="@(byte)ConstantType.ProductPayType">Ürün Ödeme Durumu</option>
-            <option value="@(byte)ConstantType.ProductSalesType">Ürün Satış Durumu</option>
-            <option value="@(byte)ConstantType.ProductCargoType">Ürün Kargo Durumu</option>
-            <option value="@(byte)ConstantType.ProductType">Ürün Tipi</option>
-            <option value="@(byte)ConstantType.ProductStatu">Ürün Durumu</option>
-            <option value="@(byte)ConstantType.ProductBriefDetail">Ürün Kısa Detay</option>
-            <option value="@(byte)ConstantType.StoerType">Mağaza Şirket Türü</option>
-            <option value="@(byte)ConstantType.MoneyCondition">Mağaza Para Durumu</option>
-            <option value="@(byte)ConstantType.MemberTitleType">Üye Yetki Tipi</option>
-            <option value="@(byte)ConstantType.EmployeesCount">Çalışan Sayısı</option>
-            <option value="@(byte)ConstantType.StoreCapital">Şirket Sermayesi</option>
-            <option value="@(byte)ConstantType.StoreEndorsement">Yıllık Ciro</option>
-            <option value="@(byte)ConstantType.MessageType">İlan Onay Durumu</option>
-            <option value="@(byte)ConstantType.MemberType">Üye Mailing</option>
-            <option value="@(byte)ConstantType.StoreactivationType">Firma Mailing</option>
-            <option value="@(byte)ConstantType.Mensei">Menşei</option>
-            <option value="@(byte)ConstantType.SiparisDurumu">Teslim Durumu</option>
-            <option value="@(byte)ConstantType.MemberMail">Toplu Mail</option>
-            <option value="@(byte)ConstantType.Katsayilar">Ürün Katsayılar</option>
-             <option value="@(byte)ConstantType.FirmaKatsayilar">Firma Katsayılar</option>
-            <option value="@(byte)ConstantType.Messages">Mesajlar</option>
-            <option value="@(byte)ConstantType.Birim">Birim</option>
-            <option value="@(byte)ConstantType.FootorDegerleri">Footor Değerleri</option>
-            <option value="@(byte)ConstantType.DiscountPacketDescription">İndirimli Paket Açıklama</option>
-            <option value="@(byte)ConstantType.StoreDescriptionType">Firma Açıklama Tipi</option>
-            <option value="@(byte)ConstantType.UserSpecialMailType">Kullanıcı Özel Mail Tipi</option>
-            <option value="@(byte)ConstantType.ProblemType">Sorun Tipleri</option>
-            <option value="@(byte)ConstantType.StoreProfileHomeDecriptionTemplate">Firma Profil Açklama Template</option>
-            <option value="@(byte)ConstantType.PaymentBank">Havale Bankalar</option>
-            <option value="@(byte)ConstantType.SeoDescriptionTitle">Firma Seo Açıklama Başlık</option>
-            <option value="@(byte)ConstantType.CategoryFooterTopDescription">Kategori Footer Üstü Açıklama</option>
-            <option value="@(byte)ConstantType.PacketSalesFooter">Paket Satın Al Sayfası Alt</option>
-            <option value="@(byte)ConstantType.CrmYardimKategori">Crm Yardım Kategori</option>
-        </select>&nbsp;&nbsp;
+            <option value="@((byte)ConstantType.ProductPayType)">Ürün Ödeme Durumu</option>
+            <option value="@((byte)ConstantType.ProductSalesType)">Ürün Satış Durumu</option>
+            <option value="@((byte)ConstantType.ProductCargoType)">Ürün Kargo Durumu</option>
+            <option value="@((byte)ConstantType.ProductType)">Ürün Tipi</option>
+            <option value="@((byte)ConstantType.ProductStatu)">Ürün Durumu</option>
+            <option value="@((byte)ConstantType.ProductBriefDetail)">Ürün Kısa Detay</option>
+            <option value="@((byte)ConstantType.StoerType)">Mağaza Şirket Türü</option>
+            <option value="@((byte)ConstantType.MoneyCondition)">Mağaza Para Durumu</option>
+            <option value="@((byte)ConstantType.MemberTitleType)">Üye Yetki Tipi</option>
+            <option value="@((byte)ConstantType.EmployeesCount)">Çalışan Sayısı</option>
+            <option value="@((byte)ConstantType.StoreCapital)">Şirket Sermayesi</option>
+            <option value="@((byte)ConstantType.StoreEndorsement)">Yıllık Ciro</option>
+            <option value="@((byte)ConstantType.MessageType)">İlan Onay Durumu</option>
+            <option value="@((byte)ConstantType.MemberType)">Üye Mailing</option>
+            <option value="@((byte)ConstantType.StoreactivationType)">Firma Mailing</option>
+            <option value="@((byte)ConstantType.Mensei)">Menşei</option>
+            <option value="@((byte)ConstantType.SiparisDurumu)">Teslim Durumu</option>
+            <option value="@((byte)ConstantType.MemberMail)">Toplu Mail</option>
+            <option value="@((byte)ConstantType.Katsayilar)">Ürün Katsayılar</option>
+            <option value="@((byte)ConstantType.FirmaKatsayilar)">Firma Katsayılar</option>
+            <option value="@((byte)ConstantType.Messages)">Mesajlar</option>
+            <option value="@((byte)ConstantType.Birim)">Birim</option>
+            <option value="@((byte)ConstantType.FootorDegerleri)">Footor Değerleri</option>
+            <option value="@((byte)ConstantType.DiscountPacketDescription)">İndirimli Paket Açıklama</option>
+            <option value="@((byte)ConstantType.StoreDescriptionType)">Firma Açıklama Tipi</option>
+            <option value="@((byte)ConstantType.UserSpecialMailType)">Kullanıcı Özel Mail Tipi</option>
+            <option value="@((byte)ConstantType.ProblemType)">Sorun Tipleri</option>
+            <option value="@((byte)ConstantType.StoreProfileHomeDecriptionTemplate)">Firma Profil Açklama Template</option>
+            <option value="@((byte)ConstantType.PaymentBank)">Havale Bankalar</option>
+            <option value="@((byte)ConstantType.SeoDescriptionTitle)">Firma Seo Açıklama Başlık</option>
+            <option value="@((byte)ConstantType.CategoryFooterTopDescription)">Kategori Footer Üstü Açıklama</option>
+            <option value="@((byte)ConstantType.PacketSalesFooter)">Paket Satın Al Sayfası Alt</option>
+            <option value="@((byte)ConstantType.CrmYardimKategori)">Crm Yardım Kategori</option>
+        </select>
     <button onclick="openDialog();">
         Sabit Başlık Ekle</button>
     </div>
@@ -282,7 +282,7 @@
                         <div id="statisticproduct" style="margin-top: 5px">
                         </div>
                     </td>
-                    <td class="ui-state ui-state-hover" colspan="1" align="right" style="border-color: #DDD; border-top: none; padding-right: 10px">Toplam Kayıt : &nbsp;&nbsp;<strong>
+                    <td class="ui-state ui-state-hover" colspan="1" align="right" style="border-color: #DDD; border-top: none; padding-right: 10px">Toplam Kayıt : <strong>
                         @Model.Count</strong>
                     </td>
                 </tr>

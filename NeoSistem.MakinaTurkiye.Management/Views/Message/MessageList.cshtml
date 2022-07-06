@@ -3,9 +3,9 @@
 @{   var entities = new MakinaTurkiyeEntities(); }
 @foreach (var item in Model.Source)
    { 
-  @{var checkmessage = entities.messagechecks.Where(c => c.MessageId == item.MessageId).FirstOrDefault(); } 
-@{ row++; }
-  @if (checkmessage == null)
+  var checkmessage = entities.messagechecks.Where(c => c.MessageId == item.MessageId).FirstOrDefault();
+  row++;
+  if (checkmessage == null)
     {  
 <tr id="row@item.MessageId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   
@@ -14,7 +14,7 @@
       @{
       var memberFrom = entities.Members.SingleOrDefault(c => c.MainPartyId == item.MainPartyId);
       }
-      @memberFrom.MemberName + " " + memberFrom.MemberSurname
+      @(memberFrom.MemberName + " " + memberFrom.MemberSurname)
    
     </div>
   </td>
@@ -24,23 +24,13 @@
         
     }
     <span style="font-weight:bold;">
-    @memberTo.MemberName + " " + memberTo.MemberSurname
+    @(memberTo.MemberName + " " + memberTo.MemberSurname)
        </span>
        @if (!string.IsNullOrEmpty(item.ToSecondName)) {
        <a href="/Store/StoreDetailInformation/@item.ToMainPartyId" target="_blank" title="@item.ToSecondName"> (
       @item.ToSecondName)
            </a>
        } 
-@*       <%if (memberTo.MemberType == 20)
-         {  %>
-         /
-      <%var storid = entities.MemberStores.Where(c => c.MemberMainPartyId == item.InOutMainPartyId).SingleOrDefault().StoreMainPartyId; %>
-     <%var storename = entities.Stores.Where(c => c.MainPartyId == storid).SingleOrDefault().StoreName; %>
-      <%if (storename != null)
-        {  %>
-      <%:storename.ToString()%>
-      <%} %>
-      <%} %>*@
   </td>
   <td class="Cell">
   <span style="font-weight:bold;">
@@ -73,7 +63,7 @@
   </td>
 </tr>
 } 
-@else {  
+else {  
 <tr id="Tr1" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   
   <td class="CellBegin">
@@ -81,7 +71,7 @@
       @{
       var memberFrom = entities.Members.SingleOrDefault(c => c.MainPartyId == item.MainPartyId);
       }
-      @memberFrom.MemberName + " " + memberFrom.MemberSurname
+      @(memberFrom.MemberName + " " + memberFrom.MemberSurname)
    
     </div>
   </td>
@@ -90,22 +80,12 @@
       var memberTo = entities.Members.SingleOrDefault(c => c.MainPartyId == item.InOutMainPartyId);
     }
   
-    @memberTo.MemberName + " " + memberTo.MemberSurname
+    @(memberTo.MemberName + " " + memberTo.MemberSurname)
               @if (!string.IsNullOrEmpty(item.ToSecondName)) {
        <a href="/Store/StoreDetailInformation/@item.ToMainPartyId" target="_blank" title="@item.ToSecondName"> (
       @item.ToSecondName)
            </a>
-       } 
-@*       <%if (memberTo.MemberType == 20)
-         {  %>
-         /
-      <%var storid = entities.MemberStores.Where(c => c.MemberMainPartyId == item.InOutMainPartyId).SingleOrDefault().StoreMainPartyId; %>
-     <%var storename = entities.Stores.Where(c => c.MainPartyId == storid).SingleOrDefault().StoreName; %>
-      <%if (storename != null)
-        {  %>
-      <%:storename.ToString()%>
-      <%} %>
-      <%} %>*@
+       }
   </td>
   <td class="Cell">
 
@@ -156,12 +136,12 @@
           @if (page == Model.CurrentPage)
              { 
           <span class="currentpage">
-            @page</span>&nbsp;
+            @page</span>
            } 
-          @else
+          else
              { 
           <a onclick="PagePost(@page)">
-            @page</a>&nbsp;
+            @page</a>
            } 
         </li>
          } 
@@ -170,7 +150,4 @@
   </td>
 </tr>
 <script type="text/javascript">
-
-
-
 </script>

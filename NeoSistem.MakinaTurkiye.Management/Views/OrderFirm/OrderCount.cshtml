@@ -1,4 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<NeoSistem.MakinaTurkiye.Management.Models.Orders.OrderCountModel>
+﻿@model NeoSistem.MakinaTurkiye.Management.Models.Orders.OrderCountModel
 
 @section TitleContent {
 
@@ -43,8 +43,9 @@
             </tr>
             <tbody id="tableBody">
                 @Html.Partial("_OrderCountList", Model.OrderCountItems)
-                         </tbody>
+            </tbody>
         </table>
+</div>
         <script type="text/javascript">
 
             function clearSearch(Id) {

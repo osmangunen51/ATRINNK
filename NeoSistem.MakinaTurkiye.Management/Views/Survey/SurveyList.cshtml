@@ -1,7 +1,7 @@
 ﻿@model FilterModel<SurveyModel>
 @{ int row = 0; }
 @foreach(var item in Model.Source) { 
-@{ row++; }
+row++; 
 <tr id="row@item.SurveyId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin" align="center">
     <span class="ui-icon ui-icon-plusthick" style="cursor: pointer;" id="sp@item.SurveyId"
@@ -50,11 +50,11 @@
         <li>
           @if(page == Model.CurrentPage) { 
           <span class="currentpage">
-            @page</span>&nbsp;
+            @page</span>
            } 
-          @else { 
+          else { 
           <a onclick="Page(@page)">
-            @page</a>&nbsp;
+            @page</a>
            } 
         </li>
          } 

@@ -1,4 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewUserControl<FilterModel<global::MakinaTurkiye.Entities.StoredProcedures.Stores.StoreChangeInfoResult>>
+﻿@model FilterModel<global::MakinaTurkiye.Entities.StoredProcedures.Stores.StoreChangeInfoResult>
 @{ int row = 0; }
 @foreach (var item in Model.Source)
     {
@@ -54,19 +54,19 @@
     <td class="ui-state ui-state-default" colspan="6" align="left" style="border-color: #DDD; border-top: none; border-bottom: none;">
         <div style="float: right;" class="pagination">
             <ul>
-                &nbsp;Sayfa&nbsp;&nbsp;
+                Sayfa
         @foreach (int i in Model.TotalLinkPages)
             { 
                 <li>
                     @if (i == Model.CurrentPage)
                         { 
                     <span class="currentpage">
-                        @i</span>&nbsp;
+                        @i</span>
            } 
-                    @else
+                    else
                         { 
                     <a onclick="PagingPost(@i)">
-                        @i</a>&nbsp;
+                        @i</a>
            } 
                 </li>
                  } 

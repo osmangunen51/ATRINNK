@@ -1,8 +1,12 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewUserControl<FilterModel<ProductModel>>
-@{ int row = 0; }
+﻿@model FilterModel<ProductModel>
+   
+@{ 
+    int row = 0;
+    Layout = null;
+}
 @foreach (var item in Model.Source)
    { 
-@{ row++; }
+row++; 
 <tr id="row@item.ProductId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.ProductNo
@@ -45,19 +49,19 @@
     border-top: none; border-bottom: none;">
     <div style="float: right;" class="pagination">
       <ul>
-        &nbsp;Sayfa&nbsp;&nbsp;
+        Sayfa
         @foreach (int page in Model.TotalLinkPages)
            { 
         <li>
           @if (page == Model.CurrentPage)
              { 
           <span class="currentpage">
-            @page</span>&nbsp;
+            @page</span>
            } 
-          @else
+          else
              { 
           <a onclick="PagePost(@page)">
-            @page</a>&nbsp;
+            @page</a>
            } 
         </li>
          } 

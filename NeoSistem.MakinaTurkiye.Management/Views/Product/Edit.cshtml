@@ -1,4 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<ProductModel>
+﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewPage<ProductModel>
 
 @section TitleContent {
 
@@ -796,8 +796,8 @@
                     @{hasItem = true; }
                      } 
                      } 
-                    @item.ConstantName&nbsp;
-                    @Html.RadioButton("fakeProductType", item.ConstantId, hasItem, new { style = "width: 22px; height: 22px", @class = "ActiveName" })&nbsp;&nbsp;
+                    @item.ConstantName
+                    @Html.RadioButton("fakeProductType", item.ConstantId, hasItem, new { style = "width: 22px; height: 22px", @class = "ActiveName" })
                     } 
                     <script type="text/javascript">
                         $('.ActiveName').click(function () {
@@ -834,8 +834,8 @@
                     @{hasItem = true; }
                      } 
                      } 
-                    @item.ConstantName&nbsp;
-                    @Html.RadioButton("fakeProductStatu", item.ConstantId, hasItem, new { style = "width: 22px; height: 22px", @class = "ActiveName2" })&nbsp;&nbsp;
+                    @item.ConstantName
+                    @Html.RadioButton("fakeProductStatu", item.ConstantId, hasItem, new { style = "width: 22px; height: 22px", @class = "ActiveName2" })
                     } 
                     <script type="text/javascript">
                         $('.ActiveName2').click(function () {
@@ -876,7 +876,7 @@
                      } 
                      } 
                      } 
-                    @item.ConstantName&nbsp;@Html.CheckBox("ProductSalesType", hasItem, new { value = item.ConstantId.ToString() })&nbsp;&nbsp;
+                    @item.ConstantName@Html.CheckBox("ProductSalesType", hasItem, new { value = item.ConstantId.ToString() })
                     } 
                 </td>
                 <td></td>
@@ -906,7 +906,7 @@
                     @Html.RadioButton("BriefDetail", item.ConstantId, hasItem, new { @class = "pdetail" })
                     @item.ConstantName
                     <input type="text" id="warrianty" style="display: none" />
-                    &nbsp;&nbsp;
+                    
                     } 
                     <script type="text/javascript">
                         $('.pdetail').click(function () {
@@ -1097,7 +1097,7 @@
                         }
 
                     }
-                    @Html.RadioButton("productPriceType", productPriceType.ContstantPropertie, choose, new { @onclick="ProductPriceType("+productPriceType.ContstantPropertie+")"}) @productPriceType.ConstantName  &nbsp;&nbsp;
+                    @Html.RadioButton("productPriceType", productPriceType.ContstantPropertie, choose, new { @onclick="ProductPriceType("+productPriceType.ContstantPropertie+")"}) @productPriceType.ConstantName  
                     }   
                 </td>
             </tr>
@@ -1323,7 +1323,7 @@
                 </td>
                 <td>:
                 </td>
-                <td>Aktif&nbsp;@Html.RadioButtonFor(m => m.ProductShowcase, true)&nbsp;&nbsp; Pasif&nbsp;@Html.RadioButtonFor(m => m.ProductShowcase, false)
+                <td>Aktif@Html.RadioButtonFor(m => m.ProductShowcase, true) Pasif@Html.RadioButtonFor(m => m.ProductShowcase, false)
                 </td>
                 <td></td>
             </tr>
@@ -1385,11 +1385,11 @@
                             default:
                                 break;
                         } }
-                    İnceleniyor&nbsp;@Html.RadioButton("ProductActiveType", "0",inceleniyor)&nbsp;&nbsp;
-                    Onaylandı&nbsp;@Html.RadioButton("ProductActiveType", "1", onaylandi)&nbsp;&nbsp;
-                    <span style="width: 30px;" onmouseup="tıkla()">Onaylanmadı&nbsp;@Html.RadioButton("ProductActiveType", "2", onaylanmadi)&nbsp;&nbsp;
-                    </span>Silindi&nbsp;@Html.RadioButton("ProductActiveType", "3", silindi)
-                    Çöp Kutusu&nbsp;@Html.RadioButton("ProductActiveType","8",cop)
+                    İnceleniyor@Html.RadioButton("ProductActiveType", "0",inceleniyor)
+                    Onaylandı@Html.RadioButton("ProductActiveType", "1", onaylandi)
+                    <span style="width: 30px;" onmouseup="tıkla()">Onaylanmadı@Html.RadioButton("ProductActiveType", "2", onaylanmadi)
+                    </span>Silindi@Html.RadioButton("ProductActiveType", "3", silindi)
+                    Çöp Kutusu@Html.RadioButton("ProductActiveType","8",cop)
                     <a href="/Member/advertmail/@Model.StoreMainPartyId?productid=@Model.ProductId"
                         id="lightbox_click" rel="superbox[iframe]"></a>
                 </td>

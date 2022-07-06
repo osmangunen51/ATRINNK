@@ -2,7 +2,7 @@
 @{ int row = 0; }
 @foreach (var item in Model.Source)
     { 
-@{ row++; }
+row++; 
 <tr id="row@item.MainPartyId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
     <td class="CellBegin" style="height: 30px;">
         <input type="checkbox" name="cb_@item.MainPartyId" id="cb_@item.MainPartyId" />
@@ -50,7 +50,7 @@
             <img src="/Content/Images/Goodshield.png" />
         </div>*@
         } 
-        @else
+        else
             {
         <div style="float: left;">
             Pasif
@@ -123,12 +123,12 @@
                     @if (page == Model.CurrentPage)
                         { 
                     <span class="currentpage">
-                        @page</span>&nbsp;
+                        @page</span>
            } 
-                    @else
+                    else
                         { 
                     <a onclick="PagePost(@page)">
-                        @page</a>&nbsp;
+                        @page</a>
            } 
                      } 
                 </li>
@@ -145,7 +145,7 @@
     </td>
 </tr>
 <tr>
-    <td class="ui-state ui-state-hover" colspan="10" align="right" style="border-color: #DDD; border-top: none;">Toplam Kayıt : &nbsp;&nbsp;<strong>
+    <td class="ui-state ui-state-hover" colspan="10" align="right" style="border-color: #DDD; border-top: none;">Toplam Kayıt : <strong>
         @Model.TotalRecord</strong>
     </td>
 </tr>

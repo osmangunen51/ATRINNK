@@ -45,7 +45,7 @@
 }
 
 
-    <h2>Ürün Şikayetleri</h2>
+  <h2>Ürün Şikayetleri</h2>
   <div style="width: 100%; margin: 0 auto;">
     <table cellpadding="5"  cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
       <thead>
@@ -67,9 +67,9 @@
       <tbody id="table">
        @{ int row = 0; }
 @foreach (var item in Model)
-   { 
+{
 
-@{ row++; }
+    row++;
 <tr id="row@item.ID"  class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td>
     @item.ProductNo
@@ -78,19 +78,27 @@
         @item.ProductName
     </td>
     <td>
-        @item.Name+" "+item.Surname
+        @(item.Name + " " + item.Surname)
     </td>
     <td>@item.Email</td>
 
     <td>@item.Comment</td>
-    <td>@if(item.IsMember==false){ 
-            Kayıt oldu
-        }else{
-            Kayıtlıydı
-          } 
+    <td>
+        @if (item.IsMember == false)
+        {
+        <span> Kayıt oldu</span>
+        } else {
+    <span>
+        Kayıtlıydı
+    </span>
+        } 
     </td>
-     <td>@if(item.ComplainNames!=""){ @item.ComplainNames.Substring(1,item.ComplainNames.Length-1)</td>
-     } 
+    <td>
+        @if (item.ComplainNames != "")
+        {
+            @item.ComplainNames.Substring(1, item.ComplainNames.Length - 1)
+        }
+    </td>
     <td>@String.Format("{0:d/M/yyyy HH:mm:ss}", item.ComplainDate)</td>
 
   <td >
@@ -101,7 +109,7 @@
     </a>
   </td>
 </tr>
- } 
+} 
       </tbody>
         <tfoot>
             <tr>
@@ -109,16 +117,13 @@
     border-top: none; border-bottom: none;">
     <div style="float: right;" class="pagination">
       <ul>
-          @{int pageNumbers = Convert.ToInt32(ViewData["pageNumbers"]);
-            if(pageNumbers>1)
+          @{int pageNumbers = Convert.ToInt32(ViewData["pageNumbers"]);}
+          @if(pageNumbers>1)
             { 
-            for (int i = 1; i <=pageNumbers ; i++)
-            {
-
-                Response.Write("<li id='page-" + i + "'><a  href='/ProductComplain/index?page="+i+"'>" + i + "</a></li>");
-
-
-            }
+                for (int i = 1; i <=pageNumbers ; i++)
+                {
+                    <li id='page-@i'><a href='/ProductComplain/index?page=@i'>@i</a></li>
+                }
             }
       </ul>
     </div>
@@ -130,7 +135,7 @@
           </td>
           <td class="ui-state ui-state-hover" colspan="1" align="right" style="border-color: #DDD;
             border-top: none; padding-right: 10px">
-            Toplam Kayıt : &nbsp;&nbsp;<strong>
+            Toplam Kayıt : <strong>
               @ViewData["Total"]</strong>
           </td>
         </tr>

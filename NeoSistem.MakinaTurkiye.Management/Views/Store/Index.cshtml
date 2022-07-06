@@ -1,4 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<FilterModel<StoreModel>>
+﻿@model FilterModel<StoreModel>
 
 @section TitleContent {
 
@@ -225,8 +225,8 @@ Firmalar
             <div style="width: 100%; height: auto; float: left; text-align: right;">
             <a href="/Store/DownloadAsExcel" style="color:Black; text-decoration:none;">
       <img src="/Content/images/excelwrite.png" width="30px" height="30px"/>
-    </a> &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
-              Toplam Kayıt : &nbsp;&nbsp;<strong>
+    </a>      
+              Toplam Kayıt : <strong>
                 <%: Model.TotalRecord %></strong>
             </div>
           </td>

@@ -75,7 +75,7 @@
        @{ int row = 0; }
 @foreach (var item in Model)
    { 
-@{ row++; }
+row++; 
 <tr id="row@item.YKID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   
   <td class="CellBegin">
@@ -124,7 +124,7 @@
         <tr>
           <td class="ui-state ui-state-hover" colspan="7" align="right" style="border-color: #DDD;
             border-top: none; padding-right: 10px">
-            Toplam Kayıt : &nbsp;&nbsp;<strong>
+            Toplam Kayıt : <strong>
               <%: Model.Count() %></strong>
           </td>
         </tr>

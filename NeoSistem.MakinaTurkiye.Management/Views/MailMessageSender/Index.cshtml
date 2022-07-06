@@ -103,20 +103,22 @@
 
 
     @if(ViewData["noMember"]=="1"){ 
-        Aradığınız kriterlerde üye bulunamadı.
+<span>Aradığınız kriterlerde üye bulunamadı.</span>
     } 
-    @using(Html.BeginForm()){ 
+    @using(Html.BeginForm())
+    { 
     <div style="margin:10px;">
     Dosya İsmi: @Html.TextBox("fileName")
         </div>
     <div class="panelLeft">
         <h4 style="padding:10px; text-decoration:underline;">Üyelik Tipi</h4>
-            @int row = 0;
-              foreach (var item in Model.MemberTypes.ToList())
+            @{ int row = 0;}
+              @foreach (var item in Model.MemberTypes.ToList())
               {
                  
             <div style="float:left; width:50%;">
-                @Html.RadioButton("memberType", item.Value, item.IsChecked, new {@onclick="GetMemberType()" })@item.DisplayName
+                @Html.RadioButton("memberType", item.Value, item.IsChecked, new {@onclick="GetMemberType()" })
+                @item.DisplayName
             </div> 
               }
                   

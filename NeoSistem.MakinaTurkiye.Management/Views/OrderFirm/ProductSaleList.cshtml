@@ -1,10 +1,8 @@
 ﻿@model IList<ProductSale>
-
-
 @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-@{ row++; }
+{
+    row++;
 <tr id="row">
   <td class="CellBegin" style="height: 30px;">
     @item.OrderProductNo
@@ -59,7 +57,7 @@
         <li>
           
           <span class="currentpage">
-            1</span>&nbsp;
+            1</span>
          
         </li>
         <li>Gösterim: </li>
@@ -76,7 +74,7 @@
 <tr>
   <td class="ui-state ui-state-hover" colspan="13" align="right" style="border-color: #DDD;
     border-top: none;">
-    Toplam Kayıt : &nbsp;&nbsp;<strong>
+    Toplam Kayıt : <strong>
       0</strong>
   </td>
 </tr>

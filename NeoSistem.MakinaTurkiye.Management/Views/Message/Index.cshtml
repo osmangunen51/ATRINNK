@@ -1,5 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<FilterModel<MessageModel>>
-
+﻿@model FilterModel<MessageModel>
 @section TitleContent {
 
   Index
@@ -61,7 +60,7 @@
             border-top: none; padding-right: 10px">
 
               <div style="float:right;">
-            Toplam Kayıt : &nbsp;&nbsp;<strong>
+            Toplam Kayıt : <strong>
               @Model.TotalRecord</strong>
                   </div>
              <div style="float: right;" class="pagination">

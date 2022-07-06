@@ -53,21 +53,22 @@
           <td class="Header HeaderBegin">
           Başlık
           </td>
-            <td>
-                Alt Başlıklar
-            </td>
-            <td>
-                Sıra
-            </td>
-          <td>
+          <td class="Header HeaderBegin">
+              Alt Başlıklar
+          </td>
+          <td class="Header HeaderBegin">
+              Sıra
+          </td>
+          <td class="Header HeaderBegin">
+              #
           </td>
         </tr>
       </thead>
       <tbody id="table">
        @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-@{ row++; }
+{
+    row++;
 <tr id="row@item.FooterParentId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.FooterParentName
@@ -130,7 +131,7 @@
           </td>
           <td class="ui-state ui-state-hover" colspan="1" align="right" style="border-color: #DDD;
             border-top: none; padding-right: 10px">
-            Toplam Kayıt : &nbsp;&nbsp;<strong>
+            Toplam Kayıt : <strong>
               <%= Model.Count %></strong>
           </td>
         </tr>

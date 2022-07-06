@@ -47,25 +47,25 @@
         </div>
     </td>
 </tr>
-@{row = row + 1; }
+row = row + 1;
 } 
 <tr>
     <td class="ui-state ui-state-default" colspan="5" align="left" style="border-color: #DDD; border-top: none; border-bottom: none;">
         <div style="float: right;" class="pagination">
             <ul>
-                &nbsp;Sayfa&nbsp;&nbsp;
+                Sayfa
         @foreach (int page in Model.TotalLinkPages)
             { 
                 <li>
                     @if (page == Model.CurrentPage)
                         { 
                     <span class="currentpage">
-                        @page</span>&nbsp;
+                        @page</span>
            } 
-                    @else
+                    else
                         { 
                     <a onclick="PageHelp(@page)">
-                        @page</a>&nbsp;
+                        @page</a>
            } 
                 </li>
                  } 

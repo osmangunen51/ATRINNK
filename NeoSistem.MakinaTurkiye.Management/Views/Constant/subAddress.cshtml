@@ -374,15 +374,14 @@
 
 
   <div style="float: left; width: 800px; margin-top: 10px;">
-      @{if (ViewData["success"] == "true")
+      @if (ViewData["success"] == "true")
         { 
             <b  style="color:#038f20; display:none;">İşleminiz gerçekleşmiştir.</b>
-     
-          if (ViewData["error"] == "true") { %>
-      <b style="color:#f56767">Lütfen girdiğiz değerleri kontrol ediniz, işleminiz gerçekleştirilemedi.</b>
-      }
-         }
-
+            if (ViewData["error"] == "true")
+            {
+                <b style="color:#f56767">Lütfen girdiğiz değerleri kontrol ediniz, işleminiz gerçekleştirilemedi.</b>
+            }
+        }
     <table id="tableForm" border="0" cellpadding="0" cellspacing="0" width="%100" style="float: left">
         <tr>
             <td></td><td><b id="ajaxSuccess" style="color:#038f20;display:none;">

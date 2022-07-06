@@ -16,19 +16,21 @@
         @if (ViewData["title"] != null) {
               Response.Write(ViewData["title"]);
           }else{ 
-        Açıklamalar} </h2>
+        @:Açıklamalar
+                } </h2>
 
 
                  <div style="font-size:18px; margin-top:20px; float:right;" >Filtrele:
                  <select name="users" onchange="if(this.value)window.location.href=this.value">
                      @foreach (var item in Model.Users)
+                     {
+                         string selected = "";
+                         if (item.Selected)
                          {
-                             string selected = "";
-                             if (item.Selected)
-                                 selected ="selected";
-                             
-                            <option value="@item.Value" @selected>@item.Text</option>
-                             } 
+                             selected = "selected";
+                         }
+                         <option value="@item.Value" @selected>@item.Text</option>
+                      } 
                  </select>
                 
     </div>
@@ -46,7 +48,7 @@
         
    <div style="text-align:center; float:left; margin-left:20px; margin-top:-5px; margin-bottom:2px;">
         @using(Html.BeginForm()){ 
-        Firma Adı:
+       <span>Firma Adı:</span>
         <input type="text" name="searchTxt" />
         <input type="submit" value="Ara" />
         } 
@@ -89,9 +91,7 @@
        @{ int row = 0; }
 @foreach (var item in Model.BaseMemberDescriptionModelItems.ToList())
    { 
-@{ row++;
- 
-}
+row++;
 
 <tr id="row@item.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style=" background-color:@item.Color">
   
@@ -175,8 +175,7 @@
         <tr>
           <td class="ui-state ui-state-hover" colspan="9" align="right" style="border-color: #DDD;
             border-top: none; padding-right: 10px">
-            Toplam Kayıt : &nbsp;&nbsp;<strong>
-              @(int)Model.TotalCount</strong>
+            Toplam Kayıt : <strong>@((int)Model.TotalCount)</strong>
           </td>
         </tr>
       </tfoot>

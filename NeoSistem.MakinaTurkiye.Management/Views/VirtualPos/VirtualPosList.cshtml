@@ -1,8 +1,8 @@
 ﻿@model IList<VirtualPos>
 @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-@{ row++; }
+{
+    row++;
 <tr id="row@item.VirtualPosId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.VirtualPostName
@@ -11,7 +11,7 @@
     @item.VirtualPosStoreType
   </td>
   <td class="Cell">
-    @item.VirtualPosActive.HasValue && item.VirtualPosActive.Value ?  "Aktif" : "Pasif"
+    @(item.VirtualPosActive.HasValue && item.VirtualPosActive.Value ? "Aktif" : "Pasif")
   </td>
   <td class="CellEnd">
     <a href="/VirtualPos/Edit/@item.VirtualPosId" style="padding-bottom: 5px;">

@@ -614,7 +614,7 @@
         $(parent).treeview({ add: $(parent) });
       }
 
-      var newSubItem = $("<li class=liRow id=\"" + model.id + "\"><span class='folder'><label>" + model.text + "</label><div style=\"float:right; width:750px;\">&nbsp;&nbsp;&nbsp;&nbsp;" + model.tool + "</div></span></li>").appendTo($(parent).find('ul:first'));
+      var newSubItem = $("<li class=liRow id=\"" + model.id + "\"><span class='folder'><label>" + model.text + "</label><div style=\"float:right; width:750px;\">" + model.tool + "</div></span></li>").appendTo($(parent).find('ul:first'));
 
       $(tree).treeview({ add: $(newSubItem)[0] });
 
@@ -682,12 +682,12 @@
           (Toplam : @cou)
 
                 <a  href="/Category/ClearAllCache"  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" style="float:right;" aria-disabled="false"><span class="ui-button-text">
-            &nbsp;&nbsp;&nbsp;&nbsp;Cache Sıfırla&nbsp;&nbsp;&nbsp;&nbsp;</span></a>
+            Cache Sıfırla</span></a>
         </td>
         <td class="Header" style="width: 230px">
-          &nbsp;&nbsp;&nbsp;&nbsp;
+          
           <button id="btnSectorCreate">
-            &nbsp;&nbsp;&nbsp;&nbsp;SEKTOR EKLE&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            SEKTOR EKLE</button>
         </td>
       </tr>
     </thead>

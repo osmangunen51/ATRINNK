@@ -1,14 +1,21 @@
 ﻿@model IList<CreditCard>
 @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-@{ row++; }
+{ 
+row++;
 <tr id="row@item.CreditCardId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.CreditCardName
   </td>
     <td class="Cell">
-        @if (item.Active == true) {Aktif }else{Pasif} 
+        @if (item.Active == true) 
+        {
+        <span>Aktif</span> 
+        }
+        else
+        {
+        <span>Pasif</span>
+        } 
     </td>
   <td class="CellEnd">
     <a href="/CreditCard/Edit/@item.CreditCardId" style="padding-bottom: 5px;">

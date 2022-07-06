@@ -76,8 +76,8 @@
             <div class="editor-field" style="margin-left:5px; margin-top:15px;">
             <select name="MessageType">
 
-                <option value="1" @Model.MessageType==1?"selected":"">Normal Mesaj</option>
-                <option value="2" @Model.MessageType==2?"selected":"">Whatsapp Mesaj</option>
+                <option value="1" @(Model.MessageType==1?"selected":"")>Normal Mesaj</option>
+                <option value="2" @(Model.MessageType==2?"selected":"")>Whatsapp Mesaj</option>
             </select>
             </div>
             <p>

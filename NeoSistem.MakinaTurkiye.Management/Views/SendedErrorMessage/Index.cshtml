@@ -66,8 +66,8 @@
       <tbody id="table">
        @{ int row = 0; }
 @foreach (var item in Model.Source)
-   { 
-@{ row++; }
+{
+    row++;
 <tr id="row@item.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="Cell CellBegin">
     @item.SenderMemberNo
@@ -129,25 +129,6 @@
           </tr>
 
       </tbody>
-@*      <tfoot>
-        <tr>
-          <td class="ui-state ui-state-hover" style="border-color: #DDD;
-            border-top: none; padding-right: 10px" colspan="1" valign="top" style="width: 150px;">
-          <%:Ajax.ActionLink("Hesapla", "ProductRateCalculate", new AjaxOptions() { UpdateTargetId = "statisticproduct", HttpMethod = "Post" })%>
-          </td>
-          <td class="ui-state ui-state-hover" style="border-color: #DDD;
-            border-top: none; padding-right: 10px" colspan="1">
-           : <div id="statisticproduct" style="margin-top: 5px">
-
-            </div>
-          </td>
-          <td class="ui-state ui-state-hover" colspan="1" align="right" style="border-color: #DDD;
-            border-top: none; padding-right: 10px">
-            Toplam Kayıt : &nbsp;&nbsp;<strong>
-              <%= Model.Count %></strong>
-          </td>
-        </tr>
-      </tfoot>*@
     </table>
   </div>
 

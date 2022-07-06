@@ -27,14 +27,14 @@
     <a style="cursor: pointer;" onclick="EditCategory('#group-@item.CategoryId', @item.CategoryId);">Düzenle</a>
   </td>
   <td class="Cell">
-    &nbsp;&nbsp;&nbsp;<a style="cursor: pointer;" onclick="Delete(@item.CategoryId);">Sil</a>
+    <a style="cursor: pointer;" onclick="Delete(@item.CategoryId);">Sil</a>
   </td>
 </tr>
 @foreach (var group in CategoryProductGroupModel.ProductGroups())
    {  
 <tr unselectable="on" group="@group.CategoryProductGroupId" rowid="@item.CategoryId" id="@group.GroupName-@item.CategoryId" class="context @className parent collapsed Row " parentid="@item.CategoryParentId" load="false" route="@item.CategoryRoute" typeid="@item.CategoryType" >
   <td class="CellBegin">
-    &nbsp;&nbsp;&nbsp;@group.CategoryProductGroupName
+    @group.CategoryProductGroupName
   </td>
   <td class="Cell" align="center">
     <a style="cursor: pointer;" onclick="DialogOpen('#group-@item.CategoryId');$('#CategoryGroupType').val(@group.CategoryProductGroupId);$('#CategoryType').val(1);$('#categoryTypeContainer').hide();">Alt Kategori Ekle</a>

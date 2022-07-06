@@ -64,7 +64,7 @@
        @{ int row = 0; }
 @foreach (var item in Model)
    { 
-@{ row++; }
+row++; 
 <tr id="row@item.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.DicShortName
@@ -74,7 +74,7 @@
     </td>
   <td >
        <a href="/Dictionary/Update/@item.ID">
-      <img src="/Content/images/edit.png" " hspace="5"/>
+      <img src="/Content/images/edit.png" hspace="5"/>
     </a>
     <a style="cursor: pointer;" onclick="DeleteDic(@item.ID)">
       <div style="float: left;">
@@ -94,11 +94,11 @@
             {
                 if(i==(int)ViewData["page"])
                 {
-                    Response.Write("<li>"+i+"</li>");
+                    <li>@i</li>
                 }
                 else
                 {
-                    Response.Write("<li><a href='/Dictionary?page="+i+"'>" + i + "</a></li>");
+                    <li><a href='/Dictionary?page=@i'>@i</a></li>
                 }
                 
             } }
@@ -106,27 +106,7 @@
     </div>
   </td>
 </tr>
-
       </tbody>
-@*      <tfoot>
-        <tr>
-          <td class="ui-state ui-state-hover" style="border-color: #DDD;
-            border-top: none; padding-right: 10px" colspan="1" valign="top" style="width: 150px;">
-          <%:Ajax.ActionLink("Hesapla", "ProductRateCalculate", new AjaxOptions() { UpdateTargetId = "statisticproduct", HttpMethod = "Post" })%>
-          </td>
-          <td class="ui-state ui-state-hover" style="border-color: #DDD;
-            border-top: none; padding-right: 10px" colspan="1">
-           : <div id="statisticproduct" style="margin-top: 5px">
-
-            </div>
-          </td>
-          <td class="ui-state ui-state-hover" colspan="1" align="right" style="border-color: #DDD;
-            border-top: none; padding-right: 10px">
-            Toplam Kayıt : &nbsp;&nbsp;<strong>
-              <%= Model.Count %></strong>
-          </td>
-        </tr>
-      </tfoot>*@
     </table>
   </div>
 

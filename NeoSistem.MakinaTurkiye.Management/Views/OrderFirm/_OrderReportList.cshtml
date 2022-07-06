@@ -89,12 +89,12 @@
                     @if (page == Model.OrderReportItems.CurrentPage)
                         { 
                     <span class="currentpage">
-                        @page</span>&nbsp;
+                        @page</span>
            } 
-                    @else
+                    else
                         { 
                     <a onclick="PagePost(@page)">
-                        @page</a>&nbsp;
+                        @page</a>
            } 
                      } 
                 </li>
@@ -109,7 +109,7 @@
       Toplam Alınan :<b>@Model.TotalPaid.ToString("C2")</b>
         Toplam Kalan :<b>@Model.TotalRestPrice.ToString("C2")</b>
         @*    <input type="button" value="Exele Aktar" id="ExcelButon" onclick="ExportExcel();" />*@
-        Toplam Kayıt : &nbsp;&nbsp;<strong>
+        Toplam Kayıt : <strong>
             @Model.OrderReportItems.TotalRecord</strong>
     </td>
 </tr>

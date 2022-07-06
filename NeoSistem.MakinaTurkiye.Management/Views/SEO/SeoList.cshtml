@@ -2,7 +2,7 @@
 @{ int row = 0; }
 @foreach (var item in Model.Source)
    { 
-@{ row++; }
+row++; 
 <tr id="row@item.SeoId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.PageName
@@ -37,12 +37,12 @@
           @if (page == Model.CurrentPage)
              { 
           <span class="currentpage">
-            @page</span>&nbsp;
+            @page</span>
            } 
-          @else
+          else
              { 
-          <a onclick="Page(@page)">
-            @page</a>&nbsp;
+          <a href="#" onclick="Page(@page)">
+            @page</a>
            } 
         </li>
          } 

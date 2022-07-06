@@ -2,7 +2,7 @@
 @{ int row = 0; }
 @foreach (var item in Model)
    { 
-@{ row++; }
+row++; 
 <tr id="row@item.CategoryPlaceChoiceId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.CategoryName

@@ -2,7 +2,7 @@
 @{ int row = 0; }
 @foreach (var item in Model.Source)
     { 
-@{ row++; }
+row++; 
 <tr id="row@item.UserId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
     <td class="CellBegin">
         @item.UserName
@@ -10,13 +10,12 @@
     <td class="Cell">
         @if (ViewData["Admin"] != null && Convert.ToBoolean(ViewData["Admin"]) == true)
             {
-        @item.UserPass
-        }
+                @item.UserPass
+            }
             else
             { 
-                *****
-        } 
-     
+                <span>*****</span>
+            } 
     </td>
     <td class="Cell">
         @if (item.Active)
@@ -42,12 +41,14 @@
     <td class="Cell">
         @if (item.EndWorkDate.HasValue && item.EndWorkDate.Value <= DateTime.Now.Date)
             {
-        @item.EndWorkDate.Value.ToString("dd MMMM yyyy") Tarihli İşten Ayrıldı 
-         }
+                <span>
+                    @item.EndWorkDate.Value.ToString("dd MMMM yyyy") Tarihli İşten Ayrıldı
+                </span>
+            }
             else
             {
-        Devam Ediyor
-         } 
+            <span> Devam Ediyor</span>
+            } 
     </td>
     <td class="CellEnd">
         @if (ViewData["Admin"] != null && Convert.ToBoolean(ViewData["Admin"]) == true)
@@ -86,12 +87,12 @@
                     @if (page == Model.CurrentPage)
                         { 
                     <span class="currentpage">
-                        @page</span>&nbsp;
+                        @page</span>
            } 
-                    @else
+                    else
                         { 
                     <a onclick="PagingPost(@page)">
-                        @page</a>&nbsp;
+                        @page</a>
            } 
                 </li>
                  } 

@@ -2,7 +2,7 @@
 <div style="float: left; border: solid 1px #bababa; border-bottom: none; border-right: none;
   margin-top: 15px;">
   @foreach (var item in Model)
-     { 
+  { 
   <div style="float: left; width: 168px; height: 21px; background-color: #ececee; padding-top: 3px;
     padding-left: 5px; border-bottom: solid 1px #bababa; border-right: solid 1px #bababa">
     <div style="float: left; width: 45px;">
@@ -14,7 +14,7 @@
       <div style="float: left;">
         %</div>
       <div style="float: left;">
-        <input type="text" id="input@item.CreditCardInstallmentIdValue" value="@item.CreditCardValue.HasValue ?  item.CreditCardValue.Value.ToString("N") : """
+        <input type="text" id="input@item.CreditCardInstallmentIdValue" value="@(item.CreditCardValue.HasValue ?  item.CreditCardValue.Value.ToString("N") : "")"
           style="width: 30px; float: left; padding: 0px; margin-left: 3px; text-align: center;"
           onkeyup="setVPIKeyupData('hdn@item.CreditCardInstallmentId','@item.CreditCardInstallmentId', $(this).val(), $('#input@item.CreditCardInstallmentIdCount').val());" />
       </div>

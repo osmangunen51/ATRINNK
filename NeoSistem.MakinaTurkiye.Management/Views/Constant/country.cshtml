@@ -39,10 +39,10 @@
     <table border="0" cellpadding="0" cellspacing="0" width="900px" style="float: left">
         <tr>
             <td></td><td><b style="color:#038f20">@if(ViewData["exist"]=="true"){ 
-    Böyle bir ülke zaten kayıtlı.
+                             <span>Böyle bir ülke zaten kayıtlı.</span>
     } 
     @if(ViewData["success"]=="true"){ 
-            İşleminiz Gerçekleşmiştir.
+                         <span>İşleminiz Gerçekleşmiştir.</span>
     } </b></td>
         </tr>
         @using(Html.BeginForm("Country","Constant",FormMethod.Post)){ 
@@ -69,9 +69,10 @@
             <td></td>
             <td> <button type="submit" title="Ekle">
                 @if( ViewData["update"]!=null){
-                Kaydet
-                }else{ 
-                    Ekle} 
+                     <span>Kaydet</span>
+                }
+                else{
+                 <span>Ekle</span>} 
 
                  </button></td>
         </tr>

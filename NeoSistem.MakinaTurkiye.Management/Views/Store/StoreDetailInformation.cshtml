@@ -1,5 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<StoreDetailInformationModel>
-
+﻿@model StoreDetailInformationModel
 @section TitleContent {
 
   Mağaza Bilgileri
@@ -206,10 +205,12 @@
                     :
                   </td>
                   <td>
-                      @{if (string.IsNullOrEmpty(storeInfo.SalesManagerName)) storeInfo.SalesManagerName = "Tanımsız"; }
-                    @storeInfo.SalesManagerName
+                      @if (string.IsNullOrEmpty(storeInfo.SalesManagerName))
+                      {
+                          storeInfo.SalesManagerName = "Tanımsız";
+                      }
+                        @storeInfo.SalesManagerName
                   </td>
-             
                 </tr>
                           <tr>
                   <td style="width: 150px;">
@@ -219,8 +220,10 @@
                     :
                   </td>
                   <td>
-                      @{if (string.IsNullOrEmpty(storeInfo.PortfoyName)) storeInfo.PortfoyName = "Tanımsız"; }
-                    @storeInfo.PortfoyName
+                      @if (string.IsNullOrEmpty(storeInfo.PortfoyName)) {
+                          storeInfo.PortfoyName = "Tanımsız";
+                      }
+                      @storeInfo.PortfoyName
                   </td>
              
                 </tr>
@@ -232,9 +235,9 @@
                     :
                   </td>
                   <td>
-                      @{string colorPacket = "#b68c05";
-    if (storeInfo.PacketEndDate != null) { colorPacket = "#05762a"; }
-                      @{if (string.IsNullOrEmpty(storeInfo.PacketName)) storeInfo.PacketName = "Tanımlanmamış"; }
+                      @{string colorPacket = "#b68c05"; }
+                        @if (storeInfo.PacketEndDate != null) { colorPacket = "#05762a"; }
+                      @if (string.IsNullOrEmpty(storeInfo.PacketName)){storeInfo.PacketName = "Tanımlanmamış"; }
                    <span style="color:#FF0010">@storeInfo.PacketName</span>
                   </td>
              
@@ -303,17 +306,18 @@
                 </tr>
                 <tr>
                   <td style="width: 150px;">
-                Web Adresi
+                     Web Adresi
                   </td>
                   <td>
                     :
                   </td>
                   <td >
-                  @if (!string.IsNullOrEmpty(storeInfo.StoreWebUrl)) {
-                           <a style="color:#FF0010" href="@!storeInfo.StoreWebUrl.Contains("http") ? "http://" + storeInfo.StoreWebUrl : storeInfo.StoreWebUrl">
-                      @storeInfo.StoreWebUrl               
-                       </a>
-                       } 
+                  @if (!string.IsNullOrEmpty(storeInfo.StoreWebUrl)) 
+                  {
+                    <a style="color:#FF0010" href="@(!storeInfo.StoreWebUrl.Contains("http") ? "http://" + storeInfo.StoreWebUrl : storeInfo.StoreWebUrl)">
+                          @storeInfo.StoreWebUrl               
+                    </a>
+                  } 
                   </td>
                 </tr>
                   <tr>
@@ -421,17 +425,10 @@
           
                     <br />
                     @if (!String.IsNullOrEmpty(storeInfo.StoreLogo))
-                       { 
-             
-                      @{ string logoThumb = "//s.makinaturkiye.com/Store/" + storeInfo.StoreMainPartyId + "/" + storeInfo.StoreLogo;  }
-                      <a href="@storeInfo.StoreUrl" target="_blank">
-                    <img id="imageLogo"  src="@logoThumb"
-                      align="left" style="margin-right: 5px; width:100%; border: solid 1px #b6b6b6;"  />
-                          </a>
-                    @*onload="imageResize('imageLogo', 550);" *@
-         
+                     {
+                        string logoThumb = "//s.makinaturkiye.com/Store/" + storeInfo.StoreMainPartyId + "/" + storeInfo.StoreLogo;  
+                      <a href="@storeInfo.StoreUrl" target="_blank"><img id="imageLogo"  src="@logoThumb" align="left" style="margin-right: 5px; width:100%; border: solid 1px #b6b6b6;"  /></a>
                      } 
-            
                   </td>
                     
                 </tr>
@@ -512,7 +509,7 @@
                         <tr>
                             <td colspan="3">
       
-                                <span style="padding-left:5px; font-size:12px;">@Html.Raw(item.Description)(@item.UserName)<br /></span> <b style="font-size:12px; color:#0fe54e"><br />@item.RecordDate.HasValue==true?item.RecordDate.ToDateTime().ToString("dd-MM-yyyy hh:mm"):""</b>
+                                <span style="padding-left:5px; font-size:12px;">@Html.Raw(item.Description) @item.UserName<br /></span> <b style="font-size:12px; color:#0fe54e"><br />@item.RecordDate.HasValue==true?item.RecordDate.ToDateTime().ToString("dd-MM-yyyy hh:mm"):""</b>
                             </td>
                         </tr>
                     } 

@@ -1,9 +1,7 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<FilterModel<MemberModel>>
+﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewPage<FilterModel<MemberModel>>
 
 @section TitleContent {
-
     Telefon Numarasına Göre Ara
-
 }
 @section HeadContent {
 
@@ -54,20 +52,16 @@
             $("#preLoading").show();
             var form = $(this);
             var url = form.attr('action');
-
             $.ajax({
                 type: "POST",
                 url: "/Member/SearchPhone",
-                data: form.serialize(), // serializes the form's elements.
+                data: form.serialize(),
                 success: function (data) {
                     $("#result").html(data);
-                                $("#preLoading").hide();
+                    $("#preLoading").hide();
                 }
             });
-
-
         });
-
     </script>
 
 

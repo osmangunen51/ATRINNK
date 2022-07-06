@@ -1,4 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<MessageModel>
+﻿@model MessageModel
 
 @section TitleContent {
 
@@ -26,23 +26,21 @@
         :
       </td>
       <td>
-        @{
-       var memberFrom = entities.Members.SingleOrDefault(c => c.MainPartyId == Model.MainPartyId);
-        }
-         
-        @memberFrom.MemberName + " " + memberFrom.MemberSurname
-        @if (Model.FromSecondName != "Bireysel")
-            {
+          @{
+              var memberFrom = entities.Members.SingleOrDefault(c => c.MainPartyId == Model.MainPartyId);
+          }
+
+          @(memberFrom.MemberName + " " + memberFrom.MemberSurname)
+          @if (Model.FromSecondName != "Bireysel")
+          {
           <a href="@Model.StoreUrl">
-               ( @Model.FromSecondName)
+              @Model.FromSecondName
           </a>
-           }
-              else {
-                  (
-          @Model.FromSecondName
-          )
-           } 
-    
+          }
+          else
+          {
+              @Model.FromSecondName
+          }
       </td>
     </tr>
     <tr>
@@ -53,21 +51,20 @@
         :
       </td>
       <td>
-         @{
-       var memberTo = entities.Members.SingleOrDefault(c => c.MainPartyId == Model.InOutMainPartyId);
-        }
-        @memberTo.MemberName + " " + memberTo.MemberSurname
-                  @if (Model.ToSecondName != "Bireysel")
-            {
-          <a href="@Model.StoreUrl">
-               ( @Model.ToSecondName)
-          </a>
-           }
-              else {
-                  (
-          @Model.ToSecondName
-          )
-           } 
+          @{
+              var memberTo = entities.Members.SingleOrDefault(c => c.MainPartyId == Model.InOutMainPartyId);
+          }
+          @(memberTo.MemberName + " " + memberTo.MemberSurname)
+          @if (Model.ToSecondName != "Bireysel")
+          {
+              <a href="@Model.StoreUrl">
+                  @Model.ToSecondName
+              </a>
+          }
+          else
+          {
+              @Model.ToSecondName
+          }
       </td>
     </tr>
     <tr>

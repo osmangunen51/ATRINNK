@@ -1,8 +1,8 @@
 ﻿@model IList<Packet>
 @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-@{ row++; }
+{
+    row++;
 <tr id="row@item.PacketId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.PacketName
@@ -11,19 +11,19 @@
     @item.PacketDescription
   </td>
   <td class="Cell">
-    @item.PacketPrice.HasValue ? item.PacketPrice.Value.ToString("N") : ""
+    @(item.PacketPrice.HasValue ? item.PacketPrice.Value.ToString("N") : "")
   </td>
   <td class="Cell">
     @item.PacketDay
   </td>
   <td class="Cell">
-    @item.IsOnset.HasValue && item.IsOnset.Value ? "Aktif" : "Pasif"
+    @(item.IsOnset.HasValue && item.IsOnset.Value ? "Aktif" : "Pasif")
   </td>
   <td class="Cell">
-    @item.IsStandart.HasValue && item.IsStandart.Value ? "Aktif" : "Pasif"
+    @(item.IsStandart.HasValue && item.IsStandart.Value ? "Aktif" : "Pasif")
   </td>
     <td class="Cell">
-        @item.SendReminderMail==true ?"Aktif":"Pasif"
+        @(item.SendReminderMail == true ? "Aktif" : "Pasif")
     </td>
     <td>
         @String.Format("{0:0.0}", item.ProductFactor)

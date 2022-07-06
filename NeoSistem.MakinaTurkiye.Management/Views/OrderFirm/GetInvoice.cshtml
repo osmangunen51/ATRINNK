@@ -1,4 +1,4 @@
-﻿@inherits NeoSistem.MakinaTurkiye.Core.Web.ViewPage<InvoiceModel>
+﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewPage<InvoiceModel>
 
 <html>
 <head>
@@ -45,7 +45,7 @@
         <div style="width: 225px;">@Model.InvoiceAddress</div>
     </div>
     <div style="left: 145px; position: absolute; top: 340px;">
-        @Model.TaxOffice &nbsp;/ &nbsp;@Model.TaxNo
+        @Model.TaxOffice / @Model.TaxNo
     </div>
     <div style="top: 309px; left: 618px; position: absolute;">
         

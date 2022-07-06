@@ -13,14 +13,14 @@
     @{ int row = 0; }
     @foreach (var item in Model)
        { 
-    @{ row++; }
+    row++; 
     <tr id="row@item.UserGroupId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
       <td class="CellBegin">
         @item.GroupName
       </td>
       <td class="CellEnd">
         <a href="/UserGroup/Edit/@item.UserGroupId" style="padding-bottom: 5px;">
-          <img src="/Content/images/edit.png" /></a> &nbsp;&nbsp; <a style="cursor: pointer;"
+          <img src="/Content/images/edit.png" /></a>  <a style="cursor: pointer;"
             onclick="if(confirm('İzin grubunu silmek istediğinizden eminmisiniz ?')){Delete(@item.UserGroupId);} ">
             <img src="/Content/images/delete.png" /></a>
       </td>

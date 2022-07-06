@@ -143,13 +143,12 @@
                     foreach (ModelError error in modelState.Errors)
                     {
             
-            <div style="color: #b70606; border: 3px solid #b70606; width: 500px; padding: 10px; font-size: 16px;">* @error.ErrorMessage</div>
-            }
+                    <div style="color: #b70606; border: 3px solid #b70606; width: 500px; padding: 10px; font-size: 16px;">* @error.ErrorMessage</div>
+                    }
                 }
-            
-        </div>
-         @{ using (Html.BeginForm("EditDesc1", "Member", FormMethod.Post, new { @id = "form" }))
-            {
+            </div>
+         @using (Html.BeginForm("EditDesc1", "Member", FormMethod.Post, new { @id = "form" }))
+         {
         <br />
        <div style="width:100%">
            <div style="width: 40%; float: left;@(Model.StoreID.HasValue?"":"background-color:rgb(224 242 244)")">
@@ -167,11 +166,11 @@
             <legend>
             </legend>
               <br />
-             <label style="font-size: 16px;color:#458754;">@Model.StoreShortName </label><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><label style="font-size:18px;color:#b70606;font-weight:bold">@Model.City</label>
+             <label style="font-size: 16px;color:#458754;">@Model.StoreShortName </label><span></span><label style="font-size:18px;color:#b70606;font-weight:bold">@Model.City</label>
              <br />
               <br />
               <label style="color:#000000;font-weight:bold">@ViewData["MemberName"] </label><br /><br /><label style="color:#617889;font-weight:bold">
-                  @Model.Contact.Replace("<br>","<br><br>") </label> 
+                  @Html.Raw(Model.Contact.Replace("<br>", "<br><br>")) </label> 
               <br />
               <br />
              <br />
@@ -343,28 +342,23 @@
 
                         <select name="timeNew" style="width: 150px;" id="timeNew">
                             <option value="">Seçiniz</option>
-                            @{for (int i = 9; i <= 17; i++)
+                            @for (int i = 9; i <= 17; i++)
                                 {
                                     for (int a = 0; a <= 2; a++)
                                     {
                                         if (a == 0)
                                         {
-                                            Response.Write("<option value='" + i + ":00'>" + i + ":00</option>");
+                                        <option value='@i:00'>@i:00</option>
                                         }
                                         else if (a == 1)
                                         {
-                                            Response.Write("<option value='" + i + ":15'>" + i + ":20</option>");
+                        <option value='@i:15'>@i:20</option>
 
                                         }
                                         else if (a == 2)
                                         {
-                                            Response.Write("<option value='" + i + ":30'>" + i + ":40</option>");
+                        <option value='@i:30'>@i:40</option>
                                         }
-                                        //else
-                                        //{
-                                        //    Response.Write("<option value='" + i + ":45'>" + i + ":45</option>");
-                                        //}
-
                                     }
                                 }
                         </select>
@@ -391,22 +385,21 @@
                     </div>
                     </td>
                     <td>
-                    @using (Html.BeginForm())
-                            { 
-                        <div style="float: left; margin-left: 15px; margin-top:10px">
-                            <button type="submit"  style="width: 90px; height: 35px; border: 1px solid #404241; background: #dfefcc;">
-                                <b>Atama Yap</b>
-                            </button>
-                        </div>
-                        @if (Model.LastDate == null && Model.BaseMemberDescriptionByUser.Where(x => x.LastDate != null).Count() == 0)
+                    @using (Html.BeginForm()){
+                                <div style="float: left; margin-left: 15px; margin-top:10px">
+                                    <button type="submit"  style="width: 90px; height: 35px; border: 1px solid #404241; background: #dfefcc;">
+                                        <b>Atama Yap</b>
+                                    </button>
+                                </div>
+                            if (Model.LastDate == null && Model.BaseMemberDescriptionByUser.Where(x => x.LastDate != null).Count() == 0)
                             {
-                        <div style="float: right; margin-left: 15px;margin-top:10px"">
-                            <button type="button" style="width: 120px; height: 35px; background-color: #617cca;" onclick="window.location='/Member/CreateDesc1/@Model.MainPartyId?descId=@Model.ID'">
-                                Yeni Açıklama Girişi
-                            </button>
-                        </div>
-                         } 
-                         } 
+                                <div style="float: right; margin-left: 15px;margin-top:10px">
+                                    <button type="button" style="width: 120px; height: 35px; background-color: #617cca;" onclick="window.location='/Member/CreateDesc1/@Model.MainPartyId?descId=@Model.ID'">
+                                        Yeni Açıklama Girişi
+                                    </button>
+                                </div>
+                            } 
+                    } 
                     <br />
                     <br />
                     <br />
@@ -419,7 +412,7 @@
            </div>
        </div>
        <br />
-     } }
+     } 
     <div>
     <br />
    </div>
@@ -442,63 +435,66 @@
         <tbody>
             @{int row = 0;}
             @{if (Model.BaseMemberDescriptionByUser.Count > 0)
-                { 
-            @foreach (var itemMemberDesc in Model.BaseMemberDescriptionByUser)
                 {
-                    row++;
-                     string backColor = "";
-                        if (itemMemberDesc.Title == "Ödeme")
-                        {
-                            backColor = "#dabd9b";
-                        }
-                        string key = Guid.NewGuid().ToString();
-                        if (!itemMemberDesc.IsOpened)
-                        {
-                            backColor = "#ff76002b";
-                        }
-            
+            foreach (var itemMemberDesc in Model.BaseMemberDescriptionByUser)
+            {
+                row++;
+                string backColor = "";
+                if (itemMemberDesc.Title == "Ödeme")
+                {
+                    backColor = "#dabd9b";
+                }
+                string key = Guid.NewGuid().ToString();
+                if (!itemMemberDesc.IsOpened)
+                {
+                    backColor = "#ff76002b";
+                }
+
             <tr id="row@itemMemberDesc.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style="background-color: @backColor">
                 <td class="Cell CellBegin">
-                    @Html.Truncate(ViewData["MemberName"].ToString(),15)..</td>
-                <td class="Cell">@if (Model.StoreName != "")
-                                     {
-                
-                    @if (!itemMemberDesc.StoreID.HasValue)
-                        {
-                    @itemMemberDesc.StoreName
-                     }
-                        else
-                        { 
-                    <a target="_blank" href="/Store/EditStore/@itemMemberDesc.StoreID">@Html.Truncate(Model.StoreName,20)</a>
+                    @Html.Truncate(ViewData["MemberName"].ToString(), 15)..</td>
+                <td class="Cell">
+                @if (Model.StoreName != "")
+                {
+                    if (!itemMemberDesc.StoreID.HasValue)
+                    {
+                        @itemMemberDesc.StoreName
+                    }
+                    else
+                    {
+                    <a target="_blank" href="/Store/EditStore/@itemMemberDesc.StoreID">@Html.Truncate(Model.StoreName, 20)</a>
 
                     } 
-                    }</td>
+                }</td>
                 <td class="Cell">@itemMemberDesc.Title</td>
                 <td class="Cell" style="font-size: 15px;">
                      @if (itemMemberDesc.IsOpened)
-                                {
+                     {
                                 @Html.Raw(itemMemberDesc.Description)
-                            }
-                            
-                            @else{
+                     }
+                     else
+                     {
                                  <button style="float:right;padding:10px" class="toggle" data-hedef="#pnl@key"> Göster </button>
                                       <div class="target kapali" id="pnl@key">
                                          @Html.Raw(itemMemberDesc.Description)
                                  </div>
-                             }
+                     }
                 </td>
-                <td class="Cell">@if (itemMemberDesc.InputDate != null)
-{
-                                         string[] Inputdate = itemMemberDesc.InputDate.ToString().Split(' ');
-                                         Response.Write(Inputdate[0] + " ");
-                                         Response.Write("<font style='color:#C5D5DD'>" + Inputdate[1] + "</font>");
-                                     }</td>
-                <td class="Cell">@if (itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
-                                     {
-                                         string[] lastDate = itemMemberDesc.LastDate.ToString().Split(' ');
-                                         Response.Write(lastDate[0] + " ");
-                                         Response.Write("<font style='color:#C5D5DD'>" + lastDate[1] + "</font>");
-                                     } </td>
+                <td class="Cell">
+                    @if (itemMemberDesc.InputDate != null)
+                    {
+                        string[] Inputdate = itemMemberDesc.InputDate.ToString().Split(' ');
+                        <span>@Inputdate[0] </span>
+                    }
+                </td>
+                <td class="Cell">
+                    @if (itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
+                    {
+
+                        string[] lastDate = itemMemberDesc.LastDate.ToString().Split(' ');
+                        <span><font style='color:#C5D5DD'>@lastDate[0] </font></span>
+                    }
+                            </td>
                 <td class="Cell" style="background-color:#8ed9fa;color:#3f2828;">
                     @itemMemberDesc.UserName
                 </td>
@@ -506,9 +502,8 @@
                     @itemMemberDesc.ToUserName
                 </td>
                 <td class="Cell">
-                    @{string type = "Normal";
-                        if (!itemMemberDesc.StoreID.HasValue)
-                        { type = "Ön Kayıt"; }
+                    @{string type = "Normal"; }
+                        if (!itemMemberDesc.StoreID.HasValue){type = "Ön Kayıt"; }
                     @type
                 </td>
                 <td class="CellEnd">

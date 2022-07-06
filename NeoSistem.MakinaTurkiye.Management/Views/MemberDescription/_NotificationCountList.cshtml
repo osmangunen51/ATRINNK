@@ -4,22 +4,21 @@
 </style>
 @{int count = Model.CurrentPage * 50 - 50; }
 @foreach (var item in Model.Source.ToList())
-    { 
-@{      count++;
-}
-<tr>
-    <td class="Cell CellBegin">@count</td>
-    <td class="Cell">@item.UpdateDateNew.ToString("dd-MM-yyyy")</td>
-    <td class="Cell CellEnd">@item.TotalCount</td>
-    @foreach (var itemNew in item.Usercounts.OrderBy(x => x.UserName))
-        {
-    <td class="Cell"><span style="color: #b00606; font-size: 14px; font-weight: 600">@itemNew.Count</span></td>
+{ count++;
+    <tr>
+        <td class="Cell CellBegin">@count</td>
+        <td class="Cell">@item.UpdateDateNew.ToString("dd-MM-yyyy")</td>
+        <td class="Cell CellEnd">@item.TotalCount</td>
+        @foreach (var itemNew in item.Usercounts.OrderBy(x => x.UserName))
+            {
+        <td class="Cell"><span style="color: #b00606; font-size: 14px; font-weight: 600">@itemNew.Count</span></td>
 
-    } 
-</tr>
+        } 
+    </tr>
 
 } 
 @{int colspan = 4 + Model.Source.FirstOrDefault().Usercounts.Count; }
+<tr>
 <td class="ui-state ui-state-default" colspan="@colspan" align="right" style="border-color: #DDD; border-top: none; border-bottom: none;">
     <div style="float: right;" class="pagination">
         <div style="float: left; margin-right: 10px;">
@@ -33,12 +32,12 @@
                 @if (i == Model.CurrentPage)
                     { 
                 <span class="currentpage">
-                    @i</span>&nbsp;
+                    @i</span>
 			  } 
-                @else
+                else
                     { 
                 <a href="javascript:void(0)" onclick="PagingNotCount(@i)">
-                    @i</a>&nbsp;
+                    @i</a>
 			  } 
             </li>
              } 

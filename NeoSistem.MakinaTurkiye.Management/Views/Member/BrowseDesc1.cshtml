@@ -26,7 +26,7 @@
         Yeni Seo Açıklama 
     </button>
     <div style="margin-top: 20px;">
-        <h2 style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Üye Açıklamaları - @Model.MemberNameSurname
+        <h2 style="float: left;">Üye Açıklamaları - @Model.MemberNameSurname
             @if (!string.IsNullOrEmpty(Model.AuthName))
                 {
             <span style="font-size: 13px">@Model.AuthName</span>
@@ -44,7 +44,7 @@
         <div style="float: left;">
             @if (string.IsNullOrEmpty(Model.AuthName))
                 {
-            @if (Model.RegistrationType == (byte)RegistrationType.Full)
+            if (Model.RegistrationType == (byte)RegistrationType.Full)
                 {
                     <table style="margin-top: 17px;">
                         <tr>
@@ -86,60 +86,62 @@
             </thead>
             <tbody>
                 @{int row = 0; }
-                @{foreach (var itemMemberDesc in Model.BaseMemberDescriptionModelItems.ToList())
+                @foreach (var itemMemberDesc in Model.BaseMemberDescriptionModelItems.ToList())
+                {
+                    row++;
+                    string backColor = "";
+                    if (itemMemberDesc.Title == "Ödeme")
                     {
-                        row++;
-                        string backColor = "";
-                        if (itemMemberDesc.Title == "Ödeme")
-                        {
-                            backColor = "#dabd9b";
-                        }
-                        string key = Guid.NewGuid().ToString();
-                        if (!itemMemberDesc.IsOpened)
-                        {
-                            backColor = "#ff76002b";
-                        }
-                
+                        backColor = "#dabd9b";
+                    }
+                    string key = Guid.NewGuid().ToString();
+                    if (!itemMemberDesc.IsOpened)
+                    {
+                        backColor = "#ff76002b";
+                    }
+
                     <tr id="row@itemMemberDesc.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style="background-color: @backColor">
                         <td class="Cell">
-                            @Html.Truncate(Model.MemberNameSurname.ToString(),15)..</td>
-                        <td class="Cell">@if (!string.IsNullOrEmpty(Model.StoreName)){
-                        
-                            <a target="_blank" href="/Store/EditStore/@itemMemberDesc.StoreID">@Html.Truncate(Model.StoreName.ToString(),20)</a>
-                            }</td>
+                            @Html.Truncate(Model.MemberNameSurname.ToString(), 15)..</td>
+                        <td class="Cell">@if (!string.IsNullOrEmpty(Model.StoreName))
+                        {
+
+                            <a target="_blank" href="/Store/EditStore/@itemMemberDesc.StoreID">@Html.Truncate(Model.StoreName.ToString(), 20)</a>
+                        }</td>
                         <td class="Cell">@itemMemberDesc.Title</td>
                         <td class="Cell" style="font-size: 15px;width:50%">
                             @if (itemMemberDesc.IsOpened)
-                                {
+                            {
                                 @Html.Raw(itemMemberDesc.Description)
                             }
-                            
-                            @else{
+
+                            else
+                            {
                                  <button style="float:right;padding:10px" class="toggle" data-hedef="#pnl@key"> Göster </button>
                                       <div class="target kapali" id="pnl@key">
                                          @Html.Raw(itemMemberDesc.Description)
                                  </div>
-                             }
+                            }
                         </td>
                         <td class="Cell">@if (itemMemberDesc.InputDate != null)
-                                             {
-                                                 string[] Inputdate = itemMemberDesc.InputDate.ToString().Split(' ');
-                                                 Response.Write(Inputdate[0] + " ");
-                                                 Response.Write("<font style='color:#C5D5DD'>" + Inputdate[1] + "</font>");
-                                             }</td>
+                        {
+                            string[] Inputdate = itemMemberDesc.InputDate.ToString().Split(' ');
+                            Response.Write(Inputdate[0] + " ");
+                            Response.Write("<font style='color:#C5D5DD'>" + Inputdate[1] + "</font>");
+                        }</td>
                         <td class="Cell">@if (itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
-                                             {
-                                                 string[] lastDate = itemMemberDesc.LastDate.ToString().Split(' ');
-                                                 Response.Write(lastDate[0] + " ");
-                                                 Response.Write("<font style='color:#C5D5DD'>" + lastDate[1] + "</font>");
-                                             } </td>
+                        {
+                            string[] lastDate = itemMemberDesc.LastDate.ToString().Split(' ');
+                            Response.Write(lastDate[0] + " ");
+                            Response.Write("<font style='color:#C5D5DD'>" + lastDate[1] + "</font>");
+                        } </td>
                         <td class="Cell" style="background-color: #2776e5; color: #fff">@itemMemberDesc.UserName</td>
                         <td class="Cell" style="background-color: #31c854; color: #fff">
                             @itemMemberDesc.ToUserName
                         </td>
                         <td class="Cell">
-                            @{string type = "Normal";
-                                if (!itemMemberDesc.StoreID.HasValue)
+                            @{string type = "Normal";}
+                                @if (!itemMemberDesc.StoreID.HasValue)
                                 { type = "Ön Kayıt"; }
                             @type
                         </td>
@@ -157,11 +159,10 @@
                              } 
                             @if (Model.BaseMemberDescriptionModelItems.Where(x => x.LastDate.ToDateTime().Date >= DateTime.Now.Date).Count() == 0 && row == 1)
                                 {
-                            <a href="/Member/EditDesc1/@itemMemberDesc.ID">
-                                <img src="/Content/images/ac.png" alt="" />
-                            </a>
-                             } 
-
+                                    <a href="/Member/EditDesc1/@itemMemberDesc.ID">
+                                        <img src="/Content/images/ac.png" alt="" />
+                                    </a>
+                                }
                         </td>
                     </tr>
 
