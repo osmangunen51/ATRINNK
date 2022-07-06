@@ -167,7 +167,7 @@
                             Order
                         </div>
                         <div style="width: 90%; float: left;">
-                            <label>@item.BannerOrder != null ? item.BannerOrder.ToString() : ""</label>
+                            <label>@(item.BannerOrder != null ? item.BannerOrder.ToString() : "")</label>
                         </div>
                     </div>
             
@@ -207,7 +207,7 @@
                         </div>
                         <div style="width: 90%; float: left;">
                             <div style="float: left;">
-                                <label>@item.BannerLink != null ? item.BannerLink.ToString() : ""</label>
+                                <label>@(item.BannerLink != null ? item.BannerLink.ToString() : "")</label>
                             </div>
                             <div style="float: right;">
                                 <button onclick="DeleteBanner(@item.BannerId);" type="button">

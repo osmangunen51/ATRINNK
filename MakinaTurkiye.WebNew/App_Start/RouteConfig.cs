@@ -437,6 +437,7 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 new { controller = "Membership", action = "LogOn" },
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 );
+
             routes.MapRoute(
             "MembershipLogOnAutoRoute",
             "uyelik/kullanicigirismail/{validateId}",

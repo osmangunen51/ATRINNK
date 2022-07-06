@@ -265,11 +265,13 @@
                   <tr>
                       <td>GSM</td>
                       <td>:</td>
-                      <td>@{var phoneGsm = Model.PhoneItems.Where(x => x.PhoneType == (byte)PhoneType.Gsm).FirstOrDefault(); }
-                          @if(phoneGsm!=null){ 
-                          @phoneGsm.PhoneCulture+" "+phoneGsm.PhoneAreaCode+" "+phoneGsm.PhoneNumber
-                          } 
-                      </td>
+                      <td>
+                          @{var phoneGsm = Model.PhoneItems.Where(x => x.PhoneType == (byte)PhoneType.Gsm).FirstOrDefault(); }
+                                          @if (phoneGsm != null)
+                                          {
+                                              @(phoneGsm.PhoneCulture + " " + phoneGsm.PhoneAreaCode + " " + phoneGsm.PhoneNumber)
+                                            }
+                                      </td>
                   </tr>
                     } 
                 <tr>
@@ -382,35 +384,33 @@
                 </tr>
               </table>
             </div>
-            @if (Model.MemberType > (byte)MemberType.FastIndividual)
+            if (Model.MemberType > (byte)MemberType.FastIndividual)
                { 
             <div id="tabs-2">
               <div style="float: left; width: 800px;">
                 @EnumModels.AddressEdit(Model.Address)
               </div>
               <div style="float: left; width: 800px;">
-                @foreach (var item in Model.PhoneItems)
-                   { 
-                @if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
-                   { 
-                @{ string phoneType = string.Empty;
-                   if (item.PhoneType == (byte)PhoneType.Fax)
-                   {
-                     phoneType = "Fax :";
+                  @foreach (var item in Model.PhoneItems)
+                  {
+                      string phoneType = string.Empty;
+                      if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
+                      {
+                          if (item.PhoneType == (byte)PhoneType.Fax)
+                          {
+                              phoneType = "Fax :";
+                          }
+                          else if (item.PhoneType == (byte)PhoneType.Gsm)
+                          {
+                              phoneType = "Gsm :";
+                          }
+                          else if (item.PhoneType == (byte)PhoneType.Phone)
+                          {
+                              phoneType = "Phone :";
+                          }
+                      }
+                    <span>@phoneType +90 @item.PhoneAreaCode @item.PhoneNumber <br /></span>
                    }
-                   else if (item.PhoneType == (byte)PhoneType.Gsm)
-                   {
-                     phoneType = "Gsm :";
-                   }
-                   else if (item.PhoneType == (byte)PhoneType.Phone)
-                   {
-                     phoneType = "Phone :";
-                   }
-                }
-                @phoneType
-                +90@item.PhoneAreaCode@item.PhoneNumber<br />
-                 } 
-                 } 
               </div>
               <div style="float: left;width:600px">
                 <table cellpadding="0" cellspacing="0">
@@ -619,13 +619,13 @@
                             @{ bool checkRelated = false; }
                             @foreach (var itemRelated in Model.MainPartyRelatedSectorItems)
                                { 
-                            @if (itemRelated.CategoryId == item2.CategoryId)
-                               { 
-                            @{ checkRelated = true; }
-                            <script type="text/javascript">
-                              $('#plusContent@item.CategoryId').show();
-                            </script>
-                             } 
+                                if (itemRelated.CategoryId == item2.CategoryId)
+                                { 
+                                    checkRelated = true;
+                                    <script type="text/javascript">
+                                        $('#plusContent@item.CategoryId').show();
+                                    </script>
+                                } 
                              } 
                             @Html.CheckBox("MemberRelatedSectorIdItems", checkRelated, new { value = item2.CategoryId })
                           </div>

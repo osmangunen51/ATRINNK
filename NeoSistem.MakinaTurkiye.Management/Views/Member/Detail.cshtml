@@ -23,9 +23,7 @@
      
   </script>
   <script src="/Scripts/MakinaTurkiye.js" type="text/javascript" defer="defer"></script>
-
 }
-
   <div style="float: left; width: 800px; margin-top: 10px;">
     @using (Html.BeginPanel())
       { 
@@ -119,11 +117,11 @@
                   <td>
                     @if (Model.Active)
                        { 
-                    Aktif
+                      <span>Aktif</span>
                      }
                        else
                        { 
-                    Pasif
+                  <span>Pasif</span>
                      } 
                   </td>
                   <td>
@@ -145,7 +143,7 @@
               </table>
             </div>
             <div id="tabs-2">
-              <div style="width: 90%; padding-bottom: 10px">
+              @*<div style="width: 90%; padding-bottom: 10px">
                 <div id="phoneList">
                   @Html.Partial("PhoneList", Model.PhoneList)
                 </div>
@@ -153,39 +151,39 @@
               <div style="width: 90%; padding-bottom: 10px; margin-top: 10px;">
                 <div id="addressList">
                   @Html.Partial("AddressList", Model.AddressList)
-                </div>
+                </div>*@
               </div>
-            </div>
             <div id="tabs-3">
               <div style="width: 570px; height: auto; float: left;">
                 @foreach (var item in Model.SectorItems)
                    { 
-                <ul style="list-style-type: none; padding: 0px;">
-                  <li><span style="font-size: 12px; cursor: pointer;">
-                    @if (Model.CategoryItems.Any(c => c.CategoryParentId == item.CategoryId && Model.MainPartyRelatedSectorItems.Any(a => c.CategoryId == a.CategoryId)))
-                       { 
-                    @item.CategoryName
-                     } 
-                  </span></li>
-                  @foreach (var item2 in Model.CategoryItems.Where(c => c.CategoryParentId == item.CategoryId))
-                     { 
-                  @foreach (var itemRelated in Model.MainPartyRelatedSectorItems)
-                     { 
-                  @if (itemRelated.CategoryId == item2.CategoryId)
-                     { 
-                  <li style="padding-left: 30px; margin-top: 5px; margin-bottom: 5px;">•@item2.CategoryName</li>
-                   } 
-                   } 
-                   } 
-                   } 
-                </ul>
+                    <ul style="list-style-type: none; padding: 0px;">
+                      <li><span style="font-size: 12px; cursor: pointer;">
+                        @if (Model.CategoryItems.Any(c => c.CategoryParentId == item.CategoryId && Model.MainPartyRelatedSectorItems.Any(a => c.CategoryId == a.CategoryId)))
+                           { 
+                             @item.CategoryName
+                           } 
+                      </span></li>
+                         @foreach (var item2 in Model.CategoryItems.Where(c => c.CategoryParentId == item.CategoryId))
+                             { 
+                              foreach (var itemRelated in Model.MainPartyRelatedSectorItems)
+                                 { 
+                                    if (itemRelated.CategoryId == item2.CategoryId)
+                                    { 
+                                    <li style="padding-left: 30px; margin-top: 5px; margin-bottom: 5px;">•@item2.CategoryName</li>
+                                    } 
+                                 } 
+                            } 
+                  
+                    </ul>
+                }
               </div>
             </div>
             <div id="tabs-4">
             </div>
             <div id="tabs-5">
             </div>
-             } 
+            } 
           </div>
         </td>
       </tr>

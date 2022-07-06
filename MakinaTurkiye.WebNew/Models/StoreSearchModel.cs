@@ -44,15 +44,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
                 return new SelectList(items, "CityId", "CityName");
             }
         }
-
         public List<BaseModule.Entities.Locality> localityItems { get; set; }
         public List<BaseModule.Entities.City> cityItems { get; set; }
-
         public List<ECStoreCityIds> cityIds { get; set; }
         public List<ECStoreLocalityIds> localityIds { get; set; }
-
-
-
-
     }
 }

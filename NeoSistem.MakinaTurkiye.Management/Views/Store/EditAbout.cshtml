@@ -31,7 +31,7 @@
   @using (Html.BeginPanel())
     { 
   @Html.Partial("TabMenu")
-  @using (Html.BeginForm("EditAbout", "Store", FormMethod.Post))
+  using (Html.BeginForm("EditAbout", "Store", FormMethod.Post))
      { 
   <div style="width: 600px; float: left; margin: 20px 0px 0px 20px">
     <div id="accordion">
@@ -78,7 +78,7 @@
       </div>
     </div>
   </div>
-  <input id="storeId" name="storeId" value="@this.RouteData.Values["id"]" type="hidden" />
+  <input id="storeId" name="storeId" value="@ViewContext.RouteData.Values["id"]" type="hidden" />
   <script type="text/javascript" defer="defer">
 
     var editorGeneralText = CKEDITOR.replace('GeneralText', { toolbar: 'webtool' });

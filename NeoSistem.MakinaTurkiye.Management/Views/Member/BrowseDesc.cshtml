@@ -38,24 +38,20 @@
         <br />
         <br />
         @if (item.UpdateDate == null)
-          {
-              dte = "Değiştirilmedi...";
-              
-          }
-          else
-              dte = item.UpdateDate.Value.ToString();
-         Değiştirilme Tarihi:<br />@dte
-         <br />
-         <br />
-      
+        {
+            dte = "Değiştirilmedi...";
 
-         @*Üye Adı :<br /><%=ViewData["mem"] %>*@
+        }
+        else
+        {
+            dte = item.UpdateDate.Value.ToString();
+        }
+        <span>Değiştirilme Tarihi:<br />@dte</span>
+         <br />
+         <br />
         </div>
-        
         <div style="float:right; width:84%;  min-width:200px; margin-left:-100px;">
         @item.Description
-
-     
       </div>
       <div style="clear:both;"></div>
          </div>

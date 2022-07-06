@@ -1,4 +1,4 @@
-﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewPage<StoreModel>
+﻿@model StoreModel
 
 @section TitleContent {
 
@@ -393,42 +393,42 @@
                                 <tr>
                                     <td style="width: 150px;">
                                         @Html.LabelFor(m => m.StoreNo)
-                  </td>
+                                    </td>
                                     <td>:
-                  </td>
+                                    </td>
                                     <td>
                                         @Model.StoreNo
-                  </td>
+                                    </td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td style="width: 150px;">
                                         @Html.LabelFor(m => m.StoreName)
-                  </td>
+                                    </td>
                                     <td>:
-                  </td>
+                                    </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.StoreName, new { style = "width: 250px;" })
-                  </td>
+                                    </td>
                                     <td>
                                         @Html.ValidationMessageFor(m => m.StoreName)
-                  </td>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>
                                         @Html.LabelFor(m => m.StoreWeb)
-                  </td>
+                                    </td>
                                     <td>:
-                  </td>
+                                    </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.StoreWeb, new { style = "width: 250px;" })
-                  </td>
+                                    </td>
                                     <td></td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td>:
-                  </td>
+                                    </td>
                                     <td>
                                         <a style="color: Blue;" href="http://@Model.StoreWeb" target="_blank">
                                             @Model.StoreWeb</a>
@@ -659,7 +659,7 @@
                                         <br />
                                         @if (!String.IsNullOrEmpty(Model.StoreLogo))
                                             { 
-                                        @if (FileHelpers.HasFile("/UserFiles/Images/StoreLogo/" + Model.StoreLogo))
+                                        if (FileHelpers.HasFile("/UserFiles/Images/StoreLogo/" + Model.StoreLogo))
                                             { 
                                         <img id="imageLogo" height="100" src="/UserFiles/Images/StoreLogo/@Model.StoreLogo"
                                             align="left" style="margin-right: 5px;" />
@@ -840,26 +840,24 @@
                         </div>
                         <div style="float: left; width: 800px;">
                             @foreach (var item in Model.PhoneItems)
-                                { 
-                            @if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
-                                { 
-                            @{ string phoneType = string.Empty;
-                                if (item.PhoneType == (byte)PhoneType.Fax)
+                            {
+                                if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
                                 {
-                                    phoneType = "Fax :";
-                                }
-                                else if (item.PhoneType == (byte)PhoneType.Gsm)
-                                {
-                                    phoneType = "Gsm :";
-                                }
-                                else if (item.PhoneType == (byte)PhoneType.Phone)
-                                {
-                                    phoneType = "Phone :";
-                                }
-                }
-                            @phoneType
-                +90@item.PhoneAreaCode@item.PhoneNumber<br />
-                             } 
+                                    string phoneType = string.Empty;
+                                    if (item.PhoneType == (byte)PhoneType.Fax)
+                                    {
+                                        phoneType = "Fax :";
+                                    }
+                                    else if (item.PhoneType == (byte)PhoneType.Gsm)
+                                    {
+                                        phoneType = "Gsm :";
+                                    }
+                                    else if (item.PhoneType == (byte)PhoneType.Phone)
+                                    {
+                                        phoneType = "Phone :";
+                                    }
+                                    <span>@phoneType +90@item.PhoneAreaCode @item.PhoneNumber</span><br />
+                                } 
                              } 
                         </div>
                         <table cellpadding="0" cellspacing="0">
@@ -962,12 +960,12 @@
                                 <div style="float: left; width: auto; height: auto; float: left">
                                     @{ bool checkStore = false; }
                                     @foreach (var itemStore in Model.StoreActivityTypeItems)
-                                        { 
-                                    @if (itemStore.ActivityTypeId == item.ActivityTypeId)
-                                        { 
-                                    @{ checkStore = true; }
-                                     } 
-                                     } 
+                                    {
+                                        if (itemStore.ActivityTypeId == item.ActivityTypeId)
+                                        {
+                                            checkStore = true;
+                                        }
+                                    } 
                                     @Html.CheckBox("ActivityTypeIdItems", checkStore, new { value = item.ActivityTypeId })
                                 </div>
                                 <div style="float: left; width: auto; height: auto; float: left; margin-left: 4px; margin-top: 4px;">
@@ -1005,15 +1003,15 @@
                                                 <div style="width: auto; height: auto; float: left;">
                                                     @{ bool checkRelated = false; }
                                                     @foreach (var itemRelated in Model.StoreActivityCategory)
-                                                        { 
-                                                    @if (itemRelated.CategoryId == item2.CategoryId)
-                                                        { 
-                                                    @{ checkRelated = true; }
+                                                    {
+                                                        if (itemRelated.CategoryId == item2.CategoryId)
+                                                        {
+                                                            checkRelated = true;
                                                     <script type="text/javascript">
                                                         $('#plusContent@item.CategoryId').show();
                           </script>
-                                                     } 
-                                                     } 
+                                                        }
+                                                    } 
                                                     @Html.CheckBox("StoreActivityCategory", checkRelated, new { value = item2.CategoryId })
                                                 </div>
                                                 <div style="width: auto; height: auto; float: left; margin-left: 3px; margin-top: 4px;">

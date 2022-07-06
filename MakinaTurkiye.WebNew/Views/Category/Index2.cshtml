@@ -2,7 +2,7 @@
 @using NeoSistem.MakinaTurkiye.Web.Models;
 @{ Layout = "~/Views/Shared/_LayoutCategory.cshtml"; }
 @section HeaderContent {
-
+    
     @if (!string.IsNullOrEmpty(ViewBag.Canonical))
     {
         if (Model.CategoryModel.SelectedCategoryId == 0) { ViewBag.Canonical = "https://makinaturkiye.com"; }
