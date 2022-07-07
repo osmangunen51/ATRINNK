@@ -39,46 +39,67 @@
 </script>
 <div id="cs">
     <ul class="cstabs" unselectable="on">
-        <li><a id="selected" unselectable="on" ondblclick="minimizeRibbon('tab-content');"
-            class="tabMainHome" onclick="ribbonTabSlide('tabMainHome');" style="color: #FFF; background: url(/Content/RibbonImages/FileMenu_Background_blue.PNG) repeat-x;"
-            group="tabs">Anasayfa</a>
+        <li>
+            <a id="selected" unselectable="on" ondblclick="minimizeRibbon('tab-content');"
+               class="tabMainHome" onclick="ribbonTabSlide('tabMainHome');" style="color: #FFF; background: url(/Content/RibbonImages/FileMenu_Background_blue.PNG) repeat-x;"
+               group="tabs">Anasayfa</a>
         </li>
-        <li><a unselectable="on" class="tabMember" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabMember');" group="tabs">Üyeler</a> </li>
-        <li><a unselectable="on" class="tabStore" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabStore');" group="tabs">Firmalar</a> </li>
-        <li><a unselectable="on" class="tabAdvert" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabAdvert');" group="tabs">İlanlar</a> </li>
-        <li><a unselectable="on" class="tabCategory" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabCategory');" group="tabs">Kategori Yönetimi</a></li>
-        <li><a unselectable="on" class="tabOrder" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabOrder');" group="tabs">Sipariş</a></li>
-        <li><a unselectable="on" class="tabConstant" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabConstant');" group="tabs">Sabitler</a> </li>
-        <li><a unselectable="on" class="tabReport" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabReport');" group="tabs">Rapor</a></li>
-        <li><a unselectable="on" class="tabSeo" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabSeo');" group="tabs">Seo</a></li>
-        <li><a unselectable="on" class="tabUser" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabUser');" group="tabs">Kullanıcılar</a> </li>
-        <li><a unselectable="on" class="tabSales" ondblclick="minimizeRibbon('tab-content');"
-            onclick="ribbonTabSlide('tabSales');" group="tabs">Pörtfoy</a></li>
+        <li>
+            <a unselectable="on" class="tabMember" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabMember');" group="tabs">Üyeler</a>
+        </li>
+        <li>
+            <a unselectable="on" class="tabStore" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabStore');" group="tabs">Firmalar</a>
+        </li>
+        <li>
+            <a unselectable="on" class="tabAdvert" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabAdvert');" group="tabs">İlanlar</a>
+        </li>
+        <li>
+            <a unselectable="on" class="tabCategory" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabCategory');" group="tabs">Kategori Yönetimi</a>
+        </li>
+        <li>
+            <a unselectable="on" class="tabOrder" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabOrder');" group="tabs">Sipariş</a>
+        </li>
+        <li>
+            <a unselectable="on" class="tabConstant" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabConstant');" group="tabs">Sabitler</a>
+        </li>
+        <li>
+            <a unselectable="on" class="tabReport" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabReport');" group="tabs">Rapor</a>
+        </li>
+        <li>
+            <a unselectable="on" class="tabSeo" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabSeo');" group="tabs">Seo</a>
+        </li>
+        <li>
+            <a unselectable="on" class="tabUser" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabUser');" group="tabs">Kullanıcılar</a>
+        </li>
+        <li>
+            <a unselectable="on" class="tabSales" ondblclick="minimizeRibbon('tab-content');"
+               onclick="ribbonTabSlide('tabSales');" group="tabs">Pörtfoy</a>
+        </li>
     </ul>
     <div id="newNot" style="background-color: #2db007; display: none; color: #fff; padding: 5px; position: absolute; right: 240px; top: 3px;">
     </div>
     @{ NeoSistem.MakinaTurkiye.Management.Models.Entities.MakinaTurkiyeEntities entities = new NeoSistem.MakinaTurkiye.Management.Models.Entities.MakinaTurkiyeEntities();
         int demandForPacketNumber = entities.CompanyDemandMemberships.Where(c => c.isDemandForPacket == true && c.Status == 0).ToList().Count; }
     @if (demandForPacketNumber > 0)
-        { 
-    <div style="position: absolute; right: 245px; top: 10px;">
-        <a href="/CompanyDemand/DemandForPacket?pagetype=DemandsForPacket" title="İndirimli paket bilgi talebi"><font style="color: red">@demandForPacketNumber</font>Bilgi Talebi</a>
-    </div>
-    } 
+    {
+        <div style="position: absolute; right: 245px; top: 10px;">
+            <a href="/CompanyDemand/DemandForPacket?pagetype=DemandsForPacket" title="İndirimli paket bilgi talebi"><font style="color: red">@demandForPacketNumber</font>Bilgi Talebi</a>
+        </div>
+    }
     <table style="float:right;top:1px;position:absolute;right:10px">
         <tr>
             <td>
                 <a href="#" id="callcenterpanel-btn">
-                    <i  class="fa-solid fa-2x fa-phone"></i>
+                    <i class="fa-solid fa-2x fa-phone"></i>
                 </a>
             </td>
             <td>
@@ -99,8 +120,9 @@
     font-weight: 600;" href="/Help/Show" title="Yardım">Yardım</a>
             </td>
             <td>
-        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;background: #3d6bcd;color:white;padding: 6px;" href="/Account/Logout">
-            @NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserName | Çıkış Yap</a>
+                <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" style="padding: 2px;background: #3d6bcd;color:white;padding: 6px;" href="/Account/Logout">
+                    @NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.UserName | Çıkış Yap
+                </a>
             </td>
         </tr>
     </table>
@@ -708,7 +730,8 @@
                                         },
                                         {
                                             Id: 'CertificateTypes', text: 'Sertifika Tipleri', type: Ribbon.ButtonType.BigItem,
-                                            align: 'left', image: 'medal.png', action: "window.location='/Product/CertificateTypes'"                                        },
+                                            align: 'left', image: 'medal.png', action: "window.location='/Product/CertificateTypes'"
+                                        },
 
                                     ]
                                 },
@@ -800,10 +823,10 @@
 
                                         align: 'left', image: 'comment.png', action: "window.location='/Product/Comment'"
                                     },
-                                        {
-                                            Id: 'ReportCOmment', text: 'Şikayetli Yorumlar', type: Ribbon.ButtonType.SmallItem,
-                                            align: 'left', image: 'comment.png', action: "window.location='/Product/Comment?Reported=1'"
-                                        },
+                                    {
+                                        Id: 'ReportCOmment', text: 'Şikayetli Yorumlar', type: Ribbon.ButtonType.SmallItem,
+                                        align: 'left', image: 'comment.png', action: "window.location='/Product/Comment?Reported=1'"
+                                    },
                                     ]
                                 }
                             ]

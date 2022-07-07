@@ -52,12 +52,9 @@ namespace MakinaTurkiye.Services.CallCenter
                 {
                 number = "05057916447";
                 }
-         #endif
-         if (!number.StartsWith("105"))
-          {
-            number = destination+number;
-          }
-          string Txt= "{\"application\":\"EXTENSIONS\",\"destination\":\""+destination+"\",\"callerid\":\"902129455841\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\""+number+"\"}}";
+#endif
+                    number = destination + number;
+                    string Txt= "{\"application\":\"EXTENSIONS\",\"destination\":\""+destination+"\",\"callerid\":\"902129455841\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\""+number+"\"}}";
           Istek.AddStringBody(Txt,DataFormat.Json);
           var IstekSonuc = restClient.ExecutePost<MakinaTurkiye.Services.CallCenter.CallInfoResponse>(Istek);
           if (IstekSonuc.StatusCode == System.Net.HttpStatusCode.OK)

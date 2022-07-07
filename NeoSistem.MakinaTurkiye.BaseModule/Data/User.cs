@@ -27,6 +27,7 @@ namespace NeoSistem.MakinaTurkiye.Data
                     UserName = dr["UserName"].ToString(),
                     UserPass = dr["UserPass"].ToString(),
                     UserId = dr["UserId"].ToByte(),
+                    CallCenterUrl= dr["CallCenterUrl"].ToString()
                 };
             }
 

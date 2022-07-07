@@ -19,7 +19,7 @@
         {
             ResponseModel<CallInfo> result = new ResponseModel<CallInfo>();
             string destination = "";
-            var Lst = NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.CallCenterUrl.Split('/').ToList().LastOrDefault();
+            var Lst = NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.CallCenterUrl.Split('/').Where(x=>x!="").ToList().LastOrDefault();
             if (!string.IsNullOrEmpty(Lst))
             {
               destination = Lst;

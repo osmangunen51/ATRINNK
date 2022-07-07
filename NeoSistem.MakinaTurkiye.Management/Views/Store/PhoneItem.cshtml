@@ -76,15 +76,18 @@
             <select id="DropDownInstitutionalPhoneAreaCode" name="DropDownInstitutionalPhoneAreaCode"
               style="height: 18px; font-size: 11px; border: none; margin: 2px;">
               @{
-                string selected0 = "";
-                string selected212 = "";
-                string selected216 = "";
-                if (InstitutionalPhoneAreaCode == "212")
-                  selected212 = "selected=\"selected\"";
-                else if (InstitutionalPhoneAreaCode == "216")
-                  selected216 = "selected=\"selected\"";
-                else
-                  selected0 = "selected=\"selected\"";
+                  string selected0 = "";
+                  string selected212 = "";
+                  string selected216 = "";
+                  if (InstitutionalPhoneAreaCode == "212")
+                  {
+                      selected212 = "selected=\"selected\"";
+                  }
+                  else if (InstitutionalPhoneAreaCode == "216")
+                  {
+                      selected216 = "selected=\"selected\"";
+                  }
+                  else { selected0 = "selected=\"selected\""; }
               }
               <option value="0" @selected0>Seç</option>
               <option value="212" @selected212>212</option>
@@ -124,15 +127,17 @@
             <select id="DropDownInstitutionalPhoneAreaCode2" name="DropDownInstitutionalPhoneAreaCode2"
               style="height: 18px; font-size: 11px; border: none; margin: 2px;">
               @{ 
-                string selected2_0 = "";
-                string selected2_212 = "";
-                string selected2_216 = "";
-                if (InstitutionalPhoneAreaCode2 == "212")
-                  selected2_212 = "selected=\"selected\"";
-                else if (InstitutionalPhoneAreaCode2 == "216")
-                  selected2_216 = "selected=\"selected\"";
-                else
-                  selected2_0 = "selected=\"selected\"";
+                  string selected2_0 = "";
+                  string selected2_212 = "";
+                  string selected2_216 = "";
+                  if (InstitutionalPhoneAreaCode2 == "212")
+                  {
+                      selected2_212 = "selected=\"selected\"";
+                  }
+                  else if (InstitutionalPhoneAreaCode2 == "216")
+                  { selected2_216 = "selected=\"selected\""; }
+                  else
+                  { selected2_0 = "selected=\"selected\""; }
               }
               <option value="0" @selected2_0>Seç</option>
               <option value="212" @selected2_212>212</option>
@@ -171,15 +176,15 @@
             <select id="DropDownInstitutionalFaxAreaCode" name="DropDownInstitutionalFaxAreaCode"
               style="height: 18px; font-size: 11px; border: none; margin: 2px;">
               @{ 
-                string selected3_0 = "";
-                string selected3_212 = "";
-                string selected3_216 = "";
-                if (InstitutionalFaxAreaCode == "212")
-                  selected3_212 = "selected=\"selected\"";
-                else if (InstitutionalFaxAreaCode == "216")
-                  selected3_216 = "selected=\"selected\"";
-                else
-                  selected3_0 = "selected=\"selected\"";
+                  string selected3_0 = "";
+                  string selected3_212 = "";
+                  string selected3_216 = "";
+                  if (InstitutionalFaxAreaCode == "212")
+                  { selected3_212 = "selected=\"selected\""; }
+                  else if (InstitutionalFaxAreaCode == "216")
+                  { selected3_216 = "selected=\"selected\""; }
+                  else
+                  { selected3_0 = "selected=\"selected\""; }
               }
               <option value="0" @selected3_0>Seç</option>
               <option value="212" @selected3_212>212</option>
@@ -379,9 +384,7 @@
            
             @if (wgsmItem != null && wgsmItem.WhatsappActive == false)
                               {
-                    
-         
-            @Html.CheckBox("WhatsappConfirm", false) Firma Onayı
+                                @Html.CheckBox("WhatsappConfirm", false)<span>Firma Onayı</span>
                 }
                               else {
                 @Html.Hidden("WhatsappConfirm",true)

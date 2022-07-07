@@ -241,8 +241,8 @@
   @using (Html.BeginPanel())
     { 
   @Html.Partial("TabMenu")
-  @using (Html.BeginForm("EditCommunication", "Store", FormMethod.Post))
-     { 
+  using (Html.BeginForm("EditCommunication", "Store", FormMethod.Post))
+  { 
   <div style="width: 800px; float: left; margin: 20px 0px 0px 20px">
     <div style="float: left; width: 800px;">
       @EnumModels.AddressEdit(Model.Address)
@@ -250,9 +250,9 @@
     <div style="float: left; width: 800px;">
       @foreach (var item in Model.PhoneItems)
          { 
-      @if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
+         if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
          { 
-      @{ string phoneType = string.Empty;
+          string phoneType = string.Empty;
           bool whatsappActive=true;
           if (item.PhoneType == (byte)PhoneType.Fax)
           {
@@ -272,12 +272,12 @@
     
 
           }
-      }
-      @phoneType
-      @item.PhoneCulture@item.PhoneAreaCode@item.PhoneNumber<button type="button" class="call" data-number="@"0"+item.PhoneAreaCode+item.PhoneNumber"><i class="fa-solid fa-phone"></i> Ara</button><br /> 
-  
-       } 
-       } 
+          <span>
+              @phoneType @item.PhoneAreaCode @item.PhoneNumber
+          </span>
+          <button type="button" class="call" data-number="@(item.PhoneAreaCode+item.PhoneNumber)"><i class="fa-solid fa-phone"></i> Ara</button><br /> 
+        } 
+     } 
     </div>
     <table cellpadding="0" cellspacing="0">
       <tr>
