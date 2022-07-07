@@ -24,7 +24,7 @@
         @using (Html.BeginForm())
             {
         @Html.HiddenFor(x=>x.MainPartyId)
-        @foreach (var item in Model.SectorCategories)
+        foreach (var item in Model.SectorCategories)
             {
         <div style="float: left; width: 300px;">
             <input type="checkbox" name="SectorCategoriesForm[]" value="@item.Value" @item.Selected == true ? "checked" : "" />

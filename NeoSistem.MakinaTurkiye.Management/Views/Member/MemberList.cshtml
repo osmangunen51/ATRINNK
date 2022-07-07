@@ -63,52 +63,49 @@
   <td class="Cell">
     @if (item.Active)
       {
-    <div style="float: left;">
-      Aktif</div>
-    <div style="float: left; background-image: url('/Content/Images/Goodshield.png');
-      height: 16px;width:auto;">
-      <img src="/Content/Images/Goodshield.png" />
-    </div>
+        <div style="float: left;">
+            <span>Aktif</span></div>
+        <div style="float: left; background-image: url('/Content/Images/Goodshield.png');
+          height: 16px;width:auto;">
+          <img src="/Content/Images/Goodshield.png" />
+        </div>
     } 
     else
       {
-    <div style="float: left;">
-      Pasif</div>
-    <div style="float: left; background-image: url('/Content/Images/Errorshield.png');
-      height: 16px;">
-      <img src="/Content/Images/Errorshield.png" />
-    </div>
-    <div  style="float:left; margin-left:20px;width:40px; text-align:center;cursor:pointer;">
-    <a  onclick="Activation(@item.MainPartyId);"><img src="/Content/Images/activationicon.png" /></a>
-    </div>
- 
-    } 
-      
+        <div style="float: left;">
+            <span>Pasif</span>
+        </div>
+        <div style="float: left; background-image: url('/Content/Images/Errorshield.png');
+          height: 16px;">
+          <img src="/Content/Images/Errorshield.png" />
+        </div>
+        <div  style="float:left; margin-left:20px;width:40px; text-align:center;cursor:pointer;">
+        <a  onclick="Activation(@item.MainPartyId);"><img src="/Content/Images/activationicon.png" /></a>
+        </div>
+    }
   </td>
-    <td class="Cell">
-        @{if (item.FastMemberShipType == (byte)FastMembershipType.Facebook)
-            {
-              Response.Write("F");
+  <td class="Cell">
+      @{if (item.FastMemberShipType == (byte)FastMembershipType.Facebook)
+          {
+              <span>F</span>
           }
           else if (item.FastMemberShipType == (byte)FastMembershipType.Normal)
           {
-              Response.Write("H");
+              <span>H</span>
           }
           else if (item.FastMemberShipType == (byte)FastMembershipType.Phone)
           {
-              Response.Write("T");
+              <span>T</span>
           }
-          else if(item.FastMemberShipType==(byte)FastMembershipType.ProductComplain)
+          else if (item.FastMemberShipType == (byte)FastMembershipType.ProductComplain)
           {
-              Response.Write("Ş");
+              <span>Ş</span>
           }
-          else {
-              Response.Write("");
+          else
+          {
           }
-
-          
-          }
-    </td>
+      }
+  </td>
    <td class="CellEnd" style=" text-align: center; width:140px;">
           <a href="/Member/Edit/@item.MainPartyId">
           <img src="/Content/images/edit.png" hspace="5"/>
@@ -130,7 +127,7 @@
 { 
     <tr class="Row">
       <td colspan="10" class="CellBegin Cell" style="color: #FF0000; font-weight: 700; font-size: 14px;">
-        Üye bulunamadı.
+          <span>Üye bulunamadı.</span>
       </td>
     </tr>
  } 
@@ -170,10 +167,8 @@
         </ul></div></td>
 </tr>
 <tr>
-  <td class="ui-state ui-state-hover" colspan="10" align="right" style="border-color: #DDD;
-    border-top: none;">
-    Toplam Kayıt : <strong>
-      @Model.TotalRecord</strong>
+  <td class="ui-state ui-state-hover" colspan="10" align="right" style="border-color: #DDD;border-top: none;">
+    Toplam Kayıt : <strong>@Model.TotalRecord</strong>
   </td>
 </tr>
  <link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />

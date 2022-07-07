@@ -1,5 +1,8 @@
 ﻿@model FilterModel<StoreModel>
-@{ int row = 0; }
+@{ 
+    int row = 0;
+    Layout = null;
+}
 
 @foreach (var item in Model.Source)
 {

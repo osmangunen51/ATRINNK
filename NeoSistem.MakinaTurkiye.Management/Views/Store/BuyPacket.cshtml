@@ -19,15 +19,15 @@
                 $("#Installment").val("");
                 var orderType = this.value;
                 if (orderType != "0") {
-                    if (orderType == "@(byte)Ordertype.HavaleTaksit") {
+                    if (orderType == "@((byte)Ordertype.HavaleTaksit)") {
                         $("#InstallmentContainer").show();
                         $("#FirstDateContainer").hide();
                     }
-                    else if (orderType == "@(byte)Ordertype.KrediKarti") {
+                    else if (orderType == "@((byte)Ordertype.KrediKarti)") {
                         $("#InstallmentContainer").hide();
                         $("#FirstDateContainer").hide();
                     }
-                    else if (orderType == "@(byte)Ordertype.KrediKartiVade") {
+                    else if (orderType == "@((byte)Ordertype.KrediKartiVade)") {
                         $("#InstallmentContainer").hide();
                         $("#FirstDateContainer").show();
                     }
@@ -112,7 +112,7 @@
             }
 
             $("#preLoading").show();
-            if (orderType == "@(byte)Ordertype.HavaleTaksit") {
+            if (orderType == "@((byte)Ordertype.HavaleTaksit)") {
                 if (intallment == 0) {
                     alert("Lütfen taksit sayısı seçiniz");
                     $("#preLoading").hide();
@@ -130,7 +130,7 @@
                     }
                 }
             }
-            else if (orderType == "@(byte)Ordertype.KrediKartiVade" || orderType == @(byte)Ordertype.Havale) {
+            else if (orderType == "@((byte)Ordertype.KrediKartiVade)" || orderType == @((byte)Ordertype.Havale) {
                 if ($("#FirstDate").val() == "") {
                     alert("Lütfen ödeme tarihi giriniz.");
                     $("#preLoading").hide();
@@ -235,7 +235,7 @@
     <div style="width: 100%">
         <div id="sozlesmeLink" style="font-size:16px"></div>
         <table>
-            @Html.Hidden("StoreMainPartyId",this.Page.RouteData.Values["id"])
+            @Html.Hidden("StoreMainPartyId",ViewContext.RouteData.Values["id"])
             @Html.HiddenFor(x=>x.PacketPrice)
             <tr>
                 <td>Firma</td>
@@ -250,10 +250,10 @@
                 <td>
                     <select name="OrderType" id="OrderType">
                         <option value="0">Seçiniz</option>
-                        <option value="@(byte)Ordertype.KrediKarti">Kredi Kartı</option>
-                        <option value="@(byte)Ordertype.Havale">Havale</option>
-                        <option value="@(byte)Ordertype.KrediKartiVade">Vadeli Kredi Kartı</option>
-                        <option value="@(byte)Ordertype.HavaleTaksit">Taksitli Havale</option>
+                        <option value="@((byte)Ordertype.KrediKarti)">Kredi Kartı</option>
+                        <option value="@((byte)Ordertype.Havale)">Havale</option>
+                        <option value="@((byte)Ordertype.KrediKartiVade)">Vadeli Kredi Kartı</option>
+                        <option value="@((byte)Ordertype.HavaleTaksit)">Taksitli Havale</option>
                     </select>
                 </td>
             </tr>
