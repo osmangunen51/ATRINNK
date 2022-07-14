@@ -21,5 +21,7 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Members
         public bool? IsFirst { get; set; }
         public int? PreRegistrationStoreId { get; set; }
         public bool? IsImmediate { get; set; }
+        public string StoreCityName { get; set; } = "";
+        public string PreRegistrationStoreCityName { get; set; } = "";
     }
 }

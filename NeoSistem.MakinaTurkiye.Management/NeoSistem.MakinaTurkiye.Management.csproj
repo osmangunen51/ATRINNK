@@ -193,9 +193,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Email.resx</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Controllers\ObjectionableContentController.cs" />
     <Compile Include="Controllers\CallCenterController.cs" />
+    <Compile Include="Controllers\StorePackagePurchaseRequestController.cs" />
     <Compile Include="Controllers\StoreSeoNotificationController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ApplicationLogController.cs" />
@@ -682,6 +684,7 @@
     <Content Include="Content\RibbonImages\receipt-report.png" />
     <Content Include="Content\RibbonImages\ReviewInkCommentEraser.png" />
     <Content Include="Content\RibbonImages\store-list.png" />
+    <Content Include="Content\RibbonImages\StorePackagePurchaseRequest.png" />
     <Content Include="Content\RibbonImages\task-list.png" />
     <Content Include="Content\RibbonImages\trash-icon.png" />
     <Content Include="Content\RibbonImages\User.png" />
@@ -1459,6 +1462,7 @@
     <Content Include="Scripts\SuperBox\styles\flags.png" />
     <Content Include="Scripts\SuperBox\styles\loader.gif" />
     <Content Include="Scripts\system.js" />
+    <Content Include="vendor\clipboard.js" />
     <Content Include="vendor\fontawesome\css\all.css" />
     <Content Include="vendor\fontawesome\css\all.min.css" />
     <Content Include="vendor\fontawesome\css\brands.css" />
@@ -3532,6 +3536,7 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>Email.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -3657,7 +3662,7 @@
     </Content>
     <Content Include="Views\CompanyDemand\DemandForPacket.cshtml" />
     <Content Include="Views\CompanyDemand\Index.cshtml" />
-    <Content Include="Views\Constant\ConstantForm.cshtml" />
+    <Content Include="Views\Shared\ConstantForm.cshtml" />
     <Content Include="Views\Constant\ConstantList.cshtml" />
     <Content Include="Views\Constant\country.cshtml" />
     <Content Include="Views\Constant\countryList.cshtml" />
@@ -4070,6 +4075,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Web.config" />
     <Content Include="Web.config" />
+    <Content Include="Views\PreRegistrationStore\NotCalling.cshtml" />
+    <Content Include="Views\StorePackagePurchaseRequest\DemandForPacket.cshtml" />
+    <Content Include="Views\StorePackagePurchaseRequest\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -22,5 +22,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public byte RegistrationType { get; set; }
         public bool? IsProductAdded { get; set; }
 
+
     }
 }

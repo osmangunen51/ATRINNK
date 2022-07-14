@@ -7,24 +7,15 @@
         @RenderSection("TitleContent", required: false)
     </title>
     <meta http-equiv="X-UA-Compatible" content="IE=8" />
-    <script src="/Scripts/jquery-1.8.3.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
     <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="/Content/Ribbon.css" rel="stylesheet" type="text/css" />
-    <script src="/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
-    <script src="/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
-    <script src="/Scripts/MicrosoftMvcValidation.js" type="text/javascript"></script>
-    <script src="/Scripts/NeoSistem.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery-ui.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery-ui.datepicker-tr.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
-    <script src="/Scripts/Ribbon.js" type="text/javascript"></script>
-    <script src="/Scripts/jquery-ui-1.8.8.custom.min.js" type="text/javascript"></script>
     <link href="/Content/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
     <link href="../../vendor/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="../../vendor/fontawesome/css/all.css" rel="stylesheet" />
+
     <script src="/Scripts/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+    <script src="/Scripts/jquery-ui-1.8.8.custom.min.js" type="text/javascript"></script>
     <script src="/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
     <script src="/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
     <script src="/Scripts/MicrosoftMvcValidation.js" type="text/javascript"></script>
@@ -33,6 +24,27 @@
     <script src="/Scripts/jquery-ui.js" type="text/javascript"></script>
     <script src="/Scripts/jquery.cookie.js" type="text/javascript"></script>
     <script src="/Scripts/Ribbon.js" type="text/javascript"></script>
+
+    @RenderSection("HeadContent", required: false)
+</head>
+<body unselectable="on">
+    @Html.Partial("Header")
+    <div class="ContentTopSep">
+    </div>
+    <div class="Content">
+        @*<div id="callcenterpanel">
+                <div>
+                    <h3 class="callcenterheader">Call Center</h3>
+                    <hr />
+                    <iframe src="@NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.CallCenterUrl" style="border:none;" title="CallCenter Terminal">
+                    </iframe>
+                </div>
+            </div>*@
+        @RenderBody()
+    </div>
+    <script src="../../vendor/bootstrap-sweetalert/sweetalert.js"></script>
+    <script src="../../vendor/fontawesome/js/all.js"></script>
+    <script src="~/vendor/clipboard.js"></script>
     <script type="text/javascript">
         var resizeHeight = 132;
         var numberGetNot = 0;
@@ -108,25 +120,6 @@
             });
         }
     </script>
-    @RenderSection("HeadContent", required: false)
-</head>
-<body unselectable="on">
-    @Html.Partial("Header")
-    <div class="ContentTopSep">
-    </div>
-    <div class="Content">
-        <div id="callcenterpanel">
-            <div>
-                <h3 class="callcenterheader">Call Center</h3>
-                <hr />
-                <iframe src="@NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.CallCenterUrl" style="border:none;" title="CallCenter Terminal">
-                </iframe>
-            </div>
-        </div>
-        @RenderBody()
-    </div>
-    <script src="../../vendor/bootstrap-sweetalert/sweetalert.js"></script>
-    <script src="../../vendor/fontawesome/js/all.js"></script>
     <script src="../../Scripts/system.js"></script>
 </body>
 </html>

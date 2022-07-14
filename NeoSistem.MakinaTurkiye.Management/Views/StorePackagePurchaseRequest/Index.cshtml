@@ -1,0 +1,42 @@
+﻿@model ICollection<MakinaTurkiye.Entities.Tables.Stores.StorePackagePurchaseRequest>
+@section TitleContent {
+	Index
+}
+@section HeadContent 
+{
+<link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
+  <script type="text/javascript" src="/Scripts/SuperBox/jquery.superbox.js"></script>
+  	<style type="text/css">
+		/* Custom Theme */
+		#superbox-overlay{background:#e0e4cc;}
+		#superbox-container .loading{width:32px;height:32px;margin:0 auto;text-indent:-9999px;background:url(styles/loader.gif) no-repeat 0 0;}
+		#superbox .close a{float:right;padding:0 5px;line-height:20px;background:#333;cursor:pointer;}
+		#superbox .close a span{color:#fff;}
+		#superbox .nextprev a{float:left;margin-right:5px;padding:0 5px;line-height:20px;background:#333;cursor:pointer;color:#fff;}
+		#superbox .nextprev .disabled{background:#ccc;cursor:default;}
+	</style>
+    <script type="text/javascript"> 
+        function DeleteStorePackagePurchaseRequest(ID)
+        {
+            if (confirm('Kaydı Silmek istediğinizden eminmisiniz ?')) {
+                $.ajax({
+                    url: '/StorePackagePurchaseRequest/DeleteStorePackagePurchaseRequest',
+                    data: { id: ID },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        var e = data;
+                        if (e) {
+                            $('#row' + ID).hide();
+                        }
+                        else {
+                            alert('Bu sabit kullanılıyor.Silme işlemi başarısız.');
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+}
+
+

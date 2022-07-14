@@ -8,7 +8,7 @@
 }
 
     <script type="text/javascript">
-        $(function () { $('.date-pick').datepicker(); $(".hover").hover(function () { $(this).addClass("ui-state-hover"); }, function () { $(this).removeClass("ui-state-hover"); }); });
+        $(function () { $('.date-pick').datepicker({ "dateFormat": "dd.mm.yy" }); $(".hover").hover(function () { $(this).addClass("ui-state-hover"); }, function () { $(this).removeClass("ui-state-hover"); }); });
     </script>
     @{ Html.EnableClientValidation();}
     @using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))

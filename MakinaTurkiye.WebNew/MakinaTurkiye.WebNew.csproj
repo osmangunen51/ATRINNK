@@ -484,7 +484,6 @@
     <Compile Include="Models\Products\MTStoreOtherProductModel.cs" />
     <Compile Include="Models\Products\MTStorePhoneModel.cs" />
     <Compile Include="Areas\Account\Models\StoreImage\StoreImagesModel.cs" />
-    <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\Statistics\FilterItemModel.cs" />
     <Compile Include="Models\Statistics\MTProductItem.cs" />

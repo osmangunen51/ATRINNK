@@ -13,7 +13,7 @@
         @{var member = entities.Members.FirstOrDefault(x => x.MainPartyId == item.MainPartyId); }
         @if (member != null)
         {
-        <span>@member.MemberName+member.MemberSurname</span>
+        <span>@(member.MemberName + member.MemberSurname)</span>
         }
     </td>
   <td >

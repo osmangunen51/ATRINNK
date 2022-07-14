@@ -42,7 +42,7 @@
                 <td class="Cell">
                     <a href="@EnumModels.UrlHttpEdit(item.Store.StoreWeb)" rel="external" onmousedown="this.target = '_blank';">
 
-                        @item.Store!=null && !string.IsNullOrEmpty(item.Store.StoreWeb)? item.Store.StoreWeb.Replace("http://","") : ""</a>
+                        @(item.Store!=null && !string.IsNullOrEmpty(item.Store.StoreWeb)? item.Store.StoreWeb.Replace("http://","") : "")</a>
                 </td>
 
                 <td class="Cell">@item.UpdatedDated.ToString("dd/MM/yyyy HH:MM")</td>

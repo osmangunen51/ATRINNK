@@ -286,7 +286,7 @@
 
 }
 
-  <input type="hidden" id="storeId" name="storeId" value="@this.RouteData.Values["id"]" />
+  <input type="hidden" id="storeId" name="storeId" value="@ViewContext.RouteData.Values["id"]" />
   @{
     DealerType pageType = (DealerType)Request.QueryString["DealerType"].ToByte();
     string uControlName = string.Empty;

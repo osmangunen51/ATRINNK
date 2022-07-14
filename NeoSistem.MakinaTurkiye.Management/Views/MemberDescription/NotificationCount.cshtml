@@ -6,11 +6,9 @@
 
 }
 @section HeadContent {
-
     <script type="text/javascript">
-
-        function PagingNotCount(curentpage) {
-
+        function PagingNotCount(curentpage)
+        {
             $('#preLoading').show();
             $.ajax({
                 url: '/MemberDescription/NotificationCount',
@@ -29,11 +27,7 @@
                 }
             });
         }
-
-
     </script>
-
-
 }
 
     <div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px; border-width: 5px;"
@@ -63,14 +57,10 @@
                 </tr>
             </thead>
             <tbody id="table">
-
                 @Html.Partial("_NotificationCountList",Model)
             </tbody>
-
         </table>
     </div>
-
-
 
 
 

@@ -181,11 +181,11 @@
      <script type="text/javascript" defer="defer">
          @if (Model.ConstantId != 247 && Model.ConstantId != 246 && Model.ConstantId!=248 && (Model.ConstantType == 14 || Model.ConstantType == 15))
            {
-         var editor = CKEDITOR.replace('ConstantMailContent', { toolbar: 'webtool', allowedContent: true });
-         CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
+                @:var editor = CKEDITOR.replace('ConstantMailContent', { toolbar: 'webtool', allowedContent: true });
+                @:CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
          }else{
-         var editor = CKEDITOR.replace('ContstantPropertie', { toolbar: 'webtool', allowedContent: true });
-       CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
+         @:var editor = CKEDITOR.replace('ContstantPropertie', { toolbar: 'webtool', allowedContent: true });
+       @:CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
          }
   </script>
 

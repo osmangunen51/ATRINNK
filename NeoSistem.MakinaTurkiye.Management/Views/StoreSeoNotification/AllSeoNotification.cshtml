@@ -65,7 +65,7 @@
 
         $(document).ready(function () {
 
-            $('.date').datepicker().val();
+            $('.date').datepicker({ "dateFormat": "dd.mm.yy" }).val();
             $('.Search').keyup(function (e) {
                 if (e.keyCode == 13) {
                     SearchPost();

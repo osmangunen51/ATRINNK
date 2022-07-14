@@ -1,5 +1,5 @@
 ﻿@model NeoSistem.MakinaTurkiye.Management.Models.PaymentModel
-
+@{Layout = null; }
 <link href="/Content/Site.css" rel="stylesheet" type="text/css" />
 <link href="/Content/Ribbon.css" rel="stylesheet" type="text/css" />
 <script src="/Scripts/jquery-1.8.3.js" type="text/javascript"></script>
@@ -8,7 +8,7 @@
 <link href="/Content/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.date').datepicker();
+        $('.date').datepicker({ "dateFormat": "dd.mm.yy" });
     });
     function PayUrlCreate() {
         var price = $("#PriceForPay").val();
@@ -143,11 +143,11 @@
                 <td class="Cell">
                     @if (item.PaymentType == (byte)Ordertype.Havale)
                         {
-                            Havale
-                         }
-                            else
-                            { 
-                        Kredi Kartı
+                            <span>Havale</span>
+                        }
+                        else
+                        { 
+                         <span>Kredi Kartı</span>
                         } 
                 </td>
                 <td class="Cell">

@@ -8,7 +8,7 @@
               <tr id="row@item.BulletinMemberId">
                   <td onclick="PageOrder('BulletinMemberId')" class="Cell CellBegin">##@item.BulletinMemberId</td>
                   <td class="Cell">@item.Email</td>
-                  <td class="Cell">@item.MemberName+" "+item.MemberSurname </td>
+                  <td class="Cell">@(item.MemberName+" "+item.MemberSurname)</td>
                   <td class="Cell">@string.Join(",",item.Categories.Select(x=>x.CategoryName).ToList())</td>
                   <td class="Cell">@item.RecordDate.ToString("dd-MM-yyyy HH:mm")</td>
               <td class="Cell CellEnd"><a  onclick="DeleteRecord(@item.BulletinMemberId)" >Sil</a></td>

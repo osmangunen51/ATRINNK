@@ -44,7 +44,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int p = 1;
 
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "");
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "",false);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
             foreach (var item in stores)
@@ -84,7 +84,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             int p = Convert.ToInt32(page);
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email,false);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
             foreach (var item in stores)
@@ -119,6 +119,90 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             preRegistrations.CurrentPage = p;
             return PartialView("_Item", preRegistrations);
         }
+
+
+        public ActionResult NotCalling()
+        {
+            int p = 1;
+
+            int pageSize = 20;
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "", true);
+            FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
+            List<PreRegistrationItem> source = new List<PreRegistrationItem>();
+            foreach (var item in stores)
+            {
+                bool isInserted = false;
+                if (!string.IsNullOrEmpty(item.Email))
+                {
+                    isInserted = _memberService.GetMemberByMemberEmail(item.Email) != null ? true : true;
+                }
+                source.Add(new PreRegistrationItem
+                {
+                    Email = item.Email,
+                    MemberName = item.MemberName,
+                    MemberSurname = item.MemberSurname,
+                    Id = item.PreRegistrationStoreId,
+                    PhoneNumber = item.PhoneNumber,
+                    StoreName = item.StoreName,
+                    RecordDate = item.RecordDate,
+                    WebUrl = item.WebUrl,
+                    City = item.City,
+                    ContactNameSurname = item.ContactNameSurname,
+                    ContactPhoneNumber = item.ContactPhoneNumber,
+                    PhoneNumber2 = item.PhoneNumber2,
+                    PhoneNumber3 = item.PhoneNumber3,
+                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
+                    IsInserted = isInserted
+                });
+            }
+            preRegistrations.Source = source;
+            preRegistrations.PageDimension = pageSize;
+            preRegistrations.TotalRecord = stores.TotalCount;
+            preRegistrations.CurrentPage = p;
+            return View(preRegistrations);
+        }
+        [HttpPost]
+        public PartialViewResult NotCalling(string page, string storeName, string email)
+        {
+            int p = Convert.ToInt32(page);
+            int pageSize = 20;
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, true);
+            FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
+            List<PreRegistrationItem> source = new List<PreRegistrationItem>();
+            foreach (var item in stores)
+            {
+                bool isInserted = false;
+                if (!string.IsNullOrEmpty(item.Email))
+                {
+                    isInserted = _memberService.GetMemberByMemberEmail(item.Email) != null ? true : false;
+                }
+                source.Add(new PreRegistrationItem
+                {
+                    Email = item.Email,
+                    MemberName = item.MemberName,
+                    MemberSurname = item.MemberSurname,
+                    Id = item.PreRegistrationStoreId,
+                    PhoneNumber = item.PhoneNumber,
+                    StoreName = item.StoreName,
+                    WebUrl = item.WebUrl,
+                    City = item.City,
+                    ContactNameSurname = item.ContactNameSurname,
+                    ContactPhoneNumber = item.ContactPhoneNumber,
+                    RecordDate = item.RecordDate,
+                    PhoneNumber2 = item.PhoneNumber2,
+                    PhoneNumber3 = item.PhoneNumber3,
+                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
+                    IsInserted = isInserted
+                });
+            }
+            preRegistrations.Source = source;
+            preRegistrations.PageDimension = pageSize;
+            preRegistrations.TotalRecord = stores.TotalCount;
+            preRegistrations.CurrentPage = p;
+            return PartialView("_Item", preRegistrations);
+        }
+
+
         public ActionResult Create()
         {
             PreRegistrainFormModel model = new PreRegistrainFormModel();
@@ -214,17 +298,29 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             //    TempData["error"] = "Bu iletişim bilgilerinde bir ön kayıt firması daha önce kayıt edilmiş.";
             //}
 
-            var preRegistration = _preRegistrationService.GetPreRegistirationStoreByPreRegistrationStoreId(model.Id);
-            preRegistration.Email = model.Email;
-            preRegistration.MemberName = model.MemberName;
-            preRegistration.MemberSurname = model.MemberSurname;
-            preRegistration.PhoneNumber = model.PhoneNumber;
-            preRegistration.StoreName = model.StoreName;
-            preRegistration.PhoneNumber2 = model.PhoneNumber2;
-            preRegistration.PhoneNumber3 = model.PhoneNumber3;
-            preRegistration.WebUrl = model.WebUrl;
-            _preRegistrationService.UpdatePreRegistrationStore(preRegistration);
-            return RedirectToAction("Index");
+            if (string.IsNullOrEmpty(model.StoreName))
+            {
+                ModelState.AddModelError("StoreName", "Lütfen Firma Adını Giriniz");
+            }
+            else if (string.IsNullOrEmpty(model.City))
+            {
+                ModelState.AddModelError("City", "Lütfen Şehir Adını Giriniz");
+            }
+            else
+            {
+                var preRegistration = _preRegistrationService.GetPreRegistirationStoreByPreRegistrationStoreId(model.Id);
+                preRegistration.Email = model.Email;
+                preRegistration.MemberName = model.MemberName;
+                preRegistration.MemberSurname = model.MemberSurname;
+                preRegistration.PhoneNumber = model.PhoneNumber;
+                preRegistration.StoreName = model.StoreName;
+                preRegistration.PhoneNumber2 = model.PhoneNumber2;
+                preRegistration.PhoneNumber3 = model.PhoneNumber3;
+                preRegistration.WebUrl = model.WebUrl;
+                _preRegistrationService.UpdatePreRegistrationStore(preRegistration);
+                return RedirectToAction("Index");
+            }
+            return View(model);
         }
 
         [HttpPost]

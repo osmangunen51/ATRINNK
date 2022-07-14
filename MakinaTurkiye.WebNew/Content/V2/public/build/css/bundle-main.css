@@ -17475,7 +17475,7 @@ img {
     }
 
 .urun-detay, .urun-detay .urun-bilgi-tablo a {
-    color: #333
+      /*color: #333*/
 }
 
 #MobileCategoriesContainer [role=menubar] a:focus {
@@ -18194,7 +18194,7 @@ li.active > a > .menutoggleicon {
 }
 
 .product-detail__ilan-no {
-    color: #BDBDBD;
+    color: #403131;
     font-size: 12px;
     line-height: 13px;
     text-align: right
@@ -18248,10 +18248,10 @@ li.active > a > .menutoggleicon {
 
 .seller-box {
     border-radius: 4px;
-    background-color: #FFF;
+    background-color: #ecf2fb;
     border: 1px solid #F2F2F2;
-    box-shadow: 0 2px 4px 0 #F2F2F2;
-    margin-bottom: 1rem
+    box-shadow: 0 2px 4px 0 #f2f2f2;
+    margin-bottom: 1rem;
 }
 
 .seller-body .firma-logo {
@@ -18299,7 +18299,7 @@ li.active > a > .menutoggleicon {
 .seller-links {
     display: -webkit-box;
     display: flex;
-    background-color: #FBFBFB
+    background-color: rgb(201 220 244)
 }
 
     .seller-links a {
@@ -22499,8 +22499,8 @@ li.active > a > .menutoggleicon {
     .product-list-mt__item {
         /*min-height: 330px !important;*/
         /*margin-left: 10px*/
-        /*height:220px !important;*/
-        height: auto !important;
+        /*height:220px !important; */
+		/*height: auto !important;*/
     }
 }
 

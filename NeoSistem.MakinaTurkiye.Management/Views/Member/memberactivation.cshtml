@@ -1,5 +1,5 @@
 ﻿@model ICollection<ConstantModel>
-
+@{ Layout = null;}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
@@ -9,7 +9,7 @@
    @using (Html.BeginForm())
      {
               <div id="cons" class="plusContent">
-            <ul style="list-style: none; float: left; padding: 0px; width: 580px; border: solid 1px #8fc0d1;
+            <ul style="list-style: none; float: left; padding: 0px; width: 550px; border: solid 1px #8fc0d1;
               padding-top: 10px; padding-left: 10px; background-color: #f8fbff">
               @foreach (var item2 in Model)
                  { 

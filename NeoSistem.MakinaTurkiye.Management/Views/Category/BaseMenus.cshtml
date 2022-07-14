@@ -67,7 +67,7 @@
                         @item.Order
                     </td>
                     <td class="Cell">
-                        @item.HomePageOrder.HasValue ? item.HomePageOrder.Value:0
+                        @(item.HomePageOrder.HasValue ? item.HomePageOrder.Value:0)
                     </td>
                     <td class="Cell CellEnd">
                         <a href="/Category/EditBaseMenu/@item.BaseMenuId">Düzenle</a>

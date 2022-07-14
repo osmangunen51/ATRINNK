@@ -1,5 +1,4 @@
-﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewPage<ProductModel>
-
+﻿@model ProductModel
 @section TitleContent {
 
     Edit
@@ -67,47 +66,47 @@
             return productPrice;
         }
                 function WriteTotalRecord() {
-      
+
 
                 var val = $("#ProductPrice").val();
                 var productPriceVal = val;
 
                 var productPrice = MakeMoneytoint(productPriceVal);
-        
-                if ($("#DiscountType").val() == '@(byte)ProductDiscountType.Amount') {
+
+                if ($("#DiscountType").val() == '@((byte)ProductDiscountType.Amount)') {
 
                     var newPrice = Number(productPrice) - Number($("#DiscountAmount").val());
-           
+
                     $("#TotalPrice").val(newPrice);
-                    
+
 
 
                 }
-                else if ($("#DiscountType").val() == '@(byte)ProductDiscountType.Percentage') {
+                else if ($("#DiscountType").val() == '@((byte)ProductDiscountType.Percentage)') {
                     var newPrice = Number(productPrice) - Number(productPrice) * Number($("#DiscountAmount").val()) / 100;
                     $("#TotalPrice").val(newPrice);
                 }
         }
 
         $(function () {
-            
+
             $("#ProductPrice").change(function () {
                      WriteTotalRecord();
             });
             $("#DiscountAmount").change(function () {
                      WriteTotalRecord();
             });
-            
+
             $('#DiscountType').change(function () {
-            
-                if (this.value == '@(byte)ProductDiscountType.Amount') {
+
+                if (this.value == '@((byte)ProductDiscountType.Amount)') {
                     $("#DiscountTypeLabel").html("İndirim Miktarı");
                     $(".DiscountAmountContainer").show();
                     WriteTotalRecord();
 
 
                 }
-                else if (this.value == '@(byte)ProductDiscountType.Percentage') {
+                else if (this.value == '@((byte)ProductDiscountType.Percentage)') {
                     $("#DiscountTypeLabel").html("İndirim Yüzdesi");
                     $(".DiscountAmountContainer").show();
                      WriteTotalRecord();
@@ -353,7 +352,7 @@
             });
             @if (!string.IsNullOrEmpty(ViewBag.check))
         {
-            
+
 
          }
             $.superbox.settings = {
@@ -364,12 +363,12 @@
             };
             $.superbox();
             var type = $("input[name=productPriceType]:checked").val();
-            if (type == "@(byte)ProductPriceType.Price") {
+            if (type == "@((byte)ProductPriceType.Price)") {
                 $(".priceWrapper").show();
                 $("#priceRange").hide();
                 $("#currencyWrapper").show();
             }
-            else if (type == "@(byte)ProductPriceType.PriceRange") {
+            else if (type == "@((byte)ProductPriceType.PriceRange)") {
                 $(".priceWrapper").hide();
                 $("#priceRange").show();
                 $("#currencyWrapper").show();
@@ -404,13 +403,13 @@
                 }
             }
             if ($('#IsAdvanceEdit').is(":checked")) {
-           
+
                 if ($("#OtherBrand").val() == "" && $("#CategoryBrand").val() == "0" && $("#OtherModel").val() != "") {
                     alert("Marka Seçiniz Veya Diğer Marka Giriniz");
                     rt = false;
 
                 }
-                
+
             if (($("#BrandId").val() == "0" || $("#BrandId").val()=="" || $("#BrandId").val()==null) && $("#OtherModel").val() != "") {
                 alert("Lütfen diğer model girmek için marka seçiniz");
                 rt = false;
@@ -441,7 +440,7 @@
 
             return rt;
         }
-        $(function () { $('.date-pick').datepicker(); });
+        $(function () { $('.date-pick').datepicker({ "dateFormat": "dd.mm.yy" }); });
 
         $(document).ready(function myfunction() {
 
@@ -517,7 +516,7 @@
                     type: 'Post',
                     data:
                         {
-                            ProductId: @this.RouteData.Values["id"],
+                            ProductId: @ViewContext.RouteData.Values["id"],
                             PictureId: pictureId,
                             PictureName: pictureName
                         },
@@ -541,7 +540,7 @@
                 data:
                     {
                         idArray: " " + h + "",
-                        ProductId: @this.RouteData.Values["id"],
+                        ProductId: @ViewContext.RouteData.Values["id"],
                         PictureId: pictureId,
                         PictureName: pictureName
                     },
@@ -561,7 +560,7 @@
                     type: 'Post',
                     data:
                         {
-                            ProductId: @this.RouteData.Values["id"],
+                            ProductId: @ViewContext.RouteData.Values["id"],
                             VideoId: videoId
                         },
                     success: function (data) {
@@ -581,7 +580,7 @@
                     type: 'Post',
                     data:
                         {
-                            ProductId: @this.RouteData.Values["id"],
+                            ProductId: @ViewContext.RouteData.Values["id"],
                             VideoId: videoId
                         },
                     success: function (data) {
@@ -594,12 +593,12 @@
             }
         }
         function ProductPriceType(type) {
-            if (type == "@(byte)ProductPriceType.Price") {
+            if (type == "@((byte)ProductPriceType.Price)") {
                 $(".priceWrapper").show();
                 $("#priceRange").hide();
                 $("#currencyWrapper").show();
             }
-            else if (type == "@(byte)ProductPriceType.PriceRange") {
+            else if (type == "@((byte)ProductPriceType.PriceRange)") {
                 $(".priceWrapper").hide();
                 $("#priceRange").show();
                 $("#currencyWrapper").show();
@@ -788,16 +787,15 @@
                 <td>
                     @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductType))
                         { 
-                    @{bool hasItem = false; }
-                    @if (!string.IsNullOrEmpty(Model.ProductType))
+                    bool hasItem = false;
+                    if (!string.IsNullOrEmpty(Model.ProductType))
                         { 
-                    @if (Model.ProductType.ToInt16() == item.ConstantId)
+                    if (Model.ProductType.ToInt16() == item.ConstantId)
                         { 
-                    @{hasItem = true; }
+                            hasItem = true; 
+                        } 
                      } 
-                     } 
-                    @item.ConstantName
-                    @Html.RadioButton("fakeProductType", item.ConstantId, hasItem, new { style = "width: 22px; height: 22px", @class = "ActiveName" })
+                    @item.ConstantName @Html.RadioButton("fakeProductType", item.ConstantId, hasItem, new { style = "width: 22px; height: 22px", @class = "ActiveName" })
                     } 
                     <script type="text/javascript">
                         $('.ActiveName').click(function () {
@@ -826,12 +824,12 @@
                 <td>
                     @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductStatu))
                         { 
-                    @{bool hasItem = false; }
-                    @if (!string.IsNullOrEmpty(Model.ProductStatu))
+                    bool hasItem = false; 
+                    if (!string.IsNullOrEmpty(Model.ProductStatu))
                         { 
-                    @if (Model.ProductStatu.ToInt16() == item.ConstantId)
+                    if (Model.ProductStatu.ToInt16() == item.ConstantId)
                         { 
-                    @{hasItem = true; }
+                        hasItem = true; 
                      } 
                      } 
                     @item.ConstantName
@@ -865,18 +863,18 @@
                 <td>
                     @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductSalesType))
                         { 
-                    @{bool hasItem = false; }
-                    @if (!string.IsNullOrEmpty(Model.ProductSalesType))
+                    bool hasItem = false;
+                    if (!string.IsNullOrEmpty(Model.ProductSalesType))
                         { 
-                    @for (int i = 0; i < Model.ProductSalesType.Split(',').Length; i++)
+                    for (int i = 0; i < Model.ProductSalesType.Split(',').Length; i++)
                         {
-                    @if (item.ConstantId == Model.ProductSalesType.Split(',').GetValue(i).ToInt16())
+                    if (item.ConstantId == Model.ProductSalesType.Split(',').GetValue(i).ToInt16())
                         { 
-                    @{hasItem = true; }
+                        hasItem = true; 
                      } 
                      } 
                      } 
-                    @item.ConstantName@Html.CheckBox("ProductSalesType", hasItem, new { value = item.ConstantId.ToString() })
+                    @item.ConstantName @Html.CheckBox("ProductSalesType", hasItem, new { value = item.ConstantId.ToString() })
                     } 
                 </td>
                 <td></td>
@@ -890,14 +888,14 @@
                 <td>
                     @foreach (var item in constantItems.Where(c => c.ConstantType == (byte)ConstantType.ProductBriefDetail))
                         { 
-                    @{bool hasItem = false; }
-                    @if (!string.IsNullOrEmpty(Model.BriefDetail))
+                        bool hasItem = false; 
+                    if (!string.IsNullOrEmpty(Model.BriefDetail))
                         { 
-                    @for (int i = 0; i < Model.BriefDetail.Split(',').Length; i++)
+                    for (int i = 0; i < Model.BriefDetail.Split(',').Length; i++)
                         {
-                    @if (item.ConstantId == Model.BriefDetail.Split(',').GetValue(i).ToInt16())
+                    if (item.ConstantId == Model.BriefDetail.Split(',').GetValue(i).ToInt16())
                         { 
-                    @{hasItem = true; }
+                        hasItem = true; 
                      } 
                      } 
                      } 
@@ -934,7 +932,7 @@
                         <option value="0">< Seçiniz ></option>
                         @for (int i = 1; i < 11; i++)
                             { 
-                        @if (Model.WarrantyPeriod == i.ToString())
+                        if (Model.WarrantyPeriod == i.ToString())
                             { 
                         <option selected="selected" value="@i">
                             @i
@@ -1078,8 +1076,8 @@
                 <td>:</td>
                 <td>
                     @foreach (var productPriceType in Model.ProductPriceTypes)
-                        { 
-                    @{ bool choose = false;
+                    {
+                        bool choose = false;
 
                         if (Model.ProductPriceType != 0)
                         {
@@ -1095,9 +1093,7 @@
                                 choose = true;
                             }
                         }
-
-                    }
-                    @Html.RadioButton("productPriceType", productPriceType.ContstantPropertie, choose, new { @onclick="ProductPriceType("+productPriceType.ContstantPropertie+")"}) @productPriceType.ConstantName  
+                        @Html.RadioButton("productPriceType", productPriceType.ContstantPropertie, choose, new { @onclick="ProductPriceType("+productPriceType.ContstantPropertie+")"}) @productPriceType.ConstantName  
                     }   
                 </td>
             </tr>
@@ -1128,21 +1124,19 @@
                 </td>
                 <td>:</td>
                 <td>
-                              <select id="DiscountType" class="form-control" name="DiscountType">
-                                        <option value="0" @Model.DiscountType==0 ? "selected":"">İndirim Yok</option>
-                                        <option value="1" @Model.DiscountType == (byte)ProductDiscountType.Percentage? "selected":"">Yüzdelik İndirim </option>
-                                        <option value="2" @Model.DiscountType == (byte)ProductDiscountType.Amount? "selected":"">Miktar İndirimi </option>
-
-                                    </select>
+                   <select id="DiscountType" class="form-control" name="DiscountType">
+                        <option value="0" @Model.DiscountType==0 ? "selected":"">İndirim Yok</option>
+                        <option value="1" @Model.DiscountType == (byte)ProductDiscountType.Percentage? "selected":"">Yüzdelik İndirim </option>
+                        <option value="2" @Model.DiscountType == (byte)ProductDiscountType.Amount? "selected":"">Miktar İndirimi </option>
+                   </select>
                 </td>
-
             </tr>
             <tr class="priceWrapper DiscountAmountContainer">
                 <td>
-                            <label id="DiscountTypeLabel">
-                                    @{ string text = Model.DiscountType == 1 ? "Yüzdesi" : "Miktarı"; }
-                                    İndirim @text
-                                </label>
+                  <label id="DiscountTypeLabel">
+                          @{ string text = Model.DiscountType == 1 ? "Yüzdesi" : "Miktarı"; }
+                          İndirim @text
+                  </label>
                 </td>
                 <td>:</td>
                 <td>
@@ -1385,11 +1379,11 @@
                             default:
                                 break;
                         } }
-                    İnceleniyor@Html.RadioButton("ProductActiveType", "0",inceleniyor)
-                    Onaylandı@Html.RadioButton("ProductActiveType", "1", onaylandi)
-                    <span style="width: 30px;" onmouseup="tıkla()">Onaylanmadı@Html.RadioButton("ProductActiveType", "2", onaylanmadi)
-                    </span>Silindi@Html.RadioButton("ProductActiveType", "3", silindi)
-                    Çöp Kutusu@Html.RadioButton("ProductActiveType","8",cop)
+                    İnceleniyor @Html.RadioButton("ProductActiveType", "0",inceleniyor)
+                    Onaylandı @Html.RadioButton("ProductActiveType", "1", onaylandi)
+                    <span style="width: 30px;" onmouseup="tıkla()">Onaylanmadı @Html.RadioButton("ProductActiveType", "2", onaylanmadi)
+                    </span>Silindi @Html.RadioButton("ProductActiveType", "3", silindi)
+                    Çöp Kutusu @Html.RadioButton("ProductActiveType","8",cop)
                     <a href="/Member/advertmail/@Model.StoreMainPartyId?productid=@Model.ProductId"
                         id="lightbox_click" rel="superbox[iframe]"></a>
                 </td>

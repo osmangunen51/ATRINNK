@@ -11,7 +11,7 @@ namespace MakinaTurkiye.Services.Members
         void InsertMemberDescription(MemberDescription memberDescription);
         List<MemberDescription> GetMemberDescriptionsByMainPartyId(int mainPartyId);
         IList<MemberDescriptionForStore> GetByMainPartyIDOrderByColumn(string orderDesc, int mainPartyId);
-        IList<MemberDescriptionForStore> GetMemberDescByOnDate(int userId, int userGroupId, int pageDimension, int pageIndex, int orderBy, int consttandtId, out int totalRecord);
+        IList<MemberDescriptionForStore> GetMemberDescByOnDate(int userId, int userGroupId, int pageDimension, int pageIndex, int orderBy, int consttandtId, out int totalRecord, string city = "");
         IList<MemberDescriptionForStore> GetMemberDescNoUpdateDate(int page, int pageSize);
         IList<BaseMemberDescriptionForStore> GetMemberDescCloseDate(int Page, int PageSize, string Type, int UserId, out int TotalRecord);
         IList<BaseMemberDescriptionForStore> GetMemberDateDesc(int Page, int PageSize, string Type, int UserId, out int TotalRecord);

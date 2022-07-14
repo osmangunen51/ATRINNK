@@ -113,7 +113,7 @@
 
       });
 
-      $('#BirthDate').datepicker();
+        $('#BirthDate').datepicker({ "dateFormat": "dd.mm.yy" });
 
       $('#InstitutionalGsmNumber').keyup(function () {
         if ($(this).val() != "") {
@@ -248,36 +248,65 @@
       @EnumModels.AddressEdit(Model.Address)
     </div>
     <div style="float: left; width: 800px;">
-      @foreach (var item in Model.PhoneItems)
-         { 
-         if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
-         { 
-          string phoneType = string.Empty;
-          bool whatsappActive=true;
-          if (item.PhoneType == (byte)PhoneType.Fax)
-          {
-              phoneType = "Fax :";
-          }
-          else if (item.PhoneType == (byte)PhoneType.Gsm)
-          {
-              phoneType = "Gsm :";
-          }
-          else if (item.PhoneType == (byte)PhoneType.Phone)
-          {
-              phoneType = "Phone :";
-          }
-          else if(item.PhoneType==(byte)PhoneType.Whatsapp)
-          {
-              phoneType = "Whatsapp";
-    
+        <table>
+            <tbody>
+                @foreach (var item in Model.PhoneItems)
+                {
+                    if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
+                    {
+                        string CopyPhone = "";
+                        string phoneType = string.Empty;
+                        bool whatsappActive = true;
+                        if (item.PhoneType == (byte)PhoneType.Fax)
+                        {
+                            phoneType = "Fax";
+                        }
+                        else if (item.PhoneType == (byte)PhoneType.Gsm)
+                        {
+                            phoneType = "Gsm";
+                        }
+                        else if (item.PhoneType == (byte)PhoneType.Phone)
+                        {
+                            phoneType = "Phone";
+                        }
+                        else if (item.PhoneType == (byte)PhoneType.Whatsapp)
+                        {
+                            phoneType = "Whatsapp";
+                        }
+                        item.PhoneNumber = item.PhoneNumber.Replace(" ", "");
 
-          }
-          <span>
-              @phoneType @item.PhoneAreaCode @item.PhoneNumber
-          </span>
-          <button type="button" class="call" data-number="@(item.PhoneAreaCode+item.PhoneNumber)"><i class="fa-solid fa-phone"></i> Ara</button><br /> 
-        } 
-     } 
+                        CopyPhone = item.PhoneAreaCode + item.PhoneNumber;
+                        if (!CopyPhone.StartsWith("0"))
+                        {
+                            CopyPhone = "0" + CopyPhone;
+                        }
+                        while (CopyPhone.Contains(" "))
+                        {
+                            CopyPhone = CopyPhone.Replace(" ", "");
+                        }
+                        <tr>
+                            <td>
+                                @phoneType
+                            </td>
+                            <td>
+                                :
+                            </td>
+                            <td>
+                                <span>
+                                    @item.PhoneCulture @item.PhoneAreaCode @item.PhoneNumber
+                                </span>
+                            </td>
+                            <td>
+                                <button data-clipboard-text="@CopyPhone" class="btn btn-success btnkopyala" style="background: #ffd800; color: white; font-size: 14px; height: 32px;" type="button" data-number="@(item.PhoneAreaCode+item.PhoneNumber)"><i class="fa-solid fa-copy"></i></button>
+                            </td>
+                            <td>
+                                <button class="btn btn-success call" style="background: #4ab525; color: white; font-size: 14px; height: 32px;" type="button"  data-number="@(item.PhoneAreaCode+item.PhoneNumber)"><i class="fa-solid fa-phone"></i> Ara</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                </tbody>
+            </table>
     </div>
     <table cellpadding="0" cellspacing="0">
       <tr>

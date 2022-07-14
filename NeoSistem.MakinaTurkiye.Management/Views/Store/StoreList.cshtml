@@ -207,14 +207,14 @@
         </a>
         @if (!string.IsNullOrEmpty(item.StoreUrlName))
             {
-        <a title="Detay" href="@AppSettings.MakinaTurkiyeWebUrl + "/"+item.StoreUrlName"
+        <a title="Detay" href="@(AppSettings.MakinaTurkiyeWebUrl+"/"+item.StoreUrlName)"
             target="_blank">
             <img src="/Content/images/rightAllow.png" />
         </a>
         }
             else
             {
-        <a title="Detay" href="@AppSettings.MakinaTurkiyeWebUrl + "/sirket/"+item.MainPartyId+"/"+Helpers.ToUrl(item.StoreName)+"/sirketprofili""
+        <a title="Detay" href="@(AppSettings.MakinaTurkiyeWebUrl+"/sirket/"+item.MainPartyId+"/"+Helpers.ToUrl(item.StoreName)+"/sirketprofili")"
             target="_blank">
             <img src="/Content/images/rightAllow.png" />
         </a>

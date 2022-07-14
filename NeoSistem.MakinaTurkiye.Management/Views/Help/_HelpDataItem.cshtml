@@ -11,16 +11,16 @@
         @if (!string.IsNullOrEmpty(item.Content))
             {
 
-          
-            if (item.Content.Length > 50)
-            { 
-             @item.Content.Substring(0, 50)
+                @*if (item.Content.Length > 50)
+                { 
+                 @item.Content.Substring(0, 50)
+                }
+                else 
+                { 
+                    @item.Content
+                }*@ 
+            @Html.Raw(item.Content)
         }
-                                           else { 
-            @item.Content
-        }   }
-        
-       
     </td>
     <td class="Cell">@item.RecordDate</td>
     <td class="CellBegin">

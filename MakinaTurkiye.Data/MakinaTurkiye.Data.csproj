@@ -165,6 +165,7 @@
     <Compile Include="Mapping\Tables\Seos\SeoMap.cs" />
     <Compile Include="Mapping\Tables\Stores\ActivityTypeMap.cs" />
     <Compile Include="Mapping\Tables\Messages\AutoMailRecordMap.cs" />
+    <Compile Include="Mapping\Tables\Stores\StorePackagePurchaseRequestMap.cs" />
     <Compile Include="Mapping\Tables\Stores\PreRegistrationStoreMap.cs" />
     <Compile Include="Mapping\Tables\Stores\StoreActivityCategoryMap.cs" />
     <Compile Include="Mapping\Tables\Stores\StoreCatologFileMap.cs" />

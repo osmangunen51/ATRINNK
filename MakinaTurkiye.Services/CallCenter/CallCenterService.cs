@@ -48,11 +48,15 @@ namespace MakinaTurkiye.Services.CallCenter
           };
           Istek.AddOrUpdateHeader("token",this.Token);
           number = number.Replace("+90","0");
-          #if DEBUG
-                {
-                number = "05057916447";
-                }
-#endif
+//          #if DEBUG
+//                {
+//                number = "05057916447";
+//                }
+//#endif
+                    if (!number.StartsWith("0"))
+                    {
+                        number = "0" + number;
+                    }
                     number = destination + number;
                     string Txt= "{\"application\":\"EXTENSIONS\",\"destination\":\""+destination+"\",\"callerid\":\"902129455841\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\""+number+"\"}}";
           Istek.AddStringBody(Txt,DataFormat.Json);

@@ -1,4 +1,5 @@
 ﻿@model FilterModel<NeoSistem.MakinaTurkiye.Management.Models.MemberDescriptionCountModel>
+@{Layout = null; }
 <style type="text/css">
     table tr td .subtable tr td { padding: 5px; }
 </style>
@@ -10,10 +11,10 @@
         <td class="Cell">@item.UpdateDateNew.ToString("dd-MM-yyyy")</td>
         <td class="Cell CellEnd">@item.TotalCount</td>
         @foreach (var itemNew in item.Usercounts.OrderBy(x => x.UserName))
-            {
-        <td class="Cell"><span style="color: #b00606; font-size: 14px; font-weight: 600">@itemNew.Count</span></td>
+         {
+                <td class="Cell"><span style="color: #b00606; font-size: 14px; font-weight: 600">@itemNew.Count</span></td>
 
-        } 
+         } 
     </tr>
 
 } 

@@ -48,35 +48,34 @@
     <tbody id="Tbody2">
        @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-@{ row++;
-   string chose = ""; }
-@{  
-  if (item.DescriptionDegree == 1)
-  {
-    chose = "#8ee78e";
-  }
-  else if (item.DescriptionDegree == 2)
-  {
-    chose = "#8ae5db";
-  }
-  else if (item.DescriptionDegree == 3)
-  {
-    chose = "#e5c08a";
-  }
-  else if (item.DescriptionDegree == 4)
-  {
-    chose = "#eff16f";
-  }
-  else if (item.DescriptionDegree == 5)
-  {
-    chose = "#f38496";
-  }
-  }
+{
+    row++;
+    string chose = "";
+    if (item.DescriptionDegree == 1)
+    {
+        chose = "#8ee78e";
+    }
+    else if (item.DescriptionDegree == 2)
+    {
+        chose = "#8ae5db";
+    }
+    else if (item.DescriptionDegree == 3)
+    {
+        chose = "#e5c08a";
+    }
+    else if (item.DescriptionDegree == 4)
+    {
+        chose = "#eff16f";
+    }
+    else if (item.DescriptionDegree == 5)
+    {
+        chose = "#f38496";
+    }
+
 <tr id="row@item.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style=" background-color:@chose">
   
   <td class="CellBegin">
-    @item.Member.MemberName+" "+item.Member.MemberSurname
+    @(item.Member.MemberName+" "+item.Member.MemberSurname)
   </td>
   <td class="Cell">
       @if(item.Member.MemberType==20)
@@ -157,7 +156,7 @@
           <td class="ui-state ui-state-hover" colspan="7" align="right" style="border-color: #DDD;
             border-top: none; padding-right: 10px">
             Toplam Kayıt : <strong>
-              @(int)ViewData["Tot"]</strong>
+              @((int)ViewData["Tot"])</strong>
           </td>
         </tr>
       </tfoot>

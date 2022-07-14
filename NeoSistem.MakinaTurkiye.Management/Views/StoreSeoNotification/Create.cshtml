@@ -13,7 +13,7 @@
 
         $(document).ready(function () {
 
-            $('#RemindDate').datepicker().val();
+            $('#RemindDate').datepicker({ "dateFormat": "dd.mm.yy" }).val();
             CKEDITOR.replace('Text', {
                 toolbar: [
                     '/',																					// Line break - next group will be placed in new line.

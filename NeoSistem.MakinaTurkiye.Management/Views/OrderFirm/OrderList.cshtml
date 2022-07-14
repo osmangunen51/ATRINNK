@@ -1,5 +1,9 @@
 ﻿@model FilterModel<OrderModel>
-@{int row = 0;}
+
+@{
+    Layout = null;
+    int row = 0;
+    }
 @{MakinaTurkiyeEntities olustur = new MakinaTurkiyeEntities();}
 @foreach (var item in Model.Source)
                 {
@@ -250,20 +254,20 @@
     </td>
     <td class="Cell">
         @{string style = "";}
-    if (restAmount == 0)
-    {
-        style = "color:#ccc;";
-    }
-        <span style="@style float:left;">@(item.PayDate!=null)?Convert.ToDateTime(item.PayDate).ToString("dd/MM/yyyy"):item.RecordDate.ToString("dd/MM/yyyy")</span>
+        @if (restAmount == 0)
+        {
+            style = "color:#ccc;";
+        }
+        <span style="@style float:left;">@((item.PayDate!=null)?Convert.ToDateTime(item.PayDate).ToString("dd/MM/yyyy"):item.RecordDate.ToString("dd/MM/yyyy"))</span>
         <div style="float:right">
         @if (item.IsProductAdded.HasValue && item.IsProductAdded.Value == true)
                 {
                     <img title="Veri Girişi Tamamlandı" src="/Content/images/Accept-icon.png">
                 }
-        else
-    {
-            <img title="Veri Girişi Yapılmadı" style="width: 16px;" src="../../Content/Images/cancel.png">
-        }
+                else
+                {
+                    <img title="Veri Girişi Yapılmadı" style="width: 16px;" src="../../Content/Images/cancel.png">
+                }
         <a href="/OrderFirm/UpdatePayDate?orderId=@item.OrderId" style="float: right;" id="lightbox_click" rel="superbox[iframe]"
         title="Yeni Tarih Ekle">
         <img src="/Content/images/edit.png" /></a>
@@ -318,8 +322,7 @@
         </div>
 
         }
-    }
-            else
+           else
     {
 
 
@@ -367,7 +370,7 @@
         </div>
     </td>
 </tr>
- } 
+ }
 @if (Model.TotalRecord <= 0)
 {
     <tr class="Row">

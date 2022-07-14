@@ -15,23 +15,23 @@
   @using (Html.BeginPanel())
     { 
   @Html.Partial("TabMenu")
-  @using (Html.BeginForm("EditActivityType", "Store", FormMethod.Post))
+  using (Html.BeginForm("EditActivityType", "Store", FormMethod.Post))
      { 
-  <div style="width: 600px; float: left; margin: 20px 0px 0px 20px">
-    <div style="width: 390px; height: 170px; border: solid 1px #b0afaf; padding-left: 20px;
+  <div style="width: 600px; float: left; margin: 20px 0px 0px 20px; border: solid 1px #b0afaf; ">
+    <div style="padding-left: 20px;
       padding-top: 25px;">
-      @foreach (var item in Model.ActivityTypeItems)
+      @foreach (var item in Model.ActivityTypeItems.OrderBy(x=>x.ActivityName))
          { 
       <div style="width: 130px; height: 25px; margin-top: 10px; float: left;">
         <div style="float: left; width: auto; height: auto; float: left">
           @{ bool checkStore = false; }
-          @foreach (var itemStore in Model.StoreActivityTypeItems)
-             { 
-          @if (itemStore.ActivityTypeId == item.ActivityTypeId)
-             { 
-          @{ checkStore = true; }
-           } 
-           } 
+              @foreach (var itemStore in Model.StoreActivityTypeItems)
+                { 
+                    if (itemStore.ActivityTypeId == item.ActivityTypeId)
+                    { 
+                    checkStore = true;
+                } 
+              } 
           @Html.CheckBox("ActivityTypeIdItems", checkStore, new { value = item.ActivityTypeId })
         </div>
         <div style="float: left; width: auto; height: auto; float: left; margin-left: 4px;

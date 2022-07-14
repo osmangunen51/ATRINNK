@@ -488,7 +488,7 @@
                         <tr>
                             <td colspan="3">
                                <b> @item.Title</b>(@item.UserName)<br />
-                                <span style="padding-left:5px; font-size:12px;">@Html.Raw(item.Description)</span> <b style="font-size:12px; color:#0fe54e"><br />@item.RecordDate.HasValue==true?item.RecordDate.ToDateTime().ToString("dd-MM-yyyy hh:mm"):""</b>
+                                <span style="padding-left:5px; font-size:12px;">@Html.Raw(item.Description)</span> <b style="font-size:12px; color:#0fe54e"><br />@(item.RecordDate.HasValue==true?item.RecordDate.ToDateTime().ToString("dd-MM-yyyy hh:mm"):"")</b>
                             </td>
                         </tr>
                     } 
@@ -509,7 +509,7 @@
                         <tr>
                             <td colspan="3">
       
-                                <span style="padding-left:5px; font-size:12px;">@Html.Raw(item.Description) @item.UserName<br /></span> <b style="font-size:12px; color:#0fe54e"><br />@item.RecordDate.HasValue==true?item.RecordDate.ToDateTime().ToString("dd-MM-yyyy hh:mm"):""</b>
+                                <span style="padding-left:5px; font-size:12px;">@Html.Raw(item.Description) @item.UserName<br /></span> <b style="font-size:12px; color:#0fe54e"><br />@(item.RecordDate.HasValue == true ? item.RecordDate.ToDateTime().ToString("dd-MM-yyyy hh:mm") : "")</b>
                             </td>
                         </tr>
                     } 

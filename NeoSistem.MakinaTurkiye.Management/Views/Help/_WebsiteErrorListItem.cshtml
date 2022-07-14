@@ -20,7 +20,7 @@
                     
     </td>
     <td class="Cell">
-        @item.RecordDate.HasValue == true ? item.RecordDate.Value.ToString("dd/MM/yyyy") : ""
+        @(item.RecordDate.HasValue == true ? item.RecordDate.Value.ToString("dd/MM/yyyy") : "")
     </td>
 
     @if (item.IsSolved)

@@ -1,4 +1,4 @@
-﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewPage<CategoryPlaceModel>
+﻿@model CategoryPlaceModel
 
 @section TitleContent {
 
@@ -64,21 +64,21 @@
     
     function ShowEditOrder(id)
     {
-        $("#displayOrderWrap"+id).hide();
-        $("#showEditOrderWrap"+id).show();
+        $("#displayOrderWrap_"+id).hide();
+        $("#showEditOrderWrap_"+id).show();
     }
     function EditOrder(id)
     {
-        var Order = $("#txtOrder" + id).val();
+        var Order = $("#txtOrder_" + id).val();
         $.ajax({
             url: '/Category/EditCategoryPlaceOrder',
             data: { id: id,order:Order },
             type: 'post',
             success: function (data) {
-                $("#txtOrder" + id).val(Order);
-                $("#displayOrderWrap" + id).show();
-                $("#showEditOrderWrap" + id).hide();
-                $("#orderWrap" + id).html(Order);
+                $("#txtOrder_" + id).val(Order);
+                $("#displayOrderWrap_" + id).show();
+                $("#showEditOrderWrap_" + id).hide();
+                $("#orderWrap_" + id).html(Order);
             }, error: function (x, l, e) {
                 alert(e.responseText);
             }
@@ -99,10 +99,10 @@
   <div style="width: auto; height: auto; float: left; padding: 10px 0px 10px 10px">
     <select   onchange="GetCategoryPlaces($(this).val())">
       <option value="0">< Tümünü Göster ></option>
-        <option value="@(byte)CategoryPlaceType.HomeLeftSide">Anasayfa Sol</option>
-        <option value="@(byte)CategoryPlaceType.HomeCenter">Anasayfa Orta</option>
-        <option value="@(byte)CategoryPlaceType.HomeChoicesed">Anasayfa Seçilmiş</option>
-        <option value="@(byte)CategoryPlaceType.ProductGroup">Ürün Grubu</option>
+        <option value="@((byte)CategoryPlaceType.HomeLeftSide)">Anasayfa Sol</option>
+        <option value="@((byte)CategoryPlaceType.HomeCenter)">Anasayfa Orta</option>
+        <option value="@((byte)CategoryPlaceType.HomeChoicesed)">Anasayfa Seçilmiş</option>
+        <option value="@((byte)CategoryPlaceType.ProductGroup)">Ürün Grubu</option>
 
     </select>
   </div>

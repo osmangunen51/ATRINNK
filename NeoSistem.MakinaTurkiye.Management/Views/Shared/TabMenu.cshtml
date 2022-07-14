@@ -6,28 +6,43 @@
     MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
     int id = 0;
     id = ViewContext.RouteData.Values["id"].ToInt32();
+    List<MemberStore> mainparty=new List<MemberStore>();
+    Member member=new Member();
+    List<Constant> constants=new List<Constant>();
     int mainpartyid = 0;
+    string link = "";
     string storeWeb = "";
-    List<MemberStore> mainparty = entities.MemberStores.Where(c => c.StoreMainPartyId == id).ToList();
-    Member member = new Member();
-    List<Constant> constants = new List<Constant>();
-    if (ViewContext.RouteData != null)
+    if (id>0)
     {
-        if (ViewContext.RouteData.Values["id"] != null)
+
+        mainparty = entities.MemberStores.Where(c => c.StoreMainPartyId == id).ToList();
+        member = new Member();
+        constants = new List<Constant>();
+        if (ViewContext.RouteData != null)
         {
-            mainpartyid = mainparty.FirstOrDefault().MemberMainPartyId.ToInt32();
-            member = entities.Members.Where(c => c.MainPartyId == mainpartyid).SingleOrDefault();
-            storeWeb = entities.Stores.FirstOrDefault(x => x.MainPartyId == id).StoreUrlName;
-            constants = entities.Constants.Where(c => c.ConstantType == (byte)ConstantType.UserSpecialMailType).ToList();
+            if (ViewContext.RouteData.Values["id"] != null)
+            {
+                mainpartyid = mainparty.FirstOrDefault().MemberMainPartyId.ToInt32();
+                member = entities.Members.Where(c => c.MainPartyId == mainpartyid).SingleOrDefault();
+                storeWeb = entities.Stores.FirstOrDefault(x => x.MainPartyId == id).StoreUrlName;
+                constants = entities.Constants.Where(c => c.ConstantType == (byte)ConstantType.UserSpecialMailType).ToList();
+            }
         }
+
+        NeoSistem.MakinaTurkiye.Management.Controllers.LinkHelper lHelper = new NeoSistem.MakinaTurkiye.Management.Controllers.LinkHelper();
+        int storeId = Convert.ToInt32(id);
+        var memberstore = entities.MemberStores.FirstOrDefault(x => x.StoreMainPartyId == storeId);
+        if (memberstore!=null)
+        {
+            if (memberstore.MemberMainPartyId>0)
+            {
+                link = lHelper.Encrypt(memberstore.MemberMainPartyId.ToString());
+            }
+        }
+
     }
 
-    NeoSistem.MakinaTurkiye.Management.Controllers.LinkHelper lHelper = new NeoSistem.MakinaTurkiye.Management.Controllers.LinkHelper();
-    int storeId = Convert.ToInt32(id);
-    var memberstore = entities.MemberStores.FirstOrDefault(x => x.StoreMainPartyId == storeId);
-    var link = lHelper.Encrypt(memberstore.MemberMainPartyId.ToString());
 }
-
 <link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
 <style>
 
@@ -129,6 +144,8 @@
     <span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>
     <strong>Mail Gönderiliyor.</strong> Lütfen bekleyiniz...
 </div>
+@if (id>0)
+{
 <div style="float: left; width: 100%; height: auto; float: left;">
     <div style="float: left;">
         <div class="@(ViewData["Store"] != null ? tabActive:(tab+" anotherback"))" onclick="window.location.href='/Store/EditStore/@id'">
@@ -160,15 +177,15 @@
         </div>
 
         <div class="@(ViewData["Branch"] != null ? tabActive:(tab+" anotherback"))" onclick="window.location='/Store/EditDealers/@id?DealerType=@((byte)DealerType.Sube)'">
-            <a class="tabStore" href="/Store/EditDealers/@id+" ?DealerType="+(byte)DealerType.Sube">Şubelerimiz</a>
+            <a class="tabStore" href="@("/Store/EditDealers/"+id.ToString()+"?DealerType="+((byte)DealerType.Sube).ToString())">Şubelerimiz</a>
         </div>
         <div class="@(ViewData["Service"] != null ? tabActive:(tab+" anotherback"))" onclick="window.location='/Store/EditDealers/@id?DealerType=@((byte)DealerType.YetkiliServis)'">
-            <a class="tabStore" href="/Store/EditDealers/@id?DealerType=" @((byte)DealerType.YetkiliServis) ">Servis Ağımız</a>
+            <a class="tabStore" href="@("/Store/EditDealers/"+id.ToString()+"?DealerType="+((byte)DealerType.YetkiliServis).ToString())">Servis Ağımız</a>
         </div>
         <div class="@(ViewData["Dealer"] != null ? tabActive:(tab+" anotherback"))" onclick="window.location='/Store/EditDealers/@id?DealerType=" @((byte)DealerType.Bayii) '">
-            <a class="tabStore" href="/Store/EditDealers/@id?DealerType=@((byte)DealerType.Bayii)">Bayi Ağımız</a>
+            <a class="tabStore" href="@("/Store/EditDealers/"+id.ToString()+"?DealerType="+((byte)DealerType.Bayii).ToString())">Bayi Ağımız</a>
         </div>
-        <div class="@(ViewData["Dealership"]!=null?"tabActive":tab+" anotherback")" onclick="window.location='/Store/EditDealership/@id'">
+        <div class="@(ViewData["Dealership"]!=null?tabActive:tab+" anotherback")" onclick="window.location='/Store/EditDealership/@id'">
             <a class="tabStore" href="/Store/EditDealership/@id">Bayilikler</a>
         </div>
         <div class="@(ViewData["Brand"] != null ? tabActive:(tab+" anotherback"))" onclick="window.location='/Store/EditBrand/@id'">
@@ -180,7 +197,6 @@
         <div class="@(ViewData["ProfilePicture"] != null ? tabActive:(tab+" anotherback"))" onclick="window.location='/Store/EditProfilePicture/@id'">
             <a class="tabStore" href="/Store/EditProfilePicture/@id">Profil Görseli</a>
         </div>
-
         <div style="background-color:#7fbf99" class="@(tab+" anotherback")" data-a="BrowseDesc1">
             <a class="tabStore" data-a="BrowseDesc1" target="_blank" href="/Member/BrowseDesc1/@mainpartyid">Açıklama</a>
         </div>
@@ -188,7 +204,7 @@
             <a class="tabStore" target="_blank" href="//www.makinaturkiye.com/membership/LogonAuto?validateId=@link&returnUrl=/account/advert/advert">Hesabım</a>
         </div>
         <div class="@(tab+" anotherback")" data-a="BrowseDesc1">
-            <a class="tabStore" target="_blank" href="http://www.makinaturkiye.com/@storeWeb">Firma Web</a>
+            <a class="tabStore" target="_blank" href="@("http://www.makinaturkiye.com/"+storeWeb)">Firma Web</a>
         </div>
         <div class="@(tab+" anotherback")">
             <a class="tabStore" target="_blank" href="/Product/Index?StoreMainPartyId=@id">Ürünler</a>
@@ -204,8 +220,8 @@
                 <a href="javascript:void(0)" onclick="SpecialMailSend(@item.ConstantId)">@item.ConstantName</a>
             </div>
         }
-        <div style="background-color:#4cb4e5" class="tab mailback">
-            <a href="/Member/storemail/@mainpartyid" id="lightbox_click" rel="superbox[iframe][1000x600]">Mailing </a>
+        <div style="background-color:#4cb4e5" class="tabLi ui-state-default ui-corner-top divTab mailback">
+            <a href="/Member/storemail/@mainpartyid" id="lightbox_click" rel="superbox[iframe][1024x600]">Mailing </a>
         </div>
         <div class="@(ViewData["StoreSector"] != null ? tabActive:(tab+" anotherback"))">
             <a href="/Store/StoreSector/@id">İlgili Sektör</a>
@@ -218,4 +234,6 @@
         </div>
     </div>
 </div>
+}
+
 

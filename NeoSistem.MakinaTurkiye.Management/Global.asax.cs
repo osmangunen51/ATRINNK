@@ -45,6 +45,9 @@ namespace NeoSistem.MakinaTurkiye.Management
 
         protected void Application_Start()
         {
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
+
             //JobScheduler.Start();
             //initialize engine context
             EngineContext.Initialize(false);

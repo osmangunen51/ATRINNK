@@ -7,7 +7,7 @@
 }
 
   <script type="text/javascript">
-    $(function () { $('.date-pick').datepicker(); });
+      $(function () { $('.date-pick').datepicker({ "dateFormat": "dd.mm.yy" }); });
   </script>
   @{ Html.EnableClientValidation();}
   @using (Html.BeginForm("Create", "AddressType", FormMethod.Post, new { enctype = "multipart/form-data" }))

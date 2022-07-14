@@ -31,7 +31,7 @@
   @using (Html.BeginPanel())
     { 
   @Html.Partial("TabMenu")
-  @using (Html.BeginForm("StoreProfileHomeDescription", "Store", FormMethod.Post))
+  using (Html.BeginForm("StoreProfileHomeDescription", "Store", FormMethod.Post))
      { 
   <div style="width: 600px; float: left; margin: 20px 0px 0px 20px">
     <div id="accordion">

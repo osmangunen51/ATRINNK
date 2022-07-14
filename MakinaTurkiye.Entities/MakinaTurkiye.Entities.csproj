@@ -215,6 +215,7 @@
     <Compile Include="Tables\Stores\StoreDiscount.cs" />
     <Compile Include="Tables\Stores\StoreInfoNumberShow.cs" />
     <Compile Include="Tables\Stores\StoreNew.cs" />
+    <Compile Include="Tables\Stores\StorePackagePurchaseRequest.cs" />
     <Compile Include="Tables\Stores\StoreSector.cs" />
     <Compile Include="Tables\Stores\StoreSeoNotification.cs" />
     <Compile Include="Tables\Stores\StoreStatistic.cs" />

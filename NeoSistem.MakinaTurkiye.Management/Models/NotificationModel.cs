@@ -19,6 +19,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Models
         public string FromUserName { get; set; }
         public bool IsFirst { get; set; }
         public bool IsImmediate { get; set; }
+        public string StoreCityName { get; set; } = "";
+        public string PreRegistrationStoreCityName { get; set; } = "";
 
     }
 }

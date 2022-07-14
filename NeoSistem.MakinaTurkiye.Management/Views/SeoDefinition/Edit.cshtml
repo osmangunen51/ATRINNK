@@ -73,10 +73,8 @@
                             <thead>
                                 <tr>
                                      @foreach (var Phare in Model.KeywordAnalysis.Phares.OrderBy(x=>x.PhareKey))
-                                       @{
-                                       @{
-                                           int Wd = 100 / Model.KeywordAnalysis.Phares.Count;
-                                       }
+                                     {
+                                         int Wd = 100 / Model.KeywordAnalysis.Phares.Count;
                                        <td @{string.Format("style=\"width:{0}%\"", Wd);}>
 
                                         </td>
@@ -86,7 +84,7 @@
                             <tbody>
                                 <tr>
                                     @foreach (var Phare in Model.KeywordAnalysis.Phares.Where(x=>x.PhareKey<3).OrderBy(x=>x.PhareKey))
-                                        @{
+                                        {
                                          <td valign="top">
                                         <table border="0" cellpadding="5" cellspacing="0" style="font-size: 13px; margin: 10px; width: 95%;">
                                          <caption>

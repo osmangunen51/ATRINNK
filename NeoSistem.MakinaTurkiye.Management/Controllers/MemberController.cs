@@ -58,6 +58,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private IMessageService _messageService;
         private IWhatsappLogService _whatsappLogService;
         private IOrderService _orderService;
+
         #endregion
 
         #region Ctor
@@ -2354,14 +2355,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             model.MemberNameSurname = memberName + " " + memberSurname;
             model.StoreName = storeName;
-
+            
             var contantlist = _constantService.GetAllConstants();
 
             foreach (var item in MemberDescription)
             {
-
-
-
 
                 BaseMemberDescriptionModelItem memberDesc = new BaseMemberDescriptionModelItem
                 {

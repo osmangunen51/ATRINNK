@@ -210,6 +210,7 @@
     <Compile Include="Stores\DealerTypeEnum.cs" />
     <Compile Include="Messages\IAutoMailRecordService.cs" />
     <Compile Include="Stores\IDealarBrandService.cs" />
+    <Compile Include="Stores\IStorePackagePurchaseRequestService.cs" />
     <Compile Include="Stores\IPreRegistirationStoreService.cs" />
     <Compile Include="Stores\IStoreActivityCategoryService.cs" />
     <Compile Include="Stores\IStoreActivityTypeService.cs" />
@@ -253,6 +254,7 @@
     <Compile Include="Stores\StoreDiscountService.cs" />
     <Compile Include="Stores\StoreNewService.cs" />
     <Compile Include="Stores\StoreNewTypeEnum.cs" />
+    <Compile Include="Stores\StorePackagePurchaseRequestService.cs" />
     <Compile Include="Stores\StoreSectorService.cs" />
     <Compile Include="Stores\CategoryStoresResult.cs" />
     <Compile Include="Stores\StoreSeoNotificationService.cs" />

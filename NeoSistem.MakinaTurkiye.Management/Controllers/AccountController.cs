@@ -17,7 +17,8 @@
         }
         public ActionResult Login()
         {
-            return View();
+            NeoSistem.MakinaTurkiye.Management.Models.AccountModel model=new AccountModel();
+            return View(model);
         }
 
         public ActionResult Logout()

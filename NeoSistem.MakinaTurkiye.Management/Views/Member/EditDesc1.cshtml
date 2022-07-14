@@ -52,7 +52,7 @@
                     }
                 });
             });
-            $('#LastDateNew').datepicker().val();
+            $('#LastDateNew').datepicker({"dateFormat": "dd.mm.yy" }).val();
             $('#form').submit(function (event) {
                 var last = $("#LastDateNew").val();
                 var time = $("#timeNew").val();
@@ -502,8 +502,10 @@
                     @itemMemberDesc.ToUserName
                 </td>
                 <td class="Cell">
-                    @{string type = "Normal"; }
-                        if (!itemMemberDesc.StoreID.HasValue){type = "Ön Kayıt"; }
+                    @{
+                        string type = "Normal";
+                        if (!itemMemberDesc.StoreID.HasValue) { type = "Ön Kayıt"; }
+                    }
                     @type
                 </td>
                 <td class="CellEnd">

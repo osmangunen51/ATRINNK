@@ -89,7 +89,7 @@
             İptal</button>
         </div>
       </div>
-      <input type="hidden" id="storeId" name="storeId" value="@this.RouteData.Values["id"]" />
+      <input type="hidden" id="storeId" name="storeId" value="@ViewContext.RouteData.Values["id"]" />
     </div>
     <div id="divStoreBrandItems" style="width: 300px; height: 270px; float: left; margin-top: 20px;">
       @Html.Partial("StoreBrand", Model.StoreBrandItems)

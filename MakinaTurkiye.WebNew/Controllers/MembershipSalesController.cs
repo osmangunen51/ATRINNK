@@ -8,6 +8,7 @@ using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Logs;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Packets;
+using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Checkouts;
 using MakinaTurkiye.Services.Common;
@@ -124,6 +125,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private readonly IMessagesMTService _messageMTService;
         private readonly IVirtualPosService _virtualPosService;
         private readonly ICreditCardLogService _creditCardLogService;
+        private readonly IStorePackagePurchaseRequestService _storePackagePurchaseRequestService;
+
 
         //private static ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
 
@@ -143,6 +146,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             IBankAccountService bankAccountService,
             ICreditCardService creditCardService,
             IMessagesMTService messageMTService,
+            IStorePackagePurchaseRequestService StorePackagePurchaseRequestService,
             IVirtualPosService virtualPosService, ICreditCardLogService creditCardLogService)
         {
             this._orderService = orderService;
@@ -160,6 +164,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             this._messageMTService = messageMTService;
             this._virtualPosService = virtualPosService;
             this._creditCardLogService = creditCardLogService;
+            this._storePackagePurchaseRequestService = StorePackagePurchaseRequestService;
         }
 
         #endregion
@@ -200,14 +205,18 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             showPacketFeatureTypeItems.Add(7);
 
             packetViewModel.PacketFeatureItems = _packetService.GetAllPacketFeatures();
-
             packetViewModel.PacketFeatureTypeItems = _packetService.GetAllPacketFeatureTypes().ToList();
-
             packetViewModel.PacketItems = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x => x.DopingPacketDay.HasValue == false).ToList();
             var constant = _constantService.GetConstantByConstantType(ConstantTypeEnum.PacketSalesFooter).FirstOrDefault();
-            if (constant != null)
-                packetViewModel.BottomDescription = constant.ContstantPropertie;
-
+            if (constant != null) packetViewModel.BottomDescription = constant.ContstantPropertie;
+            var StorePackagePurchaseRequest = _storePackagePurchaseRequestService.GetStorePackagePurchaseRequestWithDate(DateTime.Now);
+            if (StorePackagePurchaseRequest==null)
+            {
+                StorePackagePurchaseRequest = new StorePackagePurchaseRequest();
+                StorePackagePurchaseRequest.MainPartyId = memberStore.StoreMainPartyId.Value;
+                StorePackagePurchaseRequest.Date= DateTime.Now;
+                _storePackagePurchaseRequestService.InsertStorePackagePurchaseRequest(StorePackagePurchaseRequest);
+            }
             return View(packetViewModel);
         }
 

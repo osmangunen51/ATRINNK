@@ -281,7 +281,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int totalRecord = 0;
             int maxCount = 10000;
             var List = _memberDescService.GetMemberDescByOnDate(Convert.ToInt32(CurrentUserModel.CurrentManagement.UserId), 0, maxCount, 1, (byte)MemberDescriptionOrder.Defaullt, 0, out totalRecord);
-
             return Json(totalRecord, JsonRequestBehavior.AllowGet);
         }
         [HttpPost]
@@ -310,7 +309,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 PAGEID = PermissionPage.AllNotification;
             }
-            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, 0, pageDimension, 1, (byte)MemberDescriptionOrder.Defaullt, 0, out totalRecord).ToList();
+            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, 0, pageDimension, 1, (byte)MemberDescriptionOrder.Defaullt, 0, out totalRecord,"").ToList();
             PrepareUserTypeModel(model);
             int totalCount = memberDescs.Count;
             var listNotif = PrepareNotificationList(memberDescs, pageDimension);
@@ -342,14 +341,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.Titles = constantList;
             return View(model);
         }
+
         [HttpPost]
-        public PartialViewResult Notification(int userId, int page, int userGroupId, int orderBy, int constantId)
+        public PartialViewResult Notification(int userId,string city,int page, int userGroupId, int orderBy, int constantId)
         {
             int pageDimension = 30;
             var memberDescs = new List<global::MakinaTurkiye.Entities.StoredProcedures.Members.MemberDescriptionForStore>();
             int totalRecord = 0;
-
-            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, userGroupId, pageDimension, page, orderBy, constantId, out totalRecord).ToList();
+            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, userGroupId, pageDimension, page, orderBy, constantId, out totalRecord,city).ToList();
             memberDescs = memberDescs.OrderByDescending(x => x.IsFirst).ThenBy(x => x.UpdateDate).ToList();
             var listNotif = PrepareNotificationList(memberDescs, pageDimension);
             FilterModel<NotificationModel> filterModel = new FilterModel<NotificationModel>();
@@ -359,6 +358,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             filterModel.Source = listNotif;
             return PartialView("_NotificationList", filterModel);
         }
+
         public void PrepareUserTypeModel(NotificationModelBase model)
         {
             var userTypes = entities.UserGroups.ToList();
@@ -374,7 +374,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             foreach (var item in memberDescs)
             {
 
-
                 NotificationModel not = new NotificationModel();
                 not.MainPartyId = item.MainPartyId.HasValue ? item.MainPartyId.Value : 0;
                 if (not.MainPartyId != 0)
@@ -386,6 +385,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         not.StoreMainPartyId = 9999999;
                 }
                 not.Title = item.Title;
+                not.StoreCityName = item.StoreCityName;
+                not.PreRegistrationStoreCityName=item.PreRegistrationStoreCityName;
                 not.InputDate = item.Date;
                 not.LastDate = item.UpdateDate;
                 not.ID = Convert.ToInt32(item.descId);
@@ -408,9 +409,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             memberSurname = preRegistration.MemberSurname;
                             storeName = preRegistration.StoreName;
                         }
-
                     }
-
                 }
                 else
                 {
@@ -423,8 +422,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         if (aStore != null)
                             storeName = aStore.StoreName;
                     }
-
                 }
+
                 not.MemberName = memberName + " " + memberSurname;
 
                 not.StoreName = storeName;
@@ -441,8 +440,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     if (fromUser != null)
                         not.FromUserName = fromUser.UserName;
                 }
-
-
                 if (!string.IsNullOrEmpty(Request.QueryString["UserId"]))
                 {
                     bool isFirst = false;
@@ -450,9 +447,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         isFirst = true;
                     not.IsFirst = isFirst;
                 }
+                //not.City = city;
                 listNotif.Add(not);
             }
-
             return listNotif;
         }
         public ActionResult onSeen(int ID)

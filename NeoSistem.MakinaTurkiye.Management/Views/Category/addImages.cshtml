@@ -1,4 +1,4 @@
-﻿@model NeoSistem.MakinaTurkiye.Core.Web.ViewPage<NeoSistem.MakinaTurkiye.Management.Models.Catolog.CategoryImageModel>
+﻿@model NeoSistem.MakinaTurkiye.Management.Models.Catolog.CategoryImageModel
 
 @section TitleContent {
 
@@ -150,7 +150,7 @@
                     </div>
                     <div style="float: right">
                         <div style="float: right;">
-                            <button onclick="$('#hdnBannerType').val('@(byte)BannerType.MainSlider');$('#hdnSaveMessage').val('true');">
+                            <button onclick="$('#hdnBannerType').val('@((byte)BannerType.MainSlider)');$('#hdnSaveMessage').val('true');">
                                 Kaydet</button>
                         </div>
                     </div>

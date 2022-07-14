@@ -1,4 +1,5 @@
 ﻿<script type="text/javascript">
+
     function checkMenu() {
         $('.menus').css('display', 'none');
     }
@@ -98,9 +99,9 @@
     <table style="float:right;top:1px;position:absolute;right:10px">
         <tr>
             <td>
-                <a href="#" id="callcenterpanel-btn">
-                    <i class="fa-solid fa-2x fa-phone"></i>
-                </a>
+                    <a href="#" data-callcenterurl="@NeoSistem.MakinaTurkiye.Management.Models.Authentication.CurrentUserModel.CurrentManagement.CallCenterUrl" id="callcenterpanel-btn">
+                        <i class="fa-solid fa-2x fa-phone"></i>
+                    </a>
             </td>
             <td>
                 <a style="padding: 2px;" href="/StoreSeoNotification/AllNotification" title="Bildirimler" id="notSeo"></a>
@@ -179,7 +180,23 @@
                                         align: 'left', image: 'AdvertList.png', action: "window.location = '/UrlRedirect'"
                                     }
                                 ]
-                            }
+                            },
+                            {
+                                text: 'Haberler',
+                                type: Ribbon.GroupType.Group,
+                                buttons: [
+                                    {
+                                        Id: 'StoreNew', text: 'Firma<br> Haberler', type: Ribbon.ButtonType.BigItem,
+                                        align: 'left', image: 'newsstore.png', action: "window.location ='/Store/New?newType=1'"
+
+                                    },
+                                    {
+                                        Id: 'StoreSuccessStories', text: 'Başarı<br> Hikayeleri', type: Ribbon.ButtonType.BigItem,
+                                        align: 'left', image: 'newsstore.png', action: "window.location ='/Store/New?newType=2'"
+
+                                    },
+                                ]
+                            },
                         ]
                     });
                 </script>
@@ -196,7 +213,7 @@
                                 {
                                     text: 'Üye Yönetimi',
                                     type: Ribbon.GroupType.Group,
-                                    width: '280px',
+                                    width: '350px',
                                     buttons: [
                                         {
                                             Id: 'MemberManage', text: 'Tüm Üyeler', type: Ribbon.ButtonType.BigItem,
@@ -370,6 +387,17 @@
                                         }]
                                 },
                                 {
+                                    text: 'Firma Paket Satın Alma Talebi',
+                                    type: Ribbon.GroupType.Group,
+                                    width: 'auto',
+                                    buttons: [
+                                        {
+                                            Id: 'StorePackagePurchaseRequest', text: 'Satın Alma Talebi', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'StorePackagePurchaseRequest.png', action: "window.location ='/StorePackagePurchaseRequest'"
+                                        }
+                                    ]
+                                },
+                                {
                                     text: 'Kullanıcı Hareketleri',
                                     type: Ribbon.GroupType.Group,
                                     width: 'auto',
@@ -480,16 +508,17 @@
                                             align: 'left', image: 'bankAccountList.png', action: "window.location ='/BankAccount/Index'"
                                         }]
                                 },
+                                //{
+                                //    text: 'Bildirimler',
+                                //    type: Ribbon.GroupType.Group,
+                                //    width: 'auto',
+                                //    buttons: [
+                                //        {
+                                //            Id: 'NotificationFormList', text: 'Bildirim<br />Listesi', type: Ribbon.ButtonType.BigItem,
+                                //            align: 'left', image: 'BookmarkInsert.png', action: "window.location ='/NotificationForm/Index'"
+                                //        }]
+                                //},
                                 {
-                                    text: 'Bildirimler',
-                                    type: Ribbon.GroupType.Group,
-                                    width: 'auto',
-                                    buttons: [
-                                        {
-                                            Id: 'NotificationFormList', text: 'Bildirim<br />Listesi', type: Ribbon.ButtonType.BigItem,
-                                            align: 'left', image: 'BookmarkInsert.png', action: "window.location ='/NotificationForm/Index'"
-                                        }]
-                                }, {
                                     text: 'Kredi Kartları',
                                     type: Ribbon.GroupType.Group,
                                     width: 'auto',
@@ -667,6 +696,12 @@
                                             align: 'left', image: 'ChartResetToMatchStyle.png', action: "window.location ='/PreRegistrationStore/Create'"
 
                                         },
+
+                                        {
+                                            Id: 'PreRegisterStoreNotCalling', text: 'SUD', type: Ribbon.ButtonType.BigItem,
+                                            align: 'left', image: 'preregisternotcall.png', action: "window.location ='/PreRegistrationStore/NotCalling'"
+
+                                        },
                                     ]
                                 },
                                 {
@@ -713,17 +748,6 @@
                                             align: 'left', image: 'whatsapp.png', action: "window.location ='/Store/WhatsappStore'"
 
                                         },
-                                        {
-                                            Id: 'StoreNew', text: 'Firma<br> Haberler', type: Ribbon.ButtonType.BigItem,
-                                            align: 'left', image: 'newsstore.png', action: "window.location ='/Store/New?newType=1'"
-
-                                        },
-                                        {
-                                            Id: 'StoreSuccessStories', text: 'Başarı<br> Hikayeleri', type: Ribbon.ButtonType.BigItem,
-                                            align: 'left', image: 'newsstore.png', action: "window.location ='/Store/New?newType=2'"
-
-                                        },
-
                                         {
                                             Id: 'ImportExcelStore', text: 'Excel İle Firma<br />Güncelle', type: Ribbon.ButtonType.BigItem,
                                             align: 'left', image: 'excel.png', action: "window.location='/Store/UpdateStoreByExel'"

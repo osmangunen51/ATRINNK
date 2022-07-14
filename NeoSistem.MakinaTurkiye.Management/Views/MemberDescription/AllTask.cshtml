@@ -1,13 +1,9 @@
 ﻿@model FilterModel<global::MakinaTurkiye.Entities.StoredProcedures.Members.MemberDescriptionTaskItem>
-
+    @{ Layout = "~/Views/Shared/_Layout.cshtml";}
 @section TitleContent {
-
     Görev Atamaları
     
-
 }
-
-
     <div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px; border-width: 5px;"
         id="preLoading">
         <span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>
@@ -112,8 +108,8 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#UpdateDate').datepicker().val();
-           $('#CreatedDate').datepicker().val();
+            $('#UpdateDate').datepicker({ "dateFormat": "dd.mm.yy" }).val();
+            $('#CreatedDate').datepicker({ "dateFormat": "dd.mm.yy" }).val();
             $('.Search').keyup(function (e) {
                 if (e.keyCode == 13) {
                     $('#OrderType').val('1');

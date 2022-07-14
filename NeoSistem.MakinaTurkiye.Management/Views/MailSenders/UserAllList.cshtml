@@ -239,7 +239,7 @@
         }
 
         $(document).ready(function () {
-            $('.date').datepicker();
+            $('.date').datepicker({ "dateFormat": "dd.mm.yy" });
             $('.Search').keyup(function (e) {
                 if (e.keyCode == 13) {
                     $('.HeaderDown').removeClass('HeaderDown');

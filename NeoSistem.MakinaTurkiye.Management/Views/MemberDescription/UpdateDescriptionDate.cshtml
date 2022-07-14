@@ -11,7 +11,7 @@
 
     $(document).ready(function () {
 
-        $('#LastDate').datepicker().val();
+        $('#LastDate').datepicker({ "dateFormat": "dd.mm.yy" }).val();
 
             CKEDITOR.replace('Content', {
         toolbar: [

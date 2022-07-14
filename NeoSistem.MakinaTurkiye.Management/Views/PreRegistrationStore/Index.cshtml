@@ -41,6 +41,12 @@
             SearchPost();
         }
 
+        $('.Search').keyup(function (e) {
+            if (e.keyCode == 13) {
+                SearchPost();
+            }
+        });
+
         function SearchPost() {
             $('#preLoading').show();
             $.ajax({

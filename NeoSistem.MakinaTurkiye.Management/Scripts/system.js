@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    var clipboard = new ClipboardJS('.btnkopyala');
+
     $('.call').click(
         function () {
             var number = $(this).attr("data-number");
@@ -12,11 +14,13 @@
                     data: data,
                     dataType:'json',
                     success: function (result) {
-                        if (result.IsSuccess) {
-                            $('#callcenterpanel').toggleClass('visible');
+                        if (result.IsSuccess)
+                        {
+                            swal("Call Center", "Arama Çağrısı başlatıldı lüfen Arama Kontrol Ekranınızı Kontrol Ediniz.", "success");
+                            $('#callcenterpanel-btn').trigger("click");
                         }
                         else {
-                            swal("Call Center", result.Message, "warning")
+                            swal("Call Center", result.Message, "warning");
                         }
                     }
                 });
@@ -27,9 +31,30 @@
             }
         }
     );
+
+   
+
     $('#callcenterpanel-btn').click(
         function () {
-            $('#callcenterpanel').toggleClass('visible');
+            var callcenterurl = $(this).attr("data-callcenterurl");
+            if (typeof (callcenterurl) != 'undefined') {
+                var Wincheck = window.open(callcenterurl, "callcenterurl", "");
+                if (Wincheck.closed)
+                {
+
+                }
+                else
+                if (parseInt(navigator.appVersion > 2)) {
+                    if (Wincheck.closed)
+                    {
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
         }
-    )
+    );
 });
