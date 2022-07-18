@@ -5,6 +5,7 @@ using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Services.Stores;
+using MakinaTurkiye.Services.Users;
 using NeoSistem.MakinaTurkiye.Management.Models;
 using NeoSistem.MakinaTurkiye.Management.Models.PreRegistrations;
 using System;
@@ -24,11 +25,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly IMemberDescriptionService _memberDescriptonService;
         private readonly IPacketService _packetService;
         private readonly IPhoneService _phoneService;
+        private readonly IUserInformationService _userInformationService;
 
         public PreRegistrationStoreController(IPreRegistirationStoreService preRegistirationStoreService, IStoreService storeService,
             IMemberService memberService, IMemberStoreService memberStoreService,
             IMemberDescriptionService memberDescriptonService, IPacketService packetService,
-            IPhoneService phoneService)
+            IPhoneService phoneService, IUserInformationService UserInformationService)
         {
             this._preRegistrationService = preRegistirationStoreService;
             this._storeService = storeService;
@@ -37,6 +39,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             this._memberDescriptonService = memberDescriptonService;
             this._packetService = packetService;
             this._phoneService = phoneService;
+            this._userInformationService = UserInformationService;
         }
         // GET: PreRegistrationStore
         public ActionResult Index()
@@ -44,11 +47,28 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int p = 1;
 
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "",false);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "", false);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
+
             foreach (var item in stores)
             {
+                string AtananUser = "";
+                var memberdes = _memberDescriptonService.GetMemberDescriptionByPreRegistrationStoreId(item.PreRegistrationStoreId).OrderByDescending(x => x.Date).FirstOrDefault();
+                if (memberdes != null)
+                {
+                    var user = this.entities.Users.FirstOrDefault(x => x.UserId == memberdes.UserId);
+                    if (user != null)
+                    {
+                        var GroupsIdList = this.entities.UserInformations.Where(x => x.UserId == user.UserId).Select(x => x.UserGroupId);
+                        var GroupsName = this.entities.UserGroups.Where(x => GroupsIdList.Contains(x.UserGroupId)).Select(x => x.GroupName);
+                        if (GroupsName.Contains("Saha Satış") || GroupsName.Contains("Tele Satış Sorumlusu") || GroupsName.Contains("Tele Satiş Takım Lideri"))
+                        {
+                            AtananUser = user.UserName;
+                        }
+                    }
+                }
+
                 bool isInserted = false;
                 if (!string.IsNullOrEmpty(item.Email))
                 {
@@ -70,9 +90,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     PhoneNumber2 = item.PhoneNumber2,
                     PhoneNumber3 = item.PhoneNumber3,
                     HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
-                    IsInserted = isInserted
+                    IsInserted = isInserted,
+                    AtananUser = AtananUser
                 });
             }
+
             preRegistrations.Source = source;
             preRegistrations.PageDimension = pageSize;
             preRegistrations.TotalRecord = stores.TotalCount;
@@ -84,11 +106,28 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             int p = Convert.ToInt32(page);
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email,false);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, false);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
             foreach (var item in stores)
             {
+                string AtananUser = "";
+                var memberdes = _memberDescriptonService.GetMemberDescriptionByPreRegistrationStoreId(item.PreRegistrationStoreId).OrderByDescending(x => x.Date).FirstOrDefault();
+                if (memberdes != null)
+                {
+                    var user = this.entities.Users.FirstOrDefault(x => x.UserId == memberdes.UserId);
+                    if (user != null)
+                    {
+                        var GroupsIdList = this.entities.UserInformations.Where(x => x.UserId == user.UserId).Select(x => x.UserGroupId);
+                        var GroupsName = this.entities.UserGroups.Where(x => GroupsIdList.Contains(x.UserGroupId)).Select(x => x.GroupName);
+                        if (GroupsName.Contains("Saha Satış") || GroupsName.Contains("Tele Satış Sorumlusu") || GroupsName.Contains("Tele Satiş Takım Lideri"))
+                        {
+                            AtananUser = user.UserName;
+                        }
+                    }
+                }
+
+
                 bool isInserted = false;
                 if (!string.IsNullOrEmpty(item.Email))
                 {
@@ -110,7 +149,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     PhoneNumber2 = item.PhoneNumber2,
                     PhoneNumber3 = item.PhoneNumber3,
                     HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
-                    IsInserted = isInserted
+                    IsInserted = isInserted,
+                    AtananUser = AtananUser
                 });
             }
             preRegistrations.Source = source;
@@ -317,6 +357,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 preRegistration.PhoneNumber2 = model.PhoneNumber2;
                 preRegistration.PhoneNumber3 = model.PhoneNumber3;
                 preRegistration.WebUrl = model.WebUrl;
+                preRegistration.City = model.City;
                 _preRegistrationService.UpdatePreRegistrationStore(preRegistration);
                 return RedirectToAction("Index");
             }

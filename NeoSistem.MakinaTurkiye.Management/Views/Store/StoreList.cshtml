@@ -105,7 +105,7 @@
             {
                     <span style="color:yellow">@item.CountryName</span><br />
             }
-                <span style="color:red">@(item.CityName != null ? item.CityName.ToUpper() : "")</span><br />
+                <span style="color:red;font-size:16px">@(item.CityName != null ? item.CityName.ToUpper() : "")</span><br />
                 <span style="color:yellowgreen">@item.LocalityName</span>
                 &nbsp
     </td>
@@ -317,12 +317,12 @@
                 <li>Gösterim: </li>
                 <li>
                     <select id="PageDimension" name="PageDimension" onchange="SearchPost();">
-                        <option value="20" @Session["store_PAGEDIMENSION"].ToString() == "20" ? "selected=selected" : "">20</option>
-                        <option value="50" @Session["store_PAGEDIMENSION"].ToString() == "50" ? "selected=selected" : "">50</option>
-                        <option value="100" @Session["store_PAGEDIMENSION"].ToString() == "100" ? "selected=selected" : "">100</option>
-                        <option value="250" @Session["store_PAGEDIMENSION"].ToString() == "250" ? "selected=selected" : "">250</option>
-                        <option value="500" @Session["store_PAGEDIMENSION"].ToString() == "500" ? "selected=selected" : "">500</option>
-                        <option value="750" @Session["store_PAGEDIMENSION"].ToString() == "750" ? "selected=selected" : "">750</option>
+                        <option value="20"  @(Session["store_PAGEDIMENSION"].ToString() == "20" ? "selected=selected" :  "")>20</option>
+                        <option value="50"  @(Session["store_PAGEDIMENSION"].ToString() == "50" ? "selected=selected" :  "")>50</option>
+                        <option value="100" @(Session["store_PAGEDIMENSION"].ToString() == "100" ? "selected=selected" : "")>100</option>
+                        <option value="250" @(Session["store_PAGEDIMENSION"].ToString() == "250" ? "selected=selected" : "")>250</option>
+                        <option value="500" @(Session["store_PAGEDIMENSION"].ToString() == "500" ? "selected=selected" : "")>500</option>
+                        <option value="750" @(Session["store_PAGEDIMENSION"].ToString() == "750" ? "selected=selected" : "")>750</option>
                     </select>
                 </li>
             </ul>
@@ -348,8 +348,8 @@
     </td>
 </tr>
 
-<link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
-<script type="text/javascript" src="/Scripts/SuperBox/jquery.superbox.js"></script>
+@*<link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />*@
+@*<script type="text/javascript" src="/Scripts/SuperBox/jquery.superbox.js"></script>*@
 <script type="text/javascript">
     $(function () {
         $.superbox.settings = {

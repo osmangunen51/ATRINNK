@@ -26,13 +26,6 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
             }
             else
             {
-                //app.UseCookieAuthentication(new CookieAuthenticationOptions
-                //{
-                //    AuthenticationType = "LoginCookie",
-                //    LoginPath = new PathString("/uyelik/kullanicigirisi"),
-                //    CookieDomain = ".makinaturkiye.com"
-                //});
-
                 app.UseCookieAuthentication(new CookieAuthenticationOptions
                 {
                     AuthenticationType = "LoginCookie",
@@ -42,8 +35,6 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                     CookieSecure = CookieSecureOption.Always
                 });
             }
-
-
         }
     }
 

@@ -3,7 +3,7 @@
 @{int count = Model.CurrentPage * 20 - 19; }
 @foreach (var item in Model.Source.ToList())
     {
-<tr id="row@item.Id">
+<tr id="row_@item.Id">
     <td class="Cell CellBegin">@count</td>
     <td class="Cell">@item.StoreName</td>
     <td class="Cell">@item.MemberName @item.MemberSurname</td>
@@ -11,39 +11,41 @@
     <td class="Cell">@item.PhoneNumber</td>
     <td class="Cell">@item.PhoneNumber2<br />@item.PhoneNumber3</td>
     <td class="Cell">
-        @if (!string.IsNullOrEmpty(item.WebUrl)) {
-        <a href="@item.WebUrl" target="_blank">@item.WebUrl</a>
-         } 
+        @if (!string.IsNullOrEmpty(item.WebUrl))
+        {
+            <a href="@item.WebUrl" target="_blank">@item.WebUrl</a>
+        }
     </td>
-    <td class="Cell" style="color:red">@item.City</td>
+    <td class="Cell" style="color:red;font-size:16px">@(item.City != null ? item.City.ToUpper() : "")</td>
     <td class="Cell">@item.RecordDate.ToString("dd/MM/yyyy HH:mm")</td>
+    <td class="Cell">@item.AtananUser</td>
     <td class="Cell CellEnd">
         <a href="/PreRegistrationStore/Edit/@item.Id"><img src="/Content/images/edit.png" /></a>
-        <a href="/PreRegistrationStore/Delete?Id=@item.Id"  id="lightbox_click" rel="superbox[iframe]"><img src="/Content/images/delete.png" hspace="2"></a>
+        <a href="/PreRegistrationStore/Delete?Id=@item.Id" id="lightbox_click" rel="superbox[iframe]"><img src="/Content/images/delete.png" hspace="2"></a>
         <a href="/Member/BrowseDesc1/@item.Id" target="_blank">
             @if (item.HasDescriptions)
-                {
-            <img src="/Content/images/productonay.png">
-             }
-             else
-             {
+            {
+                <img src="/Content/images/productonay.png">
+            }
+            else
+            {
                 <img src="/Content/images/product.png">
-             }   
+            }
         </a>
         @if (item.IsInserted)
-            {
-                <span title="Firma Olarak Eklenmiş.">F.Eklendi</span>
-            }
-            else 
-            {
-                <a  href="/PreRegistrationStore/NewStore?preRegistrationId=@item.Id" title="Firma Kaydı Olarak Ekle" >Firma O.</a>
-            }
+        {
+            <span title="Firma Olarak Eklenmiş.">F.E</span>
+        }
+        else
+        {
+            <a href="/PreRegistrationStore/NewStore?preRegistrationId=@item.Id" title="Firma Kaydı Olarak Ekle">FK.</a>
+        }
     </td>
 </tr>
     count = count + 1;
 } 
 <tr>
-    <td class="ui-state ui-state-default" colspan="10" align="right" style="border-color: #DDD; border-top: none; border-bottom: none;">
+    <td class="ui-state ui-state-default" colspan="11" align="right" style="border-color: #DDD; border-top: none; border-bottom: none;">
         <div style="float: right;" class="pagination">
             <div style="float: right; margin-right: 10px;">
                 <b>Toplam Kayıt:@Model.TotalRecord</b>
@@ -51,16 +53,16 @@
             <ul style="float: left;">
                 @foreach (int i in Model.TotalLinkPages)
                     { 
-                        <li>
-                            @if (i == Model.CurrentPage)
-                                { 
-                                    <span class="currentpage">@i</span>
-			                    } 
-                            else
-                                { 
-                                <a href="javascript:void(0)" onclick="PagingPost(@i)">@i</a>
-			                    } 
-                        </li>
+                      <li>
+                          @if (i == Model.CurrentPage)
+                              { 
+                                  <span class="currentpage">@i</span>
+			                  } 
+                          else
+                              { 
+                              <a href="javascript:void(0)" onclick="PagingPost(@i)">@i</a>
+			                  } 
+                      </li>
                     } 
             </ul>
         </div>

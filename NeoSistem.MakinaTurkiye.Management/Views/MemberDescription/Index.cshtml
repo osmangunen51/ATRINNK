@@ -96,7 +96,7 @@ row++;
 <tr id="row@item.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style=" background-color:@item.Color">
   
   <td class="CellBegin">
-    @item.MemberName+" "+item.MemberSurname
+    @(item.MemberName+" "+item.MemberSurname)
   </td>
   <td class="Cell">
       @if(item.MemberType==20)

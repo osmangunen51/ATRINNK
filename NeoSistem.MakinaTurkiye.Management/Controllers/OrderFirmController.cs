@@ -134,6 +134,18 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 whereClause.Clear();
             }
 
+            var Lst = this.entities.UserInformations.Where(x => x.UserId == CurrentUserModel.CurrentManagement.UserId).Select(x => x.UserGroupId);
+            var UserGroups = this.entities.UserGroups.Where(x => Lst.Contains(x.UserGroupId)).ToList();
+            if (UserGroups.Where(x => x.GroupName == "Administrator").Count() == 0)
+            {
+                if (op)
+                {
+                    whereClause.Append("AND");
+                }
+                whereClause.AppendFormat(equalClause, "U.UserId", CurrentUserModel.CurrentManagement.UserId.ToString());
+                op = true;
+            }
+
             collection = dataOrder.Search(ref total, (int)Session[SessionPage], 1, whereClause.ToString(), STARTCOLUMN, ORDER).AsCollection<OrderModel>();
             var salesUsers = from u in entities.Users join p in entities.PermissionUsers on u.UserId equals p.UserId join g in entities.UserGroups on p.UserGroupId equals g.UserGroupId where g.UserGroupId == 16 || g.UserGroupId == 20 || g.UserGroupId == 22 || g.UserGroupId == 18 select u;
             List<SelectListItem> salesUserManagers = new List<SelectListItem>();
@@ -233,8 +245,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         whereClause.Append("AND");
                     }
 
-                    DateTime startDate = Convert.ToDateTime(RegisterStartDate.Replace(".", "/"), CultureInfo.InvariantCulture);
-                    DateTime endDate = Convert.ToDateTime(RegisterEndDate.Replace(".", "/"), CultureInfo.InvariantCulture);
+                    DateTime startDate = Convert.ToDateTime(RegisterStartDate);
+                    DateTime endDate = Convert.ToDateTime(RegisterEndDate);
                     string dateEqual = " Cast(O.RecordDate as date) >= Cast('{0}' as date)  and Cast(O.RecordDate as date) <=Cast('{1}' as date) ";
                     whereClause.AppendFormat(dateEqual, startDate.ToString("yyyyMMdd"), endDate.ToString("yyyyMMdd"));
                 }
@@ -327,6 +339,19 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     whereClause.AppendFormat("(PriceCheck=0 or PriceCheck is null)");
                 }
             }
+
+            var Lst = this.entities.UserInformations.Where(x => x.UserId == CurrentUserModel.CurrentManagement.UserId).Select(x => x.UserGroupId);
+            var UserGroups = this.entities.UserGroups.Where(x => Lst.Contains(x.UserGroupId)).ToList();
+            if (UserGroups.Where(x => x.GroupName == "Administrator").Count() == 0)
+            {
+                if (op)
+                {
+                    whereClause.Append("AND");
+                }
+                whereClause.AppendFormat(equalClause, "U.UserId", CurrentUserModel.CurrentManagement.UserId.ToString());
+                op = true;
+            }
+
             int total = 0;
             Session[SessionPage] = PageDimension;
             collection =
@@ -341,6 +366,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 Source = collection,
                 PageDimension = PageDimension
             };
+
 
             return View("OrderList", filterItems);
         }

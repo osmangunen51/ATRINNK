@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32328.378
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeoSistem.MakinaTurkiye.Management", "NeoSistem.MakinaTurkiye.Management\NeoSistem.MakinaTurkiye.Management.csproj", "{84309D68-1C0C-44C0-B118-4786BC1D19C3}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeoSistem.MakinaTurkiye.Core", "NeoSistem.MakinaTurkiye.Core\NeoSistem.MakinaTurkiye.Core.csproj", "{2AB87953-145F-4334-BB14-E7D1FBB466B0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EnterpriseEntity", "EnterpriseEntity", "{CB4D9843-59FC-4971-A662-E338ADE50B53}"
@@ -75,6 +73,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pinterest.App", "Pinterest.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakinaTurkiye.Payment", "MakinaTurkiye.Payment\MakinaTurkiye.Payment.csproj", "{E1A0D9C1-642C-4150-97E0-83BC0C8C5791}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeoSistem.MakinaTurkiye.Management", "NeoSistem.MakinaTurkiye.Management\NeoSistem.MakinaTurkiye.Management.csproj", "{84309D68-1C0C-44C0-B118-4786BC1D19C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,17 +85,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|Any CPU.Build.0 = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|Mixed Platforms.Build.0 = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|x86.ActiveCfg = Debug|Any CPU
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|x86.Build.0 = Debug|Any CPU
 		{2AB87953-145F-4334-BB14-E7D1FBB466B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2AB87953-145F-4334-BB14-E7D1FBB466B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AB87953-145F-4334-BB14-E7D1FBB466B0}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -404,12 +393,23 @@ Global
 		{E1A0D9C1-642C-4150-97E0-83BC0C8C5791}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E1A0D9C1-642C-4150-97E0-83BC0C8C5791}.Release|x86.ActiveCfg = Release|Any CPU
 		{E1A0D9C1-642C-4150-97E0-83BC0C8C5791}.Release|x86.Build.0 = Release|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Debug|x86.Build.0 = Debug|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|x86.ActiveCfg = Release|Any CPU
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{84309D68-1C0C-44C0-B118-4786BC1D19C3} = {08981DA8-1288-4B67-87D2-25D021BBFC4B}
 		{2AB87953-145F-4334-BB14-E7D1FBB466B0} = {CB4D9843-59FC-4971-A662-E338ADE50B53}
 		{CB4D9843-59FC-4971-A662-E338ADE50B53} = {1B29897E-F21B-4133-9246-D8EEFBD175C9}
 		{54138AEC-6D2A-4CED-A2BA-CB88AE77BD8D} = {CB4D9843-59FC-4971-A662-E338ADE50B53}
@@ -439,11 +439,12 @@ Global
 		{B9B9AF7E-3D59-4C9A-9716-246B86945509} = {E3AF8A8E-3AEB-4C19-94BE-FBDE53B2AA6C}
 		{300BBB47-FCC0-47B1-8252-346995067F53} = {E3AF8A8E-3AEB-4C19-94BE-FBDE53B2AA6C}
 		{E1A0D9C1-642C-4150-97E0-83BC0C8C5791} = {64BDDDA8-F40F-465B-83BC-295B0A86432E}
+		{84309D68-1C0C-44C0-B118-4786BC1D19C3} = {08981DA8-1288-4B67-87D2-25D021BBFC4B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.Logging.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 		SolutionGuid = {943471DD-C929-42E6-ABF0-5EE9B6366281}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.Logging.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true

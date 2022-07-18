@@ -37,12 +37,12 @@ namespace MakinaTurkiye.Services.Stores
             _StorePackagePurchaseRequestRepository.Delete(StorePackagePurchaseRequest);
         }
 
-        public StorePackagePurchaseRequest GetStorePackagePurchaseRequestWithDate(System.DateTime date)
+        public StorePackagePurchaseRequest GetStorePackagePurchaseRequestWithDate(int MainMartyId,System.DateTime date)
         {
             if (date == default)
                 throw new ArgumentNullException("StorePackagePurchaseRequest");
             var query = _StorePackagePurchaseRequestRepository.Table;
-            query = query.Where(s => s.Date>=date.Date);
+            query = query.Where(s => s.Date>=date.Date && s.MainPartyId==MainMartyId);
             return query.FirstOrDefault();
         }
 

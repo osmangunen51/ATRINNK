@@ -7,8 +7,8 @@
 }
 @section HeadContent {
 
-    <script type="text/javascript" src="/Scripts/CKEditor/ckeditor.js"></script>
-    <script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>
+    @*<script type="text/javascript" src="/Scripts/CKEditor/ckeditor.js"></script>*@
+    @*<script type="text/javascript" src="/Scripts/CKFinder/ckfinder.js"></script>*@
     <script type="text/javascript">
         function subContentCheck(cb)
         {
@@ -137,31 +137,35 @@
 }
 
     <div style="width:100%;">
-        <div style="margin-left: 20px">
-            @foreach (ModelState modelState in ViewData.ModelState.Values)
-                {
-                    foreach (ModelError error in modelState.Errors)
+            <div style="margin-left: 20px">
+                @foreach (ModelState modelState in ViewData.ModelState.Values)
                     {
+                        foreach (ModelError error in modelState.Errors)
+                        {
             
-                    <div style="color: #b70606; border: 3px solid #b70606; width: 500px; padding: 10px; font-size: 16px;">* @error.ErrorMessage</div>
+                        <div style="color: #b70606; border: 3px solid #b70606; width: 500px; padding: 10px; font-size: 16px;">* @error.ErrorMessage</div>
+                        }
                     }
-                }
-            </div>
+                </div>
          @using (Html.BeginForm("EditDesc1", "Member", FormMethod.Post, new { @id = "form" }))
          {
+             string ArkaPlanColor = "rgb(224 242 244)";
+             if (!Model.StoreID.HasValue)
+             {
+                 ArkaPlanColor = "#c4e3ff";
+             }
         <br />
        <div style="width:100%">
-           <div style="width: 40%; float: left;@(Model.StoreID.HasValue?"":"background-color:rgb(224 242 244)")">
+           <div style="width:40%;float:left;background-color:@ArkaPlanColor">
             @if (Model.StoreID.HasValue)
                 {
                     <a style="font-size: 18px;margin-left:10px" target="_blank" href="/Store/EditStore/@Model.StoreID">@Model.StoreName</a>
                 }
                 else
                 {
-                    <a style="font-size: 18px;margin-left:10px" target="_blank" href="#">@Model.StoreName</a> <span style="font-weight:700;font-size:16px;color:red;float:right">ÖN KAYIT</span>
+
+                    <p style="font-size: 18px;margin-left:10px" >@Model.StoreName <span style="font-weight:700;font-size:16px;color:red;float:right">ÖN KAYIT</span></p> 
                 }
-            
-            <br />
             <fieldset style="height:382px;margin-top:10px;">
             <legend>
             </legend>
@@ -413,8 +417,6 @@
        </div>
        <br />
      } 
-    <div>
-    <br />
    </div>
    <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
         <thead>
@@ -474,8 +476,8 @@
                      }
                      else
                      {
-                                 <button style="float:right;padding:10px" class="toggle" data-hedef="#pnl@key"> Göster </button>
-                                      <div class="target kapali" id="pnl@key">
+                                 <button style="float:right;padding:10px" class="toggle" data-hedef="#pnl_@key"> Göster </button>
+                                      <div class="target kapali" id="pnl_@key">
                                          @Html.Raw(itemMemberDesc.Description)
                                  </div>
                      }
@@ -603,30 +605,25 @@
 
        //CKFinder.SetupCKEditor(editor, '/Scripts/CKFinder/');
    </script>
-         <script type="text/javascript">
-             $(document).ready(function () {
-                 $(".kapali").each(function (index) {
-                     var kontrol = $(this);
-                     kontrol.toggle();
-                 });
-                 $(".toggle").click(function () {
-                     var kontrol = $(this);
-                     var hedef = kontrol.attr("data-hedef");
-                     console.log(hedef);
-                     if ($(hedef).hasClass("open")) {
-                         $(hedef).hide();
-                         $(hedef).removeClass("open");
-                         kontrol.html('Göster');
-                     }
-                     else {
-                         $(hedef).show();
-                         $(hedef).addClass("open");
-                         kontrol.html('Gizle');
-                     }
-                 });
-             });
-         </script>
-
-
-
-
+   <script type="text/javascript">
+       $(document).ready(function () {
+           $(".kapali").each(function (index) {
+               var kontrol = $(this);
+               kontrol.toggle();
+           });
+           $(".toggle").click(function () {
+               var kontrol = $(this);
+               var hedef = kontrol.attr("data-hedef");
+               if ($(hedef).hasClass("open")) {
+                   $(hedef).hide();
+                   $(hedef).removeClass("open");
+                   kontrol.html('Göster');
+               }
+               else {
+                   $(hedef).show();
+                   $(hedef).addClass("open");
+                   kontrol.html('Gizle');
+               }
+           });
+       });
+   </script>

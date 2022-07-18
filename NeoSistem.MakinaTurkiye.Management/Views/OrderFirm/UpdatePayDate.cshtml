@@ -118,7 +118,7 @@
                     <td class="Cell CellBegin">@item.Id</td>
                     <td class="Cell">@item.Amount.ToString("C2")</td>
                     <td class="Cell">
-                        @item.IsPaid==true ?"Ödendi":"Ödenmedi"
+                        @(item.IsPaid==true ?"Ödendi":"Ödenmedi")
                     </td>
                     <td class="Cell CellEnd">@item.PayDate.ToString("dd/MMM/yyyy")</td>
                 </tr>

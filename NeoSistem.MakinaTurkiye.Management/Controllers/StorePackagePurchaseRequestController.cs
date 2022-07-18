@@ -1,14 +1,9 @@
-﻿using MakinaTurkiye.Entities.Tables.Stores;
-using MakinaTurkiye.Services.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using MakinaTurkiye.Services.Stores;
 using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
-    public class StorePackagePurchaseRequestController: BaseController
+    public class StorePackagePurchaseRequestController : BaseController
     {
         private IStorePackagePurchaseRequestService _storePackagePurchaseRequestService;
 

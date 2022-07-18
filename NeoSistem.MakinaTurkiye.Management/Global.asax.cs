@@ -1,9 +1,11 @@
 ﻿using MakinaTurkiye.Core.Infrastructure;
+using NeoSistem.MakinaTurkiye.Management.App_Start;
 using NeoSistem.MakinaTurkiye.Management.Models.Validation;
 using System;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 // Note: For instructions on enabling IIS6 or IIS7 classic mode,
@@ -13,21 +15,6 @@ namespace NeoSistem.MakinaTurkiye.Management
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
-            routes.MapRoute(
-              "Default", // Route name
-              "{controller}/{action}/{id}", // URL with parameters
-              new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-            );
-            routes.MapRoute("WithTarget", "{controller}/{action}/{id}#{target}");
-
-            routes.MapRoute("Login", "{controller}/{action}", new { controller = "Account", action = "Login" });
-
-        }
-
         protected void Application_AuthenticateRequest(object sender, EventArgs e)
         {
             if (Context.User != null)
@@ -52,7 +39,10 @@ namespace NeoSistem.MakinaTurkiye.Management
             //initialize engine context
             EngineContext.Initialize(false);
             AreaRegistration.RegisterAllAreas();
-            RegisterRoutes(RouteTable.Routes);
+
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredValidationAttribute), typeof(RequiredAttributeAdapter));
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(StringLengthValidationAttribute), typeof(StringLengthAttributeAdapter));
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(EmailValidationAttribute), typeof(RegularExpressionAttributeAdapter));

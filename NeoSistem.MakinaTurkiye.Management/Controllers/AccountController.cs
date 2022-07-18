@@ -4,6 +4,7 @@
     using global::MakinaTurkiye.Services.Users;
     using Models;
     using Models.Authentication;
+    using NeoSistem.MakinaTurkiye.Management.ActionFilters;
     using System;
     using System.Web.Mvc;
 
@@ -15,9 +16,13 @@
         {
             _userInformationService = userInformationService;
         }
+
+        [CompressFilter]
+        [WhitespaceFilter]
+
         public ActionResult Login()
         {
-            NeoSistem.MakinaTurkiye.Management.Models.AccountModel model=new AccountModel();
+            NeoSistem.MakinaTurkiye.Management.Models.AccountModel model = new AccountModel();
             return View(model);
         }
 
@@ -27,6 +32,9 @@
             return RedirectToAction("Login", "Account");
         }
 
+
+        [CompressFilter]
+        [WhitespaceFilter]
         [HttpPost]
         public ActionResult Login(AccountModel collection, string returnUrl)
         {

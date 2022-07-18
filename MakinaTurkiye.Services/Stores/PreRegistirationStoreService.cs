@@ -3,6 +3,7 @@ using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Stores;
+using MakinaTurkiye.Entities.Tables.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace MakinaTurkiye.Services.Stores
         IRepository<MemberDescription> _memberDescriptionRepository;
         IRepository<Store> _StoreRepository;
         IRepository<Phone> _PhoneRepository;
-
+ 
         public PreRegistirationStoreService(IRepository<MemberDescription> MemberDescriptionRepository, IRepository<PreRegistrationStore> repository, IRepository<Phone> PhoneRepository,IRepository<Store> StoreRepository)
         {
             this._preRegistrationStoreRepository = repository;
@@ -72,7 +73,8 @@ namespace MakinaTurkiye.Services.Stores
             var memberDescription = _memberDescriptionRepository.Table.Where(x=> PreRegistrationStoreIdList.Contains((int)x.PreRegistrationStoreId)).Select(x => new {
                 PreRegistrationStoreId = x.PreRegistrationStoreId,
                 date=x.Date,
-                title = x.Title
+                title = x.Title,
+                userId=x.UserId
             }).ToList();
 
             List<string> ControlList = new List<string>() {
@@ -109,7 +111,6 @@ namespace MakinaTurkiye.Services.Stores
             result = result.OrderByDescending(x => x.PreRegistrationStoreId).Skip(page * pageSize - pageSize).Take(pageSize).ToList();
             var preRegistrationStores = result.ToList();
             return new PagedList<PreRegistrationStore>(preRegistrationStores, page, pageSize, totalRecord);
-
         }
 
 

@@ -220,18 +220,19 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 OrderName = STARTCOLUMN,
                 Source = collection
             };
-            foreach (var item in model.Source)
-            {
-                foreach (var item2 in entities.MemberStores)
-                {
-                    if (item.MainPartyId == item2.StoreMainPartyId)
-                    {
-                        item.member = (from c in entities.Members
-                                       where c.MainPartyId == item2.MemberMainPartyId
-                                       select c).SingleOrDefault();
-                    }
-                }
-            }
+
+            //foreach (var item in model.Source)
+            //{
+            //    foreach (var item2 in entities.MemberStores)
+            //    {
+            //        if (item.MainPartyId == item2.StoreMainPartyId)
+            //        {
+            //            item.member = (from c in entities.Members
+            //                           where c.MainPartyId == item2.MemberMainPartyId
+            //                           select c).SingleOrDefault();
+            //        }
+            //    }
+            //}
             return View(model);
         }
 
@@ -375,8 +376,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int total = 0;
 
             Session[SessionPage] = PageDimension;
-            collection =
-              dataStore.Search(ref total, PageDimension, Page ?? 1, whereClause.ToString(), OrderName, Order).AsCollection<StoreModel>();
+            collection =dataStore.Search(ref total, PageDimension, Page ?? 1, whereClause.ToString(), OrderName, Order).AsCollection<StoreModel>();
             LinkHelper lHelper = new LinkHelper();
             foreach (var item in collection)
             {

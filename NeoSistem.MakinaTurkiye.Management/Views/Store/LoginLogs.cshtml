@@ -7,8 +7,8 @@
 }
 @section HeadContent {
 
-    <link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
-    <script type="text/javascript" src="/Scripts/SuperBox/jquery.superbox.js"></script>
+    @*<link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />*@
+    @*<script type="text/javascript" src="/Scripts/SuperBox/jquery.superbox.js"></script>*@
     <script type="text/javascript">
         function DeletePost(changeId) {
             if (confirm('Kaydı Silmek istediğinizden eminmisiniz ?')) {
@@ -111,7 +111,7 @@
                 <td class="Cell">
                     @if (item.Store != null)
                     {
-                        <a target="_blank" href="/Store/EditStore/@item.Store.MainPartyId">@item.Store.StoreName} </a>
+                        <a target="_blank" href="/Store/EditStore/@item.Store.MainPartyId">@item.Store.StoreName</a>
                     }
                 </td>
                 <td class="Cell">@item.IpAddress</td>

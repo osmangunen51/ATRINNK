@@ -209,7 +209,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             packetViewModel.PacketItems = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x => x.DopingPacketDay.HasValue == false).ToList();
             var constant = _constantService.GetConstantByConstantType(ConstantTypeEnum.PacketSalesFooter).FirstOrDefault();
             if (constant != null) packetViewModel.BottomDescription = constant.ContstantPropertie;
-            var StorePackagePurchaseRequest = _storePackagePurchaseRequestService.GetStorePackagePurchaseRequestWithDate(DateTime.Now);
+
+            var StorePackagePurchaseRequest = _storePackagePurchaseRequestService.GetStorePackagePurchaseRequestWithDate((int)memberStore.StoreMainPartyId.Value, DateTime.Now);
             if (StorePackagePurchaseRequest==null)
             {
                 StorePackagePurchaseRequest = new StorePackagePurchaseRequest();

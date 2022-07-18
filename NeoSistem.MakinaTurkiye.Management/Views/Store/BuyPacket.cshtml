@@ -130,7 +130,7 @@
                     }
                 }
             }
-            else if (orderType == "@((byte)Ordertype.KrediKartiVade)" || orderType == @((byte)Ordertype.Havale) {
+            else if (orderType == "@((byte)Ordertype.KrediKartiVade)" || orderType == @((byte)Ordertype.Havale)) {
                 if ($("#FirstDate").val() == "") {
                     alert("Lütfen ödeme tarihi giriniz.");
                     $("#preLoading").hide();
@@ -263,11 +263,9 @@
                 <td>
                     <select name="PacketId" id="PacketId">
                         <option value="0" price="0">Seçiniz</option>
-                        @foreach (var item in Model.Packets)
+                        @foreach (var item in Model.Packets.OrderBy(x=>x.PacketName))
                             {
-                        <option price="@item.PacketPrice"  day="@item.PacketDay" value="@item.PacketId">@item.PacketName</option>
-                        
-
+                                <option price="@item.PacketPrice"  day="@item.PacketDay" value="@item.PacketId">@item.PacketName</option>
                             } 
                     </select>
                 </td>

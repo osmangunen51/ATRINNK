@@ -2,7 +2,7 @@
 @{int row = 0; }
 @foreach (var item in Model.HelpModels.ToList())
     {
-<tr id="row@item.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.ID)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   
   <td class="CellBegin">
     @item.Subject

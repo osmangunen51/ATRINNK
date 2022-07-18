@@ -1,7 +1,7 @@
 ﻿@model List<NeoSistem.MakinaTurkiye.Management.Models.WebSiteErrorListItem>
 @foreach (var item in Model.ToList())
     {
-<tr id="row@item.WebSiteErrorId">
+<tr id="@("row"+item.WebSiteErrorId)">
     <td class="Cell">@item.ProblemTypeText</td>
     <td class="Cell">@item.Title</td>
     @if (item.Content.Length > 50)

@@ -1,6 +1,7 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
     using MakinaTurkiye.Management.Models.Entities;
+    using NeoSistem.MakinaTurkiye.Management.ActionFilters;
     using NeoSistem.MakinaTurkiye.Management.Models.Authentication;
     using Properties;
     using System;
@@ -9,6 +10,8 @@
     using System.Web.Mvc;
 
     [HandleError]
+    [CompressFilter]
+    [WhitespaceFilter]
     public class BaseController : Core.Web.Controller
     {
         protected internal MakinaTurkiyeEntities entities = null;

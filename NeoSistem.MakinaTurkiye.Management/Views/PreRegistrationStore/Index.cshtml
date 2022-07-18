@@ -26,7 +26,7 @@
                     },
                     type: 'post',
                     success: function (data) {
-                        $("#row" + id).hide();
+                        $("#row_" + id).hide();
 
                     },
                     error: function (x, a, r) {
@@ -67,7 +67,7 @@
             });
         }
     </script>
-    <link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
+    @*<link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />*@
   <script type="text/javascript" src="/Scripts/SuperBox/jquery.superbox-1.js"></script>
   <script type="text/javascript">
 	 $(function () {
@@ -107,18 +107,23 @@
             <thead>
                 <tr>
                     <td class="Header HeaderBegin">#</td>
-                    <td class="Header" style="width:200px;">Firma Adı
+                    <td class="Header" style="width:200px;">
+                        Firma Adı
                     </td>
-                    <td class="Header">Yetkili Adı/Soyadı
+                    <td class="Header">
+                        Yetkili Adı/Soyadı
                     </td>
-                    <td class="Header">Email
+                    <td class="Header">
+                        Email
                     </td>
-                    <td class="Header">Telefon Numarası
+                    <td class="Header">
+                        Telefon Numarası
                     </td>
                     <td class="Header">Diğer Telefon</td>
                     <td class="Header">Web Adresi</td>
                     <td class="Header">Şehir</td>
                     <td class="Header">Tarih</td>
+                    <td class="Header">Kullanıcı</td>
                     <td class="HeaderEnd"></td>
                 </tr>
                 <tr style="background-color: #F1F1F1">

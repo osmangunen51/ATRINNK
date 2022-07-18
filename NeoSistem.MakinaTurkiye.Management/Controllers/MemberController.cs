@@ -2355,7 +2355,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
             model.MemberNameSurname = memberName + " " + memberSurname;
             model.StoreName = storeName;
-            
+
             var contantlist = _constantService.GetAllConstants();
 
             foreach (var item in MemberDescription)
