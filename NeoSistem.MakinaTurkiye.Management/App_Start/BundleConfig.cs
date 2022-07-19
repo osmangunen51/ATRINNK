@@ -28,9 +28,9 @@ namespace NeoSistem.MakinaTurkiye.Management.App_Start
                      "~/Content/Scripts/jquery.validate.js",
                      "~/Content/Scripts/jquery.metadata.js",
                      "~/Content/Scripts/SuperBox/jquery.superbox.js",
-                     "~/Content/Scripts/Ribbon.js",
-                     "~/Content/Scripts/CKEditor/ckeditor.js",
-                     "~/Content/Scripts/CKFinder/ckfinder.js"
+                     "~/Content/Scripts/Ribbon.js"
+                     //"~/Content/Scripts/CKEditor/ckeditor.js",
+                     //"~/Content/Scripts/CKFinder/ckfinder.js"
                 );
 
             //BunddleSystem.Orderer = new NonOrderingBundleOrderer();
