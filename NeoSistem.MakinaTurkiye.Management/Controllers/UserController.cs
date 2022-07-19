@@ -99,6 +99,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             return PartialView("UserList", model);
         }
 
+        [ValidateInput(false)]
         public ActionResult Create()
         {
             PAGEID = PermissionPage.UyeEkle;
@@ -124,6 +125,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Create(UserModel model, UserInformationModel userInformationModel, FormCollection collection)
         {
             var curUser = new User
@@ -136,16 +138,18 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 UserMail = model.UserMail,
                 UserColor = model.UserColor,
                 Active = true,
-                ActiveForDesc = true
+                ActiveForDesc = true,
+                Name = model.Name,
+                Surname=model.Surname,
+                CallCenterUrl=model.Surname,
+                Signature= model.Signature,
             };
             entities.Users.AddObject(curUser);
             int userGroupId = 0;
             if (collection["Permission"] != null)
             {
                 var values = collection["Permission"].Split(',');
-
                 var permissionUser = new Classes.PermissionUser();
-
                 foreach (var item in values)
                 {
                     if (item.ToInt32() > 0)

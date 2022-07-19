@@ -38,29 +38,28 @@
                 <select name="time" style="width: 150px;">
                     <option value="">Seçiniz</option>
                     @for (int i = 6; i <= 23; i++)
+                    {
+                        for (int a = 0; a <= 3; a++)
                         {
-                            for (int a = 0; a <= 3; a++)
+                            if (a == 0)
                             {
-                                if (a == 0)
-                                {
-                                    Response.Write("<option value='" + i + ":00'>" + i + ":00</option>");
-                                }
-                                else if (a == 1)
-                                {
-                                    Response.Write("<option value='" + i + ":15'>" + i + ":15</option>");
-
-                                }
-                                else if (a == 2)
-                                {
-                                    Response.Write("<option value='" + i + ":30'>" + i + ":30</option>");
-                                }
-                                else
-                                {
-                                    Response.Write("<option value='" + i + ":45'>" + i + ":45</option>");
-                                }
-
+                                <option value='@(i+":00")'>@(i + ":00")</option>
                             }
+                            else if (a == 1)
+                            {
+                                <option value='@(i+":15")'>@(i + ":15")</option>
+                            }
+                            else if (a == 2)
+                            {
+                                <option value='@(i+":30")'>@(i + ":30")</option>
+                            }
+                            else
+                            {
+                                <option value='@(i+":45")'>@(i + ":45")</option>
+                            }
+
                         }
+                    }
                 </select>
             </div>
         </td>

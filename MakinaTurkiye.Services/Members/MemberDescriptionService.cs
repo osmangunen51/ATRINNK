@@ -50,9 +50,8 @@ namespace MakinaTurkiye.Services.Members
             return _dbContext.SqlQuery<MemberDescriptionForStore>("SP_DescriptionGetByMainPartyIdDescDate @Colname, @MainPartyId", pOrderDesc, pMainPartyId).ToList();
         }
 
-        public IList<MemberDescriptionForStore> GetMemberDescByOnDate(int userId,int userGroupId, int pageDimension, int pageIndex, int orderBy, int consttandtId,out int totalRecord, string city = "")
+        public IList<MemberDescriptionForStore> GetMemberDescByOnDate(int userId, int userGroupId, int pageDimension, int pageIndex, int orderBy, int consttandtId, out int totalRecord, string city = "", string inputdate = "", string updateDate = "", int fromUserId = 0)
         {
-
             var pUserId = _dataProvider.GetParameter();
             pUserId.ParameterName = "UserId";
             pUserId.Value = userId;
@@ -94,7 +93,41 @@ namespace MakinaTurkiye.Services.Members
             pcity.Value = city;
             pcity.DbType = DbType.String;
 
-            var descripitons = _dbContext.SqlQuery<MemberDescriptionForStore>("SP_GETMEMBERDESCBYONDATEY @UserId,@city,@UserGroupId, @PageIndex, @PageDimension,@OrderBy, @ConstantId, @TotalRecord output", pUserId, pcity, pUserGroupId, pPageIndex, pPageSize, pOrderBy, pConstantId, pTotalRecords).ToList();
+            var pInputDate = _dataProvider.GetParameter();
+            pInputDate.ParameterName = "InputDate";
+            pInputDate.DbType = DbType.String;
+            if (!string.IsNullOrEmpty(inputdate))
+            {
+                DateTime PIInputDate = Convert.ToDateTime(inputdate);
+                pInputDate.Value = PIInputDate.ToString("yyyyMMdd");
+            }
+            else
+            {
+                pInputDate.Value = "";
+            }
+
+
+            var pUpdateDate = _dataProvider.GetParameter();
+            pUpdateDate.ParameterName = "UpdateDate";
+            pUpdateDate.DbType = DbType.String;
+            if (!string.IsNullOrEmpty(updateDate))
+            {
+                DateTime PIUpdateDate = Convert.ToDateTime(updateDate);
+                pUpdateDate.Value = PIUpdateDate.ToString("yyyyMMdd");
+            }
+            else
+            {
+                pUpdateDate.Value = "";
+            }
+
+
+            var pFromUserId = _dataProvider.GetParameter();
+            pFromUserId.ParameterName = "FromUserId";
+            pFromUserId.Value = fromUserId;
+            pFromUserId.DbType = DbType.Int32;
+
+
+            var descripitons = _dbContext.SqlQuery<MemberDescriptionForStore>("SP_GETMEMBERDESCBYONDATEY @UserId,@city,@FromUserId,@InputDate,@UpdateDate,@UserGroupId, @PageIndex, @PageDimension,@OrderBy, @ConstantId, @TotalRecord output", pUserId,pcity, pFromUserId, pInputDate,pUpdateDate,pUserGroupId, pPageIndex, pPageSize, pOrderBy, pConstantId, pTotalRecords).ToList();
             totalRecord = (pTotalRecords.Value != DBNull.Value) ? Convert.ToInt32(pTotalRecords.Value) : 0;
             return descripitons;
         }

@@ -10,6 +10,10 @@
     {
         public DataTable Search(ref int TotalRecord, int PageDimension, int Page, string Where, string OrderName, string Order)
         {
+            if (string.IsNullOrEmpty(OrderName))
+            {
+                OrderName = "S.MainPartyId";
+            }
             var prms = new List<IDataParameter>
           {
             TotalRecord.InOutSqlParameter("TotalRecord"),

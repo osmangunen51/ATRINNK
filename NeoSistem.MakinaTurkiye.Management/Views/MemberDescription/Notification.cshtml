@@ -8,18 +8,6 @@
         <span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>
         <strong>Yükleniyor.</strong> Lütfen bekleyiniz...
     </div>
-    <div style="font-size: 18px; margin-top: 20px; float: right;">
-        Filtrele:
-                 <select name="users" id="UserId" onchange="SearchPost();">
-                     @foreach (var item in Model.Users)
-                     {
-                         string selected = "";
-                         if (item.Selected) { selected = "selected"; }
-                     <option value="@item.Value" @selected>@item.Text</option>
-                     } 
-                 </select>
-        @Html.DropDownList("UserType",Model.UserTypes,new {@id="UserType", @onchange="SearchPost();"})
-    </div>
     <div style="width: 100%; margin: 0 auto;">
         <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
             <thead>
@@ -42,30 +30,72 @@
                     <td class="Cell"></td>
                     <td class="Cell"></td>
                     <td class="Cell">
-                       <input id="city" class="Search" style="width: 75%; text-align:center;border: none;" value="" onchange="SearchPost();" />
-                       <span class="ui-icon ui-icon-close searchClear" style="width: 16%;text-align:center" onclick="$('#City').val('');">
-                       </span>
-                    </td>
-                    <td class="Cell">
-                                       <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
+                        <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
                             <tbody>
                                 <tr>
                                     <td style="border: solid 1px #CCC; background-color: #FFF;">
-                                 
-                                        @Html.DropDownList("ConstantId",Model.Titles,new {@onchange="SearchPost();" })
-                        
+
+                                        @Html.DropDownList("ConstantId", Model.Titles, new { @onchange = "SearchPost();" })
+
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-
+                    </td>
+                    <td class="Cell" style="min-width:300px">
+                    </td>
+                    <td class="Cell" style="width:100px;">
+                        <input id="city" class="Search" style="width: 84%; text-align: center; border: none; " value="" onchange="SearchPost();" />
+                        <span class="ui-icon ui-icon-close searchClear" style="width: 16%;text-align:center" onclick="$('#City').val('');"></span>
+                    </td>
+                    <td class="Cell">
+                        <input type="text" style="float: none; width: 70px" autocomplete="off" name="inputdate" placeholder="Oluşturulma Tarih" class="date Search" id="inputdate" />
+                    </td>
+                    <td class="Cell">
+                        <input type="text" style="float: none;width:70px" autocomplete="off" name="updateDate" placeholder="Hatırlatma Tarih" class="date Search" id="updateDate" />
+                    </td>
+                    <td class="Cell">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select style="width:100px" name="FromUserId" id="FromUserId" onchange="SearchPost();">
+                                            @foreach (var item in Model.Users)
+                                            {
+                                                string selected = "";
+                                                if (item.Selected) { selected = "selected"; }
+                                                <option value="@item.Value" @selected>@item.Text</option>
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td class="Cell">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <select style="width:100px" name="users" id="UserId" onchange="SearchPost();">
+                                            @foreach (var item in Model.Users)
+                                            {
+                                                string selected = "";
+                                                if (item.Selected) { selected = "selected"; }
+                                                <option value="@item.Value" @selected>@item.Text</option>
+                                            }
+                                        </select>
+                                    </td>
+                                </tr>
+                                @*<tr>
+                                    <td>
+                                        @Html.DropDownList("UserType", Model.UserTypes, new { @id = "UserType", @onchange = "SearchPost();" })
+                                    </td>
+                                </tr>*@
+                            </tbody>
+                        </table>
                     </td>
                     <td class="Cell"></td>
-                    <td class="Cell"></td>
-                    <td class="Cell"></td>
-                    <td class="Cell"></td>
-                    <td class="Cell"></td>
-                       <td class="Cell"></td>
                     <td class="CellEnd"></td>
                 </tr>
             </thead>
@@ -78,7 +108,7 @@
 @section HeadContent {
 
     @*<link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />*@
-    <script type="text/javascript" src="/Scripts/SuperBox/jquery.superbox-1.js"></script>
+    <script type="text/javascript" src="~/Content/Scripts/SuperBox/jquery.superbox-1.js"></script>
 
     <script type="text/javascript">
         function PagingPost(p)
@@ -106,8 +136,11 @@
                 data: {
                     page: $('#CurrentPage').val(),
                     city: $("#city").val(),
+                    inputdate: $("#inputdate").val(),
+                    updateDate: $("#updateDate").val(),
                     userId: $("#UserId").val(),
-                    userGroupId: $("#UserType").val(),
+                    fromUserId: $("#FromUserId").val(),
+                    userGroupId:0,
                     orderBy: $("#OrderType").val(),
                     constantId: $("#ConstantId").val()
                 },
@@ -122,6 +155,18 @@
                 }
             });
         }
+
+        $(document).ready(function () {
+            $('.Search').keyup(function (e) {
+                if (e.keyCode == 13) {
+                    $('.HeaderDown').removeClass('HeaderDown');
+                    $(e).addClass('HeaderDown');
+                    $('#Order').val(($('#Order').val() == 'DESC' ? 'ASC' : 'DESC'));
+                    $('#OrderName').val($(this).id);
+                    SearchPost();
+                }
+            });
+        });
 
         $(function () {
             $.superbox.settings =

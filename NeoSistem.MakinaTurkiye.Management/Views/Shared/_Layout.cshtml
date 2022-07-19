@@ -36,71 +36,71 @@
             $('.Content').height($(window).height() - resizeHeight);
         }
         setInterval('resizeContent()', 100);
-        //$(document).ready(function () {
-        //    numberGetNot = 0;
-        //    lastCountNot = 0;
-        //    countNot = 0;
-        //    GetSeoNotification();
-        //    $("button").button();
-        //    GetNotification();
-        //    GetNotSpecialForUser();
-        //    //setInterval(GetNotification, 400000);
-        //});
-        //function GetNotSpecialForUser() {
-        //    $.ajax({
-        //        url: '/MemberDescription/getNotification1',
-        //        type: 'post',
-        //        data: {},
-        //        success: function (data) {
-        //            $("#notification1").html("<font style='color:#ed1818; font-weight:600'>" + data + "</font> Bildirim");
+        $(document).ready(function () {
+            numberGetNot = 0;
+            lastCountNot = 0;
+            countNot = 0;
+            GetSeoNotification();
+            $("button").button();
+            GetNotification();
+            GetNotSpecialForUser();
+            //setInterval(GetNotification, 400000);
+        });
+        function GetNotSpecialForUser() {
+            $.ajax({
+                url: '/MemberDescription/getNotification1',
+                type: 'post',
+                data: {},
+                success: function (data) {
+                    $("#notification1").html("<font style='color:#ed1818; font-weight:600'>" + data + "</font> Bildirim");
 
-        //        },
-        //        error: function (x) {
-        //            $('#preLoading').hide();
-        //            //$('#table').html(x.responseText);
-        //        }
-        //    });
-        //}
-        //function GetNotification() {
-        //    numberGetNot = numberGetNot + 1;
-        //    $.ajax({
-        //        url: '/MemberDescription/getNotification',
-        //        type: 'post',
-        //        data: {},
-        //        success: function (data) {
-        //            $("#notification").html("<font style='color:#ed1818; font-weight:600'>" + data.count + " Genel </font> Bildirim");
-        //            countNot = data.count;
-        //            if (numberGetNot > 1) {
-        //                if (parseInt(data.count) > lastCountNot) {
-        //                    $("#newNot").html(data.count - lastCountNot + " yeni bildirim");
-        //                    $("#newNot").slideDown();
-        //                }
-        //            }
-        //            lastCountNot = countNot;
-        //        },
-        //        error: function (x) {
-        //            $('#preLoading').hide();
-        //            //$('#table').html(x.responseText);
-        //        }
-        //    });
-        //}
-        //function GetSeoNotification() {
-        //    $.ajax({
-        //        url: '/StoreSeoNotification/GetCountSeoNotification',
-        //        type: 'get',
-        //        data: {},
-        //        success: function (data) {
-        //            if (data != false) {
-        //                $("#notSeo").html("<span style='color:red'>" + data.Count + " </span> seo bildirim");
-        //            }
+                },
+                error: function (x) {
+                    $('#preLoading').hide();
+                    //$('#table').html(x.responseText);
+                }
+            });
+        }
+        function GetNotification() {
+            numberGetNot = numberGetNot + 1;
+            $.ajax({
+                url: '/MemberDescription/getNotification',
+                type: 'post',
+                data: {},
+                success: function (data) {
+                    $("#notification").html("<font style='color:#ed1818; font-weight:600'>" + data.count + " Genel </font> Bildirim");
+                    countNot = data.count;
+                    if (numberGetNot > 1) {
+                        if (parseInt(data.count) > lastCountNot) {
+                            $("#newNot").html(data.count - lastCountNot + " yeni bildirim");
+                            $("#newNot").slideDown();
+                        }
+                    }
+                    lastCountNot = countNot;
+                },
+                error: function (x) {
+                    $('#preLoading').hide();
+                    //$('#table').html(x.responseText);
+                }
+            });
+        }
+        function GetSeoNotification() {
+            $.ajax({
+                url: '/StoreSeoNotification/GetCountSeoNotification',
+                type: 'get',
+                data: {},
+                success: function (data) {
+                    if (data != false) {
+                        $("#notSeo").html("<span style='color:red'>" + data.Count + " </span> seo bildirim");
+                    }
 
-        //        },
-        //        error: function (x) {
-        //            $('#preLoading').hide();
-        //            //$('#table').html(x.responseText);
-        //        }
-        //    });
-        //}
+                },
+                error: function (x) {
+                    $('#preLoading').hide();
+                    //$('#table').html(x.responseText);
+                }
+            });
+        }
     </script>
 </body>
 </html>

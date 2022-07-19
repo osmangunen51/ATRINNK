@@ -291,75 +291,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             return Json(new { count = totalRecord });
         }
 
-
-        public ActionResult UserNotification(string UserId)
-        {
-            NotificationModelBase model = new NotificationModelBase();
-            var memberDescs = new List<global::MakinaTurkiye.Entities.StoredProcedures.Members.MemberDescriptionForStore>();
-            int pageDimension = 30;
-            int userId = 0;
-            int totalRecord = 0;
-            if (!string.IsNullOrEmpty(UserId))
-            {
-
-                userId = Convert.ToInt32(UserId);
-
-
-            }
-            else
-            {
-                PAGEID = PermissionPage.AllNotification;
-            }
-            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, 0, pageDimension, 1, (byte)MemberDescriptionOrder.Defaullt, 0, out totalRecord, "").ToList();
-            PrepareUserTypeModel(model);
-            int totalCount = memberDescs.Count;
-            var listNotif = PrepareNotificationList(memberDescs, pageDimension);
-            FilterModel<NotificationModel> filterModel = new FilterModel<NotificationModel>();
-            filterModel.TotalRecord = totalRecord;
-            filterModel.CurrentPage = 1;
-            filterModel.PageDimension = pageDimension;
-            filterModel.Source = listNotif;
-            model.Notifications = filterModel;
-            var users = entities.Users.Where(x => x.Active == true).OrderBy(x => x.UserName).ToList();
-            model.Users.Add(new SelectListItem { Text = "Tümü", Value = "0" });
-            foreach (var item in users)
-            {
-                var selectList = new SelectListItem { Text = item.UserName, Value = item.UserId.ToString() };
-                if (item.UserId.ToString() == UserId)
-                {
-                    selectList.Selected = true;
-                }
-                model.Users.Add(selectList);
-            }
-            var constants = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.StoreDescriptionType).OrderBy(x => x.Order).ThenBy(x => x.ConstantName).ToList();
-            var constantList = new List<SelectListItem>();
-            constantList.Add(new SelectListItem { Text = "Tümü", Value = "0" });
-            foreach (var item in constants)
-            {
-                var selectListItem = new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString() };
-                constantList.Add(selectListItem);
-            }
-            model.Titles = constantList;
-            return View(model);
-        }
-        [HttpPost]
-        public PartialViewResult UserNotification(int userId, string city, int page, int userGroupId, int orderBy, int constantId)
-        {
-            int pageDimension = 30;
-            var memberDescs = new List<global::MakinaTurkiye.Entities.StoredProcedures.Members.MemberDescriptionForStore>();
-            int totalRecord = 0;
-            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, userGroupId, pageDimension, page, orderBy, constantId, out totalRecord, city).ToList();
-            memberDescs = memberDescs.OrderByDescending(x => x.IsFirst).ThenBy(x => x.UpdateDate).ToList();
-            var listNotif = PrepareNotificationList(memberDescs, pageDimension);
-            FilterModel<NotificationModel> filterModel = new FilterModel<NotificationModel>();
-            filterModel.TotalRecord = totalRecord;
-            filterModel.CurrentPage = page;
-            filterModel.PageDimension = pageDimension;
-            filterModel.Source = listNotif;
-            return PartialView("_UserNotificationList", filterModel);
-        }
-
-
         public ActionResult Notification(string UserId)
         {
             NotificationModelBase model = new NotificationModelBase();
@@ -378,7 +309,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 PAGEID = PermissionPage.AllNotification;
             }
-            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, 0, pageDimension, 1, (byte)MemberDescriptionOrder.Defaullt, 0, out totalRecord, "").ToList();
+            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, 0, pageDimension, 1, (byte)MemberDescriptionOrder.Defaullt, 0, out totalRecord, "","").ToList();
             PrepareUserTypeModel(model);
             int totalCount = memberDescs.Count;
             var listNotif = PrepareNotificationList(memberDescs, pageDimension);
@@ -412,12 +343,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult Notification(int userId, string city, int page, int userGroupId, int orderBy, int constantId)
+        public PartialViewResult Notification(int userId, string city,int fromUserId,string inputdate, string updateDate, int page, int userGroupId, int orderBy, int constantId)
         {
             int pageDimension = 30;
             var memberDescs = new List<global::MakinaTurkiye.Entities.StoredProcedures.Members.MemberDescriptionForStore>();
             int totalRecord = 0;
-            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, userGroupId, pageDimension, page, orderBy, constantId, out totalRecord, city).ToList();
+            memberDescs = _memberDescService.GetMemberDescByOnDate(userId, userGroupId, pageDimension, page, orderBy, constantId, out totalRecord, city, inputdate, updateDate, fromUserId).ToList();
             memberDescs = memberDescs.OrderByDescending(x => x.IsFirst).ThenBy(x => x.UpdateDate).ToList();
             var listNotif = PrepareNotificationList(memberDescs, pageDimension);
             FilterModel<NotificationModel> filterModel = new FilterModel<NotificationModel>();

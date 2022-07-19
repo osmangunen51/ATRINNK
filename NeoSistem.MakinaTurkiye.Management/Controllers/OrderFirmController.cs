@@ -114,7 +114,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             string equalClause = " {0} = {1} ";
             whereClause.AppendFormat(equalClause, "O.IsNew", "1");
 
-            bool op = false;
+            bool op = true;
             if (Request.QueryString["PacketStatu"] != null)
             {
                 // Sipariş Listesini Getirirken hataya düşürüldüğü için bu kod kapatıldı.!!

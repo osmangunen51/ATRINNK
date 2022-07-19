@@ -6,8 +6,7 @@
 
 }
 @section HeadContent {
-
-    <script src="/Scripts/FilterModel.debug.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/FilterModel.debug.js" type="text/javascript"></script>
     <script type="text/javascript">
         filterModel.set_controllerName('User');
         filterModel.set_loadElementId('#table');
@@ -75,9 +74,8 @@
             </tfoot>
         </table>
     </div>
-
-    @*<link rel="stylesheet" href="/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />*@
-    <script type="text/javascript" src="/Scripts/SuperBox/jquery.superbox-1.js"></script>
+    <link rel="stylesheet" href="~/Content/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
+    <script type="text/javascript" src="~/Content/Scripts/SuperBox/jquery.superbox-1.js"></script>
     <script type="text/javascript">
         $(function () {
             $.superbox.settings = {

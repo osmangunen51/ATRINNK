@@ -33,9 +33,9 @@
                     <ul style="list-style: none; padding: 0; margin: 0;">
                         @foreach (var item in UserGroupModel.UserGroups)
                             { 
-                        <li class='hover' style="border: none; float: left; width: 170px" onclick="$get('per@item.UserGroupId').click();">
+                        <li class='hover' style="border: none; float: left; width: 170px" onclick="$get('per_@item.UserGroupId').click();">
                             @{ bool hasRecord = Model.Groups.Any(c => c.UserGroupId == item.UserGroupId); }
-                            @Html.RadioButton("Permission", item.UserGroupId, hasRecord, new { id = "per" + item.UserGroupId, value = item.UserGroupId })<span
+                            @Html.RadioButton("Permission", item.UserGroupId, hasRecord, new { id = "per_" + item.UserGroupId, value = item.UserGroupId })<span
                                 style="cursor: default; display: inline-block; height: 17px;">@item.GroupName</span></li>
                          } 
                     </ul>
