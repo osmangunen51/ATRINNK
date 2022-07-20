@@ -563,6 +563,10 @@ namespace MakinaTurkiye.Services.Catalog
 
         public string ClearObjectionableContent(string txt)
         {
+            if (txt==null)
+            {
+                txt = "";
+            }
             var rxUrl = @"\b(https?://(www\.)?)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}[-a-zA-Z0-9@:%_+.~#?&/=]*";
             var rxPhone = @"\+?[0-9]{0,4}(?:[-./() ]*[0-9]{3,4}){3}(?![a-z]{1,4})";
             var rxEmail = @"(?i)\b[A-Z0-9._%+*-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b";

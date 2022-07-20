@@ -923,3 +923,7 @@ pnlcontent {
     font-weight:700;
     text-align:center;
 }
+
+#superbox-innerbox> iframe {
+    max-width: 100% !important;
+}

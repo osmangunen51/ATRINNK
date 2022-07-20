@@ -1,15 +1,11 @@
 ﻿@model FilterModel<OrderModel>
 
 @section TitleContent {
-
     Index
-
 }
 @section HeadContent {
 
     <script type="text/javascript">
-
-
         function StoreChangeClick(ID) {
             $("#storeDisplay" + ID).hide();
             $("#storeChange" + ID).show();
@@ -125,10 +121,7 @@
                     }
                 }
             });
-
         }
-
-
 
         function InvoiceNumberChangeClick(ID) {
             $("#invoiceNumberDisplay" + ID).hide();
@@ -136,6 +129,7 @@
             $("#invoiceNumberNameChange" + ID).show();
             $("#InvoiceNumberChangePencil" + ID).hide();
         }
+
         function InvoiceNumberUpdate(ID) {
             var newInvoiceNumber = $("#invoiceNumberNameChange" + ID).val();
             $.ajax({
@@ -414,7 +408,7 @@
                                 <td style="border: solid 1px #CCC; background-color: #FFF;">
                                     @{
                                         var userList = (List<SelectListItem>)ViewData["SalesUsers"];
-                                        userList = userList.OrderBy(x => x.Text).ToList();
+                                        // userList = userList.OrderBy(x => x.Text).ToList();
                                     }
                                     @Html.DropDownList("SalesUserId", userList, new { @onchange = "SearchPost();" })
 
