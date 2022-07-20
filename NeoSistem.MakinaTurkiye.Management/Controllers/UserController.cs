@@ -18,21 +18,18 @@ using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
-
-
     public class UserController : BaseController
     {
-
         #region Constants
 
-        const string STARTCOLUMN = "UserName";
-        const string ORDER = "Asc";
-        const int PAGEDIMENSION = 20;
+        private const string STARTCOLUMN = "UserName";
+        private const string ORDER = "Asc";
+        private const int PAGEDIMENSION = 20;
 
-        #endregion
+        #endregion Constants
 
-        static Data.User dataUser = null;
-        static ICollection<UserModel> collection = null;
+        private static Data.User dataUser = null;
+        private static ICollection<UserModel> collection = null;
         public readonly IUserMailTemplateService _userTemplateService;
         public readonly IConstantService _constantService;
         private readonly IUserInformationService _userInformationService;
@@ -46,13 +43,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             this._userInformationService = userInformationService;
             this._userFileService = userFileService;
         }
+
         #region Methods
 
         public ActionResult Index()
         {
             PAGEID = PermissionPage.Uyeler;
-
-
 
             int total = 0;
             dataUser = new NeoSistem.MakinaTurkiye.Data.User();
@@ -140,9 +136,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 Active = true,
                 ActiveForDesc = true,
                 Name = model.Name,
-                Surname=model.Surname,
-                CallCenterUrl=model.Surname,
-                Signature= model.Signature,
+                Surname = model.Surname,
+                CallCenterUrl = model.Surname,
+                Signature = model.Signature,
             };
             entities.Users.AddObject(curUser);
             int userGroupId = 0;
@@ -240,11 +236,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 userInformationModel.StartWorkDate = userInformation.StartWorkDate.ToString("dd.MM.yyyy");
                 userInformationModel.BankAccountNumber = userInformation.BankAccountNumber;
                 userInformationModel.SecondPhoneNumber = userInformation.SecondPhoneNumber;
-
             }
             model.UserInformationModel = userInformationModel;
             return View(model);
         }
+
         [HttpPost]
         [ValidateInput(false)]
         public ActionResult Edit(int id, UserModel model, UserInformationModel userInformationModel, FormCollection collection)
@@ -268,7 +264,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     curUser.Signature = model.Signature;
                     curUser.CallCenterUrl = model.CallCenterUrl;
                     entities.SaveChanges();
-
                 }
 
                 int userGroupId = 0;
@@ -294,7 +289,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                             permissionUser.Save();
                         }
                     }
-
                 }
                 var userInformation = _userInformationService.GetUserInformationByUserId(id);
                 bool anyUser = true;
@@ -333,7 +327,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     _userInformationService.UpdateUserInformation(userInformation);
             }
 
-
             return RedirectToAction("Index");
         }
 
@@ -347,7 +340,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         public ActionResult CreateMailTemplate(int id, string tempId)
         {
-
             var model = new MailTemplateFormModel();
             if (!string.IsNullOrEmpty(tempId))
             {
@@ -358,14 +350,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 model.SpecialId = temp.SpecialMailId;
                 model.Subject = temp.Subject;
                 model.UserGroupId = temp.UserGroupId;
-
-
             }
             model.UserId = id;
             PrepareMailTemplateForm(model);
             PrepareMailTemplateList(model);
             return View(model);
         }
+
         [HttpPost, ValidateInput(false)]
         public ActionResult CreateMailTemplate(MailTemplateFormModel model)
         {
@@ -394,6 +385,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 return View(model);
             }
         }
+
         public void PrepareMailTemplateList(MailTemplateFormModel model)
         {
             var mailTemplateList = _userTemplateService.GetUserMailTemplatesByUserId(model.UserId);
@@ -406,8 +398,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 listItem.UserGroupName = entities.UserGroups.FirstOrDefault(x => x.UserGroupId == item.UserGroupId).GroupName;
                 model.UserMailTemplateListItemModels.Add(listItem);
             }
-
         }
+
         public void PrepareMailTemplateForm(MailTemplateFormModel model)
         {
             var constants = _constantService.GetConstantByConstantType(ConstantTypeEnum.UserSpecialMailType).OrderBy(x => x.Order).ThenBy(x => x.ConstantName);
@@ -419,7 +411,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 if (item.Id == model.SpecialId)
                     selectList.Selected = true;
                 model.SpecialMails.Add(selectList);
-
             }
             var userGroup = entities.UserGroups.ToList();
             if (model.UserGroupId == 0)
@@ -430,10 +421,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 if (model.UserGroupId == item.UserGroupId)
                     selectList.Selected = true;
                 model.UserGroups.Add(selectList);
-
             }
-
         }
+
         [HttpPost]
         public JsonResult DeleteMailTemplate(int id)
         {
@@ -441,7 +431,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             _userTemplateService.DeleteUserMailTemplate(template);
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
 
         public ActionResult Files(int userId)
         {
@@ -461,7 +450,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             var userFiles = _userFileService.GetUserFilesByUserId(userId);
             foreach (var item in userFiles)
             {
-
                 model.UserFileItems.Add(new UserFileItemModel
                 {
                     FilePath = "/FilesUser/" + item.UserId + "/" + item.FileName,
@@ -471,6 +459,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             return View(model);
         }
+
         [HttpPost]
         public ActionResult Files(string userId, byte fileType, IEnumerable<HttpPostedFileBase> files)
         {
@@ -515,9 +504,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             FileHelpers.Delete(filePath);
             _userFileService.DeleteUserFile(userFile);
             return RedirectToAction("Files", new { userId = userId });
-
         }
-        #endregion
 
+        #endregion Methods
     }
 }
