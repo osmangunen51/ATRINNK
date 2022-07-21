@@ -58,7 +58,17 @@ namespace MakinaTurkiye.Services.CallCenter
                         number = "0" + number;
                     }
                     number = destination + number;
-                    string Txt= "{\"application\":\"EXTENSIONS\",\"destination\":\""+destination+"\",\"callerid\":\"902129455841\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\""+number+"\"}}";
+                        //{
+                        //   "application":"OUTBOUND",
+                        //    "destination": "905555555555", 
+                        //    "callerid": "90212xxxxxxx",
+                        //    "responseurl": "", 
+                        //    "variable":"",
+                        //    "caller": {
+                        //        "1": "103"   
+                        //    }
+                        //}
+                    string Txt= "{\"application\":\"OUTBOUND\",\"destination\":\"" + destination+"\",\"callerid\":\"902129455841\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\""+number+"\"}}";
           Istek.AddStringBody(Txt,DataFormat.Json);
           var IstekSonuc = restClient.ExecutePost<MakinaTurkiye.Services.CallCenter.CallInfoResponse>(Istek);
           if (IstekSonuc.StatusCode == System.Net.HttpStatusCode.OK)

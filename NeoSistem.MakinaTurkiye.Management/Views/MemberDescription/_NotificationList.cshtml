@@ -46,10 +46,11 @@
         @itemMemberDesc.InputDate.ToString().Split(' ')[1]
 
     </td>
-    <td class="Cell">
-        <span style="color: #808080; font-size: 10px;">@itemMemberDesc.LastDate.ToString().Split(' ')[0]</span>
+    <td class="Cell" style="font-size: 10px;">
+
+        <span style="font-weight: 600; font-size: 13px;">@itemMemberDesc.LastDate.ToString().Split(' ')[0]</span>
         <br />
-        <span style="color: #a02323; font-size: 13px; font-weight: 600;">@itemMemberDesc.LastDate.ToString().Split(' ')[1]</span>
+        @itemMemberDesc.LastDate.ToString().Split(' ')[1]
     </td>
     <td class="Cell" style="background-color: #2776e5; color: #fff">@itemMemberDesc.FromUserName</td>
     <td class="Cell" style="background-color: #31c854; color: #fff">@itemMemberDesc.SalesPersonName</td>
