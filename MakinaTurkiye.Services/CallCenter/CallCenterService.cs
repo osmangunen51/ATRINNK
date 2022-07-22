@@ -69,7 +69,7 @@ namespace MakinaTurkiye.Services.CallCenter
                         //    }
                         //}
           
-          string Txt= "{\"application\":\"OUTBOUND\",\"destination\":\"" + number + "\",\"callerid\":\"902124052241\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\"" + destination +"\"}}";
+          string Txt= "{\"application\":\"OUTBOUND\",\"destination\":\"" + number + "\",\"callerid\":\"77715\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\"" + destination +"\"}}";
           Istek.AddStringBody(Txt,DataFormat.Json);
           var IstekSonuc = restClient.ExecutePost<MakinaTurkiye.Services.CallCenter.CallInfoResponse>(Istek);
           

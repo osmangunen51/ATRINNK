@@ -9,8 +9,7 @@
     <script type="text/javascript" src="~/Content/Scripts/CKEditor/ckeditor.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/CKFinder/ckfinder.js"></script>
     <script src="~/Content/Scripts/JQuery-dropdowncascading.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="~/Content/Scripts/SuperBox/jquery.superbox.css" type="text/css"
-        media="all" />
+    <link rel="stylesheet" href="~/Content/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
     <script type="text/javascript" src="~/Content/Scripts/SuperBox/jquery.superbox.js"></script>
 
 }
@@ -103,19 +102,16 @@
                     $("#DiscountTypeLabel").html("İndirim Miktarı");
                     $(".DiscountAmountContainer").show();
                     WriteTotalRecord();
-
-
                 }
                 else if (this.value == '@((byte)ProductDiscountType.Percentage)') {
                     $("#DiscountTypeLabel").html("İndirim Yüzdesi");
                     $(".DiscountAmountContainer").show();
                      WriteTotalRecord();
                 }
-                else {
+                else
+                {
                     $(".DiscountAmountContainer").hide();
-
                 }
-
             });
 
             $('#CategorySector').change(function () {
@@ -191,7 +187,6 @@
                         alert(e.responseText);
                     }
                 });
-
 
                 $.ajax({
                     url: '/Product/GetCategoryByParentId',
