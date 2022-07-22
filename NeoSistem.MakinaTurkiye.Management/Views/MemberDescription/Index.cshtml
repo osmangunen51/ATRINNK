@@ -12,14 +12,7 @@
 @using MvcContrib.Pagination
 @using MvcContrib.UI.Pager
     
-    <h2 style="margin-left:20px;">
-        @if (ViewData["title"] != null) {
-              Response.Write(ViewData["title"]);
-          }else{ 
-        @:Açıklamalar
-                } </h2>
-
-
+    <h2 style="margin-left:20px;">@(ViewData["title"] != null?ViewData["title"]:"Açıklamalar")</h2>
                  <div style="font-size:18px; margin-top:20px; float:right;" >Filtrele:
                  <select name="users" onchange="if(this.value)window.location.href=this.value">
                      @foreach (var item in Model.Users)
@@ -93,7 +86,7 @@
    { 
 row++;
 
-<tr id="row@item.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style=" background-color:@item.Color">
+<tr id="@("row"+item.ID)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style=" background-color:@item.Color">
   
   <td class="CellBegin">
     @(item.MemberName+" "+item.MemberSurname)

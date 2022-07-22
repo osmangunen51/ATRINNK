@@ -4,7 +4,7 @@
 @foreach (var item in Model.Source)
     {
         row++;
-<tr id="row@item.MainPartyId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.MainPartyId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin" style=" height: 30px;">
     @item.MemberNo
   </td>

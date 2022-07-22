@@ -76,7 +76,7 @@
             </thead>
             @foreach (var item in Model.UpdatePayDateModels)
                 {
-            <tr id="row@item.UpdatePayDateId">
+            <tr id="@("row"+item.UpdatePayDateId)">
                 <td class="Cell CellBegin">
                     @item.UpdatePayDateId
                 </td>

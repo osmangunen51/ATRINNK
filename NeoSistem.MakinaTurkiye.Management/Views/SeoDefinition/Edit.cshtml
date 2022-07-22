@@ -111,7 +111,7 @@
                                                 @{int row = 0; }
                                                 @foreach (var item in Phare.Liste.OrderByDescending(x=>x.Rate))
                                                 {
-                                                <tr id="row@item.Word" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+                                                <tr id="@("row"+item.Word)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
                                                       <td class="CellBegin" style="width:30px">
                                             
                                                       </td>

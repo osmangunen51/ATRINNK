@@ -6,7 +6,7 @@
 @{ row++;
     string invoiceNumberTextValue = "";
 }
-<tr id="row@item.OrderId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.OrderId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
     <td class="Cell" style="height: 30px;">
         @item.orderNo     
     </td>

@@ -3,7 +3,7 @@
 @foreach (var item in Model)
    { 
     row++;
-<tr id="row@item.AccountId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.AccountId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.BankName
   </td>

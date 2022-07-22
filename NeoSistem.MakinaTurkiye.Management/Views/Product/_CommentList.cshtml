@@ -1,7 +1,7 @@
 ﻿@model FilterModel<NeoSistem.MakinaTurkiye.Management.Models.ProductCommentItem>
 @foreach (var item in Model.Source)
 {
-<tr id="row@item.ProductCommentId">
+<tr id="@("row"+item.ProductCommentId)">
     <td class="Cell">@item.ProductName</td>
 
     <td class="Cell"><a href="/Product/Edit/@item.ProductId">@item.ProductNo</a></td>

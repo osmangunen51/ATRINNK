@@ -14,7 +14,7 @@
     @foreach (var item in Model)
        { 
     row++; 
-    <tr id="row@item.PermissionId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+    <tr id="@("row"+item.PermissionId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
       <td class="Cell">
         @item.PermissionName
       </td>

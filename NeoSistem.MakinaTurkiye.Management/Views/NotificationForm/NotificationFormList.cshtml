@@ -3,7 +3,7 @@
 @foreach (var item in Model.OrderByDescending(c => c.RecordDate).ThenByDescending(c => c.IsRead))
 {
     row++;
-<tr id="row@item.NotificationFormId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.NotificationFormId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.NotificationFormSubject
   </td>

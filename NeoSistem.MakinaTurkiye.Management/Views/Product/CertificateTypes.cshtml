@@ -91,7 +91,7 @@
 
             @foreach (var item in Model.CertificateItems)
                 {
-            <tr id="row@item.CertificateTypeId">
+            <tr id="@("row"+item.CertificateTypeId)">
                 <td class="Cell CellBegin">
                     @item.CertificateTypeId
                 </td>

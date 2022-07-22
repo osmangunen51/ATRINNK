@@ -47,7 +47,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int p = 1;
 
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "", false);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "","",false);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
 
@@ -102,11 +102,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             return View(preRegistrations);
         }
         [HttpPost]
-        public PartialViewResult Index(string page, string storeName, string email)
+        public PartialViewResult Index(string page, string storeName, string email, string city="")
         {
             int p = Convert.ToInt32(page);
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, false);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, city, false);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
             foreach (var item in stores)
@@ -166,7 +166,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             int p = 1;
 
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "", true);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "","", true);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
             foreach (var item in stores)
@@ -202,11 +202,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             return View(preRegistrations);
         }
         [HttpPost]
-        public PartialViewResult NotCalling(string page, string storeName, string email)
+        public PartialViewResult NotCalling(string page, string storeName, string email, string city = "")
         {
             int p = Convert.ToInt32(page);
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, true);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, city,true);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
             foreach (var item in stores)

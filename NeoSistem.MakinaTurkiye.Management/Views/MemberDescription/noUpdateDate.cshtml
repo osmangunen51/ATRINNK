@@ -72,7 +72,7 @@
         chose = "#f38496";
     }
 
-<tr id="row@item.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style=" background-color:@chose">
+<tr id="@("row"+item.ID)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style=" background-color:@chose">
   
   <td class="CellBegin">
     @(item.Member.MemberName+" "+item.Member.MemberSurname)

@@ -71,9 +71,10 @@
       <tbody id="table">
        @{ int row = 0; }
 @foreach (var item in Model)
-   { 
-row++; 
-<tr id="row@item.PacketForDemandModelId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+{
+    int page = Convert.ToInt32(ViewData["page"]);
+    row++;
+<tr id="@("row"+item.PacketForDemandModelId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @row
   </td>
@@ -93,11 +94,9 @@ row++;
         <td>
             <a href="/Member/BrowseDesc1/@item.MemberMainPartyId" target="_blank">Ekle</a>
     </td>
-    @int page = Convert.ToInt32(ViewData["page"]); 
-            if (item.Status == 0)
-            {
-                 
-    <td style="color:#d30202">
+    @if (item.Status == 0)
+            {    
+            <td style="color:#d30202">
          Aranmadı<br />     
          <a  href="/CompanyDemand/DemandforPacket?page=@page&status=1&id=@item.PacketForDemandModelId">Arandı İşaretle</a>
                </td>
@@ -120,7 +119,7 @@ row++;
     }
 
         }
-        else { Response.Write("Web Sitesi Girilmemiş"); }
+        else { <span>Web Sitesi Girilmemiş</span> }
     </td>
     <td>@item.DemandDate</td>
 
@@ -138,19 +137,20 @@ row++;
     border-top: none; border-bottom: none;">
     <div style="float: right;" class="pagination">
       <ul>
-          @{int pageNumbers = Convert.ToInt32(ViewData["pageNumbers"]);
-            for (int i = 1; i <=pageNumbers ; i++)
-            {
-                if(i==(int)ViewData["page"])
+          @{
+                int pageNumbers = Convert.ToInt32(ViewData["pageNumbers"]);
+                for (int i = 1; i <=pageNumbers ; i++)
                 {
-                    Response.Write("<li>"+i+"</li>");
-                }
-                else
-                {
-                    Response.Write("<li><a href='/CompanyDemand/DemandForPacket?page="+i+"'>" + i + "</a></li>");
-                }
-                
-            } }
+                    if(i==(int)ViewData["page"])
+                    {
+                        <li>@i</li>
+                    }
+                    else
+                    {
+                        <li><a href='/CompanyDemand/DemandForPacket?page=@i'>@i</a></li>
+                    }                
+                } 
+           }
       </ul>
     </div>
   </td>

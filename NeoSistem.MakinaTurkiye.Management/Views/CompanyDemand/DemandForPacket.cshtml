@@ -73,7 +73,7 @@
 @foreach (var item in Model)
    { 
 row++; 
-<tr id="row@item.PacketForDemandModelId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.PacketForDemandModelId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @row
   </td>

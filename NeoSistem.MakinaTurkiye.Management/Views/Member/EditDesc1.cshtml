@@ -242,7 +242,7 @@
                             :
                         </td>
                         <td>
-                            @(Model.StorePacketEndDate-DateTime.Now.Date).Days
+                            @((Model.StorePacketEndDate-DateTime.Now.Date).Days)
                         </td>
                     </tr>
                </table>
@@ -452,7 +452,7 @@
                     backColor = "#ff76002b";
                 }
 
-            <tr id="row@itemMemberDesc.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style="background-color: @backColor">
+            <tr id="@("row"+itemMemberDesc.ID)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style="background-color: @backColor">
                 <td class="Cell CellBegin">
                     @Html.Truncate(ViewData["MemberName"].ToString(), 15)..</td>
                 <td class="Cell">

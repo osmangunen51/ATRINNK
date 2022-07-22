@@ -2,7 +2,7 @@
 @{ int row = 0; }
 @foreach(var item in Model.Source) { 
 row++; 
-<tr id="row@item.NewsId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.NewsId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     <div style="overflow: hidden; width: 100%; float: left; height: 15px;">
       @item.NewsTitle</div>

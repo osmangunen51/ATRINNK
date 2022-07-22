@@ -106,7 +106,7 @@
         @{int row = 1; }
         @foreach (var item in Model.Source)
         {
-            <tr id="row@item.LoginLogId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+            <tr id="@("row"+item.LoginLogId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
                 <td class="CellBegin">@row</td>
                 <td class="Cell">
                     @if (item.Store != null)

@@ -24,7 +24,7 @@
                     }
 
 
-<tr id="row@item.OrderId" style="background-color: @backgroundColor" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.OrderId)" style="background-color: @backgroundColor" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
     <td class="Cell" style="height: 30px;">
         @item.OrderNo&nbsp;/<br />
         @if (!string.IsNullOrEmpty(item.EBillNumber))

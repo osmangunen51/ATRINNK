@@ -3,7 +3,7 @@
 @{int count = Model.CurrentPage * Model.PageDimension - (Model.PageDimension - 1); }
 @foreach (var item in Model.Source.ToList())
     {
-        <tr id="row@item.ID">
+        <tr id="@("row"+item.ID)">
             <td class="Cell CellBegin">@count</td>
             <td class="Cell" style="color: @item.LogSituatinColor">@item.LogSituationText</td>
             <td class="Cell">@item.Logger</td>

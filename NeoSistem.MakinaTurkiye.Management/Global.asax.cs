@@ -36,6 +36,7 @@ namespace NeoSistem.MakinaTurkiye.Management
             ViewEngines.Engines.Add(new RazorViewEngine());
 
             //JobScheduler.Start();
+
             //initialize engine context
             EngineContext.Initialize(false);
             AreaRegistration.RegisterAllAreas();

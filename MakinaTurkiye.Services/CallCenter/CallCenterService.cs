@@ -47,17 +47,17 @@ namespace MakinaTurkiye.Services.CallCenter
             }
           };
           Istek.AddOrUpdateHeader("token",this.Token);
-          number = number.Replace("+90","0");
+          number = number.Replace("+90","90");
 //          #if DEBUG
 //                {
 //                number = "05057916447";
 //                }
 //#endif
-                    if (!number.StartsWith("0"))
+                    if (!number.StartsWith("90"))
                     {
-                        number = "0" + number;
+                        number = "90" + number;
                     }
-                    number = destination + number;
+                    //number = destination + number;
                         //{
                         //   "application":"OUTBOUND",
                         //    "destination": "905555555555", 
@@ -68,10 +68,12 @@ namespace MakinaTurkiye.Services.CallCenter
                         //        "1": "103"   
                         //    }
                         //}
-                    string Txt= "{\"application\":\"OUTBOUND\",\"destination\":\"" + destination+"\",\"callerid\":\"902129455841\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\""+number+"\"}}";
+          
+          string Txt= "{\"application\":\"OUTBOUND\",\"destination\":\"" + number + "\",\"callerid\":\"902124052241\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\"" + destination +"\"}}";
           Istek.AddStringBody(Txt,DataFormat.Json);
           var IstekSonuc = restClient.ExecutePost<MakinaTurkiye.Services.CallCenter.CallInfoResponse>(Istek);
-          if (IstekSonuc.StatusCode == System.Net.HttpStatusCode.OK)
+          
+                    if (IstekSonuc.StatusCode == System.Net.HttpStatusCode.OK)
           {
                 MakinaTurkiye.Services.CallCenter.CallInfoResponse callInfoResponse = Newtonsoft.Json.JsonConvert.DeserializeObject<MakinaTurkiye.Services.CallCenter.CallInfoResponse>(IstekSonuc.Content);
                 if (callInfoResponse.callInfo.Count() > 0)

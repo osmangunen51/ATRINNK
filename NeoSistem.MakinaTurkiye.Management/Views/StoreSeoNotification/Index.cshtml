@@ -40,7 +40,7 @@
                 @foreach (var itemMemberDesc in Model.BaseMemberDescriptionModelItems.ToList())
                     {
                 
-                <tr id="row@itemMemberDesc.ID" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+                <tr id="@("row"+itemMemberDesc.ID)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
                     <td class="Cell">@itemMemberDesc.Title</td>
                     <td class="Cell" style="font-size: 15px; width:35%;">@if (itemMemberDesc.Description != null)
                                                                   { 
@@ -52,15 +52,15 @@
                     <td class="Cell">@if (itemMemberDesc.InputDate != null)
                                          {
                                              string[] Inputdate = itemMemberDesc.InputDate.ToString().Split(' ');
-                                             Response.Write(Inputdate[0] + " ");
-                                             Response.Write("<font style='color:#C5D5DD'>" + Inputdate[1] + "</font>");
+                                                <span>@Inputdate[0] <font style='color:#C5D5DD'>@Inputdate[1] </font></span>
                                          }</td>
-                    <td class="Cell">@if (itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
-                                         {
-                                             string[] lastDate = itemMemberDesc.LastDate.ToString().Split(' ');
-                                             Response.Write(lastDate[0] + " ");
-                                             Response.Write("<font style='color:#C5D5DD'>" + lastDate[1] + "</font>");
-                                         } </td>
+                    <td class="Cell">
+                        @if (itemMemberDesc.LastDate.ToDateTime().Date >= DateTime.Now.Date)
+                        {
+                            string[] lastDate = itemMemberDesc.LastDate.ToString().Split(' ');
+                            <span>@lastDate[0] <font style='color:#C5D5DD'>@lastDate[1] </font></span>
+                        }
+                        </td>
                     <td class="Cell" style="background-color: #2776e5; color: #fff">@itemMemberDesc.FromUserName</td>
                     <td class="Cell" style="background-color: #31c854; color: #fff">
                         @itemMemberDesc.ToUserName

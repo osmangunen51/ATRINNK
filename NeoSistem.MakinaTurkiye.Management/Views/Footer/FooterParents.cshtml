@@ -69,7 +69,7 @@
 @foreach (var item in Model)
 {
     row++;
-<tr id="row@item.FooterParentId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.FooterParentId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin">
     @item.FooterParentName
   </td>
@@ -97,21 +97,20 @@
   <td class="ui-state ui-state-default" colspan="9" align="right" style="border-color: #DDD;
     border-top: none; border-bottom: none;">
     <div style="float: right;" class="pagination">
-      <ul>
-          @{int pageNumbers = Convert.ToInt32(ViewData["pageNumbers"]);
-            for (int i = 1; i <=pageNumbers ; i++)
-            {
-                if(i==(int)ViewData["page"])
+        <ul>
+            @{int pageNumbers = Convert.ToInt32(ViewData["pageNumbers"]);
+                for (int i = 1; i <= pageNumbers; i++)
                 {
-                    Response.Write("<li>"+i+"</li>");
-                }
-                else
-                {
-                    Response.Write("<li><a href='/Footer/FooterParents?page="+i+"'>" + i + "</a></li>");
-                }
-                
-            } }
-      </ul>
+                    if (i == (int)ViewData["page"])
+                    {
+                        <li>@i</li>
+                    }
+                    else
+                    {
+                        <li><a href='/Footer/FooterParents?page=@i"'>@i</a></li>
+                    }
+                } }
+        </ul>
     </div>
   </td>
 </tr>

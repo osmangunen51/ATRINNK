@@ -46,7 +46,8 @@
                 data: {
                     storeName: $("#StoreName").val(),
                     page: $('#Page').val(),
-                    email: $('#Email').val()
+                    email: $('#Email').val(),
+                    city: $('#City').val(),
                 },
                 type: 'post',
                 success: function (data) {
@@ -178,11 +179,21 @@
                     </table>
                 </td>
                 <td class="Cell"></td>
+                <td class="Cell">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td style="border: solid 1px #CCC; background-color: #FFF;">
+                                    <input id="City" class="Search" style="width: 75%; border: none;" />
+                                    <span class="ui-icon ui-icon-close searchClear" style="width: 15%;"></span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
                 <td class="Cell"></td>
                 <td class="Cell"></td>
                 <td class="Cell"></td>
-                <td class="Cell"></td>
-
             </tr>
         </thead>
         <tbody id="table">

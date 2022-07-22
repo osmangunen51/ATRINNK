@@ -8,7 +8,7 @@
 {
     MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
     row++;
-    <tr id="row@item.MainPartyId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+    <tr id="@("row"+item.MainPartyId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
     <td class="CellBegin">
         @item.StoreNo
     </td>

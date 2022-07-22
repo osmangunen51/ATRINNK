@@ -2,10 +2,10 @@
 @{ int row = 0; }
 @foreach(var item in Model.Source) { 
 row++; 
-<tr id="row@item.SurveyId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.SurveyId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td class="CellBegin" align="center">
     <span class="ui-icon ui-icon-plusthick" style="cursor: pointer;" id="sp@item.SurveyId"
-      onclick="OpenOption(this.id, '#trOption@item.SurveyId', '#row@item.SurveyId');">
+      onclick="OpenOption(this.id, '#trOption@item.SurveyId', '@("#row"+item.SurveyId)');">
     </span>
   </td>
   <td class="Cell">

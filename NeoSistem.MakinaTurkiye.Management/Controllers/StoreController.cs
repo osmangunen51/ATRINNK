@@ -367,7 +367,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 whereClause.Append(")");
                 op = true;
             }
-
+            if (OrderName== "StoreAdres")
+            {
+                OrderName = "Cit.CityName";
+            }
             if (whereClause.ToString() == "Where")
             {
                 whereClause.Clear();

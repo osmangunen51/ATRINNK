@@ -1,19 +1,40 @@
-﻿namespace NeoSistem.MakinaTurkiye.Management.Controllers
+﻿using NeoSistem.MakinaTurkiye.Management.Models.Entities;
+using MakinaTurkiye.Services.Packets;
+namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
     using EnterpriseEntity.Extensions.Data;
-    using Models;
-    using NeoSistem.MakinaTurkiye.Management.Models.Entities;
+    using NeoSistem.MakinaTurkiye.Management.Models;
+    using NeoSistem.MakinaTurkiye.Management.Models.ViewModel;
     using System;
     using System.Linq;
     using System.Web.Mvc;
 
+
     public class PacketController : BaseController
     {
+
+        private readonly IPacketService _packetService;
+
+        public PacketController(IPacketService packetService)
+        {
+            _packetService = packetService;
+        }
+
         public enum PacketFeatureType
         {
             ProcessCount = 1,
             Active = 2,
             Content = 3
+        }
+
+        
+        public ActionResult ViewPackets()
+        {
+            var model = new PacketViewModel();
+           model.PacketFeatureItems = _packetService.GetAllPacketFeatures();
+           model.PacketFeatureTypeItems = _packetService.GetAllPacketFeatureTypes().ToList();
+            model.PacketItems = _packetService.GetPacketIsOnsetFalseByDiscountType(false).Where(x => x.DopingPacketDay.HasValue == false).ToList();
+            return View(model);
         }
 
         public ActionResult Index()

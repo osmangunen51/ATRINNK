@@ -3,9 +3,9 @@
 @section TitleContent {
 
   Index
-
 }
 @section HeadContent {
+
 
   <script type="text/javascript">
     function DeletePost(storeId) {
@@ -64,7 +64,7 @@
         </tr>
       </thead>
       <tbody id="table">
-        @Html.Partial("PacketList", Model)
+        @Html.Partial("PacketList", Model.OrderBy(x=>x.PacketName).ToList())
       </tbody>
       <tfoot>
         <tr>

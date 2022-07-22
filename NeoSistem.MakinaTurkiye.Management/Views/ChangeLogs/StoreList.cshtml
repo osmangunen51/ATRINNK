@@ -6,7 +6,7 @@
         row++;
     if (item.Store != null)
     {
-            <tr id="row@item.StoreChangeHistoryId" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+            <tr id="@("row"+item.StoreChangeHistoryId)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
                 <td class="CellBegin">
                     @item.Store.StoreNo
                 </td>

@@ -54,7 +54,7 @@ namespace MakinaTurkiye.Services.Stores
             return query.FirstOrDefault(x => x.PreRegistrationStoreId == preRegistraionStoreId);
         }
 
-        public IPagedList<PreRegistrationStore> GetPreRegistirationStores(int page, int pageSize, string storeName, string email, bool notcalling=false)
+        public IPagedList<PreRegistrationStore> GetPreRegistirationStores(int page, int pageSize, string storeName, string email, string city = "", bool notcalling=false)
         {
             int totalRecord = 0;
             var query = _preRegistrationStoreRepository.Table;
@@ -67,7 +67,10 @@ namespace MakinaTurkiye.Services.Stores
             {
                 query = query.Where(x => x.Email.ToLower().Contains(email.ToLower()));
             }
-
+            if (!string.IsNullOrEmpty(city))
+            {
+                query = query.Where(x => x.City.ToLower().Contains(city.ToLower()));
+            }
             List<PreRegistrationStore> result = new List<PreRegistrationStore>();
             List<int> PreRegistrationStoreIdList=query.Select(x=>x.PreRegistrationStoreId).Distinct().ToList();
             var memberDescription = _memberDescriptionRepository.Table.Where(x=> PreRegistrationStoreIdList.Contains((int)x.PreRegistrationStoreId)).Select(x => new {

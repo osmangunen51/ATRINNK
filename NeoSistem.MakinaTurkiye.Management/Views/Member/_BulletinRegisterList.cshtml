@@ -5,7 +5,7 @@
 
 @foreach (var item in Model.Source.ToList())
  {
-              <tr id="row@item.BulletinMemberId">
+              <tr id="@("row"+item.BulletinMemberId)">
                   <td onclick="PageOrder('BulletinMemberId')" class="Cell CellBegin">##@item.BulletinMemberId</td>
                   <td class="Cell">@item.Email</td>
                   <td class="Cell">@(item.MemberName+" "+item.MemberSurname)</td>

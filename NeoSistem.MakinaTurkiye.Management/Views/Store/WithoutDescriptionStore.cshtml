@@ -30,7 +30,7 @@
       <tbody id="table">
           @foreach (var item in Model.ToList())
               {
-              <tr id="row@item.MainPartyId">
+              <tr id="@("row"+item.MainPartyId)">
                   <td>@item.MainPartyId</td>
 
               <td class="Cell"><a href="/Store/EditStore/@item.MainPartyId">@item.StoreName</a></td>

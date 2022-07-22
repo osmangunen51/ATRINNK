@@ -55,7 +55,7 @@
 @foreach (var item in Model)
 {
     row++;
-<tr id="row@item.kklogid" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.kklogid)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   
   <td class="CellBegin">
     @item.Store.StoreName

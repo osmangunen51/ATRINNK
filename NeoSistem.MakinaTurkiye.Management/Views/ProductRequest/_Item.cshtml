@@ -3,20 +3,20 @@
 @{int count = Model.CurrentPage * 20 - 19; }
 @foreach (var item in Model.Source.ToList())
     {
-<tr id="row@item.ProductRequestId">
+<tr id="@("row"+item.ProductRequestId)">
     <td class="Cell CellBegin">@count</td>
     <td class="Cell">@item.MemberNameSurname</td>
     <td class="Cell">@item.Email</td>
     <td class="Cell">@item.PhoneNumber</td>
     <td class="Cell">@item.CategoryName</td>
-    <td class="Cell">@item.BrandName
+    <td class="Cell">@item.BrandName>
         @if (!string.IsNullOrEmpty(item.ModelName))
-            {
-        /@item.ModelName
-         } 
+        {
+            <span>/@item.ModelName</span>
+        } 
         @if (!string.IsNullOrEmpty(item.SeriesName))
             {
-            /@item.SeriesName
+            <span>/@item.SeriesName</span>
          } 
     </td>
     <td class="Cell">@item.Message</td>

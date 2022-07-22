@@ -70,7 +70,7 @@
 {
 
     row++;
-<tr id="row@item.ID"  class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
+<tr id="@("row"+item.ID)"  class="@(row % 2 == 0 ? "Row" : "RowAlternate")">
   <td>
     @item.ProductNo
   </td>

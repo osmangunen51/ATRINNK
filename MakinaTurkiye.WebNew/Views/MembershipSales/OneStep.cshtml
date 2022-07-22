@@ -1,7 +1,10 @@
 ﻿@using NeoSistem.MakinaTurkiye.Web.Models;
 @using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 @model PacketViewModel
-@{ Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml"; }
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    bool ShowPacketList = true;
+}
 @section HeaderContent {
 
     <script type="text/javascript">
@@ -34,7 +37,9 @@
                 Üyelik avantajlarımızdan yararlanmak için paket satın alın, satışlarınızı arttırın.
             </div>
         }
-        <div class="col-md-12">
+    <div class="col-md-12">
+        @if (ShowPacketList)
+        {
             <div class="row">
                 @foreach (var item in Model.PacketItems.OrderBy(p => p.PacketOrder))
                 {
@@ -166,15 +171,17 @@
                         </div>}
                 }
             </div>
-            @if (Model.LastPageAdvertAdd == true && Model.AnyOrder == false)
-            {
-                <div class="row col-md-12">
-                    <div style="text-align:center;">
-                        <a class="btn btn-primary" href="/MemberShipSales/DiscountPackets">3 aylık indirimli deneme paketinden yararlanmak istiyorum</a>
-                    </div>
+        }
+
+        @if (Model.LastPageAdvertAdd == true && Model.AnyOrder == false)
+        {
+            <div class="row col-md-12">
+                <div style="text-align:center;">
+                    <a class="btn btn-primary" href="/MemberShipSales/DiscountPackets">3 aylık indirimli deneme paketinden yararlanmak istiyorum</a>
                 </div>
-            }
-        </div>
+            </div>
+        }
+    </div>
     </div>
 </div>
 @if (!string.IsNullOrEmpty(Model.BottomDescription))
