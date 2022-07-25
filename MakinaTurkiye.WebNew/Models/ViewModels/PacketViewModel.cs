@@ -11,6 +11,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models
         public bool LastPageAdvertAdd { get; set; }
         public string Description { get; set; }
         public string BottomDescription { get; set; }
-
+        public NeoSistem.MakinaTurkiye.Web.Models.ViewModels.StorePackagePurchaseRequestViewModel StorePackagePurchaseRequestViewModel { get; set; } = new ViewModels.StorePackagePurchaseRequestViewModel();
     }
 }

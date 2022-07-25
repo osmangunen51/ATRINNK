@@ -7,6 +7,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
     using NeoSistem.MakinaTurkiye.Management.Models.ViewModel;
     using System;
     using System.Linq;
+    using System.Transactions;
     using System.Web.Mvc;
 
 
@@ -88,90 +89,97 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
 
             return View(model);
+
         }
 
         [HttpPost]
         public ActionResult Edit(string[] PacketFeature, PacketModel model, int id)
         {
-            if (model.IsStandart)
+            
+
+            using (TransactionScope scope = new TransactionScope())
             {
-                var IsStandartPacketItems = entities.Packets.Where(c => c.IsStandart.Value);
-                foreach (var item in IsStandartPacketItems)
+                
+                try
                 {
-                    item.IsStandart = false;
-                }
-                entities.SaveChanges();
-            }
-
-            //if (model.IsOnset)
-            //{
-            //  var IsOnsetItems = entities.Packets.Where(c => c.IsOnset.Value);
-            //  foreach (var item in IsOnsetItems)
-            //  {
-            //    item.IsOnset = false;
-            //  }
-            //  entities.SaveChanges();
-            //}
-
-            var packetFeatureItems = entities.PacketFeatures.Where(c => c.PacketId == id);
-            foreach (var item in packetFeatureItems)
-            {
-                entities.PacketFeatures.DeleteObject(item);
-            }
-            entities.SaveChanges();
-
-            var packet = entities.Packets.SingleOrDefault(c => c.PacketId == id);
-            packet.PacketDay = model.PacketDay.HasValue ? model.PacketDay.Value : 0;
-            packet.PacketDescription = model.PacketDescription;
-            packet.PacketName = model.PacketName;
-            packet.PacketPrice = model.PacketPrice;
-            packet.PacketOrder = model.PacketOrder;
-            packet.PacketColor = model.PacketColor;
-            packet.IsStandart = model.IsStandart;
-            packet.IsOnset = model.IsOnset;
-            packet.Registered = model.Registered;
-            packet.UnRegistered = model.UnRegistered;
-            packet.SendReminderMail = model.SendReminderMail;
-            packet.IsDiscounted = model.IsDiscounted;
-            packet.HeaderColor = model.HeaderColor;
-            packet.ProductFactor = model.ProductFactor;
-            packet.IsDopingPacket = model.IsDopingPacket;
-            packet.DopingPacketDay = model.DopingPacketDay;
-            packet.ShowAdmin = model.ShowAdmin;
-            packet.IsTryPacket = model.IsTryPacket;
-            packet.ShowSetProcess = model.ShowSetProcess;
-            entities.SaveChanges();
-
-            int packetId = id;
-            if (model.Registered == false && model.UnRegistered == false)
-            {
-                foreach (var item in PacketFeature)
-                {
-                    var packetFeature = new PacketFeature
+                    if (model.IsStandart)
                     {
-                        PacketId = packetId,
-                        PacketFeatureTypeId = Convert.ToByte(item.Split(',').GetValue(0)),
-                        FeatureType = Convert.ToByte(item.Split(',').GetValue(1)),
-                    };
-
-                    var featureType = (PacketFeatureType)Convert.ToByte(item.Split(',').GetValue(1));
-                    switch (featureType)
-                    {
-                        case PacketFeatureType.ProcessCount:
-                            packetFeature.FeatureProcessCount = item.Split(',').GetValue(2).ToString() == "" ? Convert.ToByte(0) : Convert.ToByte(item.Split(',').GetValue(2));
-                            break;
-                        case PacketFeatureType.Active:
-                            packetFeature.FeatureActive = Convert.ToBoolean(item.Split(',').GetValue(2));
-                            break;
-                        case PacketFeatureType.Content:
-                            packetFeature.FeatureContent = Convert.ToString(item.Split(',').GetValue(2));
-                            break;
-                        default:
-                            break;
+                        var IsStandartPacketItems = entities.Packets.Where(c => c.IsStandart.Value);
+                        foreach (var item in IsStandartPacketItems)
+                        {
+                            item.IsStandart = false;
+                        }
+                        entities.SaveChanges();
                     }
-
-                    entities.PacketFeatures.AddObject(packetFeature);
+                    var packetFeatureItems = entities.PacketFeatures.Where(c => c.PacketId == id);
+                    foreach (var item in packetFeatureItems)
+                    {
+                        entities.PacketFeatures.DeleteObject(item);
+                    }
                     entities.SaveChanges();
+
+                    var packet = entities.Packets.SingleOrDefault(c => c.PacketId == id);
+                    packet.PacketDay = model.PacketDay.HasValue ? model.PacketDay.Value : 0;
+                    packet.PacketDescription = model.PacketDescription;
+                    packet.PacketName = model.PacketName;
+                    packet.PacketPrice = model.PacketPrice;
+                    packet.PacketOrder = model.PacketOrder;
+                    packet.PacketColor = model.PacketColor;
+                    packet.IsStandart = model.IsStandart;
+                    packet.IsOnset = model.IsOnset;
+                    packet.Registered = model.Registered;
+                    packet.UnRegistered = model.UnRegistered;
+                    packet.SendReminderMail = model.SendReminderMail;
+                    packet.IsDiscounted = model.IsDiscounted;
+                    packet.HeaderColor = model.HeaderColor;
+                    packet.ProductFactor = model.ProductFactor;
+                    packet.IsDopingPacket = model.IsDopingPacket;
+                    packet.DopingPacketDay = model.DopingPacketDay;
+                    packet.ShowAdmin = model.ShowAdmin;
+                    packet.IsTryPacket = model.IsTryPacket;
+                    packet.ShowSetProcess = model.ShowSetProcess;
+                    entities.SaveChanges();
+
+                    int packetId = id;
+                    if (model.Registered == false && model.UnRegistered == false)
+                    {
+                        foreach (var item in PacketFeature)
+                        {
+                            if (!string.IsNullOrEmpty(item))
+                            {
+                                var packetFeature = new PacketFeature
+                                {
+                                    PacketId = packetId,
+                                    PacketFeatureTypeId = Convert.ToByte(item.Split(',').GetValue(0)),
+                                    FeatureType = Convert.ToByte(item.Split(',').GetValue(1)),
+                                };
+
+                                var featureType = (PacketFeatureType)Convert.ToByte(item.Split(',').GetValue(1));
+                                switch (featureType)
+                                {
+                                    case PacketFeatureType.ProcessCount:
+                                        packetFeature.FeatureProcessCount = item.Split(',').GetValue(2).ToString() == "" ? Convert.ToByte(0) : Convert.ToByte(item.Split(',').GetValue(2));
+                                        break;
+                                    case PacketFeatureType.Active:
+                                        packetFeature.FeatureActive = Convert.ToBoolean(item.Split(',').GetValue(2));
+                                        break;
+                                    case PacketFeatureType.Content:
+                                        packetFeature.FeatureContent = Convert.ToString(item.Split(',').GetValue(2));
+                                        break;
+                                    default:
+                                        break;
+                                }
+
+                                entities.PacketFeatures.AddObject(packetFeature);
+                                entities.SaveChanges();
+                            }
+                        }
+                    }
+                    scope.Complete();
+                }
+                catch (Exception e)
+                {
+
                 }
             }
             return RedirectToAction("Index");
@@ -180,80 +188,87 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpPost]
         public ActionResult Create(string[] PacketFeature, PacketModel model)
         {
-            if (model.IsStandart)
+            using (TransactionScope scope = new TransactionScope())
             {
-                var IsStandartPacketItems = entities.Packets.Where(c => c.IsStandart.Value);
-                foreach (var item in IsStandartPacketItems)
+                if (model.IsStandart)
                 {
-                    item.IsStandart = false;
-                }
-                entities.SaveChanges();
-            }
-            //if (model.IsOnset)
-            //{
-            //  var IsOnsetItems = entities.Packets.Where(c => c.IsOnset.Value);
-            //  foreach (var item in IsOnsetItems)
-            //  {
-            //    item.IsOnset = false;
-            //  }
-            //  entities.SaveChanges();
-            //}
-
-            var packet = new Packet
-            {
-                PacketDay = model.PacketDay.HasValue ? model.PacketDay.Value : 0,
-                PacketDescription = model.PacketDescription,
-                PacketName = model.PacketName,
-                PacketPrice = model.PacketPrice,
-                PacketOrder = model.PacketOrder,
-                PacketColor = model.PacketColor,
-                IsStandart = model.IsStandart,
-                IsOnset = model.IsOnset,
-                Registered = model.Registered,
-                UnRegistered = model.UnRegistered,
-                SendReminderMail = model.SendReminderMail,
-                IsDiscounted = model.IsDiscounted,
-                HeaderColor = model.HeaderColor,
-                ProductFactor = model.ProductFactor,
-                DopingPacketDay = model.DopingPacketDay,
-                IsDopingPacket = model.IsDopingPacket,
-                ShowAdmin = model.ShowAdmin,
-                IsTryPacket = model.IsTryPacket
-            };
-            entities.Packets.AddObject(packet);
-            entities.SaveChanges();
-
-            int packetId = packet.PacketId;
-            if (model.Registered == false && model.UnRegistered == false)
-            {
-                foreach (var item in PacketFeature)
-                {
-                    var packetFeature = new PacketFeature
+                    var IsStandartPacketItems = entities.Packets.Where(c => c.IsStandart.Value);
+                    foreach (var item in IsStandartPacketItems)
                     {
-                        PacketId = packetId,
-                        PacketFeatureTypeId = Convert.ToByte(item.Split(',').GetValue(0)),
-                        FeatureType = Convert.ToByte(item.Split(',').GetValue(1)),
-                    };
-
-                    var featureType = (PacketFeatureType)Convert.ToByte(item.Split(',').GetValue(1));
-                    switch (featureType)
-                    {
-                        case PacketFeatureType.ProcessCount:
-                            packetFeature.FeatureProcessCount = item.Split(',').GetValue(2).ToString() == "" ? Convert.ToByte(0) : Convert.ToByte(item.Split(',').GetValue(2));
-                            break;
-                        case PacketFeatureType.Active:
-                            packetFeature.FeatureActive = Convert.ToBoolean(item.Split(',').GetValue(2));
-                            break;
-                        case PacketFeatureType.Content:
-                            packetFeature.FeatureContent = Convert.ToString(item.Split(',').GetValue(2));
-                            break;
-                        default:
-                            break;
+                        item.IsStandart = false;
                     }
-
-                    entities.PacketFeatures.AddObject(packetFeature);
                     entities.SaveChanges();
                 }
+                //if (model.IsOnset)
+                //{
+                //  var IsOnsetItems = entities.Packets.Where(c => c.IsOnset.Value);
+                //  foreach (var item in IsOnsetItems)
+                //  {
+                //    item.IsOnset = false;
+                //  }
+                //  entities.SaveChanges();
+                //}
+
+                var packet = new Packet
+                {
+                    PacketDay = model.PacketDay.HasValue ? model.PacketDay.Value : 0,
+                    PacketDescription = model.PacketDescription,
+                    PacketName = model.PacketName,
+                    PacketPrice = model.PacketPrice,
+                    PacketOrder = model.PacketOrder,
+                    PacketColor = model.PacketColor,
+                    IsStandart = model.IsStandart,
+                    IsOnset = model.IsOnset,
+                    Registered = model.Registered,
+                    UnRegistered = model.UnRegistered,
+                    SendReminderMail = model.SendReminderMail,
+                    IsDiscounted = model.IsDiscounted,
+                    HeaderColor = model.HeaderColor,
+                    ProductFactor = model.ProductFactor,
+                    DopingPacketDay = model.DopingPacketDay,
+                    IsDopingPacket = model.IsDopingPacket,
+                    ShowAdmin = model.ShowAdmin,
+                    IsTryPacket = model.IsTryPacket
+                };
+                entities.Packets.AddObject(packet);
+                entities.SaveChanges();
+
+                int packetId = packet.PacketId;
+                if (model.Registered == false && model.UnRegistered == false)
+                {
+                    foreach (var item in PacketFeature)
+                    {
+                        if (!string.IsNullOrEmpty(item))
+                        {
+                            var packetFeature = new PacketFeature
+                            {
+                                PacketId = packetId,
+                                PacketFeatureTypeId = Convert.ToByte(item.Split(',').GetValue(0)),
+                                FeatureType = Convert.ToByte(item.Split(',').GetValue(1)),
+                            };
+
+                            var featureType = (PacketFeatureType)Convert.ToByte(item.Split(',').GetValue(1));
+                            switch (featureType)
+                            {
+                                case PacketFeatureType.ProcessCount:
+                                    packetFeature.FeatureProcessCount = item.Split(',').GetValue(2).ToString() == "" ? Convert.ToByte(0) : Convert.ToByte(item.Split(',').GetValue(2));
+                                    break;
+                                case PacketFeatureType.Active:
+                                    packetFeature.FeatureActive = Convert.ToBoolean(item.Split(',').GetValue(2));
+                                    break;
+                                case PacketFeatureType.Content:
+                                    packetFeature.FeatureContent = Convert.ToString(item.Split(',').GetValue(2));
+                                    break;
+                                default:
+                                    break;
+                            }
+
+                            entities.PacketFeatures.AddObject(packetFeature);
+                            entities.SaveChanges();
+                        }
+                    }
+                }
+                scope.Complete();
             }
             return RedirectToAction("Index");
         }

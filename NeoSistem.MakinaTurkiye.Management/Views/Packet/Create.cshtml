@@ -36,31 +36,36 @@
                 $('#' + activeId).attr('disabled', 'disabled');
                 $('#' + contentId).attr('disabled', 'disabled');
 
-                $('#divNumber' + id).css('background-color', '#fff');
-                $('#divActive' + id).css('background-color', '#ececec');
-                $('#divContent' + id).css('background-color', '#ececec');
+                $('#divNumber_' + id).css('background-color', '#fff');
+                $('#divActive_' + id).css('background-color', '#ececec');
+                $('#divContent_' + id).css('background-color', '#ececec');
             }
             else if (rdType == 2) {
                 $('#' + activeId).removeAttr('disabled', 'disabled');
                 $('#' + numberId).attr('disabled', 'disabled');
                 $('#' + contentId).attr('disabled', 'disabled');
 
-                $('#divNumber' + id).css('background-color', '#ececec');
-                $('#divActive' + id).css('background-color', '#fff');
-                $('#divContent' + id).css('background-color', '#ececec');
+                $('#divNumber_' + id).css('background-color', '#ececec');
+                $('#divActive_' + id).css('background-color', '#fff');
+                $('#divContent_' + id).css('background-color', '#ececec');
             }
             else if (rdType == 3) {
                 $('#' + contentId).removeAttr('disabled', 'disabled');
                 $('#' + numberId).attr('disabled', 'disabled');
                 $('#' + activeId).attr('disabled', 'disabled');
 
-                $('#divNumber' + id).css('background-color', '#ececec');
-                $('#divActive' + id).css('background-color', '#ececec');
-                $('#divContent' + id).css('background-color', '#fff');
+                $('#divNumber_' + id).css('background-color', '#ececec');
+                $('#divActive_' + id).css('background-color', '#ececec');
+                $('#divContent_' + id).css('background-color', '#fff');
             }
 
-            if (packetType == 2) {
-                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).attr('checked'));
+            if (packetType == 2)
+            {
+               
+                var vl = false;
+                if ($('#' + txtValue).is(':checked')) { vl = true; }
+
+                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + vl);
             }
             else {
                 $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).val());
@@ -69,7 +74,10 @@
 
         function setValues(txtValue, hdnPacketFullValue, packetType, packetFeatureId) {
             if (packetType == 2) {
-                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).attr('checked'));
+                var vl = false;
+                if ($('#' + txtValue).is(':checked')) { vl = true;}
+
+                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + vl);
             }
             else {
                 $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).val());
@@ -84,21 +92,21 @@
                 return true;
             }
             else {
-                $('.hdnValues').each(function () {
-                    if ($(this).val() == '') {
-                        hasRecord = false;
-                        alertMessage = alertMessage + '\'' + $(this).attr('featurename') + '\', ';
-                        return;
-                    }
-                });
+                //$('.hdnValues').each(function () {
+                //    if ($(this).val() == '') {
+                //        hasRecord = false;
+                //        alertMessage = alertMessage + '\'' + $(this).attr('featurename') + '\', ';
+                //        return;
+                //    }
+                //});
 
-                if (hasRecord) {
-                    return true;
-                }
-                else {
-                    alert(alertMessage + ' Özellikleri doldurulmadı.');
-                    return false;
-                }
+                //if (hasRecord) {
+                //    return true;
+                //}
+                //else {
+                //    alert(alertMessage + ' Özellikleri doldurulmadı.');
+                //    return false;
+                //}
             }
         }
 
@@ -312,50 +320,50 @@
             <div style="float: left; width: 275px; border: dashed 1px #bababa; margin-left: 10px; margin-top: 10px;">
                 <div style="float: left; width: 100%;">
                     <div style="width: 10%; float: left; height: 26px; border-right: dashed 1px #bababa; border-bottom: dashed 1px #bababa; text-align: center; padding-top: 4px;">
-                        <input id="rdNumber@item.PacketFeatureTypeId" onclick="changeFeatureType('1', 'txtNumber@item.PacketFeatureTypeId','chkActive@item.PacketFeatureTypeId','chkContent@item.PacketFeatureTypeId','@item.PacketFeatureTypeId','txtNumber@item.PacketFeatureTypeId','hdn@item.PacketFeatureTypeId','1','@item.PacketFeatureTypeId');"
-                            type="radio" name="rdActive@item.PacketFeatureTypeId" />
+                        <input id="rdNumber_@item.PacketFeatureTypeId" onclick="changeFeatureType('1', 'txtNumber_@item.PacketFeatureTypeId','chkActive_@item.PacketFeatureTypeId','chkContent_@item.PacketFeatureTypeId','_@item.PacketFeatureTypeId','txtNumber_@item.PacketFeatureTypeId','hdn_@item.PacketFeatureTypeId','1','_@item.PacketFeatureTypeId');"
+                            type="radio" name="rdActive_@item.PacketFeatureTypeId" />
                     </div>
-                    <div id="divNumber@item.PacketFeatureTypeId" style="width: 89%; float: left; height: 30px; border-bottom: dashed 1px #bababa; background-color: #ececec;">
+                    <div id="divNumber_@item.PacketFeatureTypeId" style="width: 89%; float: left; height: 30px; border-bottom: dashed 1px #bababa; background-color: #ececec;">
                         <div style="float: left; margin-top: 6px; margin-left: 5px;">
                             Sayı Kısıtlaması :
            
                         </div>
                         <div style="float: left; margin-top: 4px; margin-left: 5px;">
-                            <input id="txtNumber@item.PacketFeatureTypeId" type="text" style="height: 15px; width: 50px;"
-                                onkeypress="setValues('txtNumber@item.PacketFeatureTypeId','hdn@item.PacketFeatureTypeId','1',@item.PacketFeatureTypeId)"
+                            <input id="txtNumber_@item.PacketFeatureTypeId" type="text" style="height: 15px; width: 50px;"
+                                onkeyup="setValues('txtNumber_@item.PacketFeatureTypeId','hdn_@item.PacketFeatureTypeId','1',@item.PacketFeatureTypeId)"
                                 disabled="disabled" />
                         </div>
                     </div>
                 </div>
                 <div style="float: left; width: 100%;">
                     <div style="width: 10%; float: left; height: 26px; border-right: dashed 1px #bababa; border-bottom: dashed 1px #bababa; text-align: center; padding-top: 4px;">
-                        <input id="rdActive@item.PacketFeatureTypeId" type="radio" name="rdActive@item.PacketFeatureTypeId"
-                            onclick="changeFeatureType('2', 'txtNumber@item.PacketFeatureTypeId','chkActive@item.PacketFeatureTypeId','chkContent@item.PacketFeatureTypeId','@item.PacketFeatureTypeId','chkActive@item.PacketFeatureTypeId','hdn@item.PacketFeatureTypeId','2','@item.PacketFeatureTypeId');" />
+                        <input id="rdActive_@item.PacketFeatureTypeId" type="radio" name="rdActive_@item.PacketFeatureTypeId"
+                            onclick="changeFeatureType('2', 'txtNumber_@item.PacketFeatureTypeId','chkActive_@item.PacketFeatureTypeId','chkContent_@item.PacketFeatureTypeId','_@item.PacketFeatureTypeId','chkActive_@item.PacketFeatureTypeId','hdn_@item.PacketFeatureTypeId','2','_@item.PacketFeatureTypeId');" />
                     </div>
-                    <div id="divActive@item.PacketFeatureTypeId" style="width: 89%; float: left; height: 30px; border-bottom: dashed 1px #bababa; background-color: #ececec;">
+                    <div id="divActive_@item.PacketFeatureTypeId" style="width: 89%; float: left; height: 30px; border-bottom: dashed 1px #bababa; background-color: #ececec;">
                         <div style="float: left; margin-top: 6px; margin-left: 5px;">
                             Aktif :
            
                         </div>
                         <div style="float: left; margin-top: 4px; margin-left: 5px;">
-                            <input id="chkActive@item.PacketFeatureTypeId" type="checkbox" onclick="setValues('chkActive@item.PacketFeatureTypeId','hdn@item.PacketFeatureTypeId','2','@item.PacketFeatureTypeId');"
+                            <input id="chkActive_@item.PacketFeatureTypeId" type="checkbox" onclick="setValues('chkActive_@item.PacketFeatureTypeId','hdn_@item.PacketFeatureTypeId','2','_@item.PacketFeatureTypeId');"
                                 disabled="disabled" />
                         </div>
                     </div>
                 </div>
                 <div style="float: left; width: 100%;">
                     <div style="width: 10%; float: left; height: 26px; border-right: dashed 1px #bababa; text-align: center; padding-top: 4px;">
-                        <input id="rdContent@item.PacketFeatureTypeId" type="radio" name="rdActive@item.PacketFeatureTypeId"
-                            onclick="changeFeatureType('3', 'txtNumber@item.PacketFeatureTypeId','chkActive@item.PacketFeatureTypeId','chkContent@item.PacketFeatureTypeId','@item.PacketFeatureTypeId','chkContent@item.PacketFeatureTypeId','hdn@item.PacketFeatureTypeId','3','@item.PacketFeatureTypeId');" />
+                        <input id="rdContent_@item.PacketFeatureTypeId" type="radio" name="rdActive_@item.PacketFeatureTypeId"
+                            onclick="changeFeatureType('3', 'txtNumber_@item.PacketFeatureTypeId','chkActive_@item.PacketFeatureTypeId','chkContent_@item.PacketFeatureTypeId','_@item.PacketFeatureTypeId','chkContent_@item.PacketFeatureTypeId','hdn_@item.PacketFeatureTypeId','3','_@item.PacketFeatureTypeId');" />
                     </div>
-                    <div id="divContent@item.PacketFeatureTypeId" style="width: 89%; float: left; height: 30px; background-color: #ececec;">
+                    <div id="divContent_@item.PacketFeatureTypeId" style="width: 89%; float: left; height: 30px; background-color: #ececec;">
                         <div style="float: left; margin-top: 6px; margin-left: 5px;">
                             İçerik Yazısı :
            
                         </div>
                         <div style="float: left; margin-top: 4px; margin-left: 5px;">
-                            <input id="chkContent@item.PacketFeatureTypeId" type="text" style="height: 15px; width: 100px;"
-                                onkeypress="setValues('chkContent@item.PacketFeatureTypeId','hdn@item.PacketFeatureTypeId','3',@item.PacketFeatureTypeId)"
+                            <input id="chkContent_@item.PacketFeatureTypeId" type="text" style="height: 15px; width: 100px;"
+                                onkeyup="setValues('chkContent_@item.PacketFeatureTypeId','hdn_@item.PacketFeatureTypeId','3',@item.PacketFeatureTypeId)"
                                 disabled="disabled" />
                         </div>
                     </div>
@@ -363,7 +371,7 @@
             </div>
         </div>
         <input class="hdnValues" type="hidden" featurename="@item.PacketFeatureTypeName"
-            id="hdn@item.PacketFeatureTypeId" name="PacketFeature" />
+            id="hdn_@item.PacketFeatureTypeId" name="PacketFeature" />
          } 
     </div>
     } 

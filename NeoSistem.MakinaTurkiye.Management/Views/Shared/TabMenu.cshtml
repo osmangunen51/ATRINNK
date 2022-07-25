@@ -1,8 +1,8 @@
 ﻿@model dynamic
 @{
     Layout= null;
-    string tab = "tabLi ui-state-default ui-corner-top divTab";
-    string tabActive = "tabLi ui-state-default ui-corner-top ui-tabs-selected ui-state-active divTabActive";
+    string tab = "btntopmenuitem tabLi ui-state-default ui-corner-top divTab";
+    string tabActive = "btntopmenuitem tabLi ui-state-default ui-corner-top ui-tabs-selected ui-state-active divTabActive";
     MakinaTurkiyeEntities entities = new MakinaTurkiyeEntities();
     int id = 0;
     id = ViewContext.RouteData.Values["id"].ToInt32();
@@ -198,9 +198,6 @@
         <div class="@(ViewData["ProfilePicture"] != null ? tabActive:(tab+" anotherback"))" onclick="window.location='/Store/EditProfilePicture/@id'">
             <a class="tabStore" href="/Store/EditProfilePicture/@id">Profil Görseli</a>
         </div>
-        <div style="background-color:#7fbf99" class="@(tab+" anotherback")" data-a="BrowseDesc1">
-            <a class="tabStore" data-a="BrowseDesc1" target="_blank" href="/Member/BrowseDesc1/@mainpartyid">Açıklama</a>
-        </div>
         <div class="@(tab+" anotherback")">
             <a class="tabStore" target="_blank" href="//www.makinaturkiye.com/membership/LogonAuto?validateId=@link&returnUrl=/account/advert/advert">Hesabım</a>
         </div>
@@ -232,6 +229,9 @@
         </div>
         <div class="@(ViewData["BuyPacket"] != null ? tabActive:(tab+" anotherback"))">
             <a href="/Store/BuyPacket/@id">Paket Satın Al </a>
+        </div>
+                <div style="background-color:#7fbf99" class="@(tab+" anotherback")" data-a="BrowseDesc1">
+            <a class="tabStore" data-a="BrowseDesc1" target="_blank" href="/Member/BrowseDesc1/@mainpartyid">Açıklama</a>
         </div>
     </div>
 </div>

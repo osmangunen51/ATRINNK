@@ -14,11 +14,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         public ActionResult Index()
         {
-            //int p = 1;
-
-            //int pageSize = 20;
-            //var stores = _storePackagePurchaseRequestService.GetPreRegistirationStores(p, pageSize, "", "", false);
-            return View();
+            var Model = _storePackagePurchaseRequestService.GetAll();
+            return View(Model);
         }
         [HttpPost]
         public PartialViewResult Index(string page, string storeName, string email)

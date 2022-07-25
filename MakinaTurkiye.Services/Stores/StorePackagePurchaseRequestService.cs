@@ -2,6 +2,7 @@
 using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Stores;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MakinaTurkiye.Services.Stores
@@ -45,10 +46,48 @@ namespace MakinaTurkiye.Services.Stores
             query = query.Where(s => s.Date>=date.Date && s.MainPartyId==MainMartyId);
             return query.FirstOrDefault();
         }
-
         public IPagedList<StorePackagePurchaseRequest> GetStorePackagePurchaseRequest(int page, int pageSize)
         {
             throw new NotImplementedException();
+        }
+
+        public List<StorePackagePurchaseRequest> GetAll()
+        {
+            List<StorePackagePurchaseRequest> result = new List<StorePackagePurchaseRequest>();
+            var queryStorePackagePurchaseRequest = _StorePackagePurchaseRequestRepository.Table;
+            var queryStore = _StoreRepository.Table;
+            if (queryStorePackagePurchaseRequest != null)
+            {
+              var tmp = queryStorePackagePurchaseRequest.Join(
+                      queryStore, 
+                      StorePackagePurchaseRequest => StorePackagePurchaseRequest.MainPartyId,
+                      Store => Store.MainPartyId,
+                      (StorePackagePurchaseRequest, Store) => new
+                      {
+                          Id = StorePackagePurchaseRequest.Id,
+                          Desciption = StorePackagePurchaseRequest.Desciption,
+                          Date = StorePackagePurchaseRequest.Date,
+                          FirstName = StorePackagePurchaseRequest.FirstName,
+                          LastName = StorePackagePurchaseRequest.LastName,
+                          MainPartyId = StorePackagePurchaseRequest.MainPartyId,
+                          Phone = StorePackagePurchaseRequest.Phone,
+                          ProductQuantity = StorePackagePurchaseRequest.ProductQuantity,
+                          StoreName = Store.StoreName,
+                      }).OrderByDescending(x => x.Date).ToList();
+                result= tmp.Select(x => new StorePackagePurchaseRequest {
+                    Id = x.Id,
+                    Desciption = x.Desciption,
+                    Date = x.Date,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    MainPartyId = x.MainPartyId,
+                    Phone = x.Phone,
+                    ProductQuantity = x.ProductQuantity,
+                    StoreName = x.StoreName,
+
+                }).ToList();
+            }
+            return result;
         }
     }
 }

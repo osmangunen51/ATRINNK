@@ -10,6 +10,7 @@ namespace MakinaTurkiye.Services.Stores
         void DeleteStorePackagePurchaseRequest(StorePackagePurchaseRequest storePackagePurchaseRequest);
         void UpdateStorePackagePurchaseRequest(StorePackagePurchaseRequest storePackagePurchaseRequest);
         StorePackagePurchaseRequest GetStorePackagePurchaseRequestWithDate(int MainMartyId, System.DateTime date);
+        List<StorePackagePurchaseRequest> GetAll();
         IPagedList<StorePackagePurchaseRequest> GetStorePackagePurchaseRequest(int page, int pageSize);
     }
 }

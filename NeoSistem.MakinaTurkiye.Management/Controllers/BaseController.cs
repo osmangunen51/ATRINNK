@@ -9,10 +9,11 @@
     using System.Web;
     using System.Web.Mvc;
 
+
     [HandleError]
     [CompressFilter]
     [WhitespaceFilter]
-    public class BaseController : Core.Web.Controller
+    public class BaseController : SystemBaseController
     {
         protected internal MakinaTurkiyeEntities entities = null;
 
@@ -29,7 +30,7 @@
                 Response.Redirect("/Home/Forbidden");
             }
         }
-
+        
         protected bool IsAccess(int pageId)
         {
             if (pageId <= 0)

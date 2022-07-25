@@ -228,7 +228,7 @@
                 <span>
                     @Convert.ToDecimal(item.ProductPriceLast).ToString("N2")
                 </span>
-                <span>item.CurrencyName</span>
+                <span>@item.CurrencyName</span>
             }
             else if (item.ProductPriceType == (byte)ProductPriceType.PriceAsk)
             {

@@ -59,7 +59,11 @@
             }
 
             if (packetType == 2) {
-                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).attr('checked'));
+               
+                var vl = false;
+                if ($('#' + txtValue).is(':checked')) { vl = true; }
+
+                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + vl);
             }
             else {
                 $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).val());
@@ -68,7 +72,10 @@
 
         function setValues(txtValue, hdnPacketFullValue, packetType, packetFeatureId) {
             if (packetType == 2) {
-                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).attr('checked'));
+                var vl = false;
+                if ($('#' + txtValue).is(':checked')) { vl = true;}
+
+                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + vl);
             }
             else {
                 $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).val());

@@ -8,13 +8,12 @@ namespace NeoSistem.MakinaTurkiye.Management.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
                 var BunddleSystem = new ScriptBundle("~/js-system").Include(
-                     // "~/Content/Scripts/jquery-1.8.3.js",
+                    "~/Content/Scripts/jquery.js",
                      "~/Content/Scripts/jquery.unobtrusive-ajax.min.js",
                      "~/Content/Scripts/MicrosoftAjax.js",
                      "~/Content/Scripts/MicrosoftMvcAjax.js",
                      "~/Content/Scripts/MicrosoftMvcValidation.js",
                      "~/Content/Scripts/NeoSistem.js",
-                     "~/Content/Scripts/jquery.js",
                      "~/Content/Scripts/jquery-ui.js",
                      "~/Content/Scripts/jquery-ui.datepicker-tr.js",
                      "~/Content/Scripts/jquery.cookie.js",
@@ -30,10 +29,14 @@ namespace NeoSistem.MakinaTurkiye.Management.App_Start
                      "~/Content/Scripts/jquery.metadata.js",
                      "~/Content/Scripts/SuperBox/jquery.superbox.js",
                      "~/Content/Scripts/CKEditor/ckeditor.js",
-                     "~/Content/Scripts/CKFinder/ckfinder.js"
+                     "~/Content/Scripts/CKFinder/ckfinder.js",
+                     "~/Content/vendor/toast/jquery.toast.min.js",
+                     "~/Content/vendor/datatables/datatables.min.js"
+                     //"~/Content/vendor/signalR/jquery.signalR-2.4.3.min.js",
+
                 );
 
-            //BunddleSystem.Orderer = new NonOrderingBundleOrderer();
+            BunddleSystem.Orderer = new NonOrderingBundleOrderer();
             bundles.Add(BunddleSystem);
 
             var BunddleVendor = new ScriptBundle("~/js-vendor").Include(
@@ -57,7 +60,9 @@ namespace NeoSistem.MakinaTurkiye.Management.App_Start
                     "~/Content/smoothness/jquery-ui.css",
                     "~/Content/vendor/bootstrap-sweetalert/sweetalert.css",
                     "~/Content/vendor/fontawesome/css/all.css",
-                    "~/Content/screen.css"
+                    "~/Content/screen.css",
+                    "~/Content/vendor/toast/jquery.toast.min.css",
+                    "~/Content/vendor/datatables/datatables.min.css"
                 );
 
             // cssbundle.Orderer = new NonOrderingBundleOrderer();

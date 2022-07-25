@@ -8,8 +8,9 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
-// Note: For instructions on enabling IIS6 or IIS7 classic mode,
-// visit http://go.microsoft.com/?LinkId=9394801
+using Microsoft.AspNet.SignalR;
+using MakinaTurkiye.Core.Infrastructure.DependencyManagement;
+using Autofac;
 
 namespace NeoSistem.MakinaTurkiye.Management
 {
@@ -32,18 +33,14 @@ namespace NeoSistem.MakinaTurkiye.Management
 
         protected void Application_Start()
         {
+            AreaRegistration.RegisterAllAreas();
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
-
             //JobScheduler.Start();
-
             //initialize engine context
             EngineContext.Initialize(false);
-            AreaRegistration.RegisterAllAreas();
-
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(RequiredValidationAttribute), typeof(RequiredAttributeAdapter));
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(StringLengthValidationAttribute), typeof(StringLengthAttributeAdapter));
             DataAnnotationsModelValidatorProvider.RegisterAdapter(typeof(EmailValidationAttribute), typeof(RegularExpressionAttributeAdapter));

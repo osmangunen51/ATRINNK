@@ -23,6 +23,7 @@ using MakinaTurkiye.Utilities.MailHelpers;
 using NeoSistem.MakinaTurkiye.Web.Helpers;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using NeoSistem.MakinaTurkiye.Web.Models.Authentication;
+using NeoSistem.MakinaTurkiye.Web.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -210,16 +211,69 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var constant = _constantService.GetConstantByConstantType(ConstantTypeEnum.PacketSalesFooter).FirstOrDefault();
             if (constant != null) packetViewModel.BottomDescription = constant.ContstantPropertie;
 
-            var StorePackagePurchaseRequest = _storePackagePurchaseRequestService.GetStorePackagePurchaseRequestWithDate((int)memberStore.StoreMainPartyId.Value, DateTime.Now);
-            if (StorePackagePurchaseRequest==null)
-            {
-                StorePackagePurchaseRequest = new StorePackagePurchaseRequest();
-                StorePackagePurchaseRequest.MainPartyId = memberStore.StoreMainPartyId.Value;
-                StorePackagePurchaseRequest.Date= DateTime.Now;
-                _storePackagePurchaseRequestService.InsertStorePackagePurchaseRequest(StorePackagePurchaseRequest);
-            }
+           
             return View(packetViewModel);
         }
+
+
+        [HttpPost]
+        public ActionResult OneStep(int PacketId)
+        {
+            SessionPacketModel.PacketModel.PacketId = PacketId;
+            return RedirectToAction("ThreeStep", "MembershipSales");
+        }
+
+
+
+       
+        public ActionResult StorePackagePurchaseRequest()
+        {
+            var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(AuthenticationUser.CurrentUser.Membership.MainPartyId);
+            var store = _storeService.GetStoreByMainPartyId((int)memberStore.StoreMainPartyId);
+            var member = _memberService.GetMemberByMainPartyId(Convert.ToInt32(memberStore.MemberMainPartyId));
+            var phone = _phoneService.GetPhonesByMainPartyId((int)memberStore.StoreMainPartyId).Where(x=> Convert.ToByte(x.PhoneType) ==(byte)PhoneType.Gsm).FirstOrDefault();
+            StorePackagePurchaseRequestViewModel Model=new StorePackagePurchaseRequestViewModel() 
+            { 
+              MainPartyId= (int)memberStore.StoreMainPartyId,
+              Desciption="",
+              FirstName= member.MemberName,
+              LastName= member.MemberSurname,
+              Phone=$"{phone.PhoneCulture}{phone.PhoneAreaCode}{phone.PhoneNumber}",
+              ProductQuantity=1,
+              StoreName= store.StoreName
+            };
+            ViewBag.processstate = 0;
+            ViewBag.processmessage = "";
+            return View(Model);
+        }
+
+        [HttpPost]
+        public ActionResult StorePackagePurchaseRequest(StorePackagePurchaseRequestViewModel Model)
+        {
+            var StorePackagePurchaseRequest = _storePackagePurchaseRequestService.GetStorePackagePurchaseRequestWithDate(Model.MainPartyId, DateTime.Now);
+            if (StorePackagePurchaseRequest == null)
+            {
+                StorePackagePurchaseRequest = new StorePackagePurchaseRequest();
+                StorePackagePurchaseRequest.MainPartyId = Model.MainPartyId;
+                StorePackagePurchaseRequest.ProductQuantity = Model.ProductQuantity;
+                StorePackagePurchaseRequest.ProductQuantity = Model.ProductQuantity;
+                StorePackagePurchaseRequest.Desciption = Model.Desciption;
+                StorePackagePurchaseRequest.FirstName = Model.FirstName;
+                StorePackagePurchaseRequest.LastName = Model.LastName;
+                StorePackagePurchaseRequest.Phone = Model.Phone;
+                StorePackagePurchaseRequest.Date = DateTime.Now;
+                _storePackagePurchaseRequestService.InsertStorePackagePurchaseRequest(StorePackagePurchaseRequest);
+                ViewBag.processstate = 1;
+                ViewBag.processmessage = "Başvurunuz alınmıştır.En kısa sürede sizinle iletişim kurulacaktır.";
+            }
+            else
+            {
+                ViewBag.processstate = 2;
+                ViewBag.processmessage = "Bu gün için bir başvurunuz bulunmaktadır.En kısa sürede sizinle iletişim kurulacaktır.";
+            }
+            return View(Model);
+        }
+
 
         public ActionResult DiscountPackets()
         {
@@ -260,12 +314,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         }
 
-        [HttpPost]
-        public ActionResult OneStep(int PacketId)
-        {
-            SessionPacketModel.PacketModel.PacketId = PacketId;
-            return RedirectToAction("ThreeStep", "MembershipSales");
-        }
+        
 
         public ActionResult Trialpackage()
         {

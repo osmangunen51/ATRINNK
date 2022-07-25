@@ -58,20 +58,46 @@ namespace MakinaTurkiye.Services.CallCenter
                         number = "90" + number;
                     }
                     //number = destination + number;
-                        //{
-                        //   "application":"OUTBOUND",
-                        //    "destination": "905555555555", 
-                        //    "callerid": "90212xxxxxxx",
-                        //    "responseurl": "", 
-                        //    "variable":"",
-                        //    "caller": {
-                        //        "1": "103"   
-                        //    }
-                        //}
+                    //{
+                    //   "application":"OUTBOUND",
+                    //    "destination": "905555555555", 
+                    //    "callerid": "90212xxxxxxx",
+                    //    "responseurl": "", 
+                    //    "variable":"",
+                    //    "caller": {
+                    //        "1": "103"   
+                    //    }
+                    //}
+
+                    /*
+                     {
+"application":"OUTBOUND",
+    "destination": "11505555555555 ",
+    "callerid": "902129455841",
+    "responseurl": "", 
+    "variable":"",
+    "caller": {
+        "1": "115"
+    }
+}
+                     
+                     */
+
+
+          destination = "115";
+          string destnmr = "";
+          if (number.StartsWith("90"))
+            {
+                        destnmr = destination + number.Substring(1,number.Length-1);
+            }
           
-          string Txt= "{\"application\":\"OUTBOUND\",\"destination\":\"" + number + "\",\"callerid\":\"77715\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\"" + destination +"\"}}";
+          string Txt = "{\"application\":\"OUTBOUND\",\"destination\":\""+ destnmr + "\",\"callerid\":\"902129455841\",\"responseurl\":\"\",\"variable\":\"\",\"caller\":{\"1\":\"" + destination +"\"}}";
           Istek.AddStringBody(Txt,DataFormat.Json);
-          var IstekSonuc = restClient.ExecutePost<MakinaTurkiye.Services.CallCenter.CallInfoResponse>(Istek);
+                    Istek.AddOrUpdateHeader("Accept","*/*");
+                    Istek.AddOrUpdateHeader("Accept-Encoding", "gzip, deflate, br");
+                    Istek.AddOrUpdateHeader("Content-Type","application/json");
+                    Istek.AddOrUpdateHeader("Connection","keep-alive");
+                    var IstekSonuc = restClient.ExecutePost<MakinaTurkiye.Services.CallCenter.CallInfoResponse>(Istek);
           
                     if (IstekSonuc.StatusCode == System.Net.HttpStatusCode.OK)
           {

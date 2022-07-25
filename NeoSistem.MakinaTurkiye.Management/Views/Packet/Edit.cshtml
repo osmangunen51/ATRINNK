@@ -62,7 +62,11 @@
             }
 
             if (packetType == 2) {
-                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).attr('checked'));
+
+                var vl = false;
+                if ($('#' + txtValue).is(':checked')) { vl = true; }
+
+                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + vl);
             }
             else {
                 $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).val());
@@ -71,7 +75,10 @@
 
         function setValues(txtValue, hdnPacketFullValue, packetType, packetFeatureId) {
             if (packetType == 2) {
-                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).attr('checked'));
+                var vl = false;
+                if ($('#' + txtValue).is(':checked')) { vl = true; }
+
+                $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + vl);
             }
             else {
                 $('#' + hdnPacketFullValue).val(packetFeatureId + ',' + packetType + ',' + $('#' + txtValue).val());
@@ -86,21 +93,21 @@
                 return true;
             }
             else {
-                $('.hdnValues').each(function () {
-                    if ($(this).val() == '') {
-                        hasRecord = false;
-                        alertMessage = alertMessage + '\'' + $(this).attr('featurename') + '\', ';
-                        return;
-                    }
-                });
+                //$('.hdnValues').each(function () {
+                //    if ($(this).val() == '') {
+                //        hasRecord = false;
+                //        alertMessage = alertMessage + '\'' + $(this).attr('featurename') + '\', ';
+                //        return;
+                //    }
+                //});
 
-                if (hasRecord) {
-                    return true;
-                }
-                else {
-                    alert(alertMessage + ' Özellikleri doldurulmadı.');
-                    return false;
-                }
+                //if (hasRecord) {
+                //    return true;
+                //}
+                //else {
+                //    alert(alertMessage + ' Özellikleri doldurulmadı.');
+                //    return false;
+                //}
             }
         }
 

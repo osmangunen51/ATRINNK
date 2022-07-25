@@ -1,21 +1,40 @@
 ﻿namespace NeoSistem.MakinaTurkiye.Management.Controllers
 {
     using EnterpriseEntity.Extensions.Data;
+    using global::MakinaTurkiye.Core;
     using global::MakinaTurkiye.Services.Users;
+    using Microsoft.AspNetCore.SignalR;
     using Models;
     using Models.Authentication;
     using NeoSistem.MakinaTurkiye.Management.ActionFilters;
+    using NeoSistem.MakinaTurkiye.Management.Extentions;
+    using NeoSistem.MakinaTurkiye.Management.Hubs;
     using System;
     using System.Web.Mvc;
 
-    public class AccountController : Controller
+    public class AccountController : SystemBaseController
     {
         IUserInformationService _userInformationService;
+        //private readonly IHubContext<Hub<NeoSistem.MakinaTurkiye.Management.Hubs.System>> _hubContext;
+
+
+        //public AccountController(IUserInformationService userInformationService, IHubContext<Hub<System>> hubContext)
+        //{
+        //    _userInformationService = userInformationService;
+        //    _hubContext = hubContext;
+        //}
+
+        //public void SendMessageAsync(string message, int UserID)
+        //{
+        //    _hubContext.Clients.All.SendAsync(message, UserID);
+        //}
+
 
         public AccountController(IUserInformationService userInformationService)
         {
             _userInformationService = userInformationService;
         }
+
 
         [CompressFilter]
         [WhitespaceFilter]
@@ -33,6 +52,7 @@
         }
 
 
+        
         [CompressFilter]
         [WhitespaceFilter]
         [HttpPost]
@@ -52,7 +72,10 @@
                         CurrentUserModel.CurrentManagement = curUser;
 
                         CurrentUserModel.CurrentManagement.Permissions = dataUser.GetPermissions(curUser.UserId).AsCollection<Classes.Permission>();
-
+                        //if (curUser.UserName=="YÖNETİCİ")
+                        //{
+                        //    this.SendMessageAsync("Günaydın Gençler", 0);
+                        //}
                         if (!String.IsNullOrEmpty(returnUrl))
                         {
                             return Redirect(returnUrl);
