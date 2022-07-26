@@ -41,12 +41,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 var PortfoyYonetici = UserListesi.FirstOrDefault(y => y.UserId == StorePackagePurchaseRequest.PortfoyUserId);
                 if (PortfoyYonetici != null)
                 {
-                    itm.PortfoyYonetici = $"{PortfoyYonetici.Name} {PortfoyYonetici.Surname}";
+                    itm.PortfoyYonetici = $"{PortfoyYonetici.UserName}";
                 }
                 var TeleSatisSorumlu = UserListesi.FirstOrDefault(y => y.UserId == StorePackagePurchaseRequest.AuthorizedId);
                 if (TeleSatisSorumlu != null)
                 {
-                    itm.TeleSatisSorumlu = $"{TeleSatisSorumlu.Name} {TeleSatisSorumlu.Surname}";
+                    itm.TeleSatisSorumlu = $"{TeleSatisSorumlu.UserName}";
                 }
                 Model.Add(itm);
             }

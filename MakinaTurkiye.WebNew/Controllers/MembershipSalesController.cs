@@ -241,16 +241,17 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     var store = _storeService.GetStoreByMainPartyId(StorePackagePurchaseRequest.MainPartyId);
                     #region bilgimakina
-                    MailMessage mail = new MailMessage();
-                    MessagesMT mailTmpInf = _messagesMTService.GetMessagesMTByMessageMTName("bilgisatinalmatalep");
-                    mail.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
-                    mail.To.Add("bilgi@makinaturkiye.com");
-                    mail.Subject = "Satın Alma Talebi " + store.StoreName;
-                    string bilgimakinaicin = mailTmpInf.MessagesMTPropertie;
-                    mail.Body = bilgimakinaicin;
-                    mail.IsBodyHtml = true;
-                    mail.Priority = MailPriority.Normal;
-                    this.SendMail(mail);
+                        MailMessage mail = new MailMessage();
+                        MessagesMT mailTmpInf = _messagesMTService.GetMessagesMTByMessageMTName("bilgisatinalmatalep");
+                        mail.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
+                        mail.To.Add("bilgi@makinaturkiye.com");
+                        mail.Subject = mailTmpInf.MessagesMTTitle;
+                        string bilgimakinaicin = mailTmpInf.MessagesMTPropertie;
+                        bilgimakinaicin = bilgimakinaicin.Replace("#firmaadi#", store.StoreName);
+                        mail.Body = bilgimakinaicin;
+                        mail.IsBodyHtml = true;
+                        mail.Priority = MailPriority.Normal;
+                        this.SendMail(mail);
                     #endregion bilgimakina
                 }
                 catch (Exception e)

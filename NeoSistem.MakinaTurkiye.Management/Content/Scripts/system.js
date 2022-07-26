@@ -7,8 +7,6 @@ $(".date").datepicker({
     firstDay: 1
 });
 
-
-
 $(".dttable").each(function () {
     var element = $(this);
     var size = element.attr("data-size");
