@@ -312,6 +312,17 @@ $('.call').click(
 
 $('#callcenterpanel-btn').click(
     function () {
+        $.toast({
+            heading: 'Bilgilendirme',
+            text: "Arama Çağrısı başlatıldı lüfen Arama Kontrol Ekranınızı Kontrol Ediniz.",
+            showHideTransition: 'slide',  // It can be plain, fade or slide
+            textColor: '#eee',            // text color
+            textAlign: 'left',            // Alignment of text i.e. left, right, center
+            position: 'top-right',
+            icon: 'info',
+            loader: true,        // Change it to false to disable loader
+            loaderBg: '#9EC600'// bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
+        });
         var callcenterurl = $(this).attr("data-callcenterurl");
         if (typeof (callcenterurl) != 'undefined') {
             var Wincheck = window.open(callcenterurl, "callcenterurl", "");
