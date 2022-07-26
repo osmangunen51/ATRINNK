@@ -563,6 +563,7 @@
     <Compile Include="Models\ViewModel\MailSenderViewModel.cs" />
     <Compile Include="Models\ViewModel\PropertieAttrViewModel.cs" />
     <Compile Include="Models\ViewModel\PropertieViewModel.cs" />
+    <Compile Include="Models\ViewModel\StorePackagePurchaseRequest.cs" />
     <Compile Include="Models\ViewModel\SubAddressViewModel.cs" />
     <Compile Include="Models\WebSiteErrorCreateModel.cs" />
     <Compile Include="Models\WebSiteErrorListItem.cs" />

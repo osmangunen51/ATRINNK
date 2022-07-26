@@ -12,7 +12,7 @@ namespace MakinaTurkiye.Data
     /// </summary>
     public partial class EfRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly IDbContext _context;
+        public IDbContext _context;
         private IDbSet<T> _entities;
 
         /// <summary>
@@ -23,6 +23,10 @@ namespace MakinaTurkiye.Data
         {
             this._context = context;
         }
+
+
+        
+
 
         /// <summary>
         /// Get entity by identifier

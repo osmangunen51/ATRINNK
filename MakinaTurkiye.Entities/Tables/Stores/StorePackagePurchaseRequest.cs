@@ -18,5 +18,9 @@ namespace MakinaTurkiye.Entities.Tables.Stores
         public DateTime Date        { get; set; }
         [NotMapped]
         public string StoreName { get; set; } = "";
+        [NotMapped]
+        public int? AuthorizedId { get; set; } =0;
+        [NotMapped]
+        public int? PortfoyUserId { get; set; } =0;
     }
 }

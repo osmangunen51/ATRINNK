@@ -1,6 +1,8 @@
-﻿using MakinaTurkiye.Core;
+﻿
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Stores;
+using MakinaTurkiye.Entities.Tables.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,12 @@ namespace MakinaTurkiye.Services.Stores
     {
         IRepository<StorePackagePurchaseRequest> _StorePackagePurchaseRequestRepository;
         IRepository<Store> _StoreRepository;
-        public StorePackagePurchaseRequestService(IRepository<StorePackagePurchaseRequest> StorePackagePurchaseRequestRepository, IRepository<Store> StoreRepository)
-        {
-            this._StorePackagePurchaseRequestRepository = StorePackagePurchaseRequestRepository;
-            this._StoreRepository = StoreRepository;
-        }
 
+        public StorePackagePurchaseRequestService(IRepository<StorePackagePurchaseRequest> storePackagePurchaseRequestRepository, IRepository<Store> storeRepository)
+        {
+            _StorePackagePurchaseRequestRepository = storePackagePurchaseRequestRepository;
+            _StoreRepository = storeRepository;
+        }
 
         public void InsertStorePackagePurchaseRequest(StorePackagePurchaseRequest StorePackagePurchaseRequest)
         {
@@ -38,12 +40,12 @@ namespace MakinaTurkiye.Services.Stores
             _StorePackagePurchaseRequestRepository.Delete(StorePackagePurchaseRequest);
         }
 
-        public StorePackagePurchaseRequest GetStorePackagePurchaseRequestWithDate(int MainMartyId,System.DateTime date)
+        public StorePackagePurchaseRequest GetStorePackagePurchaseRequestWithDate(int MainMartyId, System.DateTime date)
         {
             if (date == default)
                 throw new ArgumentNullException("StorePackagePurchaseRequest");
             var query = _StorePackagePurchaseRequestRepository.Table;
-            query = query.Where(s => s.Date>=date.Date && s.MainPartyId==MainMartyId);
+            query = query.Where(s => s.Date >= date.Date && s.MainPartyId == MainMartyId);
             return query.FirstOrDefault();
         }
         public IPagedList<StorePackagePurchaseRequest> GetStorePackagePurchaseRequest(int page, int pageSize)
@@ -58,36 +60,49 @@ namespace MakinaTurkiye.Services.Stores
             var queryStore = _StoreRepository.Table;
             if (queryStorePackagePurchaseRequest != null)
             {
-              var tmp = queryStorePackagePurchaseRequest.Join(
-                      queryStore, 
-                      StorePackagePurchaseRequest => StorePackagePurchaseRequest.MainPartyId,
-                      Store => Store.MainPartyId,
-                      (StorePackagePurchaseRequest, Store) => new
-                      {
-                          Id = StorePackagePurchaseRequest.Id,
-                          Desciption = StorePackagePurchaseRequest.Desciption,
-                          Date = StorePackagePurchaseRequest.Date,
-                          FirstName = StorePackagePurchaseRequest.FirstName,
-                          LastName = StorePackagePurchaseRequest.LastName,
-                          MainPartyId = StorePackagePurchaseRequest.MainPartyId,
-                          Phone = StorePackagePurchaseRequest.Phone,
-                          ProductQuantity = StorePackagePurchaseRequest.ProductQuantity,
-                          StoreName = Store.StoreName,
-                      }).OrderByDescending(x => x.Date).ToList();
-                result= tmp.Select(x => new StorePackagePurchaseRequest {
-                    Id = x.Id,
-                    Desciption = x.Desciption,
-                    Date = x.Date,
-                    FirstName = x.FirstName,
-                    LastName = x.LastName,
-                    MainPartyId = x.MainPartyId,
-                    Phone = x.Phone,
-                    ProductQuantity = x.ProductQuantity,
-                    StoreName = x.StoreName,
+                var tmp = queryStorePackagePurchaseRequest.Join(
+                        queryStore,
+                        StorePackagePurchaseRequest => StorePackagePurchaseRequest.MainPartyId,
+                        Store => Store.MainPartyId,
+                        (StorePackagePurchaseRequest, Store) => new
+                        {
+                            Id = StorePackagePurchaseRequest.Id,
+                            Desciption = StorePackagePurchaseRequest.Desciption,
+                            Date = StorePackagePurchaseRequest.Date,
+                            FirstName = StorePackagePurchaseRequest.FirstName,
+                            LastName = StorePackagePurchaseRequest.LastName,
+                            MainPartyId = StorePackagePurchaseRequest.MainPartyId,
+                            Phone = StorePackagePurchaseRequest.Phone,
+                            ProductQuantity = StorePackagePurchaseRequest.ProductQuantity,
+                            StoreName = Store.StoreName,
+                            AuthorizedId = Store.AuthorizedId,
+                            PortfoyUserId = Store.PortfoyUserId,
+                        }).OrderByDescending(x => x.Date).ToList();
 
-                }).ToList();
+
+                foreach (var item in tmp)
+                {
+                    var StorePackagePurchaseRequest = new StorePackagePurchaseRequest
+                    {
+                        Id = item.Id,
+                        Desciption = item.Desciption,
+                        Date = item.Date,
+                        FirstName = item.FirstName,
+                        LastName = item.LastName,
+                        MainPartyId = item.MainPartyId,
+                        Phone = item.Phone,
+                        ProductQuantity = item.ProductQuantity,
+                        StoreName = item.StoreName,
+                        AuthorizedId = item.AuthorizedId,
+                        PortfoyUserId = item.PortfoyUserId,
+                    };
+                    result.Add(StorePackagePurchaseRequest);
+                };
             }
             return result;
         }
     }
 }
+
+
+

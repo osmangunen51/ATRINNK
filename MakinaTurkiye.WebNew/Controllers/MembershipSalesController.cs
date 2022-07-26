@@ -7,6 +7,7 @@ using MakinaTurkiye.Entities.Tables.Checkouts;
 using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Logs;
 using MakinaTurkiye.Entities.Tables.Members;
+using MakinaTurkiye.Entities.Tables.Messages;
 using MakinaTurkiye.Entities.Tables.Packets;
 using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Catalog;
@@ -127,7 +128,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private readonly IVirtualPosService _virtualPosService;
         private readonly ICreditCardLogService _creditCardLogService;
         private readonly IStorePackagePurchaseRequestService _storePackagePurchaseRequestService;
-
+        private readonly IMessagesMTService _messagesMTService;
 
         //private static ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
 
@@ -135,38 +136,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
         #region Ctor
 
-        public MembershipSalesController(IOrderService orderService,
-            IProductService productService, IStoreService storeService,
-            IPacketService packetService, IConstantService constantService,
-            ICompanyDemandMembershipService companyDemandMembership,
-            IMemberStoreService memberStoreService,
-            IPhoneService phoneService,
-            IMemberService memberService,
-            IAddressService addressService,
-            IMemberService _memberService,
-            IBankAccountService bankAccountService,
-            ICreditCardService creditCardService,
-            IMessagesMTService messageMTService,
-            IStorePackagePurchaseRequestService StorePackagePurchaseRequestService,
-            IVirtualPosService virtualPosService, ICreditCardLogService creditCardLogService)
-        {
-            this._orderService = orderService;
-            this._storeService = storeService;
-            this._packetService = packetService;
-            this._constantService = constantService;
-            this._companyDemandMembership = companyDemandMembership;
-            this._memberStoreService = memberStoreService;
-            this._phoneService = phoneService;
-            this._addressService = addressService;
-            this._productService = productService;
-            this._memberService = memberService;
-            this._bankAccountService = bankAccountService;
-            this._creditCardService = creditCardService;
-            this._messageMTService = messageMTService;
-            this._virtualPosService = virtualPosService;
-            this._creditCardLogService = creditCardLogService;
-            this._storePackagePurchaseRequestService = StorePackagePurchaseRequestService;
-        }
+        
 
         #endregion
 
@@ -262,9 +232,31 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 StorePackagePurchaseRequest.LastName = Model.LastName;
                 StorePackagePurchaseRequest.Phone = Model.Phone;
                 StorePackagePurchaseRequest.Date = DateTime.Now;
+
                 _storePackagePurchaseRequestService.InsertStorePackagePurchaseRequest(StorePackagePurchaseRequest);
                 ViewBag.processstate = 1;
                 ViewBag.processmessage = "Başvurunuz alınmıştır.En kısa sürede sizinle iletişim kurulacaktır.";
+
+                try
+                {
+                    var store = _storeService.GetStoreByMainPartyId(StorePackagePurchaseRequest.MainPartyId);
+                    #region bilgimakina
+                    MailMessage mail = new MailMessage();
+                    MessagesMT mailTmpInf = _messagesMTService.GetMessagesMTByMessageMTName("bilgisatinalmatalep");
+                    mail.From = new MailAddress(mailTmpInf.Mail, mailTmpInf.MailSendFromName);
+                    mail.To.Add("bilgi@makinaturkiye.com");
+                    mail.Subject = "Satın Alma Talebi " + store.StoreName;
+                    string bilgimakinaicin = mailTmpInf.MessagesMTPropertie;
+                    mail.Body = bilgimakinaicin;
+                    mail.IsBodyHtml = true;
+                    mail.Priority = MailPriority.Normal;
+                    this.SendMail(mail);
+                    #endregion bilgimakina
+                }
+                catch (Exception e)
+                {
+
+                }
             }
             else
             {
@@ -684,6 +676,27 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         string tutar;
         string cv2;
         string khip;
+
+        public MembershipSalesController(IOrderService orderService, IStoreService storeService, IPacketService packetService, IConstantService constantService, ICompanyDemandMembershipService companyDemandMembership, IMemberStoreService memberStoreService, IPhoneService phoneService, IAddressService addressService, IProductService productService, IMemberService memberService, IBankAccountService bankAccountService, ICreditCardService creditCardService, IMessagesMTService messageMTService, IVirtualPosService virtualPosService, ICreditCardLogService creditCardLogService, IStorePackagePurchaseRequestService storePackagePurchaseRequestService, IMessagesMTService messagesMTService)
+        {
+            _orderService = orderService;
+            _storeService = storeService;
+            _packetService = packetService;
+            _constantService = constantService;
+            _companyDemandMembership = companyDemandMembership;
+            _memberStoreService = memberStoreService;
+            _phoneService = phoneService;
+            _addressService = addressService;
+            _productService = productService;
+            _memberService = memberService;
+            _bankAccountService = bankAccountService;
+            _creditCardService = creditCardService;
+            _messageMTService = messageMTService;
+            _virtualPosService = virtualPosService;
+            _creditCardLogService = creditCardLogService;
+            _storePackagePurchaseRequestService = storePackagePurchaseRequestService;
+            _messagesMTService = messagesMTService;
+        }
 
 #if !DEBUG
                     [RequireHttps]

@@ -61,6 +61,7 @@ namespace MakinaTurkiye.Utilities
             builder.RegisterGeneric(typeof(EfRepository<>)).As(typeof(IRepository<>)).InstancePerLifetimeScope();
 
 
+
             //cache manager
 
             if (!config.CachingEnabled)

@@ -1,11 +1,11 @@
-﻿@model ICollection<MakinaTurkiye.Entities.Tables.Stores.StorePackagePurchaseRequest>
+﻿@model ICollection<NeoSistem.MakinaTurkiye.Management.Models.ViewModel.StorePackagePurchaseRequest>
 @section TitleContent {
     Index
 }
 @section HeadContent
 {
     <link href="~/Content/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="~/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="~/content/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
     <script type="text/javascript" src="~/Content/Scripts/SuperBox/jquery.superbox.js"></script>
 
@@ -94,6 +94,7 @@
                         <th scope="col">Açıklama</th>
                         <th scope="col">Tele Satış Sorumlusu</th>
                         <th scope="col">Portföy Yöneticisi	</th>
+                        <th>İşlemler</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,10 +114,14 @@
                             @item.Desciption
                         </td>
                         <td>
-
+                            @item.TeleSatisSorumlu
                         </td>
                         <td>
-
+                            @item.PortfoyYonetici
+                        </td>
+                        <td>
+                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="Mağaza sayfasını aç"  class="btn btn-sm btn-success" href="~/Store/StoreDetailInformation/@item.MainPartyId"><i class="fa fa-building"></i></a>
+                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="Açıklamalar ekranını aç" class="btn btn-sm btn-danger" href="~/Member/BrowseDesc1/@item.MainPartyId"><i class="fa fa-info"></i></a>
                         </td>
                     </tr>
                         sira++;
