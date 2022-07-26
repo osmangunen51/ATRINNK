@@ -90,21 +90,35 @@
                         <th scope="col">Telefon</th>
                         <th scope="col">Ürün Sayısı</th>
                         <th scope="col">Tarih</th>
+                        <th scope="col">Saat</th>
+                        <th scope="col">Açıklama</th>
+                        <th scope="col">Tele Satış Sorumlusu</th>
+                        <th scope="col">Portföy Yöneticisi	</th>
                     </tr>
                 </thead>
                 <tbody>
                     @{int sira = 1;}
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <th scope="row">@sira</th>
-                            <td>@item.StoreName</td>
-                            <td>@item.FirstName</td>
-                            <td>@item.LastName</td>
-                            <td>@item.Phone</td>
-                            <td>@item.ProductQuantity</td>
-                            <td>@item.Date.ToString("dd.MM.yyyy")</td>
-                        </tr>
+                    <tr>
+                        <th scope="row">@sira</th>
+                        <td>@item.StoreName</td>
+                        <td>@item.FirstName</td>
+                        <td>@item.LastName</td>
+                        <td>@item.Phone</td>
+                        <td>@item.ProductQuantity</td>
+                        <td>@item.Date.ToString("dd.MM.yyyy")</td>
+                        <td>@item.Date.ToString("HH:m:s")</td>
+                        <td>
+                            @item.Desciption
+                        </td>
+                        <td>
+
+                        </td>
+                        <td>
+
+                        </td>
+                    </tr>
                         sira++;
                     }
                 </tbody>

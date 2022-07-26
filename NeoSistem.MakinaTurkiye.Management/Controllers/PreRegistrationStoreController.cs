@@ -46,7 +46,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             int p = 1;
 
-            int pageSize = 20;
+            int pageSize = 100;
             var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "","",false);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();
@@ -105,7 +105,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         public PartialViewResult Index(string page, string storeName, string email, string city="")
         {
             int p = Convert.ToInt32(page);
-            int pageSize = 20;
+            int pageSize = 100;
             var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, city, false);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
             List<PreRegistrationItem> source = new List<PreRegistrationItem>();

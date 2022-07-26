@@ -65,7 +65,7 @@
 		},
 		applyClasses: function(settings, toggler) {
 			// TODO use event delegation
-			this.filter(":has(>ul):not(:has(>a))").find(">span").unbind("click.treeview").live("click.treeview", function(event) {
+			this.filter(":has(>ul):not(:has(>a))").find(">span").unbind("click.treeview").on("click.treeview", function(event) {
 				// don't handle click events on children, eg. checkboxes
 				if ( this == event.target )
 					toggler.apply($(this).next());
