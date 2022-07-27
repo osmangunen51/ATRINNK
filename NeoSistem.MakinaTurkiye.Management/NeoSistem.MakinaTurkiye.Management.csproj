@@ -894,6 +894,10 @@
     <Content Include="Content\RibbonImages\UserPermission.png" />
     <Content Include="Content\RibbonImages\userreview.png" />
     <Content Include="Content\screen.css" />
+    <Content Include="Content\Scripts\jquery-ui.css" />
+    <None Include="Content\Scripts\JQuery-vsdoc.js" />
+    <Content Include="Content\Scripts\JQuery.Debug.js" />
+    <Content Include="Content\Scripts\jquery.sticky.js" />
     <Content Include="Content\smoothness\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\smoothness\images\ui-bg_glass_55_fbf9ee_1x400.png" />
