@@ -85,10 +85,10 @@ id="preLoading">
                 type: 'post',
                 success: function (data) {
                     $("#table1").html(data);
-                    $('#preLoading').hide();
+                    allMessageClose();
                 },
                 error: function (x, a, r) {
-                    $('#preLoading').hide();
+                    allMessageClose();
                 }
             });
         }

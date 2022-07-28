@@ -149,10 +149,10 @@
                     $('#data').html(data);
 
 
-                    $('#preLoading').hide();
+                    allMessageClose();
                 },
                 error: function (x, a, r) {
-                    $('#preLoading').hide();
+                    allMessageClose();
                     //$('#table').html(x.responseText);
                 }
             });

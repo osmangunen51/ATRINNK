@@ -9,7 +9,7 @@
 
     <script type="text/javascript">
         function PagingNew(curentpage) {
-            $('#preLoading').show();
+            bilgimesajver();
             $.ajax({
                 url: '/Store/New',
                 data: {
@@ -19,7 +19,7 @@
                 type: 'post',
                 success: function (data) {
                     $("#table").html(data);
-                    $('#preLoading').hide();
+                    allMessageClose();
 
                 },
                 error: function (x, a, r) {
@@ -30,7 +30,7 @@
         }
         function ConfirmNew(confirm) {
 
-            $('#preLoading').show();
+            bilgimesajver();
             var idItems = "";
             $('.checkboxNew').each(function () {
 
@@ -51,7 +51,7 @@
                         window.location.href = '/Store/New';
                     },
                     error: function (x, a, r) {
-                        $('#preLoading').hide();
+                        allMessageClose();
                     }
                 });
         }

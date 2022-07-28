@@ -130,7 +130,7 @@
         }
 
         function SearchPost() {
-            $('#preLoading').show();
+            bilgimesajver();
             $.ajax({
                 url: "/MemberDescription/Notification",
                 data: {
@@ -148,10 +148,10 @@
                 success: function (data) {
                     $('#tblNotificationList').empty();
                     $('#tblNotificationList').html(data);
-                    $('#preLoading').hide();
+                    allMessageClose();
                 },
                 error: function (x, a, r) {
-                    $('#preLoading').hide();
+                    allMessageClose();
                 }
             });
         }

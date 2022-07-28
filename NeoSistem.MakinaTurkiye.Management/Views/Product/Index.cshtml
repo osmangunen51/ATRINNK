@@ -375,7 +375,7 @@
     function SearchPost() {
 
       if ($('#ProductNo').val().length == 1 || $('#ProductNo').val().length == 9) {
-        $('#preLoading').show();
+        bilgimesajver();
 
         $.ajax({
           url: '/Product/Index',
@@ -405,10 +405,10 @@
           success: function (data) {
             $('#table').html(data);
 
-            $('#preLoading').hide();
+            allMessageClose();
           },
           error: function (x, a, r) {
-            $('#preLoading').hide();
+            allMessageClose();
           }
         });
 
@@ -564,7 +564,7 @@
     var idItems = "";
     function confirmMember(typeId) {
 
-      $('#preLoading').show();
+      bilgimesajver();
 
       $('.CheckItems').each(function () {
 
@@ -585,14 +585,14 @@
           window.location.href = '/Product/Index/';
         },
         error: function (x, a, r) {
-          $('#preLoading').hide();
+          allMessageClose();
         }
       });
 
     }
     function SendForStore(typeId) {
 
-      $('#preLoading').show();
+      bilgimesajver();
 
       $('.CheckItems').each(function () {
 
@@ -614,7 +614,7 @@
           window.location.href = '/Product/Index/';
         },
         error: function (x, a, r) {
-          $('#preLoading').hide();
+          allMessageClose();
         }
       });
 

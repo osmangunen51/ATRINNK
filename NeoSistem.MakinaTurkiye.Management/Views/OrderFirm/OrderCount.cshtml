@@ -54,7 +54,7 @@
             }
             
             function SearchPost() {
-                $('#preLoading').show();
+                bilgimesajver();
                 $.ajax({
                     url: '/OrderFirm/OrderCountItem',
                     data: {
@@ -63,10 +63,10 @@
                     type: 'get',
                     success: function (data) {
                         $('#tableBody').html(data);
-                        $('#preLoading').hide();
+                        allMessageClose();
                     },
                     error: function (x, a, r) {
-                        $('#preLoading').hide();
+                        allMessageClose();
                     }
                 });
             }

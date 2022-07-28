@@ -111,7 +111,7 @@
     }
 
     function SearchPost() {
-      $('#preLoading').show();
+      bilgimesajver();
 
       $.ajax({
         url: '/Message/Index',
@@ -126,10 +126,10 @@
         },
         success: function (data) {
           $('#table').html(data);
-          $('#preLoading').hide();
+          allMessageClose();
         },
         error: function (x) {
-          $('#preLoading').hide();
+          allMessageClose();
           //$('#table').html(x.responseText);
         }
       });
@@ -150,7 +150,7 @@
                         $("#preLoading").hide();
         },
         error: function (x) {
-          $('#preLoading').hide();
+          allMessageClose();
           //$('#table').html(x.responseText);
         }
     });

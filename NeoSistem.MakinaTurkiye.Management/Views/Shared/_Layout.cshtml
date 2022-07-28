@@ -3,52 +3,39 @@
 <!doctype html>
 <html lang="tr">
 <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <title>
         @RenderSection("TitleContent", required: false)
     </title>
-    <meta http-equiv="X-UA-Compatible" content="IE=8" />
 
-    <link href="~/Content/Site.css" rel="stylesheet" />
-    <link href="~/Content/Ribbon.css" rel="stylesheet" />
-    <link href="~/Content/qtip.css" rel="stylesheet" />
-    <link href="~/Content/jquery.treeview.css" rel="stylesheet" />
-    <link href="~/Content/jquery.contextmenu.css" rel="stylesheet" />
-    <link href="~/Content/Scripts/SuperBox/jquery.superbox.css" rel="stylesheet" />
-    <link href="~/Content/smoothness/jquery-ui.css" rel="stylesheet" />
+
+    <script src="~/Content/Scripts/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ribbon.css" rel="stylesheet" type="text/css" />
+
+
+
+
+    <link href="~/Content/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script src="~/Content/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/MicrosoftMvcValidation.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/NeoSistem.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery-ui.datepicker-tr.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/Ribbon.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery-ui-1.8.8.custom.min.js" type="text/javascript"></script>
+
     <link href="~/Content/vendor/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" />
     <link href="~/Content/vendor/fontawesome/css/all.css" rel="stylesheet" />
-    <link href="~/Content/screen.css" rel="stylesheet" />
+
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/vendor/datatables/datatables.css" rel="stylesheet" />
     <link href="~/Content/vendor/toast/jquery.toast.min.css" rel="stylesheet" />
-
-
-    <script src="~/Content/Scripts/jquery.js"></script>
-
-    <script src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Content/Scripts/MicrosoftAjax.js"></script>
-    <script src="~/Content/Scripts/MicrosoftMvcAjax.js"></script>
-    <script src="~/Content/Scripts/MicrosoftMvcValidation.js"></script>
-    <script src="~/Content/Scripts/NeoSistem.js"></script>
-    <script src="~/Content/Scripts/jquery-ui.js"></script>
-    <script src="~/Content/Scripts/jquery-ui.datepicker-tr.js"></script>
-    <script src="~/Content/Scripts/jquery.cookie.js"></script>
-    <script src="~/Content/Scripts/JQuery-qtip.js"></script>
-    <script src="~/Content/Scripts/Ribbon.js"></script>
-    <script src="~/Content/Scripts/jquery-ui-1.8.8.custom.min.js"></script>
-    <script src="~/Content/Scripts/jquery.treeview.js"></script>
-    <script src="~/Content/Scripts/jquery.treeview.async.js"></script>
-    <script src="~/Content/Scripts/jquery.treeview.edit.js"></script>
-    <script src="~/Content/Scripts/jquery.contextmenu.js"></script>
-    <script src="~/Content/Scripts/jquery.validate.js"></script>
-    <script src="~/Content/Scripts/jquery.metadata.js"></script>
-    <script src="~/Content/Scripts/SuperBox/jquery.superbox.js"></script>
-    <script src="~/Content/Scripts/CKEditor/ckeditor.js"></script>
-    <script src="~/Content/Scripts/CKFinder/ckfinder.js"></script>
-    <script src="~/Content/vendor/toast/jquery.toast.min.js"></script>
-
-    @*<link href="~/Content/vendor/datatables/datatables.min.css" rel="stylesheet" />
-        <script src="~/Content/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="~/Content/vendor/datatables/datatables.min.js"></script>*@
-    @*<script src="~/Content/vendor/signalR/jquery.signalR-2.4.3.min.js"></script>*@
 
     @RenderSection("HeadContent", required: false)
 
@@ -60,6 +47,9 @@
     <div class="Content">
         @RenderBody()
     </div>
+    <script src="~/Content/vendor/toast/jquery.toast.min.js"></script>
+    <script src="~/Content/vendor/datatables/datatables.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.js"></script>
     <script src="~/Content/vendor/bootstrap-sweetalert/sweetalert.js"></script>
     <script src="~/Content/vendor/fontawesome/js/all.js"></script>
     <script src="~/Content/vendor/clipboard.js"></script>
@@ -88,7 +78,7 @@
             GetNotSpecialForUser();
             //setInterval(GetNotification, 400000);
         });
-        
+
         function GetNotSpecialForUser() {
             $.ajax({
                 url: '/MemberDescription/getNotification1',
@@ -97,10 +87,10 @@
                 success: function (data) {
                     $("#notification1").show();
                     $("#notification1").html("<font style='color:#ed1818; font-weight:600'>" + data + "</font> Bildirim");
-                    
+
                 },
                 error: function (x) {
-                    $('#preLoading').hide();
+                    allMessageClose();
                     //$('#table').html(x.responseText);
                 }
             });
@@ -114,7 +104,7 @@
                 success: function (data) {
                     $("#notification").show();
                     $("#notification").html("<font style='color:#ed1818; font-weight:600'>" + data.count + " Genel </font> Bildirim");
-                    
+
                     countNot = data.count;
                     if (numberGetNot > 1) {
                         if (parseInt(data.count) > lastCountNot) {
@@ -125,7 +115,7 @@
                     lastCountNot = countNot;
                 },
                 error: function (x) {
-                    $('#preLoading').hide();
+                    allMessageClose();
                     //$('#table').html(x.responseText);
                 }
             });
@@ -143,7 +133,7 @@
 
                 },
                 error: function (x) {
-                    $('#preLoading').hide();
+                    allMessageClose();
                     //$('#table').html(x.responseText);
                 }
             });

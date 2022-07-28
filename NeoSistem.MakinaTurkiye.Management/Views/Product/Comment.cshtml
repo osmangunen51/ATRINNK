@@ -10,7 +10,7 @@
     <script type="text/javascript">
             function confirmComment(confirm) {
 
-      $('#preLoading').show();
+      bilgimesajver();
                 var idItems = "";
       $('.checkBoxProductComment').each(function () {
 
@@ -31,13 +31,13 @@
           window.location.href = '/Product/Comment/';
         },
         error: function (x, a, r) {
-          $('#preLoading').hide();
+          allMessageClose();
         }
       });
 
         }
             function PagePost(p) {
-              $('#preLoading').show();
+              bilgimesajver();
       $.ajax({
         url: '/Product/Comment',
         data: {
@@ -49,10 +49,10 @@
           success: function (data) {
               alert(data);
             $("#table").html(data);
-             $('#preLoading').hide();
+             allMessageClose();
         },
         error: function (x, a, r) {
-          $('#preLoading').hide();
+          allMessageClose();
         }
       });
         }

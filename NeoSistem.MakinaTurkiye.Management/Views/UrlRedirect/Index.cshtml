@@ -54,7 +54,7 @@
 
         }
         function PagingPost(p) {
-            $('#preLoading').show();
+            bilgimesajver();
             $.ajax({
                 url: '/UrlRedirect/Index',
                 data: {
@@ -63,10 +63,10 @@
                 type: 'post',
                 success: function (data) {
                     $('#table').html(data);
-                    $('#preLoading').hide();
+                    allMessageClose();
                 },
                 error: function (x, a, r) {
-                    $('#preLoading').hide();
+                    allMessageClose();
                 }
             });
         }

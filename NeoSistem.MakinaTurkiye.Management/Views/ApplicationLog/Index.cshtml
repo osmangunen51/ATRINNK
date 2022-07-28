@@ -30,7 +30,7 @@
             }
         }
         function PagingPost(page) {
-            $('#preLoading').show();
+            bilgimesajver();
             $("#Page").val(page);
             SearchPost();
         }
@@ -45,10 +45,10 @@
                 type: 'post',
                 success: function (data) {
                     $('#table').html(data);
-                    $('#preLoading').hide();
+                    allMessageClose();
                 },
                 error: function (x, a, r) {
-                    $('#preLoading').hide();
+                    allMessageClose();
                 }
             });
         }

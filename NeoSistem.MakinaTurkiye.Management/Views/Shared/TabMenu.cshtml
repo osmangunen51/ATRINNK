@@ -97,7 +97,7 @@
     }
 
     .mailback {
-        background: #b6c78e4a;
+        background: #4cb4e5;
         border: 1px solid #7fbf99;
     }
 
@@ -119,7 +119,7 @@
     });
     function SpecialMailSend(id) {
         if (confirm('Mail Göndermek İstiyormusunuz?')) {
-            $('#preLoading').show();
+            bilgimesajver();
             var storeId =@((ViewContext.RouteData!=null?id:0));
             $.ajax({
                 url: '/Member/SpecialMailSend',
@@ -129,11 +129,11 @@
                 type: 'post',
                 success: function (data) {
                     alert(data.Message);
-                    $('#preLoading').hide();
+                    allMessageClose();
                 },
                 error: function (x, a, r) {
                     alert("Error");
-                    $('#preLoading').hide();
+                    allMessageClose();
 
                 }
             });

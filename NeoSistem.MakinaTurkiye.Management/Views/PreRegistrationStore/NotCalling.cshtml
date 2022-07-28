@@ -40,7 +40,7 @@
         }
 
         function SearchPost() {
-            $('#preLoading').show();
+            bilgimesajver();
             $.ajax({
                 url: '/PreRegistrationStore/NotCalling',
                 data: {
@@ -52,10 +52,10 @@
                 type: 'post',
                 success: function (data) {
                     $('#table').html(data);
-                    $('#preLoading').hide();
+                    allMessageClose();
                 },
                 error: function (x, a, r) {
-                    $('#preLoading').hide();
+                    allMessageClose();
                 }
             });
         }

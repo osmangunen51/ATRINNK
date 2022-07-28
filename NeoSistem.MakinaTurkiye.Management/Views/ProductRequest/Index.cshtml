@@ -29,7 +29,7 @@
             }
         }
                 function PagingPost(curentpage) {
-            $('#preLoading').show();
+            bilgimesajver();
             $.ajax({
                 url: '/ProductRequest/Index',
                 data: {
@@ -38,7 +38,7 @@
                 type: 'post',
                 success: function (data) {
                     $("#table").html(data);
-                    $('#preLoading').hide();
+                    allMessageClose();
                 },
                 error: function (x, a, r) {
                     alert("Error");
