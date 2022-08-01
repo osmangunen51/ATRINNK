@@ -8,6 +8,7 @@ namespace MakinaTurkiye.Services.Members
         MemberStore GetMemberStoreByMemberMainPartyId(int memberMainPartyId);
         MemberStore GetMemberStoreByStoreMainPartyId(int storeMainPartyId);
         IList<MemberStore> GetMemberStoresByStoreMainPartyId(int storeMainPartyId);
+        IList<MemberStore> GetMemberStores();
         void InsertMemberStore(MemberStore memberStore);
     }
 }

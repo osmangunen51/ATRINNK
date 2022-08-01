@@ -67,6 +67,10 @@
     <Reference Include="Autofac, Version=6.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.6.3.0\lib\netstandard2.0\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Common.Logging, Version=3.4.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.4.1\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
@@ -940,8 +944,15 @@
     <Content Include="Content\ui-lightness\jquery.ui.theme.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
     <Content Include="Content\vendor\bootstrap\js\bootstrap.js" />
+    <Content Include="Content\vendor\datatables\css\datatables.css" />
     <Content Include="Content\vendor\datatables\datatables.css" />
     <Content Include="Content\vendor\datatables\datatables.js" />
+    <Content Include="Content\vendor\datatables\images\sort_asc.png" />
+    <Content Include="Content\vendor\datatables\images\sort_asc_disabled.png" />
+    <Content Include="Content\vendor\datatables\images\sort_both.png" />
+    <Content Include="Content\vendor\datatables\images\sort_desc.png" />
+    <Content Include="Content\vendor\datatables\images\sort_desc_disabled.png" />
+    <Content Include="Content\vendor\datatables\js\datatables.js" />
     <Content Include="Content\vendor\toast\jquery.toast.min.css" />
     <Content Include="Content\vendor\toast\jquery.toast.min.js" />
     <Content Include="Global.asax" />

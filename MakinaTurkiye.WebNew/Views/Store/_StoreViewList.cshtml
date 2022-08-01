@@ -67,7 +67,7 @@
                         <a href="@(!string.IsNullOrEmpty(item.SelectedCategoryProductUrlForStoreProfile) ? item.SelectedCategoryProductUrlForStoreProfile : item.ProductUrlForStoreProfile)"
                            class="company-list-mt__product-link">
                             <span class="glyphicon glyphicon-shopping-cart"></span>
-                            &nbsp;@(!string.IsNullOrEmpty(item.SelectedCategoryContentTitle) ? item.SelectedCategoryContentTitle : "Ürünler" )
+                            &nbsp;@(!string.IsNullOrEmpty(item.SelectedCategoryContentTitle) ? item.StoreShortName+" "+item.SelectedCategoryContentTitle.Replace("Firmaları",""):item.StoreShortName+" Tüm Ürünleri" )
                         </a>
                     </div>
                     <div class="clearfix"></div>

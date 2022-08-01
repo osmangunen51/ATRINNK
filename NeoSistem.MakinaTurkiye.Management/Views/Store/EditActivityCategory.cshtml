@@ -20,7 +20,7 @@
   @using (Html.BeginPanel())
     { 
   @Html.Partial("TabMenu")
-  @using (Html.BeginForm("EditActivityCategory", "Store", FormMethod.Post))
+  using (Html.BeginForm("EditActivityCategory", "Store", FormMethod.Post))
      { 
   <div style="width: 600px; float: left; margin: 20px 0px 0px 20px">
     <div style="width: 570px; height: auto; float: left;">
@@ -46,9 +46,9 @@
                   @{ bool checkRelated = false; }
                   @foreach (var itemRelated in Model.StoreActivityCategory)
                      { 
-                  @if (itemRelated.CategoryId == item2.CategoryId)
+                  if (itemRelated.CategoryId == item2.CategoryId)
                      { 
-                  @{ checkRelated = true; }
+                  { checkRelated = true; }
                   <script type="text/javascript">
                     $('#plusContent@item.CategoryId').show();
                   </script>

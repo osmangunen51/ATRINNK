@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Entities.Tables.Common;
+﻿using AutoMapper;
+using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Entities.Tables.Stores;
 using MakinaTurkiye.Services.Common;
@@ -44,116 +45,53 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         // GET: PreRegistrationStore
         public ActionResult Index()
         {
-            int p = 1;
-
-            int pageSize = 100;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "","",false);
-            FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
-            List<PreRegistrationItem> source = new List<PreRegistrationItem>();
-
-            foreach (var item in stores)
+            
+            List<SelectListItem> UsrListesi=new List<SelectListItem>();
+            UsrListesi.Add(new SelectListItem()
             {
-                string AtananUser = "";
-                var memberdes = _memberDescriptonService.GetMemberDescriptionByPreRegistrationStoreId(item.PreRegistrationStoreId).OrderByDescending(x => x.Date).FirstOrDefault();
-                if (memberdes != null)
-                {
-                    var user = this.entities.Users.FirstOrDefault(x => x.UserId == memberdes.UserId);
-                    if (user != null)
-                    {
-                        var GroupsIdList = this.entities.UserInformations.Where(x => x.UserId == user.UserId).Select(x => x.UserGroupId);
-                        var GroupsName = this.entities.UserGroups.Where(x => GroupsIdList.Contains(x.UserGroupId)).Select(x => x.GroupName);
-                        if (GroupsName.Contains("Saha Satış") || GroupsName.Contains("Tele Satış Sorumlusu") || GroupsName.Contains("Tele Satiş Takım Lideri"))
-                        {
-                            AtananUser = user.UserName;
-                        }
-                    }
-                }
+                Text = "Tümü",
+                Value = ""
+            });
+            var UserList =entities.Users.ToList();
+            UsrListesi.AddRange(UserList.Select(x =>
+                    new SelectListItem { Text = x.UserName, Value = x.UserId.ToString() }
+                )
+                );
+            
+            UsrListesi.Add(new SelectListItem()
+            {
+                Text = "-",
+                Value ="0"
+            });
 
-                bool isInserted = false;
-                if (!string.IsNullOrEmpty(item.Email))
-                {
-                    isInserted = _memberService.GetMemberByMemberEmail(item.Email) != null ? true : false;
-                }
-                source.Add(new PreRegistrationItem
-                {
-                    Email = item.Email,
-                    MemberName = item.MemberName,
-                    MemberSurname = item.MemberSurname,
-                    Id = item.PreRegistrationStoreId,
-                    PhoneNumber = item.PhoneNumber,
-                    StoreName = item.StoreName,
-                    RecordDate = item.RecordDate,
-                    WebUrl = item.WebUrl,
-                    City = item.City,
-                    ContactNameSurname = item.ContactNameSurname,
-                    ContactPhoneNumber = item.ContactPhoneNumber,
-                    PhoneNumber2 = item.PhoneNumber2,
-                    PhoneNumber3 = item.PhoneNumber3,
-                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
-                    IsInserted = isInserted,
-                    AtananUser = AtananUser
-                });
-            }
-
-            preRegistrations.Source = source;
+            ViewData["UserList"] = UsrListesi.ToList();
+            int p = 1;
+            int pageSize = 100;
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "","","",false);
+            FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
+            var config = new MapperConfiguration(cfg =>
+                 cfg.CreateMap<PreRegistrationItem, PreRegistrationStoreResponse>().ReverseMap()
+             );
+            var mapper = new Mapper(config);
+            preRegistrations.Source = mapper.Map<List<PreRegistrationItem>>(stores); ;
             preRegistrations.PageDimension = pageSize;
             preRegistrations.TotalRecord = stores.TotalCount;
             preRegistrations.CurrentPage = p;
             return View(preRegistrations);
         }
+
         [HttpPost]
-        public PartialViewResult Index(string page, string storeName, string email, string city="")
+        public PartialViewResult Index(string page, string storeName, string email, string city="",string user="")
         {
             int p = Convert.ToInt32(page);
             int pageSize = 100;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, city, false);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, city,user, false);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
-            List<PreRegistrationItem> source = new List<PreRegistrationItem>();
-            foreach (var item in stores)
-            {
-                string AtananUser = "";
-                var memberdes = _memberDescriptonService.GetMemberDescriptionByPreRegistrationStoreId(item.PreRegistrationStoreId).OrderByDescending(x => x.Date).FirstOrDefault();
-                if (memberdes != null)
-                {
-                    var user = this.entities.Users.FirstOrDefault(x => x.UserId == memberdes.UserId);
-                    if (user != null)
-                    {
-                        var GroupsIdList = this.entities.UserInformations.Where(x => x.UserId == user.UserId).Select(x => x.UserGroupId);
-                        var GroupsName = this.entities.UserGroups.Where(x => GroupsIdList.Contains(x.UserGroupId)).Select(x => x.GroupName);
-                        if (GroupsName.Contains("Saha Satış") || GroupsName.Contains("Tele Satış Sorumlusu") || GroupsName.Contains("Tele Satiş Takım Lideri"))
-                        {
-                            AtananUser = user.UserName;
-                        }
-                    }
-                }
-
-
-                bool isInserted = false;
-                if (!string.IsNullOrEmpty(item.Email))
-                {
-                    isInserted = _memberService.GetMemberByMemberEmail(item.Email) != null ? true : false;
-                }
-                source.Add(new PreRegistrationItem
-                {
-                    Email = item.Email,
-                    MemberName = item.MemberName,
-                    MemberSurname = item.MemberSurname,
-                    Id = item.PreRegistrationStoreId,
-                    PhoneNumber = item.PhoneNumber,
-                    StoreName = item.StoreName,
-                    WebUrl = item.WebUrl,
-                    City = item.City,
-                    ContactNameSurname = item.ContactNameSurname,
-                    ContactPhoneNumber = item.ContactPhoneNumber,
-                    RecordDate = item.RecordDate,
-                    PhoneNumber2 = item.PhoneNumber2,
-                    PhoneNumber3 = item.PhoneNumber3,
-                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
-                    IsInserted = isInserted,
-                    AtananUser = AtananUser
-                });
-            }
-            preRegistrations.Source = source;
+            var config = new MapperConfiguration(cfg =>
+                 cfg.CreateMap<PreRegistrationItem, PreRegistrationStoreResponse>().ReverseMap()
+             );
+            var mapper = new Mapper(config);
+            preRegistrations.Source = mapper.Map<List<PreRegistrationItem>>(stores); ;
             preRegistrations.PageDimension = pageSize;
             preRegistrations.TotalRecord = stores.TotalCount;
             preRegistrations.CurrentPage = p;
@@ -163,79 +101,53 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         public ActionResult NotCalling()
         {
+            List<SelectListItem> UsrListesi = new List<SelectListItem>();
+            UsrListesi.Add(new SelectListItem()
+            {
+                Text = "Tümü",
+                Value = ""
+            });
+            var UserList = entities.Users.ToList();
+            UsrListesi.AddRange(UserList.Select(x =>
+                    new SelectListItem { Text = x.UserName, Value = x.UserId.ToString() }
+                )
+                );
+
+            UsrListesi.Add(new SelectListItem()
+            {
+                Text = "-",
+                Value = "0"
+            });
+
+            ViewData["UserList"] = UsrListesi.ToList();
+
             int p = 1;
 
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "","", true);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, "", "","","",true);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
-            List<PreRegistrationItem> source = new List<PreRegistrationItem>();
-            foreach (var item in stores)
-            {
-                bool isInserted = false;
-                if (!string.IsNullOrEmpty(item.Email))
-                {
-                    isInserted = _memberService.GetMemberByMemberEmail(item.Email) != null ? true : true;
-                }
-                source.Add(new PreRegistrationItem
-                {
-                    Email = item.Email,
-                    MemberName = item.MemberName,
-                    MemberSurname = item.MemberSurname,
-                    Id = item.PreRegistrationStoreId,
-                    PhoneNumber = item.PhoneNumber,
-                    StoreName = item.StoreName,
-                    RecordDate = item.RecordDate,
-                    WebUrl = item.WebUrl,
-                    City = item.City,
-                    ContactNameSurname = item.ContactNameSurname,
-                    ContactPhoneNumber = item.ContactPhoneNumber,
-                    PhoneNumber2 = item.PhoneNumber2,
-                    PhoneNumber3 = item.PhoneNumber3,
-                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
-                    IsInserted = isInserted
-                });
-            }
-            preRegistrations.Source = source;
+            var config = new MapperConfiguration(cfg =>
+                 cfg.CreateMap<PreRegistrationItem, PreRegistrationStoreResponse>().ReverseMap()
+             );
+            var mapper = new Mapper(config);
+            preRegistrations.Source = mapper.Map<List<PreRegistrationItem>>(stores); 
             preRegistrations.PageDimension = pageSize;
             preRegistrations.TotalRecord = stores.TotalCount;
             preRegistrations.CurrentPage = p;
             return View(preRegistrations);
         }
         [HttpPost]
-        public PartialViewResult NotCalling(string page, string storeName, string email, string city = "")
+        public PartialViewResult NotCalling(string page, string storeName, string email, string city = "",string user="")
         {
             int p = Convert.ToInt32(page);
             int pageSize = 20;
-            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, city,true);
+            var stores = _preRegistrationService.GetPreRegistirationStores(p, pageSize, storeName, email, city,user,true);
             FilterModel<PreRegistrationItem> preRegistrations = new FilterModel<PreRegistrationItem>();
-            List<PreRegistrationItem> source = new List<PreRegistrationItem>();
-            foreach (var item in stores)
-            {
-                bool isInserted = false;
-                if (!string.IsNullOrEmpty(item.Email))
-                {
-                    isInserted = _memberService.GetMemberByMemberEmail(item.Email) != null ? true : false;
-                }
-                source.Add(new PreRegistrationItem
-                {
-                    Email = item.Email,
-                    MemberName = item.MemberName,
-                    MemberSurname = item.MemberSurname,
-                    Id = item.PreRegistrationStoreId,
-                    PhoneNumber = item.PhoneNumber,
-                    StoreName = item.StoreName,
-                    WebUrl = item.WebUrl,
-                    City = item.City,
-                    ContactNameSurname = item.ContactNameSurname,
-                    ContactPhoneNumber = item.ContactPhoneNumber,
-                    RecordDate = item.RecordDate,
-                    PhoneNumber2 = item.PhoneNumber2,
-                    PhoneNumber3 = item.PhoneNumber3,
-                    HasDescriptions = entities.MemberDescriptions.Any(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId),
-                    IsInserted = isInserted
-                });
-            }
-            preRegistrations.Source = source;
+            var config = new MapperConfiguration(cfg =>
+                 cfg.CreateMap<PreRegistrationItem, PreRegistrationStoreResponse>().ReverseMap()
+             );
+            var mapper = new Mapper(config);
+            preRegistrations.Source = mapper.Map<List<PreRegistrationItem>>(stores);
             preRegistrations.PageDimension = pageSize;
             preRegistrations.TotalRecord = stores.TotalCount;
             preRegistrations.CurrentPage = p;

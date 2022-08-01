@@ -3,13 +3,13 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace MakinaTurkiye.Data.Mapping.Tables.Users
 {
-    public class UserInformationMap : EntityTypeConfiguration<UserInformation>
+    public class UserMap : EntityTypeConfiguration<User>
     {
-        public UserInformationMap()
+        public UserMap()
         {
-            this.ToTable("UserInformation");
+            this.ToTable("User");
             this.Ignore(x => x.Id);
-            this.HasKey(x => x.UserInformationId);
+            this.HasKey(x => x.UserId);
         }
     }
 }

@@ -33,7 +33,7 @@
   @using (Html.BeginPanel())
     { 
   @Html.Partial("TabMenu")
-  @using (Html.BeginForm("EditDealership", "Store", FormMethod.Post, new { enctype = "multipart/form-data" }))
+  using (Html.BeginForm("EditDealership", "Store", FormMethod.Post, new { enctype = "multipart/form-data" }))
      { 
   <div style="width: 900px; float: left; margin: 20px 0px 0px 20px">
     <div style="width: 500px; height: auto; float: left; margin-top: 20px;">

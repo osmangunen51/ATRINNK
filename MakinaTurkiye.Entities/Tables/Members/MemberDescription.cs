@@ -11,6 +11,7 @@ namespace MakinaTurkiye.Entities.Tables.Members
         public DateTime Date { get; set; }
         public DateTime? UpdateDate { get; set; }
         public Int16? DescriptionDegree { get; set; }
+        public int? BaseID { get; set; }
         public int? Status { get; set; }
         public int? UserId { get; set; }
         public int? FromUserId { get; set; }

@@ -346,6 +346,19 @@ namespace MakinaTurkiye.Services.Members
             return query.ToList();
         }
 
+
+        public List<MemberDescription> GetMemberDescriptions()
+        {
+            var query = _memberDescRepository.Table;
+            return query.ToList();
+        }
+        public List<MemberDescription> GetMemberDescriptionsByDate(DateTime date)
+        {
+            var query = _memberDescRepository.TableNoTracking;
+            query = query.Where(x => x.Date < date);
+            return query.ToList();
+        }
+
         public void InsertMemberDescriptionLog(MemberDescriptionLog memberDescriptionLog)
         {
             if (memberDescriptionLog == null)

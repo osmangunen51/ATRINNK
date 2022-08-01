@@ -188,6 +188,7 @@
     <Compile Include="Mapping\Tables\Stores\StoreMap.cs" />
     <Compile Include="Mapping\Tables\Users\HelpMap.cs" />
     <Compile Include="Mapping\Tables\Users\UserFileMap.cs" />
+    <Compile Include="Mapping\Tables\Users\UserMap.cs" />
     <Compile Include="Mapping\Tables\Users\UserInformationMap.cs" />
     <Compile Include="Mapping\Tables\Messages\UserMailTemplateMap.cs" />
     <Compile Include="Mapping\Tables\Users\WebSiteErrorMap.cs" />

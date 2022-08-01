@@ -3,38 +3,18 @@ using MakinaTurkiye.Entities.Tables.Members;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Services.Users;
-using NeoSistem.MakinaTurkiye.Cache;
-using NeoSistem.MakinaTurkiye.Management.Models;
+using Quartz;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Transactions;
-using System.Web.Mvc;
 
-namespace NeoSistem.MakinaTurkiye.Management.Controllers
+namespace MakinaTurkiye.Tasks.Members.Tasks
 {
-    [HandleError]
-    public class HomeController : BaseController
+    public class MemberDescriptionOrganizer : IJob
     {
-        public ActionResult Index()
-        {
-            PAGEID = PermissionPage.AnaSayfa;
-            return View();
-        }
-
-        public ActionResult ClearCache()
-        {
-            CacheUtilities.ClearAllCache();
-            return RedirectToAction("/", "Home");
-        }
-
-        public ActionResult Forbidden()
-        {
-            return View();
-        }
-
-        public ActionResult IslemYap()
+        public Task Execute(IJobExecutionContext context)
         {
             IMemberDescriptionService memberDescriptionService = EngineContext.Current.Resolve<IMemberDescriptionService>();
             IStoreService storeService = EngineContext.Current.Resolve<IStoreService>();
@@ -181,10 +161,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         memberDescriptionLog.descId = memberDescription.descId;
                         memberDescriptionLog.DescriptionDegree = memberDescription.DescriptionDegree;
                         memberDescriptionLog.FromUserId = memberDescription.FromUserId;
-                        memberDescriptionLog.FromUserIdName = entities.Users.FirstOrDefault(x => x.UserId == memberDescription.FromUserId).UserName;
+                        memberDescriptionLog.FromUserIdName = users.FirstOrDefault(x => x.UserId == memberDescription.FromUserId)?.UserName;
                         memberDescriptionLog.UpdateDate = memberDescription.UpdateDate;
                         memberDescriptionLog.UserId = memberDescription.UserId;
-                        memberDescriptionLog.UserIdName = entities.Users.FirstOrDefault(x => x.UserId == memberDescription.UserId).UserName;
+                        memberDescriptionLog.UserIdName = users.FirstOrDefault(x => x.UserId == memberDescription.UserId)?.UserName;
                         memberDescriptionLog.Status = memberDescription.Status;
                         memberDescriptionLog.Title = memberDescription.Title;
                         memberDescriptionLog.RecordDate = DateTime.Now;
@@ -195,14 +175,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         memberDescriptionLog.TransactionType = transactionType;
                         memberDescriptionService.InsertMemberDescriptionLog(memberDescriptionLog);
                     }
-                    //scope.Complete();
+                    scope.Complete();
                 }
                 catch (Exception)
                 {
 
                 }
             }
-            return View();
+            return Task.CompletedTask;
         }
     }
 }

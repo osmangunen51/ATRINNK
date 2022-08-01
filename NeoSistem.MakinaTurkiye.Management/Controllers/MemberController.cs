@@ -3169,6 +3169,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     LastDateNew = DateTime.Now.Date.ToString("dd.MM.yyyy");
                 }
+
                 if (!string.IsNullOrEmpty(LastDateNew))
                 {
                     int year = 0, day = 0, month = 0;
@@ -3197,8 +3198,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         }
 
                     }
-
-
 
                     lastDate = new DateTime(year, month, day, hour, minute, 0);
                     if (lastDate > DateTime.Now)
@@ -3270,8 +3269,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         if (tempConstantId != constandID)
                         {
                             var memberDescNew = new MemberDescription();
-                            if (AnyDesc != null)
-                                memberDescNew.BaseID = AnyDesc.ID;
+                            if (AnyDesc != null) memberDescNew.BaseID = AnyDesc.ID;
                             memberDescNew.ConstantId = Convert.ToInt32(constantId);
                             memberDescNew.FromUserId = CurrentUserModel.CurrentManagement.UserId;
                             memberDescNew.UserId = Convert.ToInt32(userId);
@@ -3313,7 +3311,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                     }
                                 }
                             }
-
                         }
                         return RedirectToAction("BrowseDesc1", new RouteValueDictionary(new { controller = "Member", action = "BrowseDesc1", id = redirectId }));
                     }
@@ -3322,7 +3319,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         ModelState.AddModelError("date", "Hatırlatma Tarihi şu anki tarihten küçük olamaz");
                     }
                 }
-
             }
             else
             {
@@ -3458,11 +3454,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             memberDescriptionLog.PreRegistrationStoreId = memberDescription.PreRegistrationStoreId;
             if (memberDescription.PreRegistrationStoreId > 0)
                 transactionType = transactionType + " O";
-
             memberDescriptionLog.TransactionType = transactionType;
             _memberDescService.InsertMemberDescriptionLog(memberDescriptionLog);
-
         }
+
         public ActionResult BulletinMember()
         {
             var members = _bulletinService.GetBulletinMembers();
