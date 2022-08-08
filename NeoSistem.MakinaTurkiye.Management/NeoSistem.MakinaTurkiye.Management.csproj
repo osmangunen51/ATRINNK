@@ -662,7 +662,9 @@
     <Content Include="Content\RibbonImages\certificate.png" />
     <Content Include="Content\RibbonImages\check-list.png" />
     <Content Include="Content\RibbonImages\choiceCategory.png" />
+    <Content Include="Content\RibbonImages\clearcache.png" />
     <Content Include="Content\RibbonImages\comment.png" />
+    <Content Include="Content\RibbonImages\datahavuzu.png" />
     <Content Include="Content\RibbonImages\demand.png" />
     <Content Include="Content\RibbonImages\dictionary.png" />
     <Content Include="Content\RibbonImages\doping.jpeg" />
@@ -4265,6 +4267,7 @@
     <Content Include="Views\MemberDescription\_UserNotificationList.cshtml" />
     <Content Include="Views\Packet\ViewPackets.cshtml" />
     <Content Include="Views\Test\Index.cshtml" />
+    <Content Include="Views\SystemBase\MemberDescriptionOrganizer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -31,65 +31,15 @@ namespace MakinaTurkiye.Tasks.Members.Tasks
             var storememberDescriptionListesi = memberDescriptionListesi.Where(x => x.PreRegistrationStoreId == null);
             var preRegistrationStorememberDescriptionListesi = memberDescriptionListesi.Where(x => x.MainPartyId == null);
 
-            try
-
+            Parallel.ForEach(storememberDescriptionListesi.Select(x => x.MainPartyId).Distinct(), item =>
             {
-                Parallel.ForEach(storememberDescriptionListesi.Select(x => x.MainPartyId).Distinct(), item =>
+                var currentmemberstore = memberstores.Where(x => x.MemberMainPartyId == item).FirstOrDefault();
+                if (currentmemberstore != null)
                 {
-                    var currentmemberstore = memberstores.Where(x => x.MemberMainPartyId == item).FirstOrDefault();
-                    if (currentmemberstore != null)
+                    var currentstore = stores.Where(x => x.MainPartyId == currentmemberstore.StoreMainPartyId);
+                    if (currentstore != null)
                     {
-                        var currentstore = stores.Where(x => x.MainPartyId == currentmemberstore.StoreMainPartyId);
-                        if (currentstore != null)
-                        {
-                            var currentstorestorememberDescriptionListesi = storememberDescriptionListesi.Where(x => x.MainPartyId == item);
-                            var currentappropriatestorestorememberDescription = currentstorestorememberDescriptionListesi.Where(x => x.Title == "SATIŞ YAPILDI" || x.Title == "Satişa Uygun Değil" || x.Title == "Churn").ToList();
-                            if (currentappropriatestorestorememberDescription.Count() == 0)
-                            {
-                                var lastmemberDescription = currentstorestorememberDescriptionListesi.OrderByDescending(x => x.Date)?.FirstOrDefault();
-                                if (lastmemberDescription != null)
-                                {
-                                    var tmp = users.Where(x => x.UserId == lastmemberDescription.UserId);
-                                    if (tmp != null)
-                                    {
-                                        if (tmp.Count() > 0)
-                                        {
-                                            var currentUser = tmp.FirstOrDefault();
-                                            if (currentUser != null)
-                                            {
-                                                if (currentUser.UserName.Contains("PY-") || currentUser.UserName.Contains("TS-"))
-                                                {
-                                                    var currentuserFirstmemberDescription = currentstorestorememberDescriptionListesi.Where(x => x.UserId == lastmemberDescription.UserId).OrderBy(x => x.Date).FirstOrDefault();
-                                                    if (currentuserFirstmemberDescription != null)
-                                                    {
-                                                        int Days = (int)(DateTime.Now - currentuserFirstmemberDescription.Date).TotalDays;
-                                                        if (Days > 59)
-                                                        {
-                                                            lock (this)
-                                                            {
-                                                                if (!processmemberDescriptionListesi.Contains(lastmemberDescription))
-                                                                {
-                                                                    processmemberDescriptionListesi.Add(lastmemberDescription);
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                });
-
-                Parallel.ForEach(preRegistrationStorememberDescriptionListesi.Select(x => x.PreRegistrationStoreId).Distinct(), item =>
-                {
-                    var currentpreRegistrationStore = preRegistrationStores.Where(x => x.PreRegistrationStoreId == item);
-                    if (currentpreRegistrationStore != null)
-                    {
-                        var currentstorestorememberDescriptionListesi = preRegistrationStorememberDescriptionListesi.Where(x => x.PreRegistrationStoreId == item);
+                        var currentstorestorememberDescriptionListesi = storememberDescriptionListesi.Where(x => x.MainPartyId == item);
                         var currentappropriatestorestorememberDescription = currentstorestorememberDescriptionListesi.Where(x => x.Title == "SATIŞ YAPILDI" || x.Title == "Satişa Uygun Değil" || x.Title == "Churn").ToList();
                         if (currentappropriatestorestorememberDescription.Count() == 0)
                         {
@@ -125,35 +75,85 @@ namespace MakinaTurkiye.Tasks.Members.Tasks
                                         }
                                     }
                                 }
-
                             }
                         }
                     }
-                });
+                }
+            });
 
-            }
-            catch (Exception Hata)
+            Parallel.ForEach(preRegistrationStorememberDescriptionListesi.Select(x => x.PreRegistrationStoreId).Distinct(), item =>
             {
+                var currentpreRegistrationStore = preRegistrationStores.Where(x => x.PreRegistrationStoreId == item);
+                if (currentpreRegistrationStore != null)
+                {
+                    var currentstorestorememberDescriptionListesi = preRegistrationStorememberDescriptionListesi.Where(x => x.PreRegistrationStoreId == item);
+                    var currentappropriatestorestorememberDescription = currentstorestorememberDescriptionListesi.Where(x => x.Title == "SATIŞ YAPILDI" || x.Title == "Satişa Uygun Değil" || x.Title == "Churn").ToList();
+                    if (currentappropriatestorestorememberDescription.Count() == 0)
+                    {
+                        var lastmemberDescription = currentstorestorememberDescriptionListesi.OrderByDescending(x => x.Date)?.FirstOrDefault();
+                        if (lastmemberDescription != null)
+                        {
+                            var tmp = users.Where(x => x.UserId == lastmemberDescription.UserId);
+                            if (tmp != null)
+                            {
+                                if (tmp.Count() > 0)
+                                {
+                                    var currentUser = tmp.FirstOrDefault();
+                                    if (currentUser != null)
+                                    {
+                                        if (currentUser.UserName.Contains("PY-") || currentUser.UserName.Contains("TS-"))
+                                        {
+                                            var currentuserFirstmemberDescription = currentstorestorememberDescriptionListesi.Where(x => x.UserId == lastmemberDescription.UserId).OrderBy(x => x.Date).FirstOrDefault();
+                                            if (currentuserFirstmemberDescription != null)
+                                            {
+                                                int Days = (int)(DateTime.Now - currentuserFirstmemberDescription.Date).TotalDays;
+                                                if (Days > 59)
+                                                {
+                                                    lock (this)
+                                                    {
+                                                        if (!processmemberDescriptionListesi.Contains(lastmemberDescription))
+                                                        {
+                                                            processmemberDescriptionListesi.Add(lastmemberDescription);
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
 
-            }
-
+                        }
+                    }
+                }
+            });
             using (TransactionScope scope = new TransactionScope())
             {
                 try
                 {
-
-                    string transactionType = "I";
                     var HavuzUser = users.FirstOrDefault(x => x.UserName == "**DATA HAVUZU");
-                    foreach (var memberDescription in processmemberDescriptionListesi)
+                    Parallel.ForEach(processmemberDescriptionListesi, memberDescription =>
                     {
-                        memberDescription.Title = "Satıcı Değiştirme";
-                        memberDescription.ConstantId = 429;
-                        memberDescription.descId = 0;
-                        memberDescription.FromUserId = memberDescription.UserId;
-                        memberDescription.UserId = HavuzUser.UserId;
-                        memberDescription.Date = DateTime.Now;
-                        memberDescriptionService.InsertMemberDescription(memberDescription);
 
+                        string transactionType = "I";
+                        MemberDescription AddMemberDescription = new MemberDescription()
+                        {
+                            BaseID = memberDescription.BaseID,
+                            ConstantId = 429,
+                            Title = "Satıcı Değiştirme",
+                            Date = DateTime.Now,
+                            FromUserId = memberDescription.UserId,
+                            Description = memberDescription.Description,
+                            DescriptionDegree = (memberDescription.DescriptionDegree == null ? 0 : memberDescription.DescriptionDegree),
+                            IsFirst = memberDescription.IsFirst,
+                            IsImmediate = memberDescription.IsImmediate,
+                            MainPartyId = memberDescription.MainPartyId,
+                            PreRegistrationStoreId = memberDescription.PreRegistrationStoreId,
+                            Status = memberDescription.Status,
+                            UpdateDate = memberDescription.UpdateDate,
+                            UserId = HavuzUser.UserId,
+                        };
+                        memberDescriptionService.InsertMemberDescription(AddMemberDescription);
                         var memberDescriptionLog = new MemberDescriptionLog();
                         memberDescriptionLog.BaseID = memberDescription.BaseID;
                         memberDescriptionLog.ConstantId = memberDescription.ConstantId;
@@ -175,9 +175,10 @@ namespace MakinaTurkiye.Tasks.Members.Tasks
                         memberDescriptionLog.TransactionType = transactionType;
                         memberDescriptionService.InsertMemberDescriptionLog(memberDescriptionLog);
                     }
+                    );
                     scope.Complete();
                 }
-                catch (Exception)
+                catch (Exception Hata)
                 {
 
                 }
