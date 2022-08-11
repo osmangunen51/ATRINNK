@@ -81,7 +81,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         var currentappropriatestorestorememberDescription = currentstorestorememberDescriptionListesi.Where(x => x.Title == "SATIŞ YAPILDI" || x.Title == "Satişa Uygun Değil" || x.Title == "Churn").ToList();
                         if (currentappropriatestorestorememberDescription.Count() == 0)
                         {
-                            var lastmemberDescription = currentstorestorememberDescriptionListesi.OrderByDescending(x => x.Date)?.FirstOrDefault();
+                            var lastmemberDescription = currentstorestorememberDescriptionListesi.Where(x=>x.Status==0).OrderByDescending(x => x.Date)?.FirstOrDefault();
                             if (lastmemberDescription != null)
                             {
                                 var tmp = users.Where(x => x.UserId == lastmemberDescription.UserId);
@@ -170,49 +170,54 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 try
                 {
                     var HavuzUser = users.FirstOrDefault(x => x.UserName == "**DATA HAVUZU");
-                    Parallel.ForEach(processmemberDescriptionListesi, memberDescription =>
-                    {
-
-                        string transactionType = "I";
-                        MemberDescription AddMemberDescription = new MemberDescription()
+                        Parallel.ForEach(processmemberDescriptionListesi, memberDescription =>
                         {
-                            BaseID = memberDescription.BaseID,
-                            ConstantId = 429,
-                            Title = "Satıcı Değiştirme",
-                            Date = DateTime.Now,
-                            FromUserId = memberDescription.UserId,
-                            Description = memberDescription.Description,
-                            DescriptionDegree = (memberDescription.DescriptionDegree == null ? 0 : memberDescription.DescriptionDegree),
-                            IsFirst = memberDescription.IsFirst,
-                            IsImmediate = memberDescription.IsImmediate,
-                            MainPartyId = memberDescription.MainPartyId,
-                            PreRegistrationStoreId = memberDescription.PreRegistrationStoreId,
-                            Status = memberDescription.Status,
-                            UpdateDate = memberDescription.UpdateDate,
-                            UserId = HavuzUser.UserId,
-                        };
-                        memberDescriptionService.InsertMemberDescription(AddMemberDescription);
-                        var memberDescriptionLog = new MemberDescriptionLog();
-                        memberDescriptionLog.BaseID = memberDescription.BaseID;
-                        memberDescriptionLog.ConstantId = memberDescription.ConstantId;
-                        memberDescriptionLog.Date = memberDescription.Date;
-                        memberDescriptionLog.descId = memberDescription.descId;
-                        memberDescriptionLog.DescriptionDegree = memberDescription.DescriptionDegree;
-                        memberDescriptionLog.FromUserId = memberDescription.FromUserId;
-                        memberDescriptionLog.FromUserIdName = users.FirstOrDefault(x => x.UserId == memberDescription.FromUserId)?.UserName;
-                        memberDescriptionLog.UpdateDate = memberDescription.UpdateDate;
-                        memberDescriptionLog.UserId = memberDescription.UserId;
-                        memberDescriptionLog.UserIdName = users.FirstOrDefault(x => x.UserId == memberDescription.UserId)?.UserName;
-                        memberDescriptionLog.Status = memberDescription.Status;
-                        memberDescriptionLog.Title = memberDescription.Title;
-                        memberDescriptionLog.RecordDate = DateTime.Now;
-                        memberDescriptionLog.MainPartyId = memberDescription.MainPartyId;
-                        memberDescriptionLog.PreRegistrationStoreId = memberDescription.PreRegistrationStoreId;
-                        if (memberDescription.PreRegistrationStoreId > 0)
-                            transactionType = transactionType + " O";
-                        memberDescriptionLog.TransactionType = transactionType;
-                        memberDescriptionService.InsertMemberDescriptionLog(memberDescriptionLog);
-                    }
+                            if (memberDescription.UserId!=HavuzUser.UserId)
+                            {
+                                memberDescription.Status = 1;
+                                memberDescriptionService.UpdateMemberDescription(memberDescription);
+
+                                string transactionType = "I";
+                                MemberDescription AddMemberDescription = new MemberDescription()
+                                {
+                                    BaseID = memberDescription.BaseID,
+                                    ConstantId = 429,
+                                    Title = "Satıcı Değiştirme",
+                                    Date = DateTime.Now,
+                                    FromUserId = memberDescription.UserId,
+                                    Description = memberDescription.Description,
+                                    DescriptionDegree = (memberDescription.DescriptionDegree == null ? 0 : memberDescription.DescriptionDegree),
+                                    IsFirst = memberDescription.IsFirst,
+                                    IsImmediate = memberDescription.IsImmediate,
+                                    MainPartyId = memberDescription.MainPartyId,
+                                    PreRegistrationStoreId = memberDescription.PreRegistrationStoreId,
+                                    Status = memberDescription.Status,
+                                    UpdateDate = memberDescription.UpdateDate,
+                                    UserId = HavuzUser.UserId,
+                                };
+                                memberDescriptionService.InsertMemberDescription(AddMemberDescription);
+                                var memberDescriptionLog = new MemberDescriptionLog();
+                                memberDescriptionLog.BaseID = memberDescription.BaseID;
+                                memberDescriptionLog.ConstantId = memberDescription.ConstantId;
+                                memberDescriptionLog.Date = memberDescription.Date;
+                                memberDescriptionLog.descId = memberDescription.descId;
+                                memberDescriptionLog.DescriptionDegree = memberDescription.DescriptionDegree;
+                                memberDescriptionLog.FromUserId = memberDescription.FromUserId;
+                                memberDescriptionLog.FromUserIdName = users.FirstOrDefault(x => x.UserId == memberDescription.FromUserId)?.UserName;
+                                memberDescriptionLog.UpdateDate = memberDescription.UpdateDate;
+                                memberDescriptionLog.UserId = memberDescription.UserId;
+                                memberDescriptionLog.UserIdName = users.FirstOrDefault(x => x.UserId == memberDescription.UserId)?.UserName;
+                                memberDescriptionLog.Status = memberDescription.Status;
+                                memberDescriptionLog.Title = memberDescription.Title;
+                                memberDescriptionLog.RecordDate = DateTime.Now;
+                                memberDescriptionLog.MainPartyId = memberDescription.MainPartyId;
+                                memberDescriptionLog.PreRegistrationStoreId = memberDescription.PreRegistrationStoreId;
+                                if (memberDescription.PreRegistrationStoreId > 0)
+                                    transactionType = transactionType + " O";
+                                memberDescriptionLog.TransactionType = transactionType;
+                                memberDescriptionService.InsertMemberDescriptionLog(memberDescriptionLog);
+                            }                        
+                        }
                     );
                     scope.Complete();
                 }

@@ -328,7 +328,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 {
                     model.Add(new StoreItem
                     {
-                        StoreMainPartId = 0,
+                        StoreMainPartId = item.PreRegistrationStoreId,
                         StoreName = item.StoreName,
                         MemberNameSurname = item.MemberName,
                         Type = "Ön  Kayıt",
