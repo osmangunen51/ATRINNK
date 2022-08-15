@@ -63,6 +63,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             List<MemberDescription> processmemberDescriptionListesi = new List<MemberDescription>();
             var users = userService.GetAll().ToList();
             var stores = storeService.GetAllStores();
+            
             var preRegistrationStores = preRegistirationStoreService.GetPreRegistrationStores();
             var memberstores = memberStoreService.GetMemberStores();
             var memberDescriptionListesi = memberDescriptionService.GetMemberDescriptionsByDate(DateTime.Now);
@@ -98,7 +99,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                                 if (currentuserFirstmemberDescription != null)
                                                 {
                                                     int Days = (int)(DateTime.Now - currentuserFirstmemberDescription.Date).TotalDays;
-                                                    if (Days > 59)
+                                                    if (Days > 89)
                                                     {
                                                         lock (this)
                                                         {
@@ -145,7 +146,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                             if (currentuserFirstmemberDescription != null)
                                             {
                                                 int Days = (int)(DateTime.Now - currentuserFirstmemberDescription.Date).TotalDays;
-                                                if (Days > 59)
+                                                if (Days > 89)
                                                 {
                                                     lock (this)
                                                     {
@@ -169,14 +170,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 try
                 {
+                        
                     var HavuzUser = users.FirstOrDefault(x => x.UserName == "**DATA HAVUZU");
+                        processmemberDescriptionListesi = processmemberDescriptionListesi.Where(x => x.UserId != HavuzUser.UserId).ToList();
+                        processmemberDescriptionListesi = processmemberDescriptionListesi.Skip(1).Take(1).ToList();
+                        
                         Parallel.ForEach(processmemberDescriptionListesi, memberDescription =>
                         {
                             if (memberDescription.UserId!=HavuzUser.UserId)
                             {
-                                memberDescription.Status = 1;
-                                memberDescriptionService.UpdateMemberDescription(memberDescription);
 
+                                string DescriptionNew = "<span style='color:#31c854; '>" + DateTime.Now + "</span>-Otomatik Satıcı Değiştirme-" + "<span style='color:#44000d; font-weight:600;'>" + HavuzUser.UserName + "</span>" + "~" + memberDescription.Description;
                                 string transactionType = "I";
                                 MemberDescription AddMemberDescription = new MemberDescription()
                                 {
@@ -185,7 +189,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                     Title = "Satıcı Değiştirme",
                                     Date = DateTime.Now,
                                     FromUserId = memberDescription.UserId,
-                                    Description = memberDescription.Description,
+                                    Description = DescriptionNew,
                                     DescriptionDegree = (memberDescription.DescriptionDegree == null ? 0 : memberDescription.DescriptionDegree),
                                     IsFirst = memberDescription.IsFirst,
                                     IsImmediate = memberDescription.IsImmediate,
@@ -195,7 +199,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                     UpdateDate = memberDescription.UpdateDate,
                                     UserId = HavuzUser.UserId,
                                 };
+
+                                var updatememberDescription = memberDescriptionService.GetMemberDescriptionsByMemberDescriptionId(memberDescription.descId);
+                                updatememberDescription.Status = 1;
+                                updatememberDescription.UpdateDate = null;
+                                memberDescriptionService.UpdateMemberDescription(updatememberDescription);
+
                                 memberDescriptionService.InsertMemberDescription(AddMemberDescription);
+
                                 var memberDescriptionLog = new MemberDescriptionLog();
                                 memberDescriptionLog.BaseID = memberDescription.BaseID;
                                 memberDescriptionLog.ConstantId = memberDescription.ConstantId;
@@ -216,6 +227,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                                     transactionType = transactionType + " O";
                                 memberDescriptionLog.TransactionType = transactionType;
                                 memberDescriptionService.InsertMemberDescriptionLog(memberDescriptionLog);
+
+                                
                             }                        
                         }
                     );

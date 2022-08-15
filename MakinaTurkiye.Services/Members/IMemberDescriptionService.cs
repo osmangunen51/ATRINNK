@@ -26,5 +26,6 @@ namespace MakinaTurkiye.Services.Members
         void SP_MemberDescriptionsUpdateDateForRest();
         void SP_UpdateMemberDescriptions();
         void InsertMemberDescriptionLog(MemberDescriptionLog memberDescriptionLog);
+        MemberDescription GetMemberDescriptionsByMemberDescriptionId(int memberDescriptionId);
     }
 }

@@ -343,9 +343,16 @@ namespace MakinaTurkiye.Services.Members
 
             var query = _memberDescRepository.Table;
             query = query.Where(x => x.MainPartyId == mainPartyId);
+         
             return query.ToList();
         }
-
+        public MemberDescription GetMemberDescriptionsByMemberDescriptionId(int memberDescriptionId)
+        {
+            if (memberDescriptionId == 0)
+                throw new ArgumentNullException("memberDescriptionId");
+            var query = _memberDescRepository.Table;
+            return query.FirstOrDefault(x => x.descId == memberDescriptionId);
+        }
 
         public List<MemberDescription> GetMemberDescriptions()
         {
