@@ -139,7 +139,7 @@
     @foreach (var item in Model.StoreImageItems)
     {
 
-<div id="imageParent@(i)" class="col-md-3 img-thumbnail">
+<div id="@("imageParent"+i)" class="col-md-3 img-thumbnail">
 
     @Ajax.RawActionLink(string.Format("<i class='fa fa-times' aria-hidden='true'></i> "), "DeleteStoreImage", null, new { ImageId = item.ImageId }, new AjaxOptions
     {
