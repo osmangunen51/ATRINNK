@@ -56,6 +56,8 @@ namespace MakinaTurkiye.Api.View.Result
         public string StoreBussinesPhone { get; set; } = "";
         public DateTime DatePublished { get; set; }
 
+        public bool HasVideo { get; set; } = false;
+
     }
 }
 

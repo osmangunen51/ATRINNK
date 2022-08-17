@@ -4440,6 +4440,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 MainPicture = "",
                                 StoreName = "",
                                 PictureList = "".Split(',').ToList(),
+                                HasVideo=item.HasVideo
                             };
                             string picturePath = "";
                             var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
@@ -4562,6 +4563,86 @@ namespace MakinaTurkiye.Api.Controllers
                 return Request.CreateResponse(HttpStatusCode.OK, processStatus);
             }
         }
+
+
+        public HttpResponseMessage GetStoresWithStoreMainPartyId(int mainPartyId)
+        {
+            {
+                ProcessResult processStatus = new ProcessResult();
+                try
+                {
+                    StoreListItem Result = new StoreListItem();
+                    var IslemResult = _storeService.GetStoreByMainPartyId(mainPartyId);
+                    if (IslemResult != null)
+                    {
+                        if (!IslemResult.StoreLogo.StartsWith("https:"))
+                        {
+                            IslemResult.StoreLogo = !string.IsNullOrEmpty(IslemResult.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(IslemResult.MainPartyId, IslemResult.StoreLogo, 300) : null;
+                        }
+
+                        var tmpprodustResult = _productService.GetSPProductsByStoreMainPartyId(6, 1, IslemResult.MainPartyId, 0, 0);
+                        List<View.Result.ProductSearchResult> TmpStoreProductList = new List<View.Result.ProductSearchResult>();
+                        foreach (var item in tmpprodustResult)
+                        {
+                            View.Result.ProductSearchResult TmpResult = new View.Result.ProductSearchResult
+                            {
+                                ProductId = item.ProductId,
+                                CurrencyCodeName = item.CurrencyCodeName,
+                                ProductName = item.ProductName,
+                                BrandName = item.BrandName,
+                                ModelName = item.CategoryName,
+                                MainPicture = "",
+                                StoreName = "",
+                                PictureList = "".Split(',').ToList(),
+                                HasVideo = item.HasVideo
+                            };
+                            string picturePath = "";
+                            var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
+                            if (picture != null)
+                            {
+                                if (!picture.PicturePath.StartsWith("https:"))
+                                {
+                                    picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(TmpResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                                }
+                            }
+                            TmpResult.MainPicture = (picturePath == null ? "" : picturePath);
+                            TmpStoreProductList.Add(TmpResult);
+                        }
+
+                        var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(IslemResult.MainPartyId);
+                        Result.Store = new Entities.StoredProcedures.Stores.WebSearchStoreResult() { 
+                            FullActivityTypeName="",
+                            MainPartyId= IslemResult.MainPartyId,
+                            MemberMainPartyId= (int)memberStore.MemberMainPartyId,
+                            StoreAbout=IslemResult.StoreAbout,
+                            StoreLogo=IslemResult.StoreLogo,
+                            StoreName=IslemResult.StoreName,
+                            StoreShortName=IslemResult.StoreShortName,
+                            StoreUrlName=IslemResult.StoreUrlName,
+                            StoreWeb=IslemResult.StoreWeb
+                        };
+                        Result.Products = TmpStoreProductList;
+                    }
+                    processStatus.Result = Result;
+                    processStatus.ActiveResultRowCount = (Result!=null?1:0);
+                    processStatus.TotolRowCount = (Result != null ? 1 : 0);
+                    processStatus.TotolPageCount = (Result != null ? 1 : 0);
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                catch (Exception Error)
+                {
+                    processStatus.Message.Header = "Store İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = null;
+                    processStatus.Error = Error;
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+            }
+        }
+
 
         public HttpResponseMessage GetHomeStores(int pageSize = int.MaxValue)
         {
@@ -4728,6 +4809,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 MainPicture = "",
                                 StoreName = "",
                                 PictureList = "".Split(',').ToList(),
+                                HasVideo = item.HasVideo,
                             };
                             string picturePath = "";
                             var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);

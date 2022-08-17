@@ -352,7 +352,8 @@ namespace MakinaTurkiye.Api.Controllers
                                 ProductPrice = (tmpproductresult.ProductPrice ?? 0),
                                 ProductPriceType = (byte)tmpproductresult.ProductPriceType,
                                 ProductPriceLast = (tmpproductresult.ProductPriceLast ?? 0),
-                                ProductPriceBegin = (tmpproductresult.ProductPriceBegin ?? 0)
+                                ProductPriceBegin = (tmpproductresult.ProductPriceBegin ?? 0),
+                                HasVideo = tmpproductresult.HasVideo,
                             };
                             string picturePath = "";
                             var picture = _pictureService.GetFirstPictureByProductId(ProductSearchResult.ProductId);
