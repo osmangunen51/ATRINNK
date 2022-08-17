@@ -1,0 +1,11 @@
+﻿
+@{
+    ViewBag.Title = "Data Havuzu İşlemleri";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["Message"] != null)
+{
+    <p style="color:#026904; font-size:15px;">@TempData["Message"].ToString()</p>
+}
+

@@ -10,7 +10,6 @@ namespace MakinaTurkiye.Data.Mapping.Tables.Users
             this.ToTable("UserInformation");
             this.Ignore(x => x.Id);
             this.HasKey(x => x.UserInformationId);
-
         }
     }
 }

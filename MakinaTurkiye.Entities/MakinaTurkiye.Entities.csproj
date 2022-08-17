@@ -223,6 +223,7 @@
     <Compile Include="Tables\Stores\WhatsappLog.cs" />
     <Compile Include="Tables\Users\Help.cs" />
     <Compile Include="Tables\Users\UserFile.cs" />
+    <Compile Include="Tables\Users\User.cs" />
     <Compile Include="Tables\Users\UserInformation.cs" />
     <Compile Include="Tables\Messages\UserMailTemplate.cs" />
     <Compile Include="Tables\Users\WebSiteError.cs" />

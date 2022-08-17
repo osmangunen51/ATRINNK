@@ -308,13 +308,13 @@
   @using (Html.BeginPanel())
     { 
   @Html.Partial("TabMenu")
-  @using (Html.BeginForm("EditDealers", "Store", FormMethod.Post))
+  using (Html.BeginForm("EditDealers", "Store", FormMethod.Post))
     {
-  <div style="width: 900px; float: left; margin: 20px 0px 0px 20px">
-    <input id="DealerTypeId" name="DealerTypeId" value="@Request.QueryString["DealerType"].ToByte()"
-      type="hidden" />
-    @Html.Partial(uControlName)</div>
-  } 
+      <div style="width: 900px; float: left; margin: 20px 0px 0px 20px">
+        <input id="DealerTypeId" name="DealerTypeId" value="@Request.QueryString["DealerType"].ToByte()"
+          type="hidden" />
+        @Html.Partial(uControlName)</div>
+      } 
    } 
 
 

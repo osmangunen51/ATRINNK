@@ -77,6 +77,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast.HasValue ? Result.ProductPriceLast.Value : 0),
                         ProductPriceBegin = (Result.ProductPriceBegin.HasValue ? Result.ProductPriceBegin.Value : 0),
+                        HasVideo = Result.HasVideo,
                     };
 
                     var Product = _productService.GetProductByProductId(TmpResult.ProductId);
@@ -225,7 +226,8 @@ namespace MakinaTurkiye.Api.Controllers
                                                     ProductPrice = (Snc.ProductPrice ?? 0),
                                                     ProductPriceType = (byte)Snc.ProductPriceType,
                                                     ProductPriceLast = (Snc.ProductPriceLast ?? 0),
-                                                    ProductPriceBegin = (Snc.ProductPriceBegin ?? 0)
+                                                    ProductPriceBegin = (Snc.ProductPriceBegin ?? 0),
+                                                    HasVideo = Snc.HasVideo,
                                                 }
                                             ).ToList();
 
@@ -332,6 +334,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductPriceType = (byte)Snc.ProductPriceType,
                         ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
                         ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0),
+                        HasVideo=(bool)Snc.HasVideo
                     }
                 ).ToList();
 
@@ -568,12 +571,13 @@ namespace MakinaTurkiye.Api.Controllers
                                                 BrandName = Snc.Brand.CategoryName,
                                                 ModelName = Snc.Model.CategoryName,
                                                 MainPicture = "",
-                                                StoreName = "",
+                                                StoreName ="",
                                                 MainPartyId = (int)Snc.MainPartyId,
                                                 ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
                                                 ProductPriceType = (byte)Snc.ProductPriceType,
                                                 ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
-                                                ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
+                                                ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0),
+                                                HasVideo=Snc.HasVideo,
                                             }
                                         ).ToList();
 
@@ -643,7 +647,8 @@ namespace MakinaTurkiye.Api.Controllers
                                                     ProductPrice = (Snc.ProductPrice ?? 0),
                                                     ProductPriceType = (byte)Snc.ProductPriceType,
                                                     ProductPriceLast = (Snc.ProductPriceLast ?? 0),
-                                                    ProductPriceBegin = (Snc.ProductPriceBegin ?? 0)
+                                                    ProductPriceBegin = (Snc.ProductPriceBegin ?? 0),
+                                                    HasVideo = Snc.HasVideo
                                                 }
                                             ).ToList();
 
@@ -724,7 +729,8 @@ namespace MakinaTurkiye.Api.Controllers
                             ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
                             ProductPriceType = (byte)Snc.ProductPriceType,
                             ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
-                            ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0)
+                            ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0),
+                            HasVideo=Snc.HasVideo
                         }
                     ).ToList();
 
@@ -987,7 +993,8 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductPrice = (Result.ProductPrice ?? 0),
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast ?? 0),
-                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0)
+                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0),
+                        HasVideo = Result.HasVideo,
                     };
                     TmpResult.Add(tmp);
                 }
@@ -1044,7 +1051,8 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductPrice = (Result.ProductPrice ?? 0),
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast ?? 0),
-                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0)
+                        ProductPriceBegin = (Result.ProductPriceBegin ?? 0),
+                        HasVideo=Result.HasVideo
                     };
                     TmpResult.Add(tmp);
                 }

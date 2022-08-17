@@ -3,8 +3,8 @@
 @section TitleContent {
 
     Ön Kayıtlı Firmalar
-
 }
+
 @section HeadContent {
 
     <script type="text/javascript">
@@ -56,6 +56,7 @@
                     page: $('#Page').val(),
                     email: $('#Email').val(),
                     city: $('#City').val(),
+                    user: $("#UserListId").val()
                 },
                 type: 'post',
                 success: function (data) {
@@ -170,7 +171,19 @@
                         </table>
                     </td>
         <td class="Cell"></td>
-        <td class="Cell"></td>
+        <td class="Cell">
+            <table style="width: 100%" border="0" cellspacing="0" cellpadding="0">
+                <tbody>
+                    <tr>
+                        <td style="">
+                            @{var UserList = (List<SelectListItem>)(ViewData["UserList"]);
+                            }
+                            @Html.DropDownList("UserListId", UserList, new { @onchange = "SearchPost();" })
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </td>
         <td class="Cell"></td>
         </tr>
         </thead>
@@ -179,7 +192,3 @@
         </tbody>
         </table>
     </div>
-
-
-
-

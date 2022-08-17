@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Core;
+﻿using AutoMapper;
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Common;
 using MakinaTurkiye.Entities.Tables.Members;
@@ -15,15 +16,17 @@ namespace MakinaTurkiye.Services.Stores
     {
         IRepository<PreRegistrationStore> _preRegistrationStoreRepository;
         IRepository<MemberDescription> _memberDescriptionRepository;
+        IRepository<User> _userRepository;
         IRepository<Store> _StoreRepository;
         IRepository<Phone> _PhoneRepository;
- 
-        public PreRegistirationStoreService(IRepository<MemberDescription> MemberDescriptionRepository, IRepository<PreRegistrationStore> repository, IRepository<Phone> PhoneRepository,IRepository<Store> StoreRepository)
+
+        public PreRegistirationStoreService(IRepository<PreRegistrationStore> preRegistrationStoreRepository, IRepository<MemberDescription> memberDescriptionRepository, IRepository<User> userRepository, IRepository<Store> storeRepository, IRepository<Phone> phoneRepository)
         {
-            this._preRegistrationStoreRepository = repository;
-            this._memberDescriptionRepository = MemberDescriptionRepository;
-            this._StoreRepository = StoreRepository;
-            this._PhoneRepository = PhoneRepository;
+            _preRegistrationStoreRepository = preRegistrationStoreRepository;
+            _memberDescriptionRepository = memberDescriptionRepository;
+            _userRepository = userRepository;
+            _StoreRepository = storeRepository;
+            _PhoneRepository = phoneRepository;
         }
 
         public void InsertPreRegistrationStore(PreRegistrationStore preRegistirationStore)
@@ -54,11 +57,10 @@ namespace MakinaTurkiye.Services.Stores
             return query.FirstOrDefault(x => x.PreRegistrationStoreId == preRegistraionStoreId);
         }
 
-        public IPagedList<PreRegistrationStore> GetPreRegistirationStores(int page, int pageSize, string storeName, string email, string city = "", bool notcalling=false)
+        public IPagedList<PreRegistrationStoreResponse> GetPreRegistirationStores(int page, int pageSize, string storeName, string email, string city = "",string user="", bool notcalling=false)
         {
             int totalRecord = 0;
-            var query = _preRegistrationStoreRepository.Table;
-            totalRecord = query.Count();
+            var query = _preRegistrationStoreRepository.TableNoTracking;
             if (!string.IsNullOrEmpty(storeName))
             {
                 query = query.Where(x => x.StoreName.ToLower().Contains(storeName.ToLower()));
@@ -71,14 +73,16 @@ namespace MakinaTurkiye.Services.Stores
             {
                 query = query.Where(x => x.City.ToLower().Contains(city.ToLower()));
             }
-            List<PreRegistrationStore> result = new List<PreRegistrationStore>();
+
+            List<PreRegistrationStoreResponse> result = new List<PreRegistrationStoreResponse>();
             List<int> PreRegistrationStoreIdList=query.Select(x=>x.PreRegistrationStoreId).Distinct().ToList();
-            var memberDescription = _memberDescriptionRepository.Table.Where(x=> PreRegistrationStoreIdList.Contains((int)x.PreRegistrationStoreId)).Select(x => new {
+            var memberDescription = _memberDescriptionRepository.TableNoTracking.Where(x=> PreRegistrationStoreIdList.Contains((int)x.PreRegistrationStoreId)).Select(x => new {
                 PreRegistrationStoreId = x.PreRegistrationStoreId,
                 date=x.Date,
                 title = x.Title,
                 userId=x.UserId
             }).ToList();
+
 
             List<string> ControlList = new List<string>() {
             "Teknik Servis",
@@ -86,34 +90,71 @@ namespace MakinaTurkiye.Services.Stores
             "Hizmet",
             "Satişa Uygun Değil"
             };
-
+            var UserList = _userRepository.TableNoTracking.ToList();
             List<PreRegistrationStore> liste = query.ToList();
-            for (int Don = 0; Don < liste.Count; Don++)
-            {
-                var item = liste[Don];
+            var config = new MapperConfiguration(cfg =>
+                cfg.CreateMap<PreRegistrationStore, PreRegistrationStoreResponse>().ReverseMap()
+            );
+            var mapper = new Mapper(config);
+            Parallel.For(0, liste.Count, index=> {
+                var item = liste[index];
+                PreRegistrationStoreResponse PreRegistrationStoreResponse=mapper.Map<PreRegistrationStoreResponse>(item);               
                 bool state = false;
                 var prestorememberDescription = memberDescription.Where(x => x.PreRegistrationStoreId == item.PreRegistrationStoreId).OrderByDescending(x => x.date).FirstOrDefault();
                 if (prestorememberDescription != null)
                 {
+                    var Usr= UserList.FirstOrDefault(x => x.UserId == prestorememberDescription.userId);
+                    if (Usr != null)
+                    {
+                        PreRegistrationStoreResponse.AtananUser = Usr.UserName;
+                    }
+                    else
+                    {
+                        PreRegistrationStoreResponse.AtananUser = "User Yok";
+                    }
                     state = ControlList.Contains(prestorememberDescription.title);
+                }
+                else
+                {
+                    PreRegistrationStoreResponse.AtananUser = "-";
                 }
                 if (notcalling && state)
                 {
-                    result.Add(item);
+                    lock (this)
+                    {
+                        result.Add(PreRegistrationStoreResponse);
+                    }
                 }
                 else if (!notcalling && !state)
                 {
-                    result.Add(item);
+                    lock (this)
+                    {
+                        result.Add(PreRegistrationStoreResponse);
+                    }
                 }
                 else
                 {
 
                 }
+            });
+            if (!string.IsNullOrEmpty(user))
+            {
+                string txtUserName = "-";
+
+                if (user == "0")
+                {
+                    result = result.Where(x => x.AtananUser == txtUserName).ToList();
+                }
+                else
+                {
+                    txtUserName = UserList.FirstOrDefault(x => x.UserId.ToString() == user)?.UserName;
+                    result = result.Where(x => x.AtananUser.Contains(txtUserName)).ToList();
+                }
             }
             totalRecord = result.Count;
             result = result.OrderByDescending(x => x.PreRegistrationStoreId).Skip(page * pageSize - pageSize).Take(pageSize).ToList();
             var preRegistrationStores = result.ToList();
-            return new PagedList<PreRegistrationStore>(preRegistrationStores, page, pageSize, totalRecord);
+            return new PagedList<PreRegistrationStoreResponse>(preRegistrationStores, page, pageSize, totalRecord);
         }
 
 
@@ -145,7 +186,10 @@ namespace MakinaTurkiye.Services.Stores
             query = query.Where(x => x.StoreName.ToLower().Contains(storeName.ToLower()));
             return query.ToList();
         }
-
-       
+        public IList<PreRegistrationStore> GetPreRegistrationStores()
+        {
+            var query = _preRegistrationStoreRepository.TableNoTracking;
+            return query.ToList();
+        }
     }
 }

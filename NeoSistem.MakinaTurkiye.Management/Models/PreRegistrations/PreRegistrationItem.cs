@@ -4,7 +4,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.PreRegistrations
 {
     public class PreRegistrationItem
     {
-        public int Id { get; set; }
+        public int PreRegistrationStoreId { get; set; }
         public string StoreName { get; set; }
         public string MemberName { get; set; }
         public string MemberSurname { get; set; }

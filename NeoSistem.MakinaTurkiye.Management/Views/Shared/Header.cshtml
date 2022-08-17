@@ -206,6 +206,22 @@
                                     },
                                 ]
                             },
+                            {
+                                text: 'İşlemler',
+                                type: Ribbon.GroupType.Group,
+                                buttons: [
+                                    {
+                                        Id: 'ClearAllCache', text: 'Cache Temizle', type: Ribbon.ButtonType.BigItem,
+                                        align: 'left', image: 'clearcache.png', action: "window.location ='/Category/ClearAllCache'"
+
+                                    },
+                                    {
+                                        Id: 'MemberDescriptionOrganizer', text: 'Data Havzu<br>Organize Et', type: Ribbon.ButtonType.BigItem,
+                                        align: 'left', image: 'datahavuzu.png', action: "window.location ='/SystemBase/MemberDescriptionOrganizer'"
+
+                                    },
+                                ]
+                            },
                         ]
                     });
                 </script>

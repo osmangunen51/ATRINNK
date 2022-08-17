@@ -21,9 +21,7 @@
 
         public ActionResult Create()
         {
-
             return View(new NeoSistem.MakinaTurkiye.Management.Models.Entities.MobileMessage());
-
         }
 
         [ValidateInput(false)]

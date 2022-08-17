@@ -639,10 +639,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             int categoryId = GetCategoryIdRouteData();
             int orderby = GetOrderByQueryString();
 
-            if (categoryId==0 && Request.Url.ToString().ToLower().Contains("/?"))
-            {
-                return RedirectPermanent(AppSettings.StoreAllUrl);
-            }
+            //if (categoryId == 0 && Request.Url.ToString().ToLower().Contains("/?"))
+            //{
+            //    return RedirectPermanent(AppSettings.StoreAllUrl);
+            //}
 
             if (Request.Url.ToString().ToLower().Contains("/sirketler"))
             {
@@ -655,8 +655,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     return RedirectPermanent(AppSettings.StoreAllUrl);
                 }
             }
-            
-            if(Request.Url.ToString().ToLower().Contains("/store"))
+
+            if (Request.Url.ToString().ToLower().Contains("/store"))
             {
                 if (!string.IsNullOrEmpty(Request.QueryString.ToString()))
                 {

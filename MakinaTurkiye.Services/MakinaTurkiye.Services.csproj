@@ -42,6 +42,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.0.123\lib\net461\Dapper.dll</HintPath>
     </Reference>
@@ -267,6 +270,7 @@
     <Compile Include="Stores\IStoreSeoNotificationService.cs" />
     <Compile Include="Stores\IStoreStatisticService.cs" />
     <Compile Include="Stores\PreRegistirationStoreService.cs" />
+    <Compile Include="Stores\PreRegistrationStoreResponse.cs" />
     <Compile Include="Stores\StoreActiveTypeEnum.cs" />
     <Compile Include="Stores\StoreActivityCategoryService.cs" />
     <Compile Include="Stores\StoreActivityTypeService.cs" />
@@ -322,12 +326,14 @@
     <Compile Include="Users\HelpService.cs" />
     <Compile Include="Users\IHelpService.cs" />
     <Compile Include="Users\IUserFileService.cs" />
+    <Compile Include="Users\IUserService.cs" />
     <Compile Include="Users\IUserInformationService.cs" />
     <Compile Include="Messages\IUserMailTemplateService.cs" />
     <Compile Include="Messages\UserMailTemplateService.cs" />
     <Compile Include="Search\ISearchService.cs" />
     <Compile Include="Search\SearchService.cs" />
     <Compile Include="Users\UserFileService.cs" />
+    <Compile Include="Users\UserService.cs" />
     <Compile Include="Users\UserInformationService.cs" />
     <Compile Include="Videos\IVideoService.cs" />
     <Compile Include="Videos\VideoService.cs" />

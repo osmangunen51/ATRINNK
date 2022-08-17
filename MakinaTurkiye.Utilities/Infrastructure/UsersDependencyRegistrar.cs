@@ -13,6 +13,7 @@ namespace MakinaTurkiye.Utilities.Infrastructure
             builder.RegisterType<HelpService>().As<IHelpService>().InstancePerLifetimeScope();
             builder.RegisterType<UserInformationService>().As<IUserInformationService>().InstancePerLifetimeScope();
             builder.RegisterType<UserFileService>().As<IUserFileService>().InstancePerLifetimeScope();
+            builder.RegisterType<UserService>().As<IUserService>().InstancePerLifetimeScope();
         }
 
         public int Order => 2;

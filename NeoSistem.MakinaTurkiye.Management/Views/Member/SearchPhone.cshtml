@@ -49,16 +49,16 @@
         $("#idForm").submit(function (e) {
 
             e.preventDefault(); // avoid to execute the actual submit of the form.
-            $("#preLoading").show();
+            bilgimesajver();
             var form = $(this);
-            var url = form.attr('action');
             $.ajax({
                 type: "POST",
                 url: "/Member/SearchPhone",
                 data: form.serialize(),
-                success: function (data) {
+                success: function (data)
+                {
                     $("#result").html(data);
-                    $("#preLoading").hide();
+                    allMessageClose();
                 }
             });
         });

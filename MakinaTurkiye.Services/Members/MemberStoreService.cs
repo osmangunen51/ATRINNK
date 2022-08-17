@@ -67,7 +67,11 @@ namespace MakinaTurkiye.Services.Members
             query = query.Where(x => x.StoreMainPartyId == storeMainPartyId);
             return query.ToList();
         }
-
+        public IList<MemberStore> GetMemberStores()
+        {
+            var query = _memberStoreRepository.Table;
+            return query.ToList();
+        }
         public void InsertMemberStore(MemberStore memberStore)
         {
             if (memberStore == null)
