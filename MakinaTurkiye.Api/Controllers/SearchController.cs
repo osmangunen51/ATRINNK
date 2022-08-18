@@ -284,6 +284,8 @@ namespace MakinaTurkiye.Api.Controllers
                                                 ProductName = Snc.ProductName,
                                                 BrandName = Snc.CategoryName,
                                                 ModelName = Snc.ModelName,
+                                                CategoryProductGroupName = Snc.CategoryProductGroupName,
+                                                CategoryName = Snc.CategoryName,
                                                 MainPicture = "",
                                                 StoreName = "",
                                                 MainPartyId = (int)rproducts.FirstOrDefault(x => x.ProductId == Snc.ProductId)?.MainPartyId,

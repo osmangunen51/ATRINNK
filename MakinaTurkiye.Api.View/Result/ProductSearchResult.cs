@@ -35,7 +35,7 @@ namespace MakinaTurkiye.Api.View.Result
         public string ProductType { get; set; } = "";
         public string ProductStatus { get; set; } = "";
         public string CategoryName { get; set; } = "";
-
+        public string CategoryProductGroupName { get; set; } = "";
         public string ProductContactUrl { get; set; } = "";
         public string Mensei { get; set; } = "";
         public string DeliveryStatus { get; set; } = "";
