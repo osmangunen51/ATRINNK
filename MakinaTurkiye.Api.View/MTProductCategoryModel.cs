@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
+namespace MakinaTurkiye.Api.View
 {
     public class MTProductCategoryModel
     {
@@ -9,7 +13,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
             this.CategoryItemModels = new List<MTProductCategoryItemModel>();
             this.TopCategoryItemModels = new List<MTCategoryItemModel>();
             this.SubCategories = new List<MTProductSearchOneStepCategoryItemModel>();
-            MtJsonLdModel = new MTJsonLdModel();
         }
 
         public int SelectedCategoryId { get; set; }
@@ -22,7 +25,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Models.Catalog
         public IList<MTProductCategoryItemModel> CategoryItemModels { get; set; }
         public IList<MTCategoryItemModel> TopCategoryItemModels { get; set; }
         public IList<MTProductSearchOneStepCategoryItemModel> SubCategories { get; set; }
-        public MTJsonLdModel MtJsonLdModel { get; set; }
         public string Navigation { get; set; }
     }
 }

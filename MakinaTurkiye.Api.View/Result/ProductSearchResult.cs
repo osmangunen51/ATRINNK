@@ -15,6 +15,9 @@ namespace MakinaTurkiye.Api.View.Result
         public int Value { get; set; }
         public string Name { get; set; }
         public int Type { get; set; }
+        public int? ProductCount { get; set; }
+        public int? ProductCountAll { get; set; }
+        public int Level { get; set; } = 0;
     }
 
     public class ProductSearchResult

@@ -2312,6 +2312,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 storeName = preRegistration.StoreName;
                 model.PreRegistrationStoreId = preRegistration.PreRegistrationStoreId;
                 model.RegistrationType = (byte)RegistrationType.Pre;
+                model.PreRegistrationStoreId = preRegistration.PreRegistrationStoreId;
             }
             else
             {
@@ -2596,163 +2597,172 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         [HttpPost, ValidateInput(false)]
         public ActionResult CreateDesc1(BaseMemberDescriptionModel model, string userId, string mainPartyId, string time, string LastDate, string descId, string constantId)
         {
-            if (!constantId.Equals("0"))
+            try
             {
-                int constantID = Convert.ToInt32(constantId);
-
-                if (constantID == 412)
+                if (!constantId.Equals("0"))
                 {
-                    var memberStore = _memberstoreService.GetMemberStoreByMemberMainPartyId(model.MainPartyId);
-                    if (memberStore != null)
+                    int constantID = Convert.ToInt32(constantId);
+
+                    if (constantID == 412)
                     {
-                        var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                        if (store != null)
+                        var memberStore = _memberstoreService.GetMemberStoreByMemberMainPartyId(model.MainPartyId);
+                        if (memberStore != null)
                         {
-                            store.AuthorizedId = CurrentUserModel.CurrentManagement.UserId;
-                            _storeService.UpdateStore(store);
+                            var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                            if (store != null)
+                            {
+                                store.AuthorizedId = CurrentUserModel.CurrentManagement.UserId;
+                                _storeService.UpdateStore(store);
+                            }
                         }
                     }
-                }
 
-                var constant = entities.Constants.FirstOrDefault(x => x.ConstantId == constantID);
-                if (!string.IsNullOrEmpty(model.Description))
-                {
-
-                    int id = 0;
-                    if (int.TryParse(mainPartyId, out id))
+                    var constant = entities.Constants.FirstOrDefault(x => x.ConstantId == constantID);
+                    if (!string.IsNullOrEmpty(model.Description))
                     {
-                        if (string.IsNullOrEmpty(LastDate))
+
+                        int id = 0;
+                        if (int.TryParse(mainPartyId, out id))
                         {
-                            LastDate = DateTime.Now.Date.ToString("dd.MM.yyyy");
-                        }
-
-                        if (!string.IsNullOrEmpty(LastDate))
-                        {
-
-                            int year = 0, day = 0, month = 0;
-                            int hour = 0, minute = 0;
-                            DateTime lastDate = new DateTime();
-                            string[] time1 = LastDate.ToString().Split('.');
-                            year = Convert.ToInt32(time1[2]);
-                            month = Convert.ToInt32(time1[1]);
-                            day = Convert.ToInt32(time1[0]);
-
-
-                            if (!string.IsNullOrEmpty(time))
+                            if (string.IsNullOrEmpty(LastDate))
                             {
-                                hour = Convert.ToInt32(time.Split(':')[0]);
-                                minute = Convert.ToInt32(time.Split(':')[1]);
-                            }
-                            else
-                            {
-                                hour = DateTime.Now.Hour;
-                                minute = DateTime.Now.Minute + 1;
-
-                                if (day != DateTime.Now.Day)
-                                {
-                                    hour = 8;
-                                    minute = 30;
-                                }
+                                LastDate = DateTime.Now.Date.ToString("dd.MM.yyyy");
                             }
 
-                            lastDate = new DateTime(year, month, day, hour, minute, 0);
-                            if (lastDate > DateTime.Now)
+                            if (!string.IsNullOrEmpty(LastDate))
                             {
-                                #region basemember
 
-                                var AnyDesc = entities.BaseMemberDescriptions.FirstOrDefault(x => x.MainPartyId == id);
-                                if (AnyDesc != null)
+                                int year = 0, day = 0, month = 0;
+                                int hour = 0, minute = 0;
+                                DateTime lastDate = new DateTime();
+                                string[] time1 = LastDate.ToString().Split('.');
+                                year = Convert.ToInt32(time1[2]);
+                                month = Convert.ToInt32(time1[1]);
+                                day = Convert.ToInt32(time1[0]);
+
+
+                                if (!string.IsNullOrEmpty(time))
                                 {
-                                    AnyDesc.Date = DateTime.Now;
-                                    AnyDesc.Title = constant.ConstantName;
-                                    AnyDesc.Description = model.Description;
-                                    AnyDesc.ConstantId = constantID;
-                                    AnyDesc.UpdateDate = lastDate;
-                                    entities.SaveChanges();
+                                    hour = Convert.ToInt32(time.Split(':')[0]);
+                                    minute = Convert.ToInt32(time.Split(':')[1]);
                                 }
                                 else
                                 {
-                                    if (model.RegistrationType == (byte)RegistrationType.Full)
+                                    hour = DateTime.Now.Hour;
+                                    minute = DateTime.Now.Minute + 1;
+
+                                    if (day != DateTime.Now.Day)
                                     {
+                                        hour = 8;
+                                        minute = 30;
+                                    }
+                                }
 
-                                        var baseMemberDesc = new BaseMemberDescription();
+                                lastDate = new DateTime(year, month, day, hour, minute, 0);
+                                if (lastDate > DateTime.Now)
+                                {
+                                    #region basemember
 
-                                        baseMemberDesc.MainPartyId = id;
-                                        baseMemberDesc.Title = constant.ConstantName;
-                                        baseMemberDesc.Description = model.Description;
-                                        baseMemberDesc.Date = DateTime.Now;
-                                        baseMemberDesc.UserId = CurrentUserModel.CurrentManagement.UserId;
-                                        baseMemberDesc.UpdateDate = lastDate;
-                                        baseMemberDesc.ConstantId = constantID;
-
-                                        entities.BaseMemberDescriptions.AddObject(baseMemberDesc);
+                                    var AnyDesc = entities.BaseMemberDescriptions.FirstOrDefault(x => x.MainPartyId == id);
+                                    if (AnyDesc != null)
+                                    {
+                                        AnyDesc.Date = DateTime.Now;
+                                        AnyDesc.Title = constant.ConstantName;
+                                        AnyDesc.Description = model.Description;
+                                        AnyDesc.ConstantId = constantID;
+                                        AnyDesc.UpdateDate = lastDate;
                                         entities.SaveChanges();
                                     }
+                                    else
+                                    {
+                                        if (model.RegistrationType == (byte)RegistrationType.Full)
+                                        {
 
+                                            var baseMemberDesc = new BaseMemberDescription();
+
+                                            baseMemberDesc.MainPartyId = id;
+                                            baseMemberDesc.Title = constant.ConstantName;
+                                            baseMemberDesc.Description = model.Description;
+                                            baseMemberDesc.Date = DateTime.Now;
+                                            baseMemberDesc.UserId = CurrentUserModel.CurrentManagement.UserId;
+                                            baseMemberDesc.UpdateDate = lastDate;
+                                            baseMemberDesc.ConstantId = constantID;
+
+                                            entities.BaseMemberDescriptions.AddObject(baseMemberDesc);
+                                            entities.SaveChanges();
+                                        }
+
+                                    }
+                                    #endregion
+
+                                    MemberDescription memberDesc = new MemberDescription();
+                                    memberDesc.Date = DateTime.Now;
+                                    if (model.RegistrationType == (byte)RegistrationType.Full)
+                                        memberDesc.MainPartyId = id;
+                                    else
+                                        memberDesc.PreRegistrationStoreId = model.RegistrationStoreId;
+
+                                    memberDesc.UpdateDate = lastDate;
+                                    memberDesc.Title = constant.ConstantName;
+                                    memberDesc.Description = "<span style='color:#b70606;'>" + DateTime.Now + "</span> - " + model.Description + "-" + "<span style='color:#b70606'>" + CurrentUserModel.CurrentManagement.UserName + "</span>";
+                                    memberDesc.Status = 0;
+                                    memberDesc.ConstantId = Convert.ToInt32(constantId);
+                                    memberDesc.FromUserId = CurrentUserModel.CurrentManagement.UserId;
+                                    memberDesc.UserId = Convert.ToInt32(userId);
+                                    memberDesc.IsFirst = model.IsFirst;
+                                    memberDesc.IsImmediate = model.IsImmediate;
+                                    entities.MemberDescriptions.AddObject(memberDesc);
+                                    entities.SaveChanges();
+                                    AddMemberDescriptionLog(memberDesc, "I");
+                                    return RedirectToAction("BrowseDesc1", new RouteValueDictionary(
+                                      new { controller = "Member", action = "BrowseDesc1", id = id }));
                                 }
-                                #endregion
-
-                                MemberDescription memberDesc = new MemberDescription();
-                                memberDesc.Date = DateTime.Now;
-                                if (model.RegistrationType == (byte)RegistrationType.Full)
-                                    memberDesc.MainPartyId = id;
                                 else
-                                    memberDesc.PreRegistrationStoreId = model.RegistrationStoreId;
-
-                                memberDesc.UpdateDate = lastDate;
-                                memberDesc.Title = constant.ConstantName;
-                                memberDesc.Description = "<span style='color:#b70606;'>" + DateTime.Now + "</span> - " + model.Description + "-" + "<span style='color:#b70606'>" + CurrentUserModel.CurrentManagement.UserName + "</span>";
-                                memberDesc.Status = 0;
-                                memberDesc.ConstantId = Convert.ToInt32(constantId);
-                                memberDesc.FromUserId = CurrentUserModel.CurrentManagement.UserId;
-                                memberDesc.UserId = Convert.ToInt32(userId);
-                                memberDesc.IsFirst = model.IsFirst;
-                                memberDesc.IsImmediate = model.IsImmediate;
-                                entities.MemberDescriptions.AddObject(memberDesc);
-                                entities.SaveChanges();
-                                AddMemberDescriptionLog(memberDesc, "I");
-                                return RedirectToAction("BrowseDesc1", new RouteValueDictionary(
-                                  new { controller = "Member", action = "BrowseDesc1", id = id }));
+                                {
+                                    TempData["idCreate"] = id;
+                                    ModelState.AddModelError("LastDate", "Girilen Tarih Ve Saat Şu an ki Tarihten Küçük Olamaz");
+                                    PrepareBaseMemberDescriptionModel(model);
+                                    return View(model);
+                                }
                             }
                             else
                             {
-                                TempData["idCreate"] = id;
-                                ModelState.AddModelError("LastDate", "Girilen Tarih Ve Saat Şu an ki Tarihten Küçük Olamaz");
+
                                 PrepareBaseMemberDescriptionModel(model);
+                                ModelState.AddModelError("LastDate", "Lütfen Tarih Giriniz");
                                 return View(model);
                             }
                         }
                         else
                         {
+                            ModelState.AddModelError("Description", "Lütfen Açıklama Giriniz");
+                            var constants = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.StoreDescriptionType).OrderBy(x => x.Order).ThenBy(x => x.ConstantName).ToList();
+                            foreach (var item in constants)
+                            {
+                                var selectListItem = new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString() };
 
-                            PrepareBaseMemberDescriptionModel(model);
-                            ModelState.AddModelError("LastDate", "Lütfen Tarih Giriniz");
+                                model.ConstantModel.Add(selectListItem);
+                            }
+                            var users = entities.Users.Where(x => x.ActiveForDesc == true).OrderBy(x => x.UserName).ToList();
+                            model.ConstantModel.Add(new SelectListItem { Text = "Seçiniz", Value = "0", Selected = true });
+                            foreach (var item in users)
+                            {
+                                SelectListItem selectList = new SelectListItem();
 
+                                if (Convert.ToInt32(CurrentUserModel.CurrentManagement.UserId) == item.UserId)
+                                    selectList.Selected = true;
+                                selectList.Value = item.UserId.ToString();
+                                selectList.Text = item.UserName;
+                                model.Users.Add(selectList);
+                            }
                             return View(model);
+
                         }
                     }
                     else
                     {
+                        PrepareBaseMemberDescriptionModel(model);
                         ModelState.AddModelError("Description", "Lütfen Açıklama Giriniz");
-                        var constants = entities.Constants.Where(x => x.ConstantType == (byte)ConstantType.StoreDescriptionType).OrderBy(x => x.Order).ThenBy(x => x.ConstantName).ToList();
-                        foreach (var item in constants)
-                        {
-                            var selectListItem = new SelectListItem { Text = item.ConstantName, Value = item.ConstantId.ToString() };
-
-                            model.ConstantModel.Add(selectListItem);
-                        }
-                        var users = entities.Users.Where(x => x.ActiveForDesc == true).OrderBy(x => x.UserName).ToList();
-                        model.ConstantModel.Add(new SelectListItem { Text = "Seçiniz", Value = "0", Selected = true });
-                        foreach (var item in users)
-                        {
-                            SelectListItem selectList = new SelectListItem();
-
-                            if (Convert.ToInt32(CurrentUserModel.CurrentManagement.UserId) == item.UserId)
-                                selectList.Selected = true;
-                            selectList.Value = item.UserId.ToString();
-                            selectList.Text = item.UserName;
-                            model.Users.Add(selectList);
-                        }
                         return View(model);
 
                     }
@@ -2760,19 +2770,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 else
                 {
                     PrepareBaseMemberDescriptionModel(model);
-                    ModelState.AddModelError("Description", "Lütfen Açıklama Giriniz");
-                    return View(model);
-
+                    ViewData["Error"] = "Lütfen Başlık Seçiniz";
                 }
             }
-            else
+            catch (Exception e)
             {
-                PrepareBaseMemberDescriptionModel(model);
-                ViewData["Error"] = "Lütfen Başlık Seçiniz";
-                return View(model);
+                ViewData["Error"] = "Genel Hata : <br>"+e.Message;
             }
-
-
+            return View(model);
         }
         public void PrepareBaseMemberDescriptionModel(BaseMemberDescriptionModel model)
         {

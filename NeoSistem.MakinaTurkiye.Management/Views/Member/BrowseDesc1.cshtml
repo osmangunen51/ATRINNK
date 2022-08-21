@@ -103,11 +103,19 @@
                     <tr id="@("row"+itemMemberDesc.ID)" class="@(row % 2 == 0 ? "Row" : "RowAlternate")" style="background-color: @backColor">
                         <td class="Cell">
                             @Html.Truncate(Model.MemberNameSurname.ToString(), 15)..</td>
-                        <td class="Cell">@if (!string.IsNullOrEmpty(Model.StoreName))
-                        {
-
-                            <a target="_blank" href="/Store/EditStore/@itemMemberDesc.StoreID">@Html.Truncate(Model.StoreName.ToString(), 20)</a>
-                        }</td>
+                        <td class="Cell">
+                            @if (!string.IsNullOrEmpty(Model.StoreName))
+                            {
+                                if (!itemMemberDesc.StoreID.HasValue)
+                                {
+                                    <a target="_blank" href="/PreRegistrationStore/Edit/@itemMemberDesc.PreRegistrationStoreId">@Html.Truncate(Model.StoreName.ToString(), 20)</a>
+                                }
+                                else
+                                {
+                                   <a target="_blank" href="/Store/EditStore/@itemMemberDesc.StoreID">@Html.Truncate(Model.StoreName.ToString(), 20)</a>
+                                }
+                            }
+                        </td>
                         <td class="Cell">@itemMemberDesc.Title</td>
                         <td class="Cell" style="font-size: 15px;width:50%">
                             @if (itemMemberDesc.IsOpened)

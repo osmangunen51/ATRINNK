@@ -183,6 +183,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             userInformation.UserGroupId = userGroupId;
             userInformation.BankAccountNumber = userInformationModel.BankAccountNumber;
             userInformation.SecondPhoneNumber = userInformation.SecondPhoneNumber;
+            userInformation.WhoSecondPhoneNumber = userInformation.WhoSecondPhoneNumber;
             _userInformationService.InsertUserInformation(userInformation);
             return RedirectToAction("Index");
         }
@@ -236,6 +237,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 userInformationModel.StartWorkDate = userInformation.StartWorkDate.ToString("dd.MM.yyyy");
                 userInformationModel.BankAccountNumber = userInformation.BankAccountNumber;
                 userInformationModel.SecondPhoneNumber = userInformation.SecondPhoneNumber;
+                userInformationModel.WhoSecondPhoneNumber = userInformation.WhoSecondPhoneNumber;
             }
             model.UserInformationModel = userInformationModel;
             return View(model);
@@ -311,6 +313,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 userInformation.NumberOfChildren = userInformationModel.NumberOfChildren;
                 userInformation.PhoneNumber = userInformationModel.PhoneNumber;
                 userInformation.SecondPhoneNumber = userInformationModel.SecondPhoneNumber;
+                userInformation.WhoSecondPhoneNumber = userInformationModel.WhoSecondPhoneNumber;
                 userInformation.BankAccountNumber = userInformationModel.BankAccountNumber;
                 if (!string.IsNullOrEmpty(userInformationModel.StartWorkDate))
                     userInformation.StartWorkDate = Convert.ToDateTime(userInformationModel.StartWorkDate);

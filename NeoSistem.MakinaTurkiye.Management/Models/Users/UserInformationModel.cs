@@ -16,6 +16,6 @@
         public string Education { get; set; }
         public string BankAccountNumber { get; set; }
         public string SecondPhoneNumber { get; set; }
-
+        public string WhoSecondPhoneNumber { get; set; }
     }
 }

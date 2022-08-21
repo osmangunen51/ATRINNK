@@ -170,10 +170,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 try
                 {
-                        
-                    var HavuzUser = users.FirstOrDefault(x => x.UserName == "**DATA HAVUZU");
+                       var HavuzUser = users.FirstOrDefault(x => x.UserName == "**DATA HAVUZU");
                         processmemberDescriptionListesi = processmemberDescriptionListesi.Where(x => x.UserId != HavuzUser.UserId).ToList();
-                        processmemberDescriptionListesi = processmemberDescriptionListesi.Skip(1).Take(1).ToList();
+                        // processmemberDescriptionListesi = processmemberDescriptionListesi.Skip(1).Take(1).ToList();
                         
                         Parallel.ForEach(processmemberDescriptionListesi, memberDescription =>
                         {
