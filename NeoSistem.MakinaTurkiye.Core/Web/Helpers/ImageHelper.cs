@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
@@ -151,8 +153,8 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             bool anyError = false;
             foreach (string thumbSize in thumbSizes)
             {
+               
                 Instructions settings = new Instructions();
-
                 string width = thumbSize.Split('x')[0];
                 string height = thumbSize.Split('x')[1];
                 if (width != "*") settings.Width = int.Parse(thumbSize.Split('x')[0]);
@@ -160,21 +162,74 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                 settings.OutputFormat = OutputFormat.Jpeg;
                 settings.JpegQuality = 70;
 
-                if (width != "*" && height != "*") settings.Mode = FitMode.Pad;
+                if (width != "*" && height != "*") 
+                {
+                    settings.Mode = FitMode.Pad;
+                }
 
                 try
                 {
-                    ImageBuilder.Current.Build(new ImageJob(originalFile, thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X"), settings, false, true));
+                    string destFile = thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X");
+                    ImageBuilder.Current.Build(new ImageJob(originalFile, destFile, settings, false, true));
                 }
                 catch
                 {
                     anyError = true;
                 }
             }
-
             return !anyError;
         }
 
+        public static void AddWaterMarkNew(string orgImgFile, string size)
+        {
+            Image imgPhoto;
+            using (FileStream myStream = new FileStream(orgImgFile, FileMode.Open, FileAccess.Read))
+            {
+                imgPhoto = Image.FromStream(myStream);
+            }
+            int phWidth = imgPhoto.Width;
+            int phHeight = imgPhoto.Height;
+            size = imgPhoto.Width.ToString() + "x" + imgPhoto.Height.ToString();
+            Bitmap bmPhoto = new Bitmap(imgPhoto);
+            Graphics g = Graphics.FromImage(bmPhoto);
+            double tangent = (double)bmPhoto.Height / (double)bmPhoto.Width;
+            double angle = Math.Atan(tangent) * (180 / Math.PI);
+            double halfHypotenuse = (Math.Sqrt((bmPhoto.Height
+                                   * bmPhoto.Height) +
+                                   (bmPhoto.Width *
+                                   bmPhoto.Width))) / 2;
+            StringFormat stringFormat = new StringFormat();
+            stringFormat.Alignment = StringAlignment.Center;
+            stringFormat.LineAlignment = StringAlignment.Center;
+            FontFamily fontFamily = new FontFamily("Arial");
+            int fontSize = 40;
+            if (imgPhoto.Height < 500)
+                fontSize = 30;
+            else if (imgPhoto.Height < 980 && imgPhoto.Height > 500)
+                fontSize = 35;
 
+            var f = new System.Drawing.Font("Verdana ", fontSize);
+            Color newColor = Color.FromArgb(100, 255, 255, 255);
+            Brush myBrush = new SolidBrush(newColor);
+
+            g.RotateTransform(-45);
+            g.TranslateTransform(0, imgPhoto.Height, MatrixOrder.Append);
+            g.DrawString("makinaturkiye.com", f, myBrush,
+                             new Point((int)halfHypotenuse, 0),
+                             stringFormat);
+            imgPhoto = bmPhoto;
+            g.Dispose();
+            using (EncoderParameters encoderParameters = new EncoderParameters(1))
+            using (
+                EncoderParameter encoderParameter = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 80L)
+                )
+            {
+                ImageCodecInfo codecInfo =
+                    ImageCodecInfo.GetImageDecoders().First(codec => codec.FormatID == ImageFormat.Jpeg.Guid);
+                encoderParameters.Param[0] = encoderParameter;
+                imgPhoto.Save(orgImgFile, codecInfo, encoderParameters);
+            }
+            imgPhoto.Dispose();
+        }
     }
 }

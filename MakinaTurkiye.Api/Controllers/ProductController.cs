@@ -529,26 +529,9 @@ namespace MakinaTurkiye.Api.Controllers
                     }
                 }
 
-                int Ordr = 0;
-                Dictionary<Category, int> lst = new Dictionary<Category, int>();
-                var tmpCategory = categories.FirstOrDefault();
-                while (tmpCategory!=null)
-                {
-                    tmpCategory=_categoryService.GetCategoryByCategoryId((int)tmpCategory.CategoryParentId);
-                    if (tmpCategory != null)
-                    {
-                        if (!lst.ContainsKey(tmpCategory))
-                        {
-                            lst.Add(tmpCategory, Ordr);
-                            Ordr++;
-                        }
-                    }
-                    if (tmpCategory.CategoryParentId==null | tmpCategory.CategoryParentId== categoryId)
-                    {
-                        break;
-                    }
-                }
+                List<byte> categoryenableFilters = new List<byte>() { 1, 0, 6 };
 
+                foreach (var item in categories.Where(x=> categoryenableFilters.Contains((byte)x.CategoryType)))
                 Ordr = 0;
                 var lstCategory = lst.OrderByDescending(x => x.Value).Select(x=>x.Key).ToList();
                 var tmplstCategory= _categoryService.GetCategoriesByCategoryIds(lstCategory.Select(x => x.CategoryId).ToList());

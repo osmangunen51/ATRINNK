@@ -159,15 +159,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
                 {
                     try
                     {
-                        bool thumbResult = ImageProcessHelper.ImageResize(HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName,
-                     HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + fileName.Replace(".jpg", ""), this.ThumbSizes);
+                        bool thumbResult = ImageProcessHelper.ImageResize(HttpContext.Current.Server.MapPath(newMainImageFilePath) + fileName,HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + fileName.Replace(".jpg", ""), this.ThumbSizes);
                     }
                     catch (System.Exception)
                     {
 
-
                     }
-
                 }
             }
 

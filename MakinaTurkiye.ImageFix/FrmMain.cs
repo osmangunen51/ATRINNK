@@ -1,4 +1,10 @@
-﻿using System;
+﻿using MakinaTurkiye.Core;
+using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Services;
+using MakinaTurkiye.Services.Catalog;
+using MakinaTurkiye.Services.Media;
+using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -6,30 +12,30 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace MakinaTurkiye.ImageToWebP
+namespace MakinaTurkiye.ImageFix
 {
     public partial class FrmMain : Form
     {
+        public string BaseFolder { get; set; } = "";
+        private readonly IProductService _productService;
+        private readonly IPictureService _pictureService;
         public FrmMain()
         {
             InitializeComponent();
+            _productService = EngineContext.Current.Resolve<IProductService>();
+            _pictureService = EngineContext.Current.Resolve<IPictureService>();
+        }
+
+        
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            
         }
 
         private void tlstrpbtnTemizle_Click(object sender, EventArgs e)
         {
             txtLog.Text = string.Empty;
 
-        }
-
-        private void btnDizinSec_Click(object sender, EventArgs e)
-        {
-            using (FolderBrowserDialog AcKutu = new FolderBrowserDialog())
-            {
-                if (AcKutu.ShowDialog() == DialogResult.OK)
-                {
-                    txtPath.Text = AcKutu.SelectedPath;
-                }
-            }
         }
 
 
@@ -91,6 +97,43 @@ namespace MakinaTurkiye.ImageToWebP
             //    LogEkle($"{AktifDirectory.FullName} İşlemi Tamamlandı");
             //}
             //DurdurmaIslemiYap();
+
+            BaseFolder = txtBaseDizin.Text.Trim();
+            List<string> thumbSizes = new List<string>();
+            thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
+            
+            var List = _productService.GetProductsByCategoryId(103482);
+            List= List.Where(x=>x.ProductId== 155259).ToList();
+            foreach (var item in List)
+            {
+                // <add key="ProductImageFolder" value="/UserFiles/Product/" />
+                var pictures = _pictureService.GetPicturesByProductId(item.ProductId);
+                foreach (var picture in pictures)
+                {
+                    string mainPicture = $"{BaseFolder}\\{item.ProductId.ToString()}\\{picture.PicturePath}";
+                    string destinationfile = mainPicture.Replace(item.ProductId.ToString(), item.ProductId.ToString()+ "\\thumbs").Replace(".jpg","");
+                    var FileBilgi=new FileInfo(destinationfile);
+                    if (!FileBilgi.Directory.Exists)
+                    {
+                        try
+                        {
+                            FileBilgi.Directory.Create();
+                            LogEkle($"{FileBilgi.Directory.FullName} Oluşturuldu.");
+                        }
+                        catch (Exception Hata)
+                        {
+                            LogEkle($"{Hata.Message}");
+                        }
+                    }
+                    bool thumbResult = ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes,true);
+                    if (thumbResult)
+                    {
+                        LogEkle($"{picture.PicturePath} İşlemi Tamamlandı");
+                    }
+                }
+            }
+            LogEkle($"Bitti.");
+            DurdurmaIslemiYap();
         }
 
         public void LogEkle(string value)
@@ -100,10 +143,12 @@ namespace MakinaTurkiye.ImageToWebP
                 this.Invoke(new Action<string>(LogEkle), new object[] { value });
                 return;
             }
+            if (txtLog.Lines.Count()>1000)
+            {
+                txtLog.Clear();
+            }
             txtLog.AppendText($"{DateTime.Now.ToString()} :==> {value}{Environment.NewLine}");
         }
-
-
 
         private void btnBaslatDurdur_Click(object sender, EventArgs e)
         {
@@ -146,7 +191,6 @@ namespace MakinaTurkiye.ImageToWebP
         private void DurdurmaIslemiYap()
         {
             Islem = 0;
-            KanalIslem.Abort();
             btnBaslatDurdur.Text = "Başlat";
             if (KanalIslem.IsAlive)
             {

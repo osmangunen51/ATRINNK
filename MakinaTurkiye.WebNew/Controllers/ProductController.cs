@@ -1807,10 +1807,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             int similarProductIndex = 1;
             MTSimilarProductModel model = new MTSimilarProductModel();
             model.AllSimilarProductUrl = UrlBuilder.GetCategoryUrl(categoryId, categoryNameUrl, null, null);
-
             foreach (var item in similarProducts)
             {
-
                 string smallPicturePath = string.Empty;
                 var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                 if (picture != null)
@@ -1838,16 +1836,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     ViewCount = item.ViewCount
 
                 };
-
                 model.ProductItemModels.Add(similarProduct);
                 similarProductIndex++;
             }
             return PartialView("_SimilarProductNew", model);
         }
-
-
-
-
-
     }
 }
