@@ -383,8 +383,6 @@ namespace MakinaTurkiye.Services.Members
         {
             _dbContext.ExecuteSqlCommand("exec SP_UpdateMemberDescriptions");
         }
-
-
         #endregion
     }
 }

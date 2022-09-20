@@ -21,6 +21,7 @@ namespace MakinaTurkiye.Entities.Tables.Users
         public string Education { get; set; }
         public string BankAccountNumber { get; set; }
         public string SecondPhoneNumber { get; set; }
+        public string WhoSecondPhoneNumber { get; set; }
         public DateTime RecordDate { get; set; }
         public DateTime UpdateDate { get; set; }
     }

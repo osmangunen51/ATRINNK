@@ -387,7 +387,9 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 Value = item.CategoryId,
                                 Name = item.CategoryName,
-                                Type = (byte)AdvancedSearchFilterType.Serie
+                                Type = (byte)AdvancedSearchFilterType.Serie,
+                                ProductCount=item.ProductCount,
+                                ProductCountAll = item.ProductCountAll,
                             });
                         }
                     }
@@ -405,7 +407,9 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 Value = item.CategoryId,
                                 Name = item.CategoryName,
-                                Type = (byte)AdvancedSearchFilterType.Model
+                                Type = (byte)AdvancedSearchFilterType.Model,
+                                ProductCount = item.ProductCount,
+                                ProductCountAll = item.ProductCountAll,
                             });
                         }
 
@@ -428,7 +432,9 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     Value = item.CategoryId,
                                     Name = item.CategoryName,
-                                    Type = (byte)AdvancedSearchFilterType.Brand
+                                    Type = (byte)AdvancedSearchFilterType.Brand,
+                                    ProductCount = item.ProductCount,
+                                    ProductCountAll = item.ProductCountAll,
 
                                 });
                             }
@@ -474,7 +480,9 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 Value = item.CountryId,
                                 Name = item.CountryName,
-                                Type = (byte)AdvancedSearchFilterType.Country
+                                Type = (byte)AdvancedSearchFilterType.Country,
+                                ProductCount = 0,
+                                ProductCountAll =0,
                             });
                         }
                     }
@@ -491,7 +499,9 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 Value = item.CityId,
                                 Name = item.CityName,
-                                Type = (byte)AdvancedSearchFilterType.City
+                                Type = (byte)AdvancedSearchFilterType.City,
+                                ProductCount = 0,
+                                ProductCountAll = 0,
                             });
                         }
                     }
@@ -520,12 +530,33 @@ namespace MakinaTurkiye.Api.Controllers
                 List<byte> categoryenableFilters = new List<byte>() { 1, 0, 6 };
 
                 foreach (var item in categories.Where(x=> categoryenableFilters.Contains((byte)x.CategoryType)))
+                Ordr = 0;
+                var lstCategory = lst.OrderByDescending(x => x.Value).Select(x=>x.Key).ToList();
+                var tmplstCategory= _categoryService.GetCategoriesByCategoryIds(lstCategory.Select(x => x.CategoryId).ToList());
+                foreach (var item in tmplstCategory)
+                {
+
+                    filterItems.Add(new AdvancedSearchFilterItem
+                    {
+                        Value = item.CategoryId,
+                        Name = item.CategoryName,
+                        Type = (byte)AdvancedSearchFilterType.Category,
+                        ProductCount = item.ProductCount,
+                        ProductCountAll = item.ProductCountAll,
+                        Level=Ordr
+                    });
+                    Ordr++;
+                }
+                foreach (var item in categories)
                 {
                     filterItems.Add(new AdvancedSearchFilterItem
                     {
                         Value = item.CategoryId,
                         Name = item.CategoryName,
-                        Type = (byte)AdvancedSearchFilterType.Category
+                        Type = (byte)AdvancedSearchFilterType.Category,
+                        ProductCount = item.ProductCount,
+                        ProductCountAll = item.ProductCountAll,
+                        Level = Ordr
                     });
                 }
 
@@ -827,7 +858,7 @@ namespace MakinaTurkiye.Api.Controllers
                         }
 
                         var memberLast = _memberService.GetMemberByMainPartyId(mainParty.MainPartyId);
-                        string memberNo = "##";
+                        string memberNo = "MT";
                         for (int i = 0; i < 7 - memberLast.MainPartyId.ToString().Length; i++)
                         {
                             memberNo = memberNo + "0";

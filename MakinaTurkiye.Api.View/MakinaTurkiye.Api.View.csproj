@@ -58,8 +58,13 @@
     <Compile Include="ChangeEmailModel.cs" />
     <Compile Include="ChangePasswordModel.cs" />
     <Compile Include="City.cs" />
+    <Compile Include="MTProductCategoryModel.cs" />
+    <Compile Include="MTProductSearchOneStepCategoryItemModel.cs" />
     <Compile Include="CorporateInfoModelInput.cs" />
     <Compile Include="Description.cs" />
+    <Compile Include="MTCategoryItemModel.cs" />
+    <Compile Include="MTCategorySearchModel.cs" />
+    <Compile Include="MTProductCategoryItemModel.cs" />
     <Compile Include="Statistics\Advert.cs" />
     <Compile Include="Statistics\Store.cs" />
     <Compile Include="StoreDealerShip.cs" />

@@ -1224,7 +1224,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 PrepareJsonLd(model);
             }
 
-            model.ProductTabModel.ProductDescription = _productService.ClearObjectionableContent(product.ProductDescription);
+            // model.ProductTabModel.ProductDescription = _productService.ClearObjectionableContent(product.ProductDescription);
             return View(viewName: "DetailClear", model: model);
         }
 

@@ -41,7 +41,7 @@ namespace MakinaTurkiye.Web.Tasks
                 SiteMapCreateScheduler.Start();
                 PinterestScheduler.Start();
                 StoreRateCalculateScheduler.Start();
-                //MemberDescriptionOrganizerScheduler.Start();
+                MemberDescriptionOrganizerScheduler.Start();
             }
         }
     }
