@@ -450,8 +450,9 @@ namespace MakinaTurkiye.Api.Controllers
                                     {
                                         Value = brands.First().CategoryId,
                                         Name = brands.First().CategoryName,
-                                        Type = (byte)AdvancedSearchFilterType.Brand
-
+                                        Type = (byte)AdvancedSearchFilterType.Brand,
+                                        ProductCount = brands.Sum(x => x.ProductCount),
+                                        ProductCountAll = brands.Sum(x => x.ProductCountAll),
                                     });
                                 }
                                 else
@@ -460,8 +461,9 @@ namespace MakinaTurkiye.Api.Controllers
                                     {
                                         Value = brands.First().CategoryId,
                                         Name = brands.First().CategoryName,
-                                        Type = (byte)AdvancedSearchFilterType.Brand
-
+                                        Type = (byte)AdvancedSearchFilterType.Brand,
+                                        ProductCount = brands.Sum(x => x.ProductCount),
+                                        ProductCountAll = brands.Sum(x => x.ProductCountAll),
                                     });
                                 }
                             }
@@ -550,9 +552,9 @@ namespace MakinaTurkiye.Api.Controllers
                 Ordr = 0;
                 var lstCategory = lst.OrderByDescending(x => x.Value).Select(x=>x.Key).ToList();
                 var tmplstCategory= _categoryService.GetCategoriesByCategoryIds(lstCategory.Select(x => x.CategoryId).ToList());
+                tmplstCategory= tmplstCategory.OrderBy(x=>x.CategoryOrder).ToList();
                 foreach (var item in tmplstCategory)
                 {
-
                     filterItems.Add(new AdvancedSearchFilterItem
                     {
                         Value = item.CategoryId,
@@ -564,6 +566,14 @@ namespace MakinaTurkiye.Api.Controllers
                     });
                     Ordr++;
                 }
+
+
+
+                // categoride sadece sektör ürün gurubu ve kategori olanla rlistelenecek.
+
+                List<byte> AllowedCategoryListesi = new List<byte>() { 0,1,6};
+
+                categories = categories.Where(x => AllowedCategoryListesi.Contains((byte)x.CategoryType)).ToList();
                 foreach (var item in categories)
                 {
                     filterItems.Add(new AdvancedSearchFilterItem
