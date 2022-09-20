@@ -1008,6 +1008,7 @@ namespace MakinaTurkiye.Api.Controllers
                                     {
                                         Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
                                     }
+
                                     bool thumbResult = ImageProcessHelper.ImageResize(System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + fileName,
                                     System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + "thumbs\\" + product.ProductName.ToImageFileName(count), thumbSizes);
                                     foreach (var thumbSize in thumbSizes)

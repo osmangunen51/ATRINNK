@@ -1533,7 +1533,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 }
                 privateSectorCategories.Add(new SelectListItem { Value = "-1", Text = "Tüm Sektörleri Gör" });
             }
-
             model.PrivateSectorCategories = privateSectorCategories.OrderBy(x => x.Text).ToList();
             return View(model);
         }

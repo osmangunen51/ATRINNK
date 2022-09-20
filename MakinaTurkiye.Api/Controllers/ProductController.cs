@@ -517,7 +517,9 @@ namespace MakinaTurkiye.Api.Controllers
                     }
                 }
 
-                foreach (var item in categories)
+                List<byte> categoryenableFilters = new List<byte>() { 1, 0, 6 };
+
+                foreach (var item in categories.Where(x=> categoryenableFilters.Contains((byte)x.CategoryType)))
                 {
                     filterItems.Add(new AdvancedSearchFilterItem
                     {

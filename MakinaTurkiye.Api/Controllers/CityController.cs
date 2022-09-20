@@ -11,7 +11,6 @@ namespace MakinaTurkiye.Api.Controllers
     public class CityController : BaseApiController
     {
         private readonly IAddressService _adressService;
-
         public CityController()
         {
             _adressService = EngineContext.Current.Resolve<IAddressService>();
