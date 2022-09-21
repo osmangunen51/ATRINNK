@@ -171,6 +171,11 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                 {
                     string destFile = thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X");
                     ImageBuilder.Current.Build(new ImageJob(originalFile, destFile, settings, false, true));
+
+                    var fileInformation = new FileInfo(originalFile);
+                    destFile = destFile + fileInformation.Extension;
+                    AddWaterMarkNew(destFile, thumbSize);
+
                 }
                 catch
                 {
@@ -182,6 +187,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
         public static void AddWaterMarkNew(string orgImgFile, string size)
         {
+            string txt = "makinaturkiye.com";
             Image imgPhoto;
             using (FileStream myStream = new FileStream(orgImgFile, FileMode.Open, FileAccess.Read))
             {
@@ -203,18 +209,18 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             stringFormat.LineAlignment = StringAlignment.Center;
             FontFamily fontFamily = new FontFamily("Arial");
             int fontSize = 40;
-            if (imgPhoto.Height < 500)
-                fontSize = 30;
-            else if (imgPhoto.Height < 980 && imgPhoto.Height > 500)
-                fontSize = 35;
 
-            var f = new System.Drawing.Font("Verdana ", fontSize);
+            int countOfChar = txt.Length;
+            fontSize = (imgPhoto.Width + imgPhoto.Height / 2) / countOfChar;
+            
+            var f = new System.Drawing.Font("Times New Roman ", fontSize);
             Color newColor = Color.FromArgb(100, 255, 255, 255);
             Brush myBrush = new SolidBrush(newColor);
-
-            g.RotateTransform(-45);
+            halfHypotenuse = halfHypotenuse - countOfChar;
+            double drawanngle = angle * -1;
+            g.RotateTransform((float)drawanngle);
             g.TranslateTransform(0, imgPhoto.Height, MatrixOrder.Append);
-            g.DrawString("makinaturkiye.com", f, myBrush,
+            g.DrawString(txt, f, myBrush,
                              new Point((int)halfHypotenuse, 0),
                              stringFormat);
             imgPhoto = bmPhoto;
@@ -231,5 +237,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             }
             imgPhoto.Dispose();
         }
+
+
     }
 }

@@ -102,8 +102,8 @@ namespace MakinaTurkiye.ImageFix
             List<string> thumbSizes = new List<string>();
             thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
             
-            var List = _productService.GetProductsByCategoryId(103482);
-            List= List.Where(x=>x.ProductId== 155259).ToList();
+            var List = _productService.GetProductsByCategoryId(164435);
+            List= List.Where(x=>x.ProductId== 186099).ToList();
             foreach (var item in List)
             {
                 // <add key="ProductImageFolder" value="/UserFiles/Product/" />
@@ -125,7 +125,7 @@ namespace MakinaTurkiye.ImageFix
                             LogEkle($"{Hata.Message}");
                         }
                     }
-                    bool thumbResult = ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes,true);
+                    bool thumbResult = ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
                     if (thumbResult)
                     {
                         LogEkle($"{picture.PicturePath} İşlemi Tamamlandı");
