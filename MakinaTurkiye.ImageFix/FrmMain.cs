@@ -30,7 +30,7 @@ namespace MakinaTurkiye.ImageFix
         
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            
+            txtBaseDizin.Text = @"C:\Test\Product";
         }
 
         private void tlstrpbtnTemizle_Click(object sender, EventArgs e)
@@ -108,20 +108,20 @@ namespace MakinaTurkiye.ImageFix
             try
             {
 
-                //int productId = 153278;
-                //var pictureList = _pictureService.GetPicturesByProductId(productId);
-                //var List = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
-                //List.Add(_productService.GetProductByProductId(productId));
-                //int KayitSayisi = List.Count;
-                //int IslemYapilanKayitSayisi = 0;
-
-
-                var pictureList = _pictureService.GetPictures();
-                var List = _productService.GetProductsAll();
+                int productId = 153278;
+                var pictureList = _pictureService.GetPicturesByProductId(productId);
+                var List = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
+                List.Add(_productService.GetProductByProductId(productId));
                 int KayitSayisi = List.Count;
                 int IslemYapilanKayitSayisi = 0;
 
 
+                //var pictureList = _pictureService.GetPictures();
+                //var List = _productService.GetProductsAll();
+                //int KayitSayisi = List.Count;
+                //int IslemYapilanKayitSayisi = 0;
+
+                Object _lock = new Object();
                 //List=List.Where(x => x.ProductId==187174).ToList();
                 Parallel.ForEach(List, item =>
                 {
@@ -159,25 +159,28 @@ namespace MakinaTurkiye.ImageFix
                                     //LogEkle($"{Hata.Message}");
                                 }
                             }
-                            int DenemeSayisi = 0;
                             bool thumbResult = false;
-                            while (!thumbResult && DenemeSayisi<5)
+                            while (!thumbResult)
                             {
                                 thumbResult=ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
-                                DenemeSayisi++;
+                                if (!thumbResult)
+                                {
+                                    LogEkle($"{item.ProductId} - {picture.Id} - {mainPicture} Oluşturulamadı...");
+                                }
                             }
                         }
                     });
-                    lock (this)
+
+                    lock(_lock)
                     {
-                        if (ChLogDurum.Checked)
-                        {
-                            LogEkle($"{item.ProductId} İşlemi Tamamlandı");
-                        }
                         IslemYapilanKayitSayisi++;
-                        string IfadeText = $"Toplam : {KayitSayisi} - İşlem Yapılan : {IslemYapilanKayitSayisi}";
-                        DurumBilgisiGuncelle(IfadeText);
                     }
+                    if (ChLogDurum.Checked)
+                    {
+                        LogEkle($"{item.ProductId} İşlemi Tamamlandı");
+                    }
+                    string IfadeText = $"Toplam : {KayitSayisi} - İşlem Yapılan : {IslemYapilanKayitSayisi}";
+                    DurumBilgisiGuncelle(IfadeText);
                 });
             }
             catch (Exception Hata)

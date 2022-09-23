@@ -7,6 +7,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using ImageProcessor;
 
 namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
 {
@@ -167,25 +168,110 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                 //    settings.Mode = FitMode.Pad;
                 //    settings.Scale = ScaleMode.UpscaleCanvas;
                 //}
+
                 settings.Mode = FitMode.Pad;
                 settings.Scale = ScaleMode.UpscaleCanvas;
                 try
                 {
                     string destFile = thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X");
                     destFile=destFile.Replace("-.jpg-", "-");
-                    ImageBuilder.Current.Build(new ImageJob(originalFile, destFile, settings, false, true));
-                    var fileInformation = new FileInfo(originalFile);
-                    destFile = destFile + fileInformation.Extension;
-                    AddWaterMarkNew(destFile, thumbSize);
+                    if (!destFile.ToLower().EndsWith(".jpg"))
+                    {
+                        destFile = destFile + ".jpg";
+                    }
 
+                    var result=ReSize(originalFile, destFile,new Size((int)settings.Width, (int)settings.Height));
+                    //if (result)
+                    //{
+                    //    result = AddWatermark(destFile);
+                    //    if (!result)
+                    //    {
+                    //        anyError = true;
+                    //    }
+                    //}
+                    //else
+                    //{
+                    //    anyError = true;
+                    //}
                 }
-                catch
+                catch(Exception Hata)
                 {
                     anyError = true;
                 }
             }
             return !anyError;
         }
+        public static bool ReSize(string source,string destination,Size size)
+        {
+            bool result = false;
+            try
+            {
+                System.IO.File.Copy(source, destination, true);
+                ImageFactory imageFactory = new ImageFactory()
+                {
+                    AnimationProcessMode = ImageProcessor.Imaging.AnimationProcessMode.All,
+                    PreserveExifData = true,
+                };
+                ImageProcessor.Imaging.ResizeLayer resizeLayer = new ImageProcessor.Imaging.ResizeLayer(size, ImageProcessor.Imaging.ResizeMode.BoxPad);
+                imageFactory.Load(destination).Resize(resizeLayer);
+                result = true;
+            }
+            catch (Exception Hata)
+            {
+                result = false;
+            }
+            return result;
+        }
+
+        public static bool AddWatermark(string image)
+        {
+            bool result = false;
+            try
+            {
+                Image img = Image.FromFile(image);
+                string txt = "makinaturkiye.com";
+                FontFamily fontFamily = new FontFamily("Arial");
+                int fontSize = 40;
+
+                int countOfChar = txt.Length;
+                fontSize = (img.Width + img.Height / 2) / countOfChar;
+
+
+                double tangent = (double)img.Height / (double)img.Width;
+                double angle = Math.Atan(tangent) * (180 / Math.PI);
+                double halfHypotenuse = (Math.Sqrt((img.Height
+                                       * img.Height) +
+                                       (img.Width *
+                                       img.Width))) / 2;
+
+                ImageFactory imageFactory = new ImageFactory()
+                {
+                    AnimationProcessMode = ImageProcessor.Imaging.AnimationProcessMode.All,
+                    PreserveExifData = true,
+                };
+
+                imageFactory.Load(image).Watermark(new ImageProcessor.Imaging.TextLayer()
+                {
+                    Text = txt,
+                    FontSize = fontSize,
+                    FontFamily = fontFamily,
+                    DropShadow = true,
+                    FontColor = Color.Red,
+                    Opacity = 60,
+                    Position = new Point((int)halfHypotenuse, 0),
+                    Style = FontStyle.Bold,
+                });
+                result = true;
+            }
+            catch (Exception Hata)
+            {
+                result = false;
+            }
+
+            return result;
+            
+        }
+
 
         public static void AddWaterMarkNew(string orgImgFile, string size)
         {
