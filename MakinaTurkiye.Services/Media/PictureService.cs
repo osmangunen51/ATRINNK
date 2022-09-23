@@ -67,6 +67,11 @@ namespace MakinaTurkiye.Services.Media
                 return query.FirstOrDefault();
             });
         }
+        public IList<Picture> GetPictures()
+        {
+            var query = _pictureService.Table;
+            return query.ToList();
+        }
 
         public IList<Picture> GetPicturesByProductId(int productId, bool isCache = true)
         {

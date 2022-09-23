@@ -7,6 +7,8 @@ namespace MakinaTurkiye.Services.Media
     {
         Picture GetPictureByPictureId(int pictureId);
 
+        IList<Picture> GetPictures();
+
         IList<Picture> GetPicturesByProductId(int productId, bool setCache = true);
 
         Picture GetFirstPictureByProductId(int productId);

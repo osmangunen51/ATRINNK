@@ -10,6 +10,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MakinaTurkiye.ImageFix
@@ -101,36 +102,88 @@ namespace MakinaTurkiye.ImageFix
             BaseFolder = txtBaseDizin.Text.Trim();
             List<string> thumbSizes = new List<string>();
             thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
-            
-            var List = _productService.GetProductsByCategoryId(164435);
-            List= List.Where(x=>x.ProductId== 186099).ToList();
-            foreach (var item in List)
+
+            //var List = _productService.GetProductsByCategoryId(93636);
+            //List= List.Where(x=>x.ProductId== 193250).ToList();
+            try
             {
-                // <add key="ProductImageFolder" value="/UserFiles/Product/" />
-                var pictures = _pictureService.GetPicturesByProductId(item.ProductId);
-                foreach (var picture in pictures)
+
+                //int productId = 153278;
+                //var pictureList = _pictureService.GetPicturesByProductId(productId);
+                //var List = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
+                //List.Add(_productService.GetProductByProductId(productId));
+                //int KayitSayisi = List.Count;
+                //int IslemYapilanKayitSayisi = 0;
+
+
+                var pictureList = _pictureService.GetPictures();
+                var List = _productService.GetProductsAll();
+                int KayitSayisi = List.Count;
+                int IslemYapilanKayitSayisi = 0;
+
+
+                //List=List.Where(x => x.ProductId==187174).ToList();
+                Parallel.ForEach(List, item =>
                 {
-                    string mainPicture = $"{BaseFolder}\\{item.ProductId.ToString()}\\{picture.PicturePath}";
-                    string destinationfile = mainPicture.Replace(item.ProductId.ToString(), item.ProductId.ToString()+ "\\thumbs").Replace(".jpg","");
-                    var FileBilgi=new FileInfo(destinationfile);
-                    if (!FileBilgi.Directory.Exists)
+                    // <add key="ProductImageFolder" value="/UserFiles/Product/" />
+                    var pictures = pictureList.Where(x=>x.ProductId== item.ProductId);
+                    Parallel.ForEach(pictures, picture =>
                     {
-                        try
+                        string mainPicture = $"{BaseFolder}\\{item.ProductId.ToString()}\\{picture.PicturePath}";
+                        var mainPictureFileBilgi = new FileInfo(mainPicture);
+                        if (mainPictureFileBilgi.Exists)
                         {
-                            FileBilgi.Directory.Create();
-                            LogEkle($"{FileBilgi.Directory.FullName} Oluşturuldu.");
+                            string destinationfile = mainPicture.Replace(item.ProductId.ToString(), item.ProductId.ToString() + "\\thumbs").Replace(".jpg", "");
+                            var FileBilgi = new FileInfo(destinationfile);
+                            if (!FileBilgi.Directory.Exists)
+                            {
+                                try
+                                {
+                                    FileBilgi.Directory.Create();
+                                    //LogEkle($"{FileBilgi.Directory.FullName} Oluşturuldu.");
+                                }
+                                catch (Exception Hata)
+                                {
+                                    //LogEkle($"{Hata.Message}");
+                                }
+                            }
+                            else
+                            {
+                                try
+                                {
+                                    FileBilgi.Directory.Delete();
+                                    FileBilgi.Directory.Create();
+                                }
+                                catch (Exception Hata)
+                                {
+                                    //LogEkle($"{Hata.Message}");
+                                }
+                            }
+                            int DenemeSayisi = 0;
+                            bool thumbResult = false;
+                            while (!thumbResult && DenemeSayisi<5)
+                            {
+                                thumbResult=ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
+                                DenemeSayisi++;
+                            }
                         }
-                        catch (Exception Hata)
-                        {
-                            LogEkle($"{Hata.Message}");
-                        }
-                    }
-                    bool thumbResult = ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
-                    if (thumbResult)
+                    });
+                    lock (this)
                     {
-                        LogEkle($"{picture.PicturePath} İşlemi Tamamlandı");
+                        if (ChLogDurum.Checked)
+                        {
+                            LogEkle($"{item.ProductId} İşlemi Tamamlandı");
+                        }
+                        IslemYapilanKayitSayisi++;
+                        string IfadeText = $"Toplam : {KayitSayisi} - İşlem Yapılan : {IslemYapilanKayitSayisi}";
+                        DurumBilgisiGuncelle(IfadeText);
                     }
-                }
+                });
+            }
+            catch (Exception Hata)
+            {
+
+                LogEkle(Hata.Message+" "+Hata.StackTrace);
             }
             LogEkle($"Bitti.");
             DurdurmaIslemiYap();
@@ -143,11 +196,22 @@ namespace MakinaTurkiye.ImageFix
                 this.Invoke(new Action<string>(LogEkle), new object[] { value });
                 return;
             }
-            if (txtLog.Lines.Count()>1000)
+            if (txtLog.Lines.Count()>20)
             {
                 txtLog.Clear();
             }
             txtLog.AppendText($"{DateTime.Now.ToString()} :==> {value}{Environment.NewLine}");
+        }
+
+
+        public void DurumBilgisiGuncelle(string value)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke(new Action<string>(DurumBilgisiGuncelle), new object[] { value });
+                return;
+            }
+            lblDurum.Text = value;
         }
 
         private void btnBaslatDurdur_Click(object sender, EventArgs e)

@@ -162,16 +162,18 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                 settings.OutputFormat = OutputFormat.Jpeg;
                 settings.JpegQuality = 70;
 
-                if (width != "*" && height != "*") 
-                {
-                    settings.Mode = FitMode.Pad;
-                }
-
+                //if (width != "*" && height != "*") 
+                //{
+                //    settings.Mode = FitMode.Pad;
+                //    settings.Scale = ScaleMode.UpscaleCanvas;
+                //}
+                settings.Mode = FitMode.Pad;
+                settings.Scale = ScaleMode.UpscaleCanvas;
                 try
                 {
                     string destFile = thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X");
+                    destFile=destFile.Replace("-.jpg-", "-");
                     ImageBuilder.Current.Build(new ImageJob(originalFile, destFile, settings, false, true));
-
                     var fileInformation = new FileInfo(originalFile);
                     destFile = destFile + fileInformation.Extension;
                     AddWaterMarkNew(destFile, thumbSize);
