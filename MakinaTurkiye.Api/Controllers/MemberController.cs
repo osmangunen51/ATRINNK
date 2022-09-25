@@ -178,7 +178,8 @@ namespace MakinaTurkiye.Api.Controllers
                 var memberInfoList = new List<MemberInfo>();
                 foreach (var result in results)
                 {
-                    var userAddresses = _addressService.GetAddressesByMainPartyId(result.MainPartyId).ToList();
+                    var memberstore=_memberStoreService.GetMemberStoreByMemberMainPartyId(result.MainPartyId);
+                    var userAddresses = _addressService.GetAddressesByMainPartyId((int)memberstore.StoreMainPartyId).ToList();
                     var AddressList = new List<View.Address>();
 
                     foreach (var userAdress in userAddresses)

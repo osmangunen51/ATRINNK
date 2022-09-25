@@ -59,6 +59,13 @@ namespace MakinaTurkiye.Services.Members
                 var query = _memberStoreRepository.Table;
                 return query.FirstOrDefault(ms => ms.StoreMainPartyId == storeMainPartyId);
             });
+
+        }
+        public IList<MemberStore> GetMemberStoreListByMemberMainPartyId(int memberMainPartyId)
+            {
+            var query = _memberStoreRepository.Table;
+            query = query.Where(x => x.MemberMainPartyId == memberMainPartyId);
+            return query.ToList();
         }
 
         public IList<MemberStore> GetMemberStoresByStoreMainPartyId(int storeMainPartyId)

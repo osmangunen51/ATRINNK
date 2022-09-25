@@ -7,6 +7,7 @@ using NeoSistem.MakinaTurkiye.Core.Web.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -108,80 +109,157 @@ namespace MakinaTurkiye.ImageFix
             try
             {
 
-                int productId = 153278;
-                var pictureList = _pictureService.GetPicturesByProductId(productId);
-                var List = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
-                List.Add(_productService.GetProductByProductId(productId));
-                int KayitSayisi = List.Count;
-                int IslemYapilanKayitSayisi = 0;
+                //int productId = 186099;
+                //int productId = 193250;
+                //var pictureList = _pictureService.GetPicturesByProductId(productId);
+                //var List = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
+                //List.Add(_productService.GetProductByProductId(productId));
 
-
-                //var pictureList = _pictureService.GetPictures();
-                //var List = _productService.GetProductsAll();
                 //int KayitSayisi = List.Count;
                 //int IslemYapilanKayitSayisi = 0;
 
+
+                var pictureList = _pictureService.GetPictures();
+                var List = _productService.GetProductsAll();
+                int KayitSayisi = List.Count;
+                int IslemYapilanKayitSayisi = 0;
+
                 Object _lock = new Object();
                 //List=List.Where(x => x.ProductId==187174).ToList();
-                Parallel.ForEach(List, item =>
+                //Parallel.ForEach(List, item =>
+                //{
+                //    var pictures = pictureList.Where(x => x.ProductId == item.ProductId);
+                //    if (pictures.Any())
+                //    {
+                //        Parallel.ForEach(pictures, picture =>
+                //        {
+                //            string mainPicture = $"{BaseFolder}\\{item.ProductId.ToString()}\\{picture.PicturePath}";
+                //            var mainPictureFileBilgi = new FileInfo(mainPicture);
+                //            if (mainPictureFileBilgi.Exists)
+                //            {
+                //                string destinationfile = mainPicture.Replace(item.ProductId.ToString(), item.ProductId.ToString() + "\\thumbs").Replace(".jpg", "");
+                //                var FileBilgi = new FileInfo(destinationfile);
+                //                if (!FileBilgi.Directory.Exists)
+                //                {
+                //                    try
+                //                    {
+                //                        FileBilgi.Directory.Create();
+                //                        //LogEkle($"{FileBilgi.Directory.FullName} Oluşturuldu.");
+                //                    }
+                //                    catch (Exception Hata)
+                //                    {
+                //                        //LogEkle($"{Hata.Message}");
+                //                    }
+                //                }
+                //                else
+                //                {
+                //                    try
+                //                    {
+                //                        FileBilgi.Directory.Delete();
+                //                        FileBilgi.Directory.Create();
+                //                    }
+                //                    catch (Exception Hata)
+                //                    {
+                //                        //LogEkle($"{Hata.Message}");
+                //                    }
+                //                }
+                //                bool thumbResult = false;
+                //                while (!thumbResult)
+                //                {
+                //                    thumbResult = ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
+                //                    if (!thumbResult)
+                //                    {
+                //                        LogEkle($"{item.ProductId} - {picture.Id} - {mainPicture} Oluşturulamadı...");
+                //                    }
+                //                }
+                //            }
+                //        });
+                //    }
+                //    lock (_lock)
+                //    {
+                //        IslemYapilanKayitSayisi++;
+                //        if (ChLogDurum.Checked)
+                //        {
+                //            LogEkle($"{item.ProductId} İşlemi Tamamlandı");
+                //        }
+                //        string IfadeText = $"Toplam : {KayitSayisi} - İşlem Yapılan : {IslemYapilanKayitSayisi}";
+                //        DurumBilgisiGuncelle(IfadeText);
+                //    }
+                //});
+
+                foreach (var item in List)
                 {
-                    // <add key="ProductImageFolder" value="/UserFiles/Product/" />
-                    var pictures = pictureList.Where(x=>x.ProductId== item.ProductId);
-                    Parallel.ForEach(pictures, picture =>
+                    try
                     {
-                        string mainPicture = $"{BaseFolder}\\{item.ProductId.ToString()}\\{picture.PicturePath}";
-                        var mainPictureFileBilgi = new FileInfo(mainPicture);
-                        if (mainPictureFileBilgi.Exists)
+                        var pictures = pictureList.Where(x => x.ProductId == item.ProductId);
+                        foreach (var picture in pictures)
                         {
-                            string destinationfile = mainPicture.Replace(item.ProductId.ToString(), item.ProductId.ToString() + "\\thumbs").Replace(".jpg", "");
-                            var FileBilgi = new FileInfo(destinationfile);
-                            if (!FileBilgi.Directory.Exists)
+                            string mainPicture = $"{BaseFolder}\\{item.ProductId.ToString()}\\{picture.PicturePath}";
+                            var mainPictureFileBilgi = new FileInfo(mainPicture);
+                            if (mainPictureFileBilgi.Exists)
                             {
-                                try
+                                string destinationfile = mainPicture.Replace(item.ProductId.ToString(), item.ProductId.ToString() + "\\thumbs").Replace(".jpg", "");
+                                var FileBilgi = new FileInfo(destinationfile);
+                                if (!FileBilgi.Directory.Exists)
                                 {
-                                    FileBilgi.Directory.Create();
-                                    //LogEkle($"{FileBilgi.Directory.FullName} Oluşturuldu.");
+                                    try
+                                    {
+                                        FileBilgi.Directory.Create();
+                                        //LogEkle($"{FileBilgi.Directory.FullName} Oluşturuldu.");
+                                    }
+                                    catch (Exception Hata)
+                                    {
+                                        //LogEkle($"{Hata.Message}");
+                                    }
                                 }
-                                catch (Exception Hata)
+                                else
                                 {
-                                    //LogEkle($"{Hata.Message}");
+                                    try
+                                    {
+                                        FileBilgi.Directory.Delete();
+                                        FileBilgi.Directory.Create();
+                                    }
+                                    catch (Exception Hata)
+                                    {
+                                        //LogEkle($"{Hata.Message}");
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                try
+                                bool thumbResult = false;
+                                int DenemeSayisi = 0;
+                                while (!thumbResult && DenemeSayisi<5)
                                 {
-                                    FileBilgi.Directory.Delete();
-                                    FileBilgi.Directory.Create();
-                                }
-                                catch (Exception Hata)
-                                {
-                                    //LogEkle($"{Hata.Message}");
-                                }
-                            }
-                            bool thumbResult = false;
-                            while (!thumbResult)
-                            {
-                                thumbResult=ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
-                                if (!thumbResult)
-                                {
-                                    LogEkle($"{item.ProductId} - {picture.Id} - {mainPicture} Oluşturulamadı...");
+                                    thumbResult = ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
+                                    if (!thumbResult)
+                                    {
+                                        LogEkle($"{item.ProductId} - {picture.Id} - {mainPicture} Oluşturulamadı...");
+                                        Thread.Sleep(1000);
+                                    }
+                                    DenemeSayisi++;
                                 }
                             }
                         }
-                    });
-
-                    lock(_lock)
+                        
+                    }
+                    catch (Exception Hata)
+                    {
+                        LogEkle($"{item.ProductId} Hata Oluştu {Hata.Message}");
+                        continue;
+                    }
+                    finally
                     {
                         IslemYapilanKayitSayisi++;
+                        if (ChLogDurum.Checked)
+                        {
+                            LogEkle($"{item.ProductId} İşlemi Tamamlandı");
+                        }
+                        string IfadeText = $"Toplam : {KayitSayisi} - İşlem Yapılan : {IslemYapilanKayitSayisi}";
+                        DurumBilgisiGuncelle(IfadeText);
+                        if (IslemYapilanKayitSayisi % 10 == 0)
+                        {
+                            FlushMemory();
+                        }
                     }
-                    if (ChLogDurum.Checked)
-                    {
-                        LogEkle($"{item.ProductId} İşlemi Tamamlandı");
-                    }
-                    string IfadeText = $"Toplam : {KayitSayisi} - İşlem Yapılan : {IslemYapilanKayitSayisi}";
-                    DurumBilgisiGuncelle(IfadeText);
-                });
+                }
             }
             catch (Exception Hata)
             {
@@ -192,6 +270,20 @@ namespace MakinaTurkiye.ImageFix
             DurdurmaIslemiYap();
         }
 
+        public void FlushMemory()
+        {
+            Process prs = Process.GetCurrentProcess();
+            try
+            {
+                prs.MinWorkingSet = (IntPtr)(300000);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception();
+            }
+        }
+
+
         public void LogEkle(string value)
         {
             if (InvokeRequired)
@@ -199,10 +291,10 @@ namespace MakinaTurkiye.ImageFix
                 this.Invoke(new Action<string>(LogEkle), new object[] { value });
                 return;
             }
-            if (txtLog.Lines.Count()>20)
-            {
-                txtLog.Clear();
-            }
+            //if (txtLog.Lines.Count()>20)
+            //{
+            //    txtLog.Clear();
+            //}
             txtLog.AppendText($"{DateTime.Now.ToString()} :==> {value}{Environment.NewLine}");
         }
 

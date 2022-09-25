@@ -388,8 +388,8 @@ namespace MakinaTurkiye.Api.Controllers
                                 Value = item.CategoryId,
                                 Name = item.CategoryName,
                                 Type = (byte)AdvancedSearchFilterType.Serie,
-                                ProductCount=item.ProductCount,
-                                ProductCountAll = item.ProductCountAll,
+                                ProductCount = result.FilterableSeriesIds.Count(c => c == item.CategoryId),
+                                ProductCountAll =0,
                             });
                         }
                     }
@@ -408,8 +408,8 @@ namespace MakinaTurkiye.Api.Controllers
                                 Value = item.CategoryId,
                                 Name = item.CategoryName,
                                 Type = (byte)AdvancedSearchFilterType.Model,
-                                ProductCount = item.ProductCount,
-                                ProductCountAll = item.ProductCountAll,
+                                ProductCount = result.FilterableModelIds.Count(c => c == item.CategoryId),
+                                ProductCountAll = 0,
                             });
                         }
 
@@ -420,7 +420,9 @@ namespace MakinaTurkiye.Api.Controllers
 
                 if (result.FilterableBrandIds != null && result.FilterableBrandIds.Count > 0)
                 {
-                    var filterableBrands = _categoryService.GetCategoriesByCategoryIds(result.FilterableBrandIds.Distinct().ToList());
+                    List<int> catIdList = result.FilterableBrandIds.Distinct().ToList();
+                    string aa = string.Join(",", catIdList.ToArray());
+                    var filterableBrands = _categoryService.GetCategoriesByCategoryIds(catIdList);
                     if (filterableBrands.Count > 0)
                     {
                         var distinctfilterableBrands = filterableBrands.Select(b => b.CategoryName).Distinct();
@@ -433,8 +435,8 @@ namespace MakinaTurkiye.Api.Controllers
                                     Value = item.CategoryId,
                                     Name = item.CategoryName,
                                     Type = (byte)AdvancedSearchFilterType.Brand,
-                                    ProductCount = item.ProductCount,
-                                    ProductCountAll = item.ProductCountAll,
+                                    ProductCount = result.FilterableBrandIds.Count(c => c== item.CategoryId),
+                                    ProductCountAll = 0,
 
                                 });
                             }
@@ -451,8 +453,8 @@ namespace MakinaTurkiye.Api.Controllers
                                         Value = brands.First().CategoryId,
                                         Name = brands.First().CategoryName,
                                         Type = (byte)AdvancedSearchFilterType.Brand,
-                                        ProductCount = brands.Sum(x => x.ProductCount),
-                                        ProductCountAll = brands.Sum(x => x.ProductCountAll),
+                                        ProductCount = result.FilterableBrandIds.Count(c => c== brands.FirstOrDefault().CategoryId),
+                                        ProductCountAll = 0,
                                     });
                                 }
                                 else
@@ -462,8 +464,8 @@ namespace MakinaTurkiye.Api.Controllers
                                         Value = brands.First().CategoryId,
                                         Name = brands.First().CategoryName,
                                         Type = (byte)AdvancedSearchFilterType.Brand,
-                                        ProductCount = brands.Sum(x => x.ProductCount),
-                                        ProductCountAll = brands.Sum(x => x.ProductCountAll),
+                                        ProductCount = result.FilterableBrandIds.Count(c => brands.Select(x=>x.CategoryId).Contains(c)),
+                                        ProductCountAll = 0,
                                     });
                                 }
                             }
@@ -483,8 +485,9 @@ namespace MakinaTurkiye.Api.Controllers
                                 Value = item.CountryId,
                                 Name = item.CountryName,
                                 Type = (byte)AdvancedSearchFilterType.Country,
-                                ProductCount = 0,
+                                ProductCount = result.FilterableCountryIds.Count(x => x == item.CountryId),
                                 ProductCountAll =0,
+                                Level=0
                             });
                         }
                     }
@@ -502,14 +505,15 @@ namespace MakinaTurkiye.Api.Controllers
                                 Value = item.CityId,
                                 Name = item.CityName,
                                 Type = (byte)AdvancedSearchFilterType.City,
-                                ProductCount = 0,
+                                ProductCount = result.FilterableCityIds.Count(x => x == item.CityId),
                                 ProductCountAll = 0,
+                                Level = 1,
                             });
                         }
                     }
                 }
 
-                if (CityId > 0)
+                if (CityId > 0 | LocalityId>0)
                 {
                     if (result.FilterableLocalityIds != null && result.FilterableLocalityIds.Count > 0)
                     {
@@ -522,20 +526,41 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     Value = item.LocalityId,
                                     Name = item.LocalityName,
-                                    Type = (byte)AdvancedSearchFilterType.Locality
+                                    Type = (byte)AdvancedSearchFilterType.Locality,
+                                    ProductCount = result.FilterableLocalityIds.Count(x => x == item.LocalityId),
+                                    ProductCountAll = 0,
+                                    Level = 2,
                                 });
                             }
                         }
                     }
                 }
 
-                List<byte> categoryenableFilters = new List<byte>() { 1, 0, 6 };
 
-                foreach (var item in categories.Where(x=> categoryenableFilters.Contains((byte)x.CategoryType)))
+                int Ordr = 0;
+                Dictionary<Category, int> lst = new Dictionary<Category, int>();
+                var tmpCategory = categories.FirstOrDefault();
+                while (tmpCategory != null)
+                {
+                    tmpCategory = _categoryService.GetCategoryByCategoryId((int)tmpCategory.CategoryParentId);
+                    if (tmpCategory != null)
+                    {
+                        if (!lst.ContainsKey(tmpCategory))
+                        {
+                            lst.Add(tmpCategory, Ordr);
+                            Ordr++;
+                        }
+                    }
+                    if (tmpCategory.CategoryParentId == null | tmpCategory.CategoryParentId == categoryId)
+                    {
+                        break;
+                    }
+                }
+
                 Ordr = 0;
-                var lstCategory = lst.OrderByDescending(x => x.Value).Select(x=>x.Key).ToList();
-                var tmplstCategory= _categoryService.GetCategoriesByCategoryIds(lstCategory.Select(x => x.CategoryId).ToList());
-                tmplstCategory= tmplstCategory.OrderBy(x=>x.CategoryOrder).ToList();
+                var lstCategory = lst.OrderByDescending(x => x.Value).Select(x => x.Key).ToList();
+                var tmplstCategory = _categoryService.GetCategoriesByCategoryIds(lstCategory.Select(x => x.CategoryId).ToList());
+                tmplstCategory = tmplstCategory.OrderBy(x => x.CategoryOrder).ToList();
                 foreach (var item in tmplstCategory)
                 {
                     filterItems.Add(new AdvancedSearchFilterItem
@@ -545,7 +570,7 @@ namespace MakinaTurkiye.Api.Controllers
                         Type = (byte)AdvancedSearchFilterType.Category,
                         ProductCount = item.ProductCount,
                         ProductCountAll = item.ProductCountAll,
-                        Level=Ordr
+                        Level = Ordr
                     });
                     Ordr++;
                 }
@@ -554,7 +579,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                 // categoride sadece sektör ürün gurubu ve kategori olanla rlistelenecek.
 
-                List<byte> AllowedCategoryListesi = new List<byte>() { 0,1,6};
+                List<byte> AllowedCategoryListesi = new List<byte>() { 0, 1, 6 };
 
                 categories = categories.Where(x => AllowedCategoryListesi.Contains((byte)x.CategoryType)).ToList();
                 foreach (var item in categories)
@@ -1106,9 +1131,15 @@ namespace MakinaTurkiye.Api.Controllers
                     if (picture != null)
                         picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
-                    var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                    item.MainPicture = (picturePath == null ? "" : picturePath);
-                    item.StoreName = store.StoreName;
+                    if (memberStore!=null)
+                    {
+                        if (memberStore.StoreMainPartyId!=null)
+                        {
+                            var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                            item.MainPicture = (picturePath == null ? "" : picturePath);
+                            item.StoreName = store.StoreName;
+                        }
+                    }
                 }
                 processStatus.Result = TmpResult;
                 processStatus.Message.Header = "Showcase";
