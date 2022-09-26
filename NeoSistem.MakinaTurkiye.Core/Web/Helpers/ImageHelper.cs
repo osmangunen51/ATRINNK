@@ -173,12 +173,12 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                 try
                 {
                     string destFile = thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X");
-                    destFile=destFile.Replace("-.jpg-", "-");
+                    destFile = destFile.Replace("-.jpg-", "-");
                     if (!destFile.ToLower().EndsWith(".jpg"))
                     {
                         destFile = destFile + ".jpg";
                     }
-                    var result=ReSize(originalFile, destFile,new Size((int)settings.Width, (int)settings.Height));
+                    var result = ReSize(originalFile, destFile, new Size((int)settings.Width, (int)settings.Height));
                     if (result)
                     {
                         //result = AddWatermark(destFile);
@@ -192,7 +192,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                         anyError = true;
                     }
                 }
-                catch(Exception Hata)
+                catch (Exception Hata)
                 {
                     anyError = true;
                 }
@@ -238,7 +238,10 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                 {
                     if (tmpImg.Width > tmpImg.Height)
                     {
-                        size.Height = size.Width;
+                        if (size.Width>size.Height)
+                        {
+                            size.Height = size.Width;
+                        }
                     }
                     //else
                     //{ 
@@ -247,7 +250,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                 }
                 else if (tmpImg.Height < size.Height)
                 {
-                    if (tmpImg.Height > tmpImg.Width)
+                    if (size.Height > size.Width)
                     {
                         size.Width = size.Height;
                     }
@@ -272,16 +275,21 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                 resizeLayer.AnchorPosition = ImageProcessor.Imaging.AnchorPosition.Center;
 
                 ISupportedImageFormat format = new JpegFormat { Quality = 100 };
-                imageFactory.Load(source).Resize(resizeLayer).Watermark(
-                new ImageProcessor.Imaging.TextLayer()
-                {
-                    Text = txt,
-                    FontSize = fontSize,
-                    FontFamily = fontFamily,
-                    FontColor = Color.Red,
-                    Opacity = 25,
-                    Style = FontStyle.Bold,
-                }).Format(format).BackgroundColor(Color.White).Save(destination);
+                imageFactory = imageFactory.Load(source);
+                imageFactory = imageFactory.Resize(resizeLayer);
+                //imageFactory = imageFactory.Watermark(
+                //new ImageProcessor.Imaging.TextLayer()
+                //{
+                //    Text = txt,
+                //    FontSize = fontSize,
+                //    FontFamily = fontFamily,
+                //    FontColor = Color.Red,
+                //    Opacity = 25,
+                //    Style = FontStyle.Bold,
+                //});
+                //imageFactory = imageFactory.Format(format);
+                //imageFactory = imageFactory.BackgroundColor(Color.White);
+                imageFactory = imageFactory.Save(destination);
                 result = true;
             }
             catch (Exception Hata)

@@ -119,74 +119,27 @@ namespace MakinaTurkiye.ImageFix
                 //int IslemYapilanKayitSayisi = 0;
 
 
-                var pictureList = _pictureService.GetPictures();
-                var List = _productService.GetProductsAll();
+                var pictureList = _pictureService.GetPictures().ToList();
+                var List = _productService.GetProductsAll().ToList();
+                if (!string.IsNullOrEmpty(LblProductDosya.Text.Trim()))
+                {
+                    List<int> IslemListesi = new List<int>();
+                    try
+                    {
+                        string txt = System.IO.File.ReadAllText(LblProductDosya.Text.Trim());
+                        IslemListesi= txt.Trim().Replace(Environment.NewLine, "é").Replace(",","é").Split('é').Select(x => Convert.ToInt32(x.Trim())).ToList();
+                        if (IslemListesi.Count>0)
+                        {
+                            List = List.Where(x => IslemListesi.Contains(x.ProductId)).ToList();
+                        }
+                    }
+                    catch (Exception Hata)
+                    {
+                        MessageBox.Show(Hata.Message);
+                    }
+                }
                 int KayitSayisi = List.Count;
                 int IslemYapilanKayitSayisi = 0;
-
-                Object _lock = new Object();
-                //List=List.Where(x => x.ProductId==187174).ToList();
-                //Parallel.ForEach(List, item =>
-                //{
-                //    var pictures = pictureList.Where(x => x.ProductId == item.ProductId);
-                //    if (pictures.Any())
-                //    {
-                //        Parallel.ForEach(pictures, picture =>
-                //        {
-                //            string mainPicture = $"{BaseFolder}\\{item.ProductId.ToString()}\\{picture.PicturePath}";
-                //            var mainPictureFileBilgi = new FileInfo(mainPicture);
-                //            if (mainPictureFileBilgi.Exists)
-                //            {
-                //                string destinationfile = mainPicture.Replace(item.ProductId.ToString(), item.ProductId.ToString() + "\\thumbs").Replace(".jpg", "");
-                //                var FileBilgi = new FileInfo(destinationfile);
-                //                if (!FileBilgi.Directory.Exists)
-                //                {
-                //                    try
-                //                    {
-                //                        FileBilgi.Directory.Create();
-                //                        //LogEkle($"{FileBilgi.Directory.FullName} Oluşturuldu.");
-                //                    }
-                //                    catch (Exception Hata)
-                //                    {
-                //                        //LogEkle($"{Hata.Message}");
-                //                    }
-                //                }
-                //                else
-                //                {
-                //                    try
-                //                    {
-                //                        FileBilgi.Directory.Delete();
-                //                        FileBilgi.Directory.Create();
-                //                    }
-                //                    catch (Exception Hata)
-                //                    {
-                //                        //LogEkle($"{Hata.Message}");
-                //                    }
-                //                }
-                //                bool thumbResult = false;
-                //                while (!thumbResult)
-                //                {
-                //                    thumbResult = ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
-                //                    if (!thumbResult)
-                //                    {
-                //                        LogEkle($"{item.ProductId} - {picture.Id} - {mainPicture} Oluşturulamadı...");
-                //                    }
-                //                }
-                //            }
-                //        });
-                //    }
-                //    lock (_lock)
-                //    {
-                //        IslemYapilanKayitSayisi++;
-                //        if (ChLogDurum.Checked)
-                //        {
-                //            LogEkle($"{item.ProductId} İşlemi Tamamlandı");
-                //        }
-                //        string IfadeText = $"Toplam : {KayitSayisi} - İşlem Yapılan : {IslemYapilanKayitSayisi}";
-                //        DurumBilgisiGuncelle(IfadeText);
-                //    }
-                //});
-
                 foreach (var item in List)
                 {
                     try
@@ -362,6 +315,17 @@ namespace MakinaTurkiye.ImageFix
         private void FrmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.ExitThread();
+        }
+
+        private void btnSec_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog Ac=new OpenFileDialog())
+            {
+                if (Ac.ShowDialog()==DialogResult.OK)
+                {
+                    TxtProductDosya.Text = Ac.FileName;
+                }
+            }
         }
     }
 }

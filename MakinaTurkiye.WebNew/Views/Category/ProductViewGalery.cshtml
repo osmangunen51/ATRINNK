@@ -58,7 +58,7 @@
                             {
                                 if (i < 5)
                                 {
-                                    <img class="img-thumbnail"
+                                    <img class="img-thumbnail" width="400" height="300"
                                          src="@model1.PicturePath"
                                          alt="@model1.ProductName"
                                          title="@model1.ProductName" />
@@ -66,6 +66,7 @@
                                 else
                                 {
                                     <img class="img-thumbnail img-lazy"
+                                         width="400" height="300"
                                          src="/UserFiles/image-loading.png"
                                          data-src="@model1.PicturePath"
                                          alt="@model1.ProductName"
@@ -73,7 +74,6 @@
 
                                 }
                                 i++;
-
                             }
                             else
                             {
