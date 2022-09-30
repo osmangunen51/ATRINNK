@@ -7,8 +7,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ImageProcessor;
-using ImageProcessor.Imaging.Formats;
 
 namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
 {
@@ -155,203 +153,32 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             bool anyError = false;
             foreach (string thumbSize in thumbSizes)
             {
-               
+
                 Instructions settings = new Instructions();
                 string width = thumbSize.Split('x')[0];
                 string height = thumbSize.Split('x')[1];
                 if (width != "*") settings.Width = int.Parse(thumbSize.Split('x')[0]);
                 if (height != "*") settings.Height = int.Parse(thumbSize.Split('x')[1]);
-                if (settings.Width==null)
+                settings.OutputFormat = OutputFormat.Jpeg;
+                settings.JpegQuality = 70;
+
+                if (width != "*" && height != "*")
                 {
-                    settings.Width = 0;
+                    settings.Mode = FitMode.Pad;
                 }
-                if (settings.Height == null)
-                {
-                    settings.Height = 0;
-                }
-                
+
                 try
                 {
                     string destFile = thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X");
-                    destFile = destFile.Replace("-.jpg-", "-");
-                    if (!destFile.ToLower().EndsWith(".jpg"))
-                    {
-                        destFile = destFile + ".jpg";
-                    }
-                    var result = ReSize(originalFile, destFile, new Size((int)settings.Width, (int)settings.Height));
-                    if (result)
-                    {
-                        //result = AddWatermark(destFile);
-                        //if (!result)
-                        //{
-                        //    anyError = true;
-                        //}
-                    }
-                    else
-                    {
-                        anyError = true;
-                    }
+                    ImageBuilder.Current.Build(new ImageJob(originalFile, destFile, settings, false, true));
                 }
-                catch (Exception Hata)
+                catch
                 {
                     anyError = true;
                 }
             }
             return !anyError;
         }
-        //public static bool ReSize(string source,string destination,Size size)
-        //{
-        //    bool result = false;
-        //    try
-        //    {
-        //        ImageFactory imageFactory = new ImageFactory();
-        //        imageFactory = imageFactory.BackgroundColor(Color.Red);
-        //        imageFactory.AnimationProcessMode = ImageProcessor.Imaging.AnimationProcessMode.All;
-        //        imageFactory.PreserveExifData = true;
-        //        ImageProcessor.Imaging.ResizeLayer resizeLayer = new ImageProcessor.Imaging.ResizeLayer(size, ImageProcessor.Imaging.ResizeMode.BoxPad);
-        //        resizeLayer.Upscale = true;
-        //        ISupportedImageFormat format = new JpegFormat { Quality = 100 };
-        //        imageFactory.Load(source).Resize(resizeLayer).Format(format).Quality(100).BackgroundColor(Color.White).Watermark(
-
-
-        //            ).Save(destination);
-        //        result = true;
-        //    }
-        //    catch (Exception Hata)
-        //    {
-        //        result = false;
-        //    }
-        //    return result;
-        //}
-
-        public static bool ReSize(string source, string destination, Size size)
-        {
-            bool result = false;
-            try
-            {
-                string txt = "makinaturkiye.com";
-                Image tmpImg = Image.FromFile(source);
-                
-
-
-                if (tmpImg.Width<size.Width)
-                {
-                    if (tmpImg.Width > tmpImg.Height)
-                    {
-                        if (size.Width>size.Height)
-                        {
-                            size.Height = size.Width;
-                        }
-                    }
-                    //else
-                    //{ 
-                    //    size.Width=size.Height;
-                    //}
-                }
-                else if (tmpImg.Height < size.Height)
-                {
-                    if (size.Height > size.Width)
-                    {
-                        size.Width = size.Height;
-                    }
-                    //else
-                    //{
-                    //    size.Height = size.Width;
-                    //}
-                }
-
-                FontFamily fontFamily = new FontFamily("Arial");
-                int fontSize = 40;
-                int countOfChar = txt.Length;
-                fontSize = ((((size.Width == 0 ? size.Height : size.Width) + (size.Height == 0 ? size.Width : size.Height)) / 3)*2) / countOfChar;
-                fontSize += 4;
-
-                ImageFactory imageFactory = new ImageFactory();
-                imageFactory = imageFactory.BackgroundColor(Color.Red);
-                imageFactory.AnimationProcessMode = ImageProcessor.Imaging.AnimationProcessMode.All;
-                imageFactory.PreserveExifData = true;
-                ImageProcessor.Imaging.ResizeLayer resizeLayer = new ImageProcessor.Imaging.ResizeLayer(size, ImageProcessor.Imaging.ResizeMode.Pad);
-                resizeLayer.Upscale = true;
-                resizeLayer.AnchorPosition = ImageProcessor.Imaging.AnchorPosition.Center;
-
-                ISupportedImageFormat format = new JpegFormat { Quality = 100 };
-                imageFactory = imageFactory.Load(source);
-                imageFactory = imageFactory.Resize(resizeLayer);
-                //imageFactory = imageFactory.Watermark(
-                //new ImageProcessor.Imaging.TextLayer()
-                //{
-                //    Text = txt,
-                //    FontSize = fontSize,
-                //    FontFamily = fontFamily,
-                //    FontColor = Color.Red,
-                //    Opacity = 25,
-                //    Style = FontStyle.Bold,
-                //});
-                //imageFactory = imageFactory.Format(format);
-                //imageFactory = imageFactory.BackgroundColor(Color.White);
-                imageFactory = imageFactory.Save(destination);
-                result = true;
-            }
-            catch (Exception Hata)
-            {
-                result = false;
-            }
-            return result;
-        }
-
-        public static bool AddWatermark(string image)
-        {
-            bool result = false;
-            try
-            {
-                Image img = Image.FromFile(image);
-                string txt = "makinaturkiye.com";
-                FontFamily fontFamily = new FontFamily("Arial");
-                int fontSize = 40;
-
-                int countOfChar = txt.Length;
-                fontSize = (img.Width + img.Height / 2) / countOfChar;
-
-
-                double tangent = (double)img.Height / (double)img.Width;
-                double angle = Math.Atan(tangent) * (180 / Math.PI);
-                double halfHypotenuse = (Math.Sqrt((img.Height
-                                       * img.Height) +
-                                       (img.Width *
-                                       img.Width))) / 2;
-
-                int x = (img.Width / 2);
-                int y = ((img.Height) / 2);
-                img.Dispose();
-
-                ImageFactory imageFactory = new ImageFactory()
-                {
-                    AnimationProcessMode = ImageProcessor.Imaging.AnimationProcessMode.All,
-                    PreserveExifData = true,
-                    FixGamma = true,
-                };
-                imageFactory=imageFactory.Load(image).Watermark(new ImageProcessor.Imaging.TextLayer()
-                {
-                    Text = txt,
-                    FontSize = fontSize,
-                    FontFamily = fontFamily,
-                    DropShadow = true,
-                    FontColor = Color.Red,
-                    Opacity = 15,
-                    Position = new Point(x,y),
-                    Style = FontStyle.Bold,
-                }).Save(image);
-                result = true;
-            }
-            catch (Exception Hata)
-            {
-                result = false;
-            }
-
-            return result;
-            
-        }
-
 
         public static void AddWaterMarkNew(string orgImgFile, string size)
         {
@@ -380,7 +207,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
             int countOfChar = txt.Length;
             fontSize = (imgPhoto.Width + imgPhoto.Height / 2) / countOfChar;
-            
+
             var f = new System.Drawing.Font("Times New Roman ", fontSize);
             Color newColor = Color.FromArgb(100, 255, 255, 255);
             Brush myBrush = new SolidBrush(newColor);
@@ -405,7 +232,5 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             }
             imgPhoto.Dispose();
         }
-
-
     }
 }

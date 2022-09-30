@@ -38,6 +38,7 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.tlstrpbtnTemizle = new System.Windows.Forms.ToolStripButton();
             this.PnlEkAyar = new System.Windows.Forms.GroupBox();
+            this.ChkOlmayanKontrol = new System.Windows.Forms.CheckBox();
             this.btnSec = new System.Windows.Forms.Button();
             this.TxtProductDosya = new System.Windows.Forms.TextBox();
             this.LblProductDosya = new System.Windows.Forms.Label();
@@ -46,6 +47,7 @@
             this.lblDizin = new System.Windows.Forms.Label();
             this.btnDurdur = new System.Windows.Forms.Button();
             this.btnBaslatDurdur = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel2.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -140,6 +142,8 @@
             // 
             // PnlEkAyar
             // 
+            this.PnlEkAyar.Controls.Add(this.button1);
+            this.PnlEkAyar.Controls.Add(this.ChkOlmayanKontrol);
             this.PnlEkAyar.Controls.Add(this.btnSec);
             this.PnlEkAyar.Controls.Add(this.TxtProductDosya);
             this.PnlEkAyar.Controls.Add(this.LblProductDosya);
@@ -157,6 +161,18 @@
             this.PnlEkAyar.TabIndex = 0;
             this.PnlEkAyar.TabStop = false;
             this.PnlEkAyar.Text = "Ek Ayarlar";
+            // 
+            // ChkOlmayanKontrol
+            // 
+            this.ChkOlmayanKontrol.AutoSize = true;
+            this.ChkOlmayanKontrol.Checked = true;
+            this.ChkOlmayanKontrol.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ChkOlmayanKontrol.Location = new System.Drawing.Point(558, 150);
+            this.ChkOlmayanKontrol.Name = "ChkOlmayanKontrol";
+            this.ChkOlmayanKontrol.Size = new System.Drawing.Size(131, 20);
+            this.ChkOlmayanKontrol.TabIndex = 13;
+            this.ChkOlmayanKontrol.Text = "Olmayanlari Ekle";
+            this.ChkOlmayanKontrol.UseVisualStyleBackColor = true;
             // 
             // btnSec
             // 
@@ -189,6 +205,8 @@
             // ChLogDurum
             // 
             this.ChLogDurum.AutoSize = true;
+            this.ChLogDurum.Checked = true;
+            this.ChLogDurum.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ChLogDurum.Location = new System.Drawing.Point(389, 151);
             this.ChLogDurum.Name = "ChLogDurum";
             this.ChLogDurum.Size = new System.Drawing.Size(130, 20);
@@ -235,6 +253,16 @@
             this.btnBaslatDurdur.UseVisualStyleBackColor = true;
             this.btnBaslatDurdur.Click += new System.EventHandler(this.btnBaslatDurdur_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(778, 133);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(108, 53);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -278,6 +306,8 @@
         private System.Windows.Forms.TextBox TxtProductDosya;
         private System.Windows.Forms.Label LblProductDosya;
         private System.Windows.Forms.Button btnSec;
+        private System.Windows.Forms.CheckBox ChkOlmayanKontrol;
+        private System.Windows.Forms.Button button1;
     }
 }
 

@@ -322,9 +322,9 @@
         </div>
     }
     <div class="flex-row flex-lg-nowrap flex-md-nowrap ilanSlider" style="padding-left: 15px; padding-right: 15px;">
-        <div class="flex-xs-12 flex-sm-12 flex-md-9 flex-lg-6">
+        <div class="flex-xs-12 flex-sm-6 flex-md-9 flex-lg-5">
             <div class="flex-row">
-                <div class="flex-xs-12 flex-sm-12 flex-md-12 flex-lg-12 p-r-lg-15 p-r-md-15">
+                <div class="flex-xs-12 flex-sm-5 flex-md-12 flex-lg-12 p-r-lg-15 p-r-md-15">
                     <div class="thumbnail">
                         @Html.Partial("_ProductPictureNew", Model.ProductPictureModels)
                     </div>
@@ -332,12 +332,11 @@
 
             </div>
         </div>
-        <div class="flex-xs-12 flex-sm-7 flex-md-7 flex-lg-3 p-r-lg-15 p-r-md-15 p-r-sm-15 ">
+        <div class="flex-xs-12 flex-sm-6 flex-md-7 flex-lg-4 p-r-lg-15 p-r-md-15 p-r-sm-15 ">
             @Html.Partial("_ProductDetailNew", Model.ProductDetailModel)
         </div>
 
-        <div class="flex-xs-12 flex-sm-5 flex-md-3 flex-lg-3">
-            @*//rightSidebar*@
+        <div class="flex-xs-12 flex-sm-12 flex-md-3 flex-lg-3">
         <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="padding:0px;" id="otherProductsSticky">
             @*//theiaStickySidebar*@
             @Html.Partial("_ProductStoreNew", Model.ProductStoreModel)

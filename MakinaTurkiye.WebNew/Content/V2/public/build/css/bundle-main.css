@@ -18231,11 +18231,13 @@ li.active > a > .menutoggleicon {
 
 .btn-contact {
     border-width: 0 0 1px;
-    box-shadow: inset 0 -2px 0 0 #118421;
+    box-shadow: inset 0 -2px 0 0 #f9401b;
     width: 100%;
     color: #fff;
-    background-color: #2AC940;
-    border-color: #1eaf32
+    background-color: #f9401b;
+    border-color: #1eaf32;
+    font-size: 20px;
+    height: 50px;
 }
 
 .favoriler.nav li a, .sosyal.nav li a {
@@ -18328,7 +18330,9 @@ li.active > a > .menutoggleicon {
     display: flex;
     -webkit-align-items: center;
     align-items: center;
-    margin-bottom: 1rem
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgb(201 220 244);
+    padding-bottom: 5px;
 }
 
 .saller-prd__image {
