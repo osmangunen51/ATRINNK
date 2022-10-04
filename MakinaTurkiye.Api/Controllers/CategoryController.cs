@@ -163,7 +163,7 @@ namespace MakinaTurkiye.Api.Controllers
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
-                var Result = _categoryService.GetCategoriesByCategoryParentId(parentId,true,true,false);
+                var Result = _categoryService.GetCategoriesByCategoryParentId(parentId,true,true,true);
                 foreach (var item in Result)
                 {
                     if (item.CategoryIcon != null)

@@ -1,5 +1,6 @@
 ﻿using MakinaTurkiye.Core;
 using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Entities.Tables.Catalog;
 using MakinaTurkiye.Services;
 using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Media;
@@ -8,11 +9,13 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 namespace MakinaTurkiye.ImageFix
 {
@@ -31,7 +34,7 @@ namespace MakinaTurkiye.ImageFix
         
         private void FrmMain_Load(object sender, EventArgs e)
         {
-            txtBaseDizin.Text = @"C:\Test\Product";
+            txtBaseDizin.Text = @"C:\Web\s.makinaturkiye.com\Product";
         }
 
         private void tlstrpbtnTemizle_Click(object sender, EventArgs e)
@@ -45,61 +48,10 @@ namespace MakinaTurkiye.ImageFix
         Thread KanalIslem = null;
         int ToplamDosyaSayisi = 0;
 
+        private static object _lockObject = new object();
         private void IslemYap()
         {
-            //var builder = new WebPEncoderBuilder();
-            //var encoder = builder
-            //    .LowMemory()
-            //    .MultiThread()
-            //    .Build();
-
-            //string[] extensions = new[] { ".jpg", ".png" };
-            //System.IO.DirectoryInfo Root = new DirectoryInfo(txtPath.Text);
-            //List<System.IO.DirectoryInfo> DizinListesi = Root.GetDirectories().ToList();
-            //for (int DizinIndex = 0; DizinIndex < DizinListesi.Count(); DizinIndex++)
-            //{
-
-            //    System.IO.DirectoryInfo AktifDirectory = DizinListesi[DizinIndex];
-            //    LogEkle($"{AktifDirectory.FullName} İşlem Yapılıyor...");
-            //    List<System.IO.FileInfo> DosyaListesi = AktifDirectory.GetFiles("*", SearchOption.AllDirectories).Where(snc => extensions.Contains(snc.Extension.ToLower())).ToList();
-
-
-            //    for (int DosyaIndex = 0; DosyaIndex < DosyaListesi.Count(); DosyaIndex++)
-            //    {
-            //        System.IO.FileInfo Dosya = DosyaListesi[DosyaIndex];
-            //        byte[] rawWebP;
-            //        try
-            //        {
-
-            //            //Bitmap bmp = (Bitmap)Image.FromFile(Dosya.FullName);
-            //            string simpleLosslessFileName = Dosya.FullName.Replace(Dosya.Extension, ".webp");
-            //            System.IO.FileInfo DosyaKontrol = new FileInfo(simpleLosslessFileName);
-            //            if (!DosyaKontrol.Exists)
-            //            {
-            //                using (var outputFile = File.Open(simpleLosslessFileName, FileMode.Create))
-            //                using (var inputFile = File.Open(Dosya.FullName, FileMode.Open))
-            //                {
-            //                    encoder.Encode(inputFile, outputFile);
-            //                }
-            //                LogEkle($"{Dosya.FullName} İşlemi Tamamlandı");
-            //            }
-            //            else
-            //            {
-            //                LogEkle($"{simpleLosslessFileName} Zaten Var.");
-            //            }
-
-            //        }
-            //        catch (Exception Hata)
-            //        {
-            //            LogEkle($"{Dosya.FullName} İşleminde Hata Oluştu..." + Hata.Message);
-            //        }
-            //        ToplamDosyaSayisi++;
-            //        this.Text = $"Dizin : {DizinListesi.Count()} - {DizinIndex + 1} | {DosyaListesi.Count()} - {DosyaIndex + 1} ==> {ToplamDosyaSayisi} Dosyada Dönüştürüldü.";
-            //    }
-            //    LogEkle($"{AktifDirectory.FullName} İşlemi Tamamlandı");
-            //}
-            //DurdurmaIslemiYap();
-
+            
             BaseFolder = txtBaseDizin.Text.Trim();
             List<string> thumbSizes = new List<string>();
             thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
@@ -110,109 +62,121 @@ namespace MakinaTurkiye.ImageFix
             {
 
                 //int productId = 186099;
-                //int productId = 193250;
+                //int productId = 78243;
                 //var pictureList = _pictureService.GetPicturesByProductId(productId);
-                //var List = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
-                //List.Add(_productService.GetProductByProductId(productId));
+                //var List = new List<int>();
+                //List.Add(_productService.GetProductByProductId(productId).ProductId);
 
                 //int KayitSayisi = List.Count;
                 //int IslemYapilanKayitSayisi = 0;
 
+                LogEkle($"Başladım..");
+                // var Dizin = new DirectoryInfo(this.BaseFolder);
+                // LogEkle($"İşlem Yapılacak Dizin ==>{Dizin.FullName}");
+                // List<string> FileListesi = Dizin.EnumerateDirectories()
+                //.AsParallel()
+                //.SelectMany(di => di.EnumerateFiles("*.*", SearchOption.AllDirectories)).Select(x=>x.FullName).ToList();
+
+                // //FileListesi = FileListesi.Take(1000).ToList();
+                // LogEkle($"{FileListesi.Count()} Resim Dosyası Bulundu.");
+
 
                 var pictureList = _pictureService.GetPictures().ToList();
-                var List = _productService.GetProductsAll().ToList();
-                if (!string.IsNullOrEmpty(LblProductDosya.Text.Trim()))
-                {
-                    List<int> IslemListesi = new List<int>();
-                    try
-                    {
-                        string txt = System.IO.File.ReadAllText(LblProductDosya.Text.Trim());
-                        IslemListesi= txt.Trim().Replace(Environment.NewLine, "é").Replace(",","é").Split('é').Select(x => Convert.ToInt32(x.Trim())).ToList();
-                        if (IslemListesi.Count>0)
-                        {
-                            List = List.Where(x => IslemListesi.Contains(x.ProductId)).ToList();
-                        }
-                    }
-                    catch (Exception Hata)
-                    {
-                        MessageBox.Show(Hata.Message);
-                    }
-                }
+                var List = _productService.GetProductsAll().Select(x => x.ProductId).ToList();
+
+                LogEkle($"{List.Count()} Ürün Var...");
                 int KayitSayisi = List.Count;
                 int IslemYapilanKayitSayisi = 0;
-                foreach (var item in List)
+
+
+                LogEkle($"Son Durum {List.Count()} Ürün Var...");
+                KayitSayisi = List.Count;
+                IslemYapilanKayitSayisi = 0;
+                var result = Parallel.For(0, KayitSayisi, (Don, state) =>
                 {
+                    var item = List[Don];
                     try
                     {
-                        var pictures = pictureList.Where(x => x.ProductId == item.ProductId);
-                        foreach (var picture in pictures)
+                        var DirectoryInfothumbs = new DirectoryInfo($"{BaseFolder}\\{item.ToString()}\\thumbs");
+                        try
                         {
-                            string mainPicture = $"{BaseFolder}\\{item.ProductId.ToString()}\\{picture.PicturePath}";
+                            if (DirectoryInfothumbs.Exists)
+                            {
+                                DirectoryInfothumbs.Delete(true);
+                            }
+                            DirectoryInfothumbs.Create();
+
+                        }
+                        catch (Exception Hata)
+                        {
+                            lock (_lockObject)
+                            {
+                                LogEkle($"{item} {Hata.Message}");
+                            }
+                        }
+
+                        var pictures = pictureList.Where(x => x.ProductId == item).Select(x => x.PicturePath).ToList();
+                        var result1 = Parallel.For(0, pictures.Count(), (Don2, state2) =>
+                        {
+                            var picture = pictures[Don2];
+                            string mainPicture = $"{BaseFolder}\\{item.ToString()}\\{picture}";
+
                             var mainPictureFileBilgi = new FileInfo(mainPicture);
                             if (mainPictureFileBilgi.Exists)
                             {
-                                string destinationfile = mainPicture.Replace(item.ProductId.ToString(), item.ProductId.ToString() + "\\thumbs").Replace(".jpg", "");
-                                var FileBilgi = new FileInfo(destinationfile);
-                                if (!FileBilgi.Directory.Exists)
-                                {
-                                    try
-                                    {
-                                        FileBilgi.Directory.Create();
-                                        //LogEkle($"{FileBilgi.Directory.FullName} Oluşturuldu.");
-                                    }
-                                    catch (Exception Hata)
-                                    {
-                                        //LogEkle($"{Hata.Message}");
-                                    }
-                                }
-                                else
-                                {
-                                    try
-                                    {
-                                        FileBilgi.Directory.Delete();
-                                        FileBilgi.Directory.Create();
-                                    }
-                                    catch (Exception Hata)
-                                    {
-                                        //LogEkle($"{Hata.Message}");
-                                    }
-                                }
+                                string destinationfile = mainPicture.Replace(item.ToString(), item.ToString() + "\\thumbs").Replace(".jpg", "");
+                                //LogEkle($"destinationfile==>> {destinationfile}");
                                 bool thumbResult = false;
                                 int DenemeSayisi = 0;
-                                while (!thumbResult && DenemeSayisi<5)
+                                while (!thumbResult && DenemeSayisi < 1)
                                 {
                                     thumbResult = ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
                                     if (!thumbResult)
                                     {
-                                        LogEkle($"{item.ProductId} - {picture.Id} - {mainPicture} Oluşturulamadı...");
-                                        Thread.Sleep(1000);
+                                        lock (_lockObject)
+                                        {
+                                            LogEkle($"{destinationfile} Oluşturulamadı...");
+                                        }
                                     }
                                     DenemeSayisi++;
                                 }
+                                if (thumbResult)
+                                {
+                                    foreach (var thumbSize in thumbSizes)
+                                    {
+                                        if (thumbSize == "900x675" || thumbSize == "500x375")
+                                        {
+                                            var FileBilgi = new FileInfo(destinationfile);
+                                            var yol = DirectoryInfothumbs.FullName + "\\" + FileBilgi.Name + "-" + thumbSize.Replace("*", "") + ".jpg";
+                                            ImageProcessHelper.AddWaterMarkNew(yol, thumbSize);
+                                        }
+                                    }
+                                }
                             }
-                        }
-                        
+                        });
                     }
                     catch (Exception Hata)
                     {
-                        LogEkle($"{item.ProductId} Hata Oluştu {Hata.Message}");
-                        continue;
+                        lock (_lockObject)
+                        {
+                            LogEkle($"{item} Hata Oluştu {Hata.Message}");
+                        }
                     }
                     finally
                     {
-                        IslemYapilanKayitSayisi++;
-                        if (ChLogDurum.Checked)
+                        lock (_lockObject)
                         {
-                            LogEkle($"{item.ProductId} İşlemi Tamamlandı");
-                        }
-                        string IfadeText = $"Toplam : {KayitSayisi} - İşlem Yapılan : {IslemYapilanKayitSayisi}";
-                        DurumBilgisiGuncelle(IfadeText);
-                        if (IslemYapilanKayitSayisi % 10 == 0)
-                        {
-                            FlushMemory();
+                            IslemYapilanKayitSayisi++;
+                            if (IslemYapilanKayitSayisi % 50 == 0)
+                            {
+                                FlushMemory();
+                            }
+                            string IfadeText = $"Toplam : {KayitSayisi} - İşlem Yapılan : {IslemYapilanKayitSayisi}";
+                            DurumBilgisiGuncelle(IfadeText);
+                            // LogEkle($"{item} Tamamlandı.");
                         }
                     }
-                }
+                });
             }
             catch (Exception Hata)
             {
@@ -317,15 +281,6 @@ namespace MakinaTurkiye.ImageFix
             Application.ExitThread();
         }
 
-        private void btnSec_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog Ac=new OpenFileDialog())
-            {
-                if (Ac.ShowDialog()==DialogResult.OK)
-                {
-                    TxtProductDosya.Text = Ac.FileName;
-                }
-            }
-        }
+       
     }
 }

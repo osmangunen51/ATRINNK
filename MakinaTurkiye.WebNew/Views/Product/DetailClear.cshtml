@@ -307,11 +307,6 @@
     }
 </style>
 <div class="row urun-detay">
-    <div class="col-md-12">
-        <h1 class="product-detail__title">
-            @Model.ProductDetailModel.ProductName
-        </h1>
-    </div>
     @if (Model.OnlyStoreSee)
     {
         <div class="flex-row flex-lg-nowrap flex-md-nowrap ilanSlider" style="padding-left: 15px; padding-right: 15px; margin-bottom: 20px;">
@@ -322,22 +317,55 @@
         </div>
     }
     <div class="flex-row flex-lg-nowrap flex-md-nowrap ilanSlider" style="padding-left: 15px; padding-right: 15px;">
-        <div class="flex-xs-12 flex-sm-12 flex-md-9 flex-lg-6">
+        <div class="flex-xs-12 flex-sm-6 flex-md-9 flex-lg-5">
             <div class="flex-row">
-                <div class="flex-xs-12 flex-sm-12 flex-md-12 flex-lg-12 p-r-lg-15 p-r-md-15">
+                <div class="flex-xs-12 flex-sm-5 flex-md-12 flex-lg-12 p-r-lg-15 p-r-md-15">
                     <div class="thumbnail">
                         @Html.Partial("_ProductPictureNew", Model.ProductPictureModels)
                     </div>
                 </div>
+                 <div class="flex-xs-12 flex-sm-5 flex-md-12 flex-lg-12 p-r-lg-15 p-r-md-15">
+                <ul class="nav nav-pills favoriler">
+                    @{
+                        string removeFavoriProductCss = "";
+                        string addFavoriProductCss = "";
+                    }
+                    @if (Model.ProductDetailModel.IsFavoriteProduct)
+                    {
+                        addFavoriProductCss = addFavoriProductCss + "display:none;";
+                    }
+                    else
+                    {
+                        removeFavoriProductCss = removeFavoriProductCss + "display:none;";
+                    }
 
+                    <li class="favori">
+                        <a href="javascript:void(0)" id="aRemoveFavoriteProduct" rel="nofollow" onclick="RemoveFavoriteProduct('@Model.ProductDetailModel.ProductId','@Model.ProductDetailModel.ProductName');"
+                           style="@removeFavoriProductCss"><span class="glyphicon glyphicon-ok"></span>&nbsp;Favorilerimden Kaldır</a>
+
+                        <a href="javascript:void(0)" id="aAddFavoriteProduct" rel="nofollow" style="@addFavoriProductCss" onclick="AddFavoriteProduct('@Model.ProductDetailModel.ProductId',  '@Model.ProductDetailModel.ProductName');">
+                            <i class="fa fa-heart-o"></i>&nbsp;Favorilerime Ekle
+                            <img src="../../Content/V2/images/loading.gif" alt="@Model.ProductDetailModel.ProductName favoriye ekleme işlemi yapılıyor" style="width: 16px; float: right; display: none;" id="FavoriteProductLoading" />
+                        </a>
+
+                    </li>
+                    <li class="yazdir"><a href="javascript:void(0)" onclick="window.print();"><i class="fa fa-print"></i>&nbsp;Yazdır</a> </li>
+                    <li class="sikayet"><a data-toggle="modal" data-target="#ComplaintModal" id="ComplaintProduct" href="#"><i class="fa fa-flag"></i>&nbsp;Şikayet Et</a> </li>
+                    @{Html.RenderPartial("_ProductComplain", Model.ProductDetailModel.ProductComplainModel);}
+                </ul>
+                </div>
+                <div class="flex-xs-12 flex-sm-5 flex-md-12 flex-lg-12 p-r-lg-15 p-r-md-15">
+                       <center>
+                        @{Html.RenderPartial("_ProductSocial");}
+                       </center>
+                </div>
             </div>
         </div>
-        <div class="flex-xs-12 flex-sm-7 flex-md-7 flex-lg-3 p-r-lg-15 p-r-md-15 p-r-sm-15 ">
+        <div class="flex-xs-12 flex-sm-6 flex-md-7 flex-lg-4 p-r-lg-15 p-r-md-15 p-r-sm-15 ">
             @Html.Partial("_ProductDetailNew", Model.ProductDetailModel)
         </div>
 
-        <div class="flex-xs-12 flex-sm-5 flex-md-3 flex-lg-3">
-            @*//rightSidebar*@
+        <div class="flex-xs-12 flex-sm-12 flex-md-3 flex-lg-3">
         <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12" style="padding:0px;" id="otherProductsSticky">
             @*//theiaStickySidebar*@
             @Html.Partial("_ProductStoreNew", Model.ProductStoreModel)
