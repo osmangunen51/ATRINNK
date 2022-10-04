@@ -1,9 +1,12 @@
 ﻿using ImageResizer;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
+using System.Drawing.Text;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -46,9 +49,9 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             return rgxFileName.Replace(tmp, "_") + (indexNumber.HasValue ? "_" + indexNumber.ToString() : string.Empty);
         }
 
-        public static Image resizeImageBanner(int newWidth, int newHeight, string stPhotoPath)
+        public static System.Drawing.Image resizeImageBanner(int newWidth, int newHeight, string stPhotoPath)
         {
-            Image imgPhoto = Image.FromFile(stPhotoPath);
+            System.Drawing.Image imgPhoto = System.Drawing.Image.FromFile(stPhotoPath);
 
             int sourceWidth = imgPhoto.Width;
             int sourceHeight = imgPhoto.Height;
@@ -96,7 +99,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             var attributes = new ImageAttributes();
             attributes.SetWrapMode(WrapMode.TileFlipXY);
 
-            var destination = new Rectangle(0, 0, newWidth, newHeight);
+            var destination = new System.Drawing.Rectangle(0, 0, newWidth, newHeight);
             grPhoto.DrawImage(imgPhoto, destination, 0, 0, imgPhoto.Width, imgPhoto.Height,
                 GraphicsUnit.Pixel, attributes);
             string destImagePath = stPhotoPath;
@@ -119,7 +122,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
         /// </summary>
         /// <param name="path"> Path to which the image would be saved. </param>
         /// <param name="quality"> An integer from 0 to 100, with 100 being the highest quality. </param>
-        public static void SaveJpeg(string path, Image img, int quality, string fromChangeKey, string toChangeKey)
+        public static void SaveJpeg(string path, System.Drawing.Image img, int quality, string fromChangeKey, string toChangeKey)
         {
             if (quality < 0 || quality > 100)
                 throw new ArgumentOutOfRangeException("quality must be between 0 and 100.");
@@ -153,28 +156,54 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             bool anyError = false;
             foreach (string thumbSize in thumbSizes)
             {
-
-                Instructions settings = new Instructions();
-                string width = thumbSize.Split('x')[0];
-                string height = thumbSize.Split('x')[1];
-                if (width != "*") settings.Width = int.Parse(thumbSize.Split('x')[0]);
-                if (height != "*") settings.Height = int.Parse(thumbSize.Split('x')[1]);
-                settings.OutputFormat = OutputFormat.Jpeg;
-                settings.JpegQuality = 70;
-
-                if (width != "*" && height != "*")
+                using (System.Drawing.Image SourceImage = System.Drawing.Image.FromFile(originalFile))
                 {
-                    settings.Mode = FitMode.Pad;
-                }
-
-                try
-                {
-                    string destFile = thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X");
-                    ImageBuilder.Current.Build(new ImageJob(originalFile, destFile, settings, false, true));
-                }
-                catch
-                {
-                    anyError = true;
+                    if (SourceImage != null)
+                    {
+                        string width = thumbSize.Split('x')[0];
+                        string height = thumbSize.Split('x')[1];
+                        if ((width != "*" & height != "*") & (SourceImage.Width < Convert.ToInt32(width) && SourceImage.Height < Convert.ToInt32(height)))
+                        {
+                            try
+                            {
+                                string destFile = thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X") + ".jpg";
+                                using (var image = new SixLabors.ImageSharp.Image<SixLabors.ImageSharp.PixelFormats.Rgba32>(Convert.ToInt32(width), Convert.ToInt32(height)))
+                                {
+                                    image.Mutate(imageContext =>
+                                    {
+                                        var bgColor = new SixLabors.ImageSharp.PixelFormats.Rgba32(255, 255, 255);
+                                        imageContext.BackgroundColor(bgColor);
+                                        int x = (Convert.ToInt32(width) - SourceImage.Width) / 2;
+                                        int y = (Convert.ToInt32(height) - SourceImage.Height) / 2;
+                                        imageContext.DrawImage(SixLabors.ImageSharp.Image.Load(originalFile), new SixLabors.ImageSharp.Point(x, y), 1);
+                                    });
+                                    image.Save(destFile);
+                                }
+                            }
+                            catch
+                            {
+                                anyError = true;
+                            }
+                        }
+                        else
+                        {
+                            Instructions settings = new Instructions();
+                            if (width != "*") settings.Width = int.Parse(thumbSize.Split('x')[0]);
+                            if (height != "*") settings.Height = int.Parse(thumbSize.Split('x')[1]);
+                            settings.OutputFormat = OutputFormat.Jpeg;
+                            settings.JpegQuality = 100;
+                            settings.Mode = FitMode.Pad;
+                            try
+                            {
+                                string destFile = thumbFile + "-" + thumbSize.Replace("x*", "X").Replace("*x", "X");
+                                ImageBuilder.Current.Build(new ImageJob(originalFile, destFile, settings, false, true));
+                            }
+                            catch
+                            {
+                                anyError = true;
+                            }
+                        }
+                    }
                 }
             }
             return !anyError;
@@ -183,10 +212,10 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
         public static void AddWaterMarkNew(string orgImgFile, string size)
         {
             string txt = "makinaturkiye.com";
-            Image imgPhoto;
+            System.Drawing.Image imgPhoto;
             using (FileStream myStream = new FileStream(orgImgFile, FileMode.Open, FileAccess.Read))
             {
-                imgPhoto = Image.FromStream(myStream);
+                imgPhoto = System.Drawing.Image.FromStream(myStream);
             }
             int phWidth = imgPhoto.Width;
             int phHeight = imgPhoto.Height;
@@ -206,23 +235,31 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
             int fontSize = 40;
 
             int countOfChar = txt.Length;
-            fontSize = (imgPhoto.Width + imgPhoto.Height / 2) / countOfChar;
+            
+            fontSize = (((imgPhoto.Width + imgPhoto.Height / 2) / countOfChar) *6)/8;
 
-            var f = new System.Drawing.Font("Times New Roman ", fontSize);
-            Color newColor = Color.FromArgb(100, 255, 255, 255);
+            var f = new System.Drawing.Font("Times New Roman", fontSize,FontStyle.Bold);
+
+            //int opacity = 20;
+            //System.Drawing.Color newColor = System.Drawing.Color.FromArgb(opacity, System.Drawing.Color.FromArgb(100, 0, 255, 255));
+
+            int opacity = 60;
+            System.Drawing.Color newColor = System.Drawing.Color.FromArgb(opacity, System.Drawing.Color.White);
+
+
             Brush myBrush = new SolidBrush(newColor);
             halfHypotenuse = halfHypotenuse - countOfChar;
             double drawanngle = angle * -1;
+            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
+            g.TextRenderingHint = TextRenderingHint.AntiAlias;
             g.RotateTransform((float)drawanngle);
             g.TranslateTransform(0, imgPhoto.Height, MatrixOrder.Append);
-            g.DrawString(txt, f, myBrush,
-                             new Point((int)halfHypotenuse, 0),
-                             stringFormat);
+            g.DrawString(txt, f, myBrush,new System.Drawing.Point((int)halfHypotenuse, 0),stringFormat);
             imgPhoto = bmPhoto;
             g.Dispose();
             using (EncoderParameters encoderParameters = new EncoderParameters(1))
             using (
-                EncoderParameter encoderParameter = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 80L)
+                EncoderParameter encoderParameter = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 100L)
                 )
             {
                 ImageCodecInfo codecInfo =

@@ -469,7 +469,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                 if (picture != null)
                 {
-                    smallPicturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.x160x120);
+                    smallPicturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150);
                 }
                 var memberStore1 = _memberStoreService.GetMemberStoreByMemberMainPartyId(Convert.ToInt32(item.MainPartyId));
                 if (memberStore1 == null) continue;
@@ -958,7 +958,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                 if (picture != null)
                 {
-                    smallPicturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px100x75);
+                    smallPicturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150);
                 }
                 MTStoreOtherProductItemModel otherProduct = new MTStoreOtherProductItemModel
                 {
@@ -1813,7 +1813,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                 if (picture != null)
                 {
-                    smallPicturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.x160x120);
+                    smallPicturePath = ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px200x150);
                 }
                 var memberStore1 = _memberStoreService.GetMemberStoreByMemberMainPartyId(Convert.ToInt32(item.MainPartyId));
                 if (memberStore1 == null) continue;

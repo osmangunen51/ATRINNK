@@ -228,7 +228,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     homeStoreModel.TopProductPictures.Add(new StoreProductPictureModel
                     {
-                        PicturePath = ImageHelper.GetProductImagePath(x.ProductId, x.MainPicture, ProductImageSize.x160x120),
+                        PicturePath = ImageHelper.GetProductImagePath(x.ProductId, x.MainPicture, ProductImageSize.px200x150),
                         PictureName = x.ProductName,
                         ProductUrl = UrlBuilder.GetProductUrl(x.ProductId, x.ProductName),
                     });
@@ -325,7 +325,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     TruncatedProductName = StringHelper.Truncate(item.ProductName, 80),
                     ProductUrl = UrlBuilder.GetProductUrl(item.ProductId, item.ProductName),
                     SimilarUrl = UrlBuilder.GetCategoryUrl(item.CategoryId, categoryNameForUrl, null, string.Empty),
-                    PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.x160x120)
+                    PicturePath = ImageHelper.GetProductImagePath(item.ProductId, item.ProductPicturePath, ProductImageSize.px200x150)
                 });
             }
         }

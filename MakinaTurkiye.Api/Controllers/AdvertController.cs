@@ -1931,7 +1931,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     foreach (var thumbSize in thumbSizes)
                                     {
-                                        if (thumbSize == "980x*" || thumbSize == "500x375" || thumbSize == "*x980")
+                                        if (thumbSize == "900x675" || thumbSize == "500x375")
                                         {
                                             var yol = System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + "thumbs\\" +
                                                       product.ProductName.ToImageFileName(count) + "-" + thumbSize.Replace("*", "") + ".jpg";

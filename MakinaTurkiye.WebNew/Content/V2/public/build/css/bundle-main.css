@@ -18179,18 +18179,18 @@ li.active > a > .menutoggleicon {
     color: #856404 !important
 }
 
-    .product-activetype-display b {
-        font-size: 16px !important
-    }
+.product-activetype-display b 
+{
+    font-size: 16px !important
+}
 
-.product-detail__title {
+.product-detail__title 
+{
+    background: #f9401b14;
+    padding: 10px;
+    border-radius: 4px;
     color: #333;
-    font-family: Arial;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 22px;
-    margin-bottom: 1rem;
-    margin-top: 0
+    line-height: 40px;
 }
 
 .product-detail__ilan-no {

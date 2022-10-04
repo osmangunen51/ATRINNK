@@ -87,14 +87,13 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
 
                         foreach (var thumbSize in ThumbSizes)
                         {
-                            if (thumbSize == "980x*" || thumbSize == "500x375" || thumbSize == "*x980")
+                            if (thumbSize == "900x675" || thumbSize == "500x375")
                             {
                                 var yol = HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" +
                                           productName.ToImageFileName(sayi) + "-" + thumbSize.Replace("*", "") + ".jpg";
                                 AddWaterMarkNew(yol, thumbSize);
                             }
                         }
-
                         pictureList.Add(new PictureModel { PictureId = sayi, ProductId = productID, PicturePath = fileName, PictureOrder = counter });
                         counter++;
                     }
@@ -259,7 +258,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                         HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" + productName.ToImageFileName(count), this.ThumbSizes);
                         foreach (var thumbSize in ThumbSizes)
                         {
-                            if (thumbSize == "980x*" || thumbSize == "500x375" || thumbSize == "*x980")
+                            if (thumbSize == "900x675" || thumbSize == "500x375")
                             {
                                 var yol = HttpContext.Current.Server.MapPath(newMainImageFilePath) + "thumbs\\" +
                                           productName.ToImageFileName(count) + "-" + thumbSize.Replace("*", "") + ".jpg";
