@@ -197,27 +197,27 @@
                 decimal newPrice = 0;
 
 
-        if (item.DiscountType == (byte)ProductDiscountType.Amount)
-        {
-            if (item.DiscountAmount.HasValue)
-            {
-                newPrice = item.ProductPrice.Value - item.DiscountAmount.Value;
-            }
-        }
-        else
-        {
-            if (item.DiscountAmount.HasValue)
-            {
-                newPrice = item.ProductPrice.Value - ((item.DiscountAmount.Value * item.ProductPrice.Value) / 100);
-            }
-        }
-        if (newPrice != 0)
-        {
+                if (item.DiscountType == (byte)ProductDiscountType.Amount)
+                {
+                    if (item.DiscountAmount.HasValue)
+                    {
+                        newPrice = item.ProductPrice.Value - item.DiscountAmount.Value;
+                    }
+                }
+                else
+                {
+                    if (item.DiscountAmount.HasValue && item.ProductPrice.HasValue)
+                    {
+                        newPrice = item.ProductPrice.Value - ((item.DiscountAmount.Value * item.ProductPrice.Value) / 100);
+                    }
+                }
+                if (newPrice != 0)
+                {
 
         @newPrice.ToString("N2")
         }
 
-        <span style="@(newPrice != 0) ? "text-decoration: line-through;":""">@item.ProductPrice.Value.ToString("N2") </span>@item.CurrencyName
+        <span style="@(newPrice != 0) ? "text-decoration: line-through;":""">@item.ProductPrice?.Value.ToString("N2") </span>@item.CurrencyName
             }
             else if (item.ProductPriceType == (byte)ProductPriceType.PriceRange)
             {
