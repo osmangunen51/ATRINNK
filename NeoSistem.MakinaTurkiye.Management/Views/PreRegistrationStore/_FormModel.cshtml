@@ -1,16 +1,18 @@
 ﻿@model NeoSistem.MakinaTurkiye.Management.Models.PreRegistrations.PreRegistrainFormModel
-
+<script src="~/Content/Scripts/JQuery-dropdowncascading.js" type="text/javascript"></script>
 <div style="float: left; width: 800px; margin-top: 10px;">
     @Html.HiddenFor(x=>x.Id)
     <table border="0" class="tableForm" cellpadding="5" cellspacing="0">
         <tr style="height: 40px;">
             <td colspan="3" align="right">
                 <button type="submit" style="width: 70px; height: 35px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
-                    <span class="ui-button-text">Kaydet
+                    <span class="ui-button-text">
+                        Kaydet
                     </span>
                 </button>
                 <button type="button" style="width: 70px; height: 35px;" onclick="window.location='/PreRegistrationStore/'" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
-                    <span class="ui-button-text">İptal
+                    <span class="ui-button-text">
+                        İptal
                     </span>
                 </button>
                 <br>
@@ -20,66 +22,118 @@
         </tr>
 
         <tr>
-            <td valign="top">Firma Adı
-            </td>
-            <td valign="top">:
+            <td valign="top">
+                Firma Adı
             </td>
             <td valign="top">
-                @Html.TextBoxFor(model => model.StoreName, new { style = "height: 20px; width:250px;" })
-                @Html.ValidationMessageFor(x=>x.StoreName)
+                :
+            </td>
+            <td valign="top">
+                @Html.TextBoxFor(x => x.StoreName, new { style = "height: 20px; width:250px;" })
+                @Html.ValidationMessageFor(x => x.StoreName)
 
-                        <button type="button" style="width: 70px; height: 35px;" onclick="SearchClick();" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
-                    <span class="ui-button-text">Ara
+                <button type="button" style="width: 70px; height: 35px;" onclick="SearchClick();" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                    <span class="ui-button-text">
+                        Ara
                     </span>
                 </button>
             </td>
         </tr>
 
         <tr>
-            <td valign="top">Email
-            </td>
-            <td valign="top">:
+            <td valign="top">
+                Email
             </td>
             <td valign="top">
-                @Html.TextBoxFor(model => model.Email)
-                @Html.ValidationMessageFor(x=>x.Email)
+                :
+            </td>
+            <td valign="top">
+                @Html.TextBoxFor(x => x.Email)
+                @Html.ValidationMessageFor(x => x.Email)
             </td>
         </tr>
         <tr>
             <td>Yetkili Adı/Soyadı</td>
             <td>:</td>
-            <td>@Html.TextBoxFor(x=>x.MemberName)/
+            <td>
+                @Html.TextBoxFor(x => x.MemberName)/
 
-                @Html.TextBoxFor(x=>x.MemberSurname)
-            </td>
+            @Html.TextBoxFor(x => x.MemberSurname)
+        </td>
 
-        </tr>
-        <tr>
-            <td>Telefon Numarası</td>
-            <td>:</td>
-            <td>@Html.TextBoxFor(x=>x.PhoneNumber)</td>
-        </tr>
-               <tr>
-            <td>Telefon Numarası 2</td>
-            <td>:</td>
-            <td>@Html.TextBoxFor(x=>x.PhoneNumber2)</td>
-        </tr>
-               <tr>
-            <td>Telefon Numarası 3</td>
-            <td>:</td>
-            <td>@Html.TextBoxFor(x=>x.PhoneNumber3)</td>
-        </tr>
-        <tr>
-            <td>Web Adresi:</td>
-            <td>:</td>
-            <td>@Html.TextBoxFor(x=>x.WebUrl)</td>
-        </tr>
-        <tr>
-            <td>Şehir</td>
-            <td>:</td>
-            <td>@Html.TextBoxFor(x=>x.City)
-            @Html.ValidationMessageFor(x=>x.City)</td>
-        </tr>
+    </tr>
+    <tr>
+        <td>Telefon Numarası</td>
+        <td>:</td>
+        <td>@Html.TextBoxFor(x => x.PhoneNumber)</td>
+    </tr>
+    <tr>
+        <td>Telefon Numarası 2</td>
+        <td>:</td>
+        <td>@Html.TextBoxFor(x => x.PhoneNumber2)</td>
+    </tr>
+    <tr>
+        <td>Telefon Numarası 3</td>
+        <td>:</td>
+        <td>@Html.TextBoxFor(x => x.PhoneNumber3)</td>
+    </tr>
+    <tr>
+        <td>Web Adresi:</td>
+        <td>:</td>
+        <td>@Html.TextBoxFor(x => x.WebUrl)</td>
+    </tr>
+    <tr>
+        <td>Şehir</td>
+        <td>:</td>
+        <td>
+            @Html.TextBoxFor(x => x.City)
+        @Html.ValidationMessageFor(x => x.City)
+    </td>
+    </tr>
+    <tr>
+        <td align="right" style="width:128px;">
+            @Html.LabelFor(x => x.CountryId)
+        </td>
+        <td>:</td>
+        <td style="height: 30px;">
+            <div id="divCountryId" class="dropdownAddress">
+                @Html.DropDownListFor(x => x.CountryId, x.CountryItems, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            @Html.LabelFor(x => x.CityId)
+        </td>
+        <td>:</td>
+        <td style="height: 30px;">
+            <div id="divCityId" class="dropdownAddress">
+                @Html.DropDownListFor(x => x.CityId, x.CityItems, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            @Html.LabelFor(x => x.LocalityId)
+        </td>
+        <td>:</td>
+        <td style="height: 30px;">
+            <div id="divLocalityId" class="dropdownAddress">
+                @Html.DropDownListFor(x => x.LocalityId, x.LocalityItems, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td align="right">
+            @Html.LabelFor(x => x.TownId)
+        </td>
+        <td>:</td>
+        <td style="height: 30px;">
+            <div id="divTownId" class="dropdownAddress">
+                @Html.DropDownListFor(x => x.TownId, x.TownItems, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
+            </div>
+        </td>
+    </tr>
     </table>
 </div>
 
