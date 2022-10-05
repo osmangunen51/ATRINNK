@@ -907,9 +907,9 @@ namespace MakinaTurkiye.Api.Controllers
                             new
                             {
                                 PictureId= item.PictureId,
-                                LargePath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px900x675) : "",
-                                SmallPath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px500x375) : "",
-                                MegaPicturePath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.pxx980) : "",
+                                LargePath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px500x375) : "",
+                                SmallPath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px400x300) : "",
+                                MegaPicturePath = !string.IsNullOrEmpty(item.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId.Value, item.PicturePath, ProductImageSize.px900x675) : "",
                             }
                         );
                         processStatus.Message.Header = "Advert";

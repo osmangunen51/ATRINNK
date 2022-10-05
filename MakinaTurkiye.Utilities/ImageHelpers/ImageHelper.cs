@@ -191,76 +191,21 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
                 //productImageName = productImageName.Replace(".jpg", ".webp");
                 string[] name = productImageName.Split('.');
                 string picturePathIsExist = string.Empty;
-                if (imageSize == ProductImageSize.px100)
-                {
-
-                    //System.IO.Path.Combine(, fileName);
-                    picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-100X.{2}", productId, name[0],
-                        name[1]);
-
-                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
-                    {
-                        imageSize = ProductImageSize.px100;
-                    }
-                    else
-                    {
-                        imageSize = ProductImageSize.px100x75;
-                    }
-                }
-
-
-                //string imageSizeName = imageSize.ToString();
-                //if (imageSize == ProductImageSize.x160x120) imageSizeName = "160x120";
-                //picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-" + imageSizeName.Replace("px", "") + ".{2}", productId, name[0], name[1]);
-                //if (!System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
-                //{
-
-                //    picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-400x300.{2}", productId, name[0], name[1]);
-                //    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
-                //    {
-                //        imageSize = ProductImageSize.px400x300;
-                //    }
-                //    else
-                //    {
-                //        imageSize = ProductImageSize.NoImage;
-                //    }
-                //}
-
-
                 name = productImageName.Split('.');
-
                 switch (imageSize)
                 {
-                    case ProductImageSize.px100:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-100X.{2}", productId, name[0],
-                            name[1]);
-                    case ProductImageSize.px100x75:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-100x75.{2}", productId, name[0],
-                            name[1]);
                     case ProductImageSize.px400x300:
                         return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-400x300.{2}", productId,
                             name[0], name[1]);
                     case ProductImageSize.px900x675:
                         return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-900x675.{2}", productId,
                             name[0], name[1]);
-                    case ProductImageSize.px180x135:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-180x135.{2}", productId,
-                            name[0], name[1]);
-                    case ProductImageSize.x160x120:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-160x120.{2}", productId,
-                            name[0], name[1]);
                     case ProductImageSize.px200x150:
                         return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-200x150.{2}", productId,
-                           name[0], name[1]);
-                    case ProductImageSize.px980x:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-980x.{2}", productId,
                            name[0], name[1]);
                     case ProductImageSize.px500x375:
                         return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-500x375.{2}", productId,
                         name[0], name[1]);
-                    case ProductImageSize.pxx980:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-x980.{2}", productId,
-                  name[0], name[1]);
                     case ProductImageSize.NoImage:
                         return "//s.makinaturkiye.com/no-image.png";
                     default:
@@ -286,54 +231,20 @@ namespace MakinaTurkiye.Utilities.ImageHelpers
                     productImageName = productImageName + ".jpg";
                 string[] name = productImageName.Split('.');
                 string picturePathIsExist = string.Empty;
-                if (imageSize == ProductImageSize.px100)
-                {
-
-                    //System.IO.Path.Combine(, fileName);
-                    picturePathIsExist = string.Format("/UserFiles/Product/{0}/thumbs/{1}-100X.{2}", productId, name[0],
-                        name[1]);
-
-                    if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(picturePathIsExist)))
-                    {
-                        imageSize = ProductImageSize.px100;
-                    }
-                    else
-                    {
-                        imageSize = imageSize = ProductImageSize.px100x75;
-                    }
-                }
                 switch (imageSize)
                 {
-                    case ProductImageSize.px100:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-100X.{2}", productId, name[0],
-                            name[1]);
-                    case ProductImageSize.px100x75:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-100x75.{2}", productId, name[0],
-                            name[1]);
                     case ProductImageSize.px400x300:
                         return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-400x300.{2}", productId,
                             name[0], name[1]);
                     case ProductImageSize.px900x675:
                         return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-900x675.{2}", productId,
                             name[0], name[1]);
-                    case ProductImageSize.px180x135:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-180x135.{2}", productId,
-                            name[0], name[1]);
-                    case ProductImageSize.x160x120:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-160x120.{2}", productId,
-                            name[0], name[1]);
                     case ProductImageSize.px200x150:
                         return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-200x150.{2}", productId,
-                           name[0], name[1]);
-                    case ProductImageSize.px980x:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-980x.{2}", productId,
                            name[0], name[1]);
                     case ProductImageSize.px500x375:
                         return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-500x375.{2}", productId,
                         name[0], name[1]);
-                    case ProductImageSize.pxx980:
-                        return string.Format("//s.makinaturkiye.com/Product/{0}/thumbs/{1}-x980.{2}", productId,
-                  name[0], name[1]);
                     case ProductImageSize.NoImage:
                         return "//s.makinaturkiye.com/no-image.png";
                     default:

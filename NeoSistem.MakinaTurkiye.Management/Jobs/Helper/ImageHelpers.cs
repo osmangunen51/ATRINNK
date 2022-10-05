@@ -27,18 +27,18 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
 
                 switch (imageSize)
                 {
-                    case ImageSize.px100:
-                        imagePath = string.Format(CDNhost + "/Product/{0}/thumbs/{1}-100X.{2}", productID, name[0], name[1]);
-                        if (FileHelpers.HasFile(imagePath))
-                            builder.Attributes.Add("src", imagePath);
-                        break;
-                    case ImageSize.px100x75:
-                        imagePath = string.Format(CDNhost + "/Product/{0}/thumbs/{1}-100x75.{2}", productID, name[0], name[1]);
+                    case ImageSize.px200x150:
+                        imagePath = string.Format(CDNhost + "/Product/{0}/thumbs/{1}-200x150.{2}", productID, name[0], name[1]);
                         if (FileHelpers.HasFile(imagePath))
                             builder.Attributes.Add("src", imagePath);
                         break;
                     case ImageSize.px400x300:
                         imagePath = string.Format(CDNhost + "/Product/{0}/thumbs/{1}-400x300.{2}", productID, name[0], name[1]);
+                        if (FileHelpers.HasFile(imagePath))
+                            builder.Attributes.Add("src", imagePath);
+                        break;
+                    case ImageSize.px500x375:
+                        imagePath = string.Format(CDNhost + "/Product/{0}/thumbs/{1}-500X375.{2}", productID, name[0], name[1]);
                         if (FileHelpers.HasFile(imagePath))
                             builder.Attributes.Add("src", imagePath);
                         break;
@@ -85,10 +85,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Helper
 
         public enum ImageSize
         {
-            px100,
-            px100x75,
             px400x300,
-            px900x675
+            px900x675,
+            px200x150,
+            px500x375,
+            NoImage
         }
     }
 

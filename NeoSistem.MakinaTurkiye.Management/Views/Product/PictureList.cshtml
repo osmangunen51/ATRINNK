@@ -73,11 +73,13 @@
 
         @foreach (var item in Model) { 
         <li id="image_li_@item.PictureId" class="ui-sortable-handle">
-            <div style="width: 100px; height: 120px; margin-left: 10px; margin-top: 10px; float: left; text-align: center;">
+            <div style="width:200px; height:150px;text-align: center;">
 
-                @Html.GetProductImage(item.ProductId, item.PicturePath, NeoSistem.MakinaTurkiye.Management.Helper.ImageHelpers.ImageSize.px100x75)
+                @Html.GetProductImage(item.ProductId, item.PicturePath, NeoSistem.MakinaTurkiye.Management.Helper.ImageHelpers.ImageSize.px200x150)
+            </div>
+            <div style="margin-top:10px;">
                 <a style="cursor: pointer; text-decoration: none;" onclick="DeletePicture('@item.PictureId','@item.PicturePath');">Sil</a>
-                <a style="cursor: pointer; text-decoration: none;" onclick="mainImage('@item.PictureId','@item.PicturePath');">Ana Resim</a>
+                <a class="btn btn-danger" style="cursor: pointer; text-decoration: none;" onclick="mainImage('@item.PictureId','@item.PicturePath');">Ana Resim</a>
             </div>
         </li>
          } 

@@ -99,11 +99,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\WebPWrapper\WebPWrapper.csproj">
-      <Project>{c6f4b456-bfaf-4d54-bdb0-9db44b9dbf17}</Project>
-      <Name>WebPWrapper</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

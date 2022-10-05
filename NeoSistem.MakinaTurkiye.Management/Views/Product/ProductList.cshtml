@@ -214,10 +214,12 @@
                 if (newPrice != 0)
                 {
 
-        @newPrice.ToString("N2")
-        }
-
-        <span style="@(newPrice != 0) ? "text-decoration: line-through;":""">@item.ProductPrice?.Value.ToString("N2") </span>@item.CurrencyName
+                    @newPrice.ToString("N2")
+                }
+                <span style="@(newPrice != 0 ? "text-decoration: line-through;":"")">
+                        @item.ProductPrice.Value.ToString("N2")
+                    </span>
+                    @item.CurrencyName
             }
             else if (item.ProductPriceType == (byte)ProductPriceType.PriceRange)
             {
