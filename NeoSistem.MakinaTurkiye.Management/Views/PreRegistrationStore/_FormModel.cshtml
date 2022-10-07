@@ -31,8 +31,7 @@
             <td valign="top">
                 @Html.TextBoxFor(x => x.StoreName, new { style = "height: 20px; width:250px;" })
                 @Html.ValidationMessageFor(x => x.StoreName)
-
-                <button type="button" style="width: 70px; height: 35px;" onclick="SearchClick();" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
+                <button type="button" style="width: 70px; height: 24px;" onclick="SearchClick();" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false">
                     <span class="ui-button-text">
                         Ara
                     </span>
@@ -83,57 +82,77 @@
         <td>@Html.TextBoxFor(x => x.WebUrl)</td>
     </tr>
     <tr>
+        <td colspan="3">
+            <center>
+                Adres Bilgileri
+            </center>
+            <hr />
+        </td>
+    </tr>
+    @*<tr>
         <td>Şehir</td>
         <td>:</td>
         <td>
             @Html.TextBoxFor(x => x.City)
         @Html.ValidationMessageFor(x => x.City)
     </td>
-    </tr>
+    </tr>*@
     <tr>
-        <td align="right" style="width:128px;">
+        <td>
             @Html.LabelFor(x => x.CountryId)
         </td>
         <td>:</td>
         <td style="height: 30px;">
             <div id="divCountryId" class="dropdownAddress">
-                @Html.DropDownListFor(x => x.CountryId, x.CountryItems, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
+                @Html.DropDownListFor(x => x.CountryId, Model.CountryItems, new { @class = "textMedium", style = "width : 150px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
             </div>
         </td>
     </tr>
     <tr>
-        <td align="right">
+        <td>
             @Html.LabelFor(x => x.CityId)
         </td>
         <td>:</td>
         <td style="height: 30px;">
             <div id="divCityId" class="dropdownAddress">
-                @Html.DropDownListFor(x => x.CityId, x.CityItems, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
+                @Html.DropDownListFor(x => x.CityId, Model.CityItems, new { @class = "textMedium", style = "width : 150px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
             </div>
         </td>
     </tr>
     <tr>
-        <td align="right">
+        <td>
             @Html.LabelFor(x => x.LocalityId)
         </td>
         <td>:</td>
         <td style="height: 30px;">
             <div id="divLocalityId" class="dropdownAddress">
-                @Html.DropDownListFor(x => x.LocalityId, x.LocalityItems, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
+                @Html.DropDownListFor(x => x.LocalityId, Model.LocalityItems, new { @class = "textMedium", style = "width : 150px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
             </div>
         </td>
     </tr>
     <tr>
-        <td align="right">
+        <td>
             @Html.LabelFor(x => x.TownId)
         </td>
         <td>:</td>
         <td style="height: 30px;">
             <div id="divTownId" class="dropdownAddress">
-                @Html.DropDownListFor(x => x.TownId, x.TownItems, new { @class = "textMedium", style = "width : 203px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
+                @Html.DropDownListFor(x => x.TownId, Model.TownItems, new { @class = "textMedium", style = "width : 150px; height: 18px; font-size: 11px; border: none; margin: 1px; margin-right: 2px;" })
             </div>
         </td>
     </tr>
     </table>
 </div>
-
+<script>
+    $(document).ready(function () {
+        $('#CountryId').DropDownCascading({
+            method: "/Store/Cities", target: "#CityId", loader: "#imgLoader"
+        });
+        $('#CityId').DropDownCascading({
+            method: "/Store/Localities", target: "#LocalityId", loader: "#imgLoader"
+        });
+        $('#LocalityId').DropDownCascading({
+            method: "/Store/Towns", target: "#TownId", loader: "#imgLoader"
+        });
+    });
+</script>

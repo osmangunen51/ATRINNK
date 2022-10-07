@@ -3130,13 +3130,13 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         PicturePaths =
                       new string[5]{
                      ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicture,
-                        ProductImageSize.px100),
+                        ProductImageSize.px200x150),
                        ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicture,
-                        ProductImageSize.px100x75),
+                        ProductImageSize.px200x150),
                        ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicture,
-                        ProductImageSize.px180x135),
+                        ProductImageSize.px200x150),
                       ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicture,
-                        ProductImageSize.x160x120),
+                        ProductImageSize.px200x150),
                       ImageHelper.GetProductImagePath(productItem.ProductId, productItem.MainPicture,
                         ProductImageSize.px400x300)
                     },

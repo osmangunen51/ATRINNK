@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.ComponentModel;
+using System.Linq;
 using System.Web.Mvc;
 using NeoSistem.MakinaTurkiye.Management.Models.Entities;
 
@@ -16,6 +17,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.PreRegistrations
         public string PhoneNumber3 { get; set; }
         public string WebUrl { get; set; }
         public string City { get; set; }
+
+        [DisplayName("Ülke")]
+        public int CountryId { get; set; }
+
+        [DisplayName("Şehir")]
+        public int CityId { get; set; }
+
+
+
+
+        [DisplayName("İlçe")]
+        public int LocalityId { get; set; }
+
+        [DisplayName("Mahalle / Köy")]
+        public int TownId { get; set; }
+
 
         public string ContactPhoneNumber { get; set; }
         public string ContactNameSurname { get; set; }

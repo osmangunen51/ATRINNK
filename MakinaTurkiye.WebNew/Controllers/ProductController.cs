@@ -1103,24 +1103,25 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.ProductPictureModels.Add(MTProductPictureModel);
             }
 
-            List<string> thumbSizes = new List<string>();
-            thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
+            //List<string> thumbSizes = new List<string>();
+            //thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
 
-            foreach (var item in model.ProductPictureModels)
-            {
-                string largePath = Server.MapPath(item.LargePath.Replace("//s.makinaturkiye.com", "~/UserFiles"));
-                System.IO.FileInfo largeFile = new System.IO.FileInfo(largePath);
-                if (!largeFile.Exists)
-                {
-                    string mainPicture = Server.MapPath($"~/UserFiles/Product/{product.ProductId}/{largeFile.Name.Replace("-500x375", "")}");
-                    string destinationfile = largeFile.Directory.FullName + "\\" + largeFile.Name.Replace("500x375", "");
-                    if (!largeFile.Directory.Exists)
-                    {
-                        largeFile.Directory.Create();
-                    }
-                    bool thumbResult = NeoSistem.MakinaTurkiye.Core.Web.Helpers.ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
-                }
-            }
+
+            //foreach (var item in model.ProductPictureModels)
+            //{
+            //    string largePath = Server.MapPath(item.LargePath.Replace("//s.makinaturkiye.com", "~/UserFiles"));
+            //    System.IO.FileInfo largeFile = new System.IO.FileInfo(largePath);
+            //    if (!largeFile.Exists)
+            //    {
+            //        string mainPicture = Server.MapPath($"~/UserFiles/Product/{product.ProductId}/{largeFile.Name.Replace("-500x375", "")}");
+            //        string destinationfile = largeFile.Directory.FullName + "\\" + largeFile.Name.Replace("500x375", "");
+            //        if (!largeFile.Directory.Exists)
+            //        {
+            //            largeFile.Directory.Create();
+            //        }
+            //        bool thumbResult = NeoSistem.MakinaTurkiye.Core.Web.Helpers.ImageProcessHelper.ImageResize(mainPicture, destinationfile, thumbSizes);
+            //    }
+            //}
 
             #endregion
             #region certificates
