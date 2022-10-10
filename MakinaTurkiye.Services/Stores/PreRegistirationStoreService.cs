@@ -15,14 +15,22 @@ namespace MakinaTurkiye.Services.Stores
     public class PreRegistirationStoreService : IPreRegistirationStoreService
     {
         IRepository<PreRegistrationStore> _preRegistrationStoreRepository;
+        private readonly IRepository<City> _cityRepository;
+        private readonly IRepository<Locality> _localityRepository;
+        private readonly IRepository<Country> _countryRepository;
+        private readonly IRepository<Town> _townRepository;
         IRepository<MemberDescription> _memberDescriptionRepository;
         IRepository<User> _userRepository;
         IRepository<Store> _StoreRepository;
         IRepository<Phone> _PhoneRepository;
 
-        public PreRegistirationStoreService(IRepository<PreRegistrationStore> preRegistrationStoreRepository, IRepository<MemberDescription> memberDescriptionRepository, IRepository<User> userRepository, IRepository<Store> storeRepository, IRepository<Phone> phoneRepository)
+        public PreRegistirationStoreService(IRepository<PreRegistrationStore> preRegistrationStoreRepository, IRepository<City> cityRepository, IRepository<Locality> localityRepository, IRepository<Country> countryRepository, IRepository<Town> townRepository, IRepository<MemberDescription> memberDescriptionRepository, IRepository<User> userRepository, IRepository<Store> storeRepository, IRepository<Phone> phoneRepository)
         {
             _preRegistrationStoreRepository = preRegistrationStoreRepository;
+            _cityRepository = cityRepository;
+            _localityRepository = localityRepository;
+            _countryRepository = countryRepository;
+            _townRepository = townRepository;
             _memberDescriptionRepository = memberDescriptionRepository;
             _userRepository = userRepository;
             _StoreRepository = storeRepository;
@@ -69,9 +77,13 @@ namespace MakinaTurkiye.Services.Stores
             {
                 query = query.Where(x => x.Email.ToLower().Contains(email.ToLower()));
             }
+
             if (!string.IsNullOrEmpty(city))
             {
-                query = query.Where(x => x.City.ToLower().Contains(city.ToLower()));
+                var CountryIdListesi = _countryRepository.TableNoTracking.Where(x => x.CountryName.Contains(city)).Select(x=>x.CountryId).ToList();
+                var CityIdListesi = _cityRepository.TableNoTracking.Where(x => x.CityName.Contains(city)).Select(x => x.CityId).ToList();
+                var LocalityIdListesi = _localityRepository.TableNoTracking.Where(x => x.LocalityName.Contains(city)).Select(x => x.LocalityId).ToList();
+                query = query.Where(x => CountryIdListesi.Contains((int)x.CountryId) || CityIdListesi.Contains((int)x.CityId) || LocalityIdListesi.Contains((int)x.LocalityId) || x.City.Contains(city));
             }
 
             List<PreRegistrationStoreResponse> result = new List<PreRegistrationStoreResponse>();
@@ -153,6 +165,15 @@ namespace MakinaTurkiye.Services.Stores
             }
             totalRecord = result.Count;
             result = result.OrderByDescending(x => x.PreRegistrationStoreId).Skip(page * pageSize - pageSize).Take(pageSize).ToList();
+            var CountryListesi = _countryRepository.TableNoTracking.ToList();
+            var CityListesi = _cityRepository.TableNoTracking.ToList();
+            var LocalityListesi = _localityRepository.TableNoTracking.ToList();
+            foreach (var item in result)
+            {
+                item.CountryName = CountryListesi.FirstOrDefault(x => x.CountryId == item.CountryId)?.CountryName;
+                item.CityName = CityListesi.FirstOrDefault(x => x.CityId == item.CityId)?.CityName;
+                item.LocalityName = LocalityListesi.FirstOrDefault(x => x.LocalityId == item.LocalityId)?.LocalityName;
+            }
             var preRegistrationStores = result.ToList();
             return new PagedList<PreRegistrationStoreResponse>(preRegistrationStores, page, pageSize, totalRecord);
         }

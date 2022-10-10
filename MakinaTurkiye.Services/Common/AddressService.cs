@@ -35,8 +35,8 @@ namespace MakinaTurkiye.Services.Common
         private readonly IRepository<City> _cityRepository;
         private readonly IRepository<Locality> _localityRepository;
         private readonly IRepository<Country> _countryRepository;
-        private readonly IRepository<Address> _addressRepository;
         private readonly IRepository<Town> _townRepository;
+        private readonly IRepository<Address> _addressRepository;
         private readonly IRepository<AddressType> _addressTypeRepository;
         private readonly IRepository<District> _districtRepository;
         private readonly ICacheManager _cacheManager;

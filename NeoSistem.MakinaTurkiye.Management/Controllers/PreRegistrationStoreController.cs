@@ -187,7 +187,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 preRegistrationStore.City = model.City;
                 preRegistrationStore.ContactNameSurname = model.ContactNameSurname;
                 preRegistrationStore.ContactPhoneNumber = model.ContactPhoneNumber;
-
+                preRegistrationStore.CountryId = model.CountryId;
+                preRegistrationStore.CityId = model.CityId;
+                preRegistrationStore.LocalityId = model.LocalityId;
+                preRegistrationStore.TownId = model.TownId;
                 _preRegistrationService.InsertPreRegistrationStore(preRegistrationStore);
                 TempData["success"] = true;
                 return RedirectToAction("Create");
@@ -254,10 +257,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 ModelState.AddModelError("StoreName", "Lütfen Firma Adını Giriniz");
             }
-            else if (string.IsNullOrEmpty(model.City))
-            {
-                ModelState.AddModelError("City", "Lütfen Şehir Adını Giriniz");
-            }
             else
             {
                 var preRegistration = _preRegistrationService.GetPreRegistirationStoreByPreRegistrationStoreId(model.Id);
@@ -270,6 +269,11 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 preRegistration.PhoneNumber3 = model.PhoneNumber3;
                 preRegistration.WebUrl = model.WebUrl;
                 preRegistration.City = model.City;
+                preRegistration.CountryId = model.CountryId;
+                preRegistration.CityId = model.CityId;
+                preRegistration.LocalityId = model.LocalityId;
+                preRegistration.TownId = model.TownId;
+
                 _preRegistrationService.UpdatePreRegistrationStore(preRegistration);
                 return RedirectToAction("Index");
             }

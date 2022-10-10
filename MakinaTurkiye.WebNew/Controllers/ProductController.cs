@@ -706,6 +706,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductDetailModel.ProductStatuConstantId = Convert.ToInt32(product.ProductStatu);
             model.ProductDetailModel.ProductViewCount = Convert.ToInt64(product.ViewCount);
 
+            if (product.HasVideo != null)
+                model.ProductDetailModel.HasVideo = Convert.ToBoolean(product.HasVideo);
+
             if (product.Kdv != null)
                 model.ProductDetailModel.Kdv = Convert.ToBoolean(product.Kdv);
             if (product.Fob != null)

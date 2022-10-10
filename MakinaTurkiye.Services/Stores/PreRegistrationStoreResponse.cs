@@ -22,5 +22,15 @@ namespace MakinaTurkiye.Services.Stores
         public string ContactNameSurname { get; set; }
         public string ContactPhoneNumber { get; set; }
         public string AtananUser { get; set; }
+
+        public string LocalityName { get; set; }
+        public string CityName { get; set; }
+        public string CountryName { get; set; }
+
+        public int? CountryId { get; set; }
+        public int? CityId { get; set; }
+        public int? LocalityId { get; set; }
+        public int? TownId { get; set; }
+
     }
 }

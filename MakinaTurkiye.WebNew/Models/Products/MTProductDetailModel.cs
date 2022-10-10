@@ -40,6 +40,9 @@
         public string ProductContactUrl { get; set; }
         public string UnitTypeText { get; set; }
         public bool Kdv { get; set; }
+
+        public bool HasVideo { get; set; }
+
         public bool Fob { get; set; }
         public long ProductViewCount { get; set; }
         public string StoreName { get; set; }

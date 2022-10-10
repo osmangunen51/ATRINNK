@@ -17,13 +17,9 @@
         }
     </td>
     <td class="Cell">
-        @if (item.CountryName != "Türkiye")
-        {
-            <span style="color:yellow">@item.CountryName</span><br />
-        }
-        <span style="color:red;font-size:16px">@(item.CityName != null ? item.CityName.ToUpper() : "")</span><br />
-        <span style="color:yellowgreen">@item.LocalityName</span>
-        &nbsp
+        <span style="color:gray">@(item.CountryName != null ? item.CountryName.ToUpper() : "")</span><br />
+        <span style="color:red">@(item.CityName != null ? item.CityName.ToUpper() : "")</span><br />
+        <span style="color:darkorange">@(item.LocalityName != null ? item.LocalityName.ToUpper() : "")</span>
     </td>
     <td class="Cell">@item.RecordDate.ToString("dd/MM/yyyy HH:mm")</td>
     <td class="Cell">@item.AtananUser</td>
