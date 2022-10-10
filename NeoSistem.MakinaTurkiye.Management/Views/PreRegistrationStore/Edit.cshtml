@@ -1,18 +1,11 @@
 ﻿@model NeoSistem.MakinaTurkiye.Management.Models.PreRegistrations.PreRegistrainFormModel
-
 @section TitleContent {
-
     Firma Ön Kayıt
-
 }
-@section HeadContent {
-
+@section HeadContent 
+{
     <script type="text/javascript" src="~/Content/Scripts/CKEditor/ckeditor.js"></script>
     <script type="text/javascript" src="~/Content/Scripts/CKFinder/ckfinder.js"></script>
-
-
-
-
 }
 
      @if (TempData["error"] != null)
@@ -24,9 +17,9 @@
     <p style="font-size:15px;">Firma Eklenmiştir</p>
     } 
     @using (Html.BeginForm("Edit", "PreRegistrationStore", FormMethod.Post))
-        { 
-    @Html.HiddenFor(x=>x.Id)
-    @Html.Partial("_FormModel", Model) 
+    { 
+        @Html.HiddenFor(x=>x.Id)
+        @Html.Partial("_FormModel", Model) 
     } 
 
 

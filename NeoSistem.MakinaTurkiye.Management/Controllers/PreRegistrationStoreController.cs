@@ -158,6 +158,34 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         public ActionResult Create()
         {
             PreRegistrainFormModel model = new PreRegistrainFormModel();
+            var countries = entities.Countries.ToList();
+            model.CountryItems = new SelectList(countries, "CountryId", "CountryName", 0);
+
+            if (model.CountryId == null || model.CountryId == 0)
+            {
+                model.CountryId = 246; // Türkiye
+            }
+
+            if (model.CountryId > 0)
+            {
+                var cityItems = entities.Cities.Where(c => c.CountryId == model.CountryId).ToList();
+                cityItems.Add(new Models.Entities.City() { CityId = 0, CityName = "Seçiniz" });
+                model.CityItems = new SelectList(cityItems, "CityId", "CityName", 0);
+            }
+
+            if (model.CityId > 0)
+            {
+                var LocalityItems = entities.Localities.Where(c => c.CityId == model.CityId).ToList();
+                LocalityItems.Add(new Models.Entities.Locality() { LocalityId = 0, LocalityName = "Seçiniz" });
+                model.LocalityItems = new SelectList(LocalityItems, "LocalityId", "LocalityName", 0);
+            }
+
+            if (model.LocalityId > 0)
+            {
+                var TownItems = entities.Towns.Where(c => c.LocalityId == model.LocalityId).ToList();
+                TownItems.Add(new Models.Entities.Town() { TownId = 0, TownName = "Seçiniz" });
+                model.TownItems = new SelectList(TownItems, "TownId", "TownName", 0);
+            }
             return View(model);
         }
         [HttpPost]
@@ -223,6 +251,40 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.City = preRegistration.City;
             model.ContactNameSurname = preRegistration.ContactNameSurname;
             model.ContactPhoneNumber = preRegistration.ContactPhoneNumber;
+            model.CountryId =(int)preRegistration.CountryId;
+            model.CityId = (int)preRegistration.CityId;
+            model.LocalityId = (int)preRegistration.LocalityId;
+            model.TownId = (int)preRegistration.TownId;
+
+            var countries = entities.Countries.ToList();
+            model.CountryItems = new SelectList(countries, "CountryId", "CountryName", 0);
+
+            if (model.CountryId == null || model.CountryId == 0)
+            {
+                model.CountryId = 246; // Türkiye
+            }
+
+
+            if (model.CountryId>0)
+            {
+                var cityItems = entities.Cities.Where(c => c.CountryId == model.CountryId).ToList();
+                cityItems.Add(new Models.Entities.City() { CityId = 0, CityName = "Seçiniz" });
+                model.CityItems = new SelectList(cityItems, "CityId", "CityName", 0);
+            }
+
+            if (model.CityId > 0)
+            {
+                var LocalityItems = entities.Localities.Where(c => c.CityId == model.CityId).ToList();
+                LocalityItems.Add(new Models.Entities.Locality() { LocalityId = 0, LocalityName = "Seçiniz" });
+                model.LocalityItems = new SelectList(LocalityItems, "LocalityId", "LocalityName", 0);
+            }
+
+            if (model.LocalityId > 0)
+            {
+                var TownItems = entities.Towns.Where(c => c.LocalityId == model.LocalityId).ToList();
+                TownItems.Add(new Models.Entities.Town() { TownId = 0, TownName = "Seçiniz" });
+                model.TownItems = new SelectList(TownItems, "TownId", "TownName", 0);
+            }
             return View(model);
         }
         [HttpPost]
