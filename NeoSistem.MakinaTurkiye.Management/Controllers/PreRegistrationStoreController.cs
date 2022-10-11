@@ -251,10 +251,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             model.City = preRegistration.City;
             model.ContactNameSurname = preRegistration.ContactNameSurname;
             model.ContactPhoneNumber = preRegistration.ContactPhoneNumber;
-            model.CountryId =(int)preRegistration.CountryId;
-            model.CityId = (int)preRegistration.CityId;
-            model.LocalityId = (int)preRegistration.LocalityId;
-            model.TownId = (int)preRegistration.TownId;
+            model.CountryId = (int)(preRegistration.CountryId.HasValue ? preRegistration.CountryId : 0);
+            model.CityId = (int)(preRegistration.CityId.HasValue ? preRegistration.CityId : 0);
+            model.LocalityId = (int)(preRegistration.LocalityId.HasValue ? preRegistration.LocalityId : 0);
+            model.TownId = (int)(preRegistration.TownId.HasValue ? preRegistration.TownId : 0);
 
             var countries = entities.Countries.ToList();
             model.CountryItems = new SelectList(countries, "CountryId", "CountryName", 0);
@@ -278,6 +278,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 LocalityItems.Add(new Models.Entities.Locality() { LocalityId = 0, LocalityName = "Seçiniz" });
                 model.LocalityItems = new SelectList(LocalityItems, "LocalityId", "LocalityName", 0);
             }
+
 
             if (model.LocalityId > 0)
             {
