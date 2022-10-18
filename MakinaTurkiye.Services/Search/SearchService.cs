@@ -1,4 +1,6 @@
-﻿using MakinaTurkiye.Core.Data;
+﻿using MakinaTurkiye.Core.Configuration;
+using MakinaTurkiye.Core.Data;
+using MakinaTurkiye.Core.Infrastructure;
 using MakinaTurkiye.Data;
 using MakinaTurkiye.Entities.StoredProcedures.Search;
 using Nest;
@@ -18,7 +20,7 @@ namespace MakinaTurkiye.Services.Search
         private readonly IDbContext _dbContext;
         private readonly IDataProvider _dataProvider;
         private readonly ElasticSearchClient ElasticSearchClient;
-
+        private readonly MakinaTurkiyeConfig _config;
         ConnectionSettings ElasticSearchClientSettings = new ConnectionSettings(new Uri("http://localhost:9200"));
 
         public string GlobalSuggetSearchIndexName { get; set; } = "GlobalSuggetSearchIndexName";
@@ -28,11 +30,17 @@ namespace MakinaTurkiye.Services.Search
 
         #region Ctor
 
-        public SearchService(IDbContext dbContext, IDataProvider dataProvider)
+        public SearchService(IDbContext dbContext, IDataProvider dataProvider, MakinaTurkiyeConfig config)
         {
             this._dbContext = dbContext;
             this._dataProvider = dataProvider;
-            ElasticSearchClient = new ElasticSearchClient(ElasticSearchClientSettings);
+            this._config = config;
+            if (this._config.ElasticSearchEnabled)
+            {
+                ElasticSearchClientSettings = new ConnectionSettings(new Uri(this._config.ElasticSearchUrl));
+                ElasticSearchClient = new ElasticSearchClient(ElasticSearchClientSettings);
+            }
+            
         }
 
         #endregion

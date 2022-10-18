@@ -40,6 +40,7 @@ namespace MakinaTurkiye.Services.Search
         }
         public bool CreateIndex(string indexName)
         {
+
             var createIndexDescriptor = new CreateIndexDescriptor(indexName.ToLowerInvariant())
             .Mappings(ms => ms
                           .Map<Product>(m => m

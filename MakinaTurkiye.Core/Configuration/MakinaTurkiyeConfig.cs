@@ -61,6 +61,11 @@ namespace MakinaTurkiye.Core.Configuration
             config.PinZaman = GetString(PinterestNode, "Zaman");
             config.PinZamanlamaPinAdet = GetString(PinterestNode, "ZamanlamaPinAdet");
             config.ProxyServerListesi = GetString(PinterestNode, "ProxyServerListesi");
+
+            var ElasticSearchNode = section.SelectSingleNode("ElasticSearch");
+            config.ElasticSearchUrl = GetString(ElasticSearchNode, "BaseUrl");
+            config.ElasticSearchEnabled = GetBool(ElasticSearchNode, "Durum");
+
             return config;
         }
 
@@ -132,6 +137,10 @@ namespace MakinaTurkiye.Core.Configuration
         public string PinZamanlamaPinAdet { get; set; } = "5";
         public string PinZaman { get; set; } = "10";
         public string ProxyServerListesi { get; set; } = "";
+
+        public bool ElasticSearchEnabled { get; set; }
+        public string ElasticSearchUrl { get; set; } = "http://localhost:9200";
+
     }
 
 }
