@@ -1,4 +1,5 @@
-﻿using MakinaTurkiye.Services.Members;
+﻿using MakinaTurkiye.Services.Common;
+using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Utilities.FormatHelpers;
 using NeoSistem.EnterpriseEntity.Extensions;
@@ -17,21 +18,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
     {
         #region Fields
 
-        IMemberDescriptionService _memberDescService;
-        IMemberStoreService _memberStoreService;
-        IPreRegistirationStoreService _preRegistrationStoreService;
-
+        private readonly IMemberDescriptionService _memberDescService;
+        private readonly IMemberStoreService _memberStoreService;
+        private readonly IPreRegistirationStoreService _preRegistrationStoreService;
+        private readonly IAddressService _addressService;
 
         #endregion
 
         #region Ctor
 
-        public MemberDescriptionController(IMemberDescriptionService memberDesc, IMemberStoreService memberStoreService,
-               IPreRegistirationStoreService preRegistrationStoreService)
+
+        public MemberDescriptionController(IMemberDescriptionService memberDescService, IMemberStoreService memberStoreService, IPreRegistirationStoreService preRegistrationStoreService, IAddressService addressService)
         {
-            this._memberStoreService = memberStoreService;
-            this._memberDescService = memberDesc;
-            this._preRegistrationStoreService = preRegistrationStoreService;
+            _memberDescService = memberDescService;
+            _memberStoreService = memberStoreService;
+            _preRegistrationStoreService = preRegistrationStoreService;
+            _addressService = addressService;
         }
 
         #endregion
@@ -448,6 +450,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     not.IsFirst = isFirst;
                 }
                 //not.City = city;
+                not.CountryName = item.CountryName;
+                not.CityName = item.CityName;
+                not.LocalityName = item.LocalityName;
                 listNotif.Add(not);
             }
             return listNotif;
