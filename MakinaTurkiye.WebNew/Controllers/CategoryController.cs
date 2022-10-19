@@ -557,9 +557,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         categoryProductModel.Doping = product.Doping;
                     model.CategoryProductModels.Add(categoryProductModel);
                 }
-
-
-
             }
         }
 

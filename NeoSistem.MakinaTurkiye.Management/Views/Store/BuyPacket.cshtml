@@ -43,7 +43,7 @@
                 }
             });
             $("#PacketId").change(function () {
-         
+
                 var element = $(this).find('option:selected');
                 var myTag = element.attr("price");
 
@@ -58,7 +58,7 @@
                 console.log(myTag, packetPriceNew);
                 $("#PriceValue").val(packetPriceNew);
                 $("#PacketPrice").val(packetPriceNew);
-            
+
 
             });
 
@@ -73,7 +73,7 @@
                 }
             });
             $("#PriceValue").change(function () {
-          
+
                 $("#PriceValueWithTax").val($(this).val() * 1.18);
 
             });
@@ -106,6 +106,7 @@
                 alert("Ödeme türü seçiniz");
                 return false;
             }
+
             if ($("#PacketId").val() == "0") {
                 alert("Lütfen Paket Seçiniz");
                 return false;
@@ -180,7 +181,7 @@
                     "PacketDay": $("#PacketDay").val(),
                     "PacketId": $("#PacketId").val(),
                     "PriceValueWithTax": $("#PriceValueWithTax").val()
-                }, 
+                },
                 dataType: 'json',
                 success: function (data) {
                     $("#OrderType").val("0");
@@ -190,8 +191,6 @@
                     $("#sozlesmeLink").html("Sözleşme Linki:" + data);
                     alert("Paket satın alma işlemi tamamlanmıştır. Sözleşme linkine aşağıdan ulaşabilirsiniz.");
                     $("#preLoading").hide();
-
-     
                 },
                 error: function (request, error) {
                     $("#preLoading").hide();
@@ -220,28 +219,120 @@
                 $("#DisctounTypeValueContainer").show();
             }
         }
-    </script>
 
+        function SozlesmeOnIzleme()
+        {
+            var orderType = $("#OrderType").val();
+            var intallment = $("#Installment").val();
+            var DiscountAmount = $("#DiscountAmount").val();
+            var PayDate = $("#FirstDate").val();
+            var PacketId = $("#PacketId").val();
+            var PacketDay = $("#PacketDay").val();
+            var FirstDate = $("#FirstDate").val();
+            var MainPartyId = $("#StoreMainPartyId").val();
+            var PriceValueWithTax = $("#PriceValueWithTax").val();
+            var SendMail = false;
+            var Email = "";
+            $("#preLoading").show();
+            $.ajax({
+                url: '/Store/CreateProtocolBuyAndSendMail',
+                type: 'POST',
+                data: {
+                    "CategoryId": 146659,
+                    'OrderType': orderType,
+                    "Installment": intallment,
+                    "PayDate": PayDate,
+                    "MainPartyId": MainPartyId,
+                    "PayDate": FirstDate,
+                    "DiscountAmount": DiscountAmount,
+                    "PacketDay": PacketDay,
+                    "PacketId": PacketId,
+                    "PacketPrice": $("#PriceValue").val(),
+                    "PriceValueWithTax": PriceValueWithTax,
+                    "EMail": Email,
+                    "SendMail": SendMail
+                },
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    $("#pnlsozlesme").html(data);
+                    $("#pnlsozlesmebolum").show();
+                    $("#preLoading").hide();
+                },
+                error: function (request, error) {
+                    $("#preLoading").hide();
+                    alert("Request: " + JSON.stringify(request));
+                }
+            });
+        }
+        function SozlesmeOnIzlemeMailGonder() {
+            var orderType = $("#OrderType").val();
+            var intallment = $("#Installment").val();
+            var DiscountAmount = $("#DiscountAmount").val();
+            var PayDate = $("#FirstDate").val();
+            var PacketId = $("#PacketId").val();
+            var PacketDay = $("#PacketDay").val();
+            var FirstDate = $("#FirstDate").val();
+            var MainPartyId = $("#StoreMainPartyId").val();
+            var PriceValueWithTax = $("#PriceValueWithTax").val();
+            var SendMail = true;
+            var Email = $("#Email").val();
+            $("#preLoading").show();
+            $.ajax({
+                url: '/Store/CreateProtocolBuyAndSendMail',
+                type: 'POST',
+                data: {
+                    "CategoryId": 146659,
+                    'OrderType': orderType,
+                    "Installment": intallment,
+                    "PayDate": PayDate,
+                    "MainPartyId": MainPartyId,
+                    "PayDate": FirstDate,
+                    "DiscountAmount": DiscountAmount,
+                    "PacketDay": PacketDay,
+                    "PacketId": PacketId,
+                    "PacketPrice": $("#PriceValue").val(),
+                    "PriceValueWithTax": PriceValueWithTax,
+                    "EMail": Email,
+                    "SendMail": SendMail
+                },
+                dataType: 'json',
+                success: function (data) {
+                    alert(data);
+                    $("#preLoading").hide();
+                },
+                error: function (request, error) {
+                    $("#preLoading").hide();
+                    alert("Request: " + JSON.stringify(request));
+                }
+            });
+        }
+        function createsozlesme() {
+            
+        }
+    </script>
 }
 
-    <div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px; border-width: 5px;"
-        id="preLoading">
-        <span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>
-        <strong>Yükleniyor.</strong> Lütfen bekleyiniz...
-    </div>
-    @using (Html.BeginPanel())
-        { 
+<div class="ui-state-highlight ui-corner-all loadingContent ui-helper-hidden" style="margin-top: 200px; border-width: 5px;"
+     id="preLoading">
+    <span style="float: left; margin-right: 0.3em" class="ui-icon ui-icon-info"></span>
+    <strong>Yükleniyor.</strong> Lütfen bekleyiniz...
+</div>
+@using (Html.BeginPanel())
+{
     @Html.Partial("TabMenu")
+
+<div class="col-md-6">
     <div style="width: 100%">
         <div id="sozlesmeLink" style="font-size:16px"></div>
         <table>
-            @Html.Hidden("StoreMainPartyId",ViewContext.RouteData.Values["id"])
-            @Html.HiddenFor(x=>x.PacketPrice)
+            @Html.Hidden("StoreMainPartyId", ViewContext.RouteData.Values["id"])
+            @Html.HiddenFor(x => x.PacketPrice)
             <tr>
                 <td>Firma</td>
                 <td>:</td>
                 <td>
-                     @Html.TextBoxFor(x => x.StoreName, new {@style="width:100%"})
+                    @Html.TextBoxFor(x => x.StoreName, new { @style = "width:100%" })
                 </td>
             </tr>
             <tr>
@@ -263,10 +354,10 @@
                 <td>
                     <select name="PacketId" id="PacketId">
                         <option value="0" price="0">Seçiniz</option>
-                        @foreach (var item in Model.Packets.OrderBy(x=>x.PacketName))
-                            {
-                                <option price="@item.PacketPrice"  day="@item.PacketDay" value="@item.PacketId">@item.PacketName</option>
-                            } 
+                        @foreach (var item in Model.Packets.OrderBy(x => x.PacketName))
+                        {
+                            <option price="@item.PacketPrice" day="@item.PacketDay" value="@item.PacketId">@item.PacketName</option>
+                        }
                     </select>
                 </td>
             </tr>
@@ -274,27 +365,29 @@
                 <td>Açıklama</td>
                 <td>:</td>
                 <td>
-                    <textarea name="Description" id="Description" rows="5" cols="5"></textarea></td>
+                    <textarea name="Description" id="Description" rows="5" cols="5"></textarea>
+                </td>
             </tr>
             <tr>
                 <td>Vergi Dairesi</td>
                 <td>:</td>
                 <td>
-                    @Html.TextBoxFor(x=>x.TaxOffice)
+                    @Html.TextBoxFor(x => x.TaxOffice)
                 </td>
             </tr>
             <tr>
                 <td>Vergi No</td>
                 <td>:</td>
                 <td>
-                    @Html.TextBoxFor(x=>x.TaxNo)
+                    @Html.TextBoxFor(x => x.TaxNo)
                 </td>
             </tr>
             <tr id="FirstDateContainer">
                 <td>Ödeme Tarihi</td>
                 <td>:</td>
                 <td>
-                    <input type="text" name="FirstDate" id="FirstDate" autocomplete="off" class="date" /></td>
+                    <input type="text" name="FirstDate" id="FirstDate" autocomplete="off" class="date" />
+                </td>
             </tr>
             <tr id="InstallmentContainer" style="display: none;">
                 <td>Taksit</td>
@@ -303,9 +396,9 @@
                     <select id="Installment">
                         <option value="0">Seçiniz</option>
                         @for (int i = 1; i <= 12; i++)
-                            {
-                        <option value="@i">@i Ay</option>
-                        } 
+                        {
+                            <option value="@i">@i Ay</option>
+                        }
                     </select>
                 </td>
             </tr>
@@ -327,36 +420,67 @@
                 <td id="DiscounTypeDesc">Oran</td>
                 <td>:</td>
                 <td>
-                    <input name="DiscountAmount" id="DiscountAmount" type="text" value="0" /></td>
+                    <input name="DiscountAmount" id="DiscountAmount" type="text" value="0" />
+                </td>
             </tr>
             <tr>
                 <td>Paket Süresi</td>
                 <td>:</td>
-                <td>@Html.TextBoxFor(x=>x.PacketDay)</td>
+                <td>@Html.TextBoxFor(x => x.PacketDay)</td>
             </tr>
             <tr>
                 <td>Fiyat</td>
                 <td>:</td>
                 <td id="">
                     <input type="text" id="PriceValue" value="@Model.PacketPrice" />
-                   </td>
+                </td>
             </tr>
             <tr>
                 <td>Kdv Dahil Fiyat</td>
                 <td>:</td>
-                <td >
+                <td>
                     <input type="text" disabled="disabled" id="PriceValueWithTax" />
-                    
+
                 </td>
             </tr>
             <tr>
                 <td></td>
-                <td></td>
+                <td> <button type="button" onclick="BuyPacket()">Satın Al</button></td>
                 <td>
-                    <button type="button" onclick="BuyPacket()">Satın Al</button></td>
+                    <button type="button" onclick="SozlesmeOnIzleme()">Sözleşme Ön İzleme</button>
+                </td>
             </tr>
         </table>
     </div>
-    } 
+</div>
+    <div class="col-md-6" id="pnlsozlesmebolum">
+        <hr />
+        <table width="100%">
+            <tbody>
+                <tr>
+                    <td width="80" style="float:left">
+                        <label> Eposta</label>
+                    </td>
+                    <td width="300" style="float:left">
+                        <input style="width:300px" id="Email" />
+                    </td>
+                    <td width="100" style="float:left">
+                        <button id="btnsozlesmemailgonder" onclick="SozlesmeOnIzlemeMailGonder()" class="btn btn-danger">Gönder</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <p id="pnlsozlesme">
 
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+}
+<script>
+    $("#pnlsozlesmebolum").hide();
+</script>
 

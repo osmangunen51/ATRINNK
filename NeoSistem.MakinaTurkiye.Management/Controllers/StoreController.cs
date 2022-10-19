@@ -1,4 +1,5 @@
-﻿using global::MakinaTurkiye.Services.Catalog;
+﻿using AutoMapper;
+using global::MakinaTurkiye.Services.Catalog;
 using global::MakinaTurkiye.Services.Checkouts;
 using global::MakinaTurkiye.Services.Common;
 using global::MakinaTurkiye.Services.Members;
@@ -6,6 +7,7 @@ using global::MakinaTurkiye.Services.Members;
 using global::MakinaTurkiye.Services.Stores;
 using MakinaTurkiye.Core;
 using MakinaTurkiye.Services.Logs;
+using MakinaTurkiye.Services.Messages;
 using MakinaTurkiye.Services.Packets;
 using MakinaTurkiye.Utilities.FileHelpers;
 using MakinaTurkiye.Utilities.HttpHelpers;
@@ -74,44 +76,35 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         private readonly IStoreDiscountService _storeDiscountService;
         private readonly IStoreSeoNotificationService _storeSeoNotificationService;
         private readonly IConstantService _constantService;
-
-
-
+        private readonly IAddressService _addressService;
+        private IMessagesMTService _messageMtService;
 
         #endregion
 
         #region Ctor
 
-        public StoreController(ILoginLogService loginLogService, IWhatsappLogService whatsapplogService, IStoreService storeService, IPacketService packetService, IMemberStoreService memberStoreService, IMemberService memberService,
-            IPhoneService phoneService, IAddressService addressService, IProductService productService,
-            IStoreNewService storeNewService, IOrderService orderService
-            , IOrderInstallmentService orderInstallmentService,
-             IStoreSectorService storeSectorService,
-             ICategoryService categoryService,
-              IStoreDiscountService storeDiscountService,
-              IStoreSeoNotificationService storeSeoNotificationService,
-              IConstantService constantService
-              )
-        {
-            this._loginLogService = loginLogService;
-            this._whatsapplogService = whatsapplogService;
-            this._storeService = storeService;
-            this._packetService = packetService;
-            this._memberStoreService = memberStoreService;
-            this._memberService = memberService;
-            this._phoneService = phoneService;
-            this._adressService = addressService;
-            this._productService = productService;
-            this._storeNewService = storeNewService;
-            this._orderService = orderService;
-            this._orderInstallmentService = orderInstallmentService;
-            this._storeSectorService = storeSectorService;
-            this._categoryService = categoryService;
-            this._storeDiscountService = storeDiscountService;
-            this._storeSeoNotificationService = storeSeoNotificationService;
-            this._constantService = constantService;
-            _phoneService.CachingGetOrSetOperationEnabled = false;
 
+        public StoreController(ILoginLogService loginLogService, IWhatsappLogService whatsapplogService, IStoreService storeService, IPacketService packetService, IMemberStoreService memberStoreService, IMemberService memberService, IAddressService adressService, IPhoneService phoneService, IProductService productService, IStoreNewService storeNewService, IOrderService orderService, IOrderInstallmentService orderInstallmentService, ICategoryService categoryService, IStoreSectorService storeSectorService, IStoreDiscountService storeDiscountService, IStoreSeoNotificationService storeSeoNotificationService, IConstantService constantService, IAddressService addressService, IMessagesMTService messageMtService)
+        {
+            _loginLogService = loginLogService;
+            _whatsapplogService = whatsapplogService;
+            _storeService = storeService;
+            _packetService = packetService;
+            _memberStoreService = memberStoreService;
+            _memberService = memberService;
+            _adressService = adressService;
+            _phoneService = phoneService;
+            _productService = productService;
+            _storeNewService = storeNewService;
+            _orderService = orderService;
+            _orderInstallmentService = orderInstallmentService;
+            _categoryService = categoryService;
+            _storeSectorService = storeSectorService;
+            _storeDiscountService = storeDiscountService;
+            _storeSeoNotificationService = storeSeoNotificationService;
+            _constantService = constantService;
+            _addressService = addressService;
+            _messageMtService = messageMtService;
         }
 
         #endregion
@@ -119,6 +112,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         static Data.Store dataStore = null;
         static ICollection<StoreModel> collection = null;
 
+       
         #region Methods
 
         public ActionResult PacketStatuSearch(int id)
@@ -3861,6 +3855,218 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             return RedirectToAction("Index");
         }
+
+
+        [HttpPost]
+        public JsonResult CreateProtocolBuyAndSendMail(
+                int CategoryId,
+                int OrderType,
+                int Installment,
+                string PayDate,
+                int MainPartyId,
+                decimal DiscountAmount,
+                int PacketDay,
+                int PacketId,
+                decimal PriceValueWithTax,
+                decimal PacketPrice,
+                string EMail="",
+                bool SendMail = false
+            )
+            {
+            string result = "";
+            if (CategoryId <= 0)
+            {
+                result = "hata";
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            var category = _categoryService.GetCategoryByCategoryId(CategoryId);
+            if (category == null)
+            {
+                result = "hata";
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                result = category.Content;
+
+                if (MainPartyId > 0)
+                {
+
+                    Dictionary<string, string> datas = new Dictionary<string, string>();
+
+                    var store = _storeService.GetStoreByMainPartyId(MainPartyId);
+                    var address = _addressService.GetAddressesByMainPartyId(MainPartyId).FirstOrDefault();
+                    var phones = _phoneService.GetPhonesByMainPartyId(MainPartyId);
+                    var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(MainPartyId);
+                    var member = _memberService.GetMemberByMainPartyId(memberStore.MemberMainPartyId.Value);
+                    var packet = _packetService.GetPacketByPacketId(PacketId);
+                    var goldPacket = _packetService.GetPacketByPacketId(29);
+                    datas.Add("{companyName}", store.StoreName);
+
+                    datas.Add("{address}", GetFullAddress(address));
+
+                    if (phones.Count() > 0)
+                    {
+                        var phone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneTypeEnum.Phone);
+                        if (phone == null)
+                        {
+                            phone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneTypeEnum.Gsm);
+                        }
+                        datas.Add("{phoneNumber}", phone.PhoneCulture + phone.PhoneAreaCode + " " + phone.PhoneNumber);
+                    }
+                    else
+                    {
+                        datas.Add("{phoneNumber}", "");
+                    }
+
+
+                    datas.Add("{email}", member.MemberEmail);
+                    datas.Add("{vergiNo}", store.TaxNumber);
+                    datas.Add("{alinanPaket}", packet.PacketName);
+                    datas.Add("{paketBaslangic}", DateTime.Now.ToString("dd/MM/yyyy"));
+                    if (PacketDay > 0)
+                    {
+                        DateTime orderPacketEndDate = DateTime.Now.AddDays(PacketDay);
+                        datas.Add("{paketBitis}", orderPacketEndDate.ToString("dd/MM/yyyy"));
+                    }
+
+                    datas.Add("{fiyat}", PriceValueWithTax.ToString("N2"));
+                    datas.Add("{faturaAdres}", GetFullAddress(address));
+                    datas.Add("{vergiDaire}", store.TaxOffice);
+                    datas.Add("{vergiSicilNo}", "");
+                    datas.Add("{sozlesmeTarih}", DateTime.Now.ToString("dd/MM/yyyy"));
+                    datas.Add("{orderType}", getOrderType(OrderType));
+                    datas.Add("{packetDay}", packet.PacketDay.ToString());
+                    datas.Add("{standartPacketPrice}", goldPacket.PacketPrice.ToString("N2"));
+                    datas.Add(" {paymentDate}", "");
+
+                    if (getOrderType(OrderType).Contains("Taksit"))
+                        datas.Add("{peşin}", "Taksit");
+                    else
+                        datas.Add("{peşin}", "Peşin");
+                    string orderInstallmentText = "";
+                    int counter = 0;
+                    if (Installment<1)
+                    {
+                        Installment = 1;
+                    }
+                    var orderInstallmentAmunt = PriceValueWithTax / Installment;
+                    DateTime orderInstallmentPayDate = DateTime.Now;
+                    for (int i = 0; i < Installment; i++)
+                    {
+                        orderInstallmentPayDate.AddDays(i * 30);
+                        string orderInsText = String.Format("{0} tarihli {1}. taksit tutarı : {2} TL<br>", orderInstallmentPayDate.ToString("dd/MM/yyyy"), ++counter, orderInstallmentAmunt.ToString("N2"));
+                        orderInstallmentText += orderInsText;
+                    }
+                    datas.Add("{taksit}", orderInstallmentText);
+
+                    foreach (var item in datas)
+                    {
+                        if (item.Key == "{peşin}" && item.Value != "Taksit")
+                        {
+                            result = result.Replace("<strong>Taksit</strong> :", "");
+                        }
+                        result = result.Replace(item.Key, item.Value);
+                    }
+
+                    if (SendMail)
+                    {
+                        #region emailicin
+                        var settings = ConfigurationManager.AppSettings;
+                        MailMessage mail = new MailMessage();
+                        global::MakinaTurkiye.Entities.Tables.Messages.MessagesMT mailT = _messageMtService.GetMessagesMTByMessageMTName("goldenpro");
+                        mail.From = new MailAddress(mailT.Mail, mailT.MailSendFromName); //Mailin kimden gittiğini belirtiyoruz
+
+                        mail.To.Add(EMail);                                                              //Mailin kime gideceğini belirtiyoruz
+                        mail.Subject = "Paket | Sözleşme Örneği";                                              //Mail konusu
+                        string template = "";
+                        string dateimiz = PacketDay.ToString();
+                        template = result;
+                        mail.Body = template;                                                           
+                        mail.IsBodyHtml = true;
+                        mail.Priority = MailPriority.High;
+                        this.SendMail(mail);
+                        result = "Başarıyla Gönderildi.";
+                        #endregion
+                    }
+                }
+            }
+            catch(Exception hata)
+            {
+                result = "Hata";
+            }
+            
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+
+        public  string GetFullAddress(global::MakinaTurkiye.Entities.Tables.Common.Address address)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (address.Town != null)
+            {
+                sb.AppendFormat("{0} ", address.Town.TownName);
+            }
+            sb.AppendFormat("{0} ", address.Avenue);
+            if (!string.IsNullOrEmpty(address.Street))
+            {
+                sb.AppendFormat("{0} ", address.Street);
+            }
+            if (!string.IsNullOrEmpty(address.ApartmentNo))
+            {
+                sb.AppendFormat("No: {0} ", address.ApartmentNo);
+            }
+            if (!string.IsNullOrWhiteSpace(address.DoorNo))
+            {
+                sb.AppendFormat("/ {0} ", address.DoorNo);
+            }
+
+            if (address.Town != null && address.Town.District != null)
+            {
+                sb.AppendFormat("{0} ", address.Town.District.DistrictName);
+            }
+
+            if (address.Locality != null)
+            {
+                sb.AppendFormat("{0} ", address.Locality.LocalityName);
+            }
+            if (address.City != null)
+            {
+                sb.AppendFormat("{0} ", address.City.CityName);
+            }
+            if (address.Country != null)
+            {
+                sb.AppendFormat("/ {0} ", address.Country.CountryName);
+            }
+            return sb.ToString();
+        }
+
+
+        private string getOrderType(int orderType)
+        {
+
+            switch (orderType)
+            {
+                case (int)Models.Ordertype.Havale:
+                    return "Havale";
+
+                case (int)Models.Ordertype.KrediKarti:
+                    return "Kredi Kartı";
+                case 3:
+                    return "Kredi Kartı Vade";
+                case 4:
+                    return "Havale Taksit";
+                case 5:
+                    return "Kredi Kartı Taksit";
+                default:
+                    break;
+            }
+            return "";
+        }
+
+
         #endregion
     }
 

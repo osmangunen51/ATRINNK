@@ -43,7 +43,27 @@
     </td>
     <td class="Cell">@itemMemberDesc.Title</td>
     <td class="Cell" style="font-size: 15px; width: 680px;">@Html.Raw(itemMemberDesc.Description)</td>
-    <td class="Cell" style="color:red;font-size:16px">@(string.IsNullOrEmpty(itemMemberDesc.StoreCityName)?(string.IsNullOrEmpty(itemMemberDesc.PreRegistrationStoreCityName)?"": itemMemberDesc.PreRegistrationStoreCityName.ToUpper()) : itemMemberDesc.StoreCityName.ToUpper())</td>
+    <td>
+        @if (!string.IsNullOrEmpty(itemMemberDesc.StoreName))
+        {
+            if (itemMemberDesc.CountryName != "Türkiye")
+            {
+                <span style="color:yellow">@itemMemberDesc.CountryName</span><br />
+            }
+            <span style="color:red;font-size:16px">@(itemMemberDesc.CityName != null ? itemMemberDesc.CityName.ToUpper() : "")</span><br />
+            <span style="color:yellowgreen">@itemMemberDesc.LocalityName</span>
+        }
+        else
+        {
+            if (itemMemberDesc.PreCountryName != "Türkiye")
+            {
+                <span style="color:yellow">@itemMemberDesc.PreCountryName</span><br />
+            }
+            <span style="color:red;font-size:16px">@(itemMemberDesc.PreCityName != null ? itemMemberDesc.PreCityName.ToUpper() : itemMemberDesc.PreRegistrationStoreCityName)</span><br />
+            <span style="color:yellowgreen">@itemMemberDesc.PreLocalityName</span>
+        }
+
+    </td>
     <td class="Cell" style="font-size: 10px;">
         <span style="font-weight: 600; font-size: 13px;">@itemMemberDesc.InputDate.ToString().Split(' ')[0]</span>
         <br />

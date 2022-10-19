@@ -23,5 +23,13 @@ namespace MakinaTurkiye.Entities.StoredProcedures.Members
         public bool? IsImmediate { get; set; }
         public string StoreCityName { get; set; } = "";
         public string PreRegistrationStoreCityName { get; set; } = "";
+
+        public string LocalityName { get; set; }
+        public string CityName { get; set; }
+        public string CountryName { get; set; }
+        public string PreLocalityName { get; set; }
+        public string PreCityName { get; set; }
+        public string PreCountryName { get; set; }
+
     }
 }

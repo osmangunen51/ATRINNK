@@ -196,10 +196,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 ModelState.AddModelError("StoreName", "Lütfen Firma Adını Giriniz");
             }
-            else if (string.IsNullOrEmpty(model.City))
-            {
-                ModelState.AddModelError("City", "Lütfen Şehir Adını Giriniz");
-            }
             else
             {
                 var preRegistrationStore = new PreRegistrationStore();
