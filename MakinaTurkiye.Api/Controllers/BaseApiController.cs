@@ -6,9 +6,11 @@ using System.Net.Mail;
 using System.ServiceModel.Channels;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MakinaTurkiye.Api.Controllers
 {
+    [EnableCors(origins: "*", headers: "*", methods: "*")]
     [MakinaTurkiye.Api.Code.ApiAuthorize]
     public class BaseApiController : ApiController
     {

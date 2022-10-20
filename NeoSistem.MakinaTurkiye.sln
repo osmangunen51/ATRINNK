@@ -73,6 +73,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NeoSistem.MakinaTurkiye.Man
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakinaTurkiye.ImageFix", "MakinaTurkiye.ImageFix\MakinaTurkiye.ImageFix.csproj", "{D991C7E3-4498-4942-BB15-6CBD5B80EE7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakinaTurkiye.Web.Agent", "MakinaTurkiye.Web.Agent\MakinaTurkiye.Web.Agent.csproj", "{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakinaTurkiye.Agent", "MakinaTurkiye.Agent\MakinaTurkiye.Agent.csproj", "{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -482,6 +486,38 @@ Global
 		{D991C7E3-4498-4942-BB15-6CBD5B80EE7A}.Release|x64.Build.0 = Release|x64
 		{D991C7E3-4498-4942-BB15-6CBD5B80EE7A}.Release|x86.ActiveCfg = Release|Any CPU
 		{D991C7E3-4498-4942-BB15-6CBD5B80EE7A}.Release|x86.Build.0 = Release|Any CPU
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Debug|x64.ActiveCfg = Debug|x64
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Debug|x64.Build.0 = Debug|x64
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Debug|x86.Build.0 = Debug|Any CPU
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Release|Mixed Platforms.Build.0 = Release|x64
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Release|x64.ActiveCfg = Release|x64
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Release|x64.Build.0 = Release|x64
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Release|x86.ActiveCfg = Release|Any CPU
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A}.Release|x86.Build.0 = Release|Any CPU
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Debug|Mixed Platforms.ActiveCfg = Debug|x64
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Debug|Mixed Platforms.Build.0 = Debug|x64
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Debug|x64.ActiveCfg = Debug|x64
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Debug|x64.Build.0 = Debug|x64
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Debug|x86.Build.0 = Debug|Any CPU
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|Mixed Platforms.ActiveCfg = Release|x64
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|Mixed Platforms.Build.0 = Release|x64
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|x64.ActiveCfg = Release|x64
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|x64.Build.0 = Release|x64
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -516,11 +552,13 @@ Global
 		{E1A0D9C1-642C-4150-97E0-83BC0C8C5791} = {64BDDDA8-F40F-465B-83BC-295B0A86432E}
 		{84309D68-1C0C-44C0-B118-4786BC1D19C3} = {08981DA8-1288-4B67-87D2-25D021BBFC4B}
 		{D991C7E3-4498-4942-BB15-6CBD5B80EE7A} = {E3AF8A8E-3AEB-4C19-94BE-FBDE53B2AA6C}
+		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A} = {08981DA8-1288-4B67-87D2-25D021BBFC4B}
+		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5} = {64BDDDA8-F40F-465B-83BC-295B0A86432E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.Logging.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 		SolutionGuid = {943471DD-C929-42E6-ABF0-5EE9B6366281}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.Logging.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true
