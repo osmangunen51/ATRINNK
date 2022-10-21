@@ -7,14 +7,14 @@ namespace MakinaTurkiye.Api
     {
         public static void Register(HttpConfiguration config)
         {
-            #region CORS hatası için...
-            //Normalde diğer projeler için gerekmeye bilir ama burada test ederken CORS hatasına düşmeyecek.
-            var enableCorsAttribute = new EnableCorsAttribute("*",
-                                               "Origin, Content-Type, Accept",
-                                               "GET, PUT, POST, DELETE, OPTIONS");
+            //#region CORS hatası için...
+            ////Normalde diğer projeler için gerekmeye bilir ama burada test ederken CORS hatasına düşmeyecek.
+            //var enableCorsAttribute = new EnableCorsAttribute("*",
+            //                                   "Origin, Content-Type, Accept",
+            //                                   "GET, PUT, POST, DELETE, OPTIONS");
 
-            config.EnableCors(enableCorsAttribute);
-            #endregion
+            //config.EnableCors(enableCorsAttribute);
+            //#endregion
 
             // Web API configuration and services
 
@@ -29,6 +29,7 @@ namespace MakinaTurkiye.Api
                     No = RouteParameter.Optional
                 }
             );
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
         }
     }
 }
