@@ -357,5 +357,10 @@ namespace MakinaTurkiye.Core
         {
             get { return ConfigurationManager.AppSettings["Css-Versiyon"].ToString(); }
         }
+
+        public static string PostgreSqlConnectionString
+        {
+            get { return ConfigurationManager.AppSettings["PostgreSql-ConnectionString"].ToString(); }
+        }
     }
 }

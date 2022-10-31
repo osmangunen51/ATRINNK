@@ -167,7 +167,8 @@ namespace MakinaTurkiye.Services.Catalog
                 if (!showHidden)
                     query = query.Where(c => c.Active == true);
 
-                query = query.Where(c => c.CategoryParentId == categoryParentId && c.ProductCount > 0);
+                query = query.Where(c => c.CategoryParentId == categoryParentId);
+                if (isProductCount) query = query.Where(x => x.ProductCount > 0);
                 query = query.OrderBy(c => c.CategoryOrder).ThenBy(k => k.CategoryName);
 
                 var categories = query.ToList();

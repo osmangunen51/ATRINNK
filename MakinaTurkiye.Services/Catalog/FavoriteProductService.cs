@@ -2,6 +2,7 @@
 using MakinaTurkiye.Core;
 using MakinaTurkiye.Core.Data;
 using MakinaTurkiye.Entities.Tables.Catalog;
+using MakinaTurkiye.Entities.Tables.Members;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -76,6 +77,11 @@ namespace MakinaTurkiye.Services.Catalog
         {
             var query = _favoriteProductRepository.Table;
             return query.ToList();
+        }
+        public List<FavoriteProduct> GetFavoriteProductsByMainPartyId(int mainPartyId)
+        {
+            var query = _favoriteProductRepository.Table;
+            return query.Where(x=>x.MainPartyId==mainPartyId).ToList();
         }
 
         public void DeleteFavoriteProduct(FavoriteProduct favoriteProduct)

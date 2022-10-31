@@ -7,6 +7,9 @@ namespace MakinaTurkiye.Services.Catalog
     public interface IFavoriteProductService
     {
         List<FavoriteProduct> GetFavoriteProducts();
+
+        List<FavoriteProduct> GetFavoriteProductsByMainPartyId(int mainPartyId);
+
         FavoriteProduct GetFavoriteProductByFavoriteProductId(int favoriteProductId);
         FavoriteProduct GetFavoriteProductByMainPartyIdWithProductId(int mainPartyId, int productId);
         IPagedList<FavoriteProduct> GetAllFavoriteProduct(int pageSize, int page);

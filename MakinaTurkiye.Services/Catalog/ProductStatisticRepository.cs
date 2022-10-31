@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using MakinaTurkiye.Core;
 using MakinaTurkiye.Entities.Tables.Catalog;
 using Npgsql;
 using System;
@@ -13,7 +14,7 @@ namespace MakinaTurkiye.Services.Catalog
         private string connectionString;
         public ProductStatisticRepository()
         {
-            connectionString = "server=45.155.125.111,1453;database=MakinaTurkiye;user id=postgres;password=m4k!n+3^05trk,3";
+            connectionString = AppSettings.PostgreSqlConnectionString;
         }
 
         internal IDbConnection Connection

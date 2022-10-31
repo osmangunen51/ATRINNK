@@ -330,8 +330,12 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     var privateMessageViewList = new List<Object>();
                     var allMessageMainPartyForLogginMamber = _messageService.GetAllMessageMainParty(member.MainPartyId, (byte)MessageTypeEnum.Inbox).ToList();
-                    foreach (var messageMainPartyForLogginMamber in allMessageMainPartyForLogginMamber)
+                    foreach (var messageMainPartyForLogginMamberItm in allMessageMainPartyForLogginMamber.GroupBy(x=>x.InOutMainPartyId))
                     {
+                        List<> 
+
+                        var messageMainPartyForLogginMamberList =  allMessageMainPartyForLogginMamber.Where(x => x.InOutMainPartyId == messageMainPartyForLogginMamberItm.Key).OrderByDescending(x => x.MessageId);
+
                         var messageData = _messageService.GetMessageByMesssageId(messageMainPartyForLogginMamber.MessageId);
                         var senderUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.InOutMainPartyId);
                         var targetUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.MainPartyId);
@@ -402,7 +406,7 @@ namespace MakinaTurkiye.Api.Controllers
                 processStatus.Error = ex;
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-        }
+        }        
 
         public HttpResponseMessage GetInboxPrivateMessageContent(int messageId)
         {
@@ -648,5 +652,96 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+        public HttpResponseMessage GetPrivateMessageHistory(int MessageId = 0)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null)
+                {
+                    var privateMessageViewList = new List<Object>();
+                    var allMessageMainPartyForLogginMamber = _messageService.GetMessageByMesssageId().ToList();
+                    foreach (var messageMainPartyForLogginMamberItm in allMessageMainPartyForLogginMamber.GroupBy(x => x.InOutMainPartyId))
+                    {
+                        var messageMainPartyForLogginMamberList = allMessageMainPartyForLogginMamber.Where(x => x.InOutMainPartyId == messageMainPartyForLogginMamberItm.Key).T
+
+                        //foreach (var messageMainPartyForLogginMamber in messageMainPartyForLogginMamberList)
+                        //{
+                        //    var messageData = _messageService.GetMessageByMesssageId(messageMainPartyForLogginMamber.MessageId);
+                        //    var senderUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.InOutMainPartyId);
+                        //    var targetUser = _memberService.GetMemberByMainPartyId(messageMainPartyForLogginMamber.MainPartyId);
+                        //    var tmpproductresult = _productService.GetProductByProductId(messageData.ProductId);
+                        //    if (tmpproductresult != null)
+                        //    {
+                        //        var Currency = tmpproductresult.GetCurrency();
+                        //        View.Result.ProductSearchResult ProductSearchResult = new View.Result.ProductSearchResult
+                        //        {
+                        //            ProductId = tmpproductresult.ProductId,
+                        //            CurrencyCodeName = Currency,
+                        //            ProductName = tmpproductresult.ProductName,
+                        //            BrandName = tmpproductresult.Brand.CategoryName,
+                        //            ModelName = tmpproductresult.Model.CategoryName,
+                        //            MainPicture = "",
+                        //            StoreName = "",
+                        //            MainPartyId = (int)tmpproductresult.MainPartyId,
+                        //            ProductPrice = (tmpproductresult.ProductPrice ?? 0),
+                        //            ProductPriceType = (byte)tmpproductresult.ProductPriceType,
+                        //            ProductPriceLast = (tmpproductresult.ProductPriceLast ?? 0),
+                        //            ProductPriceBegin = (tmpproductresult.ProductPriceBegin ?? 0),
+                        //            HasVideo = tmpproductresult.HasVideo,
+                        //        };
+                        //        string picturePath = "";
+                        //        var picture = _pictureService.GetFirstPictureByProductId(ProductSearchResult.ProductId);
+                        //        if (picture != null)
+                        //            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(ProductSearchResult.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                        //        var privateMessage = new
+                        //        {
+                        //            TargetMainPartyId = targetUser.MainPartyId,
+                        //            TargetNameSurname = targetUser.MemberName + " " + targetUser.MemberSurname,
+                        //            SenderMainPartyId = senderUser.MainPartyId,
+                        //            SenderNameSurname = senderUser.MemberName + " " + senderUser.MemberSurname,
+                        //            MessageId = messageMainPartyForLogginMamber.MessageId,
+                        //            MessageType = messageMainPartyForLogginMamber.MessageType,
+                        //            MessageDate = messageData.MessageDate,
+                        //            MessageFile = messageData.MessageFile,
+                        //            MessageRead = messageData.MessageRead,
+                        //            MessageSeenAdmin = messageData.MessageSeenAdmin,
+                        //            MessageSubject = messageData.MessageSubject,
+                        //            ProductId = messageData.ProductId,
+                        //            MessageContent = messageData.MessageContent,
+                        //            Product = ProductSearchResult
+                        //        };
+                        //        privateMessageViewList.Add(privateMessage);
+                        //    }
+                        //}
+                    }
+                    processStatus.Result = privateMessageViewList;
+                    processStatus.TotolRowCount = privateMessageViewList.Count;
+                    processStatus.Message.Header = "Inbox Private Message";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Inbox Private Message";
+                    processStatus.Message.Text = "İşlem başarısız.";
+                    processStatus.Status = false;
+                    processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız!";
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "Inbox Private Message";
+                processStatus.Message.Text = "İşlem başarısız.";
+                processStatus.Status = false;
+                processStatus.Result = "Hata ile karşılaşıldı!";
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
     }
 }
