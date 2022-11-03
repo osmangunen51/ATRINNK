@@ -32,6 +32,13 @@ namespace MakinaTurkiye.Services.Catalog
             int modelId, int seriresId, int searchTypeId, int mainPartyId, int countryId = 0, int cityId = 0,
             int localityId = 0, int orderById = 0, int pageIndex = 0, int pageSize = 0, string searchText = "");
 
+
+
+        CategoryProductsResult GetCategoryProductsPriceRange(int categoryId, int brandId, int modelId, int seriresId,
+            int searchTypeId, int mainPartyId, int countryId = 0, int cityId = 0,
+            int localityId = 0, int orderById = 0, int pageIndex = 0, int pageSize = 0, string searchText = "", decimal SelectMinPrice = 0, decimal SelectMaxPrice = 0);
+
+
         IList<PopularProductResult> GetSPPopularProducts();
         /// <summary>
         /// Home İçin Yeni Eklenen Ürünleri Çekmek Amacıyla Yazıldı. Sp  çağırmaktadır.

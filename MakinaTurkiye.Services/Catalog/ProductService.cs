@@ -469,6 +469,273 @@ namespace MakinaTurkiye.Services.Catalog
             return new PagedList<WebCategoryProductResult>(products, pageIndex, pageSize, totalRecords);
         }
 
+
+        public IPagedList<WebCategoryProductResult> SPWebCategoryProductWithPriceRange(out List<FilterableCategoriesResult> filterableCategoryIds,
+    out List<int> filterableCountryIds,
+    out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
+    out List<int> filterableModelIds, out List<int> filterableSeriesIds,
+    out int newProductCount, out int usedProductCount, out int serviceProductCount,
+    out decimal MinPrice, out decimal MaxPrice,
+    int categoryId, int brandId,
+    int modelId, int seriresId, int searchTypeId, int mainPartyId, int countryId = 0, int cityId = 0,
+    int localityId = 0, int orderById = 0, int pageIndex = 0, int pageSize = 0, string searchText = "",decimal SelectMinPrice=0,decimal SelectMaxPrice=0)
+        {
+
+            filterableCountryIds = new List<int>();
+            filterableCityIds = new List<int>();
+            filterableLocalityIds = new List<int>();
+
+            filterableCategoryIds = new List<FilterableCategoriesResult>();
+            filterableBrandIds = new List<int>();
+            filterableModelIds = new List<int>();
+            filterableSeriesIds = new List<int>();
+
+
+            var pCategoryId = _dataProvider.GetParameter();
+            pCategoryId.ParameterName = "CategoryId";
+            pCategoryId.Value = categoryId;
+            pCategoryId.DbType = DbType.Int32;
+
+            var pBrandId = _dataProvider.GetParameter();
+            pBrandId.ParameterName = "BrandId";
+            pBrandId.Value = brandId;
+            pBrandId.DbType = DbType.Int32;
+
+            var pModelId = _dataProvider.GetParameter();
+            pModelId.ParameterName = "ModelId";
+            pModelId.Value = modelId;
+            pModelId.DbType = DbType.Int32;
+
+            var pSeriesId = _dataProvider.GetParameter();
+            pSeriesId.ParameterName = "SeriresId";
+            pSeriesId.Value = seriresId;
+            pSeriesId.DbType = DbType.Int32;
+
+            var pSearchType = _dataProvider.GetParameter();
+            pSearchType.ParameterName = "SearchType";
+            pSearchType.Value = searchTypeId;
+            pSearchType.DbType = DbType.Int16;
+
+            var pMainPartyId = _dataProvider.GetParameter();
+            pMainPartyId.ParameterName = "MainPartyId";
+            pMainPartyId.Value = mainPartyId;
+            pMainPartyId.DbType = DbType.Int32;
+
+            var pOrderBy = _dataProvider.GetParameter();
+            pOrderBy.ParameterName = "OrderBy";
+            pOrderBy.Value = orderById;
+            pOrderBy.DbType = DbType.Int16;
+
+            var pCountryId = _dataProvider.GetParameter();
+            pCountryId.ParameterName = "CountryId";
+            pCountryId.Value = countryId;
+            pCountryId.DbType = DbType.Int32;
+
+            var pCityId = _dataProvider.GetParameter();
+            pCityId.ParameterName = "CityId";
+            pCityId.Value = cityId;
+            pCityId.DbType = DbType.Int32;
+
+            var pLocalityId = _dataProvider.GetParameter();
+            pLocalityId.ParameterName = "LocalityId";
+            pLocalityId.Value = localityId;
+            pLocalityId.DbType = DbType.Int32;
+
+            var pPageIndex = _dataProvider.GetParameter();
+            pPageIndex.ParameterName = "PageIndex";
+            pPageIndex.Value = pageIndex;
+            pPageIndex.DbType = DbType.Int32;
+
+            var pPageSize = _dataProvider.GetParameter();
+            pPageSize.ParameterName = "PageSize";
+            pPageSize.Value = pageSize;
+            pPageSize.DbType = DbType.Int32;
+
+            var pSelectMinPrice = _dataProvider.GetParameter();
+            pSelectMinPrice.ParameterName = "SelectMinPrice";
+            pSelectMinPrice.Value =SelectMinPrice ;
+            pSelectMinPrice.DbType = DbType.Int32;
+
+            var pSelectMaxPrice = _dataProvider.GetParameter();
+            pSelectMaxPrice.ParameterName = "SelectMaxPrice";
+            pSelectMaxPrice.Value = SelectMaxPrice;
+            pSelectMaxPrice.DbType = DbType.Int32;
+
+
+
+            var pFilterableCategoryIds = _dataProvider.GetParameter();
+            pFilterableCategoryIds.ParameterName = "FilterableCategoryIds";
+            pFilterableCategoryIds.Direction = ParameterDirection.Output;
+            pFilterableCategoryIds.Size = int.MaxValue - 1;
+            pFilterableCategoryIds.DbType = DbType.String;
+
+            var pFilterableBrandIds = _dataProvider.GetParameter();
+            pFilterableBrandIds.ParameterName = "FilterableBrandIds";
+            pFilterableBrandIds.Direction = ParameterDirection.Output;
+            pFilterableBrandIds.Size = int.MaxValue - 1;
+            pFilterableBrandIds.DbType = DbType.String;
+
+            var pFilterableModelIds = _dataProvider.GetParameter();
+            pFilterableModelIds.ParameterName = "FilterableModelIds";
+            pFilterableModelIds.Direction = ParameterDirection.Output;
+            pFilterableModelIds.Size = int.MaxValue - 1;
+            pFilterableModelIds.DbType = DbType.String;
+
+            var pFilterableSeriesIds = _dataProvider.GetParameter();
+            pFilterableSeriesIds.ParameterName = "FilterableSeriesIds";
+            pFilterableSeriesIds.Direction = ParameterDirection.Output;
+            pFilterableSeriesIds.Size = int.MaxValue - 1;
+            pFilterableSeriesIds.DbType = DbType.String;
+
+            var pFilterableCountryIds = _dataProvider.GetParameter();
+            pFilterableCountryIds.ParameterName = "FilterableCountryIds";
+            pFilterableCountryIds.Direction = ParameterDirection.Output;
+            pFilterableCountryIds.Size = int.MaxValue - 1;
+            pFilterableCountryIds.DbType = DbType.String;
+
+            var pFilterableCityIds = _dataProvider.GetParameter();
+            pFilterableCityIds.ParameterName = "FilterableCityIds";
+            pFilterableCityIds.Direction = ParameterDirection.Output;
+            pFilterableCityIds.Size = int.MaxValue - 1;
+            pFilterableCityIds.DbType = DbType.String;
+
+            var pFilterableLocalityIds = _dataProvider.GetParameter();
+            pFilterableLocalityIds.ParameterName = "FilterableLocalityIds";
+            pFilterableLocalityIds.Direction = ParameterDirection.Output;
+            pFilterableLocalityIds.Size = int.MaxValue - 1;
+            pFilterableLocalityIds.DbType = DbType.String;
+
+            var pSearchText = _dataProvider.GetParameter();
+            pSearchText.ParameterName = "SearchText";
+            pSearchText.Value = searchText;
+            pSearchText.DbType = DbType.String;
+
+            var pNewProductCount = _dataProvider.GetParameter();
+            pNewProductCount.ParameterName = "NewProductCount";
+            pNewProductCount.DbType = DbType.Int32;
+            pNewProductCount.Direction = ParameterDirection.Output;
+
+            var pUsedProductCount = _dataProvider.GetParameter();
+            pUsedProductCount.ParameterName = "UsedProductCount";
+            pUsedProductCount.DbType = DbType.Int32;
+            pUsedProductCount.Direction = ParameterDirection.Output;
+
+            var pServiceProductCount = _dataProvider.GetParameter();
+            pServiceProductCount.ParameterName = "ServiceProductCount";
+            pServiceProductCount.DbType = DbType.Int32;
+            pServiceProductCount.Direction = ParameterDirection.Output;
+
+            var pTotalRecords = _dataProvider.GetParameter();
+            pTotalRecords.ParameterName = "TotalRecord";
+            pTotalRecords.DbType = DbType.Int32;
+            pTotalRecords.Direction = ParameterDirection.Output;
+
+            var pMinPrice = _dataProvider.GetParameter();
+            pMinPrice.ParameterName = "MinPrice";
+            pMinPrice.DbType = DbType.Double;
+            pMinPrice.Direction = ParameterDirection.Output;
+
+            var pMaxPrice = _dataProvider.GetParameter();
+            pMaxPrice.ParameterName = "MaxPrice";
+            pMaxPrice.DbType = DbType.Double;
+            pMaxPrice.Direction = ParameterDirection.Output;
+
+
+
+            var datatable = _dbContext.ExecuteDataTable("SP_ProductWebSearchLast_5", CommandType.StoredProcedure,
+            pCategoryId, pBrandId, pModelId, pSeriesId, pSearchType, pOrderBy,
+            pCountryId, pCityId, pLocalityId, pPageSize, pPageIndex, pSearchText, pMainPartyId,
+            pSelectMinPrice,
+            pSelectMaxPrice,
+            pFilterableCategoryIds, pFilterableBrandIds, pFilterableModelIds,
+            pFilterableSeriesIds, pFilterableCountryIds,
+            pFilterableCityIds, pFilterableLocalityIds,
+            pTotalRecords, pNewProductCount, pUsedProductCount, pServiceProductCount,
+            pMinPrice,pMaxPrice);
+            var products = datatable.DataTableToObjectList<WebCategoryProductResult>();
+
+            int totalRecords = (pTotalRecords.Value != DBNull.Value) ? Convert.ToInt32(pTotalRecords.Value) : 0;
+            newProductCount = (pNewProductCount.Value != DBNull.Value) ? Convert.ToInt32(pNewProductCount.Value) : 0;
+            usedProductCount = (pUsedProductCount.Value != DBNull.Value) ? Convert.ToInt32(pUsedProductCount.Value) : 0;
+            serviceProductCount = (pServiceProductCount.Value != DBNull.Value) ? Convert.ToInt32(pServiceProductCount.Value) : 0;
+
+
+            string filterableCategoryIdStr = (pFilterableCategoryIds.Value != DBNull.Value) ? (string)pFilterableCategoryIds.Value : string.Empty;
+            if (!string.IsNullOrEmpty(filterableCategoryIdStr))
+            {
+                var filterableCategoriesStr = filterableCategoryIdStr.Split(',');
+                foreach (var item in filterableCategoriesStr)
+                {
+                    var filterableCategoryResult = new FilterableCategoriesResult
+                    {
+                        CategoryId = Convert.ToInt32(item.Split('~')[0]),
+                        ProductCount = Convert.ToInt32(item.Split('~')[1])
+                    };
+                    filterableCategoryIds.Add(filterableCategoryResult);
+                }
+            }
+
+            string filterableBrandIdStr = (pFilterableBrandIds.Value != DBNull.Value) ? (string)pFilterableBrandIds.Value : string.Empty;
+            if (!string.IsNullOrEmpty(filterableBrandIdStr))
+            {
+                filterableBrandIds = filterableBrandIdStr
+                    .Split(new[] { ',' })
+                    .Select(x => Convert.ToInt32(x.Trim()))
+                    .ToList();
+            }
+
+            string filterableModelIdStr = (pFilterableModelIds.Value != DBNull.Value) ? (string)pFilterableModelIds.Value : string.Empty;
+            if (!string.IsNullOrEmpty(filterableModelIdStr))
+            {
+                filterableModelIds = filterableModelIdStr
+                    .Split(new[] { ',' })
+                    .Select(x => Convert.ToInt32(x.Trim()))
+                    .ToList();
+            }
+
+            string filterableSeriesIdStr = (pFilterableSeriesIds.Value != DBNull.Value) ? (string)pFilterableSeriesIds.Value : string.Empty;
+            if (!string.IsNullOrEmpty(filterableSeriesIdStr))
+            {
+                filterableSeriesIds = filterableSeriesIdStr
+                    .Split(new[] { ',' })
+                    .Select(x => Convert.ToInt32(x.Trim()))
+                    .ToList();
+            }
+
+            string filterableCountryIdsStr = (pFilterableCountryIds.Value != DBNull.Value) ? (string)pFilterableCountryIds.Value : string.Empty;
+            if (!string.IsNullOrEmpty(filterableCountryIdsStr))
+            {
+                filterableCountryIds = filterableCountryIdsStr
+                    .Split(new[] { ',' })
+                    .Select(x => Convert.ToInt32(x.Trim()))
+                    .ToList();
+            }
+
+            string filterableCityIdsStr = (pFilterableCityIds.Value != DBNull.Value) ? (string)pFilterableCityIds.Value : string.Empty;
+            if (!string.IsNullOrEmpty(filterableCityIdsStr))
+            {
+                filterableCityIds = filterableCityIdsStr
+                    .Split(new[] { ',' })
+                    .Select(x => Convert.ToInt32(x.Trim()))
+                    .ToList();
+            }
+
+            string filterableLocalityIdStr = (pFilterableLocalityIds.Value != DBNull.Value) ? (string)pFilterableLocalityIds.Value : string.Empty;
+            if (!string.IsNullOrEmpty(filterableLocalityIdStr))
+            {
+                filterableLocalityIds = filterableLocalityIdStr
+                    .Split(new[] { ',' })
+                    .Select(x => Convert.ToInt32(x.Trim()))
+                    .ToList();
+            }
+
+            MinPrice = Convert.ToDecimal(pMinPrice.Value);
+            MaxPrice = Convert.ToDecimal(pMaxPrice.Value);
+            return new PagedList<WebCategoryProductResult>(products, pageIndex, pageSize, totalRecords);
+        }
+
+
+
         public IList<PopularProductResult> GetSPPopularProducts()
         {
 
@@ -885,6 +1152,94 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
 
         }
 
+
+
+        public CategoryProductsResult GetCategoryProductsPriceRange(int categoryId, int brandId, int modelId, int seriresId,
+            int searchTypeId, int mainPartyId, int countryId = 0, int cityId = 0,
+            int localityId = 0, int orderById = 0, int pageIndex = 0, int pageSize = 0, string searchText = "",decimal SelectMinPrice=0, decimal SelectMaxPrice = 0)
+        {
+            if (categoryId == 0)
+                return new CategoryProductsResult();
+
+
+            if (string.IsNullOrEmpty(searchText))
+            {
+                string key = string.Format(PRODUCTS_SP_CATEGORYPRODUCTS_BY_PARAMETER_KEY, categoryId, brandId, modelId, seriresId,
+                searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize);
+                return _cacheManager.Get(key, () =>
+                {
+
+
+                    var products = this.SPWebCategoryProductWithPriceRange(out List<FilterableCategoriesResult> filterableCategoryIds,
+        out List<int> filterableCountryIds,
+        out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
+        out List<int> filterableModelIds, out List<int> filterableSeriesIds,
+        out int newProductCount, out int usedProductCount, out int serviceProductCount,
+        out decimal MinPrice, out decimal MaxPrice,
+        categoryId, brandId, modelId, seriresId,
+        searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText, SelectMinPrice, SelectMaxPrice);
+
+                    var result = new CategoryProductsResult
+                    {
+                        Products = products,
+                        FilterableCategoryIds = filterableCategoryIds,
+                        FilterableBrandIds = filterableBrandIds,
+                        FilterableCityIds = filterableCityIds,
+                        FilterableCountryIds = filterableCountryIds,
+                        FilterableLocalityIds = filterableLocalityIds,
+                        FilterableModelIds = filterableModelIds,
+                        FilterableSeriesIds = filterableSeriesIds,
+                        PageIndex = products.PageIndex,
+                        PageSize = products.PageSize,
+                        TotalCount = products.TotalCount,
+                        TotalPages = products.TotalPages,
+                        NewProductCount = newProductCount,
+                        UsedProductCount = usedProductCount,
+                        ServicesProductCount = serviceProductCount,
+                        MinPrice=MinPrice,
+                        MaxPrice=MaxPrice
+
+                    };
+                    return result;
+                });
+
+            }
+            else
+            {
+                var products = this.SPWebCategoryProductWithPriceRange(out List<FilterableCategoriesResult> filterableCategoryIds,
+          out List<int> filterableCountryIds,
+          out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
+          out List<int> filterableModelIds, out List<int> filterableSeriesIds,
+          out int newProductCount, out int usedProductCount, out int serviceProductCount,
+           out decimal MinPrice, out decimal MaxPrice,
+          categoryId, brandId, modelId, seriresId,
+          searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText, SelectMinPrice, SelectMaxPrice);
+
+                var result = new CategoryProductsResult
+                {
+                    Products = products,
+                    FilterableCategoryIds = filterableCategoryIds,
+                    FilterableBrandIds = filterableBrandIds,
+                    FilterableCityIds = filterableCityIds,
+                    FilterableCountryIds = filterableCountryIds,
+                    FilterableLocalityIds = filterableLocalityIds,
+                    FilterableModelIds = filterableModelIds,
+                    FilterableSeriesIds = filterableSeriesIds,
+                    PageIndex = products.PageIndex,
+                    PageSize = products.PageSize,
+                    TotalCount = products.TotalCount,
+                    TotalPages = products.TotalPages,
+                    NewProductCount = newProductCount,
+                    UsedProductCount = usedProductCount,
+                    ServicesProductCount = serviceProductCount,
+                    MinPrice = MinPrice,
+                    MaxPrice = MaxPrice
+
+                };
+                return result;
+            }
+
+        }
 
         public IList<StoreProfileProductsResult> GetSPProductsByStoreMainPartyId(int pageDimension,
             int page, int storeMainPartyId, int mainPartyId = 0, byte searchType = 0)

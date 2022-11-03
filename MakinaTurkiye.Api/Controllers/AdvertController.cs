@@ -1846,9 +1846,12 @@ namespace MakinaTurkiye.Api.Controllers
                             product.SingularViewCount = 0;
                             product.MainPartyId = member.MainPartyId;
                             _productService.InsertProduct(product);
+                           
+                            _productService.InsertProduct(product);
+
                             // Product No Oluşturuluyor...
                             int kalansayisi = 8 - product.ProductId.ToString().Length;
-                            if (kalansayisi<0)
+                            if (kalansayisi < 0)
                             {
                                 kalansayisi = 0;
                             }
@@ -1856,13 +1859,23 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 product.ProductNo = "0" + product.ProductNo;
                             }
-
                             product.ProductNo = "#" + product.ProductNo;
                             _productService.UpdateProduct(product);
 
                         }
                         else
-                        { 
+                        {
+                            // Product No Oluşturuluyor...
+                            int kalansayisi = 8 - product.ProductId.ToString().Length;
+                            if (kalansayisi < 0)
+                            {
+                                kalansayisi = 0;
+                            }
+                            for (int i = 0; i < kalansayisi; i++)
+                            {
+                                product.ProductNo = "0" + product.ProductNo;
+                            }
+                            product.ProductNo = "#" + product.ProductNo;
                             _productService.UpdateProduct(product);
                         }
 

@@ -64,7 +64,7 @@ namespace MakinaTurkiye.Api.Controllers
 
         public StoreController()
         {
-           
+
             _storeNewService = EngineContext.Current.Resolve<IStoreNewService>();
             _categoryService = EngineContext.Current.Resolve<ICategoryService>();
             _productService = EngineContext.Current.Resolve<IProductService>();
@@ -4194,7 +4194,7 @@ namespace MakinaTurkiye.Api.Controllers
                 if (memberStore != null)
                 {
                     var member = _memberService.GetMemberByMainPartyId((int)memberStore.MemberMainPartyId);
-                    if (member!=null)
+                    if (member != null)
                     {
                         model.OfficialName = member.MemberName;
                         model.OfficialSurName = member.MemberSurname;
@@ -4440,7 +4440,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 MainPicture = "",
                                 StoreName = "",
                                 PictureList = "".Split(',').ToList(),
-                                HasVideo=item.HasVideo
+                                HasVideo = item.HasVideo
                             };
                             string picturePath = "";
                             var picture = _pictureService.GetFirstPictureByProductId(TmpResult.ProductId);
@@ -4460,126 +4460,6 @@ namespace MakinaTurkiye.Api.Controllers
                             Products = TmpStoreProductList
                         });
                     }
-
-
-
-                    IList<int> searchBasedOnFilterableCityIds = null;
-                    IList<int> searchBasedOnFilterableLocalityIds = null;
-                    IList<int> filterableActivityIds = null;
-
-
-                    searchBasedOnFilterableCityIds = IslemResult.FilterableCityIds;
-                    searchBasedOnFilterableLocalityIds = IslemResult.FilterableLocalityIds;
-                    filterableActivityIds = IslemResult.FilterableActivityIds;
-
-
-                    var acitivtyIdsDistinct = filterableActivityIds.Distinct();
-                    var activitiyTypes = _activityTypeService.GetAllActivityTypes();
-                    foreach (var activityTypeId in acitivtyIdsDistinct)
-                    {
-                        var activityType = activitiyTypes.FirstOrDefault(at => at.ActivityTypeId == activityTypeId);
-                        if (activityType != null)
-                        {
-                            var tempActivityName = activityType.ActivityName.TrimEnd(' ').Replace(" ", "-");
-                            var filtered = GetActivityTypeFilterQueryString().Split(',');
-                            model.FilteringContext.MtStoreActivityTypeFilterModel.ActivityTypeFilterItemModels.Add(new ActivityTypeFilterItemModel()
-                            {
-                                Filtered = filtered.Contains(tempActivityName),
-                                FilterItemId = activityType.ActivityTypeId.ToString(),
-                                FilterItemName = activityType.ActivityName,
-                                StoreCount = filterableActivityIds.Count(x => x == activityTypeId),
-                                FilterUrl = filtered.Contains(tempActivityName) ? QueryStringBuilder.RemoveActivityTypeFilterQueryString(Request.Url.ToString(), tempActivityName) : QueryStringBuilder.ModifyActivityTypeFilterQueryString(Request.Url.ToString(), tempActivityName)
-                            });
-                        }
-                    }
-                    if (filterableCityIds != null && filterableCityIds.Count > 0)
-                    {
-                        int selectedCityId = GetCityIdByCityName();
-                        var filterAbleCities = _addressService.GetCitiesByCityIds(filterableCityIds.Distinct().ToList());
-                        string filterUrl = QueryStringBuilder.RemoveQueryString(this.Request.Url.ToString(), CITY_ID_QUERY_STRING_KEY);
-                        filterUrl = QueryStringBuilder.RemoveQueryString(filterUrl, PAGE_INDEX_QUERY_STRING_KEY);
-                        filterUrl = QueryStringBuilder.RemoveQueryString(filterUrl, LOCALITY_ID_QUERY_STRING_KEY);
-                        model.FilteringContext.StoreAddressFilterModel.CityFilterItemModels.Add(new MTStoreAddressFilterItemModel
-                        {
-                            Filtered = false,
-                            FilterItemId = "0",
-                            FilterItemName = "Tüm Şehirler",
-                            FilterItemStoreCount = filterableCityIds.Count,
-                            FilterUrl = filterUrl
-                        });
-                        foreach (var item in filterAbleCities)
-                        {
-                            filterUrl = QueryStringBuilder.ModifyQueryString(filterUrl, CITY_ID_QUERY_STRING_KEY + "=" + item.CityName, null);
-                            model.FilteringContext.StoreAddressFilterModel.CityFilterItemModels.Add(new MTStoreAddressFilterItemModel
-                            {
-                                Filtered = (item.CityId == selectedCityId),
-                                FilterItemId = item.CityId.ToString(),
-                                FilterItemName = item.CityName,
-                                FilterItemStoreCount = filterableCityIds.Count(ct => ct == item.CityId),
-                                FilterUrl = filterUrl
-                            });
-                        }
-                        model.FilteringContext.StoreAddressFilterModel.CityFilterItemModels = model.FilteringContext
-                          .StoreAddressFilterModel.CityFilterItemModels.OrderByDescending(p => p.FilterItemId == "0")
-                          .ThenByDescending(p => p.Filtered)
-                          .ThenBy(p => p.FilterItemName).ToList();
-                    }
-
-                    if (filterableLocalityIds != null && filterableLocalityIds.Count > 0)
-                    {
-                        int selectedCityId = GetCityIdByCityName();
-                        if (selectedCityId > 0)
-                        {
-                            var localities = _addressService.GetLocalitiesByCityId(selectedCityId);
-                            if (localities.Count > 0)
-                            {
-                                int[] arrayToLocalityIds = filterableLocalityIds.Distinct().ToArray();
-                                var filterableLocalities = (from l in localities
-                                                            where arrayToLocalityIds.Contains(l.LocalityId)
-                                                            orderby l.LocalityName
-                                                            select l).ToList();
-                                string filterUrl = QueryStringBuilder.RemoveQueryString(this.Request.Url.ToString(), PAGE_INDEX_QUERY_STRING_KEY);
-                                foreach (var item in filterableLocalities)
-                                {
-                                    var selectedLocalityNames = GetLocalityNamesQueryString();
-                                    var localityfilterItemModel = new MTStoreAddressFilterItemModel
-                                    {
-                                        Filtered = (selectedLocalityNames.Contains(item.LocalityName)),
-                                        FilterItemId = item.LocalityId.ToString(),
-                                        FilterItemName = item.LocalityName,
-                                        FilterItemStoreCount = filterableLocalityIds.Count(l => l == item.LocalityId)
-                                    };
-
-                                    if (localityfilterItemModel.Filtered)
-                                    {
-                                        selectedLocalityNames.Remove(item.LocalityName);
-                                    }
-                                    else
-                                    {
-                                        if (!selectedLocalityNames.Contains(item.LocalityName))
-                                            selectedLocalityNames.Add(item.LocalityName);
-                                    }
-
-                                    if (selectedLocalityNames.Count > 0)
-                                    {
-                                        string newQueryParam = GenerateFilteredLocalityQueryParamNew(selectedLocalityNames);
-                                        filterUrl = QueryStringBuilder.ModifyQueryString(filterUrl, LOCALITY_ID_QUERY_STRING_KEY + "=" + newQueryParam, null);
-
-                                    }
-                                    else
-                                    {
-                                        filterUrl = QueryStringBuilder.RemoveQueryString(filterUrl, LOCALITY_ID_QUERY_STRING_KEY);
-                                    }
-                                    localityfilterItemModel.FilterUrl = filterUrl;
-
-                                    model.FilteringContext.StoreAddressFilterModel.LocalityFilterItemModels.Add(localityfilterItemModel);
-                                }
-
-                            }
-                        }
-                    }
-
-
                     processStatus.Result = Result;
                     processStatus.ActiveResultRowCount = Result.Count;
                     processStatus.TotolRowCount = IslemResult.TotalCount;
@@ -4730,21 +4610,22 @@ namespace MakinaTurkiye.Api.Controllers
                         }
 
                         var memberStore = _memberStoreService.GetMemberStoreByStoreMainPartyId(IslemResult.MainPartyId);
-                        Result.Store = new Entities.StoredProcedures.Stores.WebSearchStoreResult() { 
-                            FullActivityTypeName="",
-                            MainPartyId= IslemResult.MainPartyId,
-                            MemberMainPartyId= (int)memberStore.MemberMainPartyId,
-                            StoreAbout=IslemResult.StoreAbout,
-                            StoreLogo=IslemResult.StoreLogo,
-                            StoreName=IslemResult.StoreName,
-                            StoreShortName=IslemResult.StoreShortName,
-                            StoreUrlName=IslemResult.StoreUrlName,
-                            StoreWeb=IslemResult.StoreWeb
+                        Result.Store = new Entities.StoredProcedures.Stores.WebSearchStoreResult()
+                        {
+                            FullActivityTypeName = "",
+                            MainPartyId = IslemResult.MainPartyId,
+                            MemberMainPartyId = (int)memberStore.MemberMainPartyId,
+                            StoreAbout = IslemResult.StoreAbout,
+                            StoreLogo = IslemResult.StoreLogo,
+                            StoreName = IslemResult.StoreName,
+                            StoreShortName = IslemResult.StoreShortName,
+                            StoreUrlName = IslemResult.StoreUrlName,
+                            StoreWeb = IslemResult.StoreWeb
                         };
                         Result.Products = TmpStoreProductList;
                     }
                     processStatus.Result = Result;
-                    processStatus.ActiveResultRowCount = (Result!=null?1:0);
+                    processStatus.ActiveResultRowCount = (Result != null ? 1 : 0);
                     processStatus.TotolRowCount = (Result != null ? 1 : 0);
                     processStatus.TotolPageCount = (Result != null ? 1 : 0);
                     processStatus.Message.Header = "Store İşlemleri";
@@ -4903,7 +4784,7 @@ namespace MakinaTurkiye.Api.Controllers
             }
         }
 
-        public HttpResponseMessage PromotedStores(int StoreSize = 6, int ProductSize= 3)
+        public HttpResponseMessage PromotedStores(int StoreSize = 6, int ProductSize = 3)
         {
             {
                 ProcessResult processStatus = new ProcessResult();
