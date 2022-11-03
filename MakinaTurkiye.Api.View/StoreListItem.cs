@@ -8,8 +8,5 @@ namespace MakinaTurkiye.Api.View
     {
         public WebSearchStoreResult Store { get; set; } = new WebSearchStoreResult();
         public List<ProductSearchResult> Products { get; set; } = new List<ProductSearchResult>();
-
-        public List<4887-0001> MyProperty { get; set; }
-
     }
 }
