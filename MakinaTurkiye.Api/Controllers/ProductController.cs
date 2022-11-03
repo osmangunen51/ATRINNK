@@ -301,11 +301,14 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50, string SearchText = "", string ordertype = "a-z", int SeriresId = 0,int ModelId = 0, int BrandId = 0, int CountryId = 0, int CityId = 0, int LocalityId = 0)
+        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50, string SearchText = "", string ordertype = "a-z", int SeriresId = 0,int ModelId = 0, int BrandId = 0, int CountryId = 0, int CityId = 0, int LocalityId = 0,decimal SelectMinPrice=0,decimal SelectMaxPrice=0)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
             {
+                double MinPrice = 0;
+                double MaxPrice = 0;
+
                 int searchTypeId = 0;
                 int orderById = 0;
                 switch (ordertype)
@@ -316,9 +319,13 @@ namespace MakinaTurkiye.Api.Controllers
                     case "fiyat-artan": orderById = 6; break;
                     default: orderById = 0; break;
                 }
-                CategoryProductsResult result = _productService.GetCategoryProducts(categoryId, BrandId,ModelId, SeriresId, searchTypeId, 0, CountryId,CityId,LocalityId, orderById, pageNo, pageSize, SearchText);
-                ProcessStatus.TotolRowCount = result.Products.Count();
 
+                CategoryProductsResult result = _productService.GetCategoryProductsPriceRange(
+                    categoryId, BrandId,ModelId, SeriresId, searchTypeId, 0,
+                    CountryId,CityId,LocalityId, orderById, pageNo, pageSize, 
+                    SearchText,
+                    SelectMinPrice, SelectMaxPrice);
+                ProcessStatus.TotolRowCount = result.Products.Count();
                 List<View.Result.ProductSearchResult> TmpResult = result.Products.Select(Snc =>
                     new View.Result.ProductSearchResult
                     {
@@ -597,7 +604,9 @@ namespace MakinaTurkiye.Api.Controllers
 
                 ProcessStatus.Result = new {
                     Product = TmpResult,
-                    Filters = filterItems
+                    Filters = filterItems,
+                    MinPrice=result.MinPrice,
+                    MaxPrice = result.MaxPrice
                 };
 
                 ProcessStatus.ActiveResultRowCount = TmpResult.Count();

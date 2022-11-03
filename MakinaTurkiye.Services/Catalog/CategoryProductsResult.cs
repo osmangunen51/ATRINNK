@@ -15,6 +15,7 @@ namespace MakinaTurkiye.Services.Catalog
             this.FilterableLocalityIds = new List<int>();
             this.FilterableModelIds = new List<int>();
             this.FilterableSeriesIds = new List<int>();
+            
         }
 
         public IList<WebCategoryProductResult> Products { get; set; }
@@ -35,6 +36,9 @@ namespace MakinaTurkiye.Services.Catalog
         public int PageSize { get; set; }
         public int TotalCount { get; set; }
         public int TotalPages { get; set; }
+
+        public decimal MinPrice { get; set; }
+        public decimal MaxPrice { get; set; }
 
     }
 }
