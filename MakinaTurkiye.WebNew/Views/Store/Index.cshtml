@@ -67,10 +67,9 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-            @{ 
+            @{
                 var display = string.IsNullOrEmpty(Request.QueryString["Gorunum"]) ? "?Gorunum=Liste" : "?Gorunum=" + Request.QueryString["Gorunum"].ToString();
                 string page = ""; if (Request.QueryString["Sayfa"] != null) { page = "&Sayfa=" + Request.QueryString["Sayfa"]; }
                 string querySearchType = string.IsNullOrEmpty(Request.QueryString["SearchType"]) ? "" : "&SearchType=" + Request.QueryString["SearchType"].ToString();
@@ -95,20 +94,14 @@
             </div>
         </div>
     </div>
-
-
     <div class="col-sm-7 col-md-8 col-lg-10 category-list-wrapper">
-
         <div class="categort-filter col-xs-12">
             <div class="row">
                 <div class="col-xs-12">
                     <div style="padding: 0px 6px;" class=" section-title section-title--left section-title--category">
                         <h1>
-
                             @if (string.IsNullOrEmpty(Model.StoreCategoryModel.SelectedCategoryName))
                             {
-
-
                                 @("Tüm Firmalar") @Model.FilteringContext.MtStoreActivityTypeFilterModel.SelectedActivityTypeFilterName
                             }
                             else
@@ -129,7 +122,6 @@
                             <hr />
 
                         }
-
                     </div>
                     <div class="btn-group pull-left xssm-hidden">
 
@@ -152,7 +144,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="col-sm-12 col-md-4 pull-right">
                     @Html.Partial("_FAGFSearch", Model)
@@ -178,7 +169,6 @@
             </div>
         }
     </div>
-
 </div>
 
 @if (!string.IsNullOrEmpty(Model.SeoContent))
@@ -190,4 +180,3 @@
         @Html.Raw(Model.SeoContent)
     </div>
 }
-
