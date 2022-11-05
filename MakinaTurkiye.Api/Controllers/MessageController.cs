@@ -43,7 +43,6 @@ namespace MakinaTurkiye.Api.Controllers
             _pictureService = EngineContext.Current.Resolve<IPictureService>();
             _memberStoreService = EngineContext.Current.Resolve<IMemberStoreService>();
             _storeService = EngineContext.Current.Resolve<IStoreService>();
-
         }
 
         //public MessageController(IMemberService memberService,
