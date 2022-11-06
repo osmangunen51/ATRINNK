@@ -2,6 +2,7 @@
 using Quartz;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ namespace MakinaTurkiye.Agent.WebCheck.Tasks
     {
         public Task Execute(IJobExecutionContext context)
         {
+            List<string> TelefonListesi = ConfigurationManager.AppSettings["AgentTelefonListesi"].Split(',').ToList();
             string url = "https://makinaturkiye.com";
             try
             {
@@ -27,8 +29,10 @@ namespace MakinaTurkiye.Agent.WebCheck.Tasks
                     using (SmsHelper sms = new SmsHelper())
                     {
                         string Mesaj = "Web Sitesinde sorun var Site Açılmıyor.... | MakinaTurkiye Agent";
-                        //sms.SendPhoneMessage("905326508841",Mesaj);
-                        sms.SendPhoneMessage("905057916447", Mesaj);
+                        foreach (var item in TelefonListesi)
+                        {
+                            sms.SendPhoneMessage(item, Mesaj);
+                        }                       
                     }
                 }
             }
@@ -37,8 +41,10 @@ namespace MakinaTurkiye.Agent.WebCheck.Tasks
                 using (SmsHelper sms = new SmsHelper())
                 {
                     string Mesaj = "Web Sitesinde genel sorun var kontrol edilemiyor.... | MakinaTurkiye Agent";
-                    //sms.SendPhoneMessage("905326508841", Mesaj);
-                    sms.SendPhoneMessage("905057916447", Mesaj);
+                    foreach (var item in TelefonListesi)
+                    {
+                        sms.SendPhoneMessage(item, Mesaj);
+                    }
                 }
             }
             return Task.CompletedTask;

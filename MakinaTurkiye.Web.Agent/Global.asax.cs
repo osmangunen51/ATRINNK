@@ -1,6 +1,7 @@
 ﻿using MakinaTurkiye.Agent.WebCheck.Schedulers;
 using MakinaTurkiye.Core.Configuration;
 using MakinaTurkiye.Core.Infrastructure;
+using System;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -15,6 +16,15 @@ namespace MakinaTurkiye.Web.Agent
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
+            if (config.ApplicationStartingTasksEnabled)
+            {
+                WebCheckMailSendScheduler.Start();
+            }
+        }
+
+        void Application_End(object sender, EventArgs e)
+        {
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
             if (config.ApplicationStartingTasksEnabled)
             {
