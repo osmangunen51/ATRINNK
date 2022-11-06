@@ -1,9 +1,7 @@
-﻿using MakinaTurkiye.Utilities.Mvc;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace MakinaTurkiye.Web.Tasks.Controllers
+namespace MakinaTurkiye.Web.Agent.Controllers
 {
-    [AllowSameSite]
     public class HomeController : Controller
     {
         public ActionResult Index()

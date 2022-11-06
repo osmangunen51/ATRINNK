@@ -322,6 +322,14 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             filterModel.Source = listNotif;
             model.Notifications = filterModel;
             var users = entities.Users.Where(x => x.Active == true).OrderBy(x => x.UserName).ToList();
+
+            var userPermission = entities.PermissionUsers.FirstOrDefault(x => x.UserId == CurrentUserModel.CurrentManagement.UserId);
+            var userGroup = entities.UserGroups.FirstOrDefault(x => x.UserGroupId == userPermission.UserGroupId);
+            if (userGroup.GroupName != "Administrator")
+            {
+                users = users.Where(x => x.MemberDescriptionTransferState == true).ToList();
+            }
+
             model.Users.Add(new SelectListItem { Text = "Tümü", Value = "0" });
             foreach (var item in users)
             {

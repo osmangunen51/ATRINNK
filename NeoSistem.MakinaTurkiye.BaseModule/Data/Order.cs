@@ -18,8 +18,16 @@
         OrderName.InSqlParameter("OrderName", SqlDbType.NVarChar),
         Order.InSqlParameter("Order", SqlDbType.NVarChar)
       };
-
-            DataTable dt = ExecuteDataSet("spOrderSearch", prms).Tables[0];
+            DataSet dtresult = ExecuteDataSet("spOrderSearch", prms);
+            DataTable dt = new DataTable();
+            if (dtresult!=null)
+            {
+                if (dtresult.Tables.Count>0)
+                {
+                    dt = dtresult.Tables[0];
+                }
+                
+            }
             TotalRecord = prms[0].Value.ToInt32();
             return dt;
         }

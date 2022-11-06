@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace MakinaTurkiye.Web.Tasks
+namespace MakinaTurkiye.Web.Agent
 {
     public class FilterConfig
     {

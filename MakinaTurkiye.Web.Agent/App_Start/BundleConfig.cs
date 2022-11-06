@@ -1,6 +1,6 @@
 ﻿using System.Web.Optimization;
 
-namespace MakinaTurkiye.Web.Tasks
+namespace MakinaTurkiye.Web.Agent
 {
     public class BundleConfig
     {

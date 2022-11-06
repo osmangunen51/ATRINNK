@@ -138,6 +138,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 Name = model.Name,
                 Surname = model.Surname,
                 CallCenterUrl = model.Surname,
+                MemberDescriptionTransferState=model.MemberDescriptionTransferState,
                 Signature = model.Signature,
             };
             entities.Users.AddObject(curUser);
@@ -208,6 +209,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 UserColor = curUser.UserColor,
                 Active = curUser.Active,
                 ActiveForDesc = curUser.ActiveForDesc,
+                MemberDescriptionTransferState = curUser.MemberDescriptionTransferState,
                 Signature = curUser.Signature,
                 CallCenterUrl = curUser.CallCenterUrl,
             };
@@ -265,6 +267,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     curUser.ActiveForDesc = model.ActiveForDesc;
                     curUser.Signature = model.Signature;
                     curUser.CallCenterUrl = model.CallCenterUrl;
+                    curUser.MemberDescriptionTransferState = model.MemberDescriptionTransferState;
                     entities.SaveChanges();
                 }
 

@@ -172,7 +172,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         }
 
         [HttpPost]
-        public ActionResult Index(OrderModel model, string OrderName, string OrderCancelled, string Order, string RegisterStartDate, string RegisterEndDate, int? Page, int PageDimension, string LastPayDate, string PaidBill, string SalesUserId, DateTime? OrderEndDate1, string OrderEndDate2)
+        public ActionResult Index(OrderModel model, string OrderName, string OrderCancelled, string Order, string RegisterStartDate, string RegisterEndDate, int? Page, int PageDimension, string LastPayDate, string PaidBill, string SalesUserId, DateTime? OrderEndDate1, string OrderEndDate2,string TaxOffice)
         {
             var orderNullInvoice = _orderService.GetOrdersWithNullInvoiceNumber();
             if (orderNullInvoice.Count > 0)
@@ -215,6 +215,23 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 if (op == true)
                     whereClause.Append("AND");
                 whereClause.AppendFormat(likeClaue, "StoreName", model.StoreName);
+                op = true;
+            }
+            
+            if (!string.IsNullOrWhiteSpace(model.TaxOffice))
+            {
+                //TaxOfficeOrder=O.TaxOffice,TaxNoOrder=O.TaxNo
+                //TaxOffice = S.TaxOffice,TaxNo = S.TaxNumber,
+                if (op == true) whereClause.Append("AND");
+                whereClause.AppendFormat(" (");
+                whereClause.AppendFormat(likeClaue, "S.TaxOffice", model.TaxOffice);
+                whereClause.AppendFormat("OR");
+                whereClause.AppendFormat(likeClaue, "S.TaxNumber", model.TaxOffice);
+                whereClause.AppendFormat("OR");
+                whereClause.AppendFormat(likeClaue, "O.TaxOffice", model.TaxOffice);
+                whereClause.AppendFormat("OR");
+                whereClause.AppendFormat(likeClaue, "O.TaxNo", model.TaxOffice);
+                whereClause.AppendFormat(") ");
                 op = true;
             }
 

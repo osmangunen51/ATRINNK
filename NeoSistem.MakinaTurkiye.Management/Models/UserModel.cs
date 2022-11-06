@@ -30,6 +30,7 @@
         public DateTime? EndWorkDate { get; set; }
         public bool Active { get; set; }
         public bool ActiveForDesc { get; set; }
+        public bool MemberDescriptionTransferState { get; set; }
         public IEnumerable<UserGroupModel> Groups { get; set; }
 
         [DisplayName("Mail İmzası")]

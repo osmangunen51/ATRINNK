@@ -173,7 +173,7 @@
           <Property Name="Active" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.BI_PremDay' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.BI_PremDay' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BI_PremDay">
           <Key>
             <PropertyRef Name="PremDayID" />
@@ -184,7 +184,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.BI_PremDay' does not have a prim
           <Property Name="PremValue" Type="decimal" Precision="18" Scale="3" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.BI_Premium' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.BI_Premium' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BI_Premium">
           <Key>
             <PropertyRef Name="PremiumID" />
@@ -200,7 +200,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.BI_Premium' does not have a prim
           <Property Name="EndDate" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.BI_Premium_Progress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.BI_Premium_Progress' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BI_Premium_Progress">
           <Key>
             <PropertyRef Name="PrID" />
@@ -236,7 +236,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.BI_Premium_Progress' does not ha
           <Property Name="RecordDate" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.BI_PremiumLimit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.BI_PremiumLimit' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="BI_PremiumLimit">
           <Key>
             <PropertyRef Name="PremiumLimitId" />
@@ -360,7 +360,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.BI_PremiumLimit' does not have a
           <Property Name="StoreCertificateId" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.ChangeLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="ChangeLog">
           <Key>
             <PropertyRef Name="LogId" />
@@ -602,7 +602,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.ChangeLog' does not have a prima
           <Property Name="CategoryId" Type="int" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.FooterContent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.FooterContent' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="FooterContent">
           <Key>
             <PropertyRef Name="FooterContentId" />
@@ -643,10 +643,15 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.FooterContent' does not have a p
         </EntityType>
         <EntityType Name="Language">
           <Key>
-            <PropertyRef Name="LanguageId" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="LanguageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LanguageCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="LanguageCulture" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="UniqueSeoCode" Type="nvarchar" MaxLength="2" />
+          <Property Name="FlagImageFileName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Published" Type="bit" Nullable="false" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Locality">
           <Key>
@@ -661,15 +666,16 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.FooterContent' does not have a p
         </EntityType>
         <EntityType Name="Log">
           <Key>
-            <PropertyRef Name="LogıD" />
+            <PropertyRef Name="Id" />
           </Key>
-          <Property Name="LogıD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="LogName" Type="varchar(max)" />
-          <Property Name="LogDescription" Type="varchar(max)" />
-          <Property Name="LogShortDescription" Type="varchar(max)" />
-          <Property Name="LogType" Type="tinyint" />
-          <Property Name="LogDate" Type="nvarchar" MaxLength="30" />
-          <Property Name="LogStatus" Type="int" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShortMessage" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IpAddress" Type="nvarchar" MaxLength="200" />
+          <Property Name="LogLevelId" Type="int" Nullable="false" />
+          <Property Name="FullMessage" Type="nvarchar(max)" />
+          <Property Name="PageUrl" Type="nvarchar(max)" />
+          <Property Name="ReferrerUrl" Type="nvarchar(max)" />
+          <Property Name="CreatedOnUtc" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="LoginLog">
           <Key>
@@ -777,7 +783,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.FooterContent' does not have a p
           <Property Name="IsFirst" Type="bit" />
           <Property Name="PreRegistrationStoreId" Type="int" />
           <Property Name="RecordDate" Type="datetime" />
-          <Property Name="TransactionType" Type="char" MaxLength="10" />
+          <Property Name="TransactionType" Type="char" MaxLength="200" />
           <Property Name="UserIdName" Type="nvarchar" MaxLength="100" />
           <Property Name="FromUserIdName" Type="nvarchar" MaxLength="100" />
         </EntityType>
@@ -865,7 +871,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.FooterContent' does not have a p
           <Property Name="MailContent" Type="text" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.MessagesMTYDK' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.MessagesMTYDK' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="MessagesMTYDK">
           <Key>
             <PropertyRef Name="MessagesMTId" />
@@ -1002,7 +1008,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.MessagesMTYDK' does not have a p
           <Property Name="Price" Type="money" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.OsmanSilIslemProduct' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.OsmanSilIslemProduct' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="OsmanSilIslemProduct">
           <Key>
             <PropertyRef Name="ProductId" />
@@ -1209,7 +1215,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.OsmanSilIslemProduct' does not h
           <Property Name="PinId" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.PictureYedeks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.PictureYedeks' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="PictureYedeks">
           <Key>
             <PropertyRef Name="PictureId" />
@@ -1270,6 +1276,11 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.PictureYedeks' does not have a p
           <Property Name="City" Type="nvarchar" MaxLength="250" />
           <Property Name="ContactNameSurname" Type="nvarchar" MaxLength="250" />
           <Property Name="ContactPhoneNumber" Type="nvarchar" MaxLength="250" />
+          <Property Name="CountryId" Type="int" />
+          <Property Name="CityId" Type="int" />
+          <Property Name="LocalityId" Type="int" />
+          <Property Name="TownId" Type="int" />
+          <Property Name="DistrictId" Type="int" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -1836,7 +1847,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.PictureYedeks' does not have a p
           <Property Name="Enddate" Type="date" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.StoreNew' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="StoreNew">
           <Key>
             <PropertyRef Name="StoreNewId" />
@@ -1911,7 +1922,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.StoreNew' does not have a primar
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6002: The table/view 'MT.dbo.table1' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="table1">
           <Key>
             <PropertyRef Name="CategoryName" />
@@ -1944,8 +1955,8 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary 
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserName" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="UserPass" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserPass" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserMail" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="MailSmtp" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="MailPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -1957,6 +1968,11 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary 
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="CallCenterUrl" Type="nvarchar" MaxLength="500" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="LastIpAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="MemberDescriptionTransferState" Type="bit" />
         </EntityType>
         <EntityType Name="UserFile">
           <Key>
@@ -1999,6 +2015,7 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary 
           <Property Name="UpdateDate" Type="datetime" />
           <Property Name="BankAccountNumber" Type="nvarchar" MaxLength="35" />
           <Property Name="SecondPhoneNumber" Type="nvarchar" MaxLength="14" />
+          <Property Name="WhoSecondPhoneNumber" Type="nvarchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="UserLog">
           <Key>
@@ -2524,30 +2541,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__UserFile__UserId__77661EAB">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="UserFile" Type="Self.UserFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserFile">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__WebSiteEr__UserI__1EB3CB3A">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="WebSiteError" Type="Self.WebSiteError" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="WebSiteError">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Address_AddressType">
           <End Role="AddressType" Type="Self.AddressType" Multiplicity="0..1" />
           <End Role="Address" Type="Self.Address" Multiplicity="*" />
@@ -2847,18 +2840,6 @@ warning 6002: The table/view 'MakinaTurkiye.dbo.table1' does not have a primary 
             </Principal>
             <Dependent Role="MainParty1">
               <PropertyRef Name="MainPartyId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MemberDescription_log_MemberDescription">
-          <End Role="MemberDescription" Type="Self.MemberDescription" Multiplicity="0..1" />
-          <End Role="MemberDescription_log" Type="Self.MemberDescription_log" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="MemberDescription">
-              <PropertyRef Name="descId" />
-            </Principal>
-            <Dependent Role="MemberDescription_log">
-              <PropertyRef Name="descId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3924,14 +3905,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
             <End Role="Store" EntitySet="Store" />
             <End Role="StoreStatistic" EntitySet="StoreStatistic" />
           </AssociationSet>
-          <AssociationSet Name="FK__UserFile__UserId__77661EAB" Association="Self.FK__UserFile__UserId__77661EAB">
-            <End Role="User" EntitySet="User" />
-            <End Role="UserFile" EntitySet="UserFile" />
-          </AssociationSet>
-          <AssociationSet Name="FK__WebSiteEr__UserI__1EB3CB3A" Association="Self.FK__WebSiteEr__UserI__1EB3CB3A">
-            <End Role="User" EntitySet="User" />
-            <End Role="WebSiteError" EntitySet="WebSiteError" />
-          </AssociationSet>
           <AssociationSet Name="FK_Address_AddressType" Association="Self.FK_Address_AddressType">
             <End Role="AddressType" EntitySet="AddressType" />
             <End Role="Address" EntitySet="Address" />
@@ -4027,10 +4000,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <AssociationSet Name="FK_MainParty_MainParty" Association="Self.FK_MainParty_MainParty">
             <End Role="MainParty" EntitySet="MainParty" />
             <End Role="MainParty1" EntitySet="MainParty" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MemberDescription_log_MemberDescription" Association="Self.FK_MemberDescription_log_MemberDescription">
-            <End Role="MemberDescription" EntitySet="MemberDescription" />
-            <End Role="MemberDescription_log" EntitySet="MemberDescription_log" />
           </AssociationSet>
           <AssociationSet Name="FK_MemberDescription_Member" Association="Self.FK_MemberDescription_Member">
             <End Role="Member" EntitySet="Member" />
@@ -4516,7 +4485,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <EntitySet Name="AlertMessages" EntityType="MakinaTurkiyeModel.AlertMessage" />
           <EntitySet Name="Boards" EntityType="MakinaTurkiyeModel.Board" />
           <EntitySet Name="SeoDefinitions" EntityType="MakinaTurkiyeModel.SeoDefinition" />
-          <EntitySet Name="Logs" EntityType="MakinaTurkiyeModel.Log" />
           <EntitySet Name="UserLogs" EntityType="MakinaTurkiyeModel.UserLog" />
           <FunctionImport Name="spMemberSearch">
             <Parameter Name="TotalRecord" Mode="InOut" Type="Int32" />
@@ -4706,7 +4674,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <EntitySet Name="FooterParents" EntityType="MakinaTurkiyeModel.FooterParent" />
           <EntitySet Name="Helps" EntityType="MakinaTurkiyeModel.Help" />
           <EntitySet Name="Invoices" EntityType="MakinaTurkiyeModel.Invoice" />
-          <EntitySet Name="Languages" EntityType="MakinaTurkiyeModel.Language" />
           <EntitySet Name="LoginLogs" EntityType="MakinaTurkiyeModel.LoginLog" />
           <EntitySet Name="Newsletters" EntityType="MakinaTurkiyeModel.Newsletter" />
           <EntitySet Name="OrderConfirmations" EntityType="MakinaTurkiyeModel.OrderConfirmation" />
@@ -4858,14 +4825,8 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
             <End Role="StoreProductCreateSetting" EntitySet="StoreProductCreateSettings" />
           </AssociationSet>
           <EntitySet Name="Users" EntityType="MakinaTurkiyeModel.User" />
-          <AssociationSet Name="FK__UserFile__UserId__77661EAB" Association="MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB">
-            <End Role="User" EntitySet="Users" />
-            <End Role="UserFile" EntitySet="UserFiles" />
-          </AssociationSet>
-          <AssociationSet Name="FK__WebSiteEr__UserI__1EB3CB3A" Association="MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A">
-            <End Role="User" EntitySet="Users" />
-            <End Role="WebSiteError" EntitySet="WebSiteErrors" />
-          </AssociationSet>
+          <EntitySet Name="Logs" EntityType="MakinaTurkiyeModel.Log" />
+          <EntitySet Name="Languages" EntityType="MakinaTurkiyeModel.Language" />
           </EntityContainer>
         <EntityType Name="Account">
           <Key>
@@ -6584,18 +6545,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Name="ContentSide" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="ContentBottomCenter" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="Log">
-          <Key>
-            <PropertyRef Name="LogıD" />
-          </Key>
-          <Property Name="LogıD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
-          <Property Name="LogName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LogDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LogShortDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="LogType" Type="Byte" />
-          <Property Name="LogStatus" Type="Int32" />
-          <Property Name="LogDate" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="UserLog">
           <Key>
             <PropertyRef Name="LogıD" />
@@ -7071,7 +7020,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Name="IsFirst" Type="Boolean" />
           <Property Name="PreRegistrationStoreId" Type="Int32" />
           <Property Name="RecordDate" Type="DateTime" Precision="3" />
-          <Property Name="TransactionType" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="TransactionType" Type="String" MaxLength="200" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="MemberDescription" Relationship="MakinaTurkiyeModel.FK_MemberDescription_log_MemberDescription" FromRole="MemberDescription_log" ToRole="MemberDescription" />
           <Property Name="UserIdName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="FromUserIdName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
@@ -7712,13 +7661,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Name="StoreId" Type="Int32" Nullable="false" />
           <Property Name="OrderId" Type="Int32" />
         </EntityType>
-        <EntityType Name="Language">
-          <Key>
-            <PropertyRef Name="LanguageId" />
-          </Key>
-          <Property Name="LanguageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="LanguageCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="LoginLog">
           <Key>
             <PropertyRef Name="LoginLogId" />
@@ -7834,6 +7776,11 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Name="City" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ContactNameSurname" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ContactPhoneNumber" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="CountryId" Type="Int32" />
+          <Property Name="CityId" Type="Int32" />
+          <Property Name="LocalityId" Type="Int32" />
+          <Property Name="TownId" Type="Int32" />
+          <Property Name="DistrictId" Type="Int32" />
         </EntityType>
         <EntityType Name="ProductHomePage">
           <Key>
@@ -8071,7 +8018,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Name="FileType" Type="Byte" />
           <Property Name="FileName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="User" Relationship="MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB" FromRole="UserFile" ToRole="User" />
         </EntityType>
         <EntityType Name="UserInformation">
           <Key>
@@ -8096,6 +8042,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Name="UpdateDate" Type="DateTime" Precision="3" />
           <Property Name="BankAccountNumber" Type="String" MaxLength="35" FixedLength="false" Unicode="true" />
           <Property Name="SecondPhoneNumber" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="WhoSecondPhoneNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="UserMailTemplate">
           <Key>
@@ -8159,7 +8106,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <Property Name="IsFirst" Type="Boolean" />
           <Property Name="RecordDate" Type="DateTime" Precision="0" />
           <Property Name="IsWaiting" Type="Boolean" />
-          <NavigationProperty Name="User" Relationship="MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A" FromRole="WebSiteError" ToRole="User" />
         </EntityType>
         <EntityType Name="WhatsappLog">
           <Key>
@@ -8704,46 +8650,50 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
             <PropertyRef Name="UserId" />
           </Key>
           <Property Name="UserId" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UserPass" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="UserMail" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MailSmtp" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="MailPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserPass" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserMail" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="MailSmtp" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MailPassword" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SendCode" Type="Int32" />
           <Property Name="UserColor" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="ActiveForDesc" Type="Boolean" />
           <Property Name="Signature" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="UserFiles" Relationship="MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB" FromRole="User" ToRole="UserFile" />
-          <NavigationProperty Name="WebSiteErrors" Relationship="MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A" FromRole="User" ToRole="WebSiteError" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Surname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="CallCenterUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastLoginDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastActivityDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastIpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MemberDescriptionTransferState" Type="Boolean" />
         </EntityType>
-        <Association Name="FK__UserFile__UserId__77661EAB">
-          <End Type="MakinaTurkiyeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="MakinaTurkiyeModel.UserFile" Role="UserFile" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="UserFile">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__WebSiteEr__UserI__1EB3CB3A">
-          <End Type="MakinaTurkiyeModel.User" Role="User" Multiplicity="0..1" />
-          <End Type="MakinaTurkiyeModel.WebSiteError" Role="WebSiteError" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="WebSiteError">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShortMessage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IpAddress" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LogLevelId" Type="Int32" Nullable="false" />
+          <Property Name="FullMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ReferrerUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedOnUtc" Type="DateTime" Nullable="false" Precision="7" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageCulture" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="UniqueSeoCode" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+          <Property Name="FlagImageFileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Published" Type="Boolean" Nullable="false" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -9481,19 +9431,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Logs">
-            <EntityTypeMapping TypeName="MakinaTurkiyeModel.Log">
-              <MappingFragment StoreEntitySet="Log">
-                <ScalarProperty Name="LogDate" ColumnName="LogDate" />
-                <ScalarProperty Name="LogStatus" ColumnName="LogStatus" />
-                <ScalarProperty Name="LogType" ColumnName="LogType" />
-                <ScalarProperty Name="LogShortDescription" ColumnName="LogShortDescription" />
-                <ScalarProperty Name="LogDescription" ColumnName="LogDescription" />
-                <ScalarProperty Name="LogName" ColumnName="LogName" />
-                <ScalarProperty Name="LogıD" ColumnName="LogıD" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserLogs">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.UserLog">
               <MappingFragment StoreEntitySet="UserLog">
@@ -10217,14 +10154,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Languages">
-            <EntityTypeMapping TypeName="MakinaTurkiyeModel.Language">
-              <MappingFragment StoreEntitySet="Language">
-                <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
-                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LoginLogs">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.LoginLog">
               <MappingFragment StoreEntitySet="LoginLog">
@@ -10329,6 +10258,11 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <EntitySetMapping Name="PreRegistrationStores">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.PreRegistrationStore">
               <MappingFragment StoreEntitySet="PreRegistrationStore">
+                <ScalarProperty Name="DistrictId" ColumnName="DistrictId" />
+                <ScalarProperty Name="TownId" ColumnName="TownId" />
+                <ScalarProperty Name="LocalityId" ColumnName="LocalityId" />
+                <ScalarProperty Name="CityId" ColumnName="CityId" />
+                <ScalarProperty Name="CountryId" ColumnName="CountryId" />
                 <ScalarProperty Name="ContactPhoneNumber" ColumnName="ContactPhoneNumber" />
                 <ScalarProperty Name="ContactNameSurname" ColumnName="ContactNameSurname" />
                 <ScalarProperty Name="City" ColumnName="City" />
@@ -10587,6 +10521,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <EntitySetMapping Name="UserInformations">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.UserInformation">
               <MappingFragment StoreEntitySet="UserInformation">
+                <ScalarProperty Name="WhoSecondPhoneNumber" ColumnName="WhoSecondPhoneNumber" />
                 <ScalarProperty Name="SecondPhoneNumber" ColumnName="SecondPhoneNumber" />
                 <ScalarProperty Name="BankAccountNumber" ColumnName="BankAccountNumber" />
                 <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
@@ -10876,6 +10811,11 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
           <EntitySetMapping Name="Users">
             <EntityTypeMapping TypeName="MakinaTurkiyeModel.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="MemberDescriptionTransferState" ColumnName="MemberDescriptionTransferState" />
+                <ScalarProperty Name="LastIpAddress" ColumnName="LastIpAddress" />
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CallCenterUrl" ColumnName="CallCenterUrl" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -10890,6 +10830,33 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
                 <ScalarProperty Name="UserPass" ColumnName="UserPass" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="MakinaTurkiyeModel.Log">
+              <MappingFragment StoreEntitySet="Log">
+                <ScalarProperty Name="CreatedOnUtc" ColumnName="CreatedOnUtc" />
+                <ScalarProperty Name="ReferrerUrl" ColumnName="ReferrerUrl" />
+                <ScalarProperty Name="PageUrl" ColumnName="PageUrl" />
+                <ScalarProperty Name="FullMessage" ColumnName="FullMessage" />
+                <ScalarProperty Name="LogLevelId" ColumnName="LogLevelId" />
+                <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+                <ScalarProperty Name="ShortMessage" ColumnName="ShortMessage" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="MakinaTurkiyeModel.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="Published" ColumnName="Published" />
+                <ScalarProperty Name="FlagImageFileName" ColumnName="FlagImageFileName" />
+                <ScalarProperty Name="UniqueSeoCode" ColumnName="UniqueSeoCode" />
+                <ScalarProperty Name="LanguageCulture" ColumnName="LanguageCulture" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -10914,7 +10881,7 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="MakinaTurkiyeEntities" ZoomLevel="63">
+      <Diagram Name="MakinaTurkiyeEntities" ZoomLevel="108">
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Account" Width="1.5" PointX="3.75" PointY="10.25" Height="2.5571907552083317" IsExpanded="true" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.ActivityType" Width="1.5" PointX="5.75" PointY="2" Height="1.5956835937499996" IsExpanded="true" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Address" Width="1.5" PointX="5.25" PointY="18.75" Height="5.057109374999996" IsExpanded="true" />
@@ -11535,7 +11502,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
         <EntityTypeShape EntityType="MakinaTurkiyeModel.AlertMessage" Width="1.5" PointX="21.375" PointY="3.75" Height="2.3951182655493426" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Board" Width="1.5" PointX="21.375" PointY="18.875" Height="1.80914528588454" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.SeoDefinition" Width="1.5" PointX="21.375" PointY="21.75" Height="2.7494921874999818" />
-        <EntityTypeShape EntityType="MakinaTurkiyeModel.Log" Width="1.5" PointX="23.375" PointY="0.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.UserLog" Width="1.5" PointX="23.375" PointY="11.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.MobileMessage" Width="1.5" PointX="23.375" PointY="4.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.SendMessageError" Width="1.5" PointX="23.375" PointY="15.75" />
@@ -11608,7 +11574,6 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
         <EntityTypeShape EntityType="MakinaTurkiyeModel.FooterParent" Width="1.5" PointX="33.75" PointY="0.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Help" Width="1.5" PointX="5.75" PointY="33.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Invoice" Width="1.5" PointX="30.75" PointY="17.75" />
-        <EntityTypeShape EntityType="MakinaTurkiyeModel.Language" Width="1.5" PointX="32.75" PointY="17.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.LoginLog" Width="1.5" PointX="33.75" PointY="8.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.Newsletter" Width="1.5" PointX="33.75" PointY="14.75" />
         <EntityTypeShape EntityType="MakinaTurkiyeModel.OrderConfirmation" Width="1.5" PointX="33.75" PointY="20.75" />
@@ -11678,9 +11643,9 @@ FROM [dbo].[table1] AS [table1]</DefiningQuery>
         <AssociationConnector Association="MakinaTurkiyeModel.FK__StoreProd__Store__6ED59CB4" />
         <AssociationConnector Association="MakinaTurkiyeModel.FK_Store_MainPartyId" />
         <AssociationConnector Association="MakinaTurkiyeModel.FK__StoreProd__Store__6FC9C0ED" />
-        <EntityTypeShape EntityType="MakinaTurkiyeModel.User" Width="1.5" PointX="6.125" PointY="40.25" />
-        <AssociationConnector Association="MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB" />
-        <AssociationConnector Association="MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A" />
+        <EntityTypeShape EntityType="MakinaTurkiyeModel.User" Width="1.5" PointX="38.375" PointY="6.75" />
+        <EntityTypeShape EntityType="MakinaTurkiyeModel.Log" Width="1.5" PointX="38.375" PointY="12.75" />
+        <EntityTypeShape EntityType="MakinaTurkiyeModel.Language" Width="1.5" PointX="38.375" PointY="16.75" />
         </Diagram>
     </Diagrams>
   </Designer>

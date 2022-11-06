@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="MakinaTurkiye.Web.Tasks.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="MakinaTurkiye.Web.Agent.MvcApplication" Language="C#" %>
