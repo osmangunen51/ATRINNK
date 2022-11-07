@@ -18,6 +18,7 @@
                 url: '/OrderFirm/UpdateStoreName',
                 data: { id: ID, name: newName },
                 type: 'post',
+
                 dataType: 'json',
                 success: function (data) {
                     var e = data;
@@ -359,8 +360,21 @@
                 <td class="Cell" align="center"></td>
                 <td class="Cell"></td>
                 <td class="Cell"></td>
-                <td class="Cell"></td>
-                <td class="Cell"></td>
+                <td class="Cell">
+                    <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
+                        <tbody>
+                            <tr>
+                                <td style="border: solid 1px #CCC; background-color: #FFF">
+                                    <input id="TaxOffice" class="Search" style="width: 85%; border: none;" /><span class="ui-icon ui-icon-close searchClear" onclick="clearSearch('TaxOffice');" style="width: 7%;"> </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </td>
+                <td class="Cell">
+                    
+                </td>
                 <td class="Cell">
                     <table border="0" cellspacing="0" cellpadding="0" style="width: 100%">
                         <tbody>
@@ -482,7 +496,8 @@
                 RegisterStartDate: $("#createStartDate").val(),
                 RegisterEndDate: $("#createEndDate").val(),
                 OrderEndDate1: $("#orderEndDate1").val(),
-                OrderEndDate2: $("#orderEndDate2").val()
+                OrderEndDate2: $("#orderEndDate2").val(),
+                TaxOffice: $("#TaxOffice").val(),
             },
             type: 'post',
             success: function (data) {

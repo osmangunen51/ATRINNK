@@ -3102,6 +3102,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             }
             bModelDesc.BaseMemberDescriptionByUser = memberDescriptionsOther;
             var users = entities.Users.Where(x => x.ActiveForDesc == true).OrderBy(x => x.UserName).ToList();
+            var userPermission = entities.PermissionUsers.FirstOrDefault(x => x.UserId == CurrentUserModel.CurrentManagement.UserId);
+            var userGroup = entities.UserGroups.FirstOrDefault(x => x.UserGroupId == userPermission.UserGroupId);
+            if (userGroup.GroupName != "Administrator")
+            {
+                users = users.Where(x => x.MemberDescriptionTransferState == true).ToList();
+            }
             foreach (var item in users)
             {
                 SelectListItem selectList = new SelectListItem();

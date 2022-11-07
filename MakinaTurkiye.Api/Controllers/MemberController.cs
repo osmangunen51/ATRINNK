@@ -779,7 +779,6 @@ namespace MakinaTurkiye.Api.Controllers
                 {
                     userPhone.active = 1;
                     _phoneService.UpdatePhone(userPhone);
-
                     processStatus.Message.Header = "Activate Phone";
                     processStatus.Message.Text = "İşlem başarılı";
                     processStatus.Status = true;

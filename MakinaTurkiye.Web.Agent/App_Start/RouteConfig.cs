@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace MakinaTurkiye.Web.Tasks
+namespace MakinaTurkiye.Web.Agent
 {
     public class RouteConfig
     {

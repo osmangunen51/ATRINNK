@@ -131,8 +131,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("MakinaTurkiyeModel", "FK__StoreProd__Store__6ED59CB4", "Store", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.Store), "StoreProductCreateSetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.StoreProductCreateSetting), true)]
 [assembly: EdmRelationshipAttribute("MakinaTurkiyeModel", "FK_Store_MainPartyId", "Store", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.Store), "StoreUpdated", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.StoreUpdated), true)]
 [assembly: EdmRelationshipAttribute("MakinaTurkiyeModel", "FK__StoreProd__Store__6FC9C0ED", "StoreProductCreatePropertie", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.StoreProductCreatePropertie), "StoreProductCreateSetting", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.StoreProductCreateSetting), true)]
-[assembly: EdmRelationshipAttribute("MakinaTurkiyeModel", "FK__UserFile__UserId__77661EAB", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.User), "UserFile", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.UserFile), true)]
-[assembly: EdmRelationshipAttribute("MakinaTurkiyeModel", "FK__WebSiteEr__UserI__1EB3CB3A", "User", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.User), "WebSiteError", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(NeoSistem.MakinaTurkiye.Management.Models.Entities.WebSiteError), true)]
 
 #endregion
 
@@ -1147,22 +1145,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Log> Logs
-        {
-            get
-            {
-                if ((_Logs == null))
-                {
-                    _Logs = base.CreateObjectSet<Log>("Logs");
-                }
-                return _Logs;
-            }
-        }
-        private ObjectSet<Log> _Logs;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<UserLog> UserLogs
         {
             get
@@ -1899,22 +1881,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Language> Languages
-        {
-            get
-            {
-                if ((_Languages == null))
-                {
-                    _Languages = base.CreateObjectSet<Language>("Languages");
-                }
-                return _Languages;
-            }
-        }
-        private ObjectSet<Language> _Languages;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<LoginLog> LoginLogs
         {
             get
@@ -2599,6 +2565,38 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             }
         }
         private ObjectSet<User> _Users;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Log> Logs
+        {
+            get
+            {
+                if ((_Logs == null))
+                {
+                    _Logs = base.CreateObjectSet<Log>("Logs");
+                }
+                return _Logs;
+            }
+        }
+        private ObjectSet<Log> _Logs;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Language> Languages
+        {
+            get
+            {
+                if ((_Languages == null))
+                {
+                    _Languages = base.CreateObjectSet<Language>("Languages");
+                }
+                return _Languages;
+            }
+        }
+        private ObjectSet<Language> _Languages;
 
         #endregion
 
@@ -3085,14 +3083,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Logs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToLogs(Log log)
-        {
-            base.AddObject("Logs", log);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the UserLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToUserLogs(UserLog userLog)
@@ -3461,14 +3451,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the Languages EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToLanguages(Language language)
-        {
-            base.AddObject("Languages", language);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the LoginLogs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToLoginLogs(LoginLog loginLog)
@@ -3810,6 +3792,22 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         public void AddToUsers(User user)
         {
             base.AddObject("Users", user);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Logs EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLogs(Log log)
+        {
+            base.AddObject("Logs", log);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Languages EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToLanguages(Language language)
+        {
+            base.AddObject("Languages", language);
         }
 
         #endregion
@@ -16747,11 +16745,19 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// Create a new Language object.
         /// </summary>
-        /// <param name="languageId">Initial value of the LanguageId property.</param>
-        public static Language CreateLanguage(global::System.Int32 languageId)
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="name">Initial value of the Name property.</param>
+        /// <param name="languageCulture">Initial value of the LanguageCulture property.</param>
+        /// <param name="published">Initial value of the Published property.</param>
+        /// <param name="displayOrder">Initial value of the DisplayOrder property.</param>
+        public static Language CreateLanguage(global::System.Int32 id, global::System.String name, global::System.String languageCulture, global::System.Boolean published, global::System.Int32 displayOrder)
         {
             Language language = new Language();
-            language.LanguageId = languageId;
+            language.Id = id;
+            language.Name = name;
+            language.LanguageCulture = languageCulture;
+            language.Published = published;
+            language.DisplayOrder = displayOrder;
             return language;
         }
 
@@ -16764,51 +16770,171 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 LanguageId
+        public global::System.Int32 Id
         {
             get
             {
-                return _LanguageId;
+                return _Id;
             }
             set
             {
-                if (_LanguageId != value)
+                if (_Id != value)
                 {
-                    OnLanguageIdChanging(value);
-                    ReportPropertyChanging("LanguageId");
-                    _LanguageId = StructuralObject.SetValidValue(value, "LanguageId");
-                    ReportPropertyChanged("LanguageId");
-                    OnLanguageIdChanged();
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
                 }
             }
         }
-        private global::System.Int32 _LanguageId;
-        partial void OnLanguageIdChanging(global::System.Int32 value);
-        partial void OnLanguageIdChanged();
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Name
+        {
+            get
+            {
+                return _Name;
+            }
+            set
+            {
+                OnNameChanging(value);
+                ReportPropertyChanging("Name");
+                _Name = StructuralObject.SetValidValue(value, false, "Name");
+                ReportPropertyChanged("Name");
+                OnNameChanged();
+            }
+        }
+        private global::System.String _Name;
+        partial void OnNameChanging(global::System.String value);
+        partial void OnNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String LanguageCulture
+        {
+            get
+            {
+                return _LanguageCulture;
+            }
+            set
+            {
+                OnLanguageCultureChanging(value);
+                ReportPropertyChanging("LanguageCulture");
+                _LanguageCulture = StructuralObject.SetValidValue(value, false, "LanguageCulture");
+                ReportPropertyChanged("LanguageCulture");
+                OnLanguageCultureChanged();
+            }
+        }
+        private global::System.String _LanguageCulture;
+        partial void OnLanguageCultureChanging(global::System.String value);
+        partial void OnLanguageCultureChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String LanguageCode
+        public global::System.String UniqueSeoCode
         {
             get
             {
-                return _LanguageCode;
+                return _UniqueSeoCode;
             }
             set
             {
-                OnLanguageCodeChanging(value);
-                ReportPropertyChanging("LanguageCode");
-                _LanguageCode = StructuralObject.SetValidValue(value, true, "LanguageCode");
-                ReportPropertyChanged("LanguageCode");
-                OnLanguageCodeChanged();
+                OnUniqueSeoCodeChanging(value);
+                ReportPropertyChanging("UniqueSeoCode");
+                _UniqueSeoCode = StructuralObject.SetValidValue(value, true, "UniqueSeoCode");
+                ReportPropertyChanged("UniqueSeoCode");
+                OnUniqueSeoCodeChanged();
             }
         }
-        private global::System.String _LanguageCode;
-        partial void OnLanguageCodeChanging(global::System.String value);
-        partial void OnLanguageCodeChanged();
+        private global::System.String _UniqueSeoCode;
+        partial void OnUniqueSeoCodeChanging(global::System.String value);
+        partial void OnUniqueSeoCodeChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String FlagImageFileName
+        {
+            get
+            {
+                return _FlagImageFileName;
+            }
+            set
+            {
+                OnFlagImageFileNameChanging(value);
+                ReportPropertyChanging("FlagImageFileName");
+                _FlagImageFileName = StructuralObject.SetValidValue(value, true, "FlagImageFileName");
+                ReportPropertyChanged("FlagImageFileName");
+                OnFlagImageFileNameChanged();
+            }
+        }
+        private global::System.String _FlagImageFileName;
+        partial void OnFlagImageFileNameChanging(global::System.String value);
+        partial void OnFlagImageFileNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean Published
+        {
+            get
+            {
+                return _Published;
+            }
+            set
+            {
+                OnPublishedChanging(value);
+                ReportPropertyChanging("Published");
+                _Published = StructuralObject.SetValidValue(value, "Published");
+                ReportPropertyChanged("Published");
+                OnPublishedChanged();
+            }
+        }
+        private global::System.Boolean _Published;
+        partial void OnPublishedChanging(global::System.Boolean value);
+        partial void OnPublishedChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DisplayOrder
+        {
+            get
+            {
+                return _DisplayOrder;
+            }
+            set
+            {
+                OnDisplayOrderChanging(value);
+                ReportPropertyChanging("DisplayOrder");
+                _DisplayOrder = StructuralObject.SetValidValue(value, "DisplayOrder");
+                ReportPropertyChanged("DisplayOrder");
+                OnDisplayOrderChanged();
+            }
+        }
+        private global::System.Int32 _DisplayOrder;
+        partial void OnDisplayOrderChanging(global::System.Int32 value);
+        partial void OnDisplayOrderChanged();
 
         #endregion
 
@@ -17171,11 +17297,17 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <summary>
         /// Create a new Log object.
         /// </summary>
-        /// <param name="logıD">Initial value of the LogıD property.</param>
-        public static Log CreateLog(global::System.Int32 logıD)
+        /// <param name="id">Initial value of the Id property.</param>
+        /// <param name="shortMessage">Initial value of the ShortMessage property.</param>
+        /// <param name="logLevelId">Initial value of the LogLevelId property.</param>
+        /// <param name="createdOnUtc">Initial value of the CreatedOnUtc property.</param>
+        public static Log CreateLog(global::System.Int32 id, global::System.String shortMessage, global::System.Int32 logLevelId, global::System.DateTime createdOnUtc)
         {
             Log log = new Log();
-            log.LogıD = logıD;
+            log.Id = id;
+            log.ShortMessage = shortMessage;
+            log.LogLevelId = logLevelId;
+            log.CreatedOnUtc = createdOnUtc;
             return log;
         }
 
@@ -17188,171 +17320,195 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Int32 LogıD
+        public global::System.Int32 Id
         {
             get
             {
-                return _LogıD;
+                return _Id;
             }
             set
             {
-                if (_LogıD != value)
+                if (_Id != value)
                 {
-                    OnLogıDChanging(value);
-                    ReportPropertyChanging("LogıD");
-                    _LogıD = StructuralObject.SetValidValue(value, "LogıD");
-                    ReportPropertyChanged("LogıD");
-                    OnLogıDChanged();
+                    OnIdChanging(value);
+                    ReportPropertyChanging("Id");
+                    _Id = StructuralObject.SetValidValue(value, "Id");
+                    ReportPropertyChanged("Id");
+                    OnIdChanged();
                 }
             }
         }
-        private global::System.Int32 _LogıD;
-        partial void OnLogıDChanging(global::System.Int32 value);
-        partial void OnLogıDChanged();
+        private global::System.Int32 _Id;
+        partial void OnIdChanging(global::System.Int32 value);
+        partial void OnIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String ShortMessage
+        {
+            get
+            {
+                return _ShortMessage;
+            }
+            set
+            {
+                OnShortMessageChanging(value);
+                ReportPropertyChanging("ShortMessage");
+                _ShortMessage = StructuralObject.SetValidValue(value, false, "ShortMessage");
+                ReportPropertyChanged("ShortMessage");
+                OnShortMessageChanged();
+            }
+        }
+        private global::System.String _ShortMessage;
+        partial void OnShortMessageChanging(global::System.String value);
+        partial void OnShortMessageChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String LogName
+        public global::System.String IpAddress
         {
             get
             {
-                return _LogName;
+                return _IpAddress;
             }
             set
             {
-                OnLogNameChanging(value);
-                ReportPropertyChanging("LogName");
-                _LogName = StructuralObject.SetValidValue(value, true, "LogName");
-                ReportPropertyChanged("LogName");
-                OnLogNameChanged();
+                OnIpAddressChanging(value);
+                ReportPropertyChanging("IpAddress");
+                _IpAddress = StructuralObject.SetValidValue(value, true, "IpAddress");
+                ReportPropertyChanged("IpAddress");
+                OnIpAddressChanged();
             }
         }
-        private global::System.String _LogName;
-        partial void OnLogNameChanging(global::System.String value);
-        partial void OnLogNameChanged();
+        private global::System.String _IpAddress;
+        partial void OnIpAddressChanging(global::System.String value);
+        partial void OnIpAddressChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 LogLevelId
+        {
+            get
+            {
+                return _LogLevelId;
+            }
+            set
+            {
+                OnLogLevelIdChanging(value);
+                ReportPropertyChanging("LogLevelId");
+                _LogLevelId = StructuralObject.SetValidValue(value, "LogLevelId");
+                ReportPropertyChanged("LogLevelId");
+                OnLogLevelIdChanged();
+            }
+        }
+        private global::System.Int32 _LogLevelId;
+        partial void OnLogLevelIdChanging(global::System.Int32 value);
+        partial void OnLogLevelIdChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String LogDescription
+        public global::System.String FullMessage
         {
             get
             {
-                return _LogDescription;
+                return _FullMessage;
             }
             set
             {
-                OnLogDescriptionChanging(value);
-                ReportPropertyChanging("LogDescription");
-                _LogDescription = StructuralObject.SetValidValue(value, true, "LogDescription");
-                ReportPropertyChanged("LogDescription");
-                OnLogDescriptionChanged();
+                OnFullMessageChanging(value);
+                ReportPropertyChanging("FullMessage");
+                _FullMessage = StructuralObject.SetValidValue(value, true, "FullMessage");
+                ReportPropertyChanged("FullMessage");
+                OnFullMessageChanged();
             }
         }
-        private global::System.String _LogDescription;
-        partial void OnLogDescriptionChanging(global::System.String value);
-        partial void OnLogDescriptionChanged();
+        private global::System.String _FullMessage;
+        partial void OnFullMessageChanging(global::System.String value);
+        partial void OnFullMessageChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.String LogShortDescription
+        public global::System.String PageUrl
         {
             get
             {
-                return _LogShortDescription;
+                return _PageUrl;
             }
             set
             {
-                OnLogShortDescriptionChanging(value);
-                ReportPropertyChanging("LogShortDescription");
-                _LogShortDescription = StructuralObject.SetValidValue(value, true, "LogShortDescription");
-                ReportPropertyChanged("LogShortDescription");
-                OnLogShortDescriptionChanged();
+                OnPageUrlChanging(value);
+                ReportPropertyChanging("PageUrl");
+                _PageUrl = StructuralObject.SetValidValue(value, true, "PageUrl");
+                ReportPropertyChanged("PageUrl");
+                OnPageUrlChanged();
             }
         }
-        private global::System.String _LogShortDescription;
-        partial void OnLogShortDescriptionChanging(global::System.String value);
-        partial void OnLogShortDescriptionChanged();
+        private global::System.String _PageUrl;
+        partial void OnPageUrlChanging(global::System.String value);
+        partial void OnPageUrlChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Byte> LogType
+        public global::System.String ReferrerUrl
         {
             get
             {
-                return _LogType;
+                return _ReferrerUrl;
             }
             set
             {
-                OnLogTypeChanging(value);
-                ReportPropertyChanging("LogType");
-                _LogType = StructuralObject.SetValidValue(value, "LogType");
-                ReportPropertyChanged("LogType");
-                OnLogTypeChanged();
+                OnReferrerUrlChanging(value);
+                ReportPropertyChanging("ReferrerUrl");
+                _ReferrerUrl = StructuralObject.SetValidValue(value, true, "ReferrerUrl");
+                ReportPropertyChanged("ReferrerUrl");
+                OnReferrerUrlChanged();
             }
         }
-        private Nullable<global::System.Byte> _LogType;
-        partial void OnLogTypeChanging(Nullable<global::System.Byte> value);
-        partial void OnLogTypeChanged();
+        private global::System.String _ReferrerUrl;
+        partial void OnReferrerUrlChanging(global::System.String value);
+        partial void OnReferrerUrlChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> LogStatus
+        public global::System.DateTime CreatedOnUtc
         {
             get
             {
-                return _LogStatus;
+                return _CreatedOnUtc;
             }
             set
             {
-                OnLogStatusChanging(value);
-                ReportPropertyChanging("LogStatus");
-                _LogStatus = StructuralObject.SetValidValue(value, "LogStatus");
-                ReportPropertyChanged("LogStatus");
-                OnLogStatusChanged();
+                OnCreatedOnUtcChanging(value);
+                ReportPropertyChanging("CreatedOnUtc");
+                _CreatedOnUtc = StructuralObject.SetValidValue(value, "CreatedOnUtc");
+                ReportPropertyChanged("CreatedOnUtc");
+                OnCreatedOnUtcChanged();
             }
         }
-        private Nullable<global::System.Int32> _LogStatus;
-        partial void OnLogStatusChanging(Nullable<global::System.Int32> value);
-        partial void OnLogStatusChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String LogDate
-        {
-            get
-            {
-                return _LogDate;
-            }
-            set
-            {
-                OnLogDateChanging(value);
-                ReportPropertyChanging("LogDate");
-                _LogDate = StructuralObject.SetValidValue(value, true, "LogDate");
-                ReportPropertyChanged("LogDate");
-                OnLogDateChanged();
-            }
-        }
-        private global::System.String _LogDate;
-        partial void OnLogDateChanging(global::System.String value);
-        partial void OnLogDateChanged();
+        private global::System.DateTime _CreatedOnUtc;
+        partial void OnCreatedOnUtcChanging(global::System.DateTime value);
+        partial void OnCreatedOnUtcChanged();
 
         #endregion
 
@@ -29971,6 +30127,126 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private global::System.String _ContactPhoneNumber;
         partial void OnContactPhoneNumberChanging(global::System.String value);
         partial void OnContactPhoneNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CountryId
+        {
+            get
+            {
+                return _CountryId;
+            }
+            set
+            {
+                OnCountryIdChanging(value);
+                ReportPropertyChanging("CountryId");
+                _CountryId = StructuralObject.SetValidValue(value, "CountryId");
+                ReportPropertyChanged("CountryId");
+                OnCountryIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CountryId;
+        partial void OnCountryIdChanging(Nullable<global::System.Int32> value);
+        partial void OnCountryIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> CityId
+        {
+            get
+            {
+                return _CityId;
+            }
+            set
+            {
+                OnCityIdChanging(value);
+                ReportPropertyChanging("CityId");
+                _CityId = StructuralObject.SetValidValue(value, "CityId");
+                ReportPropertyChanged("CityId");
+                OnCityIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _CityId;
+        partial void OnCityIdChanging(Nullable<global::System.Int32> value);
+        partial void OnCityIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> LocalityId
+        {
+            get
+            {
+                return _LocalityId;
+            }
+            set
+            {
+                OnLocalityIdChanging(value);
+                ReportPropertyChanging("LocalityId");
+                _LocalityId = StructuralObject.SetValidValue(value, "LocalityId");
+                ReportPropertyChanged("LocalityId");
+                OnLocalityIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _LocalityId;
+        partial void OnLocalityIdChanging(Nullable<global::System.Int32> value);
+        partial void OnLocalityIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> TownId
+        {
+            get
+            {
+                return _TownId;
+            }
+            set
+            {
+                OnTownIdChanging(value);
+                ReportPropertyChanging("TownId");
+                _TownId = StructuralObject.SetValidValue(value, "TownId");
+                ReportPropertyChanged("TownId");
+                OnTownIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _TownId;
+        partial void OnTownIdChanging(Nullable<global::System.Int32> value);
+        partial void OnTownIdChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> DistrictId
+        {
+            get
+            {
+                return _DistrictId;
+            }
+            set
+            {
+                OnDistrictIdChanging(value);
+                ReportPropertyChanging("DistrictId");
+                _DistrictId = StructuralObject.SetValidValue(value, "DistrictId");
+                ReportPropertyChanged("DistrictId");
+                OnDistrictIdChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _DistrictId;
+        partial void OnDistrictIdChanging(Nullable<global::System.Int32> value);
+        partial void OnDistrictIdChanged();
 
         #endregion
 
@@ -44827,7 +45103,10 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         /// <param name="mailPassword">Initial value of the MailPassword property.</param>
         /// <param name="name">Initial value of the Name property.</param>
         /// <param name="surname">Initial value of the Surname property.</param>
-        public static User CreateUser(global::System.Byte userId, global::System.String userName, global::System.String userPass, global::System.String userMail, global::System.String mailSmtp, global::System.String mailPassword, global::System.String name, global::System.String surname)
+        /// <param name="createdDate">Initial value of the CreatedDate property.</param>
+        /// <param name="lastLoginDate">Initial value of the LastLoginDate property.</param>
+        /// <param name="lastActivityDate">Initial value of the LastActivityDate property.</param>
+        public static User CreateUser(global::System.Byte userId, global::System.String userName, global::System.String userPass, global::System.String userMail, global::System.String mailSmtp, global::System.String mailPassword, global::System.String name, global::System.String surname, global::System.DateTime createdDate, global::System.DateTime lastLoginDate, global::System.DateTime lastActivityDate)
         {
             User user = new User();
             user.UserId = userId;
@@ -44838,6 +45117,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
             user.MailPassword = mailPassword;
             user.Name = name;
             user.Surname = surname;
+            user.CreatedDate = createdDate;
+            user.LastLoginDate = lastLoginDate;
+            user.LastActivityDate = lastActivityDate;
             return user;
         }
 
@@ -45183,54 +45465,126 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private global::System.String _CallCenterUrl;
         partial void OnCallCenterUrlChanging(global::System.String value);
         partial void OnCallCenterUrlChanged();
-
-        #endregion
-
-        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MakinaTurkiyeModel", "FK__UserFile__UserId__77661EAB", "UserFile")]
-        public EntityCollection<UserFile> UserFiles
+        public global::System.DateTime CreatedDate
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<UserFile>("MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB", "UserFile");
+                return _CreatedDate;
             }
             set
             {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<UserFile>("MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB", "UserFile", value);
-                }
+                OnCreatedDateChanging(value);
+                ReportPropertyChanging("CreatedDate");
+                _CreatedDate = StructuralObject.SetValidValue(value, "CreatedDate");
+                ReportPropertyChanged("CreatedDate");
+                OnCreatedDateChanged();
             }
         }
+        private global::System.DateTime _CreatedDate;
+        partial void OnCreatedDateChanging(global::System.DateTime value);
+        partial void OnCreatedDateChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MakinaTurkiyeModel", "FK__WebSiteEr__UserI__1EB3CB3A", "WebSiteError")]
-        public EntityCollection<WebSiteError> WebSiteErrors
+        public global::System.DateTime LastLoginDate
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<WebSiteError>("MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A", "WebSiteError");
+                return _LastLoginDate;
             }
             set
             {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<WebSiteError>("MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A", "WebSiteError", value);
-                }
+                OnLastLoginDateChanging(value);
+                ReportPropertyChanging("LastLoginDate");
+                _LastLoginDate = StructuralObject.SetValidValue(value, "LastLoginDate");
+                ReportPropertyChanged("LastLoginDate");
+                OnLastLoginDateChanged();
             }
         }
+        private global::System.DateTime _LastLoginDate;
+        partial void OnLastLoginDateChanging(global::System.DateTime value);
+        partial void OnLastLoginDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime LastActivityDate
+        {
+            get
+            {
+                return _LastActivityDate;
+            }
+            set
+            {
+                OnLastActivityDateChanging(value);
+                ReportPropertyChanging("LastActivityDate");
+                _LastActivityDate = StructuralObject.SetValidValue(value, "LastActivityDate");
+                ReportPropertyChanged("LastActivityDate");
+                OnLastActivityDateChanged();
+            }
+        }
+        private global::System.DateTime _LastActivityDate;
+        partial void OnLastActivityDateChanging(global::System.DateTime value);
+        partial void OnLastActivityDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String LastIpAddress
+        {
+            get
+            {
+                return _LastIpAddress;
+            }
+            set
+            {
+                OnLastIpAddressChanging(value);
+                ReportPropertyChanging("LastIpAddress");
+                _LastIpAddress = StructuralObject.SetValidValue(value, true, "LastIpAddress");
+                ReportPropertyChanged("LastIpAddress");
+                OnLastIpAddressChanged();
+            }
+        }
+        private global::System.String _LastIpAddress;
+        partial void OnLastIpAddressChanging(global::System.String value);
+        partial void OnLastIpAddressChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Boolean> MemberDescriptionTransferState
+        {
+            get
+            {
+                return _MemberDescriptionTransferState;
+            }
+            set
+            {
+                OnMemberDescriptionTransferStateChanging(value);
+                ReportPropertyChanging("MemberDescriptionTransferState");
+                _MemberDescriptionTransferState = StructuralObject.SetValidValue(value, "MemberDescriptionTransferState");
+                ReportPropertyChanged("MemberDescriptionTransferState");
+                OnMemberDescriptionTransferStateChanged();
+            }
+        }
+        private Nullable<global::System.Boolean> _MemberDescriptionTransferState;
+        partial void OnMemberDescriptionTransferStateChanging(Nullable<global::System.Boolean> value);
+        partial void OnMemberDescriptionTransferStateChanged();
 
         #endregion
 
@@ -45383,48 +45737,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.DateTime> _CreatedDate;
         partial void OnCreatedDateChanging(Nullable<global::System.DateTime> value);
         partial void OnCreatedDateChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MakinaTurkiyeModel", "FK__UserFile__UserId__77661EAB", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("MakinaTurkiyeModel.FK__UserFile__UserId__77661EAB", "User", value);
-                }
-            }
-        }
 
         #endregion
 
@@ -46021,6 +46333,30 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private global::System.String _SecondPhoneNumber;
         partial void OnSecondPhoneNumberChanging(global::System.String value);
         partial void OnSecondPhoneNumberChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String WhoSecondPhoneNumber
+        {
+            get
+            {
+                return _WhoSecondPhoneNumber;
+            }
+            set
+            {
+                OnWhoSecondPhoneNumberChanging(value);
+                ReportPropertyChanging("WhoSecondPhoneNumber");
+                _WhoSecondPhoneNumber = StructuralObject.SetValidValue(value, true, "WhoSecondPhoneNumber");
+                ReportPropertyChanged("WhoSecondPhoneNumber");
+                OnWhoSecondPhoneNumberChanged();
+            }
+        }
+        private global::System.String _WhoSecondPhoneNumber;
+        partial void OnWhoSecondPhoneNumberChanging(global::System.String value);
+        partial void OnWhoSecondPhoneNumberChanged();
 
         #endregion
 
@@ -48097,48 +48433,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Models.Entities
         private Nullable<global::System.Boolean> _IsWaiting;
         partial void OnIsWaitingChanging(Nullable<global::System.Boolean> value);
         partial void OnIsWaitingChanged();
-
-        #endregion
-
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("MakinaTurkiyeModel", "FK__WebSiteEr__UserI__1EB3CB3A", "User")]
-        public User User
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A", "User").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A", "User").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<User> UserReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<User>("MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A", "User");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<User>("MakinaTurkiyeModel.FK__WebSiteEr__UserI__1EB3CB3A", "User", value);
-                }
-            }
-        }
 
         #endregion
 

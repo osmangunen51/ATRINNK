@@ -360,7 +360,7 @@ namespace MakinaTurkiye.Core
 
         public static string PostgreSqlConnectionString
         {
-            get { return ConfigurationManager.AppSettings["PostgreSql-ConnectionString"].ToString(); }
+            get { return ConfigurationManager.AppSettings["PostgreSql-ConnectionString"]?.ToString(); }
         }
     }
 }
