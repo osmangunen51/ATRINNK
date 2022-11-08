@@ -13,9 +13,9 @@ namespace MakinaTurkiye.Api.View
         public int SelectedCategoryId { get; set; } = 0;
         public string SelectedCategoryName { get; set; } = "";
 
-        public IList<SortOptionModel> SortOptionModels { get; set; }
-        public StoreAddressFilterModel StoreAddressFilterModel { get; set; }
-        public StoreActivityTypeFilterModel StoreActivityTypeFilterModel { get; set; }
+        public IList<SortOptionModel> SortOptionModels { get; set; }=new List<SortOptionModel>();
+        public StoreAddressFilterModel StoreAddressFilterModel { get; set; } = new StoreAddressFilterModel();
+        public StoreActivityTypeFilterModel StoreActivityTypeFilterModel { get; set; }=new StoreActivityTypeFilterModel();
 
         public int TotalItemCount { get; set; }
     }
