@@ -138,12 +138,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 Name = model.Name,
                 Surname = model.Surname,
                 CallCenterUrl = model.Surname,
-                MemberDescriptionTransferState=model.MemberDescriptionTransferState,
+                MemberDescriptionTransferState = model.MemberDescriptionTransferState,
                 Signature = model.Signature,
                 CreatedDate=DateTime.Now,
                 LastLoginDate= DateTime.Now,
                 LastActivityDate= DateTime.Now,
             };
+
             entities.Users.AddObject(curUser);
             int userGroupId = 0;
             if (collection["Permission"] != null)
@@ -157,7 +158,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         permissionUser = new Classes.PermissionUser
                         {
                             UserGroupId = item.ToInt32(),
-                            UserId = curUser.UserId
+                            UserId = curUser.UserId,
                         };
                         userGroupId = item.ToInt32();
                         permissionUser.Save();

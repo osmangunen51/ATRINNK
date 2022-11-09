@@ -42,14 +42,13 @@ using static NeoSistem.MakinaTurkiye.Web.Models.Products.MTProductTabModel;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
-
     [AllowAnonymous]
     [Compress]
     [AllowSameSite]
     public class ProductController : BaseController
     {
-
         #region Fields
+
         //private static ILog log = log4net.LogManager.GetLogger(typeof(HomeController));
 
         private readonly IProductService _productService;
@@ -79,8 +78,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         private readonly IAuthenticationService _authenticationService;
         private readonly ICertificateTypeService _cerfificateService;
 
-
-        #endregion
+        #endregion Fields
 
         #region Ctor
 
@@ -131,7 +129,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             _cerfificateService = certificateTypeService;
         }
 
-        #endregion
+        #endregion Ctor
 
         #region Utilities
 
@@ -169,8 +167,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else if (item.CategoryType == (byte)CategoryType.ProductGroup)
                 {
-
-
                     alMenu.Add(new Navigation(categoryNameUrl, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
                 }
                 else if (item.CategoryType == (byte)CategoryType.Brand)
@@ -193,7 +189,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         var catName = UrlBuilder.ToUrl(categoryNameUrl);
                         alMenu.Add(new Navigation(item.CategoryName, "/" + UrlBuilder.ToUrl(item.CategoryName) + "-" + brandName + "-" + catName + "-m-" + item.CategoryId.ToString() + "-" + topCatForModel.CategoryId, Navigation.TargetType._self));
                     }
-
                 }
                 else if (item.CategoryType == (byte)CategoryType.Series)
                 {
@@ -201,7 +196,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     var cat = topCategories.LastOrDefault(c => c.CategoryType == 1);
                     if (cat != null)
                     {
-
                         categoryNameUrl = !string.IsNullOrEmpty(cat.CategoryContentTitle) ? cat.CategoryContentTitle : cat.CategoryName;
                         var catName = UrlBuilder.ToUrl(categoryNameUrl);
                         alMenu.Add(new Navigation(item.CategoryName, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-" + brandName + "-" + catName + "-s-" + item.CategoryId.ToString(), Navigation.TargetType._self));
@@ -209,7 +203,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else
                 {
-
                     alMenu.Add(new Navigation(categoryNameUrl, "/" + UrlBuilder.ToUrl(categoryNameUrl) + "-c-" + item.CategoryId.ToString(), Navigation.TargetType._self));
                 }
             }
@@ -235,12 +228,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return navigation.ToString();
         }
 
-
         private void ActivationCodeSend(string Email, string activationCode, string nameSurname)
         {
             try
             {
-
                 var settings = ConfigurationManager.AppSettings;
                 MailMessage mail = new MailMessage();
 
@@ -261,7 +252,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 //ExceptionHandler.HandleException(ex);
             }
-
         }
 
         private void PrepareProductContactModel(MTProductDetailViewModel productModel, Product product, Store store)
@@ -282,7 +272,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var whatsappMessageTypes = _mobileMessageService.GetMobileMessagesByMessageType(MobileMessageTypeEnum.Whatsapp);
             string wpMessagecontent = "Merhaba #urunlinki# ilanınız için makinaturkiye.com üzerinden ulaşıyorum";
             model.WhatsappMessageItem = new MTWhatsappMessageItem { MessageContent = wpMessagecontent.Replace("#urunlinki#", model.ProductUrl), MessageName = "", MessageId = 1 };
-
 
             if (store != null)
             {
@@ -328,7 +317,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         }
 
                         showPhone = (startTimeCheck && endTimeCheck);
-
                     }
 
                     model.StoreModel.PhoneModels.Add(new MTStorePhoneModel
@@ -339,11 +327,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         PhoneType = (PhoneType)item.PhoneType.Value,
                         ShowPhone = showPhone
                     });
-
                 }
             }
-
-
 
             //member
             var member = _memberService.GetMemberByMainPartyId(product.MainPartyId.Value);
@@ -380,7 +365,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     model.ProductPageHeaderModel.nextProductUrl = UrlBuilder.GetProductUrl(nextProduct.ProductId, nextProduct.ProductName);
                 }
             }
-
         }
 
         private void PrepareProductComplain(MTProductDetailViewModel model, byte IsMember)
@@ -393,7 +377,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 {
                     ItemName = compType.Name,
                     ItemId = compType.ProductComplainTypeId,
-
                 };
                 productComplainModel.ComplainTypeItemModels.Add(item);
             }
@@ -464,7 +447,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             foreach (var item in similarProducts)
             {
-
                 string smallPicturePath = string.Empty;
                 var picture = _pictureService.GetFirstPictureByProductId(item.ProductId);
                 if (picture != null)
@@ -490,17 +472,14 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     Price = item.GetFormattedPrice(),
                     ProductContactUrl = UrlBuilder.GetProductContactUrl(item.ProductId, storeName),
                     ViewCount = item.ViewCount
-
                 };
 
                 model.SimilarProductModel.ProductItemModels.Add(similarProduct);
                 similarProductIndex++;
             }
-
-
         }
 
-        #endregion
+        #endregion Utilities
 
         [Compress]
         public ActionResult
@@ -509,12 +488,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (!productId.HasValue)
             {
                 return RedirectPermanent(AppSettings.SiteAllCategoryUrl);
-
             }
 
             var product = _productService.GetProductByProductId(productId.Value);
             var memberStore = new MemberStore();
-
 
             if (product == null)
             {
@@ -536,19 +513,15 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 //try
                 //{
-
                 //}
                 //finally
                 //{
-
                 //}
 
                 _productService.CachingGetOrSetOperationEnabled = false;
                 product = _productService.GetProductByProductId(productId.Value);
                 product.ViewCount += 1;
                 _productService.UpdateProduct(product);
-
-
 
                 memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(product.MainPartyId.Value);
                 if (memberStore == null)
@@ -568,13 +541,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
             }
 
-
             var url = Request.Url.AbsolutePath;
             if (!Request.IsLocal)
             {
                 url = Request.Url.AbsoluteUri;
             }
-
 
             var link = UrlBuilder.GetProductUrl(product.ProductId, product.ProductName);
 
@@ -587,9 +558,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             //string ipAdress= Request.UserHostAddress;
 
-
-            #endregion
-
+            #endregion productstatisticmong
 
             if (url != link)
                 return RedirectPermanent(link);
@@ -600,11 +569,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             var model = new MTProductDetailViewModel();
 
-
             if (AuthenticationUser.CurrentUser.Membership != null && (product.MainPartyId == AuthenticationUser.CurrentUser.Membership.MainPartyId && product.ProductActiveType == (byte)ProductActiveType.Inceleniyor) || pageType == "firstadd")
             {
                 model.OnlyStoreSee = true;
-
             }
             else model.OnlyStoreSee = false;
 
@@ -617,9 +584,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductDetailModel.ProductActive = product.GetActiveStatus();
 
             #region productcookie
+
             if (Request.Cookies["ProductVisited"] != null)
             {
-
                 HttpCookie cookie = Request.Cookies["ProductVisited"];
 
                 string data = cookie.Value;
@@ -646,13 +613,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     cookie.Expires = DateTime.Now.AddDays(2);
                     Response.Cookies.Add(cookie);
                 }
-
             }
             else
             {
                 List<MTProductItemRecomandation> list = new List<MTProductItemRecomandation>();
                 string data = product.ProductId.ToString();
-
 
                 HttpCookie cookieVisitor = new HttpCookie("ProductVisited", data);
 #if !DEBUG
@@ -663,7 +628,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 Response.Cookies.Add(cookieVisitor);
             }
 
-            #endregion
+            #endregion productcookie
 
             #region header
 
@@ -676,7 +641,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //PreviousAndNextProductFind(model, product);
             if (AuthenticationUser.Membership != null)
             {
-
                 //favorite  product
                 var favoriteProduct = _favoriteProductService.GetFavoriteProductByMainPartyIdWithProductId(AuthenticationUser.Membership.MainPartyId, product.ProductId);
                 model.ProductDetailModel.IsFavoriteProduct = favoriteProduct != null ? true : false;
@@ -694,9 +658,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //                                           product.BrandId.HasValue ? product.BrandId.Value : 0,
             //                                           product.CategoryId.HasValue ? product.CategoryId.Value : 0, out unifiedCategories, model);
 
-            #endregion
-            #region product
+            #endregion header
 
+            #region product
 
             model.ProductDetailModel.ProductNo = product.ProductNo;
             model.ProductDetailModel.MenseiName = product.GetMenseiText();
@@ -749,8 +713,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductDetailModel.ButtonDeliveryStatusText = string.Format("{0} 'de Teslim", model.ProductDetailModel.DeliveryStatus);
             string categoryNameUrl = !string.IsNullOrEmpty(product.Category.CategoryContentTitle) ? product.Category.CategoryContentTitle : product.Category.CategoryName;
 
-
-
             if (product.Brand != null)
             {
                 model.ProductDetailModel.BrandName = product.Brand.CategoryName;
@@ -766,8 +728,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.ProductDetailModel.ModelUrl = UrlBuilder.GetModelUrl(product.ModelId.Value, product.Model.CategoryName, product.Brand.CategoryName, categoryNameUrl, product.Category.CategoryId);
             }
             //}
-            #endregion
 
+            #endregion product
 
             #region store
 
@@ -809,7 +771,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             model.ProductStoreModel.ProductName = product.ProductName;
             model.ProductStoreModel.ProductNo = product.ProductNo;
 
-            #endregion
+            #endregion store
 
             #region tab
 
@@ -885,16 +847,19 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.ProductTabModel.MapCode = string.Format("https://maps.google.com/maps?q={0}", model.ProductTabModel.MapCode);
             }
 
-            #endregion
+            #endregion tab
+
             //PrepareSimilarProducts(model);
 
             #region saticimesaj
+
             if (product.GetActiveStatus())
             {
                 //satici mesaj
                 model.ProductStoreMessageModel.ProductName = product.ProductName;
             }
-            #endregion
+
+            #endregion saticimesaj
 
             #region video
 
@@ -938,7 +903,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     model.ProductTabModel.VideoModels = videoForPages;
                 }
             }
-            #endregion
+
+            #endregion video
 
             #region sikayet
 
@@ -949,7 +915,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             if (AuthenticationUser.Membership != null) { if (AuthenticationUser.Membership.MainPartyId > 0) IsMember = 1; }
             PrepareProductComplain(model, IsMember);
             //}
-            #endregion
+
+            #endregion sikayet
 
             //satıcının diğer ilanları
             var otherProducts = _productService.GetProductsByMainPartIdAndNonProductId(product.MainPartyId.Value, product.ProductId, 6);
@@ -978,6 +945,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.StoreOtherProductModel.ProductItemModels.Add(otherProduct);
                 storeOtherProductIndex++;
             }
+
             #region producttecnicalinfo
 
             var productTechnicalInfos = _categoryPropertieService.GetProductPropertieValuesResultByProductId(product.ProductId);
@@ -996,9 +964,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 if (!string.IsNullOrEmpty(value))
                     model.ProductTabModel.MTProductTechnicalInfoItems.Add(new MTProductTechnicalInfoItem { DisplayName = item.PropertieName, Value = value });
             }
-            #endregion
+
+            #endregion producttecnicalinfo
 
             #region productcatolog
+
             //products catolog
             var catologs = _productCatologService.GetProductCatologsByProductId(product.ProductId);
             for (int Step = 0; Step < catologs.Count(); Step++)
@@ -1008,7 +978,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 model.ProductTabModel.MTProductCatologs.Add(new MTProductCatologItem { CatologId = item.ProductCatologId, FilePath = filePath });
             }
 
-            #endregion
+            #endregion productcatolog
 
             #region productcomment
 
@@ -1031,9 +1001,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     if (memberStoreM != null)
                     {
                         adress = _addressService.GetFisrtAddressByMainPartyId(memberStoreM.StoreMainPartyId.Value);
-
                     }
-
                 }
 
                 if (adress != null)
@@ -1042,7 +1010,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     {
                         location = adress.City.CityName.ToUpper() + ", " + adress.Locality.LocalityName;
                     }
-
                 }
                 var memberComment = _memberService.GetMemberByMainPartyId(item.MemberMainPartyId);
                 if (memberComment != null)
@@ -1067,9 +1034,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             productCommentItemsModel.PageDimension = pageDimension;
             model.ProductTabModel.MTProductComment.MTProductCommentItems = productCommentItemsModel;
 
-            #endregion
+            #endregion productcomment
 
             #region picture
+
             //picture
             var pictures = _pictureService.GetPicturesByProductId(product.ProductId);
             for (int Step = 0; Step < pictures.Count(); Step++)
@@ -1109,7 +1077,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //List<string> thumbSizes = new List<string>();
             //thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
 
-
             //foreach (var item in model.ProductPictureModels)
             //{
             //    string largePath = Server.MapPath(item.LargePath.Replace("//s.makinaturkiye.com", "~/UserFiles"));
@@ -1126,8 +1093,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             //    }
             //}
 
-            #endregion
+            #endregion picture
+
             #region certificates
+
             var productCertificates = _cerfificateService.GetCertificateTypeProductsByProductId(product.ProductId);
             if (productCertificates.Count > 0)
             {
@@ -1152,16 +1121,16 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                                 );
                         }
                     }
-
                 }
             }
-            #endregion
+
+            #endregion certificates
 
             //ürün görünün güncelleme
             var updatedProduct = _productService.GetProductByProductId(product.ProductId);
 
-
             #region Urun İstatistik Güncellleme
+
             try
             {
                 if (!SessionSingularViewCountType.SingularViewCountTypes.Any(c => c.Key == productId && c.Value == SingularViewCountType.Product))
@@ -1180,7 +1149,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     }
                     catch (Exception ex)
                     {
-
                     }
                     DateTime dateNow = DateTime.Now;
                     DateTime recordDate = DateTime.Now;
@@ -1191,21 +1159,20 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     productStatistic.Hour = Convert.ToByte(DateTime.Now.Hour);
                     productStatistic.ViewCount = 1;
                     int lastId = 0;
-                    #if DEBUG
-                                        try
-                                        {
+#if DEBUG
+                    try
+                    {
+                        lastId = _productStatisticService.InsertProductStatistic(productStatistic);
+                        SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
+                    }
+                    catch (Exception Hata)
+                    {
+                    }
+#endif
+#if RELEASE
                                             lastId = _productStatisticService.InsertProductStatistic(productStatistic);
                                             SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
-                                        }
-                                        catch (Exception Hata)
-                                        {
-
-                                        }
-                    #endif
-                    #if RELEASE
-                                            lastId = _productStatisticService.InsertProductStatistic(productStatistic);
-                                            SessionStatisticIds.StatisticIds.Add(productId.Value, lastId.ToString());
-                    #endif
+#endif
                     _productService.CachingGetOrSetOperationEnabled = false;
                     updatedProduct.SingularViewCount += 1;
                     _productService.UpdateProduct(updatedProduct);
@@ -1214,9 +1181,9 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
             finally
             {
-
             }
-            #endregion
+
+            #endregion Urun İstatistik Güncellleme
 
             if (product.GetActiveStatus())
             {
@@ -1231,7 +1198,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             // model.ProductTabModel.ProductDescription = _productService.ClearObjectionableContent(product.ProductDescription);
             return View(viewName: "DetailClear", model: model);
         }
-
 
         [HttpPost]
         public JsonResult fastSignup(string email, string password)
@@ -1252,12 +1218,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpPost]
         public JsonResult FastMember(MembershipModel model, string PhoneNumber, int? productId, string memberEmail1, string content, string subject)
         {
-
             var member = new Member();
             var PhoneGsmResult = new Phone();
 
             string activCode = Guid.NewGuid().ToString("N").ToUpper();
-
 
             string activationCodePhone = "";
 
@@ -1326,7 +1290,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 AddressDefault = true,
             };
 
-
             if (model.CountryId > 0 && model.CountryId != 246)
             {
                 address.Avenue = model.AvenueOtherCountries;
@@ -1356,7 +1319,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 address.TownId = model.TownId;
             else
                 address.TownId = null;
-
 
             _addressService.InsertAdress(address);
 
@@ -1404,7 +1366,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     GsmType = model.GsmType
                 };
 
-                SmsHelper sms = new SmsHelper();
+                NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper sms = new NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper();
                 activationCodePhone = sms.CreateActiveCode();
                 MobileMessage messageTmp = _mobileMessageService.GetMobileMessageByMessageName("telefononayi");
                 string messageMobile = messageTmp.MessageContent.Replace("#isimsoyisim#", member.MemberName + " " + member.MemberSurname).Replace("#aktivasyonkodu#", activationCodePhone);
@@ -1414,7 +1376,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 phoneGsm.ActivationCode = activationCodePhone;
 
                 _phoneService.InsertPhone(phoneGsm);
-
             }
 
             if (model.InstitutionalFaxNumber != null && !string.IsNullOrWhiteSpace(model.InstitutionalFaxNumber))
@@ -1431,7 +1392,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 _phoneService.InsertPhone(phoneFax);
             }
 
-
             var receiverMainPartyId = _memberService.GetMemberByMemberEmail(memberEmail1).MainPartyId;
 
             SendMessageError sendMessage = new SendMessageError();
@@ -1446,8 +1406,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             SessionMembershipViewModel.Flush();
 
-
-
             return Json(new
             {
                 ActivationCode = member.ActivationCode,
@@ -1458,10 +1416,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 PhoneNumber = PhoneGsmResult.PhoneCulture + " " + PhoneGsmResult.PhoneAreaCode + " " + PhoneGsmResult.PhoneNumber,
                 MessageId = sendMessage.MessageID
             }, JsonRequestBehavior.AllowGet);
-
-
         }
-
 
         [HttpPost]
         public JsonResult SendMessageErrorAgain(string MessageId, string PhoneNumber)
@@ -1472,8 +1427,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             var member = _memberService.GetMemberByMainPartyId(messageError.SenderID);
             if (messageError != null)
             {
-
-
                 if (PhoneNumber != "")
                 {
                     PhoneNumber = PhoneNumber.Replace("(", "").Replace(")", "").Replace(" ", "").Replace("-", "");
@@ -1482,9 +1435,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
                     var phoneGsm = _phoneService.GetPhonesByMainPartyIdByPhoneType(messageError.SenderID, PhoneTypeEnum.Gsm);
 
-                    SmsHelper sms = new SmsHelper();
+                    NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper sms = new NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper();
                     string activationCodePhone = sms.CreateActiveCode();
-
 
                     MobileMessage messageTmp = _mobileMessageService.GetMobileMessageByMessageName("telefononayi");
 
@@ -1512,13 +1464,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             {
                 return Json(false);
             }
-
         }
 
         [HttpPost]
         public string ProductMessageSender(string content, string subject, int? productId, string error, string phoneCode, int senderMainPartyId, string memberEmail, string MailActivationValue)
         {
-
             int receverMainPartyId = _memberService.GetMemberByMemberEmail(memberEmail).MainPartyId;
 
             if (MailActivationValue == "0" || MailActivationValue == "")
@@ -1533,7 +1483,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 }
                 else
                 {
-
                     var phoneItem = _phoneService.GetPhonesByMainPartyId(senderMainPartyId).FirstOrDefault();
                     phoneItem.active = 1;
                     _phoneService.UpdatePhone(phoneItem);
@@ -1553,7 +1502,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     messageContent = curMessage.MessageContent;
                     //burda boş gelirse kontrolnü yap.
                     _messageService.InsertMessage(curMessage);
-
 
                     var user = _memberService.GetMemberByMainPartyId(senderMainPartyId);
                     user.Active = true;
@@ -1578,13 +1526,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     };
                     _messageService.InsertMessageMainParty(curMessageMainParty);
 
-
                     var sendMessageErrors = _messageService.GetAllSendMessageErrors(senderMainPartyId, subject, receverMainPartyId);
                     if (sendMessageErrors.Any())
                     {
                         var sendMessageError = sendMessageErrors.FirstOrDefault();
                         _messageService.DeleteSendMessageError(sendMessageError);
-
                     }
 
                     var product = _productService.GetProductByProductId(productId.Value);
@@ -1627,8 +1573,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                             members.ForEach(x => mailHelper.ToMails.Add(x));
                         }
                         mailHelper.Send();
-
-
                     }
                     catch (Exception ex)
                     {
@@ -1663,7 +1607,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
         }
 
-
         [HttpPost]
         public JsonResult fastSignupPhone1(string activationCode)
         {
@@ -1696,11 +1639,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpPost]
         public JsonResult fastSignupPhone(string Email)
         {
-
             var member = _memberService.GetMemberByMemberEmail(Email);
             if (member != null)
             {
-                SmsHelper sms = new SmsHelper();
+                NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper sms = new NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper();
                 string ActivationCode = sms.CreateActiveCode();
 
                 var phone = _phoneService.GetPhonesByMainPartyId(member.MainPartyId).FirstOrDefault();
@@ -1730,9 +1672,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(model);
         }
 
-
         [HttpGet]
-
         public ActionResult ProductContact(int productId)
         {//AdilD
             var model = new ProductContactModel();
@@ -1788,8 +1728,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             return View(model);
         }
 
-
-
         public ActionResult WrongUrlRedirect(string productId, string storeName)
         {
             return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + "/Product/ProductContact?productId=" + productId + "&storeName=" + storeName);
@@ -1798,13 +1736,11 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public ActionResult WrongUrlHelp(string categoryId)
         {
             return RedirectPermanent(AppSettings.SiteUrlWithoutLastSlash + Request.Url.AbsolutePath);
-
         }
 
         [HttpPost]
         public PartialViewResult GetSimilarProducts(int categoryId, int productId)
         {
-
             var similarProducts = _productService.GetProductsByCategoryIdAndNonProductId(categoryId, productId);
             var category = _categoryService.GetCategoryByCategoryId(categoryId);
             string categoryNameUrl = !string.IsNullOrEmpty(category.CategoryContentTitle) ? category.CategoryContentTitle : category.CategoryName;
@@ -1838,7 +1774,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                     Price = item.GetFormattedPrice(),
                     ProductContactUrl = UrlBuilder.GetProductContactUrl(item.ProductId, storeName),
                     ViewCount = item.ViewCount
-
                 };
                 model.ProductItemModels.Add(similarProduct);
                 similarProductIndex++;
