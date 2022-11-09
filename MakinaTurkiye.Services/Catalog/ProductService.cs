@@ -1172,13 +1172,13 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
 
 
                     var products = this.SPWebCategoryProductWithPriceRange(out List<FilterableCategoriesResult> filterableCategoryIds,
-        out List<int> filterableCountryIds,
-        out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
-        out List<int> filterableModelIds, out List<int> filterableSeriesIds,
-        out int newProductCount, out int usedProductCount, out int serviceProductCount,
-        out decimal MinPrice, out decimal MaxPrice,
-        categoryId, brandId, modelId, seriresId,
-        searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText, SelectMinPrice, SelectMaxPrice);
+                    out List<int> filterableCountryIds,
+                    out List<int> filterableCityIds, out List<int> filterableLocalityIds, out List<int> filterableBrandIds,
+                    out List<int> filterableModelIds, out List<int> filterableSeriesIds,
+                    out int newProductCount, out int usedProductCount, out int serviceProductCount,
+                    out decimal MinPrice, out decimal MaxPrice,
+                    categoryId, brandId, modelId, seriresId,
+                    searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, pageSize, searchText, SelectMinPrice, SelectMaxPrice);
 
                     var result = new CategoryProductsResult
                     {
