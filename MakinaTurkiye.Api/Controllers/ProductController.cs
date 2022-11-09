@@ -22,6 +22,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace MakinaTurkiye.Api.Controllers
@@ -344,39 +345,43 @@ namespace MakinaTurkiye.Api.Controllers
                         HasVideo=(bool)Snc.HasVideo
                     }
                 ).ToList();
-
-
-                foreach (var item in TmpResult)
+                if (TmpResult.Count>0)
                 {
-                    var Product = _productService.GetProductByProductId(item.ProductId);
-                    if (Product != null)
+                    var productList = _productService.GetProductByProductsIds(TmpResult.Select(x => x.ProductId).ToList());
+                    var storeList = _storeService.GetStoresByMainPartyIds(TmpResult.Select(x => x.StoreMainPartyId).ToList());
+                    var storephoneList = _phoneService.GetPhonesByMainPartyIds(TmpResult.Select(x => x.StoreMainPartyId).ToList());
+                    foreach (var item in TmpResult)
                     {
-                        item.DatePublished = default;
+                        var Product = productList.FirstOrDefault(x => x.ProductId == item.ProductId);
+                        if (Product != null)
+                        {
+                            item.DatePublished = default;
 
-                        if (Product.ProductRecordDate.HasValue)
-                        {
-                            item.DatePublished = Product.ProductRecordDate.Value;
+                            if (Product.ProductRecordDate.HasValue)
+                            {
+                                item.DatePublished = Product.ProductRecordDate.Value;
+                            }
                         }
+                        item.CurrencyCodeName = Product.GetCurrency();
+                        var Store = storeList.FirstOrDefault(x => x.MainPartyId == item.StoreMainPartyId);
+                        if (Store != null)
+                        {
+                            item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                            var phones = storephoneList.Where(x => x.MainPartyId == Store.MainPartyId);
+                            var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
+                            if (StorePhone != null)
+                            {
+                                item.StorePhone = StorePhone.PhoneNumber;
+                                item.StoreBussinesPhone = StorePhone.PhoneNumber;
+                            }
+                            var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
+                            if (StoreGsm != null)
+                            {
+                                item.StoreGsm = StoreGsm.PhoneNumber;
+                            }
+                        }
+                        item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px500x375) : "";
                     }
-                    item.CurrencyCodeName = Product.GetCurrency();
-                    var Store = _storeService.GetStoreByMainPartyId(item.StoreMainPartyId);
-                    if (Store != null)
-                    {
-                        item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Store.MainPartyId, Store.StoreLogo, 300) : null;
-                        var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
-                        var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
-                        if (StorePhone != null)
-                        {
-                            item.StorePhone = StorePhone.PhoneNumber;
-                            item.StoreBussinesPhone = StorePhone.PhoneNumber;
-                        }
-                        var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
-                        if (StoreGsm != null)
-                        {
-                            item.StoreGsm = StoreGsm.PhoneNumber;
-                        }
-                    }
-                    item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px500x375) : "";
                 }
 
                 List<AdvancedSearchFilterItem> filterItems = new List<AdvancedSearchFilterItem>();
@@ -543,7 +548,6 @@ namespace MakinaTurkiye.Api.Controllers
                     }
                 }
 
-
                 int Ordr = 0;
                 Dictionary<Category, int> lst = new Dictionary<Category, int>();
                 var tmpCategory = categories.FirstOrDefault();
@@ -581,8 +585,6 @@ namespace MakinaTurkiye.Api.Controllers
                     });
                     Ordr++;
                 }
-
-
 
                 // categoride sadece sektör ürün gurubu ve kategori olanla rlistelenecek.
 

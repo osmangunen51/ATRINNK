@@ -1,4 +1,4 @@
-﻿@model UserModel
+@model UserModel
 
 <table class="tableForm" style="padding: 10px; height: auto;">
     @Html.HiddenFor(x => x.UserId)
@@ -60,16 +60,6 @@
         </td>
         <td>
             @Html.TextBoxFor(x => x.Surname)
-        </td>
-
-    </tr>
-    <tr>
-        <td>
-            @Html.LabelFor(x => x.UserMail)
-            :
-        </td>
-        <td>
-            @Html.TextBoxFor(x => x.UserMail)
         </td>
 
     </tr>

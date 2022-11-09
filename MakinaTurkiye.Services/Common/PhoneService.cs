@@ -68,6 +68,25 @@ namespace MakinaTurkiye.Services.Common
              });
         }
 
+        public IList<Phone> GetPhonesByMainPartyIds(List<int> mainPartyIds)
+        {
+            if (mainPartyIds.Count == 0)
+                return new List<Phone>();
+
+            string key = string.Format(PHONES_BY_MAINPARTY_ID_KEY,String.Join("-", mainPartyIds));
+            return _cacheManager.Get(key, () =>
+             {
+                 var query = _phoneRepository.Table;
+
+                 //query = query.Include(p => p.Member);
+                 //query = query.Include(p => p.Address);
+
+                 query = query.Where(p => mainPartyIds.Contains((int)p.MainPartyId));
+
+                 var phones = query.ToList();
+                 return phones;
+             });
+        }
         public Phone GetPhonesByMainPartyIdByPhoneType(int mainPartyId, PhoneTypeEnum phoneType)
         {
             if (mainPartyId == 0)

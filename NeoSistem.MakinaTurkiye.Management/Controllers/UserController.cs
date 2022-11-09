@@ -140,6 +140,9 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 CallCenterUrl = model.Surname,
                 MemberDescriptionTransferState=model.MemberDescriptionTransferState,
                 Signature = model.Signature,
+                CreatedDate=DateTime.Now,
+                LastLoginDate= DateTime.Now,
+                LastActivityDate= DateTime.Now,
             };
             entities.Users.AddObject(curUser);
             int userGroupId = 0;

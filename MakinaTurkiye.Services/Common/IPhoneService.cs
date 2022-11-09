@@ -6,6 +6,7 @@ namespace MakinaTurkiye.Services.Common
     public interface IPhoneService : ICachingSupported
     {
         IList<Phone> GetPhonesByMainPartyId(int mainPartyId);
+        IList<Phone> GetPhonesByMainPartyIds(List<int> mainPartyId);
 
         Phone GetPhoneByPhoneId(int phoneId);
 
