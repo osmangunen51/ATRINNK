@@ -36,6 +36,11 @@ namespace MakinaTurkiye.Services.Messages
         void DeleteSendMessageError(SendMessageError sendMessageError);
 
         IList<MessageMainParty> GetAllMessageMainParty(int memberMainPartyId, byte messageType);
+        IList<MessageMainParty> GetMessageMainPartyByMessageId(int messageId);
+
+        IList<MessageMainParty> GetMessageMainPartyByFromAndTo(int From,int To);
+
+        IList<Message> GetMessageByMessageIds(List<int> MessageIds);
 
     }
 }

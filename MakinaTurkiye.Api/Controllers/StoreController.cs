@@ -4179,9 +4179,10 @@ namespace MakinaTurkiye.Api.Controllers
                     var localPhonesPhone = localPhones.ToArray()[1];
                     model.Phone2 = $"{localPhonesPhone.PhoneCulture.Replace("+", "")}-{localPhonesPhone.PhoneAreaCode}-{localPhonesPhone.PhoneNumber}";
                 }
-
-                model.Whatsapp = $"{whatsapp.PhoneCulture.Replace("+", "")}-{whatsapp.PhoneAreaCode}-{whatsapp.PhoneNumber}";
-
+                if (whatsapp!=null)
+                {
+                    model.Whatsapp = $"{whatsapp.PhoneCulture.Replace("+", "")}-{whatsapp.PhoneAreaCode}-{whatsapp.PhoneNumber}";
+                }
                 var address = _addressService.GetAddressesByMainPartyId(MainPartyId).OrderBy(x => x.AddressTypeId).FirstOrDefault();
                 if (address != null)
                 {
@@ -4428,9 +4429,28 @@ namespace MakinaTurkiye.Api.Controllers
             return ifLocalityIds.Count > 0 ? ifLocalityIds : _addressService.GetSingleLocalityIdByLocalityName(locality);
         }
 
-        public HttpResponseMessage GetCategoryStores(int categoryId = 0, int modelId = 0, int brandId = 0, int cityId = 0, string searchText = "", int orderBy = 0, int pageIndex = 0, int pageSize = 0, string activityType = "", string Cities = "", string Localities = "")
+
+        public HttpResponseMessage GetCategoryStores(int categoryId = 0, int modelId = 0, int brandId = 0,
+            int cityId = 0, string searchText = "", int orderBy = 0, int pageIndex = 0, int pageSize = 0, 
+            string activityType = "", string Cities = "", string Localities = "")
         {
             {
+                if (searchText==null)
+                {
+                    searchText = "";
+                }
+                if (activityType == null)
+                {
+                    activityType = "";
+                }
+                if (Cities == null)
+                {
+                    Cities = "";
+                }
+                if (Localities == null)
+                {
+                    Localities = "";
+                }
                 ProcessResult processStatus = new ProcessResult();
                 try
                 {
@@ -4438,8 +4458,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                     List<StoreListItem> Result = new List<StoreListItem>();
                     IList<int> localityIds = new List<int>();
-                    var IslemResult = _storeService.GetCategoryStores(categoryId, modelId, brandId, cityId,
-                    localityIds, searchText, orderBy, pageIndex, pageSize, activityType);
+                    var IslemResult = _storeService.GetCategoryStores(categoryId, modelId, brandId, cityId,localityIds,searchText, orderBy, pageIndex, pageSize, activityType);
                     foreach (var item in IslemResult.Stores)
                     {
                         if (!item.StoreLogo.StartsWith("https:"))
@@ -4501,7 +4520,7 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 CategoryId = item.CategoryId,
                                 CategoryType = item.CategoryType,
-                                DefaultCategoryName = item.CategoryName
+                                DefaultCategoryName = item.CategoryName,
                             };
                             if (!string.IsNullOrEmpty(item.StorePageTitle))
                             {
@@ -4541,6 +4560,7 @@ namespace MakinaTurkiye.Api.Controllers
                             }
                             categoryItemModel.CategoryContentTitle = storePageTitle;
                             storeResult.SelectedCategoryName = storePageTitle;
+
                             storeResult.TopCategories.Add(categoryItemModel);
                         }
                     }
@@ -4549,6 +4569,7 @@ namespace MakinaTurkiye.Api.Controllers
                     List<StoreCategoryItemModel> videoCategoryItemModels = new List<StoreCategoryItemModel>();
                     foreach (var item in storeCategories)
                     {
+
                         string storePageTitle = "";
                         if (!string.IsNullOrEmpty(item.StorePageTitle))
                         {
@@ -4567,6 +4588,7 @@ namespace MakinaTurkiye.Api.Controllers
                             storePageTitle = FormatHelper.GetCategoryNameWithSynTax(item.CategoryName, CategorySyntaxType.Store);
                         var itemModel = new StoreCategoryItemModel
                         {
+                            CategoryId=item.CategoryId,
                             CategoryUrl = UrlBuilder.GetStoreCategoryUrl(item.CategoryId, storePageTitle, selectedOrderby),
                             CategoryType = item.CategoryType
                         };

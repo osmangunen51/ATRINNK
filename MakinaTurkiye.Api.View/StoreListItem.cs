@@ -8,8 +8,8 @@ namespace MakinaTurkiye.Api.View
     public class StoreResult
     {
         public List<StoreListItem> StoreListesi { get; set; } = new List<StoreListItem>();
-        public List<StoreCategoryItemModel> TopCategories { get; set; }
-        public List<StoreCategoryItemModel> Categories { get; set; }
+        public List<StoreCategoryItemModel> TopCategories { get; set; } = new List<StoreCategoryItemModel>();
+        public List<StoreCategoryItemModel> Categories { get; set; } = new List<StoreCategoryItemModel>();
         public int SelectedCategoryId { get; set; } = 0;
         public string SelectedCategoryName { get; set; } = "";
 

@@ -1418,7 +1418,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 if (item.BankConstantId.HasValue)
                 {
                     var bank = _constantService.GetConstantByConstantId(Convert.ToInt16(item.BankConstantId.Value));
-                    bankName = bank.ConstantName;
+                    bankName = bank?.ConstantName;
                 }
 
                 model.PaymentItems.Add(new PaymentItemModel

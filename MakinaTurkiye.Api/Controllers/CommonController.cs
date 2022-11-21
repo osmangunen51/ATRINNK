@@ -1,5 +1,7 @@
 ﻿using MakinaTurkiye.Api.View;
+using MakinaTurkiye.Api.View.Products;
 using MakinaTurkiye.Core.Infrastructure;
+using MakinaTurkiye.Services.Catalog;
 using MakinaTurkiye.Services.Common;
 using MakinaTurkiye.Services.Members;
 using MakinaTurkiye.Services.Stores;
@@ -18,6 +20,7 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IConstantService _constantService;
         private readonly IActivityTypeService _activityTypeService;
         private readonly ICurrencyService _currencyService;
+        private readonly IProductComplainService _productComplainService;
         public CommonController()
         {
             _memberService = EngineContext.Current.Resolve<IMemberService>();
@@ -25,6 +28,7 @@ namespace MakinaTurkiye.Api.Controllers
             _constantService = EngineContext.Current.Resolve<IConstantService>();
             _activityTypeService = EngineContext.Current.Resolve<IActivityTypeService>();
             _currencyService = EngineContext.Current.Resolve<ICurrencyService>();
+            _productComplainService = EngineContext.Current.Resolve<IProductComplainService>();
             
         }
 
@@ -316,5 +320,52 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+
+        public HttpResponseMessage GetAllProductComplainType()
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var result = _productComplainService.GetAllProductComplainType().Select(x =>
+                    new ProductComplainTypeView
+                    {
+                        Name = x.Name,
+                        ProductComplainTypeId = x.ProductComplainTypeId,
+                        DisplayOrder = x.DisplayOrder
+
+                    }).ToList();
+
+                if (result != null)
+                {
+                    processStatus.Result = result;
+                    processStatus.ActiveResultRowCount = result.Count;
+                    processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                    processStatus.Message.Header = "ProductComplainType İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "ProductComplainType İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "Sorgu sonucu boş!";
+                }
+            }
+            catch (Exception Error)
+            {
+                processStatus.Message.Header = "ProductComplainType İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = Error;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+
+
+
     }
 }

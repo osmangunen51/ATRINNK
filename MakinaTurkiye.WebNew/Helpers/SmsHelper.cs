@@ -24,7 +24,8 @@ namespace NeoSistem.MakinaTurkiye.Web.Helpers
             "<telmesaj><tel>" + gsmNumber + "</tel><mesaj>" + message + "</mesaj></telmesaj>" +
             "</telmesajlar>" +
             "<tur>" + tur + "</tur></sms>";
-            return XmlPost("http://panel.vatansms.com/panel/smsgonderNNpost.php", smsNN);
+            string result = XmlPost("http://panel.vatansms.com/panel/smsgonderNNpost.php", smsNN);
+            return result;
         }
         public string SendSmsOnlyPassword(string gsmNumber, string message)
         {

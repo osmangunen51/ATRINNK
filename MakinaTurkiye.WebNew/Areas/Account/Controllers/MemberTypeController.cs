@@ -1260,7 +1260,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                 {
                     if (changeGsm == true)
                     {
-                        SmsHelper sms = new SmsHelper();
+                        NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper sms = new NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper();
                         string activeCode = sms.CreateActiveCode();
 
                         //numaraya göre yap
@@ -1288,7 +1288,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     {
                         if (phoneactive == false)//phone değişmemiş ama numarası false ise
                         {
-                            SmsHelper sms = new SmsHelper();
+                            NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper sms = new NeoSistem.MakinaTurkiye.Web.Helpers.SmsHelper();
                             string activeCode = sms.CreateActiveCode();
 
                             //numaraya göre yap

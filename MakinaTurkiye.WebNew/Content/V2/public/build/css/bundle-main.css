@@ -17839,7 +17839,8 @@ li.active > a > .menutoggleicon {
         }
 
 .urun-detay .urun-bilgisi {
-    line-height: 17px
+    line-height: 17px;
+    background: #ecf2fb;
 }
 
     .urun-detay .urun-bilgisi .panel.urun-alan .panel-heading {
@@ -18186,11 +18187,13 @@ li.active > a > .menutoggleicon {
 
 .product-detail__title 
 {
-    background: #f9401b14;
+    background: #9e9e9e30;
     padding: 10px;
     border-radius: 4px;
     color: #333;
     line-height: 40px;
+    font-size:20px;
+    font-wiegth:bold;
 }
 
 .product-detail__ilan-no {
@@ -21196,8 +21199,8 @@ li.active > a > .menutoggleicon {
 }
 
 .product-list-video-icon {
-    top: 5px;
-    right: 5px;
+    top: 0px;
+    right: 20px;
     /* border: 1px solid #ccc; */
     /* border-radius: 25%; */ fill: #f9401b;
 }
@@ -22322,6 +22325,7 @@ li.active > a > .menutoggleicon {
     .home-showcase__img img {
         border-radius: 10px;
         width: 100%;
+height: 100%;
         border: 1px solid #e1e1e1
     }
 
@@ -23423,7 +23427,7 @@ li.active > a > .menutoggleicon {
 
 @media (min-width:992px) {
     .new-header__top-right {
-        width: 34%;
+        width: 26%;
         padding-top: 3px;
     }
 }
@@ -24395,7 +24399,7 @@ li.active > a > .menutoggleicon {
 }
 
     .fast-access-bar__inner .breadcrumb.breadcrumb-mt li {
-        font-size: 11px
+        font-size: 12px
     }
 
 .fast-access-bar.is-fixed {
@@ -26563,4 +26567,9 @@ input[name="SearchText"]::-webkit-input-placeholder {
 
 .result-category > h4 {
     margin-left: 5px;
+}
+
+.fiyat
+{
+text-aling:center !important;
 }

@@ -62,19 +62,38 @@
     <div class="container">
         <div class="new-header__top clearfix">
             <div class="new-header__top-left">
-                <a class="site-logo" href="@AppSettings.SiteUrlWithoutLastSlash">
-                    <img src="/Content/V2/images/makinaturkiye-dark.png" alt="makinaturkiye.com">
-                </a>
-
+                 @if (HttpContext.Current.Request.Cookies["CacheLang"] != null)
+                  {
+                      if (HttpContext.Current.Request.Cookies["CacheLang"].Value == "tr_TR")
+                      {
+                        <a class="site-logo" href="@AppSettings.SiteUrlWithoutLastSlash"><img src="/Content/V2/images/makinaturkiye-dark.png" alt="makinaturkiye.com"></a>
+                      }
+                      if (HttpContext.Current.Request.Cookies["CacheLang"].Value == "en_US")
+                      {
+                        <a class="site-logo" href="@(AppSettings.SiteUrlWithoutLastSlash+"/ingilizce")"><img src="/Content/V2/images/makinaturkiye-dark.png" alt="makinaturkiye.com"></a>
+                      }
+                  }
+                  else
+                  {
+                     <a class="site-logo" href="@AppSettings.SiteUrlWithoutLastSlash"><img src="/Content/V2/images/makinaturkiye-dark.png" alt="makinaturkiye.com"></a>
+                  }
             </div>
+            <ul class="nav navbar-nav navbar-right" style="padding:0px;margin-top:20px;margin-left:10px;" role="menu">
+                <li>
+                    <a style="padding:4px 5px" class="" href="@(AppSettings.SiteUrlWithoutLastSlash+"/dil-degistir?lang=Tr_TR")" title="Türkçe">TR</a>
+                </li>
+                <li>
+                    <a style="padding:4px 5px" class="" href="@(AppSettings.SiteUrlWithoutLastSlash+"/dil-degistir?lang=en_EN")" title="English">EN</a>
+                </li>
+            </ul>
             <div class="new-header__top-right">
                 <a href="@AppSettings.StoreAllUrl" class="hidden-md hidden-lg mobilustmenuitem">
                     <svg class="btnmobilmagazasvg" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 489 489" xml:space="preserve">
-                        <g>
-                                    <path d="M347.7,263.75h-66.5c-18.2,0-33,14.8-33,33v51c0,18.2,14.8,33,33,33h66.5c18.2,0,33-14.8,33-33v-51
+                    <g>
+                    <path d="M347.7,263.75h-66.5c-18.2,0-33,14.8-33,33v51c0,18.2,14.8,33,33,33h66.5c18.2,0,33-14.8,33-33v-51
 			                C380.7,278.55,365.9,263.75,347.7,263.75z M356.7,347.75c0,5-4.1,9-9,9h-66.5c-5,0-9-4.1-9-9v-51c0-5,4.1-9,9-9h66.5
 			                c5,0,9,4.1,9,9V347.75z"></path>
-                                    <path d="M489.4,171.05c0-2.1-0.5-4.1-1.6-5.9l-72.8-128c-2.1-3.7-6.1-6.1-10.4-6.1H84.7c-4.3,0-8.3,2.3-10.4,6.1l-72.7,128
+                    <path d="M489.4,171.05c0-2.1-0.5-4.1-1.6-5.9l-72.8-128c-2.1-3.7-6.1-6.1-10.4-6.1H84.7c-4.3,0-8.3,2.3-10.4,6.1l-72.7,128
 			                c-1,1.8-1.6,3.8-1.6,5.9c0,28.7,17.3,53.3,42,64.2v211.1c0,6.6,5.4,12,12,12h66.3c0.1,0,0.2,0,0.3,0h93c0.1,0,0.2,0,0.3,0h221.4
 			                c6.6,0,12-5.4,12-12v-209.6c0-0.5,0-0.9-0.1-1.3C472,224.55,489.4,199.85,489.4,171.05z M91.7,55.15h305.9l56.9,100.1H34.9
 			                L91.7,55.15z M348.3,179.15c-3.8,21.6-22.7,38-45.4,38c-22.7,0-41.6-16.4-45.4-38H348.3z M232,179.15c-3.8,21.6-22.7,38-45.4,38
@@ -91,8 +110,8 @@
                     <svg class="btnmobilvideosvg" viewBox="0 -70 512 512" xmlns="http://www.w3.org/2000/svg"><path d="m334.808594 170.992188-113.113282-61.890626c-6.503906-3.558593-14.191406-3.425781-20.566406.351563-6.378906 3.78125-10.183594 10.460937-10.183594 17.875v122.71875c0 7.378906 3.78125 14.046875 10.117188 17.832031 3.308594 1.976563 6.976562 2.96875 10.652344 2.96875 3.367187 0 6.742187-.832031 9.847656-2.503906l113.117188-60.824219c6.714843-3.613281 10.90625-10.59375 10.9375-18.222656.027343-7.628906-4.113282-14.640625-10.808594-18.304687zm-113.859375 63.617187v-91.71875l84.539062 46.257813zm0 0" /><path d="m508.234375 91.527344-.023437-.234375c-.433594-4.121094-4.75-40.777344-22.570313-59.421875-20.597656-21.929688-43.949219-24.59375-55.179687-25.871094-.929688-.105469-1.78125-.203125-2.542969-.304688l-.894531-.09375c-67.6875-4.921874-169.910157-5.5937495-170.933594-5.59765575l-.089844-.00390625-.089844.00390625c-1.023437.00390625-103.246094.67578175-171.542968 5.59765575l-.902344.09375c-.726563.097657-1.527344.1875-2.398438.289063-11.101562 1.28125-34.203125 3.949219-54.859375 26.671875-16.972656 18.445312-21.878906 54.316406-22.382812 58.347656l-.058594.523438c-.152344 1.714844-3.765625 42.539062-3.765625 83.523437v38.3125c0 40.984375 3.613281 81.808594 3.765625 83.527344l.027344.257813c.433593 4.054687 4.746093 40.039062 22.484375 58.691406 19.367187 21.195312 43.855468 24 57.027344 25.507812 2.082031.238282 3.875.441406 5.097656.65625l1.183594.164063c39.082031 3.71875 161.617187 5.550781 166.8125 5.625l.15625.003906.15625-.003906c1.023437-.003907 103.242187-.675781 170.929687-5.597657l.894531-.09375c.855469-.113281 1.816406-.214843 2.871094-.324218 11.039062-1.171875 34.015625-3.605469 54.386719-26.019532 16.972656-18.449218 21.882812-54.320312 22.382812-58.347656l.058594-.523437c.152344-1.71875 3.769531-42.539063 3.769531-83.523438v-38.3125c-.003906-40.984375-3.617187-81.804687-3.769531-83.523437zm-26.238281 121.835937c0 37.933594-3.3125 77-3.625 80.585938-1.273438 9.878906-6.449219 32.574219-14.71875 41.5625-12.75 14.027343-25.847656 15.417969-35.410156 16.429687-1.15625.121094-2.226563.238282-3.195313.359375-65.46875 4.734375-163.832031 5.460938-168.363281 5.488281-5.082032-.074218-125.824219-1.921874-163.714844-5.441406-1.941406-.316406-4.039062-.558594-6.25-.808594-11.214844-1.285156-26.566406-3.042968-38.371094-16.027343l-.277344-.296875c-8.125-8.464844-13.152343-29.6875-14.429687-41.148438-.238281-2.710937-3.636719-42.238281-3.636719-80.703125v-38.3125c0-37.890625 3.304688-76.914062 3.625-80.574219 1.519532-11.636718 6.792969-32.957031 14.71875-41.574218 13.140625-14.453125 26.996094-16.054688 36.160156-17.113282.875-.101562 1.691407-.195312 2.445313-.292968 66.421875-4.757813 165.492187-5.464844 169.046875-5.492188 3.554688.023438 102.589844.734375 168.421875 5.492188.808594.101562 1.691406.203125 2.640625.3125 9.425781 1.074218 23.671875 2.699218 36.746094 16.644531l.121094.128906c8.125 8.464844 13.152343 30.058594 14.429687 41.75.226563 2.558594 3.636719 42.171875 3.636719 80.71875zm0 0" /></svg>
                 </a>
                 @*<a href="https://blog.makinaturkiye.com" class="hidden-md hidden-lg" style="margin-left:10px;">
-                        <i style="font-size:50px" class="mt-icon icon-blog-mt"></i>
-                    </a>*@
+                <i style="font-size:50px" class="mt-icon icon-blog-mt"></i>
+            </a>*@
                 <a href="@if (membermainPartyId != 0)
 							{
 									@(AppSettings.SiteUrl + "Account/Advert/Advert")
@@ -103,21 +122,21 @@
 							}"
                    class="hidden-md hidden-lg mobilustmenuitem">
                     <svg class="mobilustmenuitemilanver" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" xml:space="preserve">
-                        <g>
-                        <path d="M156,256c0,11.046,8.954,20,20,20h60v60c0,11.046,8.954,20,20,20s20-8.954,20-20v-60h60c11.046,0,20-8.954,20-20
+                    <g>
+                    <path d="M156,256c0,11.046,8.954,20,20,20h60v60c0,11.046,8.954,20,20,20s20-8.954,20-20v-60h60c11.046,0,20-8.954,20-20
 				            c0-11.046-8.954-20-20-20h-60v-60c0-11.046-8.954-20-20-20s-20,8.954-20,20v60h-60C164.954,236,156,244.954,156,256z" />
 
-                        <path d="M160.406,61.8l25.869-10.716c10.204-4.228,15.051-15.927,10.823-26.132c-4.228-10.205-15.926-15.054-26.132-10.823
+                    <path d="M160.406,61.8l25.869-10.716c10.204-4.228,15.051-15.927,10.823-26.132c-4.228-10.205-15.926-15.054-26.132-10.823
 				            l-25.869,10.716c-10.204,4.228-15.051,15.927-10.823,26.132C138.488,61.148,150.168,66.038,160.406,61.8z" />
 
-                        <path d="M256,0c-11.046,0-20,8.954-20,20s8.954,20,20,20c119.378,0,216,96.608,216,216c0,119.378-96.608,216-216,216
+                    <path d="M256,0c-11.046,0-20,8.954-20,20s8.954,20,20,20c119.378,0,216,96.608,216,216c0,119.378-96.608,216-216,216
 				            c-119.378,0-216-96.608-216-216c0-11.046-8.954-20-20-20s-20,8.954-20,20c0,141.483,114.497,256,256,256
 				            c141.483,0,256-114.497,256-256C512,114.517,397.503,0,256,0z" />
 
-                        <path d="M93.366,113.165l19.799-19.799c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L65.081,84.88
+                    <path d="M93.366,113.165l19.799-19.799c7.811-7.811,7.811-20.475,0-28.285c-7.811-7.81-20.475-7.811-28.285,0L65.081,84.88
 				            c-7.811,7.811-7.811,20.475,0,28.285C72.89,120.974,85.555,120.976,93.366,113.165z" />
 
-                        <path d="M24.952,197.099c10.227,4.236,21.914-0.642,26.132-10.823l10.716-25.87c4.228-10.205-0.619-21.904-10.823-26.132
+                    <path d="M24.952,197.099c10.227,4.236,21.914-0.642,26.132-10.823l10.716-25.87c4.228-10.205-0.619-21.904-10.823-26.132
 				            c-10.207-4.227-21.904,0.619-26.132,10.823l-10.716,25.869C9.901,181.172,14.748,192.871,24.952,197.099z" />
 
 						</g>
@@ -133,15 +152,11 @@
                         <div class="user-member-name clearfix">
                             <span>@memberName</span>
                             <a href="@AppSettings.SiteUrlWithoutLastSlash/Account/Home">Hesabım</a>
-                        </div>}
-
-
+                        </div>
+                    }
                     <ul class="user-topmenu">
-
                         @if (notReadInboxMessageCount > 0)
                         {
-
-
                             <li class="user-topmenu__item hidden-sm hidden-md hidden-lg">
                                 <a style="font-size:13px !important;margin-bottom:5px;" href="@AppSettings.SiteUrlWithoutLastSlash/Account/Message/Index?MessagePageType=0" class="user-topmenu__link">
                                     <span class="icon-paper-plane"></span>Mesajlar <span class="label label-primary pull-right">@notReadInboxMessageCount</span>
@@ -253,30 +268,30 @@
                             </a>
                         </li>
                         @*@if (membermainPartyId != 0)
-                                {
-                                    if (favoriteProductCount > 0)
+                        {
+                            if (favoriteProductCount > 0)
+                            {
+                    <li class="user-topmenu__item">
+                        <a style="font-size:13px !important;margin-bottom:5px;" href="@(AppSettings.SiteUrl)Account/Favorite/Product" id="favoriteProductCount" class="user-topmenu hidden-xs">
+                            <i class="mt-icon icon-favorite-mt"></i>
+                            <span class="text">Favoriler</span>
+                            <span class="badge">@favoriteProductCount</span>
+
+                        </a>
+                    </li> }
+
+                                    if (notReadInboxMessageCount > 0)
                                     {
-                            <li class="user-topmenu__item">
-                                <a style="font-size:13px !important;margin-bottom:5px;" href="@(AppSettings.SiteUrl)Account/Favorite/Product" id="favoriteProductCount" class="user-topmenu hidden-xs">
-                                    <i class="mt-icon icon-favorite-mt"></i>
-                                    <span class="text">Favoriler</span>
-                                    <span class="badge">@favoriteProductCount</span>
+                    <li class="user-topmenu__item">
 
-                                </a>
-                            </li> }
+                        <a style="font-size:13px !important;margin-bottom:5px;" href="@(AppSettings.SiteUrl)Account/Message/Index?MessagePageType=0" class="user-topmenu">
+                            <i class="mt-icon icon-message-mt"></i>
+                            <span class="text">Mesajlar</span>
+                            <span class="badge">@notReadInboxMessageCount</span>
+                        </a>
+                    </li>}
 
-                                            if (notReadInboxMessageCount > 0)
-                                            {
-                            <li class="user-topmenu__item">
-
-                                <a style="font-size:13px !important;margin-bottom:5px;" href="@(AppSettings.SiteUrl)Account/Message/Index?MessagePageType=0" class="user-topmenu">
-                                    <i class="mt-icon icon-message-mt"></i>
-                                    <span class="text">Mesajlar</span>
-                                    <span class="badge">@notReadInboxMessageCount</span>
-                                </a>
-                            </li>}
-
-                                        }*@
+                                }*@
 
                         <li class="user-topmenu__item" style="margin-right: 10px">
                             <div class="dropdown ac-dropdown">
@@ -396,7 +411,7 @@
                                     <path d="M15.7 14.3l-4.2-4.2c-0.2-0.2-0.5-0.3-0.8-0.3 0.8-1 1.3-2.4 1.3-3.8 0-3.3-2.7-6-6-6s-6 2.7-6 6 2.7 6 6 6c1.4 0 2.8-0.5 3.8-1.4 0 0.3 0 0.6 0.3 0.8l4.2 4.2c0.2 0.2 0.5 0.3 0.7 0.3s0.5-0.1 0.7-0.3c0.4-0.3 0.4-0.9 0-1.3zM6 10.5c-2.5 0-4.5-2-4.5-4.5s2-4.5 4.5-4.5 4.5 2 4.5 4.5-2 4.5-4.5 4.5z"></path>
                                 </svg>
                             </button>
-                            <input type="text" id="SearchText" value="@searchText" name="SearchText" autocomplete="off" class="search-text-autocomplate" placeholder="Ürün, Kategori, Firma veya Video Ara" required x-webkit-speech speech>
+                            <input type="text" id="SearchText" value="@searchText" name="SearchText" autocomplete="off" class="search-text-autocomplate" placeholder="@Html.Localize("GenelAramaPlaceHolder","","Ürün, Kategori, Firma veya Video Ara")" required x-webkit-speech speech>
                             <div class="input-group-append">
                                 <a href="@AppSettings.SiteUrlWithoutLastSlash/detayli-arama"
                                    class="btn site-search__btn" ">
@@ -409,22 +424,22 @@
                     </div>
                 </div>
                 @*<div class="row hidden-xs hidden-sm">
-                        <div class="site-search__bottom">
-                            <ul class="site-search__store">
-                                <li>
-                                    <a style="color:#828282" href="@AppSettings.SiteAllCategoryUrl">Kategoriler</a>
-                                </li>
-                                <li style="border-left:none !important">
-                                    <a style="color:#828282" target="_blank" href="@AppSettings.VideoUrlBase">Videolar</a>
-                                </li>
-                            </ul>
-                            <ul class="site-search__links">
-                                <li>
-                                    <a style="color:#828282" href="@AppSettings.StoreAllUrl">Mağazalar</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>*@
+                <div class="site-search__bottom">
+                    <ul class="site-search__store">
+                        <li>
+                            <a style="color:#828282" href="@AppSettings.SiteAllCategoryUrl">Kategoriler</a>
+                        </li>
+                        <li style="border-left:none !important">
+                            <a style="color:#828282" target="_blank" href="@AppSettings.VideoUrlBase">Videolar</a>
+                        </li>
+                    </ul>
+                    <ul class="site-search__links">
+                        <li>
+                            <a style="color:#828282" href="@AppSettings.StoreAllUrl">Mağazalar</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>*@
             </div>
 
         </div>
@@ -435,18 +450,6 @@
                     <span class="header__mobile-menu-icon icon-menu"></span>
                 </a>
             </div>
-            @*<div class="new-header__bottom-left hidden-md">
-                <div class="header-button header-category-wrapper">
-                    <div class="header-category" id="SectorsCategories">
-
-                    </div>
-                </div>
-                <div class="header-button header-sector-wrapper">
-                    <div class="header-category" id="">
-
-                    </div>
-                </div>
-            </div>*@
             <div class="new-header__bottom-center">
 
             </div>
@@ -455,14 +458,12 @@
                     display:inline-block!important;
                 }
             </style>
-            <div class="new-header__bottom-right hidden-md hidden-lg">
+            <div class="new-header__bottom-right hidden-md hidden-lg">               
                 <ul class="nav navbar-nav navbar-right accountDropdown" style="padding:0px;" role="menu">
-
                     @if (AuthenticationUser.Membership != null)
                     {
                         membermainPartyId = AuthenticationUser.Membership.MainPartyId;
                     }
-
                     @if (membermainPartyId != 0)
                     {
                         memberName = AuthenticationUser.Membership.MemberName + " " + AuthenticationUser.Membership.MemberSurname;
@@ -543,10 +544,6 @@
                                 </a>
                             </li>
                         }
-                        @*<li>
-                            <a title="Çıkış Yap" href="@(AppSettings.SiteUrl)Uyelik/OturumuKapat"><span style="font-size: 20px;" class="glyphicon glyphicon-log-out" style="padding-right: 5px;"></span></a>
-                        </li>*@
-
                     }
                     else
                     {
@@ -573,7 +570,7 @@
 	};
 	var Category = "Oneri";
 	$('#SearchText').Autocomplete({
-								serviceUrl: '@(AppSettings.SiteUrlWithoutLastSlash + Url.Action("Index", "Search"))',
+        serviceUrl: '@(AppSettings.SiteUrlWithoutLastSlash + Url.Action("Index", "Search"))',
 		showNoSuggestionNotice: true,
 		noSuggestionNotice: '',
 		minChars: 2,
@@ -582,8 +579,9 @@
 		maxHeight: 600,
 		appendTo: $('#SearchText').parentNode,
 		autoSelectFirst: false,
-		formatGroup: function (category) {
-										return "<span class='disabled suggestion-wrapper'><span class='suggestion-value'>" + category + "</span></span>";
+        formatGroup: function (category)
+        {
+		    return "<span class='disabled suggestion-wrapper'><span class='suggestion-value'>" + category + "</span></span>";
 		},
 		onSearchComplete: function (query, suggestions) {
 			Category = "Oneri";
@@ -596,7 +594,8 @@
 			var pattern, words;
 			if (!currentValue && suggestion.data.category !== "Gecmis") {
 				return suggestion.value;
-			}
+            }
+
 			words = utils.escapeRegExChars(currentValue);
 			words = words.split(' ').join('|');
 			pattern = '(' + words + ')';
@@ -605,9 +604,10 @@
 				Category = suggestion.data.category;
 				return "<span class='suggestion-wrapper'><span class='suggestion-group'><span>" + suggestion.data.category + "<span></span></span>";
 			}
-			else {
+            else
+            {
 
-			}
+            }
 
 			if (suggestion.data.category == "Gecmis" && suggestion.Url == "#") {
 				return "<span class='suggestion-wrapper'><span class='suggestion-group'><span>" + suggestion.Name + "</span></span></span>";
@@ -669,10 +669,8 @@
 		$("#SearchText").focus(function () {
 
 		});
-
 		$("#SearchText").focusout(function () {
 			$(".overlay-body").hide();
 		});
 	});
-
 </script>

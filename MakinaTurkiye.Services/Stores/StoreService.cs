@@ -125,7 +125,7 @@ namespace MakinaTurkiye.Services.Stores
 
             var pSearchText = _dataProvider.GetParameter();
             pSearchText.ParameterName = "SearchText";
-            pSearchText.Value = searchText;
+            pSearchText.Value = (searchText==null?"":searchText);
             pSearchText.DbType = DbType.String;
 
             var pOrderBy = _dataProvider.GetParameter();
@@ -135,7 +135,7 @@ namespace MakinaTurkiye.Services.Stores
 
             var pActivityType = _dataProvider.GetParameter();
             pActivityType.ParameterName = "ActivityType";
-            pActivityType.Value = activityType;
+            pActivityType.Value = (activityType==null?"":activityType);;
             pActivityType.DbType = DbType.String;
 
             var pPageIndex = _dataProvider.GetParameter();

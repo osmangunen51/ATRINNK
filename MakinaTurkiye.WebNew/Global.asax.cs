@@ -20,6 +20,18 @@ namespace NeoSistem.MakinaTurkiye.Web
     public class MvcApplication : HttpApplication
     {
 
+        public void DefaultLocale()
+        {
+            HttpCookie cookie = Request.Cookies.Get("CacheLang");
+            if (cookie == null)
+            {
+                HttpCookie newCookie = new HttpCookie("CacheLang");
+                newCookie.Value = "tr_TR";
+                Response.Cookies.Add(newCookie);
+            }
+        }
+
+
         protected void Application_Start()
         {
 
@@ -205,7 +217,6 @@ namespace NeoSistem.MakinaTurkiye.Web
             errorController.Execute(new RequestContext(new HttpContextWrapper(Context), routeData));
         }
 
-
         public void Application_BeginRequest(object sender, EventArgs e)
         {
             MakinaTurkiyeConfig config = EngineContext.Current.Resolve<MakinaTurkiyeConfig>();
@@ -296,6 +307,14 @@ namespace NeoSistem.MakinaTurkiye.Web
             }
         }
 
+        protected void Session_Start(object sender, EventArgs e)
+        {
+            DefaultLocale();
+        }
+        protected void Session_End(object sender, EventArgs e)
+        {
+            DefaultLocale();
+        }
     }
 
 }

@@ -46,12 +46,7 @@ namespace MakinaTurkiye.Services.Messages
             return messageList.ToList();
         }
 
-        public Message GetMessageByMesssageId(int messageId)
-        {
-            var message = _messageRepository.Table;
-            return message.FirstOrDefault(x => x.MessageId == messageId);
-        }
-
+    
 
         public IList<SendMessageError> GetSendMessageErrorsBySenderId(int senderId)
         {
@@ -121,6 +116,8 @@ namespace MakinaTurkiye.Services.Messages
             var messageMainParty = query.FirstOrDefault(m => m.MessageId == messageId);
             return messageMainParty;
         }
+
+        
 
 
         public void InsertMessageMainParty(MessageMainParty messageMainParty)
@@ -201,6 +198,30 @@ namespace MakinaTurkiye.Services.Messages
 
             return messageMainPartyList;
         }
+        public Message GetMessageByMesssageId(int messageId)
+        {
+            var message = _messageRepository.Table;
+            return message.FirstOrDefault(x => x.MessageId == messageId);
+        }
+        public IList<Message> GetMessageByMessageIds(List<int> MessageIds)
+        {
+            var message = _messageRepository.Table;
+            return message.Where(x => MessageIds.Contains(x.MessageId)).ToList();
+        }
+        public IList<MessageMainParty> GetMessageMainPartyByMessageId(int messageId)
+        {
+            if (messageId <= 0)
+                throw new ArgumentNullException("messageId");
 
+            var query = _messageMainPartyRepository.Table;
+            var messageMainParty = query.Where(m => m.MessageId == messageId);
+            return messageMainParty.ToList();
+        }
+        public IList<MessageMainParty> GetMessageMainPartyByFromAndTo(int From,int To)
+        {
+            var query = _messageMainPartyRepository.Table;
+            var messageMainParty = query.Where(m => m.MainPartyId == From && m.InOutMainPartyId==To);
+            return messageMainParty.ToList();
+        }
     }
 }

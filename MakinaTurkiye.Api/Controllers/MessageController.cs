@@ -262,62 +262,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-        //  public HttpResponseMessage DeletePrivateMessage(List<int> messageIdList, MessageType messageType)
-        //{
-        //    ProcessResult processStatus = new ProcessResult();
-
-        //    try
-        //    {
-        //        var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
-
-        //        var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
-        //        if (member != null)
-        //        {
-        //            var allMessageMainPartyForLogginMamber = _messageService.GetAllMessageMainParty(member.MainPartyId, (byte)messageType).ToList();
-
-        //            foreach (var messageId in messageIdList)
-        //            {
-        //                var message = _messageService.GetMessageByMesssageId(messageId);
-
-        //                var messageWillDelete = allMessageMainPartyForLogginMamber.Where(x => x.MessageId == messageId).Single();
-
-        //                var usermessage = _messageService.GetMessageMainPartyByMessageIdWithMessageType(messageId, (MessageTypeEnum)messageType);
-        //                if (usermessage != null)
-        //                {
-        //                    usermessage.MessageType = (byte)MessageType.RecyleBin;
-        //                    _messageService.UpdateMessageMainParty(usermessage);
-        //                }
-
-        //                var deletecheck = _messageService.GetMessageCheckByMessageId(messageId);
-        //                if (deletecheck != null)
-        //                {
-        //                    _messageService.DeleteMessageCheck(deletecheck);
-        //                }
-        //            }
-        //            processStatus.Result = "Mesajınız başarıyla silindi";
-        //            processStatus.Message.Header = "Delete Private Message";
-        //            processStatus.Message.Text = "Başarılı";
-        //            processStatus.Status = true;
-        //        }
-        //        else
-        //        {
-        //            processStatus.Message.Header = "Delete Private Message";
-        //            processStatus.Message.Text = "İşlem başarısız.";
-        //            processStatus.Status = false;
-        //            processStatus.Result = "Oturum açmadan bu işlemi yapamazsınız!";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        processStatus.Message.Header = "Delete Private Message";
-        //        processStatus.Message.Text = "İşlem başarısız.";
-        //        processStatus.Status = false;
-        //        processStatus.Result = "Hata ile karşılaşıldı!";
-        //        processStatus.Error = ex;
-        //    }
-        //    return Request.CreateResponse(HttpStatusCode.OK, processStatus);
-        //}
-
+       
         public HttpResponseMessage GetAllInboxPrivateMessage()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -647,5 +592,347 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+
+        public HttpResponseMessage GetMessages()
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+
+                if (member != null)
+                {
+                    var PhoneNumber = "";
+                    var phone = _phoneService.GetPhonesByMainPartyIdByPhoneType(member.MainPartyId, PhoneTypeEnum.Gsm);
+                    if (phone != null)
+                    {
+                        PhoneNumber = $"{phone.PhoneCulture}{phone.PhoneAreaCode}{phone.PhoneNumber}";
+                    }
+                    MessageViewMemberItem From = new MessageViewMemberItem() 
+                    { 
+                        MainPartyId=member.MainPartyId,
+                        FirtName=member.MemberName,
+                        LastName=member.MemberSurname,
+                        Email=member.MemberEmail,
+                        Telefon=PhoneNumber,
+                    };
+
+                    var SendMessages = _messageService.GetAllMessageMainParty(member.MainPartyId,(byte)MessagePageType.Send);
+                    var InboxMessages = _messageService.GetAllMessageMainParty(member.MainPartyId,(byte)MessagePageType.Inbox);
+                    List<MessageViewItem> result = new List<MessageViewItem>();
+                    result.Clear();
+
+                    List<MakinaTurkiye.Entities.Tables.Catalog.Product> ProductList = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
+                    List<MakinaTurkiye.Entities.Tables.Members.Member> MemberList = new List<Entities.Tables.Members.Member>();
+                    List<MakinaTurkiye.Entities.Tables.Messages.Message> MessageListesi = new List<Entities.Tables.Messages.Message>();
+                    if (InboxMessages.Count > 0)
+                    {
+                        MessageListesi = _messageService.GetMessageByMessageIds(InboxMessages.Select(x => x.MessageId).Distinct().ToList()).ToList();
+                        ProductList = _productService.GetProductByProductsIds(MessageListesi.Select(x => x.ProductId).Distinct().ToList()).ToList();
+                        MemberList = _memberService.GetMembersByMainPartyIds(InboxMessages.Select(x => x.InOutMainPartyId).Cast<int?>().ToList()).ToList();
+                    }
+
+                    foreach (var Msg in InboxMessages)
+                    {
+
+                        var Message = _messageService.GetMessageByMesssageId(Msg.MessageId);
+                        if (Message != null)
+                        {
+                            if (result.FirstOrDefault(x => x.MessageId == Message.MessageId) == null)
+                            {
+                                if (result.FirstOrDefault(x => x.ProductId == Message.ProductId && (
+                                (x.From.MainPartyId == Msg.MainPartyId && x.To.MainPartyId == Msg.InOutMainPartyId)
+                                ||
+                                (x.To.MainPartyId == Msg.MainPartyId && x.From.MainPartyId == Msg.InOutMainPartyId)
+                                )) == null)
+                                {
+                                    MessageViewMemberItem To = new MessageViewMemberItem()
+                                {
+                                    MainPartyId = 0,
+                                    FirtName = "",
+                                    LastName = "",
+                                    Email = "",
+                                };
+
+                                var tomember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.InOutMainPartyId);
+                                if (tomember != null)
+                                {
+                                    var ToPhoneNumber = "";
+                                    var Tophone = _phoneService.GetPhonesByMainPartyIdByPhoneType(member.MainPartyId, PhoneTypeEnum.Gsm);
+                                    if (Tophone != null)
+                                    {
+                                        ToPhoneNumber = $"{Tophone.PhoneCulture}{Tophone.PhoneAreaCode}{Tophone.PhoneNumber}";
+                                    }
+
+                                    To = new MessageViewMemberItem()
+                                    {
+                                        MainPartyId = tomember.MainPartyId,
+                                        FirtName = tomember.MemberName,
+                                        LastName = tomember.MemberSurname,
+                                        Email = tomember.MemberEmail,
+                                        Telefon = ToPhoneNumber
+                                    };
+                                }
+
+                                string picturePath = "";
+                                var product = ProductList.FirstOrDefault(x => x.ProductId == (Message.ProductId != null ? Message.ProductId : 0));
+                                if (product != null)
+                                {
+                                    var picture = _pictureService.GetFirstPictureByProductId(product.ProductId);
+                                    if (picture != null)
+                                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(product.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                                }
+
+                                MessageViewItem MessageViewItem = new MessageViewItem
+                                {
+                                    MessageId = Msg.MessageId,
+                                    Content = Message.MessageContent,
+                                    Subject = Message.MessageSubject,
+                                    Date = Message.MessageDate,
+                                    From = From,
+                                    To = To,
+                                    MessageTypeEnum = (MessageTypeEnum)Msg.MessageType,
+                                    ProductId = (product != null ? product.ProductId : 0),
+                                    ProductName = (product != null ? product.ProductName : ""),
+                                    ProductNo = (product != null ? product.ProductNo : ""),
+                                    ProductResim = picturePath
+                                };
+                                result.Add(MessageViewItem);
+                            }
+                            }
+                        }
+                    }
+
+
+                    ProductList = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
+                    MemberList = new List<Entities.Tables.Members.Member>();
+                    MessageListesi = new List<Entities.Tables.Messages.Message>();
+                    if (SendMessages.Count > 0)
+                    {
+                        MessageListesi = _messageService.GetMessageByMessageIds(SendMessages.Select(x => x.MessageId).Distinct().ToList()).ToList();
+                        ProductList = _productService.GetProductByProductsIds(MessageListesi.Select(x => x.ProductId).Distinct().ToList()).ToList();
+                        MemberList = _memberService.GetMembersByMainPartyIds(SendMessages.Select(x => x.InOutMainPartyId).Cast<int?>().ToList()).ToList();
+                    }
+
+                    foreach (var Msg in SendMessages)
+                    {
+                        var Message = _messageService.GetMessageByMesssageId(Msg.MessageId);
+                        if (Message != null)
+                        {
+                            if (result.FirstOrDefault(x => x.MessageId == Message.MessageId) == null)
+                            {
+                                if (result.FirstOrDefault(x => x.ProductId == Message.ProductId && (
+                                (x.From.MainPartyId == Msg.MainPartyId && x.To.MainPartyId == Msg.InOutMainPartyId)
+                                ||
+                                (x.To.MainPartyId == Msg.MainPartyId && x.From.MainPartyId == Msg.InOutMainPartyId)
+                                )) == null)
+                                {
+
+                                    MessageViewMemberItem To = new MessageViewMemberItem()
+                                {
+                                    MainPartyId = 0,
+                                    FirtName = "",
+                                    LastName = "",
+                                    Email = "",
+                                };
+                                var tomember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.InOutMainPartyId);
+                                if (tomember != null)
+                                {
+                                    var ToPhoneNumber = "";
+                                    var Tophone = _phoneService.GetPhonesByMainPartyIdByPhoneType(member.MainPartyId, PhoneTypeEnum.Gsm);
+                                    if (Tophone != null)
+                                    {
+                                        ToPhoneNumber = $"{Tophone.PhoneCulture}{Tophone.PhoneAreaCode}{Tophone.PhoneNumber}";
+                                    }
+
+                                    To = new MessageViewMemberItem()
+                                    {
+                                        MainPartyId = tomember.MainPartyId,
+                                        FirtName = tomember.MemberName,
+                                        LastName = tomember.MemberSurname,
+                                        Email = tomember.MemberEmail,
+                                        Telefon = ToPhoneNumber,
+                                    };
+                                }
+
+                                string picturePath = "";
+                                var product = ProductList.FirstOrDefault(x => x.ProductId == (Message.ProductId != null ? Message.ProductId : 0));
+                                if (product != null)
+                                {
+                                    var picture = _pictureService.GetFirstPictureByProductId(product.ProductId);
+                                    if (picture != null)
+                                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(product.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                                }
+
+                                MessageViewItem MessageViewItem = new MessageViewItem
+                                {
+                                    MessageId = Msg.MessageId,
+                                    Content = Message.MessageContent,
+                                    Subject = Message.MessageSubject,
+                                    Date = Message.MessageDate,
+                                    From = From,
+                                    To = To,
+                                    MessageTypeEnum = (MessageTypeEnum)Msg.MessageType,
+                                    ProductId = (product != null ? product.ProductId : 0),
+                                    ProductName = (product != null ? product.ProductName : ""),
+                                    ProductNo = (product != null ? product.ProductNo : ""),
+                                    ProductResim = picturePath
+                                };
+                                result.Add(MessageViewItem);
+                            }
+                        }
+                        }
+                    }
+
+                    result = result.Distinct().ToList();
+                    processStatus.Result = result;
+                    processStatus.TotolRowCount = result.Count;
+                    processStatus.Message.Header = "Kullanıcı İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Kullanıcı İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "Login kullanıcı bulunamadı";
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "Kullanıcı İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+         public HttpResponseMessage GetMessageHistory(int MessageId)
+        {
+            ProcessResult processStatus = new ProcessResult();
+            try
+            {
+                var MainMessage = _messageService.GetFirstMessageMainPartyByMessageId(MessageId);
+                if (MainMessage!=null)
+                {
+                    MakinaTurkiye.Entities.Tables.Messages.Message MMessage = _messageService.GetMessageByMesssageId(MainMessage.MessageId);
+
+                    List<MessageMainParty> MessageHistoryList = new List<MessageMainParty>();
+                    MessageHistoryList.AddRange(_messageService.GetMessageMainPartyByFromAndTo(MainMessage.MainPartyId, MainMessage.InOutMainPartyId));
+                    MessageHistoryList.AddRange(_messageService.GetMessageMainPartyByFromAndTo(MainMessage.InOutMainPartyId,MainMessage.MainPartyId));
+
+
+                    //MessageHistoryList = MessageHistoryList.Where(x => x.MessageId != MainMessage.MessageId).ToList();
+                    List<MessageViewItem> result = new List<MessageViewItem>();
+                    result.Clear();
+                    List<MakinaTurkiye.Entities.Tables.Catalog.Product> ProductList = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
+                    List<MakinaTurkiye.Entities.Tables.Members.Member> MemberList = new List<Entities.Tables.Members.Member>();
+                    List<MakinaTurkiye.Entities.Tables.Messages.Message> MessageListesi = new List<Entities.Tables.Messages.Message>();
+                    if (MessageHistoryList.Count > 0)
+                    {
+                        
+                        MessageListesi = _messageService.GetMessageByMessageIds(MessageHistoryList.Select(x => x.MessageId).Distinct().ToList()).Where(x=>x.ProductId==MMessage.ProductId).ToList();
+                        MessageListesi=MessageListesi.Where(x=>x.MessageId!=MainMessage.MessageId).ToList();
+                        ProductList = _productService.GetProductByProductsIds(MessageListesi.Select(x => x.ProductId).Distinct().ToList()).ToList();
+                        MemberList = _memberService.GetMembersByMainPartyIds(MessageHistoryList.Select(x => x.InOutMainPartyId).Cast<int?>().ToList()).ToList();
+                    }
+
+
+                    foreach (var Message in MessageListesi)
+                    {
+                        var Msg=_messageService.GetFirstMessageMainPartyByMessageId(Message.MessageId);
+                        MessageViewMemberItem From = new MessageViewMemberItem()
+                        {
+                            MainPartyId = 0,
+                            FirtName = "",
+                            LastName = "",
+                            Email = "",
+                        };
+                        var frommember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.MainPartyId);
+                        if (frommember != null)
+                        {
+                            From = new MessageViewMemberItem()
+                            {
+                                MainPartyId = frommember.MainPartyId,
+                                FirtName = frommember.MemberName,
+                                LastName = frommember.MemberSurname,
+                                Email = frommember.MemberEmail
+                            };
+                        }
+
+
+                        MessageViewMemberItem To = new MessageViewMemberItem()
+                        {
+                            MainPartyId = 0,
+                            FirtName = "",
+                            LastName = "",
+                            Email = "",
+                        };
+                        var tomember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.InOutMainPartyId);
+                        if (tomember != null)
+                        {
+                            To = new MessageViewMemberItem()
+                            {
+                                MainPartyId = tomember.MainPartyId,
+                                FirtName = tomember.MemberName,
+                                LastName = tomember.MemberSurname,
+                                Email = tomember.MemberEmail
+                            };
+                        }
+                        string picturePath = "";
+                        var product = ProductList.FirstOrDefault(x => x.ProductId == (Message.ProductId != null ? Message.ProductId : 0));
+                        var picture = _pictureService.GetFirstPictureByProductId(product.ProductId);
+                        if (picture != null)
+                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(product.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+
+                        MessageViewItem MessageViewItem = new MessageViewItem
+                        {
+                            MessageId = Msg.MessageId,
+                            Content = Message.MessageContent,
+                            Subject = Message.MessageSubject,
+                            Date = Message.MessageDate,
+                            From = (From.MainPartyId == MainMessage.MainPartyId ? From : To),
+                            To = (From.MainPartyId == MainMessage.MainPartyId ? To : From),
+                            MessageTypeEnum = (MessageTypeEnum)Msg.MessageType,
+                            ProductId = (product != null ? product.ProductId : 0),
+                            ProductName = (product != null ? product.ProductName : ""),
+                            ProductNo = (product != null ? product.ProductNo : ""),
+                            ProductResim = picturePath,
+                        };
+                        result.Add(MessageViewItem);
+                    }
+
+                    processStatus.Result = result;
+                    processStatus.TotolRowCount = result.Count;
+                    processStatus.Message.Header = "Kullanıcı İşlemleri";
+                    processStatus.Message.Text = "Başarılı";
+                    processStatus.Status = true;
+                }
+                else
+                {
+                    processStatus.Message.Header = "Message İşlemleri";
+                    processStatus.Message.Text = "Başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "ana mesaj bulunamadı";
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "Kullanıcı İşlemleri";
+                processStatus.Message.Text = "Başarısız";
+                processStatus.Status = false;
+                processStatus.Result = null;
+                processStatus.Error = ex;
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
+
     }
 }

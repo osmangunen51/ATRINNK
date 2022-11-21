@@ -18,6 +18,12 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
             routes.IgnoreRoute("{*swf}", new { swf = @".*\.swf(/.*)?" });
             routes.LowercaseUrls = true;
 
+            routes.MapRoute(
+                name: "Defaultdil-degistir",
+                url: "dil-degistir",
+                defaults: new { controller = "Dil", action = "Index" }
+            );
+
             routes.Add("DomainRouteForWrongProductContact", new DomainRoute(
             "urun.makinaturkiye.com", // Domain with parameters
             "Product/ProductContact",    // URL with parameters
