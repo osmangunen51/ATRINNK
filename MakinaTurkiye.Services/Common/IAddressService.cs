@@ -9,6 +9,10 @@ namespace MakinaTurkiye.Services.Common
 
         IList<City> GetCitiesByCityIds(List<int> cityIds);
 
+        IList<Locality> GetAllLocality();
+
+        IList<City> GetAllCities();
+
         IList<Locality> GetLocalitiesByCityId(int cityId);
 
         Locality GetLocalityByLocalityId(int localityId);
@@ -24,6 +28,7 @@ namespace MakinaTurkiye.Services.Common
         City GetCityByCityId(int cityId);
 
         IList<District> GetDistrictsByLocalityId(int localityId);
+
         IList<District> GetDistrictsByCityId(int localityId);
 
         District GetDistrictByDistrictId(int districtId);
@@ -55,6 +60,5 @@ namespace MakinaTurkiye.Services.Common
         List<AddressType> GetAddressTypes();
 
         List<Address> GetAddressByStoreDealerIds(List<int> storeDealerIds);
-
     }
 }

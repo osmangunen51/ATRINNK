@@ -40,7 +40,6 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IMessagesMTService _messagesMTService;
         private readonly ICategoryService _categoryService;
 
-
         public ProductController()
         {
             _productService = EngineContext.Current.Resolve<IProductService>();
@@ -54,6 +53,7 @@ namespace MakinaTurkiye.Api.Controllers
             _messagesMTService = EngineContext.Current.Resolve<IMessagesMTService>();
             _categoryService = EngineContext.Current.Resolve<ICategoryService>();
         }
+
         public HttpResponseMessage Get(int No)
         {
             ProcessResult ProcessStatus = new ProcessResult();
@@ -93,23 +93,27 @@ namespace MakinaTurkiye.Api.Controllers
                     }
 
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(TmpResult.MainPartyId);
-                    var Store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
-                    TmpResult.StoreName = Store.StoreName;
-                    if (Store != null)
+                    MakinaTurkiye.Entities.Tables.Stores.Store Store = null;
+                    if (memberStore != null)
                     {
-                        TmpResult.StoreMainPartyId = Store.MainPartyId;
-                        TmpResult.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Store.MainPartyId, Store.StoreLogo, 300) : null;
-                        var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
-                        var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
-                        if (StorePhone != null)
+                        Store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
+                        if (Store != null)
                         {
-                            TmpResult.StorePhone = StorePhone.PhoneNumber;
-                            TmpResult.StoreBussinesPhone = StorePhone.PhoneNumber;
-                        }
-                        var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
-                        if (StoreGsm != null)
-                        {
-                            TmpResult.StoreGsm = StoreGsm.PhoneNumber;
+                            TmpResult.StoreName = Store.StoreName;
+                            TmpResult.StoreMainPartyId = Store.MainPartyId;
+                            TmpResult.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Store.MainPartyId, Store.StoreLogo, 300) : null;
+                            var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
+                            var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
+                            if (StorePhone != null)
+                            {
+                                TmpResult.StorePhone = StorePhone.PhoneNumber;
+                                TmpResult.StoreBussinesPhone = StorePhone.PhoneNumber;
+                            }
+                            var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
+                            if (StoreGsm != null)
+                            {
+                                TmpResult.StoreGsm = StoreGsm.PhoneNumber;
+                            }
                         }
                     }
 
@@ -121,7 +125,6 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         TmpResult.MainPicture = "";
                     }
-
 
                     var TmpPictureList = _pictureService.GetPicturesByProductId(TmpResult.ProductId);
                     TmpResult.PictureList.Clear();
@@ -138,7 +141,6 @@ namespace MakinaTurkiye.Api.Controllers
                     TmpResult.SalesDetails = Result.GetProductSalesTypeText();
                     TmpResult.ShortDescription = Result.GetBriefDetailText();
                     TmpResult.CategoryName = !string.IsNullOrEmpty(Result.Category.CategoryContentTitle) ? Result.Category.CategoryContentTitle : Result.Category.CategoryName;
-
 
                     string MapCode = "";
                     string Location = "";
@@ -302,7 +304,7 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, ProcessStatus);
         }
 
-        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50, string SearchText = "", string ordertype = "a-z", int SeriresId = 0,int ModelId = 0, int BrandId = 0, int CountryId = 0, int CityId = 0, int LocalityId = 0,decimal SelectMinPrice=0,decimal SelectMaxPrice=0)
+        public HttpResponseMessage GetWithCategoryId(int categoryId, bool allDetails, int pageNo, int pageSize = 50, string SearchText = "", string ordertype = "a-z", int SeriresId = 0, int ModelId = 0, int BrandId = 0, int CountryId = 0, int CityId = 0, int LocalityId = 0, decimal SelectMinPrice = 0, decimal SelectMaxPrice = 0)
         {
             ProcessResult ProcessStatus = new ProcessResult();
             try
@@ -322,8 +324,8 @@ namespace MakinaTurkiye.Api.Controllers
                 }
 
                 CategoryProductsResult result = _productService.GetCategoryProductsPriceRange(
-                    categoryId, BrandId,ModelId, SeriresId, searchTypeId, 0,
-                    CountryId,CityId,LocalityId, orderById, pageNo, pageSize, 
+                    categoryId, BrandId, ModelId, SeriresId, searchTypeId, 0,
+                    CountryId, CityId, LocalityId, orderById, pageNo, pageSize,
                     SearchText,
                     SelectMinPrice, SelectMaxPrice);
                 ProcessStatus.TotolRowCount = result.Products.Count();
@@ -342,10 +344,10 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductPriceType = (byte)Snc.ProductPriceType,
                         ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
                         ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0),
-                        HasVideo=(bool)Snc.HasVideo
+                        HasVideo = (bool)Snc.HasVideo
                     }
                 ).ToList();
-                if (TmpResult.Count>0)
+                if (TmpResult.Count > 0)
                 {
                     var productList = _productService.GetProductByProductsIds(TmpResult.Select(x => x.ProductId).ToList());
                     var storeList = _storeService.GetStoresByMainPartyIds(TmpResult.Select(x => x.StoreMainPartyId).ToList());
@@ -386,7 +388,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                 List<AdvancedSearchFilterItem> filterItems = new List<AdvancedSearchFilterItem>();
 
-                var categories =_categoryService.GetCategoriesByCategoryIds(result.FilterableCategoryIds.Select(x => x.CategoryId).ToList());
+                var categories = _categoryService.GetCategoriesByCategoryIds(result.FilterableCategoryIds.Select(x => x.CategoryId).ToList());
 
                 if (result.FilterableSeriesIds != null && result.FilterableSeriesIds.Count > 0)
                 {
@@ -401,7 +403,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 Name = item.CategoryName,
                                 Type = (byte)AdvancedSearchFilterType.Serie,
                                 ProductCount = result.FilterableSeriesIds.Count(c => c == item.CategoryId),
-                                ProductCountAll =0,
+                                ProductCountAll = 0,
                             });
                         }
                     }
@@ -412,7 +414,6 @@ namespace MakinaTurkiye.Api.Controllers
                     var filterableModels = _categoryService.GetCategoriesByCategoryIds(result.FilterableModelIds.Distinct().ToList());
                     if (filterableModels.Count > 0)
                     {
-
                         foreach (var item in filterableModels)
                         {
                             filterItems.Add(new AdvancedSearchFilterItem
@@ -424,11 +425,8 @@ namespace MakinaTurkiye.Api.Controllers
                                 ProductCountAll = 0,
                             });
                         }
-
                     }
-
                 }
-
 
                 if (result.FilterableBrandIds != null && result.FilterableBrandIds.Count > 0)
                 {
@@ -447,9 +445,8 @@ namespace MakinaTurkiye.Api.Controllers
                                     Value = item.CategoryId,
                                     Name = item.CategoryName,
                                     Type = (byte)AdvancedSearchFilterType.Brand,
-                                    ProductCount = result.FilterableBrandIds.Count(c => c== item.CategoryId),
+                                    ProductCount = result.FilterableBrandIds.Count(c => c == item.CategoryId),
                                     ProductCountAll = 0,
-
                                 });
                             }
                         }
@@ -465,7 +462,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         Value = brands.First().CategoryId,
                                         Name = brands.First().CategoryName,
                                         Type = (byte)AdvancedSearchFilterType.Brand,
-                                        ProductCount = result.FilterableBrandIds.Count(c => c== brands.FirstOrDefault().CategoryId),
+                                        ProductCount = result.FilterableBrandIds.Count(c => c == brands.FirstOrDefault().CategoryId),
                                         ProductCountAll = 0,
                                     });
                                 }
@@ -476,7 +473,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         Value = brands.First().CategoryId,
                                         Name = brands.First().CategoryName,
                                         Type = (byte)AdvancedSearchFilterType.Brand,
-                                        ProductCount = result.FilterableBrandIds.Count(c => brands.Select(x=>x.CategoryId).Contains(c)),
+                                        ProductCount = result.FilterableBrandIds.Count(c => brands.Select(x => x.CategoryId).Contains(c)),
                                         ProductCountAll = 0,
                                     });
                                 }
@@ -498,8 +495,8 @@ namespace MakinaTurkiye.Api.Controllers
                                 Name = item.CountryName,
                                 Type = (byte)AdvancedSearchFilterType.Country,
                                 ProductCount = result.FilterableCountryIds.Count(x => x == item.CountryId),
-                                ProductCountAll =0,
-                                Level=0
+                                ProductCountAll = 0,
+                                Level = 0
                             });
                         }
                     }
@@ -525,7 +522,7 @@ namespace MakinaTurkiye.Api.Controllers
                     }
                 }
 
-                if (CityId > 0 | LocalityId>0)
+                if (CityId > 0 | LocalityId > 0)
                 {
                     if (result.FilterableLocalityIds != null && result.FilterableLocalityIds.Count > 0)
                     {
@@ -604,10 +601,11 @@ namespace MakinaTurkiye.Api.Controllers
                     });
                 }
 
-                ProcessStatus.Result = new {
+                ProcessStatus.Result = new
+                {
                     Product = TmpResult,
                     Filters = filterItems,
-                    MinPrice=result.MinPrice,
+                    MinPrice = result.MinPrice,
                     MaxPrice = result.MaxPrice
                 };
 
@@ -650,13 +648,13 @@ namespace MakinaTurkiye.Api.Controllers
                                                 BrandName = Snc.Brand.CategoryName,
                                                 ModelName = Snc.Model.CategoryName,
                                                 MainPicture = "",
-                                                StoreName ="",
+                                                StoreName = "",
                                                 MainPartyId = (int)Snc.MainPartyId,
                                                 ProductPrice = (Snc.ProductPrice.HasValue ? Snc.ProductPrice.Value : 0),
                                                 ProductPriceType = (byte)Snc.ProductPriceType,
                                                 ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
                                                 ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0),
-                                                HasVideo=Snc.HasVideo,
+                                                HasVideo = Snc.HasVideo,
                                             }
                                         ).ToList();
 
@@ -683,7 +681,6 @@ namespace MakinaTurkiye.Api.Controllers
                 ProcessStatus.Result = Result.Skip(pageSize * pageNo).Take(pageSize).ToList();
 
                 ProcessStatus.ActiveResultRowCount = Result.Count();
-
 
                 ProcessStatus.Message.Header = "Product İşlemleri";
                 ProcessStatus.Message.Text = "Başarılı";
@@ -809,7 +806,7 @@ namespace MakinaTurkiye.Api.Controllers
                             ProductPriceType = (byte)Snc.ProductPriceType,
                             ProductPriceLast = (Snc.ProductPriceLast.HasValue ? Snc.ProductPriceLast.Value : 0),
                             ProductPriceBegin = (Snc.ProductPriceBegin.HasValue ? Snc.ProductPriceBegin.Value : 0),
-                            HasVideo=Snc.HasVideo
+                            HasVideo = Snc.HasVideo
                         }
                     ).ToList();
 
@@ -1104,7 +1101,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         public HttpResponseMessage Showcase()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -1131,7 +1127,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ProductPriceType = (byte)Result.ProductPriceType,
                         ProductPriceLast = (Result.ProductPriceLast ?? 0),
                         ProductPriceBegin = (Result.ProductPriceBegin ?? 0),
-                        HasVideo=Result.HasVideo
+                        HasVideo = Result.HasVideo
                     };
                     TmpResult.Add(tmp);
                 }
@@ -1142,9 +1138,9 @@ namespace MakinaTurkiye.Api.Controllers
                     if (picture != null)
                         picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
                     var memberStore = _memberStoreService.GetMemberStoreByMemberMainPartyId(item.MainPartyId);
-                    if (memberStore!=null)
+                    if (memberStore != null)
                     {
-                        if (memberStore.StoreMainPartyId!=null)
+                        if (memberStore.StoreMainPartyId != null)
                         {
                             var store = _storeService.GetStoreByMainPartyId(memberStore.StoreMainPartyId.Value);
                             item.MainPicture = (picturePath == null ? "" : picturePath);

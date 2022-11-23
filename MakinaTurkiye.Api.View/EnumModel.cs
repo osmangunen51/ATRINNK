@@ -1,5 +1,4 @@
-﻿
-namespace MakinaTurkiye.Api.View
+﻿namespace MakinaTurkiye.Api.View
 {
     using System;
     using System.Collections.Generic;
@@ -29,6 +28,7 @@ namespace MakinaTurkiye.Api.View
 
             return monthItems;
         }
+
         public enum OrderPacketType : byte
         {
             Normal = 1,
@@ -70,11 +70,17 @@ namespace MakinaTurkiye.Api.View
 
         public static string GetDisplayName(this Enum enumValue)
         {
-            return enumValue.GetType()
-              .GetMember(enumValue.ToString())
-              .First()
-              .GetCustomAttribute<DisplayAttribute>()
-              ?.GetName();
+            string displayName;
+            displayName = enumValue.GetType()
+                .GetMember(enumValue.ToString())
+                .FirstOrDefault()
+                .GetCustomAttribute<DisplayAttribute>()?
+                .GetName();
+            if (String.IsNullOrEmpty(displayName))
+            {
+                displayName = enumValue.ToString();
+            }
+            return displayName;
         }
 
         public static string GetDescription(this Enum value)
@@ -103,8 +109,8 @@ namespace MakinaTurkiye.Api.View
             }
             return 0;
         }
-
     }
+
     public enum Ordertype
     {
         Havale = 1,
@@ -118,14 +124,13 @@ namespace MakinaTurkiye.Api.View
         Video
     }
 
-
-
     public enum EPacketFeatureType
     {
         ProcessCount = 1,
         Active = 2,
         Content = 3
     }
+
     public enum AdvancedSearchFilterType
     {
         Country = 0,
@@ -134,8 +139,9 @@ namespace MakinaTurkiye.Api.View
         Brand = 3,
         Model = 4,
         Serie = 5,
-        Category=6
+        Category = 6
     }
+
     public enum StoreDealerType
     {
         Branch = 3,
@@ -203,15 +209,16 @@ namespace MakinaTurkiye.Api.View
     {
         [Description("Pencere")]
         Window = 1,
+
         [Description("Liste")]
         List = 2,
+
         [Description("Yazi")]
         Text = 3,
+
         [Description("Tablo")]
         Table = 4
-
     }
-
 
     [Flags]
     public enum AccountFavoritePageType
@@ -244,10 +251,12 @@ namespace MakinaTurkiye.Api.View
         /// Hızlı Üyelik
         /// </summary>
         FastIndividual = 5,
+
         /// <summary>
         ///Bireysel
         /// </summary>
         Individual = 10,
+
         /// <summary>
         /// Kurumsal
         /// </summary>
@@ -295,17 +304,20 @@ namespace MakinaTurkiye.Api.View
         Sector = 0,
         Category = 1
     }
+
     public enum BannerImageType
     {
         Pc = 0,
         Tablet = 1,
         Mobile = 2
     }
+
     public enum StoreImageType
     {
         StoreImage = 1,
         StoreProfileSliderImage = 2
     }
+
     [Flags]
     public enum MainCategoryType : byte
     {
@@ -333,28 +345,23 @@ namespace MakinaTurkiye.Api.View
     }
 
     [Flags]
-
     public enum ProductActiveType : byte
     {
-        Inceleniyor=0,
-        Onaylandi=1,
-        Onaylanmadi=2,
+        Inceleniyor = 0,
+        Onaylandi = 1,
+        Onaylanmadi = 2,
         Silindi,
         CopKutusunda = 6,
         Tumu = 7,
         CopKutusuYeni = 8
     }
 
-
     [Flags]
-
     public enum ProductStatus : byte
     {
         NewProduct = 72,
         SecondHand = 73
     }
-
-
 
     [Flags]
     public enum ProductActive : byte
@@ -362,6 +369,7 @@ namespace MakinaTurkiye.Api.View
         Pasif,
         Aktif
     }
+
     [Flags]
     public enum PurchaseRequestType : byte
     {
@@ -371,6 +379,7 @@ namespace MakinaTurkiye.Api.View
         Onaylanmamis,
         Silinen,
     }
+
     public enum CategoryPlaceType
     {
         HomeLeftSide = 1,
@@ -378,6 +387,7 @@ namespace MakinaTurkiye.Api.View
         HomeChoicesed = 3,
         ProductGroup = 4
     }
+
     public enum HelpCategoryPlace
     {
         ForMember = 1,
@@ -386,6 +396,7 @@ namespace MakinaTurkiye.Api.View
         StoreLogoUpdate = 4,
         PersonalAccount = 5
     }
+
     public enum ProductPriceType : byte
     {
         Price = 238,
@@ -393,6 +404,7 @@ namespace MakinaTurkiye.Api.View
         PriceAsk = 240,
         PriceDiscuss = 241
     }
+
     public enum MessagePageType : byte
     {
         Inbox = 0,
@@ -408,6 +420,7 @@ namespace MakinaTurkiye.Api.View
         Outbox = 1,
         RecyleBin = 2
     }
+
     public enum FastMembershipType : byte
     {
         Normal = 5,
@@ -416,12 +429,13 @@ namespace MakinaTurkiye.Api.View
         ProductComplain = 30,
         Google = 40
     }
+
     public enum LogType : byte
     {
         MemberShip = 5,
         Messaging = 10,
-
     }
+
     public enum StoreNewType : byte
     {
         Normal = 1,
@@ -449,7 +463,6 @@ namespace MakinaTurkiye.Api.View
         Sube = 3
     }
 
-
     public enum GsmType
     {
         Vodafone = 1,
@@ -476,12 +489,14 @@ namespace MakinaTurkiye.Api.View
         DiscountPacketDescription = 23,
         ProductPriceType = 24
     }
+
     public enum PropertieType : byte
     {
         Editor = 1,
         Text = 2,
         MutipleOption = 3
     }
+
     public enum PacketStatu
     {
         Inceleniyor = 1,
@@ -495,6 +510,7 @@ namespace MakinaTurkiye.Api.View
         Owner = 1,
         Helper = 2
     }
+
     public enum PageOrderType : int
     {
         [Description("a-z")] AdanZ = 1,
@@ -507,27 +523,35 @@ namespace MakinaTurkiye.Api.View
     {
         [Description("tumurunler")]
         All = 0,
+
         [Description("sifir")]
         New = 72,
+
         [Description("ikinciel")]
         Used = 73
     }
+
     public enum ProductDiscountType : byte
     {
         Percentage = 1,
         Amount = 2
     }
+
     public enum ProductSearchTypeV2 : int
     {
         [Description("tumurunler")]
         All = 0,
+
         [Description("sifir")]
         New = 1,
+
         [Description("ikinciel")]
         Used = 2,
+
         [Description("hizmet")]
         Services = 3,
     }
+
     public enum LoginTabType : byte
     {
         Login = 1,
@@ -571,5 +595,4 @@ namespace MakinaTurkiye.Api.View
         OzelHizmetDestegi = 26,
         AranmaTalebi = 27
     }
-
 }

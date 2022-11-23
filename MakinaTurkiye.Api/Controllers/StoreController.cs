@@ -2358,7 +2358,7 @@ namespace MakinaTurkiye.Api.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage DeleteDealer(MakinaTurkiye.Api.View.StoreDealer Model)
+        public HttpResponseMessage DeleteDealer(MakinaTurkiye.Api.View.StoreDealerDelete Model)
         {
             ProcessResult processStatus = new ProcessResult();
             using (System.Transactions.TransactionScope Transaction = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.Required, TimeSpan.FromMinutes(30)))
@@ -2374,23 +2374,20 @@ namespace MakinaTurkiye.Api.Controllers
                         {
                             DealerTypeEnum Type = (DealerTypeEnum)Model.DealerType;
                             var qlist = _storeDealerService.GetStoreDealersByMainPartyId(store.MainPartyId, Type).ToList();
-                            foreach (var item in Model.List)
+                            var _storeDealer = qlist.FirstOrDefault(x => x.StoreDealerId == Model.Id);
+                            if (_storeDealer != null)
                             {
-                                var _storeDealer = qlist.FirstOrDefault(x => x.StoreDealerId == item.DealerId);
-                                if (_storeDealer != null)
+                                var address = _adressService.GetAddressByStoreDealerId((int)Model.Id);
+                                var Phones = _phoneService.GetPhonesAddressId(address.AddressId);
+                                if (address != null)
                                 {
-                                    var address = _adressService.GetAddressByStoreDealerId((int)item.DealerId);
-                                    var Phones = _phoneService.GetPhonesAddressId(address.AddressId);
-                                    if (address != null)
+                                    foreach (var Phone in Phones)
                                     {
-                                        foreach (var Phone in Phones)
-                                        {
-                                            _phoneService.DeletePhone(Phone);
-                                        }
-                                        _addressService.DeleteAddress(address);
+                                        _phoneService.DeletePhone(Phone);
                                     }
-                                    _storeDealerService.DeleteStoreDealer(_storeDealer);
+                                    _addressService.DeleteAddress(address);
                                 }
+                                _storeDealerService.DeleteStoreDealer(_storeDealer);
                             }
                             processStatus.Result = null;
                             processStatus.ActiveResultRowCount = 1;
@@ -2466,7 +2463,6 @@ namespace MakinaTurkiye.Api.Controllers
                                     dealer.MainPartyId = Model.MainPartyId;
                                     _storeDealerService.InsertStoreDealer(dealer);
                                 }
-
                                 var address = _addressService.GetAddressByStoreDealerId(dealer.StoreDealerId);
                                 if (address == null)
                                 {
@@ -4179,7 +4175,7 @@ namespace MakinaTurkiye.Api.Controllers
                     var localPhonesPhone = localPhones.ToArray()[1];
                     model.Phone2 = $"{localPhonesPhone.PhoneCulture.Replace("+", "")}-{localPhonesPhone.PhoneAreaCode}-{localPhonesPhone.PhoneNumber}";
                 }
-                if (whatsapp!=null)
+                if (whatsapp != null)
                 {
                     model.Whatsapp = $"{whatsapp.PhoneCulture.Replace("+", "")}-{whatsapp.PhoneAreaCode}-{whatsapp.PhoneNumber}";
                 }
@@ -4429,13 +4425,12 @@ namespace MakinaTurkiye.Api.Controllers
             return ifLocalityIds.Count > 0 ? ifLocalityIds : _addressService.GetSingleLocalityIdByLocalityName(locality);
         }
 
-
         public HttpResponseMessage GetCategoryStores(int categoryId = 0, int modelId = 0, int brandId = 0,
-            int cityId = 0, string searchText = "", int orderBy = 0, int pageIndex = 0, int pageSize = 0, 
+            int cityId = 0, string searchText = "", int orderBy = 0, int pageIndex = 0, int pageSize = 0,
             string activityType = "", string Cities = "", string Localities = "")
         {
             {
-                if (searchText==null)
+                if (searchText == null)
                 {
                     searchText = "";
                 }
@@ -4458,7 +4453,7 @@ namespace MakinaTurkiye.Api.Controllers
 
                     List<StoreListItem> Result = new List<StoreListItem>();
                     IList<int> localityIds = new List<int>();
-                    var IslemResult = _storeService.GetCategoryStores(categoryId, modelId, brandId, cityId,localityIds,searchText, orderBy, pageIndex, pageSize, activityType);
+                    var IslemResult = _storeService.GetCategoryStores(categoryId, modelId, brandId, cityId, localityIds, searchText, orderBy, pageIndex, pageSize, activityType);
                     foreach (var item in IslemResult.Stores)
                     {
                         if (!item.StoreLogo.StartsWith("https:"))
@@ -4569,7 +4564,6 @@ namespace MakinaTurkiye.Api.Controllers
                     List<StoreCategoryItemModel> videoCategoryItemModels = new List<StoreCategoryItemModel>();
                     foreach (var item in storeCategories)
                     {
-
                         string storePageTitle = "";
                         if (!string.IsNullOrEmpty(item.StorePageTitle))
                         {
@@ -4588,7 +4582,7 @@ namespace MakinaTurkiye.Api.Controllers
                             storePageTitle = FormatHelper.GetCategoryNameWithSynTax(item.CategoryName, CategorySyntaxType.Store);
                         var itemModel = new StoreCategoryItemModel
                         {
-                            CategoryId=item.CategoryId,
+                            CategoryId = item.CategoryId,
                             CategoryUrl = UrlBuilder.GetStoreCategoryUrl(item.CategoryId, storePageTitle, selectedOrderby),
                             CategoryType = item.CategoryType
                         };

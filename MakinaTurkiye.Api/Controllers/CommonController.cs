@@ -21,6 +21,7 @@ namespace MakinaTurkiye.Api.Controllers
         private readonly IActivityTypeService _activityTypeService;
         private readonly ICurrencyService _currencyService;
         private readonly IProductComplainService _productComplainService;
+
         public CommonController()
         {
             _memberService = EngineContext.Current.Resolve<IMemberService>();
@@ -29,7 +30,6 @@ namespace MakinaTurkiye.Api.Controllers
             _activityTypeService = EngineContext.Current.Resolve<IActivityTypeService>();
             _currencyService = EngineContext.Current.Resolve<ICurrencyService>();
             _productComplainService = EngineContext.Current.Resolve<IProductComplainService>();
-            
         }
 
         public HttpResponseMessage GetConstants()
@@ -48,7 +48,7 @@ namespace MakinaTurkiye.Api.Controllers
                         ConstantAd = x.ConstantName,
                         ConstantEkBilgi = x.ContstantPropertie,
                         ConstantSira = x.Order
-                    });
+                    }).ToList();
                     processStatus.Result = Liste;
                     processStatus.ActiveResultRowCount = constantList.Count;
                     processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -75,13 +75,12 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         public HttpResponseMessage GetCurrencies()
         {
             ProcessResult processStatus = new ProcessResult();
             try
             {
-                var rslt = _currencyService.GetAllCurrencies().Select(x=>new { Key = x.CurrencyId, Name = x.CurrencyName, FullName = x.CurrencyFullName }).ToList();
+                var rslt = _currencyService.GetAllCurrencies().Select(x => new { Key = x.CurrencyId, Name = x.CurrencyName, FullName = x.CurrencyFullName }).ToList();
                 if (rslt != null)
                 {
                     processStatus.Result = rslt;
@@ -321,7 +320,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         public HttpResponseMessage GetAllProductComplainType()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -333,7 +331,6 @@ namespace MakinaTurkiye.Api.Controllers
                         Name = x.Name,
                         ProductComplainTypeId = x.ProductComplainTypeId,
                         DisplayOrder = x.DisplayOrder
-
                     }).ToList();
 
                 if (result != null)
@@ -363,9 +360,5 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
-
-
-
     }
 }

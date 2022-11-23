@@ -10,7 +10,6 @@ namespace MakinaTurkiye.Services.Common
 {
     public class AddressService : BaseService, IAddressService
     {
-
         #region Constants
 
         private const string ADDRESSES_BY_MAINPARTY_ID_KEY = "makinaturkiye.address.bymainpartyId-{0}";
@@ -28,7 +27,7 @@ namespace MakinaTurkiye.Services.Common
         private const string CITIES_BY_CITIY_ID_KEY = "makinaturkiye.citiy.bycitiyid-{0}";
         private const string LOCALITIES_BY_LOCALITY_ID_KEY = "makinaturkiye.locality.bylocalityid-{0}";
 
-        #endregion
+        #endregion Constants
 
         #region Fileds
 
@@ -41,7 +40,7 @@ namespace MakinaTurkiye.Services.Common
         private readonly IRepository<District> _districtRepository;
         private readonly ICacheManager _cacheManager;
 
-        #endregion
+        #endregion Fileds
 
         #region Ctor
 
@@ -57,10 +56,9 @@ namespace MakinaTurkiye.Services.Common
             _cacheManager = cacheManager;
             _addressTypeRepository = addressTypeRepository;
             _districtRepository = districtRepository;
-
         }
 
-        #endregion
+        #endregion Ctor
 
         #region Utilities
 
@@ -71,10 +69,9 @@ namespace MakinaTurkiye.Services.Common
 
             _cacheManager.Remove(fisrtMainPartyIdKey);
             _cacheManager.Remove(mainPartyIdKey);
-
         }
 
-        #endregion
+        #endregion Utilities
 
         #region Methods
 
@@ -128,9 +125,7 @@ namespace MakinaTurkiye.Services.Common
             if (mainPartyId <= 0)
                 throw new ArgumentNullException("mainPartyId");
 
-
             var query = _addressRepository.Table;
-
 
             query = query.Include(a => a.Phones);
             query = query.Include(x => x.Country);
@@ -178,7 +173,6 @@ namespace MakinaTurkiye.Services.Common
             _addressRepository.Delete(address);
 
             RemoveAddressCache(address);
-
         }
 
         public void UpdateAddress(Address address)
@@ -191,8 +185,7 @@ namespace MakinaTurkiye.Services.Common
             RemoveAddressCache(address);
         }
 
-
-        #endregion
+        #endregion Address
 
         public IList<Locality> GetLocalitiesByLocalityIds(List<int> localIds)
         {
@@ -220,7 +213,6 @@ namespace MakinaTurkiye.Services.Common
 
                 var locality = query.FirstOrDefault(l => l.LocalityId == localityId);
                 return locality;
-
             });
         }
 
@@ -245,6 +237,24 @@ namespace MakinaTurkiye.Services.Common
                              select ct;
 
                 return result.ToList();
+            });
+        }
+
+        public IList<City> GetAllCities()
+        {
+            string key = string.Format(CITYES_BY_CITY_IDS_KEY, "GelAllCities");
+            return _cacheManager.Get(key, () =>
+            {
+                return _cityRepository.Table.ToList();
+            });
+        }
+
+        public IList<Locality> GetAllLocality()
+        {
+            string key = string.Format(LOCALITIES_BY_LOCALITY_ID_KEY, "GetAllLocality");
+            return _cacheManager.Get(key, () =>
+            {
+                return _localityRepository.Table.ToList();
             });
         }
 
@@ -277,13 +287,11 @@ namespace MakinaTurkiye.Services.Common
             });
         }
 
-
         public int GetSingleCityIdByCityName(string cityName)
         {
             var city = _cityRepository.Table.FirstOrDefault(p => p.CityName == cityName);
             return city == null ? 0 : city.CityId;
         }
-
 
         public List<int> GetSingleLocalityIdByLocalityName(List<string> localityNames)
         {
@@ -333,24 +341,21 @@ namespace MakinaTurkiye.Services.Common
 
                 var city = query.FirstOrDefault(c => c.CityId == cityId);
                 return city;
-
             });
         }
+
         public IList<District> GetDistrictsByCityId(int cityId)
         {
             if (cityId <= 0)
                 return new List<District>();
 
-
             string key = string.Format(DISTRICTS_BY_LOCALITY_ID_KEY, cityId);
             return _cacheManager.Get(key, () =>
             {
-
                 var query = _districtRepository.Table;
                 query = query.Where(d => d.CityId == cityId);
                 var districts = query.ToList();
                 return districts;
-
             });
         }
 
@@ -359,19 +364,15 @@ namespace MakinaTurkiye.Services.Common
             if (localityId <= 0)
                 return new List<District>();
 
-
             string key = string.Format(DISTRICTS_BY_LOCALITY_ID_KEY, localityId);
             return _cacheManager.Get(key, () =>
             {
-
                 var query = _districtRepository.Table;
                 query = query.Where(d => d.LocalityId == localityId);
 
                 var districts = query.ToList();
                 return districts;
-
             });
-
         }
 
         public District GetDistrictByDistrictId(int districtId)
@@ -390,18 +391,15 @@ namespace MakinaTurkiye.Services.Common
             if (localityId == 0)
                 return new List<Town>();
 
-
             string key = string.Format(TOWNS_BY_LOCALITY_ID_KEY, localityId);
             return _cacheManager.Get(key, () =>
             {
-
                 var query = _townRepository.Table;
                 query = query.Where(t => t.LocalityId == localityId);
                 query = query.OrderBy(t => t.TownName);
 
                 var towns = query.ToList();
                 return towns;
-
             });
         }
 
@@ -440,7 +438,6 @@ namespace MakinaTurkiye.Services.Common
             return query.OrderBy(x => x.CountryOrder).ThenBy(x => x.CountryName).ToList();
         }
 
-        #endregion
-
+        #endregion Methods
     }
 }

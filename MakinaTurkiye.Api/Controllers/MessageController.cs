@@ -262,7 +262,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-       
         public HttpResponseMessage GetAllInboxPrivateMessage()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -593,7 +592,6 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-
         public HttpResponseMessage GetMessages()
         {
             ProcessResult processStatus = new ProcessResult();
@@ -611,17 +609,17 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         PhoneNumber = $"{phone.PhoneCulture}{phone.PhoneAreaCode}{phone.PhoneNumber}";
                     }
-                    MessageViewMemberItem From = new MessageViewMemberItem() 
-                    { 
-                        MainPartyId=member.MainPartyId,
-                        FirtName=member.MemberName,
-                        LastName=member.MemberSurname,
-                        Email=member.MemberEmail,
-                        Telefon=PhoneNumber,
+                    MessageViewMemberItem From = new MessageViewMemberItem()
+                    {
+                        MainPartyId = member.MainPartyId,
+                        FirtName = member.MemberName,
+                        LastName = member.MemberSurname,
+                        Email = member.MemberEmail,
+                        Telefon = PhoneNumber,
                     };
 
-                    var SendMessages = _messageService.GetAllMessageMainParty(member.MainPartyId,(byte)MessagePageType.Send);
-                    var InboxMessages = _messageService.GetAllMessageMainParty(member.MainPartyId,(byte)MessagePageType.Inbox);
+                    var SendMessages = _messageService.GetAllMessageMainParty(member.MainPartyId, (byte)MessagePageType.Send);
+                    var InboxMessages = _messageService.GetAllMessageMainParty(member.MainPartyId, (byte)MessagePageType.Inbox);
                     List<MessageViewItem> result = new List<MessageViewItem>();
                     result.Clear();
 
@@ -637,7 +635,6 @@ namespace MakinaTurkiye.Api.Controllers
 
                     foreach (var Msg in InboxMessages)
                     {
-
                         var Message = _messageService.GetMessageByMesssageId(Msg.MessageId);
                         if (Message != null)
                         {
@@ -650,62 +647,61 @@ namespace MakinaTurkiye.Api.Controllers
                                 )) == null)
                                 {
                                     MessageViewMemberItem To = new MessageViewMemberItem()
-                                {
-                                    MainPartyId = 0,
-                                    FirtName = "",
-                                    LastName = "",
-                                    Email = "",
-                                };
-
-                                var tomember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.InOutMainPartyId);
-                                if (tomember != null)
-                                {
-                                    var ToPhoneNumber = "";
-                                    var Tophone = _phoneService.GetPhonesByMainPartyIdByPhoneType(member.MainPartyId, PhoneTypeEnum.Gsm);
-                                    if (Tophone != null)
                                     {
-                                        ToPhoneNumber = $"{Tophone.PhoneCulture}{Tophone.PhoneAreaCode}{Tophone.PhoneNumber}";
+                                        MainPartyId = 0,
+                                        FirtName = "",
+                                        LastName = "",
+                                        Email = "",
+                                    };
+
+                                    var tomember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.InOutMainPartyId);
+                                    if (tomember != null)
+                                    {
+                                        var ToPhoneNumber = "";
+                                        var Tophone = _phoneService.GetPhonesByMainPartyIdByPhoneType(member.MainPartyId, PhoneTypeEnum.Gsm);
+                                        if (Tophone != null)
+                                        {
+                                            ToPhoneNumber = $"{Tophone.PhoneCulture}{Tophone.PhoneAreaCode}{Tophone.PhoneNumber}";
+                                        }
+
+                                        To = new MessageViewMemberItem()
+                                        {
+                                            MainPartyId = tomember.MainPartyId,
+                                            FirtName = tomember.MemberName,
+                                            LastName = tomember.MemberSurname,
+                                            Email = tomember.MemberEmail,
+                                            Telefon = ToPhoneNumber
+                                        };
                                     }
 
-                                    To = new MessageViewMemberItem()
+                                    string picturePath = "";
+                                    var product = ProductList.FirstOrDefault(x => x.ProductId == (Message.ProductId != null ? Message.ProductId : 0));
+                                    if (product != null)
                                     {
-                                        MainPartyId = tomember.MainPartyId,
-                                        FirtName = tomember.MemberName,
-                                        LastName = tomember.MemberSurname,
-                                        Email = tomember.MemberEmail,
-                                        Telefon = ToPhoneNumber
+                                        var picture = _pictureService.GetFirstPictureByProductId(product.ProductId);
+                                        if (picture != null)
+                                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(product.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                                    }
+
+                                    MessageViewItem MessageViewItem = new MessageViewItem
+                                    {
+                                        MessageId = Msg.MessageId,
+                                        Content = Message.MessageContent,
+                                        Subject = Message.MessageSubject,
+                                        Date = Message.MessageDate,
+                                        From = From,
+                                        To = To,
+                                        MessageTypeEnum = (MessageTypeEnum)Msg.MessageType,
+                                        ProductId = (product != null ? product.ProductId : 0),
+                                        ProductName = (product != null ? product.ProductName : ""),
+                                        ProductNo = (product != null ? product.ProductNo : ""),
+                                        ProductResim = picturePath
                                     };
+                                    result.Add(MessageViewItem);
                                 }
-
-                                string picturePath = "";
-                                var product = ProductList.FirstOrDefault(x => x.ProductId == (Message.ProductId != null ? Message.ProductId : 0));
-                                if (product != null)
-                                {
-                                    var picture = _pictureService.GetFirstPictureByProductId(product.ProductId);
-                                    if (picture != null)
-                                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(product.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
-                                }
-
-                                MessageViewItem MessageViewItem = new MessageViewItem
-                                {
-                                    MessageId = Msg.MessageId,
-                                    Content = Message.MessageContent,
-                                    Subject = Message.MessageSubject,
-                                    Date = Message.MessageDate,
-                                    From = From,
-                                    To = To,
-                                    MessageTypeEnum = (MessageTypeEnum)Msg.MessageType,
-                                    ProductId = (product != null ? product.ProductId : 0),
-                                    ProductName = (product != null ? product.ProductName : ""),
-                                    ProductNo = (product != null ? product.ProductNo : ""),
-                                    ProductResim = picturePath
-                                };
-                                result.Add(MessageViewItem);
-                            }
                             }
                         }
                     }
-
 
                     ProductList = new List<MakinaTurkiye.Entities.Tables.Catalog.Product>();
                     MemberList = new List<Entities.Tables.Members.Member>();
@@ -730,60 +726,59 @@ namespace MakinaTurkiye.Api.Controllers
                                 (x.To.MainPartyId == Msg.MainPartyId && x.From.MainPartyId == Msg.InOutMainPartyId)
                                 )) == null)
                                 {
-
                                     MessageViewMemberItem To = new MessageViewMemberItem()
-                                {
-                                    MainPartyId = 0,
-                                    FirtName = "",
-                                    LastName = "",
-                                    Email = "",
-                                };
-                                var tomember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.InOutMainPartyId);
-                                if (tomember != null)
-                                {
-                                    var ToPhoneNumber = "";
-                                    var Tophone = _phoneService.GetPhonesByMainPartyIdByPhoneType(member.MainPartyId, PhoneTypeEnum.Gsm);
-                                    if (Tophone != null)
                                     {
-                                        ToPhoneNumber = $"{Tophone.PhoneCulture}{Tophone.PhoneAreaCode}{Tophone.PhoneNumber}";
+                                        MainPartyId = 0,
+                                        FirtName = "",
+                                        LastName = "",
+                                        Email = "",
+                                    };
+                                    var tomember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.InOutMainPartyId);
+                                    if (tomember != null)
+                                    {
+                                        var ToPhoneNumber = "";
+                                        var Tophone = _phoneService.GetPhonesByMainPartyIdByPhoneType(member.MainPartyId, PhoneTypeEnum.Gsm);
+                                        if (Tophone != null)
+                                        {
+                                            ToPhoneNumber = $"{Tophone.PhoneCulture}{Tophone.PhoneAreaCode}{Tophone.PhoneNumber}";
+                                        }
+
+                                        To = new MessageViewMemberItem()
+                                        {
+                                            MainPartyId = tomember.MainPartyId,
+                                            FirtName = tomember.MemberName,
+                                            LastName = tomember.MemberSurname,
+                                            Email = tomember.MemberEmail,
+                                            Telefon = ToPhoneNumber,
+                                        };
                                     }
 
-                                    To = new MessageViewMemberItem()
+                                    string picturePath = "";
+                                    var product = ProductList.FirstOrDefault(x => x.ProductId == (Message.ProductId != null ? Message.ProductId : 0));
+                                    if (product != null)
                                     {
-                                        MainPartyId = tomember.MainPartyId,
-                                        FirtName = tomember.MemberName,
-                                        LastName = tomember.MemberSurname,
-                                        Email = tomember.MemberEmail,
-                                        Telefon = ToPhoneNumber,
+                                        var picture = _pictureService.GetFirstPictureByProductId(product.ProductId);
+                                        if (picture != null)
+                                            picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(product.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
+                                    }
+
+                                    MessageViewItem MessageViewItem = new MessageViewItem
+                                    {
+                                        MessageId = Msg.MessageId,
+                                        Content = Message.MessageContent,
+                                        Subject = Message.MessageSubject,
+                                        Date = Message.MessageDate,
+                                        From = From,
+                                        To = To,
+                                        MessageTypeEnum = (MessageTypeEnum)Msg.MessageType,
+                                        ProductId = (product != null ? product.ProductId : 0),
+                                        ProductName = (product != null ? product.ProductName : ""),
+                                        ProductNo = (product != null ? product.ProductNo : ""),
+                                        ProductResim = picturePath
                                     };
+                                    result.Add(MessageViewItem);
                                 }
-
-                                string picturePath = "";
-                                var product = ProductList.FirstOrDefault(x => x.ProductId == (Message.ProductId != null ? Message.ProductId : 0));
-                                if (product != null)
-                                {
-                                    var picture = _pictureService.GetFirstPictureByProductId(product.ProductId);
-                                    if (picture != null)
-                                        picturePath = !string.IsNullOrEmpty(picture.PicturePath) ? "https:" + ImageHelper.GetProductImagePath(product.ProductId, picture.PicturePath, ProductImageSize.px500x375) : null;
-                                }
-
-                                MessageViewItem MessageViewItem = new MessageViewItem
-                                {
-                                    MessageId = Msg.MessageId,
-                                    Content = Message.MessageContent,
-                                    Subject = Message.MessageSubject,
-                                    Date = Message.MessageDate,
-                                    From = From,
-                                    To = To,
-                                    MessageTypeEnum = (MessageTypeEnum)Msg.MessageType,
-                                    ProductId = (product != null ? product.ProductId : 0),
-                                    ProductName = (product != null ? product.ProductName : ""),
-                                    ProductNo = (product != null ? product.ProductNo : ""),
-                                    ProductResim = picturePath
-                                };
-                                result.Add(MessageViewItem);
                             }
-                        }
                         }
                     }
 
@@ -813,20 +808,19 @@ namespace MakinaTurkiye.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
 
-         public HttpResponseMessage GetMessageHistory(int MessageId)
+        public HttpResponseMessage GetMessageHistory(int MessageId)
         {
             ProcessResult processStatus = new ProcessResult();
             try
             {
                 var MainMessage = _messageService.GetFirstMessageMainPartyByMessageId(MessageId);
-                if (MainMessage!=null)
+                if (MainMessage != null)
                 {
                     MakinaTurkiye.Entities.Tables.Messages.Message MMessage = _messageService.GetMessageByMesssageId(MainMessage.MessageId);
 
                     List<MessageMainParty> MessageHistoryList = new List<MessageMainParty>();
                     MessageHistoryList.AddRange(_messageService.GetMessageMainPartyByFromAndTo(MainMessage.MainPartyId, MainMessage.InOutMainPartyId));
-                    MessageHistoryList.AddRange(_messageService.GetMessageMainPartyByFromAndTo(MainMessage.InOutMainPartyId,MainMessage.MainPartyId));
-
+                    MessageHistoryList.AddRange(_messageService.GetMessageMainPartyByFromAndTo(MainMessage.InOutMainPartyId, MainMessage.MainPartyId));
 
                     //MessageHistoryList = MessageHistoryList.Where(x => x.MessageId != MainMessage.MessageId).ToList();
                     List<MessageViewItem> result = new List<MessageViewItem>();
@@ -836,17 +830,15 @@ namespace MakinaTurkiye.Api.Controllers
                     List<MakinaTurkiye.Entities.Tables.Messages.Message> MessageListesi = new List<Entities.Tables.Messages.Message>();
                     if (MessageHistoryList.Count > 0)
                     {
-                        
-                        MessageListesi = _messageService.GetMessageByMessageIds(MessageHistoryList.Select(x => x.MessageId).Distinct().ToList()).Where(x=>x.ProductId==MMessage.ProductId).ToList();
-                        MessageListesi=MessageListesi.Where(x=>x.MessageId!=MainMessage.MessageId).ToList();
+                        MessageListesi = _messageService.GetMessageByMessageIds(MessageHistoryList.Select(x => x.MessageId).Distinct().ToList()).Where(x => x.ProductId == MMessage.ProductId).ToList();
+                        MessageListesi = MessageListesi.Where(x => x.MessageId != MainMessage.MessageId).ToList();
                         ProductList = _productService.GetProductByProductsIds(MessageListesi.Select(x => x.ProductId).Distinct().ToList()).ToList();
                         MemberList = _memberService.GetMembersByMainPartyIds(MessageHistoryList.Select(x => x.InOutMainPartyId).Cast<int?>().ToList()).ToList();
                     }
 
-
                     foreach (var Message in MessageListesi)
                     {
-                        var Msg=_messageService.GetFirstMessageMainPartyByMessageId(Message.MessageId);
+                        var Msg = _messageService.GetFirstMessageMainPartyByMessageId(Message.MessageId);
                         MessageViewMemberItem From = new MessageViewMemberItem()
                         {
                             MainPartyId = 0,
@@ -854,7 +846,7 @@ namespace MakinaTurkiye.Api.Controllers
                             LastName = "",
                             Email = "",
                         };
-                        var frommember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.MainPartyId);
+                        var frommember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.InOutMainPartyId);
                         if (frommember != null)
                         {
                             From = new MessageViewMemberItem()
@@ -866,7 +858,6 @@ namespace MakinaTurkiye.Api.Controllers
                             };
                         }
 
-
                         MessageViewMemberItem To = new MessageViewMemberItem()
                         {
                             MainPartyId = 0,
@@ -874,7 +865,7 @@ namespace MakinaTurkiye.Api.Controllers
                             LastName = "",
                             Email = "",
                         };
-                        var tomember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.InOutMainPartyId);
+                        var tomember = MemberList.FirstOrDefault(x => x.MainPartyId == Msg.MainPartyId);
                         if (tomember != null)
                         {
                             To = new MessageViewMemberItem()
@@ -897,13 +888,14 @@ namespace MakinaTurkiye.Api.Controllers
                             Content = Message.MessageContent,
                             Subject = Message.MessageSubject,
                             Date = Message.MessageDate,
-                            From = (From.MainPartyId == MainMessage.MainPartyId ? From : To),
-                            To = (From.MainPartyId == MainMessage.MainPartyId ? To : From),
+                            From = From,
+                            To = To,
                             MessageTypeEnum = (MessageTypeEnum)Msg.MessageType,
                             ProductId = (product != null ? product.ProductId : 0),
                             ProductName = (product != null ? product.ProductName : ""),
                             ProductNo = (product != null ? product.ProductNo : ""),
                             ProductResim = picturePath,
+                            IsRead=Message.MessageRead,
                         };
                         result.Add(MessageViewItem);
                     }
@@ -932,7 +924,5 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
-
-
     }
 }

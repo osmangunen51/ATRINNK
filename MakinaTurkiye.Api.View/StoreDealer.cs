@@ -2,7 +2,6 @@
 
 namespace MakinaTurkiye.Api.View
 {
-
     public class DealerPhone
     {
         public string CountryCode { get; set; }
@@ -10,7 +9,6 @@ namespace MakinaTurkiye.Api.View
         public string Number { get; set; }
         public byte? Type { get; set; }
     }
-
 
     public class DealerAddress
     {
@@ -35,7 +33,7 @@ namespace MakinaTurkiye.Api.View
     {
         public int? DealerId { get; set; } = 0;
         public string Name { get; set; } = "";
-        public DealerAddress Address { get; set; }=new DealerAddress();
+        public DealerAddress Address { get; set; } = new DealerAddress();
         public DealerPhone Tel1 { get; set; } = new DealerPhone() { Type = (byte)PhoneType.Phone };
         public DealerPhone Tel2 { get; set; } = new DealerPhone() { Type = (byte)PhoneType.Phone };
         public DealerPhone Fax { get; set; } = new DealerPhone() { Type = (byte)PhoneType.Fax };
@@ -48,6 +46,12 @@ namespace MakinaTurkiye.Api.View
         public List<StoreDealerItem> List { get; set; } = new List<StoreDealerItem>();
         public int MainPartyId { get; set; } = 0;
         public byte DealerType { get; set; } = 1;
+    }
 
+    public class StoreDealerDelete
+    {
+        public int Id { get; set; } = 0;
+        public int MainPartyId { get; set; } = 0;
+        public byte DealerType { get; set; } = 1;
     }
 }
