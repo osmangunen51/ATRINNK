@@ -27,6 +27,7 @@ namespace MakinaTurkiye.Api.View
         public MessageViewMemberItem To { get; set; } = new MessageViewMemberItem();
         public DateTime? Date { get; set; }
         public bool IsRead { get; set; } =false;
+        public int UnReadMessagesCount { get; set; } =0;
     }
 
     public class MessageViewMemberItem
