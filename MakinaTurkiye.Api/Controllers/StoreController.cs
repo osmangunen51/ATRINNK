@@ -2374,19 +2374,20 @@ namespace MakinaTurkiye.Api.Controllers
                         {
                             DealerTypeEnum Type = (DealerTypeEnum)Model.DealerType;
                             var qlist = _storeDealerService.GetStoreDealersByMainPartyId(store.MainPartyId, Type).ToList();
-                            var _storeDealer = qlist.FirstOrDefault(x => x.StoreDealerId == Model.Id);
+                            var _storeDealer = _storeDealerService.GetStoreDealersByStoreDealerId(Model.Id);
                             if (_storeDealer != null)
                             {
                                 var address = _adressService.GetAddressByStoreDealerId((int)Model.Id);
-                                var Phones = _phoneService.GetPhonesAddressId(address.AddressId);
                                 if (address != null)
                                 {
+                                    var Phones = _phoneService.GetPhonesAddressId(address.AddressId).ToList();
                                     foreach (var Phone in Phones)
                                     {
                                         _phoneService.DeletePhone(Phone);
                                     }
                                     _addressService.DeleteAddress(address);
                                 }
+
                                 _storeDealerService.DeleteStoreDealer(_storeDealer);
                             }
                             processStatus.Result = null;

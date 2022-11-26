@@ -12,15 +12,16 @@ namespace MakinaTurkiye.Services.Stores
         #region Constants
 
         private const string STOREDEALERS_BY_MAIN_PARTY_ID_KEY = "makinaturkiye.storedealer.bymainpartyid-{0}-{1}";
+        private const string STOREDEALERS_BY_STTORE_DEALER_ID_KEY = "makinaturkiye.storedealer.bystoredealerid-{0}";
 
-        #endregion
+        #endregion Constants
 
         #region Fields
 
         private readonly IRepository<StoreDealer> _storeDealerRepository;
         private readonly ICacheManager _cacheManager;
 
-        #endregion
+        #endregion Fields
 
         #region Ctor
 
@@ -30,7 +31,7 @@ namespace MakinaTurkiye.Services.Stores
             this._cacheManager = cacheManager;
         }
 
-        #endregion
+        #endregion Ctor
 
         #region Methods
 
@@ -58,11 +59,11 @@ namespace MakinaTurkiye.Services.Stores
             if (storeDealer == null)
                 throw new ArgumentNullException("storeDealer");
 
-
             _storeDealerRepository.Insert(storeDealer);
             string key = string.Format(STOREDEALERS_BY_MAIN_PARTY_ID_KEY, storeDealer.MainPartyId, storeDealer.DealerType);
             _cacheManager.Remove(key);
         }
+
         public void DeleteStoreDealer(StoreDealer storeDealer)
         {
             if (storeDealer == null)
@@ -80,6 +81,17 @@ namespace MakinaTurkiye.Services.Stores
             string key = string.Format(STOREDEALERS_BY_MAIN_PARTY_ID_KEY, storeDealer.MainPartyId, storeDealer.DealerType);
             _cacheManager.Remove(key);
         }
-        #endregion
+
+        public StoreDealer GetStoreDealersByStoreDealerId(int StoreDealerId)
+        {
+            string key = string.Format(STOREDEALERS_BY_STTORE_DEALER_ID_KEY, StoreDealerId);
+            return _cacheManager.Get(key, () =>
+            {
+                var query = _storeDealerRepository.Table;
+                return query.FirstOrDefault(sd => sd.StoreDealerId == StoreDealerId);
+            });
+        }
+
+        #endregion Methods
     }
 }
