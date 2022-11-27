@@ -687,7 +687,7 @@ namespace MakinaTurkiye.Api.Controllers
                                     int UnReadMessagesCount = 0;
                                     if (GetMessagesFromMainMessageListesi.Count > 0)
                                     {
-                                        UnReadMessagesCount = GetMessagesFromMainMessageListesi.Count(x => !x.IsRead);
+                                        UnReadMessagesCount = GetMessagesFromMainMessageListesi.Count(x => x.IsRead && x.ProductId==product.ProductId);
                                     }
                                     MessageViewItem MessageViewItem = new MessageViewItem
                                     {
@@ -774,7 +774,7 @@ namespace MakinaTurkiye.Api.Controllers
                                     int UnReadMessagesCount = 0;
                                     if (GetMessagesFromMainMessageListesi.Count>0)
                                     {
-                                        UnReadMessagesCount = GetMessagesFromMainMessageListesi.Count(x => !x.IsRead);
+                                        UnReadMessagesCount = GetMessagesFromMainMessageListesi.Count(x => x.IsRead && x.ProductId==product.ProductId);
                                     }
                                     MessageViewItem MessageViewItem = new MessageViewItem
                                     {
