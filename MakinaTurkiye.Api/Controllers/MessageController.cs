@@ -876,7 +876,6 @@ namespace MakinaTurkiye.Api.Controllers
             if (MessageHistoryList.Count > 0)
             {
                 MessageListesi = _messageService.GetMessageByMessageIds(MessageHistoryList.Select(x => x.MessageId).Distinct().ToList()).Where(x => x.ProductId == MMessage.ProductId).ToList();
-                MessageListesi = MessageListesi.Where(x => x.MessageId != MainMessage.MessageId).ToList();
                 ProductList = _productService.GetProductByProductsIds(MessageListesi.Select(x => x.ProductId).Distinct().ToList()).ToList();
                 MemberList = _memberService.GetMembersByMainPartyIds(MessageHistoryList.Select(x => x.InOutMainPartyId).Cast<int?>().ToList()).ToList();
             }
