@@ -34,7 +34,8 @@ namespace MakinaTurkiye.Services.Stores
 
         public void DeleteStoreBrand(StoreBrand storeBrand)
         {
-            throw new NotImplementedException();
+            this._storeBrandRepository.Delete(storeBrand);
+            this._cacheManager.RemoveByPattern("makinaturkiye.storebrand");
         }
 
         #endregion

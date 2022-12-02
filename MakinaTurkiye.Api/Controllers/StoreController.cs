@@ -1013,7 +1013,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 Minute = item.VideoMinute.HasValue ? item.VideoMinute.Value : 0,
                                 VideoId = item.VideoId,
                                 Second = item.VideoSecond.HasValue ? item.VideoSecond.Value : 0,
-                                VideoPath = MakinaTurkiye.Utilities.VideoHelpers.VideoHelper.GetVideoPath(item.VideoPath).Replace("//",""),
+                                VideoPath = MakinaTurkiye.Utilities.VideoHelpers.VideoHelper.GetVideoPath(item.VideoPath).Replace("//", ""),
                                 ViewCount = item.SingularViewCount.HasValue ? item.SingularViewCount.Value : 0,
                                 RecordDate = item.VideoRecordDate.Value,
                                 Title = item.VideoTitle,
@@ -2250,7 +2250,7 @@ namespace MakinaTurkiye.Api.Controllers
                             if (address != null)
                             {
                                 address = _addressService.GetAddressByAddressId(address.AddressId);
-                                if (address!=null)
+                                if (address != null)
                                 {
                                     itm.Address = new DealerAddress()
                                     {
@@ -2273,7 +2273,7 @@ namespace MakinaTurkiye.Api.Controllers
                                     var tel2 = Phones.Where(x => x.PhoneType == (byte)PhoneType.Phone).ToList().Skip(1).Take(1).FirstOrDefault();
                                     var fax = Phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Fax);
                                     var Gsm = Phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
-                                    
+
                                     if (tel1 != null)
                                     {
                                         itm.Tel1 = new DealerPhone
@@ -2388,15 +2388,14 @@ namespace MakinaTurkiye.Api.Controllers
                                     foreach (var Phone in Phones)
                                     {
                                         var ph = _phoneService.GetPhoneByPhoneId(Phone.PhoneId);
-                                        if (ph!=null)
+                                        if (ph != null)
                                         {
                                             _phoneService.DeletePhone(ph);
                                         }
-                                        
                                     }
-                                    
+
                                     var siladdress = _adressService.GetAddressByAddressId(address.AddressId);
-                                    if (siladdress!=null)
+                                    if (siladdress != null)
                                     {
                                         _addressService.DeleteAddress(siladdress);
                                     }
@@ -2532,7 +2531,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         PhoneCulture = model.Tel1.CountryCode,
                                         PhoneNumber = model.Tel1.Number,
                                         PhoneType = (byte)PhoneType.Phone,
-                                        active=1,
+                                        active = 1,
                                     };
                                     _phoneService.InsertPhone(tel1);
                                 }
@@ -2554,7 +2553,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         PhoneCulture = model.Tel2.CountryCode,
                                         PhoneNumber = model.Tel2.Number,
                                         PhoneType = (byte)PhoneType.Phone,
-                                        active=1,
+                                        active = 1,
                                     };
                                     _phoneService.InsertPhone(tel2);
                                 }
@@ -2576,7 +2575,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         PhoneCulture = model.Fax.CountryCode,
                                         PhoneNumber = model.Fax.Number,
                                         PhoneType = (byte)PhoneType.Fax,
-                                        active=1,
+                                        active = 1,
                                     };
                                     _phoneService.InsertPhone(fax);
                                 }
@@ -2598,7 +2597,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         PhoneCulture = model.Gsm.CountryCode,
                                         PhoneNumber = model.Gsm.Number,
                                         PhoneType = (byte)PhoneType.Gsm,
-                                        active=1,
+                                        active = 1,
                                     };
                                     _phoneService.InsertPhone(gsm);
                                 }
@@ -3769,24 +3768,13 @@ namespace MakinaTurkiye.Api.Controllers
                     var StoreBrand = _storeBrandService.GetStoreBrandByStoreBrand(StoreBrandId);
                     if (StoreBrand != null)
                     {
-                        var store = _storeService.GetStoreByMainPartyId(StoreBrand.MainPartyId);
-                        if (store != null)
-                        {
-                            _storeBrandService.DeleteStoreBrand(StoreBrand);
-                            processStatus.Result = "";
-                            processStatus.ActiveResultRowCount = 1;
-                            processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
-                            processStatus.Message.Header = "Store İşlemleri";
-                            processStatus.Message.Text = "Başarılı";
-                            processStatus.Status = true;
-                        }
-                        else
-                        {
-                            processStatus.Message.Header = "Store İşlemleri";
-                            processStatus.Message.Text = "Store Bulunamadı.";
-                            processStatus.Status = false;
-                            processStatus.Result = null;
-                        }
+                        _storeBrandService.DeleteStoreBrand(StoreBrand);
+                        processStatus.Result = "";
+                        processStatus.ActiveResultRowCount = 1;
+                        processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
+                        processStatus.Message.Header = "Store İşlemleri";
+                        processStatus.Message.Text = "Başarılı";
+                        processStatus.Status = true;
                     }
                     else
                     {
@@ -4181,8 +4169,11 @@ namespace MakinaTurkiye.Api.Controllers
                 var gsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneTypeEnum.Gsm);
                 var localPhones = phones.Where(x => x.PhoneType == (byte)PhoneTypeEnum.Phone);
                 var whatsapp = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneTypeEnum.Whatsapp);
-
-                model.Gsm = $"{gsm.PhoneCulture.Replace("+", "")}-{gsm.PhoneAreaCode}-{gsm.PhoneNumber}";
+                if (gsm!=null)
+                {
+                    model.Gsm = $"{gsm.PhoneCulture.Replace("+", "")}-{gsm.PhoneAreaCode}-{gsm.PhoneNumber}";
+                }
+                
                 model.StoreBanner = ImageHelper.GetStoreBanner(store.MainPartyId, store.StoreBanner);
                 if (localPhones.Count() > 0)
                 {

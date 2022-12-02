@@ -397,34 +397,40 @@ namespace MakinaTurkiye.Services.Search
         public IList<SearchResult> SearchSuggest(string SearchText)
         {
             List<SearchResult> Sonuc = new List<SearchResult>();
-            ProductSuggestResponse SncSnc = ElasticSearchClient.Suggest(GlobalSuggetSearchIndexName, SearchText);
-            Sonuc = SncSnc.Suggests.Select(Snc =>
-                        new SearchResult()
-                        {
-                            Name = Snc.Name,
-                            Category = "Oneri",
-                            Score = Snc.Score,
-                            Url = Snc.Url,
-                            Value = Snc.Value
-                        }
-                ).ToList();
+            if (ElasticSearchClient!=null)
+            {
+                ProductSuggestResponse SncSnc = ElasticSearchClient.Suggest(GlobalSuggetSearchIndexName, SearchText);
+                Sonuc = SncSnc.Suggests.Select(Snc =>
+                            new SearchResult()
+                            {
+                                Name = Snc.Name,
+                                Category = "Oneri",
+                                Score = Snc.Score,
+                                Url = Snc.Url,
+                                Value = Snc.Value
+                            }
+                    ).ToList();
+            }
             return Sonuc;
         }
 
         public IList<SearchResult> SearchCategory(string SearchText)
         {
             List<SearchResult> Sonuc = new List<SearchResult>();
-            ProductSuggestResponse SncSnc = ElasticSearchClient.Search(GlobalSearchGenelIndexName, SearchText);
-            Sonuc = SncSnc.Suggests.Select(Snc =>
-                      new SearchResult()
-                      {
-                          Name = Snc.Name,
-                          Category = Snc.Category,
-                          Score = Snc.Score,
-                          Url = Snc.Url,
-                          Value = Snc.Value
-                      }
-                ).ToList();
+            if (ElasticSearchClient!=null)
+            {
+                ProductSuggestResponse SncSnc = ElasticSearchClient.Search(GlobalSearchGenelIndexName, SearchText);
+                Sonuc = SncSnc.Suggests.Select(Snc =>
+                          new SearchResult()
+                          {
+                              Name = Snc.Name,
+                              Category = Snc.Category,
+                              Score = Snc.Score,
+                              Url = Snc.Url,
+                              Value = Snc.Value
+                          }
+                    ).ToList();
+            }
             return Sonuc;
         }
         #endregion
