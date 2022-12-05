@@ -84,12 +84,8 @@ namespace MakinaTurkiye.Services.Stores
 
         public StoreDealer GetStoreDealersByStoreDealerId(int StoreDealerId)
         {
-            string key = string.Format(STOREDEALERS_BY_STTORE_DEALER_ID_KEY, StoreDealerId);
-            return _cacheManager.Get(key, () =>
-            {
-                var query = _storeDealerRepository.Table;
-                return query.FirstOrDefault(sd => sd.StoreDealerId == StoreDealerId);
-            });
+            var query = _storeDealerRepository.Table;
+            return query.FirstOrDefault(sd => sd.StoreDealerId == StoreDealerId);
         }
 
         #endregion Methods

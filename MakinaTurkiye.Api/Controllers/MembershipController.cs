@@ -72,14 +72,14 @@ namespace MakinaTurkiye.Api.Controllers
                             InsertMember(Model);
 
                             processStatus.Message.Header = "Fast Membership";
-                            processStatus.Message.Text = "Başarılı";
+                            processStatus.Message.Text = "Başarılı. Email adresinize gönderilen Üyelik Aktivasyon maili ile lütfen hesabınızı onaylayın";
                             processStatus.Status = true;
                             processStatus.Result = "Email adresinize gönderilen Üyelik Aktivasyon maili ile lütfen hesabınızı onaylayın";
                         }
                         else
                         {
                             processStatus.Message.Header = "Fast Membership";
-                            processStatus.Message.Text = "Başarısız";
+                            processStatus.Message.Text = "Belirtmiş olduğunuz e-posta adresi kullanılmaktadır!";
                             processStatus.Status = false;
                             processStatus.Result = "Belirtmiş olduğunuz e-posta adresi kullanılmaktadır!";
                         }
@@ -87,7 +87,7 @@ namespace MakinaTurkiye.Api.Controllers
                     else
                     {
                         processStatus.Message.Header = "Fast Membership";
-                        processStatus.Message.Text = "Başarısız";
+                        processStatus.Message.Text = "Belirtmiş olduğunuz e-posta adresi kullanılmaktadır!";
                         processStatus.Status = false;
                         processStatus.Result = "Geçersiz mail adresi.";
                     }

@@ -1541,13 +1541,13 @@ namespace MakinaTurkiye.Api.Controllers
                         BriefDetail = product.GetBriefDetailText(),
                         CategoryName = product.Category != null ? product.Category.CategoryName : "",
                         ViewCount = product.ViewCount.Value,
-                        CountryId = (int)product.CountryId,
+                        CountryId = (int)(product.CountryId==null?0:product.CountryId),
                         Country = (product.Country != null) ? product.Country.CountryName : "",
-                        LocalityId = (int)product.LocalityId,
+                        LocalityId = (int)(product.LocalityId==null?0:product.LocalityId),
                         Locality = (product.Locality != null) ? product.Locality.LocalityName : "",
-                        CityId = (int)product.CityId,
+                        CityId = (int)(product.CityId==null?0:product.CityId),
                         City = (product.City != null) ? product.City.CityName : "",
-                        TownId = (int)product.TownId,
+                        TownId = (int)(product.TownId==null?0:product.TownId),
                         Town = (product.Town != null) ? product.Town.TownName : "",
                         ProductAdvertBeginDate = product.ProductAdvertBeginDate.Value,
                         ProductAdvertEndDate = product.ProductAdvertEndDate.Value
@@ -1764,7 +1764,11 @@ namespace MakinaTurkiye.Api.Controllers
                                 }
                             }
                             else productPrice = "0";
-                            decimal price = Convert.ToDecimal(productPrice, cultInfo.NumberFormat);
+                            decimal price = 0;
+                            if (productPrice!="Fiyat Sorunuz")
+                            {
+                                 price= Convert.ToDecimal(productPrice, cultInfo.NumberFormat);
+                            }
                             product.ProductPrice = price;
 
                             product.DiscountType = Convert.ToByte(Model.DiscountType);
@@ -1846,9 +1850,6 @@ namespace MakinaTurkiye.Api.Controllers
                             product.SingularViewCount = 0;
                             product.MainPartyId = member.MainPartyId;
                             _productService.InsertProduct(product);
-                           
-                            _productService.InsertProduct(product);
-
                             // Product No Oluşturuluyor...
                             int kalansayisi = 8 - product.ProductId.ToString().Length;
                             if (kalansayisi < 0)

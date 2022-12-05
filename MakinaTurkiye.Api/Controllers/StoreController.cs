@@ -2400,10 +2400,10 @@ namespace MakinaTurkiye.Api.Controllers
                                         _addressService.DeleteAddress(siladdress);
                                     }
                                 }
-                                var sil_storeDealer = _adressService.GetAddressByAddressId(_storeDealer.StoreDealerId);
+                                var sil_storeDealer = _storeDealerService.GetStoreDealersByStoreDealerId(Model.Id);
                                 if (sil_storeDealer != null)
                                 {
-                                    _storeDealerService.DeleteStoreDealer(_storeDealer);
+                                    _storeDealerService.DeleteStoreDealer(sil_storeDealer);
                                 }
                             }
                             processStatus.Result = null;
