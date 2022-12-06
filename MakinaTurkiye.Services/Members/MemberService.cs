@@ -100,7 +100,7 @@ namespace MakinaTurkiye.Services.Members
         public List<Member> GetMembersByMainPartyId(int Id)
         {
             var query = _memberRepository.Table;
-            return query.ToList().Where(x => x.MainPartyId == Id).ToList();
+            return query.Where(x => x.MainPartyId == Id).ToList();
         }
 
         public List<MemberListForMailSender> SP_GetAllMemberListForMailSender(byte phoneConfirm, byte memberType, int fastMembershipType, int packetId, byte mailActive)
