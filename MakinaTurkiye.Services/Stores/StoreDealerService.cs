@@ -62,6 +62,7 @@ namespace MakinaTurkiye.Services.Stores
             _storeDealerRepository.Insert(storeDealer);
             string key = string.Format(STOREDEALERS_BY_MAIN_PARTY_ID_KEY, storeDealer.MainPartyId, storeDealer.DealerType);
             _cacheManager.Remove(key);
+            _cacheManager.RemoveByPattern("makinaturkiye.storedealer");
         }
 
         public void DeleteStoreDealer(StoreDealer storeDealer)
@@ -71,7 +72,7 @@ namespace MakinaTurkiye.Services.Stores
 
             _storeDealerRepository.Delete(storeDealer);
             string key = string.Format(STOREDEALERS_BY_MAIN_PARTY_ID_KEY, storeDealer.MainPartyId, storeDealer.DealerType);
-            _cacheManager.Remove(key);
+            _cacheManager.RemoveByPattern("makinaturkiye.storedealer");
         }
 
         public void UpdateStoreDealer(StoreDealer storeDealer)
@@ -80,6 +81,7 @@ namespace MakinaTurkiye.Services.Stores
             _storeDealerRepository.Delete(storeDealer);
             string key = string.Format(STOREDEALERS_BY_MAIN_PARTY_ID_KEY, storeDealer.MainPartyId, storeDealer.DealerType);
             _cacheManager.Remove(key);
+            _cacheManager.RemoveByPattern("makinaturkiye.storedealer");
         }
 
         public StoreDealer GetStoreDealersByStoreDealerId(int StoreDealerId)
