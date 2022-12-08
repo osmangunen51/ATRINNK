@@ -1,4 +1,5 @@
 using MakinaTurkiye.Core;
+using NeoSistem.MakinaTurkiye.Web.App_Start;
 using NeoSistem.MakinaTurkiye.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -51,12 +52,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
     }
 
     [HandleError]
+    [LanguageDetector]
     public class BaseController : Core.Web.Controller
     {
-
-
         private string _IpAdres = "";
-
         public string IpAdres
         {
             get
