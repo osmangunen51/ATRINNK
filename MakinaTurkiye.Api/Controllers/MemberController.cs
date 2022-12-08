@@ -186,71 +186,71 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         var userAddresses = _addressService.GetAddressesByMainPartyId((int)memberstore.StoreMainPartyId).ToList();
                         AddressList = new List<View.Address>();
-
-                        foreach (var userAdress in userAddresses)
+                        if (userAddresses!=null)
                         {
-                            var cityData = new View.City();
-                            var countryData = new View.Country();
-                            var townData = new View.Town();
-                            var localityData = new View.Locality();
-                            if (userAdress.Locality != null && userAdress.Locality.LocalityId > 0)
+                            foreach (var userAdress in userAddresses)
                             {
-                                var locality = _addressService.GetLocalityByLocalityId(userAdress.Locality.LocalityId);
-                                if (locality != null)
+                                var cityData = new View.City();
+                                var countryData = new View.Country();
+                                var townData = new View.Town();
+                                var localityData = new View.Locality();
+                                if (userAdress.Locality != null && userAdress.Locality.LocalityId > 0)
                                 {
-                                    localityData.LocalityId = locality.LocalityId;
-                                    localityData.LocalityName = locality.LocalityName;
+                                    var locality = _addressService.GetLocalityByLocalityId(userAdress.Locality.LocalityId);
+                                    if (locality != null)
+                                    {
+                                        localityData.LocalityId = locality.LocalityId;
+                                        localityData.LocalityName = locality.LocalityName;
+                                    }
                                 }
-                            }
 
-                            if (userAdress.City != null && userAdress.City.CityId > 0)
-                            {
-                                var city = _addressService.GetCityByCityId(userAdress.City.CityId);
-                                if (city != null)
+                                if (userAdress.City != null && userAdress.City.CityId > 0)
                                 {
-                                    cityData.CityId = city.CityId;
-                                    cityData.CityName = city.CityName;
+                                    var city = _addressService.GetCityByCityId(userAdress.City.CityId);
+                                    if (city != null)
+                                    {
+                                        cityData.CityId = city.CityId;
+                                        cityData.CityName = city.CityName;
+                                    }
                                 }
-                            }
 
-                            if (userAdress.Country != null && userAdress.Country.CountryId > 0)
-                            {
-                                var country = _addressService.GetCountryByCountryId(userAdress.Country.CountryId);
-                                if (country != null)
+                                if (userAdress.Country != null && userAdress.Country.CountryId > 0)
                                 {
-                                    countryData.CountryId = country.CountryId;
-                                    countryData.CountryName = country.CountryName;
+                                    var country = _addressService.GetCountryByCountryId(userAdress.Country.CountryId);
+                                    if (country != null)
+                                    {
+                                        countryData.CountryId = country.CountryId;
+                                        countryData.CountryName = country.CountryName;
+                                    }
                                 }
-                            }
-                            if (userAdress.Town != null && userAdress.Town.TownId > 0)
-                            {
-                                var town = _addressService.GetTownByTownId(userAdress.Town.TownId);
-                                if (town != null)
+                                if (userAdress.Town != null && userAdress.Town.TownId > 0)
                                 {
-                                    townData.TownId = town.TownId;
-                                    townData.TownName = town.TownName;
+                                    var town = _addressService.GetTownByTownId(userAdress.Town.TownId);
+                                    if (town != null)
+                                    {
+                                        townData.TownId = town.TownId;
+                                        townData.TownName = town.TownName;
+                                    }
                                 }
-                            }
 
-                            var adress = new View.Address()
-                            {
-                                City = cityData,
-                                Locality = localityData,
-                                Country = countryData,
-                                Town = townData,
-                                AddressId = userAdress.AddressId,
-                                AdressDefault = userAdress.AddressDefault,
-                                ApartmentNo = userAdress.ApartmentNo,
-                                Avenue = userAdress.Avenue,
-                                DoorNo = userAdress.DoorNo,
-                                PostCode = userAdress.PostCode,
-                                StoreDealerId = userAdress.StoreDealerId,
-                                Street = userAdress.Street
-                            };
-                            AddressList.Add(adress);
+                                var adress = new View.Address()
+                                {
+                                    City = cityData,
+                                    Locality = localityData,
+                                    Country = countryData,
+                                    Town = townData,
+                                    AddressId = userAdress.AddressId,
+                                    AdressDefault = userAdress.AddressDefault,
+                                    ApartmentNo = userAdress.ApartmentNo,
+                                    Avenue = userAdress.Avenue,
+                                    DoorNo = userAdress.DoorNo,
+                                    PostCode = userAdress.PostCode,
+                                    StoreDealerId = userAdress.StoreDealerId,
+                                    Street = userAdress.Street
+                                };
+                                AddressList.Add(adress);
+                            }
                         }
-
-                       
                         if (member.MemberType == 20)
                         {
                             var store = _storeService.GetStoreByMainPartyId((int)memberstore.StoreMainPartyId);
