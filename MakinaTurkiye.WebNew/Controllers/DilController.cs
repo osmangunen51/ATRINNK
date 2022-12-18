@@ -5,6 +5,8 @@ using System.Web.Mvc;
 
 namespace NeoSistem.MakinaTurkiye.Web.Controllers
 {
+
+    [AllowAnonymous]
     public class DilController : Controller
     {
         public ActionResult Index(string lang = "tr_TR")
