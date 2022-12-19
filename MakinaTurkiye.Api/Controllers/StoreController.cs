@@ -4654,7 +4654,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 FilterItemId = item.CityId.ToString(),
                                 FilterItemName = item.CityName,
                                 FilterItemStoreCount = filterableCityIds.Count(ct => ct == item.CityId),
-                                FilterUrl = filterUrl
+                                FilterUrl = "1"
                             });
                         }
                         storeResult.StoreAddressFilterModel.CityFilterItemModels = storeResult.StoreAddressFilterModel.CityFilterItemModels.OrderByDescending(p => p.FilterItemId == "0")
@@ -4684,6 +4684,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         Filtered = (selectedLocalityNames.Contains(item.LocalityId)),
                                         FilterItemId = item.LocalityId.ToString(),
                                         FilterItemName = item.LocalityName,
+                                        FilterUrl="2", // locality
                                         FilterItemStoreCount = filterableLocalityIds.Count(l => l == item.LocalityId)
                                     };
 
