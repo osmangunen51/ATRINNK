@@ -313,7 +313,7 @@ namespace NeoSistem.MakinaTurkiye.Web
         }
         protected void Session_End(object sender, EventArgs e)
         {
-            DefaultLocale();
+          
         }
     }
 

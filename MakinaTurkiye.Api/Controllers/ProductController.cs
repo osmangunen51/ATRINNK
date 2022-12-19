@@ -428,11 +428,13 @@ namespace MakinaTurkiye.Api.Controllers
                     }
                 }
 
+                List<int> catIdList = result.FilterableBrandIds.Distinct().ToList();
+                var filterableBrands = _categoryService.GetCategoriesByCategoryIds(catIdList).ToList();
+
                 if (result.FilterableBrandIds != null && result.FilterableBrandIds.Count > 0)
                 {
-                    List<int> catIdList = result.FilterableBrandIds.Distinct().ToList();
-                    string aa = string.Join(",", catIdList.ToArray());
-                    var filterableBrands = _categoryService.GetCategoriesByCategoryIds(catIdList);
+                    result.FilterableBrandIds = result.FilterableBrandIds.ToList();
+                    
                     if (filterableBrands.Count > 0)
                     {
                         var distinctfilterableBrands = filterableBrands.Select(b => b.CategoryName).Distinct();
@@ -445,7 +447,7 @@ namespace MakinaTurkiye.Api.Controllers
                                     Value = item.CategoryId,
                                     Name = item.CategoryName,
                                     Type = (byte)AdvancedSearchFilterType.Brand,
-                                    ProductCount = result.FilterableBrandIds.Count(c => c == item.CategoryId),
+                                    ProductCount = 0,
                                     ProductCountAll = 0,
                                 });
                             }
@@ -462,7 +464,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         Value = brands.First().CategoryId,
                                         Name = brands.First().CategoryName,
                                         Type = (byte)AdvancedSearchFilterType.Brand,
-                                        ProductCount = result.FilterableBrandIds.Count(c => c == brands.FirstOrDefault().CategoryId),
+                                        ProductCount =0,
                                         ProductCountAll = 0,
                                     });
                                 }
@@ -473,7 +475,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         Value = brands.First().CategoryId,
                                         Name = brands.First().CategoryName,
                                         Type = (byte)AdvancedSearchFilterType.Brand,
-                                        ProductCount = result.FilterableBrandIds.Count(c => brands.Select(x => x.CategoryId).Contains(c)),
+                                        ProductCount = 0,
                                         ProductCountAll = 0,
                                     });
                                 }

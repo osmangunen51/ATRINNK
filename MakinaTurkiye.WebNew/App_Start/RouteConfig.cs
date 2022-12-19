@@ -19,8 +19,8 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
             routes.LowercaseUrls = true;
 
             routes.MapRoute(
-                name: "Defaultdil-degistir",
-                url: "dil-degistir",
+                name: "Defaultchange-language",
+                url: "change-language",
                 defaults: new { controller = "Dil", action = "Index" }
             );
 
