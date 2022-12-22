@@ -972,11 +972,16 @@ namespace MakinaTurkiye.Api.Controllers
                                 string Logo = Model.File;
                                 string Uzanti = "";
                                 bool IslemDurum = false;
+                                Uzanti = Model.File.GetUzanti();
                                 if (Uzanti == "jpg")
                                 {
                                     IslemDurum = true;
                                 }
                                 if (Uzanti == "png")
+                                {
+                                    IslemDurum = true;
+                                }
+                                if (Uzanti == "heric")
                                 {
                                     IslemDurum = true;
                                 }
@@ -1002,7 +1007,11 @@ namespace MakinaTurkiye.Api.Controllers
                                     System.Drawing.Image Img = Logo.ToImage();
                                     if (Uzanti == "png")
                                     {
-                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Png);
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    }
+                                    if (Uzanti == "heric")
+                                    {
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
                                     }
                                     if (Uzanti == "jpg")
                                     {
