@@ -981,7 +981,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     IslemDurum = true;
                                 }
-                                if (Uzanti == "heric")
+                                if (Uzanti == "heic")
                                 {
                                     IslemDurum = true;
                                 }
@@ -1004,17 +1004,28 @@ namespace MakinaTurkiye.Api.Controllers
                                     string newMainImageFilePath = AppSettings.ProductImageFolder + product.ProductId.ToString() + "\\";
                                     string fileName = product.ProductName.ToImageFileName(count) + ".jpg";
                                     string fileserverpath = System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + fileName;
-                                    System.Drawing.Image Img = Logo.ToImage();
+                                    
                                     if (Uzanti == "png")
                                     {
+                                        System.Drawing.Image Img = Logo.ToImage();
                                         Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
                                     }
-                                    if (Uzanti == "heric")
+                                    if (Uzanti == "heic")
                                     {
-                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        DataImage dtimage = DataImage.TryParse(Logo);
+                                        using (ImageMagick.MagickImage magickImage=new ImageMagick.MagickImage(dtimage.RawData))
+                                        {
+                                            System.IO.FileInfo fileInfo = new FileInfo(fileserverpath);
+                                            if (!fileInfo.Directory.Exists)
+                                            {
+                                                fileInfo.Directory.Create();
+                                            }
+                                            magickImage.Write(fileserverpath);
+                                        }
                                     }
                                     if (Uzanti == "jpg")
                                     {
+                                        System.Drawing.Image Img = Logo.ToImage();
                                         Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
                                     }
 
@@ -1859,8 +1870,9 @@ namespace MakinaTurkiye.Api.Controllers
                             product.SingularViewCount = 0;
                             product.MainPartyId = member.MainPartyId;
                             _productService.InsertProduct(product);
-                            // Product No Oluşturuluyor...
-                            int kalansayisi = 8 - product.ProductId.ToString().Length;
+
+                            product.ProductNo = product.ProductId.ToString();
+                            int kalansayisi = 8 - product.ProductNo.ToString().Length;
                             if (kalansayisi < 0)
                             {
                                 kalansayisi = 0;
@@ -1869,14 +1881,12 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 product.ProductNo = "0" + product.ProductNo;
                             }
-                            product.ProductNo = "#" + product.ProductNo;
                             _productService.UpdateProduct(product);
-
                         }
                         else
                         {
-                            // Product No Oluşturuluyor...
-                            int kalansayisi = 8 - product.ProductId.ToString().Length;
+                            product.ProductNo = product.ProductId.ToString();
+                            int kalansayisi = 8 - product.ProductNo.ToString().Length;
                             if (kalansayisi < 0)
                             {
                                 kalansayisi = 0;
@@ -1885,7 +1895,6 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 product.ProductNo = "0" + product.ProductNo;
                             }
-                            product.ProductNo = "#" + product.ProductNo;
                             _productService.UpdateProduct(product);
                         }
 
@@ -1915,6 +1924,10 @@ namespace MakinaTurkiye.Api.Controllers
                             {
                                 IslemDurum = true;
                             }
+                            if (Uzanti == "heic")
+                            {
+                                IslemDurum = true;
+                            }
                             if (IslemDurum)
                             {
 
@@ -1939,15 +1952,31 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     file.Directory.Create();
                                 }
-                                System.Drawing.Image Img = Logo.ToImage();
+
                                 if (Uzanti == "png")
                                 {
-                                    Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Png);
+                                    System.Drawing.Image Img = Logo.ToImage();
+                                    Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                }
+                                if (Uzanti == "heic")
+                                {
+                                    DataImage dtimage = DataImage.TryParse(Logo);
+                                    using (ImageMagick.MagickImage magickImage = new ImageMagick.MagickImage(dtimage.RawData))
+                                    {
+                                        System.IO.FileInfo fileInfo = new FileInfo(fileserverpath);
+                                        if (!fileInfo.Directory.Exists)
+                                        {
+                                            fileInfo.Directory.Create();
+                                        }
+                                        magickImage.Write(fileserverpath);
+                                    }
                                 }
                                 if (Uzanti == "jpg")
                                 {
+                                    System.Drawing.Image Img = Logo.ToImage();
                                     Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
                                 }
+
                                 bool thumbResult = ImageProcessHelper.ImageResize(System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + fileName,
                                 System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + "thumbs\\" + product.ProductName.ToImageFileName(count), thumbSizes);
                                 if (thumbResult)

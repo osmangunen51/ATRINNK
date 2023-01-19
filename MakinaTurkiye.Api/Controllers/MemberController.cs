@@ -842,5 +842,41 @@ namespace MakinaTurkiye.Api.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, processStatus);
         }
+
+        public HttpResponseMessage Remove()
+        {
+            ProcessResult processStatus = new ProcessResult();
+
+            try
+            {
+                var LoginUserEmail = Request.CheckLoginUserClaims().LoginMemberEmail;
+                var member = !string.IsNullOrEmpty(LoginUserEmail) ? _memberService.GetMemberByMemberEmail(LoginUserEmail) : null;
+                if (member != null)
+                {
+                    member.Active = false;
+                    _memberService.UpdateMember(member);
+                    processStatus.Message.Header = "Member İşlemleri";
+                    processStatus.Message.Text = "İşlem başarılı";
+                    processStatus.Status = true;
+                    processStatus.Result = "Hesabınız başarıyla kaldırılmıştır.";
+                }
+                else
+                {
+                    processStatus.Message.Header = "Member İşlemleri";
+                    processStatus.Message.Text = "İşlem başarısız";
+                    processStatus.Status = false;
+                    processStatus.Result = "Hesabınız kaldırılırken hata ile karşılaşıldı!";
+                }
+            }
+            catch (Exception ex)
+            {
+                processStatus.Message.Header = "Member İşlemleri";
+                processStatus.Message.Text = "İşlem başarısız." + ex.Message;
+                processStatus.Status = false;
+                processStatus.Result = "Hesabınız kaldırılırken hata ile karşılaşıldı!";
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, processStatus);
+        }
+
     }
 }

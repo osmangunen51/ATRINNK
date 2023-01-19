@@ -77,9 +77,9 @@ namespace MakinaTurkiye.Api.ExtentionsMethod
             {
                 Sonuc = "jpg";
             }
-            else if (value.Contains("data:image/heric"))
+            else if (value.Contains("data:image/heic"))
             {
-                Sonuc = "heric";
+                Sonuc = "heic";
             }
             else if (value.Contains("data:image/jpeg"))
             {

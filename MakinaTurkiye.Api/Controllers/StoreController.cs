@@ -22,6 +22,7 @@ using MakinaTurkiye.Utilities.ImageHelpers;
 using MakinaTurkiye.Utilities.MailHelpers;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -908,7 +909,10 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     IslemDurum = true;
                                 }
-
+                                if (Uzanti == "heic")
+                                {
+                                    IslemDurum = true;
+                                }
                                 if (IslemDurum)
                                 {
                                     string storeLogoFolder = System.Web.Hosting.HostingEnvironment.MapPath(AppSettings.StoreLogoFolder);
@@ -923,19 +927,33 @@ namespace MakinaTurkiye.Api.Controllers
                                     string newStoreLogoImageFileName = store.StoreName.ToImageFileName() + "_logo." + Uzanti;
 
                                     ServerImageUrl = $"~{AppSettings.StoreLogoFolder}/{store.StoreName.ToImageFileName()}_logo.{Uzanti}";
-                                    string ServerFile = System.Web.Hosting.HostingEnvironment.MapPath(ServerImageUrl);
-                                    System.Drawing.Image Img = Logo.ToImage();
+                                    string fileserverpath = System.Web.Hosting.HostingEnvironment.MapPath(ServerImageUrl);
                                     if (Uzanti == "png")
                                     {
-                                        Img.Save(ServerFile, System.Drawing.Imaging.ImageFormat.Png);
+                                        System.Drawing.Image Img = Logo.ToImage();
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    }
+                                    if (Uzanti == "heic")
+                                    {
+                                        DataImage dtimage = DataImage.TryParse(Logo);
+                                        using (ImageMagick.MagickImage magickImage = new ImageMagick.MagickImage(dtimage.RawData))
+                                        {
+                                            System.IO.FileInfo fileInfo = new FileInfo(fileserverpath);
+                                            if (!fileInfo.Directory.Exists)
+                                            {
+                                                fileInfo.Directory.Create();
+                                            }
+                                            magickImage.Write(fileserverpath);
+                                        }
                                     }
                                     if (Uzanti == "jpg")
                                     {
-                                        Img.Save(ServerFile, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        System.Drawing.Image Img = Logo.ToImage();
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
                                     }
                                     store.StoreLogo = newStoreLogoImageFileName;
                                     _storeService.UpdateStore(store);
-                                    bool thumbResult = ImageProcessHelper.ImageResize(ServerFile, newStoreLogoImageFilePath + "thumbs\\" + store.StoreName.ToImageFileName(), thumbSizesForStoreLogo);
+                                    bool thumbResult = ImageProcessHelper.ImageResize(fileserverpath, newStoreLogoImageFilePath + "thumbs\\" + store.StoreName.ToImageFileName(), thumbSizesForStoreLogo);
                                 }
                                 processStatus.ActiveResultRowCount = 1;
                                 processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -1394,6 +1412,10 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     IslemDurum = true;
                                 }
+                                if (Uzanti == "heic")
+                                {
+                                    IslemDurum = true;
+                                }
                                 if (IslemDurum)
                                 {
                                     string filename = Guid.NewGuid().ToString("N") + "_slider" + Uzanti;
@@ -1404,18 +1426,38 @@ namespace MakinaTurkiye.Api.Controllers
                                         filename = Guid.NewGuid().ToString("N") + "_slider" + Uzanti;
                                     }
                                     string storeBannerImageFileSavePath = mapPath + filename;
-                                    System.Drawing.Image Img = Logo.ToImage();
+                                    string fileserverpath = storeBannerImageFileSavePath;
                                     if (Uzanti == "png")
                                     {
-                                        Img.Save(storeBannerImageFileSavePath, System.Drawing.Imaging.ImageFormat.Png);
+                                        System.Drawing.Image Img = Logo.ToImage();
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        Img = ImageProcessHelper.resizeImageBanner(800, 300, storeBannerImageFileSavePath);
+                                        ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, Img, 80, "_slider", "-800x300");
+                                    }
+                                    if (Uzanti == "heic")
+                                    {
+                                        DataImage dtimage = DataImage.TryParse(Logo);
+                                        using (ImageMagick.MagickImage magickImage = new ImageMagick.MagickImage(dtimage.RawData))
+                                        {
+                                            System.IO.FileInfo fileInfo = new FileInfo(fileserverpath);
+                                            if (!fileInfo.Directory.Exists)
+                                            {
+                                                fileInfo.Directory.Create();
+                                            }
+                                            magickImage.Write(fileserverpath);
+                                            System.Drawing.Image Img = System.Drawing.Image.FromFile(fileserverpath);
+                                            Img = ImageProcessHelper.resizeImageBanner(800, 300, storeBannerImageFileSavePath);
+                                            ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, Img, 80, "_slider", "-800x300");
+                                        }
                                     }
                                     if (Uzanti == "jpg")
                                     {
-                                        Img.Save(storeBannerImageFileSavePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        System.Drawing.Image Img = Logo.ToImage();
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        Img = ImageProcessHelper.resizeImageBanner(800, 300, storeBannerImageFileSavePath);
+                                        ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, Img, 80, "_slider", "-800x300");
                                     }
-
-                                    Img = ImageProcessHelper.resizeImageBanner(800, 300, storeBannerImageFileSavePath);
-                                    ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, Img, 80, "_slider", "-800x300");
+                                    
                                     imageCount++;
                                     var curPicture = new Picture()
                                     {
@@ -1721,10 +1763,12 @@ namespace MakinaTurkiye.Api.Controllers
                                     {
                                         IslemDurum = true;
                                     }
+                                    if (Uzanti == "heic")
+                                    {
+                                        IslemDurum = true;
+                                    }
                                     if (IslemDurum)
                                     {
-                                        System.Drawing.Image Img = Logo.ToImage();
-
                                         string mapPath = HostingEnvironment.MapPath(AppSettings.StoreCertificateImageFolder);
                                         var fileName = Guid.NewGuid().ToString("N") + "_certificate";
                                         string filename = fileName + Uzanti;
@@ -1735,14 +1779,29 @@ namespace MakinaTurkiye.Api.Controllers
                                             filename = fileName + Uzanti;
                                         }
                                         string storeBannerImageFileSavePath = mapPath + filename;
-
+                                        string fileserverpath = storeBannerImageFileSavePath;
                                         if (Uzanti == "png")
                                         {
-                                            Img.Save(storeBannerImageFileSavePath, System.Drawing.Imaging.ImageFormat.Png);
+                                            System.Drawing.Image Img = Logo.ToImage();
+                                            Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        }
+                                        if (Uzanti == "heic")
+                                        {
+                                            DataImage dtimage = DataImage.TryParse(Logo);
+                                            using (ImageMagick.MagickImage magickImage = new ImageMagick.MagickImage(dtimage.RawData))
+                                            {
+                                                System.IO.FileInfo fileInfo = new FileInfo(fileserverpath);
+                                                if (!fileInfo.Directory.Exists)
+                                                {
+                                                    fileInfo.Directory.Create();
+                                                }
+                                                magickImage.Write(fileserverpath);
+                                            }
                                         }
                                         if (Uzanti == "jpg")
                                         {
-                                            Img.Save(storeBannerImageFileSavePath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                            System.Drawing.Image Img = Logo.ToImage();
+                                            Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
                                         }
 
                                         List<string> thubmsizes = new List<string>();
@@ -3186,10 +3245,33 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     IslemDurum = true;
                                 }
+                                if (Uzanti == "heic")
+                                {
+                                    IslemDurum = true;
+                                }
                                 if (IslemDurum)
                                 {
-                                    var file = Logo.ToImage();
-                                    string fileName = FileHelpers.ImageThumbnail(AppSettings.StoreImageFolder, file, Uzanti, 170, FileHelpers.ThumbnailType.Width);
+                                    string fileName = "";
+                                    if (Uzanti != "heic")
+                                    {
+                                        var file = Logo.ToImage();
+                                        fileName = FileHelpers.ImageThumbnail(AppSettings.StoreImageFolder, file, Uzanti, 170, FileHelpers.ThumbnailType.Width);
+                                    }
+                                    else
+                                    {
+                                        DataImage dtimage = DataImage.TryParse(Logo);
+                                        using (System.IO.Stream imageStream = new System.IO.MemoryStream())
+                                        {
+
+                                            using (ImageMagick.MagickImage Image = new ImageMagick.MagickImage(dtimage.RawData))
+                                            {
+                                                Image.Format = ImageMagick.MagickFormat.Jpg;
+                                                Image.Write(imageStream);
+                                                System.Drawing.Image file = System.Drawing.Image.FromStream(imageStream);
+                                                fileName = FileHelpers.ImageThumbnail(AppSettings.StoreImageFolder, file, Uzanti, 170, FileHelpers.ThumbnailType.Width);
+                                            }
+                                        }
+                                    }
                                     var curPicture = new Picture()
                                     {
                                         PicturePath = fileName,
@@ -3269,7 +3351,10 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     IslemDurum = true;
                                 }
-
+                                if (Uzanti == "heic")
+                                {
+                                    IslemDurum = true;
+                                }
                                 if (IslemDurum)
                                 {
                                     if (!string.IsNullOrEmpty(store.StoreBanner))
@@ -3289,25 +3374,41 @@ namespace MakinaTurkiye.Api.Controllers
                                     string mapPath = System.Web.Hosting.HostingEnvironment.MapPath(AppSettings.StoreBannerFolder);
                                     string storeBannerImageFileName = store.StoreUrlName.ToImageFileName() + "-" + store.MainPartyId + "_banner.jpg";
                                     string storeBannerImageFileSavePath = mapPath + storeBannerImageFileName;
-
-                                    System.Drawing.Image Img = Logo.ToImage();
+                                    string fileserverpath = storeBannerImageFileSavePath;
                                     if (Uzanti == "png")
                                     {
-                                        Img.Save(storeBannerImageFileSavePath, System.Drawing.Imaging.ImageFormat.Png);
+                                        System.Drawing.Image Img = Logo.ToImage();
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        Img = ImageProcessHelper.resizeImageBanner(1400, 280, storeBannerImageFileSavePath);
+                                        ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, Img, 80, "_banner", "-1400x280");
+                                    }
+                                    if (Uzanti == "heic")
+                                    {
+                                        DataImage dtimage = DataImage.TryParse(Logo);
+                                        using (ImageMagick.MagickImage magickImage = new ImageMagick.MagickImage(dtimage.RawData))
+                                        {
+                                            System.IO.FileInfo fileInfo = new FileInfo(fileserverpath);
+                                            if (!fileInfo.Directory.Exists)
+                                            {
+                                                fileInfo.Directory.Create();
+                                            }
+                                            magickImage.Write(fileserverpath);
+                                            System.Drawing.Image Img = System.Drawing.Image.FromFile(fileserverpath);
+                                            Img = ImageProcessHelper.resizeImageBanner(1400, 280, storeBannerImageFileSavePath);
+                                            ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, Img, 80, "_banner", "-1400x280");
+                                        }
                                     }
                                     if (Uzanti == "jpg")
                                     {
-                                        Img.Save(storeBannerImageFileSavePath, System.Drawing.Imaging.ImageFormat.Jpeg);
-                                    }
-
-                                    Img = ImageProcessHelper.resizeImageBanner(1400, 280, storeBannerImageFileSavePath);
-
-                                    ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, Img, 80, "_banner", "-1400x280");
-
+                                        System.Drawing.Image Img = Logo.ToImage();
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        Img = ImageProcessHelper.resizeImageBanner(1400, 280, storeBannerImageFileSavePath);
+                                        ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, Img, 80, "_banner", "-1400x280");
+                                    }                                   
                                     store.StoreBanner = storeBannerImageFileName;
-
                                     _storeService.UpdateStore(store);
                                 }
+
                                 processStatus.Result = store.StoreBanner;
                                 processStatus.ActiveResultRowCount = 1;
                                 processStatus.TotolRowCount = processStatus.ActiveResultRowCount;
@@ -3644,12 +3745,38 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     IslemDurum = true;
                                 }
+                                if (Uzanti == "heic")
+                                {
+                                    IslemDurum = true;
+                                }
                                 if (IslemDurum)
                                 {
                                     FileHelpers.Delete(AppSettings.StoreProfilePicture + store.StorePicture);
-                                    string newFileName = $"StoreProfilFoto_{store.MainPartyId}.{Uzanti}";
-                                    var file = ProfilFoto.ToFile(newFileName);
-                                    string fileName = FileHelpers.ImageThumbnail(AppSettings.StoreProfilePicture, file, 800, FileHelpers.ThumbnailType.Width);
+                                    string fileName = "";
+                                    if (Uzanti == "heic")
+                                    {
+                                        Uzanti = "jpg";
+                                        string newFileName = $"StoreProfilFoto_{store.MainPartyId}.{Uzanti}";
+                                        DataImage dtimage = DataImage.TryParse(ProfilFoto);
+                                        using (System.IO.Stream imageStream = new System.IO.MemoryStream())
+                                        {
+
+                                            using (ImageMagick.MagickImage Image = new ImageMagick.MagickImage(dtimage.RawData))
+                                            {
+                                                Image.Format = ImageMagick.MagickFormat.Jpg;
+                                                Image.Write(imageStream);
+                                                System.Drawing.Image file = System.Drawing.Image.FromStream(imageStream);
+                                                fileName = FileHelpers.ImageThumbnail(AppSettings.StoreProfilePicture, file, Uzanti, 800, FileHelpers.ThumbnailType.Width);
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        string newFileName = $"StoreProfilFoto_{store.MainPartyId}.{Uzanti}";
+                                        var file = ProfilFoto.ToFile(newFileName);
+                                        fileName = FileHelpers.ImageThumbnail(AppSettings.StoreProfilePicture, file, 800, FileHelpers.ThumbnailType.Width);
+                                    }                                    
                                     store.StorePicture = fileName;
                                     _storeService.UpdateStore(store);
                                     processStatus.ActiveResultRowCount = 1;

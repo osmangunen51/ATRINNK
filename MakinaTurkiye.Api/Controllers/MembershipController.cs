@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Mail;
@@ -694,6 +695,10 @@ namespace MakinaTurkiye.Api.Controllers
                                 {
                                     IslemDurum = true;
                                 }
+                                if (Uzanti == "heic")
+                                {
+                                    IslemDurum = true;
+                                }
 
                                 if (IslemDurum)
                                 {
@@ -709,19 +714,34 @@ namespace MakinaTurkiye.Api.Controllers
                                     string newStoreLogoImageFileName = store.StoreName.ToImageFileName() + "_logo." + Uzanti;
 
                                     ServerImageUrl = $"~{AppSettings.StoreLogoFolder}/{store.StoreName.ToImageFileName()}_logo.{Uzanti}";
-                                    string ServerFile = System.Web.Hosting.HostingEnvironment.MapPath(ServerImageUrl);
-                                    System.Drawing.Image Img = Logo.ToImage();
+                                    string fileserverpath = System.Web.Hosting.HostingEnvironment.MapPath(ServerImageUrl);
                                     if (Uzanti == "png")
                                     {
-                                        Img.Save(ServerFile, System.Drawing.Imaging.ImageFormat.Png);
+                                        System.Drawing.Image Img = Logo.ToImage();
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                    }
+                                    if (Uzanti == "heic")
+                                    {
+                                        DataImage dtimage = DataImage.TryParse(Logo);
+                                        using (ImageMagick.MagickImage magickImage = new ImageMagick.MagickImage(dtimage.RawData))
+                                        {
+                                            System.IO.FileInfo fileInfo = new FileInfo(fileserverpath);
+                                            if (!fileInfo.Directory.Exists)
+                                            {
+                                                fileInfo.Directory.Create();
+                                            }
+                                            magickImage.Write(fileserverpath);
+                                        }
                                     }
                                     if (Uzanti == "jpg")
                                     {
-                                        Img.Save(ServerFile, System.Drawing.Imaging.ImageFormat.Jpeg);
+                                        System.Drawing.Image Img = Logo.ToImage();
+                                        Img.Save(fileserverpath, System.Drawing.Imaging.ImageFormat.Jpeg);
                                     }
+
                                     store.StoreLogo = ServerImageUrl;
                                     _storeService.UpdateStore(store);
-                                    bool thumbResult = ImageProcessHelper.ImageResize(ServerFile, newStoreLogoImageFilePath + "thumbs\\" + store.StoreName.ToImageFileName(), thumbSizesForStoreLogo);
+                                    bool thumbResult = ImageProcessHelper.ImageResize(fileserverpath, newStoreLogoImageFilePath + "thumbs\\" + store.StoreName.ToImageFileName(), thumbSizesForStoreLogo);
                                 }
                                 //processStatus.ActiveResultRowCount = 1;
                                 //processStatus.TotolRowCount = processStatus.ActiveResultRowCount;

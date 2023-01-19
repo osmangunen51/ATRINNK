@@ -257,8 +257,8 @@ namespace MakinaTurkiye.Api.Helpers
 
                 string width = thumbSize.Split('x')[0];
                 string height = thumbSize.Split('x')[1];
-                if (width != "*") settings.Width = int.Parse(thumbSize.Split('x')[0]);
-                if (height != "*") settings.Height = int.Parse(thumbSize.Split('x')[1]);
+                if (width != "*" && width != "") settings.Width = int.Parse(thumbSize.Split('x')[0]);
+                if (height != "*" && height != "") settings.Height = int.Parse(thumbSize.Split('x')[1]);
                 settings.OutputFormat = OutputFormat.Jpeg;
                 settings.JpegQuality = 70;
 
