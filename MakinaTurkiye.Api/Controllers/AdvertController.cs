@@ -1650,7 +1650,7 @@ namespace MakinaTurkiye.Api.Controllers
                             brand = _categoryService.GetCategoryByCategoryId(Model.BrandId);
                             if (brand == null | brand.CategoryId==0)
                             {
-                                if (!string.IsNullOrEmpty(Model.BrandName))
+                                if (!string.IsNullOrEmpty(Model.Brand))
                                 {
                                     brand = new global::MakinaTurkiye.Entities.Tables.Catalog.Category
                                     {
@@ -1661,7 +1661,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         LastUpdaterId = 99,
                                         CategoryType = (byte)CategoryType.Brand,
                                         CategoryOrder = 0,
-                                        CategoryName = Model.BrandName,
+                                        CategoryName = Model.Brand,
                                         CategoryParentId = category.CategoryId,
                                         MainCategoryType = (byte)MainCategoryType.Ana_Kategori,
                                         CategoryContentTitle = Model.BrandName,
@@ -1678,7 +1678,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 model = _categoryService.GetCategoryByCategoryId(Model.ModelId);
                                 if (model.Id== 0)
                                 {
-                                    if (!string.IsNullOrEmpty(Model.ModelName))
+                                    if (!string.IsNullOrEmpty(Model.Model))
                                     {
                                         model = new global::MakinaTurkiye.Entities.Tables.Catalog.Category
                                         {
@@ -1689,7 +1689,7 @@ namespace MakinaTurkiye.Api.Controllers
                                             LastUpdaterId = 99,
                                             CategoryType = (byte)CategoryType.Model,
                                             CategoryOrder = 0,
-                                            CategoryName = Model.ModelName,
+                                            CategoryName = Model.Model,
                                             CategoryParentId = brand.CategoryId,
                                             MainCategoryType = (byte)MainCategoryType.Ana_Kategori,
                                             CategoryContentTitle = Model.ModelName,
@@ -1703,11 +1703,11 @@ namespace MakinaTurkiye.Api.Controllers
                                 }
                             }
                         }
-                        if (brand==null)
+                        if (brand==null || brand.CategoryId==0)
                         {
                             brand = new Category();
                         }
-                        if (model == null)
+                        if (model == null || model.CategoryId == 0)
                         {
                             model = new Category();
                         }
@@ -1871,7 +1871,7 @@ namespace MakinaTurkiye.Api.Controllers
                             product.MainPartyId = member.MainPartyId;
                             _productService.InsertProduct(product);
 
-                            product.ProductNo = product.ProductId.ToString();
+                            product.ProductNo = "#" + product.ProductId.ToString();
                             int kalansayisi = 8 - product.ProductNo.ToString().Length;
                             if (kalansayisi < 0)
                             {
@@ -1885,7 +1885,7 @@ namespace MakinaTurkiye.Api.Controllers
                         }
                         else
                         {
-                            product.ProductNo = product.ProductId.ToString();
+                            product.ProductNo = "#"+product.ProductId.ToString();
                             int kalansayisi = 8 - product.ProductNo.ToString().Length;
                             if (kalansayisi < 0)
                             {
