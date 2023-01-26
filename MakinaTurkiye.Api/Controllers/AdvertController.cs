@@ -1598,6 +1598,9 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage AddOrUpdateAdvert(View.Advert Model)
         {
+            //string fileserverlogpath = System.Web.Hosting.HostingEnvironment.MapPath($"~/Log/Istek{DateTime.Now.ToString().Replace(".", "_").Replace(":", "??")}.txt");
+            //string modeltxt = Newtonsoft.Json.JsonConvert.SerializeObject(Model); 
+            //System.IO.File.WriteAllText(fileserverlogpath, modeltxt);
 
             ProcessResult processStatus = new ProcessResult();
             using (System.Transactions.TransactionScope Transaction = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.Required, TimeSpan.FromMinutes(30)))
@@ -1909,6 +1912,19 @@ namespace MakinaTurkiye.Api.Controllers
                             Model.Pictures=Model.Pictures.OrderByDescending(x => x.IsMain).ToList();
                         }
 
+                        int count = 0;
+                        string productPicturePath = string.Empty;
+                        if (productpictures != null)
+                        {
+                            do
+                            {
+                                count++;
+                                productPicturePath = product.ProductName.ToImageFileName(count) + ".jpg";
+
+                            } while (productpictures.Where(c => c.PicturePath == productPicturePath).FirstOrDefault() != null);
+                        }
+
+
                         foreach (var Picture in Model.Pictures)
                         {
                             PictureOrder++;
@@ -1931,18 +1947,7 @@ namespace MakinaTurkiye.Api.Controllers
                             if (IslemDurum)
                             {
 
-                                int count = 0;
-                                string productPicturePath = string.Empty;
-                                if (productpictures != null)
-                                {
-                                    do
-                                    {
-                                        count++;
-                                        productPicturePath = product.ProductName.ToImageFileName(count) + ".jpg";
-
-                                    } while (productpictures.Where(c => c.PicturePath == productPicturePath).FirstOrDefault() != null);
-                                }
-
+                                count++;
                                 string filePath = string.Empty;
                                 string newMainImageFilePath = AppSettings.ProductImageFolder + product.ProductId.ToString() + "\\";
                                 string fileName = product.ProductName.ToImageFileName(count) + ".jpg";
