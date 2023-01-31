@@ -1907,24 +1907,28 @@ namespace MakinaTurkiye.Api.Controllers
                         thumbSizes.AddRange(AppSettings.ProductThumbSizes.Split(';'));
 
                         // Main Picture Yoksa IsMain olanların ilk önce eklenmesi için Orderby Desc yapıldı
+
                         if (productpictures.Count==0)
                         {
-                            Model.Pictures=Model.Pictures.OrderByDescending(x => x.IsMain).ToList();
+                            List<AdvertItemPicture> PicturesListe = new List<AdvertItemPicture>();
+                            PicturesListe.AddRange(Model.Pictures.Where(x => x.IsMain));
+                            PicturesListe.AddRange(Model.Pictures.Where(x => !x.IsMain));
+                            Model.Pictures = PicturesListe;
                         }
 
-                        int count = 0;
-                        string productPicturePath = string.Empty;
-                        if (productpictures != null)
-                        {
-                            do
-                            {
-                                count++;
-                                productPicturePath = product.ProductName.ToImageFileName(count) + ".jpg";
+                        //int count = 0;
+                        //string productPicturePath = string.Empty;
+                        //if (productpictures != null)
+                        //{
+                        //    PictureOrder = productpictures.Count();
+                        //    do
+                        //    {
+                        //        count++;
+                        //        productPicturePath = product.ProductName.ToImageFileName(count) + ".jpg";
 
-                            } while (productpictures.Where(c => c.PicturePath == productPicturePath).FirstOrDefault() != null);
-                        }
-
-
+                        //    } while (productpictures.Where(c => c.PicturePath == productPicturePath).FirstOrDefault() != null);
+                            
+                        //}
                         foreach (var Picture in Model.Pictures)
                         {
                             PictureOrder++;
@@ -1947,10 +1951,9 @@ namespace MakinaTurkiye.Api.Controllers
                             if (IslemDurum)
                             {
 
-                                count++;
                                 string filePath = string.Empty;
                                 string newMainImageFilePath = AppSettings.ProductImageFolder + product.ProductId.ToString() + "\\";
-                                string fileName = product.ProductName.ToImageFileName(count) + ".jpg";
+                                string fileName = product.ProductName.ToImageFileName(PictureOrder) + ".jpg";
                                 string fileserverpath = System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + fileName;
                                 System.IO.FileInfo file = new FileInfo(fileserverpath);
                                 if (!file.Directory.Exists)
@@ -1983,7 +1986,7 @@ namespace MakinaTurkiye.Api.Controllers
                                 }
 
                                 bool thumbResult = ImageProcessHelper.ImageResize(System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + fileName,
-                                System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + "thumbs\\" + product.ProductName.ToImageFileName(count), thumbSizes);
+                                System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + "thumbs\\" + product.ProductName.ToImageFileName(PictureOrder), thumbSizes);
                                 if (thumbResult)
                                 {
                                     foreach (var thumbSize in thumbSizes)
@@ -1991,7 +1994,7 @@ namespace MakinaTurkiye.Api.Controllers
                                         if (thumbSize == "900x675" || thumbSize == "500x375")
                                         {
                                             var yol = System.Web.Hosting.HostingEnvironment.MapPath(newMainImageFilePath) + "thumbs\\" +
-                                                      product.ProductName.ToImageFileName(count) + "-" + thumbSize.Replace("*", "") + ".jpg";
+                                                      product.ProductName.ToImageFileName(PictureOrder) + "-" + thumbSize.Replace("*", "") + ".jpg";
                                             System.IO.FileInfo fileyol = new FileInfo(yol);
                                             if (!fileyol.Directory.Exists)
                                             {
@@ -2004,20 +2007,13 @@ namespace MakinaTurkiye.Api.Controllers
                                 else
                                 {
                                     
-                                }
-                                
-
-                                int pictureOrder = 0;
-                                if (productpictures != null)
-                                {
-                                    pictureOrder = productpictures.Count() + 1;
-                                }
+                                }                                
                                 var modelpicture = new Picture()
                                 {
                                     PictureName = "",
                                     PicturePath = fileName,
                                     ProductId = product.ProductId,
-                                    PictureOrder = pictureOrder
+                                    PictureOrder = PictureOrder,
                                 };
                                 _pictureService.InsertPicture(modelpicture);
                             }

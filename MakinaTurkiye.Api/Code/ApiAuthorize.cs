@@ -32,7 +32,7 @@ namespace MakinaTurkiye.Api.Code
                 var Key = actionContext.Request.Headers.GetValues("Key").First();
                 string TokenSifreKey = ConfigurationManager.AppSettings["Token:Sifre-Key"].ToString();
                 MakinaTurkiye.Api.View.LoginInfoFromToken Token = Newtonsoft.Json.JsonConvert.DeserializeObject<MakinaTurkiye.Api.View.LoginInfoFromToken>(TxtToken.Coz(TokenSifreKey));
-                if (Token.PrivateAnahtar == Key && (DateTime.Now.Date >= Token.StartDate.Date && DateTime.Now.Date <= Token.EndDate.Date))
+                if (Token.PrivateAnahtar == Key /*&& (DateTime.Now.Date >= Token.StartDate.Date && DateTime.Now.Date <= Token.EndDate.Date)*/)
                 {
                     return true;
                 }

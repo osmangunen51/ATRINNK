@@ -46,7 +46,6 @@ namespace NeoSistem.MakinaTurkiye.Web
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new CustomWebFormViewEngine());
             //ViewEngines.Engines.Clear();
-
             // register Razor view engine only
             ViewEngines.Engines.Add(new RazorViewEngine());
 
