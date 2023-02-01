@@ -1124,6 +1124,10 @@ namespace MakinaTurkiye.Api.Controllers
                             _pictureService.DeletePicture(picture);
                             if (product != null)
                             {
+                                if (picture.PictureName=="")
+                                {
+                                    picture.PictureName = picture.PicturePath;
+                                }
                                 deletefiles.Add(AppSettings.ProductImageFolder + product.ProductId + "/" + picture.PictureName);
                                 foreach (string thumb in thumbSizes)
                                 {
@@ -1598,9 +1602,9 @@ namespace MakinaTurkiye.Api.Controllers
 
         public HttpResponseMessage AddOrUpdateAdvert(View.Advert Model)
         {
-            //string fileserverlogpath = System.Web.Hosting.HostingEnvironment.MapPath($"~/Log/Istek{DateTime.Now.ToString().Replace(".", "_").Replace(":", "??")}.txt");
-            //string modeltxt = Newtonsoft.Json.JsonConvert.SerializeObject(Model); 
-            //System.IO.File.WriteAllText(fileserverlogpath, modeltxt);
+            string fileserverlogpath = System.Web.Hosting.HostingEnvironment.MapPath($"~/Content/Log/Istek{DateTime.Now.ToString().Replace(".", "_").Replace(":", "__")}.txt");
+            string modeltxt = Newtonsoft.Json.JsonConvert.SerializeObject(Model,Newtonsoft.Json.Formatting.Indented);
+            System.IO.File.WriteAllText(fileserverlogpath, modeltxt);
 
             ProcessResult processStatus = new ProcessResult();
             using (System.Transactions.TransactionScope Transaction = new System.Transactions.TransactionScope(System.Transactions.TransactionScopeOption.Required, TimeSpan.FromMinutes(30)))
