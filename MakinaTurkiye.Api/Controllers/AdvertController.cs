@@ -719,7 +719,7 @@ namespace MakinaTurkiye.Api.Controllers
                             deletefiles.Add(AppSettings.VideoThumbnailFolder + video.VideoPicturePath);
                             deletefiles.Add(AppSettings.VideoFolder + video.VideoPath);
                             _videoService.DeleteVideo(video);
-                            _videoService.ClearAllVideoCacheWithProductId(video.ProductId);
+                            _videoService.ClearAllVideoCacheWithProductId((int)video.ProductId);
                         }
                         Transaction.Complete();
                         foreach (var item in deletefiles)
