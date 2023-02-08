@@ -106,13 +106,13 @@ namespace MakinaTurkiye.Api.Controllers
                             var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
                             if (StorePhone != null)
                             {
-                                TmpResult.StorePhone = StorePhone.PhoneNumber;
-                                TmpResult.StoreBussinesPhone = StorePhone.PhoneNumber;
+                                TmpResult.StorePhone = StorePhone.PhoneCulture + StorePhone.PhoneAreaCode + StorePhone.PhoneNumber;
+                                TmpResult.StoreBussinesPhone = StorePhone.PhoneCulture + StorePhone.PhoneAreaCode + StorePhone.PhoneNumber;
                             }
                             var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
                             if (StoreGsm != null)
                             {
-                                TmpResult.StoreGsm = StoreGsm.PhoneNumber;
+                                TmpResult.StoreGsm = StoreGsm.PhoneCulture + StoreGsm.PhoneAreaCode + StoreGsm.PhoneNumber;
                             }
                         }
                     }
@@ -266,13 +266,13 @@ namespace MakinaTurkiye.Api.Controllers
                                 var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
                                 if (StorePhone != null)
                                 {
-                                    item.StorePhone = StorePhone.PhoneNumber;
-                                    item.StoreBussinesPhone = StorePhone.PhoneNumber;
+                                    item.StorePhone = StorePhone.PhoneCulture + StorePhone.PhoneAreaCode + StorePhone.PhoneNumber;
+                                    item.StoreBussinesPhone = StorePhone.PhoneCulture + StorePhone.PhoneAreaCode + StorePhone.PhoneNumber;
                                 }
                                 var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
                                 if (StoreGsm != null)
                                 {
-                                    item.StoreGsm = StoreGsm.PhoneNumber;
+                                    item.StoreGsm = StoreGsm.PhoneCulture + StoreGsm.PhoneAreaCode + StoreGsm.PhoneNumber;
                                 }
                             }
                         }
@@ -369,17 +369,17 @@ namespace MakinaTurkiye.Api.Controllers
                         if (Store != null)
                         {
                             item.Storelogo = !string.IsNullOrEmpty(Store.StoreLogo) ? "https:" + ImageHelper.GetStoreLogoPath(Store.MainPartyId, Store.StoreLogo, 300) : null;
-                            var phones = storephoneList.Where(x => x.MainPartyId == Store.MainPartyId);
+                            var phones = _phoneService.GetPhonesByMainPartyId(Store.MainPartyId);
                             var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
                             if (StorePhone != null)
                             {
-                                item.StorePhone = StorePhone.PhoneNumber;
-                                item.StoreBussinesPhone = StorePhone.PhoneNumber;
+                                item.StorePhone = StorePhone.PhoneCulture + StorePhone.PhoneAreaCode + StorePhone.PhoneNumber;
+                                item.StoreBussinesPhone = StorePhone.PhoneCulture + StorePhone.PhoneAreaCode + StorePhone.PhoneNumber;
                             }
                             var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
                             if (StoreGsm != null)
                             {
-                                item.StoreGsm = StoreGsm.PhoneNumber;
+                                item.StoreGsm = StoreGsm.PhoneCulture + StoreGsm.PhoneAreaCode + StoreGsm.PhoneNumber;
                             }
                         }
                         item.MainPicture = !string.IsNullOrEmpty(item.MainPicture) ? "https:" + ImageHelper.GetProductImagePath(item.ProductId, item.MainPicture, ProductImageSize.px500x375) : "";
@@ -758,13 +758,13 @@ namespace MakinaTurkiye.Api.Controllers
                         var StorePhone = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Phone);
                         if (StorePhone != null)
                         {
-                            item.StorePhone = StorePhone.PhoneNumber;
-                            item.StoreBussinesPhone = StorePhone.PhoneNumber;
+                            item.StorePhone = StorePhone.PhoneCulture + StorePhone.PhoneAreaCode + StorePhone.PhoneNumber;
+                            item.StoreBussinesPhone = StorePhone.PhoneCulture + StorePhone.PhoneAreaCode + StorePhone.PhoneNumber;
                         }
                         var StoreGsm = phones.FirstOrDefault(x => x.PhoneType == (byte)PhoneType.Gsm);
                         if (StoreGsm != null)
                         {
-                            item.StoreGsm = StoreGsm.PhoneNumber;
+                            item.StoreGsm = StoreGsm.PhoneCulture + StoreGsm.PhoneAreaCode + StoreGsm.PhoneNumber;
                         }
                     }
                 }
