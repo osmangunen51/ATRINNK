@@ -28,6 +28,7 @@ namespace MakinaTurkiye.Services.Videos
         void UpdateVideo(Video video);
         void InsertVideo(Video video);
         void DeleteVideo(Video video);
+        void ClearAllVideoCacheWithProductId(int ProductId = 0);
 
         List<Video> GetVideoByStoreMainPartyId(int storeMainPartyId, bool showHidden = false);
 

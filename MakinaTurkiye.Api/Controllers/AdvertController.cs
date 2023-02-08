@@ -714,9 +714,13 @@ namespace MakinaTurkiye.Api.Controllers
                     {
                         List<string> deletefiles = new List<string>();
                         var video = _videoService.GetVideoByVideoId(VideoId);
-                        deletefiles.Add(AppSettings.VideoThumbnailFolder + video.VideoPicturePath);
-                        deletefiles.Add(AppSettings.VideoFolder + video.VideoPath);
-                        _videoService.DeleteVideo(video);
+                        if (video!=null)
+                        {
+                            deletefiles.Add(AppSettings.VideoThumbnailFolder + video.VideoPicturePath);
+                            deletefiles.Add(AppSettings.VideoFolder + video.VideoPath);
+                            _videoService.DeleteVideo(video);
+                            _videoService.ClearAllVideoCacheWithProductId(video.ProductId);
+                        }
                         Transaction.Complete();
                         foreach (var item in deletefiles)
                         {

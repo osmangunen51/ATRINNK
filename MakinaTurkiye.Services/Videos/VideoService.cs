@@ -81,6 +81,17 @@ namespace MakinaTurkiye.Services.Videos
 
         }
 
+
+        public void ClearAllVideoCacheWithProductId(int ProductId=0)
+        {
+            if (ProductId > 0)
+            {
+                string productIdKey = string.Format(VIDEOS_BY_PRODUCT_ID_KEY, ProductId);
+                _cacheManager.Remove(productIdKey);
+            }
+        }
+
+
         #endregion
 
 
@@ -289,7 +300,7 @@ namespace MakinaTurkiye.Services.Videos
                 query = query.Include(v => v.Product.Brand);
                 query = query.Include(v => v.Product.Model);
                 query = query.Include(v => v.Product.Category);
-                var video = query.FirstOrDefault(v => v.VideoId == videoId);
+                var video = query.FirstOrDefault(v => v.Id == videoId);
                 return video;
             });
         }
