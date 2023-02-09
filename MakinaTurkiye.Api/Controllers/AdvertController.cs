@@ -721,6 +721,7 @@ namespace MakinaTurkiye.Api.Controllers
                             _videoService.DeleteVideo(video);
                             _videoService.ClearAllVideoCacheWithProductId((int)video.ProductId);
                         }
+
                         Transaction.Complete();
                         foreach (var item in deletefiles)
                         {
