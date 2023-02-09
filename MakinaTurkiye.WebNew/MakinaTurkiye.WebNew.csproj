@@ -336,7 +336,6 @@
     <Compile Include="Areas\Account\Models\Videos\MTVideoCreateModel.cs" />
     <Compile Include="Controllers\CatologAjaxController.cs" />
     <Compile Include="Controllers\CommonController.cs" />
-    <Compile Include="Controllers\DilController.cs" />
     <Compile Include="Factories\IProductModelFactory.cs" />
     <Compile Include="Factories\IPaymentService.cs" />
     <Compile Include="Factories\ISalesDocumentInputFactory.cs" />
@@ -2923,10 +2922,6 @@
       <Project>{3BD34B52-76FA-410E-AEAE-7A0D7A732750}</Project>
       <Name>MakinaTurkiye.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MakinaTurkiye.Localization\MakinaTurkiye.Localization.csproj">
-      <Project>{44efdc86-75c7-4928-a03e-153e29755acd}</Project>
-      <Name>MakinaTurkiye.Localization</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MakinaTurkiye.Logging\MakinaTurkiye.Logging.csproj">
       <Project>{1129b94f-3bad-47b3-bc87-7f176686c57f}</Project>
       <Name>MakinaTurkiye.Logging</Name>
@@ -3012,7 +3007,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:35882/</IISUrl>
+          <IISUrl>https://localhost:2526/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

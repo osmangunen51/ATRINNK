@@ -77,8 +77,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakinaTurkiye.Web.Agent", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakinaTurkiye.Agent", "MakinaTurkiye.Agent\MakinaTurkiye.Agent.csproj", "{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MakinaTurkiye.Localization", "MakinaTurkiye.Localization\MakinaTurkiye.Localization.csproj", "{44EFDC86-75C7-4928-A03E-153E29755ACD}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -520,22 +518,6 @@ Global
 		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|x64.Build.0 = Release|x64
 		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|x86.ActiveCfg = Release|Any CPU
 		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5}.Release|x86.Build.0 = Release|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Debug|x64.Build.0 = Debug|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Debug|x86.Build.0 = Debug|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Release|x64.ActiveCfg = Release|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Release|x64.Build.0 = Release|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Release|x86.ActiveCfg = Release|Any CPU
-		{44EFDC86-75C7-4928-A03E-153E29755ACD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -572,12 +554,11 @@ Global
 		{D991C7E3-4498-4942-BB15-6CBD5B80EE7A} = {E3AF8A8E-3AEB-4C19-94BE-FBDE53B2AA6C}
 		{5E8CDC3A-995D-49EB-9041-A94488A1AF9A} = {08981DA8-1288-4B67-87D2-25D021BBFC4B}
 		{FB489EF1-DC11-4E74-A945-7E47B1C5E8E5} = {64BDDDA8-F40F-465B-83BC-295B0A86432E}
-		{44EFDC86-75C7-4928-A03E-153E29755ACD} = {64BDDDA8-F40F-465B-83BC-295B0A86432E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.Logging.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
-		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
 		SolutionGuid = {943471DD-C929-42E6-ABF0-5EE9B6366281}
+		EnterpriseLibraryConfigurationToolBinariesPathV6 = packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.ExceptionHandling.Logging.6.0.1304.0\lib\NET45;packages\EnterpriseLibrary.Data.6.0.1304.0\lib\NET45
+		EnterpriseLibraryConfigurationToolBinariesPath = packages\EnterpriseLibrary.Common.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Logging.5.0.505.1\lib\NET35;packages\EnterpriseLibrary.ExceptionHandling.Logging.5.0.505.0\lib\NET35;packages\EnterpriseLibrary.Caching.5.0.505.0\lib\NET35;packages\Unity.2.1.505.0\lib\NET35;packages\Unity.Interception.2.1.505.0\lib\NET35
 	EndGlobalSection
 	GlobalSection(Performance) = preSolution
 		HasPerformanceSessions = true
