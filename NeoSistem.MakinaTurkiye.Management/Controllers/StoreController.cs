@@ -3867,8 +3867,8 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 decimal DiscountAmount,
                 int PacketDay,
                 int PacketId,
-                decimal PriceValueWithTax,
-                decimal PacketPrice,
+                string PriceValueWithTax,
+                string PacketPrice,
                 string EMail="",
                 bool SendMail = false
             )
@@ -3886,7 +3886,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 result = "hata";
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
-
             try
             {
                 result = category.Content;
@@ -3932,7 +3931,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         datas.Add("{paketBitis}", orderPacketEndDate.ToString("dd/MM/yyyy"));
                     }
 
-                    datas.Add("{fiyat}", PriceValueWithTax.ToString("N2"));
+                    datas.Add("{fiyat}", Convert.ToDecimal(PriceValueWithTax).ToString("N2"));
                     datas.Add("{faturaAdres}", GetFullAddress(address));
                     datas.Add("{vergiDaire}", store.TaxOffice);
                     datas.Add("{vergiSicilNo}", "");
@@ -3952,7 +3951,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                     {
                         Installment = 1;
                     }
-                    var orderInstallmentAmunt = PriceValueWithTax / Installment;
+                    var orderInstallmentAmunt = Convert.ToDecimal(PriceValueWithTax) / Installment;
                     DateTime orderInstallmentPayDate = DateTime.Now;
                     for (int i = 0; i < Installment; i++)
                     {
@@ -3996,8 +3995,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             catch(Exception hata)
             {
                 result = "Hata";
-            }
-            
+            }            
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

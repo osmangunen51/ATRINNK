@@ -233,28 +233,30 @@
             var PriceValueWithTax = $("#PriceValueWithTax").val();
             var SendMail = false;
             var Email = "";
+            var data = {
+                "CategoryId": 146659,
+                'OrderType': orderType,
+                "Installment": intallment,
+                "PayDate": PayDate,
+                "MainPartyId": MainPartyId,
+                "PayDate": FirstDate,
+                "DiscountAmount": DiscountAmount,
+                "PacketDay": PacketDay,
+                "PacketId": PacketId,
+                "PacketPrice": $("#PriceValue").val(),
+                "PriceValueWithTax": PriceValueWithTax,
+                "EMail": Email,
+                "SendMail": SendMail
+            };
+            console.log(data);
             $("#preLoading").show();
             $.ajax({
                 url: '/Store/CreateProtocolBuyAndSendMail',
                 type: 'POST',
-                data: {
-                    "CategoryId": 146659,
-                    'OrderType': orderType,
-                    "Installment": intallment,
-                    "PayDate": PayDate,
-                    "MainPartyId": MainPartyId,
-                    "PayDate": FirstDate,
-                    "DiscountAmount": DiscountAmount,
-                    "PacketDay": PacketDay,
-                    "PacketId": PacketId,
-                    "PacketPrice": $("#PriceValue").val(),
-                    "PriceValueWithTax": PriceValueWithTax,
-                    "EMail": Email,
-                    "SendMail": SendMail
-                },
+                data: data,
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
+                    
                     $("#pnlsozlesme").html(data);
                     $("#pnlsozlesmebolum").show();
                     $("#preLoading").hide();
@@ -307,7 +309,8 @@
                 }
             });
         }
-        function createsozlesme() {
+        function createsozlesme()
+        {
             
         }
     </script>
@@ -432,16 +435,13 @@
                 <td>Fiyat</td>
                 <td>:</td>
                 <td id="">
-                    <input type="text" id="PriceValue" value="@Model.PacketPrice" />
+                    <input id="PriceValue" value="@Model.PacketPrice" />
                 </td>
             </tr>
             <tr>
                 <td>Kdv Dahil Fiyat</td>
                 <td>:</td>
-                <td>
-                    <input type="text" disabled="disabled" id="PriceValueWithTax" />
-
-                </td>
+                <td><input type="number" disabled="disabled" id="PriceValueWithTax" value="0"/></td>
             </tr>
             <tr>
                 <td></td>
