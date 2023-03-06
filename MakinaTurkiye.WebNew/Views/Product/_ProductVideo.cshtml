@@ -60,7 +60,11 @@
                             </div>
                             <div class="tab-content pr">
                                 <div class="videocontent col-md-8 col-md-push-2">
-                                    <video id="vd" class="video-js vjs-default-skin" controls preload="auto" width="100%" height="100%" style="padding: 4px; border: 1px solid #ddd; border-radius: 4px; transition: all .2s ease-in-out; display: inline-block;" poster="" data-setup='{"techOrder": ["html5", "flash"]}'>
+                                    <video id="vd" class="video-js vjs-default-skin" 
+                                           controls preload="auto" width="100%" height="100%" 
+                                           style="padding: 4px; border: 1px solid #ddd; border-radius: 4px; transition: all .2s ease-in-out; display: inline-block;" 
+                                           poster="@Model.VideoModels[0][0].VideoPicturePath" 
+                                           data-setup='{"techOrder": ["html5", "flash"]}'>
                                         <source src="@(Model.VideoModels[0][0].VideoPath)" type='video/mp4' />
                                     </video>
                                 </div>
