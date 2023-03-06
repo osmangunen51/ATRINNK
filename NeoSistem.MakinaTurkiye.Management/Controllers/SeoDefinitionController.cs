@@ -79,7 +79,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
         {
             try
             {
-
                 if (model.SeoDefinitionId == 0)
                 {
                     var seoDefinition = new SeoDefinition();
@@ -110,7 +109,6 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                         }
                         else
                         {
-
                             seoDefinition.SeoContent = model.SeoContent;
                             seoDefinition.UpdatedDate = DateTime.Now;
                         }

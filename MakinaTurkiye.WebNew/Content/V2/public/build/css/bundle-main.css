@@ -21199,8 +21199,8 @@ li.active > a > .menutoggleicon {
 }
 
 .product-list-video-icon {
-    top: 0px;
-    right: 20px;
+    top: 5px;
+    right: 5px;
     /* border: 1px solid #ccc; */
     /* border-radius: 25%; */ fill: #f9401b;
 }
@@ -23427,7 +23427,7 @@ height: 100%;
 
 @media (min-width:992px) {
     .new-header__top-right {
-        width: 26%;
+        width: 34%;
         padding-top: 3px;
     }
 }
