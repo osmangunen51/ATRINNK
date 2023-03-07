@@ -121,6 +121,10 @@ namespace MakinaTurkiye.Services.Search
             int index = 0;
             foreach (var SonucItem in Result)
             {
+                if (SonucItem.Name== "Vinçmak Makina San. Tic. Ltd. Şti.")
+                {
+
+                }
                 if (SonucItem.Name != null)
                 {
                     SonucItem.Name = new CultureInfo("tr-TR").TextInfo.ToTitleCase(SonucItem.Name.ToLower());

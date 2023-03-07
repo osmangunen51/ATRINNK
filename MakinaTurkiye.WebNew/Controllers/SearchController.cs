@@ -25,8 +25,6 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         public string category { get; set; } = "None";
     }
 
-
-
     [AllowAnonymous]
     [AllowSameSite]
     public class SearchController : BaseController
