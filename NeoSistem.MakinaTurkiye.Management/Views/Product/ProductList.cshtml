@@ -217,7 +217,7 @@
                     @newPrice.ToString("N2")
                 }
                 <span style="@(newPrice != 0 ? "text-decoration: line-through;":"")">
-                        @item.ProductPrice.Value.ToString("N2")
+                        @(item.ProductPrice.HasValue==true?item.ProductPrice.Value.ToString("N2"):"0")
                     </span>
                     @item.CurrencyName
             }
