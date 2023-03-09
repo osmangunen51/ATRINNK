@@ -107,6 +107,7 @@ namespace MakinaTurkiye.Services.Search
                 ElasticSearchClient.DeleteIndex(GlobalSuggetSearchIndexName.ToLowerInvariant());
             }
             CreateProductSearchIndex(Liste);
+            //var ListeT = Liste.Where(x => x.Suggest.Input.Any(x => x.Contains("Vinçmak")));
         }
 
         public void CreateAndYukleSearchGenelIndex()
