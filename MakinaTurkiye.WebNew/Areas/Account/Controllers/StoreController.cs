@@ -297,6 +297,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                     //}
 
                     // eski logoyu kopyala, varsa ustune yaz
+
                     string mapPath = this.Server.MapPath(AppSettings.StoreBannerFolder);
                     string storeBannerImageFileName = store.StoreUrlName.ToImageFileName() + "-" + store.MainPartyId + "_banner.jpg";
                     string storeBannerImageFileSavePath = mapPath + storeBannerImageFileName;

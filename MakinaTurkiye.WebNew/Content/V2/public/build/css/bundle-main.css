@@ -24474,7 +24474,8 @@ height: 100%;
     top: 0;
     bottom: 0;
     z-index: 1;
-    background-repeat: repeat-x
+    background-repeat: repeat-x;
+    background-size: 100% 100%;
 }
 
 @media (max-width:768px) {
