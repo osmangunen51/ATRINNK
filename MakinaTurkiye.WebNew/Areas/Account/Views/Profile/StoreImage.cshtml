@@ -36,8 +36,25 @@
         function ShowLoading() {
             $("#loaderDiv").show();
         }
-        function ImageDelete(i) {
-            $("#imageParent" + i).hide();
+        function ImageDelete(i, ImageId)
+        {
+            $.ajax({
+                type: 'POST',
+                url: "/Profile/DeleteStoreImage?ImageId=" + ImageId,
+                dataType: "text",
+                success: function (result)
+                {
+                    if (result) {
+                        $("#imageParent" + i).hide();
+                    }
+                    else
+                    {
+                        alert("Hata Oluştu.Tekrar deneyiniz.");
+                    }
+                }
+            })
+
+           
         }
     </script>
     <style type="text/css">
@@ -136,21 +153,12 @@
     @{int i = 0; }
     @foreach (var item in Model.StoreImageItems)
     {
-
-<div id="@("imageParent"+i)" class="col-md-3 img-thumbnail">
-
-    @Ajax.RawActionLink(string.Format("<i class='fa fa-times' aria-hidden='true'></i> "), "DeleteStoreImage", null, new { ImageId = item.ImageId }, new AjaxOptions
-    {
-        // <-- DOM element ID to update
-        InsertionMode = InsertionMode.Replace,
-        HttpMethod = "POST" // <-- HTTP method
-    },
-new { @onclick = "ImageDelete(" + i + ")" })
-
-    <img class="img-thumbnail" src="@item.ImagePath" />
-</div>i++;
-
-            }
+        <div id="@("imageParent"+i)" class="col-md-3 img-thumbnail">
+            <i class='fa fa-times' aria-hidden='true' onclick = "ImageDelete(@i,@item.ImageId)"></i>
+            <img class="img-thumbnail" src="@item.ImagePath" />
+        </div>
+    i++;
+}
 </div>
 
 

@@ -785,13 +785,8 @@ if (app != "Sektor" || app != "Sektor/" || app == "1")
     {
         <div class="clearfix">
             <div class="col-xs-12">
-                <h2 class="section-title-category section-title--left">
+                <h2 class="section-title-category section-title--left col-xs-10">
                     <span>
-                        @*Bu kısımda null gelen lamda sorguları var. kontrol etmek lazım *@
-                        @* <a href="<%:Model.StoreModel.StoreCategoryUrl %>" title="<%:categoryTitle %> Firmaları">
-
-                                <%:categoryTitle + " "  + Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName  +" " %>Firmaları
-                            </a>*@
                         <a href="@Model.StoreModel.StoreCategoryUrl" title="@categoryTitle Firmaları">
                             @{ string name = "";
                                 if (Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null)
@@ -799,13 +794,16 @@ if (app != "Sektor" || app != "Sektor/" || app == "1")
                                     name = Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected).FilterName;
                                 } }
 
-                            @categoryTitle @name Firmaları ( Tümü )
+                            @categoryTitle @name Firmaları
                         </a>
                     </span>
-
+                </h2>
+                <h2 class="section-title-category section-title--right col-xs-2" style="float:right !important;text-align:right">
+                    <span>
+                        <a href="@Model.StoreModel.StoreCategoryUrl" title="Tüm @categoryTitle Firmaları">Tümü</a>
+                    </span>
                 </h2>
             </div>
-
             @{ Model.StoreModel.SelectedCategoryName = categoryTitle; }
             @if (Model.FilteringContext.DataFilterMoldes.FirstOrDefault(k => k.FilterName == "Şehir").ItemModels.FirstOrDefault(k => k.Selected) != null)
             {
@@ -813,7 +811,8 @@ if (app != "Sektor" || app != "Sektor/" || app == "1")
 
             }
             @{Html.RenderPartial("_CategoryStores", Model.StoreModel);}
-        </div> }
+        </div> 
+    }
 }
 if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent) || !string.IsNullOrEmpty(Model.SeoModel.Description))
 {
@@ -823,10 +822,10 @@ if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent) || !string.IsNullOrEmpty(Mo
         </button>
         @if (!string.IsNullOrEmpty(Model.SeoModel.SeoContent))
         {
-
             @Html.Raw(Model.SeoModel.SeoContent)
-            @Html.Raw(Model.ContentSide)}
-        @Html.Raw(Model.SeoModel.Description)
+            @Html.Raw(Model.ContentSide)
+            @Html.Raw(Model.SeoModel.Description)
+        }
     </div>
 }
 <div class="row nomargin">
