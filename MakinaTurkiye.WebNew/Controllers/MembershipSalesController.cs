@@ -2194,7 +2194,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                 product.Doping = true;
                 product.ProductDopingBeginDate = dateBegin;
                 product.ProductDopingEndDate = dateEnd;
-                product.ProductRateWithDoping += 1000;
+                product.ProductRateWithDoping += 100000;
                 _productService.UpdateProduct(product);
                 SendMailForProductDoping(product);
                 #region bilgimakina
