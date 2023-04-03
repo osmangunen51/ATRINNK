@@ -11,6 +11,7 @@ namespace MakinaTurkiye.Tasks.Catolog.Tasks
     {
         public Task Execute(IJobExecutionContext context)
         {
+
             IProductService productService = EngineContext.Current.Resolve<IProductService>();
             IApplicationLogService applicationLog = EngineContext.Current.Resolve<IApplicationLogService>();
 

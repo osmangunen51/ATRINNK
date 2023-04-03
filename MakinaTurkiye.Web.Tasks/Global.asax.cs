@@ -37,10 +37,10 @@ namespace MakinaTurkiye.Web.Tasks
                 ProductDeleteFromGarbageScheduler.Start();
                 ProductHomePageReminderMailSendScheduler.Start();
                 MemberDescriptionRestScheduler.Start();
-                ProductRateCalculateScheduler.Start();
                 SiteMapCreateScheduler.Start();
                 PinterestScheduler.Start();
                 StoreRateCalculateScheduler.Start();
+                ProductRateCalculateScheduler.Start();
                 MemberDescriptionOrganizerScheduler.Start();
             }
         }

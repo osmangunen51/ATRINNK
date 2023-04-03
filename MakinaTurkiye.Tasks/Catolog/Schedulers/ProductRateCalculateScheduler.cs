@@ -17,14 +17,11 @@ namespace MakinaTurkiye.Tasks.Catolog.Schedulers
                 .WithIdentity("ProductRateCalculate", "Products")
                 .Build();
             ITrigger trigger = TriggerBuilder.Create()
-             .WithDailyTimeIntervalSchedule
-               (s =>
-                  s.WithIntervalInHours(24)
-                 .OnEveryDay()
-                 .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(22, 34))
-               )
-             .Build();
-
+           .StartNow()
+            .WithSimpleSchedule(x => x
+                .WithIntervalInMinutes(60)
+                .RepeatForever())
+            .Build();
             var result = await scheduler.ScheduleJob(job, trigger);
         }
     }
