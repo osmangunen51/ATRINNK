@@ -288,19 +288,17 @@ namespace MakinaTurkiye.Services.Videos
 
         public Video GetVideoByVideoId(int videoId, bool showHidden = false)
         {
-
             string key = string.Format(VIDEOS_BY_VIDEO_ID_KEY, videoId);
             return _cacheManager.Get(key, () =>
             {
                 var query = _videoRepository.Table;
-
                 if (!showHidden)
                     query = query.Where(v => v.Active == true);
                 query = query.Include(v => v.Product);
                 query = query.Include(v => v.Product.Brand);
                 query = query.Include(v => v.Product.Model);
                 query = query.Include(v => v.Product.Category);
-                var video = query.FirstOrDefault(v => v.Id == videoId);
+                var video = query.FirstOrDefault(v => v.VideoId == videoId);
                 return video;
             });
         }
