@@ -162,7 +162,7 @@ namespace NeoSistem.MakinaTurkiye.Core.Web.Helpers
                     {
                         string width = thumbSize.Split('x')[0];
                         string height = thumbSize.Split('x')[1];
-                        if ((width != "*" & height != "*") & (SourceImage.Width < Convert.ToInt32(width) && SourceImage.Height < Convert.ToInt32(height)))
+                        if ((width != "*" & height != "*") && (SourceImage.Width < Convert.ToInt32(width) && SourceImage.Height < Convert.ToInt32(height)))
                         {
                             try
                             {

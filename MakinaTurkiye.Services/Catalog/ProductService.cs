@@ -1292,7 +1292,7 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
         }
 
         public IList<StoreProfileProductsResult> GetSPProductsByStoreMainPartyIdAndCategoryId(out int totalRecord,
-            int pageDimension, int page, int storeMainPartyId, int categoryId, int userMainPartyId = 0)
+            int pageDimension, int page, int storeMainPartyId, int categoryId, int userMainPartyId = 0, byte searchType = 0)
         {
 
             var pTotalRecord = _dataProvider.GetParameter();
@@ -1325,10 +1325,14 @@ searchTypeId, mainPartyId, countryId, cityId, localityId, orderById, pageIndex, 
             pUserMainPartyId.Value = userMainPartyId;
             pUserMainPartyId.DbType = DbType.Int32;
 
+            var pSearchType = _dataProvider.GetParameter();
+            pSearchType.ParameterName = "SearchType";
+            pSearchType.Value = searchType;
+            pSearchType.DbType = DbType.Int32;
             var products =
                 _dbContext.SqlQuery<StoreProfileProductsResult>(
-                    "SP_GetProductsByMainPartyIdAndCategoryIdNew @TotalRecord output,@PageDimension,@Page,@CategoryId,@MainPartyId, @UserMainPartyId",
-                    pTotalRecord, pPageDimension, pPage, pCategoryId, pMainPartyId, pUserMainPartyId).ToList();
+                    "SP_GetProductsByMainPartyIdAndCategoryIdNew @TotalRecord output,@PageDimension,@Page,@CategoryId,@MainPartyId, @UserMainPartyId,@SearchType",
+                    pTotalRecord, pPageDimension, pPage, pCategoryId, pMainPartyId, pUserMainPartyId, pSearchType).ToList();
 
             totalRecord = (pTotalRecord.Value != DBNull.Value) ? Convert.ToInt32(pTotalRecord.Value) : 0;
 

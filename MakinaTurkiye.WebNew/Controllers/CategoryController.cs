@@ -1624,7 +1624,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
                         StoreRate = item.StoreRate,
                         StoreProductCategoryUrl = UrlBuilder.GetStoreProfileProductCategoryUrl(categoryAndBrand.CategoryId, categoryAndBrand.CategoryName, storeUrlName),
                         StoreUrl = UrlBuilder.GetStoreProfileUrl(item.MainPartyId, item.StoreName, storeUrlName),
-                        PictureLogoPath = ImageHelpers.GetStoreImage(item.MainPartyId, item.StoreLogo, "120")
+                        PictureLogoPath = ImageHelpers.GetStoreImage(item.MainPartyId, item.StoreLogo, "300")
                     });
                 }
                 string storePageTitle = "";

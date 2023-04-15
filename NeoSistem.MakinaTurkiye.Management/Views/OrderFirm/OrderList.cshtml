@@ -82,10 +82,13 @@
                     break;
             }
         }
-        @text
-        @if (item.OrderCancelled == true)
-    {
-        @Html.Raw("(İptal Edilmiş)")
+        @if (ViewBag.IsAdmin)
+        {
+            @text
+            if (item.OrderCancelled == true)
+            {
+                @Html.Raw("(İptal Edilmiş)")
+            }
         }
     </td>
     <td class="Cell" align="center">

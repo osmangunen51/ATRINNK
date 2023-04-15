@@ -134,7 +134,7 @@ else
                     </td>
                     <td>
                         @Model.PacketModel.PacketName
-                        @(Session["Paketadı"] = Model.PacketModel.PacketName)
+                        @{Session["Paketadı"] = Model.PacketModel.PacketName;}
                     </td>
                     <td>
                         @Model.PacketModel.OrderPrice.ToString("C2")

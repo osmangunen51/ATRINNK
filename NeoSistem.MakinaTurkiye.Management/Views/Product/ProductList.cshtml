@@ -217,9 +217,13 @@
                     @newPrice.ToString("N2")
                 }
                 <span style="@(newPrice != 0 ? "text-decoration: line-through;":"")">
-                        @(item.ProductPrice.HasValue==true?item.ProductPrice.Value.ToString("N2"):"0")
-                    </span>
-                    @item.CurrencyName
+                    @(item.ProductPrice.HasValue==true?item.ProductPrice.Value.ToString("N2"):"0")
+                </span>
+                @item.CurrencyName
+
+                <div class="controls">
+                    <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
+                </div>
             }
             else if (item.ProductPriceType == (byte)ProductPriceType.PriceRange)
             {
@@ -231,11 +235,16 @@
                     @Convert.ToDecimal(item.ProductPriceLast).ToString("N2")
                 </span>
                 <span>@item.CurrencyName</span>
+
+                <div class="controls">
+                    <a class="edit" style="float: right; margin-top: 17px; font-size: 11px;" title="Düzenle" href="#">Dzl</a>
+                </div>
+
             }
             else if (item.ProductPriceType == (byte)ProductPriceType.PriceAsk)
             {
                 <span>Fiyat Sorunuz</span>
-              }
+            }
             else
             {
                 <span>Fiyat Görüşülür</span>
@@ -243,7 +252,7 @@
         }
         else
         {
-        @item.ProductPrice.Value.ToString("N2")  @item.CurrencyName
+            @item.ProductPrice.Value.ToString("N2") @item.CurrencyName
         }
 
 

@@ -107,6 +107,7 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
 
         public ActionResult Index()
         {
+            
             PAGEID = PermissionPage.TümSiparisListesi;
             int total = 0;
             dataOrder = new Data.Order();
@@ -168,6 +169,13 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
             {
                 model.PageDimension = (int)Session[SessionPage];
             }
+
+            bool IsAdmin = false;
+            if (UserGroups.Where(x => x.GroupName == "Administrator").Count()>0)
+            {
+                IsAdmin = true;
+            }
+            ViewBag.IsAdmin = IsAdmin;
             return View(model);
         }
 
@@ -383,8 +391,12 @@ namespace NeoSistem.MakinaTurkiye.Management.Controllers
                 Source = collection,
                 PageDimension = PageDimension
             };
-
-
+            bool IsAdmin = false;
+            if (UserGroups.Where(x => x.GroupName == "Administrator").Count() > 0)
+            {
+                IsAdmin = true;
+            }
+            ViewBag.IsAdmin = IsAdmin;
             return View("OrderList", filterItems);
         }
 

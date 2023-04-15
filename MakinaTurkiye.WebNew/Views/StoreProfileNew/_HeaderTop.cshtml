@@ -27,7 +27,7 @@
 @{string styleBackground = ""; }
 @if (!string.IsNullOrEmpty(Model.StoreBanner))
 {
-    styleBackground = "background-image: url('" + Model.StoreBanner + "?v=" + DateTime.Now.ToString("yyyyMMddHHmmss") + ");";
+    styleBackground = "background: url("+ Model.StoreBanner + "?v=" + DateTime.Now.ToString("yyyyMMddHHmmss") + ") no-repeat top; \r\n  -webkit-background-size: unset;\r\n  -moz-background-size: unset;\r\n  -o-background-size: unset;";
 }
 else
 {

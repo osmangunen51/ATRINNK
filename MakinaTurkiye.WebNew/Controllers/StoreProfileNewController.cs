@@ -629,9 +629,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
             }
 
             List<MTProductsPageProductList> productList = new List<MTProductsPageProductList>();
-            int totalRecord;
+            int totalRecord=0;
             int mainPartyId = AuthenticationUser.CurrentUser.Membership.MainPartyId;
-            products = _productService.GetSPProductsByStoreMainPartyIdAndCategoryId(out totalRecord, PageDimension, page, store.MainPartyId, model.CategoryId, mainPartyId);
+            products = _productService.GetSPProductsByStoreMainPartyIdAndCategoryId(out totalRecord, PageDimension, page, store.MainPartyId, model.CategoryId, mainPartyId, searchType);
+            //products = _productService.GetSPProductsByStoreMainPartyIdAndCategoryId(out totalRecord, PageDimension, page, store.MainPartyId, model.CategoryId, mainPartyId);
             //products = _productService.GetSPProductsByStoreMainPartyId(PageDimension, page, store.MainPartyId,searchType);
             foreach (var item in products)
             {

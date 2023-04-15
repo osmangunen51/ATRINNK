@@ -1907,9 +1907,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
         [HttpPost]
         public ActionResult ProductCatolog(AdvertViewModel model)
         {
+            Product product = (Product)Session["CurProduct"];
             for (int i = 0; i < Request.Files.Count; i++)
             {
-                Product product = (Product)Session["CurProduct"];
+                
                 var fileSavePath = AppSettings.ProductCatologFolder;
                 var filePath = FileUploadHelper.UploadFile(Request.Files[i], fileSavePath + "/" + product.ProductId, product.ProductName, i);
                 if (filePath != "")
@@ -2877,6 +2878,10 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
             var curProduct = (Product)Session["CurProduct"];
             var productModel = new ProductModel();
             UpdateClass(curProduct, productModel);
+            if (curProduct.ProductPrice==null)
+            {
+                curProduct.ProductPrice = curProduct.ProductPriceLast;
+            }
             decimal fiyat = curProduct.ProductPrice.Value;
             byte currid = (byte)curProduct.CurrencyId;
 

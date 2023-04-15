@@ -19,32 +19,32 @@
     @if (Model.OrderType == (byte)Ordertype.Havale)
     {
 @Html.BeginForm("FourStep", "MembershipSales");
-}
-else
-{
-if (Model.CreditCardId != 14)
-{
+    }
+    else
+    {
+        if (Model.CreditCardId != 14)
+        {
 @:<form action="/MembershipSales/FourStepNew" method="post">
 }
-else
-{
+        else
+        {
 @:<form action="@Model.VirtualPos.VirtualPosPostUrl " method="post">
 }
 
-if (Model.CreditCardInstallmentId > 0)
-{
-    amount = (Model.GetCreditCardInstallment.CreditCardCount * ((price + (price * Model.GetCreditCardInstallment.CreditCardValue / 100)) / Model.GetCreditCardInstallment.CreditCardCount).ToString("N2").ToDecimal()).ToString("N2").Replace(".", "").Replace(",", ".");
-    taksit = Model.GetCreditCardInstallment.CreditCardCount.ToString();
-    tutar = amount.Replace(".", ",");
-    taksitpaymec = taksit.PadLeft(2, '0');
-}
-else
-{
-    amount = price.ToString("N2").Replace(".", "").Replace(",", ".");
-    tutar = amount.Replace(".", ",");
-    taksit = "1";
-    taksitpaymec = "0";
-}
+        if (Model.CreditCardInstallmentId > 0)
+        {
+            amount = (Model.GetCreditCardInstallment.CreditCardCount * ((price + (price * Model.GetCreditCardInstallment.CreditCardValue / 100)) / Model.GetCreditCardInstallment.CreditCardCount).ToString("N2").ToDecimal()).ToString("N2").Replace(".", "").Replace(",", ".");
+            taksit = Model.GetCreditCardInstallment.CreditCardCount.ToString();
+            tutar = amount.Replace(".", ",");
+            taksitpaymec = taksit.PadLeft(2, '0');
+        }
+        else
+        {
+            amount = price.ToString("N2").Replace(".", "").Replace(",", ".");
+            tutar = amount.Replace(".", ",");
+            taksit = "1";
+            taksitpaymec = "0";
+        }
 
 
 <input type="hidden" name="clientid" value="<%=Model.VirtualPos.VirtualPosClientId" />
@@ -54,7 +54,7 @@ else
                                                                 <input type="hidden" name="failUrl" value="@Model.VirtualPosReturnURL " />
                                                                                 <input type="hidden" name="rnd" value="@rnd " />
                                                                                                 <input type="hidden" name="rnd" value="@rnd " />
-                                                                                                                <input type="hidden" name="hash" value="@Model.GetHashStr(amount,rnd) " />
+                                                                                                                <input type="hidden" name="hash" value="@Model.GetHashStr(amount, rnd) " />
                                                                                                                                 <input type="hidden" name="storetype" value="@Model.VirtualPos.VirtualPosStoreType " />
                                                                                                                                                 <input type="hidden" name="lang" value="tr" />
                                                                                                                                                                 <input type="hidden" name="tutar" id="tutar" value="" />
@@ -95,7 +95,7 @@ else
                     </td>
                     <td>
                         @Model.PacketName
-                        <%Session["Paketadı"] = Model.PacketName;
+                        @{Session["Paketadı"] = Model.PacketName;}
                     </td>
                     <td>
                         @Model.OrderPrice.ToString("C2")

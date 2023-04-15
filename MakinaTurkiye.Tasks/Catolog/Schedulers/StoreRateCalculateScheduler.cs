@@ -11,21 +11,18 @@ namespace MakinaTurkiye.Tasks.Catolog.Schedulers
 
             var scheduler = await new StdSchedulerFactory().GetScheduler();
             await scheduler.Start();
-
             // define the job and tie it to our HelloJob class
-            IJobDetail job = JobBuilder.Create<StoreRateCalculate>()
+            IJobDetail job = JobBuilder.Create<ProductRateCalculate>()
                 .WithIdentity("StoreRateCalculate", "Stores")
                 .Build();
             ITrigger trigger = TriggerBuilder.Create()
-             .WithDailyTimeIntervalSchedule
-               (s =>
-                  s.WithIntervalInHours(24)
-                 .OnEveryDay()
-                 .StartingDailyAt(TimeOfDay.HourAndMinuteOfDay(14, 54))
-               )
-             .Build();
-
+           .StartNow()
+            .WithSimpleSchedule(x => x
+                .WithIntervalInMinutes(120)
+                .RepeatForever())
+            .Build();
             var result = await scheduler.ScheduleJob(job, trigger);
+
         }
     }
 }

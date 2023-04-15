@@ -634,7 +634,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Areas.Account.Controllers
                         string storeBannerImageFileSavePath = mapPath + filename;
                         Request.Files[i].SaveAs(storeBannerImageFileSavePath);
                         Image img = ImageProcessHelper.resizeImageBanner(800, 300, storeBannerImageFileSavePath);
-                        ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, img, 80, "_slider", "-800x300");
+                        ImageProcessHelper.SaveJpeg(storeBannerImageFileSavePath, img, 100, "_slider", "-800x300");
 
                         var curPicture = new Picture()
                         {

@@ -85,7 +85,7 @@ namespace MakinaTurkiye.Services.Catalog
         IList<StoreProfileProductsResult> GetSPProductsCountByStoreMainPartyIdAndSearchType(out int totalRecord, int mainPartyId, byte searchType, int categoryId);
 
 
-        IList<StoreProfileProductsResult> GetSPProductsByStoreMainPartyIdAndCategoryId(out int totalRecord, int pageDimension, int page, int storeMainPartyId, int categoryId, int userMainPartyId = 0);
+        IList<StoreProfileProductsResult> GetSPProductsByStoreMainPartyIdAndCategoryId(out int totalRecord, int pageDimension, int page, int storeMainPartyId, int categoryId, int userMainPartyId = 0, byte searchType = 0);
 
         IList<Product> GetRandomProductsByBill(int take);
 
