@@ -11,10 +11,10 @@ namespace MakinaTurkiye.Services.Media
     {
         #region Constants
 
-        private const string PICTURES_BY_PRODUCT_ID_KEY = "makinaturkiye.picture.byproductId-{0}";
-        private const string PICTURES_BY_FIRST_PICTURE_PRODUCT_ID_KEY = "makinaturkiye.picture.firstpicture.byproductId-{0}";
-        private const string PICTURES_BY_MAIN_PARTY_ID_KEY = "makinaturkiye.picture.bymainpartyid-{0}";
-        private const string PICTURES_BY_STORE_CERTIFICATE_ID_KEY = "makinaturkiye.picture.bystorecertificateid-{0}";
+        private const string PICTURES_BY_PRODUCT_ID_KEY = "picture.byproductId-{0}";
+        private const string PICTURES_BY_FIRST_PICTURE_PRODUCT_ID_KEY = "picture.firstpicture.byproductId-{0}";
+        private const string PICTURES_BY_MAIN_PARTY_ID_KEY = "picture.bymainpartyid-{0}";
+        private const string PICTURES_BY_STORE_CERTIFICATE_ID_KEY = "picture.bystorecertificateid-{0}";
 
         #endregion
 

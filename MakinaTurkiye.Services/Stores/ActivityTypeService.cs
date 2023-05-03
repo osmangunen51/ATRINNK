@@ -12,7 +12,7 @@ namespace MakinaTurkiye.Services.Stores
 
         #region Constants
 
-        private const string ACTIVITYTYPES_BY_ALL_KEY = "makinaturkiye.activitiytype.all";
+        private const string ACTIVITYTYPES_BY_ALL_KEY = "activitiytype.all";
 
         #endregion
 

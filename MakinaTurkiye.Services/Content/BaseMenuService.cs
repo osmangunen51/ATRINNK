@@ -13,10 +13,10 @@ namespace MakinaTurkiye.Services.Content
 
         #region Constants
 
-        private const string BASEMENUS_ALL_KEY = "makinaturkiye.basemenu.byall-{0}-{1}";
-        private const string BASEMENUCATEGORIES_BY_BASE_MENU_ID_KEY = "makinaturkiye.basemenucategory.bybasemenuId-{0}";
-        private const string BASEMENUS_BY_BASEMENU_ID_KEY = "makinaturkiye.basemenu.byid-{0}";
-        private const string BASEMENUS_BY_ALL_KEY = "makinaturkiye.basemenu.all-{0}";
+        private const string BASEMENUS_ALL_KEY = "basemenu.byall-{0}-{1}";
+        private const string BASEMENUCATEGORIES_BY_BASE_MENU_ID_KEY = "basemenucategory.bybasemenuId-{0}";
+        private const string BASEMENUS_BY_BASEMENU_ID_KEY = "basemenu.byid-{0}";
+        private const string BASEMENUS_BY_ALL_KEY = "basemenu.all-{0}";
 
         #endregion
 

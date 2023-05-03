@@ -12,20 +12,20 @@ namespace MakinaTurkiye.Services.Common
     {
         #region Constants
 
-        private const string ADDRESSES_BY_MAINPARTY_ID_KEY = "makinaturkiye.address.bymainpartyId-{0}";
-        private const string ADDRESSES_BY_FIRST_MAINPARTY_ID_KEY = "makinaturkiye.address.firstaddress.bymainpartyId-{0}";
+        private const string ADDRESSES_BY_MAINPARTY_ID_KEY = "address.bymainpartyId-{0}";
+        private const string ADDRESSES_BY_FIRST_MAINPARTY_ID_KEY = "address.firstaddress.bymainpartyId-{0}";
 
-        private const string LOCALITIES_BY_CITY_ID_KEY = "makinaturkiye.locality.bycityId-{0}";
-        private const string CITIES_BY_COUNTRY_ID_KEY = "makinaturkiye.city.bycountryId-{0}";
-        private const string DISTRICTS_BY_CITY_ID_KEY = "makinaturkiye.district.bycityId-{0}";
-        private const string DISTRICTS_BY_LOCALITY_ID_KEY = "makinaturkiye.district.bylocalityId-{0}";
-        private const string TOWNS_BY_LOCALITY_ID_KEY = "makinaturkiye.town.bylocalityId-{0}";
-        private const string ADDRESSES_BY_STORE_DEALER_ID_KEY = "makinaturkiye.address.bystoredealerid-{0}";
-        private const string CITYES_BY_CITY_IDS_KEY = "makinaturkiye.city.bycityids-{0}";
+        private const string LOCALITIES_BY_CITY_ID_KEY = "locality.bycityId-{0}";
+        private const string CITIES_BY_COUNTRY_ID_KEY = "city.bycountryId-{0}";
+        private const string DISTRICTS_BY_CITY_ID_KEY = "district.bycityId-{0}";
+        private const string DISTRICTS_BY_LOCALITY_ID_KEY = "district.bylocalityId-{0}";
+        private const string TOWNS_BY_LOCALITY_ID_KEY = "town.bylocalityId-{0}";
+        private const string ADDRESSES_BY_STORE_DEALER_ID_KEY = "address.bystoredealerid-{0}";
+        private const string CITYES_BY_CITY_IDS_KEY = "city.bycityids-{0}";
 
-        private const string COUNTRIES_BY_COUNTRY_ID_KEY = "makinaturkiye.country.bycountryid-{0}";
-        private const string CITIES_BY_CITIY_ID_KEY = "makinaturkiye.citiy.bycitiyid-{0}";
-        private const string LOCALITIES_BY_LOCALITY_ID_KEY = "makinaturkiye.locality.bylocalityid-{0}";
+        private const string COUNTRIES_BY_COUNTRY_ID_KEY = "country.bycountryid-{0}";
+        private const string CITIES_BY_CITIY_ID_KEY = "citiy.bycitiyid-{0}";
+        private const string LOCALITIES_BY_LOCALITY_ID_KEY = "locality.bylocalityid-{0}";
 
         #endregion Constants
 

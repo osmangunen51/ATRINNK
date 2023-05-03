@@ -12,8 +12,8 @@ namespace MakinaTurkiye.Services.Catalog
     {
         #region Constants
 
-        //private const string PRODUCTCOMPLAINTYPE_PATTERN_KEY = "makinaturkiye.productcomplaintype";
-        private const string PRODUCTCOMPLAINTYPE_All_KEY = "makinaturkiye.productcomplaintype.byall";
+        //private const string PRODUCTCOMPLAINTYPE_PATTERN_KEY = "productcomplaintype";
+        private const string PRODUCTCOMPLAINTYPE_All_KEY = "productcomplaintype.byall";
 
         #endregion
 

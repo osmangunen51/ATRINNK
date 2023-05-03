@@ -11,9 +11,9 @@ namespace MakinaTurkiye.Services.Common
     {
         #region Constants
 
-        private const string CONSTANTS_BY_CONSTANT_ID_KEY = "makinaturkiye.constant.byconstantId-{0}";
-        private const string CONSTANTS_BY_CONSTANT_IDS_KEY = "makinaturkiye.constant.byconstantIds-{0}";
-        private const string CONSTANTS_BY_CONSTANT_TYPE_KEY = "makinaturkiye.constant.byconstantType-{0}";
+        private const string CONSTANTS_BY_CONSTANT_ID_KEY = "constant.byconstantId-{0}";
+        private const string CONSTANTS_BY_CONSTANT_IDS_KEY = "constant.byconstantIds-{0}";
+        private const string CONSTANTS_BY_CONSTANT_TYPE_KEY = "constant.byconstantType-{0}";
 
         #endregion
 

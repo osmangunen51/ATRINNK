@@ -13,20 +13,20 @@ namespace MakinaTurkiye.Services.Catalog
 
         #region Constants
 
-        private const string CATEGORYPROPERTIES_BY_CATEGORYPROPERTIE_ID_KEY = "makinaturkiye.categorypropertie.byid-{0}";
-        private const string CATEGORYPROPERTIES_BY_CATEGORYID_ID_KEY = "makinaturkiye.categorypropertie.bycategoryid-{0}";
+        private const string CATEGORYPROPERTIES_BY_CATEGORYPROPERTIE_ID_KEY = "categorypropertie.byid-{0}";
+        private const string CATEGORYPROPERTIES_BY_CATEGORYID_ID_KEY = "categorypropertie.bycategoryid-{0}";
 
-        private const string CATEGORYPROPERTIERESULTS_BY_CATEGORYID_ID_KEY = "makinaturkiye.categorypropertieresult.bycategoryid-{0}";
+        private const string CATEGORYPROPERTIERESULTS_BY_CATEGORYID_ID_KEY = "categorypropertieresult.bycategoryid-{0}";
 
-        private const string PRODUCTPROPERTIEVALUES_BY_PRODUCTPROPERTIEVE_ID_KEY = "makinaturkiye.productpropertievalue.byid-{0}";
-        private const string PRODUCTPROPERTIEVALUES_BY_PRODUCT_ID_KEY = "makinaturkiye.productpropertievalue.byproductid-{0}";
+        private const string PRODUCTPROPERTIEVALUES_BY_PRODUCTPROPERTIEVE_ID_KEY = "productpropertievalue.byid-{0}";
+        private const string PRODUCTPROPERTIEVALUES_BY_PRODUCT_ID_KEY = "productpropertievalue.byproductid-{0}";
 
-        private const string PRODUCTPROPERTIEVALUERESULTS_BY_PRODUCT_ID_KEY = "makinaturkiye.productpropertievalueresult.byproductid-{0}";
+        private const string PRODUCTPROPERTIEVALUERESULTS_BY_PRODUCT_ID_KEY = "productpropertievalueresult.byproductid-{0}";
 
-        private const string PROPERTIES_BY_PROPERTIE_ID_KEY = "makinaturkiye.propertie.byid-{0}";
+        private const string PROPERTIES_BY_PROPERTIE_ID_KEY = "propertie.byid-{0}";
 
-        private const string PROPERTIEATTRS_BY_PROPERTIEATTR_ID_KEY = "makinaturkiye.propertieattr.byid-{0}";
-        private const string PROPERTIEATTRS_BY_PROPERTIE_ID_KEY = "makinaturkiye.propertieattr.byproductid-{0}";
+        private const string PROPERTIEATTRS_BY_PROPERTIEATTR_ID_KEY = "propertieattr.byid-{0}";
+        private const string PROPERTIEATTRS_BY_PROPERTIE_ID_KEY = "propertieattr.byproductid-{0}";
 
         #endregion
 

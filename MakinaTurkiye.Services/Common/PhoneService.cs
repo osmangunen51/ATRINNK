@@ -11,8 +11,8 @@ namespace MakinaTurkiye.Services.Common
     {
         #region Constants
 
-        private const string PHONES_BY_MAINPARTY_ID_KEY = "makinaturkiye.phone.bymainpartyId-{0}";
-        private const string PHONES_BY_ADDRESS_ID_KEY = "makinaturkiye.phone.byaddressid-{0}";
+        private const string PHONES_BY_MAINPARTY_ID_KEY = "phone.bymainpartyId-{0}";
+        private const string PHONES_BY_ADDRESS_ID_KEY = "phone.byaddressid-{0}";
 
         #endregion
 

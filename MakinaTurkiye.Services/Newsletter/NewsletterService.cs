@@ -11,7 +11,7 @@ namespace MakinaTurkiye.Services.Newsletters
     {
         #region Constants
 
-        private const string NewsletterS_BY_MAINPARTY_ID_KEY = "makinaturkiye.Newsletter.bymainpartyId-{0}";
+        private const string NewsletterS_BY_MAINPARTY_ID_KEY = "Newsletter.bymainpartyId-{0}";
 
         #endregion
 

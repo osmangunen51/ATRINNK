@@ -45,6 +45,7 @@ namespace MakinaTurkiye.Caching
         /// <returns>The value associated with the specified key.</returns>
         public virtual T Get<T>(string key)
         {
+            key = $"{KeyFrefix}.{key}";
             if (!GetOperationEnabled)
                 return default(T);
 
@@ -63,6 +64,7 @@ namespace MakinaTurkiye.Caching
         /// <param name="cacheTime">Cache time</param>
         public virtual void Set(string key, object data, int cacheTime)
         {
+            key = $"{KeyFrefix}.{key}";
             if (!SetOperationEnabled)
                 return;
 
@@ -86,6 +88,7 @@ namespace MakinaTurkiye.Caching
         /// <returns>Result</returns>
         public virtual bool IsSet(string key)
         {
+            key = $"{KeyFrefix}.{key}";
             if (!SetOperationEnabled)
                 return false;
 
@@ -102,6 +105,7 @@ namespace MakinaTurkiye.Caching
         /// <param name="key">/key</param>
         public virtual void Remove(string key)
         {
+            key = $"{KeyFrefix}.{key}";
             if (!RemoveOperationEnabled)
                 return;
 
@@ -166,16 +170,19 @@ namespace MakinaTurkiye.Caching
 
         public Task<T> GetAsync<T>(string key)
         {
+            key = $"{KeyFrefix}.{key}";
             throw new NotImplementedException();
         }
 
         public Task SetAsync(string key, object data, int cacheTime)
         {
+            key = $"{KeyFrefix}.{key}";
             throw new NotImplementedException();
         }
 
         public Task<bool> IsSetAsync(string key)
         {
+            key = $"{KeyFrefix}.{key}";
             throw new NotImplementedException();
         }
 
@@ -186,5 +193,6 @@ namespace MakinaTurkiye.Caching
         public bool RemoveOperationEnabled { get; set; }
 
         public bool AllOperationEnabled { get; set; }
+        public string KeyFrefix { get; set; }
     }
 }

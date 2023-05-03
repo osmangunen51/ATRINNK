@@ -35,15 +35,15 @@ namespace MakinaTurkiye.Utilities.HttpHelpers
             switch (hostNameType)
             {
                 case HostNameType.Product:
-                    return "https://www.makinaturkiye.com";
+                    return MakinaTurkiye.Core.AppSettings.UrunUrlBase;
                 case HostNameType.Video:
-                    return "https://video.makinaturkiye.com";
+                    return MakinaTurkiye.Core.AppSettings.VideoUrlBase;
                 case HostNameType.Store:
-                    return "https://magaza.makinaturkiye.com";
+                    return MakinaTurkiye.Core.AppSettings.StoreAllUrl;
                 case HostNameType.StoreNews:
-                    return "https://haber.makinaturkiye.com";
+                    return MakinaTurkiye.Core.AppSettings.HaberUrlBase;
                 default:
-                    return "https://www.makinaturkiye.com";
+                    return MakinaTurkiye.Core.AppSettings.SiteUrlWithoutLastSlash;
             }
         }
 

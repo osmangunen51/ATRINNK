@@ -27,6 +27,7 @@ namespace MakinaTurkiye.Core.Configuration
 
             var cachingNode = section.SelectSingleNode("Caching");
             config.CachingEnabled = GetBool(cachingNode, "Enabled");
+            config.KeyFrefix = GetString(cachingNode, "KeyFrefix");
             config.CachingAllOperationEnabled = GetBool(cachingNode, "AllOperationEnabled");
             config.CachingGetOperationEnabled = GetBool(cachingNode, "GetOperationEnabled");
             config.CachingSetOperationEnabled = GetBool(cachingNode, "SetOperationEnabled");
@@ -109,7 +110,7 @@ namespace MakinaTurkiye.Core.Configuration
 
 
         public bool CachingEnabled { get; set; }
-
+        public string KeyFrefix { get; set; }
         public bool CachingAllOperationEnabled { get; set; }
 
         public bool CachingSetOperationEnabled { get; set; }

@@ -230,6 +230,18 @@ namespace MakinaTurkiye.Core
             get { return ConfigurationManager.AppSettings["VideoUrlBase"].ToString(); }
 
         }
+
+        public static string HaberUrlBase
+        {
+            get { return ConfigurationManager.AppSettings["HaberUrlBase"].ToString(); }
+
+        }
+
+        public static string UrunUrlBase
+        {
+            get { return ConfigurationManager.AppSettings["UrunUrlBase"].ToString(); }
+
+        }
         public static string StoreAllUrl
         {
             get { return ConfigurationManager.AppSettings["StoreAllUrl"].ToString(); }

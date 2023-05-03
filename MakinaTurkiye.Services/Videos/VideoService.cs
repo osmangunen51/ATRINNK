@@ -17,18 +17,18 @@ namespace MakinaTurkiye.Services.Videos
     {
         #region Constants
 
-        private const string VIDEOS_BY_POPULAR_VIDEOS_CATEGORY_ID_KEY = "makinaturkiye.video.popularvideo.bycategoryId-{0}";
-        private const string VIDEOS_BY_PRODUCT_ID_KEY = "makinaturkiye.video.byproductId-{0}";
-        private const string VIDEOS_BY_POPULAR_VIDEOS_KEY = "makinaturkiye.video.popularvideo.bynoneparameter";
-        private const string VIDEOS_VIDEO_CATEGORY_BY_CATEGORY_PARENT_ID_KEY = "makinaturkiye.video.videocategory.bycategoryparentId-{0}";
-        private const string VIDEOS_SP_CATEGORY_ID_KEY = "makinaturkiye.video.sp.bycategoryid-{0}-{1}-{2}";
-        private const string VIDEOS_SP_OTHER_VIDEO_BY_CATEGORY_ID_KEY = "makinaturkiye.video.sp.othervideo.bycategoryid-{0}-{1}-{2}";
-        private const string VIDEOS_SP_BY_SEARCH_TEXT_KEY = "makinaturkiye.video.sp.byseachtext-{0}-{1}-{2}-{3}";
-        private const string VIDEOS_SP_SHOWONSHOWCASE_KEY = "makinaturkiye.video.sp.showonshowcase";
-        private const string VIDEOS_BY_VIDEO_ID_KEY = "makinaturkiye.video.byid-{0}";
-        private const string VIDEOS_SP_MAINPARTY_ID_KEY = "makinaturkiye.video.sp.bymainpartyid-{0}-{1}";
+        private const string VIDEOS_BY_POPULAR_VIDEOS_CATEGORY_ID_KEY = "video.popularvideo.bycategoryId-{0}";
+        private const string VIDEOS_BY_PRODUCT_ID_KEY = "video.byproductId-{0}";
+        private const string VIDEOS_BY_POPULAR_VIDEOS_KEY = "video.popularvideo.bynoneparameter";
+        private const string VIDEOS_VIDEO_CATEGORY_BY_CATEGORY_PARENT_ID_KEY = "video.videocategory.bycategoryparentId-{0}";
+        private const string VIDEOS_SP_CATEGORY_ID_KEY = "video.sp.bycategoryid-{0}-{1}-{2}";
+        private const string VIDEOS_SP_OTHER_VIDEO_BY_CATEGORY_ID_KEY = "video.sp.othervideo.bycategoryid-{0}-{1}-{2}";
+        private const string VIDEOS_SP_BY_SEARCH_TEXT_KEY = "video.sp.byseachtext-{0}-{1}-{2}-{3}";
+        private const string VIDEOS_SP_SHOWONSHOWCASE_KEY = "video.sp.showonshowcase";
+        private const string VIDEOS_BY_VIDEO_ID_KEY = "video.byid-{0}";
+        private const string VIDEOS_SP_MAINPARTY_ID_KEY = "video.sp.bymainpartyid-{0}-{1}";
 
-        private const string VIDEOS_STOREMAINPARTY_ID_KEY = "makinaturkiye.video.sp.bystoremainpartyid-{0}-{1}";
+        private const string VIDEOS_STOREMAINPARTY_ID_KEY = "video.sp.bystoremainpartyid-{0}-{1}";
         private const string VIDEOS_STOREMAINPARTY_PATTERN = "makinaturkiye.video.sp.bymainpartyid-{0}";
 
         #endregion

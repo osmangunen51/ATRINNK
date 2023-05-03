@@ -12,9 +12,9 @@ namespace MakinaTurkiye.Services.Messages
 
         #region Constants 
 
-        private const string MOBILEMESSAGES_BY_MOBILEMESSAGE_ID_KEY = "makinaturkiye.mobilemessage.byid-{0}";
-        private const string MOBILEMESSAGES_BY_MESSAGE_NAME_KEY = "makinaturkiye.mobilemessage.byname-{0}";
-        private const string MOBILEMESSAGES_BY_MESSAGE_TYPE_KEY = "makinaturkiye.mobilemessage.bymessagetype-{0}";
+        private const string MOBILEMESSAGES_BY_MOBILEMESSAGE_ID_KEY = "mobilemessage.byid-{0}";
+        private const string MOBILEMESSAGES_BY_MESSAGE_NAME_KEY = "mobilemessage.byname-{0}";
+        private const string MOBILEMESSAGES_BY_MESSAGE_TYPE_KEY = "mobilemessage.bymessagetype-{0}";
 
         #endregion
 

@@ -11,8 +11,8 @@ namespace MakinaTurkiye.Services.Stores
     {
         #region Constants
 
-        private const string STOREDEALERS_BY_MAIN_PARTY_ID_KEY = "makinaturkiye.storedealer.bymainpartyid-{0}-{1}";
-        private const string STOREDEALERS_BY_STTORE_DEALER_ID_KEY = "makinaturkiye.storedealer.bystoredealerid-{0}";
+        private const string STOREDEALERS_BY_MAIN_PARTY_ID_KEY = "storedealer.bymainpartyid-{0}-{1}";
+        private const string STOREDEALERS_BY_STTORE_DEALER_ID_KEY = "storedealer.bystoredealerid-{0}";
 
         #endregion Constants
 

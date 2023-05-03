@@ -12,8 +12,8 @@ namespace MakinaTurkiye.Services.Catalog
 
         #region Constants 
 
-        private const string PRODUCTCATALOGS_BY_PRODUCTCATALOG_ID_KEY = "makinaturkiye.productcatalog.byid-{0}";
-        private const string PRODUCTCATALOGS_BY_PRODUCT_ID_KEY = "makinaturkiye.setting.byproductid-{0}";
+        private const string PRODUCTCATALOGS_BY_PRODUCTCATALOG_ID_KEY = "productcatalog.byid-{0}";
+        private const string PRODUCTCATALOGS_BY_PRODUCT_ID_KEY = "setting.byproductid-{0}";
 
         #endregion
 

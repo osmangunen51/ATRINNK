@@ -76,6 +76,7 @@ namespace MakinaTurkiye.Utilities
                         .WithParameter("cachingConnectionString", config.RedisCachingConnectionString).SingleInstance();
 
                     builder.RegisterType<RedisCacheManager>().As<ICacheManager>()
+                        .WithProperty("KeyFrefix", config.KeyFrefix)
                         .WithProperty("AllOperationEnabled", config.CachingAllOperationEnabled)
                         .WithProperty("GetOperationEnabled", config.CachingGetOperationEnabled)
                         .WithProperty("SetOperationEnabled", config.CachingSetOperationEnabled)
@@ -85,6 +86,7 @@ namespace MakinaTurkiye.Utilities
                 else
                 {
                     builder.RegisterType<MemoryCacheManager>().As<ICacheManager>()
+                         .WithProperty("KeyFrefix", config.KeyFrefix)
                         .WithProperty("AllOperationEnabled", config.CachingAllOperationEnabled)
                         .WithProperty("GetOperationEnabled", config.CachingGetOperationEnabled)
                         .WithProperty("SetOperationEnabled", config.CachingSetOperationEnabled)
@@ -92,6 +94,7 @@ namespace MakinaTurkiye.Utilities
                         .Named<ICacheManager>("cache_static").SingleInstance();
                 }
                 builder.RegisterType<PerRequestCacheManager>().As<ICacheManager>()
+                        .WithProperty("KeyFrefix", config.KeyFrefix)
                         .WithProperty("AllOperationEnabled", config.CachingAllOperationEnabled)
                         .WithProperty("GetOperationEnabled", config.CachingGetOperationEnabled)
                         .WithProperty("SetOperationEnabled", config.CachingSetOperationEnabled)

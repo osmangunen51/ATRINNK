@@ -16,18 +16,18 @@ namespace MakinaTurkiye.Services.Stores
     {
         #region Constants
 
-        private const string STORES_BY_MAINPARTY_ID_KEY = "makinaturkiye.store.bymainpartyId-{0}";
-        private const string STORES_BY_CATEGORY_ID_KEY = "makinaturkiye.store.bycategoryId-{0}";
-        private const string STORES_BY_CATEGORY_ID_AND_BRAND_ID_KEY = "makinaturkiye.store.bycategoryId-brandId-{0}-{1}";
-        private const string STORES_BY_SEARCH_KEY = "makinaturkiye.store.bysearchparameters-{0}-{1}-{2}-{3}";
-        private const string STORES_HOME_KEY = "makinaturkiye.store.home";
-        private const string STORES_BY_STORE_URL_NAME_KEY = "makinaturkiye.store.bystoreurlname-{0}";
+        private const string STORES_BY_MAINPARTY_ID_KEY = "store.bymainpartyId-{0}";
+        private const string STORES_BY_CATEGORY_ID_KEY = "store.bycategoryId-{0}";
+        private const string STORES_BY_CATEGORY_ID_AND_BRAND_ID_KEY = "store.bycategoryId-brandId-{0}-{1}";
+        private const string STORES_BY_SEARCH_KEY = "store.bysearchparameters-{0}-{1}-{2}-{3}";
+        private const string STORES_HOME_KEY = "store.home";
+        private const string STORES_BY_STORE_URL_NAME_KEY = "store.bystoreurlname-{0}";
 
-        private const string STORECERTIFICATES_BY_MAIN_PARTY_ID_KEY = "makinaturkiye.storecertificates.bymainpartyid-{0}";
+        private const string STORECERTIFICATES_BY_MAIN_PARTY_ID_KEY = "storecertificates.bymainpartyid-{0}";
 
-        private const string STORES_SP_CATEGORYSTORES_BY_PARAMETER_KEY = "makinaturkiye.store.sp.categorystore.byparameter={0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}";
+        private const string STORES_SP_CATEGORYSTORES_BY_PARAMETER_KEY = "store.sp.categorystore.byparameter={0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}";
 
-        private const string STORES_PATTERN_KEY = "makinaturkiye.store.";
+        private const string STORES_PATTERN_KEY = "store.";
         #endregion
 
         #region Fields

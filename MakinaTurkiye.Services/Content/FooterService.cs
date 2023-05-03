@@ -12,8 +12,8 @@ namespace MakinaTurkiye.Services.Content
     {
         #region Constants
 
-        private const string FOOTERPARENT_ALL_KEY = "makinaturkiye.footerparent.byall";
-        private const string FOOTERPARENT_PATTERN_KEY = "makinaturkiye.footerparent.";
+        private const string FOOTERPARENT_ALL_KEY = "footerparent.byall";
+        private const string FOOTERPARENT_PATTERN_KEY = "footerparent.";
 
         #endregion
 

@@ -13,7 +13,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         #region Constants
 
-        private const string PRODUCTCOMMENTS_BY_PRODUCT_ID_KEY = "makinaturkiye.productcommnet.byproductid-{0}-{1}";
+        private const string PRODUCTCOMMENTS_BY_PRODUCT_ID_KEY = "productcommnet.byproductid-{0}-{1}";
 
         #endregion
 

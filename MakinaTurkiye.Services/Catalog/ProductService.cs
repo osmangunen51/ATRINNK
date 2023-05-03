@@ -19,25 +19,25 @@ namespace MakinaTurkiye.Services.Catalog
     {
 
         #region Constants
-        private const string PRODUCTS_BY_NEWS_PRODUCTS_KEY = "makinaturkiye.product.newsproduct.bynoneparameter";
-        private const string PRODUCTS_BY_PORULAR_PRODUCTS_KEY = "makinaturkiye.product.popularproduct.bynoneparameter";
-        private const string PRODUCTS_BY_PRODUCT_ID_KEY = "makinaturkiye.product.byproductId-{0}";
-        private const string PRODUCTS_BY_MAINPARTY_ID_AND_NON_PRODUCT_ID_KEY = "makinaturkiye.product.bymainpartyId-nonproductId-{0}-{1}-{2}";
-        private const string PRODUCTS_BY_CATEGORY_ID_AND_NON_PRODUCT_ID_KEY = "makinaturkiye.product.bycategoryId-nonproductId-{0}-{1}-{2}";
-        private const string PRODUCTS_MOSTVIEWPRODUCTS_BY_CATEGORY_ID_KEY = "makinaturkiye.product.mostviewproduct.bycategoryId-{0}-{1}";
-        private const string PRODUCTS_BY_STORE_MAIN_PARTY_ID_KEY = "makinaturkiye.product.bystoremainpartyId-byparameter-{0}-{1}-{2}-{3}-{4}";
-        private const string PRODUCTS_BY_CATEGORY_ID_KEY = "makinaturkiye.product.bycategoryid={0}";
-        private const string PRODUCTS_BY_MAIN_PARTY_ID_KEY = "makinaturkiye.product.bymainpartyid={0}-{1}";
+        private const string PRODUCTS_BY_NEWS_PRODUCTS_KEY = "product.newsproduct.bynoneparameter";
+        private const string PRODUCTS_BY_PORULAR_PRODUCTS_KEY = "product.popularproduct.bynoneparameter";
+        private const string PRODUCTS_BY_PRODUCT_ID_KEY = "product.byproductId-{0}";
+        private const string PRODUCTS_BY_MAINPARTY_ID_AND_NON_PRODUCT_ID_KEY = "product.bymainpartyId-nonproductId-{0}-{1}-{2}";
+        private const string PRODUCTS_BY_CATEGORY_ID_AND_NON_PRODUCT_ID_KEY = "product.bycategoryId-nonproductId-{0}-{1}-{2}";
+        private const string PRODUCTS_MOSTVIEWPRODUCTS_BY_CATEGORY_ID_KEY = "product.mostviewproduct.bycategoryId-{0}-{1}";
+        private const string PRODUCTS_BY_STORE_MAIN_PARTY_ID_KEY = "product.bystoremainpartyId-byparameter-{0}-{1}-{2}-{3}-{4}";
+        private const string PRODUCTS_BY_CATEGORY_ID_KEY = "product.bycategoryid={0}";
+        private const string PRODUCTS_BY_MAIN_PARTY_ID_KEY = "product.bymainpartyid={0}-{1}";
 
-        private const string PRODUCTS_SP_CATEGORYPRODUCTS_BY_PARAMETER_KEY = "makinaturkiye.product.sp.categoryproduct.byparameter={0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}-{10}-{11}";
-        private const string PRODUCTS_SP_CATEGORYPRODUCTS_BY_PARAMETER_PRICE_RANGE_KEY = "makinaturkiye.product.sp.categoryproduct.byparameter={0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}-{10}-{11}-{12}-{13}";
-        private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_BRAND_ID_KEY = "makinaturkiye.product.sp.productforstore.bybrandid-{0}-{1}-{2}";
-        private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_MODEL_ID_KEY = "makinaturkiye.product.sp.productforstore.bymodelid-{0}-{1}-{2}";
-        private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_CATEGORY_ID_KEY = "makinaturkiye.product.sp.productforstore.bycategoryid-{0}-{1}-{2}";
-        private const string PRODUCTS_SHOWCASE_KEY = "makinaturkiye.product.showcase";
+        private const string PRODUCTS_SP_CATEGORYPRODUCTS_BY_PARAMETER_KEY = "product.sp.categoryproduct.byparameter={0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}-{10}-{11}";
+        private const string PRODUCTS_SP_CATEGORYPRODUCTS_BY_PARAMETER_PRICE_RANGE_KEY = "product.sp.categoryproduct.byparameter={0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}-{10}-{11}-{12}-{13}";
+        private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_BRAND_ID_KEY = "product.sp.productforstore.bybrandid-{0}-{1}-{2}";
+        private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_MODEL_ID_KEY = "product.sp.productforstore.bymodelid-{0}-{1}-{2}";
+        private const string PRODUCTS_SP_PRODUCTFORSTORE_BY_CATEGORY_ID_KEY = "product.sp.productforstore.bycategoryid-{0}-{1}-{2}";
+        private const string PRODUCTS_SHOWCASE_KEY = "product.showcase";
 
-        private const string CATEGORY_PATTERN_KEY = "makinaturkiye.category";
-        private const string PRODUCTS_PATTERN_KEY = "makinaturkiye.product.";
+        private const string CATEGORY_PATTERN_KEY = "category";
+        private const string PRODUCTS_PATTERN_KEY = "product.";
 
         #endregion
 

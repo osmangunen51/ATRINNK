@@ -211,16 +211,19 @@ namespace NeoSistem.MakinaTurkiye.Web
             {
                 if (!Request.IsLocal)
                 {
+                    string SiteUrl = System.Configuration.ConfigurationManager.AppSettings["SiteUrl"].ToString();
+                    string SiteUrlWithoutLastSlash = System.Configuration.ConfigurationManager.AppSettings["SiteUrlWithoutLastSlash"].ToString();
+                    string domain = SiteUrl.ToLower().Replace("www", "").Replace("http://", "").Replace("http://", "").Replace(".com", "");
                     string host = Request.Url.Host;
 
-                    if (host.ToLower() == "www.makinaturkiye.com/")
+                    if (host.ToLower() == $"www.{SiteUrl}")
                     {
-                        string Url = "https://wwww.makinaturkiye.com";
+                        string Url = $"https://wwww.{SiteUrlWithoutLastSlash}";
                         Response.RedirectPermanent(Url, true);
                     }
                     bool nonwww = false;
                     var nodes = host.Split('.');
-                    if (nodes[0] != "www" && nodes[0] == "makinaturkiye")
+                    if (nodes[0] != "www" && nodes[0] == domain)
                     {
                         nonwww = true;
                         host = "www." + Request.Url.Host;
@@ -274,8 +277,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                             Response.RedirectPermanent(link);
                         }
                     }
-
-                    string key = "makinaturkiye.urlredirect.{0}";
+                    string key = $"{domain}.urlredirect.{0}";
                     ICacheManager _cacheManager = EngineContext.Current.Resolve<ICacheManager>();
                     var urlRedirectlist = _cacheManager.Get(key, () =>
                     {

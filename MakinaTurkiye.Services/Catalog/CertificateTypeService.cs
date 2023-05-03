@@ -10,8 +10,8 @@ namespace MakinaTurkiye.Services.Catalog
     public class CertificateTypeService : BaseService, ICertificateTypeService
     {
         #region Constants
-        private const string CERTIFICATE_CERTIFICATETYPES_KEY = "makinaturkiye.certifcatetype.certificatetypes";
-        private const string CERTIFICATE_CERTIFICATEPRODUCTS_BY_KEY = "makinaturkiye.certifcatetype.certificatetypeproduct.byproductId-{0}";
+        private const string CERTIFICATE_CERTIFICATETYPES_KEY = "certifcatetype.certificatetypes";
+        private const string CERTIFICATE_CERTIFICATEPRODUCTS_BY_KEY = "certifcatetype.certificatetypeproduct.byproductId-{0}";
 
         #endregion
 

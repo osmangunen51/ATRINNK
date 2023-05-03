@@ -590,7 +590,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         [HttpGet]
         public PartialViewResult GetHomeSector()
         {
-            string key = string.Format("makinaturkiye.home-sector-test");
+            string key = string.Format("home-sector-test");
             var model = _cacheManager.Get(key, () =>
             {
                 var categoryService = EngineContext.Current.Resolve<ICategoryService>();

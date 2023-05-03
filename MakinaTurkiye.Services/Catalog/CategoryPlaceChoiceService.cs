@@ -12,7 +12,7 @@ namespace MakinaTurkiye.Services.Catalog
 
         #region Constants
 
-        private const string CATEGORYPLACECHOICE_BY_CATEGORYPLACETYPE_ID_KEY = "makinaturkiye.Categoryplacechoice.bycategoryplacetypeId-{0}{1}";
+        private const string CATEGORYPLACECHOICE_BY_CATEGORYPLACETYPE_ID_KEY = "Categoryplacechoice.bycategoryplacetypeId-{0}{1}";
 
         #endregion
 

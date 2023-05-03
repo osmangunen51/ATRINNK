@@ -11,8 +11,8 @@ namespace MakinaTurkiye.Services.Members
     {
         #region Constants
 
-        private const string MEMBERSTORES_BY_MEMBERMAINPARTY_ID_KEY = "makinaturkiye.memberstore.bymembermainpartyId={0}";
-        private const string MEMBERSTORES_BY_STORE_MAIN_PARTY_ID_KEY = "makinaturkiye.memberstore.bystoremainpartyId={0}";
+        private const string MEMBERSTORES_BY_MEMBERMAINPARTY_ID_KEY = "memberstore.bymembermainpartyId={0}";
+        private const string MEMBERSTORES_BY_STORE_MAIN_PARTY_ID_KEY = "memberstore.bystoremainpartyId={0}";
 
         #endregion
 

@@ -13,8 +13,8 @@ namespace MakinaTurkiye.Services.Settings
 
         #region Constants 
 
-        private const string MEMBERSETTINGS_BY_SETTING_NAME_STORE_MAIN_PARTY_KEY = "makinaturkiye.membersetting.byname-{0}-{1}";
-        private const string SETTINGS_BY_SETTING_NAME_KEY = "makinaturkiye.setting.byname-{0}";
+        private const string MEMBERSETTINGS_BY_SETTING_NAME_STORE_MAIN_PARTY_KEY = "membersetting.byname-{0}-{1}";
+        private const string SETTINGS_BY_SETTING_NAME_KEY = "setting.byname-{0}";
 
         #endregion
 

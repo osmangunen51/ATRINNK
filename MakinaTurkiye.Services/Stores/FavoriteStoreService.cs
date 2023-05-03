@@ -12,7 +12,7 @@ namespace MakinaTurkiye.Services.Stores
     {
         #region Constants
 
-        private const string FAVORITESTORES_BY_MEMBERMAINPARTY_ID_WITH_STOREMAINPARTY_ID_KEY = "makinaturkiye.favoritestore.bymembermainpartyId-storemainpartyId-{0}-{1}";
+        private const string FAVORITESTORES_BY_MEMBERMAINPARTY_ID_WITH_STOREMAINPARTY_ID_KEY = "favoritestore.bymembermainpartyId-storemainpartyId-{0}-{1}";
 
         #endregion
 

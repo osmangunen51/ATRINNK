@@ -12,7 +12,7 @@ namespace MakinaTurkiye.Services.Stores
 
         #region Constants
 
-        private const string STORECATALOGFILES_BY_STORE_MAIN_PARTY_ID_KEY = "makinaturkiye.storecatalogfile.bystoremainpartyid-{0}";
+        private const string STORECATALOGFILES_BY_STORE_MAIN_PARTY_ID_KEY = "storecatalogfile.bystoremainpartyid-{0}";
 
         #endregion
 

@@ -18,26 +18,26 @@ namespace MakinaTurkiye.Services.Catalog
     {
         #region Constants
 
-        private const string CATEGORIES_BY_MAIN_CATEGORIES_KEY = "makinaturkiye.category.main-category";
-        private const string CATEGORIES_TOP_CATEGORIES_BY_CATEGORY_ID_KEY = "makinaturkiye.category.top-category.bycategoryId-{0}";
-        private const string CATEGORIES_BOTTOM_CATEGORIES_BY_CATEGORY_ID_KEY = "makinaturkiye.category.bottom-category.bycategoryId-{0}";
-        private const string CATEGORIES_BY_CATEGORYPARENT_ID_KEY = "makinaturkiye.category.bycategoryparentId-{0}";
-        private const string CATEGORIES_BY_CATEGORY_IDS_KEY = "makinaturkiye.category.bycategoryIds-{0}";
-        private const string CATEGORIES_BY_CATEGORY_NAME_KEY = "makinaturkiye.category.bycategoryname-{0}";
-        private const string CATEGORIES_BY_CATEGORY_ID_KEY = "makinaturkiye.category.bycategoryId-{0}";
-        private const string CATEGORIES_BY_MAIN_CATEGORY_TYPE_KEY = "makinaturkiye.category.bymaincategorytype-{0}";
+        private const string CATEGORIES_BY_MAIN_CATEGORIES_KEY = "category.main-category";
+        private const string CATEGORIES_TOP_CATEGORIES_BY_CATEGORY_ID_KEY = "category.top-category.bycategoryId-{0}";
+        private const string CATEGORIES_BOTTOM_CATEGORIES_BY_CATEGORY_ID_KEY = "category.bottom-category.bycategoryId-{0}";
+        private const string CATEGORIES_BY_CATEGORYPARENT_ID_KEY = "category.bycategoryparentId-{0}";
+        private const string CATEGORIES_BY_CATEGORY_IDS_KEY = "category.bycategoryIds-{0}";
+        private const string CATEGORIES_BY_CATEGORY_NAME_KEY = "category.bycategoryname-{0}";
+        private const string CATEGORIES_BY_CATEGORY_ID_KEY = "category.bycategoryId-{0}";
+        private const string CATEGORIES_BY_MAIN_CATEGORY_TYPE_KEY = "category.bymaincategorytype-{0}";
         private const string CATEGORIES_BY_CATEGORYPARENT_ID_KEY_ASYNC = "makinaturkiye.category.bycategoryparentId-{0}-async";
-        private const string CATEGORIES_SP_PRODUCTCATEGORY_FOR_SEARCH_TEXT_KEY = "makinaturkiye.category.sp.productcategory.forseachtext-{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}";
-        private const string CATEGORIES_SP_PRODUCTCATEGORY_ONE_STEP_FOR_SEARCH_TEXT_KEY = "makinaturkiye.category.sp.productcategory.onestep.forseachtext-{0}";
-        private const string CATEGORIES_SP_VIDEOCATEGORY_FOR_SEARCH_TEXT_KEY = "makinaturkiye.category.sp.videocategory.forseachtext-{0}-{1}";
-        private const string CATEGORIES_SP_VIDEOCATEGORY_BY_MAINPARTY_ID_KEY = "makinaturkiye.category.sp.videocategory.bymainpartyid-{0}-{1}";
-        private const string CATEGORIES_SP_BREADCRUMB_BY_CATEGORY_ID_KEY = "makinaturkiye.category.sp.breadcrub.bycategoryid-{0}";
-        private const string CATEGORIES_BY_CATEGORYPARENT_IDS_KEY = "makinaturkiye.category.bycategoryparentIds-{0}-{1}";
-        private const string CATEGORIES_BY_CATEGORYPARENT_ID_WITH_CATEGORY_TYPE_KEY = "makinaturkiye.category.bycategoryparentId-categorytype-{0}-{1}-{2}";
-        private const string CATEGORIES_SP_STOREPROFILE_BY_MAINPARTY_ID_KEY = "makinaturkiye.category.sp.storeprofile.bymainpartyid-{0}";
-        private const string CATEGORIES_BY_CATEGORY_TYPE_KEY = "makinaturkiye.category.bycategorytype-{0}-{1}";
-        private const string CATEGORIES_BY_LESS_THAN_CATEGORY_TYPE_KEY = "makinaturkiye.category.lessthancategorytype-{0}-{1}-{2}";
-        private const string CATEGORIES_SP_STORECATEGORY_BY_CATEGORYPARENT_ID_KEY = "makinaturkiye.category.sp.storecategory.bycategoryparentid-{0}";
+        private const string CATEGORIES_SP_PRODUCTCATEGORY_FOR_SEARCH_TEXT_KEY = "category.sp.productcategory.forseachtext-{0}-{1}-{2}-{3}-{4}-{5}-{6}-{7}-{8}-{9}";
+        private const string CATEGORIES_SP_PRODUCTCATEGORY_ONE_STEP_FOR_SEARCH_TEXT_KEY = "category.sp.productcategory.onestep.forseachtext-{0}";
+        private const string CATEGORIES_SP_VIDEOCATEGORY_FOR_SEARCH_TEXT_KEY = "category.sp.videocategory.forseachtext-{0}-{1}";
+        private const string CATEGORIES_SP_VIDEOCATEGORY_BY_MAINPARTY_ID_KEY = "category.sp.videocategory.bymainpartyid-{0}-{1}";
+        private const string CATEGORIES_SP_BREADCRUMB_BY_CATEGORY_ID_KEY = "category.sp.breadcrub.bycategoryid-{0}";
+        private const string CATEGORIES_BY_CATEGORYPARENT_IDS_KEY = "category.bycategoryparentIds-{0}-{1}";
+        private const string CATEGORIES_BY_CATEGORYPARENT_ID_WITH_CATEGORY_TYPE_KEY = "category.bycategoryparentId-categorytype-{0}-{1}-{2}";
+        private const string CATEGORIES_SP_STOREPROFILE_BY_MAINPARTY_ID_KEY = "category.sp.storeprofile.bymainpartyid-{0}";
+        private const string CATEGORIES_BY_CATEGORY_TYPE_KEY = "category.bycategorytype-{0}-{1}";
+        private const string CATEGORIES_BY_LESS_THAN_CATEGORY_TYPE_KEY = "category.lessthancategorytype-{0}-{1}-{2}";
+        private const string CATEGORIES_SP_STORECATEGORY_BY_CATEGORYPARENT_ID_KEY = "category.sp.storecategory.bycategoryparentid-{0}";
 
         #endregion
 

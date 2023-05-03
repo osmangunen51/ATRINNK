@@ -11,8 +11,8 @@ namespace MakinaTurkiye.Services.Common
     {
         #region Constants
 
-        private const string BANNERS_BY_BANNER_TYPE_KEY = "makinaturkiye.banner.bybannertype-{0}";
-        private const string BANNERS_BY_CATEGORY_ID_KEY = "makinaturkiye.banner.bycategoryId-{0}";
+        private const string BANNERS_BY_BANNER_TYPE_KEY = "banner.bybannertype-{0}";
+        private const string BANNERS_BY_CATEGORY_ID_KEY = "banner.bycategoryId-{0}";
 
         #endregion
 

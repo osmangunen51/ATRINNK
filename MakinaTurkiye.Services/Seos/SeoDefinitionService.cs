@@ -9,8 +9,8 @@ namespace MakinaTurkiye.Services.Seos
     {
         #region Constants
 
-        private const string SEOS_BY_All_SEO_KEY = "makinaturkiye.seo.all-seo";
-        private const string SEODEFINITIONS_BY_ENTITY_ID_KEY = "makinaturkiye.seodefinition.byentityId-{0}-{1}";
+        private const string SEOS_BY_All_SEO_KEY = "seo.all-seo";
+        private const string SEODEFINITIONS_BY_ENTITY_ID_KEY = "seodefinition.byentityId-{0}-{1}";
 
         #endregion
 

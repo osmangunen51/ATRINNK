@@ -139,6 +139,7 @@ namespace MakinaTurkiye.Caching
         /// <returns>The value associated with the specified key.</returns>
         public T Get<T>(string key)
         {
+            key = $"{KeyFrefix}.{key}";
             if (!AllOperationEnabled)
                 return default(T);
 
@@ -169,6 +170,7 @@ namespace MakinaTurkiye.Caching
         /// <param name="cacheTime">Cache time</param>
         public void Set(string key, object data, int cacheTime)
         {
+            key = $"{KeyFrefix}.{key}";
             if (!AllOperationEnabled)
                 return;
 
@@ -194,6 +196,7 @@ namespace MakinaTurkiye.Caching
         /// <returns>The cached value associated with the specified key</returns>
         public async Task<T> GetAsync<T>(string key)
         {
+            key = $"{KeyFrefix}.{key}";
             if (!AllOperationEnabled)
                 return default(T);
 
@@ -231,6 +234,8 @@ namespace MakinaTurkiye.Caching
         /// <param name="cacheTime">Cache time in minutes</param>
         public async Task SetAsync(string key, object data, int cacheTime)
         {
+            key = $"{KeyFrefix}.{key}";
+
             if (!AllOperationEnabled)
                 return;
 
@@ -257,6 +262,8 @@ namespace MakinaTurkiye.Caching
         /// <returns>Result</returns>
         public bool IsSet(string key)
         {
+            key = $"{KeyFrefix}.{key}";
+
             if (!AllOperationEnabled)
                 return false;
 
@@ -280,6 +287,7 @@ namespace MakinaTurkiye.Caching
         /// <returns>True if item already is in cache; otherwise false</returns>
         public async Task<bool> IsSetAsync(string key)
         {
+            key = $"{KeyFrefix}.{key}";
             if (!AllOperationEnabled)
                 return false;
 
@@ -302,6 +310,7 @@ namespace MakinaTurkiye.Caching
         /// <param name="key">/key</param>
         public void Remove(string key)
         {
+            key = $"{KeyFrefix}.{key}";
             if (!AllOperationEnabled)
                 return;
 
@@ -368,6 +377,7 @@ namespace MakinaTurkiye.Caching
         public bool RemoveOperationEnabled { get; set; }
 
         public bool AllOperationEnabled { get; set; }
+        public string KeyFrefix { get; set; }
 
         #endregion
 
