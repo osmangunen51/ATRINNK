@@ -633,7 +633,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
             int videoCountByCategoryId = 0;
             var request = HttpContext.Request;
-            ViewBag.Canonical = "https://video.makinaturkiye.com" + request.Url.AbsolutePath;
+            ViewBag.Canonical = AppSettings.VideoUrlBase + request.Url.AbsolutePath;
 
             //if (categoryId == 0)
             //{
@@ -683,7 +683,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
 
 
 
-            string key = string.Format("makinaturkiye.video-pages-test");
+            string key = string.Format("video-pages-test");
             var testModel = _cacheManager.Get(key, () =>
             {
                 var model = new MTVideoViewModel();
@@ -719,7 +719,7 @@ namespace NeoSistem.MakinaTurkiye.Web.Controllers
         {
 
             var request = HttpContext.Request;
-            ViewBag.Canonical = "https://video.makinaturkiye.com" + request.Url.AbsolutePath;
+            ViewBag.Canonical = AppSettings.VideoUrlBase + request.Url.AbsolutePath;
 
             _videoService.CachingGetOrSetOperationEnabled = false;
             var video = _videoService.GetVideoByVideoId(VideoId);

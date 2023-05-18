@@ -61,12 +61,12 @@ namespace NeoSistem.MakinaTurkiye.Web.App_Start
                 new { controller = "StoreNew", action = "Detail" },
                        new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
 
-            routes.Add("DomainRouteForProduct", new DomainRoute(
-                UrunUrlBase, // Domain with parameters
-                "{productName}-p-{productId}",    // URL with parameters
+            //routes.Add("DomainRouteForProduct", new DomainRoute(
+            //    UrunUrlBase, // Domain with parameters
+            //    "{productName}-p-{productId}",    // URL with parameters
 
-                new { controller = "Product", action = "DetailClear" }  // Parameter defaults
-                ));
+            //    new { controller = "Product", action = "DetailClear" }  // Parameter defaults
+            //    ));
 
             //      routes.Add("DomainRouteForWrongCategoryVideo", new DomainRoute(
             //VideoUrlBase // Domain with parameters
@@ -585,6 +585,8 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 new { VideoId = @"\d+" },
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 );
+
+
             routes.MapRoute(
              "VideoProductNew",
              "{ProductName}-v-{VideoId}",
@@ -600,12 +602,12 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
              );
 
 
-            routes.Add("DomainRouteForNewVideo", new DomainRoute(
-    VideoUrlBase, // Domain with parameters
-    "{productName}-v-{VideoId}",    // URL with parameters
+            //routes.Add("DomainRouteForNewVideo", new DomainRoute(
+            //VideoUrlBase, // Domain with parameters
+            //"{productName}-v-{VideoId}",    // URL with parameters
 
-    new { controller = "Videos", action = "VideoItems2" }  // Parameter defaults
-    ));
+            //new { controller = "Videos", action = "VideoItems2" }  // Parameter defaults
+            //));
 
 
             routes.MapRoute(
@@ -941,6 +943,7 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 new { controller = "Product", action = "DetailClear", productId = UrlParameter.Optional },
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 );
+
             routes.MapRoute(
                 "ProductDetailNew",
                 "{productName}-p-{productId}",
@@ -949,13 +952,13 @@ new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }));
                 new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
                 ).DataTokens.Add("RouteName", "ProductDetailNew");
 
-            routes.MapRoute(
-                "ProductDetailNewWrong",
-                "-p-{productId}",
-                new { controller = "Product", action = "DetailClear", productId = UrlParameter.Optional },
-                new { productId = @"\d\d\d\d+" },
-                new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
-                ).DataTokens.Add("RouteName", "ProductDetailNew");
+            //routes.MapRoute(
+            //    "ProductDetailNewWrong",
+            //    "-p-{productId}",
+            //    new { controller = "Product", action = "DetailClear", productId = UrlParameter.Optional },
+            //    new { productId = @"\d\d\d\d+" },
+            //    new[] { "NeoSistem.MakinaTurkiye.Web.Controllers" }
+            //    ).DataTokens.Add("RouteName", "ProductDetailNew");
 
 
 

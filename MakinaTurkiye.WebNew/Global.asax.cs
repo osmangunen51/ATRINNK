@@ -277,6 +277,7 @@ namespace NeoSistem.MakinaTurkiye.Web
                             Response.RedirectPermanent(link);
                         }
                     }
+
                     string key = $"{domain}.urlredirect.{0}";
                     ICacheManager _cacheManager = EngineContext.Current.Resolve<ICacheManager>();
                     var urlRedirectlist = _cacheManager.Get(key, () =>

@@ -2,7 +2,7 @@
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
-    <NameOfLastUsedPublishProfile>E:\Development\Proje\github\source\osmanhaciosmanoglu\MakinaTurkiye\MakinaTurkiye.WebNew\Properties\PublishProfiles\df_publish.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>E:\Development\Proje\github\source\osmanhaciosmanoglu\MakinaTurkiye\MakinaTurkiye.WebNew\Properties\PublishProfiles\FolderProfile.pubxml</NameOfLastUsedPublishProfile>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>2526</IISExpressSSLPort>
