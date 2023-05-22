@@ -1,0 +1,40 @@
+﻿@model NeoSistem.Trinnk.Management.Models.WebSiteErrorCreateModel
+@section TitleContent {
+
+        @{ string title = "  Site Sorun Düzenle";
+        if (Request.QueryString["type"] != null)
+        {
+            title = "Site Öneri Düzenle";
+        }
+            } 
+    @title
+
+}
+@section HeadContent {
+
+  <script type="text/javascript" src="~/Content/Scripts/CKEditor/ckeditor.js"></script>
+  <script type="text/javascript" src="~/Content/Scripts/CKFinder/ckfinder.js"></script>
+
+
+}
+
+
+
+@*      <div style="margin-left:20px">
+      <%
+          foreach (ModelState modelState in ViewData.ModelState.Values) {
+              foreach (ModelError error in modelState.Errors) {
+                 %>
+      <p style="color:#d50606; font-size:16px; ">* <%:error.ErrorMessage %></p>
+              <%}
+          }
+          %>
+          </div>*@
+      @using (Html.BeginForm())
+          { 
+               @Html.Partial("_ErrorFormModel", Model) 
+      } 
+
+
+
+

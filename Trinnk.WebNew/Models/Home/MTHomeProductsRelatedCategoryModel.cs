@@ -1,0 +1,17 @@
+﻿using System.Collections.Generic;
+
+namespace NeoSistem.Trinnk.Web.Models.Home
+{
+    public class MTHomeProductsRelatedCategoryModel
+    {
+        public MTHomeProductsRelatedCategoryModel()
+        {
+            this.Categories = new List<MTHomeCategoryModel>();
+            this.Products = new List<MTHomeProductRelatedItem>();
+            this.SubCategories = new List<MTHomeCategoryModel>();
+        }
+        public List<MTHomeCategoryModel> Categories { get; set; }
+        public List<MTHomeProductRelatedItem> Products { get; set; }
+        public List<MTHomeCategoryModel> SubCategories { get; set; }
+    }
+}

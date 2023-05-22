@@ -1,0 +1,104 @@
+﻿@model MTCategoryModel
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+
+
+}
+@{string display = "display:block; list-style-type:none;"; }
+@*@if (Model.ActiveCategory != null) { display = "display:block; list-style-type:none;"; }*@
+<ul class="sub-menu" style="@display">
+    @*<%--Üst Kategoriler--%>*@
+    @{int LeftMargin = 0;
+        int leftMargin2 = 0;
+    }
+    @if (Model.ActiveCategory != null)
+    {
+        LeftMargin += 0;
+
+
+        foreach (var item in Model.MTTopCategoryItems.Where(x => x.CategoryType == (byte)CategoryType.ProductGroup).OrderBy(c => c.CategoryName))
+        {
+            <li class="sub-menu-item">
+                <a style="color:@Html.Raw(item.CategoryId==Model.ActiveCategory.CategoryId ? "#EB3B25":"")" href="@item.CategoryUrl">@item.CategoryName</a>
+            </li>
+
+            if (Model.MTTopCategoryItems.Where(x => x.CategoryParentId == item.CategoryId).ToList().Count > 0)
+            {
+                LeftMargin += 5;
+
+                foreach (var itemParent in Model.MTTopCategoryItems.Where(c => c.CategoryParentId == item.CategoryId))
+                {
+
+                    leftMargin2 = LeftMargin;
+                    <li style="margin-left:@Html.Raw(LeftMargin+"px")" class="sub-menu-item">
+                        <a style="color:@Html.Raw(itemParent.CategoryId==Model.ActiveCategory.CategoryId ? "#EB3B25":"")" href="@itemParent.CategoryUrl">@itemParent.CategoryName</a>
+                    </li>
+                    if(Model.MTTopCategoryItems.Where(c => c.CategoryParentId == itemParent.CategoryId).Count()>0)
+                    {
+                        leftMargin2 += 5;
+                    }
+                    foreach (var itemSub in Model.MTTopCategoryItems.Where(c => c.CategoryParentId == itemParent.CategoryId))
+                    {
+
+                        <li style="margin-left:@Html.Raw(leftMargin2+"px")" class="sub-menu-item">
+                            <a style="color:@Html.Raw(itemSub.CategoryId==Model.ActiveCategory.CategoryId ? "#EB3B25":"")" href="@itemSub.CategoryUrl">@itemSub.CategoryName</a>
+                        </li>
+
+                    }
+
+                }
+
+            }
+
+
+        }
+
+    }
+    else
+    {
+
+        foreach (var item in Model.MTCategoryItems.Where(x => x.CategoryType == (byte)CategoryType.ProductGroup).OrderBy(c => c.CategoryName))
+        {
+            <li class="sub-menu-item">
+                <a href="@item.CategoryUrl">@item.CategoryName</a>
+
+                @if (Model.MTCategoryItems.Where(x => x.CategoryParentId == item.CategoryId).ToList().Count > 0)
+                {
+                    <i class="icon-down-arrow menuarrow"></i>
+                    <ul class="sub-menu">
+                        @foreach (var itemParent in Model.MTCategoryItems.Where(c => c.CategoryParentId == item.CategoryId))
+                        {
+                            <li class="sub-menu-item">
+                                <a href="@itemParent.CategoryUrl">@itemParent.CategoryName</a>
+                            </li>
+
+                        }
+                    </ul>
+                }
+            </li>
+
+        }
+    }
+</ul>
+
+

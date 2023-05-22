@@ -25,7 +25,7 @@ namespace BulkImageResizeTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\inetpub\\vhosts\\makinaturkiye.com\\httpdocs\\UserFiles\\Images\\Product\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\inetpub\\vhosts\\trinnk.com\\httpdocs\\UserFiles\\Images\\Product\\")]
         public string OldImagePath {
             get {
                 return ((string)(this["OldImagePath"]));
@@ -61,7 +61,7 @@ namespace BulkImageResizeTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\inetpub\\vhosts\\makinaturkiye.com\\httpdocs\\UserFiles\\Images\\StoreLogo\\")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\inetpub\\vhosts\\trinnk.com\\httpdocs\\UserFiles\\Images\\StoreLogo\\")]
         public string OldStoreLogoImagePath {
             get {
                 return ((string)(this["OldStoreLogoImagePath"]));
@@ -73,7 +73,7 @@ namespace BulkImageResizeTool.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\inetpub\\vhosts\\makinaturkiye.com\\httpdocs\\UserFiles\\Images\\StoreProfilePicture" +
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\inetpub\\vhosts\\trinnk.com\\httpdocs\\UserFiles\\Images\\StoreProfilePicture" +
             "\\")]
         public string OldStoreProfileImagePath {
             get {

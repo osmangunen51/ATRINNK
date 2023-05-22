@@ -1,0 +1,82 @@
+﻿@model AdvertViewModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
+        @Html.Partial("LeftMenu",Model.LeftMenu)
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <!-- Başlangıç -->
+        <div class="widget">
+            <div class="widget-line">
+                <div class="padtb">
+                    <div class="widgetcontent ">
+                        <div class="singlerow">
+                            <img src="/Content/V2/images/market-icon.png" />
+                            <h3 class="header-red">
+                                @if (AuthenticationUser.Membership.MemberType == (byte)MemberType.FastIndividual)
+                                {@("Mevcut üyeliğiniz bu işlemi yapmaya izin vermiyor. ") }
+                                else
+                                { @("Üyelik Paketi Al !")}
+                            </h3>
+                        </div>
+                        <div class="pad-15">
+                            <p class="font-large">
+                                Makina Türkiye.com’dan üyelik satın alın!
+                            </p>
+                            <p class="font-xtralarge">
+                                <strong>İşletmeniz ve ürünleriniz Yıllık 5 milyon ziyaretçiye ulaşsın!</strong>
+                            </p>
+                            <p class="font-large">
+                                <a href="/MembershipSales/StorePackagePurchaseRequest" class="btn btn-success">
+                                    Üyelik Paketi Satın Almak İstiyorum
+                                </a>
+                                @*<a href="/MembershipSales/StorePackagePurchaseRequest">Üyelik Paketi Satın Almak İstiyorum</a>*@
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="widget-line">
+                <!-- Reklam Görseli -->
+                <!-- Hemen Tıkla Görseli -->
+                <a href="/reklam-y-141615">
+                    <img class="responsiveimg padtb" src="/Content/V2/images/hemen-tikla.png" />
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

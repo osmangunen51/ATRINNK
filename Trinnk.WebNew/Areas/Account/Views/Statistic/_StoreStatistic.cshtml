@@ -1,0 +1,99 @@
+﻿@model NeoSistem.Trinnk.Web.Models.Statistics.MTStatisticModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.Trinnk.Web.Areas.Account.Constants
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+
+<script src="../../../../Content/V2/assets/js/chart-util.js"></script>
+<script src="../../../../Content/V2/assets/js/Chart.min.js"></script>
+<script>
+
+        var config = {
+            type: 'line',
+            data: {
+                labels: @Model.JsoonLabels,
+                datasets: [{
+                    label: 'Görüntülenme Sayısı',
+                    backgroundColor: window.chartColors.blue,
+                    borderColor: window.chartColors.blue,
+                    data: @Model.JsonDatas,
+                    fill: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                title: {
+                    display: true,
+                    text: 'Firma Sayfanızın Görüntülenme Oranları'
+                },
+                tooltips: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                hover: {
+                    mode: 'nearest',
+                    intersect: true
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Tarihler'
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Görüntülenme Değeri'
+                        }
+                    }]
+                }
+            }
+        };
+        $(document).ready(function () {
+            var ctx = document.getElementById('canvas').getContext('2d');
+            window.myLine = new Chart(ctx, config);
+        });
+
+
+
+</script>
+
+<div class="col-md-12">
+    <canvas id="canvas"></canvas>
+</div>

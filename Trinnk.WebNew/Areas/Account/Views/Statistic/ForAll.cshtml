@@ -1,0 +1,136 @@
+﻿@model dynamic
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.Trinnk.Web.Areas.Account.Constants
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+
+
+<style type="text/css">
+    .style1 {
+        border: solid 1px #bababa;
+        width: 86%;
+    }
+
+    .style7 {
+        border: solid 1px #bababa;
+        width: 959px;
+    }
+
+    .style8 {
+        border: solid 1px #bababa;
+        width: 153px;
+    }
+
+    .style10 {
+        border: solid 1px #bababa;
+        width: 176px;
+    }
+
+    .style11 {
+        border: solid 1px #bababa;
+        width: 172px;
+    }
+</style>
+
+<div style=" height: auto;min-height: 294px;width: 784px;float: left;border: 1px solid #B1CEE1;margin-bottom: 20px; min-height:294px;">
+    <div class="orta_baslik">Genel</div>
+    @if (AuthenticationUser.Membership.MemberType == 20)
+    {
+        TrinnkEntities entities = new TrinnkEntities();
+        var storeview = entities.MemberStores.Where(c => c.MemberMainPartyId == AuthenticationUser.Membership.MainPartyId).SingleOrDefault().StoreMainPartyId;
+        var store = entities.Stores.Where(c => c.MainPartyId == storeview).SingleOrDefault();
+        var product = entities.Products.Where(c => c.MainPartyId == AuthenticationUser.Membership.MainPartyId).ToList();
+        int singular = 0;
+        int plural = 0;
+        foreach (var count in product)
+        {
+            singular = Convert.ToInt32(count.SingularViewCount) + singular;
+            plural = Convert.ToInt32(count.ViewCount) + plural;
+        }
+
+        <table class="style1" style="margin-left:10px;">
+            <tr style="height:21px;">
+                <td class="style7">
+                </td>
+                <td class="style8" align="center">
+                    <span style="color:#4C4C4C; font-family:Arial; font-size:11px;">İlan Sayısı </span>
+                </td>
+                <td class="style11" align="center">
+                    <span style="color:#4C4C4C; font-family:Arial; font-size:11px;"> Tekil </span>
+                </td>
+                <td class="style10" align="center">
+                    <span style="color:#4C4C4C; font-family:Arial; font-size:11px;"> Çoğul </span>
+                </td>
+            </tr>
+            <tr style="height:21px;">
+                <td class="style7">
+                    <span style="color:#4C4C4C; font-family:Arial; font-size:11px;">
+                        Firma Sayfa Görüntülenme
+                    </span>
+                </td>
+                <td class="style8" align="center">
+                    <span style="color:#4C4C4C; font-family:Arial; font-size:11px;"> - </span>
+                </td>
+                <td class="style11" style="color:#4C4C4C; font-family:Arial; font-size:11px;" align="center">
+                    @store.SingularViewCount
+                </td>
+                <td class="style10" style="color:#4C4C4C; font-family:Arial; font-size:11px;" align="center">
+                    @store.ViewCount
+                </td>
+            </tr>
+            <tr style="height:21px;">
+                <td class="style7">
+                    <span style="color:#4C4C4C; font-family:Arial; font-size:11px;">
+                        Toplam Ürün Tıklama Sayısı
+                    </span>
+                </td>
+                <td class="style8" style="color:#4C4C4C; font-family:Arial; font-size:11px;" align="center">
+                    @product.Count
+                </td>
+                <td class="style11" style="color:#4C4C4C; font-family:Arial; font-size:11px;" align="center">
+                    @singular
+                </td>
+                <td class="style10" style="color:#4C4C4C; font-family:Arial; font-size:11px;" align="center">
+                    @plural
+                </td>
+            </tr>
+        </table>
+        <br />
+    }
+
+    <br />
+</div>
+

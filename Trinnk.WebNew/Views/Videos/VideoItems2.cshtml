@@ -1,0 +1,79 @@
+﻿@model MTVideoItemViewModel
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+}
+
+@section headercontent{
+    <link rel="canonical" href="@ViewBag.Canonical" />
+
+    <link href="../../Content/video-js-7.4.1/video-js.min.css" rel="stylesheet" />
+    <script src="../../Content/video-js-7.4.1/video.js"></script>
+
+
+    <script src="/Content/Scripts/VideoDetails/VideoDetail.js"></script>
+}
+
+<div class="row hidden-xs">
+    <div class="col-xs-12">
+        @if (ViewData["ViewNavigation"] != null)
+        {
+            @Html.Raw(ViewData["ViewNavigation"])
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-8">
+        @if (ViewContext.RouteData.Values["VideoId"] != null)
+        {
+            <div class="videocontent">
+                <video id="vd" class="video-js vjs-default-skin" controls preload="auto" autoplay="autoplay" width="100%"
+                       height="100%" style="width:100%; height:100%; padding: 4px; border: 1px solid #ddd; border-radius: 4px; transition: all .2s ease-in-out; display: inline-block;"
+                       poster="" data-setup='{"techOrder": ["html5"]}'>
+                    <source src="https://s.trinnk.com/NewVideos/@(Model.VideoPath).mp4" type='video/mp4' />
+                </video>
+            </div>
+        }
+        else
+        {
+            <img class="img-thumbnail" src="https://dummyimage.com/800x400/efefef/000000.jpg&text=video" alt=".." />
+        }
+
+        @Html.Partial("StoreAndProductInf", Model.MTStoreAndProductDetailModel)
+    </div>
+    <div class="visible-xs mb20">
+        &nbsp;
+    </div>
+    <div class="visible-sm mb20">
+        &nbsp;
+    </div>
+    @Html.Partial("_OtherVideos", Model.MTOtherVideosModel)
+</div>
+
+<input id="hdnCategoryId" type="hidden" name="categoryId" value="@Convert.ToInt32(ViewData["CategoryId"])" />
+<script type="text/javascript">
+            var videoItemId = @Model.VideoId;
+            PopulerVideosRemoveItemVideo(videoItemId);
+</script>

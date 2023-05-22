@@ -1,0 +1,67 @@
+﻿@model ICollection<MTHomeAdModel>
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+
+@{
+    Layout = null;
+    //using NeoSistem.Trinnk.Web.Models
+    //using Trinnk.Core
+}
+
+<div class="row popular-ilanlar">
+    <div class="col-xs-12">
+        <h2 class="section-title">
+            <span>Popüler İlanlar</span>
+        </h2>
+    </div>
+    <div class="col-xs-12">
+        <div class="overflow-carousel" id="PopulerProductContainer">
+            <div class="owl-carousel overflowdouble" id="popularitemscarousel">
+
+                @{int StepCounter = 0; }
+                @foreach (var populerAd in Model)
+                {
+                    StepCounter += 1;
+                    if (StepCounter == 1)
+                    {
+                        @:<div class="item double-item"
+                    }
+
+                            <div class="product-card">
+                                <a href="@populerAd.ProductUrl" class="product-image">
+                                    <img alt="@populerAd.ProductName" src="/UserFiles/image-loading.png" class="img-lazy-l" data-src="@populerAd.PicturePath.Replace("160x120","200x150")" title="@populerAd.ProductName" />
+                                    <span class="product-details">
+                                        @populerAd.ProductName
+                                    </span>
+                                </a>
+                            </div>
+                            if (StepCounter == 2)
+                            {
+                    @:</div>
+
+                            StepCounter = 0;
+                        }
+                            }
+                            @if (StepCounter == 1)
+                            {
+                            @:</div>
+                        }
+                        </div>
+                        <a class="left overflow-prev" data-slide="prev" href="#popularitemscarousel">
+                            <div><i class="fa fa-angle-left fa-3x"></i></div>
+                        </a>
+                        <a class="left overflow-next" data-slide="next" href="#popularitemscarousel">
+                            <div><i class="fa fa-angle-right fa-3x"></i></div>
+                        </a>
+                    </div>
+                </div>
+
+
+
+                </div>
+
+
+

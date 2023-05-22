@@ -1,0 +1,10 @@
+﻿namespace NeoSistem.Trinnk.Web.Models.Products
+{
+    public class MTProductVideoModel
+    {
+        public string VideoPath { get; set; }
+        public string VideoPicturePath { get; set; }
+        public string VideoTitle { get; set; }
+        public int VideoId { get; set; }
+    }
+}

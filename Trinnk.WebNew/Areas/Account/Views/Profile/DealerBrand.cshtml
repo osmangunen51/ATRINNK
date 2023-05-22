@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Trinnk.Entities.Tables.Stores.DealerBrand>
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+@using Trinnk.Core
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.Trinnk.Web.Areas.Account.Constants
+
+@{
+    Layout = null;
+
+}
+@foreach (var item in Model)
+{
+    <div style="width: 90px; height: 70px; float: left; margin-bottom: 10px; text-align: center">
+        <img width="50" height="50" src="@(AppSettings.DealerBrandImageFolder + item.DealerBrandPicture)" />
+        <br />
+        <span style="font-size: 12px;">
+            @item.DealerBrandName
+        </span>
+        <br />
+        <a style="font-size: 12px; color: Red; cursor: pointer;" onclick="DeleteDealerBrand('@item.DealerBrandId');">
+            Sil
+        </a>
+    </div>} 

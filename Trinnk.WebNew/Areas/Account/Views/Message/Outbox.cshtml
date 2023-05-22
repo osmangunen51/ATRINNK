@@ -1,0 +1,105 @@
+﻿@model MessageViewModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+
+<div>
+    <h4 class="mt0 text-info">
+        <span class="text-primary glyphicon glyphicon-cog"></span> Giden Mesajlar
+    </h4>
+    <div class="well well-mt2">
+        @if (ViewData["message"] == "true")
+        {
+
+            <div class="col-md-12" style="">
+                <div class="alert alert-danger alert-dismissable" data-rel="email-wrapper" id="telefonHata" style="display:none;text-align:center;">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                        &times;
+                    </button>
+                    Kayıtlı olup gitmeyen tüm mesajlarınız gönderilmiştir.
+                </div>
+            </div>
+        }
+        <table class="table table-hover table-condensed">
+            <thead>
+                <tr>
+                    <th style="width: 20px;">
+                    </th>
+                    <th style="width: 100px;">
+                        Kime
+                    </th>
+                    <th>
+                        Konu
+                    </th>
+                    <th class="hidden-xs" style="width: 150px;">
+                        Tarih
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @{ TrinnkEntities entities = new TrinnkEntities();
+                    short index = 0;
+                    foreach (var item in Model.MessageItems)
+                    {
+                        index++;
+
+                        <tr>
+                            <td>
+                                @Html.CheckBox("click")
+                            </td>
+                            <td>
+                                <a href="/Account/Message/Detail/@(item.MessageId)?RedirectMessageType=@((byte)MessageType.Outbox )">
+                                    @Html.Truncate(item.MainPartyFullName, 22)
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/Account/Message/Detail/@(item.MessageId)?RedirectMessageType=@((byte)MessageType.Outbox )">
+
+                                    @{var subject = entities.Messages.Where(c => c.MessageId == item.MessageId).SingleOrDefault().MessageSubject; }
+                                    @if (subject != null)
+                                    {
+                                        @Html.Truncate(subject, 70)}
+                                </a>
+                            </td>
+                            <td class="hidden-xs">
+                                @item.MessageDate.ToString("dd.MM.yyyy HH:mm")
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>

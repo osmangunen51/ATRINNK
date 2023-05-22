@@ -1,0 +1,25 @@
+﻿@model dynamic
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //using NeoSistem.Trinnk.Web.Models
+    //using Trinnk.Core
+}
+
+
+    <div class="row">
+        <div class="well">
+            <span>Kullanıcı adı veya şifrenizi hatalı girdiniz.
+                <br />
+                <br />
+                Tekrar giriş yapmak için</span> <a href="/Uyelik/KullaniciGirisi">tıklayınız</a>
+        </div>
+    </div>

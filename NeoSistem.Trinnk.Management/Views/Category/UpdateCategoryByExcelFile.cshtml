@@ -1,0 +1,52 @@
+﻿@model NeoSistem.Trinnk.Management.Models.WebSiteErrorCreateModel
+@section TitleContent {
+
+Kategorileri Excel Dosyası İle Güncelle
+
+}
+@section HeadContent {
+
+
+
+}
+
+
+    <div style="margin-left:40px; margin-top:20px;">
+    @if (ViewBag.Updated != null && ViewBag.Updated == true) {
+        <p style="font-size:15px; color:#003317">Ürünler başarıyla güncellenmiştir.</p>
+     } 
+      @using (Html.BeginForm("UpdateCategoryByExcelFile","Category",FormMethod.Post,new {@enctype="multipart/form-data" }))
+          { 
+        <table border="0" class="tableForm" cellpadding="5" cellspacing="0">
+      <tr>
+    <td valign="top">
+     Kategori Excel Dosyası
+    </td>
+    <td valign="top">
+      :
+    </td>
+    <td valign="top">
+        <input type="file" name="file" />
+    </td>
+
+  </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td>
+                    <button type="submit" style="width: 70px; height: 35px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">
+        Gönder
+        </span></button>
+        <button type="button" style="width: 70px; height: 35px;" onclick="window.location='/Product/Index'" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">
+          İptal
+        </span></button>
+        <br>
+  
+                </td>
+            </tr>
+            </table>
+      } 
+        
+            </div>
+
+
+

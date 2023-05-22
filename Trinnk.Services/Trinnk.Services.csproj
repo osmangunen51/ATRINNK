@@ -1,0 +1,400 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{703A6535-115C-4056-97ED-48FD93D05C4C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Trinnk.Services</RootNamespace>
+    <AssemblyName>Trinnk.Services</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dapper.2.0.123\lib\net461\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Elasticsearch.Net, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\Elasticsearch.Net.7.0.0\lib\net461\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=1.2.0.246, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpZipLib.1.2.0\lib\net45\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.4.3\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.4.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.4.3\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.6.0.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bcl.HashCode.1.1.1\lib\net461\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore.Relational">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.entityframeworkcore.relational\2.2.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.Relational.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.2.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest, Version=7.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <HintPath>..\packages\NEST.7.0.0\lib\net461\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Npgsql, Version=6.0.0.0, Culture=neutral, PublicKeyToken=5d8b90d52f46fda7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Npgsql.6.0.0\lib\netstandard2.0\Npgsql.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=108.0.1.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.108.0.1\lib\netstandard2.0\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Collections.Immutable.6.0.0\lib\net461\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.6.0.0\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.6.0-preview5.19224.8\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security" />
+    <Reference Include="System.Text.Encodings.Web, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encodings.Web.6.0.0\lib\net461\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Json.6.0.0\lib\net461\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Channels.6.0.0\lib\net461\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net47\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Authentication\FormsAuthenticationService.cs" />
+    <Compile Include="Authentication\IAuthenticationService.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="Bulletins\BulletinService.cs" />
+    <Compile Include="Bulletins\IBulletinService.cs" />
+    <Compile Include="CallCenter\CallinfoResponse.cs" />
+    <Compile Include="CallCenter\CallinfoRequest.cs" />
+    <Compile Include="CallCenter\ICallCenterService.cs" />
+    <Compile Include="CallCenter\CallCenterService.cs" />
+    <Compile Include="Catalog\CategoryPlaceChoiceService.cs" />
+    <Compile Include="Catalog\CategoryPropertieService.cs" />
+    <Compile Include="Catalog\CategoryService.cs" />
+    <Compile Include="Catalog\CategoryPlaceTypeEnum.cs" />
+    <Compile Include="Catalog\CategoryTypeEnum.cs" />
+    <Compile Include="Catalog\CertificateTypeService.cs" />
+    <Compile Include="Catalog\DeletedProductRedirectService.cs" />
+    <Compile Include="Catalog\FavoriteProductService.cs" />
+    <Compile Include="Catalog\CategoryProductsResult.cs" />
+    <Compile Include="Catalog\ICategoryPlaceChoiceService.cs" />
+    <Compile Include="Catalog\ICategoryPropertieService.cs" />
+    <Compile Include="Catalog\ICategoryService.cs" />
+    <Compile Include="Catalog\ICertificateTypeService.cs" />
+    <Compile Include="Catalog\IDeletedProductRedirectService.cs" />
+    <Compile Include="Catalog\IFavoriteProductService.cs" />
+    <Compile Include="Catalog\ISiteMapCategoryService.cs" />
+    <Compile Include="Catalog\IStoreProductCreateSettingService.cs" />
+    <Compile Include="Catalog\ProductActiveTypeEnum.cs" />
+    <Compile Include="Catalog\ProductStatisticRepository.cs" />
+    <Compile Include="Catalog\SiteMapCategoryService.cs" />
+    <Compile Include="Catalog\SiteMapCategoryTypeEnum.cs" />
+    <Compile Include="Catalog\StoreProductCreateSettingService.cs" />
+    <Compile Include="Common\ConstantTypeEnum.cs" />
+    <Compile Include="Common\CurrencyService.cs" />
+    <Compile Include="Common\IUrlRedirectService.cs" />
+    <Compile Include="Common\ICurrencyService.cs" />
+    <Compile Include="Common\PhoneTypeEnum.cs" />
+    <Compile Include="Common\UrlRedirectService.cs" />
+    <Compile Include="Content\BaseMenuService.cs" />
+    <Compile Include="Content\IBaseMenuService.cs" />
+    <Compile Include="Hubs\System.cs" />
+    <Compile Include="ICachingSupported.cs" />
+    <Compile Include="Media\IPictureService.cs" />
+    <Compile Include="Catalog\IProductCatologService.cs" />
+    <Compile Include="Catalog\IProductCommentService.cs" />
+    <Compile Include="Catalog\IProductComplainService.cs" />
+    <Compile Include="Catalog\IProductHomePageService.cs" />
+    <Compile Include="Catalog\IProductService.cs" />
+    <Compile Include="Catalog\IProductStatisticService.cs" />
+    <Compile Include="Catalog\MainCategoryTypeEnum.cs" />
+    <Compile Include="Catalog\ProductHomePageService.cs" />
+    <Compile Include="Media\StoreImageTypeEnum.cs" />
+    <Compile Include="Checkouts\IOrderInstallmentService.cs" />
+    <Compile Include="Checkouts\OrderInstallmentService.cs" />
+    <Compile Include="Logs\ApplicationLogService.cs" />
+    <Compile Include="Logs\IUserLogService.cs" />
+    <Compile Include="Logs\UserLogService.cs" />
+    <Compile Include="Logs\CreditCardLogService.cs" />
+    <Compile Include="Logs\IApplicationLogService.cs" />
+    <Compile Include="Logs\ICreditCardLogService.cs" />
+    <Compile Include="Messages\EmailSender.cs" />
+    <Compile Include="Messages\IEmailSender.cs" />
+    <Compile Include="Messages\IMessagesMTService.cs" />
+    <Compile Include="Messages\MessagesMTService.cs" />
+    <Compile Include="Newsletter\INewsletterService.cs" />
+    <Compile Include="Newsletter\NewsletterService.cs" />
+    <Compile Include="Seos\SeoIdNameEnum.cs" />
+    <Compile Include="Settings\IMemberSettingService.cs" />
+    <Compile Include="Settings\MemberSettingService.cs" />
+    <Compile Include="Messages\MessageTypeEnum.cs" />
+    <Compile Include="Messages\MobileMessageTypeEnum.cs" />
+    <Compile Include="Payments\BankAccountService.cs" />
+    <Compile Include="Payments\CreditCardService.cs" />
+    <Compile Include="Payments\IBankAccountService.cs" />
+    <Compile Include="Payments\ICreditCardService.cs" />
+    <Compile Include="Payments\IVirtualPosService.cs" />
+    <Compile Include="Payments\VirtualPosService.cs" />
+    <Compile Include="ProductRequests\IProductRequestService.cs" />
+    <Compile Include="ProductRequests\ProductRequestService.cs" />
+    <Compile Include="Search\ElasticSearchClient.cs" />
+    <Compile Include="Search\ISearchScoreService.cs" />
+    <Compile Include="Search\SearchScoreService.cs" />
+    <Compile Include="Seos\EntityTypeEnum.cs" />
+    <Compile Include="Messages\AutoMailRecordService.cs" />
+    <Compile Include="Stores\DealarBrandService.cs" />
+    <Compile Include="Stores\DealerTypeEnum.cs" />
+    <Compile Include="Messages\IAutoMailRecordService.cs" />
+    <Compile Include="Stores\IDealarBrandService.cs" />
+    <Compile Include="Stores\IStorePackagePurchaseRequestService.cs" />
+    <Compile Include="Stores\IPreRegistirationStoreService.cs" />
+    <Compile Include="Stores\IStoreActivityCategoryService.cs" />
+    <Compile Include="Stores\IStoreActivityTypeService.cs" />
+    <Compile Include="Stores\IStoreDiscountService.cs" />
+    <Compile Include="Stores\IStoreNewService.cs" />
+    <Compile Include="Media\PictureService.cs" />
+    <Compile Include="Catalog\ProductCatologService.cs" />
+    <Compile Include="Catalog\ProductCommentService.cs" />
+    <Compile Include="Catalog\ProductComplainService.cs" />
+    <Compile Include="Catalog\ProductExtensions.cs" />
+    <Compile Include="Catalog\ProductService.cs" />
+    <Compile Include="Catalog\ProductStatisticService.cs" />
+    <Compile Include="Checkouts\IInvoiceService.cs" />
+    <Compile Include="Checkouts\InvoiceService.cs" />
+    <Compile Include="Checkouts\IOrderService.cs" />
+    <Compile Include="Checkouts\OrderService.cs" />
+    <Compile Include="Messages\IMobileMessageService.cs" />
+    <Compile Include="Messages\MobileMessageService.cs" />
+    <Compile Include="Messages\IMessageService.cs" />
+    <Compile Include="Messages\MessageService.cs" />
+    <Compile Include="SearchEngine\IIncrementalProductService.cs" />
+    <Compile Include="SearchEngine\IncrementalProductService.cs" />
+    <Compile Include="Logs\ISearchEngineLogService.cs" />
+    <Compile Include="SearchEngine\ISearchEngineService.cs" />
+    <Compile Include="Logs\SearchEngineLogService.cs" />
+    <Compile Include="SearchEngine\SearchEngineService.cs" />
+    <Compile Include="Stores\ActivityTypeService.cs" />
+    <Compile Include="Common\AddressChangeHistoryService.cs" />
+    <Compile Include="Common\AddressService.cs" />
+    <Compile Include="Common\BannerService.cs" />
+    <Compile Include="Common\ConstantService.cs" />
+    <Compile Include="Stores\IStoreCatologFileService.cs" />
+    <Compile Include="Stores\IStoreSectorService.cs" />
+    <Compile Include="Stores\IStoreSeoNotificationService.cs" />
+    <Compile Include="Stores\IStoreStatisticService.cs" />
+    <Compile Include="Stores\PreRegistirationStoreService.cs" />
+    <Compile Include="Stores\PreRegistrationStoreResponse.cs" />
+    <Compile Include="Stores\StoreActiveTypeEnum.cs" />
+    <Compile Include="Stores\StoreActivityCategoryService.cs" />
+    <Compile Include="Stores\StoreActivityTypeService.cs" />
+    <Compile Include="Stores\StoreCatologFileService.cs" />
+    <Compile Include="Stores\StoreDiscountService.cs" />
+    <Compile Include="Stores\StoreNewService.cs" />
+    <Compile Include="Stores\StoreNewTypeEnum.cs" />
+    <Compile Include="Stores\StorePackagePurchaseRequestService.cs" />
+    <Compile Include="Stores\StoreSectorService.cs" />
+    <Compile Include="Stores\CategoryStoresResult.cs" />
+    <Compile Include="Stores\StoreSeoNotificationService.cs" />
+    <Compile Include="Stores\StoreStatisticService.cs" />
+    <Compile Include="Stores\WhatsappLogService.cs" />
+    <Compile Include="Stores\IActivityTypeService.cs" />
+    <Compile Include="Common\IAddressChangeHistoryService.cs" />
+    <Compile Include="Common\IAddressService.cs" />
+    <Compile Include="Common\IBannerService.cs" />
+    <Compile Include="Common\IConstantService.cs" />
+    <Compile Include="Common\IPhoneChangeHistoryService.cs" />
+    <Compile Include="Common\IPhoneService.cs" />
+    <Compile Include="Common\PhoneChangeHistoryService.cs" />
+    <Compile Include="Common\PhoneService.cs" />
+    <Compile Include="Content\FooterService.cs" />
+    <Compile Include="Content\IFooterService.cs" />
+    <Compile Include="Members\CompanyDemandMembershipService.cs" />
+    <Compile Include="Members\ICompanyDemandMembershipService.cs" />
+    <Compile Include="Members\IMemberDescriptionService.cs" />
+    <Compile Include="Members\MemberDescriptionService.cs" />
+    <Compile Include="Members\IMemberService.cs" />
+    <Compile Include="Members\IMemberStoreService.cs" />
+    <Compile Include="Members\MemberService.cs" />
+    <Compile Include="Members\MemberStoreService.cs" />
+    <Compile Include="Packets\IPacketService.cs" />
+    <Compile Include="Packets\PacketService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seos\ISeoDefinitionService.cs" />
+    <Compile Include="Seos\SeoDefinitionService.cs" />
+    <Compile Include="Stores\FavoriteStoreService.cs" />
+    <Compile Include="Stores\IFavoriteStoreService.cs" />
+    <Compile Include="Logs\ILoginLogService.cs" />
+    <Compile Include="Stores\IStoreBrandService.cs" />
+    <Compile Include="Stores\IStoreChangeHistoryService.cs" />
+    <Compile Include="Stores\IStoreDealerService.cs" />
+    <Compile Include="Stores\IStoreInfoNumberShowService.cs" />
+    <Compile Include="Stores\IStoreService.cs" />
+    <Compile Include="Stores\IWhatsappLogService.cs" />
+    <Compile Include="Logs\LoginLogService.cs" />
+    <Compile Include="Stores\StoreBrandService.cs" />
+    <Compile Include="Stores\StoreChangeHistoryService.cs" />
+    <Compile Include="Stores\StoreDealerService.cs" />
+    <Compile Include="Stores\StoreInfoNumberShowService.cs" />
+    <Compile Include="Stores\StoreService.cs" />
+    <Compile Include="Users\HelpService.cs" />
+    <Compile Include="Users\IHelpService.cs" />
+    <Compile Include="Users\IUserFileService.cs" />
+    <Compile Include="Users\IUserService.cs" />
+    <Compile Include="Users\IUserInformationService.cs" />
+    <Compile Include="Messages\IUserMailTemplateService.cs" />
+    <Compile Include="Messages\UserMailTemplateService.cs" />
+    <Compile Include="Search\ISearchService.cs" />
+    <Compile Include="Search\SearchService.cs" />
+    <Compile Include="Users\UserFileService.cs" />
+    <Compile Include="Users\UserService.cs" />
+    <Compile Include="Users\UserInformationService.cs" />
+    <Compile Include="Videos\IVideoService.cs" />
+    <Compile Include="Videos\VideoService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Trinnk.Caching\Trinnk.Caching.csproj">
+      <Project>{22C5F4C2-2DB3-468C-8A57-A54E4BCECC56}</Project>
+      <Name>Trinnk.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trinnk.Core\Trinnk.Core.csproj">
+      <Project>{5C5E4D8D-D028-4514-A7A2-A52D03EDBDB4}</Project>
+      <Name>Trinnk.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trinnk.Data\Trinnk.Data.csproj">
+      <Project>{2D2661D7-CBEF-4774-88CF-3BB36259082F}</Project>
+      <Name>Trinnk.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trinnk.Entities\Trinnk.Entities.csproj">
+      <Project>{3BD34B52-76FA-410E-AEAE-7A0D7A732750}</Project>
+      <Name>Trinnk.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets" Condition="Exists('..\packages\System.Text.Json.6.0.0\build\System.Text.Json.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

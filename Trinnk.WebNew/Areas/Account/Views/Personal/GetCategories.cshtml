@@ -1,0 +1,61 @@
+﻿@model NeoSistem.Trinnk.Web.Models.Account.GetCategoriesModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+<div class="tab-pane @(Model.IsActive ? " active" : string.Empty )
+        " data-rel="tabcontent" id="baa@( Model.ParentCategoryID)">
+    @foreach (var productGroup in Model.ProductGroupList.Where(c => c.ProductCount.Value > 0))
+    {
+        <div class="col-xs-12">
+            <h3>
+                @productGroup.CategoryName
+            </h3>
+        </div>
+        foreach (var item2 in Model.CategoryList(productGroup.CategoryId).OrderBy(c => c.CategoryOrder).ThenBy(c => c.CategoryName))
+        {
+
+            bool checkRelatedCategory = false; // Model.MemberRelatedCategory.Any(c => c.CategoryId == item2.CategoryId);
+            <div class="col-md-6 col-lg-6">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBox("MainPartyRelatedCategory", checkRelatedCategory, new { value = item2.CategoryId })
+                        @item2.CategoryName
+                    </label>
+                </div>
+            </div>
+        }
+    }
+    <span class="clearfix">
+    </span>
+</div>

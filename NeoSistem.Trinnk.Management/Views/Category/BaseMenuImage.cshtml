@@ -1,0 +1,51 @@
+﻿@model NeoSistem.Trinnk.Management.Models.BaseMenuModels.BaseMenuImageModel
+<div style="margin: auto">
+    <div style="margin-top: 20px;" class="newValue">
+        @if (TempData["result"] != null) {
+        <p style="font-size:15px; color:#03a015">@TempData["result"].ToString()</p>
+         }
+        <h3>Fotoğraf Ekle</h3>
+        @using (Html.BeginForm("BaseMenuImage","Category",FormMethod.Post,new {@enctype="multipart/form-data" }))
+            {
+        @Html.HiddenFor(x=>x.BaseMenuId)
+        @Html.HiddenFor(x=>x.BaseMenuImageId)
+        <table>
+            @if (!string.IsNullOrEmpty(Model.ImagePath)) {
+            <tr>
+                <td colspan="3">
+                    <img src="@Model.ImagePath" style="width:150px" />
+                </td>
+            </tr>
+             } 
+            <tr>
+                <td>Fotoğraf</td>
+                <td>:</td>
+                <td>
+                    <input name="image" type="file" style="height: 30px;" /></td>
+
+            </tr>
+            <tr>
+                <td>Link</td>
+                <td>:</td>
+                <td>
+                    @Html.TextBoxFor(x=>x.Url)
+                 
+            </tr>
+            <tr>
+                <td>Aktif</td>
+                <td>:</td>
+                <td>@Html.CheckBoxFor(x=>x.Active)</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td><input type="submit" value="Ekle" /></td>
+            </tr>
+        </table>
+         } 
+    </div>
+
+</div>
+
+
+

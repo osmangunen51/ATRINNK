@@ -1,0 +1,181 @@
+﻿@using Trinnk.Core.Infrastructure;
+@using Trinnk.Core;
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=8" />
+    <title>
+        @RenderSection("TitleContent", required: false)
+    </title>
+
+
+    <script src="~/Content/Scripts/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Ribbon.css" rel="stylesheet" type="text/css" />
+
+
+
+
+    <link href="~/Content/smoothness/jquery-ui.css" rel="stylesheet" type="text/css" />
+    <script src="~/Content/Scripts/MicrosoftAjax.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/MicrosoftMvcAjax.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/MicrosoftMvcValidation.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/NeoSistem.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery-ui.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery-ui.datepicker-tr.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/Ribbon.js" type="text/javascript"></script>
+    <script src="~/Content/Scripts/jquery-ui-1.8.8.custom.min.js" type="text/javascript"></script>
+
+    <link href="~/Content/vendor/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/vendor/fontawesome/css/all.css" rel="stylesheet" />
+
+
+
+    <link href="~/Content/vendor/toast/jquery.toast.min.css" rel="stylesheet" />
+
+    @RenderSection("HeadContent", required: false)
+
+</head>
+<body unselectable="on">
+    @Html.Partial("Header")
+    <div class="ContentTopSep">
+    </div>
+    <div class="Content">
+        @RenderBody()
+    </div>
+    <script src="~/Content/vendor/toast/jquery.toast.min.js"></script>
+    <script src="~/Content/vendor/bootstrap-sweetalert/sweetalert.js"></script>
+    <script src="~/Content/vendor/fontawesome/js/all.js"></script>
+    <script src="~/Content/vendor/clipboard.js"></script>
+    <script src="~/Content/Scripts/system.js"></script>
+    <script type="text/javascript">
+
+        $("#notification1").hide();
+        $("#notification").hide();
+        $("#notSeo").hide();
+
+        var resizeHeight = 132;
+        var numberGetNot = 0;
+        var countNot = 0;
+        var lastCountNot = 0;
+        function resizeContent() {
+            $('.Content').height($(window).height() - resizeHeight);
+        }
+        setInterval('resizeContent()', 100);
+        $(document).ready(function () {
+            numberGetNot = 0;
+            lastCountNot = 0;
+            countNot = 0;
+            GetSeoNotification();
+            $("button").button();
+            GetNotification();
+            GetNotSpecialForUser();
+            //setInterval(GetNotification, 400000);
+        });
+
+        function GetNotSpecialForUser() {
+            $.ajax({
+                url: '/MemberDescription/getNotification1',
+                type: 'post',
+                data: {},
+                success: function (data) {
+                    $("#notification1").show();
+                    $("#notification1").html("<font style='color:#ed1818; font-weight:600'>" + data + "</font> Bildirim");
+
+                },
+                error: function (x) {
+                    allMessageClose();
+                    //$('#table').html(x.responseText);
+                }
+            });
+        }
+        function GetNotification() {
+            numberGetNot = numberGetNot + 1;
+            $.ajax({
+                url: '/MemberDescription/getNotification',
+                type: 'post',
+                data: {},
+                success: function (data) {
+                    $("#notification").show();
+                    $("#notification").html("<font style='color:#ed1818; font-weight:600'>" + data.count + " Genel </font> Bildirim");
+
+                    countNot = data.count;
+                    if (numberGetNot > 1) {
+                        if (parseInt(data.count) > lastCountNot) {
+                            $("#newNot").html(data.count - lastCountNot + " yeni bildirim");
+                            $("#newNot").slideDown();
+                        }
+                    }
+                    lastCountNot = countNot;
+                },
+                error: function (x) {
+                    allMessageClose();
+                    //$('#table').html(x.responseText);
+                }
+            });
+        }
+        function GetSeoNotification() {
+            $.ajax({
+                url: '/StoreSeoNotification/GetCountSeoNotification',
+                type: 'get',
+                data: {},
+                success: function (data) {
+                    if (data != false) {
+                        $("#notSeo").show();
+                        $("#notSeo").html("<span style='color:red'>" + data.Count + " </span> seo bildirim");
+                    }
+
+                },
+                error: function (x) {
+                    allMessageClose();
+                    //$('#table').html(x.responseText);
+                }
+            });
+        }
+    </script>
+
+    @*<script>
+
+            let connectionsystem = new signalR.HubConnection('systemHub');
+            connectionsystem.on('SetConnectionId', data =>
+            {
+                connection.invoke('AddUserList', @CurrentUserModel.CurrentManagement.UserId);
+            });
+
+            /*connection.on('Close', data =>{
+                       var popup = window.open(location, '_self', '');
+                       popup.close();
+            });*/
+
+            connection.on('receiveMessage', data =>
+            {
+                $.toast({
+                    heading: 'Bilgilendirme',
+                    text: data,
+                    showHideTransition: 'slide',  // It can be plain, fade or slide
+                    textColor: '#eee',            // text color
+                    textAlign: 'left',            // Alignment of text i.e. left, right, center
+                    position: 'top-right',
+                    icon: 'info',
+                    loader: true,        // Change it to false to disable loader
+                    loaderBg: '#9EC600'// bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values to position the toast on page
+                });
+            });
+
+            connection.on('SetListDisconnect', data => {
+                console.log(JSON.stringify(data));
+            });
+            connection.start();
+            $(document).ready(function ()
+            {
+
+            });
+        </script>*@
+</body>
+</html>
+
+

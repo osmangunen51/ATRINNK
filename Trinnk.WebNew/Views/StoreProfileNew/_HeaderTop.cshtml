@@ -1,0 +1,82 @@
+﻿@model MTStoreProfileHeaderModel
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+
+}
+
+@{string styleBackground = ""; }
+@if (!string.IsNullOrEmpty(Model.StoreBanner))
+{
+    styleBackground = "background: url("+ Model.StoreBanner + "?v=" + DateTime.Now.ToString("yyyyMMddHHmmss") + ") no-repeat top; \r\n  -webkit-background-size: unset;\r\n  -moz-background-size: unset;\r\n  -o-background-size: unset;";
+}
+else
+{
+    styleBackground = "background-image: url('/Content/V2/images/cover1.jpg');";
+}
+
+@Html.Hidden("hdnStoreMainPartyId", Model.MainPartyId)
+<div class="store-profile-header">
+    <div class="store-profile-header__cover hidden-xs" style="@styleBackground">
+
+
+    </div>
+    <div class="store-profile-header__cover visible-xs" style="background-image: url(&quot;/Content/V2/images/cover1.jpg&quot;);"> </div>
+    <div class="store-profile-header__info">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-5 col-md-4 col-lg-3">
+                    <div class="store-profile-header__brand-logo">
+                        <img src="@Model.StoreLogoPath" title="@Model.StoreName" alt="@Model.StoreName">
+                    </div>
+                </div>
+                <div class="col-sm-7 col-md-8 col-lg-9 store-profile-header__description">
+                    <h1 class="store-profile-header__brand-name">
+                        @if (!string.IsNullOrEmpty(Model.StoreShortName))
+                        {
+                            @Model.StoreShortName
+
+                        }
+                        else
+                        {
+                            @Model.StoreName
+                        }
+
+                        @if (!string.IsNullOrEmpty(ViewBag.Categoryh1))
+                        {
+                            <span class="small">@ViewBag.Categoryh1</span>
+                        }
+
+                    </h1>
+                    @if (!string.IsNullOrEmpty(Model.StoreShortName))
+                    {
+                        <span class="hidden-xs" style="font-size:14px; color:#0c3871; font-weight:500">@Model.StoreName</span>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.StoreAbout))
+                    {
+                        <h2 class="store-profile-header__brand-about" style="margin-top:5px;">@Model.StoreAbout</h2>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

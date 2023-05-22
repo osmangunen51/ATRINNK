@@ -1,0 +1,21 @@
+﻿using System.Collections.Generic;
+
+namespace NeoSistem.Trinnk.Web.Models.Catalog
+{
+    public class MTProductFilteringModel
+    {
+        public MTProductFilteringModel()
+        {
+            this.SortOptionModels = new List<SortOptionModel>();
+            this.CustomFilterModels = new List<CustomFilterModel>();
+            this.DataFilterMoldes = new List<DataFilterModel>();
+        }
+
+        public List<SortOptionModel> SortOptionModels { get; set; }
+        public List<CustomFilterModel> CustomFilterModels { get; set; }
+        public List<DataFilterModel> DataFilterMoldes { get; set; }
+
+        public int TotalItemCount { get; set; }
+
+    }
+}

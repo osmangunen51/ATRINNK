@@ -1,0 +1,61 @@
+﻿@model NeoSistem.Trinnk.Management.Models.FooterContentModel
+
+@section TitleContent {
+
+	Footer Ana Başlık Ekle
+
+}
+@section HeadContent {
+
+<link rel="stylesheet" href="~/content/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
+  <script type="text/javascript" src="~/Content/Scripts/SuperBox/jquery.superbox.js"></script>
+
+}
+
+
+     @using (Html.BeginForm("FooterContentAdd", "Footer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.ValidationSummary(true)
+        
+        <fieldset>
+            <legend>Ekle</legend>
+                      <div class="editor-label" style="margin:20px;">
+            <span style="color:#868686; font-family:Arial; font-size:14px;">
+              Alt Sayfa Başlık 
+              <br />
+              </span>
+            </div>
+            <div class="editor-field" style="margin-left:20px;">
+                @Html.DropDownList("footerParentId",Model.FooterParentItems)
+            </div>
+            <div class="editor-label" style="margin:20px;">
+            <span style="color:#868686; font-family:Arial; font-size:14px;">
+              Başlık 
+              <br />
+              </span>
+            </div>
+            <div class="editor-field" style="margin-left:20px;">
+                @Html.TextBoxFor(model => model.FooterContentName, new { style = "width: 300px;border: solid 1px #bababa;" })
+            </div>
+        <div class="editor-label" style="margin:20px;">
+            <span style="color:#868686; font-family:Arial; font-size:14px;">
+              Url 
+              <br />
+              </span>
+            </div>
+            <div class="editor-field" style="margin-left:20px;">
+                @Html.TextBoxFor(model => model.FooterContentUrl, new { style = "width: 300px;border: solid 1px #bababa;" })
+            </div>
+            <div class="editor-label" style="margin-left:20px; margin-top:15px;color:#868686; font-family:Arial; font-size:14px;">
+                Sıra
+            </div>
+               <div class="editor-field" style="margin-left:20px;">
+                @Html.TextBoxFor(model => model.DisplayOrder, new { style = "width: 300px;border: solid 1px #bababa;" })
+            </div>
+            <p>
+                <input type="submit" value="Ekle" />
+            </p>
+        </fieldset>
+
+     } 
+

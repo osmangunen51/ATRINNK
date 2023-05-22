@@ -1,0 +1,11 @@
+﻿namespace NeoSistem.Trinnk.Web.Models.Products
+{
+    public class MTProductPictureModel
+    {
+        public string SmallPath { get; set; }
+        public string LargePath { get; set; }
+        public string MegaPicturePath { get; set; }
+        public string PictureName { get; set; }
+        public string ProductName { get; set; }
+    }
+}

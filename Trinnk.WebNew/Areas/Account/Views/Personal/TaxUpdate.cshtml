@@ -1,0 +1,125 @@
+﻿@model NeoSistem.Trinnk.Web.Areas.Account.Models.Personal.TaxUpdateViewModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+<input id="OldMemberEmail" type="hidden" value="@AuthenticationUser.Membership.MemberEmail" />
+<input id="OldMemberPassword" type="hidden" value="@AuthenticationUser.Membership.MemberPassword" />
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
+        @Html.Partial("LeftMenu", Model.LeftMenu)
+    </div>
+    <div class="col-md-12">
+        <h4 class="mt0 text-info">
+            <span class="text-primary glyphicon glyphicon-cog"></span>
+            Vergi Dairesi/No Güncelle
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div>
+            <div class="well store-panel-container col-xs-12">
+                @if (ViewBag.opr == true)
+                {
+                    <div class="alert alert-success alert-dismissable" style="font-size: 15px;">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                            &times;
+                        </button>
+                        Bilgileriniz başarıyla güncellenmiştir.
+                    </div>}
+                @using (Html.BeginForm("TaxUpdate", "Personal", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    @Html.HiddenFor(x => x.StoreMainPartyId)
+                    <div class="form-group ">
+                        <label class="col-sm-3 control-label">
+                            Vergi Dairesi
+
+                        </label>
+                        <div class="col-sm-6 col-md-4">
+                            @Html.TextBoxFor(model => model.TaxOffice, new { @class = "form-control", size = "30" })
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline">@Html.CheckBoxFor(model => model.TaxOfficeShow, new { @class = "" })Profilimde Göster</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Vergi No
+                        </label>
+                        <div class="col-sm-6 col-md-4">
+                            @Html.TextBoxFor(model => model.TaxNumber, new { @class = "form-control", size = "30" })
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline">@Html.CheckBoxFor(model => model.TaxNumberShow, new { @class = "" })Profilimde Göster</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Mersis No
+                        </label>
+                        <div class="col-xs-11 col-sm-6 col-md-4">
+                            @Html.TextBoxFor(model => model.MersisNo, new { @class = "form-control", size = "30" })
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline">@Html.CheckBoxFor(model => model.MersisNoShow, new { @class = "" })Profilimde Göster</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">
+                            Ticaret Sicil No
+                        </label>
+                        <div class="col-xs-11 col-sm-6 col-md-4">
+                            @Html.TextBoxFor(model => model.TradeRegistrNo, new { @class = "form-control", size = "30" })
+                        </div>
+                        <div class="col-md-3">
+                            <label class="checkbox-inline">@Html.CheckBoxFor(model => model.TradeRegistrNoShow, new { @class = "" })Profilimde Göster</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-primary">
+                                Değişiklikleri
+                                Kaydet
+
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+
+
+        </div>
+    </div>
+</div>
+</asp:Content>

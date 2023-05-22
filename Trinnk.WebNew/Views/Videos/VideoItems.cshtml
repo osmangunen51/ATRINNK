@@ -1,0 +1,49 @@
+﻿@model VideoModel
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+}
+
+@section headercontent{
+    <link href="../../Content/video-js-7.4.1/video-js.min.css" rel="stylesheet" />
+    <script src="../../Content/video-js-7.4.1/video.js"></script>
+    <script src="/Content/Scripts/VideoDetails/VideoDetail.js"></script>
+}
+@{int pageDimension = 12; }
+<div class="row hidden-xs">
+    <div class="col-xs-12">
+        @if (ViewData["ViewNavigation"] != null)
+        {
+            @ViewData["ViewNavigation"]
+        }
+    </div>
+</div>
+<div class="row">
+    @Html.Partial("VideoTop")
+    @Html.Partial("_OtherVideos", Model.SearchModel)
+</div>
+
+<input id="hdnCategoryId" type="hidden" name="categoryId" value="@Convert.ToInt32(ViewData["CategoryId"])" />
+

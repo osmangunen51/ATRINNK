@@ -1,0 +1,97 @@
+﻿@model SearchModel<NeoSistem.Trinnk.Web.Models.Products.MTProductCommentItem>
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.Trinnk.Web.Areas.Account.Constants
+
+@{
+    Layout =null;
+}
+
+@section headercontent{
+    <meta name="robots" content="noindex, nofollow" />
+}
+
+@foreach (var item in Model.Source)
+{
+    <div class="col-md-12  commentWrapper">
+        <div class="col-md-2 hidden-xs">
+            <div class="commentProfil">
+                @item.MemberProfilPhotoString
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div class="pull-left">
+                <span class="memberName ">@item.MemberNameSurname</span>
+                @{int rateRemind = 5 - item.Rate;
+                }
+                @for (int i = 0; i < item.Rate; i++)
+                {
+                    <span class="glyphicon .glyphicon-star-empty glyphicon-star" style="color: #F28B00"></span>}
+
+                @for (int i = 0; i < rateRemind; i++)
+                {
+                    <span class="glyphicon .glyphicon-star-empty glyphicon-star-empty" style="color: #F28B00;"></span>}
+            </div>
+            <div class="pull-right commentDate">
+                @item.RecordDate
+            </div>
+            <div style="clear: both"></div>
+
+            <div class="commentText">
+                @item.CommentText
+            </div>
+            <div class="pull-left commentAdress hidden-xs">
+                @item.Location
+            </div>
+        </div>
+    </div>}
+
+<div class="commentPagination row">
+
+    <div class="col-md-12" style="text-align:center;">
+        <ul class="pagination">
+            @foreach (var item in Model.TotalLinkPages)
+            {
+
+                if (item == Model.CurrentPage)
+                {
+                    <li class="active"><span>@item</span> </li>
+                }
+                else
+                {
+                    <li><a onclick="ProductCommentPage(@item)" style="cursor:pointer;">@item</a></li>
+                }
+
+
+
+            }
+        </ul>
+
+    </div>
+
+</div>

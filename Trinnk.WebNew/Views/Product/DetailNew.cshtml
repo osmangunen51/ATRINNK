@@ -1,0 +1,124 @@
+﻿@model MTProductDetailViewModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.Trinnk.Web.Areas.Account.Constants
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+    //Layout = null;
+
+}
+
+@section headercontent{
+    @Html.RenderHtmlPartial("_ProductHeader")
+    @if (Model.OnlyStoreSee)
+    {
+        <meta name="robots" content="NOINDEX,NOFOLLOW" />
+    }
+    else if (Model.ProductDetailModel.IsActive)
+    {
+
+        <script type="text/javascript" src="/Content/v2/assets/js/lightbox.min.js"></script>
+        <meta name="robots" content="INDEX,FOLLOW" />
+    }
+}
+
+
+
+@if (Model.ProductDetailModel.IsActive || Model.OnlyStoreSee == true)
+{
+    @Html.RenderHtmlPartial("_ProductPageHaderNew", Model.ProductPageHeaderModel)
+    @Html.RenderHtmlPartial("_ProductStoreMessage", Model.ProductStoreMessageModel)
+    <div class="urun-detay">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="thumbnail">
+                            @Html.RenderHtmlPartial("_ProductPictureNew", Model.ProductPictureModels)
+                        </div>
+                        <ul class="nav nav-pills favoriler">
+                            <li class="favori"> <a href="#"> <i class="fa fa-heart-o"></i> Favorilere Ekle</a> </li>
+                            <li class="yazdir"> <a href="#"> <i class="fa fa-print"></i> Yazdır</a> </li>
+                            <li class="sikayet"> <a data-toggle="modal" data-target="#ComplaintModal" id="ComplaintProduct" href="#"> <i class="fa fa-flag"></i> Şikayet Et</a> </li>
+                        </ul>
+                        @Html.RenderHtmlPartial("_ProductSocial")
+                    </div>
+                    <div class="col-md-7">
+                        @Html.RenderHtmlPartial("_ProductDetailNew", Model.ProductDetailModel)
+                    </div>
+                    @Html.RenderHtmlPartial("_ProductTabNew", Model.ProductTabModel)
+                </div>
+
+            </div>
+            <div class="col-md-3">
+                @Html.RenderHtmlPartial("_ProductStoreNew", Model.ProductStoreModel)
+
+            </div>
+        </div>
+    </div>
+
+    @Html.RenderHtmlPartial("_SimilarProductNew", Model.SimilarProductModel)
+
+    <hr />
+
+    @Html.RenderHtmlPartial("_ProductComplain", Model.ProductComplainModel)
+}
+else
+{
+
+    @Html.RenderHtmlPartial("_ProductPageHader", Model.ProductPageHeaderModel)
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>
+                <span class="text-warning glyphicon glyphicon-warning-sign"></span>&nbsp; İlan Yayında Değil
+            </h3>
+            <div class="well">
+                Sayfa kaldırılmış veya adres eksik girilmiş olabilir.
+                <br>
+                Lütfen adresi doğru yazdığınızdan emin olun.
+                <br>
+                Eğer Sık Kullanılanlar listesinden bu sayfaya yönlendirildiyseniz, <a href="#">
+                    Makina
+                    Türkiye Anasayfa
+                </a>veya <a href="#">Site Haritası </a>linklerini kullanarak
+                ulaşmaya çalışın.
+                <br>
+                Eğer bunun teknik bir sorun olduğunu düşünüyorsanız, sayfayı <a href="#">
+                    Destek Masası
+                </a>'na bildirin.
+                <br>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @Html.RenderHtmlPartial("_StoreOtherProduct", Model.StoreOtherProductModel)
+
+    </div>
+}

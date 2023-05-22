@@ -1,0 +1,94 @@
+﻿@model MembershipViewModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+@section headercontent{
+    <style>
+        .page-header {
+            margin: 10px 0 20px;
+        }
+
+        label .required {
+            font-weight: bold;
+            color: #de1b1b;
+        }
+    </style>
+}
+
+
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
+        @{
+            NeoSistem.Trinnk.Web.Areas.Account.Models.LeftMenuModel lefMenu = (NeoSistem.Trinnk.Web.Areas.Account.Models.LeftMenuModel)ViewData["leftMenu"];
+        }
+        @Html.Partial("LeftMenu", lefMenu)
+    </div>
+    <div class="col-md-12">
+        <h4 class="mt0 text-info">
+            Kurumsal Üyelik
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 col-sm-12">
+        <div class="col-md-12 col-sm-12">
+            <div class="well store-panel-container">
+                <h4>Kişisel Bilgiler</h4>
+                @using (Html.BeginForm("InstitutionalStep", "MemberType", FormMethod.Post, new { id = "formFastMembership", @class = "form-horizontal", @role = "form" }))
+                {
+                    <div class="form-group">
+                        <label for="inputPassword3" class="col-sm-3 control-label">
+                            Yetkili Ünvanı
+                        </label>
+                        <div class="col-sm-6">
+                            @Html.DropDownListFor(model => model.MembershipModel.StoreAuthorizedTitleType,
+                            Model.MembershipModel.StoreAuthorizedTitleTypeItems,
+                            new Dictionary<string, object> { { "class", "form-control" }, { "data-validation-engine", "validate[funcCall[ifSelectNotEmpty]]" } })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button class="btn btn-primary" data-rel="form-submit" type="submit">
+                                Devam Et
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+

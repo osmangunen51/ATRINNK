@@ -1,0 +1,84 @@
+﻿@model NeoSistem.Trinnk.Web.Models.Footer.MTFooterModel
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+
+@{
+    Layout = null;
+}
+<div onclick="topFunction()" id="myBtn" class="mobile-top" title="Go to top"><span class="more-less icon-up-arrow"></span></div>
+<div class="footer">
+    <div class="container">
+        <div class="footer__bottom row">
+            <div class="col-sm-12 col-md-12 nopadding">
+                <div class="flex-row mb20 flex-md-nowrap flex-lg-nowrap">
+                    @foreach (var item in Model.FooterParentModels)
+                    {
+                    string cssMd = "flex-md-3 flex-lg-3";
+                    if (item.FooterParentName == "Kategori")
+                    {
+                        cssMd = "flex-md-2 flex-lg-2";
+                    }
+                        <div class="menu col-6 col-md-4 col-xl-2" data-parent="@item.FooterParentName">
+                            <h4>@item.FooterParentName </h4>
+                            <ul class="list-unstyled">
+                                @foreach (var itemFooterContent in item.FooterContents)
+                                {
+                                <li><a rel="nofollow" href="@itemFooterContent.FooterContentUrl">@itemFooterContent.FooterContentName </a></li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                    <div class="menu socialM flex-xs-6 flex-sm-4 flex-md-2 flex-lg-3">
+                        <h4>Sosyal Medya</h4>
+                        <ul class="list-unstyled">
+                            <li class="">
+                                <a href="https://www.facebook.com/trinnkcom" target="_blank" rel="nofollow">
+                                    <img src="/Content/v2/images/social/facebook-icon.png" alt="Facebook">
+                                    Facebook
+
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.twitter.com/Trinnk" rel="nofollow" target="_blank">
+                                    <img src="/Content/v2/images/social/twitter-icon.png" alt="Twitter">
+                                    Twitter
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.linkedin.com/company/trinnk-com?trk=company_name" rel="nofollow" target="_blank">
+                                    <img src="/Content/v2/images/social/linkedin-icon.png" alt="Facebook">
+                                    Linkedin
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://www.instagram.com/trinnk/?hl=tr" rel="nofollow" target="_blank">
+                                    <img src="/Content/v2/images/social/instagram-icon.png" alt="İnstagram">
+                                    İnstagram
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://tr.pinterest.com/trinnkcom/" rel="nofollow" target="_blank">
+                                    <img src="/Content/v2/images/social/pinterest-icon.png" alt="İnstagram">
+                                    Pinterest
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://blog.trinnk.com" rel="nofollow" target="_blank">
+                                    <img src="/Content/v2/images/social/blog.png" style="width: 16px;" alt="İnstagram">
+                                    Blog
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row copyright-v2 nomargin col-xs-12">
+                    <div class="copyright-v2__inner  col-xs-12">
+                        <p>Copyright © 2010-@DateTime.Now.Year  trinnk.com</p>
+                        <a href="javascript:;" class="btn upBtn hidden-xs">Başa Dön</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+﻿@model AdvertViewModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+}
+@section headercontent{
+    <script type="text/javascript">
+
+        function DeleteVideo(id) {
+            $.ajax({
+                url: '/Advert/DeleteVideo',
+                type: 'delete',
+                data: { index: id },
+                success: function (data) {
+                    $('#divVideoList').html(data);
+                },
+                error: function (x, l, e) {
+                    // alert(x.responseText);
+                }
+            });
+        }
+        function nextStatu(e) {
+            $('.loading').show();
+        }
+    </script>
+}
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="">
+        @Html.Partial("LeftMenu", Model.LeftMenu)
+    </div>
+    <div class="col-md-12">
+        <h4 class="mt0 text-info">
+            Video Ekle
+        </h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-12">
+        <div class="loading">Loading&#8230;</div>
+        <div>
+            <div class="well store-panel-container">
+                <div>
+                    <div>
+                        <div id="divVideoList">
+                            @Html.Partial("VideoList", Model.VideoItems)
+                            <span class="clearfix"></span>
+                            <hr>
+                        </div>
+                        @using (Html.BeginForm("Video", "Advert", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
+                        {
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    Video Başlığı
+                                </label>
+                                <div class="col-sm-6">
+                                    @Html.TextBox("VideoTitle", "", new { size = "20", @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">
+                                    Video:
+                                </label>
+                                <div class="col-sm-6">
+                                    <input type="file" name="Video" value="" class="fileUp" />
+                                </div>
+                                <div class="col-sm-offet-3 col-sm-9">
+                                    <p class="help-block">
+                                        Varsa ürün videosu ekleyiniz.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-9 btn-group">
+                                    <input type="submit" data-rel="form-submit" class="btn btn-default" onclick="nextStatu(this);" value="Ekle" />
+                                    <input type="submit" data-rel="form-submit" class="btn btn-primary" onclick="nextStatu(this);" value="Devam" />
+                                    <div id="loaderDiv" style="width: auto; height: 20px; display: none; font-size: 12px; margin-top: 8px;">
+                                        <img src="../../../../Content/V2/images/loading.gif" width="30" alt="" />&nbsp; İşleminiz gerçekleştiriliyor, lütfen bekleyiniz.
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

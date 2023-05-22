@@ -1,0 +1,206 @@
+﻿@using NeoSistem.Trinnk.Web.Models;
+@using NeoSistem.Trinnk.Web.Models.ViewModels;
+@model PacketViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    bool ShowPacketList = false;
+}
+@section HeaderContent {
+
+    <script type="text/javascript">
+
+        function Check() {
+            if ($('#PacketId').val() == '') {
+                alert('Bir sonraki adıma geçmek için lütfen üyelik paket seçiniz.')
+                return false;
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+}
+
+<div class="row" style="margin-top:10px;">
+    <div class="col-xs-12">
+        <div class="page-header mt0">
+            <h4 class="mt0">
+                <span class="glyphicon glyphicon-screenshot"></span>Kurumsal Üyelik Paketleri
+            </h4>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        @if (Model.LastPageAdvertAdd == true)
+        {
+            <div class="alert alert-info">
+                Üyelik avantajlarımızdan yararlanmak için paket satın alın, satışlarınızı arttırın.
+            </div>
+        }
+    <div class="col-md-12">
+        @if (ShowPacketList)
+        {
+        <div class="row">
+            @foreach (var item in Model.PacketItems.OrderBy(p => p.PacketOrder))
+            {
+                item.PacketPrice = item.PacketPrice / (decimal)1.18;
+
+                using (Html.BeginForm("OneStep", "MembershipSales", FormMethod.Post))
+                {
+                    <div class="col-md-3 col-sm-12">
+                        <div class="panel panel-mt text-center">
+                            <div class='panel-heading' style='background:@Html.Raw(item.HeaderColor + "!important")'>
+                                <h4 class="m0">
+                                    @item.PacketName
+                                    @if (item.StarNumber == null || item.StarNumber == 0)
+                                    {
+                                        <small class="text-warning"><span class="glyphicon glyphicon-star"></span></small> }
+                                    else
+                                    {
+                                        for (int i = 0; i < item.StarNumber; i++)
+                                        {
+                                            <small class="text-warning"><span class="glyphicon glyphicon-star"></span></small>}
+                                    }
+                                </h4>
+                            </div>
+                            <div class='panel-body' style="background-color:@item.PacketColor">
+                                <b class="text-lg">
+                                    @{ decimal packetDayPrice;
+                                        packetDayPrice = (decimal)(item.PacketPrice / item.PacketDay); }
+                                    @packetDayPrice.ToString("N") <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i>  + KDV / Günlük
+                                </b>
+
+                            </div>
+
+                            <ul class="list-group">
+                                @foreach (var itemPFTItems in Model.PacketFeatureTypeItems.OrderBy(c => c.PacketFeatureTypeOrder))
+                                {
+
+                                    var packetFeature = Model.PacketFeatureItems.FirstOrDefault(c => c.PacketFeatureTypeId == itemPFTItems.PacketFeatureTypeId && c.PacketId == item.PacketId);
+                                    if (packetFeature != null)
+                                    {
+                                        var packetType = (EPacketFeatureType)packetFeature.FeatureType;
+                                        switch (packetType)
+                                        {
+                                            case EPacketFeatureType.ProcessCount:
+                                                {
+                                                    <li class='list-group-item' style="background-color:@item.PacketColor;  padding: 10px 10px; ">
+                                                        <i class="fa fa-check" style="color:#057904; font-size:16px"></i>
+                                                        @Html.Raw(packetFeature.FeatureProcessCount.HasValue ? packetFeature.FeatureProcessCount.Value.ToString() : "")
+
+                                                        @itemPFTItems.PacketFeatureTypeName
+                                                    </li>
+                                                    break;
+                                                }
+                                            case EPacketFeatureType.Active:
+                                                {
+
+
+                                                    <li class='list-group-item' style="background-color:@item.PacketColor; padding: 10px 10px; ">
+                                                        @if (packetFeature.FeatureActive.HasValue && packetFeature.FeatureActive.Value)
+                                                        {
+                                                            <i class="fa fa-check" style="color:#057904; font-size:14px"></i>
+                                                        }
+                                                        @itemPFTItems.PacketFeatureTypeName
+                                                    </li>
+
+                                                    break;
+                                                }
+                                            case EPacketFeatureType.Content:
+                                                {
+
+                                                    <li class='list-group-item' style="background-color:@item.PacketColor; padding: 10px 10px; ">
+                                                        <i class="fa fa-check" style="color:#057904; font-size:14px"></i>
+                                                        @packetFeature.FeatureContent
+                                                        @itemPFTItems.PacketFeatureTypeName
+                                                    </li>
+
+                                                    break;
+                                                }
+
+                                            default:
+                                                {
+                                                    <li class='list-group-item' style="background-color:@item.PacketColor;padding: 10px 10px; ">
+                                                        <i class="fa fa-check" style="color:#057904; font-size:14px"></i>
+                                                        @packetFeature.FeatureContent
+                                                        @itemPFTItems.PacketFeatureTypeName
+                                                    </li>
+                                                    break;
+                                                }
+
+                                        }
+                                    }
+                                }
+                                <li class='list-group-item' style="background-color:@item.PacketColor">
+                                    <h3>
+                                        @{ int lastNumber = Convert.ToInt32(item.PacketPrice) % 10;}
+                                        @if (lastNumber == 9)
+                                        {
+                                            item.PacketPrice += 1;
+                                        }
+                                        else if (lastNumber % 10 == 1)
+                                        {
+                                            item.PacketPrice -= 1;
+                                        }
+                                        @item.PacketPrice.ToString("0") <i itemprop="priceCurrency" class="fa fa-turkish-lira"></i>  + KDV /
+                                        @if (item.PacketDay == 365)
+
+                                        {
+                                            <span>Yıl</span>
+                                        }
+                                        else if (item.PacketDay % 30 == 0)
+                                        {
+                                            @(item.PacketDay / 30) <span>Ay</span>
+                                        }
+                                        else
+                                        {
+                                            @(item.PacketDay) <span>Gün</span>
+                                        }
+
+                                    </h3>
+                                    @Html.Hidden("PacketId", item.PacketId)
+                                    @*              <%=Html.DropDownList("PacketId", ComboHelper.GetLimitliPacketPrice(item.PacketName), new { @class = "form-control" })%>*@
+                                </li>
+                                <li class='list-group-item' style="background-color:@item.PacketColor">
+                                    <button type="submit" class="btn btn-success btn-block">
+                                        Satın Al
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                }
+                
+            }
+        </div>
+        }
+        @if (Model.LastPageAdvertAdd == true && Model.AnyOrder == false)
+        {
+            <div class="row col-md-12">
+                <div style="text-align:center;">
+                    <a class="btn btn-primary" href="/MemberShipSales/DiscountPackets">3 aylık indirimli deneme paketinden yararlanmak istiyorum</a>
+                </div>
+            </div>
+        }
+    </div>
+    </div>
+</div>
+<a href="/MembershipSales/StorePackagePurchaseRequest" class="btn btn-success btn-block">
+    Paket Satın Almak İstiyorum
+</a>
+@*@if (!string.IsNullOrEmpty(Model.BottomDescription))
+{
+    <div class="row" style="padding-left: 3px; padding-right: 3px;">
+        <div class="col-xs-12">
+            <div class="home-seo-content">
+                <div style="text-align:justify">
+                    @Html.Raw(Model.BottomDescription)
+                </div>
+            </div>
+        </div>
+    </div>
+
+}*@
+
+
+

@@ -1,0 +1,75 @@
+﻿@model IList<NeoSistem.Trinnk.Management.Models.Entities.Account>
+
+@section TitleContent {
+
+  Makina Türkiye | Adres Tipi Listesi
+
+}
+@section HeadContent {
+
+  <script type="text/javascript">
+    function DeletePost(storeId) {
+      if (confirm('Kaydı Silmek istediğinizden eminmisiniz ?')) {
+        $.ajax({
+          url: '/BankAccount/Delete',
+          data: { id: storeId },
+          type: 'post',
+          dataType: 'json',
+          success: function (data) {
+            var e = data;
+            if (e) {
+              $('#row' + storeId).hide();
+            }
+            else {
+              alert('Silmek hesabı kullanan paket bulunduğundan silme işlemi başarısız.');
+            }
+          }
+        });
+      }
+    }
+  </script>
+
+}
+
+  <div style="width: 100%; margin: 0 auto;">
+    <table cellpadding="5" cellspacing="0" class="TableList" style="width: 100%; margin-top: 5px">
+      <thead>
+        <tr>
+          <td class="Header HeaderBegin" unselectable="on">
+            Banka Adı
+          </td>
+          <td class="Header" unselectable="on">
+            Iban No
+          </td>
+          <td class="Header" unselectable="on">
+            Hesap Adı
+          </td>
+          <td class="Header" unselectable="on">
+            Hesap No
+          </td>
+          <td class="Header" unselectable="on">
+            Şube Adı
+          </td>
+          <td class="Header" unselectable="on">
+            Şube No
+          </td>
+          <td class="Header HeaderEnd" style="width: 70px; height: 19px">
+          </td>
+        </tr>
+      </thead>
+      <tbody id="table">
+        @Html.Partial("AccountList", Model)
+      </tbody>
+      <tfoot>
+        <tr>
+          <td class="ui-state ui-state-hover" colspan="7" align="right" style="border-color: #DDD;
+            border-top: none; padding-right: 10px">
+            Toplam Kayıt : <strong>
+              @Model.Count</strong>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+

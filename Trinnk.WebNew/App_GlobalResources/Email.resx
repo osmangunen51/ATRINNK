@@ -1,0 +1,1869 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Approval" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+  &lt;meta http-equiv="Content-Type" content="text/html; charset=iso-8859-9" /&gt;
+  &lt;title&gt;Untitled Document&lt;/title&gt;
+  &lt;style type="text/css"&gt;
+    .container
+    {
+      float: none;
+      height: auto;
+      width: 680px;
+      margin-top: 50px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+    }
+    .logo
+    {
+      background-image: url('#SiteLink#Content/Images/logo.jpg');
+      background-repeat: no-repeat;
+      float: none;
+      height: 80px;
+      width: 500px;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+    }
+    .yazi
+    {
+      font-family: Segoe UI, Arial;
+      font-size: 12px;
+      font-weight: bold;
+      color: #000000;
+      margin-top: 5px;
+      text-align: center;
+      margin-right: 0px;
+      margin-bottom: 20px;
+      margin-left: 0px;
+    }
+    .onaybutton
+    {
+      background-image: url('#SiteLink#Content/Images/buttonbg.jpg');
+      background-repeat: no-repeat;
+      float: none;
+      height: 22px;
+      width: 227px;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+      font-family: Segoe UI, Arial;
+      font-size: 12px;
+      font-weight: bold;
+      color: #000000;
+      padding-top: 6px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+      padding-left: 0px;
+      text-align: center;
+    }
+    .onaybutton a
+    {
+      float: none;
+      height: 22px;
+      width: 227px;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+      padding-top: 6px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+      padding-left: 0px;
+      text-align: center;
+      text-decoration: none;
+    }
+    .onaybutton a:hover
+    {
+      float: none;
+      height: 22px;
+      width: 227px;
+      margin-top: 0px;
+      margin-right: auto;
+      margin-bottom: 0px;
+      margin-left: auto;
+      padding-top: 6px;
+      padding-right: 0px;
+      padding-bottom: 0px;
+      padding-left: 0px;
+      text-align: center;
+      text-decoration: none;
+    }
+    .container hr
+    {
+      border-top-width: 1px;
+      border-top-style: solid;
+      border-top-color: #99D6DD;
+      margin-top: 50px;
+      margin-right: 0px;
+      margin-bottom: 50px;
+      margin-left: 0px;
+    }
+    .yazi2
+    {
+      font-family: Segoe UI, Arial;
+      font-size: 12px;
+      font-weight: bold;
+      color: #000000;
+      margin-top: 0px;
+      margin-right: 0px;
+      margin-bottom: 15px;
+      margin-left: 100px;
+    }
+    .yazi3
+    {
+      font-family: Segoe UI, Arial;
+      font-size: 12px;
+      color: #000000;
+      margin-top: 0px;
+      margin-right: 0px;
+      margin-bottom: 3px;
+      margin-left: 100px;
+    }
+    .yazi4
+    {
+      font-family: Segoe UI, Arial;
+      font-size: 12px;
+      font-weight: bold;
+      color: #000000;
+    }
+    .yazi5
+    {
+      margin-top: 8px;
+      margin-right: 0px;
+      margin-bottom: 3px;
+      margin-left: 100px;
+    }
+    .yazi5 a
+    {
+      text-decoration: none;
+      font-family: Segoe UI, Arial;
+      font-size: 12px;
+      color: #0769CD;
+    }
+    .yazi5 a:hover
+    {
+      text-decoration: none;
+      font-family: Segoe UI, Arial;
+      font-size: 12px;
+      color: #0769CD;
+    }
+    
+    .yazi6
+    {
+      font-family: Segoe UI, Arial;
+      font-size: 12px;
+      color: #4C4C4C;
+      margin-top: 0px;
+      margin-right: 0px;
+      margin-bottom: 0px;
+      margin-left: 100px;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class="container"&gt;
+    &lt;div class="logo"&gt;
+    &lt;/div&gt;
+    &lt;div class="yazi"&gt;
+      makinaturkiye.com kayıt işleminizi tamamlamak için, aşağıdaki onay butonuna tıklayınız!&lt;/div&gt;
+    &lt;div class="onaybutton"&gt;
+      &lt;a href="#OnayLink#"&gt;Üyeliğimi Onaylıyorum!&lt;/a&gt;&lt;/div&gt;
+    &lt;hr /&gt;
+    &lt;div class="yazi2"&gt;
+      Yukarıdaki link çalışmaz ise;&lt;/div&gt;
+    &lt;div class="yazi3"&gt;
+      1. Onay Kodu: &lt;span class="yazi4"&gt;#OnayKodu#&lt;/span&gt;&lt;/div&gt;
+    &lt;div class="yazi3"&gt;
+      2. Aşağıdaki linki tarayıcınızın adres bölümüne kopyalayıp yapıştırın veya yazın.&lt;/div&gt;
+    &lt;div class="yazi5"&gt;
+      &lt;a href="#OnayLink#"&gt;#OnayLink#&lt;/a&gt;&lt;/div&gt;
+    &lt;div class="yazi6"&gt;
+      Bu linke herhangi bir boşluk veya ekstra yazı eklemeyin.&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="bilgimakinasayfası" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+      .style1
+      {
+        width: 100%;
+      }
+      .style2
+      {
+        width: 338px;
+      }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body style="position:inherit;"&gt;
+
+  &lt;table class="style1"&gt;
+    &lt;tr&gt;
+      &lt;td class="style2"&gt;
+        kullanıcı adı:&lt;/td&gt;
+      &lt;td&gt;
+        #kullanicimiz#&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td class="style2"&gt;
+        kullanıcı soyadı:&lt;/td&gt;
+      &lt;td&gt;
+        #kullanicisoyadi#&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td class="style2"&gt;
+        üyelik tipi:&amp;nbsp;&lt;/td&gt;
+      &lt;td&gt;
+        #kullanicitipi#&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="ProductApproval" xml:space="preserve">
+    <value>ürün onay</value>
+  </data>
+  <data name="ProductDesc" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;link href="http://www.makinaturkiye.com/content/mastersite.css" rel="stylesheet" type="text/css" /&gt;
+    &lt;style type="text/css"&gt;
+        .activitaionHeader
+        {
+            width: 970px;
+            height: 137px;
+            margin: 0px auto;
+            background-color: InfoText;
+            background-image: url('http://www.makinaturkiye.com/Content/Images/activation/productConfirm.png');
+        }
+        
+        .mrDiv
+        {
+            width: 971px;
+            height: 160px;
+            margin: 0px auto;
+        }
+        
+        .mrDivTitle
+        {
+            width: 200px;
+            height: 18px;
+            font-size: 18px;
+            font-weight: bold;
+            margin-left: 350px;
+            margin-top: 32px;
+            text-align: center;
+        }
+        
+        .mrConfirm
+        {
+            width: 600px;
+            height: 15px;
+            font-size: 13px;
+            font-weight: bold;
+            margin-left: 200px;
+            margin-top: 30px;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="activitaionHeader"&gt;
+    &lt;/div&gt;
+    &lt;div class="mrDiv"&gt;
+        &lt;div class="mrDivTitle"&gt;
+            #AdSoyad#&lt;/div&gt;
+        &lt;div class="mrConfirm"&gt;Eklediğiniz ilanı görmek için
+            &lt;a href="#Urunlinki#" style="color: #4c4c4c; font-size: 11px; text-decoration: none;"&gt;
+            tıklayınız.
+            &lt;br /&gt;
+            İlanı Görüntüle &lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="footer"&gt;
+        
+        &lt;div style="width: 250px; float: right; margin-top: 50px; margin-right: 20px;"&gt;
+            © 2010 &lt;a href="/" style="text-decoration: none; color: #fff;"&gt;Makina Türkiye&lt;/a&gt;.
+            Tüm hakları saklıdır.
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="StoreDesc" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+      .style1
+      {
+        width: 100%;
+      }
+ p.MsoNormal
+	{margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	     margin-left: 0cm;
+        margin-right: 0cm;
+        margin-top: 0cm;
+      }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;&lt;div style="align:center"&gt;&lt;img src="http://makinaturkiye.com/Content/Images/activation/activationHeader.png"&gt;&lt;/div&gt;
+  &lt;table align="center" class="style1"&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Sayın #kullaniciadi#&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal" style="text-align:center"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Makinaturkiye.com’a 
+          hoşgeldiniz.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyeliğiniz başarı ile aktif 
+          edilmiştir.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Firma bilgilerinizi sistem 
+          yöneticileri tarafından inceleniyor. &lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;
+        &lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+  &lt;table class="style1"&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyelik bilgileriniz:&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Kullanıcı Adı:&amp;nbsp; #uyeeposta#&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Kullanıcı Şifre:&lt;o:p&gt; #kullanicisifre#&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyelik Tipi:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Firma Üyeliği&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="bireyseluyelik" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+      .style1
+      {
+        width: 100%;
+      }
+ p.MsoNormal
+	{margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	     margin-left: 0cm;
+        margin-right: 0cm;
+        margin-top: 0cm;
+      }
+      .style2
+      {
+        color: #000000;
+      }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div style="align:center"&gt;&lt;img src="http://makinaturkiye.com/Content/Images/activation/activationHeader.png"&gt;&lt;/div&gt;
+  &lt;table class="style1"&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal" style="text-align:center"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Sayın #kullaniciadi#&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Makinaturkiye.com’a 
+          hoşgeldiniz.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyeliğiniz başarı ile aktif 
+          edilmiştir.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyelik bilgileriniz:&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Kullanıcı Adı:&amp;nbsp;&amp;nbsp; #kullanicieposta#&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Kullanıcı Şifre:&amp;nbsp; #kullanicisifre#&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyelik Tipi:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Bireysel Üyelik&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyelik bilgilerinizi “&lt;u&gt;&lt;a 
+            href="http://www.makinaturkiye.com/Account/Home/"&gt;&lt;span class="style2"&gt;&lt;strong&gt;Hesabım&lt;/strong&gt;&lt;/span&gt;&lt;/a&gt;&lt;/u&gt;” 
+          panelinden güncelleyip, değiştirebilirsiniz. &lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;
+        &lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="Hizliuyelik" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+    &lt;style type="text/css"&gt;
+      .style1
+      {
+        width: 100%;
+      }
+ p.MsoNormal
+	{margin-bottom:.0001pt;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";
+	     margin-left: 0cm;
+        margin-right: 0cm;
+        margin-top: 0cm;
+      }
+      .style2
+      {
+        color: #000000;
+      }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;&lt;div style="align:center"&gt;&lt;img src="http://makinaturkiye.com/Content/Images/activation/activationHeader.png"&gt;&lt;/div&gt;
+  &lt;table class="style1"&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal" style="text-align:center"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Sayın #kullaniciadi#&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Makinaturkiye.com’a 
+          hoşgeldiniz.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p align="center" class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyeliğiniz başarı ile aktif 
+          edilmiştir.&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyelik bilgileriniz:&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Kullanıcı Adı:&amp;nbsp;&amp;nbsp; #kullanicieposta#&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Kullanıcı Şifre:&amp;nbsp; #kullanicisifre#&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyelik Tipi:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; Hızlı Üyelik&lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;&lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &lt;p class="MsoNormal"&gt;
+          &lt;span lang="EN-US" style="mso-ansi-language:EN-US"&gt;Üyelik bilgilerinizi “&lt;u&gt;&lt;a 
+            href="http://www.makinaturkiye.com/Account/Home/"&gt;&lt;span class="style2"&gt;&lt;strong&gt;Hesabım&lt;/strong&gt;&lt;/span&gt;&lt;/a&gt;&lt;/u&gt;” 
+          panelinden güncelleyip, değiştirebilirsiniz. &lt;o:p&gt;&lt;/o:p&gt;&lt;/span&gt;
+        &lt;/p&gt;
+      &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;
+        &amp;nbsp;&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/table&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="mesajınızvar" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+&lt;head&gt;
+    &lt;title&gt;&lt;/title&gt;
+
+    &lt;style type="text/css"&gt;
+     .style2
+      {
+        color: #6600CC;
+      }
+    &lt;/style&gt;
+
+&lt;/head&gt;
+&lt;body style="width:770px;height:230px;"&gt;
+
+
+  &lt;table style="margin:30px; width:700px; height:200px;"&gt;
+    &lt;tr style="width:670px;height:10px;"&gt;
+      &lt;td style="width:650px;height:9px;"&gt;
+      Makinatürkiye.com kullanıcısından mesajınız var.
+      &lt;br /&gt;
+           Mesaj içeriğini Makinaturkiye.com'daki mesaj kutunuzdan &lt;a style="text-decoration:none;" href="http://www.makinaturkiye.com/uyelikgiris?email=#email#"&gt;buraya&lt;/a&gt; tıklayarak görebilirsiniz.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+       &lt;tr style="width:670px;height:10px;"&gt;
+      &lt;td style="width:650px;height:9px;"&gt;
+      Kullanıcı adı:&lt;span class="style2"&gt;#kullaniciadi&lt;/span&gt;
+      &lt;br /&gt;
+              İlan no : &lt;a style="text-decoration:none; color:#6600CC;" href="#link"&gt;#ilanno&lt;/a&gt;
+              &lt;br /&gt;
+        İlgili Ürün Adı :&lt;a style="text-decoration:none;" href="#link"&gt;#urunadi&lt;/a&gt; 
+        &lt;br /&gt;
+         Ürünü görmek için &lt;a style="text-decoration:none;" href="#link"&gt;buraya&lt;/a&gt; tıklayınız.
+      &lt;/td&gt;
+    &lt;/tr&gt;
+      &lt;tr style="width:670px;height:10px;"&gt;
+      &lt;td style="width:650px;height:9px;"&gt;
+        Mesajınızı Görmek için &lt;a style="text-decoration:none;" href="http://www.makinaturkiye.com/uyelikgiris?email=#email#"&gt;buraya&lt;/a&gt;  tıklayınız &lt;/td&gt;
+    &lt;/tr&gt;
+  
+  &lt;/table&gt;
+
+
+&lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="ForgetPassord" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+	&lt;head&gt;
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+        &lt;title&gt;Trinnk.Com - Şifremi Unuttum&lt;/title&gt;
+        &lt;style type="text/css"&gt;
+			/* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
+			#outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */
+			.ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
+			.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
+			body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
+			table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
+			img{-ms-interpolation-mode:bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */
+
+			/* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
+			body{margin:0; padding:0;}
+			img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
+			table{border-collapse:collapse !important;}
+			body, #bodyTable, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;}
+
+			/* /\/\/\/\/\/\/\/\/ TEMPLATE STYLES /\/\/\/\/\/\/\/\/ */
+
+			#bodyCell{padding:20px;}
+			#templateContainer{width:600px;}
+
+			/* ========== Page Styles ========== */
+
+			/**
+			* @tab Page
+			* @section background style
+			* @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+			* @theme page
+			*/
+			body, #bodyTable{
+				/*@editable*/ background-color:#d3e0f1;
+			}
+
+			/**
+			* @tab Page
+			* @section background style
+			* @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+			* @theme page
+			*/
+			#bodyCell{
+				/*@editable*/ border-top:4px solid #f7f9fb;
+			}
+
+			/**
+			* @tab Page
+			* @section email border
+			* @tip Set the border for your email.
+			*/
+			#templateContainer{
+				/*@editable*/ border:1px solid #d3e0f1;
+			}
+
+			/**
+			* @tab Page
+			* @section heading 1
+			* @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
+			* @style heading 1
+			*/
+			h1{
+				/*@editable*/ color:#202020 !important;
+				display:block;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:26px;
+				/*@editable*/ font-style:normal;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
+				margin-top:0;
+				margin-right:0;
+				margin-bottom:10px;
+				margin-left:0;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Page
+			* @section heading 2
+			* @tip Set the styling for all second-level headings in your emails.
+			* @style heading 2
+			*/
+			h2{
+				/*@editable*/ color:#404040 !important;
+				display:block;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:20px;
+				/*@editable*/ font-style:normal;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
+				margin-top:0;
+				margin-right:0;
+				margin-bottom:10px;
+				margin-left:0;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Page
+			* @section heading 3
+			* @tip Set the styling for all third-level headings in your emails.
+			* @style heading 3
+			*/
+			h3{
+				/*@editable*/ color:#606060 !important;
+				display:block;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:16px;
+				/*@editable*/ font-style:italic;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
+				margin-top:0;
+				margin-right:0;
+				margin-bottom:10px;
+				margin-left:0;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Page
+			* @section heading 4
+			* @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
+			* @style heading 4
+			*/
+			h4{
+				/*@editable*/ color:#808080 !important;
+				display:block;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:14px;
+				/*@editable*/ font-style:italic;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
+				margin-top:0;
+				margin-right:0;
+				margin-bottom:10px;
+				margin-left:0;
+				/*@editable*/ text-align:left;
+			}
+
+			/* ========== Header Styles ========== */
+
+			/**
+			* @tab Header
+			* @section preheader style
+			* @tip Set the background color and bottom border for your email's preheader area.
+			* @theme header
+			*/
+			#templatePreheader{
+				/*@editable*/ background-color:#ffffff;
+				/*@editable*/ border-bottom:1px solid #CCCCCC;
+			}
+
+			/**
+			* @tab Header
+			* @section preheader text
+			* @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
+			*/
+			.preheaderContent{
+				/*@editable*/ color:#808080;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:10px;
+				/*@editable*/ line-height:125%;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Header
+			* @section preheader link
+			* @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
+			*/
+			.preheaderContent a:link, .preheaderContent a:visited, /* Yahoo! Mail Override */ .preheaderContent a .yshortcuts /* Yahoo! Mail Override */{
+				/*@editable*/ color:#606060;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
+			}
+
+			/**
+			* @tab Header
+			* @section header style
+			* @tip Set the background color and borders for your email's header area.
+			* @theme header
+			*/
+			#templateHeader{
+				/*@editable*/ background-color:#ffffff;
+				/*@editable*/ border-top:1px solid #FFFFFF;
+				/*@editable*/ border-bottom:1px solid #CCCCCC;
+			}
+
+			/**
+			* @tab Header
+			* @section header text
+			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+			*/
+			.headerContent{
+				/*@editable*/ color:#505050;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:20px;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ padding-top:0;
+				/*@editable*/ padding-right:0;
+				/*@editable*/ padding-bottom:0;
+				/*@editable*/ padding-left:0;
+				/*@editable*/ text-align:left;
+				/*@editable*/ vertical-align:middle;
+			}
+
+			/**
+			* @tab Header
+			* @section header link
+			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
+			*/
+			.headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
+				/*@editable*/ color:#EB4102;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
+			}
+
+			#headerImage{
+				height:auto;
+				max-width:600px;
+			}
+
+			/* ========== Body Styles ========== */
+
+			/**
+			* @tab Body
+			* @section body style
+			* @tip Set the background color and borders for your email's body area.
+			*/
+			#templateBody{
+				/*@editable*/ background-color:#ffffff;
+				/*@editable*/ border-top:1px solid #FFFFFF;
+				/*@editable*/ border-bottom:1px solid #CCCCCC;
+			}
+
+			/**
+			* @tab Body
+			* @section body text
+			* @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
+			* @theme main
+			*/
+			.bodyContent{
+				/*@editable*/ color:#505050;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:14px;
+				/*@editable*/ line-height:150%;
+				padding-top:20px;
+				padding-right:20px;
+				padding-bottom:20px;
+				padding-left:20px;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Body
+			* @section body link
+			* @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
+			*/
+			.bodyContent a:link, .bodyContent a:visited, /* Yahoo! Mail Override */ .bodyContent a .yshortcuts /* Yahoo! Mail Override */{
+				/*@editable*/ color:#EB4102;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
+			}
+
+			.bodyContent img{
+				display:inline;
+				height:auto;
+				max-width:560px;
+			}
+
+			/* ========== Footer Styles ========== */
+
+			/**
+			* @tab Footer
+			* @section footer style
+			* @tip Set the background color and borders for your email's footer area.
+			* @theme footer
+			*/
+			#templateFooter{
+				/*@editable*/ background-color:#ffffff;
+				/*@editable*/ border-top:1px solid #FFFFFF;
+			}
+
+			/**
+			* @tab Footer
+			* @section footer text
+			* @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
+			* @theme footer
+			*/
+			.footerContent{
+				/*@editable*/ color:#808080;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:10px;
+				/*@editable*/ line-height:150%;
+				padding-top:20px;
+				padding-right:20px;
+				padding-bottom:20px;
+				padding-left:20px;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Footer
+			* @section footer link
+			* @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
+			*/
+			.footerContent a:link, .footerContent a:visited, /* Yahoo! Mail Override */ .footerContent a .yshortcuts, .footerContent a span /* Yahoo! Mail Override */{
+				/*@editable*/ color:#606060;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
+			}
+
+			/* /\/\/\/\/\/\/\/\/ MOBILE STYLES /\/\/\/\/\/\/\/\/ */
+
+            @media only screen and (max-width: 480px){
+				/* /\/\/\/\/\/\/ CLIENT-SPECIFIC MOBILE STYLES /\/\/\/\/\/\/ */
+				body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:none !important;} /* Prevent Webkit platforms from changing default text sizes */
+                body{width:100% !important; min-width:100% !important;} /* Prevent iOS Mail from adding padding to the body */
+
+				/* /\/\/\/\/\/\/ MOBILE RESET STYLES /\/\/\/\/\/\/ */
+				#bodyCell{padding:10px !important;}
+
+				/* /\/\/\/\/\/\/ MOBILE TEMPLATE STYLES /\/\/\/\/\/\/ */
+
+				/* ======== Page Styles ======== */
+
+				/**
+				* @tab Mobile Styles
+				* @section template width
+				* @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
+				*/
+				#templateContainer{
+					max-width:600px !important;
+					/*@editable*/ width:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section heading 1
+				* @tip Make the first-level headings larger in size for better readability on small screens.
+				*/
+				h1{
+					/*@editable*/ font-size:24px !important;
+					/*@editable*/ line-height:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section heading 2
+				* @tip Make the second-level headings larger in size for better readability on small screens.
+				*/
+				h2{
+					/*@editable*/ font-size:20px !important;
+					/*@editable*/ line-height:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section heading 3
+				* @tip Make the third-level headings larger in size for better readability on small screens.
+				*/
+				h3{
+					/*@editable*/ font-size:18px !important;
+					/*@editable*/ line-height:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section heading 4
+				* @tip Make the fourth-level headings larger in size for better readability on small screens.
+				*/
+				h4{
+					/*@editable*/ font-size:16px !important;
+					/*@editable*/ line-height:100% !important;
+				}
+
+				/* ======== Header Styles ======== */
+
+				#templatePreheader{display:none !important;} /* Hide the template preheader to save space */
+
+				/**
+				* @tab Mobile Styles
+				* @section header image
+				* @tip Make the main header image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+				*/
+				#headerImage{
+					height:auto !important;
+					/*@editable*/ max-width:600px !important;
+					/*@editable*/ width:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section header text
+				* @tip Make the header content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				*/
+				.headerContent{
+					/*@editable*/ font-size:20px !important;
+					/*@editable*/ line-height:125% !important;
+				}
+
+				/* ======== Body Styles ======== */
+
+				/**
+				* @tab Mobile Styles
+				* @section body image
+				* @tip Make the main body image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+				*/
+				#bodyImage{
+					height:auto !important;
+					/*@editable*/ max-width:560px !important;
+					/*@editable*/ width:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section body text
+				* @tip Make the body content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				*/
+				.bodyContent{
+					/*@editable*/ font-size:18px !important;
+					/*@editable*/ line-height:125% !important;
+				}
+
+				/* ======== Footer Styles ======== */
+
+				/**
+				* @tab Mobile Styles
+				* @section footer text
+				* @tip Make the body content text larger in size for better readability on small screens.
+				*/
+				.footerContent{
+					/*@editable*/ font-size:14px !important;
+					/*@editable*/ line-height:115% !important;
+				}
+
+				.footerContent a{display:block !important;} /* Place footer social and utility links on their own lines, for easier access */
+			}
+		&lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0"&gt;
+    	&lt;center&gt;
+        	&lt;table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable"&gt;
+            	&lt;tr&gt;
+                	&lt;td align="center" valign="top" id="bodyCell"&gt;
+                    	&lt;!-- BEGIN TEMPLATE // --&gt;
+                    	&lt;table border="0" cellpadding="0" cellspacing="0" id="templateContainer"&gt;
+                        	&lt;tr&gt;
+                            	&lt;td align="center" valign="top"&gt;
+                                	&lt;!-- BEGIN PREHEADER // --&gt;
+                                    &lt;table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader"&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00"&gt;
+                                                Maillerimizin Gelen Kutusu’na (Inbox) düştüğünden emin olmak için makinaturkiye@makinaturkiye.com adresini, "Adres Defteri"ne ekleyebilirsiniz.
+                                            &lt;/td&gt;
+                                          
+                                            
+                                        &lt;/tr&gt;
+                                    &lt;/table&gt;
+                                    &lt;!-- // END PREHEADER --&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        	&lt;tr&gt;
+                            	&lt;td align="center" valign="top"&gt;
+                                	&lt;!-- BEGIN HEADER // --&gt;
+                                    &lt;table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader"&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="headerContent"&gt;
+                                            	&lt;img src="http://s.makinaturkiye.com/Images/mailingbanner.png" style="max-width:600px;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext /&gt;
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                    &lt;/table&gt;
+                                    &lt;!-- // END HEADER --&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        	&lt;tr&gt;
+                            	&lt;td align="center" valign="top"&gt;
+                                	&lt;!-- BEGIN BODY // --&gt;
+                                    &lt;table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody"&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="bodyContent" mc:edit="body_content00"&gt;
+                                                &lt;h1&gt;Şifre Yenileme&lt;/h1&gt;
+                                                &lt;h3&gt;Sevgili, #userName# #userSurname#&lt;/h3&gt;
+												#userMail# e-posta adresine ait makinaturkiye.com şifrenizi değiştirmek için bir talepte bulundunuz. Şifrenizi değiştirmek için lütfen &lt;a href="#createdLink#"&gt;buraya tıklayın.&lt;/a&gt;
+												&lt;br /&gt;&lt;br /&gt;
+												Eğer şifre değişikliği talebiniz yoksa lütfen 0 212 255 71 50numaralı telefonu arayarak ya da destek@makinaturkiye.com adresine e-posta göndererek bize bilgi verin.
+												&lt;br /&gt;&lt;br /&gt;
+												Saygılarımızla
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                     
+                                         
+                                    &lt;/table&gt;
+                                    &lt;!-- // END BODY --&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        	&lt;tr&gt;
+                            	&lt;td align="center" valign="top"&gt;
+                                	&lt;!-- BEGIN FOOTER // --&gt;
+                                    &lt;table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter"&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="footerContent" mc:edit="footer_content00"&gt;
+                                                &lt;a href="http://www.twitter.com/Trinnk"&gt;Twitter da takip et&lt;/a&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;a href="http://www.facebook.com/makinaturkiyecom"&gt;Facebook da takip et&lt;/a&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;a  href="https://www.linkedin.com/company/makinaturkiye-com?trk=company_name" target="_self"&gt;
+							Linkedin
+						  &lt;/a&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;a href="https://plus.google.com/+MakinaT%C3%BCrkiye2009?rel=author" target="_self"&gt;
+							Google+
+						  &lt;/a&gt;
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content01"&gt;
+                                                &lt;em&gt;Copyright &amp;copy; 2014 Trinnk.Com, Tüm hakları saklıdır.&lt;/em&gt;
+                                                &lt;br /&gt;
+                                                Makina Alanında 1 Numaralı Dijital Platform
+                                                &lt;br /&gt;
+                                                &lt;br /&gt;
+                                                &lt;strong&gt;İletişim adresimiz: destek@makinaturkiye.com&lt;/strong&gt;
+                                                &lt;br /&gt;
+                                                
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content02"&gt;
+                                            	&lt;a href="#"&gt;E-posta almak istemiyorum&lt;/a&gt;
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                    &lt;/table&gt;
+                                    &lt;!-- // END FOOTER --&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                        &lt;!-- // END TEMPLATE --&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+        &lt;/center&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="PasswordRecreated" xml:space="preserve">
+    <value>&lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+&lt;html xmlns="http://www.w3.org/1999/xhtml"&gt;
+	&lt;head&gt;
+        &lt;meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /&gt;
+        &lt;title&gt;Trinnk.Com - Şifremi Unuttum&lt;/title&gt;
+        &lt;style type="text/css"&gt;
+			/* /\/\/\/\/\/\/\/\/ CLIENT-SPECIFIC STYLES /\/\/\/\/\/\/\/\/ */
+			#outlook a{padding:0;} /* Force Outlook to provide a "view in browser" message */
+			.ReadMsgBody{width:100%;} .ExternalClass{width:100%;} /* Force Hotmail to display emails at full width */
+			.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {line-height: 100%;} /* Force Hotmail to display normal line spacing */
+			body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:100%; -ms-text-size-adjust:100%;} /* Prevent WebKit and Windows mobile changing default text sizes */
+			table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;} /* Remove spacing between tables in Outlook 2007 and up */
+			img{-ms-interpolation-mode:bicubic;} /* Allow smoother rendering of resized image in Internet Explorer */
+
+			/* /\/\/\/\/\/\/\/\/ RESET STYLES /\/\/\/\/\/\/\/\/ */
+			body{margin:0; padding:0;}
+			img{border:0; height:auto; line-height:100%; outline:none; text-decoration:none;}
+			table{border-collapse:collapse !important;}
+			body, #bodyTable, #bodyCell{height:100% !important; margin:0; padding:0; width:100% !important;}
+
+			/* /\/\/\/\/\/\/\/\/ TEMPLATE STYLES /\/\/\/\/\/\/\/\/ */
+
+			#bodyCell{padding:20px;}
+			#templateContainer{width:600px;}
+
+			/* ========== Page Styles ========== */
+
+			/**
+			* @tab Page
+			* @section background style
+			* @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+			* @theme page
+			*/
+			body, #bodyTable{
+				/*@editable*/ background-color:#d3e0f1;
+			}
+
+			/**
+			* @tab Page
+			* @section background style
+			* @tip Set the background color and top border for your email. You may want to choose colors that match your company's branding.
+			* @theme page
+			*/
+			#bodyCell{
+				/*@editable*/ border-top:4px solid #f7f9fb;
+			}
+
+			/**
+			* @tab Page
+			* @section email border
+			* @tip Set the border for your email.
+			*/
+			#templateContainer{
+				/*@editable*/ border:1px solid #d3e0f1;
+			}
+
+			/**
+			* @tab Page
+			* @section heading 1
+			* @tip Set the styling for all first-level headings in your emails. These should be the largest of your headings.
+			* @style heading 1
+			*/
+			h1{
+				/*@editable*/ color:#202020 !important;
+				display:block;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:26px;
+				/*@editable*/ font-style:normal;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
+				margin-top:0;
+				margin-right:0;
+				margin-bottom:10px;
+				margin-left:0;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Page
+			* @section heading 2
+			* @tip Set the styling for all second-level headings in your emails.
+			* @style heading 2
+			*/
+			h2{
+				/*@editable*/ color:#404040 !important;
+				display:block;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:20px;
+				/*@editable*/ font-style:normal;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
+				margin-top:0;
+				margin-right:0;
+				margin-bottom:10px;
+				margin-left:0;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Page
+			* @section heading 3
+			* @tip Set the styling for all third-level headings in your emails.
+			* @style heading 3
+			*/
+			h3{
+				/*@editable*/ color:#606060 !important;
+				display:block;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:16px;
+				/*@editable*/ font-style:italic;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
+				margin-top:0;
+				margin-right:0;
+				margin-bottom:10px;
+				margin-left:0;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Page
+			* @section heading 4
+			* @tip Set the styling for all fourth-level headings in your emails. These should be the smallest of your headings.
+			* @style heading 4
+			*/
+			h4{
+				/*@editable*/ color:#808080 !important;
+				display:block;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:14px;
+				/*@editable*/ font-style:italic;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ letter-spacing:normal;
+				margin-top:0;
+				margin-right:0;
+				margin-bottom:10px;
+				margin-left:0;
+				/*@editable*/ text-align:left;
+			}
+
+			/* ========== Header Styles ========== */
+
+			/**
+			* @tab Header
+			* @section preheader style
+			* @tip Set the background color and bottom border for your email's preheader area.
+			* @theme header
+			*/
+			#templatePreheader{
+				/*@editable*/ background-color:#ffffff;
+				/*@editable*/ border-bottom:1px solid #CCCCCC;
+			}
+
+			/**
+			* @tab Header
+			* @section preheader text
+			* @tip Set the styling for your email's preheader text. Choose a size and color that is easy to read.
+			*/
+			.preheaderContent{
+				/*@editable*/ color:#808080;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:10px;
+				/*@editable*/ line-height:125%;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Header
+			* @section preheader link
+			* @tip Set the styling for your email's preheader links. Choose a color that helps them stand out from your text.
+			*/
+			.preheaderContent a:link, .preheaderContent a:visited, /* Yahoo! Mail Override */ .preheaderContent a .yshortcuts /* Yahoo! Mail Override */{
+				/*@editable*/ color:#606060;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
+			}
+
+			/**
+			* @tab Header
+			* @section header style
+			* @tip Set the background color and borders for your email's header area.
+			* @theme header
+			*/
+			#templateHeader{
+				/*@editable*/ background-color:#ffffff;
+				/*@editable*/ border-top:1px solid #FFFFFF;
+				/*@editable*/ border-bottom:1px solid #CCCCCC;
+			}
+
+			/**
+			* @tab Header
+			* @section header text
+			* @tip Set the styling for your email's header text. Choose a size and color that is easy to read.
+			*/
+			.headerContent{
+				/*@editable*/ color:#505050;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:20px;
+				/*@editable*/ font-weight:bold;
+				/*@editable*/ line-height:100%;
+				/*@editable*/ padding-top:0;
+				/*@editable*/ padding-right:0;
+				/*@editable*/ padding-bottom:0;
+				/*@editable*/ padding-left:0;
+				/*@editable*/ text-align:left;
+				/*@editable*/ vertical-align:middle;
+			}
+
+			/**
+			* @tab Header
+			* @section header link
+			* @tip Set the styling for your email's header links. Choose a color that helps them stand out from your text.
+			*/
+			.headerContent a:link, .headerContent a:visited, /* Yahoo! Mail Override */ .headerContent a .yshortcuts /* Yahoo! Mail Override */{
+				/*@editable*/ color:#EB4102;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
+			}
+
+			#headerImage{
+				height:auto;
+				max-width:600px;
+			}
+
+			/* ========== Body Styles ========== */
+
+			/**
+			* @tab Body
+			* @section body style
+			* @tip Set the background color and borders for your email's body area.
+			*/
+			#templateBody{
+				/*@editable*/ background-color:#ffffff;
+				/*@editable*/ border-top:1px solid #FFFFFF;
+				/*@editable*/ border-bottom:1px solid #CCCCCC;
+			}
+
+			/**
+			* @tab Body
+			* @section body text
+			* @tip Set the styling for your email's main content text. Choose a size and color that is easy to read.
+			* @theme main
+			*/
+			.bodyContent{
+				/*@editable*/ color:#505050;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:14px;
+				/*@editable*/ line-height:150%;
+				padding-top:20px;
+				padding-right:20px;
+				padding-bottom:20px;
+				padding-left:20px;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Body
+			* @section body link
+			* @tip Set the styling for your email's main content links. Choose a color that helps them stand out from your text.
+			*/
+			.bodyContent a:link, .bodyContent a:visited, /* Yahoo! Mail Override */ .bodyContent a .yshortcuts /* Yahoo! Mail Override */{
+				/*@editable*/ color:#EB4102;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
+			}
+
+			.bodyContent img{
+				display:inline;
+				height:auto;
+				max-width:560px;
+			}
+
+			/* ========== Footer Styles ========== */
+
+			/**
+			* @tab Footer
+			* @section footer style
+			* @tip Set the background color and borders for your email's footer area.
+			* @theme footer
+			*/
+			#templateFooter{
+				/*@editable*/ background-color:#ffffff;
+				/*@editable*/ border-top:1px solid #FFFFFF;
+			}
+
+			/**
+			* @tab Footer
+			* @section footer text
+			* @tip Set the styling for your email's footer text. Choose a size and color that is easy to read.
+			* @theme footer
+			*/
+			.footerContent{
+				/*@editable*/ color:#808080;
+				/*@editable*/ font-family:Helvetica;
+				/*@editable*/ font-size:10px;
+				/*@editable*/ line-height:150%;
+				padding-top:20px;
+				padding-right:20px;
+				padding-bottom:20px;
+				padding-left:20px;
+				/*@editable*/ text-align:left;
+			}
+
+			/**
+			* @tab Footer
+			* @section footer link
+			* @tip Set the styling for your email's footer links. Choose a color that helps them stand out from your text.
+			*/
+			.footerContent a:link, .footerContent a:visited, /* Yahoo! Mail Override */ .footerContent a .yshortcuts, .footerContent a span /* Yahoo! Mail Override */{
+				/*@editable*/ color:#606060;
+				/*@editable*/ font-weight:normal;
+				/*@editable*/ text-decoration:underline;
+			}
+
+			/* /\/\/\/\/\/\/\/\/ MOBILE STYLES /\/\/\/\/\/\/\/\/ */
+
+            @media only screen and (max-width: 480px){
+				/* /\/\/\/\/\/\/ CLIENT-SPECIFIC MOBILE STYLES /\/\/\/\/\/\/ */
+				body, table, td, p, a, li, blockquote{-webkit-text-size-adjust:none !important;} /* Prevent Webkit platforms from changing default text sizes */
+                body{width:100% !important; min-width:100% !important;} /* Prevent iOS Mail from adding padding to the body */
+
+				/* /\/\/\/\/\/\/ MOBILE RESET STYLES /\/\/\/\/\/\/ */
+				#bodyCell{padding:10px !important;}
+
+				/* /\/\/\/\/\/\/ MOBILE TEMPLATE STYLES /\/\/\/\/\/\/ */
+
+				/* ======== Page Styles ======== */
+
+				/**
+				* @tab Mobile Styles
+				* @section template width
+				* @tip Make the template fluid for portrait or landscape view adaptability. If a fluid layout doesn't work for you, set the width to 300px instead.
+				*/
+				#templateContainer{
+					max-width:600px !important;
+					/*@editable*/ width:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section heading 1
+				* @tip Make the first-level headings larger in size for better readability on small screens.
+				*/
+				h1{
+					/*@editable*/ font-size:24px !important;
+					/*@editable*/ line-height:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section heading 2
+				* @tip Make the second-level headings larger in size for better readability on small screens.
+				*/
+				h2{
+					/*@editable*/ font-size:20px !important;
+					/*@editable*/ line-height:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section heading 3
+				* @tip Make the third-level headings larger in size for better readability on small screens.
+				*/
+				h3{
+					/*@editable*/ font-size:18px !important;
+					/*@editable*/ line-height:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section heading 4
+				* @tip Make the fourth-level headings larger in size for better readability on small screens.
+				*/
+				h4{
+					/*@editable*/ font-size:16px !important;
+					/*@editable*/ line-height:100% !important;
+				}
+
+				/* ======== Header Styles ======== */
+
+				#templatePreheader{display:none !important;} /* Hide the template preheader to save space */
+
+				/**
+				* @tab Mobile Styles
+				* @section header image
+				* @tip Make the main header image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+				*/
+				#headerImage{
+					height:auto !important;
+					/*@editable*/ max-width:600px !important;
+					/*@editable*/ width:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section header text
+				* @tip Make the header content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				*/
+				.headerContent{
+					/*@editable*/ font-size:20px !important;
+					/*@editable*/ line-height:125% !important;
+				}
+
+				/* ======== Body Styles ======== */
+
+				/**
+				* @tab Mobile Styles
+				* @section body image
+				* @tip Make the main body image fluid for portrait or landscape view adaptability, and set the image's original width as the max-width. If a fluid setting doesn't work, set the image width to half its original size instead.
+				*/
+				#bodyImage{
+					height:auto !important;
+					/*@editable*/ max-width:560px !important;
+					/*@editable*/ width:100% !important;
+				}
+
+				/**
+				* @tab Mobile Styles
+				* @section body text
+				* @tip Make the body content text larger in size for better readability on small screens. We recommend a font size of at least 16px.
+				*/
+				.bodyContent{
+					/*@editable*/ font-size:18px !important;
+					/*@editable*/ line-height:125% !important;
+				}
+
+				/* ======== Footer Styles ======== */
+
+				/**
+				* @tab Mobile Styles
+				* @section footer text
+				* @tip Make the body content text larger in size for better readability on small screens.
+				*/
+				.footerContent{
+					/*@editable*/ font-size:14px !important;
+					/*@editable*/ line-height:115% !important;
+				}
+
+				.footerContent a{display:block !important;} /* Place footer social and utility links on their own lines, for easier access */
+			}
+		&lt;/style&gt;
+    &lt;/head&gt;
+    &lt;body leftmargin="0" marginwidth="0" topmargin="0" marginheight="0" offset="0"&gt;
+    	&lt;center&gt;
+        	&lt;table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable"&gt;
+            	&lt;tr&gt;
+                	&lt;td align="center" valign="top" id="bodyCell"&gt;
+                    	&lt;!-- BEGIN TEMPLATE // --&gt;
+                    	&lt;table border="0" cellpadding="0" cellspacing="0" id="templateContainer"&gt;
+                        	&lt;tr&gt;
+                            	&lt;td align="center" valign="top"&gt;
+                                	&lt;!-- BEGIN PREHEADER // --&gt;
+                                    &lt;table border="0" cellpadding="0" cellspacing="0" width="100%" id="templatePreheader"&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:20px;" mc:edit="preheader_content00"&gt;
+                                                Maillerimizin Gelen Kutusu’na (Inbox) düştüğünden emin olmak için duyuru@makinaturkiye.com adresini, "Adres Defteri"ne ekleyebilirsiniz.
+                                            &lt;/td&gt;
+                                            
+                                            &lt;td valign="top" width="200" class="preheaderContent" style="padding-top:10px; padding-right:20px; padding-bottom:10px; padding-left:0;" mc:edit="preheader_content01"&gt;
+                                                E-posta düzgün görüntülenmiyor mu?&lt;br /&gt;&lt;a href="#" target="_blank"&gt;Tarayıcınızda görüntülemek için tıklayın.&lt;/a&gt;.
+                                            &lt;/td&gt;
+                                            
+                                        &lt;/tr&gt;
+                                    &lt;/table&gt;
+                                    &lt;!-- // END PREHEADER --&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        	&lt;tr&gt;
+                            	&lt;td align="center" valign="top"&gt;
+                                	&lt;!-- BEGIN HEADER // --&gt;
+                                    &lt;table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateHeader"&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="headerContent"&gt;
+                                            	&lt;img src="http://s.makinaturkiye.com/Images/mailingbanner.png"  style="max-width:600px;" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext /&gt;
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                    &lt;/table&gt;
+                                    &lt;!-- // END HEADER --&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        	&lt;tr&gt;
+                            	&lt;td align="center" valign="top"&gt;
+                                	&lt;!-- BEGIN BODY // --&gt;
+                                    &lt;table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateBody"&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="bodyContent" mc:edit="body_content00"&gt;
+                                                &lt;h1&gt;Şifre Hatırlatma&lt;/h1&gt;
+                                                &lt;h3&gt;Sevgili, #userName# #userSurname#&lt;/h3&gt;
+												Şifreniz değiştirilmiştir. Yeni şifrenizle giriş yapmak için &lt;a href="http://makinaturkiye.com/"&gt;buraya tıklayın.&lt;/a&gt;
+												&lt;br /&gt;&lt;br /&gt;
+												Eğer şifre değişikliği talebiniz yoksa lütfen 0 850 222 22 22 numaralı telefonu arayarak ya da destek@makinaturkiye.com adresine e-posta göndererek bize bilgi verin.
+												&lt;br /&gt;&lt;br /&gt;
+												Saygılarımızla
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                     
+                                         
+                                    &lt;/table&gt;
+                                    &lt;!-- // END BODY --&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        	&lt;tr&gt;
+                            	&lt;td align="center" valign="top"&gt;
+                                	&lt;!-- BEGIN FOOTER // --&gt;
+                                    &lt;table border="0" cellpadding="0" cellspacing="0" width="100%" id="templateFooter"&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="footerContent" mc:edit="footer_content00"&gt;
+                                                &lt;a href="#"&gt;Twitter da takip et&lt;/a&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;a href="#"&gt;Facebook da takip et&lt;/a&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;a href="#"&gt;Forward to Friend&lt;/a&gt;&amp;nbsp;
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content01"&gt;
+                                                &lt;em&gt;Copyright &amp;copy; 2014 Trinnk.Com, Tüm hakları saklıdır.&lt;/em&gt;
+                                                &lt;br /&gt;
+                                                Makina Alanında 1 Numaralı Dijital Platform
+                                                &lt;br /&gt;
+                                                &lt;br /&gt;
+                                                &lt;strong&gt;İletişim adresimiz: destek@makinaturkiye.com&lt;/strong&gt;
+                                                &lt;br /&gt;
+                                                
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                        &lt;tr&gt;
+                                            &lt;td valign="top" class="footerContent" style="padding-top:0;" mc:edit="footer_content02"&gt;
+                                            	&lt;a href="#"&gt;E-posta almak istemiyorum&lt;/a&gt;
+                                            &lt;/td&gt;
+                                        &lt;/tr&gt;
+                                    &lt;/table&gt;
+                                    &lt;!-- // END FOOTER --&gt;
+                                &lt;/td&gt;
+                            &lt;/tr&gt;
+                        &lt;/table&gt;
+                        &lt;!-- // END TEMPLATE --&gt;
+                    &lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/table&gt;
+        &lt;/center&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+</root>

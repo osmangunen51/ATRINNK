@@ -1,0 +1,204 @@
+﻿@model NeoSistem.Trinnk.Web.Models.Catalog.MTCategoryProductViewModel
+@using System.Web.Helpers
+<!--Test-->
+
+   <style type="text/css">
+    .satici-iletisim { font-size: 15px; display: inline-block; }
+
+    @@media(min-width: 768px) {
+        .satici-iletisim { font-size: 13px; margin-top: 5px; }
+    }
+
+
+    @@media(max-width:767px) {
+        .product-list-v2__name { height: auto !important; font-size: 18px; }
+
+        .product-list-v2__item .item-price { text-align: left !important; }
+    }
+
+    @@media( min-width: 991px) {
+        .product-list-v2__item .item-price { margin-top: 18px; margin-bottom: 20px; }
+    }
+    </style>
+   <div id="product-container" class="product-list-mtgrid row clearfix">
+       @{
+           int i = 0;
+           int otherIndexNumber = 0;
+       }
+
+       @foreach (var model1 in Model.CategoryProductModels)
+       {
+           ++i;
+           string productUrl = Trinnk.Utilities.HttpHelpers.UrlBuilder.GetProductUrl(model1.ProductId, model1.ProductName);
+
+           string s = model1.ModelYear.ToString();
+           string Marka = (model1.BrandName != null || model1.BrandName != "") ? model1.BrandName : "";
+           string Modeli = (model1.ModelName != null) ? ("" + model1.ModelName) : "";
+
+           <div class="col-md-12">
+               <div class="product-list-mtgrid__item">
+                   <div class="product-list-mtgrid__media">
+                       <a href="@productUrl"
+                          title="@model1.ProductName">
+                           @if (!string.IsNullOrEmpty(model1.PicturePath))
+                           {
+                           
+                           <img class="img-thumbnail"
+                                src="@model1.PicturePath.Replace(" 160x120","200x150")"
+                           alt="@model1.ProductName"
+                           title="@model1.ProductName" />
+
+                           }
+                           else
+                           {
+                           <img class="img-thumbnail broken-image"
+                                src="/UserFiles/image-loading.png"
+                                data-src="@model1.PicturePath"
+                                title="@model1.ProductName"
+                                alt="@model1.ProductName" />
+                           }
+
+                       </a>
+                   </div>
+                   <div class="product-list-mtgrid__body">
+                       <div class="product-list-mtgrid__content">
+                           <a href="@productUrl"
+                              title="@model1.ProductName"
+                              class="product-list-mt__link clearfix">
+                               <div class="product-list-mt__title-info">
+                                   <h3 class="product-list-mtgrid__title">
+                                       @model1.ProductName
+                                   </h3>
+
+                                   <p class="product-list-mtgrid__brandmodel1">
+                                       @Marka | @Modeli
+                                   </p>
+                               </div>
+                           </a>
+
+                           @*<span class="product-list-mt__advert-no product-list-mt__advert-no--mobile">@model1.ProductNo</span>*@
+
+                           <div class="product-list-mtgrid__detail hidden-xs">
+                               <div class="product-list-mtgrid__info">
+                                   @if (!string.IsNullOrEmpty(model1.ProductSalesTypeText) && model1.ProductSalesTypeText.Contains(","))
+                                   {
+                                   
+                                   <div class="product-list-mtgrid__item-col">
+                                       <div class="product-list-mtgrid__infotitle">Satış Detayı:</div>
+                                       <ul class="product-list-mtgrid__info-list">
+                                           @{
+                                               var productSalesTypeTexts = model1.ProductSalesTypeText.Split(',');
+                                               foreach (var item in productSalesTypeTexts)
+                                               {
+                                               <li>@item</li>
+                                               }
+                                            }
+                                           </ul>
+                                   </div>
+                                   
+                                   }
+                                   <div class="product-list-mtgrid__item-col">
+                                       <div class="product-list-mtgrid__infotitle">Ürün Durumu:</div>
+                                       <ul class="product-list-mtgrid__info-list">
+                                           <li>@model1.ProductStatuText</li>
+                                       </ul>
+                                   </div>
+                                   <div class="product-list-mtgrid__item-col">
+                                       <div class="product-list-mtgrid__infotitle">Ürün Tipi:</div>
+                                       <ul class="product-list-mtgrid__info-list">
+                                           <li>@model1.ProductTypeText</li>
+                                       </ul>
+                                   </div>
+                               </div>
+
+                           </div>
+
+                       </div>
+                       <div class="product-list-mtgrid__extra">
+                           <p class="product-list-mtgrid__price">
+
+                               @if (string.IsNullOrEmpty(model1.Price) || (model1.ProductPriceType != (byte)NeoSistem.Trinnk.Web.Models.ProductPriceType.Price && model1.ProductPriceType != (byte)NeoSistem.Trinnk.Web.Models.ProductPriceType.PriceRange))
+                               {
+                                   <span class="interview"></span>
+                               }
+                               else
+                               {
+                                   string priceCss = "";
+                                   if (model1.CurrencyCss == "")
+                                   {
+                                       priceCss = "interview";
+                                       if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
+                                       {
+                                           <i itemprop="priceCurrency" class="@model1.CurrencyCss old-price"></i>
+                                       }
+                                       else
+                                       {
+                                           <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i>
+                                       }
+
+                                   }
+                                   if (model1.Price != "Fiyat Sorunuz")
+                                   {
+
+                                       if (!string.IsNullOrEmpty(model1.ProductPriceWithDiscount))
+                                       {
+                                           <span class="old-price">@model1.Price</span>
+                                           <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i>
+                                           <span>@model1.ProductPriceWithDiscount</span>
+                                       }
+                                       else
+                                       {
+                                           <span class="">@model1.Price</span>
+                                           <i itemprop="priceCurrency" class="@model1.CurrencyCss"></i>
+                                       }
+                                   }
+                                   else
+                                   {
+                                       <span class="interview"></span>
+                                   }
+                                   if (!string.IsNullOrEmpty(model1.Price))
+                                   {
+
+<p>@model1.KdvOrFobText</p>
+                                   }
+                                   } 
+                           </p>
+
+
+                           <p class="product-list-mtgrid__advert-no">@model1.ProductNo</p>
+                           <p class="product-list-mtgrid__store"><a href="@model1.StoreUrl">@model1.StoreName</a></p>
+                           <div class="product-list-mtgrid__extra-buttons hidden-xs">
+                               @if (model1.HasVideo.Value && model1.HasVideo.Value) {
+                               <a title="Bu Ürün İçin Video Eklenmiştir" href="javascript:;" rel="nofollow" class="btn btn-sm btn-primary">
+                                   <i class="fa fa-video-camera"></i>
+                               </a>
+                                } 
+                               @if (model1.Doping.HasValue && model1.Doping.Value)
+                               {
+                               <a href="javascript:;" rel="nofollow" class="btn btn-sm btn-success">
+                                   D
+                               </a>
+                               }
+
+                           </div>
+                           <div class="product-list-mt__features">
+
+
+                           </div>
+                       </div>
+
+
+
+                   </div>
+
+               </div>
+           </div>
+
+          
+             otherIndexNumber++; 
+               }
+           </div>
+    @Html.Partial("_ProductPaging", Model.PagingModel)
+
+
+

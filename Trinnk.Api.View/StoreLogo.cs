@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Trinnk.Api.View
+{
+    public class StoreLogo
+    {
+        public int MainPartyId { get; set; } = 0;
+        public string Logo { get; set; }
+    }
+}

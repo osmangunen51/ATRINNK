@@ -1,0 +1,49 @@
+﻿@model List<NeoSistem.Trinnk.Web.Areas.Account.Models.Advert.MTProductCatologItem>
+    @using NeoSistem.Trinnk.Web.Areas.Account.Models
+    @using NeoSistem.Trinnk.Web.Models
+    @using NeoSistem.Trinnk.Core.Web.Helpers
+    @using NeoSistem.Trinnk.Web.Helpers
+    @using System.Diagnostics
+    @using NeoSistem.Trinnk.Web.Models.Home
+    @using NeoSistem.Trinnk.Web.Models.MemberShip
+    @using NeoSistem.Trinnk.Web.Models.Authentication
+    @using Trinnk.Entities.Tables.Members
+    @using NeoSistem.Trinnk.Web.Models.ViewModels
+    @using NeoSistem.Trinnk.Web.Models.Products
+    @using NeoSistem.Trinnk.Web.Models.Catalog
+    @using NeoSistem.Trinnk.Web.Models.Entities
+    @using NeoSistem.Trinnk.Web.Models.ProductRequests
+    @using NeoSistem.Trinnk.Web.Models.Stores
+    @using NeoSistem.Trinnk.Core.Web
+    @using NeoSistem.Trinnk.Web.Models.StoreNews
+    @using System.Globalization
+    @using NeoSistem.Trinnk.Web.Models.StoreProfiles
+    @using NeoSistem.Trinnk.Web.Models.Videos
+    @using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+    @{
+        //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+        //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+        //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+    }
+
+    @if (Model.Count > 0)
+    {
+
+
+
+        foreach (var item in Model.ToList())
+        {
+            <div class="col-md-2" id="catolog@(item.CatologId)">
+                <div class="thumbnail thumbnail-mt">
+                    <a target="_blank" href="@item.FilePath" class="pdf-icon-link">
+                        <img class="pdf-icon" src="/Content/V2/images/pdf-icon.png" alt="pdf ikon" />
+                    </a>
+                    <a onclick="DeleteCatolog(@item.CatologId)" style="cursor:pointer;">Sil</a>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Eklenen E-Katalog Bulunmamaktadır*</p>
+    }

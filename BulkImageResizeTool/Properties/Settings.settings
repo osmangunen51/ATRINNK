@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="OldImagePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\inetpub\vhosts\makinaturkiye.com\httpdocs\UserFiles\Images\Product\</Value>
+      <Value Profile="(Default)">C:\inetpub\vhosts\trinnk.com\httpdocs\UserFiles\Images\Product\</Value>
     </Setting>
     <Setting Name="ThumbSizes" Type="System.String" Scope="User">
       <Value Profile="(Default)">900x675;400x300;100x75;100x*</Value>
@@ -12,10 +12,10 @@
       <Value Profile="(Default)">C:\inetpub\wwwroot\testImages\</Value>
     </Setting>
     <Setting Name="OldStoreLogoImagePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\inetpub\vhosts\makinaturkiye.com\httpdocs\UserFiles\Images\StoreLogo\</Value>
+      <Value Profile="(Default)">C:\inetpub\vhosts\trinnk.com\httpdocs\UserFiles\Images\StoreLogo\</Value>
     </Setting>
     <Setting Name="OldStoreProfileImagePath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\inetpub\vhosts\makinaturkiye.com\httpdocs\UserFiles\Images\StoreProfilePicture\</Value>
+      <Value Profile="(Default)">C:\inetpub\vhosts\trinnk.com\httpdocs\UserFiles\Images\StoreProfilePicture\</Value>
     </Setting>
     <Setting Name="StoreLogoThumbSizes" Type="System.String" Scope="User">
       <Value Profile="(Default)">300x200;100x100</Value>

@@ -1,0 +1,867 @@
+﻿@model NeoSistem.Trinnk.Web.Models.Statistics.StatisticModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Checkouts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.OtherSettings
+@using NeoSistem.Trinnk.Web.Areas.Account.Constants
+
+@{
+    Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+
+    int pagetype = Convert.ToInt32(Request.QueryString["pagetype"]);
+    LeftMenuModel LeftMenu = new LeftMenuModel();
+    var ProductCount = Model.StatisticList.Select(x => x.ProductStatistic.ProductId).Distinct().Count();
+    var SingularViewCount = Model.StatisticList.Sum(x => x.ProductStatistic.SingularViewCount);
+    var ViewCount = Model.StatisticList.Sum(x => x.ProductStatistic.ViewCount);
+    LeftMenu = LeftMenuConstants.CreateLeftMenuModel(LeftMenuConstants.GroupName.Statistics, (byte)LeftMenuConstants.Statistic.StoreStatistics);
+}
+
+
+@section headercontent{
+    <style>
+
+        .paginate_button {
+            margin: 2px;
+            cursor: pointer;
+            background-color: #f9401b;
+            border: 1px solid #eb3b25;
+            padding: 6px;
+            border-radius: 4px;
+            color: white;
+            padding-left: 10px;
+            padding-right: 10px
+        }
+
+            .paginate_button:hover {
+                color: white;
+            }
+
+        .current {
+            margin: 2px;
+            cursor: pointer;
+            background-color: #eb3b25;
+            border: 1px solid #eb3b25;
+            padding: 6px;
+            border-radius: 50%;
+            color: white;
+            padding-left: 10px;
+            padding-right: 10px;
+            font-size: 16px;
+        }
+    </style>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/css/dataTables.bootstrap.min.css" integrity="sha512-BMbq2It2D3J17/C7aRklzOODG1IQ3+MHw3ifzBHMBwGO/0yUqYmsStgBjI0z5EYlaDEFnvYV7gNYdD3vFLRKsA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js" integrity="sha512-BkpSL20WETFylMrcirBahHfSnY++H2O1W+UnEEO4yNIl+jI2+zowyoGJpbtk6bx97fBXf++WJHSSK2MV4ghPcg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript" src="../../../../Content/V2/assets/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="../../../../Content/V2/assets/js/bootstrap-datepicker.tr.min.js"></script>
+    <script type="text/javascript" src="../../../../Content/V2/assets/js/echarts.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.date').datepicker({
+                format: 'dd/mm/yyyy',
+                language: 'tr',
+                todayHighlight: true
+            });
+
+            $('#EndDate').change(function () {
+                // set the window's location property to the value of the option the user has selected
+                var val = $(this).val();
+                var url = "/Account/Statistic/ProductStatistics";
+                var data = $("#selectedProductId").val();
+
+                if (data != 0) {
+                    url = url + "?ProductId=" + data + "&startDate=" + $("#StartDate").val() + "&endDate=" + val;
+                }
+                else {
+                    url = url + "?startDate=" + $("#StartDate").val() + "&endDate=" + val;
+                }
+                window.location = url;
+            });
+        });
+    </script>
+}
+<div class="row">
+    <div class="col-sm-12 col-md-12 store-panel-menu-header" style="margin-top: -20px; height: 60px;">
+        @Html.Partial("LeftMenu", LeftMenu)
+    </div>
+</div>
+<div class="row">
+    <form action="/Account/Statistic/Index" method="post">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="panel panel-mt2">
+                <div class="panel-heading">
+                    <div class="row">
+                        <h3 class="col-md-6 panel-title">
+                            <a href="#">
+                                İlan İstatistikleri
+                            </a>
+                        </h3>
+                        <div class="col-md-6">
+                            <div class="input-group mb-3" style="display: inline-table;">
+                                <div class="input-group input-daterange">
+                                    @Html.TextBoxFor(x => x.startDate, new { @class = "form-control date", @autocomplete = "off" })
+                                    <div class="input-group-addon">-</div>
+                                    @Html.TextBoxFor(x => x.endDate, new { @class = "form-control date", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <button class="btn btn-danger" style="display: inline-table;margin-top: -28px;">
+                                Filtrele
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-mt2">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <a href="#">
+                                    Genel Değerler
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <table class="table table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 100px">
+                                                Toplam İlan Sayısı
+                                            </th>
+                                            <th style="width: 100px">
+                                                Toplam Tekil Hit
+                                            </th>
+                                            <th style="width: 150px">
+                                                Toplam Çoğul Hit
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                @String.Format("{0:#,#}", ProductCount)
+                                                ilan
+                                            </td>
+                                            <td>
+                                                @String.Format("{0:#,#}", SingularViewCount)
+                                                kez görüntülendi
+                                            </td>
+                                            <td>
+                                                @String.Format("{0:#,#}", ViewCount)
+                                                kez görüntülendi
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-mt2">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <a href="#">
+                                    Genel Analizler
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <ul class="nav nav-tabs" role="tablist">
+                                    <li role="presentation" class="active"><a href="#pnlurun_tarih" aria-controls="pnlurun_tarih" role="tab" data-toggle="tab">Tarihe Göre</a></li>
+                                    <li role="presentation"><a href="#pnlurun_saat" aria-controls="pnlurun_saat" role="tab" data-toggle="tab">Saate Göre</a></li>
+                                    <li role="presentation"><a href="#pnlurun_ulke" aria-controls="pnlurun_ulke" role="tab" data-toggle="tab">Ülkeye Göre</a></li>
+                                    <li role="presentation"><a href="#pnlurun_sehir" aria-controls="pnlurun_sehir" role="tab" data-toggle="tab">Şehire Göre</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div role="tabpanel" class="tab-pane active" id="pnlurun_tarih">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#pnlurun_tarih_data" aria-controls="pnlurun_tarih_data" role="tab" data-toggle="tab">Veri</a></li>
+                                            <li role="presentation"><a href="#pnlurun_tarih_grafik" aria-controls="pnlurun_tarih_grafik" role="tab" data-toggle="tab">Grafik</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active" id="pnlurun_tarih_data">
+                                                <ul class="list-group">
+                                                    @{
+                                                        List<string> TarihLabelListesi = new List<string>();
+                                                        List<int> TarihDegerListesi = new List<int>();
+                                                    }
+                                                </ul>
+                                                <table class="table table-hover table-condensed dttable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 100px">
+                                                                Tarih
+                                                            </th>
+                                                            <th>
+                                                                Değer
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model.StatisticList.GroupBy(x => x.ProductStatistic.RecordDate.Date))
+                                                        {
+                                                            var adet = Model.StatisticList.Count(x => x.ProductStatistic.RecordDate.Date == item.Key);
+                                                            TarihDegerListesi.Add(adet);
+                                                            TarihLabelListesi.Add(item.Key == null ? "Diğer" : item.Key.Date.ToShortDateString());
+                                                            <tr>
+                                                                <td class="col-md-10">
+                                                                    @(item.Key == null ? "Diğer" : item.Key.Date.ToShortDateString())
+                                                                </td>
+                                                                <td class="col-md-2">
+                                                                    @adet
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="pnlurun_tarih_grafik">
+                                                <div style="height: 500px; width: 1000px;" class="chart" id="pnlurun_tarih_grafik_chart">
+                                                </div>
+                                                <script>
+                                            var optiontarih;
+                                            optiontarih = {
+                                                xAxis: {
+                                                    type: 'category',
+                                                    data:[
+                                                            @for (int Don = 0; Don < TarihLabelListesi.Count(); Don++)
+                                                            {
+                                                                var Seri = TarihLabelListesi[Don];
+                                                                @:'@Html.Raw(Seri)'
+                                                                if (Don < TarihLabelListesi.Count()-1)
+                                                                {
+                                                                    @:,
+                                                                }
+                                                            }
+                                                    ]
+                                               },
+                                                yAxis: {
+                                                    type: 'value'
+                                                },
+                                                series: [
+                                                    {
+                                                        data: [
+                                                            @for (int Don = 0; Don < TarihDegerListesi.Count(); Don++)
+                                                            {
+                                                                var Seri = TarihDegerListesi[Don];
+                                                                @:@Html.Raw(Seri)
+                                                                if (Don < TarihDegerListesi.Count()-1)
+                                                                {
+                                                                    @:,
+                                                                }
+                                                            }
+                                                    ],
+                                                        type: 'bar',
+                                                        showBackground: true,
+                                                        backgroundStyle: {
+                                                            color: 'rgba(180, 180, 180, 0.2)'
+                                                        }
+                                                    }
+                                                ]
+                                            };
+                                            var pnlurun_tarih_grafik_chart = $('#pnlurun_tarih_grafik_chart');
+                                            var pnlurun_tarih_grafik_chartDom = document.getElementById(pnlurun_tarih_grafik_chart.attr("id"));
+                                            var pnlurun_tarih_grafik_Chart = echarts.init(pnlurun_tarih_grafik_chartDom);
+                                            pnlurun_tarih_grafik_Chart.setOption(optiontarih);
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="pnlurun_saat">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#pnlurun_saat_data" aria-controls="pnlurun_saat_data" role="tab" data-toggle="tab">Veri</a></li>
+                                            <li role="presentation"><a href="#pnlurun_saat_grafik" aria-controls="pnlurun_saat_grafik" role="tab" data-toggle="tab">Grafik</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active" id="pnlurun_saat_data">
+                                                <ul class="list-group">
+                                                    @{
+                                                        List<string> saatLabelListesi = new List<string>();
+                                                        List<int> saatDegerListesi = new List<int>();
+                                                    }
+                                                </ul>
+                                                <table class="table table-hover table-condensed dttable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 100px">
+                                                                saat
+                                                            </th>
+                                                            <th>
+                                                                Değer
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model.StatisticList.GroupBy(x => x.ProductStatistic.Hour))
+                                                        {
+                                                            var adet = Model.StatisticList.Count(x => x.ProductStatistic.Hour == item.Key);
+                                                            saatDegerListesi.Add(adet);
+                                                            saatLabelListesi.Add(item.Key == null ? "Diğer" : item.Key.ToString());
+                                                            <tr>
+                                                                <td class="col-md-10">
+                                                                    @(item.Key == null ? "Diğer" : item.Key.ToString())
+                                                                </td>
+                                                                <td class="col-md-2">
+                                                                    @adet
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="pnlurun_saat_grafik">
+                                                <div style="height: 500px; width: 1000px;" class="chart" id="pnlurun_saat_grafik_chart">
+                                                </div>
+                                                <script>
+                                            var optionsaat;
+                                            optionsaat = {
+                                                xAxis: {
+                                                    type: 'category',
+                                                    data:[
+                                                            @for (int Don = 0; Don < saatLabelListesi.Count(); Don++)
+                                                            {
+                                                                var Seri = saatLabelListesi[Don];
+                                                                @:'@Html.Raw(Seri)'
+                                                                if (Don < saatLabelListesi.Count()-1)
+                                                                {
+                                                                    @:,
+                                                                }
+                                                            }
+                                                    ]
+                                               },
+                                                yAxis: {
+                                                    type: 'value'
+                                                },
+                                                series: [
+                                                    {
+                                                        data: [
+                                                            @for (int Don = 0; Don < saatDegerListesi.Count(); Don++)
+                                                            {
+                                                                var Seri = saatDegerListesi[Don];
+                                                                @:@Html.Raw(Seri)
+                                                                if (Don < saatDegerListesi.Count()-1)
+                                                                {
+                                                                    @:,
+                                                                }
+                                                            }
+                                                    ],
+                                                        type: 'bar',
+                                                        showBackground: true,
+                                                        backgroundStyle: {
+                                                            color: 'rgba(180, 180, 180, 0.2)'
+                                                        }
+                                                    }
+                                                ]
+                                            };
+                                            var pnlurun_saat_grafik_chart = $('#pnlurun_saat_grafik_chart');
+                                            var pnlurun_saat_grafik_chartDom = document.getElementById(pnlurun_saat_grafik_chart.attr("id"));
+                                            var pnlurun_saat_grafik_Chart = echarts.init(pnlurun_saat_grafik_chartDom);
+                                            pnlurun_saat_grafik_Chart.setOption(optionsaat);
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="pnlurun_ulke">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#pnlurun_ulke_data" aria-controls="pnlurun_ulke_data" role="tab" data-toggle="tab">Veri</a></li>
+                                            <li role="presentation"><a href="#pnlurun_ulke_grafik" aria-controls="pnlurun_ulke_grafik" role="tab" data-toggle="tab">Grafik</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active" id="pnlurun_ulke_data">
+                                                <ul class="list-group">
+                                                    @{
+                                                        List<string> ulkegenelLabelListesi = new List<string>();
+                                                        List<int> ulkegenelDegerListesi = new List<int>();
+                                                    }
+                                                </ul>
+                                                <table class="table table-hover table-condensed dttable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 100px">
+                                                                ulke
+                                                            </th>
+                                                            <th>
+                                                                Değer
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model.StatisticList.GroupBy(x => x.ProductStatistic.UserCountry))
+                                                        {
+                                                            var adet = Model.StatisticList.Count(x => x.ProductStatistic.UserCountry == item.Key);
+                                                            ulkegenelDegerListesi.Add(adet);
+                                                            ulkegenelDegerListesi.Add(adet);
+                                                            ulkegenelLabelListesi.Add(item.Key == null ? "Diğer" : item.Key.ToString());
+
+                                                            <tr>
+                                                                <td class="col-md-10">
+                                                                    @(item.Key == null ? "Diğer" : item.Key.ToString())
+                                                                </td>
+                                                                <td class="col-md-2">
+                                                                    @adet
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="pnlurun_ulke_grafik">
+                                                <div style="height: 500px; width: 1000px;" class="chart" id="pnlurun_ulke_grafik_chart">
+                                                </div>
+                                                <script>
+                                            var optionulke;
+                                            optionulke = {
+                                                xAxis: {
+                                                    type: 'category',
+                                                    data:[
+                                                            @for (int Don = 0; Don < ulkegenelLabelListesi.Count(); Don++)
+                                                            {
+                                                                var Seri = ulkegenelLabelListesi[Don];
+                                                                @:'@Html.Raw(Seri)'
+                                                                if (Don < ulkegenelLabelListesi.Count()-1)
+                                                                {
+                                                                    @:,
+                                                                }
+                                                            }
+                                                    ]
+                                               },
+                                                yAxis: {
+                                                    type: 'value'
+                                                },
+                                                series: [
+                                                    {
+                                                        data: [
+                                                            @for (int Don = 0; Don < ulkegenelDegerListesi.Count(); Don++)
+                                                            {
+                                                                var Seri = ulkegenelDegerListesi[Don];
+                                                                @:@Html.Raw(Seri)
+                                                                if (Don < ulkegenelDegerListesi.Count()-1)
+                                                                {
+                                                                    @:,
+                                                                }
+                                                            }
+                                                    ],
+                                                        type: 'bar',
+                                                        showBackground: true,
+                                                        backgroundStyle: {
+                                                            color: 'rgba(180, 180, 180, 0.2)'
+                                                        }
+                                                    }
+                                                ]
+                                            };
+                                            var pnlurun_ulke_grafik_chart = $('#pnlurun_ulke_grafik_chart');
+                                            var pnlurun_ulke_grafik_chartDom = document.getElementById(pnlurun_ulke_grafik_chart.attr("id"));
+                                            var pnlurun_ulke_grafik_Chart = echarts.init(pnlurun_ulke_grafik_chartDom);
+                                            pnlurun_ulke_grafik_Chart.setOption(optionulke);
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div role="tabpanel" class="tab-pane" id="pnlurun_sehir">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li role="presentation" class="active"><a href="#pnlurun_sehir_data" aria-controls="pnlurun_sehir_data" role="tab" data-toggle="tab">Veri</a></li>
+                                            <li role="presentation"><a href="#pnlurun_sehir_grafik" aria-controls="pnlurun_sehir_grafik" role="tab" data-toggle="tab">Grafik</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div role="tabpanel" class="tab-pane active" id="pnlurun_sehir_data">
+                                                <ul class="list-group">
+                                                    @{
+                                                        List<string> sehirgenelLabelListesi = new List<string>();
+                                                        List<int> sehirgenelDegerListesi = new List<int>();
+                                                    }
+                                                </ul>
+                                                <table class="table table-hover table-condensed dttable">
+                                                    <thead>
+                                                        <tr>
+                                                            <th style="width: 100px">
+                                                                sehir
+                                                            </th>
+                                                            <th>
+                                                                Değer
+                                                            </th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var item in Model.StatisticList.GroupBy(x => x.ProductStatistic.UserCity))
+                                                        {
+                                                            var adet = Model.StatisticList.Count(x => x.ProductStatistic.UserCity == item.Key);
+                                                            sehirgenelDegerListesi.Add(adet);
+                                                            sehirgenelLabelListesi.Add(item.Key == null ? "Diğer" : item.Key.ToString());
+                                                            <tr>
+                                                                <td class="col-md-10">
+                                                                    @(item.Key == null ? "Diğer" : item.Key.ToString())
+                                                                </td>
+                                                                <td class="col-md-2">
+                                                                    @adet
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div role="tabpanel" class="tab-pane" id="pnlurun_sehir_grafik">
+                                                <div style="height: 500px; width: 1000px;" class="chart" id="pnlurun_sehir_grafik_chart">
+                                                </div>
+                                                <script>
+                                            var optionsehir;
+                                            optionsehir = {
+                                                xAxis: {
+                                                    type: 'category',
+                                                    data:[
+                                                            @for (int Don = 0; Don < sehirgenelLabelListesi.Count(); Don++)
+                                                            {
+                                                                var Seri = sehirgenelLabelListesi[Don];
+                                                                @:'@Html.Raw(Seri)'
+                                                                if (Don < sehirgenelLabelListesi.Count()-1)
+                                                                {
+                                                                    @:,
+                                                                }
+                                                            }
+                                                    ]
+                                               },
+                                                yAxis: {
+                                                    type: 'value'
+                                                },
+                                                series: [
+                                                    {
+                                                        data: [
+                                                            @for (int Don = 0; Don < sehirgenelDegerListesi.Count(); Don++)
+                                                            {
+                                                                var Seri = sehirgenelDegerListesi[Don];
+                                                                @:@Html.Raw(Seri)
+                                                                if (Don < sehirgenelDegerListesi.Count()-1)
+                                                                {
+                                                                    @:,
+                                                                }
+                                                            }
+                                                    ],
+                                                        type: 'bar',
+                                                        showBackground: true,
+                                                        backgroundStyle: {
+                                                            color: 'rgba(180, 180, 180, 0.2)'
+                                                        }
+                                                    }
+                                                ]
+                                            };
+                                            var pnlurun_sehir_grafik_chart = $('#pnlurun_sehir_grafik_chart');
+                                            var pnlurun_sehir_grafik_chartDom = document.getElementById(pnlurun_sehir_grafik_chart.attr("id"));
+                                            var pnlurun_sehir_grafik_Chart = echarts.init(pnlurun_sehir_grafik_chartDom);
+                                            pnlurun_sehir_grafik_Chart.setOption(optionsehir);
+                                                </script>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-mt2">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <a href="#">
+                                    Ürün Analizi
+                                </a>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                @if (Model.StatisticList.Count() != 0)
+                                {
+                                    <table class="table table-hover table-condensed dttable">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 100px">
+                                                    Ürün No
+                                                </th>
+                                                <th>
+                                                    Ürün Adı
+                                                </th>
+                                                <th>
+                                                    Tekil
+                                                </th>
+                                                <th>
+                                                    Çoğul
+                                                </th>
+                                                <th>
+                                                    #
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var Product in Model.StatisticList.Where(x=>x.Product!=null).GroupBy(x => x.Product))
+                                            {
+                                                
+                                                var StatisticListItem = Model.StatisticList.Where(x =>x.Product!=null && x.Product.ProductId == Product.Key.ProductId);
+                                                string productUrl = "";
+                                                //string productUrl = Helpers.ProductUrl(count.ProductId, count.ProductName);
+                                                <tr>
+                                                    <td>
+                                                        <a href="@productUrl">
+                                                            @Product.Key.ProductNo
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="@productUrl">
+                                                            @Helpers.Truncate(Product.Key.ProductName, 100)
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        @StatisticListItem.Sum(x => x.ProductStatistic.ViewCount)
+                                                    </td>
+                                                    <td>
+                                                        @StatisticListItem.Sum(x => x.ProductStatistic.SingularViewCount)
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" data-hedefid="@Product.Key.ProductId" data-hedef="#pnl_@Product.Key.ProductId" class="btn btn-danger btntoogle">Ayrıntılar</button>
+                                                    </td>
+                                                    <div id="pnl_@Product.Key.ProductId"
+                                                         class="modal fade"
+                                                         tabindex="-1"
+                                                         role="dialog">
+                                                        <div class="modal-dialog modal-dialog" style="width:70%;">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                                    <h4 class="modal-title"> @Product.Key.ProductName</h4>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <ul class="nav nav-tabs" role="tablist">
+                                                                        <li role="presentation" class="active"><a href="#pnlurun_ulke_@Product.Key.ProductId" aria-controls="pnlurun_ulke_@Product.Key.ProductId" role="tab" data-toggle="tab">Ülke</a></li>
+                                                                        <li role="presentation"><a href="#pnlurun_sehir_@Product.Key.ProductId" aria-controls="pnlurun_sehir_@Product.Key.ProductId" role="tab" data-toggle="tab">Şehir</a></li>
+                                                                    </ul>
+                                                                    <div class="tab-content">
+                                                                        <div role="tabpanel" class="tab-pane active" id="pnlurun_ulke_@Product.Key.ProductId">
+                                                                            <ul class="nav nav-tabs" role="tablist">
+                                                                                <li role="presentation" class="active"><a href="#pnlurun_ulke_data_@Product.Key.ProductId" aria-controls="pnlurun_ulke_data_@Product.Key.ProductId" role="tab" data-toggle="tab">Veri</a></li>
+                                                                                <li role="presentation"><a href="#pnlurun_ulke_grafik_@Product.Key.ProductId" aria-controls="pnlurun_ulke_grafik_@Product.Key.ProductId" role="tab" data-toggle="tab">Grafik</a></li>
+                                                                            </ul>
+                                                                            <div class="tab-content">
+                                                                                <div role="tabpanel" class="tab-pane active" id="pnlurun_ulke_data_@Product.Key.ProductId">
+                                                                                    <ul class="list-group">
+                                                                                        @{
+                                                                                            List<string> UlkeLabelListesi = new List<string>();
+                                                                                            List<int> UlkeDegerListesi = new List<int>();
+                                                                                        }
+                                                                                        @foreach (var item in StatisticListItem.GroupBy(x => x.ProductStatistic.UserCountry))
+                                                                                        {
+                                                                                            var adet = StatisticListItem.Count(x => x.ProductStatistic.UserCountry == item.Key);
+                                                                                            UlkeDegerListesi.Add(adet);
+                                                                                            UlkeLabelListesi.Add(string.IsNullOrEmpty(item.Key) ? "Diğer" : item.Key);
+                                                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                                                @(string.IsNullOrEmpty(item.Key)?"Diğer":item.Key)
+                                                                                                <span class="badge badge-primary badge-pill">@adet</span>
+                                                                                            </li>
+                                                                                        }
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div role="tabpanel" class="tab-pane" id="pnlurun_ulke_grafik_@Product.Key.ProductId">
+                                                                                    <div style="height: 500px; width: 1000px;" class="chart" id="pnlurun_ulke_grafik_chart_@Product.Key.ProductId" data-option="">
+
+                                                                                    </div>
+                                                                                    <script>
+                                                                                        var optionulke;
+                                                                                        optionulke = {
+                                                                                            xAxis: {
+                                                                                                type: 'category',
+                                                                                                data:[
+                                                                                                        @for (int Don = 0; Don < UlkeLabelListesi.Count(); Don++)
+                                                                                                        {
+                                                                                                            var Seri = UlkeLabelListesi[Don];
+                                                                                                            @:'@Html.Raw(Seri)'
+                                                                                                            if (Don < UlkeLabelListesi.Count()-1)
+                                                                                                            {
+                                                                                                                @:,
+                                                                                                            }
+                                                                                                        }
+                                                                                                ]
+                                                                                           },
+                                                                                            yAxis: {
+                                                                                                type: 'value'
+                                                                                            },
+                                                                                            series: [
+                                                                                                {
+                                                                                                    data: [
+                                                                                                        @for (int Don = 0; Don < UlkeDegerListesi.Count(); Don++)
+                                                                                                        {
+                                                                                                            var Seri = UlkeDegerListesi[Don];
+                                                                                                            @:@Html.Raw(Seri)
+                                                                                                            if (Don < UlkeDegerListesi.Count()-1)
+                                                                                                            {
+                                                                                                                @:,
+                                                                                                            }
+                                                                                                        }
+                                                                                                ],
+                                                                                                    type: 'bar',
+                                                                                                    showBackground: true,
+                                                                                                    backgroundStyle: {
+                                                                                                        color: 'rgba(180, 180, 180, 0.2)'
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
+                                                                                        };
+                                                                                        $('#pnlurun_ulke_grafik_chart_@Product.Key.ProductId').attr("data-option", JSON.stringify(optionulke));
+                                                                                    </script>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div role="tabpanel" class="tab-pane" id="pnlurun_sehir_@Product.Key.ProductId">
+                                                                            <ul class="nav nav-tabs" role="tablist">
+                                                                                <li role="presentation" class="active"><a href="#pnlurun_sehir_data_@Product.Key.ProductId" aria-controls="pnlurun_sehir_data_@Product.Key.ProductId" role="tab" data-toggle="tab">Veri</a></li>
+                                                                                <li role="presentation"><a href="#pnlurun_sehir_grafik_@Product.Key.ProductId" aria-controls="pnlurun_sehir_grafik_@Product.Key.ProductId" role="tab" data-toggle="tab">Grafik</a></li>
+                                                                            </ul>
+                                                                            <div class="tab-content">
+                                                                                <div role="tabpanel" class="tab-pane active" id="pnlurun_sehir_data_@Product.Key.ProductId">
+                                                                                    <ul class="list-group">
+                                                                                        @{
+                                                                                            List<string> SehirLabelListesi = new List<string>();
+                                                                                            List<int> SehirDegerListesi = new List<int>();
+                                                                                        }
+                                                                                        @foreach (var item in StatisticListItem.GroupBy(x => x.ProductStatistic.UserCity))
+                                                                                        {
+                                                                                            var adet = StatisticListItem.Count(x => x.ProductStatistic.UserCity == item.Key);
+                                                                                            SehirDegerListesi.Add(adet);
+                                                                                            SehirLabelListesi.Add(string.IsNullOrEmpty(item.Key) ? "Diğer" : item.Key);
+                                                                                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                                                                @(string.IsNullOrEmpty(item.Key)?"Diğer":item.Key)
+                                                                                                <span class="badge badge-primary badge-pill">@adet</span>
+                                                                                            </li>
+                                                                                        }
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div role="tabpanel" class="tab-pane" id="pnlurun_sehir_grafik_@Product.Key.ProductId">
+                                                                                    <div style="height: 500px; width: 1000px;" class="chart" id="pnlurun_sehir_grafik_chart_@Product.Key.ProductId" data-option="">
+
+                                                                                    </div>
+                                                                                    <script>
+                                                                                        var optionsehir;
+                                                                                        optionsehir = {
+                                                                                            xAxis: {
+                                                                                                type: 'category',
+                                                                                                data:[
+                                                                                                        @for (int Don = 0; Don < SehirLabelListesi.Count(); Don++)
+                                                                                                        {
+                                                                                                            var Seri = SehirLabelListesi[Don];
+                                                                                                            @:'@Html.Raw(Seri)'
+                                                                                                            if (Don < SehirLabelListesi.Count()-1)
+                                                                                                            {
+                                                                                                                @:,
+                                                                                                            }
+                                                                                                        }
+                                                                                                ]
+                                                                                           },
+                                                                                            yAxis: {
+                                                                                                type: 'value'
+                                                                                            },
+                                                                                            series: [
+                                                                                                {
+                                                                                                    data: [
+                                                                                                        @for (int Don = 0; Don < SehirDegerListesi.Count(); Don++)
+                                                                                                        {
+                                                                                                            var Seri = SehirDegerListesi[Don];
+                                                                                                            @:@Html.Raw(Seri)
+                                                                                                            if (Don < SehirDegerListesi.Count()-1)
+                                                                                                            {
+                                                                                                                @:,
+                                                                                                            }
+                                                                                                        }
+                                                                                                ],
+                                                                                                    type: 'bar',
+                                                                                                    showBackground: true,
+                                                                                                    backgroundStyle: {
+                                                                                                        color: 'rgba(180, 180, 180, 0.2)'
+                                                                                                    }
+                                                                                                }
+                                                                                            ]
+                                                                                        };
+                                                                                        $('#pnlurun_sehir_grafik_chart_@Product.Key.ProductId').attr("data-option", JSON.stringify(optionsehir));
+                                                                                    </script>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $('.dttable').DataTable();
+
+    });
+
+    TumunuKapat();
+    function TumunuKapat() {
+        $(".ptoogle").each(function (index) {
+            $(this).modal('hide');
+        });
+    }
+
+    $(".btntoogle").click(function () {
+        TumunuKapat();
+        var hedef = $($(this).attr("data-hedef"));
+        hedef.modal('show');
+        var hedefid = $(this).attr("data-hedefid");
+
+        var pnlurun_ulke_grafik_chart = $('#pnlurun_ulke_grafik_chart_' + hedefid);
+        var pnlurun_ulke_grafik_option = JSON.parse(pnlurun_ulke_grafik_chart.attr("data-option"));
+        var pnlurun_ulke_grafik_chartDom = document.getElementById(pnlurun_ulke_grafik_chart.attr("id"));
+        var pnlurun_ulke_grafik_Chart = echarts.init(pnlurun_ulke_grafik_chartDom);
+        pnlurun_ulke_grafik_Chart.setOption(pnlurun_ulke_grafik_option);
+
+        var pnlurun_sehir_grafik_chart = $('#pnlurun_sehir_grafik_chart_' + hedefid);
+        var pnlurun_sehir_grafik_option = JSON.parse(pnlurun_sehir_grafik_chart.attr("data-option"));
+        var pnlurun_sehir_grafik_chartDom = document.getElementById(pnlurun_sehir_grafik_chart.attr("id"));
+        var pnlurun_sehir_grafik_Chart = echarts.init(pnlurun_sehir_grafik_chartDom);
+        pnlurun_sehir_grafik_Chart.setOption(pnlurun_sehir_grafik_option);
+    });
+</script>
+

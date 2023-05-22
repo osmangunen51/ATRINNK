@@ -1,0 +1,60 @@
+﻿@model List<MTHomeCategoryModel>
+@using NeoSistem.Trinnk.Web.Models.AccountModels
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+<ul role="menubar">
+    @foreach (var item in Model)
+    {
+        <li role="menuitem" class="@(item.SubCategoryModels.Count() > 0 ? "has-sub-item": "" )">
+            <a href="@item.CategoryUrl">
+                @item.CategoryName
+                <span class="text-muted text-sm" style="font-size: 10px;">(@item.ProductCount)</span>
+            </a>
+            <div class="sub-category">
+                <div class="sub-category__list">
+                    <ul>
+                        @foreach (var subItem in item.SubCategoryModels)
+                        {
+                            <li>
+                                <a href="@subItem.CategoryUrl">
+                                    @subItem.CategoryName
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </li>
+    }
+</ul>

@@ -1,0 +1,101 @@
+﻿@model MemberMessageDetailModel
+@using NeoSistem.Trinnk.Web.Areas.Account.Models
+@using NeoSistem.Trinnk.Web.Models
+
+@using NeoSistem.Trinnk.Core.Web.Helpers
+@using NeoSistem.Trinnk.Web.Helpers
+@using System.Diagnostics
+@using NeoSistem.Trinnk.Web.Models.Home
+@using NeoSistem.Trinnk.Web.Models.MemberShip
+@using NeoSistem.Trinnk.Web.Models.Authentication
+@using Trinnk.Entities.Tables.Members
+@using NeoSistem.Trinnk.Web.Models.ViewModels
+@using NeoSistem.Trinnk.Web.Models.Products
+@using NeoSistem.Trinnk.Web.Models.Catalog
+@using NeoSistem.Trinnk.Web.Models.Entities
+@using NeoSistem.Trinnk.Web.Models.ProductRequests
+@using NeoSistem.Trinnk.Web.Models.Stores
+@using NeoSistem.Trinnk.Core.Web
+@using NeoSistem.Trinnk.Web.Models.StoreNews
+@using System.Globalization
+@using NeoSistem.Trinnk.Web.Models.StoreProfiles
+@using NeoSistem.Trinnk.Web.Models.Videos
+@using NeoSistem.Trinnk.Web.Models.Adverts
+@using Trinnk.Entities.Tables.Catalog
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Advert
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.FavoriteProducts
+@using NeoSistem.Trinnk.Web.Areas.Account.Models.Messages
+
+@{
+    //Layout = "~/Views/Shared/_LayoutAccountMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutMainMaster.cshtml";
+    //Layout = "~/Views/Shared/_LayoutStoreProfileMaster.cshtml";
+
+
+}
+
+
+@if (Model.Phones.Count > 0)
+{
+
+    <div class="col-sm-6">
+        <b>Gönderen </b>
+        <br />
+        İsim Soyisim:
+        @Model.Member.MemberName
+        @Model.Member.MemberSurname
+        <br />
+        Adres:
+        @if (Model.Address != null)
+        {
+            @Trinnk.Entities.Tables.Common.AddressExtensions.GetAddressEdit(Model.Address)
+        }
+        else
+        {
+            @("Adres bilgisi bulunamadı.")
+        }
+        <br />
+        Mail Adresi:
+        @Model.Member.MemberEmail
+        <br />
+        @foreach (var item in Model.Phones)
+        {
+            if (!string.IsNullOrWhiteSpace(item.PhoneNumber))
+            {
+                string phoneType = string.Empty;
+                if (item.PhoneType == (byte)PhoneType.Fax)
+                {
+                    phoneType = "Fax :";
+                }
+                else if (item.PhoneType == (byte)PhoneType.Gsm)
+                {
+                    phoneType = "Gsm :";
+                }
+                else if (item.PhoneType == (byte)PhoneType.Phone)
+                {
+                    phoneType = "Telefon :";
+                }
+
+                @phoneType
+                @("+90 ")@(item.PhoneAreaCode)@(" ")@(item.PhoneNumber)
+                if (item.PhoneType == (byte)PhoneType.Gsm && (item.active == 0 || item.active == null))
+                {
+                    <a href="javascript:void(0)" class="plr5 tooltips tooltip-mt" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Onaylanmamış Telefon Numarası">
+                        <span class="hidden-xs text-md text-danger  glyphicon glyphicon-question-sign"></span>
+                    </a>
+                }
+                else
+                {
+                    <a href="javascript:void(0)" class="plr5 tooltips tooltip-mt" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Onaylanmış Telefon Numarası">
+                        <span style="color:#03ba28" class="hidden-xs text-md glyphicon glyphicon-ok-sign"></span>
+                    </a>
+                }
+                <br />
+            }
+
+
+
+        }
+    </div>
+}
+

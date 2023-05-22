@@ -1,0 +1,150 @@
+﻿@model ICollection<NeoSistem.Trinnk.Management.Models.ViewModel.StorePackagePurchaseRequest>
+@section TitleContent {
+    Index
+}
+@section HeadContent
+{
+    <link href="~/Content/vendor/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/vendor/datatables/css/datatables.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/content/Scripts/SuperBox/jquery.superbox.css" type="text/css" media="all" />
+    <script type="text/javascript" src="~/Content/Scripts/SuperBox/jquery.superbox.js"></script>
+    <script src="~/Content/vendor/datatables/datatables.js"></script>
+    <script src="~/Content/vendor/datatables/js/datatables.js"></script>
+    <script src="~/Content/vendor/bootstrap/js/bootstrap.js"></script>
+    <style type="text/css">
+        /* Custom Theme */
+        #superbox-overlay {
+            background: #e0e4cc;
+        }
+
+        #superbox-container .loading {
+            width: 32px;
+            height: 32px;
+            margin: 0 auto;
+            text-indent: -9999px;
+            background: url(styles/loader.gif) no-repeat 0 0;
+        }
+
+        #superbox .close a {
+            float: right;
+            padding: 0 5px;
+            line-height: 20px;
+            background: #333;
+            cursor: pointer;
+        }
+
+            #superbox .close a span {
+                color: #fff;
+            }
+
+        #superbox .nextprev a {
+            float: left;
+            margin-right: 5px;
+            padding: 0 5px;
+            line-height: 20px;
+            background: #333;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        #superbox .nextprev .disabled {
+            background: #ccc;
+            cursor: default;
+        }
+    </style>
+    <script type="text/javascript">
+        function DeleteStorePackagePurchaseRequest(ID) {
+            if (confirm('Kaydı Silmek istediğinizden eminmisiniz ?')) {
+                $.ajax({
+                    url: '/StorePackagePurchaseRequest/DeleteStorePackagePurchaseRequest',
+                    data: { id: ID },
+                    type: 'post',
+                    dataType: 'json',
+                    success: function (data) {
+                        var e = data;
+                        if (e) {
+                            $('#row' + ID).hide();
+                        }
+                        else {
+                            alert('Bu sabit kullanılıyor.Silme işlemi başarısız.');
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+
+}
+<div class="panel m-3">
+    <div class="panel-heading">
+        <h3 class="panel-title">Firma Paket Satın Alma Talepleri</h3>
+    </div>
+    <div class="panel-body">
+        @if (Model != null && Model.Count() > 0)
+        {
+            <table class="table table-striped table-bordered dttable" data-size="25">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Firma</th>
+                        <th scope="col">Ad</th>
+                        <th scope="col">Soyad</th>
+                        <th scope="col">Telefon</th>
+                        <th scope="col">Ürün Sayısı</th>
+                        <th scope="col">Tarih</th>
+                        <th scope="col">Saat</th>
+                        <th scope="col">Açıklama</th>
+                        <th scope="col">Tele Satış Sorumlusu</th>
+                        <th scope="col">Portföy Yöneticisi	</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{int sira = 1;}
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th scope="row">@sira</th>
+                            <td><a target="_blank" href="~/Store/StoreDetailInformation/@item.MainPartyId">@item.StoreName</a></td>
+                            <td>@item.FirstName</td>
+                            <td>@item.LastName</td>
+                            <td>@item.Phone</td>
+                            <td>@item.ProductQuantity</td>
+                            <td>@item.Date.ToString("dd.MM.yyyy")</td>
+                            <td>@item.Date.ToString("HH:m:s")</td>
+                            <td>
+                                @item.Desciption
+                            </td>
+                            <td>
+                                @item.TeleSatisSorumlu
+                            </td>
+                            <td>
+                                @item.PortfoyYonetici
+                            </td>
+                            <td>
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Mağaza sayfasını aç" class="btn btn-sm btn-success" href="~/Store/StoreDetailInformation/@item.MainPartyId"><i class="fa fa-building"></i></a>
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Açıklamalar ekranını aç" class="btn btn-sm btn-danger" href="~/Member/BrowseDesc1/@item.MainPartyId"><i class="fa fa-info"></i></a>
+                            </td>
+                        </tr>
+                        sira++;
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p>
+                <span class="alert alert-danger">
+                    kayıt yok.
+                </span>
+            </p>
+
+
+        }
+    </div>
+    <div class="panel-footer">
+
+    </div>
+</div>
+
+
